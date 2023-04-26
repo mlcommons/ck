@@ -517,7 +517,7 @@ customize and optimize MLPerf inference benchmark using MLCommons CM
 * [3rd part](sc22-scc-mlperf-part3.md): customize MLPerf inference (ResNet50 Int8, ImageNet, TVM)
 * *To be continued*
 
-You are welcome to join the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
+You are welcome to join the [open MLCommons taskforce on automation and reproducibility](../taksforce.md)
 to contribute to this project and continue optimizing this benchmark and prepare an official submission 
 for MLPerf inference v3.0 (March 2023) with the help of the community.
 
@@ -525,7 +525,7 @@ See the development roadmap [here](https://github.com/mlcommons/ck/issues/536).
 
 # Authors
 
-* [Grigori Fursin](https://cKnowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
+* [Grigori Fursin](https://cKnowledge.org/gfursin) (OctoML, MLCommons, cTuning foundation)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
 
 

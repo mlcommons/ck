@@ -26,7 +26,7 @@
 
 ### Description
 
-This portable CM script is being developed by the [MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+This portable CM script is being developed by the [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
 to modularize the *python reference implementations* of the [MLPerf inference benchmark](https://github.com/mlcommons/inference) 
 using the [MLCommons CM automation meta-framework](https://github.com/mlcommons/ck).
 The goal is to make it easier to run, optimize and reproduce MLPerf benchmarks 
@@ -52,21 +52,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=app,vision,language,mlcommons,mlperf,inference,reference,ref(,variations from below) (flags from below)`
+1. `cm run script --tags=app,vision,language,mlcommons,mlperf,inference,reference,ref[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "app vision language mlcommons mlperf inference reference ref[,variations]" [--input_flags]`
 
-`cm run script "app vision language mlcommons mlperf inference reference ref (variations from below)" (flags from below)`
+3. `cm run script ff149e9781fc4b65 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script ff149e9781fc4b65`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -117,24 +121,34 @@ ___
     * `_3d-unet`
       - Environment variables:
         - *CM_TMP_IGNORE_MLPERF_QUERY_COUNT*: `True`
+        - *CM_MLPERF_MODEL_SKIP_BATCHING*: `True`
       - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * get,generic-python-lib,_torch
-             * CM names: `--adr.['ml-engine-pytorch']...`
-             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_batch_size.#`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_MAX_BATCHSIZE*: `#`
+      - Workflow:
     * `_bert`
+      - Environment variables:
+        - *CM_MLPERF_MODEL_SKIP_BATCHING*: `True`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_tokenization
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_six
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_protobuf
              * `if (CM_MLPERF_BACKEND in ['tf', 'tflite'])`
              * CM names: `--adr.['protobuf']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_boto3
+             * `if (CM_MLPERF_BACKEND  == pytorch)`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_torch
              * CM names: `--adr.['ml-engine-pytorch']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_dlrm`
+      - Environment variables:
+        - *CM_MLPERF_MODEL_SKIP_BATCHING*: `True`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,dlrm,src
@@ -142,6 +156,30 @@ ___
              - CM script: [get-dlrm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dlrm)
            * get,generic-python-lib,_mlperf_logging
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_opencv-python
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_tensorboard
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_protobuf
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_scikit-learn
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_tqdm
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_onnx
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_numpy
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,python3
+             - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+    * `_onnxruntime,cpu`
+      - Environment variables:
+        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_ONNXRUNTIME_VERSION>>>`
+      - Workflow:
+    * `_onnxruntime,cuda`
+      - Environment variables:
+        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_ONNXRUNTIME_GPU_VERSION>>>`
+      - Workflow:
     * `_r2.1_default`
       - Environment variables:
         - *CM_RERUN*: `yes`
@@ -180,7 +218,6 @@ ___
     * `_deepsparse`
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `deepsparse`
-        - *CM_MLPERF_BATCH_SIZE*: `1`
         - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_DEEPSPARSE_VERSION>>>`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
@@ -189,12 +226,11 @@ ___
     * **`_onnxruntime`** (default)
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `onnxruntime`
-        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_ONNXRUNTIME_VERSION>>>`
       - Workflow:
     * `_pytorch`
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `pytorch`
-        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_PYTORCH_VERSION>>>`
+        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_TORCH_VERSION>>>`
       - Workflow:
     * `_tf`
       - Aliases: `_tensorflow`
@@ -210,12 +246,28 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_onnx
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,tvm
+             * CM names: `--adr.tvm...`
+             - CM script: [get-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm)
     * `_tvm-pytorch`
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `tvm-pytorch`
-        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_PYTORCH_VERSION>>>`
+        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_TORCH_VERSION>>>`
         - *MLPERF_TVM_TORCH_QUANTIZED_ENGINE*: `qnnpack`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,tvm
+             * CM names: `--adr.tvm...`
+             - CM script: [get-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm)
+    * `_tvm-tflite`
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `tvm-tflite`
+        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_TVM-TFLITE_VERSION>>>`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,tvm
+             * CM names: `--adr.tvm...`
+             - CM script: [get-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm)
 
     </details>
 
@@ -264,6 +316,7 @@ ___
     * **`_resnet50`** (default)
       - Environment variables:
         - *CM_MODEL*: `resnet50`
+        - *CM_MLPERF_USE_MLCOMMONS_RUN_SCRIPT*: `yes`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_opencv-python
@@ -275,6 +328,8 @@ ___
     * `_retinanet`
       - Environment variables:
         - *CM_MODEL*: `retinanet`
+        - *CM_MLPERF_USE_MLCOMMONS_RUN_SCRIPT*: `yes`
+        - *CM_MLPERF_LOADGEN_MAX_BATCHSIZE*: `1`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_opencv-python
@@ -286,6 +341,8 @@ ___
     * `_rnnt`
       - Environment variables:
         - *CM_MODEL*: `rnnt`
+        - *CM_MLPERF_MODEL_SKIP_BATCHING*: `True`
+        - *CM_TMP_IGNORE_MLPERF_QUERY_COUNT*: `True`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_librosa
@@ -327,24 +384,27 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**clean**=value --> **CM_MLPERF_CLEAN_SUBMISSION_DIR**=value
-* --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
-* --**docker**=value --> **CM_RUN_DOCKER_CONTAINER**=value
-* --**hw_name**=value --> **CM_HW_NAME**=value
-* --**imagenet_path**=value --> **IMAGENET_PATH**=value
-* --**max_amps**=value --> **CM_MLPERF_POWER_MAX_AMPS**=value
-* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
-* --**max_volts**=value --> **CM_MLPERF_POWER_MAX_VOLTS**=value
-* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
-* --**ntp_server**=value --> **CM_MLPERF_POWER_NTP_SERVER**=value
-* --**num_threads**=value --> **CM_NUM_THREADS**=value
-* --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
-* --**power**=value --> **CM_SYSTEM_POWER**=value
-* --**power_server**=value --> **CM_MLPERF_POWER_SERVER_ADDRESS**=value
-* --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
-* --**rerun**=value --> **CM_RERUN**=value
-* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
-* --**test_query_count**=value --> **CM_TEST_QUERY_COUNT**=value
+* `--clean=value`  &rarr;  `CM_MLPERF_CLEAN_SUBMISSION_DIR=value`
+* `--count=value`  &rarr;  `CM_MLPERF_LOADGEN_QUERY_COUNT=value`
+* `--dataset=value`  &rarr;  `CM_MLPERF_VISION_DATASET_OPTION=value`
+* `--dataset_args=value`  &rarr;  `CM_MLPERF_EXTRA_DATASET_ARGS=value`
+* `--docker=value`  &rarr;  `CM_RUN_DOCKER_CONTAINER=value`
+* `--hw_name=value`  &rarr;  `CM_HW_NAME=value`
+* `--imagenet_path=value`  &rarr;  `IMAGENET_PATH=value`
+* `--max_amps=value`  &rarr;  `CM_MLPERF_POWER_MAX_AMPS=value`
+* `--max_batchsize=value`  &rarr;  `CM_MLPERF_LOADGEN_MAX_BATCHSIZE=value`
+* `--max_volts=value`  &rarr;  `CM_MLPERF_POWER_MAX_VOLTS=value`
+* `--mode=value`  &rarr;  `CM_MLPERF_LOADGEN_MODE=value`
+* `--model=value`  &rarr;  `CM_MLPERF_CUSTOM_MODEL_PATH=value`
+* `--ntp_server=value`  &rarr;  `CM_MLPERF_POWER_NTP_SERVER=value`
+* `--num_threads=value`  &rarr;  `CM_NUM_THREADS=value`
+* `--output_dir=value`  &rarr;  `OUTPUT_BASE_DIR=value`
+* `--power=value`  &rarr;  `CM_MLPERF_POWER=value`
+* `--power_server=value`  &rarr;  `CM_MLPERF_POWER_SERVER_ADDRESS=value`
+* `--regenerate_files=value`  &rarr;  `CM_REGENERATE_MEASURE_FILES=value`
+* `--rerun=value`  &rarr;  `CM_RERUN=value`
+* `--scenario=value`  &rarr;  `CM_MLPERF_LOADGEN_SCENARIO=value`
+* `--test_query_count=value`  &rarr;  `CM_TEST_QUERY_COUNT=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -359,21 +419,24 @@ r=cm.access({... , "clean":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_BATCH_COUNT: **1**
-* CM_BATCH_SIZE: **1**
-* CM_MLPERF_LOADGEN_MODE: **accuracy**
-* CM_MLPERF_LOADGEN_SCENARIO: **Offline**
-* CM_OUTPUT_FOLDER_NAME: **test_results**
-* CM_MLPERF_RUN_STYLE: **test**
-* CM_TEST_QUERY_COUNT: **10**
-* CM_MLPERF_QUANTIZATION: **False**
+* CM_MLPERF_LOADGEN_MODE: `accuracy`
+* CM_MLPERF_LOADGEN_SCENARIO: `Offline`
+* CM_OUTPUT_FOLDER_NAME: `test_results`
+* CM_MLPERF_RUN_STYLE: `test`
+* CM_TEST_QUERY_COUNT: `10`
+* CM_MLPERF_QUANTIZATION: `False`
+* CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: `reference`
+* CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX: ``
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)***
      * detect,os
@@ -389,22 +452,36 @@ ___
        * `if (CM_MLPERF_DEVICE  == gpu)`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,nvidia,tensorrt
-       * `if (CM_MLPERF_DEVICE  == gpu)`
+       * `if (CM_MLPERF_BACKEND  == tensorrt)`
        - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
      * get,generic-python-lib,_onnxruntime
        * `if (CM_MLPERF_BACKEND in ['onnxruntime', 'tvm-onnx'] AND CM_MLPERF_DEVICE  == cpu)`
        * CM names: `--adr.['ml-engine-onnxruntime']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnxruntime_gpu
-       * `if (CM_MLPERF_BACKEND in ['onnxruntime', 'tvm-onnx'] AND CM_MLPERF_DEVICE  == gpu)`
+       * `if (CM_MLPERF_BACKEND in ['onnxruntime', 'tvm-onnx'] AND CM_MLPERF_DEVICE  == gpu) AND (CM_MODEL not in ['3d-unet-99', '3d-unet-99.9', 'resnet50'])`
        * CM names: `--adr.['ml-engine-onnxruntime-cuda']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_onnxruntime
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == gpu AND CM_MODEL in ['3d-unet-99', '3d-unet-99.9', 'resnet50'])`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_onnxruntime_gpu
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == gpu AND CM_MODEL in ['3d-unet-99', '3d-unet-99.9', 'resnet50'])`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torch
-       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'])`
+       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'] AND CM_MLPERF_DEVICE  == cpu)`
+       * CM names: `--adr.['ml-engine-pytorch']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_torch_cuda
+       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'] AND CM_MLPERF_DEVICE  == gpu)`
        * CM names: `--adr.['ml-engine-pytorch']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torchvision
-       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'])`
+       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'] AND CM_MLPERF_DEVICE  == cpu)`
+       * CM names: `--adr.['ml-engine-torchvision']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_torchvision_cuda
+       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'] AND CM_MLPERF_DEVICE  == gpu)`
        * CM names: `--adr.['ml-engine-torchvision']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_transformers
@@ -415,40 +492,8 @@ ___
        * `if (CM_MLPERF_BACKEND in ['tf', 'tflite'])`
        * CM names: `--adr.['ml-engine-tensorflow']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-     * get,loadgen
-       * CM names: `--adr.['loadgen']...`
-       - CM script: [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)
-     * get,mlcommons,inference,src
-       * CM names: `--adr.['inference-src']...`
-       - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
-     * get,sut,configs
-       - CM script: [get-mlperf-inference-sut-configs](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs)
-     * get,dataset,image-classification,imagenet,preprocessed
-       * `if (CM_MODEL  == resnet50)`
-       * CM names: `--adr.['imagenet-preprocessed']...`
-       - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
-     * get,dataset-aux,image-classification,imagenet-aux
-       * `if (CM_MODEL  == resnet50)`
-       - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
-     * get,dataset,object-detection,open-images,openimages,preprocessed,_validation
-       * `if (CM_MODEL  == retinanet)`
-       * CM names: `--adr.['openimages-preprocessed']...`
-       - CM script: [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
-     * get,dataset,squad,original
-       * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
-       - CM script: [get-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)
-     * get,dataset,kits19,preprocessed
-       * `if (CM_MODEL in ['3d-unet-99', '3d-unet-99.9'])`
-       - CM script: [get-preprocessed-dataset-kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-kits19)
-     * get,dataset,librispeech,preprocessed
-       * `if (CM_MODEL  == rnnt)`
-       - CM script: [get-preprocessed-dataset-librispeech](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-librispeech)
-     * get,dataset,criteo,preprocessed
-       * `if (CM_MODEL in ['dlrm-99', 'dlrm-99.9'])`
-       * CM names: `--adr.['criteo-preprocessed']...`
-       - CM script: [get-preprocessed-dataset-criteo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo)
      * get,ml-model,image-classification,resnet50
-       * `if (CM_MODEL  == resnet50)`
+       * `if (CM_MODEL  == resnet50) AND (CM_MLPERF_CUSTOM_MODEL_PATH  != on)`
        * CM names: `--adr.['ml-model', 'resnet50-model']...`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
        - CM script: [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
@@ -460,8 +505,8 @@ ___
        * `if (CM_MLPERF_BACKEND  == pytorch AND CM_MLPERF_IMPLEMENTATION  == nvidia AND CM_MODEL  == retinanet)`
        * CM names: `--adr.['ml-model', 'retinanet-model']...`
        - *Warning: no scripts found*
-     * get,ml-model,language-processing,bert
-       * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
+     * get,ml-model,language-processing,bert-large
+       * `if (CM_MODEL in ['bert-99', 'bert-99.9']) AND (CM_MLPERF_CUSTOM_MODEL_PATH  != on)`
        * CM names: `--adr.['ml-model', 'bert-model']...`
        - CM script: [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)
      * get,ml-model,medical-imaging,3d-unet
@@ -476,33 +521,80 @@ ___
        * `if (CM_MODEL in ['dlrm-99', 'dlrm-99.9'])`
        * CM names: `--adr.['ml-model', 'dlrm-model']...`
        - CM script: [get-ml-model-dlrm-terabyte](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte)
+     * get,dataset,image-classification,imagenet,preprocessed,_default
+       * `if (CM_MODEL  == resnet50) AND (CM_MLPERF_VISION_DATASET_OPTION  != True)`
+       * CM names: `--adr.['imagenet-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
+     * get,dataset,image-classification,imagenet,preprocessed,_pytorch
+       * `if (CM_MODEL  == resnet50 AND CM_MLPERF_VISION_DATASET_OPTION  == imagenet_pytorch)`
+       * CM names: `--adr.['imagenet-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
+     * get,dataset-aux,image-classification,imagenet-aux
+       * `if (CM_MODEL  == resnet50)`
+       - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
+     * get,dataset,object-detection,open-images,openimages,preprocessed,_validation
+       * `if (CM_MODEL  == retinanet)`
+       * CM names: `--adr.['openimages-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
+     * get,dataset,squad,original
+       * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
+       - CM script: [get-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)
+     * get,dataset-aux,squad-vocab
+       * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
+       - CM script: [get-dataset-squad-vocab](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad-vocab)
+     * get,dataset,kits19,preprocessed
+       * `if (CM_MODEL in ['3d-unet-99', '3d-unet-99.9'])`
+       - CM script: [get-preprocessed-dataset-kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-kits19)
+     * get,dataset,librispeech,preprocessed
+       * `if (CM_MODEL  == rnnt)`
+       - CM script: [get-preprocessed-dataset-librispeech](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-librispeech)
+     * get,dataset,criteo,preprocessed
+       * `if (CM_MODEL in ['dlrm-99', 'dlrm-99.9'])`
+       * CM names: `--adr.['criteo-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-criteo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo)
+     * generate,user-conf,mlperf,inference
+       * CM names: `--adr.['user-conf-generator']...`
+       - CM script: [generate-mlperf-inference-user-conf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf)
+     * get,loadgen
+       * CM names: `--adr.['loadgen', 'mlperf-inference-loadgen']...`
+       - CM script: [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)
+     * get,mlcommons,inference,src
+       * CM names: `--adr.['inference-src']...`
+       - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)
   1. ***Run native script if exists***
   1. ***Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)***
      * benchmark,program
+       * `if (CM_MLPERF_SKIP_RUN  != True)`
        * CM names: `--adr.['runner']...`
        - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_DATASET_***
-* **CM_MLPERF_***
+* `CM_DATASET_*`
+* `CM_HW_NAME`
+* `CM_MAX_EXAMPLES`
+* `CM_MLPERF_*`
+* `CM_ML_MODEL_*`
 #### New environment keys auto-detected from customize
 
-* **CM_MLPERF_BACKEND**
-* **CM_MLPERF_CONF**
-* **CM_MLPERF_LOADGEN_EXTRA_OPTIONS**
-* **CM_MLPERF_LOADGEN_MODE**
-* **CM_MLPERF_LOADGEN_QPS_OPT**
-* **CM_MLPERF_LOADGEN_SCENARIO**
-* **CM_MLPERF_OUTPUT_DIR**
-* **CM_MLPERF_RESULTS_DIR**
-* **CM_MLPERF_RUN_CMD**
+* `CM_MLPERF_BACKEND`
+* `CM_MLPERF_CONF`
+* `CM_MLPERF_DEVICE`
+* `CM_MLPERF_LOADGEN_EXTRA_OPTIONS`
+* `CM_MLPERF_LOADGEN_MODE`
+* `CM_MLPERF_LOADGEN_QPS_OPT`
+* `CM_MLPERF_LOADGEN_SCENARIO`
+* `CM_MLPERF_OUTPUT_DIR`
+* `CM_MLPERF_RUN_CMD`
+* `CM_ML_MODEL_FILE_WITH_PATH`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

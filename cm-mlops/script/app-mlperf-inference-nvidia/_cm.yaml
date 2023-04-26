@@ -38,6 +38,7 @@ input_mapping:
 new_env_keys:
   - CM_MLPERF_*
   - CM_DATASET_*
+  - CM_HW_NAME
 
 # Dependencies on other CM scripts
 
@@ -125,6 +126,10 @@ deps:
     tags: generate,nvidia,engine
     names: tensorrt-engine-generator
 
+  # Creates user conf for given SUT
+  - tags: generate,user-conf,mlperf,inference
+    names:
+    - user-conf-generator
 
   
 

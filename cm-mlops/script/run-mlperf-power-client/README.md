@@ -43,21 +43,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=run,mlc,mlcommons,mlperf,power,client,power-client(,variations from below) (flags from below)`
+1. `cm run script --tags=run,mlc,mlcommons,mlperf,power,client,power-client [--input_flags]`
 
-*or*
+2. `cm run script "run mlc mlcommons mlperf power client power-client" [--input_flags]`
 
-`cm run script "run mlc mlcommons mlperf power client power-client (variations from below)" (flags from below)`
+3. `cm run script bf6a6d0cc97b48ae [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script bf6a6d0cc97b48ae`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -103,13 +107,14 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**loadgen_logs_dir**=value --> **CM_MLPERF_LOADGEN_LOGS_DIR**=value
-* --**log_dir**=value --> **CM_MLPERF_POWER_LOG_DIR**=value
-* --**max_amps**=value --> **CM_MLPERF_POWER_MAX_AMPS**=value
-* --**max_volts**=value --> **CM_MLPERF_POWER_MAX_VOLTS**=value
-* --**ntp_server**=value --> **CM_MLPERF_POWER_NTP_SERVER**=value
-* --**power_server**=value --> **CM_MLPERF_POWER_SERVER_ADDRESS**=value
-* --**run_cmd**=value --> **CM_MLPERF_RUN_CMD**=value
+* `--loadgen_logs_dir=value`  &rarr;  `CM_MLPERF_LOADGEN_LOGS_DIR=value`
+* `--log_dir=value`  &rarr;  `CM_MLPERF_POWER_LOG_DIR=value`
+* `--max_amps=value`  &rarr;  `CM_MLPERF_POWER_MAX_AMPS=value`
+* `--max_volts=value`  &rarr;  `CM_MLPERF_POWER_MAX_VOLTS=value`
+* `--ntp_server=value`  &rarr;  `CM_MLPERF_POWER_NTP_SERVER=value`
+* `--power_server=value`  &rarr;  `CM_MLPERF_POWER_SERVER_ADDRESS=value`
+* `--run_cmd=value`  &rarr;  `CM_MLPERF_RUN_CMD=value`
+* `--timestamp=value`  &rarr;  `CM_MLPERF_POWER_TIMESTAMP=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -124,26 +129,29 @@ r=cm.access({... , "loadgen_logs_dir":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_MLPERF_POWER_LOG_DIR: **logs**
-* CM_MLPERF_RUN_CMD: ****
-* CM_MLPERF_POWER_SERVER_ADDRESS: **localhost**
-* CM_MLPERF_LOADGEN_LOGS_DIR: **loadgen_logs**
-* CM_MLPERF_POWER_NTP_SERVER: **time.google.com**
-* CM_MLPERF_POWER_MAX_AMPS: **0**
-* CM_MLPERF_POWER_MAX_VOLTS: **0**
+* CM_MLPERF_POWER_LOG_DIR: `logs`
+* CM_MLPERF_RUN_CMD: ``
+* CM_MLPERF_POWER_SERVER_ADDRESS: `localhost`
+* CM_MLPERF_LOADGEN_LOGS_DIR: `loadgen_logs`
+* CM_MLPERF_POWER_NTP_SERVER: `time.google.com`
+* CM_MLPERF_POWER_MAX_AMPS: `0`
+* CM_MLPERF_POWER_MAX_VOLTS: `0`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
 
+<details>
+<summary>Click here to expand this section.</summary>
+
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client/_cm.json)***
      * get,python3
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * get,mlperf,power,src,_octoml
+     * get,mlperf,power,src
        * CM names: `--adr.['power-src']...`
        - CM script: [get-mlperf-power-dev](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client/customize.py)***
@@ -153,6 +161,8 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
@@ -162,4 +172,4 @@ ___
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

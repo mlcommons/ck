@@ -1,0 +1,17 @@
+{
+  "alias": "participate-request-asplos2018",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20180324",
+  "date_open": "20180324",
+  "digital_library_url": "https://doi.org/10.1145/3229762",
+  "reproduced_papers_tags": "papers-request-asplos",
+  "tags": [
+    "participate",
+    "tournament",
+    "events",
+    "request-asplos2018"
+  ],
+  "title": "Participate in REQUEST'18: Reproducible Quality-Efficient Systems Tournaments",
+  "uid": "b5d08b0b837d4568"
+}

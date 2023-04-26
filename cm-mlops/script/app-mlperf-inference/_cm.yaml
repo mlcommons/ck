@@ -8,7 +8,7 @@ automation_uid: 5b4e0237da074764
 category: "Modular MLPerf benchmarks"
 category_sort: 20000
 
-developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Grigori Fursin](https://cKnowledge.io/@gfursin)"
+developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Grigori Fursin](https://cKnowledge.org/gfursin)"
 
 # User-friendly tags to find this CM script
 tags:
@@ -22,7 +22,6 @@ tags:
 
 # Default environment
 default_env:
-  CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
   CM_MLPERF_LOADGEN_MODE: accuracy
   CM_MLPERF_LOADGEN_SCENARIO: Offline
   CM_OUTPUT_FOLDER_NAME: test_results
@@ -40,7 +39,7 @@ input_mapping:
   mode: CM_MLPERF_LOADGEN_MODE
   num_threads: CM_NUM_THREADS
   output_dir: OUTPUT_BASE_DIR
-  power: CM_SYSTEM_POWER
+  power: CM_MLPERF_POWER
   power_server: CM_MLPERF_POWER_SERVER_ADDRESS
   ntp_server: CM_MLPERF_POWER_NTP_SERVER
   max_amps: CM_MLPERF_POWER_MAX_AMPS
@@ -56,7 +55,8 @@ input_mapping:
   server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
   singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
   multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
-
+  readme: CM_MLPERF_README
+  debug: CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM
 
 # Duplicate CM environment variables to the ones used in native apps
 env_key_mappings:
@@ -75,9 +75,6 @@ deps:
   # Detect host OS features
   - tags: detect,os
 
-  # Detect host CPU features
-  - tags: detect,cpu
-
   # Install system dependencies on a given host
   - tags: get,sys-utils-cm
 
@@ -87,14 +84,6 @@ deps:
     - python
     - python3
 
-  # Detect CUDA if required
-  - tags: get,cuda
-    enable_if_env:
-      CM_MLPERF_DEVICE:
-      - gpu
-
-
-
 
   ########################################################################
   # Install MLPerf inference dependencies
@@ -103,11 +92,6 @@ deps:
   - tags: get,mlcommons,inference,src
     names:
     - inference-src
-
-  # Get SUT configs (System Under Test)
-  - tags: get,sut,configs
-
-
 
 # Order of variations for documentation
 variation_groups_order:
@@ -131,7 +115,9 @@ variations:
     env:
       CM_MLPERF_CPP: 'yes'
       CM_MLPERF_IMPLEMENTATION: cpp
-    prehook_deps:
+      CM_IMAGENET_ACCURACY_DTYPE: float32
+      CM_OPENIMAGES_ACCURACY_DTYPE: float32
+    posthook_deps:
       - names:
          - cpp-mlperf-inference
          - mlperf-inference-implementation
@@ -142,16 +128,20 @@ variations:
 
 
   tflite-cpp:
+    default_variations:
+      backend: tflite
+      device: cpu
     group:
       implementation
     add_deps_recursive:
       imagenet-accuracy-script:
-        tags: _int64
+        tags: _float32
     env:
       CM_MLPERF_TFLITE_CPP: 'yes'
       CM_MLPERF_CPP: 'yes'
       CM_MLPERF_IMPLEMENTATION: tflite-cpp
-    prehook_deps:
+      CM_IMAGENET_ACCURACY_DTYPE: float32
+    posthook_deps:
       - names:
          - tflite-cpp-mlperf-inference
          - mlperf-inference-implementation
@@ -168,10 +158,18 @@ variations:
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _float32
+      squad-accuracy-script:
+        tags: _float32
+      librispeech-accuracy-script:
+        tags: _int32
     env:
       CM_MLPERF_PYTHON: 'yes'
       CM_MLPERF_IMPLEMENTATION: reference
-    prehook_deps:
+      CM_SQUAD_ACCURACY_DTYPE: float32
+      CM_IMAGENET_ACCURACY_DTYPE: float32
+      CM_OPENIMAGES_ACCURACY_DTYPE: float32
+      CM_LIBRISPEECH_ACCURACY_DTYPE: float32
+    posthook_deps:
       - names:
          - python-reference-mlperf-inference
          - mlperf-inference-implementation
@@ -184,15 +182,22 @@ variations:
     alias: reference
   
   nvidia:
+    default_variations:
+      backend: tensorrt
+      device: cuda
     group:
       implementation
     add_deps_recursive:
       imagenet-accuracy-script:
-        tags: _float32
+        tags: _int32
+      squad-accuracy-script:
+        tags: _float16
       python:
         version-min: 3.8.0
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia
+      CM_SQUAD_ACCURACY_DTYPE: float16
+      CM_IMAGENET_ACCURACY_DTYPE: int32
     deps:
       ## Nvidia common code
       - tags: get,mlperf,inference,nvidia,common-code
@@ -205,14 +210,24 @@ variations:
       - tags: get,generic-python-lib,_onnx
   
   nvidia-original:
+    default_variations:
+      backend: tensorrt
+      device: cuda
     group:
       implementation
+    add_deps_recursive:
+      imagenet-accuracy-script:
+        tags: _int32
+      squad-accuracy-script:
+        tags: _float16
+      librispeech-accuracy-script:
+        tags: _int8
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia-original
-    deps:
-      ## Nvidia common code
-      - tags: get,mlperf,inference,nvidia,common-code
-    prehook_deps:
+      CM_SQUAD_ACCURACY_DTYPE: float16
+      CM_IMAGENET_ACCURACY_DTYPE: int32
+      CM_LIBRISPEECH_ACCURACY_DTYPE: int8
+    posthook_deps:
       - names:
          - nvidia-original-mlperf-inference
          - nvidia-harness
@@ -230,11 +245,11 @@ variations:
     env:
       CM_MODEL:
         resnet50
+    deps:
+    - tags: get,dataset-aux,imagenet-aux
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _resnet50
-    deps: 
-    - tags: get,dataset-aux,imagenet-aux
     post_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
@@ -302,8 +317,8 @@ variations:
         - 'on'
       names:
       - mlperf-accuracy-script
-      - 3dunet-accuracy-script
-      tags: run,accuracy,mlperf,_3dunet
+      - 3d-unet-accuracy-script
+      tags: run,accuracy,mlperf,_kits19,_int8
 
   rnnt:
     group:
@@ -323,10 +338,18 @@ variations:
         - 'on'
       names:
       - mlperf-accuracy-script
-      - rnnt-accuracy-script
-      tags: run,accuracy,mlperf,_rnnt
+      - librispeech-accuracy-script
+      tags: run,accuracy,mlperf,_librispeech
 
   bert_:
+    deps:
+    - skip_if_env:
+        CM_DATASET_SQUAD_VAL_PATH: "on"
+      tags: get,dataset,squad,language-processing
+    - skip_if_env:
+        CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": "on"
+      tags: get,dataset-aux,squad-vocab
+
     post_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
@@ -337,7 +360,7 @@ variations:
       names:
       - squad-accuracy-script
       - mlperf-accuracy-script
-      tags: run,accuracy,mlperf,_squad,_float32
+      tags: run,accuracy,mlperf,_squad
     add_deps_recursive:
       inference-src:
         tags: _deeplearningexamples
@@ -365,6 +388,89 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _bert-99.9
+
+  dlrm_:
+    post_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - terabyte-accuracy-script
+      - mlperf-accuracy-script
+      tags: run,accuracy,mlperf,_terabyte,_float32
+
+  dlrm-99:
+    group:
+      model
+    base:
+    - dlrm_
+    env:
+      CM_MODEL:
+        dlrm-99
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _dlrm-99
+
+  dlrm-99.9:
+    group:
+      model
+    base:
+    - dlrm_
+    env:
+      CM_MODEL:
+        dlrm-99.9
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _dlrm-99.9
+
+  mobilenet:
+    group:
+      model
+    env:
+      CM_MODEL:
+        mobilenet
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _mobilenet
+    deps:
+    - tags: get,dataset-aux,imagenet-aux
+    post_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - mlperf-accuracy-script
+      - imagenet-accuracy-script
+      tags: run,accuracy,mlperf,_imagenet
+
+  efficientnet:
+    group:
+      model
+    env:
+      CM_MODEL:
+        efficientnet
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _efficientnet
+    deps:
+    - tags: get,dataset-aux,imagenet-aux
+    post_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - mlperf-accuracy-script
+      - imagenet-accuracy-script
+      tags: run,accuracy,mlperf,_imagenet
 
   onnxruntime:
     group: backend
@@ -405,6 +511,8 @@ variations:
 
   deepsparse:
     group: backend
+    default_variations:
+      precision: int8
     env:
       CM_MLPERF_BACKEND:
         deepsparse
@@ -437,6 +545,16 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _tvm-pytorch
+
+  tvm-tflite:
+    group: backend
+    base:
+      - batch_size.1
+    env:
+      CM_MLPERF_BACKEND: tvm-tflite
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tvm-tflite
 
   cpu:
     group:
@@ -500,13 +618,22 @@ variations:
       CM_MLPERF_QUANTIZATION: on
       CM_MLPERF_MODEL_PRECISION: int8
     add_deps_recursive:
-      python-reference-mlperf-inference:
+      mlperf-inference-implementation:
         tags: _int8
+
+  uint8:
+    group: precision
+    env:
+      CM_MLPERF_QUANTIZATION: on
+      CM_MLPERF_MODEL_PRECISION: uint8
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _uint8
 
   power:
     env:
-      CM_MLPERF_POWER: yes
-      CM_SYSTEM_POWER: yes
+      CM_MLPERF_POWER: 'yes'
+      CM_SYSTEM_POWER: 'yes'
     add_deps_recursive:
       runner:
         tags:
@@ -516,7 +643,7 @@ variations:
     env:
       CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '#'
     add_deps_recursive:
-      tvm-model:
+      mlperf-inference-implementation:
         tags: _batch_size.#
 
   # Reproducibility (past submissions)
@@ -586,7 +713,6 @@ input_description:
     desc: "Target Latency"
   max_batchsize: 
     desc: "Maximum batchsize to be used"
-    default: 1
   num_threads: 
     desc: "Number of CPU threads to launch the application with"
   hw_name: 
@@ -611,7 +737,15 @@ input_description:
   adr.compiler.tags:
     desc: "Compiler for loadgen"
     default: gcc
+  adr.inference-src-loadgen.env.CM_GIT_URL:
+    desc: "Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)"
+  adr.inference-src.env.CM_GIT_URL:
+    desc: "Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)"
   quiet:
     desc: "Quiet run (select default values for all questions)"
     boolean: true
     default: false
+  readme: 
+    desc: "Generate README with the reproducibility report"
+  debug: 
+    desc: "Debug MLPerf script"

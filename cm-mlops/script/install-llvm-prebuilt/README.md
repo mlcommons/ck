@@ -45,21 +45,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=install,prebuilt,llvm,prebuilt-llvm,install-prebuilt-llvm(,variations from below) (flags from below)`
+1. `cm run script --tags=install,prebuilt,llvm,prebuilt-llvm,install-prebuilt-llvm `
 
-*or*
+2. `cm run script "install prebuilt llvm prebuilt-llvm install-prebuilt-llvm" `
 
-`cm run script "install prebuilt llvm prebuilt-llvm install-prebuilt-llvm (variations from below)" (flags from below)`
+3. `cm run script cda9094971724a0a `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script cda9094971724a0a`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -105,16 +109,19 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 #### Versions
-Default version: *14.0.0*
+Default version: `14.0.0`
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/_cm.json)***
      * detect,os
@@ -130,22 +137,24 @@ ___
      * get,llvm
        * `if (CM_REQUIRE_INSTALL  != yes)`
        - CM script: [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **+C_INCLUDE_PATH**
-* **+LD_LIBRARY_PATH**
-* **+PATH**
-* **CM_GET_DEPENDENT_CACHED_PATH**
-* **CM_LLVM_***
+* `+C_INCLUDE_PATH`
+* `+LD_LIBRARY_PATH`
+* `+PATH`
+* `CM_GET_DEPENDENT_CACHED_PATH`
+* `CM_LLVM_*`
 #### New environment keys auto-detected from customize
 
-* **CM_GET_DEPENDENT_CACHED_PATH**
-* **CM_LLVM_CLANG_BIN_WITH_PATH**
-* **CM_LLVM_INSTALLED_PATH**
-* **CM_LLVM_PACKAGE**
+* `CM_GET_DEPENDENT_CACHED_PATH`
+* `CM_LLVM_CLANG_BIN_WITH_PATH`
+* `CM_LLVM_INSTALLED_PATH`
+* `CM_LLVM_PACKAGE`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

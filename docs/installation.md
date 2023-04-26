@@ -84,7 +84,10 @@ python3 -m pip install cmind
 ## Windows
 
 * Download and install Git from [git-for-windows.github.io](https://git-for-windows.github.io).
+  * Configure Git to accept long file names: `git config --system core.longpaths true`
 * Download and install Python 3+ from [www.python.org/downloads/windows](https://www.python.org/downloads/windows).
+  * Configure Windows to accept long fie names during Python installation!
+* Install CM via PIP:
 
 ```bash
 python -m pip install cmind
@@ -121,7 +124,7 @@ Path to CM repositories:    /home/user/CM
 GitHub for CM developments:        https://github.com/mlcommons/ck/tree/master/cm
 GitHub for CM automation scripts:  https://github.com/mlcommons/ck/tree/master/cm-mlops
 Reporting issues and ideas:        https://github.com/mlcommons/ck/issues
-Joining the open MLPerf workgroup: http://bit.ly/mlperf-edu-wg
+Joining the open MLPerf workgroup: https://cKnowledge.org/mlcommons-taskforce
 ```
 
 
@@ -129,18 +132,18 @@ Joining the open MLPerf workgroup: http://bit.ly/mlperf-edu-wg
 
 You can use the following environment variables to customize CM installation:
 
-* 'CM_REPOS' - change path to the CM repositories and *repos.json* file.
+* `'CM_REPOS'` - change path to the CM repositories and *repos.json* file.
 
   By default, CM will keep CM repositories in:
-  * *$HOME/CM* directory on Linux and MacOS
-  * *%USERPROFILE%\CM* directory on Windows
+  * `$HOME/CM` directory on Linux and MacOS
+  * `%USERPROFILE%\CM` directory on Windows
 
-* 'CM_CONFIG' - provide full path to a JSON or YAML file with the CM configuration.
+* `'CM_CONFIG'` - provide full path to a JSON or YAML file with the CM configuration.
   The content of this file will be merged with the ["cfg" dictionary](https://github.com/mlcommons/ck/blob/master/cm/cmind/config.py#L23)
   from the *config.py*.
 
-* 'CM_DEBUG' - if set to 'yes', turn on internal CM debugging and raise errors 
+* `'CM_DEBUG'` - if set to 'yes', turn on internal CM debugging and raise errors 
   in CM automations instead of returning a dictionary with an error *{'return':ERROR CODE, 'error':'ERROR note'}*
 
-* 'CM_HOME' - change path to the CM python package with the default 'repo' directory.
+* `'CM_HOME'` - change path to the CM python package with the default 'repo' directory.
   Useful to improve the default automations inside the CM package.

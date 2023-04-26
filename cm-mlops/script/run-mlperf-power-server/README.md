@@ -43,21 +43,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=run,mlc,mlcommons,mlperf,power,server,power-server(,variations from below) (flags from below)`
+1. `cm run script --tags=run,mlc,mlcommons,mlperf,power,server,power-server [--input_flags]`
 
-*or*
+2. `cm run script "run mlc mlcommons mlperf power server power-server" [--input_flags]`
 
-`cm run script "run mlc mlcommons mlperf power server power-server (variations from below)" (flags from below)`
+3. `cm run script 5bc68aaf389a40bd [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 5bc68aaf389a40bd`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -103,10 +107,10 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**device_port**=value --> **CM_MLPERF_POWER_DEVICE_PORT**=value
-* --**device_type**=value --> **CM_MLPERF_POWER_DEVICE_TYPE**=value
-* --**interface_flag**=value --> **CM_MLPERF_POWER_INTERFACE_FLAG**=value
-* --**ntp_server**=value --> **CM_MLPERF_POWER_NTP_SERVER**=value
+* `--device_port=value`  &rarr;  `CM_MLPERF_POWER_DEVICE_PORT=value`
+* `--device_type=value`  &rarr;  `CM_MLPERF_POWER_DEVICE_TYPE=value`
+* `--interface_flag=value`  &rarr;  `CM_MLPERF_POWER_INTERFACE_FLAG=value`
+* `--ntp_server=value`  &rarr;  `CM_MLPERF_POWER_NTP_SERVER=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -121,19 +125,22 @@ r=cm.access({... , "device_port":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_MLPERF_POWER_NTP_SERVER: **time.google.com**
-* CM_MLPERF_POWER_INTERFACE_FLAG: ****
-* CM_MLPERF_POWER_DEVICE_TYPE: **49**
-* CM_MLPERF_POWER_SERVER_ADDRESS: **0.0.0.0**
-* CM_MLPERF_POWER_SERVER_PORT: **4950**
-* CM_MLPERF_POWER_DEVICE_PORT: **/dev/usbtmc0**
+* CM_MLPERF_POWER_NTP_SERVER: `time.google.com`
+* CM_MLPERF_POWER_INTERFACE_FLAG: ``
+* CM_MLPERF_POWER_DEVICE_TYPE: `49`
+* CM_MLPERF_POWER_SERVER_ADDRESS: `0.0.0.0`
+* CM_MLPERF_POWER_SERVER_PORT: `4950`
+* CM_MLPERF_POWER_DEVICE_PORT: `/dev/usbtmc0`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)***
      * get,python3
@@ -152,6 +159,8 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
@@ -161,4 +170,4 @@ ___
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

@@ -45,7 +45,7 @@ the [NeurIPS reproducibility checklist](https://www.cs.mcgill.ca/~jpineau/Reprod
 and [AE FAQs](faq.md) before submitting artifacts for evaluation!
 
 You can find the examples of Artifact Appendices 
-in the following [reproduced papers](https://cKnowledge.io/reproduced-papers).
+in the following [reproduced papers](https://cknow.io/reproduced-papers).
 
  
 *Since the AE methodology is slightly different at different conferences, we introduced the unified Artifact Appendix
@@ -78,7 +78,7 @@ across continously changing software, hardware and data.
 Most of the time, the authors make their artifacts available to the evaluators via GitHub,
 GitLab, BitBucket or private repositories. Public artifact sharing allows
 optional "open evaluation" which we have successfully validated at [ADAPT'16]( https://adapt-workshop.org)
-and [ASPLOS-REQUEST'18](https://cknowledge.io/c/event/request-reproducible-benchmarking-tournament).
+and [ASPLOS-REQUEST'18](https://cknow.io/c/event/request-reproducible-benchmarking-tournament).
 It allows the authors to quickly fix encountered issues during evaluation
 before submitting the final version to archival repositories.
 
@@ -129,7 +129,7 @@ using the AE submission website provided by the event.
  If you have questions or suggestions, 
  do not hesitate to get in touch with the the AE chairs or the community using 
  the [Artifact Evaluation google group](https://groups.google.com/forum/#!forum/artifact-evaluation)
- or weekly conf-calls of the [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+ or weekly conf-calls of the [open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).
 
 
 ## Preparing your camera-ready paper
@@ -153,15 +153,15 @@ In other cases, AE chairs will tell you how to add stamps to the first page of y
 
 
 
-* [Some papers from the past AE](https://cKnowledge.io/?q=%22reproduced-papers%22) (ASPLOS, MICRO, MLSys, Supercomputing, CGO, PPoPP, PACT, IA3, ReQuEST)
-* [Dashboards with reproduced results](https://cKnowledge.io/?q=%22reproduced-results%22)
+* [Some papers from the past AE](https://cknow.io/?q=%22reproduced-papers%22) (ASPLOS, MICRO, MLSys, Supercomputing, CGO, PPoPP, PACT, IA3, ReQuEST)
+* [Dashboards with reproduced results](https://cknow.io/?q=%22reproduced-results%22)
 * Paper "Highly Efficient 8-bit Low Precision Inference of Convolutional Neural Networks with IntelCaffe" from ACM ASPLOS-ReQuEST'18  
   * [Paper DOI](https://doi.org/10.1145/3229762.3229763)
   * [Artifact DOI](https://doi.org/10.1145/3229769)
   * [Original artifact](https://github.com/intel/caffe/wiki/ReQuEST-Artifact-Installation-Guide)
   * [Portable automation](https://github.com/ctuning/ck-request-asplos18-caffe-intel)
   * [Expected results](https://github.com/ctuning/ck-request-asplos18-results-caffe-intel)
-  * [Public scoreboard](https://cKnowledge.io/result/pareto-efficient-ai-co-design-tournament-request-acm-asplos-2018)
+  * [Public scoreboard](https://cknow.io/result/pareto-efficient-ai-co-design-tournament-request-acm-asplos-2018)
 * Paper "Software Prefetching for Indirect Memory Accesses" from CGO'17  
   * [Portable automation at GitHub](https://github.com/SamAinsworth/reproduce-cgo2017-paper)
   * [CK dashboard snapshot](https://github.com/SamAinsworth/reproduce-cgo2017-paper/files/618737/ck-aarch64-dashboard.pdf)
@@ -171,9 +171,9 @@ In other cases, AE chairs will tell you how to add stamps to the first page of y
 
 ----
 
-*This document was prepared by [Grigori Fursin](https://cKnowledge.io/@gfursin "https://cKnowledge.io/@gfursin")
+*This document was prepared by [Grigori Fursin](https://cKnowledge.org/gfursin "https://cKnowledge.org/gfursin")
  with contributions from [Bruce Childers](https://people.cs.pitt.edu/~childers "https://people.cs.pitt.edu/~childers"), 
  [Michael Heroux](https://www.sandia.gov/~maherou "https://www.sandia.gov/~maherou"), 
  [Michela Taufer](https://gcl.cis.udel.edu/personal/taufer/ "https://gcl.cis.udel.edu/personal/taufer/") and others.
  It is maintained by the [cTuning foundation](https://cTuning.org/ae) and the 
- [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).*
+ [open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).*

@@ -31,6 +31,7 @@
         "glog-dev": {
           "apt": "libgoogle-glog-dev",
           "dnf": "glog-devel",
+          "yum": "glog-devel",
           "brew": "glog"
         }
       }
@@ -43,6 +44,7 @@
         "gflags-dev": {
           "apt": "libgflags-dev",
           "dnf": "gflags-devel",
+          "yum": "gflags-devel",
           "brew": "gflags"
         }
       }
@@ -66,7 +68,8 @@
       "state": {
         "libre2-dev": {
           "apt": "libre2-dev",
-          "dnf": "",
+          "yum": "libre-devel",
+          "dnf": "libre-devel",
           "brew": ""
         }
       }
@@ -78,7 +81,8 @@
       "state": {
         "libboost-all-dev": {
           "apt": "libboost-all-dev",
-          "dnf": "",
+          "dnf": "boost-devel",
+          "yum": "boost-devel",
           "brew": ""
         }
       }
@@ -90,8 +94,23 @@
       "state": {
         "libnuma-dev": {
           "apt": "libnuma-dev",
-          "dnf": "",
+          "yum": "numactl-libs",
+          "dnf": "numactl-libs",
           "brew": ""
+        }
+      }
+    },
+    "libmpfr-dev": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "libmpfr-dev"
+      },
+      "state": {
+        "libmpfr-dev": {
+          "apt": "libmpfr-dev",
+          "yum": "mpfr-devel.x86_64",
+          "dnf": "mpfr-devel.x86_64",
+          "brew": "",
+          "zypper": "mpfr-devel"
         }
       }
     },
@@ -102,8 +121,22 @@
       "state": {
         "rapidjson-dev": {
           "apt": "rapidjson-dev",
-          "dnf": "",
+          "dnf": "rapidjson-devel",
+          "yum": "rapidjson-devel",
           "brew": ""
+        }
+      }
+    },
+    "screen": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "screen"
+      },
+      "state": {
+        "screen": {
+          "apt": "screen",
+          "dnf": "screen",
+          "yum": "screen",
+          "brew": "screen"
         }
       }
     }

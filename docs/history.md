@@ -9,7 +9,7 @@ and automating [MLPerf benchmarks](https://mlcommons.org).
 We have spent many months communicating with researchers and developers
 to understand their technical reports, README files, ad-hoc scripts, tools, command lines, APIs,
 specifications, dependencies, data formats, models and data 
-to be able to [reproduce their experiments](https://cknowledge.io/?q=%22reproduced-papers%22) 
+to be able to [reproduce their experiments](https://cknow.io/?q=%22reproduced-papers%22) 
 and reuse their artifacts across continuously changing software, hardware and data.
 
 ![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production.png?id=1)
@@ -45,7 +45,7 @@ to continue developing it as a community effort.
 
 Collective Mind workflow automation meta-framework (CM aka CK2)  is the 2nd implementation 
 of the [CK concept](https://arxiv.org/pdf/2011.01149.pdf) being developed
-by the [open MLCommons taskforce on education and reproducibility](docs/mlperf-education-workgroup.md).
+by the [open MLCommons taskforce on automation and reproducibility](docs/taskforce.md).
 
 This taskforce is using and enhancing CM to modularize ML and AI systems and automate their benchmarking, 
 optimization and deployment across continuously changing software, hardware and data.

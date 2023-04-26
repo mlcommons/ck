@@ -4,7 +4,7 @@ CUR_DIR=$PWD
 SCRIPT_DIR=${CM_TMP_CURRENT_SCRIPT_PATH}
 
 echo "******************************************************"
-echo "Cloning Mlcommons from ${CM_GIT_URL} with branch ${CM_GIT_CHECKOUT} ${CM_GIT_DEPTH} ${CM_GIT_RECURSE_SUBMODULES} ..."
+echo "Cloning MLCommons from ${CM_GIT_URL} with branch ${CM_GIT_CHECKOUT} ${CM_GIT_DEPTH} ${CM_GIT_RECURSE_SUBMODULES} ..."
 
 if [ ! -d "inference" ]; then
   if [ -z ${CM_GIT_SHA} ]; then
@@ -16,6 +16,8 @@ if [ ! -d "inference" ]; then
     git checkout -b "${CM_GIT_CHECKOUT}"
   fi
   if [ "${?}" != "0" ]; then exit 1; fi
+else
+    cd inference
 fi
 IFS=',' read -r -a submodules <<< "${CM_GIT_SUBMODULES}"
 for submodule in "${submodules[@]}"

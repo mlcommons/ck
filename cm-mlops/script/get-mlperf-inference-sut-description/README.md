@@ -40,21 +40,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,mlperf,sut,description,system-under-test,system-description(,variations from below) (flags from below)`
+1. `cm run script --tags=get,mlperf,sut,description,system-under-test,system-description [--input_flags]`
 
-*or*
+2. `cm run script "get mlperf sut description system-under-test system-description" [--input_flags]`
 
-`cm run script "get mlperf sut description system-under-test system-description (variations from below)" (flags from below)`
+3. `cm run script e49a3f758b2d4e7b [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script e49a3f758b2d4e7b`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -100,8 +104,8 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**name**=value --> **CM_HW_NAME**=value
-* --**submitter**=value --> **CM_MLPERF_SUBMITTER**=value
+* `--name=value`  &rarr;  `CM_HW_NAME=value`
+* `--submitter=value`  &rarr;  `CM_MLPERF_SUBMITTER=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -116,14 +120,17 @@ r=cm.access({... , "name":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_SUT_DESC_CACHE: **yes**
+* CM_SUT_DESC_CACHE: `yes`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/_cm.json)***
      * detect,os
@@ -135,24 +142,30 @@ ___
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,compiler
        * CM names: `--adr.['compiler']...`
-       - CM script: [get-cl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl)
        - CM script: [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
        - CM script: [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)
+       - CM script: [get-cl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl)
+     * get,cuda-devices
+       * `if (CM_MLPERF_DEVICE in ['gpu', 'cuda'])`
+       - CM script: [get-cuda-devices](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-devices)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/_cm.json)
   1. ***Run native script if exists***
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_HW_***
-* **CM_SUT_***
+* `CM_HW_*`
+* `CM_SUT_*`
 #### New environment keys auto-detected from customize
 
+* `CM_HW_NAME`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

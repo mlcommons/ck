@@ -6,9 +6,9 @@ ARG cm_os_version="9"
 
 FROM registry.access.redhat.com/ubi${cm_os_version}
 
-# Maintained by the MLCommons taskforce on education and reproducibility
+# Maintained by the MLCommons taskforce on automation and reproducibility
 LABEL github="https://github.com/mlcommons/ck"
-LABEL maintainer="https://bit.ly/mlperf-edu-wg"
+LABEL maintainer="https://cKnowledge.org/mlcommons-taskforce"
 
 # Customization
 ARG CM_GH_TOKEN

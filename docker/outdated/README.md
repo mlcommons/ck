@@ -1,6 +1,6 @@
 # Modularizing MLPerf benchmarks
 
-*This is work in progress within [MLPerf taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+*This is work in progress within [MLPerf taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
  to make MLPerf easier to run, customize and reproduce using the [MLCommons CM (CK2) automation meta-framework](https://github.com/mlcommons/ck)*.
 
 ## Demo: MLPerf inference - ref - python - object detection - RetinaNet - ONNX - CPU - Ubuntu
@@ -41,7 +41,7 @@ time docker build -f cm-mlperf-inference-retinanet-ubuntu-cpu.Dockerfile \
    --build-arg cm_os_name="ubuntu" \
    --build-arg cm_os_version="20.04" \
    --build-arg cm_version="1.0.3" \
-   --build-arg cm_automation_repo="octoml@ck" \
+   --build-arg cm_automation_repo="ctuning@mlcommons-ck" \
    --build-arg cm_automation_checkout="" \
    --build-arg cm_python_version="3.10.7" \
    --build-arg cm_cmake_version="3.24.2" \
@@ -102,7 +102,7 @@ TestScenario.Offline qps=0.89, mean=8.6960, time=11.180, acc=31.661%, mAP=65.417
 ### Using native environment
 
 This demo showcases the use of the [MLCommons CM (CK2) automation meta-framework](https://github.com/mlcommons/ck) 
-being developed by the [MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+being developed by the [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
 
 The goal of CM is to modularize ML Systems and automate their benchmarking, optimization and co-design across any software and hardware stack.
 
@@ -125,10 +125,10 @@ cm pull repo mlcommons@ck
 ```
 
 Note that you can fork [this repository](https://github.com/mlcommons/ck) and use your own one instead of mlcommons@ck for public or private benchmarking.
-For example, we use OctoML fork to improve these automations:
+For example, we use [cTuning](https://cTuning.org) fork to improve these automations:
 
 ```bash
-cm pull repo octoml@ck
+cm pull repo ctuning@mlcommons-ck
 ```
 
 Now we suggest you to install a virtual python via CM to avoid mixing up your native Python installation:

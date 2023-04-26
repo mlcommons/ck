@@ -1,0 +1,17 @@
+{
+  "alias": "repro-adapt2015",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20150121",
+  "date_open": "20150121",
+  "reproduced_papers_tags": "papers-adapt-2015",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-adapt2015"
+  ],
+  "title": "Reproduce papers at ADAPT'15 (artifact evaluation)",
+  "uid": "d409014ea39e48d0",
+  "url": "http://adapt-workshop.org/2015"
+}

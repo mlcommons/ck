@@ -1,0 +1,433 @@
+<p>Results of the 1st reproducible ACM ReQuEST-ASPLOS'18 tournament:</p>
+
+ <ul>
+   <li><a href="https://cknow.io/?q=%22papers-request%22">Papers</a>
+   <li><a href="https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf">Organizers' report</a>
+   <li><a href="https://cknow.io/c/result/pareto-efficient-ai-co-design-tournament-request-acm-asplos-2018/">REQUEST live dashboard</a>
+   <li><a href="https://dl.acm.org/citation.cfm?doid=3229762">ACM proceedings with reproducibility badges</a>
+   <li><a href="https://github.com/ctuning/ck">CK framework</a>
+   <li><a href="https://github.com/ctuning/ck-request-asplos18-results">Portable, customizable and reusable CK workflows from this tournament</a>
+   <li><a href="https://cknow.io/repos">Shared CK repositories</a>
+   <li><a href="http://cknowledge.org/android-demo.html">Android app to crowdsource AI/ML/SW/HW benchmarking and co-design</a>
+   <li><a href="https://groups.google.com/forum/#!forum/collective-knowledge">Discussion group</a>
+ </ul>
+
+<h3>Goals</h3>
+
+Our long-term goal is to develop a common methodology and framework for
+reproducible co-design of the efficient software/hardware stack for
+emerging algorithms requested by our advisory board (inference, object
+detection, training, etc) in terms of speed, accuracy, energy, size,
+complexity, costs and other metrics.
+
+Open REQUEST competitions bring together AI, ML and systems researchers
+to share complete algorithm implementations (code and data) as <a
+href="https://github.com/ctuning/ck/wiki/Portable-workflows">portable</a>,
+customizable and reusable
+<a href="https://cknow.io/programs">Collective Knowledge
+workflows</a>.
+
+This helps other researchers and end-users to quickly validate such
+results, reuse workflows and optimize/autotune algorithms across different
+platforms, models, data sets, libraries, compilers and tools.
+
+We will also use our practical experience reproducing experimental results
+from REQUEST submissions to help set up artifact evaluation at the
+upcoming <a href="https://mlsys.cc">MLSys</a>, and to suggest new
+algorithms for the inclusion to the <a href="https://mlperf.org">MLPerf
+benchmark</a>.
+
+<center>
+ <a href="https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf">
+   <img src="https://cKnowledge.org/_resources/ck-request-vision.png">
+ </a>
+</center>
+
+<h3>Workshop organizers</h3>
+
+  <ul>
+      <li><a href="https://cKnowledge.org/gfursin">Grigori Fursin</a>, cTuning foundation, France
+      <li><a href="https://homes.cs.washington.edu/~moreau">Thierry Moreau</a>, University of Washington, USA
+  </ul>
+
+
+<h3>Steering committee (A-Z)</h3>
+
+  <ul>
+      <li><a href="https://www.cs.washington.edu/people/faculty/luisceze">Luis Ceze</a>, University of Washington, USA
+      <li><a href="http://www.eecg.toronto.edu/~enright">Natalie Enright Jerger</a>, University of Toronto, Canada
+      <li><a href="https://parsa.epfl.ch/~falsafi">Babak Falsafi</a>, EPFL, Switzerland
+      <li><a href="https://fursin.net/research.html">Grigori Fursin</a>, cTuning foundation, France and dividiti, UK (<b>co-organizer</b>)
+      <li><a href="https://uk.linkedin.com/in/lokhmotov">Anton Lokhmotov</a>, dividiti, UK
+      <li><a href="https://homes.cs.washington.edu/~moreau">Thierry Moreau</a>, University of Washington, USA (<b>co-organizer</b>)
+      <li><a href="http://www.cs.cornell.edu/~asampson">Adrian Sampson</a>, Cornell University, USA
+      <li><a href="https://www.energy.cam.ac.uk/directory/ps751@cam.ac.uk">Phillip Stanley Marbell</a>, University of Cambridge, UK
+  </ul>
+
+<h3>Advisory/industrial board (A-Z)</h3>
+
+  <ul>
+    <li><a href="https://ie.linkedin.com/in/michaelablott">Michaela Blott</a>, Xilinx
+    <li><a href="https://www.linkedin.com/in/unmeshdbordoloi">Unmesh Bordoloi</a>, General Motors
+    <li><a href="https://www.microsoft.com/en-us/research/people/oferd/">Ofer Dekel</a>, Microsoft
+    <li><a href="http://openlab.cern/about/people/maria-girone">Maria Girone</a>, CERN openlab
+    <li><a href="https://www.linkedin.com/in/waynegraves">Wayne Graves</a>, ACM
+    <li><a href="https://www.linkedin.com/in/vinodg">Vinod Grover</a>, NVIDIA
+    <li><a href="https://www.linkedin.com/in/sumitg">Sumit Gupta</a>, IBM
+    <li><a href="http://research.nvidia.com/person/stephen-keckler">Steve Keckler</a>, NVIDIA
+    <li><a href="https://www.linkedin.com/in/wei-li-a4a611">Wei Li</a>, Intel
+    <li><a href="https://www.linkedin.com/in/colin-osborne-7129362/">Colin Osborne</a>, Arm
+    <li><a href="https://www.microsoft.com/en-us/research/people/anputnam">Andrew Putnam</a>, Microsoft
+    <li><a href="https://archive.pioneers.io/blog/people/boris-shulkin">Boris Shulkin</a>, Magna
+    <li><a href="https://www.linkedin.com/in/greg-stoner-17830">Greg Stoner</a>, AMD
+    <li><a href="https://www.linkedin.com/in/alexwade">Alex Wade</a>, Chan Zuckerberg Initiative
+    <li><a href="https://www.linkedin.com/in/peng-wu-411b5b">Peng Wu</a>, Huawei
+    <li><a href="https://research.google.com/pubs/105499.html">Cliff Young</a>, Google
+  </ul>
+
+<h3>Partners</h3>
+
+<center>
+     <a href="https://www.cam.ac.uk/">
+         <img style="height:70px;" src="https://cKnowledge.org/_resources/partners/logo-university-of-cambridge.png" />
+     </a>
+    <a href="https://www.cornell.edu">
+        <img style="height:70px;" src="https://cKnowledge.org/_resources/partners/logo-cornell-university.png" />
+    </a>
+    <a href="https://www.utoronto.ca/">
+        <img style="height:70px;" src="https://cKnowledge.org/_resources/partners/logo-university-of-toronto.png" />
+    </a>
+    <a href="https://www.washington.edu">
+        <img style="height:70px;" src="https://cKnowledge.org/_resources/partners/logo-university-of-washington.png" />
+    </a>
+    <a href="https://www.epfl.c">
+        <img style="height:70px;" src="https://cKnowledge.org/_resources/partners/logo-epfl.png" />
+    </a>
+    <a href="http://sigarch.org">
+      <img style="height:70px;" src="https://cKnowledge.org/_resources/partners/logo-sigarch.png" />
+    </a>
+    <a href="http://acm.org">
+      <img style="height:70px;" src="https://cKnowledge.org/_resources/partners/logo-acm.png" />
+    </a>
+    <a href="http://dividiti.com">
+        <img style="height:70px;" src="https://cKnowledge.org/_resources/partners/logo-dvdt.png" />
+    </a>
+    <a href="http://cTuning.org">
+        <img style="height:70px;" src="https://cKnowledge.org/_resources/partners/logo-ctuning-foundation.png" />
+    </a>
+</center>
+
+
+<h3>Completed tournaments and workshops</h3>
+
+ <ul>
+  <li><b>2018:</b> <a
+  href="https://cknow.io/c/event/repro-request-asplos2018/">1st
+  REQUEST tournament at ASPLOS'18 for co-designing Pareto-efficient image
+  classification</a> (see <a href="https://doi.org/10.1145/3229762">ACM
+  proceedings</a> and <a
+  href="https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf">results
+  report</a>).
+ </ul>
+
+<h3>News</h3>
+
+  <ul>
+   <li><b>2018.June:</b> We organize
+   <a href="http://rescue-hpc.org">ResCuE-HPC'18 workshop
+   at SuperComputing'18</a> to discuss how to solve different issues
+   encountered during the
+   <a
+   href="https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf">1st
+   ReQuEST'18 tournament</a>.
+
+   <li><b>2018.June:</b> Report with results from the 1st ReQuEST
+   tournament, encountered issues and future work is now available
+   <a
+   href="https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf">online</a>.
+   
+
+   <li><b>2018.June:</b> ACM proceedings are now available
+   <a href="https://doi.org/10.1145/3229762">online</a>. All accepted
+   CK workflows are available
+   <a
+   href="https://github.com/ctuning/ck-request-asplos18-results">here</a>.
+
+   <li><b>2018.Mar:</b> Slides from REQUEST keynote "the Retrospect and
+   Prospect of Low-Power Image Recognition Challenge (LPIRC)" by <a
+   href="http://ei-lab.org/people/faculty/yiran-chen-3/">Prof. Yiran
+   Chen</a> are now available
+   <a
+   href="http://cKnowledge.org/request/request_asplos18_keynote_final_version.pdf">online
+   (PDF)</a>.
+
+   <li><b>2018.Feb:</b> 8 intents of submit and 5 final submissions for
+   the 1st REQUEST tournament at ASPLOS'18 - very exciting! Now busy
+   converting them to the CK and preparing for public evaluation!
+
+   <li><b>2018.Jan:</b> We've partnered with <a href="http://acm.org">ACM</a> to award
+     <a href="https://www.acm.org/publications/policies/artifact-review-badging">"available, reusable, replicated" badges</a>
+     to all winning artifacts and make them discoverable via <a href="https://dl.acm.org/advsearch.cfm?coll=DL&dl=ACM">ACM Digital Library search</a>
+     (select "Artifact Badge" for field and then select badges to search).
+
+   <li><b>2018.Jan:</b> Brief REQUEST introduction is now available in <a href="http://arxiv.org/abs/1801.06378">ArXiv</a>.
+
+   <li><b>2017.Dec:</b> Open call for Pareto efficient image classification algorithms -
+    <a href="request-cfp-asplos2018.html">1st REQUEST tournament at ASPLOS'18</a>
+   <!-- <li><b>2017.Dec:</b> Interesting discussion about REQUEST on Reddit (<a href="https://www.reddit.com/r/MachineLearning/comments/7hgrnw/n_1st_open_tournament_on_pareto_efficient_deep/">link</a>) -->
+  </ul>
+
+
+<h3>Long-term goals</h3>
+
+Developing efficient software and hardware for emerging
+workloads and optimizing it in terms of speed, accuracy,
+                  costs and other metrics is extremely complex and time
+                  consuming. Furthermore, the lack of common
+                  infrastructure and rigorous methodology for reproducible
+                  evaluation and multi-objective optimization makes
+                  it even more challenging to validate and compare
+                  different published works across numerous and
+                  continuously changing platforms, software frameworks,
+                  compilers, libraries, algorithms, data sets, and
+                  environments.
+
+<br>
+
+<a href="https://arxiv.org/abs/1801.06378">ReQuEST</a>
+                  is aimed at providing a scalable tournament framework,
+                  a common experimental methodology and an open repository
+                  for continuous evaluation and optimization of the
+                  quality vs. efficiency Pareto optimality of a wide range
+                  of real-world applications, libraries and models across
+                  the whole hardware/software stack on complete platforms.
+                  In contrast with other (deep learning) benchmarking
+                  challenges where experimental results are submitted in
+                  a form of JSON, CSV or XLS files, ReQuESTparticipants
+                  will be asked to submit a complete <i>workflow
+                  artifact</i> in a unified and automated form (i.e. not
+                  just some ad-hoc Docker/VM image) which encompasses
+                  toolchains, frameworks, algorithm, libraries, and target
+                  hardware platform; any of which can be fine-tuned,
+                  or customized at will by the participant to implement
+                  their optimization technique. <br> Such open
+                  infrastructure helps to bring together multidisciplinary
+                  researchers in systems, compilers, architecture and
+                  machine learning to develop and share their algorithms,
+                  tools and techniques as portable, customizable and
+                  "plug&play" components with a common API.
+              </p>
+              <p>
+                  We then arrange open REQUEST competitions
+                  on Pareto-efficient co-design of the whole
+                  software/hardware stack to continuously optimize such
+                  algorithms in terms of speed, accuracy, energy, costs
+                  and other metrics across diverse inputs and platforms
+                  from IoT to supercomputers.
+              </p>
+              <p>
+                  All benchmarking results and winning SW/HW/model
+                  configurations will be visualized on a <a
+                  href="https://cKnowledge.org/results">public SOTA
+                  leaderboard</a> and grouped according to certain
+                  categories (e.g.embedded vs. server). The winning
+                  artifacts will be discoverable via <a
+                  href="https://dl.acm.org">ACM Digital Library</a>
+                  to help the community reproduce, reuse, improve and
+                  compare against them thanks to the common experimental
+                  framework.
+              </p>
+              <p>
+                  We hope that our approach will help automate research and accelerate innovation!
+              </p>
+              <div class="container container-wrapped">See <a href="http://cknowledge.org/repo/web.php?wcid=1e348bd6ab43ce8a:a3ac71cab714a4da">REQUEST introduction report</a> 
+               and <a href="https://www.slideshare.net/GrigoriFursin/adapting-to-a-cambrian-aiswhw-explosion-with-open-codesign-competitions-and-collective-knowledge">CK presentation</a> 
+               about our long-term vision.</div>
+
+
+              <h3 class="pt-3 pt-lg-5">Open tournament framework goal</h3>
+              <p>
+                  REQUEST promotes reproducibility of experimental results
+                  and reusability/customization of research artifacts
+                  by standardizing evaluation methodologies and
+                  facilitating the deployment of efficient solutions
+                  on heterogeneous platforms. That is why we build our
+                  competition on top of an open-source and portable
+                  workflow framework (<a
+                  href="https://github.com/ctuning/ck">Collective
+                  Knowledge or CK</a>) and a <a
+                  href="http://cTuning.org/ae">standard artifact
+                  evaluation methodology</a> from premier ACM systems
+                  conferences (CGO, PPoPP, PACT, SuperComputing)
+                  to provide unified evaluation and a real-time
+                  leader-board of submissions.
+              </p>
+
+
+              <h3 class="pt-3 pt-lg-5">Metrics and Pareto-optimality goals</h3>
+              <p> REQUEST promotes quality-awareness to the architecture and systems community, and resource-awareness to the applications community and end-users.
+                  <br>
+                  The submissions and their evaluation metrics will
+                  be maintained in a public repository that includes
+                  a live leader board. Specific attention will be brought
+                  to submissions close to a Pareto frontier in
+                  a multi-dimensional space of accuracy, execution time,
+                  power/energy consumption, hardware/code/model footprint,
+                  monetary costs etc.
+              </p>
+                  <!-- Eventually we may want to converge on a few meaningful metrics to assess quality on a per-application basis, and efficiency on a per-platform basis. -->
+
+
+              <h3 class="pt-3 pt-lg-5">Application goals</h3>
+              <p>
+                  In the long term, REQUEST will cover a comprehensive
+                  suite of workloads, datasets and models covering
+                  applications domains that are most relevant
+                  to researchers in academia and industry (AI, vision,
+                  robotics, quantum computing, scientific computing, etc).
+                  This suite will evolve according to feedback and
+                  contributions from the community thus substituting
+                  ad-hoc, artificial, quickly outdated
+                  or non-representative benchmarks. Furthermore, all
+                  artifacts from this suite can be automatically plugged
+                  in to the REQUEST competition workflows to simplify,
+                  automate and accelerate systems research.
+              </p>
+              <p>
+                  For the first iteration of REQUEST at ASPLOS'18,
+                  we focus on Deep Learning. Our first step is to provide
+                  coverage for the <a
+                  href="http://www.image-net.org/">ImageNet</a> image
+                  classification challenge. Restricting the competition
+                  to a single application domain will allow us to prepare
+                  an open-source tournament infrastructure and validate
+                  it across multiple hardware platforms, deep learning
+                  frameworks, libraries, models and inputs. For future
+                  incarnations of ReQuEST, we will provide broader
+                  application coverage, based on the interests of the
+                  research community and the direction set by our
+                  industrial board.
+              </p>
+              <p> Though our main focus is on end-to-end applications,
+              we also plan to allow future submissions for (micro)kernels
+              such as matrix multiply, convolutions and transfer functions
+              to facilitate participation from the compilers and computer
+              architecture community.</p>
+
+                  <!-- However, we will provide a separate scoreboard for such submissions. -->
+
+
+              <h3 class="pt-3 pt-lg-5">Complete platforms goals</h3>
+              <p>REQUEST aims at covering a comprehensive set of hardware
+              systems from data-centers down to sensory nodes,
+              incorporating various forms of processors including GPUs,
+              DSPs, FPGAs, neuromorphic and even analogue accelerators
+              in the long term.</p>
+
+              <p>In general, we want to encourage participants to target accessible, off-the-shelf hardware to allow our artifact evaluation committee to conveniently reproduce their results. Example systems include:</p>
+              <ul>
+                  <li>
+                    Server-class: AWS/Azure cloud instance, any x86-based desktop system.
+                  </li>
+                  <li>
+                    Mobile-class: Any Arm-based (e.g. NVIDIA Jetson TX2, Raspberry Pi 3, Xilinx PYNQ board), or Intel-Atom-based SoC development board, Android-based smartphone or tablets.
+                  </li>
+                  <li>
+                   IoT-class: Low-power Arm micro-controllers (e.g. Freescale FRDM KL03 Development Board).
+                  </li>
+              </ul>
+              <p>If a submission relies on an exotic hardware platform, the participants can either provide restricted access to their evaluation platform to the artifact evaluation committee, or at least notify in advance (at least 3 weeks notice) the organizers of their choice so that a similar platform can be acquired in time (assuming costs are not prohibitive).</p>
+
+                  <!-- <p>We plan to certify 1-2 power analyzers supported by our evaluation framework. The organizing committee may use a high-precision power analyzer (e.g. Yokogawa WT310 used for LPIRC costing $3,000-4,000) to calibrate a low-cost power analyzer (e.g. Hardkernel SmartPower2 costing $37), and use the calibration results when determining the winners. -->
+
+              <p>In the longer term, we also plan to provide support for simulator-based evaluations for architecture/micro-architecture research.</p>
+
+                  <!-- Simulator-based research will be presented in a separate leaderboard with meta-performance models to extrapolate public simulation results to real systems and help refine models used in simulators. When validated, we can "promote" simulation results to the main scoreboard. -->
+
+
+              <h3 class="pt-3 pt-lg-5">Unified submission goal</h3>
+              <p>
+                  Authors need to submit a short document briefly describing their novel optimization technique or referencing already published paper, and providing a detailed specification of the experimental workflow including all related artifacts, evaluation methodology, and improved metrics to compete with other submissions.
+              </p>
+              <p>
+                  <i class="alert-danger">Note that novelty of the implemented techniques is not a requirement!
+                  We actually strongly encourage artifact submissions of already published techniques for which artifacts don't exist yet.
+                  We will independently reproduce them to prepare an open set of reference implementations of popular algorithms/frameworks/optimizations in a form of portable and customizable workflows which can be easily reused and build upon!</i>
+              </p>
+              <p>
+                  We want to unify every submission to enable fair evaluation.
+                  That is why we decided to use the open-source <a href="https://cKnowledge.org">Collective Knowledge workflow framework (CK)</a>.
+                  CK helps <a href="https://cknowledge.org/partners.html">the community</a> share artifacts (models, data sets, libraries, tools) as reusable and customizable components with a common JSON API and meta description.
+                  CK also helps to implement portable workflows which can <a href="https://github.com/ctuning/ck/wiki/Portable-workflows">adapt to a user environment</a> on Linux, Windows, MacOS and Android.
+                  <a href="https://acm.org">ACM</a> currently <a href="https://dl.acm.org/reproducibility.cfm">evaluates CK</a> to enabling sharing of reusable and portable artifacts in an ACM Digital Library.
+              </p>
+              <p>
+                  <a href="https://cTuning.org">Non-profit cTuning foundation</a> will help authors convert their artifacts and experimental scripts to the CK format during evaluation while reusing AI artifacts already shared by the community in the CK format (see <a href="https://github.com/ctuning/ck/wiki/Shared-repos#user-content-shared-workflows">CK AI repositories</a>,
+                  <a href="https://cknow.io/modules">CK modules (wrappers)</a>,
+                  <a href="https://cknow.io/soft">CK software detection plugins</a>,
+                  <a href="https://cknow.io/packages">portable CK packages</a>).
+                  Authors can also try to convert their workflows to the CK format themselves using the distinguished artifact from ACM CGO'17 as an example (see <a href="https://github.com/SamAinsworth/reproduce-cgo2017-paper">Artifact repository at GitHub</a>,
+                  <a href="https://ctuning.org/ae/submission_extra.html">Artifact Appendix</a>,
+                  <a href="https://github.com/ctuning/ck/wiki/Artifact-sharing">CK notes</a>,
+                  <a href="https://github.com/ctuning/ck/wiki/Portable-workflows">CK portable workflows</a>) though the learning curve is still quite steep - we plan to prepare CK tutorials based on feeback from the participants.
+              </p>
+
+
+              <h3 class="pt-3 pt-lg-5">Open evaluation and live leader board goals</h3>
+              <p>
+                  REQUEST is backed by the <a href="https://www.acm.org/publications/task-force-on-data-software-and-reproducibility">ACM Task Force on Data, Software, and Reproducibility in Publication</a> and will use the standard <a href="https://cTuning.org/ae/reviewing.html">ACM artifact evaluation methodology</a>.
+                  Artifact evaluation will be single blind (see <a href="http://cTuning.org/ae">PPoPP, CGO, PACT, RTSS and SuperComputing</a>), and the reviews can be made public (see <a href="http://adapt-workshop.org/submission2016.html">ADAPT</a>) upon the authors' request.
+                  Quality and efficiency metrics will be collected for each submission, and compiled on the <a href="https://cknow.io/c/result/pareto-efficient-ai-co-design-tournament-request-acm-asplos-2018">REQUEST live scoreboard</a>.
+              </p>
+              <p>
+                  REQUEST will not determine a single winner, as collapsing all of the metrics into one single metric across all platforms will result in over-engineered solutions.
+                  Instead, each REQUEST tournament will expose a set of quality, performance and efficiency metrics to perform optimizations on.
+              </p>
+
+
+              <h3 class="pt-3 pt-lg-5">Open dissemination goals (REQUEST workshops)</h3>
+              <p>
+                  We will organize REQUEST workshops associated with tournaments to let authors present and discuss their most efficient algorithms.
+                  We will also use workshops as an open forum to discuss how to improve our common reproducible methodology and framework for SW/HW co-design of emerging workloads with a broad academic and industrial community!
+              </p>
+              <p>
+                  Solutions do not have to be on the Pareto frontier to be accepted for such workshops and the open REQUEST repository - a submission can be praised for its originality, reproducibility, adaptability, scalability, portability, ease of use, etc.
+              </p>
+              <p>
+                  However, reproducible submissions on the Pareto frontier will have an option to be published in the ACM Digital Library with <a href="https://www.acm.org/publications/policies/artifact-review-badging">ACM available, reusable and replicated badges</a>.
+                  This will make them discoverable via ACM DL search engine — you can check this new feature yourself (since 2018) by selecting "Artifact Badge" for field and then select any badge you wish in the <a href="https://dl.acm.org/advsearch.cfm?coll=DL&dl=ACM">ACM DL advanced search</a>!
+              </p>
+                <center>
+                  <img src="https://www.acm.org/binaries/content/gallery/acm/publications/replication-badges/artifacts_available_dl.jpg" width="50">
+                  <img src="https://www.acm.org/binaries/content/gallery/acm/publications/replication-badges/artifacts_evaluated_reusable_dl.jpg" width="50">
+                  <img src="https://www.acm.org/binaries/content/gallery/acm/publications/replication-badges/results_replicated_dl.jpg" width="50">
+                </center>
+
+
+              <h3 class="pt-3 pt-lg-5">Advisory/industrial board goal</h3>
+              <p>
+                  Members of the REQUEST advisory/industrial board will look over and comment on the results of our tournaments and workshops, collaborate on a common methodology for reproducible evaluation and optimization, suggest realistic workloads for future tournaments, arrange access to rare hardware to Artifact Evaluation Committee, and provide prizes for the most efficient solutions.
+              </p>
+
+
+              <h3 class="pt-3 pt-lg-5">Open research goal</h3>
+              <p>
+                  REQUEST attempts to put systems researchers, application engineers and end-users on the same ground by providing a common and portable evaluation framework while sharing all artifacts and optimization results in an open and reproducible way.
+                  We expect that our open repository with customizable, reusable and optimized artifacts will be useful for
+              </p>
+              <ul>
+                  <li>
+                    scientists to accelerate their research by picking up the most efficient, resource-aware and input-adaptable solutions for their algorithms;
+                  </li>
+                  <li>
+                    SW/HW researchers to reuse, improve and build upon each others' work (main pillars of open science) thus accelerating machine learning and systems research;
+                  </li>
+                  <li>
+                    system designers and integrators to accelerate development of the next generation of efficient hardware and software for emerging workloads such as deep learning using publicly validated optimization results.
+                  </li>
+              </ul>
+              <p>
+                  Feel free to <a href="mailto:moreau@cs.washington.edu;Grigori.Fursin@cTuning.org">contact us</a> if you have questions or suggestions!
+              </p>
+          </div>
+

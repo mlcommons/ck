@@ -85,6 +85,11 @@
       "env": {
         "CM_GIT_CHECKOUT": "fix"
       }
+    },
+    "v3.0": {
+      "env": {
+        "CM_GIT_CHECKOUT": "r3.0"
+      }
     }
   }
 }

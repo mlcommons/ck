@@ -2,7 +2,7 @@
 <br>
 <br>
 
-**Note, that this CK-MLPerf documentation is discontinued after the [open MLCommons taskforce](../../../docs/mlperf-education-workgroup.md)
+**Note, that this CK-MLPerf documentation is discontinued after the [open MLCommons taskforce](../../../docs/taskforce.md)
   has released the [2nd generaton of the CK framework (CK2 or CM)](https://github.com/mlcommons/ck/tree/master/cm)
   to decompose MLPerf benchmark into a [database of reusable, portable, customizable and deterministic scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
   with a unified CLI, Python API and extensible JSON/YAML meta descriptions.**
@@ -80,7 +80,7 @@ Speech               | [CK &#177;](tasks/task-speech-pytorch.md) |  |  |  |  |  
 
 See other CK packages with open source datasets shared by the community 
 (to be standardized and connected with the new submission system):
-[View](https://cknowledge.io/?q=%22package%3Adataset-*%22)
+[View](https://cknow.io/?q=%22package%3Adataset-*%22)
 
 ## CK packages with ML models used for MLPerf submissions
 
@@ -96,7 +96,7 @@ See other CK packages with open source datasets shared by the community
 
 ## Customizable dashboards
 
-* [All aggregated MLPerf inference benchmark results](https://cknowledge.io/?q=%22mlperf-inference-all%22)
+* [All aggregated MLPerf inference benchmark results](https://cknow.io/?q=%22mlperf-inference-all%22)
 
 # Table of contents
 
@@ -122,8 +122,8 @@ See other CK packages with open source datasets shared by the community
 * [MLPerf&trade; object detection workflow](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/tasks/task-object-detection.md)
 * [Docker image for MLPerf&trade; with OpenVINO]( https://github.com/mlcommons/ck-mlops/tree/main/docker/mlperf-inference-v0.7.openvino)
 * [Jupyter notebook for ML DSE](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/f28u9epifr0nn09/ck-dse-demo-object-detection.ipynb)
-* [Webcam test of the MLPerf object detection model with TFLite](https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-webcam-linux-azure#test)
-* [Public scoreboard with MLPerf DSE](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
+* [Webcam test of the MLPerf object detection model with TFLite](https://cknow.io/solution/demo-obj-detection-coco-tf-cpu-webcam-linux-azure#test)
+* [Public scoreboard with MLPerf DSE](https://cknow.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
 
 
 # Further improvements
@@ -157,4 +157,4 @@ Thank you!
 
 # Coordinators
 
-* [Grigori Fursin](https://cKnowledge.io/@gfursin)
+* [Grigori Fursin](https://cKnowledge.org/gfursin)

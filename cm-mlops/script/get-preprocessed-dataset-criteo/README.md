@@ -44,21 +44,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,dataset,criteo,recommendation,dlrm,preprocessed(,variations from below) (flags from below)`
+1. `cm run script --tags=get,dataset,criteo,recommendation,dlrm,preprocessed[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "get dataset criteo recommendation dlrm preprocessed[,variations]" [--input_flags]`
 
-`cm run script "get dataset criteo recommendation dlrm preprocessed (variations from below)" (flags from below)`
+3. `cm run script afa59956272a4ba4 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script afa59956272a4ba4`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -119,8 +123,6 @@ ___
         - *CM_CRITEO_FAKE*: `yes`
       - Workflow:
     * `_full`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: ``
       - Workflow:
     * `_validation`
       - Workflow:
@@ -132,8 +134,8 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**dir**=value --> **CM_DATASET_PREPROCESSED_PATH**=value
-* --**threads**=value --> **CM_NUM_PREPROCESS_THREADS**=value
+* `--dir=value`  &rarr;  `CM_DATASET_PREPROCESSED_PATH=value`
+* `--threads=value`  &rarr;  `CM_NUM_PREPROCESS_THREADS=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -148,13 +150,16 @@ r=cm.access({... , "dir":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/_cm.json)***
      * get,python3
@@ -192,15 +197,17 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/_cm.json)
   1. Run "postrocess" function from customize.py
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_DATASET_***
+* `CM_DATASET_*`
 #### New environment keys auto-detected from customize
 
-* **CM_DATASET_PREPROCESSED_PATH**
+* `CM_DATASET_PREPROCESSED_PATH`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

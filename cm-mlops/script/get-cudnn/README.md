@@ -41,21 +41,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,cudnn,nvidia(,variations from below) (flags from below)`
+1. `cm run script --tags=get,cudnn,nvidia [--input_flags]`
 
-*or*
+2. `cm run script "get cudnn nvidia" [--input_flags]`
 
-`cm run script "get cudnn nvidia (variations from below)" (flags from below)`
+3. `cm run script d73ee19baee14df8 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script d73ee19baee14df8`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -99,7 +103,8 @@ ___
 
 #### Input description
 
-* --**input** Path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)
+* --**input** Full path to the installed cuDNN library
+* --**tar_file** Full path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -111,7 +116,8 @@ r=cm.access({... , "input":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**input**=value --> **CM_INPUT**=value
+* `--input=value`  &rarr;  `CM_INPUT=value`
+* `--tar_file=value`  &rarr;  `CM_CUDNN_TAR_FILE_PATH=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -126,15 +132,18 @@ r=cm.access({... , "input":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_SUDO: **sudo**
-* CM_INPUT: ****
+* CM_SUDO: `sudo`
+* CM_INPUT: ``
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)***
      * detect,os
@@ -150,24 +159,26 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **+CPLUS_INCLUDE_PATH**
-* **+C_INCLUDE_PATH**
-* **+DYLD_FALLBACK_LIBRARY_PATH**
-* **+LD_LIBRARY_PATH**
-* **+PATH**
-* **CM_CUDA_PATH_LIB_CUDNN**
-* **CM_CUDA_PATH_LIB_CUDNN_EXISTS**
-* **CM_CUDNN_***
+* `+CPLUS_INCLUDE_PATH`
+* `+C_INCLUDE_PATH`
+* `+DYLD_FALLBACK_LIBRARY_PATH`
+* `+LD_LIBRARY_PATH`
+* `+PATH`
+* `CM_CUDA_PATH_LIB_CUDNN`
+* `CM_CUDA_PATH_LIB_CUDNN_EXISTS`
+* `CM_CUDNN_*`
 #### New environment keys auto-detected from customize
 
-* **CM_CUDA_PATH_LIB_CUDNN**
-* **CM_CUDA_PATH_LIB_CUDNN_EXISTS**
-* **CM_CUDNN_VERSION**
+* `CM_CUDA_PATH_LIB_CUDNN`
+* `CM_CUDA_PATH_LIB_CUDNN_EXISTS`
+* `CM_CUDNN_VERSION`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

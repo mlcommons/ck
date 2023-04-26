@@ -32,6 +32,12 @@
       "tags": "get,generic-python-lib,_sox"
     },
     {
+      "tags": "get,generic-python-lib,_pandas"
+    },
+    {
+      "tags": "get,generic-python-lib,_tqdm"
+    },
+    {
       "tags": "get,sys-util,generic,_sox"
     }
   ],
@@ -129,11 +135,6 @@
         "CM_DATASET_DTYPE": "int8"
       },
       "group": "dataset-precision"
-    },
-    "nvidia": {
-      "env": {
-        "CM_PREPROCESSING_BY_NVIDIA": "yes"
-      }
     },
     "validation": {
       "add_deps": {

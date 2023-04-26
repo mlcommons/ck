@@ -29,7 +29,7 @@ def main():
             print ('Searching CM scripts using tags "{}"'.format(script_tags))
 
             r = cmind.access({'action':'find', 
-                              'automation':'script', 
+                              'automation':'script,5b4e0237da074764', 
                               'tags':script_tags})
             if r['return']>0: return r
 
@@ -95,7 +95,10 @@ def main():
                 # Do not continue this loop if alias
                 continue
 
-            default = variation.get('default', False)
+            if 'default_gui' in variation:
+                default = variation['default_gui']
+            else:
+                default = variation.get('default', False)
 
             if not default:
                 # Check outdated
@@ -144,10 +147,13 @@ def main():
                     if variation_key in default_variations:
                         selected_index=index
 
-                st_variations[group_key] = st.selectbox(group_key_cap, sorted(y), index=selected_index, key=group_key)
+                st_variations['~'+group_key] = st.selectbox(group_key_cap, sorted(y), index=selected_index, key='~'+group_key)
             elif group_key == '*no-group*':
                 for variation_key in sorted(variation_groups[group_key]):
-                    st_variations[variation_key] = st.checkbox(variation_key.capitalize(), key=variation_key)
+                    x = False
+                    if variation_key in default_variations:
+                        x=True
+                    st_variations['#'+variation_key] = st.checkbox(variation_key.capitalize(), key='#'+variation_key, value=x)
 
 
         # Prepare inputs
@@ -156,9 +162,11 @@ def main():
         if len(input_desc)>0:
             st.markdown("""---""")
             st.subheader('Script flags')
-            
-            for key in input_desc:
+
+            for key in sorted(input_desc, key = lambda x: input_desc[x].get('sort',0)):
                 value = input_desc[key]
+
+                key2 = '@'+key
 
                 if type(value) == dict:
                     desc = value['desc']
@@ -168,25 +176,26 @@ def main():
                     default = value.get('default', '')
 
                     if boolean:
-                        st_inputs[key] = st.checkbox(desc, value=default, key=key)
+                        st_inputs[key2] = st.checkbox(desc, value=default, key=key2)
                     elif len(choices)>0:
                         selected_index = choices.index(default) if default!='' else 0
-                        st_inputs[key] = st.selectbox(desc, choices, index=selected_index, key=key)
+                        st_inputs[key2] = st.selectbox(desc, choices, index=selected_index, key=key2)
                     else:
-                        st_inputs[key] = st.text_input(desc, value=default, key=key)
-                        
+                        st_inputs[key2] = st.text_input(desc, value=default, key=key2)
+
                 else:
                     desc = value
-                    st_inputs[key] = st.text_input(desc)
+                    st_inputs[key2] = st.text_input(desc)
 
 
     # Check tags
     selected_variations=[]
     for k in st_variations:
         v = st_variations[k]
+        k2 = k[1:]
         if type(v)==bool:
             if v:
-                selected_variations.append('_'+k)
+                selected_variations.append('_'+k2)
         elif v!='':
             selected_variations.append('_'+v)
 
@@ -206,29 +215,60 @@ def main():
     flags = ''
     for key in st_inputs:
         value = st_inputs[key]
+        key2 = key[1:]
 
         if value!='' and (type(value)!=bool or value==True):
-            flags+=' --'+key
+            flags+=' \\\n   --'+key2
             if type(value)!=bool:
-                flags+='='+str(value)
+                x = str(value)
+                if ' ' in x or ':' in x or '/' in x or '\\' in x: 
+                    x='"'+x+'"'
+                flags+='='+x
 
     ########################################################
     # Extra CMD
     st.markdown("""---""")
-    cmd_extension = st.text_input("CM Command Line extension")
+    cmd_extension = st.text_input("CM Command Line extension").strip()
 
     # Prepare CLI
-    cli = 'cm run script {} {} {}'.format(tags, flags, cmd_extension)
+    x = '' if cmd_extension=='' else '\\\n   '+cmd_extension
+    
+    cli = 'cm run script {} {} {} \\\n'.format(tags, flags, x)
 
     if no_run=='':
-        cli+=' --pause'
+        cli+='   --pause\n'
 
     # Print CLI
     st.markdown("""---""")
 
-    st.text_area('Get [CK2 (CM) framework](https://github.com/mlcommons/ck) and install automation repository:', 'python3 -m pip install cmind -U\ncm pull repo mlcommons@ck', height=10)
+    x = 'python3 -m pip install cmind -U\n\ncm pull repo mlcommons@ck\n'
 
-    cli = st.text_area('**Run CM script:**', cli, height=200)
+    # Hack to detect python virtual environment and version
+    python_venv_name=st_inputs.get('adr.python.name', '')
+    python_ver=st_inputs.get('adr.python.version', '')
+    python_ver_min=st_inputs.get('adr.python.version_min', '')
+
+    y = ''
+    if python_venv_name!='' or python_ver!='':
+        y = '\ncm run script "get sys-utils-cm"\n'
+
+        if python_venv_name!='':
+            y+='cm run script "install python-venv" --name='+str(python_venv_name)
+        else:
+            y+='cm run script "get python"'
+
+        if python_ver!='':
+            y+=' --version='+str(python_ver)
+
+        if python_ver_min!='':
+            y+=' --version_min='+str(python_ver_min)
+
+    if y!='':
+        x+=y
+
+    st.text_area('**Install [CM (CK2) framework](https://github.com/mlcommons/ck) with a few dependencies:**', x, height=170)
+
+    cli = st.text_area('**Run CM script:**', cli, height=500)
 
 
     # Add explicit button "Run"
@@ -248,9 +288,8 @@ def main():
         os.system(cmd2)
 
     st.markdown("""---""")
-    st.markdown("*Join the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) and the public [Discord channel](https://discord.gg/JjWNWXKxwT) to participate in collaborative developments, benchmarking and design space exploration of ML Systems!*")
-    st.markdown("")
-    st.markdown("*Please report issues or suggest features [here](https://github.com/mlcommons/ck/issues).*")
+    st.markdown("*Join the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) and the public [Discord channel](https://discord.gg/JjWNWXKxwT) to participate in collaborative developments, benchmarking and design space exploration of ML Systems!"
+                " Please report issues or suggest features [here](https://github.com/mlcommons/ck/issues).*")
 
 if __name__ == "__main__":
     main()

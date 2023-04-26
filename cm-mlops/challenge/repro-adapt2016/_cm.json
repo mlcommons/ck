@@ -1,0 +1,18 @@
+{
+  "alias": "repro-adapt2016",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20160118",
+  "date_open": "20160118",
+  "notes": "open Reddit-based reviewing",
+  "reproduced_papers_tags": "papers-adapt-2016",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-adapt2014"
+  ],
+  "title": "Reproduce papers at ADAPT'16 (artifact evaluation)",
+  "uid": "87c05f61f2ea4446",
+  "url": "http://adapt-workshop.org/index2016.html"
+}

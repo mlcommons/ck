@@ -44,21 +44,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,tvm,get-tvm(,variations from below) (flags from below)`
+1. `cm run script --tags=get,tvm,get-tvm[,variations] `
 
-*or*
+2. `cm run script "get tvm get-tvm[,variations]" `
 
-`cm run script "get tvm get-tvm (variations from below)" (flags from below)`
+3. `cm run script 93c89140e6224f4b `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 93c89140e6224f4b`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -113,7 +117,7 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,cuda
              - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
-    * `_llvm`
+    * **`_llvm`** (default)
       - Environment variables:
         - *CM_TVM_USE_LLVM*: `yes`
       - Workflow:
@@ -135,27 +139,34 @@ ___
 
     </details>
 
+
+#### Default variations
+
+`_llvm`
 #### Default environment
 
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_GIT_CHECKOUT: **main**
-* CM_GIT_URL: **https://github.com/apache/tvm**
-* CM_TVM_PIP_INSTALL: **no**
+* CM_GIT_CHECKOUT: `main`
+* CM_GIT_URL: `https://github.com/apache/tvm`
+* CM_TVM_PIP_INSTALL: `no`
 
 </details>
 
 #### Versions
-* main
-* v0.10.0
-* v0.7.0
-* v0.8.0
-* v0.9.0
+* `main`
+* `v0.10.0`
+* `v0.7.0`
+* `v0.8.0`
+* `v0.9.0`
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm/_cm.json)***
      * cmake,get-cmake
@@ -179,20 +190,22 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **+DYLD_FALLBACK_LIBRARY_PATH**
-* **+LD_LIBRARY_PATH**
-* **+PYTHONPATH**
-* **CM_TVM_***
-* **TVM_HOME**
+* `+DYLD_FALLBACK_LIBRARY_PATH`
+* `+LD_LIBRARY_PATH`
+* `+PYTHONPATH`
+* `CM_TVM_*`
+* `TVM_HOME`
 #### New environment keys auto-detected from customize
 
-* **CM_TVM_PATH_INCLUDE**
-* **CM_TVM_PATH_LIB**
+* `CM_TVM_PATH_INCLUDE`
+* `CM_TVM_PATH_LIB`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

@@ -1,0 +1,13 @@
+{
+  "alias": "hpe",
+  "automation_alias": "contributor",
+  "automation_uid": "68eae17b590d4f8f",
+  "challenges": [
+    "mlperf-inference-v3.0-2023",
+    "mlperf-inference-v2.1-2022"
+  ],
+  "last_participation_date": "20230323",
+  "organization": "HPE",
+  "tags": [],
+  "uid": "3adb478f7e0d4d72"
+}

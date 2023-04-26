@@ -43,21 +43,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,ml-model,raw,bert,bert-large,bert-squad,language,language-processing(,variations from below) (flags from below)`
+1. `cm run script --tags=get,ml-model,raw,bert,bert-large,bert-squad,language,language-processing[,variations] `
 
-*or*
+2. `cm run script "get ml-model raw bert bert-large bert-squad language language-processing[,variations]" `
 
-`cm run script "get ml-model raw bert bert-large bert-squad language language-processing (variations from below)" (flags from below)`
+3. `cm run script 5e865dbdc65949d2 `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 5e865dbdc65949d2`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -200,7 +204,6 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_PRECISION*: `int8`
         - *CM_ML_MODEL_QUANTIZED*: `yes`
-        - *CM_PACKAGE_URL*: `https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx`
       - Workflow:
 
     </details>
@@ -214,13 +217,16 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/customize.py)***
@@ -229,18 +235,20 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)
   1. Run "postrocess" function from customize.py
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_ML_MODEL***
+* `CM_ML_MODEL*`
 #### New environment keys auto-detected from customize
 
-* **CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH**
-* **CM_ML_MODEL_FILE**
-* **CM_ML_MODEL_FILE_WITH_PATH**
-* **CM_ML_MODEL_PATH**
+* `CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH`
+* `CM_ML_MODEL_FILE`
+* `CM_ML_MODEL_FILE_WITH_PATH`
+* `CM_ML_MODEL_PATH`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

@@ -110,14 +110,14 @@ public:
   const int batch_size = 1;
   const int num_channels = 3;
   const int num_classes = 1000;
-  const bool normalize_img = getenv_b("CM_DATASET_NORMALIZE_DATA",0);
+  const bool normalize_img = getenv_b("CM_ML_MODEL_NORMALIZE_DATA");
 
-  const bool subtract_mean = getenv_b("CM_DATASET_SUBTRACT_MEANS", 0);
-  const char *given_channel_means_str getenv("CM_DATASET_GIVEN_CHANNEL_MEANS");
+  const bool subtract_mean = getenv_b("CM_ML_MODEL_SUBTRACT_MEANS");
+  const char *given_channel_means_str = getenv("CM_ML_MODEL_GIVEN_CHANNEL_MEANS");
 
-  const bool trigger_cold_run = getenv_b("CM_MLPERF_LOADGEN_TRIGGER_COLD_RUN", 0);
+  const bool trigger_cold_run = getenv_b("CM_MLPERF_LOADGEN_TRIGGER_COLD_RUN");
 
-  const int verbosity_level = getenv_i("CM_VERBOSE",0);
+  const int verbosity_level = getenv_i("CM_VERBOSE");
 
   BenchmarkSettings(enum MODEL_TYPE mode = MODEL_TYPE::LITE) {
 
@@ -148,7 +148,9 @@ public:
     _number_of_threads = !getenv("CM_HOST_CPU_TOTAL_CORES")
                          ? _number_of_threads
                          : getenv_i("CM_HOST_CPU_TOTAL_CORES");
-
+    if (getenv_i("CM_HOST_CPU_TOTAL_CORES") && getenv_i("CM_HOST_CPU_THREADS_PER_CORE")) {
+        _number_of_threads = getenv_i("CM_HOST_CPU_TOTAL_CORES") / getenv_i("CM_HOST_CPU_THREADS_PER_CORE");
+    }
     // Print settings
     std::cout << "Graph file: " << _graph_file << std::endl;
     std::cout << "Image dir: " << images_dir << std::endl;
@@ -160,6 +162,8 @@ public:
     std::cout << "How many images fit in memory buffer: " << images_in_memory_max << std::endl;
     std::cout << "Normalize: " << normalize_img << std::endl;
     std::cout << "Subtract mean: " << subtract_mean << std::endl;
+    std::cout << "Run time preprocessing: " << !skip_internal_preprocessing << std::endl;
+    std::cout << "Number of Threads: " << _number_of_threads << std::endl;
     if(subtract_mean && given_channel_means_str)
         std::cout << "Per-channel means to subtract: " << given_channel_means[0]
             << ", " << given_channel_means[1]

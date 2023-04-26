@@ -1,0 +1,16 @@
+{
+  "alias": "repro-sc2016",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20161113",
+  "date_open": "20161113",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-sc2016"
+  ],
+  "title": "Reproducing papers at ACM/IEEE SuperComputing'16 (artifact evaluation)",
+  "uid": "b12cafdf81154f64",
+  "url": "http://sc17.supercomputing.org/2017/02/07/submitting-a-technical-paper-to-sc17-participate-in-the-sc17-reproducibility-initiative"
+}

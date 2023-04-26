@@ -41,7 +41,8 @@
         }
       ],
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apache-tvm"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apache-tvm",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": " --pre"
       },
       "new_env_keys": [
         "CM_APACHE_TVM_VERSION"
@@ -55,12 +56,85 @@
         "CM_ATTRS_VERSION"
       ]
     },
+    "apex": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apex"
+      },
+      "new_env_keys": [
+        "CM_APEX_VERSION"
+      ]
+    },
+    "nvidia-apex": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apex",
+        "CM_GENERIC_PYTHON_PACKAGE_VARIANT": "nvidia-apex"
+      },
+      "new_env_keys": [
+        "CM_NVIDIA_APEX_VERSION"
+      ],
+      "deps": [
+        {
+          "names": [
+            "torch"
+          ],
+          "tags": "get,generic-python-lib,_torch_cuda"
+        }
+      ]
+    },
+    "google-api-python-client": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "google_api_python_client"
+      },
+      "new_env_keys": [
+        "CM_GOOGLE_API_PYTHON_CLIENT_VERSION"
+      ]
+    },
+    "scons": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "scons"
+      },
+      "new_env_keys": [
+        "CM_SCONS_VERSION"
+      ]
+    },
+    "google-auth-oauthlib": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "google_auth_oauthlib"
+      },
+      "new_env_keys": [
+        "CM_GOOGLE_AUTH_OAUTHLIB_VERSION"
+      ]
+    },
+    "tensorboard": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tensorboard"
+      },
+      "new_env_keys": [
+        "CM_TENSORBOARD_VERSION"
+      ]
+    },
+    "Pillow": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "Pillow"
+      },
+      "new_env_keys": [
+        "CM_PILLOW_VERSION"
+      ]
+    },
     "boto3": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "boto3"
       },
       "new_env_keys": [
         "CM_BOTO3_VERSION"
+      ]
+    },
+    "fiftyone": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "fiftyone"
+      },
+      "new_env_keys": [
+        "CM_FIFTYONE_VERSION"
       ]
     },
     "cmind": {
@@ -78,6 +152,14 @@
       },
       "new_env_keys": [
         "CM_COLORED_VERSION"
+      ]
+    },
+    "attr": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "attr"
+      },
+      "new_env_keys": [
+        "CM_ATTR_VERSION"
       ]
     },
     "decorator": {
@@ -138,6 +220,14 @@
         "CM_LIBROSA_VERSION"
       ]
     },
+    "matplotlib": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "matplotlib"
+      },
+      "new_env_keys": [
+        "CM_MATPLOTLIB_VERSION"
+      ]
+    },
     "mlperf_logging": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "mlperf_logging",
@@ -145,6 +235,14 @@
       },
       "new_env_keys": [
         "CM_MLPERF_LOGGING_VERSION"
+      ]
+    },
+    "mpld3": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "mpld3"
+      },
+      "new_env_keys": [
+        "CM_MPLD3_VERSION"
       ]
     },
     "nibabel": {
@@ -213,6 +311,14 @@
         "CM_ONNX_VERSION"
       ]
     },
+    "huggingface_hub": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "huggingface_hub"
+      },
+      "new_env_keys": [
+        "CM_HUGGINGFACE_HUB_VERSION"
+      ]
+    },
     "onnxruntime": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnxruntime"
@@ -230,12 +336,15 @@
           "tags": "get,cuda"
         }
       ],
+      "default_env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "onnxruntime"
+      },
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnxruntime_gpu",
         "CM_ONNXRUNTIME_VERSION_EXTRA": "GPU"
       },
       "new_env_keys": [
-        "CM_ONNXRUNTIME_VERSION*"
+        "CM_ONNXRUNTIME_GPU_VERSION*"
       ]
     },
     "opencv-python": {
@@ -260,6 +369,22 @@
       },
       "new_env_keys": [
         "CM_PILLOW_VERSION"
+      ]
+    },
+    "sparsezoo": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "sparsezoo"
+      },
+      "new_env_keys": [
+        "CM_SPARSEZOO_VERSION"
+      ]
+    },
+    "setfit": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "setfit"
+      },
+      "new_env_keys": [
+        "CM_SETFIT_VERSION"
       ]
     },
     "pip": {
@@ -380,6 +505,14 @@
         "CM_STREAMLIT_VERSION"
       ]
     },
+    "streamlit_option_menu": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "streamlit_option_menu"
+      },
+      "new_env_keys": [
+        "CM_STREAMLIT_OPTION_MENU_VERSION"
+      ]
+    },
     "tensorflow": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "tensorflow"
@@ -404,12 +537,64 @@
         "CM_TOKENIZATION_VERSION"
       ]
     },
+    "six": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "six"
+      },
+      "new_env_keys": [
+        "CM_SIX_VERSION"
+      ]
+    },
     "toml": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "toml"
       },
       "new_env_keys": [
         "CM_TOML_VERSION"
+      ]
+    },
+    "pre": {
+      "env": {
+        "CM_GENERIC_PYTHON_DEV_VERSION": "yes"
+      }
+    },
+    "torch,pre": {
+      "default_env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torch"
+      },
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": " --pre",
+        "CM_GENERIC_PYTHON_PIP_INDEX_URL": "https://download.pytorch.org/whl/nightly/cpu"
+      },
+      "new_env_keys": [
+        "CM_TORCH_VERSION*"
+      ]
+    },
+    "torch_cuda,pre": {
+      "deps": [
+        {
+          "names": [
+            "cuda"
+          ],
+          "tags": "get,cuda"
+        },
+        {
+          "tags": "get,generic-python-lib,_numpy"
+        }
+      ],
+      "default_env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torch_cuda"
+      },
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_GENERIC_PYTHON_PIP_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": " --pre",
+        "CM_TORCH_CUDA": "cu117",
+        "CM_TORCH_VERSION_EXTRA": "CUDA"
+      },
+      "new_env_keys": [
+        "CM_TORCH_VERSION*"
       ]
     },
     "torch": {
@@ -430,10 +615,13 @@
           "tags": "get,cuda"
         }
       ],
+      "default_env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torch"
+      },
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
         "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
-        "CM_TORCH_CUDA": "cu116",
+        "CM_TORCH_CUDA": "cu117",
         "CM_TORCH_VERSION_EXTRA": "CUDA"
       },
       "new_env_keys": [
@@ -458,11 +646,14 @@
           "tags": "get,cuda"
         }
       ],
+      "default_env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torchaudio"
+      },
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio",
         "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
         "CM_TORCHAUDIO_VERSION_EXTRA": "CUDA",
-        "CM_TORCH_CUDA": "cu116"
+        "CM_TORCH_CUDA": "cu117"
       },
       "new_env_keys": [
         "CM_TORCHAUDIO_VERSION*"
@@ -486,6 +677,9 @@
           "tags": "get,cuda"
         }
       ],
+      "default_env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torchvision"
+      },
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision",
         "CM_TORCHVISION_VERSION_EXTRA": "CUDA"
@@ -548,6 +742,46 @@
       },
       "new_env_keys": [
         "CM_WEST_VERSION"
+      ]
+    },
+    "tflite": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tflite"
+      },
+      "new_env_keys": [
+        "CM_TFLITE_VERSION"
+      ]
+    },
+    "xlsxwriter": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "xlsxwriter"
+      },
+      "new_env_keys": [
+        "CM_XLSXWRITER_VERSION"
+      ]
+    },
+    "xgboost": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "xgboost"
+      },
+      "new_env_keys": [
+        "CM_XGBOOST_VERSION"
+      ]
+    },
+    "cloudpickle": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "cloudpickle"
+      },
+      "new_env_keys": [
+        "CM_CLOUDPICKLE_VERSION"
+      ]
+    },
+    "tornado": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tornado"
+      },
+      "new_env_keys": [
+        "CM_TORNADO_VERSION"
       ]
     }
   }

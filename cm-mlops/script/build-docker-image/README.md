@@ -43,21 +43,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=build,docker,image,docker-image,dockerimage(,variations from below) (flags from below)`
+1. `cm run script --tags=build,docker,image,docker-image,dockerimage [--input_flags]`
 
-*or*
+2. `cm run script "build docker image docker-image dockerimage" [--input_flags]`
 
-`cm run script "build docker image docker-image dockerimage (variations from below)" (flags from below)`
+3. `cm run script 2c3c4ba2413442e7 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 2c3c4ba2413442e7`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -103,19 +107,19 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**cache**=value --> **CM_DOCKER_CACHE**=value
-* --**cm_repo**=value --> **CM_MLOPS_REPO**=value
-* --**docker_os**=value --> **CM_DOCKER_OS**=value
-* --**docker_os_version**=value --> **CM_DOCKER_OS_VERSION**=value
-* --**dockerfile**=value --> **CM_DOCKERFILE_WITH_PATH**=value
-* --**gh_token**=value --> **CM_GH_TOKEN**=value
-* --**image_name**=value --> **CM_DOCKER_IMAGE_NAME**=value
-* --**image_repo**=value --> **CM_DOCKER_IMAGE_REPO**=value
-* --**image_tag**=value --> **CM_DOCKER_IMAGE_TAG**=value
-* --**post_run_cmds**=value --> **CM_DOCKER_POST_RUN_COMMANDS**=value
-* --**pre_run_cmds**=value --> **CM_DOCKER_PRE_RUN_COMMANDS**=value
-* --**real_run**=value --> **CM_REAL_RUN**=value
-* --**script_tags**=value --> **CM_DOCKER_RUN_SCRIPT_TAGS**=value
+* `--cache=value`  &rarr;  `CM_DOCKER_CACHE=value`
+* `--cm_repo=value`  &rarr;  `CM_MLOPS_REPO=value`
+* `--docker_os=value`  &rarr;  `CM_DOCKER_OS=value`
+* `--docker_os_version=value`  &rarr;  `CM_DOCKER_OS_VERSION=value`
+* `--dockerfile=value`  &rarr;  `CM_DOCKERFILE_WITH_PATH=value`
+* `--gh_token=value`  &rarr;  `CM_GH_TOKEN=value`
+* `--image_name=value`  &rarr;  `CM_DOCKER_IMAGE_NAME=value`
+* `--image_repo=value`  &rarr;  `CM_DOCKER_IMAGE_REPO=value`
+* `--image_tag=value`  &rarr;  `CM_DOCKER_IMAGE_TAG=value`
+* `--post_run_cmds=value`  &rarr;  `CM_DOCKER_POST_RUN_COMMANDS=value`
+* `--pre_run_cmds=value`  &rarr;  `CM_DOCKER_PRE_RUN_COMMANDS=value`
+* `--real_run=value`  &rarr;  `CM_REAL_RUN=value`
+* `--script_tags=value`  &rarr;  `CM_DOCKER_RUN_SCRIPT_TAGS=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -130,15 +134,18 @@ r=cm.access({... , "cache":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_DOCKER_IMAGE_REPO: **local**
-* CM_DOCKER_IMAGE_TAG: **latest**
+* CM_DOCKER_IMAGE_REPO: `local`
+* CM_DOCKER_IMAGE_TAG: `latest`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image/customize.py)***
@@ -152,19 +159,21 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image/_cm.json)
   1. Run "postrocess" function from customize.py
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_DOCKER_***
+* `CM_DOCKER_*`
 #### New environment keys auto-detected from customize
 
-* **CM_DOCKER_BUILD_ARGS**
-* **CM_DOCKER_CACHE_ARG**
-* **CM_DOCKER_IMAGE_NAME**
-* **CM_DOCKER_IMAGE_REPO**
-* **CM_DOCKER_IMAGE_TAG**
+* `CM_DOCKER_BUILD_ARGS`
+* `CM_DOCKER_CACHE_ARG`
+* `CM_DOCKER_IMAGE_NAME`
+* `CM_DOCKER_IMAGE_REPO`
+* `CM_DOCKER_IMAGE_TAG`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

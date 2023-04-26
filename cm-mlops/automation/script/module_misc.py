@@ -209,7 +209,8 @@ def doc(i):
         default_variation = meta.get('default_variation','')
         default_version = meta.get('default_version','')
 
-
+        input_mapping = meta.get('input_mapping', {})
+        input_description = meta.get('input_description', {})
 
         category = meta.get('category', '').strip()
         category_sort = meta.get('category_sort', 0)
@@ -369,16 +370,26 @@ def doc(i):
 #        x = '* CM automation "script": *[Docs]({})*'.format('https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script')
 #        md_script.append(x)
 #        md_script_readme.append(x)
+
+        if len(variation_keys)>0:
+            variation_pointer="[,variations]"
+        else:
+            variation_pointer=''
+
+        if len(input_mapping)>0:
+            input_mapping_pointer="[--input_flags]"
+        else:
+            input_mapping_pointer=''
         
-        cli_all_tags = '`cm run script --tags={}(,variations from below) (flags from below)`'.format(','.join(tags))
+        cli_all_tags = '`cm run script --tags={}{} {}`'.format(','.join(tags), variation_pointer, input_mapping_pointer)
         x = '* CM CLI with all tags: {}*'.format(cli_all_tags)
         md_script.append(x)
 
-        cli_all_tags_alternative = '`cm run script "{} (variations from below)" (flags from below)`'.format(' '.join(tags))
+        cli_all_tags_alternative = '`cm run script "{}{}" {}`'.format(' '.join(tags), variation_pointer, input_mapping_pointer)
         x = '* CM CLI alternative: {}*'.format(cli_all_tags_alternative)
         md_script.append(x)
 
-        cli_uid = '`cm run script {}`'.format(meta['uid'])
+        cli_uid = '`cm run script {} {}`'.format(meta['uid'], input_mapping_pointer)
         x = '* CM CLI with alias and UID: {}*'.format(cli_uid)
         md_script.append(x)
 
@@ -442,6 +453,7 @@ def doc(i):
         # Add usage
         x1 = 'Usage'
         x1a = 'CM installation'
+        x1aa = 'CM pull repository'
         x1b = 'CM script automation help'
         x2 = 'CM CLI'
         x3 = 'CM Python API'
@@ -454,24 +466,29 @@ def doc(i):
                              '',
                              '[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)',
                              '',
-                             '#### '+x1b,
+                             '##### '+x1aa,
+                             '',
+                             '```cm pull repo {}```'.format(repo_alias),
+                             '',
+                             '##### '+x1b,
                              '',
                              '```cm run script --help```',
                              '',
                              '#### '+x2,
                              '',
-                             '{}'.format(cli_all_tags),
+                             '1. {}'.format(cli_all_tags),
                              '',
-                             '*or*',
+                             '2. {}'.format(cli_all_tags_alternative),
                              '',
-                             '{}'.format(cli_all_tags_alternative),
-                             '',
-                             '*or*',
-                             '',
-                             '{}'.format(cli_uid),
-
-                             '',
-                             '#### '+x3,
+                             '3. {}'.format(cli_uid),
+                             '']
+        md_script_readme += ['* `variations` can be seen [here](#variations)',
+                             ''
+                             ]
+        md_script_readme += ['* `input_flags` can be seen [here](#script-flags-mapped-to-environment)',
+                             ''
+                             ]
+        md_script_readme += ['#### '+x3,
                              '',
                              '<details>',
                              '<summary>Click here to expand this section.</summary>',
@@ -687,7 +704,6 @@ def doc(i):
 
 
 
-        input_description = meta.get('input_description', {})
         if len(input_description)>0:
             x = 'Input description'
             md_script_readme.append('')
@@ -725,7 +741,6 @@ def doc(i):
         
         
         # Check input flags
-        input_mapping = meta.get('input_mapping', {})
         if len(input_mapping)>0:
             x = 'Script flags mapped to environment'
             md_script_readme.append('')
@@ -740,7 +755,7 @@ def doc(i):
             for key in sorted(input_mapping):
                 if key0=='': key0=key
                 value = input_mapping[key]
-                md_script_readme.append('* --**{}**=value --> **{}**=value'.format(key,value))
+                md_script_readme.append('* `--{}=value`  &rarr;  `{}=value`'.format(key,value))
 
             md_script_readme.append('')
             md_script_readme.append('**Above CLI flags can be used in the Python CM API as follows:**')
@@ -766,12 +781,12 @@ def doc(i):
         md_script_readme.append('<details>')
         md_script_readme.append('<summary>Click here to expand this section.</summary>')
         md_script_readme.append('')
-        md_script_readme.append('These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.')
+        md_script_readme.append('These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.')
         md_script_readme.append('')
 
         for key in default_env:
             value = default_env[key]
-            md_script_readme.append('* {}: **{}**'.format(key,value))
+            md_script_readme.append('* {}: `{}`'.format(key,value))
 
         md_script_readme.append('')
         md_script_readme.append('</details>')
@@ -790,12 +805,12 @@ def doc(i):
             toc_readme.append(x)
 
             if default_version!='':
-                md_script_readme.append('Default version: *{}*'.format(default_version))
+                md_script_readme.append('Default version: `{}`'.format(default_version))
                 md_script_readme.append('')
 
             if len(version_keys)>0:
                 for version in version_keys:
-                    md_script_readme.append('* {}'.format(version))
+                    md_script_readme.append('* `{}`'.format(version))
 
 
         
@@ -805,6 +820,11 @@ def doc(i):
                              '### '+x,
                              '']
         toc_readme.append(x)
+
+        md_script_readme.append('<details>')
+        md_script_readme.append('<summary>Click here to expand this section.</summary>')
+
+        md_script_readme.append('')
 
         # Check customize.py file
         path_customize = os.path.join(path, 'customize.py')
@@ -881,6 +901,8 @@ def doc(i):
         md_script_readme.append(('  1. '+x+'Run "postrocess" function from {}'+x).format(y))
 
         process_deps(self_module, meta, meta_url, md_script_readme, 'post_deps')
+        md_script_readme.append('</details>')
+        md_script_readme.append('')
                     
         # New environment
         new_env_keys = meta.get('new_env_keys',[])
@@ -896,7 +918,7 @@ def doc(i):
 
         md_script_readme.append('')
         for key in sorted(new_env_keys):
-            md_script_readme.append('* **{}**'.format(key))
+            md_script_readme.append('* `{}`'.format(key))
 
         # Pass found_output_env through above filter
         found_output_env_filtered = []
@@ -920,7 +942,7 @@ def doc(i):
 
         md_script_readme.append('')
         for key in sorted(found_output_env_filtered):
-            md_script_readme.append('* **{}**'.format(key))
+            md_script_readme.append('* `{}`'.format(key))
 
 
 
@@ -929,7 +951,7 @@ def doc(i):
         md_script_readme.append('___')
         md_script_readme.append('### '+x)
         md_script_readme.append('')
-        md_script_readme.append('* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)')
+        md_script_readme.append('* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)')
         toc_readme.append(x)
 
         # Process TOC
@@ -1012,5 +1034,128 @@ def doc(i):
 
     r = utils.save_txt(output_file, s)
     if r['return']>0: return r
+
+    return {'return':0}
+
+
+############################################################
+def dockerfile(i):
+    """
+    Add CM automation.
+
+    Args:
+      (CM input dict):
+
+      (out) (str): if 'con', output to console
+
+      parsed_artifact (list): prepared in CM CLI or CM access function
+                                [ (artifact alias, artifact UID) ] or
+                                [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+      (repos) (str): list of repositories to search for automations (internal & mlcommons@ck by default)
+
+      (output_dir) (str): output directory (./ by default)
+
+    Returns:
+      (CM return dict):
+
+      * return (int): return code == 0 if no error and >0 if error
+      * (error) (str): error string if return>0
+
+    """
+
+    self_module = i['self_module']
+
+    cur_dir = os.getcwd()
+
+    console = i.get('out') == 'con'
+
+    repos = i.get('repos','')
+    if repos == '': repos='internal,a4705959af8e447a'
+
+    parsed_artifact = i.get('parsed_artifact',[])
+
+    if len(parsed_artifact)<1:
+        parsed_artifact = [('',''), ('','')]
+    elif len(parsed_artifact)<2:
+        parsed_artifact.append(('',''))
+    else:
+        repos = parsed_artifact[1][0]
+
+    list_of_repos = repos.split(',') if ',' in repos else [repos]
+
+    ii = utils.sub_input(i, self_module.cmind.cfg['artifact_keys'])
+
+    ii['out'] = None
+
+    # Search for automations in repos
+    lst = []
+    for repo in list_of_repos:
+        parsed_artifact[1] = ('',repo) if utils.is_cm_uid(repo) else (repo,'')
+        ii['parsed_artifact'] = parsed_artifact
+        r = self_module.search(ii)
+        if r['return']>0: return r
+        lst += r['list']
+
+    md = []
+
+    toc = []
+
+    script_meta = {}
+    urls = {}
+
+    if i.get("all_os"):
+        docker_os = {
+            "ubuntu": ["18.04","20.04","22.04"],
+            "rhel": ["9"]
+        }
+    else:
+        docker_os = {
+            "ubuntu": ["22.04"],
+        }
+
+    for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
+
+        meta = artifact.meta
+        script_path = artifact.path
+        tags = meta.get("tags", [])
+        tag_string=",".join(tags)
+
+        for _os in docker_os:
+            for version in docker_os[_os]:
+                dockerfile_path = os.path.join(script_path,'dockerfiles', _os +'_'+version +'.Dockerfile')
+                cm_input = {'action': 'run',
+                            'automation': 'script',
+                            'tags': f'{tag_string}',
+                            'print_deps': True,
+                            'quiet': True,
+                            'silent': True,
+                            'fake_run': True
+                            }
+                r = self_module.cmind.access(cm_input)
+                print_deps = r['new_state']['print_deps']
+                comments = [ "#RUN " + dep for dep in print_deps ]
+                comments.append("")
+                comments.append("# Run CM workflow")
+
+                cm_docker_input = {'action': 'run',
+                            'automation': 'script',
+                            'tags': 'build,dockerfile',
+                            'docker_os': _os,
+                            'docker_os_version': version,
+                            'file_path': dockerfile_path,
+                            'comments': comments,
+                            'run_cmd': f'cm run script --tags={tag_string}',
+                            'script_tags': f'{tag_string}',
+                            'quiet': True,
+                            'print_deps': True,
+                            'real_run': True
+                            }
+
+                r = self_module.cmind.access(cm_docker_input)
+                if r['return'] > 0:
+                    return r
+
+                print("Dockerfile generated at "+dockerfile_path)
 
     return {'return':0}

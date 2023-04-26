@@ -6,8 +6,8 @@
 # We think to develop a simpler version of this automation at some point
 # while keeping full backwards compatibility.
 #
-# Join the MLCommons taskforce on education and reproducibility
-# to discuss further developments: http://bit.ly/mlperf-edu-wg
+# Join the MLCommons taskforce on automation and reproducibility
+# to discuss further developments: https://cKnowledge.org/mlcommons-taskforce
 
 import os
 
@@ -669,11 +669,6 @@ class CAutomation(Automation):
             return r
 
         variation_groups = r['variation_groups']
-        # variation_tags get appended by any default on variation in groups
-        r = self._process_variation_tags_in_groups(variation_tags, variation_groups, excluded_variation_tags)
-        if r['return'] > 0:
-            return r
-        variation_tags = r['variation_tags']
 
         # Add variation(s) if specified in the "tags" input prefixed by _
           # If there is only 1 default variation, then just use it or substitute from CMD
@@ -684,89 +679,28 @@ class CAutomation(Automation):
             if default_variation != '' and default_variation not in excluded_variation_tags:
                 variation_tags = [default_variation]
 
-        # Recursively add any base variations specified
-        if len(variation_tags) > 0:
-            tmp_variations = {k: False for k in variation_tags}
-            while True:
-                for variation_name in variation_tags:
-                    tag_to_append = None
+        r = self._update_variation_tags_from_variations(variation_tags, variations, variation_groups, excluded_variation_tags)
+        if r['return'] > 0:
+            return r
 
-                    #ignore the excluded variations
-                    if variation_name.startswith("~") or variation_name.startswith("-"):
-                        tmp_variations[variation_name] = True
-                        continue
+        # variation_tags get appended by any default on variation in groups
+        r = self._process_variation_tags_in_groups(variation_tags, variation_groups, excluded_variation_tags, variations)
+        if r['return'] > 0:
+            return r
+        if variation_tags != r['variation_tags']:
+            variation_tags = r['variation_tags']
 
-                    if variation_name not in variations:
-                        variation_name = self._get_name_for_dynamic_variation_tag(variation_name)
+            # we need to again process variation tags if any new default variation is added
+            r = self._update_variation_tags_from_variations(variation_tags, variations, variation_groups, excluded_variation_tags)
+            if r['return'] > 0:
+                return r
 
-                    # base variations are automatically turned on. Only variations outside of any variation group can be added as a base_variation
-                    if "base" in variations[variation_name]:
-                        base_variations = variations[variation_name]["base"]
-                        for base_variation in base_variations:
-                            dynamic_base_variation = False
-                            dynamic_base_variation_already_added = False
-                            if base_variation not in variations:
-                                base_variation_dynamic = self._get_name_for_dynamic_variation_tag(base_variation)
-                                if not base_variation_dynamic:
-                                    return {'return': 1, 'error': 'Variation "{}" specified as base variation of "{}" is not existing'.format(base_variation, variation_name)}
-                                else:
-                                    dynamic_base_variation = True
-                                    base_prefix = base_variation_dynamic.split(".")[0]+"."
-                                    for x in variation_tags:
-                                        if x.startswith(base_prefix):
-                                            dynamic_base_variation_already_added = True
-
-                            if base_variation not in variation_tags and not dynamic_base_variation_already_added:
-                                if (not dynamic_base_variation and 'group' in variations[base_variation]) or (dynamic_base_variation and 'group' in variations[base_variation_dynamic]):
-                                    return {'return': 1, 'error': 'A variation specified as a base variation should not have "group" specified. Violating base entry is "{}" which is specified as base variation of "{}" '.format(base_variation, variation_name)}
-                                tag_to_append = base_variation
-
-                            if tag_to_append:
-                                if tag_to_append in excluded_variation_tags:
-                                    return {'return': 1, 'error': 'Variation "{}" specified as base variation for the variation is in the excluded list "{}" '.format(tag_to_append, variation_name)}
-                                variation_tags.append(tag_to_append)
-                                tmp_variations[tag_to_append] = False
-
-                            tag_to_append = None
-
-                    tag_to_append = None
-                    # default_variations dictionary specifies the default_variation for each variation group. A default variation in a group is turned on if no other variation from that group is turned on and it is not excluded using the '-' prefix
-                    if "default_variations" in variations[variation_name]:
-                        default_base_variations = variations[variation_name]["default_variations"]
-                        for default_base_variation in default_base_variations:
-                            if default_base_variation not in variation_groups:
-                                return {'return': 1, 'error': 'Default variation "{}" is not a valid group. Valid groups are "{}" '.format(default_base_variation, variation_groups)}
-                            if 'default' in variation_groups[default_base_variation]:
-                                return {'return': 1, 'error': 'Default variation "{}" specified for the group "{}" with an already defined default variation "{}" '.format(default_base_variations[default_base_variation], default_base_variation, variation_groups[default_base_variation]['default'])}
-                            unique_allowed_variations = variation_groups[default_base_variation]['variations']
-                            # add the default only if none of the variations from the current group is selected and it is not being excluded with - prefix
-                            if len(set(unique_allowed_variations) & set(variation_tags)) == 0 and default_base_variations[default_base_variation] not in excluded_variation_tags:
-                                tag_to_append = default_base_variations[default_base_variation]
-
-                    if tag_to_append:
-                        if tag_to_append not in variations:
-                            return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
-                        variation_tags.append(tag_to_append)
-                        tmp_variations[tag_to_append] = False
-
-                    tmp_variations[variation_name] = True
-
-                all_base_processed = True
-                for variation_name in variation_tags:
-                    if variation_name.startswith("-"):
-                        continue
-                    if variation_name not in variations:
-                        variation_name = self._get_name_for_dynamic_variation_tag(variation_name)
-                    if tmp_variations[variation_name] == False:
-                        all_base_processed = False
-                        break
-                if all_base_processed:
-                    break
 
         valid_variation_combinations = meta.get('valid_variation_combinations', [])
         if valid_variation_combinations:
             if not any ( all(t in variation_tags for t in s) for s in valid_variation_combinations):
                 return {'return': 1, 'error': 'Invalid variation combination "{}" prepared. Valid combinations: "{}" '.format(variation_tags, valid_variation_combinations)}
+
         invalid_variation_combinations = meta.get('invalid_variation_combinations', [])
         if invalid_variation_combinations:
             if any ( all(t in variation_tags for t in s) for s in invalid_variation_combinations):
@@ -798,7 +732,7 @@ class CAutomation(Automation):
                 variation_tag_dynamic_suffix = None
                 if variation_tag not in variations:
                     if '.' in variation_tag and variation_tag[-1] != '.':
-                        variation_tag_dynamic_suffix = variation_tag[variation_tag.rindex(".")+1:]
+                        variation_tag_dynamic_suffix = variation_tag[variation_tag.index(".")+1:]
                         if not variation_tag_dynamic_suffix:
                             return {'return':1, 'error':'tag {} is not in variations {}'.format(variation_tag, variations.keys())}
                         variation_tag = self._get_name_for_dynamic_variation_tag(variation_tag)
@@ -1444,12 +1378,12 @@ class CAutomation(Automation):
                         if t not in cached_tags:
                             cached_tags.append(t) 
 
-            # Check chain of post dependencies on other CM scripts
-            clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
+                # Check chain of post dependencies on other CM scripts
+                clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
 
-            r = self._run_deps(post_deps, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                r = self._run_deps(post_deps, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
                     remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces, run_state)
-            if r['return']>0: return r
+                if r['return']>0: return r
 
             # Add extra tags from env updated by deps (such as python version and compiler version, etc)
             extra_cache_tags_from_env = meta.get('extra_cache_tags_from_env',[])
@@ -1559,6 +1493,7 @@ class CAutomation(Automation):
                 if r['return']>0: return r
 
         # Clean tmp files only in current path (do not touch cache - we keep all info there)
+        script_path = os.getcwd()
         os.chdir(current_path)
 
         if not i.get('dirty', False) and not cache:
@@ -1580,6 +1515,7 @@ class CAutomation(Automation):
                 x = 'cmd' if os_info['platform'] == 'windows' else 'bash'
 
                 env_script.append('\n')
+                env_script.append('echo "Working path: {}"'.format(script_path))
                 env_script.append('echo "Running debug shell. Type exit to quit ..."\n')
                 env_script.append('\n')
                 env_script.append(x)
@@ -1633,7 +1569,87 @@ class CAutomation(Automation):
         
         return rr
 
+    def _update_variation_tags_from_variations(self, variation_tags, variations, variation_groups, excluded_variation_tags):
 
+        # Recursively add any base variations specified
+        if len(variation_tags) > 0:
+            tmp_variations = {k: False for k in variation_tags}
+            while True:
+                for variation_name in variation_tags:
+                    tag_to_append = None
+
+                    #ignore the excluded variations
+                    if variation_name.startswith("~") or variation_name.startswith("-"):
+                        tmp_variations[variation_name] = True
+                        continue
+
+                    if variation_name not in variations:
+                        variation_name = self._get_name_for_dynamic_variation_tag(variation_name)
+
+                    # base variations are automatically turned on. Only variations outside of any variation group can be added as a base_variation
+                    if "base" in variations[variation_name]:
+                        base_variations = variations[variation_name]["base"]
+                        for base_variation in base_variations:
+                            dynamic_base_variation = False
+                            dynamic_base_variation_already_added = False
+                            if base_variation not in variations:
+                                base_variation_dynamic = self._get_name_for_dynamic_variation_tag(base_variation)
+                                if not base_variation_dynamic or base_variation_dynamic not in variations:
+                                    return {'return': 1, 'error': 'Variation "{}" specified as base variation of "{}" is not existing'.format(base_variation, variation_name)}
+                                else:
+                                    dynamic_base_variation = True
+                                    base_prefix = base_variation_dynamic.split(".")[0]+"."
+                                    for x in variation_tags:
+                                        if x.startswith(base_prefix):
+                                            dynamic_base_variation_already_added = True
+
+                            if base_variation not in variation_tags and not dynamic_base_variation_already_added:
+                                tag_to_append = base_variation
+
+                            if tag_to_append:
+                                if tag_to_append in excluded_variation_tags:
+                                    return {'return': 1, 'error': 'Variation "{}" specified as base variation for the variation is in the excluded list "{}" '.format(tag_to_append, variation_name)}
+                                variation_tags.append(tag_to_append)
+                                tmp_variations[tag_to_append] = False
+
+                            tag_to_append = None
+
+                    # default_variations dictionary specifies the default_variation for each variation group. A default variation in a group is turned on if no other variation from that group is turned on and it is not excluded using the '-' prefix
+                    if "default_variations" in variations[variation_name]:
+                        default_base_variations = variations[variation_name]["default_variations"]
+                        for default_base_variation in default_base_variations:
+                            tag_to_append = None
+
+                            if default_base_variation not in variation_groups:
+                                return {'return': 1, 'error': 'Default variation "{}" is not a valid group. Valid groups are "{}" '.format(default_base_variation, variation_groups)}
+
+                            unique_allowed_variations = variation_groups[default_base_variation]['variations']
+                            # add the default only if none of the variations from the current group is selected and it is not being excluded with - prefix
+                            if len(set(unique_allowed_variations) & set(variation_tags)) == 0 and default_base_variations[default_base_variation] not in excluded_variation_tags:
+                                tag_to_append = default_base_variations[default_base_variation]
+
+                            if tag_to_append:
+                                if tag_to_append not in variations:
+                                    variation_tag_static = self._get_name_for_dynamic_variation_tag(tag_to_append)
+                                    if not variation_tag_static or variation_tag_static not in variations:
+                                        return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
+                                variation_tags.append(tag_to_append)
+                                tmp_variations[tag_to_append] = False
+
+                    tmp_variations[variation_name] = True
+
+                all_base_processed = True
+                for variation_name in variation_tags:
+                    if variation_name.startswith("-"):
+                        continue
+                    if variation_name not in variations:
+                        variation_name = self._get_name_for_dynamic_variation_tag(variation_name)
+                    if tmp_variations[variation_name] == False:
+                        all_base_processed = False
+                        break
+                if all_base_processed:
+                    break
+        return {'return': 0}
 
 
 
@@ -1727,7 +1743,7 @@ class CAutomation(Automation):
 
         found_scripts = False if len(lst) == 0 else True
 
-        if len(variation_tags)>0:
+        if found_scripts and len(variation_tags)>0:
             filtered = []
 
             for script_artifact in lst:
@@ -1753,11 +1769,13 @@ class CAutomation(Automation):
 
                 filtered.append(script_artifact)
 
-            if len(lst) == 1 and not filtered:
-                script = lst[0]
-                meta = script_artifact.meta
-                variations = meta.get('variations', {})
-                r['warning'] = 'variation tags {} are not matching for the found script variations {}'.format(variation_tags, variations.keys())
+            if len(lst) > 0 and not filtered:
+                warning = [""]
+                for script in lst:
+                    meta = script.meta
+                    variations = meta.get('variations', {})
+                    warning.append('variation tags {} are not matching for the found script {} with variations {}\n'.format(variation_tags, meta.get('alias'), variations.keys()))
+                r['warning'] = "\n".join(warning)
 
             r['list'] = filtered
 
@@ -1838,6 +1856,80 @@ class CAutomation(Automation):
 
         return {'return':0, 'list': lst}
 
+
+    ############################################################
+    def native_run(self, i):
+        """
+        Add CM script
+
+        Args:
+          (CM input dict): 
+
+          env (dict): environment
+          cmd (str): string
+          ...
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+        """
+
+        env = i.get('env', {})
+        cmd = i.get('cmd', '')
+
+        script = i.get('script',[])
+
+        # Create temporary script name
+        script_name = i.get('script_name','')
+        if script_name=='': 
+            script_name='tmp-run.'
+
+            if os.name == 'nt':
+                script_name+='bat'
+            else:
+                script_name+='sh'
+
+        if os.name == 'nt':
+            xcmd = 'call '+script_name
+
+            if len(script)==0:
+                script.append('@echo off')
+                script.append('')
+        else:
+            xcmd = 'chmod 755 '+script_name+' ; ./'+script_name
+
+            if len(script)==0:
+                script.append('#!/bin/bash')
+                script.append('')
+
+        # Assemble env
+        if len(env)>0:
+            for k in env:
+                v=env[k]
+
+                if os.name == 'nt':
+                    script.append('set '+k+'='+v)
+                else:
+                    if ' ' in v: v='"'+v+'"'
+                    script.append('export '+k+'='+v)
+
+            script.append('')
+
+        # Add CMD        
+        script.append(cmd)
+
+        # Record script
+        r = utils.save_txt(file_name=script_name, string='\n'.join(script))
+        if r['return']>0: return r
+
+        # Run script
+        rc = os.system(xcmd)
+
+        return {'return':0, 'return_code':rc}
+    
     ############################################################
     def add(self, i):
         """
@@ -1904,8 +1996,19 @@ class CAutomation(Automation):
                 script_name_ext = script_name[j:]
 
             i['meta']['script_name'] = script_name_base
-        
-        
+
+        i['meta']['cache'] = False
+        i['meta']['new_env_keys'] = []
+        i['meta']['new_state_keys'] = []
+        i['meta']['input_mapping'] = {}
+        i['meta']['deps'] = []
+        i['meta']['prehook_deps'] = []
+        i['meta']['posthook_deps'] = []
+        i['meta']['post_deps'] = []
+        i['meta']['versions'] = {}
+        i['meta']['variations'] = {}
+        i['meta']['input_description'] = {}
+
         r_obj=self.cmind.access(i)
         if r_obj['return']>0: return r_obj
 
@@ -1934,7 +2037,6 @@ class CAutomation(Automation):
                 files += [('', script_name, script_name_base+'.sh')]
 
 
-                
         for x in files:
             path = x[0]
             f1 = x[1]
@@ -1945,7 +2047,7 @@ class CAutomation(Automation):
 
             if path!='':
                 f1 = os.path.join(path, f1)
-            
+
             f2 = os.path.join(new_script_path, f2)
 
             if console:
@@ -1962,7 +2064,7 @@ class CAutomation(Automation):
         '''
         if "." not in variation_tag or variation_tag[-1] == ".":
             return None
-        return variation_tag[:variation_tag.rindex(".")+1]+"#"
+        return variation_tag[:variation_tag.index(".")+1]+"#"
 
 
     ##############################################################################
@@ -1981,6 +2083,10 @@ class CAutomation(Automation):
                             if type(item_value) is dict: #env,default_env inside deps
                                 for item_key2 in item_value:
                                     item_value[item_key2] = item_value[item_key2].replace("#", variation_tag_dynamic_suffix)
+                            elif type(item_value) is list: #names for example
+                                for i,l_item in enumerate(item_value):
+                                    if type(l_item) is str:
+                                        item_value[i] = l_item.replace("#", variation_tag_dynamic_suffix)
                             else:
                                 item[item_key] = item[item_key].replace("#", variation_tag_dynamic_suffix)
 
@@ -2066,15 +2172,22 @@ class CAutomation(Automation):
 
 
     ##############################################################################
-    def _process_variation_tags_in_groups(script, variation_tags, groups, excluded_variations):
+    def _process_variation_tags_in_groups(script, variation_tags, groups, excluded_variations, variations):
         import copy
         tmp_variation_tags= copy.deepcopy(variation_tags)
+        tmp_variation_tags_static= copy.deepcopy(variation_tags)
+        for v in tmp_variation_tags_static:
+            if v not in variations:
+                v_static = script._get_name_for_dynamic_variation_tag(v)
+                tmp_variation_tags_static.remove(v)
+                tmp_variation_tags_static.append(v_static)
+
         for k in groups:
             group = groups[k]
             unique_allowed_variations = group['variations']
-            if len(set(unique_allowed_variations) & set(variation_tags)) > 1:
+            if len(set(unique_allowed_variations) & set(tmp_variation_tags_static)) > 1:
                 return {'return': 1, 'error': 'Multiple variation tags selected for the variation group "{}": {} '.format(k, str(set(unique_allowed_variations) & set(variation_tags)))}
-            if len(set(unique_allowed_variations) & set(variation_tags)) == 0:
+            if len(set(unique_allowed_variations) & set(tmp_variation_tags_static)) == 0:
                 if 'default' in group and group['default'] not in excluded_variations:
                     tmp_variation_tags.append(group['default'])
 
@@ -2171,6 +2284,11 @@ class CAutomation(Automation):
                 if inherit_variation_tags:
                     d['tags']+=","+variation_tags_string #deps should have non-empty tags
 
+                update_tags_from_env = d.get("update_tags_from_env", [])
+                for t in update_tags_from_env:
+                    if env.get(t, '').strip() != '':
+                        d['tags']+=","+env[t]
+
                 run_state['deps'].append(d['tags'])
 
                 if not run_state['fake_deps']:
@@ -2200,6 +2318,7 @@ class CAutomation(Automation):
 
                     r = self.cmind.access(ii)
                     if r['return']>0: return r
+
                     run_state['deps'] = tmp_run_state_deps
 
                     # Restore local env
@@ -2989,6 +3108,34 @@ class CAutomation(Automation):
         return utils.call_internal_module(self, __file__, 'module_misc', 'doc', i)
 
 
+    ############################################################
+    def dockerfile(self, i):
+        """
+        Add CM automation.
+
+        Args:
+          (CM input dict):
+
+          (out) (str): if 'con', output to console
+
+          parsed_artifact (list): prepared in CM CLI or CM access function
+                                    [ (artifact alias, artifact UID) ] or
+                                    [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+          (repos) (str): list of repositories to search for automations (internal & mlcommons@ck by default)
+
+          (output_dir) (str): output directory (./ by default)
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+        """
+
+        return utils.call_internal_module(self, __file__, 'module_misc', 'dockerfile', i)
+
     ##############################################################################
     def _available_variations(self, i):
         """
@@ -3192,7 +3339,7 @@ def enable_or_skip_script(meta, env):
     return True
 
 ############################################################################################################
-def update_env_with_values(env):
+def update_env_with_values(env, fail_on_not_found=False):
     """
     Update any env key used as part of values in meta
     """
@@ -3220,10 +3367,10 @@ def update_env_with_values(env):
             continue
 
         for tmp_value in tmp_values:
-            if tmp_value not in env:
+            if tmp_value not in env and fail_on_not_found:
                 return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
-
-            value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
+            if tmp_value in env:
+                value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
 
         env[key] = value
 
@@ -3305,14 +3452,14 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     tmp_file_run_env = i.get('tmp_file_run_env', '')
     tmp_file_state = i.get('tmp_file_state', '')
     tmp_file_run = i['tmp_file_run']
-    local_env_keys = i['local_env_keys']
-    local_env_keys_from_meta = i['local_env_keys_from_meta']
-    posthook_deps = i['posthook_deps']
-    add_deps_recursive = i['add_deps_recursive']
+    local_env_keys = i.get('local_env_keys', [])
+    local_env_keys_from_meta = i.get('local_env_keys_from_meta', [])
+    posthook_deps = i.get('posthook_deps', [])
+    add_deps_recursive = i.get('add_deps_recursive', {})
     recursion_spaces = i['recursion_spaces']
-    remembered_selections = i['remembered_selections']
-    variation_tags_string = i['variation_tags_string']
-    found_cached = i['found_cached']
+    remembered_selections = i.get('remembered_selections', {})
+    variation_tags_string = i.get('variation_tags_string', '')
+    found_cached = i.get('found_cached', False)
     script_automation = i['self']
 
     # Prepare script name
@@ -3401,13 +3548,26 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
         rc = os.system(cmd)
 
-        if rc>0 and not i.get('ignore_script_error',False):
+        if rc>0 and not i.get('ignore_script_error', False):
+            # Check if print files when error
+            print_files = meta.get('print_files_if_script_error', [])
+            if len(print_files)>0:
+               for pr in print_files:
+                   if os.path.isfile(pr):
+                       r = utils.load_txt(file_name = pr)
+                       if r['return'] == 0:
+                           print ("========================================================")
+                           print ("Print file {}:".format(pr))
+                           print ("")
+                           print (r['string'])
+                           print ("")
+
             note = '''Note that it is often a portability problem of the third-party tool or native script that is wrapped and unified by this CM script.
 The CM concept is to collaboratively fix such issues inside portable CM scripts to make existing tools and native script more portable, interoperable, deterministic and reproducible.
 
 Please help the community by reporting the full log with the command line here:
 * https://github.com/mlcommons/ck/issues 
-* https://bit.ly/mlperf-edu-wg
+* https://cKnowledge.org/mlcommons-taskforce
 
 Thank you'''
 
@@ -3441,7 +3601,7 @@ Thank you'''
 
     if (postprocess == "postprocess") and customize_code is not None and 'postprocess' in dir(customize_code):
         rr = run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const,
-                const_state, meta, verbose)
+                const_state, meta, verbose, i) # i as run_script_input
     elif (postprocess == "detect_version") and customize_code is not None and 'detect_version' in dir(customize_code):
         rr = run_detect_version(customize_code, customize_common_input, recursion_spaces, env, state, const,
                 const_state, meta, verbose)
@@ -3470,7 +3630,7 @@ def run_detect_version(customize_code, customize_common_input, recursion_spaces,
 
     return {'return': 0}
 
-def run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const, const_state, meta, verbose=False):
+def run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const, const_state, meta, verbose=False, run_script_input=None):
 
     if customize_code is not None and 'postprocess' in dir(customize_code):
         import copy
@@ -3486,6 +3646,9 @@ def run_postprocess(customize_code, customize_common_input, recursion_spaces, en
         ii['env'] = env
         ii['state'] = state
         ii['meta'] = meta
+
+        if run_script_input != None:
+            ii['run_script_input'] = run_script_input 
 
         r = customize_code.postprocess(ii)
         return r
@@ -3914,7 +4077,7 @@ def get_git_url(get_type, url, params = {}):
         return p.url2ssh
     elif get_type == "token":
         token = params['token']
-        return "https://" + token + "@" + p.host + "/" + p.owner + "/" + p.repo
+        return "https://git:" + token + "@" + p.host + "/" + p.owner + "/" + p.repo
     return url
 
 ##############################################################################

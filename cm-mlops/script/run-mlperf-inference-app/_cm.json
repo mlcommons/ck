@@ -8,6 +8,7 @@
     "summary.csv",
     "summary.json"
   ],
+  "gui_title": "CM GUI to run the MLPerf inference benchmark and prepare submissions",
   "deps": [
     {
       "tags": "detect,os"
@@ -27,14 +28,17 @@
         "inference-src"
       ],
       "tags": "get,mlcommons,inference,src"
+    },
+    {
+      "tags": "get,sut,description"
     }
   ],
   "default_env": {
-    "CM_BATCH_COUNT": "1",
-    "CM_BATCH_SIZE": "1",
     "CM_OUTPUT_FOLDER_NAME": "test_results",
     "CM_MLPERF_RUN_STYLE": "test",
-    "CM_TEST_QUERY_COUNT": "5"
+    "CM_MLPERF_IMPLEMENTATION": "reference",
+    "CM_MLPERF_MODEL": "resnet50",
+    "CM_MLPERF_LOADGEN_COMPLIANCE": "yes"
   },
   "input_mapping": {
     "lang": "CM_MLPERF_IMPLEMENTATION",
@@ -43,32 +47,39 @@
     "submitter": "CM_MLPERF_SUBMITTER",
     "backend": "CM_MLPERF_BACKEND",
     "model": "CM_MLPERF_MODEL",
+    "compliance": "CM_MLPERF_LOADGEN_COMPLIANCE",
     "run_style": "CM_MLPERF_EXECUTION_MODE",
     "execution_mode": "CM_MLPERF_EXECUTION_MODE",
     "rerun": "CM_RERUN",
     "hw_name": "CM_HW_NAME",
-    "imagenet_path": "IMAGENET_PATH",
-    "max_batchsize": "CM_MLPERF_LOADGEN_MAX_BATCHSIZE",
     "mode": "CM_MLPERF_LOADGEN_MODE",
-    "num_threads": "CM_NUM_THREADS",
+    "system_type": "CM_MLPERF_SUBMISSION_SYSTEM_TYPE",
+    "division": "CM_MLPERF_SUBMISSION_DIVISION",
     "output_dir": "OUTPUT_BASE_DIR",
     "results_dir": "OUTPUT_BASE_DIR",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
+    "test_query_count": "CM_TEST_QUERY_COUNT",
     "power": "CM_SYSTEM_POWER",
     "regenerate_files": "CM_REGENERATE_MEASURE_FILES",
     "scenario": "CM_MLPERF_LOADGEN_SCENARIO",
     "precision": "CM_MLPERF_MODEL_PRECISION",
-    "test_query_count": "CM_TEST_QUERY_COUNT",
     "run_checker": "CM_RUN_SUBMISSION_CHECKER",
     "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY",
     "clean": "CM_MLPERF_CLEAN_ALL",
-    "new_tvm_model": "CM_MLPERF_DELETE_COMPILED_MODEL",
     "target_qps": "CM_MLPERF_LOADGEN_TARGET_QPS",
     "offline_target_qps": "CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS",
     "server_target_qps": "CM_MLPERF_LOADGEN_SERVER_TARGET_QPS",
     "target_latency": "CM_MLPERF_LOADGEN_TARGET_LATENCY",
     "singlestream_target_latency": "CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY",
-    "multistream_target_latency": "CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY"
+    "multistream_target_latency": "CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY",
+    "dashboard_wb_user":"CM_MLPERF_DASHBOARD_WANDB_USER",
+    "dashboard_wb_project":"CM_MLPERF_DASHBOARD_WANDB_PROJECT",
+    "find_performance": "CM_MLPERF_FIND_PERFORMANCE_MODE",
+    "push_to_github": "CM_MLPERF_RESULT_PUSH_TO_GITHUB",
+    "results_git_url": "CM_MLPERF_RESULTS_GIT_REPO_URL",
+    "readme": "CM_MLPERF_README",
+    "sw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
+    "hw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA"
   },
   "tags": [
     "run",
@@ -83,16 +94,12 @@
   "uid": "4a5d5b13fd7e4ac8",
   "variations": {
     "all-modes": {
+      "group": "mode",
       "env": {
         "CM_MLPERF_LOADGEN_ALL_MODES": "yes"
       }
     },
     "all-scenarios": {
-      "deps": [
-        {
-          "tags": "get,sut,description"
-        }
-      ],
       "env": {
         "CM_MLPERF_LOADGEN_ALL_SCENARIOS": "yes"
       }
@@ -102,14 +109,45 @@
         "CM_MLPERF_LOADGEN_COMPLIANCE": "yes"
       }
     },
-    "fast": {
+    "find-performance": {
+      "group": "submission-generation",
+      "default": true,
       "env": {
-        "CM_FAST_FACTOR": "5",
-        "CM_OUTPUT_FOLDER_NAME": "fast_results",
-        "CM_MLPERF_RUN_STYLE": "fast"
+        "CM_MLPERF_LOADGEN_ALL_MODES": "no",
+        "CM_MLPERF_LOADGEN_MODE": "performance",
+        "CM_MLPERF_FIND_PERFORMANCE_MODE": "yes",
+        "CM_MLPERF_RESULT_PUSH_TO_GITHUB": false
+      }
+    },
+    "performance-only": {
+      "group": "submission-generation",
+      "default_variations": {
+        "submission-generation-style": "full"
+      },
+      "env": {
+        "CM_MLPERF_SUBMISSION_RUN": "yes",
+        "CM_MLPERF_LOADGEN_MODE": "performance",
+        "CM_RUN_SUBMISSION_CHECKER": "no"
+      }
+    },
+    "accuracy-only": {
+      "group": "submission-generation",
+      "default_variations": {
+        "submission-generation-style": "full"
+      },
+      "env": {
+        "CM_MLPERF_SUBMISSION_RUN": "yes",
+        "CM_MLPERF_LOADGEN_MODE": "accuracy",
+        "CM_RUN_SUBMISSION_CHECKER": "no",
+        "CM_RUN_MLPERF_ACCURACY": "on"
       }
     },
     "submission": {
+      "group": "submission-generation",
+      "default_variations": {
+        "submission-generation-style": "full"
+      },
+      "default_gui": true,
       "base": [
         "all-modes"
       ],
@@ -121,9 +159,6 @@
       },
       "post_deps": [
         {
-          "tags": "get,sut,description"
-        },
-        {
           "tags": "generate,mlperf,inference,submission",
           "names": [
              "submission-generator"
@@ -131,21 +166,48 @@
         }
       ]
     },
-    "valid": {
+    "populate-readme": {
+      "group": "submission-generation",
+      "default_variations": {
+        "submission-generation-style": "full"
+      },
+      "base": [
+        "all-modes"
+      ],
       "env": {
-        "CM_OUTPUT_FOLDER_NAME": "valid_results",
-        "CM_MLPERF_RUN_STYLE": "valid",
-        "CM_RUN_MLPERF_ACCURACY": "on"
+        "CM_MLPERF_SUBMISSION_RUN": "yes",
+        "CM_MLPERF_README": "yes",
+        "CM_RUN_SUBMISSION_CHECKER": "no"
       }
     },
     "short": {
+      "group": "submission-generation-style",
+      "default": "true",
+      "env": {
+        "CM_MLPERF_SUBMISSION_GENERATION_STYLE": "short"
+      },
       "add_deps_recursive": {
         "submission-checker": {
           "tags": "_short-run"
         }
       }
     },
+    "full": {
+      "group": "submission-generation-style",
+      "env": {
+        "CM_MLPERF_SUBMISSION_GENERATION_STYLE": "full"
+      },
+      "add_deps_recursive": {
+        "openimages-preprocessed": {
+          "tags": "_full"
+        },
+        "imagenet-preprocessed": {
+          "tags": "_full"
+        }
+      }
+    },
     "dashboard": {
+      "default_gui": true,
       "env": {
         "CM_MLPERF_DASHBOARD": "on"
       }
@@ -154,5 +216,131 @@
   "versions": {
     "master": {},
     "r2.1": {}
+  },
+  "input_description": {
+    "adr.python.name" : {
+      "desc": "Python virtual environment name (optional)",
+      "default": "mlperf"
+    },
+    "adr.python.version_min": {
+      "desc": "Minimal Python version",
+      "default": "3.8"
+    },
+    "adr.python.version": {
+      "desc": "Force Python version (must have all system deps)"
+    },
+    "adr.compiler.tags": {
+      "desc": "Compiler for loadgen and any C/C++ part of implementation",
+      "default": "gcc"
+    },
+    "adr.inference-src-loadgen.env.CM_GIT_URL": {
+      "desc": "Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)",
+      "default": ""
+    },
+    "adr.inference-src.env.CM_GIT_URL": {
+      "desc": "Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)",
+      "default": ""
+    },
+    "submitter": {
+      "desc":"Submitter name (without space)",
+      "default": "TheCommunity"
+    },
+    "implementation": {
+      "desc":"MLPerf implementation",
+      "default":"reference",
+      "choices": ["reference", "cpp", "nvidia-original", "tflite-cpp"]
+    },
+    "compliance": {
+      "desc":"Whether to run compliance tests (applicable only for closed division)",
+      "default":"yes",
+      "choices": ["yes", "no"]
+    },
+    "model": {
+      "desc":"MLPerf model",
+      "default":"resnet50",
+      "choices": ["resnet50", "retinanet", "bert-99", "bert-99.9", "3d-unet", "rnnt"]
+    },
+    "precision": {
+      "desc":"MLPerf model precision",
+      "default":"",
+      "choices": ["fp32", "int8"]
+    },
+    "backend": {
+      "desc": "MLPerf backend",
+      "default": "onnxruntime",
+      "choices": ["onnxruntime", "tf", "pytorch", "deepsparse", "tensorrt", "tvm-onnx"]
+    },
+    "hw_name": {
+      "desc": "MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware))",
+      "default":"default"
+    },
+    "device": {
+      "desc":"MLPerf device",
+      "default": "cpu",
+      "choices": ["cpu", "cuda"]
+    },
+    "scenario": {
+      "desc": "MLPerf scenario",
+      "default": "Offline",
+      "choices": ["Offline", "Server", "SingleStream", "MultiStream"]
+    },
+    "mode": {
+      "desc": "MLPerf mode",
+      "default": "",
+      "choices": ["", "accuracy", "performance"]
+    },
+    "execution_mode": {
+       "desc": "Execution mode",
+       "default": "test",
+       "choices": ["test", "fast", "valid"]
+    },
+    "adr.mlperf-inference-implementation.max_batchsize": {
+      "desc": "Maximum batchsize to be used"
+    },
+    "adr.mlperf-inference-implementation.num_threads": {
+      "desc": "Number of threads (reference&C++ implementation only)"
+    },
+    "target_qps": {
+      "desc": "Set LoadGen target QPS"
+    },
+    "offline_target_qps": {
+      "desc": "Set LoadGen Offline target QPS"
+    },
+    "server_target_qps": {
+      "desc": "Set Server target QPS"
+    },
+    "target_latency": {
+      "desc": "Set Target latency"
+    },
+    "singlestream_target_latency": {
+      "desc": "Set SingleStream target latency"
+    },
+    "multistream_target_latency": {
+      "desc": "Set MultiStream target latency"
+    },
+    "results_dir": {
+      "desc": "Folder path where run results should be stored (defaults to the current working directory)"
+    },
+    "submission_dir": {
+      "desc": "Folder path where submission tree (to be submitted) must be stored"
+    },
+    "dashboard_wb_user": {
+      "desc": "W&B dashboard user",
+      "default": "cmind"
+    },
+    "dashboard_wb_project": {
+      "desc":"W&B dashboard project",
+      "default": "cm-mlperf-dse-testing"
+    },
+    "clean": {
+      "desc": "Clean run",
+      "boolean": true,
+      "default": true
+    },
+    "quiet": {
+      "desc": "Quiet run (select default values for all questions)",
+      "boolean": true,
+      "default": false
+    }
   }
 }

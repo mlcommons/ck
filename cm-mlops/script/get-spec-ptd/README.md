@@ -11,6 +11,8 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Input description](#input-description)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
@@ -43,21 +45,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,spec,ptd,ptdaemon,power,daemon,power-daemon,mlperf,mlcommons(,variations from below) (flags from below)`
+1. `cm run script --tags=get,spec,ptd,ptdaemon,power,daemon,power-daemon,mlperf,mlcommons [--input_flags]`
 
-*or*
+2. `cm run script "get spec ptd ptdaemon power daemon power-daemon mlperf mlcommons" [--input_flags]`
 
-`cm run script "get spec ptd ptdaemon power daemon power-daemon mlperf mlcommons (variations from below)" (flags from below)`
+3. `cm run script 7423a878e4524136 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 7423a878e4524136`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -98,29 +104,57 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,spec,ptd,ptdaemon,
 ___
 ### Customization
 
+
+#### Input description
+
+* --**input** Path to SPEC PTDaemon (Optional)
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "input":...}
+```
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--input=value`  &rarr;  `CM_INPUT=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "input":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_GIT_CHECKOUT: **main**
-* CM_GIT_DEPTH: **--depth 1**
-* CM_GIT_PATCH: **no**
-* CM_GIT_AUTH: **yes**
-* CM_GIT_RECURSE_SUBMODULES: ** **
-* CM_GIT_URL: **https://github.com/mlcommons/power.git**
+* CM_GIT_CHECKOUT: `main`
+* CM_GIT_DEPTH: `--depth 1`
+* CM_GIT_PATCH: `no`
+* CM_GIT_AUTH: `yes`
+* CM_GIT_RECURSE_SUBMODULES: ` `
+* CM_GIT_URL: `https://github.com/mlcommons/power.git`
 
 </details>
 
 #### Versions
-Default version: *main*
+Default version: `main`
 
-* custom
-* main
+* `custom`
+* `main`
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-spec-ptd/_cm.json)***
      * detect,os
@@ -135,17 +169,19 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-spec-ptd/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-spec-ptd/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-spec-ptd/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_MLPERF_PTD_PATH**
-* **CM_SPEC_PTD_PATH**
+* `CM_MLPERF_PTD_PATH`
+* `CM_SPEC_PTD_PATH`
 #### New environment keys auto-detected from customize
 
-* **CM_MLPERF_PTD_PATH**
-* **CM_SPEC_PTD_PATH**
+* `CM_MLPERF_PTD_PATH`
+* `CM_SPEC_PTD_PATH`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

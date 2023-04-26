@@ -1930,7 +1930,7 @@ def show(i):
 
        h+='<p>\n'
        h+='See <pre>ck install package --help</pre> for more installation options.\n'
-       h+='See <a href="https://cKnowledge.io/c/soft">related CK soft detection plugins</a>,\n'
+       h+='See <a href="https://cknow.io/c/soft">related CK soft detection plugins</a>,\n'
        h+=' <a href="https://github.com/mlcommons/ck/wiki">CK documentation</a>,\n'
        h+=' <a href="https://github.com/mlcommons/ck/wiki#contributing">"how to contribute" guide</a>,\n'
        h+=' <a href="https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf">ACM ReQuEST-ASPLOS\'18 report</a>\n'
@@ -2699,7 +2699,7 @@ def add(i):
     # Check related soft first
     suoa=i.get('soft','')
     if suoa=='':
-       return {'return':1, 'error':'related software detection plugin is not specified. Specify the existing one using --soft={name from https://cknowledge.io/c/soft} or create a new one using "ck add soft {repo}:soft:{name}"'}
+       return {'return':1, 'error':'related software detection plugin is not specified. Specify the existing one using --soft={name from https://cknow.io/c/soft} or create a new one using "ck add soft {repo}:soft:{name}"'}
 
     # Load soft to get UID and tags
     r=ck.access({'action':'load',

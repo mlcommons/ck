@@ -16,6 +16,9 @@
         "compiler"
       ],
       "tags": "get,compiler"
+    },
+    {
+      "tags": "get,compiler-flags"
     }
   ],
   "default_env": {

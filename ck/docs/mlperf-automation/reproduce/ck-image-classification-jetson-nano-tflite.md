@@ -1,6 +1,6 @@
 **[ [TOC](../README.md) ]**
 
-***Reproduced by [Grigori Fursin](https://cKnowledge.io/@gfursin) on 20210505***
+***Reproduced by [Grigori Fursin](https://cKnowledge.org/gfursin) on 20210505***
 
 * Platform: Nvidia Jetson Nano
 * OS: Ubuntu 18.04.05 LTS 64-bit

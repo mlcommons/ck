@@ -5,9 +5,6 @@
   "cache": false,
   "category": "Modular MLPerf benchmarks",
   "clean_files": [],
-  "env_key_mappings": {
-    "CM_DATASET_ANNOTATIONS_FILE": "DATASET_ANNOTATIONS_FILE"
-  },
   "deps": [
     {
       "names": [
@@ -17,75 +14,10 @@
       "tags": "get,python3"
     },
     {
-      "enable_if_env": {
-        "CM_DATASET": [
-          "openimages"
-        ]
-      },
-      "tags": "get,dataset,original,object-detection,open-images"
-    },
-    {
       "names": [
         "inference-src"
       ],
       "tags": "get,mlcommons,inference,src"
-    },
-    {
-      "tags": "get,generic-python-lib,_pycocotools"
-    },
-    {
-      "enable_if_env": {
-        "CM_DATASET": [
-          "squad"
-        ]
-      },
-      "skip_if_env": {
-        "CM_DATASET_SQUAD_VAL_PATH": []
-      },
-      "tags": "get,dataset,squad,language-processing"
-    },
-    {
-      "enable_if_env": {
-        "CM_DATASET": [
-          "squad"
-        ]
-      },
-      "skip_if_env": {
-        "CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": []
-      },
-      "tags": "get,ml-model,bert-large"
-    },
-    {
-      "enable_if_env": {
-        "CM_DATASET": [
-          "squad"
-        ]
-      },
-      "tags": "get,generic-python-lib,_torch"
-    },
-    {
-      "enable_if_env": {
-        "CM_DATASET": [
-          "squad"
-        ]
-      },
-      "tags": "get,generic-python-lib,_tokenization"
-    },
-    {
-      "enable_if_env": {
-        "CM_DATASET": [
-          "squad"
-        ]
-      },
-      "tags": "get,generic-python-lib,_boto3"
-    },
-    {
-      "enable_if_env": {
-        "CM_DATASET": [
-          "imagenet"
-        ]
-      },
-      "tags": "get,dataset-aux,image-classification,imagenet-aux"
     }
   ],
   "tags": [
@@ -99,59 +31,149 @@
   "uid": "6e809013816b42ea",
   "variations": {
     "float16": {
+      "group": "precision",
       "env": {
         "CM_ACCURACY_DTYPE": "float16"
       }
     },
     "float32": {
+      "group": "precision",
+      "default": "true",
       "env": {
         "CM_ACCURACY_DTYPE": "float32"
       }
     },
     "float64": {
+      "group": "precision",
       "env": {
         "CM_ACCURACY_DTYPE": "float64"
       }
     },
-    "imagenet": {
-      "env": {
-        "CM_DATASET": "imagenet"
-      }
-    },
     "int16": {
+      "group": "precision",
       "env": {
         "CM_ACCURACY_DTYPE": "int16"
       }
     },
     "int32": {
+      "group": "precision",
       "env": {
-        "CM_ACCURACY_DTYPE": "intt32"
+        "CM_ACCURACY_DTYPE": "int32"
       }
     },
     "int64": {
+      "group": "precision",
       "env": {
         "CM_ACCURACY_DTYPE": "int64"
       }
     },
     "int8": {
+      "group": "precision",
       "env": {
         "CM_ACCURACY_DTYPE": "int8"
       }
     },
+    "imagenet": {
+      "group": "dataset",
+      "default": "true",
+      "env": {
+        "CM_DATASET": "imagenet"
+      },
+      "deps": [
+        {
+          "tags": "get,dataset-aux,image-classification,imagenet-aux"
+        }
+      ]
+    },
     "openimages": {
+      "group": "dataset",
       "env": {
         "CM_DATASET": "openimages"
-      }
+      },
+      "deps": [
+        {
+          "names": [
+            "openimages-dataset"
+          ],
+          "tags": "get,dataset,openimages,original"
+        },
+        {
+          "tags": "get,generic-python-lib,_pycocotools"
+        }
+      ]
+    },
+    "kits19": {
+      "group": "dataset",
+      "env": {
+        "CM_DATASET": "kits19"
+      },
+      "deps": [
+        {
+          "tags": "get,dataset,preprocessed,medical-imaging,kits19"
+        }
+      ]
+    },
+    "librispeech": {
+      "group": "dataset",
+      "env": {
+        "CM_DATASET": "librispeech"
+      },
+      "deps": [
+        {
+          "tags": "get,dataset,preprocessed,speech-recognition,librispeech"
+        }
+      ]
     },
     "squad": {
+      "group": "dataset",
       "env": {
         "CM_DATASET": "squad"
       },
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_boto3"
+        },
+        {
+          "skip_if_env": {
+            "CM_DATASET_SQUAD_VAL_PATH": []
+          },
+          "tags": "get,dataset,squad,language-processing"
+        },
+        {
+          "skip_if_env": {
+            "CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": [ "on" ]
+          },
+          "tags": "get,dataset-aux,squad-vocab"
+        },
+        {
+          "tags": "get,generic-python-lib,_torch"
+        },
+        {
+          "tags": "get,generic-python-lib,_tokenization"
+        }
+      ],
       "add_deps_recursive": {
         "inference-src": {
           "tags": "_deeplearningexamples"
         }
       }
+    },
+    "terabyte": {
+      "group": "dataset",
+      "env": {
+        "CM_DATASET": "squad"
+      },
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_ujson"
+        },
+        {
+          "tags": "get,generic-python-lib,_scikit-learn"
+        },
+        {
+          "tags": "get,generic-python-lib,_numpy"
+        }
+      ]
     }
   }
 }

@@ -69,7 +69,7 @@ ck show env
 ```
 
 You can explore available packages in the [CK GitHub repo](https://github.com/mlcommons/ck-mlops/tree/main/package)
-or using the [cKnowledge.io platform](https://cKnowledge.io/c/package).
+or using the [cKnowledge.io platform](https://cknow.io/c/package).
 
 ## Pull CK repo with the latest MLPerf&trade; automations from OctoML:
 ```
@@ -116,7 +116,7 @@ and [CK Python customization script](https://github.com/mlcommons/ck-mlops/blob/
 to detect this data set on your machine.
 
 You can see other software detection plugins in the [CK repository](https://github.com/mlcommons/ck-mlops/tree/main/soft)
-or using the [cKnowledge.io platform](https://cKnowledge.io/c/soft).
+or using the [cKnowledge.io platform](https://cknow.io/c/soft).
 
 
 
@@ -284,7 +284,7 @@ ls -l
 
 Note that you can process, analyze and visualize such CK results from multiple experiments using Python scripts, CK modules and Jupyter notebooks
 as shown in this [Jupyter notebook example](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/f28u9epifr0nn09/ck-dse-demo-object-detection.ipynb) 
-and [CK dashboard](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all/).
+and [CK dashboard](https://cknow.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all/).
 
 
 

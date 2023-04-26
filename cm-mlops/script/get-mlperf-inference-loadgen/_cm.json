@@ -36,7 +36,8 @@
       "names": [
         "cmake"
       ],
-      "tags": "get,cmake"
+      "tags": "get,cmake",
+      "version_min": "3.1"
     }
   ],
   "default_env": {

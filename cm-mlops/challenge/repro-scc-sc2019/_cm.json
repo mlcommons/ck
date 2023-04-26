@@ -1,0 +1,19 @@
+{
+  "alias": "repro-scc-sc2019",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "dashboard_note": " (prototype)",
+  "dashboard_url": "http://cknowledge.org/dashboard/scc.sc19",
+  "date_close": "20191117",
+  "date_open": "20191117",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-scc2019",
+    "ae-scc-sc2019"
+  ],
+  "title": "Reproducing results at the Student Cluster Competition at ACM/IEEE SuperComputing'19",
+  "uid": "206b3e3f541446fb",
+  "url": "http://www.studentclustercompetition.us"
+}

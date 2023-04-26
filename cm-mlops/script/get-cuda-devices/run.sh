@@ -16,8 +16,6 @@ echo ""
 
 cd ${CM_TMP_CURRENT_SCRIPT_PATH}
 
-ls
-
 ${CM_NVCC_BIN_WITH_PATH} print_cuda_devices.cu
 test $? -eq 0 || exit 1
 

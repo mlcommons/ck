@@ -18,10 +18,12 @@
     }
   ],
   "input_mapping": {
-    "input": "CM_INPUT"
+    "input": "CM_INPUT",
+    "tar_file": "CM_TENSORRT_TAR_FILE_PATH"
   },
   "input_description": {
-    "input": "Path to the TensorRT Tar file downloaded from the Nvidia website (https://developer.nvidia.com/tensorrt)"
+    "input": "Full path to the installed TensorRT library (nvinfer)",
+    "tar_file": "Full path to the TensorRT Tar file downloaded from the Nvidia website (https://developer.nvidia.com/tensorrt)"
   },
   "new_env_keys": [
     "CM_TENSORRT_*",
@@ -29,7 +31,8 @@
     "+C_INCLUDE_PATH",
     "+CPLUS_INCLUDE_PATH",
     "+LD_LIBRARY_PATH",
-    "+DYLD_FALLBACK_LIBRARY_PATH"
+    "+DYLD_FALLBACK_LIBRARY_PATH",
+    "+ LDFLAGS"
   ],
   "tags": [
     "get",

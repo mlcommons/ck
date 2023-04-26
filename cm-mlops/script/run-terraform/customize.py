@@ -12,6 +12,9 @@ def preprocess(i):
     config_dir = os.path.join(script_dir, env.get('CM_TERRAFORM_CONFIG_DIR_NAME', ''))
     env['CM_TERRAFORM_CONFIG_DIR'] = config_dir
     cache_dir = os.getcwd()
+
+    print(f"Running terraform from {cache_dir}")
+
     shutil.copy(os.path.join(config_dir, "main.tf"), cache_dir)
     env['CM_TERRAFORM_RUN_DIR'] = cache_dir
 
@@ -57,7 +60,7 @@ def postprocess(i):
                     "sudo apt-get install -y python3-pip",
                     "python3 -m pip install cmind",
                     "source ~/.profile",
-                    "cm pull repo octoml@ck",
+                    "cm pull repo ctuning@mlcommons-ck",
                     "cm run script --tags=get,sys-utils-cm"
                     ]
                 }

@@ -12,7 +12,7 @@
     "CM_ML_MODEL_IMAGE_WIDTH": "800",
     "CM_ML_MODEL_NORMALIZE_DATA": "yes",
     "CM_ML_MODEL_RETRAINING": "no",
-    "CM_ML_MODEL_SUBTRACT_MEAN": "yes",
+    "CM_ML_MODEL_SUBTRACT_MEANS": "yes",
     "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no"
   },
   "new_env_keys": [

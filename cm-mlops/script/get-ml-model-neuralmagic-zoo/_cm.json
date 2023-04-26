@@ -1,0 +1,45 @@
+{
+  "alias": "get-ml-model-neuralmagic-zoo",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "ML/AI models",
+  "env": {
+  },
+  "new_env_keys": [
+    "CM_ML_MODEL*",
+    "CM_MODEL_ZOO_STUB"
+  ],
+  "tags": [
+    "get",
+    "ml-model",
+    "model",
+    "zoo",
+    "deepsparse",
+    "model-zoo",
+    "sparse-zoo",
+    "neural-magic"
+  ],
+  "deps": [
+    {
+      "tags": "get,python3",
+      "names": [ "python3", "python" ]
+    },
+    {
+      "tags": "get,generic-python-lib,_sparsezoo"
+    }
+  ],
+  "uid": "adbb3f2525a14f97",
+  "variations": {
+    "pruned95_obs_quant-none": {
+      "env": {
+        "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned95_obs_quant-none"
+      }
+    },
+    "model-stub.#": {
+      "env": {
+        "CM_MODEL_ZOO_STUB": "#"
+      }
+    }
+  }
+}

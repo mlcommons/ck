@@ -1,0 +1,15 @@
+{
+  "alias": "repro-mlsys2020",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20200110",
+  "date_open": "20200302",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-ia3-sc2017"
+  ],
+  "title": "Reproducing papers at MLSys'20 (artifact evaluation)",
+  "uid": "f45fad01f7e24833"
+}

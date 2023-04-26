@@ -1,6 +1,6 @@
 # About
 
-This portable CM script is being developed by the [MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+This portable CM script is being developed by the [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
 to modularize the *python reference implementations* of the [MLPerf inference benchmark](https://github.com/mlcommons/inference) 
 using the [MLCommons CM automation meta-framework](https://github.com/mlcommons/ck).
 The goal is to make it easier to run, optimize and reproduce MLPerf benchmarks 
@@ -48,9 +48,9 @@ across diverse platforms with continuously changing software and hardware.
   </tr>
   <tr>
     <td>Tensorflow</td>
-    <td>N</td>
-    <td>?</td>
-    <td>Not tested</td>
+    <td>fp32</td>
+    <td>✅</td>
+    <td>Works on all tested versions</td>
   </tr>
   <tr>
     <td>Pytorch</td>
@@ -181,21 +181,51 @@ Works on all tested versions
     <td rowspan="3">CUDA</td>
     <td>Onnxruntime</td>
     <td>fp32</td>
-    <td>?</td>
-    <td>Not tested</td>
-  </tr>
+   <td>✅</td>
+    <td>
+Works on all tested versions
+</td>  </tr>
   <tr>
     <td>Tensorflow</td>
     <td>fp32</td>
-    <td>?</td>
-    <td>Not tested</td>
-  </tr>
+   <td>✅</td>
+    <td>
+Works on all tested versions
+</td>  </tr>
   <tr>
     <td>Pytorch</td>
     <td>fp32</td>
-    <td>?</td>
-    <td>Not tested</td>
+   <td>✅</td>
+    <td>
+Works on all tested versions
+</td>  </tr>
+  
+  
+   <tr>
+    <td rowspan="1">Rnnt</td>
+    <td rowspan="1">CPU</td>
+    <td>Pytorch</td>
+    <td>fp32</td>
+    <td>✅</td>
+    <td>Works on all tested versions</td>
   </tr>
+  
+  <tr>
+    <td rowspan="2">DLRM</td>
+    <td>CPU</td>
+    <td>Pytorch</td>
+    <td>fp32</td>
+    <td>✅</td>
+    <td>Works with torch 1.10 and numpy 1.19</td>
+  </tr>
+  <tr>
+    <td>CUDA</td>
+    <td>Pytorch</td>
+    <td>fp32</td>
+    <td>?</td>
+    <td>Needs GPU with high memory capacity</td>
+  </tr>
+
 </tbody>
 </table>
 

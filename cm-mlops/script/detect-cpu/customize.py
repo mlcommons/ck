@@ -74,14 +74,14 @@ def postprocess(i):
                     env[unified_env[env_key]]=v[1].strip()
                 else:
                     env[env_key] = v[1].strip()
-    if 'CM_HOST_CPU_TOTAL_CORES' in env and 'CM_HOST_CPU_TOTAL_LOGICAL_CORES' not in env:
+    if env.get('CM_HOST_CPU_TOTAL_CORES', '') != '' and env.get('CM_HOST_CPU_TOTAL_LOGICAL_CORES', '') == '':
         env['CM_HOST_CPU_TOTAL_LOGICAL_CORES'] = env['CM_HOST_CPU_TOTAL_CORES']
 
-    if 'CM_HOST_CPU_TOTAL_LOGICAL_CORES' in env and 'CM_HOST_CPU_TOTAL_PHYSICAL_CORES' in env and 'CM_HOST_CPU_THREADS_PER_CORE' not in env:
+    if env.get('CM_HOST_CPU_TOTAL_LOGICAL_CORES','') != '' and env.get('CM_HOST_CPU_TOTAL_PHYSICAL_CORES','') != '' and env.get('CM_HOST_CPU_THREADS_PER_CORE','') == '':
         env['CM_HOST_CPU_THREADS_PER_CORE'] = str(int(int(env['CM_HOST_CPU_TOTAL_LOGICAL_CORES']) //
             int(env['CM_HOST_CPU_TOTAL_PHYSICAL_CORES'])))
 
-    if 'CM_HOST_CPU_SOCKETS' in env and 'CM_HOST_CPU_TOTAL_PHYSICAL_CORES' in env and 'CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET' not in env:
-        env['CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET'] = env['CM_HOST_CPU_TOTAL_PHYSICAL_CORES'] // env['CM_HOST_CPU_SOCKETS']
+    if env.get('CM_HOST_CPU_SOCKETS','') != '' and env.get('CM_HOST_CPU_TOTAL_PHYSICAL_CORES','') != '' and env.get('CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET','') == '':
+        env['CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET'] = str(int(env['CM_HOST_CPU_TOTAL_PHYSICAL_CORES']) // int(env['CM_HOST_CPU_SOCKETS']))
 
     return {'return':0}

@@ -43,21 +43,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,android,sdk,android-sdk(,variations from below) (flags from below)`
+1. `cm run script --tags=get,android,sdk,android-sdk [--input_flags]`
 
-*or*
+2. `cm run script "get android sdk android-sdk" [--input_flags]`
 
-`cm run script "get android sdk android-sdk (variations from below)" (flags from below)`
+3. `cm run script 8c5b4b83d49c441a [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 8c5b4b83d49c441a`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -103,11 +107,11 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**android_cmake_version**=value --> **CM_ANDROID_CMAKE_VERSION**=value
-* --**android_ndk_version**=value --> **CM_ANDROID_NDK_VERSION**=value
-* --**android_version**=value --> **CM_ANDROID_VERSION**=value
-* --**build_tools_version**=value --> **CM_ANDROID_BUILD_TOOLS_VERSION**=value
-* --**cmdline_tools_version**=value --> **CM_ANDROID_CMDLINE_TOOLS_VERSION**=value
+* `--android_cmake_version=value`  &rarr;  `CM_ANDROID_CMAKE_VERSION=value`
+* `--android_ndk_version=value`  &rarr;  `CM_ANDROID_NDK_VERSION=value`
+* `--android_version=value`  &rarr;  `CM_ANDROID_VERSION=value`
+* `--build_tools_version=value`  &rarr;  `CM_ANDROID_BUILD_TOOLS_VERSION=value`
+* `--cmdline_tools_version=value`  &rarr;  `CM_ANDROID_CMDLINE_TOOLS_VERSION=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -122,19 +126,22 @@ r=cm.access({... , "android_cmake_version":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_ANDROID_BUILD_TOOLS_VERSION: **29.0.3**
-* CM_ANDROID_CMAKE_VERSION: **3.6.4111459**
-* CM_ANDROID_CMDLINE_TOOLS_URL: **https://dl.google.com/android/repository/commandlinetools-${CM_ANDROID_CMDLINE_TOOLS_OS}-${CM_ANDROID_CMDLINE_TOOLS_VERSION}_latest.zip**
-* CM_ANDROID_CMDLINE_TOOLS_VERSION: **9123335**
-* CM_ANDROID_NDK_VERSION: **21.3.6528147**
-* CM_ANDROID_VERSION: **30**
+* CM_ANDROID_BUILD_TOOLS_VERSION: `29.0.3`
+* CM_ANDROID_CMAKE_VERSION: `3.6.4111459`
+* CM_ANDROID_CMDLINE_TOOLS_URL: `https://dl.google.com/android/repository/commandlinetools-${CM_ANDROID_CMDLINE_TOOLS_OS}-${CM_ANDROID_CMDLINE_TOOLS_VERSION}_latest.zip`
+* CM_ANDROID_CMDLINE_TOOLS_VERSION: `9123335`
+* CM_ANDROID_NDK_VERSION: `21.3.6528147`
+* CM_ANDROID_VERSION: `30`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-android-sdk/_cm.json)***
      * detect,os
@@ -147,18 +154,20 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-android-sdk/_cm.json)
   1. Run "postrocess" function from customize.py
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-android-sdk/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **+PATH**
-* **ANDROID_HOME**
-* **ANDROID_NDK_HOME**
-* **CM_ANDROID_HOME**
+* `+PATH`
+* `ANDROID_HOME`
+* `ANDROID_NDK_HOME`
+* `CM_ANDROID_HOME`
 #### New environment keys auto-detected from customize
 
-* **CM_ANDROID_HOME**
+* `CM_ANDROID_HOME`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

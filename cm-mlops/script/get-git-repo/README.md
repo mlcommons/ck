@@ -12,6 +12,7 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -43,21 +44,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,git,repo,repository,clone(,variations from below) (flags from below)`
+1. `cm run script --tags=get,git,repo,repository,clone[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "get git repo repository clone[,variations]" [--input_flags]`
 
-`cm run script "get git repo repository clone (variations from below)" (flags from below)`
+3. `cm run script ed603e7292974f10 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script ed603e7292974f10`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -134,6 +139,8 @@ ___
     <summary>Click here to expand this section.</summary>
 
     * `_repo.#`
+      - Environment variables:
+        - *CM_GIT_URL*: `#`
       - Workflow:
 
     </details>
@@ -142,24 +149,46 @@ ___
 #### Default variations
 
 `_default`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--branch=value`  &rarr;  `CM_GIT_CHECKOUT=value`
+* `--depth=value`  &rarr;  `CM_GIT_DEPTH=value`
+* `--folder=value`  &rarr;  `CM_GIT_CHECKOUT_FOLDER=value`
+* `--patch=value`  &rarr;  `CM_GIT_PATCH=value`
+* `--submodules=value`  &rarr;  `CM_GIT_RECURSE_SUBMODULES=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "branch":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_GIT_CHECKOUT: **main**
-* CM_GIT_DEPTH: **--depth 4**
-* CM_GIT_CHECKOUT_FOLDER: **repo**
-* CM_GIT_PATCH: **no**
-* CM_GIT_RECURSE_SUBMODULES: ** --recurse-submodules**
-* CM_GIT_URL: **https://github.com/mlcommons/ck.git**
+* CM_GIT_CHECKOUT: `main`
+* CM_GIT_DEPTH: `--depth 4`
+* CM_GIT_CHECKOUT_FOLDER: `repo`
+* CM_GIT_PATCH: `no`
+* CM_GIT_RECURSE_SUBMODULES: ` --recurse-submodules`
+* CM_GIT_URL: `https://github.com/mlcommons/ck.git`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/_cm.json)***
      * detect,os
@@ -167,19 +196,31 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/_cm.json)
   1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_GIT_CHECKOUT_PATH**
+* `CM_GIT_CHECKOUT_PATH`
+* `CM_GIT_REPO_*`
 #### New environment keys auto-detected from customize
 
-* **CM_GIT_CHECKOUT_PATH**
+* `CM_GIT_CHECKOUT_PATH`
+* `CM_GIT_REPO_CHECKOUT`
+* `CM_GIT_REPO_CHECKOUT_FOLDER`
+* `CM_GIT_REPO_CHECKOUT_PATH`
+* `CM_GIT_REPO_DEPTH`
+* `CM_GIT_REPO_NAME`
+* `CM_GIT_REPO_PATCH`
+* `CM_GIT_REPO_RECURSE_SUBMODULES`
+* `CM_GIT_REPO_URL`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

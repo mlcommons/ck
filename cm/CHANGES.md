@@ -1,3 +1,12 @@
+## V1.1.5.1
+   - updated link to the MLCommons taskforce on automation and reproducibility
+
+## V1.1.5
+   - added support for CLI with -- {something} . Everything after -- will be available 
+     in the CM input dictionary under "unparsed_cmd" key (list).
+     We need it to support universal experiments in CM:
+     cm run experiment -- {any script with any command line}
+
 ## V1.1.4
    - added utils.call_internal_module to break automation modules into sub-modules
 

@@ -37,7 +37,6 @@ if [ ${CM_GIT_PATCH} == "yes" ]; then
   done
 fi
 cd ${CUR_DIR}/kits19
-${CM_PYTHON_BIN_WITH_PATH} -m pip install ${SCRIPT_DIR}/requirements.txt
 ${CM_PYTHON_BIN_WITH_PATH} -m starter_code.get_imaging
 cd data
 cp -rf case_00185 case_00400

@@ -5,7 +5,6 @@
   "cache": true,
   "category": "ML/AI datasets",
   "category_sort":8500,
-  "default_variation": "from.dropbox",
   "new_env_keys": [
     "CM_DATASET_AUX_*"
   ],
@@ -24,6 +23,7 @@
       }
     },
     "from.berkeleyvision": {
+      "group": "download-source",
       "base": [
         "2012"
       ],
@@ -32,6 +32,8 @@
       }
     },
     "from.dropbox": {
+      "group": "download-source",
+      "default": true,
       "base": [
         "2012"
       ],

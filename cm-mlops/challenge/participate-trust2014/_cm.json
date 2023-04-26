@@ -1,0 +1,16 @@
+{
+  "alias": "participate-trust2014",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20140612",
+  "date_open": "20140612",
+  "tags": [
+    "participate",
+    "event",
+    "event-workshop",
+    "trust2014"
+  ],
+  "title": "Participate in ACM TRUST'14 at PLDI'14",
+  "uid": "e58a502792004ded",
+  "url": "http://ctuning.org/cm/wiki/index.php?title=Events:TRUST2014"
+}

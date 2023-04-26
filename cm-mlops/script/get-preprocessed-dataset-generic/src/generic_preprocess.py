@@ -147,7 +147,7 @@ def preprocess():
     fof_name                = os.getenv('CM_DATASET_SUBSET_FOF', 'files.txt')
     data_type               = os.getenv('CM_DATASET_DATA_TYPE', 'float32')
     data_layout             = os.getenv('CM_DATASET_DATA_LAYOUT', '').lower()
-    new_file_extension      = os.getenv('CM_DATASET_NEW_EXTENSION', '')
+    new_file_extension      = os.getenv('CM_DATASET_PREPROCESSED_EXTENSION', '')
     normalize_data          = int(os.getenv('CM_DATASET_NORMALIZE_DATA', '0'))
     subtract_mean           = int(os.getenv('CM_DATASET_SUBTRACT_MEANS', '0'))
     given_channel_means     = os.getenv('CM_DATASET_GIVEN_CHANNEL_MEANS', '')
@@ -159,7 +159,7 @@ def preprocess():
     if given_channel_means:
         given_channel_means = [ float(x) for x in given_channel_means.split(' ') ]
 
-    interpolation_method    = os.getenv('CM_INTERPOLATION_METHOD', '')
+    interpolation_method    = os.getenv('CM_DATASET_INTERPOLATION_METHOD', '')
 
     print(("From: {}, To: {}, Size: {}, Crop: {}, InterSize: {}, 2BGR: {}, OFF: {}, VOL: '{}', FOF: {},"+
         " DTYPE: {}, DLAYOUT: {}, EXT: {}, NORM: {}, SMEAN: {}, GCM: {}, QUANTIZE: {}, QUANT_SCALE: {}, QUANT_OFFSET: {}, CONV_UNSIGNED: {}, INTER: {}").format(

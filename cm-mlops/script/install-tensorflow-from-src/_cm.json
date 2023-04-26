@@ -51,9 +51,10 @@
     "master": {
       "deps": [
         {
-          "tags": "python,get",
+          "tags": "get,python",
           "version_max": "3.10.999",
-          "version_min": "3.7.0"
+          "version_min": "3.7.0",
+          "names":["python","python3"]
         },
         {
           "tags": "gcc,get",
@@ -71,9 +72,10 @@
     "v1.15.0": {
       "deps": [
         {
-          "tags": "python,get",
+          "tags": "get,python",
           "version_max": "3.7",
-          "version_min": "3.3"
+          "version_min": "3.3",
+          "names":["python","python3"]
         },
         {
           "tags": "gcc,get",
@@ -92,9 +94,11 @@
     "v2.0.0": {
       "deps": [
         {
-          "tags": "python,get",
+          "tags": "get,python",
           "version_max": "3.7.999",
-          "version_min": "3.3.0"
+          "version_max_usable": "3.7.12",
+          "version_min": "3.3.0",
+          "names":["python","python3"]
         },
         {
           "tags": "gcc,get",
@@ -113,9 +117,11 @@
     "v2.1.0": {
       "deps": [
         {
-          "tags": "python,get",
+          "tags": "get,python",
           "version_max": "3.7.999",
-          "version_min": "3.3.0"
+          "version_max_usable": "3.7.12",
+          "version_min": "3.3.0",
+          "names":["python","python3"]
         },
         {
           "tags": "gcc,get",
@@ -134,9 +140,11 @@
     "v2.2.0": {
       "deps": [
         {
-          "tags": "python,get",
+          "tags": "get,python",
           "version_max": "3.8.999",
-          "version_min": "3.5.0"
+          "version_max_usable": "3.8.12",
+          "version_min": "3.5.0",
+          "names":["python","python3"]
         },
         {
           "tags": "gcc,get",
@@ -155,9 +163,11 @@
     "v2.3.0": {
       "deps": [
         {
-          "tags": "python,get",
+          "tags": "get,python",
           "version_max": "3.8.999",
-          "version_min": "3.5.0"
+          "version_max_usable": "3.8.12",
+          "version_min": "3.5.0",
+          "names":["python","python3"]
         },
         {
           "tags": "gcc,get",
@@ -176,9 +186,11 @@
     "v2.4.0": {
       "deps": [
         {
-          "tags": "python,get",
+          "tags": "get,python",
           "version_max": "3.8.999",
-          "version_min": "3.6.0"
+          "version_max_usable": "3.8.12",
+          "version_min": "3.6.0",
+          "names":["python","python3"]
         },
         {
           "tags": "gcc,get",
@@ -197,9 +209,11 @@
     "v2.5.0": {
       "deps": [
         {
-          "tags": "python,get",
+          "tags": "get,python",
           "version_max": "3.9.999",
-          "version_min": "3.6.0"
+          "version_max_usable": "3.9.12",
+          "version_min": "3.6.0",
+          "names":["python","python3"]
         },
         {
           "tags": "gcc,get",
@@ -218,9 +232,11 @@
     "v2.6.0": {
       "deps": [
         {
-          "tags": "python,get",
+          "tags": "get,python",
           "version_max": "3.9.999",
-          "version_min": "3.6.0"
+          "version_max_usable": "3.9.12",
+          "version_min": "3.6.0",
+          "names":["python","python3"]
         },
         {
           "tags": "gcc,get",
@@ -239,9 +255,11 @@
     "v2.7.0": {
       "deps": [
         {
-          "tags": "python,get",
+          "tags": "get,python",
           "version_max": "3.9.999",
-          "version_min": "3.7.0"
+          "version_max_usable": "3.9.12",
+          "version_min": "3.7.0",
+          "names":["python","python3"]
         },
         {
           "tags": "gcc,get",
@@ -260,9 +278,11 @@
     "v2.8.0": {
       "deps": [
         {
-          "tags": "python,get",
+          "tags": "get,python",
           "version_max": "3.10.999",
-          "version_min": "3.7.0"
+          "version_max_usable": "3.10.12",
+          "version_min": "3.7.0",
+          "names":["python","python3"]
         },
         {
           "tags": "gcc,get",
@@ -281,9 +301,11 @@
     "v2.9.0": {
       "deps": [
         {
-          "tags": "python,get",
+          "tags": "get,python",
           "version_max": "3.10.999",
-          "version_min": "3.7.0"
+          "version_max_usable": "3.10.12",
+          "version_min": "3.7.0",
+          "names":["python","python3"]
         },
         {
           "tags": "gcc,get",

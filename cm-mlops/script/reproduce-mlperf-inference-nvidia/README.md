@@ -35,7 +35,23 @@ Nvidia working directory is given by `CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH` vari
 cm run script --tags=get,nvidia,common-code,_custom --out=json
 ```
 
-Nvidia run configuration values for each model-sceraio for known systems are stored in `__init__.py` files under configs directory. For custom systems these are stored under `custom.py` files.
+
+Requirements: You need to have CUDA, cuDNN and TensorRT installed on your system. 
+
+If CUDA is not detected, CM should download and install it automatically when you run the workflow.
+
+For x86 machines, you can download the tar files for cuDNN and TensorRT and install them using the following commands
+```bash
+cm run script --tags=get,cudnn --input=<PATH_TO_CUDNN_TAR_FILE>
+```
+
+```bash
+cm run script --tags=get,tensorrt --input=<PATH_TO_TENSORRT_TAR_FILE>
+```
+
+On other systems you can do a package manager install and then CM should pick up the installation automatically during the workflow run.
+
+Nvidia run configuration values for each model-sceraio for known systems are stored in `__init__.py` files under configs directory. For custom systems these are stored under `custom.py` files. When custom config files are generated they override the default config values with empty ones (not desirable). So, you'll probably need to open the custom config file and comment out the overrides. Typically `gpu_batch_size` and `offline_expected_qps` are enough for an offline scenario run on a typical single GPU system.
 
 <details>
 
@@ -179,21 +195,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=reproduce,mlcommons,mlperf,inference,harness,nvidia-harness,nvidia(,variations from below) (flags from below)`
+1. `cm run script --tags=reproduce,mlcommons,mlperf,inference,harness,nvidia-harness,nvidia[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "reproduce mlcommons mlperf inference harness nvidia-harness nvidia[,variations]" [--input_flags]`
 
-`cm run script "reproduce mlcommons mlperf inference harness nvidia-harness nvidia (variations from below)" (flags from below)`
+3. `cm run script bc3b17fb430f4732 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script bc3b17fb430f4732`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -237,18 +257,48 @@ ___
 
 #### Variations
 
+  * *Internal group (variations should not be selected manually)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_3d-unet_`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_transformers
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_bert_`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_transformers
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_dlrm_`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_torch
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+
+    </details>
+
+
   * *No group (any variation can be selected)*
     <details>
     <summary>Click here to expand this section.</summary>
 
     * `_batch_size.#`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `None`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `None`
+        - *CM_MODEL_BATCH_SIZE*: `#`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `#`
+        - *CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1*: `gpu_batch_size.#`
       - Workflow:
     * `_dla_batch_size.#`
       - Environment variables:
-        - *CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE*: `None`
+        - *CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE*: `#`
+        - *CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX2*: `dla_batch_size.#`
+      - Workflow:
+    * `_use_triton`
+      - Environment variables:
+        - *CM_MLPERF_NVIDIA_HARNESS_USE_TRITON*: `yes`
+        - *CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX3*: `using_triton`
       - Workflow:
 
     </details>
@@ -261,6 +311,7 @@ ___
     * **`_tensorrt`** (default)
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `tensorrt`
+        - *CM_MLPERF_BACKEND_NAME*: `TensorRT`
       - Workflow:
 
     </details>
@@ -270,11 +321,11 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * **`_cpu`** (default)
+    * `_cpu`
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `cpu`
       - Workflow:
-    * `_cuda`
+    * **`_cuda`** (default)
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `gpu`
         - *CM_MLPERF_DEVICE_LIB_NAMESPEC*: `cudart`
@@ -287,6 +338,14 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_3d-unet-99`
+      - Environment variables:
+        - *CM_MODEL*: `3d-unet-99`
+      - Workflow:
+    * `_3d-unet-99.9`
+      - Environment variables:
+        - *CM_MODEL*: `3d-unet-99.9`
+      - Workflow:
     * `_bert-99`
       - Environment variables:
         - *CM_MODEL*: `bert-99`
@@ -294,6 +353,14 @@ ___
     * `_bert-99.9`
       - Environment variables:
         - *CM_MODEL*: `bert-99.9`
+      - Workflow:
+    * `_dlrm-99`
+      - Environment variables:
+        - *CM_MODEL*: `dlrm-99`
+      - Workflow:
+    * `_dlrm-99.9`
+      - Environment variables:
+        - *CM_MODEL*: `dlrm-99.9`
       - Workflow:
     * **`_resnet50`** (default)
       - Environment variables:
@@ -304,49 +371,84 @@ ___
         - *CM_MODEL*: `retinanet`
         - *CM_SKIP_MODEL_DOWNLOAD*: `True`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_Pillow
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_torch
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_torchvision
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_opencv-python
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_rnnt`
+      - Environment variables:
+        - *CM_MODEL*: `rnnt`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_toml
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_torchvision
+             * CM names: `--adr.['torchvision']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_nvidia-apex
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_unidecode
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_inflect
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_librosa
+             * CM names: `--adr.['librosa']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_sox
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-sys-util,_sox
+             - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
 
     </details>
 
 
 #### Default variations
 
-`_cpu,_resnet50,_tensorrt`
+`_cuda,_resnet50,_tensorrt`
 
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
-* --**dla_batch_size**=value --> **CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE**=value
-* --**dla_copy_streams**=value --> **CM_MLPERF_NVIDIA_HARNESS_DLA_COPY_STREAMS**=value
-* --**dla_inference_streams**=value --> **CM_MLPERF_NVIDIA_HARNESS_DLA_INFERENCE_STREAMS**=value
-* --**end_on_device**=value --> **CM_MLPERF_NVIDIA_HARNESS_END_ON_DEVICE**=value
-* --**gpu_batch_size**=value --> **CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE**=value
-* --**gpu_copy_streams**=value --> **CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS**=value
-* --**gpu_inference_streams**=value --> **CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS**=value
-* --**input_format**=value --> **CM_MLPERF_NVIDIA_HARNESS_INPUT_FORMAT**=value
-* --**log_dir**=value --> **CM_MLPERF_NVIDIA_HARNESS_LOG_DIR**=value
-* --**make_cmd**=value --> **CM_MLPERF_NVIDIA_RUN_COMMAND**=value
-* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
-* --**max_dlas**=value --> **CM_MLPERF_MAX_DLAS**=value
-* --**mlperf_conf**=value --> **CM_MLPERF_CONF**=value
-* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
-* --**multistream_target_latency**=value --> **CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY**=value
-* --**offline_target_qps**=value --> **CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS**=value
-* --**output_dir**=value --> **CM_MLPERF_OUTPUT_DIR**=value
-* --**performance_sample_count**=value --> **CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT**=value
-* --**run_infer_on_copy_streams**=value --> **CM_MLPERF_NVIDIA_HARNESS_RUN_INFER_ON_COPY_STREAMS**=value
-* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
-* --**server_target_qps**=value --> **CM_MLPERF_LOADGEN_SERVER_TARGET_QPS**=value
-* --**singlestream_target_latency**=value --> **CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY**=value
-* --**skip_preprocess**=value --> **CM_SKIP_PREPROCESS_DATASET**=value
-* --**start_from_device**=value --> **CM_MLPERF_NVIDIA_HARNESS_START_FROM_DEVICE**=value
-* --**target_latency**=value --> **CM_MLPERF_LOADGEN_TARGET_LATENCY**=value
-* --**target_qps**=value --> **CM_MLPERF_LOADGEN_TARGET_QPS**=value
-* --**use_graphs**=value --> **CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS**=value
-* --**use_triton**=value --> **CM_MLPERF_NVIDIA_HARNESS_USE_TRITON**=value
-* --**user_conf**=value --> **CM_MLPERF_USER_CONF**=value
-* --**workspace_size**=value --> **CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE**=value
+* `--count=value`  &rarr;  `CM_MLPERF_LOADGEN_QUERY_COUNT=value`
+* `--dla_batch_size=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE=value`
+* `--dla_copy_streams=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DLA_COPY_STREAMS=value`
+* `--dla_inference_streams=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DLA_INFERENCE_STREAMS=value`
+* `--end_on_device=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_END_ON_DEVICE=value`
+* `--gpu_batch_size=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE=value`
+* `--gpu_copy_streams=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS=value`
+* `--gpu_inference_streams=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS=value`
+* `--input_format=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_INPUT_FORMAT=value`
+* `--log_dir=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_LOG_DIR=value`
+* `--make_cmd=value`  &rarr;  `CM_MLPERF_NVIDIA_RUN_COMMAND=value`
+* `--max_batchsize=value`  &rarr;  `CM_MLPERF_LOADGEN_MAX_BATCHSIZE=value`
+* `--max_dlas=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_MAX_DLAS=value`
+* `--mlperf_conf=value`  &rarr;  `CM_MLPERF_CONF=value`
+* `--mode=value`  &rarr;  `CM_MLPERF_LOADGEN_MODE=value`
+* `--multistream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY=value`
+* `--offline_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS=value`
+* `--output_dir=value`  &rarr;  `CM_MLPERF_OUTPUT_DIR=value`
+* `--performance_sample_count=value`  &rarr;  `CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT=value`
+* `--power_setting=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_POWER_SETTING=value`
+* `--rerun=value`  &rarr;  `CM_RERUN=value`
+* `--run_infer_on_copy_streams=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_RUN_INFER_ON_COPY_STREAMS=value`
+* `--scenario=value`  &rarr;  `CM_MLPERF_LOADGEN_SCENARIO=value`
+* `--server_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_SERVER_TARGET_QPS=value`
+* `--singlestream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY=value`
+* `--skip_preprocess=value`  &rarr;  `CM_SKIP_PREPROCESS_DATASET=value`
+* `--skip_preprocessing=value`  &rarr;  `CM_SKIP_PREPROCESS_DATASET=value`
+* `--start_from_device=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_START_FROM_DEVICE=value`
+* `--target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_TARGET_LATENCY=value`
+* `--target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_TARGET_QPS=value`
+* `--use_graphs=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS=value`
+* `--use_triton=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_USE_TRITON=value`
+* `--user_conf=value`  &rarr;  `CM_MLPERF_USER_CONF=value`
+* `--workspace_size=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -361,22 +463,26 @@ r=cm.access({... , "count":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_BATCH_COUNT: **1**
-* CM_BATCH_SIZE: **1**
-* CM_FAST_COMPILATION: **True**
-* CM_MLPERF_LOADGEN_SCENARIO: **Offline**
-* CM_MLPERF_LOADGEN_MODE: **performance**
-* SKIP_POLICIES: **1**
-* CM_NO_PREPROCESS_DATASET: **False**
-* CM_SKIP_MODEL_DOWNLOAD: **False**
-* CM_MLPERF_NVIDIA_RUN_COMMAND: **run**
+* CM_BATCH_COUNT: `1`
+* CM_BATCH_SIZE: `1`
+* CM_FAST_COMPILATION: `True`
+* CM_MLPERF_LOADGEN_SCENARIO: `Offline`
+* CM_MLPERF_LOADGEN_MODE: `performance`
+* SKIP_POLICIES: `1`
+* CM_SKIP_PREPROCESS_DATASET: `False`
+* CM_SKIP_MODEL_DOWNLOAD: `False`
+* CM_MLPERF_NVIDIA_RUN_COMMAND: `run`
+* CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: `nvidia_original`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)***
      * detect,os
@@ -391,17 +497,31 @@ ___
        - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
      * build,nvidia,inference,server
        - CM script: [build-mlperf-inference-server-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-mlperf-inference-server-nvidia)
-     * get,mlcommons,inference,src
-       * CM names: `--adr.['inference-src']...`
-       - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
-     * get,nvidia,mlperf,inference,common-code,_custom
-       * CM names: `--adr.['nvidia-inference-common-code']...`
-       - CM script: [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
      * get,dataset,original,imagenet,_full
        * `if (CM_MODEL  == resnet50)`
        * CM names: `--adr.['imagenet-original']...`
        - CM script: [get-dataset-imagenet-val](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)
-     * get,dataset,original,openimages,_validation,_full
+     * get,dataset,original,kits19
+       * `if (CM_MODEL in ['3d-unet-99', '3d-unet-99.9'])`
+       * CM names: `--adr.['kits19-original']...`
+       - CM script: [get-dataset-kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-kits19)
+     * get,dataset,original,librispeech
+       * `if (CM_MODEL  == rnnt)`
+       * CM names: `--adr.['librispeech-original']...`
+       - CM script: [get-dataset-librispeech](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-librispeech)
+     * get,dataset,original,criteo
+       * `if (CM_MODEL in ['dlrm-99', 'dlrm-99.9'])`
+       * CM names: `--adr.['criteo-original']...`
+       - CM script: [get-dataset-criteo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo)
+     * get,ml-model,dlrm,_pytorch
+       * `if (CM_MODEL in ['dlrm-99', 'dlrm-99.9'])`
+       * CM names: `--adr.['dlrm-model']...`
+       - CM script: [get-ml-model-dlrm-terabyte](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte)
+     * get,ml-model,nvidia-retinanet,_efficient-nms
+       * `if (CM_MODEL  == retinanet)`
+       * CM names: `--adr.['ml-model-retinanet']...`
+       - CM script: [get-ml-model-retinanet-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia)
+     * get,dataset,original,openimages,_validation,_full,_custom-annotations
        * `if (CM_MODEL  == retinanet)`
        * CM names: `--adr.['openimages-original']...`
        - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
@@ -409,27 +529,42 @@ ___
        * `if (CM_MODEL  == retinanet)`
        * CM names: `--adr.['openimages-calibration']...`
        - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
-     * get,ml-model,nvidia-retinanet,_efficient-nms
-       * `if (CM_MODEL  == retinanet)`
-       * CM names: `--adr.['ml-model-retinanet']...`
-       - CM script: [get-ml-model-retinanet-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia)
+     * get,mlcommons,inference,src
+       * CM names: `--adr.['inference-src']...`
+       - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+     * get,nvidia,mlperf,inference,common-code,_custom
+       * CM names: `--adr.['nvidia-inference-common-code']...`
+       - CM script: [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
+     * generate,user-conf,mlperf,inference
+       * CM names: `--adr.['user-conf-generator']...`
+       - CM script: [generate-mlperf-inference-user-conf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)
+  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)***
+     * benchmark,program
+       * `if (CM_MLPERF_SKIP_RUN  != True)`
+       * CM names: `--adr.['runner']...`
+       - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_DATASET_***
-* **CM_MLPERF_***
+* `CM_DATASET_*`
+* `CM_HW_NAME`
+* `CM_MAX_EXAMPLES`
+* `CM_MLPERF_*`
+* `CM_ML_MODEL_*`
 #### New environment keys auto-detected from customize
 
-* **CM_MLPERF_LOADGEN_MODE**
+* `CM_MLPERF_LOADGEN_MODE`
+* `CM_MLPERF_NVIDIA_RUN_COMMAND`
+* `CM_MLPERF_RUN_CMD`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

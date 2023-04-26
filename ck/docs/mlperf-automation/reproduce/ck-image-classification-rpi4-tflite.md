@@ -1,6 +1,6 @@
 **[ [TOC](../README.md) ]**
 
-***Reproduced by [Grigori Fursin](https://cKnowledge.io/@gfursin) on 20210505***
+***Reproduced by [Grigori Fursin](https://cKnowledge.org/gfursin) on 20210505***
 
 * Platform: Raspberry Pi 4
 * OS: Ubuntu 20.04 64-bit

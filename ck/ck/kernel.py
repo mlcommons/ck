@@ -54,10 +54,10 @@ cfg = {
     "cmd": "ck <action> $#module_uoa#$ (cid1/uid1) (cid2/uid2) (cid3/uid3) key_i=value_i ... @file.json",
 
     # Collective Knowledge Base (ckb)
-    "wiki_data_web": "https://cKnowledge.io/c/",
+    "wiki_data_web": "https://cknow.io/c/",
     # Collective Knowledge Base (ckb)
     "private_wiki_data_web": "https://github.com/mlcommons/ck/wiki/ckb_",
-    "api_web": "https://cKnowledge.io/c/module/",
+    "api_web": "https://cknow.io/c/module/",
     "status_url": "https://raw.githubusercontent.com/mlcommons/ck/master/setup.py",
 
     "help_examples": "  Example of obtaining, compiling and running a shared benchmark on Linux with GCC:\n    $ ck pull repo:ctuning-programs\n    $ ck compile program:cbench-automotive-susan --speed\n    $ ck run program:cbench-automotive-susan\n\n  Example of an interactive CK-powered article:\n    http://cknowledge.org/repo\n",
@@ -148,7 +148,7 @@ cfg = {
     "index_port": "9200",
     "index_use_curl": "no",
 
-    "cknowledge_api": "https://cKnowledge.io/api/v1/?",
+    "cknowledge_api": "https://cknow.io/api/v1/?",
     #      "download_missing_components":"yes",
     "check_missing_modules": "yes",
 
@@ -6747,7 +6747,7 @@ def short_help(i):
 
     h += 'CK Google group:      https://bit.ly/ck-google-group\n'
     h += 'CK Slack channel:     https://cKnowledge.org/join-slack\n'
-    h += 'Stable CK components: https://cKnowledge.io'
+    h += 'Stable CK components: https://cknow.io'
 
     if o == 'con':
         out(h)
@@ -12387,7 +12387,7 @@ def access(i):
         # Print message that this framework was discontinued
         if o == 'con':
             out('')
-            out('WARNING: this framework was discontinued in favor of the new CK2 framework aka CM being developed by the open taskforce on education and reproducibility at MLCommons:')
+            out('WARNING: this framework was discontinued in favor of the new CK2 framework aka CM being developed by the open taskforce on automation and reproducibility at MLCommons:')
             out('         https://bit.ly/mlperf-edu-wg')
             out('')
 

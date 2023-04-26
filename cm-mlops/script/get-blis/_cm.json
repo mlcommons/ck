@@ -1,0 +1,71 @@
+{
+  "alias": "get-blis",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_version": "master",
+  "deps": [
+    {
+      "tags": "get,git",
+      "names": [
+        "blis-source-repo"
+      ],
+      "force_env_keys": [
+        "CM_GIT_CHECKOUT"
+      ]
+    },
+    {
+      "tags": "detect,cpu"
+    }
+  ],
+  "input_description": {},
+  "input_mapping": {},
+  "new_env_keys": [
+    "CM_BLIS_SRC_PATH",
+    "+LD_LIBRARY_PATH",
+    "CM_BLIS_INSTALL_PATH",
+    "CM_BLIS_INC",
+    "CM_BLIS_LIB"
+  ],
+  "new_state_keys": [],
+  "post_deps": [],
+  "posthook_deps": [],
+  "prehook_deps": [],
+  "tags": [
+    "get",
+    "lib",
+    "blis"
+  ],
+  "uid": "ea6e1cf75242456c",
+  "variations": {
+    "flame": {
+      "group": "source",
+      "default": true,
+      "add_deps_recursive": {
+        "blis-source-repo": {
+          "tags": "_repo.https://github.com/flame/blis.git"
+        }
+      }
+    },
+    "amd": {
+      "group": "source",
+      "add_deps_recursive": {
+        "blis-source-repo": {
+          "tags": "_repo.https://github.com/amd/libflame.git"
+        }
+      }
+    }
+  },
+  "versions": {
+    "master": {
+      "env": {
+        "CM_GIT_CHECKOUT": "master"
+      }
+    },
+    "0.9.0": {
+      "env": {
+        "CM_GIT_CHECKOUT": "0.9.0"
+      }
+    }
+  }
+}

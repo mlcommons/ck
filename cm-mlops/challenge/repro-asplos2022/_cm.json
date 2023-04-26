@@ -1,0 +1,17 @@
+{
+  "alias": "repro-asplos2022",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20220401",
+  "date_open": "20220401",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-asplos2022"
+  ],
+  "title": "Reproduce papers at ACM ASPLOS'22 (artifact evaluation)",
+  "uid": "ca8f301e93d74ab2",
+  "url": "https://ctuning.org/ae/asplos2022.html",
+  "use_self_url": "yes"
+}

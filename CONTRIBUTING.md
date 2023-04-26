@@ -16,7 +16,7 @@ Ensure that cla-bot and other checks pass for your Pull requests.
 
 ## Contributing to the MLCommons Collective Mind
 
-We suggest you to join the [open MLCommons taskforce on education and reproducibility](docs/mlperf-education-workgroup.md)
+We suggest you to join the [open MLCommons Collective Knowledge taskforce](docs/taskforce.md)
 to learn how to use the CM framework, enhance existing CM components for MLOps and DevOps, 
 run MLPerf benchmarks and contribute your own artifacts, scripts and workflows in the CM format.
 
@@ -39,6 +39,7 @@ Thank you for your support and looking forward to collaborating with you!
 
 * Sam Ainsworth (University of Cambridge, UK)
 * Saheli Bhattacharjee (@sahelib25)
+* Ethan Cheng (Nvidia)
 * Jiahao Chen (MIT)
 * Gianfranco Costamagna
 * Chris Cummins (Facebook)
@@ -105,5 +106,5 @@ See more acknowledgments at the end of this [journal article](https://arxiv.org/
 
 ## Maintainers
 
-* [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
+* [Grigori Fursin](https://cKnowledge.org/gfursin) (OctoML, MLCommons, cTuning foundation)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)

@@ -85,7 +85,11 @@
     },
     "full": {
       "env": {
-        "CM_DATASET_SIZE": ""
+      },
+      "add_deps_recursive": {
+        "original-dataset": {
+          "tags": "-_fake"
+        }
       }
     },
     "validation": {

@@ -42,21 +42,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,nvidia,mlperf,inference,common-code(,variations from below) (flags from below)`
+1. `cm run script --tags=get,nvidia,mlperf,inference,common-code[,variations] `
 
-*or*
+2. `cm run script "get nvidia mlperf inference common-code[,variations]" `
 
-`cm run script "get nvidia mlperf inference common-code (variations from below)" (flags from below)`
+3. `cm run script 26b78bf3ffdc4926 `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 26b78bf3ffdc4926`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -114,13 +118,16 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/_cm.json)***
      * get,mlperf,inference,results
@@ -132,16 +139,18 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **+PYTHONPATH**
-* **CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH**
+* `+PYTHONPATH`
+* `CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH`
 #### New environment keys auto-detected from customize
 
-* **CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH**
+* `CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

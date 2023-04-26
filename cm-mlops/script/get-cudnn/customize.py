@@ -5,109 +5,99 @@ import shutil
 
 def preprocess(i):
 
+    recursion_spaces = i['recursion_spaces']
+
     os_info = i['os_info']
 
     env = i['env']
 
     env['CM_TMP_RUN_COPY_SCRIPT'] = "no"
 
-    cuda_path_lib = env.get('CM_CUDA_PATH_LIB')
+
+    # If TAR file is not explicitly specified, search
+    if env.get('CM_CUDNN_TAR_FILE_PATH','')=='':
+
+       cuda_path_lib = env.get('CM_CUDA_PATH_LIB')
  
-    if os_info['platform'] == 'windows':
-        extra_pre=''
-        extra_ext='lib'
-    else:
-        extra_pre='lib'
-        extra_ext='so'
+       if os_info['platform'] == 'windows':
+           extra_pre=''
+           extra_ext='lib'
+       else:
+           extra_pre='lib'
+           extra_ext='so'
 
-    libfilename = extra_pre + 'cudnn.' +extra_ext
-    env['CM_CUDNN_VERSION'] = 'vdetected'
-    if os.path.exists(os.path.join(cuda_path_lib, libfilename)):
-        env['CM_CUDA_PATH_LIB_CUDNN'] = env['CM_CUDA_PATH_LIB']
-        return {'return': 0}
+       libfilename = extra_pre + 'cudnn.' +extra_ext
+       env['CM_CUDNN_VERSION'] = 'vdetected'
+       if os.path.exists(os.path.join(cuda_path_lib, libfilename)):
+           env['CM_CUDA_PATH_LIB_CUDNN'] = env['CM_CUDA_PATH_LIB']
+           return {'return': 0}
 
-    if env.get('CM_TMP_PATH', '').strip() != '':
-        path = env.get('CM_TMP_PATH')
-        if os.path.exists(os.path.join(path, libfilename)):
-            env['CM_CUDA_PATH_LIB_CUDNN'] = path
-            return {'return': 0}
+       if env.get('CM_TMP_PATH', '').strip() != '':
+           path = env.get('CM_TMP_PATH')
+           if os.path.exists(os.path.join(path, libfilename)):
+               env['CM_CUDA_PATH_LIB_CUDNN'] = path
+               return {'return': 0}
 
-    recursion_spaces = i['recursion_spaces']
+       if env.get('CM_INPUT','').strip()=='':
+           if os_info['platform'] == 'windows':
+              if env.get('CM_TMP_PATH','').strip()=='':
+                  # Check in "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA"
+                  paths = []
+                  for path in ["C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA", "C:\\Program Files (x86)\\NVIDIA GPU Computing Toolkit\\CUDA"]:
+                      if os.path.isdir(path):
+                          dirs = os.listdir(path)
+                          for dr in dirs:
+                              path2 = os.path.join(path, dr, 'lib')
+                              if os.path.isdir(path2):
+                                  paths.append(path2)
 
-#    if os_info['platform'] == 'windows':
-#        return {'return': 1, 'error': 'Windows is currently not supported for cudnn installation!'}
-#
-#    if 'CM_TMP_PATH' in env:
-#        tmp_path = env['CM_TMP_PATH'].split(":")
-#    else:
-#        tmp_path = []
-#
-#    for lib_path in env.get('+CM_HOST_OS_DEFAULT_LIBRARY_PATH', []):
-#        if(os.path.exists(lib_path)):
-#            tmp_path.append(lib_path)
+                  if len(paths)>0:
+                      tmp_paths = ';'.join(paths)
+                      tmp_paths += ';'+os.environ.get('PATH','')
 
-    if os_info['platform'] == 'windows':
-        if env.get('CM_INPUT','').strip()=='' and env.get('CM_TMP_PATH','').strip()=='':
-            # Check in "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA"
-            paths = []
-            for path in ["C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA", "C:\\Program Files (x86)\\NVIDIA GPU Computing Toolkit\\CUDA"]:
-                if os.path.isdir(path):
-                    dirs = os.listdir(path)
-                    for dr in dirs:
-                        path2 = os.path.join(path, dr, 'lib')
-                        if os.path.isdir(path2):
-                            paths.append(path2)
+                      env['CM_TMP_PATH'] = tmp_paths
+                      env['CM_TMP_PATH_IGNORE_NON_EXISTANT'] = 'yes'
 
-            if len(paths)>0:
-                tmp_paths = ';'.join(paths)
-                tmp_paths += ';'+os.environ.get('PATH','')
+           else:
+              # paths to cuda are not always in PATH - add a few typical locations to search for
+              # (unless forced by a user)
 
-                env['CM_TMP_PATH'] = tmp_paths
-                env['CM_TMP_PATH_IGNORE_NON_EXISTANT'] = 'yes'
+              cm_tmp_path = env.get('CM_TMP_PATH','').strip()
+              if cm_tmp_path!='':
+                 cm_tmp_path+=':'
+              cm_tmp_path+='/usr/local/cuda/lib64:/usr/cuda/lib64:/usr/local/cuda/lib:/usr/cuda/lib:/usr/local/cuda-11/lib64:/usr/cuda-11/lib:/usr/local/cuda-12/lib:/usr/cuda-12/lib:/usr/local/packages/cuda/lib'
+              env['CM_TMP_PATH'] = cm_tmp_path
+              env['CM_TMP_PATH_IGNORE_NON_EXISTANT'] = 'yes'
 
-    else:
-        # paths to cuda are not always in PATH - add a few typical locations to search for
-        # (unless forced by a user)
+              for lib_path in env.get('+CM_HOST_OS_DEFAULT_LIBRARY_PATH', []):
+                  if(os.path.exists(lib_path)):
+                     env['CM_TMP_PATH']+=':'+lib_path
 
-        if env.get('CM_INPUT','').strip()=='':
-            if env.get('CM_TMP_PATH','').strip()!='':
-               env['CM_TMP_PATH']+=':'
-            env['CM_TMP_PATH'] = '/usr/local/cuda/lib64:/usr/cuda/lib64:/usr/local/cuda/lib:/usr/cuda/lib:/usr/local/cuda-11/lib64:/usr/cuda-11/lib:/usr/local/cuda-12/lib:/usr/cuda-12/lib:/usr/local/packages/cuda/lib'
-            env['CM_TMP_PATH_IGNORE_NON_EXISTANT'] = 'yes'
+       r = i['automation'].find_artifact({'file_name': libfilename,
+                                          'env': env,
+                                          'os_info':os_info,
+                                          'default_path_env_key': 'LD_LIBRARY_PATH',
+                                          'detect_version':False,
+                                          'env_path_key':'CM_CUDA_PATH_LIB_CUDNN',
+                                          'run_script_input':i['run_script_input'],
+                                          'recursion_spaces':recursion_spaces})
+       if r['return'] >0 :
+          if os_info['platform'] == 'windows':
+              return r
 
-            for lib_path in env.get('+CM_HOST_OS_DEFAULT_LIBRARY_PATH', []):
-                if(os.path.exists(lib_path)):
-                   env['CM_TMP_PATH']+=':'+lib_path
+          if r['return'] == 16:
+              env['CM_TMP_REQUIRE_INSTALL'] = "yes"
+          else:
+              return r
+       else:
+          return {'return':0}
 
-    r = i['automation'].find_artifact({'file_name': libfilename,
-                                           'env': env,
-                                           'os_info':os_info,
-                                           'default_path_env_key': 'LD_LIBRARY_PATH',
-                                           'detect_version':False,
-                                           'env_path_key':'CM_CUDA_PATH_LIB_CUDNN',
-                                           'run_script_input':i['run_script_input'],
-                                           'recursion_spaces':recursion_spaces})
-    if r['return'] >0 :
-        if os_info['platform'] == 'windows':
-            return r
+    if env.get('CM_CUDNN_TAR_FILE_PATH','')=='':
+        return {'return': 1, 'error': 'Please envoke cm run script "get cudnn" --tar_file={full path to the cuDNN tar file}'}
 
-        if r['return'] == 16:
-            env['CM_TMP_REQUIRE_INSTALL'] = "yes"
-        else:
-            return r
-    else:
-        return {'return':0}
+    print ('Untaring file - can take some time ...')
 
-    if env.get('CM_HOST_OS_MACHINE','') ==  "aarch64":
-        return {'return': 1, 'error': 'Tar file installation is not available for cudnn on aarch64. Please do a package manager install!'}
-
-    if not env.get('CM_INPUT',''):
-        if env.get('CM_CUDNN_TAR_FILE_PATH'):
-            env['CM_INPUT'] = env.get('CM_CUDNN_TAR_FILE_PATH')
-        else:
-            return {'return': 1, 'error': 'Please use --input option to point to the cudnn tar file'}
-
-    my_tar = tarfile.open(os.path.expanduser(env['CM_INPUT']))
+    my_tar = tarfile.open(os.path.expanduser(env['CM_CUDNN_TAR_FILE_PATH']))
     folder_name = my_tar.getnames()[0]
     if not os.path.exists(os.path.join(os.getcwd(), folder_name)):
         my_tar.extractall()

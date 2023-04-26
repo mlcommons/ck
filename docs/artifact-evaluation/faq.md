@@ -5,7 +5,7 @@
 
 **If you have questions or suggestions which are not addressed here, please feel free 
 to post them to the dedicated [AE google group](https://groups.google.com/forum/#!forum/artifact-evaluation)
-or contact the [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).**
+or contact the [open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).**
 
 ### Do I have to open source my software artifacts?
 
@@ -91,7 +91,7 @@ rather than just reproducing quickly outdated results using
 VM and Docker images - our experience shows that most of the submitted scripts 
 are not easy to change, customize or adapt to other platform.
 
-That is why we collaborate with the [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+That is why we collaborate with the [open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
 and [ACM](https://acm.org) to develop a [portable automation framework](https://github.com/mlcommons/ck/tree/master/docs) to make it easier to reproduce experiments
 across continuously changing software, hardware and data.
 
@@ -138,7 +138,7 @@ and you can not use average and reliably compare empirical results.
 However, if there is only one expected value for a given experiment (a), 
 then you can use it to compare multiple experiments. This is particularly
 useful when running experiments across different platforms from different
-users as described in this [article](https://cknowledge.io/c/report/rpi3-crowd-tuning-2017-interactive).
+users as described in this [article](https://cknow.io/c/report/rpi3-crowd-tuning-2017-interactive).
  
 
 You should also report the variation of empirical results together with all expected values.

@@ -8,7 +8,7 @@ automation_uid: 5b4e0237da074764
 category: "Modular MLPerf benchmarks"
 category_sort: 20000
 
-developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Grigori Fursin](https://cKnowledge.io/@gfursin)"
+developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Grigori Fursin](https://cKnowledge.org/gfursin)"
 
 # User-friendly tags to find this CM script
 tags:
@@ -23,13 +23,14 @@ tags:
 
 # Default environment
 default_env:
-  CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
   CM_MLPERF_LOADGEN_MODE: accuracy
   CM_MLPERF_LOADGEN_SCENARIO: Offline
   CM_OUTPUT_FOLDER_NAME: test_results
   CM_MLPERF_RUN_STYLE: test
   CM_TEST_QUERY_COUNT: '10'
   CM_MLPERF_QUANTIZATION: off
+  CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: reference
+  CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX: ''
 
 # Map script inputs to environment variables
 input_mapping:
@@ -40,8 +41,10 @@ input_mapping:
   max_batchsize: CM_MLPERF_LOADGEN_MAX_BATCHSIZE
   mode: CM_MLPERF_LOADGEN_MODE
   num_threads: CM_NUM_THREADS
+  dataset: CM_MLPERF_VISION_DATASET_OPTION
+  model: CM_MLPERF_CUSTOM_MODEL_PATH
   output_dir: OUTPUT_BASE_DIR
-  power: CM_SYSTEM_POWER
+  power: CM_MLPERF_POWER
   power_server: CM_MLPERF_POWER_SERVER_ADDRESS
   ntp_server: CM_MLPERF_POWER_NTP_SERVER
   max_amps: CM_MLPERF_POWER_MAX_AMPS
@@ -51,6 +54,7 @@ input_mapping:
   scenario: CM_MLPERF_LOADGEN_SCENARIO
   test_query_count: CM_TEST_QUERY_COUNT
   clean: CM_MLPERF_CLEAN_SUBMISSION_DIR
+  dataset_args: CM_MLPERF_EXTRA_DATASET_ARGS
 
 # Duplicate CM environment variables to the ones used in native apps
 env_key_mappings:
@@ -63,7 +67,13 @@ env_key_mappings:
 new_env_keys:
   - CM_MLPERF_*
   - CM_DATASET_*
+  - CM_HW_NAME
+  - CM_ML_MODEL_*
+  - CM_MAX_EXAMPLES
 
+new_state_keys:
+  - mlperf-inference-implementation
+  - CM_SUT_*
 
 # Dependencies on other CM scripts
 deps:
@@ -91,8 +101,8 @@ deps:
   # Detect TensorRT if required
   - tags: get,nvidia,tensorrt
     enable_if_env:
-      CM_MLPERF_DEVICE:
-      - gpu
+      CM_MLPERF_BACKEND:
+      - tensorrt
 
 
 
@@ -110,6 +120,7 @@ deps:
       - tvm-onnx
       CM_MLPERF_DEVICE:
       - cpu
+
   ## Onnx CUDA Runtime
   - tags: get,generic-python-lib,_onnxruntime_gpu
     names:
@@ -120,8 +131,37 @@ deps:
       - tvm-onnx
       CM_MLPERF_DEVICE:
       - gpu
+    skip_if_env:
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+      - resnet50
 
-  ## Pytorch
+  ## resnet50 and 3d-unet need both onnxruntime and onnxruntime_gpu on cuda
+  - tags: get,generic-python-lib,_onnxruntime
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MLPERF_DEVICE:
+      - gpu
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+      - resnet50
+  - tags: get,generic-python-lib,_onnxruntime_gpu
+    env:
+      CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS: ""
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MLPERF_DEVICE:
+      - gpu
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+      - resnet50
+
+  ## Pytorch (CPU)
   - tags: get,generic-python-lib,_torch
     names:
     - ml-engine-pytorch
@@ -129,8 +169,21 @@ deps:
       CM_MLPERF_BACKEND:
       - pytorch
       - tvm-pytorch
+      CM_MLPERF_DEVICE:
+      - cpu
 
-  ## Torchvision
+  ## Pytorch (CUDA)
+  - tags: get,generic-python-lib,_torch_cuda
+    names:
+    - ml-engine-pytorch
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      - tvm-pytorch
+      CM_MLPERF_DEVICE:
+      - gpu
+
+  ## Torchvision (CPU)
   - tags: get,generic-python-lib,_torchvision
     names:
     - ml-engine-torchvision
@@ -138,6 +191,19 @@ deps:
       CM_MLPERF_BACKEND:
       - pytorch
       - tvm-pytorch
+      CM_MLPERF_DEVICE:
+      - cpu
+
+  ## Torchvision (CUDA)
+  - tags: get,generic-python-lib,_torchvision_cuda
+    names:
+    - ml-engine-torchvision
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      - tvm-pytorch
+      CM_MLPERF_DEVICE:
+      - gpu
 
   ## Transformers
   - tags: get,generic-python-lib,_transformers
@@ -159,77 +225,6 @@ deps:
 
 
   ########################################################################
-  # Install MLPerf inference dependencies
-
-  # Install MLPerf loadgen
-  - tags: get,loadgen
-    names:
-    - loadgen
-
-  # Download MLPerf inference source
-  - tags: get,mlcommons,inference,src
-    names:
-    - inference-src
-
-  # Get SUT configs (System Under Test)
-  - tags: get,sut,configs
-
-
-  ########################################################################
-  # Install datasets
-
-  ## ImageNet (small for tests)
-  - tags: get,dataset,image-classification,imagenet,preprocessed
-    names: 
-    - imagenet-preprocessed
-    enable_if_env:
-      CM_MODEL:
-      - resnet50
-
-  - tags: get,dataset-aux,image-classification,imagenet-aux
-    enable_if_env:
-      CM_MODEL:
-      - resnet50
-
-  ## Open Images (full) for RetinaNet
-  - tags: get,dataset,object-detection,open-images,openimages,preprocessed,_validation
-    names:
-    - openimages-preprocessed
-    enable_if_env:
-      CM_MODEL:
-      - retinanet
-
-  ## Squad for BERT
-  - tags: get,dataset,squad,original
-    enable_if_env:
-      CM_MODEL:
-      - bert-99
-      - bert-99.9
-
-  ## Kits19 for 3d-unet
-  - tags: get,dataset,kits19,preprocessed
-    enable_if_env:
-      CM_MODEL:
-      - 3d-unet-99
-      - 3d-unet-99.9
-
-  ## Librispeech for rnnt
-  - tags: get,dataset,librispeech,preprocessed
-    enable_if_env:
-      CM_MODEL:
-      - rnnt
-
-  ## Criteo for dlrm
-  - tags: get,dataset,criteo,preprocessed
-    names:
-    - criteo-preprocessed
-    enable_if_env:
-      CM_MODEL:
-      - dlrm-99
-      - dlrm-99.9
-
-
-  ########################################################################
   # Install ML models    
 
   ## ResNet50
@@ -240,6 +235,9 @@ deps:
     enable_if_env:
       CM_MODEL:
       - resnet50
+    skip_if_env:
+      CM_MLPERF_CUSTOM_MODEL_PATH:
+      - "on"
 
   ## RetinaNet
   - tags: get,ml-model,object-detection,retinanet
@@ -265,7 +263,7 @@ deps:
       - retinanet
 
   ## BERT
-  - tags: get,ml-model,language-processing,bert
+  - tags: get,ml-model,language-processing,bert-large
     names:
     - ml-model
     - bert-model
@@ -273,6 +271,9 @@ deps:
       CM_MODEL:
       - bert-99
       - bert-99.9
+    skip_if_env:
+      CM_MLPERF_CUSTOM_MODEL_PATH:
+      - "on"
 
 
   ## 3d-unet
@@ -304,10 +305,105 @@ deps:
       - dlrm-99
       - dlrm-99.9
 
+  ########################################################################
+  # Install datasets
+
+  ## ImageNet (small for tests)
+  - tags: get,dataset,image-classification,imagenet,preprocessed,_default
+    names:
+    - imagenet-preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - resnet50
+    skip_if_env:
+      CM_MLPERF_VISION_DATASET_OPTION:
+      - on
+
+  - tags: get,dataset,image-classification,imagenet,preprocessed,_pytorch
+    names:
+    - imagenet-preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - resnet50
+      CM_MLPERF_VISION_DATASET_OPTION:
+      - imagenet_pytorch
+
+  - tags: get,dataset-aux,image-classification,imagenet-aux
+    enable_if_env:
+      CM_MODEL:
+      - resnet50
+
+  ## Open Images for RetinaNet
+  - tags: get,dataset,object-detection,open-images,openimages,preprocessed,_validation
+    names:
+    - openimages-preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - retinanet
+
+  ## Squad for BERT
+  - tags: get,dataset,squad,original
+    enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+
+  - tags: get,dataset-aux,squad-vocab
+    enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+
+
+  ## Kits19 for 3d-unet
+  - tags: get,dataset,kits19,preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+
+  ## Librispeech for rnnt
+  - tags: get,dataset,librispeech,preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - rnnt
+
+  ## Criteo for dlrm
+  - tags: get,dataset,criteo,preprocessed
+    names:
+    - criteo-preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - dlrm-99
+      - dlrm-99.9
+
+  ########################################################################
+  # Install MLPerf inference dependencies
+
+  # Creates user conf for given SUT
+  - tags: generate,user-conf,mlperf,inference
+    names:
+    - user-conf-generator
+
+  # Install MLPerf loadgen
+  - tags: get,loadgen
+    names:
+    - loadgen
+    - mlperf-inference-loadgen
+
+  # Download MLPerf inference source
+  - tags: get,mlcommons,inference,src
+    names:
+    - inference-src
+
+
 posthook_deps: 
   - names:
     - runner
     tags: benchmark,program
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+      - on
 
 
 
@@ -340,7 +436,14 @@ variations:
         tags: raw,_onnx
     env:
       CM_MLPERF_BACKEND: onnxruntime
+
+  onnxruntime,cpu:
+    env:
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
+
+  onnxruntime,cuda:
+    env:
+      CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_GPU_VERSION>>>
 
   pytorch:
     group: framework
@@ -353,7 +456,7 @@ variations:
         tags: raw,_pytorch
     env:
       CM_MLPERF_BACKEND: pytorch
-      CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
 
   tf:
     group: framework
@@ -373,7 +476,6 @@ variations:
     group: framework
     env:
       CM_MLPERF_BACKEND: deepsparse
-      CM_MLPERF_BATCH_SIZE: "1"
       CM_MLPERF_BACKEND_VERSION: <<<CM_DEEPSPARSE_VERSION>>>
     deps:
     - tags: get,generic-python-lib,_deepsparse
@@ -390,16 +492,36 @@ variations:
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
     deps:
     - tags: get,generic-python-lib,_onnx
+    - tags: get,tvm
+      names:
+        tvm
     add_deps_recursive:
       ml-model:
         tags: tvm-model,_onnx
+  
+  tvm-tflite:
+    group: framework
+    env:
+      CM_MLPERF_BACKEND: tvm-tflite
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TVM-TFLITE_VERSION>>>
+    deps:
+    - tags: get,tvm
+      names:
+        tvm
+    add_deps_recursive:
+      ml-model:
+        tags: tvm-model,_tflite
 
   tvm-pytorch:
     group: framework
     env:
       CM_MLPERF_BACKEND: tvm-pytorch
-      CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
       MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
+    deps:
+    - tags: get,tvm
+      names:
+        tvm
     add_deps_recursive:
       ml-model:
         tags: tvm-model,_pytorch
@@ -420,8 +542,11 @@ variations:
       CM_MODEL: bert-99
 
   bert:
+    env:
+      CM_MLPERF_MODEL_SKIP_BATCHING: true
     deps:
     - tags: get,generic-python-lib,_tokenization
+    - tags: get,generic-python-lib,_six
     - tags: get,generic-python-lib,_protobuf
       names:
       - protobuf
@@ -430,6 +555,10 @@ variations:
         CM_MLPERF_BACKEND:
         - tf
         - tflite
+    - tags: get,generic-python-lib,_boto3
+      enable_if_env:
+        CM_MLPERF_BACKEND:
+        - pytorch
     - tags: get,generic-python-lib,_torch
       names:
       - ml-engine-pytorch
@@ -453,11 +582,8 @@ variations:
 
   3d-unet:
     env:
-      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: yes
-    deps:
-    - tags: get,generic-python-lib,_torch
-      names:
-      - ml-engine-pytorch
+      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: true
+      CM_MLPERF_MODEL_SKIP_BATCHING: true
 
   dlrm-99.9:
     group: models
@@ -474,16 +600,37 @@ variations:
       CM_MODEL: dlrm-99
 
   dlrm:
+    env:
+      CM_MLPERF_MODEL_SKIP_BATCHING: true
     deps:
     - tags: get,dlrm,src
       names:
       - dlrm-src
     - tags: get,generic-python-lib,_mlperf_logging
+    - tags: get,generic-python-lib,_opencv-python
+    - tags: get,generic-python-lib,_tensorboard
+    - tags: get,generic-python-lib,_protobuf
+      version: "3.20"
+    - tags: get,generic-python-lib,_scikit-learn
+    - tags: get,generic-python-lib,_tqdm
+    - tags: get,generic-python-lib,_onnx
+    - tags: get,generic-python-lib,_numpy
+      version: "1.19.5"
+    - tags: get,python3
+      version_max: "3.8.999"
+      version_max_usable: "3.8.12"
+    adr:
+      ml-engine-pytorch:
+        version: "1.10.1"
+      ml-engine-torchvision:
+        version: "0.11.2"
 
   rnnt:
     group: models
     env:
       CM_MODEL: rnnt
+      CM_MLPERF_MODEL_SKIP_BATCHING: true
+      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: true
     deps:
     - tags: get,generic-python-lib,_librosa
     - tags: get,generic-python-lib,_inflect
@@ -499,12 +646,15 @@ variations:
 
     env:
       CM_MODEL: retinanet
+      CM_MLPERF_USE_MLCOMMONS_RUN_SCRIPT: 'yes'
+      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
 
   resnet50:
     group: models
     default: true
     env:
       CM_MODEL: resnet50
+      CM_MLPERF_USE_MLCOMMONS_RUN_SCRIPT: 'yes'
     deps:
     - tags: get,generic-python-lib,_opencv-python
     - tags: get,generic-python-lib,_numpy
@@ -554,7 +704,11 @@ variations:
 
   batch_size.#:
     env:
-      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: #
+      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: "#"
+    add_deps_recursive:
+      ml-model:
+        tags:
+          _batch_size.#
 
   # Reproducibility (past submissions)
   r2.1_default:

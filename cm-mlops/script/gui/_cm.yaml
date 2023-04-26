@@ -8,7 +8,7 @@ automation_uid: 5b4e0237da074764
 category: "GUI"
 category_sort: 21000
 
-developers: "[Grigori Fursin](https://cKnowledge.io/@gfursin)"
+developers: "[Grigori Fursin](https://cKnowledge.org/gfursin)"
 
 # User-friendly tags to find this CM script
 tags:
@@ -28,10 +28,12 @@ input_mapping:
   title: CM_GUI_TITLE
   no_browser: CM_GUI_NO_BROWSER
   no_run: CM_GUI_NO_RUN
+  app: CM_GUI_APP
 
 default_env:
   CM_GUI_EXTRA_CMD: ""
   CM_GUI_SCRIPT_PREFIX_LINUX: "gnome-terminal --"
+  CM_GUI_APP: app
 
 # Dependencies on other CM scripts
 deps:
@@ -53,5 +55,35 @@ deps:
   - tags: get,generic-python-lib,_cmind
   - tags: get,generic-python-lib,_streamlit
 
+# Variations to customize dependencies
+variations:
+  main:
+    group:
+      app
+    env:
+      CM_GUI_APP: 'app'
+
+  graph:
+    group:
+      app
+    env:
+      CM_GUI_APP: 'graph'
+    prehook_deps:
+      - tags: get,generic-python-lib,_matplotlib
+      - tags: get,generic-python-lib,_mpld3
+
+  playground:
+    group:
+      app
+    env:
+      CM_GUI_APP: 'playground'
+    prehook_deps:
+      - tags: get,generic-python-lib,_matplotlib
+      - tags: get,generic-python-lib,_mpld3
+      - tags: get,generic-python-lib,_streamlit_option_menu
+      - tags: get,generic-python-lib,_numpy
+      - tags: get,generic-python-lib,_pandas
+
 input_description:
   script: "script tags"
+  app: "gui app"

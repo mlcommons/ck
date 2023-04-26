@@ -21,7 +21,7 @@ version = imp.load_source(
     'cbench.__init__', os.path.join('cbench', '__init__.py')).__version__
 
 # Default portal
-portal_url='https://cKnowledge.io'
+portal_url='https://cknow.io'
 
 
 ############################################################

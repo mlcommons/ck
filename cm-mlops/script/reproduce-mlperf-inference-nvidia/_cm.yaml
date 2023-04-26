@@ -26,9 +26,10 @@ default_env:
   CM_MLPERF_LOADGEN_SCENARIO: Offline
   CM_MLPERF_LOADGEN_MODE: performance
   SKIP_POLICIES: '1'
-  CM_NO_PREPROCESS_DATASET: no
+  CM_SKIP_PREPROCESS_DATASET: no
   CM_SKIP_MODEL_DOWNLOAD: no
   CM_MLPERF_NVIDIA_RUN_COMMAND: run
+  CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: nvidia_original
 
 # Map script inputs to environment variables
 input_mapping:
@@ -41,6 +42,7 @@ input_mapping:
   scenario: CM_MLPERF_LOADGEN_SCENARIO
   user_conf: CM_MLPERF_USER_CONF
   skip_preprocess: CM_SKIP_PREPROCESS_DATASET
+  skip_preprocessing: CM_SKIP_PREPROCESS_DATASET
   target_qps: CM_MLPERF_LOADGEN_TARGET_QPS
   offline_target_qps: CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS
   server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
@@ -55,18 +57,28 @@ input_mapping:
   dla_inference_streams: CM_MLPERF_NVIDIA_HARNESS_DLA_INFERENCE_STREAMS
   dla_batch_size: CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE
   input_format: CM_MLPERF_NVIDIA_HARNESS_INPUT_FORMAT
+  performance_sample_count: CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT
   workspace_size: CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE
   log_dir: CM_MLPERF_NVIDIA_HARNESS_LOG_DIR
   use_graphs: CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS
   run_infer_on_copy_streams: CM_MLPERF_NVIDIA_HARNESS_RUN_INFER_ON_COPY_STREAMS
   start_from_device: CM_MLPERF_NVIDIA_HARNESS_START_FROM_DEVICE
   end_on_device: CM_MLPERF_NVIDIA_HARNESS_END_ON_DEVICE
-  max_dlas: CM_MLPERF_MAX_DLAS
+  max_dlas: CM_MLPERF_NVIDIA_HARNESS_MAX_DLAS
+  power_setting: CM_MLPERF_NVIDIA_HARNESS_POWER_SETTING
   make_cmd: CM_MLPERF_NVIDIA_RUN_COMMAND
+  rerun: CM_RERUN
 
 new_env_keys:
   - CM_MLPERF_*
   - CM_DATASET_*
+  - CM_ML_MODEL_*
+  - CM_HW_NAME
+  - CM_MAX_EXAMPLES
+
+new_state_keys:
+  - mlperf-inference-implementation
+  - CM_SUT_*
 
 # Dependencies on other CM scripts
 
@@ -91,21 +103,6 @@ deps:
   - tags: build,nvidia,inference,server
 
 
-
-  ########################################################################
-  # Install MLPerf inference dependencies
-  
-  # Download MLPerf inference source
-  - tags: get,mlcommons,inference,src
-    names:
-    - inference-src
-
-  # Download Nvidia Submission Code
-  - tags: get,nvidia,mlperf,inference,common-code,_custom
-    names:
-    - nvidia-inference-common-code
-
-
   ########################################################################
   # Install ResNet50 model (ONNX) and ImageNet
 
@@ -116,6 +113,48 @@ deps:
       - imagenet-original
     tags: get,dataset,original,imagenet,_full
 
+  ########################################################################
+  # Install kits19 dataset
+
+  - enable_if_env:
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+    names:
+      - kits19-original
+    tags: get,dataset,original,kits19
+
+
+  ########################################################################
+  # Install librispeech dataset
+
+  - enable_if_env:
+      CM_MODEL:
+      - rnnt
+    names:
+      - librispeech-original
+    tags: get,dataset,original,librispeech
+
+  ########################################################################
+  # Install criteo dataset
+
+  - enable_if_env:
+      CM_MODEL:
+      - dlrm-99
+      - dlrm-99.9
+    names:
+      - criteo-original
+    tags: get,dataset,original,criteo
+
+  ########################################################################
+  # Install dlrm model
+  - enable_if_env:
+      CM_MODEL:
+      - dlrm-99
+      - dlrm-99.9
+    names:
+      - dlrm-model
+    tags: get,ml-model,dlrm,_pytorch
 
   ########################################################################
   # Install RetinaNet model (ONNX) and OpenImages
@@ -124,8 +163,15 @@ deps:
       CM_MODEL:
       - retinanet
     names:
+      - ml-model-retinanet
+    tags: get,ml-model,nvidia-retinanet,_efficient-nms
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    names:
       - openimages-original
-    tags: get,dataset,original,openimages,_validation,_full
+    tags: get,dataset,original,openimages,_validation,_full,_custom-annotations
 
   - enable_if_env:
       CM_MODEL:
@@ -135,23 +181,46 @@ deps:
     tags: get,dataset,original,openimages,_calibration
 
 
-  - enable_if_env:
-      CM_MODEL:
-      - retinanet
+
+  ########################################################################
+  # Install MLPerf inference dependencies
+
+  # Download MLPerf inference source
+  - tags: get,mlcommons,inference,src
     names:
-      - ml-model-retinanet
-    tags: get,ml-model,nvidia-retinanet,_efficient-nms
+    - inference-src
+
+  # Download Nvidia Submission Code
+  - tags: get,nvidia,mlperf,inference,common-code,_custom
+    names:
+    - nvidia-inference-common-code
+
+  # Creates user conf for given SUT
+  - tags: generate,user-conf,mlperf,inference
+    names:
+    - user-conf-generator
+
+# Post dependencies to run this app including for power measurement
+post_deps:
+
+  - names:
+    - runner
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
+    tags: benchmark,program
+
 
 # Variations to customize dependencies
 variations:
   # Target devices
   cpu:
     group: device
-    default: true
     env:
       CM_MLPERF_DEVICE: cpu
   cuda:
     group: device
+    default: true
     env:
       CM_MLPERF_DEVICE: gpu
       CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
@@ -161,6 +230,7 @@ variations:
     default: true
     env:
       CM_MLPERF_BACKEND: tensorrt
+      CM_MLPERF_BACKEND_NAME: TensorRT
 
   # Reference MLPerf models
   resnet50:
@@ -174,22 +244,97 @@ variations:
     env:
       CM_MODEL: retinanet
       CM_SKIP_MODEL_DOWNLOAD: yes
+    deps:
+    - tags: get,generic-python-lib,_Pillow
+    - tags: get,generic-python-lib,_torch
+    - tags: get,generic-python-lib,_torchvision
+    - tags: get,generic-python-lib,_opencv-python
+
+  bert_:
+    deps:
+    - tags: get,generic-python-lib,_transformers
 
   bert-99:
     group: model
+    base:
+    - bert_
     env:
       CM_MODEL: bert-99
 
   bert-99.9:
     group: model
+    base:
+    - bert_
     env:
       CM_MODEL: bert-99.9
 
+  3d-unet_:
+    deps:
+    - tags: get,generic-python-lib,_transformers
+
+  3d-unet-99:
+    group: model
+    base:
+    - 3d-unet_
+    env:
+      CM_MODEL: 3d-unet-99
+
+  3d-unet-99.9:
+    group: model
+    base:
+    - 3d-unet_
+    env:
+      CM_MODEL: 3d-unet-99.9
+
+  rnnt:
+    group: model
+    env:
+      CM_MODEL: rnnt
+    deps:
+    - tags: get,generic-python-lib,_toml
+    - tags: get,generic-python-lib,_torchvision
+      names:
+      - torchvision
+    - tags: get,generic-python-lib,_nvidia-apex
+    - tags: get,generic-python-lib,_unidecode
+    - tags: get,generic-python-lib,_inflect
+    - tags: get,generic-python-lib,_librosa
+      version_max: 0.8.1
+      names:
+        - librosa
+    - tags: get,generic-python-lib,_sox
+    - tags: get,generic-sys-util,_sox
+
+  dlrm_:
+    deps:
+    - tags: get,generic-python-lib,_torch
+
+  dlrm-99:
+    group: model
+    base:
+    - dlrm_
+    env:
+      CM_MODEL: dlrm-99
+
+  dlrm-99.9:
+    group: model
+    base:
+    - dlrm_
+    env:
+      CM_MODEL: dlrm-99.9
+
   batch_size.#:
     env:
-      CM_MODEL_BATCH_SIZE: #
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: #
+      CM_MODEL_BATCH_SIZE: "#"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "#"
+      CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "gpu_batch_size.#"
 
   dla_batch_size.#:
     env:
-      CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE: #
+      CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE: "#"
+      CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX2: "dla_batch_size.#"
+
+  use_triton:
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_USE_TRITON: "yes"
+      CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX3: "using_triton"

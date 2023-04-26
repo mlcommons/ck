@@ -43,21 +43,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,val,validation,dataset,imagenet,ILSVRC,image-classification,original(,variations from below) (flags from below)`
+1. `cm run script --tags=get,val,validation,dataset,imagenet,ILSVRC,image-classification,original[,variations] `
 
-*or*
+2. `cm run script "get val validation dataset imagenet ILSVRC image-classification original[,variations]" `
 
-`cm run script "get val validation dataset imagenet ILSVRC image-classification original (variations from below)" (flags from below)`
+3. `cm run script 7afd58d287fe4f11 `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 7afd58d287fe4f11`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -105,26 +109,26 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_2012`
+      - Environment variables:
+        - *CM_DATASET_VER*: `2012`
+      - Workflow:
     * `_2012-1`
       - Environment variables:
         - *CM_DATASET_SIZE*: `1`
-        - *CM_DATASET_VER*: `2012`
       - Workflow:
     * **`_2012-500`** (default)
       - Environment variables:
         - *CM_DATASET_SIZE*: `500`
-        - *CM_DATASET_VER*: `2012`
       - Workflow:
     * `_2012-full`
       - Environment variables:
         - *CM_DATASET_SIZE*: `50000`
-        - *CM_DATASET_VER*: `2012`
         - *CM_IMAGENET_FULL*: `yes`
       - Workflow:
     * `_full`
       - Environment variables:
         - *CM_DATASET_SIZE*: `50000`
-        - *CM_DATASET_VER*: `2012`
         - *CM_IMAGENET_FULL*: `yes`
       - Workflow:
     * `_size.#`
@@ -143,13 +147,16 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/customize.py)***
@@ -160,19 +167,21 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
   1. Run "postrocess" function from customize.py
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_DATASET_IMAGENET_PATH**
-* **CM_DATASET_PATH**
-* **CM_DATASET_SIZE**
-* **CM_DATASET_VER**
+* `CM_DATASET_IMAGENET_PATH`
+* `CM_DATASET_PATH`
+* `CM_DATASET_SIZE`
+* `CM_DATASET_VER`
 #### New environment keys auto-detected from customize
 
-* **CM_DATASET_IMAGENET_PATH**
-* **CM_DATASET_PATH**
+* `CM_DATASET_IMAGENET_PATH`
+* `CM_DATASET_PATH`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

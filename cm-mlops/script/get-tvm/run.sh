@@ -16,7 +16,7 @@ if [ ! -d "tvm" ]; then
   test $? -eq 0 || exit 1
 fi
 
-cd tvm 
+cd tvm
 if [ "${CM_GIT_SHA}" != "" ]; then
   echo "git checkout ${CM_GIT_SHA}"
   git checkout ${CM_GIT_SHA}
@@ -36,7 +36,12 @@ if [ ! -d "${CUR_DIR}/tvm/build" ]; then
     cd ${CUR_DIR}/tvm/build
 
     if [[ ${CM_TVM_USE_LLVM} == "yes" ]]; then
-        sed -i.bak 's/set(USE_LLVM OFF)/set(USE_LLVM llvm-config)/' config.cmake
+        if [[ -z "${CM_LLVM_INSTALLED_PATH}" ]]; then
+            llvm_version=$(echo "${CM_LLVM_CLANG_VERSION}" | cut -d. -f1)
+            sed -i.bak "s|set(USE_LLVM OFF)|set(USE_LLVM llvm-config-$llvm_version)|" config.cmake
+        else
+            sed -i.bak "s|set(USE_LLVM OFF)|set(USE_LLVM ${CM_LLVM_INSTALLED_PATH}/llvm-config)|" config.cmake
+        fi
     fi
 
     if [[ ${CM_TVM_USE_OPENMP} == "yes" ]]; then

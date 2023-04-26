@@ -166,6 +166,7 @@ private:
 
         std::regex image_regex(R"(\"file_name\": \"([^\"]*)\")");
         std::smatch match;
+
         while (std::regex_search(annotations, match, image_regex) && filenames.size() < max_sample_count) {
             std::string image_filename = match[1];
 

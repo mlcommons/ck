@@ -1,0 +1,16 @@
+{
+  "alias": "repro-sc2019",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20191117",
+  "date_open": "20191117",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-scc2019"
+  ],
+  "title": "Reproducibility initiative at ACM/IEEE SuperComputing'19",
+  "uid": "86e179a91f1049a6",
+  "url": "https://sc19.supercomputing.org/submit/reproducibility-initiative/"
+}

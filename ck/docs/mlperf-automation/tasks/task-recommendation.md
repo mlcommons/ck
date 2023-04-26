@@ -30,5 +30,5 @@ ck activate venv:mlperf-inference
   * https://github.com/mlcommons/inference/issues/604
 
 * CK components: 
-  * [CK packages](https://cknowledge.io/?q=module_uoa%3A%22program%22+AND+dlrm)
-  * [CK workflows](https://cknowledge.io/?q=module_uoa%3A%22program%22+AND+dlrm)
+  * [CK packages](https://cknow.io/?q=module_uoa%3A%22program%22+AND+dlrm)
+  * [CK workflows](https://cknow.io/?q=module_uoa%3A%22program%22+AND+dlrm)
