@@ -4077,7 +4077,7 @@ def get_git_url(get_type, url, params = {}):
         return p.url2ssh
     elif get_type == "token":
         token = params['token']
-        return "https://" + token + "@" + p.host + "/" + p.owner + "/" + p.repo
+        return "https://git:" + token + "@" + p.host + "/" + p.owner + "/" + p.repo
     return url
 
 ##############################################################################
