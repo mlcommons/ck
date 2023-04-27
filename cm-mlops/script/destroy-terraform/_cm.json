@@ -11,6 +11,9 @@
   ],
   "deps": [
     {
+      "names": [
+        "terraform"
+      ],
       "tags": "get,terraform"
     }
   ],
