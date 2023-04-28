@@ -14,5 +14,5 @@ for file in files:
   data = json.load(f)
   uid = data['uid']
 
-  r = cm.access({'action':'doc', 'automation':'script', 'artifact': uid, 'quiet': 'yes'})
+  r = cm.access({'action':'dockerfile', 'automation':'script', 'artifact': uid, 'quiet': 'yes'})
   checks.check_return(r)
