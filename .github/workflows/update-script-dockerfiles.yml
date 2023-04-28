@@ -1,5 +1,5 @@
-# This workflow will add/update the README.md files for any updated CM scripts
-name: CM(CK2) Readme update for CM scripts
+# This workflow will add/update the default dockerfile for any updated CM scripts
+name: CM(CK2) Dockerfile update for CM scripts
 
 on:
   push:
@@ -19,28 +19,23 @@ jobs:
       id: getfile
       run: |
         echo "files=$(git diff --name-only ${{ github.event.before }} | xargs)" >> $GITHUB_OUTPUT
-    - name: echo output
+    - name: Update dockerfile
       run: |
-        echo ${{ steps.getfile.outputs.files }}
         for file in ${{ steps.getfile.outputs.files }}; do
           echo $file
         done
         python3 -m pip install cmind
         cm pull repo --url=https://github.com/${{ github.repository }} --checkout=${{ github.ref_name }}
-        python3 tests/script/process_readme.py ${{ steps.getfile.outputs.files }}
+        python3 tests/script/process_dockerfile.py ${{ steps.getfile.outputs.files }}
         #REPO=${{ github.repository }}
         #CM_REPO=${REPO/\//@}
         #FOLDER=`cm find repo ${CM_REPO} | cut -d' ' -f3`
         FOLDER=`cm find repo mlcommons@ck | cut -d' ' -f3`
-        cd $FOLDER
-        echo "Changed to $FOLDER"
-        #USER=${{ github.repository_owner }}
 
-        USER=cTuning
-        EMAIL=admin@ctuning.org
-
+        USER=cmadmin
+        EMAIL=arjunsuresh@users.noreply.github.com
         git config --global user.name "$USER"
         git config --global user.email "$EMAIL"
         git remote set-url origin https://x-access-token:${{ secrets.ACCESS_TOKEN }}@github.com/${{ github.repository }}
-        git add *.md
-        git diff-index --quiet HEAD || (git commit -am "Updated docs" && git push && echo "Changes pushed")
+        git add *.Dockerfile
+        git diff-index --quiet HEAD || (git commit -am "Updated dockerfile" && git push)
