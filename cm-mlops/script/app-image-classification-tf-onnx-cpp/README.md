@@ -31,9 +31,9 @@ See [more info](README-extra.md).
 
 * Category: *Modular ML/AI applications.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-cpp)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-tf-onnx-cpp)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *app,image-classification,onnx,cpp*
+* CM "database" tags to find this script: *app,image-classification,tf,tensorflow,tf-onnx,tensorflow-onnx,onnx,cpp*
 * Output cached?: *False*
 ___
 ### Usage
@@ -52,9 +52,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=app,image-classification,onnx,cpp `
+1. `cm run script --tags=app,image-classification,tf,tensorflow,tf-onnx,tensorflow-onnx,onnx,cpp `
 
-2. `cm run script "app image-classification onnx cpp" `
+2. `cm run script "app image-classification tf tensorflow tf-onnx tensorflow-onnx onnx cpp" `
 
 3. `cm run script 879ed32e47074033 `
 
@@ -73,7 +73,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'app,image-classification,onnx,cpp'
+                  'tags':'app,image-classification,tf,tensorflow,tf-onnx,tensorflow-onnx,onnx,cpp'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -90,9 +90,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="app,image-classification,onnx,cpp"```
+```cm run script --tags=gui --script="app,image-classification,tf,tensorflow,tf-onnx,tensorflow-onnx,onnx,cpp"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=app,image-classification,onnx,cpp) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=app,image-classification,tf,tensorflow,tf-onnx,tensorflow-onnx,onnx,cpp) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -119,7 +119,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-cpp/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-tf-onnx-cpp/_cm.json)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,sys-utils-cm
@@ -130,19 +130,17 @@ ___
        - CM script: [get-dataset-imagenet-val](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)
      * get,dataset-aux,image-classification
        - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
-     * get,ml-model,image-classification,resnet50,_onnx-1.5-opset-11
-       - *Warning: no scripts found*
-     * get,mlcommons,loadgen
-       - CM script: [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)
+     * get,ml-model,raw,image-classification,resnet50,_onnx,_opset-11
+       - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
      * tensorflow,from-src
        - CM script: [install-tensorflow-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src)
   1. Run "preprocess" function from customize.py
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-cpp/_cm.json)
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-tf-onnx-cpp/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-cpp/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-cpp/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-tf-onnx-cpp/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-tf-onnx-cpp/_cm.json)
   1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-cpp/_cm.json)
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-tf-onnx-cpp/_cm.json)
 </details>
 
 ___
