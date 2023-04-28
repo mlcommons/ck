@@ -20,12 +20,9 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
+*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
 
 ### Description
-
-
-See [more info](README-extra.md).
 
 #### Information
 
