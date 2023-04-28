@@ -34,8 +34,8 @@ jobs:
         FOLDER=`cm find repo mlcommons@ck | cut -d' ' -f3`
 
         #USER=${{ github.repository_owner }}
-        USER=cmadmin
-        EMAIL=cmadmin@users.noreply.github.com
+        USER=cTuning
+        EMAIL=admin@ctuning.org
         git config --global user.name "$USER"
         git config --global user.email "$EMAIL"
         git remote set-url origin https://x-access-token:${{ secrets.ACCESS_TOKEN }}@github.com/${{ github.repository }}
