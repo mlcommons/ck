@@ -30,7 +30,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-github-cli)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,gh,github,cli,github-cli*
+* CM "database" tags to find this script: *get,gh,gh-cli,github,cli,github-cli*
 * Output cached?: *True*
 ___
 ### Usage
@@ -49,9 +49,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,gh,github,cli,github-cli `
+1. `cm run script --tags=get,gh,gh-cli,github,cli,github-cli `
 
-2. `cm run script "get gh github cli github-cli" `
+2. `cm run script "get gh gh-cli github cli github-cli" `
 
 3. `cm run script 1417029c6ff44f21 `
 
@@ -70,7 +70,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,gh,github,cli,github-cli'
+                  'tags':'get,gh,gh-cli,github,cli,github-cli'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -87,9 +87,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,gh,github,cli,github-cli"```
+```cm run script --tags=gui --script="get,gh,gh-cli,github,cli,github-cli"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,gh,github,cli,github-cli) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,gh,gh-cli,github,cli,github-cli) to generate CM CMD.
 
 #### CM modular Docker container
 

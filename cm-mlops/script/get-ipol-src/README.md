@@ -32,7 +32,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ipol-src)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,ipol,src,ipol-src*
+* CM "database" tags to find this script: *get,ipol,journal,src,ipol-src*
 * Output cached?: *True*
 ___
 ### Usage
@@ -51,9 +51,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,ipol,src,ipol-src [--input_flags]`
+1. `cm run script --tags=get,ipol,journal,src,ipol-src [--input_flags]`
 
-2. `cm run script "get ipol src ipol-src" [--input_flags]`
+2. `cm run script "get ipol journal src ipol-src" [--input_flags]`
 
 3. `cm run script b6fd8213d03d4aa4 [--input_flags]`
 
@@ -72,7 +72,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,ipol,src,ipol-src'
+                  'tags':'get,ipol,journal,src,ipol-src'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -89,9 +89,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,ipol,src,ipol-src"```
+```cm run script --tags=gui --script="get,ipol,journal,src,ipol-src"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,ipol,src,ipol-src) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,ipol,journal,src,ipol-src) to generate CM CMD.
 
 #### CM modular Docker container
 
