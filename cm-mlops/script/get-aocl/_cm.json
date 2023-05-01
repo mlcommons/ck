@@ -7,6 +7,7 @@
     "get",
     "lib",
     "aocl",
+    "amd-optimized",
     "amd"
   ],
   "new_env_keys": [

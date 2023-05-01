@@ -8,6 +8,9 @@
   "category_sort":8500,
   "deps": [
     {
+      "names": [
+        "sys-utils"
+      ],
       "tags": "get,sys-utils-cm"
     }
   ],
