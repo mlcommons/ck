@@ -8,8 +8,9 @@ on:
     branches: [ "master" ]
     paths:
       - '.github/workflows/test-cm.yml'
-      - '!cm/**.md'
       - 'cm/**'
+    paths-ignore:
+      - 'cm/**.md'
 
 jobs:
   build:
