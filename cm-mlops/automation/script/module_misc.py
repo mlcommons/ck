@@ -1133,6 +1133,8 @@ def dockerfile(i):
                             'fake_run': True
                             }
                 r = self_module.cmind.access(cm_input)
+                if r['return'] > 0:
+                    return r
                 print_deps = r['new_state']['print_deps']
                 comments = [ "#RUN " + dep for dep in print_deps ]
                 comments.append("")
