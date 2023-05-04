@@ -9,6 +9,7 @@ on:
     paths:
       - cm-mlops/**
       - .github/workflows/test-mlperf-inference-retinanet.yml
+    paths-ignore:
       - '!**.md'
 
 jobs:
