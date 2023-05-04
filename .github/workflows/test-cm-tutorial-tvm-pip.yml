@@ -8,8 +8,9 @@ on:
     branches: [ "master", "test" ]
     paths:
       - '.github/workflows/test-cm-tutorial-tvm-pip.yml'
-      - '!cm-mlops/**.md'
       - 'cm-mlops/**'
+    paths-ignore:
+      - 'cm-mlops/**.md'
 
 jobs:
   build:
