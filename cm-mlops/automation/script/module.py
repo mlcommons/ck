@@ -681,6 +681,10 @@ class CAutomation(Automation):
 
         default_variation = meta.get('default_variation', '')
 
+        if default_variation not in variations:
+            return {'return': 1, 'error': 'Default variation "{}" is not in the list of variations: "{}" '.format(default_variation, variations.keys())}
+
+
         if len(variation_tags) == 0:
             if default_variation != '' and default_variation not in excluded_variation_tags:
                 variation_tags = [default_variation]

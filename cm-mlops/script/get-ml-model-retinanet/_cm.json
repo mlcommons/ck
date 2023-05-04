@@ -4,7 +4,6 @@
   "automation_uid": "5b4e0237da074764",
   "category": "ML/AI models",
   "cache": true,
-  "default_variation": "onnx-fp32",
   "env": {
     "CM_ML_MODEL": "retinanet",
     "CM_ML_MODEL_DATASET": "open-images",
