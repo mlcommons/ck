@@ -569,12 +569,6 @@ class CAutomation(Automation):
         meta = script_artifact.meta
         path = script_artifact.path
 
-
-        r = self._update_additional_meta(meta,path)
-        if r['return'] > 0:
-            return r
-
-
         deps = meta.get('deps',[])
         post_deps = meta.get('post_deps',[])
         prehook_deps = meta.get('prehook_deps',[])
@@ -1578,19 +1572,6 @@ class CAutomation(Automation):
             input ('Press Enter to continue ...')
         
         return rr
-
-    def _update_additional_meta(self, meta, path):
-
-        import glob
-        import json
-        path_to_file = os.path.join(path, "_cm-")
-        file_list = glob.glob(path_to_file + "*.json")
-        for f in file_list:
-            r =  utils.load_json(file_name = f)
-            if r['return']>0: return r
-            else: new_meta = r['meta']
-            utils.merge_dicts({'dict1':meta, 'dict2':new_meta, 'append_lists':True, 'append_unique':True})
-        return {'return': 0}
 
     def _update_variation_tags_from_variations(self, variation_tags, variations, variation_groups, excluded_variation_tags):
 
