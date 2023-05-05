@@ -1,5 +1,5 @@
 # This workflow will add/update the README.md files for any updated CM scripts
-name: CM(CK2) Readme update for CM scripts
+name: Readme update for CM scripts
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
       id: getfile
       run: |
         echo "files=$(git diff --name-only ${{ github.event.before }} | xargs)" >> $GITHUB_OUTPUT
-    - name: echo output
+    - name: Update readme
       run: |
         echo ${{ steps.getfile.outputs.files }}
         for file in ${{ steps.getfile.outputs.files }}; do
