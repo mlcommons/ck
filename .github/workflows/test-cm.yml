@@ -9,8 +9,7 @@ on:
     paths:
       - '.github/workflows/test-cm.yml'
       - 'cm/**'
-    paths-ignore:
-      - 'cm/**.md'
+      - '!cm/**.md'
 
 jobs:
   build:
