@@ -150,6 +150,10 @@ ___
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `colored`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://pypi.ngc.nvidia.com`
       - Workflow:
+    * `_datasets`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `datasets`
+      - Workflow:
     * `_decorator`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `decorator`
@@ -324,6 +328,10 @@ ___
     * `_scipy`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `scipy`
+      - Workflow:
+    * `_scons`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `scons`
       - Workflow:
     * `_setfit`
       - Environment variables:
