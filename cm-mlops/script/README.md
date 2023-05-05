@@ -12,21 +12,23 @@ See the catalog [here](https://github.com/mlcommons/ck/blob/master/docs/list_of_
 ### CM script execution flow
 * When a CM script is invoked (either by tags or by unique ID), its `_cm.json` is processed first which will check for any `deps` script and if there are, then they are executed in order.
 * Once all the `deps` scripts are executed, `customize.py` file is checked and if existing `preprocess` function inside it is executed if present. 
-* After the `preprocess` function is done, keys in `env` dictionary is exported as `ENV` variables and `run` file if exists is executed.
-* Once run file execution is done, then `postprocess` function inside customize.py is executed if present.
+* Then any `prehook_deps` CM scripts mentioned in `_cm.json` are executed similar to `deps`
+* After this, keys in `env` dictionary is exported as `ENV` variables and `run` file if exists is executed.
+* Once run file execution is done, any `posthook_deps` CM scripts mentioned in `_cm.json` are executed similar to `deps`
+* Then `postprocess` function inside customize.py is executed if present.
 * After this stage any `post_deps` CM scripts mentioned in `_cm.json` is executed.
 
 ### Input flags
 * When we run a CM script we can also pass inputs to it and any input added in `input_mapping` dictionary inside `_cm.json` gets converted to the corresponding `ENV` variable.
 
 ### Consitional execution of any `deps`, `post_deps`
-* We can use `skip_if_env` dictionar inside any `deps` or `post_deps` to make its executional conditional
+* We can use `skip_if_env` dictionary inside any `deps`, `prehook_deps`, `posthook_deps` or `post_deps` to make its executional conditional
 
 ### Versions
 * [TBD]
 
 ### Variation groups
-* [TBD]
+* Variations are used to customize CM script and each unique combination of variations uses a unique cache entry. `group` is a key to map variations into a group and at any time only one variation from a group can be used in the variation tags. For example, both `cpu` and `cuda` can be two variations under the `device` group, but user can at any time use either `cpu` or `cuda` as variation tags but not both.
 
 ### ENV flow during CM script execution
 * [TBD]
