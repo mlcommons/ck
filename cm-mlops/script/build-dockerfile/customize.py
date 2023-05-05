@@ -143,7 +143,6 @@ def preprocess(i):
         for post_run_cmd in env['CM_DOCKER_POST_RUN_COMMANDS']:
             f.write('RUN '+ post_run_cmd + EOL)
 
-
     f.close()
 
     f = open(env['CM_DOCKERFILE_WITH_PATH'], "r")
