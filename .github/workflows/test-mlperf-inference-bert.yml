@@ -8,8 +8,9 @@ on:
     branches: [ "master", "dev" ]
     paths:
       - '.github/workflows/test-mlperf-inference-bert.yml'
-      - '!cm-mlops/**.md'
       - 'cm-mlops/**'
+    paths-ignore:
+      - 'cm-mlops/**.md'
 
 jobs:
   build:
