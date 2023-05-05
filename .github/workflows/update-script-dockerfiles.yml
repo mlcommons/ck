@@ -8,7 +8,8 @@ on:
       - 'cm-mlops/script/**_cm.json'
 
 jobs:
-  doreadme:
+  dockerfile:
+    if: github.repository == 'mlcommons/ck'
     runs-on: ubuntu-latest
     steps:
     - name: 'Checkout'

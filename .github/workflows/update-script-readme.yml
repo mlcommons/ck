@@ -10,6 +10,7 @@ on:
 jobs:
   doreadme:
     runs-on: ubuntu-latest
+    if: github.repository == 'mlcommons/ck'
     steps:
     - name: 'Checkout'
       uses: actions/checkout@v3
@@ -34,7 +35,6 @@ jobs:
         FOLDER=`cm find repo mlcommons@ck | cut -d' ' -f3`
         cd $FOLDER
         echo "Changed to $FOLDER"
-        #USER=${{ github.repository_owner }}
 
         USER=cTuning
         EMAIL=admin@ctuning.org
