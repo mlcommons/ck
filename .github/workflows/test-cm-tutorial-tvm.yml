@@ -9,8 +9,7 @@ on:
     paths:
       - '.github/workflows/test-cm-tutorial-tvm.yml'
       - 'cm-mlops/**'
-    paths-ignore:
-      - 'cm-mlops/**.md'
+      - '!cm-mlops/**.md'
 
 jobs:
   build:
