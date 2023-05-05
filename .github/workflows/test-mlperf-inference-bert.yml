@@ -9,8 +9,7 @@ on:
     paths:
       - '.github/workflows/test-mlperf-inference-bert.yml'
       - 'cm-mlops/**'
-    paths-ignore:
-      - 'cm-mlops/**.md'
+      - '!cm-mlops/**.md'
 
 jobs:
   build:
