@@ -96,8 +96,8 @@ def postprocess(i):
         docker_out = subprocess.check_output(CMD, shell=True).decode("utf-8")
         print(docker_out)
     else:
-        CONTAINER="docker run -it "+ run_opts + " " + docker_image_repo + ":" + docker_image_tag + " bash"
-        CMD =  CONTAINER
+        CONTAINER="docker run -it --entrypoint '' "+ run_opts + " " + docker_image_repo + ":" + docker_image_tag
+        CMD =  CONTAINER + " bash -c '" + run_cmd + " && bash '"
         print("Container launch command: " + CMD)
         docker_out = os.system(CMD)
 
