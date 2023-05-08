@@ -145,7 +145,7 @@
         "CM_SYS_UTIL_NAME": "libpci-dev"
       },
       "state": {
-        "screen": {
+        "libpci-dev": {
           "apt": "libpci-dev",
           "dnf": "pciutils-devel",
           "yum": "pciutils-devel",
@@ -158,7 +158,7 @@
         "CM_SYS_UTIL_NAME": "libudev-dev"
       },
       "state": {
-        "screen": {
+        "libudev-dev": {
           "apt": "libudev-dev",
           "dnf": "libudev-devl",
           "yum": "libudev-devel",
