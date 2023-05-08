@@ -1147,7 +1147,7 @@ def dockerfile(i):
                             'docker_os_version': version,
                             'file_path': dockerfile_path,
                             'comments': comments,
-                            'run_cmd': f'cm run script --tags={tag_string}',
+                            'run_cmd': f'cm run script --tags={tag_string} --quiet',
                             'script_tags': f'{tag_string}',
                             'quiet': True,
                             'print_deps': True,
@@ -1159,5 +1159,113 @@ def dockerfile(i):
                     return r
 
                 print("Dockerfile generated at "+dockerfile_path)
+
+    return {'return':0}
+
+############################################################
+def docker(i):
+    """
+    Add CM automation.
+
+    Args:
+      (CM input dict):
+
+      (out) (str): if 'con', output to console
+
+      parsed_artifact (list): prepared in CM CLI or CM access function
+                                [ (artifact alias, artifact UID) ] or
+                                [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+      (repos) (str): list of repositories to search for automations (internal & mlcommons@ck by default)
+
+      (output_dir) (str): output directory (./ by default)
+
+    Returns:
+      (CM return dict):
+
+      * return (int): return code == 0 if no error and >0 if error
+      * (error) (str): error string if return>0
+
+    """
+
+    self_module = i['self_module']
+
+    r = utils.call_internal_module(self_module, __file__, 'module_misc', 'dockerfile', i)
+    if r['return']>0: return r
+
+    cur_dir = os.getcwd()
+
+    console = i.get('out') == 'con'
+
+    repos = i.get('repos','')
+    if repos == '': repos='internal,a4705959af8e447a'
+
+    parsed_artifact = i.get('parsed_artifact',[])
+
+    if len(parsed_artifact)<1:
+        parsed_artifact = [('',''), ('','')]
+    elif len(parsed_artifact)<2:
+        parsed_artifact.append(('',''))
+    else:
+        repos = parsed_artifact[1][0]
+
+    list_of_repos = repos.split(',') if ',' in repos else [repos]
+
+    ii = utils.sub_input(i, self_module.cmind.cfg['artifact_keys'])
+
+    ii['out'] = None
+
+    # Search for automations in repos
+    lst = []
+    for repo in list_of_repos:
+        parsed_artifact[1] = ('',repo) if utils.is_cm_uid(repo) else (repo,'')
+        ii['parsed_artifact'] = parsed_artifact
+        r = self_module.search(ii)
+        if r['return']>0: return r
+        lst += r['list']
+
+    md = []
+
+    toc = []
+
+    script_meta = {}
+    urls = {}
+
+    for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
+
+        meta = artifact.meta
+        script_path = artifact.path
+        tags = meta.get("tags", [])
+        script_alias = meta.get('alias')
+        tag_string=",".join(tags)
+
+        _os="ubuntu"
+        version="22.04"
+
+        dockerfile_path = os.path.join(script_path,'dockerfiles', _os +'_'+version +'.Dockerfile')
+
+        cm_docker_input = {'action': 'run',
+                            'automation': 'script',
+                            'tags': 'run,docker,container',
+                            'recreate': 'yes',
+                            'docker_os': _os,
+                            'image_repo': 'cm',
+                            'image_tag': script_alias,
+                            'docker_os_version': version,
+                            'detached': 'no',
+                            'script_tags': f'{tag_string}',
+                            'quiet': True,
+                            'real_run': True,
+                            'add_deps_recursive': {
+                                'build-docker-image': {
+                                    'dockerfile': dockerfile_path
+                                }
+                            }
+                        }
+
+        r = self_module.cmind.access(cm_docker_input)
+        if r['return'] > 0:
+            return r
+
 
     return {'return':0}

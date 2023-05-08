@@ -1,5 +1,5 @@
 # This workflow will add/update the README.md files for any updated CM scripts
-name: CM(CK2) Readme update for CM scripts
+name: Readme update for CM scripts
 
 on:
   push:
@@ -10,6 +10,7 @@ on:
 jobs:
   doreadme:
     runs-on: ubuntu-latest
+    if: github.repository == 'mlcommons/ck'
     steps:
     - name: 'Checkout'
       uses: actions/checkout@v3
@@ -19,7 +20,7 @@ jobs:
       id: getfile
       run: |
         echo "files=$(git diff --name-only ${{ github.event.before }} | xargs)" >> $GITHUB_OUTPUT
-    - name: echo output
+    - name: Update readme
       run: |
         echo ${{ steps.getfile.outputs.files }}
         for file in ${{ steps.getfile.outputs.files }}; do
@@ -34,7 +35,6 @@ jobs:
         FOLDER=`cm find repo mlcommons@ck | cut -d' ' -f3`
         cd $FOLDER
         echo "Changed to $FOLDER"
-        #USER=${{ github.repository_owner }}
 
         USER=cTuning
         EMAIL=admin@ctuning.org

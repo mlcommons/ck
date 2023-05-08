@@ -1,7 +1,7 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: CM script automation test for MLPerf inference retinanet
+name: MLPerf inference retinanet
 
 on:
   pull_request:
@@ -36,6 +36,6 @@ jobs:
         python3 -m pip install cmind
         cm pull repo --url=${{ github.event.pull_request.head.repo.html_url }} --checkout=${{ github.event.pull_request.head.ref }}
         cm run script --quiet --tags=get,sys-utils-cm
-    - name: Test CM Script for MLPerf Inference Retinanet using ${{ matrix.backend }}
+    - name: Test MLPerf Inference Retinanet using ${{ matrix.backend }}
       run: |
         cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="OctoML" --hw_name=default --model=retinanet --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=5 --adr.compiler.tags=gcc --quiet

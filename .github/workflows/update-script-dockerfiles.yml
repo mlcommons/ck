@@ -1,5 +1,5 @@
 # This workflow will add/update the default dockerfile for any updated CM scripts
-name: CM(CK2) Dockerfile update for CM scripts
+name: Dockerfile update for CM scripts
 
 on:
   push:
@@ -8,7 +8,8 @@ on:
       - 'cm-mlops/script/**_cm.json'
 
 jobs:
-  doreadme:
+  dockerfile:
+    if: github.repository == 'mlcommons/ck'
     runs-on: ubuntu-latest
     steps:
     - name: 'Checkout'
@@ -27,13 +28,12 @@ jobs:
         python3 -m pip install cmind
         cm pull repo --url=https://github.com/${{ github.repository }} --checkout=${{ github.ref_name }}
         python3 tests/script/process_dockerfile.py ${{ steps.getfile.outputs.files }}
-        #REPO=${{ github.repository }}
-        #CM_REPO=${REPO/\//@}
-        #FOLDER=`cm find repo ${CM_REPO} | cut -d' ' -f3`
+
         FOLDER=`cm find repo mlcommons@ck | cut -d' ' -f3`
 
-        USER=cmadmin
-        EMAIL=arjunsuresh@users.noreply.github.com
+        USER=cTuning
+        EMAIL=admin@ctuning.org
+
         git config --global user.name "$USER"
         git config --global user.email "$EMAIL"
         git remote set-url origin https://x-access-token:${{ secrets.ACCESS_TOKEN }}@github.com/${{ github.repository }}

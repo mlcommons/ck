@@ -6,12 +6,16 @@
   "category_sort": 6500,
   "cache": false,
   "clean_files": [],
+  "default_env": {
+    "CM_DOCKER_DETACHED_MODE": "yes"
+  },
   "input_mapping": {
     "base": "CM_DOCKER_IMAGE_BASE",
     "cm_repo": "CM_MLOPS_REPO",
     "recreate": "CM_DOCKER_IMAGE_RECREATE",
     "gh_token": "CM_GH_TOKEN",
     "image_repo": "CM_DOCKER_IMAGE_REPO",
+    "detached": "CM_DOCKER_DETACHED_MODE",
     "image_tag": "CM_DOCKER_IMAGE_TAG",
     "docker_os": "CM_DOCKER_OS",
     "docker_os_version": "CM_DOCKER_OS_VERSION",
