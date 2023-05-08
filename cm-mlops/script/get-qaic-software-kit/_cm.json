@@ -1,0 +1,57 @@
+{
+  "alias": "get-qaic-software-kit",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "deps": [
+    {
+      "tags": "get,git,repo,_repo.https://github.com/quic/software-kit-for-qualcomm-cloud-ai-100",
+      "names": [
+        "qaic-software-git-repo"
+      ]
+    },
+    {
+      "tags": "get,cmake",
+      "version_min": "3.24.0",
+      "names": [
+        "cmake"
+      ]
+    },
+    {
+      "tags": "get,compiler",
+      "names": [
+        "compiler"
+      ]
+    },
+    {
+      "tags": "get,generic,sys-util,_libudev-dev"
+    },
+    {
+      "tags": "get,generic,sys-util,_libpci-dev"
+    },
+    {
+      "tags": "get,google,test"
+    }
+  ],
+  "input_description": {},
+  "input_mapping": {},
+  "new_env_keys": [
+    "+PATH",
+    "CM_QAIC_SOFTWARE_KIT_PATH",
+    "CM_QAIC_RUNNER_PATH"
+  ],
+  "new_state_keys": [],
+  "post_deps": [],
+  "posthook_deps": [],
+  "prehook_deps": [],
+  "tags": [
+    "get",
+    "qaic",
+    "software",
+    "kit",
+    "qaic-software-kit"
+  ],
+  "uid": "3344655922694bbb",
+  "variations": {},
+  "versions": {}
+}
