@@ -110,6 +110,7 @@ ___
 * `--base=value`  &rarr;  `CM_DOCKER_IMAGE_BASE=value`
 * `--cache=value`  &rarr;  `CM_DOCKER_CACHE=value`
 * `--cm_repo=value`  &rarr;  `CM_MLOPS_REPO=value`
+* `--detached=value`  &rarr;  `CM_DOCKER_DETACHED_MODE=value`
 * `--device=value`  &rarr;  `CM_DOCKER_ADD_DEVICE=value`
 * `--docker_os=value`  &rarr;  `CM_DOCKER_OS=value`
 * `--docker_os_version=value`  &rarr;  `CM_DOCKER_OS_VERSION=value`
@@ -142,6 +143,7 @@ r=cm.access({... , "base":...}
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
+* CM_DOCKER_DETACHED_MODE: `yes`
 
 </details>
 
