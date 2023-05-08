@@ -139,6 +139,32 @@
           "brew": "screen"
         }
       }
+    },
+    "libpci-dev": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "libpci-dev"
+      },
+      "state": {
+        "screen": {
+          "apt": "libpci-dev",
+          "dnf": "pciutils-devel",
+          "yum": "pciutils-devel",
+          "brew": ""
+        }
+      }
+    },
+    "libudev-dev": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "libudev-dev"
+      },
+      "state": {
+        "screen": {
+          "apt": "libudev-dev",
+          "dnf": "libudev-devl",
+          "yum": "libudev-devel",
+          "brew": ""
+        }
+      }
     }
   }
 }
