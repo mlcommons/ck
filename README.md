@@ -7,50 +7,50 @@
 
 ### About
 
-The [Collective Knowledge project](https://arxiv.org/abs/2011.01149)
-is motivated by our tedious experience reproducing experiments 
-from [150 research papers](https://learning.acm.org/techtalks/reproducibility)
-and validating them in the real world. 
-We decided to collaborate with the community and [MLCommons](https://mlcommons.org)
-to develop a [free, open-source and technology-agnostic platform](platform)
-that can help everyone reproduce, optimize and compare any novel technology 
-across any rapidly evolving AI models, software, hardware and data(sets)
-from different vendors in an automated way via [collaborative challenges](https://x.cKnowledge.org/playground/?action=challenges)
-and [reproducible experiments](https://x.cKnowledge.org/playground/?action=experiments).
+The "Collective Knowledge" project (CK) is motivated by our tedious experience
+reproducing results from [150+ research papers](https://learning.acm.org/techtalks/reproducibility)
+and validating them in the real world: we decided to work with researchers and practitioners to develop an open-source technology
+that can facilitate reproducible research and simplify technology transfer to production
+across diverse and rapidly evolving software, hardware, models, and data.
 
-This platform is powered by the [Collective Mind workflow automation framework (CM aka CK2)](https://github.com/mlcommons/ck/tree/master/cm/cmind) -
-the 2nd version of the [CK framework](https://arxiv.org/abs/2011.01149) 
-originally designed by the [cTuning foundation](https://cTuning.org) and donated to MLCommons in 2022.
-It is being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-to help users of the [CK platform](https://x.cKnowledge.org) solve the "dependency hell" and interconnect diverse and rapidly evolving software and hardware
-from any company including Nvidia, Intel, Qualcomm, AMD, Microsoft, Amazon, Google, 
-Neural Magic, Meta, OctoML, Krai, cKnowledge and Hugging Face in a transparent and non-intrusive way
-using  [portable CM scripts  developed by the community](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md).
+CK is being developed by the public [MLCommons task force on automation and reproducibility](docs/taskforce.md) 
+to automate development, benchmarking and deployment of Pareto-efficient AI and ML systems and applications 
+(optimal trade off between performance, accuracy, power consumption, and price)
+while slashing their research, development, benchmarking, optimization, and operational costs.
 
-For example, CK has already helped to automate more than 80% of all recent MLPerf inference benchmark submissions (and 98% of all power results), 
-make them more reproducible and reusable, and obtain record inference performance on the latest Qualcomm and Nvidia devices.
+The CK projects consists of the following sub-projects:
 
-The long-term goal for our Collective Knowledge platform is to help everyone automatically generate the most efficient, reproducible and deployable 
-solutions for their applications using the most suitable software and hardware stack at any given time (model, framework, inference engine and any other related dependency) 
-based on their requirements and constraints including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny), 
-environment and data. 
-
-Our ultimate dream is to accelerate deep-tech innovation 
-and help AI, ML and systems developers by automating all their 
-tedious and repetitive tasks and slashing development, benchmarking, 
-optimization, deployment and operational costs for any novel technology by 10..100 times 
-in the rapidly evolving world.
-
-
-### Discussions
-
-Join our [Discord server](https://discord.gg/JjWNWXKxwT) 
-to learn more about our technology, participate in public developments and discussions,
-and request platform features and support for your technology.
+* [Collective Mind scripting language (MLCommons CM)](cm) 
+  is intended to help researchers and practitioners
+  describe all the steps required to reproduce their experiments across any software, hardware, and data
+  in a common and technology-agnostic way.
+  CM can automatically generate unified README and synthesize unified containers with a common API
+  while reducing all the tedious, manual, repetitive, and ad-hoc efforts to validate research projects in production.
+* [Collective Mind scripts (MLCommons CM scripts)](cm-mlops/script) 
+  provide a low-level implementation of the high-level and technology-agnostic CM language.
+* [Collective Knowledge platform (MLCommons CK playground)](platform) 
+  aggregates [reproducible experiments](https://access.cknowledge.org/playground/?action=experiments) 
+  in the CM format, connects academia and industry to 
+  [organize reproducibility and optimization challenges]( https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge ),
+  and help developers and users select Pareto-optimal end-to-end applications and systems based on their requirements and constraints
+  (cost, performance, power consumption, accuracy, etc).
 
 ### Documentation and the Getting Started Guide
 
-* [Table of contents](https://github.com/mlcommons/ck/tree/master/docs/README.md)
+[Table of contents](https://github.com/mlcommons/ck/tree/master/docs/README.md)
+
+### Discussions
+
+* Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
+* Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
+* Check our [news](docs/news.md).
+
+### Collaborative development
+
+This open-source technology is being developed by the open
+[MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
+[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
 
 ### Copyright
 
@@ -58,14 +58,7 @@ and request platform features and support for your technology.
 
 ### License
 
-Apache 2.0
-
-### Authors and Tech Leads
-
-This open-source technology is being developed by the open
-[MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
-[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
+[Apache 2.0](LICENSE.md)
 
 ### Acknowledgments
 

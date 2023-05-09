@@ -8,36 +8,55 @@
 
 ### About
 
-The Collective Knowledge project (CK) is motivated by our tedious experience reproducing experiments 
-from [150 research papers](https://learning.acm.org/techtalks/reproducibility)
+[Collective Mind (MLCommons CM)](https://github.com/mlcommons/ck/tree/master/cm/cmind) 
+is a part of the [MLCommons Collective Knowledge project](https://github.com/mlcommons/ck)
+motivated by our tedious experience reproducing experiments from [150 research papers](https://learning.acm.org/techtalks/reproducibility)
 and validating them in the real world - we decided to develop a universal and human-readable 
 interface to access any software project and run it on any platform with any software, hardware and data.
 
-The [Collective Mind tool (CM)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
-helps users to add this universal interface to their software projects and transform them into a 
-[database of portable and reusable components](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
+CM is a simple, intuitive, technology-agnostic, and English-like language
+that helps researchers and practitioners add a universal interface to their software projects and transform them into a 
+[database of portable and reusable CM scripts]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script )
 in a transparent and non-intrusive way.
 
-CM is being developed by the [open MLCommons taskforce](https://cKnowledge.org/mlcommons-taskforce) 
-to solve the "dependency hell" for ML and AI systems, reduce their development, benchmarking, optimization and deployment time and costs,
+CM is being developed by the [public MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
+to solve the "dependency hell" for ML and AI systems, reduce their development, benchmarking, optimization, and deployment time,
 and automate [reproducibility initiatives and artifact evaluation at conferences](https://cTuning.org/ae).
+
+CM powers the [Collective Knowledge platform (MLCommons CK playground)](https://access.cKnowledge.org)
+to aggregate [reproducible experiments](https://access.cknowledge.org/playground/?action=experiments),
+connect academia and industry to [organize reproducibility and optimization challenges]( https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge ),
+and help developers and users select Pareto-optimal end-to-end applications and systems based on their requirements and constraints
+(cost, performance, power consumption, accuracy, etc).
 
 
 ### Documentation and the Getting Started Guide
 
-* [Table of contents](https://github.com/mlcommons/ck/tree/master/docs/README.md)
+[Table of contents](https://github.com/mlcommons/ck/tree/master/docs/README.md)
+
+### Discussions
+
+* Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
+* Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
+* Check our [news](docs/news.md).
+
+### Collaborative development
+
+This open-source technology is being developed by the open
+[MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
+[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
 
 ### Copyright
 
 2021-2023 [MLCommons](https://mlcommons.org)
 
-### Authors and maintainers
+### License
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
-
+[Apache 2.0](LICENSE.md)
 
 ### Acknowledgments
 
-This project is supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org),
+This project is currently supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org),
 [cKnowledge](https://cKnowledge.org) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
+We thank [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai) for sponsoring initial development.
