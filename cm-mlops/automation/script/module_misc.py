@@ -1069,6 +1069,7 @@ def dockerfile(i):
     cur_dir = os.getcwd()
 
     console = i.get('out') == 'con'
+    cm_repo = i.get('cm_repo', 'mlcommons@ck')
 
     repos = i.get('repos','')
     if repos == '': repos='internal,a4705959af8e447a'
@@ -1143,6 +1144,7 @@ def dockerfile(i):
                 cm_docker_input = {'action': 'run',
                             'automation': 'script',
                             'tags': 'build,dockerfile',
+                            'cm_repo': cm_repo,
                             'docker_os': _os,
                             'docker_os_version': version,
                             'file_path': dockerfile_path,
