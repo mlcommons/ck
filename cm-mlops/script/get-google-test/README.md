@@ -12,6 +12,7 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Default environment](#default-environment)
+* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -29,7 +30,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-test)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,google-test,gtest,test,google*
+* CM "database" tags to find this script: *get,google-test,googletest,gtest,test,google*
 * Output cached?: *True*
 ___
 ### Usage
@@ -48,9 +49,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,google-test,gtest,test,google `
+1. `cm run script --tags=get,google-test,googletest,gtest,test,google `
 
-2. `cm run script "get google-test gtest test google" `
+2. `cm run script "get google-test googletest gtest test google" `
 
 3. `cm run script 02945138a5614253 `
 
@@ -69,7 +70,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,google-test,gtest,test,google'
+                  'tags':'get,google-test,googletest,gtest,test,google'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -86,9 +87,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,google-test,gtest,test,google"```
+```cm run script --tags=gui --script="get,google-test,googletest,gtest,test,google"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,google-test,gtest,test,google) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,google-test,googletest,gtest,test,google) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -106,6 +107,9 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 
 </details>
+
+#### Versions
+Default version: `1.13.0`
 
 ___
 ### Script workflow, dependencies and native scripts
