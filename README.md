@@ -42,15 +42,21 @@ optimization, deployment and operational costs for any novel technology by 10..1
 in the rapidly evolving world.
 
 
+### Documentation
+
+[Table of contents](https://github.com/mlcommons/ck/tree/master/docs/README.md)
+
 ### Discussions
 
-Join our [Discord server](https://discord.gg/JjWNWXKxwT) 
-to learn more about our technology, participate in public developments and discussions,
-and request platform features and support for your technology.
+* Join our [public Discord server](https://discord.gg/JjWNWXKxwT) 
+* Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw)
 
-### Documentation and the Getting Started Guide
+### Collaborative development
 
-* [Table of contents](https://github.com/mlcommons/ck/tree/master/docs/README.md)
+This open-source technology is being developed by the open
+[MLCommons task force](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
+[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
 
 ### Copyright
 
@@ -59,13 +65,6 @@ and request platform features and support for your technology.
 ### License
 
 Apache 2.0
-
-### Authors and Tech Leads
-
-This open-source technology is being developed by the open
-[MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
-[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
 
 ### Acknowledgments
 
