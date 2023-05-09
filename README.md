@@ -42,7 +42,7 @@ optimization, deployment and operational costs for any novel technology by 10..1
 in the rapidly evolving world.
 
 
-### Documentation
+### Documentation and the Getting Started Guide
 
 [Table of contents](https://github.com/mlcommons/ck/tree/master/docs/README.md)
 

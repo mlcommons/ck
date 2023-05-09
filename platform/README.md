@@ -46,14 +46,6 @@ and [journal article](https://arxiv.org/abs/2011.01149) to learn more about our 
 * [GUI to run MLPerf inference benchmarks](http://cknowledge.org/mlperf-inference-gui)
 * [GUI to prepare MLPerf inference submissions](https://cknowledge.org/mlperf-inference-submission-gui)
 
-## License
-
-Apache 2.0
-
-## Copyright
-
-2023 MLCommons
-
 ## Source code for on-prem use
 
 This platform is implemented as a portable automation recipe using the MLCommons CM (CK2) workflow automation framework: 
@@ -86,7 +78,35 @@ Check [this script](scripts/2-run-in-a-cloud.sh) If you want to run the CK playg
 as a public or private server to run optimization experiments
 with your colleagues, external teams and users.
 
-## Authors and Tech Leads
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+
+### Documentation and the Getting Started Guide
+
+[Table of contents](https://github.com/mlcommons/ck/tree/master/docs/README.md)
+
+### Discussions
+
+* Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
+* Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
+* Check our [news](docs/news.md).
+
+### Collaborative development
+
+This open-source technology is being developed by the open
+[MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
+[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
+
+### Copyright
+
+2021-2023 [MLCommons](https://mlcommons.org)
+
+### License
+
+[Apache 2.0](LICENSE.md)
+
+### Acknowledgments
+
+This project is currently supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org),
+[cKnowledge](https://cKnowledge.org) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
+We thank [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai) for sponsoring initial development.

@@ -1,6 +1,6 @@
 [ [Back to index](README.md) ]
 
-## CK and CM news
+## MLCommons CK and CM news
 
 ### 202305
 
