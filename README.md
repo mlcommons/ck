@@ -64,7 +64,7 @@ led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
 
 ### License
 
-Apache 2.0
+[Apache 2.0](LICENSE.md)
 
 ### Acknowledgments
 
