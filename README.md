@@ -30,7 +30,8 @@ The CK projects consists of the following sub-projects:
   provide a low-level implementation of the high-level and technology-agnostic CM language.
 * [Collective Knowledge platform (MLCommons CK playground)](platform) 
   aggregates [reproducible experiments](https://access.cknowledge.org/playground/?action=experiments) 
-  in the CM format, connects academia and industry to [organize reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges),
+  in the CM format, connects academia and industry to 
+  [organize reproducibility and optimization challenges]( https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge ),
   and help developers and users select Pareto-optimal end-to-end applications and systems based on their requirements and constraints
   (cost, performance, power consumption, accuracy, etc).
 
