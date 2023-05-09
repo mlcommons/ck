@@ -19,12 +19,19 @@ as a community effort.
 ### 202304
 
 We have successfully validated the [MLCommons CK and CM technology](https://github.com/mlcommons/ck) 
-to automate ~80% of MLPerf inference v3.0 submissions (98% of all power results):
+to automate ~80% of MLPerf inference v3.0 submissions (98% of all power results).
+
+MLCommons CK and CM has helped to automatically interconnect very diverse technology 
+from Neural Magic, Qualcomm, Krai, cKnowledge, OctoML, Deelvin, DELL, HPE, Lenovo, Hugging Face, Nvidia and Apple 
+and run it across diverse CPUs, GPUs and DSPs with PyTorch, 
+ONNX, QAIC, TF/TFLite, TVM and TensorRT using popular cloud providers (GCP, AWS, Azure) and individual servers and edge devices 
+via our recent [open optimization challenge](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023).
 
 * [Forbes article highlighting our MLCommons CK technology](https://www.forbes.com/sites/karlfreund/2023/04/05/nvidia-performance-trounces-all-competitors-who-have-the-guts-to-submit-to-mlperf-inference-30/?sh=3c38d2866676)
 * [ZDNet article](https://www.zdnet.com/article/nvidia-dell-qualcomm-speed-up-ai-results-in-latest-benchmark-tests)
 * [LinkedIn article from Grigori Fursin (MLCommons Task Force co-chair)](https://www.linkedin.com/pulse/announcing-my-new-project-reproducible-optimization-co-design-fursin)
 * [Linkedin article from Arjun Suresh (MLCommons Task Force co-chair)](https://www.linkedin.com/posts/arjunsuresh_nvidia-performance-trounces-all-competitors-activity-7049500972275929088-nnnx?utm_source=share&utm_medium=member_desktop)
+
 
 ### 202304
 

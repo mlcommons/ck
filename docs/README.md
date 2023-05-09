@@ -13,7 +13,7 @@ helps users add this universal interface to their software projects and transfor
 in a transparent and non-intrusive way.
 
 CM is being developed by the [public MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
-to solve the "dependency hell" for ML and AI systems, reduce their development, benchmarking, optimization and deployment time,
+to solve the "dependency hell" for ML and AI systems, reduce their development, benchmarking, optimization, and deployment time,
 and automate [reproducibility initiatives and artifact evaluation at conferences](https://cTuning.org/ae).
 
 CM powers the [Collective Knowledge platform (MLCommons CK playground)](https://access.cKnowledge.org)
