@@ -38,20 +38,11 @@ at any given time (model, framework, inference engine and any other related depe
 based on their requirements and constraints including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny), 
 environment and data while slashing their development and operational costs by 10..100 times.
 
-See this [ACM tech talk](https://www.youtube.com/watch?v=7zpeIVwICa4) 
-and [journal article](https://arxiv.org/abs/2011.01149) to learn more about our motivation.
+### Discussions
 
-## Discussions
-
-Join our [Discord server](https://discord.gg/JjWNWXKxwT) 
-or contact [Grigori Fursin and Arjun Suresh](mailto:gfursin@cKnowledge.org;asuresh@cTuning.org)
-to learn more about our platform, participate in public developments and discussions,
-and request platform features and support for your technology.
-
-### Weekly conf-calls
-
-Feel free to join our weekly conf-call where you can provide your feedback, ask questions or participate in discussions:
-* Each Thursday at 10-11am PT (19-20pm CET): https://meet.google.com/tnt-zscc-aeb ([Shared notes](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw)).
+* Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
+* Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
+* Check our [news](news.md).
 
 ## Chairs and Tech Leads
 
@@ -107,5 +98,5 @@ Feel free to join our weekly conf-call where you can provide your feedback, ask 
 
 ### Acknowledgments
 
-This project is supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org),
+This task force is supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org),
 [cKnowledge](https://cKnowledge.org) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).

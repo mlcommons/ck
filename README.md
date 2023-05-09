@@ -48,13 +48,14 @@ in the rapidly evolving world.
 
 ### Discussions
 
-* Join our [public Discord server](https://discord.gg/JjWNWXKxwT) 
-* Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw)
+* Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
+* Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
+* Check our [news](docs/news.md).
 
 ### Collaborative development
 
 This open-source technology is being developed by the open
-[MLCommons task force](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+[MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
 led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
 [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
 
