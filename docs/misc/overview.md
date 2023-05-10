@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is motivated by our [tedious experience](https://learning.acm.org/techtalks/reproducibility) 
+The Collective Knowledge project is motivated by our [tedious experience](https://learning.acm.org/techtalks/reproducibility) 
 reproducing research papers on machine learning and systems and validating them in the real world.
 
 We have developed the [Collective Knowledge concept (CK)](https://arxiv.org/pdf/2011.01149.pdf) 

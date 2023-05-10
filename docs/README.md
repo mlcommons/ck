@@ -2,10 +2,10 @@
 
 The Collective Knowledge project consists of 2 sub-projects:
 
-* [Collective Mind (MLCommons CM)](#collective-mind-language-cm) 
-  is an open-source, intuitive, technology-agnostic, and English-like language to help researchers and practitioners
-  describe and reproduce experimental results in a unified way across any rapidly evolving
-  software, hardware, and data.
+* [Collective Mind language (MLCommons CM)](#collective-mind-language-cm) 
+  is an open-source, intuitive, technology-agnostic, and English-like scripting language 
+  to help researchers and practitioners describe and reproduce experimental results 
+  in a unified way across any rapidly evolving software, hardware, and data.
   
 * [Collective Knowledge playground (MLCommons CK)](#collective-knowledge-playground-ck)
   is a free, open-source and technology-agnostic on-prem platform that 
@@ -20,7 +20,12 @@ The Collective Knowledge project consists of 2 sub-projects:
 
 ### Getting started guide
 
-* [Installing and customizing CM](installation.md)
+* [Motivation](motivation.md)
+* [Installation and customization](installation.md)
+
+
+
+
 * [Testing CM to run image classification on any platform with CPU and GPU](tutorials/modular-image-classification.md)
 * [Understanding CM interface (CLI and Python API)](tutorials/cm-interface.md)
 * [TBD: transforming your software project to the CM format](tutorials/transform-your-project-to-cm.md)
@@ -39,13 +44,6 @@ The Collective Knowledge project consists of 2 sub-projects:
 * [List of reusable CM automations](list_of_automations.md)
 * [List of portable and reusable CM scripts](list_of_scripts.md)
 
-### On-going projects
-
-* [Modularizing MLPerf and automating benchmarking, optimization, design space exploration and submissions](mlperf-education-workgroup.md)
-  * [Minutes from weekly meetings](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit)
-  * [GitHub tickets](https://github.com/mlcommons/ck/issues)
-* [Supporting artifact evaluation and reproducibility initiatives at conferences](https://cTuning.org/ae)
-
 ### Tutorials
 
 We plan to update them soon.
@@ -61,12 +59,10 @@ We plan to update them soon.
 
 ## Collective Knowledge playground (CK)
 
+* [Project page](../platform)
 
+*TBD*
 
-## Misc
-
-* [Project overview](overview.md)
-* [History](history.md)
 
 
 ## Collaborative development
