@@ -11,6 +11,7 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -48,9 +49,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,qaic,software,compute,compute-sdk,qaic-compute-sdk,sdk `
+1. `cm run script --tags=get,qaic,software,compute,compute-sdk,qaic-compute-sdk,sdk[,variations] `
 
-2. `cm run script "get qaic software compute compute-sdk qaic-compute-sdk sdk" `
+2. `cm run script "get qaic software compute compute-sdk qaic-compute-sdk sdk[,variations]" `
 
 3. `cm run script 9701bdda97fa4045 `
 
@@ -97,6 +98,32 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,qaic,software,comp
 ___
 ### Customization
 
+
+#### Variations
+
+  * Group "**installation-mode**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_debug`
+      - Environment variables:
+        - *CM_QAIC_COMPUTE_SDK_INSTALL_MODE*: `debug`
+      - Workflow:
+    * **`_release`** (default)
+      - Environment variables:
+        - *CM_QAIC_COMPUTE_SDK_INSTALL_MODE*: `release`
+      - Workflow:
+    * `_release-assert`
+      - Environment variables:
+        - *CM_QAIC_COMPUTE_SDK_INSTALL_MODE*: `release-assert`
+      - Workflow:
+
+    </details>
+
+
+#### Default variations
+
+`_release`
 #### Default environment
 
 <details>
