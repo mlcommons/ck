@@ -14,9 +14,9 @@ that can facilitate reproducible research and simplify technology transfer to pr
 across diverse and rapidly evolving software, hardware, models, and data.
 
 CK is being developed by the public [MLCommons task force on automation and reproducibility](docs/taskforce.md) 
-to automate development, benchmarking and deployment of Pareto-efficient AI and ML systems and applications 
+to connect academia and industry to develop, benchmark, compare, and deploy Pareto-efficient AI and ML systems and applications 
 (optimal trade off between performance, accuracy, power consumption, and price)
-while slashing their research, development, benchmarking, optimization, and operational costs.
+in an automated and reproducible way while slashing all development and operational costs.
 
 The CK projects consists of the following sub-projects:
 
@@ -26,8 +26,10 @@ The CK projects consists of the following sub-projects:
   in a common and technology-agnostic way.
   CM can automatically generate unified README and synthesize unified containers with a common API
   while reducing all the tedious, manual, repetitive, and ad-hoc efforts to validate research projects in production.
+
 * [Collective Mind scripts (MLCommons CM scripts)](cm-mlops/script) 
   provide a low-level implementation of the high-level and technology-agnostic CM language.
+
 * [Collective Knowledge platform (MLCommons CK playground)](platform) 
   aggregates [reproducible experiments](https://access.cknowledge.org/playground/?action=experiments) 
   in the CM format, connects academia and industry to 
@@ -44,6 +46,8 @@ The CK projects consists of the following sub-projects:
 * Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
 * Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
 * Check our [news](docs/news.md).
+* Check our [presentation](https://doi.org/10.5281/zenodo.7871070) with development plans.
+* Read about our [CK concept (previous version before MLCommons)](https://arxiv.org/abs/2011.01149).
 
 ### Collaborative development
 

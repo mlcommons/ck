@@ -20,8 +20,8 @@ that helps researchers and practitioners add a universal interface to their soft
 in a transparent and non-intrusive way.
 
 CM is being developed by the [public MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
-to solve the "dependency hell" for ML and AI systems, reduce their development, benchmarking, optimization, and deployment time,
-and automate [reproducibility initiatives and artifact evaluation at conferences](https://cTuning.org/ae).
+to solve the "dependency hell" for ML and AI systems, reduce their development, benchmarking, optimization, and deployment time.
+It also automates [reproducibility initiatives and artifact evaluation at AI, ML and Systems conferences](https://cTuning.org/ae).
 
 CM powers the [Collective Knowledge platform (MLCommons CK playground)](https://access.cKnowledge.org)
 to aggregate [reproducible experiments](https://access.cknowledge.org/playground/?action=experiments),
@@ -39,6 +39,8 @@ and help developers and users select Pareto-optimal end-to-end applications and 
 * Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
 * Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
 * Check our [news](docs/news.md).
+* Check our [presentation](https://doi.org/10.5281/zenodo.7871070) with development plans.
+* Read about our [CK concept (previous version before MLCommons)](https://arxiv.org/abs/2011.01149).
 
 ### Collaborative development
 

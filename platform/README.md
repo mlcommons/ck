@@ -4,7 +4,7 @@
 
 The [Collective Knowledge Playground (CK)](https://x.cknowledge.org) is a free, open-source, and technology-agnostic on-prem platform
 being developed by the [MLCommons task force on automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce).
-It helps the community benchmark, optimize and compare AI, ML and other emerging applications
+It is intended to connect academia and industry to benchmark, optimize and compare AI, ML and other emerging applications
 across diverse and rapidly evolving models, software, hardware and data from different vendors
 in terms of costs, performance, power consumption, accuracy, size 
 and other metrics in a unified, collaborative, automated, and reproducible way.
@@ -34,6 +34,8 @@ via our recent [open optimization challenge](https://access.cknowledge.org/playg
 * Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
 * Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
 * Check our [news](docs/news.md).
+* Check our [presentation](https://doi.org/10.5281/zenodo.7871070) with development plans.
+* Read about our [CK concept (previous version before MLCommons)](https://arxiv.org/abs/2011.01149).
 
 ### Collaborative development
 
