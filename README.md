@@ -7,16 +7,16 @@
 
 ### About
 
-The "Collective Knowledge" project (CK) is motivated by our tedious experience
-reproducing results from [150+ research papers](https://learning.acm.org/techtalks/reproducibility)
-and validating them in the real world: we decided to work with researchers and practitioners to develop an open-source technology
+The "Collective Knowledge" project (CK) is motivated by the [feedback from researchers and practitioners](https://learning.acm.org/techtalks/reproducibility)
+while reproducing results from more than 150 research papers and validating them in the real world - 
+there is a need for a common and technology-agnostic framework
 that can facilitate reproducible research and simplify technology transfer to production
 across diverse and rapidly evolving software, hardware, models, and data.
 
 CK is being developed by the public [MLCommons task force on automation and reproducibility](docs/taskforce.md) 
 to connect academia and industry to develop, benchmark, compare, and deploy Pareto-efficient AI and ML systems and applications 
 (optimal trade off between performance, accuracy, power consumption, and price)
-in an automated and reproducible way while slashing all development and operational costs.
+in a unified, automated and reproducible way while slashing all development and operational costs.
 
 The CK projects consists of the following sub-projects:
 
@@ -66,6 +66,6 @@ led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
 
 ### Acknowledgments
 
-This project is currently supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org),
-[cKnowledge](https://cKnowledge.org) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
+This project is currently supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://www.linkedin.com/company/ctuning-foundation),
+[cKnowledge](https://www.linkedin.com/company/cknowledge) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 We thank [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai) for sponsoring initial development.

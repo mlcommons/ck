@@ -1,27 +1,22 @@
-# CK and CM documentation
+# MLCommons CK and CM documentation
 
-## Introduction
+The Collective Knowledge project consists of 2 sub-projects:
 
-The Collective Knowledge project (CK) is motivated by our tedious experience reproducing experiments 
-from [150+ research papers](https://learning.acm.org/techtalks/reproducibility)
-and validating them in the real world - we decided to develop a universal and human-readable 
-interface to access any software project and run it on any platform with any software, hardware and data.
+* [Collective Mind (MLCommons CM)](#collective-mind-language-cm) 
+  is an open-source, intuitive, technology-agnostic, and English-like language to help researchers and practitioners
+  describe and reproduce experimental results in a unified way across any rapidly evolving
+  software, hardware, and data.
+  
+* [Collective Knowledge playground (MLCommons CK)](#collective-knowledge-playground-ck)
+  is a free, open-source and technology-agnostic on-prem platform that 
+  aggregates [reproducible experiments](https://access.cknowledge.org/playground/?action=experiments) 
+  in the CM format. 
+  It is intended to connect academia and industry to collaboratively improve reproduced experiments
+  via [public optimization challenges]( https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge ).
+  CK is being developed by MLCommons to help users select Pareto-optimal end-to-end AI and ML applications and systems 
+  based on their requirements and constraints (performance, power consumption, accuracy and costs).
 
-The [Collective Mind scripting language (MLCommons CM)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
-helps users add this universal interface to their software projects and transform them into a 
-[database of portable, reusable and technology-agnostic CM scripts]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script )
-in a transparent and non-intrusive way.
-
-CM is being developed by the [public MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
-to solve the "dependency hell" for ML and AI systems, reduce their development, benchmarking, optimization, and deployment time,
-and automate [reproducibility initiatives and artifact evaluation at conferences](https://cTuning.org/ae).
-
-CM powers the [Collective Knowledge platform (MLCommons CK playground)](https://access.cKnowledge.org)
-to aggregate [reproducible experiments](https://access.cknowledge.org/playground/?action=experiments),
-connect academia and industry to [organize reproducibility and optimization challenges]( https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge ),
-and help developers and users select Pareto-optimal end-to-end applications and systems based on their requirements and constraints
-(cost, performance, power consumption, accuracy, etc).
-
+## Collective Mind language (CM)
 
 ### Getting started guide
 
@@ -62,19 +57,35 @@ We plan to update them soon.
 * [Tutorial: measuring power during MLPerf inference benchmarks](tutorials/mlperf-inference-power-measurement.md)
 
 
-### Misc
+
+
+## Collective Knowledge playground (CK)
+
+
+
+## Misc
 
 * [Project overview](overview.md)
 * [History](history.md)
 
 
-## Contacts
+## Collaborative development
 
-* [Open MLCommons taskforce](mlperf-education-workgroup.md)
-* [Maintainers of the CM tool](../README.md#maintainers)
-* [CK project mailing list](https://groups.google.com/forum/#!forum/collective-knowledge)
+This open-source technology is being developed by the open
+[MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
+[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
 
-### Acknowledgments
+## Copyright
 
-This project is supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org),
-[cKnowledge](https://cKnowledge.org) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
+2021-2023 [MLCommons](https://mlcommons.org)
+
+## License
+
+[Apache 2.0](../LICENSE.md)
+
+## Acknowledgments
+
+This project is currently supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://www.linkedin.com/company/ctuning-foundation),
+[cKnowledge](https://www.linkedin.com/company/cknowledge) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
+We thank [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai) for sponsoring initial development.
