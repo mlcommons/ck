@@ -24,6 +24,7 @@ The CK projects consists of the following sub-projects:
   is intended to help researchers and practitioners
   describe all the steps required to reproduce their experiments across any software, hardware, and data
   in a common and technology-agnostic way.
+  It is powered by Python, JSON and/or YAML meta descriptions, and a unified CLI.
   CM can automatically generate unified README and synthesize unified containers with a common API
   while reducing all the tedious, manual, repetitive, and ad-hoc efforts to validate research projects in production.
 
@@ -41,20 +42,18 @@ The CK projects consists of the following sub-projects:
 
 [Table of contents](docs/README.md)
 
-### Discussions
+### Collaborative development
+
+This open-source technology is being developed by the open
+[MLCommons task force on automation and reproducibility](docs/taskforce.md)
+led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
+[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh):
 
 * Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
 * Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
 * Check our [news](docs/news.md).
 * Check our [presentation](https://doi.org/10.5281/zenodo.7871070) with development plans.
 * Read about our [CK concept (previous version before MLCommons)](https://arxiv.org/abs/2011.01149).
-
-### Collaborative development
-
-This open-source technology is being developed by the open
-[MLCommons task force on automation and reproducibility](docs/taskforce.md)
-led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
-[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
 
 ### Copyright
 
