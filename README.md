@@ -39,7 +39,7 @@ The CK projects consists of the following sub-projects:
 
 ### Documentation and the Getting Started Guide
 
-[Table of contents](https://github.com/mlcommons/ck/tree/master/docs/README.md)
+[Table of contents](docs/README.md)
 
 ### Discussions
 
@@ -52,7 +52,7 @@ The CK projects consists of the following sub-projects:
 ### Collaborative development
 
 This open-source technology is being developed by the open
-[MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+[MLCommons task force on automation and reproducibility](docs/taskforce.md)
 led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
 [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
 
