@@ -8,21 +8,9 @@ and
 
 ## Collective Mind language (CM)
 
-CM is a simple, technology-agnostic, and English-like scripting language
-powered by Python, JSON and/or YAML meta descriptions, and a unified CLI.
-It is being developed by the [MLCommons Task Force on Automation and Reproducibility](taskforce.md)
-to help researchers and practitioners describe, share, and reproduce experimental results 
-in a unified and portable way across any rapidly evolving software, hardware, and data.
-
-See a few real-world examples of using CM scripting language:
-- [README to reproduce published IPOL'22 paper](cm-mlops/script/app-ipol-reproducibility-2022-439)
-- [README to reproduce MLPerf RetinaNet inference benchmark at Student Cluster Competition'22](docs/tutorials/sc22-scc-mlperf.md)
-- [Auto-generated READMEs to reproduce official MLPerf BERT inference benchmark v3.0 submission with a model from the Hugging Face Zoo](https://github.com/mlcommons/submissions_inference_3.0/tree/main/open/cTuning/code/huggingface-bert/README.md)
-- [Auto-generated Docker containers to run and reproduce MLPerf inference benchmark](cm-mlops/script/app-mlperf-inference/dockerfiles/retinanet)
-
 ### Getting started guide
 
-* [Brief motivation](motivation.md)
+* [Introduction](introduction-cm.md)
 * [Installation and customization](installation.md)
 * [Testing CM to run image classification on any platform with CPU and GPU](tutorials/modular-image-classification.md)
 * [Understanding CM interface (CLI and Python API)](tutorials/cm-interface.md)
@@ -42,30 +30,14 @@ See a few real-world examples of using CM scripting language:
 
 ## Collective Knowledge playground (CK)
 
-[Collective Knowledge playground (MLCommons CK)](https://x.cKnowledge.org)
-is a free, open-source and technology-agnostic on-prem platform 
-that aggregates [reproducible experiments](https://access.cknowledge.org/playground/?action=experiments) 
-from the community unified by the [CM language](#collective-mind-language-cm).
-CK helps to connect academia and industry to collaboratively improve reproduced experiments
-via [public optimization challenges]( https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge ).
-It is being developed by the [MLCommons Task Force on Automation and Reproducibility](taskforce.md)
-to help AI and ML users and developers generate Pareto-efficient AI and ML systems and applications
-based on their requirements and constraints (optimal trade off between performance, power consumption, accuracy and costs).
+* [Introduction](introduction-ck.md)
 
 *Note that this platform is under heavy development. Documentation will come soon. 
  In the meantime, please check our [presentation](https://doi.org/10.5281/zenodo.7871070) 
  and the [Forbes article](https://www.forbes.com/sites/karlfreund/2023/04/05/nvidia-performance-trounces-all-competitors-who-have-the-guts-to-submit-to-mlperf-inference-30/?sh=3c38d2866676)
- about our plans.*
+ about our vision and development plans.*
 
-See a few real-world examples of using the CK playground and CM language:
-- [Organizing reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges&name=57cbc3384d7640f9)
-- [Reproducing MLPerf inference benchmark and automating submissions](https://cKnowledge.org/mlperf-inference-gui)
-- [Visualizing and comparing MLPerf inference benchmark results](https://access.cKnowledge.org/playground/?action=experiments&tags=mlperf-inference,all,open,edge,image-classification,singlestream)
-- [Sharing reproducibility reports]( https://cKnowledge.org/mlperf-inf-v3.0-reproducibility-report )
-- [Adding derived metrics such as power efficiency and/or cost efficiency]( https://cKnowledge.org/mlcommons-inference-gui )
-
-
-## Collaborative development
+## Collaborative CM and CK development
 
 This open-source technology is being developed by the open
 [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
