@@ -54,6 +54,26 @@
     "sdk"
   ],
   "uid": "9701bdda97fa4045",
-  "variations": {},
+  "variations": {
+    "release": {
+      "group": "installation-mode",
+      "default": true,
+      "env": {
+        "CM_QAIC_COMPUTE_SDK_INSTALL_MODE": "release"
+      }
+    },
+    "release-assert": {
+      "group": "installation-mode",
+      "env": {
+        "CM_QAIC_COMPUTE_SDK_INSTALL_MODE": "release-assert"
+      }
+    },
+    "debug": {
+      "group": "installation-mode",
+      "env": {
+        "CM_QAIC_COMPUTE_SDK_INSTALL_MODE": "debug"
+      }
+    }
+  },
   "versions": {}
 }
