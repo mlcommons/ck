@@ -12,8 +12,6 @@ def preprocess(i):
     automation = i['automation']
 
     env['CM_QAIC_COMPUTE_SDK_PATH'] = env['CM_GIT_CHECKOUT_PATH']
-    #env['+ LDFLAGS'].append("-fno-rtti")
-    env['+ LDFLAGS'].append("-fPIC")
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
@@ -27,7 +25,10 @@ def postprocess(i):
     if '+PATH' not in env:
       env['+PATH'] = []
 
-    #env['CM_QAIC_RUNNER_PATH'] = os.path.join(env['CM_QAIC_SOFTWARE_KIT_PATH'], "build", "utils", "qaic-runner")
-    #env['+PATH'].append(env['CM_QAIC_RUNNER_PATH'])
+    env['CM_QAIC_COMPUTE_SDK_INSTALL_PATH'] = os.path.join(env['CM_QAIC_COMPUTE_SDK_PATH'], "install", "qaic-compute-"+env['CM_QAIC_COMPUTE_SDK_INSTALL_MODE'])
+
+    env['QAIC_COMPUTE_INSTALL_DIR'] = env['CM_QAIC_COMPUTE_SDK_INSTALL_PATH']
+
+    env['+PATH'].append(os.path.join(env['CM_QAIC_COMPUTE_SDK_INSTALL_PATH'], "exec"))
 
     return {'return':1}

@@ -8,20 +8,23 @@
 
 ### About
 
-[Collective Mind (MLCommons CM)](https://github.com/mlcommons/ck/tree/master/cm/cmind) 
-is a part of the [MLCommons Collective Knowledge project](https://github.com/mlcommons/ck)
-motivated by our tedious experience reproducing experiments from [150 research papers](https://learning.acm.org/techtalks/reproducibility)
-and validating them in the real world - we decided to develop a universal and human-readable 
-interface to access any software project and run it on any platform with any software, hardware and data.
-
-CM is a simple, intuitive, technology-agnostic, and English-like language
-that helps researchers and practitioners add a universal interface to their software projects and transform them into a 
-[database of portable and reusable CM scripts]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script )
-in a transparent and non-intrusive way.
+[Collective Mind scripting language (MLCommons CM)](https://github.com/mlcommons/ck/tree/master/cm/cmind) 
+is a part of the [MLCommons Collective Knowledge project](https://github.com/mlcommons/ck).
+It is motivated by the [feedback from researchers and practitioners](https://learning.acm.org/techtalks/reproducibility)
+when reproducing experiments from more than 150 research papers and validating them in the real world - 
+there is a need for a common, human-readable and technology-agnostic interface to manage and run any software project 
+on any platform with any software, hardware, and data.
 
 CM is being developed by the [public MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
-to solve the "dependency hell" for ML and AI systems, reduce their development, benchmarking, optimization, and deployment time,
-and automate [reproducibility initiatives and artifact evaluation at conferences](https://cTuning.org/ae).
+as a simple, intuitive, technology-agnostic, and English-like scripting language that provides
+a universal interface to any software project and transforms it into a [database of portable and reusable CM scripts]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script )
+in a transparent and non-intrusive way.
+
+CM is powered by Python, JSON and/or YAML meta descriptions, and a unified CLI.
+Is helps to solve the "dependency hell" for ML and AI systems while automatically generating 
+unified README files and synthesize unified containers with a common API.
+It is also used to automate [reproducibility initiatives and artifact evaluation at AI, ML and Systems conferences](https://cTuning.org/ae)
+while reducing all the tedious, manual, repetitive, and ad-hoc efforts to reproduce research projects and validate them in production.
 
 CM powers the [Collective Knowledge platform (MLCommons CK playground)](https://access.cKnowledge.org)
 to aggregate [reproducible experiments](https://access.cknowledge.org/playground/?action=experiments),
@@ -29,23 +32,29 @@ connect academia and industry to [organize reproducibility and optimization chal
 and help developers and users select Pareto-optimal end-to-end applications and systems based on their requirements and constraints
 (cost, performance, power consumption, accuracy, etc).
 
+See a few real-world examples of using the CM scripting language:
+- [README to reproduce published IPOL'22 paper](cm-mlops/script/app-ipol-reproducibility-2022-439)
+- [README to reproduce MLPerf RetinaNet inference benchmark at Student Cluster Competition'22](docs/tutorials/sc22-scc-mlperf.md)
+- [Auto-generated READMEs to reproduce official MLPerf BERT inference benchmark v3.0 submission with a model from the Hugging Face Zoo](https://github.com/mlcommons/submissions_inference_3.0/tree/main/open/cTuning/code/huggingface-bert/README.md)
+- [Auto-generated Docker containers to run and reproduce MLPerf inference benchmark](cm-mlops/script/app-mlperf-inference/dockerfiles/retinanet)
+
 
 ### Documentation and the Getting Started Guide
 
 [Table of contents](https://github.com/mlcommons/ck/tree/master/docs/README.md)
-
-### Discussions
-
-* Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
-* Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
-* Check our [news](docs/news.md).
 
 ### Collaborative development
 
 This open-source technology is being developed by the open
 [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
 led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
-[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
+[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh):
+
+* Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
+* Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
+* Check our [news](docs/news.md).
+* Check our [presentation](https://doi.org/10.5281/zenodo.7871070) and [Forbes article](https://www.forbes.com/sites/karlfreund/2023/04/05/nvidia-performance-trounces-all-competitors-who-have-the-guts-to-submit-to-mlperf-inference-30/?sh=3c38d2866676) about our development plans.
+* Read about our [CK concept (previous version before MLCommons)](https://arxiv.org/abs/2011.01149).
 
 ### Copyright
 

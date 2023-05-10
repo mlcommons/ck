@@ -38,6 +38,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Valentin Dalibard &lt;valentin.dalibard@cl.cam.ac.uk&gt;
 * Alastair Donaldson &lt;alastair.donaldson@imperial.ac.uk&gt;
 * Thibaut Dumontet
+* Himanshu Dutta
 * Daniil Efremov (Xored)
 * Leonid Fursin
 * Todd Gamblin (LLNL)
@@ -46,7 +47,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Dave Greasley (University of Bristol)
 * Herve Guillou
 * Vincent Grevendonk (Arm)
-* Michael Goin (Nerual Magic)
+* Michael Goin (Neural Magic)
 * Christophe Guillon (STMicroelectronics)
 * Sven van Haastregt (Arm)
 * Michael Haidl
@@ -64,6 +65,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Graham Markall &lt;graham.markall@continuum.io&gt;
 * Michael Mcgeagh (Arm)
 * Thierry Moreau (OctoML)
+* Sachin Mudaliyar
 * Luigi Nardi 
 * Ivan Ospiov (Xored)
 * Lakshman Patel @Patel230
@@ -78,6 +80,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Jared Roesch (OctoML)
 * Dmitry Savenko (Xored)
 * Thomas Schmid (OctoML)
+* Aditya Kumar Shaw
 * Gavin Simpson (Arm)
 * Aaron Smith (Microsoft)
 * Michel Steuwer (University of Edinburgh)
