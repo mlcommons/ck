@@ -14,6 +14,12 @@ It is being developed by the [MLCommons Task Force on Automation and Reproducibi
 to help researchers and practitioners describe, share, and reproduce experimental results 
 in a unified and portable way across any rapidly evolving software, hardware, and data.
 
+See a few real-world examples of using CM scripting language:
+- [README to reproduce published IPOL'22 paper](cm-mlops/script/app-ipol-reproducibility-2022-439)
+- [README to reproduce MLPerf RetinaNet inference benchmark at Student Cluster Competition'22](docs/tutorials/sc22-scc-mlperf.md)
+- [Auto-generated READMEs to reproduce official MLPerf BERT inference benchmark v3.0 submission with a model from the Hugging Face Zoo](https://github.com/mlcommons/submissions_inference_3.0/tree/main/open/cTuning/code/huggingface-bert/README.md)
+- [Auto-generated Docker containers to run and reproduce MLPerf inference benchmark](cm-mlops/script/app-mlperf-inference/dockerfiles/retinanet)
+
 ### Getting started guide
 
 * [Brief motivation](motivation.md)
@@ -36,7 +42,7 @@ in a unified and portable way across any rapidly evolving software, hardware, an
 
 ## Collective Knowledge playground (CK)
 
-Collective Knowledge playground (MLCommons CK)
+[Collective Knowledge playground (MLCommons CK)](https://x.cKnowledge.org)
 is a free, open-source and technology-agnostic on-prem platform 
 that aggregates [reproducible experiments](https://access.cknowledge.org/playground/?action=experiments) 
 from the community unified by the [CM language](#collective-mind-language-cm).
@@ -47,8 +53,16 @@ to help AI and ML users and developers generate Pareto-efficient AI and ML syste
 based on their requirements and constraints (optimal trade off between performance, power consumption, accuracy and costs).
 
 *Note that this platform is under heavy development. Documentation will come soon. 
- In the meantime, please check our [plans](https://doi.org/10.5281/zenodo.7871070).*
+ In the meantime, please check our [presentation](https://doi.org/10.5281/zenodo.7871070) 
+ and the [Forbes article](https://www.forbes.com/sites/karlfreund/2023/04/05/nvidia-performance-trounces-all-competitors-who-have-the-guts-to-submit-to-mlperf-inference-30/?sh=3c38d2866676)
+ about our plans.*
 
+See a few real-world examples of using the CK playground and CM language:
+- [Organizing reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges&name=57cbc3384d7640f9)
+- [Reproducing MLPerf inference benchmark and automating submissions](https://cKnowledge.org/mlperf-inference-gui)
+- [Visualizing and comparing MLPerf inference benchmark results](https://access.cKnowledge.org/playground/?action=experiments&tags=mlperf-inference,all,open,edge,image-classification,singlestream)
+- [Sharing reproducibility reports]( https://cKnowledge.org/mlperf-inf-v3.0-reproducibility-report )
+- [Adding derived metrics such as power efficiency and/or cost efficiency]( https://cKnowledge.org/mlcommons-inference-gui )
 
 
 ## Collaborative development
@@ -61,7 +75,7 @@ led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
 * Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
 * Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
 * Check our [news](docs/news.md).
-* Check our [presentation](https://doi.org/10.5281/zenodo.7871070) with development plans.
+* Check our [presentation](https://doi.org/10.5281/zenodo.7871070) and [Forbes article](https://www.forbes.com/sites/karlfreund/2023/04/05/nvidia-performance-trounces-all-competitors-who-have-the-guts-to-submit-to-mlperf-inference-30/?sh=3c38d2866676) about our development plans.
 * Read about our [CK concept (previous version before MLCommons)](https://arxiv.org/abs/2011.01149).
 
 

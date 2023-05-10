@@ -32,6 +32,12 @@ connect academia and industry to [organize reproducibility and optimization chal
 and help developers and users select Pareto-optimal end-to-end applications and systems based on their requirements and constraints
 (cost, performance, power consumption, accuracy, etc).
 
+See a few real-world examples of using the CM scripting language:
+- [README to reproduce published IPOL'22 paper](cm-mlops/script/app-ipol-reproducibility-2022-439)
+- [README to reproduce MLPerf RetinaNet inference benchmark at Student Cluster Competition'22](docs/tutorials/sc22-scc-mlperf.md)
+- [Auto-generated READMEs to reproduce official MLPerf BERT inference benchmark v3.0 submission with a model from the Hugging Face Zoo](https://github.com/mlcommons/submissions_inference_3.0/tree/main/open/cTuning/code/huggingface-bert/README.md)
+- [Auto-generated Docker containers to run and reproduce MLPerf inference benchmark](cm-mlops/script/app-mlperf-inference/dockerfiles/retinanet)
+
 
 ### Documentation and the Getting Started Guide
 
@@ -47,7 +53,7 @@ led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
 * Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
 * Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
 * Check our [news](docs/news.md).
-* Check our [presentation](https://doi.org/10.5281/zenodo.7871070) with development plans.
+* Check our [presentation](https://doi.org/10.5281/zenodo.7871070) and [Forbes article](https://www.forbes.com/sites/karlfreund/2023/04/05/nvidia-performance-trounces-all-competitors-who-have-the-guts-to-submit-to-mlperf-inference-30/?sh=3c38d2866676) about our development plans.
 * Read about our [CK concept (previous version before MLCommons)](https://arxiv.org/abs/2011.01149).
 
 ### Copyright
