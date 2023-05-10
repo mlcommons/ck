@@ -12,17 +12,18 @@
 is a part of the [MLCommons Collective Knowledge project](https://github.com/mlcommons/ck).
 It is motivated by the [feedback from researchers and practitioners](https://learning.acm.org/techtalks/reproducibility)
 when reproducing experiments from more than 150 research papers and validating them in the real world - 
-there is a need for a common, human-readable and technology-agnostic interface to run any software project 
+there is a need for a common, human-readable and technology-agnostic interface to manage and run any software project 
 on any platform with any software, hardware, and data.
 
 CM is being developed by the [public MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
 as a simple, intuitive, technology-agnostic, and English-like scripting language that provides
-a universal interface to any software project and transform it into a [database of portable and reusable CM scripts]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script )
+a universal interface to any software project and transforms it into a [database of portable and reusable CM scripts]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script )
 in a transparent and non-intrusive way.
 
-CM also helps to solve the "dependency hell" for ML and AI systems while automatically generating 
+CM is powered by Python, JSON and/or YAML meta descriptions, and a unified CLI.
+Is helps to solve the "dependency hell" for ML and AI systems while automatically generating 
 unified README files and synthesize unified containers with a common API.
-It is used to automate [reproducibility initiatives and artifact evaluation at AI, ML and Systems conferences](https://cTuning.org/ae)
+It is also used to automate [reproducibility initiatives and artifact evaluation at AI, ML and Systems conferences](https://cTuning.org/ae)
 while reducing all the tedious, manual, repetitive, and ad-hoc efforts to reproduce research projects and validate them in production.
 
 CM powers the [Collective Knowledge platform (MLCommons CK playground)](https://access.cKnowledge.org)
@@ -36,8 +37,7 @@ and help developers and users select Pareto-optimal end-to-end applications and 
 
 [Table of contents](https://github.com/mlcommons/ck/tree/master/docs/README.md)
 
-### Discussions
-
+### Collaborative development
 
 This open-source technology is being developed by the open
 [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
