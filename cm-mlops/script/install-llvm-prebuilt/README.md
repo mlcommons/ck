@@ -132,7 +132,7 @@ ___
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/_cm.json)
-  1. Run "postrocess" function from customize.py
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/_cm.json)***
      * get,llvm
        * `if (CM_REQUIRE_INSTALL  != yes)`
@@ -146,11 +146,9 @@ ___
 * `+C_INCLUDE_PATH`
 * `+LD_LIBRARY_PATH`
 * `+PATH`
-* `CM_GET_DEPENDENT_CACHED_PATH`
 * `CM_LLVM_*`
 #### New environment keys auto-detected from customize
 
-* `CM_GET_DEPENDENT_CACHED_PATH`
 * `CM_LLVM_CLANG_BIN_WITH_PATH`
 * `CM_LLVM_INSTALLED_PATH`
 * `CM_LLVM_PACKAGE`
