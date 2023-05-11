@@ -13,6 +13,7 @@ def preprocess(i):
 def postprocess(i):
     env = i['env']
     if env.get('CM_DATASET_CALIBRATION','') == "no":
+        env['CM_DATASET_PATH_ROOT'] = os.path.join(os.getcwd(), 'install')
         env['CM_DATASET_PATH'] = os.path.join(os.getcwd(), 'install', 'validation', 'data')
         env['CM_DATASET_ANNOTATIONS_DIR_PATH'] = os.path.join(os.getcwd(), 'install', 'annotations')
         annotations_file_path = os.path.join(env['CM_DATASET_ANNOTATIONS_DIR_PATH'], "openimages-mlperf.json")

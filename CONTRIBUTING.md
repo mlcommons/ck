@@ -66,6 +66,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Michael Mcgeagh (Arm)
 * Thierry Moreau (OctoML)
 * Sachin Mudaliyar
+* Stanley Mwangi (Microsoft)
 * Luigi Nardi 
 * Ivan Ospiov (Xored)
 * Lakshman Patel @Patel230
