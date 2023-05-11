@@ -19,7 +19,9 @@ if [ ! -d "inference" ]; then
 else
     cd inference
 fi
+
 IFS=',' read -r -a submodules <<< "${CM_GIT_SUBMODULES}"
+
 for submodule in "${submodules[@]}"
 do
     echo "Initializing submodule ${submodule}"
@@ -33,4 +35,5 @@ if [ ${CM_GIT_PATCH} == "yes" ]; then
   git apply ${SCRIPT_DIR}/patch/"$patch_filename"
   if [ "${?}" != "0" ]; then exit 1; fi
 fi
+
 cd "$CUR_DIR"

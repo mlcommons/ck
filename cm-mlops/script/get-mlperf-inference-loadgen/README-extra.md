@@ -1,4 +1,5 @@
 # Get MLCommons Inference Loadgen
+
 This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) builds and installs the Loadgen library from [MLCommons Inference repository](https://github.com/mlcommons/inference).
 
 ## Commands
@@ -21,3 +22,4 @@ where
 ## Supported and Tested OS
 1. Ubuntu 18.04, 20.04, 22.04
 2. RHEL 9
+3. Windows (installs into Python distro directly)

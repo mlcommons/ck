@@ -1403,7 +1403,9 @@ class CAutomation(Automation):
                             cached_tags.append(x)
 
 
-        detected_version = env.get('CM_DETECTED_VERSION','')
+        detected_version = env.get('CM_DETECTED_VERSION', env.get('CM_VERSION',''))
+        dependent_cached_path = env.get('CM_GET_DEPENDENT_CACHED_PATH','')
+
         ############################################################################################################
         ##################################### Finalize script
 
@@ -1482,7 +1484,6 @@ class CAutomation(Automation):
 
 
                 # Check if the cached entry is dependent on any other cached entry
-                dependent_cached_path = env.get('CM_GET_DEPENDENT_CACHED_PATH','')
                 if dependent_cached_path != '' and not os.path.samefile(cached_path, dependent_cached_path):
                     cached_meta['dependent_cached_path'] = dependent_cached_path
 
@@ -3336,6 +3337,7 @@ def find_cached_script(i):
                 if not os.path.exists(dependent_cached_path):
                     #Need to rm this cache entry
                     skip_cached_script = True
+                    continue
 
             if not skip_cached_script:
                 cached_script_version = cached_script.meta.get('version', '')
@@ -3646,7 +3648,7 @@ def run_detect_version(customize_code, customize_common_input, recursion_spaces,
         import copy
 
         if verbose:
-            print (recursion_spaces+'  - Running postprocess ...')
+            print (recursion_spaces+'  - Running detect_version ...')
 
         # Update env and state with const
         utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
