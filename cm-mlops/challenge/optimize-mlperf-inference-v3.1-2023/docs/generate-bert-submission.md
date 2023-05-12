@@ -78,7 +78,7 @@ cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results --quiet
 ```
 
-## TensorRT backend(Nvidia implementation)
+## TensorRT backend (Nvidia implementation)
 
 For TensorRT backend we are using the [Nvidia implementation](https://github.com/ctuning/mlcommons-ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia) and not the [MLPerf inference reference implementation](https://github.com/ctuning/mlcommons-ck/tree/master/cm-mlops/script/app-mlperf-inference-reference) for the below reasons
 * TensorRT backend is not supported by default in the reference implementation
