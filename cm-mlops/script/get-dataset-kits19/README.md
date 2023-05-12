@@ -146,7 +146,7 @@ ___
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 * CM_GIT_CHECKOUT: `master`
-* CM_GIT_DEPTH: `--depth 4`
+* CM_GIT_DEPTH: `--depth 2`
 * CM_GIT_PATCH: `no`
 * CM_GIT_RECURSE_SUBMODULES: ``
 * CM_GIT_URL: `https://github.com/neheller/kits19`

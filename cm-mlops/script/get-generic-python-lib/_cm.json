@@ -105,6 +105,14 @@
         "CM_GOOGLE_AUTH_OAUTHLIB_VERSION"
       ]
     },
+    "datasets": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "datasets"
+      },
+      "new_env_keys": [
+        "CM_DATASETS_VERSION"
+      ]
+    },
     "tensorboard": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "tensorboard"

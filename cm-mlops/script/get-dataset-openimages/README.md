@@ -215,9 +215,13 @@ ___
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_pandas
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_pycocotools
+       * CM names: `--adr.['pycocotools']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/_cm.json)
   1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/run.sh)
   1. ***Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/_cm.json)***
      * get,openimages,annotations
@@ -235,12 +239,14 @@ ___
 * `CM_DATASET_ANNOTATIONS_DIR_PATH`
 * `CM_DATASET_ANNOTATIONS_FILE_PATH`
 * `CM_DATASET_PATH`
+* `CM_DATASET_PATH_ROOT`
 #### New environment keys auto-detected from customize
 
 * `CM_CALIBRATION_DATASET_PATH`
 * `CM_DATASET_ANNOTATIONS_DIR_PATH`
 * `CM_DATASET_ANNOTATIONS_FILE_PATH`
 * `CM_DATASET_PATH`
+* `CM_DATASET_PATH_ROOT`
 ___
 ### Maintainers
 

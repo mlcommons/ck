@@ -1,16 +1,16 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-# We are doing similar test on our tvm tutorial test.
-name: CM script automation test for MLPerf inference resnet50 using TVM. So, this test is not necessary
+# We are doing similar test on our tvm tutorial test. So, this test is not necessary
+name: MLPerf inference resnet50 using TVM.
 
 on:
   pull_request:
     branches: [ "tvm-more" ]
     paths:
       - '.github/workflows/test-mlperf-inference-tvm.yml'
-      - 'cm-mlops/!**.md'
       - 'cm-mlops/**'
+      - '!cm-mlops/**.md'
 
 jobs:
   build:
@@ -33,6 +33,6 @@ jobs:
         python3 -m pip install cmind
         cm pull repo --url=${{ github.event.pull_request.head.repo.html_url }} --checkout=${{ github.event.pull_request.head.ref }}
         cm run script --quiet --tags=get,sys-utils-cm
-    - name: Test CM Script for MLPerf Inference ResNet50 using TVM
+    - name: MLPerf Inference ResNet50 using TVM
       run: |
         cm run script --tags=run,mlperf,inference,generate-run-cmds --hw_name=default --model=resnet50 --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=5 --quiet

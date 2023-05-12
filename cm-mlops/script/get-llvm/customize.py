@@ -84,4 +84,6 @@ def postprocess(i):
     env['CM_COMPILER_FLAGS_DEFAULT'] = "-O2"
     env['CM_LINKER_FLAGS_DEFAULT'] = "-O2"
 
+    env['CM_GET_DEPENDENT_CACHED_PATH'] = env['CM_LLVM_CLANG_BIN_WITH_PATH']
+
     return {'return':0, 'version': version}

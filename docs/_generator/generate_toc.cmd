@@ -9,6 +9,7 @@ cd ../
 
 cm create-toc-from-md utils --input=taskforce.md
 cm create-toc-from-md utils --input=installation.md
+cm create-toc-from-md utils --input=README.md
 
 cd ../
 cd cm-mlops/project/mlperf-inference-v3.0-submissions/docs

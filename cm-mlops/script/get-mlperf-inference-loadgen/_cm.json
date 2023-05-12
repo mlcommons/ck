@@ -30,7 +30,23 @@
       "names": [
         "compiler"
       ],
-      "tags": "get,compiler"
+      "tags": "get,compiler",
+      "skip_if_env": {
+        "CM_HOST_OS_TYPE": [
+          "windows"
+        ]
+      }
+    },
+    {
+      "names": [
+        "compiler"
+      ],
+      "tags": "get,cl",
+      "enable_if_env": {
+        "CM_HOST_OS_TYPE": [
+          "windows"
+        ]
+      }
     },
     {
       "names": [
