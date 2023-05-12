@@ -80,7 +80,7 @@ cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios \
 
 ## TensorRT backend
 
-For TensorRT backend we are using the Nvidia implementation and not the reference one for the below reasons
+For TensorRT backend we are using the [Nvidia implementation](https://github.com/ctuning/mlcommons-ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia) and not the [MLPerf inference reference implementation](https://github.com/ctuning/mlcommons-ck/tree/master/cm-mlops/script/app-mlperf-inference-reference) for the below reasons
 * TensorRT backend is not supported by default in the reference implementation
 * Reference implemnetation is mostly for fp32 models and quantization is not suppoted by default
 * Nvidia has done some fantastic work in optimizing performance for TensorRT backend
