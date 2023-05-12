@@ -1,6 +1,10 @@
 ## Setup
-Please follow the MLCommons CK [installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) to install CM.
-Download the ck repo to get the CM script for MLPerf submission
+Please follow this [installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) 
+to install the [MLCommons CM scripting language](https://github.com/mlcommons/ck/tree/master/docs#collective-mind-language-cm)
+on your system with minimal dependencies.
+
+Download a GitHub repository with [portable and reusable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
+for unified MLPerf benchmarking and submission:
 
 ```
 cm pull repo mlcommons@ck
