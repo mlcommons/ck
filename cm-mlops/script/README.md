@@ -46,8 +46,19 @@ Sometimes it is difficult to add all variations needed for a script like say `ba
 * Once a script execution is over (which includes all the dependent script executions as well), newly created keys and any updated keys are merged with the `saved_env` provided the keys are mentioned in `new_env_keys`
 * Same behaviour applies to `state` dictionary.
 
+#### Special env keys
+* Any env key with a prefix `CM_TMP_*` and `CM_GIT_*` are not passed by default to any dependency. These can be force passed by adding the key(s) to the `force_env_keys` list of the concerned dependency. 
+* Similarly we can avoid any env key from being passed to a given dependency by adding the prefix of the key in the `clean_env_keys` list of the concerned dependency.
+* `--input` is automatically converted to `CM_INPUT` env key
+* `version` is converted to `CM_VERSION`, ``version_min` to `CM_VERSION_MIN` and `version_max` to `CM_VERSION_MAX`
+* If `env['CM_GH_TOKEN']=TOKEN_VALUE` is set then git URLs (specified by `CM_GIT_URL`) are changed to add this token.
+* If `env['CM_GIT_SSH']=yes`, then git URLs are chnged to SSH from HTTPS.
+
 ### How cache works?
-* [TBD]
+* If `cache=true` is set in a script meta, the result of the script execution is cached for further use. 
+* For a cached script, `env` and `state` updates are done using `new_env` and `new_state` dictionaries which are stored in the `cm-cached.json` file inside the cached folder.
+* By using `--new` input, a new cache entry can be forced even when an old one exist. 
+* By default no depndencies are run for a cached entry unless `dynamic` key is set for it. 
 
 ### Updating ENV from inside the run script
 * [TBD]

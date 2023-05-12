@@ -31,6 +31,12 @@ cm run script --tags=build,nvidia,inference,server
 ```
 Once the below command is done, inference server will be build and your system will be automatically detected by Nvidia scripts.
 
+Nividia code location is output by the below command
+```
+cd `cm find cache --tags=inference,results,mlperf,_custom`
+```
+
+Further cd into inference_results_v<>/closed/NVIDIA
 
 Nvidia run configuration values for each model-sceraio for known systems are stored in `__init__.py` files under configs directory. For custom systems (ones which are different from the ones used by Nvidia for submission) these are stored under `custom.py` files. 
 
