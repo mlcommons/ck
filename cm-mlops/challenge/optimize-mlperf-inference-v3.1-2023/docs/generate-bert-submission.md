@@ -12,7 +12,7 @@ Bert has two variants - `bert-99` and `bert-99.9` where the `99` and `99.9` spec
 
 On edge category `bert-99` has Offline and SingleStream scenarios and in datacenter category both `bert-99` and `bert-99.9` have Offline and Server scenarios. The below commands are assuming an edge category system. 
 
-### Onnxruntime backend
+### Onnxruntime backend (Reference implementation)
 
 #### Do a test run to detect and record the system performance
 
@@ -58,7 +58,7 @@ cm run script --tags=generate,inference,submission --results_dir=$HOME/inference
 ```
 
 
-## Tensorflow backend
+## Tensorflow backend (Reference implementation)
 
 Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime` with `--backend=tf`. For example,
 
@@ -68,7 +68,7 @@ cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios \
 --results_dir=$HOME/inference_3.1_results --quiet
 ```
 
-## Pytorch backend
+## Pytorch backend (Reference implementation)
 
 Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime` with `--backend=pytorch`. For example,
 
@@ -78,7 +78,7 @@ cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results --quiet
 ```
 
-## TensorRT backend
+## TensorRT backend(Nvidia implementation)
 
 For TensorRT backend we are using the [Nvidia implementation](https://github.com/ctuning/mlcommons-ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia) and not the [MLPerf inference reference implementation](https://github.com/ctuning/mlcommons-ck/tree/master/cm-mlops/script/app-mlperf-inference-reference) for the below reasons
 * TensorRT backend is not supported by default in the reference implementation
