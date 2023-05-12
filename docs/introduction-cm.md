@@ -3,7 +3,7 @@
 # Introduction to the MLCommons CM language
 
 During the past 10 years, the community has considerably improved 
-the reproducibility of experimental results from published papers
+the reproducibility of experimental results from research projects and published papers
 by introducing the [artifact evaluation process](https://cTuning.org/ae) 
 with a [unified artifact appendix and reproducibility checklists](https://github.com/mlcommons/ck/blob/master/docs/artifact-evaluation/checklist.md), 
 Jupyter notebooks, containers, and Git repositories. 
@@ -11,21 +11,19 @@ Jupyter notebooks, containers, and Git repositories.
 On the other hand, [our experience reproducing more than 150 papers](https://learning.acm.org/techtalks/reproducibility)
 shows that it still takes weeks and months of painful and
 repetitive interactions between teams to reproduce experimental results. 
-
 This effort includes decrypting numerous README files, examining ad-hoc artifacts 
 and containers, and figuring out how to reproduce computational results.
-
 Furthermore, snapshot containers pose a challenge to optimize algorithms' performance, 
 accuracy, power consumption and operational costs across diverse 
 and rapidly evolving software, hardware, and data used in the real world.
 
 This practical experience and the feedback from the community motivated 
-the [MLCommons Task Force on Automation and Reproducibility](taskforce.md)
-to develop a simple, technology agnostic, and English-like scripting language called Collective Mind (CM) 
+us to establish the [MLCommons Task Force on Automation and Reproducibility](taskforce.md)
+and develop a simple, technology agnostic, and English-like scripting language called Collective Mind (CM) 
 powered by Python, JSON and/or YAML meta descriptions, and a unified CLI.
 
 CM is intended to help researchers and practitioners describe, share, and reproduce experimental results 
-in a unified and portable way across any rapidly evolving software, hardware, and data
+in a unified, portable and automated way across any rapidly evolving software, hardware, and data
 while automatically generating unified README files and synthesizing modular
 containers with a unified CM API and CLI. 
 
