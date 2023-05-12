@@ -23,7 +23,7 @@ See the catalog [here](https://github.com/mlcommons/ck/blob/master/docs/list_of_
 ### Input flags
 When we run a CM script we can also pass inputs to it and any input added in `input_mapping` dictionary inside `_cm.json` gets converted to the corresponding `ENV` variable.
 
-### Consitional execution of any `deps`, `post_deps`
+### Conditional execution of any `deps`, `post_deps`
 We can use `skip_if_env` dictionary inside any `deps`, `prehook_deps`, `posthook_deps` or `post_deps` to make its executional conditional
 
 ### Versions
@@ -53,6 +53,10 @@ Sometimes it is difficult to add all variations needed for a script like say `ba
 * `version` is converted to `CM_VERSION`, ``version_min` to `CM_VERSION_MIN` and `version_max` to `CM_VERSION_MAX`
 * If `env['CM_GH_TOKEN']=TOKEN_VALUE` is set then git URLs (specified by `CM_GIT_URL`) are changed to add this token.
 * If `env['CM_GIT_SSH']=yes`, then git URLs are chnged to SSH from HTTPS.
+
+### Script Meta
+#### Special keys in script meta
+* TBD: `reuse_version`, `inherit_variation_tags`, `update_env_tags_from_env`
 
 ### How cache works?
 * If `cache=true` is set in a script meta, the result of the script execution is cached for further use. 
