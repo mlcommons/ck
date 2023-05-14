@@ -9,7 +9,7 @@ We have developed the [Collective Knowledge concept (CK)](https://arxiv.org/pdf/
 to provide a simple way to unify, manage, connect and reuse any artifacts, scripts, tools and workflows 
 on any platform with any software and hardware stack. 
 
-We have developed CK to help researchers and developers turn their scripts, artifacts and workflow
+CK is intended to help researchers and developers turn their scripts, artifacts and workflow
 into a database of portable, reusable, customizable and deterministic components
 with minimal effort and no changes to their projects.
 

@@ -10,7 +10,9 @@ individual automations across continuously changing software, hardware and data.
 
 
 ```bash
-cm {action} {automation} {artifact(s)} {--flags} @input.yaml @input.json
+cm {action} {automation} ({artifact name(s) | sub-action}) ({--flags})
+   (@input file(s).yaml | input files(s).json)
+   (-- anything else)
 ```
 
 Examples:

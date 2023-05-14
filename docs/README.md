@@ -12,8 +12,8 @@ and
 
 * [Introduction](introduction-cm.md)
 * [Installation and customization](installation.md)
+* [Interface (CLI and Python API)](interface.md)
 * [Testing CM to run image classification on any platform with CPU and GPU](tutorials/modular-image-classification.md)
-* [Understanding CM interface (CLI and Python API)](tutorials/cm-interface.md)
 * [TBD: transforming your software project to the CM format](tutorials/transform-your-project-to-cm.md)
 * [TBD: adding new portable scripts reusable by the community](tutorials/add-new-script.md) ([misc notes](tutorials/scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm))
 * [TBD: FAQ](faq.md)
