@@ -2,7 +2,7 @@
 
 # CM interface
 
-After [installing CM scripting language](installation.md), you can use it via a unified [CLI](#cli) or [Python API](#python-api)
+After [installing CM scripting language](installation.md), you can use it via a unified [CLI](#cli) or [Python API](#python-api):
 
 ## CLI
 
@@ -31,18 +31,9 @@ with this input dictionary to perform some automation action.
 It is equivalent to using [CM Python API](#python-api) except that CM will be in interactive mode. 
 Use flag ```--out=json``` to print the output dictionary at the end of this automation action.
 
-
-
-
-
-
-
-
-
-
 ## Python API
 
-All the functionality in CM can be accessed in a unified way either via CLI as shown above or via Python API:
+All [CM automations](list_of_automations.md) can be accessed in a unified way either via CLI as shown above or via Python API:
 
 ```python
 
@@ -64,8 +55,16 @@ print (output)
 
 The output CM dictionary always has an integer key "return".
 
-If a given automation action succeeded, the output['return'] is equal to zero 
+If a given automation action succeeded, the ```output['return']``` is equal to zero 
 and the output dictionary contains the output of this action.
 
-Otherwise, output['return'] > 0 and output['error'] contains some text
+Otherwise, ```output['return'] > 0``` and ```output['error']``` contains some text
 explaining CM automation error.
+
+
+
+
+## Further reading
+
+* [CM specification: CLI](specs/cm-cli.md)
+* [CM specification: Python API](specs/cm-cli.md)

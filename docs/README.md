@@ -8,29 +8,21 @@ and
 
 ## Collective Mind language (CM)
 
-### Getting started guide
-
 * [Introduction](introduction-cm.md)
 * [Installation and customization](installation.md)
-* [Interface (CLI and Python API)](interface.md)
-* [Testing CM to run image classification on any platform with CPU and GPU](tutorials/modular-image-classification.md)
-* [TBD: transforming your software project to the CM format](tutorials/transform-your-project-to-cm.md)
-* [TBD: adding new portable scripts reusable by the community](tutorials/add-new-script.md) ([misc notes](tutorials/scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm))
-* [TBD: FAQ](faq.md)
-* [Other tutorials](tutorials)
-
-### Specification
-
-* [CM format for software projects](specs/cm-repository.md)
-* [CM CLI description](specs/cm-cli.md)
-* [CM Python API](specs/cm-python-interface.md)
-* [CM internal architecture](specs/cm-tool-architecture.md)
-* [List of reusable CM automations](list_of_automations.md)
-* [List of portable and reusable CM scripts](list_of_scripts.md)
+* [CM CLI and Python API](interface.md)
+* [Tutorials](tutorials/README.md)
+* [Specifications](specs/README.md)
+* [List of reusable CM automations from MLCommons](list_of_automations.md)
+* [List of portable and reusable CM scripts from MLCommons](list_of_scripts.md)
+* [Source code](https://github.com/mlcommons/ck/tree/master/cm/cmind)
+* [FAQ](faq.md)
 
 ## Collective Knowledge playground (CK)
 
 * [Introduction](introduction-ck.md)
+* [Development page](https://github.com/mlcommons/ck/tree/master/platform)
+* [Source code (CM script)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/gui)
 
 *Note that this platform is under heavy development. Documentation will come soon. 
  In the meantime, please check our [presentation](https://doi.org/10.5281/zenodo.7871070) 
