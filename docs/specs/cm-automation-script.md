@@ -1,7 +1,11 @@
 ﻿[ [Back to Specs](README.md) ]
 
+# CM scripts
 
-# CM script conventions
+*Please check the [CM introduction](../introduction-cm.md) to understand CM motivation and concepts.*
+
+
+
 
 ## Tags
 
