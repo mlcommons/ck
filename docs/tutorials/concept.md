@@ -1,6 +1,40 @@
 [ [Back to index](../README.md) ]
 
+<details>
+<summary>Click here to see the table of contents.</summary>
+
+* [Tutorial: understanding CM database concepts](#tutorial-understanding-cm-database-concepts)
+  * [Installing CM](#installing-cm)
+  * [Organizing your artifacts](#organizing-your-artifacts)
+    * [Without CM](#without-cm)
+    * [With CM](#with-cm)
+      * [Initializing CM-compatible repository in the directory](#initializing-cm-compatible-repository-in-the-directory)
+      * [Converting existing Git project to the CM repository](#converting-existing-git-project-to-the-cm-repository)
+      * [Creating CM artifacts](#creating-cm-artifacts)
+      * [Finding CM artifacts](#finding-cm-artifacts)
+      * [Renaming artifact](#renaming-artifact)
+      * [Moving artifacts to another CM repository](#moving-artifacts-to-another-cm-repository)
+      * [Deleting artifact](#deleting-artifact)
+      * [Copying artifacts](#copying-artifacts)
+      * [Viewing CM meta description](#viewing-cm-meta-description)
+      * [Creating other types of artifacts](#creating-other-types-of-artifacts)
+  * [Reusing others' artifacts in the CM format](#reusing-others'-artifacts-in-the-cm-format)
+    * [From command line](#from-command-line)
+    * [From Python and Jupyter notebooks](#from-python-and-jupyter-notebooks)
+* [List repositories](#list-repositories)
+* [Find an artifact](#find-an-artifact)
+    * [In Docker containers](#in-docker-containers)
+* [Adaptive container with the CM interface](#adaptive-container-with-the-cm-interface)
+    * [From zip file](#from-zip-file)
+  * [Adding reusable automations for related artifacts](#adding-reusable-automations-for-related-artifacts)
+  * [Adding reusable automation actions](#adding-reusable-automation-actions)
+  * [Extending meta descriptions of artifacts](#extending-meta-descriptions-of-artifacts)
+
+</details>
+
+
 # Tutorial: understanding CM database concepts
+
 
 Here we describe a few simple steps to let you try CM automation language 
 and help you understand the CM concepts.
