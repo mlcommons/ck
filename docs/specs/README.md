@@ -1,4 +1,4 @@
-[ [Back to index](../README.md) ]
+[ [Back to Specs](README.md) ]
 
 # CM specification
 
@@ -9,5 +9,4 @@
 
 # CM automation specs
 
-* [CM automation "script"](cm-automation-script.md)
-* [CM automation "cache"](cm-automation-cache.md)
+* [CM automations "script" and "cache"](cm-automation-script.md)

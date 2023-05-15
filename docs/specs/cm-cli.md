@@ -1,21 +1,63 @@
-[ [Back to index](README.md) ]
+[ [Back to Specs](README.md) ]
 
-# CM CLI
+# CM command line interface
 
-One of the main goals of CM is to provide a common, unified and human-readable CLI 
+One of the main goals of te CM language is to provide a common, unified and human-readable CLI 
 to access all software repositories shared in the [CM format](cm-repository.md).
-The idea is to unify all numerous READMEs with CM commands to 
-to make it easier for the community to run software projects and reuse
+
+## Format
+
+The idea is to unify all shared READMEs, containers and Jupyter notebooks 
+with CM commands to  to make it easier for the community to run software projects and reuse
 individual automations across continuously changing software, hardware and data.
 
+Here is format of a unified CM command line 
+to run any [reusable automation action](list_of_automations.md) 
+from any software project on Linux, Windows and MacOS:
 
 ```bash
-cm {action} {automation} ({artifact name(s) | sub-action}) ({--flags})
-   (@input file(s).yaml | input files(s).json)
-   (-- anything else)
+cm {action} {automation alias | UID | alias,UID} 
+  ({artifact name(s) | sub-action | argument}) 
+  (--flag1=value1) (--flag2.key2=value2) (--flag3,=value3,value4) (--flag4)
+  (@input.json | @input.yaml)
+  (-- extra CMD)
 ```
 
-Examples:
+First, CM will [parse CM CLI](https://github.com/mlcommons/ck/blob/master/cm/cmind/cli.py#L54) into a unified CM input dictionary:
+
+```json
+{
+  "action":"automation action",
+  "automation":"automation alias | UID | alias,UID",
+
+  "artifact":{above artifact name or sub-action},
+
+  "flag1":"value1",
+  "flag2":{"key2":"value2"},
+  "flag3":["value3","value4"],
+  "flag4":True,
+  ...
+  "unparsed_cmd": [
+    list of strings in extra CMD
+   ]
+}
+```
+
+When a user specify one or more input files with @ prefix, they will be loaded 
+and merged with the CM input in the same order as in command line.
+
+CM will then call a [unified CM Python "access" function](https://github.com/mlcommons/ck/blob/master/cm/cmind/core.py#L138) 
+with this input dictionary to perform some automation action. 
+
+It is equivalent to using [CM Python API](cm-python-interface.md) except that CM will be in interactive mode. 
+You can add a flag ```--out=json``` to print the output dictionary at the end of an automation action invoked via CLI.
+
+You can test the CM interface using the following automation action that simply prints the unified CM input dictionary:
+```
+cm print-input automation artifact1 artifact2 --flag1=value1 --flag2 -- something
+```
+
+## Examples
 
 ```bash
 cm 
@@ -64,7 +106,7 @@ The CM dictionary is then passed to the
 similar to micro-services and REST API.
 
 
-### Understanding CM names
+## Understanding CM names
 
 The {artifact} has the following format:
 
@@ -85,7 +127,7 @@ CM repository also has the same format as an artifact: *alias | UID | alias,UID*
 
 
 
-### Using CM CLI inside a CM repository
+## Using CM CLI inside a CM repository
 
 If you are inside a CM repository, you can use "." to tell CM to detect a repository, automation and
 artifact in the current directory to avoid writing the names explicitly in the command line.
@@ -149,8 +191,8 @@ cm new-action {new automation name} ...
 
 ## CM common automation actions
 
-All CM automations inherit common database function from the 
-[Automation class](https://github.com/mlcommons/ck/blob/master/cm/cmind/automation.py)
+All CM automations inherit common database function from this 
+[Automation class](https://github.com/mlcommons/ck/blob/master/cm/cmind/automation.py).
 
 ### add
 
@@ -279,18 +321,3 @@ For example, you can test the CM as follows:
 ```bash
 cm test core
 ```
-
-
-
-## CM script automation
-
-TBD
-
-* [Docs](specs/cm-automation-script.md)
-
-
-## CM cache automation
-
-TBD
-
-* [Docs](specs/cm-automation-cache.md)

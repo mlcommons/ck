@@ -1,4 +1,4 @@
-﻿[ [Back to index](README.md) ]
+﻿[ [Back to Specs](README.md) ]
 
 
 # CM script conventions
