@@ -13,6 +13,30 @@ class CAutomation(Automation):
         super().__init__(cmind, automation_file)
 
     ############################################################
+    def print_input(self, i):
+        """
+        Print unified CM input.
+
+        Args:
+          (CM input dict): 
+
+          (out) (str): if 'con', output to console
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+        """
+
+        import json
+        print (json.dumps(i, indent=2))
+
+        return {'return':0}
+
+
+    ############################################################
     def add(self, i):
         """
         Add CM automation.

@@ -1,9 +1,11 @@
 # MLCommons CK and CM documentation
 
-The Collective Knowledge project consists of 2 sub-projects:
-[Collective Mind scripting language (MLCommons CM)](#collective-mind-language-cm) 
+The Collective Knowledge project consists of two sub-projects 
+to facilitate reproducible research and transfer to production 
+across rapidly evolving models, software, hardware and data
+[Collective Mind language (MLCommons CM)](#collective-mind-language-cm) 
 and
-[Collective Knowledge playground (MLCommons CK)](#collective-knowledge-playground-ck).
+[Collective Knowledge platform (MLCommons CK)](#collective-knowledge-playground-ck).
 
 
 ## Collective Mind language (CM)
