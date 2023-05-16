@@ -34,6 +34,11 @@
   ],
   "uid": "94b62a682bc44791",
   "variations": {
+    "package.#": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "#"
+      }
+    },
     "apache-tvm": {
       "deps": [
         {
