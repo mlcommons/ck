@@ -2,7 +2,7 @@
 
 # CM command line interface
 
-One of the main goals of te CM language is to provide a common, unified and human-readable CLI 
+One of the main goals of the CM language is to provide a common, unified and human-readable CLI 
 to access all software repositories shared in the [CM format](cm-repository.md).
 
 ## Format
