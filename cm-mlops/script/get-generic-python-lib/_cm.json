@@ -250,6 +250,12 @@
         "CM_MLPERF_LOGGING_VERSION"
       ]
     },
+    "dllogger": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "dllogger",
+        "CM_GENERIC_PYTHON_PIP_URL": "git+https://github.com/NVIDIA/dllogger#egg=dllogger"
+      }
+    },
     "mpld3": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "mpld3"
