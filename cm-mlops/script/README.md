@@ -1,8 +1,14 @@
+# CM scripts 
+
 These portable and reusable CM scripts are being developed by the 
 [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
-to make MLOps and DevOps more interoperable, reusable, portable, deterministic and reproducible.
+to make native scripts and tools more interoperable, reusable, portable, deterministic and reproducible
+across rapidly evolving software, hardware, models and data.
 
-See the catalog [here](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md) (automatically generated).
+Please check the [CM documentation](https://github.com/mlcommons/ck/tree/master/docs#collective-mind-language-cm)
+for more details.
+
+See the [automatically generated catalog](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md) of all CM scripts from this repository.
 
 ## Getting started with CM scripts
 

@@ -13,6 +13,7 @@ and
 * [Introduction](introduction-cm.md)
 * [Installation and customization](installation.md)
 * [Unified CLI and Python API](interface.md)
+  * [CM scripts](https://github.com/mlcommons/ck/blob/master/cm-mlops/automation/script/README-extra.md)
 * [Tutorials](tutorials/README.md)
 * [Specifications](specs/README.md)
 * [List of reusable CM automations from MLCommons](list_of_automations.md)

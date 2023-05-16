@@ -2,28 +2,23 @@
 
 # MLCommons Taskforce on Automation and Reproducibility
 
-*Note that this is on-going and heavily evolving project - please join our public
- [Discord server](https://discord.gg/JjWNWXKxwT) 
- or contact [Grigori Fursin and Arjun Suresh](mailto:gfursin@cKnowledge.org;asuresh@cTuning.org)
- to prepare the 1st open MLPerf inference optimization tournament in spring/summer 2023,
- brainstorm ideas,  request new features, add support for your software and hardware,
- and participate in developments and collaborative 
- benchmarking and optimization of AI/ML Systems.*
-
-
 ## Mission
 
-This public taskforce is developing a free, open-source and technology-agnostic on-prem platform 
-[*(Collective Knowledge Playground aka MLCommons CK)*](https://github.com/mlcommons/ck/tree/master/platform)
-powered by the portable [*MLCommons Collective Mind automation framework (MLCommons CM)*](https://github.com/mlcommons/ck/tree/master/cm).
+This public taskforce is developing a free, open-source and technology-agnostic on-prem 
+Collective Knowledge platform (MLCommons CK playground)
+together with a portable Collective Mind automation language (MLCommons CM) - see [CK and CM documentation](README.md) 
+for more details.
 
-Our goal is to help the community and MLCommons members 
-benchmark, optimize and compare AI, ML and other emerging applications
-across diverse and rapidly evolving models, software, hardware and data from different vendors
-in terms of cost, performance, power consumption, accuracy, size 
-and other metrics in a collaborative, automated and reproducible way.
+Our goal is to help the community benchmark, optimize and compare AI, ML and other emerging applications
+across diverse and rapidly evolving software, hardware, models and data from different vendors
+in a unified, collaborative, automated and reproducible way using the common CM language.
 
-We thank [the community](https://access.cknowledge.org/playground/?action=contributors) for helping us to validate the CK technology 
+We are also organizing [reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges)
+powered by the common CM language and CK playground to reproduce results from research papers and MLPerf submissions, 
+optimize them in terms of  performance, power consumption, accuracy, size, costs and other metrics, 
+and validate them in the real-world applications.
+
+For example, we thank [the community](https://access.cknowledge.org/playground/?action=contributors) for helping us to validate our CK&CM technology
 during the [1st collaborative challenge to run MLPerf inference v3.0 benchmark](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023)
 across diverse models, software and hardware from Neural Magic, Qualcomm, Nvidia, Intel, AMD, Microsoft, Amazon, Google,
 Krai, cKnowledge, cTuning foundation, OctoML, Deelvin, DELL, HPE, Lenovo, Hugging Face and Apple - 
@@ -36,11 +31,12 @@ accelerate innovation by automatically generating the most efficient, reproducib
 full-stack AI/ML applications using the most suitable software/hardware stack 
 at any given time (model, framework, inference engine and any other related dependency) 
 based on their requirements and constraints including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny), 
-environment and data while slashing their development and operational costs by 10..100 times.
+environment and data while slashing their development and operational costs.
 
-### Discussions
+## Discussions
 
-* Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
+* Check our upcoming [reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges)
+* Join our [public Discord server](https://discord.gg/JjWNWXKxwT) to discuss developments and challenges.
 * Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
 * Check our [news](news.md).
 

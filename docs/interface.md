@@ -2,7 +2,7 @@
 
 # CM interface
 
-*Please check the [CM introduction](introduction-cm.md) to understand CM motivation and concepts.*
+*Please check [CM introduction](introduction-cm.md) to understand CM motivation and concepts.*
 
 After [installing CM scripting language](installation.md), you can use it 
 to manage research projects and run shared automation actions (recipes)
