@@ -12,7 +12,7 @@ and
 
 * [Introduction](introduction-cm.md)
 * [Installation and customization](installation.md)
-* [CM CLI and Python API](interface.md)
+* [Unified CLI and Python API](interface.md)
 * [Tutorials](tutorials/README.md)
 * [Specifications](specs/README.md)
 * [List of reusable CM automations from MLCommons](list_of_automations.md)
@@ -24,6 +24,7 @@ and
 
 * [Introduction](introduction-ck.md)
 * [Development page](https://github.com/mlcommons/ck/tree/master/platform)
+* [Getting Started Guide](../get-started.md)
 * [Source code (CM script)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/gui)
 
 *Note that this platform is under heavy development. Documentation will come soon. 
