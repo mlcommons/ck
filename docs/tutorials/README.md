@@ -12,4 +12,4 @@
   * [Customizing MLPerf inference benchmark and preparing submission](mlperf-inference-submission.md)
   * [Measuring power during MLPerf inference benchmarks](mlperf-inference-power-measurement.md)
 * [Understanding CM concepts](concept.md)
-* [Understanding portable CM scripts](scripts.md)
+* [Adding new CM scripts](scripts.md)
