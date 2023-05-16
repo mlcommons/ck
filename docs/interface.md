@@ -88,6 +88,30 @@ Otherwise, ```output['return'] > 0``` and ```output['error']```
 contains some text explaining CM automation error.
 
 
+### Example
+
+For example, we can list all CM automations, their meta descriptions and paths as follows:
+
+```python
+
+import cmind
+
+output = cmind.access({'action':'search',
+                       'automation':'automation,bbeb15d8f0a944a4'})
+
+if output['return']>0: 
+    cmind.error(output)
+
+artifacts = output['list']
+
+for artifact in artifacts:
+    print ('')
+    print (artifact.path)
+    print (artifact.meta)
+
+```
+
+
 ## Reusable automation actions
 
 CM automation actions are implemented as standard Python functions with unified CM input and output dictionaries.
