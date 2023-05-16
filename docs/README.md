@@ -22,6 +22,7 @@ and
 
 ## Collective Knowledge playground (CK)
 
+* [Open access](https://x.cKnowledge.org)
 * [Introduction](introduction-ck.md)
 * [Development page](https://github.com/mlcommons/ck/tree/master/platform)
 * [Getting Started Guide](../get-started.md)
