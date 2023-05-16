@@ -1111,14 +1111,14 @@ def dockerfile(i):
             "rhel": ["9"]
         }
     else:
+        docker_os = {}
         if i.get('docker_os'):
-            docker_os = {}
             docker_os[i['docker_os']] = []
         if i.get('docker_os_version'):
             docker_os[i['docker_os']] = [i.get('docker_os_version')]
         else:
             if docker_os == "ubuntu":
-                docker_os[i['docker_os']] = ["22.04"]
+                docker_os["ubuntu"] = ["22.04"]
 
         if not docker_os:
           docker_os = {
