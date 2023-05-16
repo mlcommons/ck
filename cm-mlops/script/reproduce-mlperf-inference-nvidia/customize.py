@@ -212,6 +212,11 @@ def preprocess(i):
     if performance_sample_count:
         run_config += f" --performance_sample_count={performance_sample_count}"
 
+    devices = env.get('CM_MLPERF_NVIDIA_HARNESS_DEVICES')
+    if devices:
+        run_config += f" --devices={devices}"
+
+
     workspace_size = env.get('CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE')
     if workspace_size:
         run_config += f" --workspace_size={workspace_size}"

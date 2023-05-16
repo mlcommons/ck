@@ -41,6 +41,7 @@ input_mapping:
   performance_sample_count: CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT
   scenario: CM_MLPERF_LOADGEN_SCENARIO
   user_conf: CM_MLPERF_USER_CONF
+  devices: CM_MLPERF_NVIDIA_HARNESS_DEVICES
   skip_preprocess: CM_SKIP_PREPROCESS_DATASET
   skip_preprocessing: CM_SKIP_PREPROCESS_DATASET
   target_qps: CM_MLPERF_LOADGEN_TARGET_QPS
