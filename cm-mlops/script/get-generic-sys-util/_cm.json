@@ -140,6 +140,19 @@
         }
       }
     },
+    "transmission": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "transmission"
+      },
+      "state": {
+        "transmission": {
+          "apt": "transmission-daemon",
+          "dnf": "transmission-daemon",
+          "yum": "transmission-daemon",
+          "brew": "transmission"
+        }
+      }
+    },
     "libpci-dev": {
       "env": {
         "CM_SYS_UTIL_NAME": "libpci-dev"
