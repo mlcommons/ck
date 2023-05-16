@@ -225,7 +225,8 @@ and has a number of default actions:
 * ```add``` - add a new artifact to a CM repository
 * ```delete``` == ```rm``` - delete existing artifact from a CM repository
 * ```load``` - load meta information (```_cm.json``` or ```_cm.yaml```) for a given artifact
-* ```rename``` == ```ren``` == ```mv``` - rename a given artifact or move it to another CM repository
+* ```update``` - update meta information (```_cm.json``` or ```_cm.yaml```) for a given artifact
+* ```move``` == ```rename``` == ```mv``` - rename a given artifact or move it to another CM repository
 * ```copy``` == ```cp``` - copy a given artifact to an artifact with a different name or to another CM repository
 * ```search``` == ```list``` == ```find``` - search for automations or artifacts in CM repositories
 
@@ -249,6 +250,22 @@ cm find world
 cm find world open
 cm find world --tags=cool
 
+```
+
+You can find the command line flags or Python API for any given automation action from the command line as follows:
+``bash
+cm {action} {automation} --help
+```
+
+For example, you can obtain help for all above internal automation actions:
+```bash
+cm add world --help
+cm delete world --help
+cm load world --help
+cm update world --help
+cm move world --help
+cm copy world --help
+cm search world --help
 ```
 
 This minimal information covers most of the basic CM functionality. 

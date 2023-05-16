@@ -1,5 +1,31 @@
 ﻿# CM "script" automation
 
+<details>
+<summary>Click here to see the table of contents.</summary>
+
+  * [Motivation](#motivation)
+  * [Obtaining shared CM scripts](#obtaining-shared-cm-scripts)
+  * [Running CM scripts](#running-cm-scripts)
+    * [Wrapping native scripts](#wrapping-native-scripts)
+    * [Modifying environment variables](#modifying-environment-variables)
+    * [Understanding unified output dictionary](#understanding-unified-output-dictionary)
+    * [Modifying state dictionary](#modifying-state-dictionary)
+    * [Running CM scripts via CM Python API](#running-cm-scripts-via-cm-python-api)
+  * [Understanding CM script dependencies](#understanding-cm-script-dependencies)
+  * [Customizing CM script execution](#customizing-cm-script-execution)
+  * [Unifying host OS and CPU detection](#unifying-host-os-and-cpu-detection)
+  * [Detecting, installing and caching system dependencies](#detecting-installing-and-caching-system-dependencies)
+  * [Detecting, installing and caching tools](#detecting-installing-and-caching-tools)
+  * [Detecting, installing and caching artifacts](#detecting-installing-and-caching-artifacts)
+    * [Using variations](#using-variations)
+  * [Assembling image classification pipeline](#assembling-image-classification-pipeline)
+  * [Compiling and running image corner detection](#compiling-and-running-image-corner-detection)
+  * [Running CM scripts inside containers](#running-cm-scripts-inside-containers)
+  * [Related](#related)
+
+</details>
+
+
 *We suggest you to check [CM introduction](https://github.com/mlcommons/ck/blob/master/docs/introduction-cm.md) 
  and [CM CLI/API](https://github.com/mlcommons/ck/blob/master/docs/interface.md) to understand CM motivation and concepts.
  You can also try [CM tutorials](https://github.com/mlcommons/ck/blob/master/docs/tutorials/README.md) 
@@ -26,9 +52,12 @@ into powerful and portable workflows to prepare, run and reproduce experiments a
 ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-unified-projects.png)
 
 
-## Obtaining CM scripts
 
-In order to (re)use some CM scripts embedded into shared projects, 
+
+
+## Obtaining shared CM scripts
+
+In order to reuse some CM scripts embedded into shared projects, 
 you need to install these projects via the CM interface.
 
 For example, to use automation scripts developed by the [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
@@ -44,7 +73,7 @@ or
 cm pull repo mlcommons@ck
 ```
 
-You can see all available CM scripts in your system as follows:
+You can now see all available CM scripts in your system as follows:
 
 ```bash
 cm find script
@@ -52,51 +81,87 @@ cm find script install* | sort
 
 ```
 
+
+
+
 ## Running CM scripts
 
-CM scripts are treated as standard CM artifacts with the CM automation "script", CM action "run",
+CM scripts are treated as standard CM artifacts with the associated CM automation ["script"](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/script),
+CM action ["run"](https://github.com/mlcommons/ck/blob/master/cm-mlops/automation/script/module.py#L73),
 and JSON &| YAML meta descriptions. 
 
-The can be invoked by alias, unique ID and human-readable tags (preferred method).
+CM scripts can be invoked by using their alias, unique ID and human-readable tags (preferred method).
 
-For example, [this CM script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os) unifies detection of operating system parameters 
-on any platform. 
+For example, the [CM "Print Hello World" script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world) 
+simply wraps 2 native `run.sh` and `run.bat` scripts to print "Hello World" on Linux, MacOs or Windows 
+together with a few environment variables:
 
-It is described by [this _cm.json file](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/detect-os/_cm.json) with the following alias, UID and tags:
+```bash
+ls `cm find script print-hello-world`
+
+README.md  _cm.json  run.bat  run.sh
+```
+
+It is described by this [_cm.json meta description file](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/print-hello-world/_cm.json) 
+with the following alias, UID and tags:
+
 ```json
 {
-  "alias": "detect-os",
-  "uid": "863735b7db8c44fc",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
 
-  "tags": [
-    "detect-os",
-    "detect",
-    "os",
-    "info"
+  "alias": "print-hello-world",
+  "uid": "b9f0acba4aca4baa",
+
+  "default_env": {
+    "CM_ENV_TEST1": "TEST1"
+  },
+
+  "env": {
+    "CM_ENV_TEST2": "TEST2"
+  },
+
+  "input_mapping": {
+    "test1": "CM_ENV_TEST1"
+  },
+
+  "new_env_keys": [
+    "CM_ENV_TEST*"
   ],
 
-  "automation_alias": "script",
-  "automation_uid": "5b4e0237da074764"
+  "new_state_keys": [
+    "hello_test*"
+  ],
 
+  "tags": [
+    "print",
+    "hello-world",
+    "hello world",
+    "hello",
+    "world",
+    "native-script",
+    "native",
+    "script"
+  ]
 }
 ```
 
-The `automation_alias` and `automation_uid` tells CM that this artifact is compatible with the CM "script" automation.
+The `automation_alias` and `automation_uid` tells CM that this artifact can be used with the CM "script" automation.
 
-Therefore, it can be executed from the command line in any of the following ways:
+Therefore, this script can be executed from the command line in any of the following ways:
 
 ```bash
-cm run script detect-os --out=json
-cm run script 863735b7db8c44fc  --out=json
-cm run script --tags=detect,os  --out=json
-cm run script "detect os"  --out=json
+cm run script print-hello-world
+cm run script b9f0acba4aca4baa
+cm run script --tags=print,native-script,hello-world
+cm run script "print native-script hello-world"
 ```
 
-This script can be also executed using CM Python API as follows:
+The same script can be also executed using CM Python API as follows:
 ```python
 import cmind
 
-output = cmind.access({'action':'run', 'automation':'script', 'tags':'detect,os'})
+output = cmind.access({'action':'run', 'automation':'script', 'tags':'print,native-script,hello-world'})
 if output['return']>0:
     cmind.error(output)
 
@@ -104,133 +169,9 @@ import json
 print (json.dumps(output, indent=2))
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### CM script pipeline
-
-The CM script automation has a "run" action that takes a unified CM dictionary with the following keys as the input:
-
-* "artifact" (str): CM name from [this list](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
-* "tags" (str): instead of using an explicit CM script name, we can use the tags separated by comma to find a given CM script
-
-* "env" (dict): original environment (can be empty)
-* "state" (dict): original state (can be empty)
-
-* extra flags to customize the execution of a given CM script
-
-The output of this automation is also a unified CM dictionary:
-
-* "new_env" (dict): update for the original environment (excluding original environment)
-* "new_state" (dict): update for the original state (excluding original environment)
-
-![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-plug-and-play-script-details.v2.png)
-
-A CM script simply wraps existing user scripts (run.sh on Linux and MacOS or run.bat on Windows),
-reads meta description, runs other CM script dependencies,
-runs "preprocessing" function from "customize.py" (if exists)
-to update "env" and the "state" and produce extra files needed for a native script,
-runs the script, reads produced files with updated "env" and "state",
-and runs "postprocessing" function from "customize.py" (if exists)
-to finalize updating "env" and "state".
-
-If meta description of a given CM script contains ```"install": true```, the output files and the updated "env" and "state"
-will be cached in the "local" CM database using the CM "cache" automation.
-This is particularly useful when installing packages and tools or 
-downloading ML models and data sets needed to build and deploy
-complex applications and web services.
-
-Next, you can try to run some [existing CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
-and create the new ones yourself.
-
-
-
-## Installing CM
-
-Install CM as described [here](installation.md). Normally, CM should work on any OS and platform. 
-However, if you encounter some issues, please report them [here](https://github.com/mlcommons/ck/issues)
-(prefixed by [CK2/CM]).
-
-
-## Installing the CM script automation
-
-CM scripts can be embedded in Git repositories and tar/zip archives as a CM database.
-
-We are prototyping CM scripts needed for MLOps and DevOps to unify 
-collaborative benchmarking, optimization and deployment of ML Systems
-in https://github.com/mlcommons/ck/tree/master/cm-mlops .
-
-You can install it in CM as follows:
+Normally you should see the following output along with some debug information (that will be removed soon):
 
 ```bash
-cm pull repo mlcommons@ck
-```
-
-Check that the CM script automation is available:
-```bash
-cm find automation script
-```
-
-Check available automation actions for the CM script automation:
-```bash
-cm help script
-```
-
-Check the API of the CM script run action:
-```bash
-cm run script --help
-```
-
-## Installing CM repository with CM scripts
-
-CM scripts can be embedded in Git repositories and tar/zip archives as a CM database.
-We are prototyping CM scripts needed for collaborative benchmarking, optimization and deployment of ML Systems
-in http://github.com/octoml/cm-mlops .
-You can install it in CM as follows:
-
-```bash
-cm pull repo octoml@cm-mlops
-```
-
-List available CM scripts:
-```bash
-cm find script
-```
-
-## Running "hello world" CM script
-
-You can run a CM script that wraps run.sh and run.bat with echo "hello world" using its explicit name (CM alias):
-
-```bash
-cm run script print-hello-world
-
-...
-
-CM_ENV_TEST1 = TEST1
-CM_ENV_TEST2 = 
-
-HELLO WORLD!
-```
-
-or using tags:
-
-```bash
-cm run script --tags=print,hello-world,script
 
 ...
 
@@ -238,73 +179,12 @@ CM_ENV_TEST1 = TEST1
 CM_ENV_TEST2 = TEST2
 
 HELLO WORLD!
+...
 ```
 
-## Understanding the "hello world" CM script
+### Wrapping native scripts
 
-Let's find the CM database entry for the CM script component by CM alias as follows:
-```bash
-cm find script print-hello-world
-```
-
-or using tags from meta description:
-
-
-```bash
-cm find script --tags=print,hello-world,script
-```
-
-Let's check the content of this directory (see on [GitHub]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world )):
-```bash
-ls `cm find script --tags=print,hello-world,script`
-```
-
-* *_cm.json* - meta description of this CM script
-* *run.sh* - Linux or MacOS script 
-* *run.bat* - Windows script
-
-### Meta description
-
-*_cm.json* describes how to find and run this CM script:
-
-```json
-{
-  "automation_alias": "script",           # related CM automation alias
-  "automation_uid": "5b4e0237da074764",   # related CM automation UID
-
-  "alias": "print-hello-world",           # this CM script alias
-  "uid": "b9f0acba4aca4baa",              # this CM script UID
-
-  "tags": [          # Tags to find this CM script in CM databases (CM repositories 
-                     # pulled from Git or downloaded as Zip/tar archives)
-                     # or shared in Docker containers)
-    "print",     # and differentiate this CM script from other CM script
-    "hello-world",
-    "hello world",
-    "hello",
-    "world",
-    "script"
-  ],
-
-  "env": {                      # Set global environment variables
-    "CM_ENV_TEST1": "TEST1"
-  },
-
-  "deps": [                     # A chain of dependencies on other CM scripts
-    {                           # These CM scripts will be executed before
-      "tags": "win,echo-off"    # running a given CM script
-    }                           # and update global env variables
-  ]
-                                
-  ...                           # Extra keys will be gradually added by the community
-                                # while enhancing the CM script automation
-                                # and keeping backwards compatibility
-}
-```
-
-### Scripts
-
-*_run.bat* and *_run.sh* are native scripts that will be executed by this CM script on Linux and Windows-based system:
+*run.bat* and *run.sh* are native scripts that will be executed by this CM script in a unified way on Linux, MacOS and Windows:
 
 ```bash
 echo ""
@@ -316,29 +196,34 @@ echo "HELLO WORLD!"
 ```
 
 The idea to use native scripts is to make it easier for researchers and engineers to reuse their existing automation scripts
-while providing a common wrapper with a unified CLI, JSON API, extensible meta descriptions and portability layer in *customize.py*.
+while providing a common CM wrapper with a unified CLI, Python API and extensible meta descriptions.
 
 
-## Modifying environment variables
 
-CM script automation merges "env" and "new_env" before running this script.
 
-You can modify a given environment variable as follows:
+### Modifying environment variables
+
+CM script automation CLI uses a flag `--env.VAR=VALUE` to set some environment variable and pass it to a native script
+as shown in this example:
+
 ```bash
-cm run script --tags=print,hello-world,script --env.CM_ENV_TEST1=ABC1 --env.CM_ENV_TEST2=ABC2 
+cm run script "print native-script hello-world" --env.CM_ENV_TEST1=ABC1 --env.CM_ENV_TEST2=ABC2
 
 ...
 
-CM_ENV_TEST1 = TEST1
-CM_ENV_TEST2 = ABC2
+CM_ENV_TEST1 = ABC1
+CM_ENV_TEST2 = TEST2
 
 HELLO WORLD!
 ```
 
-Note, that *CM_ENV_TEST1* did not change. This happened because *_cm.json* forces *CM_ENV_TEST1* to *TEST1*.
-To update such variables, one should use --const instead of --env:
+Note, that *CM_ENV_TEST2* did not change. This happened because dictionary `env` in the *_cm.json* forces *CM_ENV_TEST2* to *TEST2*,
+while `default_env` dictionary allows environment variables to be updated externally.
+
+You can still force an environment variable to a given value externally using a `--const` flag as follows:
+
 ```bash
-cm run script --tags=print,hello-world,script --const.CM_ENV_TEST1=ABC1 --env.CM_ENV_TEST2=ABC2 
+cm run script "print native-script hello-world" --env.CM_ENV_TEST1=ABC1 --const.CM_ENV_TEST2=ABC2 
 
 ...
 
@@ -349,13 +234,12 @@ HELLO WORLD!
 
 ```
 
-You can use JSON file instead of CLI. Create *input.json* (or any other filename):
+You can also use a JSON file instead of flags. Create *input.json* (or any other filename):
 ```json
 {
-  "tags":"print,hello-world,script",
+  "tags":"print,native-script,hello-world",
   "env":{
-    "CM_ENV_TEST1":"ABC1",
-    "CM_ENV_TEST2":"ABC2"
+    "CM_ENV_TEST1":"ABC1"
   }
 }
 ```
@@ -369,10 +253,8 @@ cm run script @input.json
 You can use YAML file instead of CLI. Create *input.yaml* (or any other filename):
 ```yaml
 tags: "print,hello-world,script"
-const:
-  CM_ENV_TEST1: "ABC1"
 env:
-  CM_ENV_TEST2: "ABC2"
+  CM_ENV_TEST1: "ABC1"
 ```
 
 and run the CM script with this input file as follows:
@@ -380,13 +262,30 @@ and run the CM script with this input file as follows:
 cm run script @input.yaml
 ```
 
-
-## Printing JSON output
-
-You can see the output of the CM script automation in the JSON format as follows:
+Finally, you can map any other flag from the script CLI to an environment variable 
+using the key `input_mapping` in the `_cm.json` meta description of this script:
 
 ```bash
-cm run script --tags=print,hello-world,script --const.CM_ENV_TEST1=ABC1 --env.CM_ENV_TEST2=ABC2 --out=json
+cm run script "print native-script hello-world" --test1=ABC1
+
+...
+
+CM_ENV_TEST1 = ABC1
+CM_ENV_TEST2 = TEST2
+
+HELLO WORLD!
+
+```
+
+
+### Understanding unified output dictionary
+
+You can see the output of a given CM script in the JSON format by adding `--out=json` flag as follows:
+
+```bash
+cm run script --tags=print,hello-world,script --env.CM_ENV_TEST1=ABC1 --out=json
+
+...
 
 CM_ENV_TEST1 = ABC1
 CM_ENV_TEST2 = ABC2
@@ -394,50 +293,92 @@ CM_ENV_TEST2 = ABC2
 HELLO WORLD!
 
 {
+  "deps": [],
   "env": {
     "CM_ENV_TEST1": "ABC1",
-    "CM_ENV_TEST2": "ABC2",
-    "CM_TMP_CURRENT_PATH": "D:\\",
-    "CM_TMP_CURRENT_SCRIPT_PATH": "D:\\Work1\\CK\\ck\\cm-mlops\\script\\print-hello-world",
-    "CM_TMP_PIP_VERSION_STRING": "",
-    "CM_WINDOWS": "yes"
+    "CM_ENV_TEST2": "TEST2"
   },
   "new_env": {
     "CM_ENV_TEST1": "ABC1",
-    "CM_WINDOWS": "yes"
+    "CM_ENV_TEST2": "TEST2"
+  },
+  "new_state": {},
+  "return": 0,
+  "state": {}
+}
+```
+
+Note that `new_env`shows new environment variables produced and explicitly exposed by this script 
+via a `new_env_keys` key in the `_cm.json` meta description of this script.
+
+This is needed to assemble automation pipelines and workflows while avoiding their contamination
+with temporal environments. CM script must explicitly expose environment variables that will 
+go to the next stage of a pipeline.
+
+In the following example, `CM_ENV_TEST3` will be added to the `new_env` while `CM_XYZ` will not
+since it is not included in `"new_env_keys":["CM_ENV_TEST*"]`:
+
+```bash
+cm run script --tags=print,hello-world,script --env.CM_ENV_TEST1=ABC1 --out=json --env.CM_ENV_TEST3=ABC3 --env.CM_XYZ=XYZ
+```
+
+### Modifying state dictionary
+
+Sometimes, it is needed to use more complex structures than environment variables in scripts and workflows.
+We use a dictionary `state` that can be updated and exposed by a given script via `new_state_keys` key
+in the `_cm.json` meta description of this script.
+
+In the following example, `hello_world` key will be updated in the `new_state` dictionary,
+while `hello` key will not be updated because it is not included in the wildcard `"new_state_key":["hello_world*"]`:
+
+```bash
+cm run script --tags=print,hello-world,script --out=json --state.hello=xyz1 --state.hello_world=xyz2
+
+...
+
+{
+  "deps": [],
+  "env": {
+    "CM_ENV_TEST1": "TEST1",
+    "CM_ENV_TEST2": "TEST2"
+  },
+  "new_env": {
+    "CM_ENV_TEST1": "TEST1",
+    "CM_ENV_TEST2": "TEST2"
   },
   "new_state": {
-    "script_prefix": [
-      "@echo off"
-    ]
+    "hello_world": "xyz2"
   },
   "return": 0,
   "state": {
-    "script_prefix": [
-      "@echo off"
-    ]
+    "hello": "xyz1",
+    "hello_world": "xyz2"
   }
 }
 ```
 
-## Running CM scripts from Python
+### Running CM scripts via CM Python API
 
-You can run CM script from python or Jupyter notebook as follows:
+You can run a given CM script from python or Jupyter notebooks as follows:
 
 ```python
 
-import cmind as cm
+import cmind
 
-r = cm.access({'action':'run',
-               'automation':'script',
-               'tags':'print,hello-world,script',
-               'const':{
-                 'CM_ENV_TEST1':'ABC1',
-               },
-               'env':{
-                 'CM_ENV_TEST2':'ABC2'
-               }
-              })
+r = cmind.access({'action':'run',
+                  'automation':'script',
+                  'tags':'print,hello-world,script',
+                  'const':{
+                    'CM_ENV_TEST1':'ABC1',
+                  },
+                  'env':{
+                    'CM_ENV_TEST2':'ABC2'
+                  },
+                  'state': {
+                    'hello':'xyz1',
+                    'hello_world':'xyz2'
+                  }
+                 })
 
 print (r)
 
@@ -451,29 +392,33 @@ CM_ENV_TEST2 = ABC2
 
 HELLO WORLD!
 
-{'return': 0, 'new_state': {'script_prefix': ['@echo off']}, 'new_env': {'CM_ENV_TEST2': 'TEST2'}}
+{'return': 0, 
+ 'env': {'CM_ENV_TEST2': 'TEST2', 'CM_ENV_TEST1': 'ABC1'}, 
+ 'new_env': {'CM_ENV_TEST2': 'TEST2', 'CM_ENV_TEST1': 'ABC1'}, 
+ 'state': {'hello': 'xyz1', 'hello_world': 'xyz2'}, 
+ 'new_state': {'hello_world': 'xyz2'}, 
+ 'deps': []}
 
 ```
 
-## Understanding CM script dependencies
 
-CM meta descriptions enable a very simple mechanism to inter-connect native scripts and enable pipelines and workflows 
-(also implemented as CM scripts) without the need for specialized workflow frameworks.
 
-Our idea is to let any CM script automatically run additional CM scripts to prepare required environment variables,
-"state" and files for a given platform and user requirements required for other CM scripts in a pipeline or workflow.
+### Assembling pipelines (workflows) of CM scripts
 
-We describe a pipeline of CM script dependencies that must be executed before running a native script using *deps* list in the *_cm.json* of this CM script:
+We've added a simple mechanism to chain reusable CM scripts into complex pipelines
+without the need for specialized workflow frameworks.
+
+Simply add the following dictionary "deps" to the `_cm.json` or `_cm.yaml` of your script as follows:
 
 ```json
 
 {
   "deps": [
     {                           
-      "tags":  # a string of tags separated by comma to find and execute the 1st CM script
+      "tags": "a string of tags separated by comma to find and execute the 1st CM script"
     },
     {                           
-      "tags":  # 2nd CM script
+      "tags": "a string of tags separated by comma to find and execute the 1st CM script" 
     },
     ...
   ]
@@ -481,95 +426,89 @@ We describe a pipeline of CM script dependencies that must be executed before ru
 
 ```
 
-We can also specify dependencies executing after the native script inside CM automation as follows:
+This CM script will run all dependendent scripts in above sequence, aggregate environment variable and `state` dictionary,
+and will then run native scripts.
+
+You can also turn on specific dependencies based on some values oin specific environment variables in the pipeline as follows:
+
 ```json
+
 {
-   "post_deps": [
+  "deps": [
     {                           
-      "tags":  # a string of tags separated by comma to find and execute the 1st CM script
+      "tags": "a string of tags separated by comma to find and execute the 1st CM script",
+      "enable_if_env": { "USE_CUDA" : ["yes", "YES", "true"] }
+    },
+    {                           
+      "tags": "a string of tags separated by comma to find and execute the 1st CM script" 
+      "enable_if_env": { "USE_CPU" : ["yes", "YES", "true"] }
     },
     ...
-   ]
+  ]
 }
-```
-
-For example, our "Hello world" CM script example has just one dependency described with tags "win,echo-off".
-
-We can find this component as follows:
-
-```bash
-cm find script --tags=win,echo-off
-```
-
-This is a [very simple CM script]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-echo-off-win )
-that doesn't have dependencies on other CM script and does not even have native OS scripts.
-
-However, it has a *customize.py* file with the *preprocess* function that is executed
-when we run this CM script. 
-
-Note that this function is used to update environment variables and the "state" dictionary
-before running the native script or to influence the next CM scripts. For example, it can set up an 
-environment variable that will be used in some other CM scripts in the dependency chain to skip their execution
-as shown in [this example]( https://github.com/mlcommons/ck/blob/master/cm-mlops/script/set-echo-off-win/customize.py#L21 ).
-
-This component detects that the host platform is Windows and adds "@echo off" to all further CM script executions
-to minimize output noise. It does nothing on Linux:
-
-```python
-
-    if os_info['platform'] == 'windows':
-
-        script_prefix = state.get('script_prefix',[])
-
-        s='@echo off'
-        if s not in script_prefix:
-            script_prefix.insert(0, s)
-
-        state['script_prefix'] = script_prefix
 
 ```
 
-We can run it independently as follows:
-
-```bash
-cm run script --tags=win,echo-off --out=json
-```
-
-The [CM script automation]( https://github.com/mlcommons/ck/blob/master/cm-mlops/automation/script/module.py#L145 ) 
-monitors the "state" and alters the execution of the next CM scripts  
-based on specialized keys in the "state" dictionary (such as "script_prefix").
-
-This approach allows the community to gradually extend this automation and CM scripts without breaking 
-backwards compatibility!
+You can also specify dependencies to be invoked after executing native scripts
+using a dictionary `"post_deps"` with the same format `"deps"`.
 
 
-## Customizing CM script execution
 
-We use *customize.py* to preprocess the execution of a native script (if exists),
-i.e. prepare environment, the state dictionary and files needed to run this script.
 
-You can find the automation code that prepares the input for the preprocess function 
-[here]( https://github.com/mlcommons/ck/blob/master/cm-mlops/automation/script/module.py#L927 ).
 
-We can also use this function to skip the execution of this CM script based on environment, state and files
-if it returns *{"skip":True}*.
 
+
+
+
+### Customizing CM script execution flow
+
+If a developer adds `customize.py` file inside a given CM script,
+it can be used to programmatically update environment variables, prepare input scripts
+and even invoke other scripts programmatically using Python.
+
+If a function `preprocess` exists in this file, CM script will call it before
+invoking a native script. 
+
+If this function returns `{"skip":True}` in the output,
+further execution of this script will be skipped.
 
 After executing the preprocess function, the CM script automation will record the global state dictionary
 into *tmp-state.json* and the local state dictionary from this CM script into *tmp-state-new.json*.
 
-The CM script automation will then run a native script with the global environment updated by 
-and will call a native script (run.sh on Linux/MacOS or run.bat on Windows).
+The CM script automation will then run a native script (run.sh on Linux/MacOS or run.bat on Windows)
+with all merged environment variables from previous scripts.
 
-The native script will call some MLOps or DevOps tools based on environment variables
-and files prepared by previous CM scripts or already preset in the native environment or container.
-
-The native script can also create 2 files that will be automatically picked up and processed by the CM script automation:
+Note that native scripts can also create 2 files that will be automatically picked up and processed by the CM script automation:
 * *tmp-run-env.out* - list of environment variables to update the "new_env" of a given CM script
 * *tmp-run-state.json* - the state dictionary to update the "new_state" of a given CM script
 
-If the *customize.py* script exists with a *postprocess* function, the CM script will call it
-to finalize the postprocessing of files, environment variables and the state dictionary.
+If `postprocess` function exists in the *customize.py* file, the CM script will call it
+to finalize the postprocessing of files, environment variables, and the state dictionary.
+
+
+
+
+
+
+
+### Getting help about all script automation flags
+
+You can get help about all flags used to customize execution 
+of a given CM script from the command line as follows:
+
+```bash
+cm run script --help
+```
+
+Some flags are useful to make it easier to debug scripts and save output in files.
+
+You can find more info about CM script execution flow in this [document](README-specs.md).
+
+
+
+
+
+
 
 
 ## Unifying host OS and CPU detection
