@@ -17,9 +17,11 @@ Furthermore, snapshot containers pose a challenge to optimize algorithms' perfor
 accuracy, power consumption and operational costs across diverse 
 and rapidly evolving software, hardware, and data used in the real world.
 
+![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-ad-hoc-projects.png)
+
 This practical experience and the feedback from the community motivated 
-us to establish the [MLCommons Task Force on Automation and Reproducibility](taskforce.md).
-and develop a simple, technology agnostic, and English-like automation language called Collective Mind (CM).
+us to establish the [MLCommons Task Force on Automation and Reproducibility](taskforce.md)
+and develop a simple, technology agnostic, and English-like automation language called Collective Mind (MLCommons CM).
 
 This language provides a universal interface to any software project and transforms it 
 into a database of [reusable automation actions](list_of_automations.md) 
@@ -36,6 +38,8 @@ CM is powered by Python, JSON and/or YAML meta descriptions, and a unified CLI
 to minimize the learning curve and help researchers and practitioners describe, share, and reproduce experimental results 
 in a unified, portable, and automated way across any rapidly evolving software, hardware, and data
 while solving the "dependency hell" and automatically generating unified README files and modular containers.
+
+![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-unified-projects.png)
 
 Our ultimate goal is to use CM language to facilitate reproducible AI/ML Systems research, 
 minimize manual and repetitive benchmarking and optimization efforts, 
