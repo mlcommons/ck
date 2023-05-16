@@ -162,6 +162,11 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `deepsparse`
       - Workflow:
+    * `_dllogger`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `dllogger`
+        - *CM_GENERIC_PYTHON_PIP_URL*: `git+https://github.com/NVIDIA/dllogger#egg=dllogger`
+      - Workflow:
     * `_fiftyone`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `fiftyone`
@@ -272,6 +277,10 @@ ___
     * `_opencv-python`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `opencv-python`
+      - Workflow:
+    * `_package.#`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `#`
       - Workflow:
     * `_pandas`
       - Environment variables:

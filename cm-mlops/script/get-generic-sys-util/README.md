@@ -150,6 +150,10 @@ ___
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `sox`
       - Workflow:
+    * `_transmission`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `transmission`
+      - Workflow:
 
     </details>
 
