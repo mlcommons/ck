@@ -296,6 +296,7 @@ variations:
     - tags: get,generic-python-lib,_torchvision
       names:
       - torchvision
+    - tags: get,generic-python-lib,_torch
     - tags: get,generic-python-lib,_nvidia-apex
     - tags: get,generic-python-lib,_unidecode
     - tags: get,generic-python-lib,_inflect
