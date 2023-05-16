@@ -1,4 +1,5 @@
-## V1.1.5.1
+## V1.1.6
+   - added "cm print_input automation"
    - updated link to the MLCommons taskforce on automation and reproducibility
 
 ## V1.1.5

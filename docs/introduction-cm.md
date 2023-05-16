@@ -17,22 +17,34 @@ Furthermore, snapshot containers pose a challenge to optimize algorithms' perfor
 accuracy, power consumption and operational costs across diverse 
 and rapidly evolving software, hardware, and data used in the real world.
 
+![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-ad-hoc-projects.png)
+
 This practical experience and the feedback from the community motivated 
 us to establish the [MLCommons Task Force on Automation and Reproducibility](taskforce.md)
-and develop a simple, technology agnostic, and English-like scripting language called Collective Mind (CM) 
-powered by Python, JSON and/or YAML meta descriptions, and a unified CLI.
+and develop a simple, technology agnostic, and English-like automation language called Collective Mind (MLCommons CM).
 
-CM is intended to help researchers and practitioners describe, share, and reproduce experimental results 
-in a unified, portable and automated way across any rapidly evolving software, hardware, and data
-while automatically generating unified README files and synthesizing modular
-containers with a unified CM API and CLI. 
+This language provides a universal interface to any software project and transforms it 
+into a database of [reusable automation actions](list_of_automations.md) 
+and [portable scripts]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script )
+in a transparent and non-intrusive way.
+Following [FAIR principles](https://www.go-fair.org/fair-principles), CM automation actions and scripts 
+are simple wrappers around existing user scripts and artifacts to make them
+* findable via human-readable tags, aliases and unique IDs;
+* accessible via a unified CM CLI and Python API with JSON/YAML meta descriptions;
+* interoperable and portable across any software, hardware, models and data;
+* reusable across all projects.
 
-Our goal is to use CM to facilitate reproducible AI/ML Systems research and minimizing 
-manual and repetitive benchmarking and optimization efforts, reduce time and
-costs for reproducible research, and simplify technology transfer
-to production.
+CM is powered by Python, JSON and/or YAML meta descriptions, and a unified CLI
+to minimize the learning curve and help researchers and practitioners describe, share, and reproduce experimental results 
+in a unified, portable, and automated way across any rapidly evolving software, hardware, and data
+while solving the "dependency hell" and automatically generating unified README files and modular containers.
 
+![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-unified-projects.png)
 
+Our ultimate goal is to use CM language to facilitate reproducible AI/ML Systems research, 
+minimize manual and repetitive benchmarking and optimization efforts, 
+and reduce time and costs when transferring technology to production
+across continuously changing software, hardware, models, and data.
 
 
 See a few real-world examples of using the CM scripting language:

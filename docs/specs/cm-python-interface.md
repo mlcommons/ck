@@ -1,36 +1,31 @@
-[ [Back to index](README.md) ]
+[ [Back to Specs](README.md) ]
 
+# CM Python API
 
-
-## CM Python interface
-
-CM automations can be executed from a Python as follows:
-```python
-
-import cmind as cm
-
-r = cm.access({'action':'find', 'automation':'repo'})
-if r['return']>0: cm.halt(r)
-
-print (r)
- 
-r = cm.access('find repo --out=con')
-if r['return']>0: cm.halt(r)
-
-```
-
-or
+All [CM automations](../list_of_automations.md) can be accessed in a unified way either via CLI as shown above or via Python API:
 
 ```python
+
 import cmind
 
-cm = cmind.CM()
+input={
+  "action":"automation action",
+  "automation":"automation alias | UID | alias,UID",
+  ...
+}
 
-r = cm.access({'action':'find', 'automation':'repo'})
-if r['return']>0: cm.halt(r)
+output = cmind.access(input)
 
-print (r)
+if output['return']>0:
+    cmind.error(output)
 
+print (output)
 ```
 
+The output CM dictionary always has an integer key ```return```.
 
+If a given automation action succeeded, the ```output['return']``` is equal to zero 
+and the output dictionary contains the output of this action.
+
+Otherwise, ```output['return'] > 0``` and ```output['error']``` 
+contains some text explaining CM automation error.

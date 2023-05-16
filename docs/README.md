@@ -1,36 +1,32 @@
 # MLCommons CK and CM documentation
 
-The Collective Knowledge project consists of 2 sub-projects:
-[Collective Mind scripting language (MLCommons CM)](#collective-mind-language-cm) 
+The Collective Knowledge project consists of two sub-projects 
+to facilitate reproducible research and transfer to production 
+across rapidly evolving models, software, hardware and data
+[Collective Mind language (MLCommons CM)](#collective-mind-language-cm) 
 and
-[Collective Knowledge playground (MLCommons CK)](#collective-knowledge-playground-ck).
+[Collective Knowledge platform (MLCommons CK)](#collective-knowledge-playground-ck).
 
 
 ## Collective Mind language (CM)
 
-### Getting started guide
-
 * [Introduction](introduction-cm.md)
 * [Installation and customization](installation.md)
-* [Testing CM to run image classification on any platform with CPU and GPU](tutorials/modular-image-classification.md)
-* [Understanding CM interface (CLI and Python API)](tutorials/cm-interface.md)
-* [TBD: transforming your software project to the CM format](tutorials/transform-your-project-to-cm.md)
-* [TBD: adding new portable scripts reusable by the community](tutorials/add-new-script.md) ([misc notes](tutorials/scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm))
-* [TBD: FAQ](faq.md)
-* [Other tutorials](tutorials)
-
-### Specification
-
-* [CM format for software projects](specs/cm-repository.md)
-* [CM CLI description](specs/cm-cli.md)
-* [CM Python API](specs/cm-python-interface.md)
-* [CM internal architecture](specs/cm-tool-architecture.md)
-* [List of reusable CM automations](list_of_automations.md)
-* [List of portable and reusable CM scripts](list_of_scripts.md)
+* [Unified CLI and Python API](interface.md)
+* [Tutorials](tutorials/README.md)
+* [Specifications](specs/README.md)
+* [List of reusable CM automations from MLCommons](list_of_automations.md)
+* [List of portable and reusable CM scripts from MLCommons](list_of_scripts.md)
+* [Source code](https://github.com/mlcommons/ck/tree/master/cm/cmind)
+* [FAQ](faq.md)
 
 ## Collective Knowledge playground (CK)
 
+* [Open access](https://x.cKnowledge.org)
 * [Introduction](introduction-ck.md)
+* [Development page](https://github.com/mlcommons/ck/tree/master/platform)
+* [Getting Started Guide](../get-started.md)
+* [Source code (CM script)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/gui)
 
 *Note that this platform is under heavy development. Documentation will come soon. 
  In the meantime, please check our [presentation](https://doi.org/10.5281/zenodo.7871070) 

@@ -2,41 +2,55 @@
 
 # Trying CM: modular image classification
 
-This example demonstrates our unified and human-readable CM interface to run 
-image classification on any platform while automatically detecting or installing 
-all related artifacts and adapting them to your environment.
+This example demonstrates our unified, technology-agnostic and human-readable CM automation language 
+to prepare and run image classification on any platform while automatically detecting or installing 
+all related artifacts and adapting them to your system and environment.
 
-This interface is being developed by the [open taskforce](../taksforce.md) 
+This language is being developed by the [open taskforce](../taksforce.md) 
 to solve the dependency hell and make it easier for the community to run, customize and reuse 
-any software projects in native environments or containers in a unified way.
+research (software) projects in a unified way.
 
-## Install CM
+## Install CM automation language
 
 Please follow this [guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-to install the CM tool on your platform.
+to install the MLCommons CM language on your platform.
 
-## Run modular image classification via CM interface
+
+## Prepare and run modular image classification via CM
 
 Here is an example of a modular image classification assembled from 
-([reusable and portable CM scripts (that simply wrap native scripts and tools)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)).
+([portable and reusable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)).
 using a [human-readable YAML file](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L19).
+CM scripts simply wrap native scripts, tools, and artifacts while making them findable, accessible, portabl, interoperable, and reusable
+based on [FAIR principles](https://www.go-fair.org/fair-principles).
 
-CM will read this YAML (or JSON) description, go through all dependencies on other CM scripts, and attempt to automatically detect, download, install and build all related artifacts 
-and tools to adapt this example to a user platform with Linux, Windows or MacOS.
+CM will read this YAML (or JSON) description, go through all dependencies to run other CM scripts, 
+and attempt to automatically detect, download, install and build all related artifacts 
+and tools to adapt this example to any software and hardware.
 
-First you need to install a CM repository with these portable and reusable scripts as follows:
+Let's go through these steps manually to better understand how CM scripts work.
+
+First you need to install an [MLCommons CM-MLOps repository](https://github.com/mlcommons/ck/tree/master/cm-mlops) 
+with portable and reusable scripts developed by the [MLCommons taskforce on automation and reproducibility](../taskforce.md)
+to unify benchmarking and optimization of ML/AI systems:
 
 ```bash
 cm pull repo mlcommons@ck
 ```
 
-You can then run a CM script implementing modular image classification as follows:
+You can then run a CM script implementing modular image classification example as follows:
 
 ```bash
 cm run script --tags=app,image-classification,onnx,python --quiet
 ```
 
-Note that you can also access CM from Python using just one unified function `cmind.access` similar to micro-services:
+or
+
+```bash
+cm run script "python app image-classification onnx" --quiet
+```
+
+Note that you can also access this CM script using just one unified function `cmind.access` from CM Python API similar to micro services:
 
 ```python
 import cmind
@@ -47,7 +61,7 @@ r=cmind.access({'action':'run', 'automation':'script'
 print (r)
 ```
 
-It may take a few minutes to run this CM script for the first time and adapt it to your platform depending on your Internet speed.
+It may take a few minutes to run this CM script for the first time and adapt it to your platform depending on your hardware and the Internet speed.
 
 Note that all the subsequent runs will be much faster because CM automatically caches the output of all portable CM scripts 
 to be quickly reused in this and other CM scripts.
@@ -56,29 +70,36 @@ to be quickly reused in this and other CM scripts.
 
 You can also force to install specific versions of ML artifacts and tools
 (models, data sets, engines, libraries, run-times, etc) 
-using individual CM scripts to automatically plug them into the above ML task:
+using individual CM scripts to automatically plug them into the above ML application:
 
 ```bash
-cm run script --tags=detect,os --out=json
-cm run script --tags=get,python --version_min=3.9.1
-cm run script --tags=install,python-venv --name=my-virtual-env
-cm run script --tags=get,ml-model-onnx,resnet50
-cm run script --tags=get,dataset,imagenet,original,_2012-500
-cm run script --tags=get,onnxruntime,python-lib --version=1.12.0
+cm run script "detect os" --out=json
+cm run script "get python" --version_min=3.9.1
+cm run script "install python-venv" --name=my-virtual-env
+cm run script "get ml-model-onnx resnet50"
+cm run script "get original imagenet dataset _2012-500"
+cm run script "get python-lib onnxruntime" --version=1.12.0
 
 cm show cache
+cm show cache --tags=python
+cm show cache --tags=ml-model
 
 cm run script --tags=app,image-classification,onnx,python (--input=my-image.jpg)
 ```
 
-Each CM script CLI converts flags into environment variables, optionally updates them and generates tmp files using `customize.py`, 
-runs some native script with these environment variables and files, and outputs new environment variables and files that can be cached
-and reused by other CM scripts. Feel free to explore this [CM entry](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py) 
-that wraps `_cm.yaml`, `run.sh`, `run.bat`, `src/onnx_classify.py` and other files required to run modular inference.
+CM scripts converts CLI flags into environment variables and generates some input files 
+in the `preprocess function` of `customize.py` module.
+They then run a Python function or some native script with these environment variables and input files, 
+and outputs new environment variables and files to the unified CM output dictionary.
+The output and files can be cached and reused by other CM scripts. 
+
+Feel free to explore this [CM script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py) 
+with `_cm.yaml`, `run.sh`, `run.bat`, `src/onnx_classify.py` and other files required to run modular inference.
+
 
 ## Run this script with CUDA
 
-Here is another example to run image classification on CUDA using the same CM interface:
+Here is another example to run the above image classification application with CUDA using the same CM interface:
 
 First detect or install CUDA:
 
@@ -92,13 +113,16 @@ Then run the same CM script with so-called variation `_cuda`:
 cm run script "python app image-classification onnx _cuda"
 ```
 
-If you have some image, you can now classify it using this script as follows:
+Note that variations are different from script tags because they simply update environment variables and dependencies 
+in a given CM script found using tags.
+
+If you have some image, you can classify it using this CM script as follows:
 
 ```bash
 cm run script "python app image-classification onnx _cuda" --input=my-image.jpg
 ```
 
-This [variation](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L45) 
+The variation [*_cuda*](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L45) 
 will set a specific environment variables such as `USE_CUDA="yes"`, 
 that will simply [turn on and off](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L36) 
 some dependencies on other CM scripts. 

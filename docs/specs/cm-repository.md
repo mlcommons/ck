@@ -1,52 +1,50 @@
-[ [Back to index](README.md) ]
+[ [Back to Specs](README.md) ]
 
 ## CM repository structure
 
-By default, CM repositories are stored in `$HOME/CM` on Linux and `%homepath%\CM` on Windows
+By default, CM repositories are stored in `$HOME/CM/repos` on Linux and `%homepath%\CM\repos` on Windows
 
 They have the following structure:
 
 ```
 {ROOT directory} / 
    _cmr.yaml
-   {CM automation alias or Unique ID} / 
-      {CM artifact alias or Unique ID } / 
-         _cm.yaml and/or _cm.json
+   {CM automation alias | Unique ID} / 
+      {CM artifact alias | Unique ID } / 
+         _cm.yaml  |&  _cm.json
          {user scripts, files and directories}
 ```
 
 Feel free to explore two main CM repositories being developed by the open MLCommons taskforce:
-* [internal](https://github.com/mlcommons/ck/blob/master/cm/cmind/repo) (shared inside CM PYPI package)
-* [mlcommons@ck](https://github.com/mlcommons/ck/blob/master/cm-mlops) (shared via GitHub)
+* [internal CM repository](https://github.com/mlcommons/ck/blob/master/cm/cmind/repo) (shared inside CM PYPI package)
+* [MLCommons CM-MLOps repository](https://github.com/mlcommons/ck/blob/master/cm-mlops) (shared via GitHub)
 
 
 ### Root directory
 
 * File *cmr.yaml* - CM repository description
 
-```json
-{
-  alias (str): CM name to find this repository
-  uid (str): unique ID to find this repository
+```yaml
+alias (str): CM name to find this repository
+uid (str): unique ID to find this repository
 
-  (desc) (str): user-friendly description
-  (git) (bool): True, if it's a Git repository and not a local one
-  (prefix) (str): sub-directory inside this repository to keep CM automations and artifacts
-                  - useful to keep original software project repository intact
-}
+(desc) (str): user-friendly description
+(git) (bool): True, if it's a Git repository and not a local one
+(prefix) (str): sub-directory inside this repository to keep CM automations and artifacts
+                - useful to keep original software project repository intact
 ```
 
 Example: [mlcommons@ck description](https://github.com/mlcommons/ck/blob/master/cmr.yaml) 
 
 ### First level directories
 
-* CM automation aliases or Unique IDs
+* CM automation aliases | Unique IDs
 
 Examples: [mlcommons@ck repo](https://github.com/mlcommons/ck/tree/master/cm-mlops)
 
 ### Second level directories
 
-* CM artifact aliases or Unique IDs
+* CM artifact aliases | Unique IDs
 
 Examples: 
 
@@ -55,7 +53,7 @@ Examples:
 
 ### Third level files
 
-* *_cm.yaml and/or _cm.json* - CM meta description of this CM artifact wrapping user scripts, files and directories
+* *_cm.yaml |& _cm.json* - CM meta description of a given CM artifact wrapping native scripts, files and directories
 
 ```json
 {
@@ -77,8 +75,9 @@ Examples:
 
 * any user scripts, files and directories wrapped by this CM artifact
 
-Examples: 
-* [CM script to install system dependencies (any Linux and macOS](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm) 
+## Examples
+
+* [CM script to install system dependencies (any Linux and macOS)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm) 
 * [CM script to install system dependencies (Windows)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-min) 
 * [CM script to detect or install Python](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3) 
 * [CM script to detect LLVM](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm) 

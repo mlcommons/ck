@@ -97,9 +97,12 @@ def main():
 
     st.write("""
              <center>
-             <a href="https://github.com/mlcommons/ck/blob/master/platform/get-started.md">Getting Started</a>
-             &nbsp;&nbsp;&nbsp;
-             <a href="https://github.com/mlcommons/ck/tree/master/platform">About</a>
+              <a href="https://github.com/mlcommons/ck/blob/master/platform/get-started.md">Getting Started</a>
+               &nbsp;&nbsp;&nbsp;
+              <a href="https://github.com/mlcommons/ck/tree/master/platform">About</a>
+               &nbsp;&nbsp;&nbsp;
+              <a href="https://github.com/mlcommons/ck/blob/master/docs/README.md">Docs</a>
+               &nbsp;&nbsp;&nbsp;
              </center>
              """,  
              unsafe_allow_html=True)
