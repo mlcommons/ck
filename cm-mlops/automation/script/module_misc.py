@@ -1111,9 +1111,19 @@ def dockerfile(i):
             "rhel": ["9"]
         }
     else:
-        docker_os = {
+        if i.get('docker_os'):
+            docker_os = {}
+            docker_os[i['docker_os']] = []
+        if i.get('docker_os_version'):
+            docker_os[i['docker_os']] = [i.get('docker_os_version')]
+        else:
+            if docker_os == "ubuntu":
+                docker_os[i['docker_os']] = ["22.04"]
+
+        if not docker_os:
+          docker_os = {
             "ubuntu": ["22.04"],
-        }
+          }
 
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
@@ -1125,7 +1135,8 @@ def dockerfile(i):
         for _os in docker_os:
             for version in docker_os[_os]:
                 dockerfile_path = os.path.join(script_path,'dockerfiles', _os +'_'+version +'.Dockerfile')
-                cm_input = {'action': 'run',
+                if i.get('print_deps'):
+                  cm_input = {'action': 'run',
                             'automation': 'script',
                             'tags': f'{tag_string}',
                             'print_deps': True,
@@ -1133,13 +1144,15 @@ def dockerfile(i):
                             'silent': True,
                             'fake_run': True
                             }
-                r = self_module.cmind.access(cm_input)
-                if r['return'] > 0:
+                  r = self_module.cmind.access(cm_input)
+                  if r['return'] > 0:
                     return r
-                print_deps = r['new_state']['print_deps']
-                comments = [ "#RUN " + dep for dep in print_deps ]
-                comments.append("")
-                comments.append("# Run CM workflow")
+                  print_deps = r['new_state']['print_deps']
+                  comments = [ "#RUN " + dep for dep in print_deps ]
+                  comments.append("")
+                  comments.append("# Run CM workflow")
+                else:
+                  comments = []
 
                 cm_docker_input = {'action': 'run',
                             'automation': 'script',
@@ -1241,8 +1254,8 @@ def docker(i):
         script_alias = meta.get('alias')
         tag_string=",".join(tags)
 
-        _os="ubuntu"
-        version="22.04"
+        _os=i.get('docker_os', 'ubuntu')
+        version=i.get('docker_os_version', '22.04')
 
         dockerfile_path = os.path.join(script_path,'dockerfiles', _os +'_'+version +'.Dockerfile')
 
