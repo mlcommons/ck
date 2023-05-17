@@ -2,6 +2,13 @@
 
 # MLCommons Taskforce on Automation and Reproducibility
 
+## Goals
+
+* Automatically run any MLPerf benchmark out-of-the-box with any software, hardware, model and data from any vendor: (prototype is available and validated during MLPerf inf v3.0 submission)
+* Automate optimization experiments and visualization of results with derived metrics: [prototype](https://cknowledge.org/mlcommons-inference-gui)
+* Generate Pareto-optimal end-to-end applications based on reproducible MLPerf results: (under development)
+
+
 ## Mission
 
 This public taskforce is developing a free, open-source and technology-agnostic on-prem 

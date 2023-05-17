@@ -11,17 +11,17 @@
     * [Understanding unified output dictionary](#understanding-unified-output-dictionary)
     * [Modifying state dictionary](#modifying-state-dictionary)
     * [Running CM scripts via CM Python API](#running-cm-scripts-via-cm-python-api)
-  * [Understanding CM script dependencies](#understanding-cm-script-dependencies)
-  * [Customizing CM script execution](#customizing-cm-script-execution)
-  * [Unifying host OS and CPU detection](#unifying-host-os-and-cpu-detection)
-  * [Detecting, installing and caching system dependencies](#detecting-installing-and-caching-system-dependencies)
-  * [Detecting, installing and caching tools](#detecting-installing-and-caching-tools)
-  * [Detecting, installing and caching artifacts](#detecting-installing-and-caching-artifacts)
+    * [Assembling pipelines (workflows) of CM scripts](#assembling-pipelines-workflows-of-cm-scripts)
+    * [Customizing CM script execution flow](#customizing-cm-script-execution-flow)
+    * [Caching output of CM scripts](#caching-output-of-cm-scripts)
+    * [Assembling pipeline to compile and run image corner detection](#assembling-pipeline-to-compile-and-run-image-corner-detection)
+    * [Assembling pipelines with other artifacts included](#assembling-pipelines-with-other-artifacts-included)
+    * [Unifying host OS and CPU detection](#unifying-host-os-and-cpu-detection)
+    * [Detecting, installing and caching system dependencies](#detecting-installing-and-caching-system-dependencies)
     * [Using variations](#using-variations)
-  * [Assembling image classification pipeline](#assembling-image-classification-pipeline)
-  * [Compiling and running image corner detection](#compiling-and-running-image-corner-detection)
-  * [Running CM scripts inside containers](#running-cm-scripts-inside-containers)
-  * [Related](#related)
+    * [Running CM scripts inside containers](#running-cm-scripts-inside-containers)
+    * [Getting help about other script automation flags](#getting-help-about-other-script-automation-flags)
+  * [Further reading](#further-reading)
 
 </details>
 
@@ -41,7 +41,7 @@ across different software, hardware, models and data.
 ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-ad-hoc-projects.png)
 
 This experience motivated us the create a CM automation called "script" to warp native scripts
-from research papers with a common CM CLI (and Pyhton API) to make them more reusable, portable, 
+from research papers with a common CM CLI (and Python API) to make them more reusable, portable, 
 findable and deterministic across different projects. 
 
 These scripts simply unify updating and caching of environment variables and output files.
@@ -207,7 +207,8 @@ CM script automation CLI uses a flag `--env.VAR=VALUE` to set some environment v
 as shown in this example:
 
 ```bash
-cm run script "print native-script hello-world" --env.CM_ENV_TEST1=ABC1 --env.CM_ENV_TEST2=ABC2
+cm run script "print native-script hello-world" \
+     --env.CM_ENV_TEST1=ABC1 --env.CM_ENV_TEST2=ABC2
 
 ...
 
@@ -223,7 +224,8 @@ while `default_env` dictionary allows environment variables to be updated extern
 You can still force an environment variable to a given value externally using a `--const` flag as follows:
 
 ```bash
-cm run script "print native-script hello-world" --env.CM_ENV_TEST1=ABC1 --const.CM_ENV_TEST2=ABC2 
+cm run script "print native-script hello-world" \
+     --env.CM_ENV_TEST1=ABC1 --const.CM_ENV_TEST2=ABC2 
 
 ...
 
@@ -329,10 +331,11 @@ We use a dictionary `state` that can be updated and exposed by a given script vi
 in the `_cm.json` meta description of this script.
 
 In the following example, `hello_world` key will be updated in the `new_state` dictionary,
-while `hello` key will not be updated because it is not included in the wildcard `"new_state_key":["hello_world*"]`:
+while `hello` key will not be updated because it is not included in the wild card `"new_state_key":["hello_world*"]`:
 
 ```bash
-cm run script --tags=print,hello-world,script --out=json --state.hello=xyz1 --state.hello_world=xyz2
+cm run script --tags=print,hello-world,script --out=json \
+     --state.hello=xyz1 --state.hello_world=xyz2
 
 ...
 
@@ -426,10 +429,11 @@ Simply add the following dictionary "deps" to the `_cm.json` or `_cm.yaml` of yo
 
 ```
 
-This CM script will run all dependendent scripts in above sequence, aggregate environment variable and `state` dictionary,
+This CM script will run all dependent scripts in above sequence, aggregate environment variable and `state` dictionary,
 and will then run native scripts.
 
-You can also turn on specific dependencies based on some values oin specific environment variables in the pipeline as follows:
+You can also turn on specific dependencies based on some values in specific environment variables or min/max version (if supported) 
+in this pipeline as follows:
 
 ```json
 
@@ -441,7 +445,8 @@ You can also turn on specific dependencies based on some values oin specific env
     },
     {                           
       "tags": "a string of tags separated by comma to find and execute the 1st CM script" 
-      "enable_if_env": { "USE_CPU" : ["yes", "YES", "true"] }
+      "enable_if_env": { "USE_CPU" : ["yes", "YES", "true"] },
+      "version_min": "3.10"
     },
     ...
   ]
@@ -453,7 +458,15 @@ You can also specify dependencies to be invoked after executing native scripts
 using a dictionary `"post_deps"` with the same format `"deps"`.
 
 
+You can see an example of such dependencies in the [_cm.json](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/print-hello-world-py/_cm.json)
+of the ["print-hello-world-py" CM script](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/print-hello-world-py) 
+that detects and unifies OS parameters using the ["detect-os" CM script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os),
+detects or builds Python using the ["get-python3" CM script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3) 
+and then runs `code.py` with "Hello World" from `run.sh` or `run.bat`:
 
+```bash
+cm run script "print python hello-world"
+```
 
 
 
@@ -485,13 +498,376 @@ Note that native scripts can also create 2 files that will be automatically pick
 If `postprocess` function exists in the *customize.py* file, the CM script will call it
 to finalize the postprocessing of files, environment variables, and the state dictionary.
 
+You can see an [example of such `customize.py` module](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-python3/customize.py) in the CM script
+to [detect or install/build Python interpreter](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3) in a unified way on any machine.
+
+This script exposes a number of environment variables for a detected Python
+in the [`postprocess` function](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-python3/customize.py#L60):
+
+* `CM_PYTHON_BIN` - python3.10 or python.exe or any other name of a Python interpreteur on a given system
+* `CM_PYTHON_BIN_PATH` - path to a detected or installed python
+* `CM_PYTHON_BIN_WITH_PATH` - full path to a detected or installed python
+* `LD_LIBRARY_PATH` - updated LD_LIBRARY_PATH to python
+* `PATH` - updated PATH to python
+
+These environment variables can be reused by other CM scripts or external tools 
+while decoupling them from specific python versions and paths, and even allowing
+multiple versions of tools and artifacts to co-exist on the same system
+and plugged into CM scripts:
+
+```bash
+cm run script "get python3" --out=json
+```
+
+
+
+### Caching output of CM scripts
+
+By default, CM scripts run wrapped scripts and tools, update environment variables and produce new files in the current directory.
+
+In many cases, we want to cache the output and environment variables when we run the same CM script with the same input again
+to avoid potentially lengthy detections, downloads, builds and data pre/post processing.
+
+That's why we have developed another CM automation called ["cache"](../cache/README-extra.md) 
+to cache the output of scripts in the "cache" artifacts in the "local" CM repository
+that can be found by tags or unique IDs like any other CM artifact.
+
+Our convention is to use names *get-{tool or artifact}* for CM scripts that detect already installed artifacts, 
+prepare their environment and cache them in the *local* CM repository using the "cache" automation.
+
+If installed artifact doesn't exist, we either enhance above scripts to include download, installation and even building
+for a given artifact (if it's a tool) or we create extra CM scripts *install-{tool or artifact}* 
+that download and prepare tools and artifacts (install, build, preprocess, etc).
+
+For example, the CM script [*get-python3*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+has *customize.py* with *preprocess* function that implements the search for python3 on Linux
+or python.exe on Windows, 2 native scripts *run.sh* and *run.bat* to obtain the version of the detected python installation,
+and *postprocess* function to prepare environment variables *CM_PYTHON_BIN* and *CM_PYTHON_BIN_WITH_PATH*
+that can be used by other CM scripts:
+
+```bash
+cm run script "get python" --out=json
+```
+
+If you run it for the first time and CM script detects multiple versions of python co-existing on your system, 
+it will ask you to select one. CM will then cache the output in the *cache* artifact of the CM repository. 
+You can see all *cache* CM entries for other tools and artifacts as follows:
+
+```bash
+cm show cache
+```
+or
+```bash
+cm show cache --tags=get,python
+```
+
+You can see the cached files as follows:
+```bash
+ls `cm find cache --tags=get,python`
+```
+
+* _cm.json - CM meta description of this "cache" artifact with its uniqie ID, tags and other meta information
+* cm-cached-state.json - dictionary with the new environment variables and the new state dictionary
+* tmp-env-all.sh - all environment variables used during CM script execution
+* tmp-env.sh - only new environment variables produced after CM script execution (it can be used directly by external tools)
+* tmp-run.sh - all environment variables and a call to the native script (useful for reproducibility)
+* tmp-state.json - the state before running native script - it can be loaded and used by native scripts and tools instead of using environment variables
+* tmp-ver.out - the output of the --version command parsed by `postprocess` and `detect_version` functions in `customize.py`
+
+
+If you (or other CM script) run this CM script to get the python tool for the second time, CM script will reuse the cached output:
+```bash
+cm run script "get python" --out=json
+```
+
+This also allows us to install multiple tool versions into different CM cache entries (python virtual environments, 
+LLVM compiler, etc) and use them separately without the need to change higher-level CM scripts - these tools
+will be automatically plugged in:
+
+```bash
+cm run script "install prebuilt llvm" --version=14.0.0
+cm run script "install prebuilt llvm" --version=16.0.0
+cm run script "install src llvm"
+```
+
+
+Such approach allows us to "probe" the user environment, detect different tools and artifacts, unify them
+and adapt complex applications to a user environment in an automatic, transparent and non-intrusive way
+as shown in the next example.
+
+
+
+### Assembling pipeline to compile and run image corner detection
+
+We can use automatically detected compiler from CM script to create simple and technology-netural compilation and execution pipelines
+in CM scripts. 
+
+For example, we have implemented a simple [image corner detection CM script]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection )
+with [this meta description](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-corner-detection/_cm.json).
+
+It uses two other reusable CM scripts to compile a given program using a detected/installed and cached compiler via CM (such as LLVM),
+and then run it with some input image.
+
+First, let's detect installed LLVM it via CM:
+
+```bash
+cm run script "get llvm"
+```
+or install a prebuilt version on Linux, MacOs or Windows:
+```bash
+cm run script "install prebuilt llvm" --version=14.0.0
+```
+
+We can then run this CM script to compile and run image corner detection as follows:
+```bash
+cm run script "app image corner-detection" --input=`cm find script --tags=app,image,corner-detection`/computer_mouse.pgm
+```
+
+This CM script will preset environment variables for a detected/installed compiler,
+compile our C program, run it via `run.sh` (Linux/MacOS) or `run.bat` (Windows)
+and generate an output image *output_image_with_corners.pgm* in the `output` directory of this script:
+
+```bash
+ls `cm find script --tags=app,image,corner-detection`/output
+
+image-corner  output_image_with_corners.pgm
+
+```
+
+Note that this directory also contains the compiled tool "image-corner" that can now be used independently from CM if necessary.
+
+
+
+
+### Assembling pipelines with other artifacts included
+
+We can now use existing CM scripts as "LEGO" blocks to assemble more complex automation pipelines and workflows
+while automatically downloading and plugging in 
+and pre-/post-processing all necessary artifacts (models, data sets, frameworks, compilers, etc)
+on any supported platform (Linux, MacOS, Windows).
+
+For example, we have implemented a simple image classification application automated by the following CM script:
+[*app-image-classification-onnx-py*]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py ).
+
+It is described by the following [`_cm.yaml`](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml) meta description:
+
+```yaml
+alias: app-image-classification-onnx-py
+uid: 3d5e908e472b417e
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular ML/AI applications"
+
+tags:
+- app
+- image-classification
+- onnx
+- python
+
+default_env:
+  CM_BATCH_COUNT: '1'
+  CM_BATCH_SIZE: '1'
+
+deps:
+- tags: detect,os
+- tags: get,sys-utils-cm
+- names:
+  - python
+  - python3
+  tags: get,python3
+- tags: get,cuda
+  names:
+  - cuda
+  enable_if_env:
+    USE_CUDA:
+    - yes
+- tags: get,dataset,imagenet,image-classification,original
+- tags: get,dataset-aux,imagenet-aux,image-classification
+- tags: get,ml-model,resnet50,_onnx,image-classification
+
+- tags: get,generic-python-lib,_onnxruntime
+  skip_if_env:
+    USE_CUDA:
+    - yes
+- tags: get,generic-python-lib,_onnxruntime_gpu
+  enable_if_env:
+    USE_CUDA:
+    - yes
+
+variations:
+  cuda:
+    env:
+      USE_CUDA: yes
+```
+
+
+Its `deps` pipeline runs other CM scripts to detect OS parameters, detect or install Python, 
+install the latest ONNX run-time, download ResNet-50 model and the minimal ImageNet dataset (500).
+
+It also contains [`run.sh`](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/run.sh) 
+and [`run.bat`](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/run.bat)
+to install extra Python requirements (not yet unified by CM scripts) 
+and run a Python script that classifies an image from ImageNet
+or an image provided by user. 
+
+You can run it on any system as follows:
+
+```bash
+cm run script "python app image-classification onnx"
+
+```
+
+If you run this CM script for the first time, it may take some minutes because it will detect, download, build and cache all dependencies.
+
+When you run it again, it will plug in all cached dependencies:
+
+```bash
+cm run script "python app image-classification onnx"
+
+```
+
+You can then run it with your own image as follows:
+```bash
+cm run script --tags=app,image-classification,onnx,python --input={path to my JPEG image}
+```
+
+
+### Unifying host OS and CPU detection
+
+In order to make experiments more portable and interoperable, we need to unify
+the information about host OS and CPU across different systems. 
+We are gradually improving the following two CM scripts:
+
+* [`detect-os`](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+* [`detect-cpu`](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+
+These two CM script have *customize.py* with preprocess and postprocess functions
+and a native run script to detect OS info and update environment variables
+and the state dictionary needed by all other CM scripts. 
+
+You can run them on your platform as follows:
+
+```bash
+cm run script "detect os" --out=json
+
+...
+
+cm run script "detect cpu" --out=json
+```
+
+If some information is missing or not consistent across different platforms,
+you can improve it in a backwards compatible way. You can then submit a PR [here](https://github.com/mlcommons/ck/pulls)
+to let the community reuse your knowledge and collaboratively enhance common automation scripts, pipelines and workflows -
+that's why we called our project "Collective Knowledge".
+
+
+### Detecting, installing and caching system dependencies
+
+Many projects require installation of some system dependencies. Unfortuantely, the procedure
+is different across different systems. 
+
+That's why we have developed two other CM script to unify and automate this process on any system.
+
+* [`get-sys-utils-cm`]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm )
+* [`get-sys-utils-min`]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-min )
+
+They will install (minimal) system dependencies based on the OS and CPU info detected by CM scripts mentioned above.
+
+The last script is particularly useful to make applications compatible with Windows
+where many typical tools like "wget", "patch", etc are missing - they will be automatically
+download by that script.
+
+You can use them as follows:
+```bash
+cm run script "get sys-utils-min" --out=json
+cm run script "get sys-utils-cm"
+```
+
+
+
+
+### Using variations
+
+In some cases, we want the same CM script to download some artifact in a different format.
+
+For example, we may want to download and cache ResNet50 model in ONNX or PyTorch or TensorFlow or TFLite format.
+
+In such case, we use so-called `variations` in the meta description of a given CM script.
+
+For example, the CM script [`get-ml-model-resnet50`] has many variations and combinations separated by comma 
+to download this model in multiple formats: 
+
+* `onnx`
+* `onnx,opset-11`
+* `onnx,opset-8`
+* `pytorch`
+* `pytorch,fp32`
+* `pytorch,int8`
+* `tflite`
+* `tflite,argmax`
+* `tflite,no-argmax`
+* `tensorflow`
+* `batch_size.1`
+* `batch_size.#`
+
+These variations simply update environment variables and add more dependencies on other CM scripts
+before running `customize.py` and native scripts as described in [_cm.json]( https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-ml-model-resnet50/_cm.json#L30 ).
+
+It is possible to specify a required variation or multiple variations when running a given CM script by adding extra tags with "_" prefix.
+
+For example, you can install quantized ResNet-50 model in PyTorch int8 format as follows:
+
+```bash
+cm run script "get ml-model resnet50 _pytorch _int8" --out=json
+```
+
+You can install another FP32 variation of this model at the same time:
+```bash
+cm run script "get ml-model resnet50 _pytorch _fp32" --out=json
+```
+
+You can now find them in cache by tags and variations as follows:
+```bash
+cm show cache --tags=get,ml-model,resnet50
+cm show cache --tags=get,ml-model,resnet50,_pytorch
+cm show cache --tags=get,ml-model,resnet50,_pytorch,_fp32
+```
 
 
 
 
 
 
-### Getting help about all script automation flags
+
+
+
+
+
+### Running CM scripts inside containers
+
+One of the important ideas behind using a common automation language
+is to use it inside and outside containers thus avoiding the need to create 
+ad-hoc manual containers and README files.
+
+We can just use base containers and let the CM automation language
+detect installed tools and connect external data with the automation pipelines and workflows.
+
+See examples of modular containers with CM language to automate the MLPerf inference benchmark from MLCommons
+[here](https://github.com/mlcommons/ck/tree/master/docker).
+
+Note that we continue working on a CM functionality to automatically generate
+Docker containers and README files when executing CM scripts
+(a prototype was successfully validated in the MLPerf inference v3.0 submission):
+
+* https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-dockerfile
+* https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image
+
+
+
+
+### Getting help about other script automation flags
 
 You can get help about all flags used to customize execution 
 of a given CM script from the command line as follows:
@@ -511,255 +887,13 @@ You can find more info about CM script execution flow in this [document](README-
 
 
 
-## Unifying host OS and CPU detection
-
-In order to make MLOps and DevOps tools more portable and interoperable, we need to unify
-the information about host OS and CPU. We are developing the following 2 CM script:
-
-* *detect-os* - See [CM script on GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-* *detect-cpu* - See [CM script on GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
-
-These 2 CM script have *customize.py* with preprocess and postprocess functions
-and a native run script to detect OS info and update environment variables
-and the state dictionary needed by dependent CM scripts. 
-
-You can run them on your platform as follows:
-
-```bash
-cm run script --tags=detect-os --out=json
-
-...
-
-cm run script --tags=detect-cpu --out=json
-```
-
-## Detecting, installing and caching system dependencies
-
-We can now use CM scripts to detect or install system dependencies based on the OS and CPU info.
-
-We have implemented such a prototype of the CM script [*get-sys-utils-cm*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
-that either downloads and caches various basic tools (wget, tar, gzip) on Windows
-or installs system dependencies via *apt-get* on Linux with *sudo*.
-
-You can test it as follows:
-```bash
-cm run script --tags=get,sys-utils-cm
-```
-
-## Detecting, installing and caching tools
-
-One of our goals is to automatically detect all existing dependencies required to run a given tool or application
-before installing the fixed ones to be able to automatically adapt tools and applications to a user platform and environment.
-
-We are developing CM scripts *get-{tool or artifact}* to detect installed artifacts, prepare their environment
-and cache them in the *local* CM repository using the "installed" automation.
-
-If installed artifact doesn't exist, we either enhance above scripts to include download, install and even build
-or we create new CM scripts *install-{tool or artifact}* that download and prepare tools and artifacts (install, build
-and preprocess them).
-
-Let's check the CM script *get-python3* (See [CM script on GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)).
-It has *customize.py* with *preprocess* function that implements the search for python3 on Linux
-or python.exe on Windows, 2 native scripts *run.sh* and *run.bat* to get the version of the detected python installation,
-and *postprocess* function to prepare environment variables *CM_PYTHON_BIN* and *CM_PYTHON_BIN_WITH_PATH*
-that can be used by other CM scripts.
-
-Let's run it:
-```bash
-cm run script --tags=get-python --out=json
-```
-
-If you run it for the first time and CM script detects multiple versions of python, it will ask you to select one.
-IC will then cache the output in the *cache* entry of the CM database. You can see all *cache* CM entries
-for other tools and artifacts as follows:
-```bash
-cm show cache
-```
-or
-```bash
-cm show cache --tags=get-python
-```
-
-You can see the cached files as follows:
-```bash
-ls `cm find cache --tags=get-python`
-```
-
-If you (or other CM script) run this CM script to get the python tool for the second time, CM script will use the cached data:
-```bash
-cm run script --tags=get,python --out=json
-```
-
-Such approach allows us to "probe" the user environment and detect different tools that can be unified
-and used by other CM scripts or external workflows.
-
-If a tool or artifact is not detected, we can use installation script.
-For example, you can install a prebuilt version of LLVM in a unified way on Windows, Linux and MacOs as follows:
-```bash
-cm run script --tags=install,prebuilt-llvm --version=14.0.0
-```
-
-## Detecting, installing and caching artifacts
-
-One of the differences of MLOps from DevOps is that MLOps must be able to deal with diverse ML models, data sets 
-and continuous experiments to iteratively improve accuracy, performance, energy usage, model/memory size and other
-important parameters of the ML and AI-based applications.
-
-That is why our CM script concept is applied not only to scripts and tools but also to any user artifact required
-to develop, optimize, deploy and use a complex application
-
-For example, we have developed 2 CM scripts to demonstrate how to install "ResNet-50" model and reduced "ImageNet" dataset with 500 images:
-* [*get-ml-model-resnet50-onnx*]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-onnx )
-* [*get-imagenet-val*]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-imagenet-val )
-
-You can run them as follows:
-```bash
-cm run script --tags=get,ml-model-onnx,resnet50
-cm run script --tags=get,dataset,imagenet
-
-cm show cache
-```
-
-or
-
-```bash
-cm run script --tags=get,ml-model-onnx,image-classification
-cm run script --tags=get,dataset,image-classification
-```
-
-When executed for the first time, these CM scripts will download ML artifacts and cache them using CM "cache" automation.
-
-Note that you can find these "cache" CM entries using CM database API and use the *tmp-env.sh* or *tmp-env.bat* directly
-in your own projects without the need for further CM automation. Such approach allows gradual decomposition of complex
-applications into CM scripts and gradual (evolutionary) adoption of the CM technology.
-
-### Using variations
-
-It is possible to download a specific version of an artifact using so-called "variations".
-For example, the CM script *get-ml-model-resnet50-onnx* has 2 variations for ONNX Opset 8 and 11
-as described in [_cm.json]( https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-ml-model-resnet50-onnx/_cm.json#L20 ).
-
-It is possible to specify a required variation when running a given CM script using tags with "_" prefix.
-For example, you can install ResNet-50 model with "1.5-opset-11" variation as follows:
-```bash
-cm run script --tags=get,ml-model,resnet50-onnx,_1.5-opset-11
-```
-
-You can also install another variation "1.5-opset-8" of this CM script at the same time:
-```bash
-cm run script --tags=get,ml-model,resnet50-onnx,_1.5-opset-8
-```
-
-## Assembling image classification pipeline
-
-We can now use existing CM scripts as basic "LEGO" blocks to quickly assemble more complex automation pipelines and workflows
-as new CM scripts with the same API/CLI.
-
-
-We demonstrate this approach by implementing simple image classification as an CM script 
-[*app-image-classification-onnx-py*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py).
-
-It has a dependency on the above CM scripts including OS unification, python detection, ResNet-50 model and the ImageNet dataset 
-as described in its [*_cm.json*](prototype-image-classification-onnx-py):
-
-```json
-"deps": [
-    {
-      "tags": "set,echo-off,win"
-    },
-    {
-      "tags": "detect,os,info"
-    },
-    {
-      "tags": "get,sys-utils-cm"
-    },
-    {
-      "tags": "get,python"
-    },
-    {
-      "tags": "get,dataset,imagenet,image-classification,original"
-    },
-    {
-      "tags": "get,dataset-aux,imagenet-aux,image-classification"
-    },
-    {
-      "tags": "get,ml-model-onnx,resnet50,image-classification"
-    },
-    {
-      "tags": "get,onnxruntime,python-lib"
-    }
-  ],
-```
-
-It also has *run.sh* and *run.bat* to install Python requirements and run a Python script 
-that will output classification results. You can run it as follows:
-
-```bash
-cm run script --tags=app,image-classification,onnx,python
-cm run script --tags=app,image-classification,onnx,python --out=json
-
-```
-
-If you run this CM script for the first time, it will run and cache all dependencies.
-
-You can run it with your own image as follows:
-```bash
-cm run script --tags=app,image-classification,onnx,python --input={path to my JPEG image}
-```
-
-## Compiling and running image corner detection
-
-We can also create a pipeline from CM scripts to compile and run some program.
-We have implemented a sample [image corner detection CM script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection) 
-that compiles C program using a detected or installed compiler via CM (for example LLVM)
-and runs it with some image.
-
-First, let's detect installed LLVM:
-```bash
-cm run script --tags=get,llvm
-```
-or install a prebuilt version on Linux, MacOs or Windows:
-```bash
-cm run script --tags=install,prebuilt-llvm --version=14.0.0
-```
-
-We can then run CM script to compile and run image corner detection as follows:
-```bash
-cm run script --tags=app,corner-detection --input={path to my PGM image}
-```
-
-Normally, a C program will be compiled, executed and a new image created with
-detected corners: *output_image_with_corners.pgm*
-
-
-
-## Running CM scripts inside containers
-
-CM scripts can be used both in the native environment and containers.
-In fact, CM scripts can be used to automatically connect the same complex automation pipelines and workflows 
-with external data and tools via environment variables and files. 
-
-We are developing the concept of modular containers assembled from "CM" scripts
-and will update this section soon!
-
-Related CM scripts under development:
-* https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-dockerfile
-* https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image
-* https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-image-classification-onnx-py
-* https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-mlperf-vision-reference
-
-
-
-
-
-
-
 
                            
 
 
-## Related
+## Further reading
 
 * [CM "script" automation specification](README-specs.md)
+* [MLCommons CM script sources](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
 * [List of portable and reusable CM scripts from MLCommons](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
 * [CM "cache" automation](../cache/README-extra.md)
