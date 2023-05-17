@@ -185,6 +185,10 @@ def postprocess(i):
                     count = count+1
 
             readme = readme_init + readme_body
+
+            if not readme:
+                readme = "TBD"
+
             with open ("README.md", "w") as fp:
                 fp.write(readme)
 
