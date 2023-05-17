@@ -164,6 +164,7 @@ ___
         - *CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor:0`
         - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor:0\": (BATCH_SIZE, 3, 224, 224)`
         - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor:0`
+        - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
         - *CM_ML_MODEL_VER*: `1.5`
       - Workflow:
     * `_pytorch`
