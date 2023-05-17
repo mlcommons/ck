@@ -26,6 +26,9 @@
   "new_env_keys": [
     "CM_PYTHONLIB_*"
   ],
+  "local_env_keys": [
+    "CM_GENERIC_PYTHON_PACKAGE_VARIANT"
+  ],
   "tags": [
     "get",
     "install",
@@ -83,6 +86,13 @@
             "torch"
           ],
           "tags": "get,generic-python-lib,_torch_cuda"
+        },
+        {
+          "tags": "get,git,repo,_repo.https://github.com/NVIDIA/apex",
+          "env": {
+            "CM_GIT_CHECKOUT": "master",
+            "CM_GIT_CHECKOUT_FOLDER": "apex"
+          }
         }
       ]
     },
@@ -609,7 +619,7 @@
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
         "CM_GENERIC_PYTHON_PIP_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
         "CM_GENERIC_PYTHON_PIP_EXTRA": " --pre",
-        "CM_TORCH_CUDA": "cu117",
+        "CM_TORCH_CUDA": "cu118",
         "CM_TORCH_VERSION_EXTRA": "CUDA"
       },
       "new_env_keys": [
@@ -640,7 +650,7 @@
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
         "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
-        "CM_TORCH_CUDA": "cu117",
+        "CM_TORCH_CUDA": "cu118",
         "CM_TORCH_VERSION_EXTRA": "CUDA"
       },
       "new_env_keys": [
@@ -672,7 +682,7 @@
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio",
         "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
         "CM_TORCHAUDIO_VERSION_EXTRA": "CUDA",
-        "CM_TORCH_CUDA": "cu117"
+        "CM_TORCH_CUDA": "cu118"
       },
       "new_env_keys": [
         "CM_TORCHAUDIO_VERSION*"
