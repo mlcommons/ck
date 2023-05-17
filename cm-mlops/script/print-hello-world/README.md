@@ -11,6 +11,7 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -30,7 +31,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *print,hello-world,hello world,hello,world,script*
+* CM "database" tags to find this script: *print,hello-world,hello world,hello,world,native-script,native,script*
 * Output cached?: *False*
 ___
 ### Usage
@@ -49,11 +50,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=print,hello-world,hello world,hello,world,script `
+1. `cm run script --tags=print,hello-world,hello world,hello,world,native-script,native,script [--input_flags]`
 
-2. `cm run script "print hello-world hello world hello world script" `
+2. `cm run script "print hello-world hello world hello world native-script native script" [--input_flags]`
 
-3. `cm run script b9f0acba4aca4baa `
+3. `cm run script b9f0acba4aca4baa [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -70,7 +71,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'print,hello-world,hello world,hello,world,script'
+                  'tags':'print,hello-world,hello world,hello,world,native-script,native,script'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -87,9 +88,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="print,hello-world,hello world,hello,world,script"```
+```cm run script --tags=gui --script="print,hello-world,hello world,hello,world,native-script,native,script"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=print,hello-world,hello world,hello,world,script) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=print,hello-world,hello world,hello,world,native-script,native,script) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -98,6 +99,21 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=print,hello-world,hell
 ___
 ### Customization
 
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--test1=value`  &rarr;  `CM_ENV_TEST1=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "test1":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
@@ -105,6 +121,7 @@ ___
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
+* CM_ENV_TEST1: `TEST1`
 
 </details>
 
@@ -129,6 +146,7 @@ ___
 ### Script output
 #### New environment keys (filter)
 
+* `CM_ENV_TEST*`
 #### New environment keys auto-detected from customize
 
 ___

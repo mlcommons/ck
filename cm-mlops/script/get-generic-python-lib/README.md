@@ -235,6 +235,8 @@ ___
            * get,generic-python-lib,_torch_cuda
              * CM names: `--adr.['torch']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,git,repo,_repo.https://github.com/NVIDIA/apex
+             - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
     * `_nvidia-dali`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `nvidia-dali-cuda110`
@@ -413,7 +415,7 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
-        - *CM_TORCH_CUDA*: `cu117`
+        - *CM_TORCH_CUDA*: `cu118`
         - *CM_TORCH_VERSION_EXTRA*: `CUDA`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
@@ -425,7 +427,7 @@ ___
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
         - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
         - *CM_GENERIC_PYTHON_PIP_EXTRA*: ` --pre`
-        - *CM_TORCH_CUDA*: `cu117`
+        - *CM_TORCH_CUDA*: `cu118`
         - *CM_TORCH_VERSION_EXTRA*: `CUDA`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
@@ -444,7 +446,7 @@ ___
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchaudio`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
         - *CM_TORCHAUDIO_VERSION_EXTRA*: `CUDA`
-        - *CM_TORCH_CUDA*: `cu117`
+        - *CM_TORCH_CUDA*: `cu118`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,cuda
