@@ -3725,7 +3725,7 @@ def update_env_keys(env, env_key_mappings):
             if key.startswith(key_prefix):
                 new_key = key.replace(key_prefix, env_key_mappings[key_prefix])
                 env[new_key] = env[key]
-                del(env[key])
+                #del(env[key])
 
 ##############################################################################
 def convert_env_to_script(env, os_info, start_script = []):

@@ -148,7 +148,8 @@ def generate_submission(i):
             if not os.path.isdir(submission_code_path):
                 os.makedirs(submission_code_path)
             if not os.path.exists(os.path.join(submission_code_path, "README.md")):
-                with open(os.path.join(submission_code_path, "README.md"), mode='w'): pass #create an empty README
+                with open(os.path.join(submission_code_path, "README.md"), mode='w') as f:
+                    f.write("TBD") #create an empty README
 
             print('* MLPerf inference model: {}'.format(model))
             for scenario in scenarios:
@@ -265,7 +266,8 @@ def generate_submission(i):
                         shutil.copy(os.path.join(result_mode_path, f), p_target)
 
                     if not readme:
-                        with open(os.path.join(submission_measurement_path, "README.md"), mode='w'): pass #create an empty README
+                        with open(os.path.join(submission_measurement_path, "README.md"), mode='w') as f:
+                            f.write("TBD") #create an empty README
 
     return {'return':0}
 

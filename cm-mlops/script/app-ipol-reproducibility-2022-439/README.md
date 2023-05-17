@@ -30,7 +30,7 @@ See [more info](README-extra.md).
 
 #### Information
 
-* Category: *IPOL reproducibility.*
+* Category: *Reproduced papers.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*

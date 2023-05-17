@@ -30,6 +30,7 @@ def preprocess(i):
                'env': env,
                'run_script_input':i['run_script_input'],
                'recursion_spaces':recursion_spaces})
+
     if r['return'] >0:
         if r['return'] == 16:
             extra = env.get('CM_GENERIC_PYTHON_PIP_EXTRA','')
@@ -63,6 +64,7 @@ def preprocess(i):
                 return automation._available_variations({'meta':meta})
 
             r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'install'})
+
             if r['return']>0: return r
 
     return {'return':0}
