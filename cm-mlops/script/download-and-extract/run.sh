@@ -4,7 +4,7 @@ if [ -f ${CM_DAE_DOWNLOADED_FILENAME} ]; then
   echo ${CMD}
   eval ${CMD}
 else
-  CMD="wget -nc ${CM_DAE_URL}"
+  CMD=${CM_DAE_DOWNLOAD_CMD}
   echo ${CMD}
   eval ${CMD}
   test $? -eq 0 || exit $?
