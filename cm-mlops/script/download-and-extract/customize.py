@@ -23,6 +23,8 @@ def preprocess(i):
             env['CM_DAE_FILENAME'] = "index.html"
 
     filename = env['CM_DAE_FILENAME']
+    url = env['CM_DAE_URL']
+
     if filename.endswith(".zip"):
         env['CM_DAE_UNZIP'] = "yes"
     elif filename.endswith(".tar.gz"):
@@ -35,6 +37,11 @@ def preprocess(i):
         env['CM_DAE_DOWNLOADED_CHECKSUM_CMD'] = "echo {} {} | md5sum -c".format(env.get('CM_DAE_DOWNLOADED_CHECKSUM'), env['CM_DAE_FILENAME'])
     else:
         env['CM_DAE_DOWNLOADED_CHECKSUM_CMD'] = ""
+
+    if env['CM_DAE_DOWNLOAD_TOOL'] == "wget":
+        env['CM_DAE_DOWNLOAD_CMD'] = f"wget -nc {url}"
+    if env['CM_DAE_DOWNLOAD_TOOL'] == "curl":
+        env['CM_DAE_DOWNLOAD_CMD'] = f"curl {url}"
 
     if env.get('CM_DAE_EXTRACT_DOWNLOADED','') == 'yes':
         if env.get('CM_DAE_REMOVE_EXTRACTED','') == 'yes':

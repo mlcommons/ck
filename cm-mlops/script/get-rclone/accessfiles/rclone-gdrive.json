@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "single-nebula-387521",
+  "private_key_id": "050946295f7f9b553a03945e1d0b3661e28fa19d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC/8wCuKtH0Q1vs\ng7SZ+IUGEseztcOyPEEMpB3qyaKuOfdWVAE5GBytzTRka76Ll7de2VgbFnS975DM\nUJ4r0++0++6OkGpWoHVnhStujrImRmcH6CmMLKje7MrIkGFC7t7vroew3Jlr54KS\nbBCezFIp2W2ZCypL0OIQ/RBQoOnJzH3Qsw9BDJkjOA7ATzMMvEJfDIVXeAAdoXd5\n3U9BTqee7NoohR1PakGT+rjLNvIqUJzK6wQEdG71hBVthHlu3CJnUwmmxIlgMUx3\nwCCisTEAtL36A0sa0H1HMOiTR9vacHCBLWyPr+BEOuY+Bb8Ebq61J2Y6zxLs+xdR\nDOel7zm1AgMBAAECggEAArSJ1EX9ys4BFSfBv+vGFwfATKByrPot/V/VU9JIGphb\n1NCRRdhdXWTZxBuxfQEovfAdPEURZNlRtpwFr8yWE8WNeqfjrX3eubj80n/aM58t\n9dbsudXOcFVMb8TEAibXi++mHzTrkXqIu8f7r7JlocLuW5EtgKPlpggTBG6+/wr+\na7VAz8JR89WCzGYzNafl8fXJimdIJ9C/aaAdJGKQa7fBL/3qFKIT+njr/x6J5gbS\n9xo8iRP2vrEvq/6Kw7tFdcYeTrGE03VMJ4RzinxUSnYhCpDs1Ix2k/7cRygtz0QC\njbWbkF49zSHV7fDUv0UhrOkM75+h8/o+fThUDPrwvwKBgQDu9GMXEmvdrRxhz6Mr\nvY8Vh35nTQdxkk5UaJVq/9Z87tjrVQSTbo6J58CKHIQTFlQ2Aw3q4QZYqg+TONq4\nB0r9Zgt9jkBoKuFaCMXIlaFKRrjEmrRhlmXI0UvgJaCB4aN8NbaWKBUkaI92OEmn\nGPS54DPoLbL+xaHIlO5706fUQwKBgQDNpDzR6RAc9dnaJIWSWL+Rkh7lOpOkJ+O2\npw9+cCdjSiHRPW3y1LfVX+qLzEQo0zTiu5KuYgeQ4GPgfX9vpQw2HgDoTgRpURLX\nQ28XvyzyU44T/DtNSJZDfP/IVuD9rAln/UJq3zwOK8qU40Ey1gekPq+M/VT5mD0B\nrG41c5IWpwKBgDkgjCAT813H6SUpMuVeKDsJbZrcu47XX4qmhjJSf8DWiV2ZscJd\niA5ILavXLWwyxmczS7x/l7jSz25vBTtB4xe5sb2OqK8+sSmJN1/BBhJv3fSC1+UM\nw8DC6NTpqfnjK+aiIMi9RHCz3rhwtIsSWE+n3kD/y+9E6Gy/zlQkQddpAoGAbzJ2\nKNOsANz4Njs1dxNCU4b96doo58UiHyxq9mXTBp+ZdbmP8JUR6vF4tKt519GNcWUY\nRe+AQ9jyaPuzoz1OQx0qRHObcw+B7qDqO58GwOppk2j68ClmB4xaC4zfEIyscWzD\nM2MO6GLJooTYRpLxguDasJR0FJs7seH5njGmN1UCgYEAiu76YFaLAmwkDauZyGx+\nykIGswDJVC0cJXbOzds28WOIiBH3VB7t8Xsg0TLlgrdY/f4MZk0ZAbFsujfxyPN3\nBMShkn7J+aUC1kE1bjJskP+3giYfdzGqS/VnI25BZNUd3wEjDUt331E2D8I+tNcm\nixevDopqUAHeoAsqzvM7fcg=\n-----END PRIVATE KEY-----\n",
+  "client_email": "rclone@single-nebula-387521.iam.gserviceaccount.com",
+  "client_id": "117732667139856483538",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/rclone%40single-nebula-387521.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

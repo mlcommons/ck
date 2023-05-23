@@ -24,6 +24,22 @@
   },
   "uid": "c67e81a4ce2649f5",
   "variations": {
+    "wget": {
+      "group": "download-tool",
+      "default": true,
+      "env": {
+        "CM_DAE_DOWNLOAD_TOOL": "wget"
+      }
+    },
+    "curl": {
+      "group": "download-tool",
+      "env": {
+        "CM_DAE_DOWNLOAD_TOOL": "curl"
+      },
+      "default_env": {
+        "CM_DAE_CURL_EMULATE_BROWSER": "yes"
+      }
+    },
     "url.#": {
       "env": {
         "CM_DAE_URL": "#"
