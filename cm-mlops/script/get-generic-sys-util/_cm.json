@@ -139,6 +139,45 @@
           "brew": "screen"
         }
       }
+    },
+    "transmission": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "transmission"
+      },
+      "state": {
+        "transmission": {
+          "apt": "transmission-daemon",
+          "dnf": "transmission-daemon",
+          "yum": "transmission-daemon",
+          "brew": "transmission"
+        }
+      }
+    },
+    "libpci-dev": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "libpci-dev"
+      },
+      "state": {
+        "libpci-dev": {
+          "apt": "libpci-dev",
+          "dnf": "pciutils-devel",
+          "yum": "pciutils-devel",
+          "brew": ""
+        }
+      }
+    },
+    "libudev-dev": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "libudev-dev"
+      },
+      "state": {
+        "libudev-dev": {
+          "apt": "libudev-dev",
+          "dnf": "libudev-devl",
+          "yum": "libudev-devel",
+          "brew": ""
+        }
+      }
     }
   }
 }

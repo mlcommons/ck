@@ -1,11 +1,46 @@
 [ [Back to index](../README.md) ]
 
+<details>
+<summary>Click here to see the table of contents.</summary>
+
+* [Tutorial: understanding CM database concepts](#tutorial-understanding-cm-database-concepts)
+  * [Installing CM](#installing-cm)
+  * [Organizing your artifacts](#organizing-your-artifacts)
+    * [Without CM](#without-cm)
+    * [With CM](#with-cm)
+      * [Initializing CM-compatible repository in the directory](#initializing-cm-compatible-repository-in-the-directory)
+      * [Converting existing Git project to the CM repository](#converting-existing-git-project-to-the-cm-repository)
+      * [Creating CM artifacts](#creating-cm-artifacts)
+      * [Finding CM artifacts](#finding-cm-artifacts)
+      * [Renaming artifact](#renaming-artifact)
+      * [Moving artifacts to another CM repository](#moving-artifacts-to-another-cm-repository)
+      * [Deleting artifact](#deleting-artifact)
+      * [Copying artifacts](#copying-artifacts)
+      * [Viewing CM meta description](#viewing-cm-meta-description)
+      * [Creating other types of artifacts](#creating-other-types-of-artifacts)
+  * [Reusing others' artifacts in the CM format](#reusing-others'-artifacts-in-the-cm-format)
+    * [From command line](#from-command-line)
+    * [From Python and Jupyter notebooks](#from-python-and-jupyter-notebooks)
+* [List repositories](#list-repositories)
+* [Find an artifact](#find-an-artifact)
+    * [In Docker containers](#in-docker-containers)
+* [Adaptive container with the CM interface](#adaptive-container-with-the-cm-interface)
+    * [From zip file](#from-zip-file)
+  * [Adding reusable automations for related artifacts](#adding-reusable-automations-for-related-artifacts)
+  * [Adding reusable automation actions](#adding-reusable-automation-actions)
+  * [Extending meta descriptions of artifacts](#extending-meta-descriptions-of-artifacts)
+
+</details>
+
+
 # Tutorial: understanding CM database concepts
 
-Here we describe a few simple steps to let you try CM (aka CK2) and help you understand the CM concepts.
 
-You will install CM v1.1.3+, transform your local directory into a database of reusable artifacts, 
-share it with others, implement some common automation actions to reusable artifacts,
+Here we describe a few simple steps to let you try CM automation language 
+and help you understand the CM concepts.
+
+You will install CM v1.1.6+, transform your local directory into a database of reusable artifacts, 
+share it with others, implement some reusable automation actions to common artifacts,
 run CM automations from Python and Jupyter Notebooks, and convert any Git repository 
 into the CM format.
 
@@ -14,25 +49,21 @@ into the CM format.
 
 ## Installing CM
 
-CM toolkit is implemented as a small Python library with a unified CLI and a simple API.
+CM language is implemented as a small Python library with a unified CLI and a simple API.
 
 It requires minimal dependencies (Python 3+, pip, pyyaml and a Git client) 
 and should work with any OS including Linux, MacOS, CentOS, Debian, RedHat and Windows.
 
-```bash
-pip3 install cmind
-```
-
-You can find more details about the installation process [here](installation.md).
+Please follow this [guide](../installation.md) to install CM on your system.
 
 
 
 
 ## Organizing your artifacts
 
-We use CM to provide a common structure to software projects and organize all related artifacts 
-in such a way that it is possible to share, find, reuse and extend them across different teams and projects
-with a minimal effort.
+We use CM to provide a common structure to all software projects and organize all related artifacts 
+in such a way that it is possible to share, find, reuse, and extend them across different teams and projects
+with a minimal effort based on [FAIR principles](https://www.go-fair.org/fair-principles).
 
 
 
@@ -42,8 +73,8 @@ Let's imagine that you want to share with your colleagues some machine learning 
 and a JSON file with some experimental results including inference time and image classification
 via some GitHub repository.
 
-You will [likely](https://www.youtube.com/watch?v=7zpeIVwICa4), 
-create some local directory "my-cool-project" in your $HOME directory to organize related artifacts:
+Based on [our experience]( https://www.youtube.com/watch?v=7zpeIVwICa4 ), 
+you will likely create some local directory "my-cool-project" in your $HOME directory to organize related artifacts:
 
 ```bash
 mkdir my-cool-project
@@ -64,24 +95,24 @@ cp my-cool-result-20220404.json experiments
 ```
 
 You will then likely create a *README.md* describing the structure 
-and the content of your repository, and how someone can run your experiment.
+and the content of your repository, and how someone can run your experiments.
 
-You will then pack this repository or push it to GitHub to share it with someone else.
+You will then pack this repository or push it to GitHub to share it with the community.
 
 Another person will need to read your README file to understand the structure
 of your repository, reproduce results, customize your code and reuse some artifacts
 in another project.
 
-However, since most colleagues [are very busy with their own projects](https://doi.org/10.5281/zenodo.6475385), 
-they will unlikely to have time to read yet another ad-hoc ReadMe and will unlikely to try your project
-unless they are forced to ;) ...
+However, since there thousands of incremental papers and projects published every months and
+most colleagues are very busy with their own projects, they will simply have no time 
+to read yet another ad-hoc ReadMe and figure out how to reproduce yet another ad-hoc project:
 
 ![](https://i.pinimg.com/564x/17/45/68/174568bf0002b8832b20fd995898f8ce.jpg)
 
-Based on our [related experience](https://www.youtube.com/watch?v=7zpeIVwICa4),
-we believe that having a common format and command line interface 
-for projects and READMEs will make it easier for the community 
-to try your project and reuse your artifacts.
+However, while reproducing [150+ research papers and validating them in the real world](https://learning.acm.org/techtalks/reproducibility),
+we got feedback from researchers and practitioners that it would be beneficial to
+have a common format and a common interface/language to describe how to prepare, run and reproduce
+results from all papers across any software, hardware, models, and data.
 
 
 
@@ -89,16 +120,14 @@ to try your project and reuse your artifacts.
 
 #### Initializing CM-compatible repository in the directory
 
-The idea behind CM is to convert directories and projects into a simple
-database of [reusable](https://www.go-fair.org/fair-principles) 
-artifacts and automations with a common CLI.
+The feedback from the community motivated us to develop a simple, technology-agnostic
+and human-readable automation language to help the community convert their projects
+into a simple database of reusable automations and artifacts.
 
-We want you to perform very similar steps from the command line as above
-but just prefixed by *cm* to let CM index artifacts, add Unique IDs 
-and extensible JSON/YAML meta descriptions,
-and make them findable, interoperable and reusable:
+The idea is to perform all common steps across all research projects
+in a unified and intuitive way with a *cm* prefix from the command line:
 
-You can initialize a CM repository in your working directory as follows:
+For example, you can initialize a CM repository in your working directory as follows:
 
 ```bash
 cm init repo
@@ -110,7 +139,7 @@ this location in the CM-compatible repository index *$HOME/CM/repos.json*.
 This is needed to let CM automatically search for reusable artifacts and automations
 in all CM-compatible directories on your machine and plug them into modular CM projects.
 
-However, if you forget the location, you can always find it using the following CM command:
+If you forget the location, you can always find it using the following CM command:
 ```bash
 cm find repo my-cool-project
 ```
@@ -124,13 +153,13 @@ cm ls repo
 ```bash
 cm ls repo | sort
 
-local = C:\Users\grigo\CM\repos\local
+local = C:\Users\gfursin\CM\repos\local
 internal = C:\!Progs\Python39\lib\site-packages\cmind-0.7.7-py3.9.egg\cmind\repo
 my-cool-project = ...
 ```
 
 
-You can also create a repository with a specific name in $HOME/CM/repos directory as follows:
+You can also create a repository with a specific name in *$HOME/CM/repos* directory as follows:
 ```bash
 cm init repo another-cool-project
 cm find repo *cool*
@@ -138,7 +167,7 @@ cm find repo *cool*
 
 #### Converting existing Git project to the CM repository
 
-If you already have a Git repository you can pull it via CM and make it a CM-compatible repository as follows:
+If you already have a Git repository you can pull it via CM and make it a CM-compatible repository in a non-intrusive way as follows:
 
 ```bash
 cm pull repo my-cool-project --url={Git repo URL} 
@@ -152,12 +181,13 @@ and will register this location in the CM-compatible repository index *$HOME/CM/
 
 
 Note that you always have at least 2 CM-compatible repositories after you use CM for the first time:
+
 * *internal* is a CM repository with reusable artifacts and automations that were moved 
   [inside the CM toolkit](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo) 
   to ensure their stability because they are frequently used by the community.
 
 * *local* is a CM scratchpad repository where all new artifacts and automations 
-  are created if a repository is not specified.
+  are created by default if a CM repository is not specified.
 
 
 
@@ -166,27 +196,28 @@ Note that you always have at least 2 CM-compatible repositories after you use CM
 #### Creating CM artifacts
 
 You can now use CM to create a very similar structure as in your original Git repository
-but with some meta information in JSON and/or YAML format to describe your artifacts.
+but with some meta information in JSON and/or YAML format to describe your artifacts
+to make them findable, interoperable and reusable.
 
 The format of the CM to add artifacts is the following:
 ```bash
-cm add {some artifact type} {artifact name} 
+cm add {common artifact automation name} {artifact name} 
 ```
 
 By default, CM will create new artifacts in the "local" CM repository (scratchpad).
 You can specify another CM repository as follows:
 ```bash
-cm add {some artifact type} {CM repo}:{artifact name}
+cm add {common artifact automation name} {CM repo}:{artifact name}
 ```
 
 You can also add some tags to describe a given artifact as follows:
 ```bash
-cm add {some artifact type} {CM repo}:{artifact name} --tags=tag1,tag2,tag3...
+cm add {common artifact automation name} {CM repo}:{artifact name} --tags=tag1,tag2,tag3...
 ```
 
-In our case, let's use "images" as our artifact type. Note that you can either use 
-any name to organize your artifacts or reuse an existing artifact type 
-with some common automations shared by the community or within workgroups 
+In our case, let's use "images" as our automation (artifact type). 
+Note that you can either use  any name to organize your artifacts or reuse an existing automation
+with some common automation actions shared by the community or within workgroups 
 as described later in this tutorial.
 
 
@@ -210,14 +241,14 @@ CM will create a directory *images/cool-cat* inside *my-cool-project* repository
 }
 ```
 
-Note that you will a different UID on your system - you should use it instead of "780abfe6b8084327"
+You will have a different UID on your system - you should use it instead of "780abfe6b8084327".
 
-Note that CM also generated a unique ID for this artifact - the reason is that any CM artifact can be reusable
-in the world similar to a global database where another artifact with a similar name (alias) may already exist.
+Note that CM generated a unique ID for this artifact - that allows any  CM artifact to be findable and reusable
+in the world similar to a global database (Collective Mind) where another artifact with a similar name (alias) may already exist.
 In such case, we can use UID in our projects to make sure that we find and reuse a unique artifact.
 
 Also note that if you want to create another artifact in a CM repository, you can tell CM to use
-current CM repository and artifact type using "." instead of tying the full names:
+current CM repository and artifact type using "." instead of tying the full name:
 
 ```bash
 cd automation
@@ -228,7 +259,7 @@ CM will create *cool-cat-v2* in the current CM repository rather than in the "lo
 
 #### Finding CM artifacts
 
-Since CM keeps track of CM-compatible repositories, it is now possible to find any artifact 
+Since CM keeps track of all CM-compatible repositories, it is now possible to find any artifact 
 using its name (alias), UID or tags:
 
 
@@ -254,22 +285,24 @@ For example, you can You can now copy your cool-cat.jpeg and any related files t
 cp cool-cat.jpeg `cm find images cool-cat`
 ```
 
-Now, we will be able to find any artifact on our own machines or in a cloud even years later!
+Now, we will be able to find and reuse all generated or manually created artifacts 
+on our own machines or in a cloud even years later!
 
 Furthermore, we can use the same command line language to describe our repository
-in different READMEs thus providing a common artifact management language for projects.
+in READMEs and containers thus providing a common artifact management language for projects.
 
 
 #### Renaming artifact
 
-You can now rename your artifact using CM to keep UID intact as follows:
+If needed, you can rename your artifact using CM to keep UID intact as follows:
 ```bash
 cm rename images cool-cat-v2 cool-cat-v3
 ```
 
 #### Moving artifacts to another CM repository
 
-Unlike CK, you can move an artifact to any CM repository using standard OS commands.
+You can move a given artifact to any CM repository using standard OS commands.
+
 However, you can also use CM CLI for your convenience:
 
 ```bash
@@ -280,7 +313,7 @@ This command will move *images::cool-cat-v3* artifact to "local" repository.
 
 #### Deleting artifact
 
-Unlike CK, you can also delete your artifacts using standard OS commands.
+You can also delete your artifacts using standard OS commands.
  
 However, you can also use CM CLI for your convenience:
 
@@ -290,11 +323,12 @@ cm rm images cool-*-v3
 This command will remove *images::cool-cat-v3* artifact.
 
 
-#### Copying artifact to another artifact
+#### Copying artifacts
 
-The idea of CM is to use existing artifacts as templates for new artifacts. 
-You can copy an artifact to another one with a new alias (new UID will be generated automatically)
-as follows:
+CM allows you to use existing artifacts as templates for new artifacts. 
+
+You can copy an artifact to a new one with a new alias 
+(new UID will be generated automatically) as follows:
 
 ```bash
 cm copy images cool-cat-v3 .:cool-cat-v4
@@ -338,6 +372,7 @@ cm load images --tags=cool,cat
 #### Creating other types of artifacts
 
 Similarly, you can create CM artifacts for your ML model
+
 ```bash
 cm add models my-cool-model --tags=model,ml,onnx,image-classification
 
@@ -361,8 +396,8 @@ cp my-cool-result-20220404.json `cm find experiments cool-result`
 
 ls `cm find experiments cool-result`
 
-_cm.json
-my-cool-result-20220404.json
+ _cm.json
+ my-cool-result-20220404.json
 
 ```
 
@@ -373,24 +408,19 @@ that it is CM compatible:
 [![CM artifact](https://img.shields.io/badge/Artifact-automated%20and%20reusable-blue)](https://github.com/mlcommons/ck/tree/master/cm)
 [![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck/tree/master/cm)
 
-This will signal other colleagues that they can now understand your README 
-and deal with your project using CM CLI or Python API:
-
-
+This will signal the community that they can now understand your README with the CM language,
+access your project via unified CM CLI or Python API,
+and even apply new automations.
 
 
 
 ## Reusing others' artifacts in the CM format
 
-Whenever you see a CM-compatible repository you can install it via CM,
-start using familiar cm commands similar to having a common language 
-across all research projects, and automatically plug its artifacts 
-and automations into our own modular projects as described later.
+Whenever you see a CM-compatible repository, you can use CM language
+to manage it and reuse its automations and artifacts in your own project.
 
-You may still need to follow the README.md file with the cm commands 
-but even these steps can be also fully automated using a GUI or via
-integration with existing DevOps and MLOps platforms and tools.
-
+You can also use [MLCommons CK platform with a user-friendly GUI (under development)](../README.md#collective-knowledge-playground-ck)
+or integrate it with existing DevOps and MLOps platforms and tools.
 
 
 
@@ -405,7 +435,7 @@ cm load experiments cool-result
 ### From Python and Jupyter notebooks
 
 CM provides a simple and unified access function to all CM repositories similar to micro-services
-and [ElasticSearch]( https://www.elastic.co ) with an input as a dictionary:
+and [ElasticSearch]( https://www.elastic.co ) with an input and output as a unified CM dictionary:
 
 ```python
 import cmind
@@ -428,7 +458,7 @@ print (r['path'])
 ```json
 { 
   'return': 0, 
-  'path': 'C:\\Users\\grigo\\CM\\repos\\my-cool-project\\images\\cool-cat', 
+  'path': 'C:\\Users\\gfursin\\CM\\repos\\my-cool-project\\images\\cool-cat', 
   'meta': {
     'alias': 'cool-cat', 
     'automation_alias': 'images', 
@@ -474,7 +504,7 @@ RUN apt update && \
            libncurses-dev \
            sudo
 
-RUN pip3 install cmind
+RUN python3 -m pip install cmind
 
 RUN cm pull repo mlcommons@ck
 
@@ -490,7 +520,7 @@ You can pack your CM repository to a zip file as follows:
 ```bash
 cm pack repo my-cool-project
 
-Packing repo from C:\Users\grigo\CM\repos\my-cool-project to cm.zip ...
+Packing repo from C:\Users\gfursin\CM\repos\my-cool-project to cm.zip ...
 ```
 
 You can then share *cm.zip* with your colleagues who can unpack it 
@@ -509,8 +539,8 @@ cm find experiments
 
 ## Adding reusable automations for related artifacts 
 
-One of the goals of the [Collective Mind project (aka CK2)](https://arxiv.org/abs/2011.01149) 
-is to gradually systematize all available artifacts and provide reusable automation actions 
+One of the goals of the CM language is to gradually systematize 
+all available artifacts and provide reusable automation actions 
 to similar artifact types.
 
 To be able to add automation actions to your artifact types and reuse them with others,
@@ -528,7 +558,7 @@ cm add automation models
 ```
 
 Note that CM will add those automations to the "local" CM repository.
-You can add them to another public or private repository as follows:
+You can add them to another public or private repository by using ":" separator as follows:
 ```bash
 cm add automation my-cool-project:images
 ```
@@ -540,15 +570,15 @@ cm move automation local:images my-cool-project:
 
 Now, whenever you add a new artifact with an associated automation,
 CM will find this automation and record "automation_uid" in the meta description 
-of the newly created artifact!
+of the newly created artifact to be able to reuse common automation actions.
 
 
 
 
 ## Adding reusable automation actions
 
-We use Python as a simplified and portable DSL to implement reusable automation actions
-for similar artifact types. 
+We use Python as a simplified and portable DSL (domain specific language) 
+to implement reusable automation actions for similar artifact types. 
 
 You can find a Python module for your automation as follows:
 ```bash
@@ -556,7 +586,7 @@ cm find automation images
 ```
 
 This directory will include a meta description of this automation in *_cm.json*
-and a *module.py* with the automation actions.
+and a *module.py* with the automation actions implemented as standard Python functions.
 
 This module inherits default "CM database actions" from the [Automation class](https://github.com/mlcommons/ck/blob/master/cm/cmind/automation.py) 
 in the CM package such as "add", "rm", "find", "rename", etc.
@@ -578,10 +608,10 @@ cm test images
 }
 ```
 
-You can add your own functions to this module that will be immediately accessible 
+You can add your own automation actions to this module that will be immediately accessible 
 from the command line:
 ```bash
-cm {my-new-automation} images
+cm {my-new-automation-action} images
 ...
 ```
 Note that all '-' characters in the automation action from the CLI will be converted into '_'.
@@ -596,7 +626,8 @@ Others can pull your repository via *cm pull repo ...* and start reusing
 the common automations and artifacts in their own projects.
 
 Furthermore, everyone can now extend existing automation actions 
-or contribute the new ones instead of reinventing the wheel!
+or contribute the new ones instead of writing their own ad-hoc scripts 
+and artifact/project management frameworks.
 
 
 
@@ -609,16 +640,9 @@ extend JSON or YAML files of shared artifacts to find a better way to describe t
 when reusing them across different projects.
 
 We hope that such Wikipedia-style mechanisms will help the community to gradually decompose 
-all complex software and research projects into a collection of reusable artifacts and automation actions.
+all complex software and research projects into a collection of [reusable artifacts and automation actions](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
+as we successfully did for [MLPerf benchmarks](sc22-scc-mlperf.md).
 
 
-
-
-
-
-
-## Next steps
-
-We are working with the community to develop [portable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
-and help make ML Systems benchmarking, experimentation and MLOps more portable, deterministic, collaborative and reproducible
-without the need for complex workflows: [tutorial for CM scripts](tutorial-scripts.md).
+Feel free to join our [MLCommons task force on automation and reproducibility](../taskforce.md)
+if you have questions or would like to participate in further collaborative developments.

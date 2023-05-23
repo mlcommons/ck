@@ -2,8 +2,8 @@
   "alias": "repo",
   "automation_alias": "automation",
   "automation_uid": "bbeb15d8f0a944a4",
-  "desc": "Managing CM repositories",
-  "developers": "[Grigori Fursin](https://cKnowledge.org/gfursin)",
+  "desc": "Managing CM repositories and software projects",
+  "developers": "[Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)",
   "sort": 2000,
   "tags": [
     "automation",

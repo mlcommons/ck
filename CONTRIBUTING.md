@@ -14,26 +14,18 @@ Modify the project in your own fork and issue a pull request once you want other
 to take a look at what you have done and discuss the proposed changes. 
 Ensure that cla-bot and other checks pass for your Pull requests.
 
-## Contributing to the MLCommons Collective Mind
+## Contributing to this project
 
-We suggest you to join the [open MLCommons Collective Knowledge taskforce](docs/taskforce.md)
-to learn how to use the CM framework, enhance existing CM components for MLOps and DevOps, 
+We suggest you to join the [open MLCommons Collective Knowledge task force](docs/taskforce.md)
+to learn how to use the CK technology, CM scripting language, enhance existing CM components for MLOps and DevOps, 
 run MLPerf benchmarks and contribute your own artifacts, scripts and workflows in the CM format.
-
-Please check this [guide](cm/docs/tutorials/scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
-to plug your own artifacts, scripts and workflows into CM.
-
-You can then share CM components in your own Git repository or in the [MLCommons CM repository](https://github.com/mlcommons/ck/tree/master/cm-mlops)
-to help the community reuse them and build upon them.
-
-These components must automatically download, install, build and preprocess different applications, models,
-data sets, frameworks, compilers, SDKs and tools across different platforms and operating systems
-to help the community modularize, simplify, co-design, benchmark, optimize and deploy efficient AI/ML systems.
-
-You are very welcome to provide feedback and report bugs [here](https://github.com/mlcommons/ck/issues).
 
 Thank you for your support and looking forward to collaborating with you!
 
+## Authors and maintainers
+
+* [Grigori Fursin](https://cKnowledge.org/gfursin)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
 ## Contributors in alphabetical order
 
@@ -46,6 +38,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Valentin Dalibard &lt;valentin.dalibard@cl.cam.ac.uk&gt;
 * Alastair Donaldson &lt;alastair.donaldson@imperial.ac.uk&gt;
 * Thibaut Dumontet
+* Himanshu Dutta
 * Daniil Efremov (Xored)
 * Leonid Fursin
 * Todd Gamblin (LLNL)
@@ -54,7 +47,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Dave Greasley (University of Bristol)
 * Herve Guillou
 * Vincent Grevendonk (Arm)
-* Michael Goin (Nerual Magic)
+* Michael Goin (Neural Magic)
 * Christophe Guillon (STMicroelectronics)
 * Sven van Haastregt (Arm)
 * Michael Haidl
@@ -72,6 +65,8 @@ Thank you for your support and looking forward to collaborating with you!
 * Graham Markall &lt;graham.markall@continuum.io&gt;
 * Michael Mcgeagh (Arm)
 * Thierry Moreau (OctoML)
+* Sachin Mudaliyar
+* Stanley Mwangi (Microsoft)
 * Luigi Nardi 
 * Ivan Ospiov (Xored)
 * Lakshman Patel @Patel230
@@ -86,6 +81,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Jared Roesch (OctoML)
 * Dmitry Savenko (Xored)
 * Thomas Schmid (OctoML)
+* Aditya Kumar Shaw
 * Gavin Simpson (Arm)
 * Aaron Smith (Microsoft)
 * Michel Steuwer (University of Edinburgh)
@@ -102,9 +98,4 @@ Thank you for your support and looking forward to collaborating with you!
 * @filven
 * @ValouBambou
 
-See more acknowledgments at the end of this [journal article](https://arxiv.org/abs/2011.01149).
-
-## Maintainers
-
-* [Grigori Fursin](https://cKnowledge.org/gfursin) (OctoML, MLCommons, cTuning foundation)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
+See more acknowledgments at the end of this [article](https://arxiv.org/abs/2011.01149).

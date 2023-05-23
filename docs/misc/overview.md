@@ -1,15 +1,15 @@
-[ [Back to index](README.md) ]
+[ [Back to index](../README.md) ]
 
 ## Overview
 
-This project is motivated by our [tedious experience](https://learning.acm.org/techtalks/reproducibility) 
+The Collective Knowledge project is motivated by our [tedious experience](https://learning.acm.org/techtalks/reproducibility) 
 reproducing research papers on machine learning and systems and validating them in the real world.
 
 We have developed the [Collective Knowledge concept (CK)](https://arxiv.org/pdf/2011.01149.pdf) 
 to provide a simple way to unify, manage, connect and reuse any artifacts, scripts, tools and workflows 
 on any platform with any software and hardware stack. 
 
-We have developed CK to help researchers and developers turn their scripts, artifacts and workflow
+CK is intended to help researchers and developers turn their scripts, artifacts and workflow
 into a database of portable, reusable, customizable and deterministic components
 with minimal effort and no changes to their projects.
 

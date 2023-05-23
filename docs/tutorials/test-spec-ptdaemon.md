@@ -1,3 +1,5 @@
+[ [Back to index](../README.md) ]
+
 This tutorial describes how to test a power analyzer by manually giving the current and voltage ranges and thus avoiding a separate ranging mode run. If wrong values are given (tolerance is typically around 5 times), samples will be counted as uncertain and the number of uncertain samples are output in the `run_1/ptd_out.txt` file. 
 
 ## Requirements

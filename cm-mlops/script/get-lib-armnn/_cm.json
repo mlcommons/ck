@@ -15,7 +15,9 @@
   },
   "prehook_deps": [
     {
-      "force_env_keys": [ "CM_GIT_*" ],
+      "force_env_keys": [ 
+        "CM_GIT_*"
+      ],
       "tags": "get,git,repo,_repo.https://github.com/ARM-software/armnn"
     }
   ],

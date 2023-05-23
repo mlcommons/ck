@@ -1,0 +1,45 @@
+{
+  "alias": "get-google-test",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "deps": [
+    {
+      "tags": "get,cmake"
+    },
+    {
+      "tags": "get,gcc"
+    }
+  ],
+  "input_description": {},
+  "default_version": "1.13.0",
+  "input_mapping": {},
+  "new_env_keys": [
+    "CM_GOOGLE_TEST_SRC_PATH",
+    "CM_GOOGLE_TEST_INSTALL_PATH",
+    "+C_INCLUDE_PATH",
+    "+LD_LIBRARY_PATH"
+  ],
+  "new_state_keys": [],
+  "post_deps": [],
+  "posthook_deps": [],
+  "prehook_deps": [
+    {
+      "force_env_keys": [
+        "CM_GIT_*"
+      ],
+      "tags": "get,git,repo,_repo.https://github.com/google/googletest.git"
+    }
+  ],
+  "tags": [
+    "get",
+    "google-test",
+    "googletest",
+    "gtest",
+    "test",
+    "google"
+  ],
+  "uid": "02945138a5614253",
+  "variations": {},
+  "versions": {}
+}

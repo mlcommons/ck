@@ -150,6 +150,10 @@ ___
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `colored`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://pypi.ngc.nvidia.com`
       - Workflow:
+    * `_datasets`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `datasets`
+      - Workflow:
     * `_decorator`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `decorator`
@@ -157,6 +161,11 @@ ___
     * `_deepsparse`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `deepsparse`
+      - Workflow:
+    * `_dllogger`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `dllogger`
+        - *CM_GENERIC_PYTHON_PIP_URL*: `git+https://github.com/NVIDIA/dllogger#egg=dllogger`
       - Workflow:
     * `_fiftyone`
       - Environment variables:
@@ -226,6 +235,8 @@ ___
            * get,generic-python-lib,_torch_cuda
              * CM names: `--adr.['torch']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,git,repo,_repo.https://github.com/NVIDIA/apex
+             - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
     * `_nvidia-dali`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `nvidia-dali-cuda110`
@@ -268,6 +279,10 @@ ___
     * `_opencv-python`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `opencv-python`
+      - Workflow:
+    * `_package.#`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `#`
       - Workflow:
     * `_pandas`
       - Environment variables:
@@ -324,6 +339,10 @@ ___
     * `_scipy`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `scipy`
+      - Workflow:
+    * `_scons`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `scons`
       - Workflow:
     * `_setfit`
       - Environment variables:
@@ -396,7 +415,7 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
-        - *CM_TORCH_CUDA*: `cu117`
+        - *CM_TORCH_CUDA*: `cu118`
         - *CM_TORCH_VERSION_EXTRA*: `CUDA`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
@@ -408,7 +427,7 @@ ___
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
         - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
         - *CM_GENERIC_PYTHON_PIP_EXTRA*: ` --pre`
-        - *CM_TORCH_CUDA*: `cu117`
+        - *CM_TORCH_CUDA*: `cu118`
         - *CM_TORCH_VERSION_EXTRA*: `CUDA`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
@@ -427,7 +446,7 @@ ___
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchaudio`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
         - *CM_TORCHAUDIO_VERSION_EXTRA*: `CUDA`
-        - *CM_TORCH_CUDA*: `cu117`
+        - *CM_TORCH_CUDA*: `cu118`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,cuda

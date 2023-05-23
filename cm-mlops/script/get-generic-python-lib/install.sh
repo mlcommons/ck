@@ -1,9 +1,10 @@
 #!/bin/bash
 
 if [[ ${CM_GENERIC_PYTHON_PACKAGE_VARIANT} == "nvidia-apex" ]]; then
-  git clone https://github.com/NVIDIA/apex
-  cd apex
-  ${CM_PYTHON_BIN_WITH_PATH} -m pip install -v --disable-pip-version-check --global-option="--cpp_ext" --global-option="--cuda_ext" ./
+  cd ${CM_GIT_REPO_CHECKOUT_PATH}
+  cmd="${CM_PYTHON_BIN_WITH_PATH} -m pip install -v --disable-pip-version-check --global-option=\"--cpp_ext\" --global-option=\"--cuda_ext\" ./"
+  echo $cmd
+  eval $cmd
   test $? -eq 0 || exit $?
   exit 0
 fi

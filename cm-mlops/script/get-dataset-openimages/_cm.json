@@ -43,6 +43,12 @@
     },
     {
       "tags": "get,generic-python-lib,_pandas"
+    },
+    {
+      "names": [
+        "pycocotools"
+      ],
+      "tags": "get,generic-python-lib,_pycocotools"
     }
   ],
   "posthook_deps": [
@@ -63,6 +69,7 @@
   },
   "new_env_keys": [
     "CM_DATASET_PATH",
+    "CM_DATASET_PATH_ROOT",
     "CM_DATASET_ANNOTATIONS_DIR_PATH",
     "CM_DATASET_ANNOTATIONS_FILE_PATH",
     "CM_CALIBRATION_DATASET_PATH"

@@ -1,0 +1,11 @@
+--- a/vision/classification_and_detection/python/openimages.py	Thu May 11 13:56:13 2023
++++ b/vision/classification_and_detection/python/openimages.py	Thu May 11 13:02:53 2023
+@@ -85,7 +85,7 @@
+                     not_found += 1
+                     continue
+             else:
+-                src = os.path.join(data_path, image_name)
++                src = os.path.join(data_path, "validation", "data", image_name)
+                 if not os.path.exists(src):
+                     # if the image does not exists ignore it
+                     not_found += 1

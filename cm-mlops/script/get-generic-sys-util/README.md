@@ -118,21 +118,41 @@ ___
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `libboost-all-dev`
       - Workflow:
+    * `_libmpfr-dev`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `libmpfr-dev`
+      - Workflow:
     * `_libnuma-dev`
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `libnuma-dev`
+      - Workflow:
+    * `_libpci-dev`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `libpci-dev`
       - Workflow:
     * `_libre2-dev`
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `libre2-dev`
       - Workflow:
+    * `_libudev-dev`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `libudev-dev`
+      - Workflow:
     * `_rapidjson-dev`
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `rapidjson-dev`
       - Workflow:
+    * `_screen`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `screen`
+      - Workflow:
     * `_sox`
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `sox`
+      - Workflow:
+    * `_transmission`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `transmission`
       - Workflow:
 
     </details>

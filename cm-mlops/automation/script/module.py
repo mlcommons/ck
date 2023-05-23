@@ -675,6 +675,10 @@ class CAutomation(Automation):
 
         default_variation = meta.get('default_variation', '')
 
+        if default_variation and default_variation not in variations:
+            return {'return': 1, 'error': 'Default variation "{}" is not in the list of variations: "{}" '.format(default_variation, variations.keys())}
+
+
         if len(variation_tags) == 0:
             if default_variation != '' and default_variation not in excluded_variation_tags:
                 variation_tags = [default_variation]
@@ -1399,7 +1403,9 @@ class CAutomation(Automation):
                             cached_tags.append(x)
 
 
-        detected_version = env.get('CM_DETECTED_VERSION','')
+        detected_version = env.get('CM_DETECTED_VERSION', env.get('CM_VERSION',''))
+        dependent_cached_path = env.get('CM_GET_DEPENDENT_CACHED_PATH','')
+
         ############################################################################################################
         ##################################### Finalize script
 
@@ -1478,7 +1484,6 @@ class CAutomation(Automation):
 
 
                 # Check if the cached entry is dependent on any other cached entry
-                dependent_cached_path = env.get('CM_GET_DEPENDENT_CACHED_PATH','')
                 if dependent_cached_path != '' and not os.path.samefile(cached_path, dependent_cached_path):
                     cached_meta['dependent_cached_path'] = dependent_cached_path
 
@@ -3136,6 +3141,34 @@ class CAutomation(Automation):
 
         return utils.call_internal_module(self, __file__, 'module_misc', 'dockerfile', i)
 
+    ############################################################
+    def docker(self, i):
+        """
+        Add CM automation.
+
+        Args:
+          (CM input dict):
+
+          (out) (str): if 'con', output to console
+
+          parsed_artifact (list): prepared in CM CLI or CM access function
+                                    [ (artifact alias, artifact UID) ] or
+                                    [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+          (repos) (str): list of repositories to search for automations (internal & mlcommons@ck by default)
+
+          (output_dir) (str): output directory (./ by default)
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+        """
+
+        return utils.call_internal_module(self, __file__, 'module_misc', 'docker', i)
+
     ##############################################################################
     def _available_variations(self, i):
         """
@@ -3304,6 +3337,7 @@ def find_cached_script(i):
                 if not os.path.exists(dependent_cached_path):
                     #Need to rm this cache entry
                     skip_cached_script = True
+                    continue
 
             if not skip_cached_script:
                 cached_script_version = cached_script.meta.get('version', '')
@@ -3614,7 +3648,7 @@ def run_detect_version(customize_code, customize_common_input, recursion_spaces,
         import copy
 
         if verbose:
-            print (recursion_spaces+'  - Running postprocess ...')
+            print (recursion_spaces+'  - Running detect_version ...')
 
         # Update env and state with const
         utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
@@ -3691,7 +3725,7 @@ def update_env_keys(env, env_key_mappings):
             if key.startswith(key_prefix):
                 new_key = key.replace(key_prefix, env_key_mappings[key_prefix])
                 env[new_key] = env[key]
-                del(env[key])
+                #del(env[key])
 
 ##############################################################################
 def convert_env_to_script(env, os_info, start_script = []):

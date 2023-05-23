@@ -88,11 +88,17 @@ def postprocess(i):
         port_map_cmd_string = ''
     run_opts += port_map_cmd_string
 
-    CONTAINER="docker run -dt "+ run_opts + " --rm " + docker_image_repo + ":" + docker_image_tag + " bash"
-    CMD = "ID=`" + CONTAINER + "` && docker exec $ID bash -c '" + run_cmd + "' && docker kill $ID >/dev/null"
-    print("Container launch command: " + CMD)
-    print("Running "+run_cmd+" inside docker container")
-    docker_out = subprocess.check_output(CMD, shell=True).decode("utf-8")
-    print(docker_out)
+    if env.get('CM_DOCKER_DETACHED_MODE','') == "yes":
+        CONTAINER="docker run -dt "+ run_opts + " --rm " + docker_image_repo + ":" + docker_image_tag + " bash"
+        CMD = "ID=`" + CONTAINER + "` && docker exec $ID bash -c '" + run_cmd + "' && docker kill $ID >/dev/null"
+        print("Container launch command: " + CMD)
+        print("Running "+run_cmd+" inside docker container")
+        docker_out = subprocess.check_output(CMD, shell=True).decode("utf-8")
+        print(docker_out)
+    else:
+        CONTAINER="docker run -it --entrypoint '' "+ run_opts + " " + docker_image_repo + ":" + docker_image_tag
+        CMD =  CONTAINER + " bash -c '" + run_cmd + " && bash '"
+        print("Container launch command: " + CMD)
+        docker_out = os.system(CMD)
 
     return {'return':0}

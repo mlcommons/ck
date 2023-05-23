@@ -33,7 +33,7 @@ See [more info](README-extra.md).
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,lib,aocl,amd*
+* CM "database" tags to find this script: *get,lib,aocl,amd-optimized,amd*
 * Output cached?: *true*
 ___
 ### Usage
@@ -52,9 +52,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,lib,aocl,amd `
+1. `cm run script --tags=get,lib,aocl,amd-optimized,amd `
 
-2. `cm run script "get lib aocl amd" `
+2. `cm run script "get lib aocl amd-optimized amd" `
 
 3. `cm run script a65d3088f57d413d `
 
@@ -73,7 +73,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,lib,aocl,amd'
+                  'tags':'get,lib,aocl,amd-optimized,amd'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -90,9 +90,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,lib,aocl,amd"```
+```cm run script --tags=gui --script="get,lib,aocl,amd-optimized,amd"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,lib,aocl,amd) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,lib,aocl,amd-optimized,amd) to generate CM CMD.
 
 #### CM modular Docker container
 

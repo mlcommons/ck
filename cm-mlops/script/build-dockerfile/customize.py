@@ -67,20 +67,25 @@ def preprocess(i):
         f.write('ARG '+ arg + EOL)
     for build_arg in build_args:
         f.write('ARG '+ build_arg + EOL)
+
     f.write(EOL+'# Notes: https://runnable.com/blog/9-common-dockerfile-mistakes'+EOL+'# Install system dependencies' + EOL)
     f.write('RUN ' + get_value(env, config, 'package-manager-update-cmd') + EOL)
     f.write('RUN '+ get_value(env, config, 'package-manager-get-cmd') + " " + " ".join(get_value(env, config,
         'packages')) + EOL)
+
     f.write(EOL+'# Install python packages' + EOL)
     f.write('RUN python3 -m pip install ' + " ".join(get_value(env, config, 'python-packages')) + EOL)
     f.write(EOL+'# Setup docker environment' + EOL)
+
     entry_point = get_value(env, config, 'ENTRYPOINT', 'CM_DOCKER_IMAGE_ENTRYPOINT')
     if entry_point:
         f.write('ENTRYPOINT ' + entry_point + EOL)
+
     for key,value in config['ENV'].items():
         f.write('ENV '+ key + "=" + value + EOL)
     for cmd in config['RUN_CMDS']:
         f.write('RUN '+ cmd + EOL)
+
     f.write(EOL+'# Setup docker user' + EOL)
     docker_user = get_value(env, config, 'USER', 'CM_DOCKER_USER')
     docker_userid = get_value(env, config, 'USERID', 'CM_DOCKER_USER_ID')
@@ -104,6 +109,7 @@ def preprocess(i):
                 + docker_user + EOL)
         f.write('RUN echo "' + docker_user + ' ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers' + EOL)
         f.write('USER ' + docker_user + ":" + docker_group + EOL)
+
     workdir = get_value(env, config, 'WORKDIR', 'CM_DOCKER_WORKDIR')
     if workdir:
         f.write('WORKDIR ' + workdir + EOL)
@@ -142,7 +148,6 @@ def preprocess(i):
     if 'CM_DOCKER_POST_RUN_COMMANDS' in env:
         for post_run_cmd in env['CM_DOCKER_POST_RUN_COMMANDS']:
             f.write('RUN '+ post_run_cmd + EOL)
-
 
     f.close()
 

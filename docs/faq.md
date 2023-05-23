@@ -2,4 +2,7 @@
 
 ## CM FAQ
 
-TBD
+To be added... 
+
+Feel free to ask your questions at our [public Discord server](https://discord.gg/JjWNWXKxwT).
+

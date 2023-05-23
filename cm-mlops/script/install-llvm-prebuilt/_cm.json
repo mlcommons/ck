@@ -13,7 +13,6 @@
   "name": "Install prebuilt LLVM compiler",
   "new_env_keys": [
     "CM_LLVM_*",
-    "CM_GET_DEPENDENT_CACHED_PATH",
     "+PATH",
     "+LD_LIBRARY_PATH",
     "+C_INCLUDE_PATH"
