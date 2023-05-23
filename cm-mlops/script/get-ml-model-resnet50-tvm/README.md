@@ -201,6 +201,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 * CM_ML_MODEL_MAX_BATCH_SIZE: `1`
 * CM_TUNE_TVM_MODEL: `no`
+* CM_TVM_USE_VM: `no`
 
 </details>
 
@@ -240,6 +241,7 @@ ___
 
 * `CM_ML_MODEL_*`
 * `CM_TUNE_TVM_*`
+* `CM_TVM_*`
 #### New environment keys auto-detected from customize
 
 * `CM_ML_MODEL_FILE`
