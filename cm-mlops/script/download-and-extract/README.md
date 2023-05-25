@@ -120,6 +120,26 @@ ___
 
     </details>
 
+
+  * Group "**download-tool**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_curl`
+      - Environment variables:
+        - *CM_DAE_DOWNLOAD_TOOL*: `curl`
+      - Workflow:
+    * **`_wget`** (default)
+      - Environment variables:
+        - *CM_DAE_DOWNLOAD_TOOL*: `wget`
+      - Workflow:
+
+    </details>
+
+
+#### Default variations
+
+`_wget`
 #### Default environment
 
 <details>
@@ -154,6 +174,8 @@ ___
 #### New environment keys auto-detected from customize
 
 * `CM_DAE_DOWNLOADED_CHECKSUM_CMD`
+* `CM_DAE_DOWNLOAD_CMD`
+* `CM_DAE_DOWNLOAD_TOOL`
 * `CM_DAE_EXTRACTED_CHECKSUM_CMD`
 * `CM_DAE_EXTRACT_CMD`
 * `CM_DAE_FILENAME`
