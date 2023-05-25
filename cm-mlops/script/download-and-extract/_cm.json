@@ -6,7 +6,9 @@
   "deps": [
   ],
   "input_description": {},
-  "input_mapping": {},
+  "input_mapping": {
+    "url": "CM_DAE_URL"
+  },
   "new_env_keys": [
     "CM_DAE_*"
   ],
