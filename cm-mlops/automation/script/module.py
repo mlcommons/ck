@@ -185,6 +185,8 @@ class CAutomation(Automation):
         if not recursion and not can_write_to_current_directory():
             return {'return':1, 'error':'Current directory "{}" is not writable - please change it'.format(os.getcwd())}
 
+        recursion_int = int(i.get('recursion_int',0))+1
+
         start_time = time.time()
 
         # Check extra input from environment variable CM_SCRIPT_EXTRA_CMD
@@ -242,7 +244,7 @@ class CAutomation(Automation):
 
         show_time = i.get('time', False)
 
-        extra_recursion_spaces = '  ' if verbose else ''
+        extra_recursion_spaces = '  '# if verbose else ''
 
         skip_cache = i.get('skip_cache', False)
         fake_run = i.get('fake_run', False)
@@ -370,14 +372,15 @@ class CAutomation(Automation):
         variation_tags = r['variation_tags']
 
         # Print what was searched!
-        cm_script_info = 'collective script(s)'
+        cm_script_info = 'CM script'
 
+        x = 'with' 
         if parsed_script_alias !='' :
-            cm_script_info += ' "{}"'.format(parsed_script_alias)
+            cm_script_info += ' '+x+' alias "{}"'.format(parsed_script_alias)
+            x = 'and'
 
-        x = 'with'
         if len(script_tags)>0:
-            cm_script_info += ' with tags "{}"'.format(script_tags_string)
+            cm_script_info += ' '+x+' tags "{}"'.format(script_tags_string)
             x = 'and'
 
         if len(variation_tags)>0:
@@ -386,6 +389,9 @@ class CAutomation(Automation):
         if verbose:
             print ('')
             print (recursion_spaces + '* Searching for ' + cm_script_info)
+        else:
+            print (recursion_spaces + '* Running ' + cm_script_info)
+
 
         #############################################################################
         # Report if scripts were not found or there is an ambiguity with UIDs
@@ -2305,7 +2311,7 @@ class CAutomation(Automation):
                     ii = {
                             'action':'run',
                             'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
-                            'recursion_spaces':recursion_spaces + extra_recursion_spaces,
+                            'recursion_spaces':recursion_spaces, # + extra_recursion_spaces,
                             'recursion':True,
                             'remembered_selections': remembered_selections,
                             'env':env,
@@ -2314,13 +2320,15 @@ class CAutomation(Automation):
                             'const_state':const_state,
                             'add_deps_recursive':add_deps_recursive,
                             'debug_script_tags':debug_script_tags,
-                            'verbose':verbose,
+# Not used anymore                            'verbose':verbose,
+                            'silent':not verbose,
                             'time':show_time,
                             'run_state':run_state
+
                         }
 
                     utils.merge_dicts({'dict1':ii, 'dict2':d, 'append_lists':True, 'append_unique':True})
-
+                    
                     r = self.cmind.access(ii)
                     if r['return']>0: return r
 

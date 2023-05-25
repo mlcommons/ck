@@ -23,8 +23,10 @@ export CK_BATCH_COUNT=${CM_BATCH_COUNT}
 
 if [[ "${CM_INPUT}" != "" ]]; then export CM_IMAGE=${CM_INPUT}; fi
 
+echo ""
 ${CM_PYTHON_BIN} -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
 test $? -eq 0 || exit 1
 
+echo ""
 ${CM_PYTHON_BIN} ${CM_TMP_CURRENT_SCRIPT_PATH}/src/onnx_classify.py
 test $? -eq 0 || exit 1
