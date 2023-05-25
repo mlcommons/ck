@@ -1,9 +1,14 @@
 #!/bin/bash
-if [ -f ${CM_DAE_DOWNLOADED_FILENAME} ]; then
+if [ ! -f ${CM_DAE_DOWNLOADED_FILENAME} ]; then
+  require_download=1
+else
   CMD=${CM_DAE_DOWNLOADED_CHECKSUM_CMD}
   echo ${CMD}
   eval ${CMD}
-else
+  test $? -eq 0 || require_download=1
+fi
+
+if [[ ${require_download} == "1" ]]; then
   CMD=${CM_DAE_DOWNLOAD_CMD}
   echo ${CMD}
   eval ${CMD}
@@ -15,17 +20,21 @@ fi
 
 test $? -eq 0 || exit $?
 
-if [ -f ${CM_DAE_EXTRACTED_FILENAME} ]; then
-  CMD=${CM_DAE_DOWNLOADED_CHECKSUM_CMD}
+if [ ! -f ${CM_DAE_EXTRACTED_FILENAME} ]; then
+  require_extract=1
+else
+  CMD=${CM_DAE_EXTRACTED_CHECKSUM_CMD}
   echo ${CMD}
   eval ${CMD}
-  test $? -eq 0 || exit $?
-else
+  test $? -eq 0 || require_extract=1
+fi
+
+if [[ ${require_extract} == 1 ]]; then
   CMD=${CM_DAE_EXTRACT_CMD}
   echo ${CMD}
   eval ${CMD}
   test $? -eq 0 || exit $?
-  CMD=${CM_DAE_DOWNLOADED_CHECKSUM_CMD}
+  CMD=${CM_DAE_EXTRACTED_CHECKSUM_CMD}
   echo ${CMD}
   eval ${CMD}
   test $? -eq 0 || exit $?
