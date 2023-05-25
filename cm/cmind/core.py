@@ -284,6 +284,15 @@ class CM(object):
                 r = self.index.load()
                 if r['return']>0: return r
 
+                if not r['exists']:
+                    # First time
+                    if console:
+                        print ('Warning: CM index is used for the first time. CM will reindex all artifacts now - it may take some time ...')
+
+                    r = self.access({'action':'reindex',
+                                     'automation':'repo,55c3e27e8a140e48'})
+                    if r['return']>0: return r
+
         # Check if forced common automation
         use_common_automation = True if i.get('common',False) else False
 

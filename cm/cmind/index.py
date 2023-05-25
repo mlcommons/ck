@@ -59,12 +59,14 @@ class Index:
 
         self.full_path_to_index = full_path_to_index
 
+        exists = False
         if os.path.isfile(self.full_path_to_index):
+            exists = True
             r = utils.load_json(self.full_path_to_index)
             if r['return']==0:
                 self.meta = r['meta']
 
-        return {'return':0}
+        return {'return':0, 'exists':exists}
 
     ############################################################
     def save(self):

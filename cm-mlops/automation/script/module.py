@@ -380,11 +380,11 @@ class CAutomation(Automation):
             x = 'and'
 
         if len(script_tags)>0:
-            cm_script_info += ' '+x+' tags "{}"'.format(script_tags_string)
+            cm_script_info += ' '+x+' tags "{}"'.format(script_tags_string.replace(',',' '))
             x = 'and'
 
         if len(variation_tags)>0:
-            cm_script_info += ' '+x+' variations "{}"'.format(",".join(variation_tags))
+            cm_script_info += ' '+x+' variations "{}"'.format(" ".join(variation_tags))
 
         if verbose:
             print ('')
