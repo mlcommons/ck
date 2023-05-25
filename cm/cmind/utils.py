@@ -1560,3 +1560,32 @@ def call_internal_module(module_self, path_to_current_module, module_name, modul
     i['self_module'] = module_self
     
     return getattr(tmp_module, module_func)(i)
+
+###########################################################################
+def tags_matched(tags, and_tags, no_tags):
+    """
+    Check if AND tags and NO tags match tags
+
+    Args:    
+        tags (list of str): full list of tags
+        and_tags (list of str): list of AND tags
+        no_tags (list of str): list of NO tags
+
+    Returns:
+        True if tags matched
+
+    """
+
+    matched = True
+    
+    if len(and_tags)>0:
+        if not all(t in tags for t in and_tags):
+            matched = False
+
+    if matched and len(no_tags)>0:
+        for t in no_tags:
+            if t in tags:
+                matched = False
+                break
+
+    return matched

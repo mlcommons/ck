@@ -27,6 +27,7 @@ class Config(object):
                      "env_repos": "CM_REPOS",
                      "env_debug": "CM_DEBUG",
                      "env_config": "CM_CONFIG",
+                     "env_index": "CM_INDEX",
 
                      "flag_debug": "cm-debug",
 
@@ -41,6 +42,8 @@ class Config(object):
                      "file_repos": "repos.json",
                      "dir_repos": "repos",
                      "cmind_repo": "repo",
+
+                     "file_index": "index.json",
 
                      "file_meta_repo": "cmr",
 

@@ -1,3 +1,7 @@
+## V1.1.6.1
+   - Major update: transparent indexing of all artifacts to speed up search by ~50x
+      (off by default: use env CM_INDEX=yes|on|true to turn it on)
+
 ## V1.1.6
    - added "cm print_input automation"
    - updated link to the MLCommons taskforce on automation and reproducibility

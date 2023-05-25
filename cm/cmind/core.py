@@ -2,6 +2,7 @@
 
 from cmind.config import Config
 from cmind.repos import Repos
+from cmind.index import Index
 from cmind.automation import Automation
 from cmind import utils
 
@@ -11,6 +12,7 @@ import imp
 import importlib
 import pkgutil
 import inspect
+import logging
 
 cm = None
 
@@ -55,7 +57,7 @@ class CM(object):
 
         # Check if debug (raise error instead of soft error)
         self.debug = False
-        if debug or os.environ.get(self.cfg['env_debug'],'').strip().lower()=='yes':
+        if debug or os.environ.get(self.cfg['env_debug'],'').strip().lower() in ['yes','on','true']:
             self.debug = True
 
         # Explicit path to direcory with CM repositories and other internals
@@ -93,6 +95,17 @@ class CM(object):
 
         # Save output to json (only from CLI)
         self.save_to_json = ''
+
+        # Logging
+        self.logger = None
+        self.log = []
+
+        # Index
+        self.index = None
+
+        self.use_index = False
+        if os.environ.get(self.cfg['env_index'],'').strip().lower() in ['yes','on','true']:
+            self.use_index = True
 
     ############################################################
     def error(self, r):
@@ -135,6 +148,21 @@ class CM(object):
         sys.exit(r['return'])
 
     ############################################################
+    def log(self, s):
+        """
+        Args:
+           s (string): log string
+
+        Returns:
+           None
+        """
+
+        # Force console
+        print (s)
+
+        return
+
+    ############################################################
     def access(self, i, out = None):
         """
         Access CM automation actions in a unified way similar to micro-services.
@@ -173,6 +201,10 @@ class CM(object):
         # If error in parse_cli, it will raise error
         if self.cfg['flag_debug'] in i:
             self.debug = True
+
+        # Check if log
+        if self.logger is None:
+            self.logger = logging.getLogger("cm")
 
         # Parse as command line if string or list
         if type(i) == str or type(i) == list:
@@ -243,6 +275,14 @@ class CM(object):
 
             # Set only after all initializations
             self.repos = repos
+
+        # Load index
+        if self.index is None:
+            self.index = Index(self.repos_path, self.cfg)
+
+            if self.use_index:
+                r = self.index.load()
+                if r['return']>0: return r
 
         # Check if forced common automation
         use_common_automation = True if i.get('common',False) else False
@@ -491,6 +531,13 @@ class CM(object):
         action_addr=getattr(initialized_automation, action)
 
         r = action_addr(i)
+
+        # Check if need to save index
+        if self.use_index and self.index.updated:
+            rx = self.index.save()
+            # Ignore output for now to continue working even if issues ...
+
+            self.index.updated=False
 
         return r
 
