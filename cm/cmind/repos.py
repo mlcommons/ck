@@ -45,6 +45,8 @@ class Repos:
 
         self.full_path_to_repo_paths = ''
 
+        self.extra_info = {}
+
     ############################################################
     def load(self, init = False):
         """
@@ -128,6 +130,14 @@ class Repos:
 
                     # Set only after all initializations
                     self.lst.append(repo)
+                   
+                    repo_uid = repo.meta['uid']
+                    if repo_uid!='':
+                        self.extra_info[repo_uid]=repo
+
+                    repo_alias = repo.meta['alias']
+                    if repo_alias!='':
+                        self.extra_info[repo_alias]=repo
 
                     found = True
                     break

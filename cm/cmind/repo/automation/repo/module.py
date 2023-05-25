@@ -88,6 +88,11 @@ class CAutomation(Automation):
 
         repo_meta = r['meta']
 
+        if self.cmind.use_index:
+            ii = {'out':'con'} if console else {}
+            rx = self.reindex(ii)
+
+
         return {'return':0, 'meta':repo_meta}
 
     ############################################################
@@ -257,6 +262,10 @@ class CAutomation(Automation):
 
         r = self.cmind.repos.delete(lst, remove_all = remove_all, console = console, force = force)
 
+        if self.cmind.use_index:
+            ii = {'out':'con'} if console else {}
+            rx = self.reindex(ii)
+        
         return r
 
     ############################################################
@@ -376,6 +385,11 @@ class CAutomation(Automation):
 
         # Create repository 
         r = self.cmind.repos.init(alias = alias, uid = uid, path = path, console = console, desc=desc, prefix=prefix, only_register=repo_desc_found)
+
+        if self.cmind.use_index:
+            ii = {'out':'con'} if console else {}
+            rx = self.reindex(ii)
+        
         return r
 
     ############################################################
@@ -557,6 +571,10 @@ class CAutomation(Automation):
         repo_pack_zip.close()
         repo_pack_file.close()
 
+        if self.cmind.use_index:
+            ii = {'out':'con'} if console else {}
+            rx = self.reindex(ii)
+        
         return r_new
 
     ##############################################################################
@@ -844,7 +862,62 @@ class CAutomation(Automation):
                     print ('  Artifact alias: {}'.format(artifact_meta['alias']))
                     print ('  Artifact UID:   {}'.format(artifact_meta['uid']))
 
+        if self.cmind.use_index:
+            ii = {'out':'con'} if console else {}
+            rx = self.reindex(ii)
+
         return rr
+
+
+    ############################################################
+    def reindex(self, i):
+        """
+        Reindex all CM repositories
+
+        Args:
+            (CM input dict)
+
+            (verbose) (bool): If True, print index
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+        """
+
+        verbose = i.get('verbose', False)
+
+        console = i.get('out') == 'con'
+
+        if console:
+            print ('')
+            print ('Reindexing all CM artifacts. Can take some time ...')
+        
+        out = 'con' if verbose else ''
+        
+        # Clean index
+        self.cmind.index.meta = {}
+        
+        r = self.cmind.access({'action':'search',
+                               'automation':'*',
+                               'out':out,
+                               'skip_index_search':True,
+                               'force_index_add':True})
+        if r['return']>0: return r
+
+        # Save
+
+        rx = self.cmind.index.save()
+        # Ignore output for now to continue working even if issues ...
+
+        if self.cmind.use_index:
+            rx = self.cmind.index.load()
+            # Ignore output for now to continue working even if issues ...
+
+
+        return {'return':0}
 
 
 

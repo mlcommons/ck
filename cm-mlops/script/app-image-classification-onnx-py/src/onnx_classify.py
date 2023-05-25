@@ -106,6 +106,7 @@ if data_layout == 'NHWC':
 else:
     (samples, channels, height, width) = model_input_shape
 
+print("")
 print("Data layout: {}".format(data_layout) )
 print("Input layers: {}".format([ str(x) for x in sess.get_inputs()]))
 print("Output layers: {}".format([ str(x) for x in sess.get_outputs()]))
