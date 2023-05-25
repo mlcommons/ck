@@ -12,6 +12,7 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -49,11 +50,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=download,extract,file,download-and-extract[,variations] `
+1. `cm run script --tags=download,extract,file,download-and-extract[,variations] [--input_flags]`
 
-2. `cm run script "download extract file download-and-extract[,variations]" `
+2. `cm run script "download extract file download-and-extract[,variations]" [--input_flags]`
 
-3. `cm run script c67e81a4ce2649f5 `
+3. `cm run script c67e81a4ce2649f5 [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -140,6 +141,21 @@ ___
 #### Default variations
 
 `_wget`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--url=value`  &rarr;  `CM_DAE_URL=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "url":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
@@ -174,15 +190,15 @@ ___
 #### New environment keys auto-detected from customize
 
 * `CM_DAE_DOWNLOADED_CHECKSUM_CMD`
+* `CM_DAE_DOWNLOADED_FILENAME`
 * `CM_DAE_DOWNLOAD_CMD`
 * `CM_DAE_DOWNLOAD_TOOL`
 * `CM_DAE_EXTRACTED_CHECKSUM_CMD`
 * `CM_DAE_EXTRACT_CMD`
+* `CM_DAE_EXTRACT_TOOL`
 * `CM_DAE_FILENAME`
 * `CM_DAE_FILE_DOWNLOADED_PATH`
 * `CM_DAE_GZIP`
-* `CM_DAE_UNTAR`
-* `CM_DAE_UNZIP`
 ___
 ### Maintainers
 
