@@ -1,0 +1,47 @@
+{
+  "alias": "get-dataset-imagenet-train",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "deps": [],
+  "input_description": {},
+  "input_mapping": {
+    "torrent": "CM_DATASET_IMAGENET_TRAIN_TORRENT_PATH",
+    "path": "CM_DATASET_IMAGENET_TRAIN_LOCAL_PATH"
+  },
+  "new_env_keys": [],
+  "new_state_keys": [],
+  "post_deps": [],
+  "posthook_deps": [],
+  "prehook_deps": [
+    {
+      "tags": "download,torrent",
+      "names": [
+        "download-torrent"
+      ]
+    },
+    {
+      "tags": "download,extract,file,_extract",
+      "env": {
+        "CM_DAE_ONLY_EXTRACT": "yes",
+        "CM_DAE_EXTRACTED_FILENAME": "imagenet-2012-train",
+        "CM_DAE_DOWNLOADED_CHECKSUM": "4240cb0b5f1f065ea853519e7c5b46b2",
+        "CM_DAE_DOWNLOADED_CHECKSUM": "bfb13644bce3853efa190a02d10ebe9e"
+      },
+      "enable_if_env": {
+        "CM_DATASET_IMAGENET_TRAIN_REQUIRE_EXTRACT": [ "yes" ]
+      }
+    }
+  ],
+  "tags": [
+    "get",
+    "imagenet",
+    "train",
+    "dataset",
+    "original"
+  ],
+  "uid": "2bec165da5cc4ebf",
+  "variations": {
+  },
+  "versions": {}
+}
