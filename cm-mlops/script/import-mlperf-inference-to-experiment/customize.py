@@ -144,7 +144,7 @@ def convert_summary_csv_to_experiment(path, version):
         r=utils.save_json(file_summary_json.format(version), summary)
         if r['return']>0: return r
 
-        # Create viraul experiment entries
+        # Create virtual experiment entries
         experiment = {}
 
         for result in summary:
@@ -249,9 +249,10 @@ def convert_summary_csv_to_experiment(path, version):
 
                         # Need to iterate over keys in the new results since old results can have more keys (derivates, etc)
                         for k in result2:
-                            if k not in result or result2[k]!=result[k]:
-                                matched = False
-                                break
+                            if k!='uid':
+                                if k not in result or result2[k]!=result[k]:
+                                    matched = False
+                                    break
 
                         if matched:
                             found = True
