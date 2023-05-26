@@ -224,7 +224,8 @@ class Index:
                    import fnmatch
                    for artifact in index_meta_automation:
                        if fnmatch.fnmatch(artifact, artifact_obj[0]):
-                           self._add_if_exists(index_meta_automation, artifact, artifacts, keys_to_delete)
+                           if index_meta_automation[artifact].get('uid','')!='':
+                               self._add_if_exists(index_meta_automation, artifact, artifacts, keys_to_delete)
                elif artifact_obj[0]=='':
                    for artifact in index_meta_automation:
                        # Add only 1 (UID) to avoid adding 2 duplicates
