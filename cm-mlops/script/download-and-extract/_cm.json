@@ -22,7 +22,8 @@
     "file",
     "download-and-extract"
   ],
-  "default_env": {
+  "env": {
+    "CM_DAE_REMOVE_EXTRACTED": "yes"
   },
   "uid": "c67e81a4ce2649f5",
   "variations": {
@@ -52,9 +53,9 @@
         "CM_DAE_EXTRACT_DOWNLOADED": "yes"
       }
     },
-    "remove-extracted": {
+    "no-remove-extracted": {
       "env": {
-        "CM_DAE_REMOVE_EXTRACTED": "yes"
+        "CM_DAE_REMOVE_EXTRACTED": "no"
       }
     }
   },

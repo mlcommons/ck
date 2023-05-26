@@ -26,13 +26,15 @@ def preprocess(i):
                 env['CM_DAE_FILENAME'] = "index.html"
 
         filename = env['CM_DAE_FILENAME']
+        env['CM_DAE_DOWNLOADED_FILENAME'] = filename
 
         url = env['CM_DAE_URL']
+        extra_download_options = env.get('CM_DAE_EXTRA_DOWNLOAD_OPTIONS', '')
 
         if env['CM_DAE_DOWNLOAD_TOOL'] == "wget":
-            env['CM_DAE_DOWNLOAD_CMD'] = f"wget -nc {url}"
+            env['CM_DAE_DOWNLOAD_CMD'] = f"wget -nc {extra_download_options} {url}"
         if env['CM_DAE_DOWNLOAD_TOOL'] == "curl":
-            env['CM_DAE_DOWNLOAD_CMD'] = f"curl {url}"
+            env['CM_DAE_DOWNLOAD_CMD'] = f"curl {extra_download_options} {url}"
 
     else:
         env['CM_DAE_DOWNLOAD_CMD'] = ""
@@ -58,25 +60,31 @@ def preprocess(i):
         if filename.endswith(".zip"):
             env['CM_DAE_EXTRACT_TOOL'] = "unzip"
         elif filename.endswith(".tar.gz"):
-            env['CM_DAE_EXTRACT_TOOL'] = "tar -xvzf"
+            env['CM_DAE_EXTRACT_TOOL_OPTIONS'] = ' -xvzf'
+            env['CM_DAE_EXTRACT_TOOL'] = 'tar '
         elif filename.endswith(".tar"):
-            env['CM_DAE_EXTRACT_TOOL'] = "tar -xvf"
+            env['CM_DAE_EXTRACT_TOOL_OPTIONS'] = ' -xvf'
+            env['CM_DAE_EXTRACT_TOOL'] = 'tar '
         elif filename.endswith(".gz"):
             env['CM_DAE_EXTRACT_TOOL'] = 'gzip -d '+ ('-k ' if not remove_extracted else '')
             env['CM_DAE_GZIP'] = "gzip -d"
         elif env.get('CM_DAE_UNZIP','') == 'yes':
             env['CM_DAE_EXTRACT_TOOL'] = 'unzip '
         elif env.get('CM_DAE_UNTAR','') == 'yes':
-            env['CM_DAE_EXTRACT_TOOL'] = 'tar -xvf '
+            env['CM_DAE_EXTRACT_TOOL_OPTIONS'] = ' -xvf'
+            env['CM_DAE_EXTRACT_TOOL'] = 'tar '
         elif env.get('CM_DAE_GZIP','') == 'yes':
-            env['CM_DAE_EXTRACT_CMD'] = 'gzip -d '+ ('-k ' if not remove_extracted else '')
+            env['CM_DAE_EXTRACT_CMD'] = 'gzip '
+            env['CM_DAE_EXTRACT_TOOL_OPTIONS'] = ' -d '+ ('-k ' if not remove_extracted else '')
         else:
             return {'return': 1, 'error': 'CM_DAE_EXTRACT_DOWNLOADED is yes but neither CM_DAE_UNZIP nor CM_DAE_UNTAR is yes'}
 
-        env['CM_DAE_EXTRACT_CMD'] = env['CM_DAE_EXTRACT_TOOL'] + ' ' + filename
+        if 'tar ' in env['CM_DAE_EXTRACT_TOOL'] and env.get('CM_DAE_EXTRACT_TO_FOLDER', '') != '':
+            env['CM_DAE_EXTRACT_TOOL_OPTIONS'] = ' --one-top-level='+ env['CM_DAE_EXTRACT_TO_FOLDER'] + env.get('CM_DAE_EXTRACT_TOOL_OPTIONS', '')
+            env['CM_DAE_EXTRACTED_FILENAME'] = env['CM_DAE_EXTRACT_TO_FOLDER']
 
-        if env.get('CM_DAE_EXTRACTED_FILENAME'):
-            env['CM_DAE_FILENAME'] = env['CM_DAE_EXTRACTED_FILENAME']
+
+        env['CM_DAE_EXTRACT_CMD'] = env['CM_DAE_EXTRACT_TOOL'] + ' ' + env.get('CM_DAE_EXTRACT_TOOL_EXTRA_OPTIONS', '') + ' ' + env.get('CM_DAE_EXTRACT_TOOL_OPTIONS', '')+ ' '+ filename
 
         if env.get('CM_DAE_EXTRACTED_CHECKSUM'):
             env['CM_DAE_EXTRACTED_CHECKSUM_CMD'] = "echo {} {} | md5sum -c".format(env.get('CM_DAE_EXTRACTED_CHECKSUM'), env['CM_DAE_EXTRACTED_FILENAME'])
@@ -96,5 +104,13 @@ def postprocess(i):
         env['CM_DAE_FILE_DOWNLOADED_PATH'] = filepath
     else:
         return {'return':1, 'error': 'CM_DAE_FILENAME is not set and CM_DAE_URL given is not pointing to a file'}
+
+    if env.get('CM_DAE_EXTRACTED_FILENAME'):
+        extracted_name = os.path.basename(env['CM_DAE_EXTRACTED_FILENAME'])
+        extracted_path = os.path.join(os.getcwd(), extracted_name)
+        env['CM_DAE_FILE_EXTRACTED_PATH'] = extracted_path
+
+    if env.get('CM_DAE_FINAL_ENV_NAME'):
+        env['CM_DAE_FINAL_ENV_NAME'] = filename
 
     return {'return':0}
