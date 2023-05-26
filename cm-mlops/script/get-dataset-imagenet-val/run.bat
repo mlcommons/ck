@@ -11,4 +11,5 @@ if "%CM_DATASET_PATH%" == "" (
 
   echo CM_DATASET_PATH=%CD%\images > tmp-run-env.out
   echo CM_DATASET_IMAGENET_PATH=%CD%\images >> tmp-run-env.out
+  echo CM_DATASET_IMAGENET_VAL_PATH=%CD%\images >> tmp-run-env.out
 )
