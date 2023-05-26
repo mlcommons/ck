@@ -67,7 +67,8 @@ def page(st, params, parent, experiment):
 
     x = 'experiment set(s)' if result_uid=='' else 'result'
 
-    show_optional = True if result_uid=='' and len(results)>1 else False
+#    show_optional = True if result_uid=='' and len(results)>1 else False
+    show_optional = True if result_uid=='' else False
 
     st.write('''
              <center>

@@ -18,7 +18,10 @@
       "tags": "download,torrent",
       "names": [
         "download-torrent"
-      ]
+      ],
+      "enable_if_env": {
+        "CM_DATASET_IMAGENET_TRAIN_REQUIRE_TORRENT": [ "yes" ]
+      }
     },
     {
       "tags": "download,extract,file,_extract",

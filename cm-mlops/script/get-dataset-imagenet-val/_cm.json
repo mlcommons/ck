@@ -5,13 +5,13 @@
   "cache": true,
   "category": "ML/AI datasets",
   "category_sort":8500,
-  "default_variation": "2012-500",
   "env": {
     "CM_DATASET": "IMAGENET"
   },
   "new_env_keys": [
     "CM_DATASET_PATH",
     "CM_DATASET_IMAGENET_PATH",
+    "CM_DATASET_IMAGENET_VAL_PATH",
     "CM_DATASET_SIZE",
     "CM_DATASET_VER"
   ],
@@ -26,47 +26,69 @@
     "original"
   ],
   "uid": "7afd58d287fe4f11",
+  "deps": [
+    {
+      "tags": "detect,os"
+    }
+  ],
+  "prehook_deps": [
+    {
+      "tags": "download,torrent",
+      "names": [
+        "download-torrent"
+      ],
+      "enable_if_env": {
+        "CM_DATASET_IMAGENET_VAL_REQUIRE_TORRENT": [ "yes" ]
+      }
+    },
+    {
+      "tags": "download,extract,file,_extract",
+      "env": {
+        "CM_DAE_EXTRACT_TO_FOLDER": "imagenet-2012-val"
+      },
+      "enable_if_env": {
+        "CM_DATASET_IMAGENET_VAL_REQUIRE_DAE": [ "yes" ]
+      }
+    }
+  ],
   "variations": {
     "2012": {
+      "group": "dataset-version",
+      "default": true,
       "env": {
         "CM_DATASET_VER": "2012"
       }
     },
-    "2012-1": {
-      "base": [
-	"size.1",
-	"2012"
-      ],
-      "env": {
-        "CM_DATASET_SIZE": "1"
-      }
-    },
     "2012-500": {
       "base": [
-	"size.500",
-	"2012"
-      ],
-      "env": {
-        "CM_DATASET_SIZE": "500"
-      }
+        "size.500",
+        "2012"
+      ]
     },
     "2012-full": {
       "base": [
-	"full",
-	"2012"
-      ],
-      "env": {
-        "CM_DATASET_SIZE": "50000",
-        "CM_IMAGENET_FULL": "yes"
-      }
+        "full",
+        "2012"
+      ]
     },
     "full": {
       "env": {
         "CM_DATASET_SIZE": "50000",
-        "CM_IMAGENET_FULL": "yes"
+        "CM_IMAGENET_FULL": "yes",
+        "CM_DAE_DOWNLOADED_FILENAME": "ILSVRC2012_img_val.tar",
+        "CM_DAE_DOWNLOADED_CHECKSUM": "29b22e2961454d5413ddabcf34fc5622"
+      }
+    },
+    "size.500": {
+      "group": "count",
+      "default": true,
+      "env": {
+        "CM_DATASET_SIZE": "500",
+        "CM_DAE_URL": "https://www.dropbox.com/s/57s11df6pts3z69/ILSVRC2012_img_val_500.tar"
       }
     },
     "size.#": {
+      "group": "count",
       "env": {
         "CM_DATASET_SIZE": "#"
       }
