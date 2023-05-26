@@ -110,9 +110,9 @@ ___
       - Environment variables:
         - *CM_DAE_EXTRACT_DOWNLOADED*: `yes`
       - Workflow:
-    * `_remove-extracted`
+    * `_no-remove-extracted`
       - Environment variables:
-        - *CM_DAE_REMOVE_EXTRACTED*: `yes`
+        - *CM_DAE_REMOVE_EXTRACTED*: `no`
       - Workflow:
     * `_url.#`
       - Environment variables:
@@ -194,10 +194,14 @@ ___
 * `CM_DAE_DOWNLOAD_CMD`
 * `CM_DAE_DOWNLOAD_TOOL`
 * `CM_DAE_EXTRACTED_CHECKSUM_CMD`
+* `CM_DAE_EXTRACTED_FILENAME`
 * `CM_DAE_EXTRACT_CMD`
 * `CM_DAE_EXTRACT_TOOL`
+* `CM_DAE_EXTRACT_TOOL_OPTIONS`
 * `CM_DAE_FILENAME`
 * `CM_DAE_FILE_DOWNLOADED_PATH`
+* `CM_DAE_FILE_EXTRACTED_PATH`
+* `CM_DAE_FINAL_ENV_NAME`
 * `CM_DAE_GZIP`
 ___
 ### Maintainers
