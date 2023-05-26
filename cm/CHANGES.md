@@ -1,3 +1,6 @@
+## V1.2.1
+   - Fixed Bug in indexing (avoiding duplicate entries when wildcards are used)
+
 ## V1.2.0
    - Major update: transparent indexing of all artifacts 
      to speed up search and scripts by ~10..50x

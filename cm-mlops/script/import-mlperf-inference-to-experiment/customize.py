@@ -74,13 +74,13 @@ def preprocess(i):
             if r['return']>0 and r['return']!=2:
                 return r
 
-            r = convert_summary_csv_to_experiment(path, version)
+            r = convert_summary_csv_to_experiment(path, version, env)
             if r['return']>0: return r
 
     return {'return':0}
 
 
-def convert_summary_csv_to_experiment(path, version):
+def convert_summary_csv_to_experiment(path, version, env):
     print ('* Processing MLPerf repo in cache path: {}'.format(path))
 
     cur_dir = os.getcwd()
@@ -182,6 +182,10 @@ def convert_summary_csv_to_experiment(path, version):
                 experiment[name].append(result)
 
         # Checking experiment
+        env_target_repo=env.get('CM_IMPORT_MLPERF_INFERENCE_TARGET_REPO','').strip()
+        target_repo='' if env_target_repo=='' else env_target_repo+':'
+
+        
         print ('')
         for name in experiment:
             print ('    Preparing experiment artifact "{}"'.format(name))
@@ -191,7 +195,7 @@ def convert_summary_csv_to_experiment(path, version):
             # Checking if experiment already exists
             r = cm.access({'action':'find',
                            'automation':'experiment,a0a2d123ef064bcb',
-                           'artifact':name})
+                           'artifact':target_repo+name})
             if r['return']>0: return r
 
             lst = r['list']
@@ -199,7 +203,7 @@ def convert_summary_csv_to_experiment(path, version):
             if len(lst)==0:
                 r = cm.access({'action':'add',
                                'automation':'experiment,a0a2d123ef064bcb',
-                               'artifact':name,
+                               'artifact':target_repo+name,
                                'tags':tags})
                 if r['return']>0: return r
 
