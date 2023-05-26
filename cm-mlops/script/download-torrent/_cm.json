@@ -9,7 +9,12 @@
     }
   ],
   "input_description": {},
-  "input_mapping": {},
+  "input_mapping": {
+    "wait": "CM_TORRENT_WAIT_UNTIL_COMPLETED"
+  },
+  "default_env": {
+    "CM_TORRENT_WAIT_UNTIL_COMPLETED": "no"
+  },
   "new_env_keys": [],
   "new_state_keys": [],
   "post_deps": [],

@@ -6,6 +6,8 @@ def preprocess(i):
     os_info = i['os_info']
 
     env = i['env']
+    automation = i['automation']
+    meta = i['meta']
     os_info = i['os_info']
     if os_info['platform'] == 'windows':
         return {'return':0}

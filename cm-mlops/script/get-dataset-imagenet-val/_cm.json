@@ -25,6 +25,9 @@
     "image-classification",
     "original"
   ],
+  "input_mapping": {
+    "torrent": "CM_DATASET_IMAGENET_VAL_TORRENT_PATH"
+  },
   "uid": "7afd58d287fe4f11",
   "deps": [
     {
@@ -39,6 +42,10 @@
       ],
       "enable_if_env": {
         "CM_DATASET_IMAGENET_VAL_REQUIRE_TORRENT": [ "yes" ]
+      },
+      "env": {
+        "CM_TORRENT_WAIT_UNTIL_COMPLETED": "yes",
+        "CM_TORRENT_DOWNLOADED_FILE_NAME": "ILSVR"
       }
     },
     {
@@ -72,6 +79,7 @@
       ]
     },
     "full": {
+      "group": "count",
       "env": {
         "CM_DATASET_SIZE": "50000",
         "CM_IMAGENET_FULL": "yes",

@@ -13,6 +13,10 @@ def preprocess(i):
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
+    if env.get('CM_TORRENT_WAIT_UNTIL_COMPLETED','') == 'yes':
+        if not env.get('CM_TORRENT_DOWNLOADED_FILE_NAME'):
+            return {'return':1, 'error': 'CM_TORRENT_WAIT_UNTIL_COMPLETED is given but CM_TORRENT_DOWNLOADED_FILE_NAME is not set' }
+
     return {'return':0}
 
 def postprocess(i):
