@@ -37,12 +37,12 @@ cm run script "get git repo _repo.https://github.com/mlcommons/submissions_tiny_
 
 Convert raw MLPerf results into CM experiment entries:
 ```bash
-cm run script "import mlperf tiny to-experiment" 
+cm run script "import mlperf tiny to-experiment" -s
 ```
 
 Visualize results on your local machine via CK playground GUI:
 ```bash
-cm run script "gui _playground"
+cm run script "gui _playground" -s
 ```
 
 These results are also available in the [public CK playground](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-tiny,all).
