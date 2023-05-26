@@ -134,6 +134,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-train/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-train/_cm.json)***
      * download,torrent
+       * `if (CM_DATASET_IMAGENET_TRAIN_REQUIRE_TORRENT  == yes)`
        * CM names: `--adr.['download-torrent']...`
        - CM script: [download-torrent](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-torrent)
      * download,extract,file,_extract

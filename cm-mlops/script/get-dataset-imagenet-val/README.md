@@ -109,31 +109,45 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_2012`
-      - Environment variables:
-        - *CM_DATASET_VER*: `2012`
-      - Workflow:
-    * `_2012-1`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: `1`
-      - Workflow:
-    * **`_2012-500`** (default)
-      - Environment variables:
-        - *CM_DATASET_SIZE*: `500`
+    * `_2012-500`
       - Workflow:
     * `_2012-full`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: `50000`
-        - *CM_IMAGENET_FULL*: `yes`
       - Workflow:
     * `_full`
       - Environment variables:
         - *CM_DATASET_SIZE*: `50000`
         - *CM_IMAGENET_FULL*: `yes`
+        - *CM_DAE_DOWNLOADED_FILENAME*: `ILSVRC2012_img_val.tar`
+        - *CM_DAE_DOWNLOADED_CHECKSUM*: `29b22e2961454d5413ddabcf34fc5622`
       - Workflow:
+
+    </details>
+
+
+  * Group "**count**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
     * `_size.#`
       - Environment variables:
         - *CM_DATASET_SIZE*: `#`
+      - Workflow:
+    * **`_size.500`** (default)
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `500`
+        - *CM_DAE_URL*: `https://www.dropbox.com/s/57s11df6pts3z69/ILSVRC2012_img_val_500.tar`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**dataset-version**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_2012`** (default)
+      - Environment variables:
+        - *CM_DATASET_VER*: `2012`
       - Workflow:
 
     </details>
@@ -141,7 +155,7 @@ ___
 
 #### Default variations
 
-`_2012-500`
+`_2012,_size.500`
 #### Default environment
 
 <details>
@@ -158,14 +172,22 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)***
+     * download,torrent
+       * `if (CM_DATASET_IMAGENET_VAL_REQUIRE_TORRENT  == yes)`
+       * CM names: `--adr.['download-torrent']...`
+       - CM script: [download-torrent](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-torrent)
+     * download,extract,file,_extract
+       * `if (CM_DATASET_IMAGENET_VAL_REQUIRE_DAE  == yes)`
+       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
-  1. Run "postrocess" function from customize.py
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
 </details>
 
@@ -174,12 +196,14 @@ ___
 #### New environment keys (filter)
 
 * `CM_DATASET_IMAGENET_PATH`
+* `CM_DATASET_IMAGENET_VAL_PATH`
 * `CM_DATASET_PATH`
 * `CM_DATASET_SIZE`
 * `CM_DATASET_VER`
 #### New environment keys auto-detected from customize
 
 * `CM_DATASET_IMAGENET_PATH`
+* `CM_DATASET_IMAGENET_VAL_PATH`
 * `CM_DATASET_PATH`
 ___
 ### Maintainers
