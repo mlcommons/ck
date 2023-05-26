@@ -10,7 +10,7 @@ file_result = 'cm-result.json'
 
 fix_benchmark_names = {'anomaly_detection':'ad',
                        'image_classification':'ic',
-                       'keyword_spotting':'kwc',
+                       'keyword_spotting':'kws',
                        'visual_wake_words':'vww'}
 
 def preprocess(i):
@@ -41,7 +41,7 @@ def preprocess(i):
                     version = 'v'+t[8:]
                     break
 
-            r = convert_repo_to_experiment(path, version)
+            r = convert_repo_to_experiment(path, version, env)
             if r['return']>0: return r
 
     print ('')
@@ -49,7 +49,7 @@ def preprocess(i):
     return {'return':0}
 
 
-def convert_repo_to_experiment(path, version):
+def convert_repo_to_experiment(path, version, env):
     print ('')
     print ('Processing MLPerf repo from CM cache path: {}'.format(path))
     print ('* Version: {}'.format(version))
@@ -356,6 +356,9 @@ def convert_repo_to_experiment(path, version):
     r=utils.save_json(file_summary_json, experiments)
     if r['return']>0: return r
 
+    env_target_repo=env.get('CM_IMPORT_TINYMLPERF_TARGET_REPO','').strip()
+    target_repo='' if env_target_repo=='' else env_target_repo+':'
+    
     # Checking experiment
     print ('')
     for name in experiments:
@@ -363,10 +366,11 @@ def convert_repo_to_experiment(path, version):
 
         tags = name.split('--')
 
+        
         # Checking if experiment already exists
         r = cm.access({'action':'find',
                        'automation':'experiment,a0a2d123ef064bcb',
-                       'artifact':name})
+                       'artifact':target_repo+name})
         if r['return']>0: return r
 
         lst = r['list']
@@ -374,7 +378,7 @@ def convert_repo_to_experiment(path, version):
         if len(lst)==0:
             r = cm.access({'action':'add',
                            'automation':'experiment,a0a2d123ef064bcb',
-                           'artifact':name,
+                           'artifact':target_repo+name,
                            'tags':tags})
             if r['return']>0: return r
 

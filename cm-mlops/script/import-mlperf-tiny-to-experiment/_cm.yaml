@@ -20,6 +20,10 @@ tags:
   - 2experiment
   - to-experiment
 
+input_mapping:
+  target_repo: CM_IMPORT_TINYMLPERF_TARGET_REPO
+
+
 # Dependencies on other CM scripts
 deps:
 
