@@ -33,8 +33,10 @@
     {
       "tags": "extract,file",
       "update_tags_from_env_with_prefix": {
-        "_path.": [ "CM_DOWNLOAD_DOWNLOADED_PATH" ],
-        "_path.": [ "CM_TORRENT_DOWNLOADED_PATH" ]
+        "_path.": [
+          "CM_DOWNLOAD_DOWNLOADED_PATH",
+          "CM_TORRENT_DOWNLOADED_PATH"
+        ]
       },
       "enable_if_env": {
         "CM_DAE_EXTRACT_DOWNLOADED": [ "yes", "True" ]
