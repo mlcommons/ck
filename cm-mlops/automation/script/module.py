@@ -371,26 +371,56 @@ class CAutomation(Automation):
 
         variation_tags = r['variation_tags']
 
-        # Print what was searched!
-        cm_script_info = 'CM script'
 
-        x = 'with' 
+
+#        # Print what was searched!
+#        cm_script_info = 'CM script'
+#
+#        x = 'with' 
+#        if parsed_script_alias !='' :
+#            cm_script_info += ' '+x+' alias "{}"'.format(parsed_script_alias)
+#            x = 'and'
+#
+#        if len(script_tags)>0:
+#            cm_script_info += ' '+x+' tags "{}"'.format(script_tags_string.replace(',',' '))
+#            x = 'and'
+#
+#        if len(variation_tags)>0:
+#            x_variation_tags = ['_'+v for v in variation_tags]
+#            cm_script_info += ' '+x+' variations "{}"'.format(" ".join(x_variation_tags))
+#
+#        if verbose:
+#            print ('')
+#            print (recursion_spaces + '* Searching for ' + cm_script_info)
+#        else:
+#            print (recursion_spaces + '* Running ' + cm_script_info)
+
+
+        cm_script_info = 'cm run script '
+
+        x = '"'
+        y = ' '
         if parsed_script_alias !='' :
-            cm_script_info += ' '+x+' alias "{}"'.format(parsed_script_alias)
-            x = 'and'
+            cm_script_info += parsed_script_alias
+            x = ' --tags="'
+            y = ','
 
-        if len(script_tags)>0:
-            cm_script_info += ' '+x+' tags "{}"'.format(script_tags_string.replace(',',' '))
-            x = 'and'
+        if len(script_tags)>0 or len(variation_tags)>0:
+            if len(script_tags)>0:
+                cm_script_info += x + script_tags_string.replace(',',y)
 
-        if len(variation_tags)>0:
-            cm_script_info += ' '+x+' variations "{}"'.format(" ".join(variation_tags))
+            if len(variation_tags)>0:
+                if len(script_tags)>0: cm_script_info+=' '
+
+                x_variation_tags = ['_'+v for v in variation_tags]
+                cm_script_info += y.join(x_variation_tags)
+
+            cm_script_info += '"'
 
         if verbose:
             print ('')
-            print (recursion_spaces + '* Searching for ' + cm_script_info)
-        else:
-            print (recursion_spaces + '* Running ' + cm_script_info)
+
+        print (recursion_spaces + '* ' + cm_script_info)
 
 
         #############################################################################
