@@ -186,8 +186,6 @@ ___
        * CM names: `--adr.['download-script']...`
        - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/run.sh)
   1. ***Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/_cm.json)***
      * extract,file
        * `if (CM_DAE_EXTRACT_DOWNLOADED in ['yes', 'True'])`
