@@ -1,0 +1,50 @@
+{
+  "alias": "download-file",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "deps": [],
+  "env": {
+  },
+  "input_description": {},
+  "input_mapping": {
+    "url": "CM_DOWNLOAD_URL"
+  },
+  "new_env_keys": [
+    "CM_DOWNLOAD_DOWNLOADED_PATH*",
+    "<<<CM_DOWNLOAD_FINAL_ENV_NAME>>>"
+  ],
+  "new_state_keys": [],
+  "post_deps": [],
+  "prehook_deps": [],
+  "tags": [
+    "download",
+    "file",
+    "download-file"
+  ],
+  "uid": "9cdc8dc41aae437e",
+  "variations": {
+    "curl": {
+      "default_env": {
+        "CM_DOWNLOAD_CURL_EMULATE_BROWSER": "no"
+      },
+      "env": {
+        "CM_DOWNLOAD_TOOL": "curl"
+      },
+      "group": "download-tool"
+    },
+    "url.#": {
+      "env": {
+        "CM_DOWNLOAD_URL": "#"
+      }
+    },
+    "wget": {
+      "default": true,
+      "env": {
+        "CM_DOWNLOAD_TOOL": "wget"
+      },
+      "group": "download-tool"
+    }
+  },
+  "versions": {}
+}

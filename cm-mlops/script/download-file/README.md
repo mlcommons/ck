@@ -29,9 +29,9 @@
 #### Information
 
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *file,download-and-extract*
+* CM "database" tags to find this script: *download,file,download-file*
 * Output cached?: *True*
 ___
 ### Usage
@@ -50,11 +50,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=file,download-and-extract[,variations] [--input_flags]`
+1. `cm run script --tags=download,file,download-file[,variations] [--input_flags]`
 
-2. `cm run script "file download-and-extract[,variations]" [--input_flags]`
+2. `cm run script "download file download-file[,variations]" [--input_flags]`
 
-3. `cm run script c67e81a4ce2649f5 [--input_flags]`
+3. `cm run script 9cdc8dc41aae437e [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -71,7 +71,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'file,download-and-extract'
+                  'tags':'download,file,download-file'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -88,9 +88,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="file,download-and-extract"```
+```cm run script --tags=gui --script="download,file,download-file"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=file,download-and-extract) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=download,file,download-file) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -106,17 +106,9 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_extract`
-      - Environment variables:
-        - *CM_DAE_EXTRACT_DOWNLOADED*: `yes`
-      - Workflow:
-    * `_no-remove-extracted`
-      - Environment variables:
-        - *CM_DAE_REMOVE_EXTRACTED*: `no`
-      - Workflow:
     * `_url.#`
       - Environment variables:
-        - *CM_DAE_URL*: `#`
+        - *CM_DOWNLOAD_URL*: `#`
       - Workflow:
 
     </details>
@@ -127,18 +119,12 @@ ___
     <summary>Click here to expand this section.</summary>
 
     * `_curl`
-      - Workflow:
-    * `_torrent`
       - Environment variables:
-        - *CM_DAE_DOWNLOAD_USING_TORRENT*: `yes`
-        - *CM_TORRENT_WAIT_UNTIL_COMPLETED*: `yes`
-        - *CM_TORRENT_DOWNLOADED_PATH_ENV_KEY*: `CM_DAE_FILEPATH`
-        - *CM_TORRENT_DOWNLOADED_FILE_NAME*: `<<<CM_DAE_FILENAME>>>`
+        - *CM_DOWNLOAD_TOOL*: `curl`
       - Workflow:
-        1. ***Read "prehook_deps" on other CM scripts***
-           * download,torrent
-             - CM script: [download-torrent](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-torrent)
     * **`_wget`** (default)
+      - Environment variables:
+        - *CM_DOWNLOAD_TOOL*: `wget`
       - Workflow:
 
     </details>
@@ -152,7 +138,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* `--url=value`  &rarr;  `CM_DAE_URL=value`
+* `--url=value`  &rarr;  `CM_DOWNLOAD_URL=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -178,22 +164,14 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/customize.py)***
-  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/_cm.json)***
-     * download,file
-       * `if (CM_DAE_DOWNLOAD_USING_TORRENT not in ['yes', 'True'])`
-       * CM names: `--adr.['download-script']...`
-       - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/_cm.json)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/run.sh)
-  1. ***Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/_cm.json)***
-     * extract,file
-       * `if (CM_DAE_EXTRACT_DOWNLOADED in ['yes', 'True'])`
-       - CM script: [extract-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/_cm.json)
 </details>
 
 ___
@@ -201,11 +179,10 @@ ___
 #### New environment keys (filter)
 
 * `<<<CM_DOWNLOAD_FINAL_ENV_NAME>>>`
-* `<<<CM_EXTRACT_FINAL_ENV_NAME>>>`
 * `CM_DOWNLOAD_DOWNLOADED_PATH*`
-* `CM_EXTRACT_EXTRACTED_PATH`
 #### New environment keys auto-detected from customize
 
+* `CM_DOWNLOAD_DOWNLOADED_PATH`
 ___
 ### Maintainers
 
