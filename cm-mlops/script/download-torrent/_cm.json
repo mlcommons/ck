@@ -15,7 +15,10 @@
   "default_env": {
     "CM_TORRENT_WAIT_UNTIL_COMPLETED": "no"
   },
-  "new_env_keys": [],
+  "new_env_keys": [
+    "CM_TORRENT_DOWNLOADED_PATH",
+    "<<<CM_TORRENT_DOWNLOADED_PATH_ENV_KEY>>>"
+  ],
   "new_state_keys": [],
   "post_deps": [],
   "posthook_deps": [],

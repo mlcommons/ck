@@ -10,15 +10,38 @@
     "url": "CM_DAE_URL"
   },
   "new_env_keys": [
-    "CM_DAE_*"
+    "CM_DOWNLOAD_DOWNLOADED_PATH*",
+    "CM_EXTRACT_EXTRACTED_PATH",
+    "<<<CM_DOWNLOAD_FINAL_ENV_NAME>>>",
+    "<<<CM_EXTRACT_FINAL_ENV_NAME>>>"
   ],
   "new_state_keys": [],
   "post_deps": [],
-  "posthook_deps": [],
-  "prehook_deps": [],
+  "prehook_deps": [
+    {
+      "tags": "download,file",
+      "names": [ "download-script" ],
+      "update_tags_from_env_with_prefix": {
+        "_url.": [ "CM_DAE_URL" ]
+      },
+      "skip_if_env": {
+        "CM_DAE_DOWNLOAD_USING_TORRENT": [ "yes", "True" ]
+      }
+    }
+  ],
+  "posthook_deps": [
+    {
+      "tags": "extract,file",
+      "update_tags_from_env_with_prefix": {
+        "_path.": [ "CM_DOWNLOAD_DOWNLOADED_PATH" ],
+        "_path.": [ "CM_TORRENT_DOWNLOADED_PATH" ]
+      },
+      "enable_if_env": {
+        "CM_DAE_EXTRACT_DOWNLOADED": [ "yes", "True" ]
+      }
+    }
+  ],
   "tags": [
-    "download",
-    "extract",
     "file",
     "download-and-extract"
   ],
@@ -30,18 +53,39 @@
     "wget": {
       "group": "download-tool",
       "default": true,
-      "env": {
-        "CM_DAE_DOWNLOAD_TOOL": "wget"
+      "add_deps_recursive": {
+        "download-script": {
+          "tags": "_wget"
+        }
       }
     },
     "curl": {
       "group": "download-tool",
-      "env": {
-        "CM_DAE_DOWNLOAD_TOOL": "curl"
-      },
-      "default_env": {
-        "CM_DAE_CURL_EMULATE_BROWSER": "yes"
+      "add_deps_recursive": {
+        "download-script": {
+          "tags": "_wget"
+        }
       }
+    },
+    "torrent": {
+      "group": "download-tool",
+      "prehook_deps": [
+        {
+          "tags": "download,torrent",
+          "update_tags_from_env_with_prefix": {
+            "_torrent.": [ "CM_DAE_TORRENT_PATH" ]
+          }
+        }
+      ],
+      "env": {
+        "CM_DAE_DOWNLOAD_USING_TORRENT": "yes",
+        "CM_TORRENT_WAIT_UNTIL_COMPLETED": "yes",
+        "CM_TORRENT_DOWNLOADED_PATH_ENV_KEY": "CM_DAE_FILEPATH",
+        "CM_TORRENT_DOWNLOADED_FILE_NAME": "<<<CM_DAE_FILENAME>>>"
+      },
+      "new_env_keys": [
+        "CM_TORRENT_DOWNLOADED_PATH"
+      ]
     },
     "url.#": {
       "env": {

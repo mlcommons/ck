@@ -30,12 +30,5 @@ else
 fi
 
 if [[ ${require_extract} == 1 ]]; then
-  CMD=${CM_DAE_EXTRACT_CMD}
-  echo ${CMD}
-  eval ${CMD}
-  test $? -eq 0 || exit $?
-  CMD=${CM_DAE_EXTRACTED_CHECKSUM_CMD}
-  echo ${CMD}
-  eval ${CMD}
-  test $? -eq 0 || exit $?
+  echo "CM_DAE_REQUIRE_EXTRACT=yes" >>tmp-run-env.out
 fi
