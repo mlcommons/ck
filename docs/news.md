@@ -2,6 +2,13 @@
 
 ## MLCommons CK and CM news
 
+### 202306
+
+We invite you to the 1st ACM conference for Reproducibility and Replicability on June 27-29
+where we will give a [keynote](https://acm-rep.github.io/2023/keynotes)
+about our MLCommons CM automation language and CK playground. 
+You can find more info [here](https://www.linkedin.com/posts/grigorifursin_acm-conference-reproducibility-activity-7067537952960118784-bK8i/?utm_source=share).
+
 ### 202305
 
 Following the successful validation of our [CK/CM technology](https://github.com/mlcommons/ck) by the community

@@ -163,6 +163,4 @@ cm pull repo mlcommons@ck
 ```
 
 If you use CM scripts with Python outside containers, we suggest you to set up CM Python virtual
-environment as described [here]().
-
-
+environment as described [here](../cm-mlops/automation/script/README-extra.md#using-python-virtual-environments).
