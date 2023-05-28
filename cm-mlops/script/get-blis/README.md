@@ -34,8 +34,8 @@ See [more info](README-extra.md).
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-blis)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,blis*
-* Output cached?: *False*
+* CM "database" tags to find this script: *get,lib,blis*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -53,9 +53,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,blis[,variations] `
+1. `cm run script --tags=get,lib,blis[,variations] `
 
-2. `cm run script "get blis[,variations]" `
+2. `cm run script "get lib blis[,variations]" `
 
 3. `cm run script ea6e1cf75242456c `
 
@@ -74,7 +74,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,blis'
+                  'tags':'get,lib,blis'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -91,9 +91,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,blis"```
+```cm run script --tags=gui --script="get,lib,blis"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,blis) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,lib,blis) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -142,7 +142,7 @@ ___
 <summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-blis/_cm.json)***
-     * get,git,_repo.https://github.com/flame/blis.git
+     * get,git
        * CM names: `--adr.['blis-source-repo']...`
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
      * detect,cpu
@@ -163,11 +163,15 @@ ___
 
 * `+LD_LIBRARY_PATH`
 * `CM_BLIS_INC`
+* `CM_BLIS_INSTALL_PATH`
 * `CM_BLIS_LIB`
-* `CM_LIBFLAME_SRC_PATH`
+* `CM_BLIS_SRC_PATH`
 #### New environment keys auto-detected from customize
 
-* `CM_LIBFLAME_SRC_PATH`
+* `CM_BLIS_INC`
+* `CM_BLIS_INSTALL_PATH`
+* `CM_BLIS_LIB`
+* `CM_BLIS_SRC_PATH`
 ___
 ### Maintainers
 

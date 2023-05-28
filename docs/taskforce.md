@@ -4,9 +4,13 @@
 
 ## Goals
 
-* Automatically run any MLPerf benchmark out-of-the-box with any software, hardware, model and data from any vendor: (prototype is available and validated during MLPerf inf v3.0 submission)
-* Automate optimization experiments and visualization of results with derived metrics: [prototype](https://cknowledge.org/mlcommons-inference-gui)
-* Generate Pareto-optimal end-to-end applications based on reproducible MLPerf results: (under development)
+* Automatically run any MLPerf benchmark out-of-the-box with any software, hardware, model and data from any vendor: 
+  *[prototype is available and validated during MLPerf inf v3.0 submission](../cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/README.md)*.
+* Automate optimization experiments and visualization of results with derived metrics: *[prototype](https://cknowledge.org/mlcommons-inference-gui)*.
+* Generate Pareto-optimal end-to-end applications based on reproducible MLPerf results: *under development*.
+* Organize reproducibility, replicability and optimization challenges to improve MLPerf results across diverse software, hardware, models and data: 
+  *[on-going](https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge) 
+  (see adopted terminology [here](artifact-evaluation/faq.md#what-is-the-difference-between-repeatability-reproducibility-and-replicability))*.
 
 
 ## Mission
@@ -20,7 +24,7 @@ Our goal is to help the community benchmark, optimize and compare AI, ML and oth
 across diverse and rapidly evolving software, hardware, models and data from different vendors
 in a unified, collaborative, automated and reproducible way using the common CM language.
 
-We are also organizing [reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges)
+We are also organizing [reproducibility, replicability and optimization challenges](https://access.cknowledge.org/playground/?action=challenges)
 powered by the common CM language and CK playground to reproduce results from research papers and MLPerf submissions, 
 optimize them in terms of  performance, power consumption, accuracy, size, costs and other metrics, 
 and validate them in the real-world applications.
@@ -42,7 +46,7 @@ environment and data while slashing their development and operational costs.
 
 ## Discussions
 
-* Check our upcoming [reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges)
+* Check our upcoming [reproducibility, replicability and optimization challenges](https://access.cknowledge.org/playground/?action=challenges)
 * Join our [public Discord server](https://discord.gg/JjWNWXKxwT) to discuss developments and challenges.
 * Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
 * Check our [news](news.md).
@@ -98,6 +102,10 @@ environment and data while slashing their development and operational costs.
   * [MLCommons CM workflow automation meta-framework to modularize ML&AI Systems (Apache 2.0 license)](https://github.com/mlcommons/ck)
   * [MLPerf universal C++ inference template library](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
   * [Portable, reusable and customizable CM scripts for technology-agnostic AI/ML/SW/HW co-design  (Apache 2.0 license)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
+
+* Reproducibility and replicability studies:
+  * [Terminology (ACM/NISO): Repeatability, Reproducibility and Replicability](artifact-evaluation/faq.md#what-is-the-difference-between-repeatability-reproducibility-and-replicability)
+  * [Artifact Evaluation at ML and systems conferences](https://cTuning.org/ae)
 
 ### Acknowledgments
 

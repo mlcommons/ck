@@ -511,7 +511,7 @@ to [detect or install/build Python interpreter](https://github.com/mlcommons/ck/
 This script exposes a number of environment variables for a detected Python
 in the [`postprocess` function](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-python3/customize.py#L60):
 
-* `CM_PYTHON_BIN` - python3.10 or python.exe or any other name of a Python interpreteur on a given system
+* `CM_PYTHON_BIN` - python3.10 or python.exe or any other name of a Python interpreter on a given system
 * `CM_PYTHON_BIN_PATH` - path to a detected or installed python
 * `CM_PYTHON_BIN_WITH_PATH` - full path to a detected or installed python
 * `LD_LIBRARY_PATH` - updated LD_LIBRARY_PATH to python
@@ -573,7 +573,7 @@ You can see the cached files as follows:
 ls `cm find cache --tags=get,python`
 ```
 
-* _cm.json - CM meta description of this "cache" artifact with its uniqie ID, tags and other meta information
+* _cm.json - CM meta description of this "cache" artifact with its unique ID, tags and other meta information
 * cm-cached-state.json - dictionary with the new environment variables and the new state dictionary
 * tmp-env-all.sh - all environment variables used during CM script execution
 * tmp-env.sh - only new environment variables produced after CM script execution (it can be used directly by external tools)
@@ -609,7 +609,7 @@ as shown in the next example.
 
 ### Assembling pipeline to compile and run image corner detection
 
-We can use automatically detected compiler from CM script to create simple and technology-netural compilation and execution pipelines
+We can use automatically detected compiler from CM script to create simple and technology-neutral compilation and execution pipelines
 in CM scripts. 
 
 For example, we have implemented a simple [image corner detection CM script]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection )
@@ -652,7 +652,7 @@ Note that this directory also contains the compiled tool "image-corner" that can
 ### Customizing sub-dependencies in a pipeline
 
 When running a CM script with many sub-dependencies similar to above example, 
-we may want to specify some version constaints on sub-dependencies such as LLVM.
+we may want to specify some version constraints on sub-dependencies such as LLVM.
 
 One can use the key `"names"` in the "deps" list of any CM script meta description
 to specify multiple names for a given dependency. 
@@ -687,7 +687,7 @@ cm run script "install python-venv" --name={some name}
 ```
 
 CM will create a virtual environment using default Python and save it in CM cache. 
-It is possible to create a python virutal environment with any version on Linux and MacOS as follows:
+It is possible to create a python virtual environment with any version on Linux and MacOS as follows:
 
 ```bash
 cm run script "install python-venv" --version=3.10.8 --name=mlperf
@@ -861,7 +861,7 @@ that's why we called our project "Collective Knowledge".
 
 ### Detecting, installing and caching system dependencies
 
-Many projects require installation of some system dependencies. Unfortuantely, the procedure
+Many projects require installation of some system dependencies. Unfortunately, the procedure
 is different across different systems. 
 
 That's why we have developed two other CM script to unify and automate this process on any system.

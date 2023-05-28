@@ -184,11 +184,13 @@ ___
      * download,file
        * `if (CM_DAE_DOWNLOAD_USING_TORRENT not in ['yes', 'True'])`
        * CM names: `--adr.['download-script']...`
+       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
        - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
   1. ***Run native script if exists***
   1. ***Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/_cm.json)***
      * extract,file
        * `if (CM_DAE_EXTRACT_DOWNLOADED in ['yes', 'True'])`
+       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
        - CM script: [extract-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/_cm.json)

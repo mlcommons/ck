@@ -156,11 +156,19 @@ You can use the following environment variables to customize CM installation:
 
 # CM automation scripts
 
-You can use [CM automation scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
-for portable MLOps and DevOps from MLCommons by installing the following repository:
+Please go [back to index](README.md) to continue learning about CM interface and scripts.
+
+However, if you are already familiar with the CM/CK concepts, you can 
+use these [CM automation scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
+for portable MLOps and DevOps from MLCommons directly by installing the following repository:
 ```bash
 cm pull repo mlcommons@ck
 ```
 
 If you use CM scripts with Python outside containers, we suggest you to set up CM Python virtual
 environment as described [here](../cm-mlops/automation/script/README-extra.md#using-python-virtual-environments).
+
+Feel free to check [these CM tutorials](tutorials) to learn how to use CM to facilitate reproducible research,
+run MLPerf out-of-the-box and accelerate technology transfer across rapidly evolving 
+software, hardware, models and data.
+

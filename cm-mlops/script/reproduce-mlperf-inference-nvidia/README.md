@@ -51,7 +51,24 @@ cm run script --tags=get,tensorrt --input=<PATH_TO_TENSORRT_TAR_FILE>
 
 On other systems you can do a package manager install and then CM should pick up the installation automatically during the workflow run.
 
-Nvidia run configuration values for each model-sceraio for known systems are stored in `__init__.py` files under configs directory. For custom systems these are stored under `custom.py` files. When custom config files are generated they override the default config values with empty ones (not desirable). So, you'll probably need to open the custom config file and comment out the overrides. Typically `gpu_batch_size` and `offline_expected_qps` are enough for an offline scenario run on a typical single GPU system.
+## Managing the configuration files
+
+
+```
+cm run script --tags=build,nvidia,inference,server
+```
+Once the below command is done, inference server will be build and your system will be automatically detected by Nvidia scripts.
+
+Nividia code location is output by the below command
+```
+cd `cm find cache --tags=inference,results,mlperf,_custom`
+```
+
+Further cd into inference_results_v<>/closed/NVIDIA
+
+Nvidia run configuration values for each model-sceraio for known systems are stored in `__init__.py` files under configs directory. For custom systems (ones which are different from the ones used by Nvidia for submission) these are stored under `custom.py` files. 
+
+**Important** When custom config files are generated they override the default config values with empty ones (not desirable). So, you'll probably need to open the custom config file and comment out the overrides. Typically `gpu_batch_size` and `offline_expected_qps` are enough for an offline scenario run on a typical single GPU system.
 
 <details>
 
@@ -390,6 +407,8 @@ ___
            * get,generic-python-lib,_torchvision
              * CM names: `--adr.['torchvision']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_torch
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_nvidia-apex
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_unidecode
@@ -416,6 +435,7 @@ ___
 <summary>Click here to expand this section.</summary>
 
 * `--count=value`  &rarr;  `CM_MLPERF_LOADGEN_QUERY_COUNT=value`
+* `--devices=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DEVICES=value`
 * `--dla_batch_size=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE=value`
 * `--dla_copy_streams=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DLA_COPY_STREAMS=value`
 * `--dla_inference_streams=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DLA_INFERENCE_STREAMS=value`

@@ -28,7 +28,7 @@ while reducing all the tedious, manual, repetitive, and ad-hoc efforts to reprod
 
 CM powers the [Collective Knowledge platform (MLCommons CK playground)](https://access.cKnowledge.org)
 to aggregate [reproducible experiments](https://access.cknowledge.org/playground/?action=experiments),
-connect academia and industry to [organize reproducibility and optimization challenges]( https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge ),
+connect academia and industry to [organize reproducibility, replicability and optimization challenges]( https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge ),
 and help developers and users select Pareto-optimal end-to-end applications and systems based on their requirements and constraints
 (cost, performance, power consumption, accuracy, etc).
 

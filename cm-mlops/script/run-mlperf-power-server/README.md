@@ -111,6 +111,7 @@ ___
 * `--device_type=value`  &rarr;  `CM_MLPERF_POWER_DEVICE_TYPE=value`
 * `--interface_flag=value`  &rarr;  `CM_MLPERF_POWER_INTERFACE_FLAG=value`
 * `--ntp_server=value`  &rarr;  `CM_MLPERF_POWER_NTP_SERVER=value`
+* `--screen=value`  &rarr;  `CM_MLPERF_POWER_SERVER_USE_SCREEN=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -133,6 +134,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_MLPERF_POWER_SERVER_ADDRESS: `0.0.0.0`
 * CM_MLPERF_POWER_SERVER_PORT: `4950`
 * CM_MLPERF_POWER_DEVICE_PORT: `/dev/usbtmc0`
+* CM_MLPERF_POWER_SERVER_USE_SCREEN: `no`
 
 </details>
 
@@ -152,6 +154,9 @@ ___
      * get,mlperf,power,daemon
        * CM names: `--adr.['power-damenon']...`
        - CM script: [get-spec-ptd](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-spec-ptd)
+     * get,generic,sys-util,_screen
+       * CM names: `--adr.['screen']...`
+       - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)
   1. ***Run native script if exists***
