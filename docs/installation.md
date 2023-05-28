@@ -10,6 +10,7 @@
   * [Windows](#windows)
 * [CM CLI testing](#cm-cli-testing)
 * [CM customization](#cm-customization)
+* [CM automation scripts](#cm-automation-scripts)
 
 </details>
 
@@ -111,7 +112,7 @@ You can also quickly test the installation and check the version as follows:
 ```bash
 gfursin@mlcommons-ck-cm-dev:~$ cm test core
 
-CM version: 1.0.3
+CM version: 1.2.1
 
 Python executable used by CK: /usr/bin/python3
 
@@ -147,3 +148,21 @@ You can use the following environment variables to customize CM installation:
 
 * `'CM_HOME'` - change path to the CM python package with the default 'repo' directory.
   Useful to improve the default automations inside the CM package.
+
+* `'CM_INDEX'` (*CM v1.2.0+*) - set to {on|yes|true} to turn on CM indexing of all artifacts
+  to speed up search and scripts by 10..50x.
+
+
+
+# CM automation scripts
+
+You can use [CM automation scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
+for portable MLOps and DevOps from MLCommons by installing the following repository:
+```bash
+cm pull repo mlcommons@ck
+```
+
+If you use CM scripts with Python outside containers, we suggest you to set up CM Python virtual
+environment as described [here]().
+
+

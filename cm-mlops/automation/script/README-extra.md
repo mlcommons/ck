@@ -15,6 +15,8 @@
     * [Customizing CM script execution flow](#customizing-cm-script-execution-flow)
     * [Caching output of CM scripts](#caching-output-of-cm-scripts)
     * [Assembling pipeline to compile and run image corner detection](#assembling-pipeline-to-compile-and-run-image-corner-detection)
+    * [Customizing sub-dependencies in a pipeline](#customizing-sub-dependencies-in-a-pipeline)
+    * [Using Python virtual environments](#using-python-virtual-environments)
     * [Assembling pipelines with other artifacts included](#assembling-pipelines-with-other-artifacts-included)
     * [Unifying host OS and CPU detection](#unifying-host-os-and-cpu-detection)
     * [Detecting, installing and caching system dependencies](#detecting-installing-and-caching-system-dependencies)
@@ -703,7 +705,16 @@ It is possible to avoid such questions by using the flag `--adr.python.name=mlpe
 In such case, CM will propagate the name of a virtual environment to all sub-dependencies
 as shown in the next example.
 
+Instead of adding this flag to all scripts, you can specify it 
+using `CM_SCRIPT_EXTRA_CMD` environment variable as follows:
+```bash
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name.mlperf"
+```
 
+You can even specify min Python version required as follows:
+```bash
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name.mlperf --adr.python.version_min=3.9"
+```
 
 ### Assembling pipelines with other artifacts included
 
