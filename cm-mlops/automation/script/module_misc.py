@@ -1098,12 +1098,7 @@ def dockerfile(i):
         if r['return']>0: return r
         lst += r['list']
 
-    md = []
-
-    toc = []
-
-    script_meta = {}
-    urls = {}
+    run_cmd = "cm run script " + " ".join(i['cmd'])
 
     if i.get("all_os"):
         docker_os = {
@@ -1162,7 +1157,7 @@ def dockerfile(i):
                             'docker_os_version': version,
                             'file_path': dockerfile_path,
                             'comments': comments,
-                            'run_cmd': f'cm run script --tags={tag_string} --quiet',
+                            'run_cmd': f'{run_cmd} --quiet',
                             'script_tags': f'{tag_string}',
                             'quiet': True,
                             'print_deps': True,
@@ -1239,12 +1234,7 @@ def docker(i):
         if r['return']>0: return r
         lst += r['list']
 
-    md = []
-
-    toc = []
-
-    script_meta = {}
-    urls = {}
+    run_cmd = "cm run script " + " ".join(i['cmd'])
 
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
@@ -1269,6 +1259,7 @@ def docker(i):
                             'docker_os_version': version,
                             'detached': 'no',
                             'script_tags': f'{tag_string}',
+                            'run_cmd': run_cmd,
                             'quiet': True,
                             'real_run': True,
                             'add_deps_recursive': {
