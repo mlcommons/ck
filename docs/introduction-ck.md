@@ -16,7 +16,7 @@ based on their requirements and constraints (optimal trade off between performan
 
 See a few real-world examples of using the CK playground powered by the CM language:
 
-- [Organizing reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges&name=57cbc3384d7640f9)
+- [Organizing reproducibility, replicability and optimization challenges](https://access.cknowledge.org/playground/?action=challenges&name=57cbc3384d7640f9)
 - [Reproducing MLPerf inference benchmark and automating submissions](https://cKnowledge.org/mlperf-inference-gui)
 - [Visualizing and comparing MLPerf inference benchmark results](https://access.cKnowledge.org/playground/?action=experiments&tags=mlperf-inference,all,open,edge,image-classification,singlestream)
 - [Sharing reproducibility reports]( https://cKnowledge.org/mlperf-inf-v3.0-reproducibility-report )

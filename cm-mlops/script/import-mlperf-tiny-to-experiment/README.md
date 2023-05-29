@@ -11,6 +11,7 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -20,17 +21,20 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
 ### Description
+
+
+See [more info](README-extra.md).
 
 #### Information
 
 * Category: *Modular MLPerf benchmarks.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-tiny-to-experiment)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment*
+* CM "database" tags to find this script: *import,mlperf,tiny,mlperf-tiny,experiment,2experiment,to-experiment*
 * Output cached?: *False*
 ___
 ### Usage
@@ -49,11 +53,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment `
+1. `cm run script --tags=import,mlperf,tiny,mlperf-tiny,experiment,2experiment,to-experiment [--input_flags]`
 
-2. `cm run script "import mlperf inference mlperf-inference experiment 2experiment to-experiment" `
+2. `cm run script "import mlperf tiny mlperf-tiny experiment 2experiment to-experiment" [--input_flags]`
 
-3. `cm run script 72099fa962ea499c `
+3. `cm run script 83e3efd7611f469b [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -70,7 +74,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment'
+                  'tags':'import,mlperf,tiny,mlperf-tiny,experiment,2experiment,to-experiment'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -87,9 +91,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment"```
+```cm run script --tags=gui --script="import,mlperf,tiny,mlperf-tiny,experiment,2experiment,to-experiment"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=import,mlperf,tiny,mlperf-tiny,experiment,2experiment,to-experiment) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -97,6 +101,21 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=import,mlperf,inferenc
 
 ___
 ### Customization
+
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--target_repo=value`  &rarr;  `CM_IMPORT_TINYMLPERF_TARGET_REPO=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "target_repo":...}
+```
+
+</details>
 
 #### Default environment
 
@@ -114,17 +133,17 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/_cm.yaml)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-tiny-to-experiment/_cm.yaml)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,sys-utils-cm
        - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/_cm.yaml)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-tiny-to-experiment/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-tiny-to-experiment/_cm.yaml)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/_cm.yaml)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-tiny-to-experiment/_cm.yaml)
   1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/_cm.yaml)
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-tiny-to-experiment/_cm.yaml)
 </details>
 
 ___

@@ -12,6 +12,7 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -53,11 +54,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,val,validation,dataset,imagenet,ILSVRC,image-classification,original[,variations] `
+1. `cm run script --tags=get,val,validation,dataset,imagenet,ILSVRC,image-classification,original[,variations] [--input_flags]`
 
-2. `cm run script "get val validation dataset imagenet ILSVRC image-classification original[,variations]" `
+2. `cm run script "get val validation dataset imagenet ILSVRC image-classification original[,variations]" [--input_flags]`
 
-3. `cm run script 7afd58d287fe4f11 `
+3. `cm run script 7afd58d287fe4f11 [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -113,13 +114,6 @@ ___
       - Workflow:
     * `_2012-full`
       - Workflow:
-    * `_full`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: `50000`
-        - *CM_IMAGENET_FULL*: `yes`
-        - *CM_DAE_DOWNLOADED_FILENAME*: `ILSVRC2012_img_val.tar`
-        - *CM_DAE_DOWNLOADED_CHECKSUM*: `29b22e2961454d5413ddabcf34fc5622`
-      - Workflow:
 
     </details>
 
@@ -128,6 +122,13 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_full`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `50000`
+        - *CM_IMAGENET_FULL*: `yes`
+        - *CM_DAE_FILENAME*: `ILSVRC2012_img_val.tar`
+        - *CM_DAE_DOWNLOADED_CHECKSUM*: `29b22e2961454d5413ddabcf34fc5622`
+      - Workflow:
     * `_size.#`
       - Environment variables:
         - *CM_DATASET_SIZE*: `#`
@@ -135,6 +136,7 @@ ___
     * **`_size.500`** (default)
       - Environment variables:
         - *CM_DATASET_SIZE*: `500`
+        - *CM_DAE_FILENAME*: `ILSVRC2012_img_val_500.tar`
         - *CM_DAE_URL*: `https://www.dropbox.com/s/57s11df6pts3z69/ILSVRC2012_img_val_500.tar`
       - Workflow:
 
@@ -156,6 +158,21 @@ ___
 #### Default variations
 
 `_2012,_size.500`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--torrent=value`  &rarr;  `CM_DATASET_IMAGENET_VAL_TORRENT_PATH=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "torrent":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
@@ -177,13 +194,13 @@ ___
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)***
-     * download,torrent
-       * `if (CM_DATASET_IMAGENET_VAL_REQUIRE_TORRENT  == yes)`
-       * CM names: `--adr.['download-torrent']...`
-       - CM script: [download-torrent](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-torrent)
-     * download,extract,file,_extract
-       * `if (CM_DATASET_IMAGENET_VAL_REQUIRE_DAE  == yes)`
+     * download-and-extract,file,_extract
+       * `if (CM_DATASET_IMAGENET_VAL_REQUIRE_DAE in ['yes', 'True'])`
        - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
+     * file,extract
+       * `if (CM_DAE_ONLY_EXTRACT in ['yes', 'True'])`
+       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
+       - CM script: [extract-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/run.bat)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)

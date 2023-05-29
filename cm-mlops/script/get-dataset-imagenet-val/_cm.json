@@ -25,6 +25,9 @@
     "image-classification",
     "original"
   ],
+  "input_mapping": {
+    "torrent": "CM_DATASET_IMAGENET_VAL_TORRENT_PATH"
+  },
   "uid": "7afd58d287fe4f11",
   "deps": [
     {
@@ -33,21 +36,30 @@
   ],
   "prehook_deps": [
     {
-      "tags": "download,torrent",
-      "names": [
-        "download-torrent"
+      "tags": "download-and-extract,file,_extract",
+      "update_tags_from_env_with_prefix": {
+        "_url.": [ "CM_DAE_URL" ]
+      },
+      "update_tags_from_env": [
+        "CM_DAE_EXTRA_TAGS"
       ],
+      "env": {
+        "CM_EXTRACT_TO_FOLDER": "imagenet-2012-val"
+      },
       "enable_if_env": {
-        "CM_DATASET_IMAGENET_VAL_REQUIRE_TORRENT": [ "yes" ]
+        "CM_DATASET_IMAGENET_VAL_REQUIRE_DAE": ["yes", "True"]
       }
     },
     {
-      "tags": "download,extract,file,_extract",
+      "tags": "file,extract",
+      "update_tags_from_env_with_prefix": {
+        "_path.": [ "CM_EXTRACT_PATH" ]
+      },
       "env": {
-        "CM_DAE_EXTRACT_TO_FOLDER": "imagenet-2012-val"
+        "CM_EXTRACT_TO_FOLDER": "imagenet-2012-val"
       },
       "enable_if_env": {
-        "CM_DATASET_IMAGENET_VAL_REQUIRE_DAE": [ "yes" ]
+        "CM_DAE_ONLY_EXTRACT": ["yes", "True"]
       }
     }
   ],
@@ -72,10 +84,11 @@
       ]
     },
     "full": {
+      "group": "count",
       "env": {
         "CM_DATASET_SIZE": "50000",
         "CM_IMAGENET_FULL": "yes",
-        "CM_DAE_DOWNLOADED_FILENAME": "ILSVRC2012_img_val.tar",
+        "CM_DAE_FILENAME": "ILSVRC2012_img_val.tar",
         "CM_DAE_DOWNLOADED_CHECKSUM": "29b22e2961454d5413ddabcf34fc5622"
       }
     },
@@ -84,6 +97,7 @@
       "default": true,
       "env": {
         "CM_DATASET_SIZE": "500",
+        "CM_DAE_FILENAME": "ILSVRC2012_img_val_500.tar",
         "CM_DAE_URL": "https://www.dropbox.com/s/57s11df6pts3z69/ILSVRC2012_img_val_500.tar"
       }
     },

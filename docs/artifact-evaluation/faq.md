@@ -1,4 +1,29 @@
-# Artifact evaluation
+[ [Back to index](https://cTuning.org/ae) ]
+
+# Artifact Evaluation FAQ
+
+<details>
+<summary>Click here to see the table of contents.</summary>
+
+* [Artifact evaluation](#artifact-evaluation)
+  * [Frequently Asked Questions](#frequently-asked-questions)
+    * [What is the difference between Repeatability, Reproducibility and Replicability?](#what-is-the-difference-between-repeatability-reproducibility-and-replicability?)
+    * [Do I have to open source my software artifacts?](#do-i-have-to-open-source-my-software-artifacts?)
+    * [Is Artifact evaluation blind or double-blind?](#is-artifact-evaluation-blind-or-double-blind?)
+    * [How to pack artifacts?](#how-to-pack-artifacts?)
+    * [Is it possible to provide a remote access to a machine with pre-installed artifacts?](#is-it-possible-to-provide-a-remote-access-to-a-machine-with-pre-installed-artifacts?)
+    * [Can I share commercial benchmarks or software with evaluators?](#can-i-share-commercial-benchmarks-or-software-with-evaluators?)
+    * [Can I engage with the community to evaluate my artifacts?](#can-i-engage-with-the-community-to-evaluate-my-artifacts?)
+    * [How to automate, customize and port experiments?](#how-to-automate-customize-and-port-experiments?)
+    * [Do I have to make my artifacts public if they pass evaluation?](#do-i-have-to-make-my-artifacts-public-if-they-pass-evaluation?)
+    * [How to report and compare empirical results?](#how-to-report-and-compare-empirical-results?)
+    * [How to deal with numerical accuracy and instability?](#how-to-deal-with-numerical-accuracy-and-instability?)
+    * [How to validate models or algorithm scalability?](#how-to-validate-models-or-algorithm-scalability?)
+    * [Is there any page limit for my Artifact Evaluation Appendix?](#is-there-any-page-limit-for-my-artifact-evaluation-appendix?)
+    * [Where can I find a sample HotCRP configuration to set up AE?](#where-can-i-find-a-sample-hotcrp-configuration-to-set-up-ae?)
+    * [Questions and Feedback](#questions-and-feedback)
+
+</details>
 
 ## Frequently Asked Questions
 
@@ -6,6 +31,31 @@
 **If you have questions or suggestions which are not addressed here, please feel free 
 to post them to the dedicated [AE google group](https://groups.google.com/forum/#!forum/artifact-evaluation)
 or contact the [open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).**
+
+
+### What is the difference between Repeatability, Reproducibility and Replicability?
+
+We use the following definitions [adopted by ACM and NISO](https://www.acm.org/publications/policies/artifact-review-badging):
+
+* *Repeatability (Same team, same experimental setup)*
+
+  The measurement can be obtained with stated precision by the same team using the same measurement procedure, 
+  the same measuring system, under the same operating conditions, in the same location on multiple trials. 
+  For computational experiments, this means that a researcher can reliably repeat her own computation.
+
+* *Reproducibility (Different team, different experimental setup)*
+
+  The measurement can be obtained with stated precision by a different team using the same measurement procedure, 
+  the same measuring system, under the same operating conditions, in the same or a different location on multiple trials. 
+  For computational experiments, this means that an independent group can obtain the same result using the author's own artifacts.
+
+* *Replicability (Different team, same experimental setup)*
+
+  The measurement can be obtained with stated precision by a different team, a different measuring system, 
+  in a different location on multiple trials. For computational experiments, this means that an independent group 
+  can obtain the same result using artifacts which they develop completely independently.
+
+
 
 ### Do I have to open source my software artifacts?
 

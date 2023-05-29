@@ -15,6 +15,8 @@
     * [Customizing CM script execution flow](#customizing-cm-script-execution-flow)
     * [Caching output of CM scripts](#caching-output-of-cm-scripts)
     * [Assembling pipeline to compile and run image corner detection](#assembling-pipeline-to-compile-and-run-image-corner-detection)
+    * [Customizing sub-dependencies in a pipeline](#customizing-sub-dependencies-in-a-pipeline)
+    * [Using Python virtual environments](#using-python-virtual-environments)
     * [Assembling pipelines with other artifacts included](#assembling-pipelines-with-other-artifacts-included)
     * [Unifying host OS and CPU detection](#unifying-host-os-and-cpu-detection)
     * [Detecting, installing and caching system dependencies](#detecting-installing-and-caching-system-dependencies)
@@ -40,14 +42,19 @@ across different software, hardware, models and data.
 
 ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-ad-hoc-projects.png)
 
-This experience motivated us the create a CM automation called "script" to warp native scripts
-from research papers with a common CM CLI (and Python API) to make them more reusable, portable, 
-findable and deterministic across different projects. 
+This experience motivated us to create a CM automation called "script" to warp native scripts
+from research and industrial projects with a common, simple and unified CM Command Line Interface and Python API.
 
-These scripts simply unify updating and caching of environment variables and output files.
+Such non-intrusive wrapping helps to make numerous native scripts and tools more reusable, interoperable, portable, findable 
+and deterministic across different projects with different artifacts based on [FAIR principles](https://www.go-fair.org/fair-principles).
 
-They can be embedded into existing projects in a non-intrusive way to and can be connected
-into powerful and portable workflows to prepare, run and reproduce experiments across continuously changing technology.
+CM scripts can be embedded into existing projects with minimal or no modifications at all, and they can be connected
+into powerful and portable pipelines and workflows using simple JSON or YAML files 
+to prepare, run and reproduce experiments across continuously changing technology.
+
+Importantly, CM scripts can be executed in the same way in a native user environment, 
+Python virtual environments (to avoid messing up native environment) and containers
+while automatically adapting to a given environment!
 
 ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-unified-projects.png)
 
@@ -504,7 +511,7 @@ to [detect or install/build Python interpreter](https://github.com/mlcommons/ck/
 This script exposes a number of environment variables for a detected Python
 in the [`postprocess` function](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-python3/customize.py#L60):
 
-* `CM_PYTHON_BIN` - python3.10 or python.exe or any other name of a Python interpreteur on a given system
+* `CM_PYTHON_BIN` - python3.10 or python.exe or any other name of a Python interpreter on a given system
 * `CM_PYTHON_BIN_PATH` - path to a detected or installed python
 * `CM_PYTHON_BIN_WITH_PATH` - full path to a detected or installed python
 * `LD_LIBRARY_PATH` - updated LD_LIBRARY_PATH to python
@@ -566,7 +573,7 @@ You can see the cached files as follows:
 ls `cm find cache --tags=get,python`
 ```
 
-* _cm.json - CM meta description of this "cache" artifact with its uniqie ID, tags and other meta information
+* _cm.json - CM meta description of this "cache" artifact with its unique ID, tags and other meta information
 * cm-cached-state.json - dictionary with the new environment variables and the new state dictionary
 * tmp-env-all.sh - all environment variables used during CM script execution
 * tmp-env.sh - only new environment variables produced after CM script execution (it can be used directly by external tools)
@@ -597,9 +604,12 @@ as shown in the next example.
 
 
 
+
+
+
 ### Assembling pipeline to compile and run image corner detection
 
-We can use automatically detected compiler from CM script to create simple and technology-netural compilation and execution pipelines
+We can use automatically detected compiler from CM script to create simple and technology-neutral compilation and execution pipelines
 in CM scripts. 
 
 For example, we have implemented a simple [image corner detection CM script]( https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection )
@@ -638,6 +648,73 @@ Note that this directory also contains the compiled tool "image-corner" that can
 
 
 
+
+### Customizing sub-dependencies in a pipeline
+
+When running a CM script with many sub-dependencies similar to above example, 
+we may want to specify some version constraints on sub-dependencies such as LLVM.
+
+One can use the key `"names"` in the "deps" list of any CM script meta description
+to specify multiple names for a given dependency. 
+
+For example, a dependency to "get compiler" in CM script "compile-program"
+has `"names":["compiler"]` as shown [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/compile-program/_cm.json#L15).
+
+We can now use a CM script flag `--add_deps_recursive.{some name}.{some key}={some value}` or 
+`--adr.{above name}.{some key}={some value}` to update a dictionary of all sub-dependencies 
+that has `some name`.
+
+For example, we can now specify to use LLVM 16.0.0 for image corner detection as follows:
+```bash
+cm run script "app image corner-detection" --adr.compiler.tags=llvm --adr.compiler.version=16.0.0
+```
+
+If this compiler was not yet detected or installed by CM, it will find related scripts
+to install either a prebuilt version of LLVM or build it from sources.
+
+
+### Using Python virtual environments
+
+By default, CM scripts will install python dependencies into user space.
+This can influence other existing projects and may not be desirable.
+CM can be used inside virtual Python environments without any changes,
+but a user still need to do some manual steps to set up such environment.
+That's why we've developed a [CM script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv) 
+to automate creation of multiple Python virtual environments with different names:
+
+```bash
+cm run script "install python-venv" --name={some name}
+```
+
+CM will create a virtual environment using default Python and save it in CM cache. 
+It is possible to create a python virtual environment with any version on Linux and MacOS as follows:
+
+```bash
+cm run script "install python-venv" --version=3.10.8 --name=mlperf
+```
+
+In this case, CM will attempt to detect Python 3.10.8 on a system. 
+If CM can't detect it, CM will then automatically download and build it
+using [this script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src).
+
+Now, when user runs pipelines that install Python dependencies, CM will detect
+virtual environment in the CM cache as well as native Python and will ask a user
+which one to use.
+
+It is possible to avoid such questions by using the flag `--adr.python.name=mlperf`.
+In such case, CM will propagate the name of a virtual environment to all sub-dependencies
+as shown in the next example.
+
+Instead of adding this flag to all scripts, you can specify it 
+using `CM_SCRIPT_EXTRA_CMD` environment variable as follows:
+```bash
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name.mlperf"
+```
+
+You can even specify min Python version required as follows:
+```bash
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name.mlperf --adr.python.version_min=3.9"
+```
 
 ### Assembling pipelines with other artifacts included
 
@@ -712,6 +789,13 @@ to install extra Python requirements (not yet unified by CM scripts)
 and run a Python script that classifies an image from ImageNet
 or an image provided by user. 
 
+Before running it, let us install Python virtual environment via CM to avoid altering 
+native Python installation:
+```bash
+cm run script "install python-venv" --name=my-test
+cm show cache --tags=python
+```
+
 You can run it on any system as follows:
 
 ```bash
@@ -719,19 +803,31 @@ cm run script "python app image-classification onnx"
 
 ```
 
+
+To avoid CM asking which python to use, you can force the use of Python virtual environment
+as follows:
+
+```bash
+cm run script "python app image-classification onnx" --adr.python.name=my-test
+```
+
+
+
 If you run this CM script for the first time, it may take some minutes because it will detect, download, build and cache all dependencies.
 
 When you run it again, it will plug in all cached dependencies:
 
 ```bash
-cm run script "python app image-classification onnx"
+cm run script "python app image-classification onnx" --adr.python.name.my-test
 
 ```
 
 You can then run it with your own image as follows:
 ```bash
-cm run script --tags=app,image-classification,onnx,python --input={path to my JPEG image}
+cm run script --tags=app,image-classification,onnx,python \
+              --adr.python.name.my-test --input={path to my JPEG image}
 ```
+
 
 
 ### Unifying host OS and CPU detection
@@ -765,7 +861,7 @@ that's why we called our project "Collective Knowledge".
 
 ### Detecting, installing and caching system dependencies
 
-Many projects require installation of some system dependencies. Unfortuantely, the procedure
+Many projects require installation of some system dependencies. Unfortunately, the procedure
 is different across different systems. 
 
 That's why we have developed two other CM script to unify and automate this process on any system.

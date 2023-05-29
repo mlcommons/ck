@@ -25,6 +25,7 @@ It consists of the following sub-projects:
   It is powered by Python, JSON and/or YAML meta descriptions, and a unified CLI.
   CM can automatically generate unified README and synthesize unified containers with a common API
   while reducing all the tedious, manual, repetitive, and ad-hoc efforts to validate research projects in production.
+  It is used in the same way in native environments, Python virtual environments, and containers.
 
   See a few real-world examples of using the CM scripting language:
   - [README to reproduce published IPOL'22 paper](cm-mlops/script/app-ipol-reproducibility-2022-439)
@@ -38,7 +39,7 @@ It consists of the following sub-projects:
 * [Collective Knowledge platform (MLCommons CK playground)](platform) 
   aggregates [reproducible experiments](https://access.cknowledge.org/playground/?action=experiments) 
   in the CM format, connects academia and industry to 
-  [organize reproducibility and optimization challenges]( https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge ),
+  [organize reproducibility, replicability and optimization challenges]( https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge ),
   and help developers and users select Pareto-optimal end-to-end applications and systems based on their requirements and constraints
   (cost, performance, power consumption, accuracy, etc).
 

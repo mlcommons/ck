@@ -31,7 +31,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *download,extract,file,download-and-extract*
+* CM "database" tags to find this script: *file,download-and-extract*
 * Output cached?: *True*
 ___
 ### Usage
@@ -50,9 +50,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=download,extract,file,download-and-extract[,variations] [--input_flags]`
+1. `cm run script --tags=file,download-and-extract[,variations] [--input_flags]`
 
-2. `cm run script "download extract file download-and-extract[,variations]" [--input_flags]`
+2. `cm run script "file download-and-extract[,variations]" [--input_flags]`
 
 3. `cm run script c67e81a4ce2649f5 [--input_flags]`
 
@@ -71,7 +71,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'download,extract,file,download-and-extract'
+                  'tags':'file,download-and-extract'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -88,9 +88,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="download,extract,file,download-and-extract"```
+```cm run script --tags=gui --script="file,download-and-extract"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=download,extract,file,download-and-extract) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=file,download-and-extract) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -127,12 +127,18 @@ ___
     <summary>Click here to expand this section.</summary>
 
     * `_curl`
-      - Environment variables:
-        - *CM_DAE_DOWNLOAD_TOOL*: `curl`
       - Workflow:
-    * **`_wget`** (default)
+    * `_torrent`
       - Environment variables:
-        - *CM_DAE_DOWNLOAD_TOOL*: `wget`
+        - *CM_DAE_DOWNLOAD_USING_TORRENT*: `yes`
+        - *CM_TORRENT_WAIT_UNTIL_COMPLETED*: `yes`
+        - *CM_TORRENT_DOWNLOADED_PATH_ENV_KEY*: `CM_DAE_FILEPATH`
+        - *CM_TORRENT_DOWNLOADED_FILE_NAME*: `<<<CM_DAE_FILENAME>>>`
+      - Workflow:
+        1. ***Read "prehook_deps" on other CM scripts***
+           * download,torrent
+             - CM script: [download-torrent](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-torrent)
+    * **`_wget`** (default)
       - Workflow:
 
     </details>
@@ -174,10 +180,18 @@ ___
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/_cm.json)
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/_cm.json)***
+     * download,file
+       * `if (CM_DAE_DOWNLOAD_USING_TORRENT not in ['yes', 'True'])`
+       * CM names: `--adr.['download-script']...`
+       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
+       - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/_cm.json)
+  1. ***Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/_cm.json)***
+     * extract,file
+       * `if (CM_DAE_EXTRACT_DOWNLOADED in ['yes', 'True'])`
+       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
+       - CM script: [extract-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract/_cm.json)
 </details>
@@ -186,23 +200,12 @@ ___
 ### Script output
 #### New environment keys (filter)
 
-* `CM_DAE_*`
+* `<<<CM_DOWNLOAD_FINAL_ENV_NAME>>>`
+* `<<<CM_EXTRACT_FINAL_ENV_NAME>>>`
+* `CM_DOWNLOAD_DOWNLOADED_PATH*`
+* `CM_EXTRACT_EXTRACTED_PATH`
 #### New environment keys auto-detected from customize
 
-* `CM_DAE_DOWNLOADED_CHECKSUM_CMD`
-* `CM_DAE_DOWNLOADED_FILENAME`
-* `CM_DAE_DOWNLOAD_CMD`
-* `CM_DAE_DOWNLOAD_TOOL`
-* `CM_DAE_EXTRACTED_CHECKSUM_CMD`
-* `CM_DAE_EXTRACTED_FILENAME`
-* `CM_DAE_EXTRACT_CMD`
-* `CM_DAE_EXTRACT_TOOL`
-* `CM_DAE_EXTRACT_TOOL_OPTIONS`
-* `CM_DAE_FILENAME`
-* `CM_DAE_FILE_DOWNLOADED_PATH`
-* `CM_DAE_FILE_EXTRACTED_PATH`
-* `CM_DAE_FINAL_ENV_NAME`
-* `CM_DAE_GZIP`
 ___
 ### Maintainers
 

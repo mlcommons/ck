@@ -11,6 +11,7 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -20,9 +21,12 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
 ### Description
+
+
+See [more info](README-extra.md).
 
 #### Information
 
@@ -49,11 +53,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment `
+1. `cm run script --tags=import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment [--input_flags]`
 
-2. `cm run script "import mlperf inference mlperf-inference experiment 2experiment to-experiment" `
+2. `cm run script "import mlperf inference mlperf-inference experiment 2experiment to-experiment" [--input_flags]`
 
-3. `cm run script 72099fa962ea499c `
+3. `cm run script 72099fa962ea499c [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -97,6 +101,21 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=import,mlperf,inferenc
 
 ___
 ### Customization
+
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--target_repo=value`  &rarr;  `CM_IMPORT_MLPERF_INFERENCE_TARGET_REPO=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "target_repo":...}
+```
+
+</details>
 
 #### Default environment
 

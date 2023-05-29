@@ -6,10 +6,15 @@ cm create-toc-from-md utils --input=sc22-scc-mlperf-part3.md
 cm create-toc-from-md utils --input=mlperf-inference-submission.md
 cm create-toc-from-md utils --input=concept.md
 
+cd ../artifact-evaluation
+
+cm create-toc-from-md utils --input=faq.md
+
 cd ../
 
 cm create-toc-from-md utils --input=taskforce.md
 cm create-toc-from-md utils --input=installation.md
+cm create-toc-from-md utils --input=faq.md
 cm create-toc-from-md utils --input=README.md
 
 cd ../

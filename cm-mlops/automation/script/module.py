@@ -371,26 +371,56 @@ class CAutomation(Automation):
 
         variation_tags = r['variation_tags']
 
-        # Print what was searched!
-        cm_script_info = 'CM script'
 
-        x = 'with' 
+
+#        # Print what was searched!
+#        cm_script_info = 'CM script'
+#
+#        x = 'with' 
+#        if parsed_script_alias !='' :
+#            cm_script_info += ' '+x+' alias "{}"'.format(parsed_script_alias)
+#            x = 'and'
+#
+#        if len(script_tags)>0:
+#            cm_script_info += ' '+x+' tags "{}"'.format(script_tags_string.replace(',',' '))
+#            x = 'and'
+#
+#        if len(variation_tags)>0:
+#            x_variation_tags = ['_'+v for v in variation_tags]
+#            cm_script_info += ' '+x+' variations "{}"'.format(" ".join(x_variation_tags))
+#
+#        if verbose:
+#            print ('')
+#            print (recursion_spaces + '* Searching for ' + cm_script_info)
+#        else:
+#            print (recursion_spaces + '* Running ' + cm_script_info)
+
+
+        cm_script_info = 'cm run script '
+
+        x = '"'
+        y = ' '
         if parsed_script_alias !='' :
-            cm_script_info += ' '+x+' alias "{}"'.format(parsed_script_alias)
-            x = 'and'
+            cm_script_info += parsed_script_alias
+            x = ' --tags="'
+            y = ','
 
-        if len(script_tags)>0:
-            cm_script_info += ' '+x+' tags "{}"'.format(script_tags_string.replace(',',' '))
-            x = 'and'
+        if len(script_tags)>0 or len(variation_tags)>0:
+            if len(script_tags)>0:
+                cm_script_info += x + script_tags_string.replace(',',y)
 
-        if len(variation_tags)>0:
-            cm_script_info += ' '+x+' variations "{}"'.format(" ".join(variation_tags))
+            if len(variation_tags)>0:
+                if len(script_tags)>0: cm_script_info+=' '
+
+                x_variation_tags = ['_'+v for v in variation_tags]
+                cm_script_info += y.join(x_variation_tags)
+
+            cm_script_info += '"'
 
         if verbose:
             print ('')
-            print (recursion_spaces + '* Searching for ' + cm_script_info)
-        else:
-            print (recursion_spaces + '* Running ' + cm_script_info)
+
+        print (recursion_spaces + '* ' + cm_script_info)
 
 
         #############################################################################
@@ -2300,6 +2330,13 @@ class CAutomation(Automation):
                     if env.get(t, '').strip() != '':
                         d['tags']+=","+env[t]
 
+                update_tags_from_env_with_prefix = d.get("update_tags_from_env_with_prefix", {})
+                for t in update_tags_from_env_with_prefix:
+                    for key in update_tags_from_env_with_prefix[t]:
+                        if env.get(key, '').strip() != '':
+                            d['tags']+=","+t+env[key]
+
+                run_state['deps'].append(d['tags'])
                 run_state['deps'].append(d['tags'])
 
                 if not run_state['fake_deps']:
@@ -4001,6 +4038,14 @@ def detect_state_diff(env, saved_env, new_env_keys, new_state_keys, state, saved
                     new_env[kk] = env[kk]
         elif k in env:
             new_env[k] = env[k]
+        elif "<<<" in k:
+            import re
+            tmp_values = re.findall(r'<<<(.*?)>>>', k)
+            for tmp_value in tmp_values:
+                if tmp_value in env:
+                    value = env[tmp_value]
+                    if value in env:
+                        new_env[value] = env[value]
 
     for k in new_state_keys:
         if '?' in k or '*' in k:
@@ -4010,6 +4055,14 @@ def detect_state_diff(env, saved_env, new_env_keys, new_state_keys, state, saved
                     new_state[kk] = state[kk]
         elif k in state:
             new_state[k] = state[k]
+        elif "<<<" in k:
+            import re
+            tmp_values = re.findall(r'<<<(.*?)>>>', k)
+            for tmp_value in tmp_values:
+                if tmp_value in state:
+                    value = state[tmp_value]
+                    if value in state:
+                        new_state[value] = state[value]
 
     return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
 

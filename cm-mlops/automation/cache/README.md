@@ -1,4 +1,4 @@
-*This README is automatically generated - don't edit! Use `README-extra.md` for extra notes!*
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
 ### Automation actions
 
@@ -44,4 +44,4 @@
 
 ### Maintainers
 
-* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
