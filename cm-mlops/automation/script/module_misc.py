@@ -145,7 +145,7 @@ def doc(i):
 
     list_of_repos = repos.split(',') if ',' in repos else [repos]
 
-    ii = utils.sub_input(i, self_module.cmind.cfg['artifact_keys'])
+    ii = utils.sub_input(i, self_module.cmind.cfg['artifact_keys'] + ['tags'])
 
     ii['out'] = None
 
