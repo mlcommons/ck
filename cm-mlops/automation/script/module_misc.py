@@ -1085,7 +1085,7 @@ def dockerfile(i):
 
     list_of_repos = repos.split(',') if ',' in repos else [repos]
 
-    ii = utils.sub_input(i, self_module.cmind.cfg['artifact_keys'])
+    ii = utils.sub_input(i, self_module.cmind.cfg['artifact_keys'] + ['tags'])
 
     ii['out'] = None
 
@@ -1098,32 +1098,7 @@ def dockerfile(i):
         if r['return']>0: return r
         lst += r['list']
 
-    md = []
-
-    toc = []
-
-    script_meta = {}
-    urls = {}
-
-    if i.get("all_os"):
-        docker_os = {
-            "ubuntu": ["18.04","20.04","22.04"],
-            "rhel": ["9"]
-        }
-    else:
-        docker_os = {}
-        if i.get('docker_os'):
-            docker_os[i['docker_os']] = []
-        if i.get('docker_os_version'):
-            docker_os[i['docker_os']] = [i.get('docker_os_version')]
-        else:
-            if docker_os == "ubuntu":
-                docker_os["ubuntu"] = ["22.04"]
-
-        if not docker_os:
-          docker_os = {
-            "ubuntu": ["22.04"],
-          }
+    run_cmd = "cm run script " + " ".join(i['cmd'])
 
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
@@ -1132,48 +1107,60 @@ def dockerfile(i):
         tags = meta.get("tags", [])
         tag_string=",".join(tags)
 
-        for _os in docker_os:
-            for version in docker_os[_os]:
-                dockerfile_path = os.path.join(script_path,'dockerfiles', _os +'_'+version +'.Dockerfile')
-                if i.get('print_deps'):
-                  cm_input = {'action': 'run',
-                            'automation': 'script',
-                            'tags': f'{tag_string}',
-                            'print_deps': True,
-                            'quiet': True,
-                            'silent': True,
-                            'fake_run': True
-                            }
-                  r = self_module.cmind.access(cm_input)
-                  if r['return'] > 0:
-                    return r
-                  print_deps = r['new_state']['print_deps']
-                  comments = [ "#RUN " + dep for dep in print_deps ]
-                  comments.append("")
-                  comments.append("# Run CM workflow")
-                else:
-                  comments = []
+        run_config_path = os.path.join(script_path,'run_config.yml')
+        if not os.path.exists(run_config_path):
+            print("No run_config.yml file present in {}".format(script_path))
+            continue
+        import yaml
+        with open(run_config_path, 'r') as run_config_file:
+            run_config = yaml.safe_load(run_config_file)
+        docker_settings = run_config.get('docker')
+        if not docker_settings or not docker_settings.get('build') or not run_config.get('run_with_default_inputs'):
+            print("Run config is not configured for docker run in {}".format(run_config_path))
+            continue
+        docker_os = docker_settings.get('docker_os', 'ubuntu')
+        docker_os_version = docker_settings.get('docker_os_version', '22.04')
 
-                cm_docker_input = {'action': 'run',
+        dockerfile_path = os.path.join(script_path,'dockerfiles', docker_os +'_'+docker_os_version +'.Dockerfile')
+        if i.get('print_deps'):
+            cm_input = {'action': 'run',
+                    'automation': 'script',
+                    'tags': f'{tag_string}',
+                    'print_deps': True,
+                    'quiet': True,
+                    'silent': True,
+                    'fake_run': True
+                    }
+            r = self_module.cmind.access(cm_input)
+            if r['return'] > 0:
+                return r
+            print_deps = r['new_state']['print_deps']
+            comments = [ "#RUN " + dep for dep in print_deps ]
+            comments.append("")
+            comments.append("# Run CM workflow")
+        else:
+            comments = []
+
+        cm_docker_input = {'action': 'run',
                             'automation': 'script',
                             'tags': 'build,dockerfile',
                             'cm_repo': cm_repo,
-                            'docker_os': _os,
-                            'docker_os_version': version,
+                            'docker_os': docker_os,
+                            'docker_os_version': docker_os_version,
                             'file_path': dockerfile_path,
                             'comments': comments,
-                            'run_cmd': f'cm run script --tags={tag_string} --quiet',
+                            'run_cmd': f'{run_cmd} --quiet',
                             'script_tags': f'{tag_string}',
                             'quiet': True,
                             'print_deps': True,
                             'real_run': True
                             }
 
-                r = self_module.cmind.access(cm_docker_input)
-                if r['return'] > 0:
-                    return r
+        r = self_module.cmind.access(cm_docker_input)
+        if r['return'] > 0:
+            return r
 
-                print("Dockerfile generated at "+dockerfile_path)
+        print("Dockerfile generated at "+dockerfile_path)
 
     return {'return':0}
 
@@ -1226,7 +1213,7 @@ def docker(i):
 
     list_of_repos = repos.split(',') if ',' in repos else [repos]
 
-    ii = utils.sub_input(i, self_module.cmind.cfg['artifact_keys'])
+    ii = utils.sub_input(i, self_module.cmind.cfg['artifact_keys'] + ['tags'])
 
     ii['out'] = None
 
@@ -1239,12 +1226,7 @@ def docker(i):
         if r['return']>0: return r
         lst += r['list']
 
-    md = []
-
-    toc = []
-
-    script_meta = {}
-    urls = {}
+    run_cmd = "cm run script " + " ".join(i['cmd'])
 
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
@@ -1269,6 +1251,7 @@ def docker(i):
                             'docker_os_version': version,
                             'detached': 'no',
                             'script_tags': f'{tag_string}',
+                            'run_cmd': run_cmd,
                             'quiet': True,
                             'real_run': True,
                             'add_deps_recursive': {

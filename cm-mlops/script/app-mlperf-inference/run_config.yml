@@ -1,0 +1,11 @@
+docker:
+  build: true
+  docker_os: ubuntu
+  docker_os_version: "22.04"
+
+run_with_default_inputs: true #if false the script won't run automatic tests
+variation_combinations:
+  - _bert,_nvidia-original:
+      minimum_system_requirements:
+        ram: 4 #in GB
+        disk_space: 6 #in GB
