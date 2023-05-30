@@ -1,4 +1,4 @@
-## V1.2.1.1
+## V1.2.2
    - Fixed minor bug during cm detect repo (turn off indexing)
 
 ## V1.2.1
