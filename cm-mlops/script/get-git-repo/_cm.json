@@ -25,6 +25,19 @@
       "tags": "detect,os"
     }
   ],
+  "post_deps": [
+    {
+      "tags": "pull,git,repo",
+      "names": [ "pull-git-repo" ],
+      "dynamic": true,
+      "enable_if_env": {
+        "CM_GIT_REPO_PULL": [ "yes", "True" ]
+      },
+      "force_env_keys": [
+        "CM_GIT_CHECKOUT_PATH"
+      ]
+    }
+  ],
   "new_env_keys": [
     "CM_GIT_CHECKOUT_PATH",
     "CM_GIT_REPO_*"
