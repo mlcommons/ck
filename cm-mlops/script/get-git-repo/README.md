@@ -200,7 +200,11 @@ ___
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/_cm.json)
+  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/_cm.json)***
+     * pull,git,repo
+       * `if (CM_GIT_REPO_PULL in ['yes', 'True'])`
+       * CM names: `--adr.['pull-git-repo']...`
+       - CM script: [pull-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/pull-git-repo)
 </details>
 
 ___
