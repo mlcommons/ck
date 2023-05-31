@@ -862,10 +862,6 @@ class CAutomation(Automation):
                     print ('  Artifact alias: {}'.format(artifact_meta['alias']))
                     print ('  Artifact UID:   {}'.format(artifact_meta['uid']))
 
-        if self.cmind.use_index:
-            ii = {'out':'con'} if console else {}
-            rx = self.reindex(ii)
-
         return rr
 
 
