@@ -9,7 +9,7 @@
     "CM_ML_MODEL_DATASET": "squad-1.1",
     "CM_ML_MODEL_MAX_SEQ_LENGTH": "384",
     "CM_ML_MODEL_NAME": "MLPERF BERT Base on SQuAD v1.1",
-    "CM_ML_MODEL_VOCAB_TXT": "vocab.txt"
+    "CM_TMP_ML_MODEL_REQUIRE_DOWNLOAD": "no"
   },
   "new_env_keys": [
     "CM_ML_MODEL*"
@@ -25,6 +25,27 @@
     "language-processing"
   ],
   "uid": "b3b10b452ce24c5f",
+  "prehook_deps": [
+    {
+      "tags": "download-and-extract",
+      "env": {
+        "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_FILE>>>",
+        "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH",
+        "CM_EXTRACT_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH"
+      },
+      "update_tags_from_env_with_prefix": {
+        "_url.": [ "CM_PACKAGE_URL" ]
+      },
+      "enable_if_env": {
+        "CM_TMP_ML_MODEL_REQUIRE_DOWNLOAD": "yes"
+      }
+    }
+  ],
+  "post_deps": [
+    {
+      "tags": "get,bert,squad,vocab"
+    }
+  ],
   "variations": {
     "deepsparse": {
       "env": {
@@ -47,8 +68,7 @@
       "env": {
         "CM_ML_MODEL_F1": "87.89",
         "CM_ML_MODEL_FILE": "model.onnx",
-        "CM_PRUNING_PERCENTAGE": "95",
-        "CM_VOCAB_FILE_URL": "https://zenodo.org/record/3733868/files/vocab.txt"
+        "CM_PRUNING_PERCENTAGE": "95"
       }
     },
     "fp32": {
