@@ -68,7 +68,7 @@ def preprocess(i):
 
     env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
 
-    env['MODEL_DIR'] = env.get('CM_ML_MODEL_PATH')
+    env['MODEL_DIR'] = env.get('CM_ML_MODEL_PATH', os.path.dirname(env.get('CM_ML_MODEL_FILE_WITH_PATH')))
 
     RUN_CMD = ""
     state['RUN'] = {}

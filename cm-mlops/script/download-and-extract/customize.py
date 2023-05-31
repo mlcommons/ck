@@ -19,8 +19,7 @@ def preprocess(i):
 def postprocess(i):
 
     env = i['env']
-
-    filepath = env['CM_EXTRACT_EXTRACTED_PATH']
+    filepath = env.get('CM_EXTRACT_EXTRACTED_PATH', env.get('CM_DOWNLOAD_DOWNLOADED_PATH'))
 
     if not os.path.exists(filepath):
         return {'return':1, 'error': 'No extracted path set in "CM_EXTRACT_EXTRACTED_PATH"'}
