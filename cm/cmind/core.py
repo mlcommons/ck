@@ -103,9 +103,9 @@ class CM(object):
         # Index
         self.index = None
 
-        self.use_index = False
-        if os.environ.get(self.cfg['env_index'],'').strip().lower() in ['yes','on','true']:
-            self.use_index = True
+        self.use_index = True
+        if os.environ.get(self.cfg['env_index'],'').strip().lower() in ['no','off','false']:
+            self.use_index = False
 
     ############################################################
     def error(self, r):

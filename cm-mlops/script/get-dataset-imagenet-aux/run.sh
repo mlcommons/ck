@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo ""
+
 wget -4 -nc ${CM_WGET_URL} --no-check-certificate
 test $? -eq 0 || exit 1
 

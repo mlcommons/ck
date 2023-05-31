@@ -25,7 +25,7 @@ def preprocess(i):
     env['CM_TMP_PYTHON_PACKAGE_NAME_ENV'] = prepare_env_key.upper()
 
     recursion_spaces = i['recursion_spaces']
-
+    
     r = automation.detect_version_using_script({
                'env': env,
                'run_script_input':i['run_script_input'],
@@ -70,16 +70,22 @@ def preprocess(i):
     return {'return':0}
 
 def detect_version(i):
+
     env = i['env']
+
+    env_version_key = 'CM_'+env['CM_TMP_PYTHON_PACKAGE_NAME_ENV'].upper()+'_VERSION'
+
     r = i['automation'].parse_version({'match_text': r'\s*([\d.a-z\-]+)',
                                        'group_number': 1,
-                                       'env_key':'CM_'+env['CM_TMP_PYTHON_PACKAGE_NAME_ENV'].upper()+'_VERSION',
+                                       'env_key':env_version_key,
                                        'which_env':i['env']})
     if r['return'] >0: return r
 
     version = r['version']
+    current_detected_version = version
 
     print (i['recursion_spaces'] + '      Detected version: {}'.format(version))
+
     return {'return':0, 'version':version}
 
 
@@ -87,10 +93,15 @@ def postprocess(i):
 
     env = i['env']
 
-    r = detect_version(i)
-    if r['return'] >0: return r
+    env_version_key = 'CM_'+env['CM_TMP_PYTHON_PACKAGE_NAME_ENV'].upper()+'_VERSION'
 
-    version = r['version']
+    if env.get(env_version_key,'')!='':
+        version = env[env_version_key]
+    else:
+        r = detect_version(i)
+        if r['return'] >0: return r
+
+        version = r['version']
 
     env['CM_PYTHONLIB_'+env['CM_TMP_PYTHON_PACKAGE_NAME_ENV']+'_CACHE_TAGS'] = 'version-'+version
 

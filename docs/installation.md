@@ -149,8 +149,8 @@ You can use the following environment variables to customize CM installation:
 * `'CM_HOME'` - change path to the CM python package with the default 'repo' directory.
   Useful to improve the default automations inside the CM package.
 
-* `'CM_INDEX'` (*CM v1.2.0+*) - set to {on|yes|true} to turn on CM indexing of all artifacts
-  to speed up search and scripts by 10..50x.
+* `'CM_INDEX'` (*CM v1.3.0+*) - set to {off|no|false} to turn off CM indexing of all artifacts
+  (when on, it speeds up artifact searching and execution of CM scripts by 10..50x)
 
 
 
