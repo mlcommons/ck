@@ -187,10 +187,12 @@ ___
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)***
+     * download-and-extract
+       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run native script if exists***
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)
-  1. Run "postrocess" function from customize.py
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)
 </details>
 
@@ -202,8 +204,6 @@ ___
 #### New environment keys auto-detected from customize
 
 * `CM_ML_MODEL_FILE`
-* `CM_ML_MODEL_FILE_WITH_PATH`
-* `CM_ML_MODEL_PATH`
 ___
 ### Maintainers
 
