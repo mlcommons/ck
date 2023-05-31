@@ -1098,7 +1098,14 @@ def dockerfile(i):
         if r['return']>0: return r
         lst += r['list']
 
-    run_cmd = "cm run script " + " ".join(i['cmd'])
+    if i.get('cmd'):
+        run_cmd = "cm run script " + " ".join(i['cmd'])
+    elif i.get('artifact'):
+        run_cmd = "cm run script "+i['artifact']
+    elif i.get('tags'):
+        run_cmd = "cm run script \""+" "+" ".join(i['tags']) + "\""
+    else:
+        run_cmd = ""
 
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
@@ -1226,7 +1233,14 @@ def docker(i):
         if r['return']>0: return r
         lst += r['list']
 
-    run_cmd = "cm run script " + " ".join(i['cmd'])
+    if i.get('cmd'):
+        run_cmd = "cm run script " + " ".join(i['cmd'])
+    elif i.get('artifact'):
+        run_cmd = "cm run script "+i['artifact']
+    elif i.get('tags'):
+        run_cmd = "cm run script \""+" "+" ".join(i['tags']) + "\""
+    else:
+        run_cmd = ""
 
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 

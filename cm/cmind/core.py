@@ -301,6 +301,10 @@ class CM(object):
 
         artifact = i.get('artifact','').strip()
         artifacts = i.get('artifacts',[]) # Only if more than 1 artifact
+        
+        # Check artifact names
+        if artifact == '.' or '.' in artifacts:
+            return {'return':1, 'error':'forbidden artifact name "."'}
 
         # Check if automation is "." - then attempt to detect repo, automation and artifact from the current directory
         if automation == '.':
@@ -424,13 +428,21 @@ class CM(object):
                 if len(automation_lst)==0 and auto_repo is not None:
                     return {'return':3, 'error':'automation was not found in a specified repo {}'.format(auto_repo)}
 
+        # Convert action into function (substitute internal words)
+        original_action = action
+        action = action.replace('-','_')
+
+        if action in self.cfg['action_substitutions']:
+            action = self.cfg['action_substitutions'][action]
+
+        
         # Check if common automation and --help
         if (use_common_automation or automation=='') and cm_help:
             return print_action_help(self.common_automation, 
                                      self.common_automation, 
                                      'common',
                                      action,
-                                     action)
+                                     original_action)
 
         # If no automation was found we do not force common automation, check if should fail or continue
         if not use_common_automation and len(automation_lst)==0:
@@ -458,13 +470,6 @@ class CM(object):
         # Finalize automation class initialization
         initialized_automation = loaded_automation_class(self, automation_full_path)
         initialized_automation.meta = automation_meta
-
-        # Convert action into function (substitute internal words)
-        original_action = action
-        action = action.replace('-','_')
-
-        if action in self.cfg['action_substitutions']:
-            action = self.cfg['action_substitutions'][action]
 
         # Check action in a class when importing
         if use_any_action:

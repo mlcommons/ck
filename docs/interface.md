@@ -257,7 +257,7 @@ You can find the command line flags or Python API for any given automation actio
 cm {action} {automation} --help
 ```
 
-For example, you can obtain help for all above internal automation actions:
+For example, you can obtain help for all above internal (common) automation actions:
 ```bash
 cm add world --help
 cm delete world --help
@@ -267,6 +267,17 @@ cm move world --help
 cm copy world --help
 cm search world --help
 ```
+
+You can also customize all above functions in the new automation 
+by simply adding those functions in a new `module.py` and then
+calling the original action with the input key `common`:True.
+
+For example, the CM automation `script` overloads `add` function
+not only to add a new CM script but also copy `run.sh`, `run.bat`,
+`customize.py` and `README-extra.md` there. You can study 
+and reuse this code [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/automation/script/module.py#L1978).
+
+
 
 This minimal information covers most of the basic CM functionality. 
 
