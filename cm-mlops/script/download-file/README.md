@@ -184,9 +184,11 @@ ___
 
 * `<<<CM_DOWNLOAD_FINAL_ENV_NAME>>>`
 * `CM_DOWNLOAD_DOWNLOADED_PATH`
+* `CM_GET_DEPENDENT_CACHED_PATH`
 #### New environment keys auto-detected from customize
 
 * `CM_DOWNLOAD_DOWNLOADED_PATH`
+* `CM_GET_DEPENDENT_CACHED_PATH`
 ___
 ### Maintainers
 
