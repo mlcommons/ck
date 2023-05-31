@@ -145,8 +145,8 @@ class CAutomation(Automation):
           (debug_script) (bool): if True, debug current script (set debug_script_tags to the tags of a current script)
           (detected_versions) (dict): All the used scripts and their detected_versions
 
-          (silent) (bool): if True, hides all tech. info about script execution (no verbose)
-          (s) (bool): the same as silent
+          (verbose) (bool): if True, prints all tech. info about script execution (False by default)
+          (v) (bool): the same as verbose
 
           (time) (bool): if True, print script execution time (on if verbose == True)
 
@@ -237,10 +237,13 @@ class CAutomation(Automation):
 
         print_env = i.get('print_env', False)
 
-        #verbose = i.get('verbose', False)
-        #if not verbose: verbose = i.get('v', False)
-        verbose = not i.get('silent', False)
-        if verbose: verbose = not i.get('s', False)
+        verbose = False
+
+        if 'verbose' in i: verbose=i['verbose']
+        elif 'v' in i: verbose=i['v']
+
+        if verbose:
+           env['CM_VERBOSE']='yes'
 
         show_time = i.get('time', False)
 
@@ -2357,8 +2360,7 @@ class CAutomation(Automation):
                             'const_state':const_state,
                             'add_deps_recursive':add_deps_recursive,
                             'debug_script_tags':debug_script_tags,
-# Not used anymore                            'verbose':verbose,
-                            'silent':not verbose,
+                            'verbose':verbose,
                             'time':show_time,
                             'run_state':run_state
 

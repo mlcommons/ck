@@ -1,3 +1,5 @@
+echo.
+
 wget -nc %CM_WGET_URL% --no-check-certificate
 IF %ERRORLEVEL% NEQ 0 EXIT 1
 

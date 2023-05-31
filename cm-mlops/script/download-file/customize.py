@@ -25,6 +25,7 @@ def preprocess(i):
     url = env['CM_DOWNLOAD_URL']
     extra_download_options = env.get('CM_DOWNLOAD_EXTRA_OPTIONS', '')
 
+    print ('')
     if env['CM_DOWNLOAD_TOOL'] == "cmutil":
         cm = automation.cmind
         r = cm.access({'action':'download_file',

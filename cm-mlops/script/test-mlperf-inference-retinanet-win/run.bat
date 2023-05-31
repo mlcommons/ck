@@ -1,4 +1,4 @@
-@echo off
+echo.
 
 set CUR_DIR=%cd%
 set SCRIPT_DIR=%CM_TMP_CURRENT_SCRIPT_PATH%

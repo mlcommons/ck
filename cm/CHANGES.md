@@ -1,3 +1,10 @@
+## V1.3.0
+   - Turned on artifact indexing by default 
+     (can be turned off by setting CM_INDEX to "no", "off" or "false")
+   - Turned on --silent mode in "cm run script" by default
+     Can be turned off via --verbose or -v flags
+   - Fixed duplicate version detection for Python packages
+
 ## V1.2.2
    - Fixed minor bug during cm detect repo (turn off indexing)
 
