@@ -12,7 +12,8 @@
   },
   "new_env_keys": [
     "CM_EXTRACT_EXTRACTED_PATH",
-    "<<<CM_EXTRACT_FINAL_ENV_NAME>>>"
+    "<<<CM_EXTRACT_FINAL_ENV_NAME>>>",
+    "CM_GET_DEPENDENT_CACHED_PATH"
   ],
   "new_state_keys": [],
   "post_deps": [],

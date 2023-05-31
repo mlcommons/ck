@@ -8,8 +8,7 @@
     "CM_ML_MODEL": "BERT",
     "CM_ML_MODEL_DATASET": "squad-1.1",
     "CM_ML_MODEL_MAX_SEQ_LENGTH": "384",
-    "CM_ML_MODEL_NAME": "MLPERF BERT Large on SQuAD v1.1",
-    "CM_ML_MODEL_VOCAB_TXT": "vocab.txt"
+    "CM_ML_MODEL_NAME": "MLPERF BERT Large on SQuAD v1.1"
   },
   "new_env_keys": [
     "CM_ML_MODEL*"
@@ -25,6 +24,24 @@
     "language-processing"
   ],
   "uid": "5e865dbdc65949d2",
+  "prehook_deps": [
+    {
+      "tags": "download-and-extract",
+      "env": {
+        "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_FILE>>>",
+        "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH",
+        "CM_EXTRACT_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH"
+      },
+      "update_tags_from_env_with_prefix": {
+        "_url.": [ "CM_PACKAGE_URL" ]
+      }
+    }
+  ],
+  "post_deps": [
+    {
+      "tags": "get,bert,squad,vocab"
+    }
+  ],
   "variations": {
     "fp32": {
       "group": "precision",
@@ -74,7 +91,6 @@
         "CM_ML_MODEL_INPUT_SEGMENTS_NAME": "segment_ids",
         "CM_ML_MODEL_OUTPUT_END_LOGITS_NAME": "output_end_logits",
         "CM_ML_MODEL_OUTPUT_START_LOGITS_NAME": "output_start_logits",
-        "CM_VOCAB_FILE_URL": "https://zenodo.org/record/3733868/files/vocab.txt",
         "CM_PACKAGE_URL": "https://zenodo.org/record/3939747/files/model.pb"
       }
     },
@@ -126,9 +142,8 @@
       "env": {
         "CM_ML_MODEL_F1": "90.21282641816266",
         "CM_ML_MODEL_FILE": "oBERT-Large_95sparse_block4_qat.onnx",
-        "CM_UNTAR": "yes",
         "CM_PACKAGE_URL": "https://github.com/mlcommons/inference_results_v2.1/raw/master/open/NeuralMagic/code/bert/deepsparse/models/oBERT-Large_95sparse_block4_qat.onnx.tar.xz",
-        "CM_VOCAB_FILE_URL": "https://zenodo.org/record/3733868/files/vocab.txt"
+        "CM_DAE_EXTRACT_DOWNLOADED": "yes"
       }
     }
   }

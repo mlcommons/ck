@@ -12,7 +12,8 @@
   },
   "new_env_keys": [
     "CM_DOWNLOAD_DOWNLOADED_PATH",
-    "<<<CM_DOWNLOAD_FINAL_ENV_NAME>>>"
+    "<<<CM_DOWNLOAD_FINAL_ENV_NAME>>>",
+    "CM_GET_DEPENDENT_CACHED_PATH"
   ],
   "new_state_keys": [],
   "post_deps": [],
