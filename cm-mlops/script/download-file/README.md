@@ -118,11 +118,15 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * **`_cmutil`** (default)
+      - Environment variables:
+        - *CM_DOWNLOAD_TOOL*: `cmutil`
+      - Workflow:
     * `_curl`
       - Environment variables:
         - *CM_DOWNLOAD_TOOL*: `curl`
       - Workflow:
-    * **`_wget`** (default)
+    * `_wget`
       - Environment variables:
         - *CM_DOWNLOAD_TOOL*: `wget`
       - Workflow:
@@ -132,7 +136,7 @@ ___
 
 #### Default variations
 
-`_wget`
+`_cmutil`
 
 #### Script flags mapped to environment
 <details>
@@ -179,7 +183,7 @@ ___
 #### New environment keys (filter)
 
 * `<<<CM_DOWNLOAD_FINAL_ENV_NAME>>>`
-* `CM_DOWNLOAD_DOWNLOADED_PATH*`
+* `CM_DOWNLOAD_DOWNLOADED_PATH`
 #### New environment keys auto-detected from customize
 
 * `CM_DOWNLOAD_DOWNLOADED_PATH`

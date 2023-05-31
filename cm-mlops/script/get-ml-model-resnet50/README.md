@@ -137,8 +137,10 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)`
         - *CM_PACKAGE_URL*: `https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz?dl=1`
-        - *CM_UNZIP*: `yes`
+        - *CM_DAE_EXTRACT_DOWNLOADED*: `yes`
         - *CM_ML_MODEL_FILE*: `resnet50_v1.tflite`
+        - *CM_EXTRACT_FINAL_ENV_NAME*: `CM_ML_MODEL_FILE_WITH_PATH`
+        - *CM_DOWNLOAD_FINAL_ENV_NAME*: ``
       - Workflow:
     * `_tflite,no-argmax`
       - Environment variables:
@@ -209,7 +211,6 @@ ___
         - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor`
         - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
         - *CM_ML_MODEL_SUBTRACT_MEANS*: `YES`
-        - *CM_PACKAGE_URL*: `https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz`
       - Workflow:
 
     </details>
@@ -294,10 +295,12 @@ ___
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)***
+     * download-and-extract
+       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run native script if exists***
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)
-  1. Run "postrocess" function from customize.py
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)
 </details>
 
@@ -309,9 +312,6 @@ ___
 #### New environment keys auto-detected from customize
 
 * `CM_ML_MODEL_FILE`
-* `CM_ML_MODEL_FILE_WITH_PATH`
-* `CM_ML_MODEL_PATH`
-* `CM_ML_MODEL_STARTING_WEIGHTS_FILENAME`
 ___
 ### Maintainers
 
