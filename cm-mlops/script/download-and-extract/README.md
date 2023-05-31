@@ -126,6 +126,8 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * **`_cmutil`** (default)
+      - Workflow:
     * `_curl`
       - Workflow:
     * `_torrent`
@@ -138,7 +140,7 @@ ___
         1. ***Read "prehook_deps" on other CM scripts***
            * download,torrent
              - CM script: [download-torrent](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-torrent)
-    * **`_wget`** (default)
+    * `_wget`
       - Workflow:
 
     </details>
@@ -146,7 +148,7 @@ ___
 
 #### Default variations
 
-`_wget`
+`_cmutil`
 
 #### Script flags mapped to environment
 <details>

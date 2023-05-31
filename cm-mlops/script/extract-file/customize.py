@@ -30,6 +30,9 @@ def preprocess(i):
     elif filename.endswith(".tar.gz"):
         env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvzf'
         env['CM_EXTRACT_TOOL'] = 'tar '
+    elif filename.endswith(".tar.xz"):
+        env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvJf'
+        env['CM_EXTRACT_TOOL'] = 'tar '
     elif filename.endswith(".tar"):
         env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvf'
         env['CM_EXTRACT_TOOL'] = 'tar '
