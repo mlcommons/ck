@@ -301,6 +301,10 @@ class CM(object):
 
         artifact = i.get('artifact','').strip()
         artifacts = i.get('artifacts',[]) # Only if more than 1 artifact
+        
+        # Check artifact names
+        if artifact == '.' or '.' in artifacts:
+            return {'return':1, 'error':'forbidden artifact name "."'}
 
         # Check if automation is "." - then attempt to detect repo, automation and artifact from the current directory
         if automation == '.':
