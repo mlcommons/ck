@@ -11,7 +11,6 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
-  * [ Variations](#variations)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -27,10 +26,11 @@
 
 #### Information
 
+* Category: *ML/AI models.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bert-squad-vocab)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *extract,file*
+* CM "database" tags to find this script: *get,bert,squad,bert-large,bert-squad,vocab*
 * Output cached?: *True*
 ___
 ### Usage
@@ -49,11 +49,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=extract,file[,variations] `
+1. `cm run script --tags=get,bert,squad,bert-large,bert-squad,vocab `
 
-2. `cm run script "extract file[,variations]" `
+2. `cm run script "get bert squad bert-large bert-squad vocab" `
 
-3. `cm run script 3f0b76219d004817 `
+3. `cm run script 2f99a545ce734157 `
 
 * `variations` can be seen [here](#variations)
 
@@ -70,7 +70,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'extract,file'
+                  'tags':'get,bert,squad,bert-large,bert-squad,vocab'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -87,9 +87,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="extract,file"```
+```cm run script --tags=gui --script="get,bert,squad,bert-large,bert-squad,vocab"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=extract,file) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,bert,squad,bert-large,bert-squad,vocab) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -97,24 +97,6 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=extract,file) to gener
 
 ___
 ### Customization
-
-
-#### Variations
-
-  * *No group (any variation can be selected)*
-    <details>
-    <summary>Click here to expand this section.</summary>
-
-    * `_no-remove-extracted`
-      - Environment variables:
-        - *CM_EXTRACT_REMOVE_EXTRACTED*: `no`
-      - Workflow:
-    * `_path.#`
-      - Environment variables:
-        - *CM_EXTRACT_FILEPATH*: `#`
-      - Workflow:
-
-    </details>
 
 #### Default environment
 
@@ -132,27 +114,24 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bert-squad-vocab/_cm.json)
+  1. Run "preprocess" function from customize.py
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bert-squad-vocab/_cm.json)***
+     * download,file
+       - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bert-squad-vocab/_cm.json)
+  1. Run "postrocess" function from customize.py
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bert-squad-vocab/_cm.json)
 </details>
 
 ___
 ### Script output
 #### New environment keys (filter)
 
-* `<<<CM_EXTRACT_FINAL_ENV_NAME>>>`
-* `CM_EXTRACT_EXTRACTED_PATH`
-* `CM_GET_DEPENDENT_CACHED_PATH`
+* `CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH`
 #### New environment keys auto-detected from customize
 
-* `CM_EXTRACT_EXTRACTED_PATH`
-* `CM_GET_DEPENDENT_CACHED_PATH`
 ___
 ### Maintainers
 
