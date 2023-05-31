@@ -65,9 +65,15 @@ def postprocess(i):
 
     env = i['env']
 
-    filename = os.path.basename(env.get('CM_EXTRACT_EXTRACTED_FILENAME')) if env.get('CM_EXTRACT_EXTRACTED_FILENAME') else env.get('CM_EXTRACT_EXTRACT_TO_FOLDER')
-    folderpath = env.get('CM_EXTRACT_EXTRACT_TO_PATH', os.getcwd())
-    filepath = os.path.join(folderpath, filename)
+    extracted_filename = os.path.basename(env.get('CM_EXTRACT_EXTRACTED_FILENAME')) if env.get('CM_EXTRACT_EXTRACTED_FILENAME') else env.get('CM_EXTRACT_EXTRACT_TO_FOLDER')
+    extracted_file = env.get('CM_EXTRACT_EXTRACTED_FILENAME') if env.get('CM_EXTRACT_EXTRACTED_FILENAME') else env.get('CM_EXTRACT_EXTRACT_TO_FOLDER')
+    if extracted_file:
+        filename = os.path.basename(extracted_file)
+        folderpath = env.get('CM_EXTRACT_EXTRACT_TO_PATH', os.getcwd())
+        filepath = os.path.join(folderpath, filename)
+    else:
+        filename = os.getcwd()
+        filepath = os.getcwd() #extracted to the root cache folder
 
     if os.path.exists(filepath):
         env['CM_EXTRACT_EXTRACTED_PATH'] = filepath
