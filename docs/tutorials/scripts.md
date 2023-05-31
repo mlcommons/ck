@@ -71,11 +71,12 @@ instead of JSON:
 cm add script new-script2 --new_tags=new-tag1,new-tag2 --yaml
 ```
 
+
 ## Customizing new CM script
 
 As soon as you created a new script, you can easily customize it
 via meta description files `_cm.json` |& `_cm.yaml`,
-`_run.sh` |& `_run.bat` and customize.py.
+`run.sh` |& `run.bat` and customize.py.
 
 For example, you can extend *_cm.json* to add dependencies on other scripts, 
 reuse environment variables and files in your new script prepared by other CM scripts 
