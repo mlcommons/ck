@@ -26,6 +26,19 @@
     "object-detection"
   ],
   "uid": "427bc5665e4541c2",
+  "prehook_deps": [
+    {
+      "tags": "download-and-extract",
+      "env": {
+        "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_FILE>>>",
+        "CM_DOWNLOAD_FINAL_ENV_NAME":  "CM_ML_MODEL_FILE_WITH_PATH",
+        "CM_EXTRACT_FINAL_ENV_NAME":  "CM_ML_MODEL_FILE_WITH_PATH"
+      },
+      "update_tags_from_env_with_prefix": {
+        "_url.": [ "CM_PACKAGE_URL" ]
+      }
+    }
+  ],
   "variations": {
     "fp32": {
       "group": "precision",

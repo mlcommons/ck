@@ -62,7 +62,7 @@ def postprocess(i):
     if not os.path.exists(filepath):
         return {'return':1, 'error': 'CM_DOWNLOAD_FILENAME is not set and CM_DOWNLOAD_URL given is not pointing to a file'}
 
-    if env.get('CM_DOWNLOAD_FINAL_ENV_NAME'):
+    if env.get('CM_DOWNLOAD_FINAL_ENV_NAME') and env.get(env['CM_DOWNLOAD_FINAL_ENV_NAME'], '') == '':
         env[env['CM_DOWNLOAD_FINAL_ENV_NAME']] = filepath
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] =  filepath
