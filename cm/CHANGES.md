@@ -5,6 +5,7 @@
      Can be turned off via --verbose or -v flags
    - Fixed duplicate version detection for Python packages
    - added --new_tags for "cm copy" to add new tags to newly created artifacts
+   - added --new_tags for "cm add" to add new tags to newly created artifacts
 
 ## V1.2.2
    - Fixed minor bug during cm detect repo (turn off indexing)

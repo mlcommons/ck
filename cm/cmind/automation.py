@@ -396,6 +396,7 @@ class Automation:
             meta (dict): meta description of this artifact
 
             (tags) (string or list): tags to be added to meta
+            (new_tags) (string or list): new tags to be added to meta (the same as tags)
             (yaml) (bool): if True, record YAML instead of JSON
 
         Returns: 
@@ -483,9 +484,20 @@ class Automation:
         if meta.get('automation_uid','')=='': meta['automation_uid']=automation_name[1]
 
         existing_tags = meta.get('tags',[])
-        if len(tags)>0: 
-            existing_tags += tags
-        meta['tags'] = utils.filter_tags(existing_tags)
+
+        new_tags_list = []
+        if i.get('new_tags','')!='':
+            new_tags_list = i['new_tags'].split(',')
+
+        if len(tags)>0:
+            new_tags_list += tags    
+
+        if len(new_tags_list)>0: 
+            for xtag in new_tags_list:
+                if xtag!='' and xtag not in existing_tags:
+                    existing_tags.append(xtag)
+
+            meta['tags'] = existing_tags
 
         # Record meta
         if i.get('yaml', False):

@@ -1991,6 +1991,10 @@ class CAutomation(Automation):
           (tags) (str): tags to find an CM script (CM artifact)
 
           (script_name) (str): name of script (it will be copied to the new entry and added to the meta)
+
+          (tags) (string or list): tags to be added to meta
+          (new_tags) (string or list): new tags to be added to meta (the same as tags)
+          (yaml) (bool): if True, record YAML instead of JSON
           
           ...
 
@@ -2065,7 +2069,7 @@ class CAutomation(Automation):
         template_path = os.path.join(self.path, 'template')
 
         # Copy files
-        files = [(template_path, 'README.md', ''),
+        files = [(template_path, 'README-extra.md', ''),
                  (template_path, 'customize.py', '')]
 
         if script_name == '':
