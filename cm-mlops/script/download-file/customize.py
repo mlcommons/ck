@@ -22,16 +22,24 @@ def preprocess(i):
         else:
             env['CM_DOWNLOAD_FILENAME'] = "index.html"
 
-    filename = env['CM_DOWNLOAD_FILENAME']
-    env['CM_DOWNLOAD_DOWNLOADED_FILENAME'] = filename
-
     url = env['CM_DOWNLOAD_URL']
     extra_download_options = env.get('CM_DOWNLOAD_EXTRA_OPTIONS', '')
 
-    if env['CM_DOWNLOAD_TOOL'] == "wget":
+    if env['CM_DOWNLOAD_TOOL'] == "cmutil":
+        cm = automation.cmind
+        r = cm.access({'action':'download_file',
+                'automation':'utils,dc2743f8450541e3',
+                'url':url})
+        if r['return']>0: return r
+        env['CM_DOWNLOAD_CMD'] = ""
+        env['CM_DOWNLOAD_FILENAME'] = r['filename']
+    elif env['CM_DOWNLOAD_TOOL'] == "wget":
          env['CM_DOWNLOAD_CMD'] = f"wget -nc {extra_download_options} {url}"
-    if env['CM_DOWNLOAD_TOOL'] == "curl":
+    elif env['CM_DOWNLOAD_TOOL'] == "curl":
         env['CM_DOWNLOAD_CMD'] = f"curl {extra_download_options} {url}"
+
+    filename = env['CM_DOWNLOAD_FILENAME']
+    env['CM_DOWNLOAD_DOWNLOADED_FILENAME'] = filename
 
     #verify checksum if file already present
     if env.get('CM_DOWNLOAD_CHECKSUM'):
@@ -55,7 +63,7 @@ def postprocess(i):
         return {'return':1, 'error': 'CM_DOWNLOAD_FILENAME is not set and CM_DOWNLOAD_URL given is not pointing to a file'}
 
     if env.get('CM_DOWNLOAD_FINAL_ENV_NAME'):
-        env['CM_DOWNLOAD_FINAL_ENV_NAME'] = filename
+        env[env['CM_DOWNLOAD_FINAL_ENV_NAME']] = filepath
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] =  filepath
 

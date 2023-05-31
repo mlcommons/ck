@@ -34,8 +34,8 @@ def preprocess(i):
         env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvf'
         env['CM_EXTRACT_TOOL'] = 'tar '
     elif filename.endswith(".gz"):
-        env['CM_EXTRACT_TOOL_OPTIONS'] = ' -d '+ ('-k ' if not remove_extracted else '')
-        env['CM_EXTRACT_TOOL'] = 'gzip -d '+ ('-k ' if not remove_extracted else '')
+        env['CM_EXTRACT_TOOL_OPTIONS'] = ' -d '+ ('-k ' if not remove_extracted else '') + ' > $PWD/' + env['CM_EXTRACT_EXTRACTED_FILENAME'] + '<'
+        env['CM_EXTRACT_TOOL'] = 'gzip '
     elif env.get('CM_EXTRACT_UNZIP','') == 'yes':
         env['CM_EXTRACT_TOOL'] = 'unzip '
     elif env.get('CM_EXTRACT_UNTAR','') == 'yes':
@@ -74,13 +74,10 @@ def postprocess(i):
     else:
         return {'return':1, 'error': 'CM_EXTRACT_EXTRACTED_FILENAME and CM_EXTRACT_TO_FOLDER are not set'}
 
-    if env.get('CM_EXTRACT_EXTRACTED_FILENAME'):
-        extracted_name = os.path.basename(env['CM_EXTRACT_EXTRACTED_FILENAME'])
-        extracted_path = os.path.join(folderpath, extracted_name)
-        env['CM_EXTRACT_EXTRACTED_PATH'] = extracted_path
+    env['CM_EXTRACT_EXTRACTED_PATH'] = filepath
 
     if env.get('CM_EXTRACT_FINAL_ENV_NAME'):
-        env['CM_EXTRACT_FINAL_ENV_NAME'] = filename
+        env[env['CM_EXTRACT_FINAL_ENV_NAME']] = filepath
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] =  filepath
 

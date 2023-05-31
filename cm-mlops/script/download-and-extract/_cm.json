@@ -52,9 +52,17 @@
   },
   "uid": "c67e81a4ce2649f5",
   "variations": {
-    "wget": {
+    "cmutil": {
       "group": "download-tool",
       "default": true,
+      "add_deps_recursive": {
+        "download-script": {
+          "tags": "_cmutil"
+        }
+      }
+    },
+    "wget": {
+      "group": "download-tool",
       "add_deps_recursive": {
         "download-script": {
           "tags": "_wget"
