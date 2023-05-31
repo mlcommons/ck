@@ -204,8 +204,10 @@ ___
 * `<<<CM_EXTRACT_FINAL_ENV_NAME>>>`
 * `CM_DOWNLOAD_DOWNLOADED_PATH*`
 * `CM_EXTRACT_EXTRACTED_PATH`
+* `CM_GET_DEPENDENT_CACHED_PATH`
 #### New environment keys auto-detected from customize
 
+* `CM_GET_DEPENDENT_CACHED_PATH`
 ___
 ### Maintainers
 
