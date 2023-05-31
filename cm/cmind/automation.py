@@ -970,6 +970,8 @@ class Automation:
                                       [ (artifact alias, artifact UID) ] or
                                       [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
 
+            new_tags (string): add new tags (separated by comma) to new artifacts
+        
         Returns: 
             (CM return dict):
 
@@ -1030,6 +1032,11 @@ class Automation:
             target_repo_path = os.path.abspath(target_artifact_repo_obj.path_with_prefix)
 
         # Updating artifacts
+        new_tags_list = []
+        if i.get('new_tags','')!='':
+            new_tags_list = i['new_tags'].split(',')
+
+        
         for artifact in lst:
 
             artifact_path = os.path.abspath(artifact.path)
@@ -1059,6 +1066,12 @@ class Automation:
                 artifact_meta['alias']=target_artifact_obj_alias
 
             artifact_meta['uid']=target_artifact_obj_uid
+            if len(new_tags_list)>0:
+                xtags = artifact_meta.get('tags',[])
+                for xtag in new_tags_list:
+                    if xtag!='' and xtag not in xtags:
+                        xtags.append(xtag)
+                artifact_meta['tags'] = xtags
 
             artifact.path = new_artifact_path
 
