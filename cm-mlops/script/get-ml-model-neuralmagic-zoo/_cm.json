@@ -8,7 +8,8 @@
   },
   "new_env_keys": [
     "CM_ML_MODEL*",
-    "CM_MODEL_ZOO_STUB"
+    "CM_MODEL_ZOO_STUB",
+    "CM_GET_DEPENDENT_CACHED_PATH"
   ],
   "tags": [
     "get",
