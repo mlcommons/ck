@@ -42,6 +42,12 @@ def preprocess(i):
                 "' --out_file '" + os.path.join(result_dir, 'predictions.json') + \
                 "' --output_dtype " + env['CM_ACCURACY_DTYPE'] + env.get('CM_OUTPUT_TRANSPOSED','') + max_examples_string + " > '" + os.path.join(result_dir, "accuracy.txt") + "'"
 
+        elif dataset == "cnndm":
+            CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "gpt-j",
+                "evaluation.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir, "mlperf_log_accuracy.json") + \
+                "' --dataset-file '" + env['CM_DATASET_EVAL_PATH'] + "'"
+
+
         elif dataset == "kits19":
             CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_3DUNET_PATH'],
                 "accuracy_kits.py") + \
@@ -81,7 +87,9 @@ def postprocess(i):
     results_dir = env.get("CM_MLPERF_ACCURACY_RESULTS_DIR", "")
     results_dir_split = results_dir.split(":")
     for result_dir in results_dir_split:
-        with open(os.path.join(result_dir, "accuracy.txt"), "r") as fp:
-            print(fp.read())
+        accuracy_file = os.path.join(result_dir, "accuracy.txt")
+        if os.path.exists(accuracy_file):
+            with open(accuracy_file, "r") as fp:
+                print(fp.read())
     return {'return':0}
 

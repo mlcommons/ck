@@ -85,6 +85,20 @@
         }
       ]
     },
+    "cnndm": {
+      "group": "dataset",
+      "env": {
+        "CM_DATASET": "cnndm"
+      },
+      "deps": [
+        {
+          "tags": "get,dataset,cnndm,_validation"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.rouge_score"
+        }
+      ]
+    },
     "openimages": {
       "group": "dataset",
       "env": {
