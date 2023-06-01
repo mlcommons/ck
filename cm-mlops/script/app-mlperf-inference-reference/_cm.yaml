@@ -55,6 +55,13 @@ input_mapping:
   test_query_count: CM_TEST_QUERY_COUNT
   clean: CM_MLPERF_CLEAN_SUBMISSION_DIR
   dataset_args: CM_MLPERF_EXTRA_DATASET_ARGS
+  target_qps: CM_MLPERF_LOADGEN_TARGET_QPS
+  target_latency: CM_MLPERF_LOADGEN_TARGET_LATENCY
+  offline_target_qps: CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS
+  server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
+  singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
+  multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
+
 
 # Duplicate CM environment variables to the ones used in native apps
 env_key_mappings:
@@ -248,6 +255,15 @@ deps:
       CM_MODEL:
       - retinanet
 
+  ## GPT-J
+  - tags: get,ml-model,large-language-model,gptj
+    names:
+    - ml-model
+    - gptj-model
+    enable_if_env:
+      CM_MODEL:
+      - gptj
+
 
   ## RetinaNet (PyTorch weights, FP32)
   - tags: get,ml-model,object-detection,resnext50,fp32,_pytorch-weights
@@ -340,6 +356,14 @@ deps:
     enable_if_env:
       CM_MODEL:
       - retinanet
+
+  ## CNNDM for Large Language Model
+  - tags: get,dataset,cnndm,_validation
+    names:
+    - cnndm-preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - gptj
 
   ## Squad for BERT
   - tags: get,dataset,squad,original
@@ -527,6 +551,11 @@ variations:
         tags: tvm-model,_pytorch
 
   # Reference MLPerf models
+  gptj:
+    group: models
+    env:
+      CM_MODEL: gptj
+
   bert-99.9:
     group: models
     base:
