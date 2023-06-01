@@ -144,7 +144,7 @@ ___
   1. ***Run native script if exists***
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-neuralmagic-zoo/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-neuralmagic-zoo/_cm.json)
-  1. Run "postrocess" function from customize.py
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-neuralmagic-zoo/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-neuralmagic-zoo/_cm.json)
 </details>
 
@@ -152,10 +152,12 @@ ___
 ### Script output
 #### New environment keys (filter)
 
+* `CM_GET_DEPENDENT_CACHED_PATH`
 * `CM_ML_MODEL*`
 * `CM_MODEL_ZOO_STUB`
 #### New environment keys auto-detected from customize
 
+* `CM_GET_DEPENDENT_CACHED_PATH`
 ___
 ### Maintainers
 
