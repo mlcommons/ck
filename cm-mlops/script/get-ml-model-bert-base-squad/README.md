@@ -111,7 +111,6 @@ ___
         - *CM_ML_MODEL_F1*: `87.89`
         - *CM_ML_MODEL_FILE*: `model.onnx`
         - *CM_PRUNING_PERCENTAGE*: `95`
-        - *CM_VOCAB_FILE_URL*: `https://zenodo.org/record/3733868/files/vocab.txt`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,ml-model,zoo,deepsparse,_pruned95_obs_quant-none
@@ -175,12 +174,17 @@ ___
 <summary>Click here to expand this section.</summary>
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-base-squad/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-base-squad/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-base-squad/_cm.json)
+  1. Run "preprocess" function from customize.py
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-base-squad/_cm.json)***
+     * download-and-extract
+       * `if (CM_TMP_ML_MODEL_REQUIRE_DOWNLOAD in yes)`
+       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run native script if exists***
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-base-squad/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-base-squad/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-base-squad/_cm.json)
+  1. Run "postrocess" function from customize.py
+  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-base-squad/_cm.json)***
+     * get,bert,squad,vocab
+       - CM script: [get-bert-squad-vocab](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bert-squad-vocab)
 </details>
 
 ___
@@ -190,10 +194,6 @@ ___
 * `CM_ML_MODEL*`
 #### New environment keys auto-detected from customize
 
-* `CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH`
-* `CM_ML_MODEL_FILE`
-* `CM_ML_MODEL_FILE_WITH_PATH`
-* `CM_ML_MODEL_PATH`
 ___
 ### Maintainers
 
