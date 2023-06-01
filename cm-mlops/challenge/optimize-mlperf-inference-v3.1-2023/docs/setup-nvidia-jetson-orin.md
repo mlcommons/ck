@@ -1,4 +1,5 @@
 ## Setup
+
 We used Nvidia Jetson AGX Orin developer kit with 32GB RAM and 64GB eMMC. We also connected a 500GB SSD disk via USB and Wifi connection for internet connectivity.
 
 We used the out of the box developer kit image which was running Ubuntu 20.04 and JetPack 5.0.1 Developer Preview (L4T 34.1.1) with CUDA 11.4. We were also using the default 4k page size (Nvidia recommends 64k for MLPerf inference).

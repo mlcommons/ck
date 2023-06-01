@@ -708,12 +708,12 @@ as shown in the next example.
 Instead of adding this flag to all scripts, you can specify it 
 using `CM_SCRIPT_EXTRA_CMD` environment variable as follows:
 ```bash
-export CM_SCRIPT_EXTRA_CMD="--adr.python.name.mlperf"
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf"
 ```
 
 You can even specify min Python version required as follows:
 ```bash
-export CM_SCRIPT_EXTRA_CMD="--adr.python.name.mlperf --adr.python.version_min=3.9"
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf --adr.python.version_min=3.9"
 ```
 
 ### Assembling pipelines with other artifacts included

@@ -2,7 +2,7 @@
 
 Reproduce and automate IPOL paper (proof-of-concept): 
 
-### Organizers
+#### Organizers
 
 * Jose Hernandez
 * Miguel Colom

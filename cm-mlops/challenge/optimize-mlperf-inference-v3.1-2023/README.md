@@ -3,9 +3,10 @@
 Prepare, optimize and reproduce MLPerf inference v3.1 benchmarks across diverse implementations, models, software and hardware.
 
 Join this public [Discord server](https://discord.gg/JjWNWXKxwT) to discuss with the community and organizers
-how to use and enhance CK to run and optimize MLPerf inference benchmarks.
+how to use and enhance [CM scripts and workflows](https://github.com/mlcommons/ck/blob/master/docs/README.md) 
+to run and optimize MLPerf inference benchmarks on your software/hardware stack.
 
-## Organizers
+#### Organizers
 
 * [MLCommons taskforce on automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
 * [cTuning foundation](https://cTuning.org)
@@ -22,6 +23,9 @@ For MLPerf inference 3.1 we have the following benchmark tasks
 6. Recommendation using DLRM model and Criteo dataset
 7. Large Language Model (Pending)
 
-All the six tasks are applicable to datacenter while all except Recommendation are applicable to edge category. Further, language processing and medical imaging models have a high accuracy variant where the achieved accuracy must be within `99.9%` (`99%` is the default accuracy requirement) of the fp32 reference model. Recommendation task is only having a high accuracy variant. Currently we are not supporting Recommendation task as we are not having a highend server which is a requirement.
+All the six tasks are applicable to datacenter while all except Recommendation are applicable to edge category. 
+Further, language processing and medical imaging models have a high accuracy variant where the achieved accuracy 
+must be within `99.9%` (`99%` is the default accuracy requirement) of the fp32 reference model. 
+Recommendation task is only having a high accuracy variant. Currently we are not supporting Recommendation task as we are not having a highend server which is a requirement.
 
 This challenge is integrated with [our platform](https://github.com/ctuning/mlcommons-ck/tree/master/platform)

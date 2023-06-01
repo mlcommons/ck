@@ -9,6 +9,7 @@
 * MLPerf modularization, automation and reproducibility using the CM automation language:
   * [Running MLPerf RetinaNet inference benchmark on CPU via CM (Student Cluster Competition'22 tutorial)](sc22-scc-mlperf.md)
   * [Running MLPerf BERT inference benchmark on CUDA GPU via CM (official submission)](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-bert-submission.md)
+  * [Running all MLPerf inference benchmarks out-of-the-box for MLPerf inference v3.1 community submission](../../cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/README.md)
   * [Customizing MLPerf inference benchmark and preparing submission](mlperf-inference-submission.md)
   * [Measuring power during MLPerf inference benchmarks](mlperf-inference-power-measurement.md)
 * [Understanding CM concepts](concept.md)
