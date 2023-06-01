@@ -8,7 +8,7 @@ Compare usability and results with KILT.
 Join this public [Discord server](https://discord.gg/JjWNWXKxwT) to discuss with the community and organizers
 how to use and enhance CK to benchmark and optimize ML Systems.
 
-## Organizers
+### Organizers
 
 * [MLCommons taskforce on automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
 * [cTuning foundation](https://cTuning.org)

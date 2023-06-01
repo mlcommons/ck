@@ -4,7 +4,7 @@ Under preparation: Reproduce and optimize MLPerf inference benchmarks during Stu
 
 See our [related challange from 2022](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-scc2023).
 
-## Organizers
+### Organizers
 
 * [MLCommons taskforce on automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
 * [cKnowledge](https://cKnowledge.org)

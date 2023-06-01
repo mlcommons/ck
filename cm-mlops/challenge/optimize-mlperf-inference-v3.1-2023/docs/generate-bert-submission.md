@@ -1,14 +1,18 @@
 ## Setup
-Please follow this [installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) 
-to install the [MLCommons CM scripting language](https://github.com/mlcommons/ck/tree/master/docs#collective-mind-language-cm)
-on your system with minimal dependencies.
 
-Download a GitHub repository with [portable and reusable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
-for unified MLPerf benchmarking and submission:
+Please follow this [installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) 
+to install the MLCommons CM reproducibility and automation language in your native environment or Docker container.
+
+Then install the repository with CM automation scripts to run MLPerf benchmarks out-of-the-box
+across different software, hardware, models and data sets:
+
 
 ```
 cm pull repo mlcommons@ck
 ```
+
+Note that you can install Python virtual environment via CM to avoid contaminating 
+your local Python installation as described [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/automation/script/README-extra.md#using-python-virtual-environments).
 
 ## Run Commands
 

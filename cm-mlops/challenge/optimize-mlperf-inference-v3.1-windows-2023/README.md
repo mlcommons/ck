@@ -3,7 +3,7 @@
 Make it possible to run MLPerf inference v3.1 benchmarks on Windows
 using the [MLCommons CK framework](https://github.com/mlcommons/ck).
 
-## Organizers
+### Organizers
 
 * Stanley Mwangi (Microsoft)
 * Grigori Fursin (MLCommons, cTuning & cKnowledge)

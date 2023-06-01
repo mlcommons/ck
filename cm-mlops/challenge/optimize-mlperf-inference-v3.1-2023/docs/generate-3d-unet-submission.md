@@ -1,10 +1,18 @@
 ## Setup
-Please follow the MLCommons CK [installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) to install CM.
-Download the ck repo to get the CM script for MLPerf submission
+
+Please follow this [installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) 
+to install the MLCommons CM reproducibility and automation language in your native environment or Docker container.
+
+Then install the repository with CM automation scripts to run MLPerf benchmarks out-of-the-box
+across different software, hardware, models and data sets:
+
 
 ```
 cm pull repo mlcommons@ck
 ```
+
+Note that you can install Python virtual environment via CM to avoid contaminating 
+your local Python installation as described [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/automation/script/README-extra.md#using-python-virtual-environments).
 
 ## Run Commands
 
