@@ -177,8 +177,32 @@ class CAutomation(Automation):
         # Note that from Python 3.7, dictionaries are ordered so we can define order for exploration in json/yaml
         # ${{XYZ}} ${{ABC(range(1,2,3))}}
         
-        # separate Design Space Exploration into var and range
+        # Extract exploration expressions from {{VAR{expression}}}
         explore = i.get('explore', {})
+
+        j = 1
+        k = 0
+        while j>=0:
+           j = cmd.find('}}}', k)
+           if j>=0:
+               k = j+1
+
+               l = cmd.rfind('{{',0, j)
+
+               if l>=0:
+                   l2 = cmd.find('{', l+2, j)
+                   if l2>=0:
+                       k = l2+1
+
+                       var = cmd[l+2:l2]
+                       expr = cmd[l2+1:j]
+
+                       explore[var] = expr
+
+                       cmd = cmd[:l2]+ cmd[j+1:]
+
+        
+        # Separate Design Space Exploration into var and range
         explore_keys=[]
         explore_dimensions=[]
 
@@ -192,11 +216,11 @@ class CAutomation(Automation):
 
             explore_dimensions.append(v)
 
+        # Next command will run all iterations so we need to redo above command once again
         step = 0
 
         steps = itertools.product(*explore_dimensions)
 
-        # Next command will run all iterations so we need to redo above command once again
         num_steps = len(list(steps))
 
         steps = itertools.product(*explore_dimensions)
@@ -255,12 +279,14 @@ class CAutomation(Automation):
             # Prepare and run experiment in a given placeholder directory
             os.chdir(experiment_path3)
                     
-            env['CD'] = cur_dir
-            env['CM_EXPERIMENT_PATH'] = experiment_path
-            env['CM_EXPERIMENT_PATH2'] = experiment_path2
-            env['CM_EXPERIMENT_PATH3'] = experiment_path3
-
             ii['env'] = env
+            
+            # Change only in CMD
+            env_local={'CD':cur_dir,
+                       'CM_EXPERIMENT_PATH':experiment_path,
+                       'CM_EXPERIMENT_PATH2':experiment_path2,
+                       'CM_EXPERIMENT_PATH3':experiment_path3}
+
             
             # Update {{}} in CMD
             cmd_step = cmd
@@ -276,10 +302,15 @@ class CAutomation(Automation):
                        var = cmd_step[j+2:l]
 
                        # Such vars must be in env
-                       if var not in env:
+                       if var not in env and var not in env_local:
                            return {'return':1, 'error':'key "{}" is not in env during exploration'.format(var)}
 
-                       cmd_step = cmd_step[:j] + env[var] + cmd_step[l+2:]
+                       if var in env:
+                           value = env[var]
+                       else:
+                           value = env_local[var]
+
+                       cmd_step = cmd_step[:j] + str(value) + cmd_step[l+2:]
 
             ii['command'] = cmd_step
                        
