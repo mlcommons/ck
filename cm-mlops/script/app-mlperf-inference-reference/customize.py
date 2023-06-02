@@ -145,6 +145,21 @@ def get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options
 
 def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, dataset_options):
 
+    if env['CM_MODEL'] in [ "gptj" ]:
+        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "gpt-j")
+        cmd =  "cd '"+ env['RUN_DIR'] + "' &&  "+ env['CM_PYTHON_BIN_WITH_PATH'] +  \
+            " main.py --model-path=" + env['CM_ML_MODEL_FILE_WITH_PATH'] + ' --dataset-path=' + env['CM_DATASET_EVAL_PATH'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
+            scenario_extra_options + mode_extra_options + dataset_options
+        cmd = cmd.replace("--count", "--max_examples")
+        if env['CM_MLPERF_DEVICE'] == "gpu":
+            gpu_options = " --gpu"
+            env['CUDA_VISIBLE_DEVICES'] = "0"
+        else:
+            gpu_options = ""
+        cmd = cmd + gpu_options
+        env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
+        return cmd
+
     if env['CM_MODEL'] in [ "resnet50", "retinanet" ]:
 
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "vision", "classification_and_detection")
