@@ -106,6 +106,15 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_cnndm`
+      - Environment variables:
+        - *CM_DATASET*: `cnndm`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,dataset,cnndm,_validation
+             - CM script: [get-dataset-cnndm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-cnndm)
+           * get,generic-python-lib,_package.rouge_score
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * **`_imagenet`** (default)
       - Environment variables:
         - *CM_DATASET*: `imagenet`
