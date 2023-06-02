@@ -11,6 +11,8 @@ class CAutomation(Automation):
     """
 
     CM_RESULT_FILE = 'cm-result.json'
+    CM_INPUT_FILE = 'cm-input.json'
+    CM_OUTPUT_FILE = 'cm-output.json'
     
     ############################################################
     def __init__(self, cmind, automation_file):
@@ -145,7 +147,8 @@ class CAutomation(Automation):
         os.chdir(experiment_path2)
 
         # Record experiment input with possible exploration
-        experiment_input_file = os.path.join(experiment_path2, 'cm-input.json')
+        experiment_input_file = os.path.join(experiment_path2, self.CM_INPUT_FILE)
+        experiment_result_file = os.path.join(experiment_path2, self.CM_RESULT_FILE)
 
         # Clean original input
         for k in ['parsed_artifact', 'parsed_automation', 'cmd']:
@@ -261,7 +264,6 @@ class CAutomation(Automation):
             uid = r['uid']
 
             experiment_path3 = os.path.join(experiment_path2, uid)
-
             if not os.path.isdir(experiment_path3):
                 os.makedirs(experiment_path3)
 
@@ -315,33 +317,72 @@ class CAutomation(Automation):
             ii['command'] = cmd_step
                        
             # Prepare experiment step input
-            experiment_step_input_file = os.path.join(experiment_path3, 'cm-input.json')
+            experiment_step_input_file = os.path.join(experiment_path3, self.CM_INPUT_FILE)
 
             r = utils.save_json(file_name=experiment_step_input_file, meta=ii)
             if r['return']>0: return r
 
-            experiment_step_output_file = os.path.join(experiment_path3, 'cm-output.json')
-
+            experiment_step_output_file = os.path.join(experiment_path3, self.CM_OUTPUT_FILE)
             if os.path.isfile(experiment_step_output_file):
                 os.delete(experiment_step_output_file)
-            
+
             # Run CMD
             rr=self.cmind.access(ii)
             if rr['return']>0: return rr
 
             # Record output
-            r = utils.save_json(file_name=experiment_step_output_file, meta=rr)
+            result = {}
+
+            if os.path.isfile(experiment_step_output_file):
+                r = utils.load_json(file_name=experiment_step_output_file)
+                if r['return']>0: return r
+
+                result = r['meta']
+
+            # Add extra info
+            result['uid'] = uid
+            result['iso_datetime'] = current_datetime
+
+            # Attempt to append to the main file ...
+            all_results = []
+
+            if os.path.isfile(experiment_result_file):
+                r = utils.load_json(file_name=experiment_result_file)
+                if r['return']>0: return r
+
+                all_results = r['meta']
+
+            all_results.append(result)
+
+            r = utils.save_json(file_name=experiment_result_file, meta = all_results)
             if r['return']>0: return r
 
 
-
-
+        
         rr = {'return':0,
               'experiment_path':experiment_path,
               'experiment_path2':experiment_path2}
         
         return rr
 
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     ############################################################
     def replay(self, i):
         """
