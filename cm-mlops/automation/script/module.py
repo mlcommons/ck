@@ -1910,7 +1910,7 @@ class CAutomation(Automation):
           (CM input dict): 
 
           env (dict): environment
-          cmd (str): string
+          command (str): string
           ...
 
         Returns:
@@ -1922,7 +1922,7 @@ class CAutomation(Automation):
         """
 
         env = i.get('env', {})
-        cmd = i.get('cmd', '')
+        cmd = i.get('command', '')
 
         script = i.get('script',[])
 
@@ -1964,7 +1964,7 @@ class CAutomation(Automation):
 
         # Add CMD        
         script.append(cmd)
-
+        
         # Record script
         r = utils.save_txt(file_name=script_name, string='\n'.join(script))
         if r['return']>0: return r
