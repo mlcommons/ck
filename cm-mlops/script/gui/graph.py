@@ -19,6 +19,7 @@ import mpld3
 from mpld3 import plugins
 from mpld3 import utils
 
+security = ['os.', 'streamlit.', 'matplotlib.', 'numpy.', 'pandas.', 'mpld3.']
 
 class OpenBrowserOnClick(mpld3.plugins.PluginBase):
 
@@ -262,6 +263,11 @@ def visualize(st, query_params, action = ''):
     derived_metrics_value = st.text_input("Optional: add derived metrics in Python. Example: result['Accuracy2'] = result['Accuracy']*2", 
                                           value = derived_metrics_value).strip()
 
+    for x in security:
+        if x in derived_metrics_value:
+            derived_metrics_value=''
+            break
+    
     error_shown2 = False
     for desc in results:
         path_to_result = desc['path']
@@ -299,6 +305,11 @@ def visualize(st, query_params, action = ''):
         filter_value = st.text_input("Optional: add result filter in Python. Example: result['Accuracy']>75", value = filter_value).strip()
 
         st.markdown('---')
+
+    for x in security:
+        if x in filter_value:
+            filter_value=''
+            break
 
     # all_values is a list of dictionaries with all keys
     error_shown=False
