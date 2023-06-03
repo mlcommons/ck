@@ -1,8 +1,9 @@
 # Developer(s): Grigori Fursin
 
 import cmind
+import misc
 
-def page(st, params, parent):
+def page(st, params):
 
     name = params.get('name',[''])[0].lower()
 
@@ -28,7 +29,7 @@ def page(st, params, parent):
                  <center>
                   <small><a href="{}"><i>Self link</i></a></small>
                  </center>
-                 '''.format(parent.make_url(meta['uid'], action='contributors', md=False))
+                 '''.format(misc.make_url(meta['uid'], action='contributors', md=False))
 
                 org = meta.get('organization','')
                 if org!='':
@@ -57,7 +58,7 @@ def page(st, params, parent):
                     md = "* **Contributions:**\n"
 
                     for c in sorted(challenges):
-                        md+="  * {}\n".format(parent.make_url(c, action='challenges', key='tags'))
+                        md+="  * {}\n".format(misc.make_url(c, action='challenges', key='tags'))
 
                     st.markdown(md)
 
@@ -67,10 +68,10 @@ def page(st, params, parent):
         return {'return':0, 'end_html':end_html}
 
 
-    return page_list(st, params, parent)
+    return page_list(st, params)
 
 
-def page_list(st, params, parent):
+def page_list(st, params):
     # Read all contributors
     r = cmind.access({'action':'find',
                       'automation':'contributor,68eae17b590d4f8f'})
@@ -96,9 +97,9 @@ def page_list(st, params, parent):
             org = l.meta.get('organization', '')
 
             if name!='':
-                md_people += '* '+parent.make_url(name, alias=uid)+'\n'
+                md_people += '* '+misc.make_url(name, alias=uid)+'\n'
             elif org!='':
-                md_org += '* '+parent.make_url(org, alias=alias)+'\n'
+                md_org += '* '+misc.make_url(org, alias=alias)+'\n'
 
 
     if md_people!='':
@@ -115,7 +116,7 @@ def page_list(st, params, parent):
 
     md = ''
     for l in sorted(lst, key=lambda x: x.meta.get('name',x.meta.get('organization','')).lower()):
-        md += prepare_name(parent, l.meta)
+        md += prepare_name(l.meta)
 
     if md!='':
        st.markdown("### All contributors")
@@ -124,15 +125,15 @@ def page_list(st, params, parent):
     return {'return':0}
 
 
-def prepare_name(parent, meta):
+def prepare_name(meta):
     alias = meta['alias']
     name = meta.get('name', '')
     org = meta.get('organization', '')
 
     md = ''
     if name!='':
-        md = '* '+parent.make_url(name, alias=alias)+'\n'
+        md = '* '+misc.make_url(name, alias=alias)+'\n'
     elif org!='':
-        md = '* *'+parent.make_url(org, alias=alias)+'*\n'
+        md = '* *'+misc.make_url(org, alias=alias)+'*\n'
   
     return md

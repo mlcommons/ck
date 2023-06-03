@@ -2,7 +2,7 @@
 
 import cmind
 
-def page(st, params, parent):
+def page(st, params):
 
     name = params.get('name',[''])[0].strip()
     tags = params.get('tags',[''])[0].lower().replace(',',' ')
@@ -82,6 +82,6 @@ def page(st, params, parent):
 
                 if view:
                     from playground_experiments_graph import page as page2
-                    return page2(st, params, parent, artifact)
+                    return page2(st, params, artifact)
 
     return {'return':0}

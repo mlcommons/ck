@@ -2,6 +2,7 @@
 
 import cmind
 import os
+import misc
 
 import streamlit.components.v1 as components
 
@@ -55,21 +56,25 @@ class OpenBrowserOnClick(mpld3.plugins.PluginBase):
 
 
 def main():
-    current = __import__(__name__)
-
     params = st.experimental_get_query_params()
 
     # Set title
     st.title('CM experiment visualization')
 
-    return visualize(st, params, current)
+    return visualize(st, params)
 
 
 
 
-def visualize(st, query_params, parent):
+def visualize(st, query_params, action = ''):
 
     # Query experiment
+    result_uid = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_RESULT_UID','')
+    q_result_uid = query_params.get('result_uid',[''])
+    if len(q_result_uid)>0:
+        if q_result_uid[0]!='':
+            result_uid = q_result_uid[0]
+    
     v_experiment_tags = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_TAGS','')
     q_experiment_tags = query_params.get('tags',[''])
     if len(q_experiment_tags)>0:
@@ -138,6 +143,7 @@ def visualize(st, query_params, parent):
     results = []
     results_with_password = []
     passwords = []
+    results_meta = {}
     
     for experiment in lst:
         path = experiment.path
@@ -148,18 +154,39 @@ def visualize(st, query_params, parent):
                 path_to_result = os.path.join(path, d, 'cm-result.json')
 
                 if os.path.isfile(path_to_result):
-                    desc = {'path':path_to_result}
-
-                    pwd = experiment.meta.get('password_hash','')
-                    if pwd=='':
-                        results.append(desc)
-                    else:
-                        desc['password_hash'] = pwd
-
-                        if pwd not in passwords:
-                            passwords.append(pwd)
+                    emeta = experiment.meta
                     
-                        results_with_password.append(desc)
+                    desc = {'path':path_to_result,
+                            'experiment_dir': d,
+                            'experiment_uid':emeta['uid'],
+                            'experiment_alias':emeta['alias'],
+                            'experiment_tags':','.join(emeta.get('tags',[]))}
+
+                    add = True
+                    if result_uid!='':
+                        add = False
+                        r = cmind.utils.load_json(path_to_result)
+                        if r['return'] == 0:
+                            meta = r['meta']
+
+                            results_meta[path_to_result] = meta
+
+                            for m in meta:
+                                if m.get('uid','') == result_uid:
+                                    add = True
+                                    break
+
+                    if add:                
+                        pwd = experiment.meta.get('password_hash','')
+                        if pwd=='':
+                            results.append(desc)
+                        else:
+                            desc['password_hash'] = pwd
+
+                            if pwd not in passwords:
+                                passwords.append(pwd)
+                        
+                            results_with_password.append(desc)
 
     # Check if password
     if len(passwords)>0:
@@ -178,6 +205,10 @@ def visualize(st, query_params, parent):
                     results.append(result)
     
     # How to visualize selection
+    if len(results)==0:
+        st.markdown('No experiment set(s) found!')
+        return {'return':0}
+
 
     if st.session_state.get('tmp_cm_results','')=='':
         st.session_state['tmp_cm_results']=len(results)    
@@ -188,70 +219,203 @@ def visualize(st, query_params, parent):
     
     how = ''
 
-    v_max_results = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_MAX_RESULTS','')
+    if result_uid=='':
+        v_max_results = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_MAX_RESULTS','')
 
-    if v_max_results!='' and len(results)>int(v_max_results):
-        st.markdown('Too many results - continue pruning ...')
-        return {'return':0}
+        if v_max_results!='' and len(results)>int(v_max_results):
+            st.markdown('Too many results - continue pruning ...')
+            return {'return':0}
 
-    v_how = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_HOW','')
-    q_how = query_params.get('type',[''])
-    if len(q_how)>0:
-        if q_how[0]!='':
-            v_how = q_how[0]
+        v_how = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_HOW','')
+        q_how = query_params.get('type',[''])
+        if len(q_how)>0:
+            if q_how[0]!='':
+                v_how = q_how[0]
 
-            
-    how_selection = ['', '2D', 'bar']
-    
-    how_index = 0
-    if v_how!='' and v_how in how_selection:
-        how_index = how_selection.index(v_how)
+                
+        how_selection = ['', '2D', 'bar']
+        
+        how_index = 0
+        if v_how!='' and v_how in how_selection:
+            how_index = how_selection.index(v_how)
 
-    how = st.selectbox('Select how to visualize {} CM experiment set(s):'.format(len(results)),
-                       how_selection,
-                       index = how_index, 
-                       key = 'how')
+        how = st.selectbox('Select how to visualize {} CM experiment set(s):'.format(len(results)),
+                           how_selection,
+                           index = how_index, 
+                           key = 'how')
 
-    if how == '':
-        return {'return':0}
+        if how == '':
+            return {'return':0}
     
 
     
     
     
     
-    
-    
-    # Check results
+    # Continue visualizing
     all_values = []
     keys = []
+    all_data = []
+    
 
-    if len(results)>0:
-        for result in results:
-            path_to_result = result['path']
-            
+    derived_metrics_value = query_params.get('derived_metrics',[''])[0].strip()
+    derived_metrics_value = st.text_input("Optional: add derived metrics in Python. Example: result['Accuracy2'] = result['Accuracy']*2", 
+                                          value = derived_metrics_value).strip()
+
+    error_shown2 = False
+    for desc in results:
+        path_to_result = desc['path']
+
+        if path_to_result in results_meta:
+            result_meta = results_meta[path_to_result]
+        else:
             r = cmind.utils.load_json_or_yaml(path_to_result)
             if r['return']>0: return r
 
-            meta = r['meta']
+            result_meta = r['meta']
 
-            for m in meta:
-                all_values.append(m)
+        for result in result_meta:
+            # Add extra info
+            for k in ['experiment_dir', 'experiment_alias', 'experiment_uid', 'experiment_tags']:
+                if k in desc:
+                    result[k]=desc[k]
 
-                for k in m.keys():
-                    if k not in keys:
-                        keys.append(k)
+            if derived_metrics_value!='':
+                try:
+                   exec(derived_metrics_value)
+                except Exception as e:
+                   if not error_shown2:
+                       st.markdown('*Syntax error in derived metrics: {}*'.format(e))
+                       error_shown2 = True
 
-    
+            all_values.append(result)
+
+            for k in result.keys():
+                if k not in keys:
+                    keys.append(k)
+
+    filter_value = query_params.get('filter',[''])[0].strip()
+    if result_uid=='' and filter_value!='':
+        filter_value = st.text_input("Optional: add result filter in Python. Example: result['Accuracy']>75", value = filter_value).strip()
+
+        st.markdown('---')
+
+    # all_values is a list of dictionaries with all keys
+    error_shown=False
+    for result in all_values:
+
+        if filter_value!='':
+            try:
+               if not eval(filter_value):
+                   continue
+            except Exception as e:
+               if not error_shown:
+                   st.markdown('*Syntax error in filter: {}*'.format(e))
+                   error_shown = True
+
+        # Check if 1 result UID is selected
+        if result_uid!='' and result.get('uid','')!=result_uid:
+            continue
+
+        data = []
+        for k in sorted(keys, key=lambda s: s.lower()):
+            data.append(result.get(k))
+
+        all_data.append(data)
+
+        if result_uid!='': break
+
+    ###################################################
+    if len(all_data)==0:
+        st.markdown('No results found for your selection.')
+        return {'return':0, 'end_html':end_html}
+
+
+
+
+
+    ###################################################
+    # If experiment found and 1 UID, print a table
+    if result_uid!='':
+        st.markdown('---')
+        st.markdown('# Result summary')
+
+        
+        data = all_data[0]
+
+        result = {}
+
+        j=0
+        for k in sorted(keys, key=lambda x: x.lower()):
+            result[k] = data[j]
+            j+=1
+
+        x = ''
+        for k in sorted(keys, key=lambda x: x.lower()):
+            x+='* **{}**: {}\n'.format(k,str(result[k]))
+
+        st.markdown(x)
+
+        # Check associated reports
+        r=cmind.access({'action':'find',
+                        'automation':'report,6462ecdba2054467',
+                        'tags':'result-{}'.format(result_uid)})
+        if r['return']>0: return r
+
+        lst = r['list']
+
+        for l in lst:
+            report_path = l.path
+
+            f1 = os.path.join(report_path, 'README.md')
+            if os.path.isfile(f1):
+                report_meta = l.meta
+
+                report_alias = report_meta['alias']
+                report_title = report_meta.get('title','')
+
+                report_name = report_title if report_title!='' else report_alias
+
+                r = cmind.utils.load_txt(f1)
+                if r['return']>0: return r
+
+                s = r['string']
+
+                st.markdown('---')
+                st.markdown('### '+report_name)
+
+                st.markdown(s)
+
+
+        # Create self-link
+        st.markdown("""---""")
+
+        experiment_alias_or_uid = result['experiment_uid']
+
+        end_html='''
+         <center>
+          <small><a href="{}&result_uid={}"><i>Self link</i></a></small>
+         </center>
+         '''.format(misc.make_url(experiment_alias_or_uid, action=action, md=False), result_uid)
+
+        st.write(end_html, unsafe_allow_html=True)
+                
+        
+        return {'return':0}
+
+
+
+
+
+
+    ###################################################
     # Select 2D keys
     axis_key_x=''
     axis_key_y=''
     axis_key_c=''
 
     if len(keys)>0:
-        keys = [''] + keys
-        
-        st.markdown("""---""")
+        keys = [''] + sorted(keys, key=lambda s: s.lower())
 
         q_axis_key_x = query_params.get('x',[''])
         if len(q_axis_key_x)>0:
@@ -292,6 +456,7 @@ def visualize(st, query_params, parent):
                 values.append(v)
 
     if len(values)>0:
+
         #fig, ax = plt.subplots(figsize=(12,6))
         fig, ax = plt.subplots()
 
@@ -303,7 +468,7 @@ def visualize(st, query_params, parent):
         ax.grid(linestyle = 'dotted')
 
         #https://matplotlib.org/stable/api/markers_api.html
-        
+
         unique_color_values = {}
 #        unique_colors = list(mcolors.CSS4_COLORS.keys())
         unique_colors = list(mcolors.TABLEAU_COLORS.keys())
@@ -314,7 +479,23 @@ def visualize(st, query_params, parent):
         i_unique_style_values = 0
 
 
-        for v in values:
+        experiment_uids = []
+
+        t = 0
+        for result in values:
+            if filter_value!='':
+                try:
+                   if not eval(filter_value):
+                       continue
+                except Exception as e:
+                   if not error_shown:
+                       st.markdown('*Syntax error in filter: {}*'.format(e))
+                       error_shown = True
+
+            v = result
+
+            t+=1
+
             x = v.get(axis_key_x, None)
             y = v.get(axis_key_y, None)
 
@@ -331,7 +512,7 @@ def visualize(st, query_params, parent):
                         unique_color_values[c] = color
                         if i_unique_color_values<(len(unique_colors)-1):
                             i_unique_color_values+=1
-                          
+
             style = 'o'
             if axis_key_s!='':
                 s = v.get(axis_key_s, None)
@@ -343,21 +524,33 @@ def visualize(st, query_params, parent):
                         unique_style_values[s] = style
                         if i_unique_style_values<(len(unique_styles)-1):
                             i_unique_style_values+=1
-            
+
             graph = ax.scatter(x, y, color=color, marker=style)
 
             info=''
-            for key in sorted(v):
+            for key in sorted(v.keys(), key=lambda x: x.lower()):
                 value = v[key]
                 info+='<b>'+str(key)+': </b>'+str(value)+'<br>\n'
+
             info2 = '<div style="padding:10px;background-color:#FFFFE0;"><small>'+info+'</small></div>'
-            
+
             label = [info2]
             plugins.connect(fig, plugins.PointHTMLTooltip(graph, label))
+
+            experiment_uid = v.get('experiment_uid','')
+            if experiment_uid!='' and experiment_uid not in experiment_uids:
+                experiment_uids.append(experiment_uid)
+            
+            uid = v.get('uid','')
+            if uid!='':
+                xaction = 'action={}&'.format(action) if action!='' else ''
+                url = '?{}name={}&result_uid={}'.format(xaction, experiment_uid, uid)
 
             if url!='':
                 targets = [url]
                 plugins.connect(fig, OpenBrowserOnClick(graph, targets = targets)) 
+
+
 
 
         fig_html = mpld3.fig_to_html(fig)
@@ -365,9 +558,71 @@ def visualize(st, query_params, parent):
         #fig_html = '<div style="padding:10px;background-color:#F0F0F0;">'+fig_html+'</div>'
 
         #components.html(fig_html, width=1000, height=800)
+        st.markdown('---')
         components.html(fig_html, width=1100, height=900)
 
+        df = pd.DataFrame(
+          all_data,
+          columns=(k for k in sorted(keys, key=lambda s: s.lower()) if k!='')
+        )
+
+        st.markdown('---')
+        st.dataframe(df)
+
+#        st.markdown(df.to_html(render_links=True, escape=False),unsafe_allow_html=True)
+
+        # Check if can create self link
+        if len(experiment_uids)==1:
+            st.markdown("""---""")
+
+            xtype = '&type={}'.format(how) if how!='' else ''
+
+            end_html='''
+             <center>
+              <small><a href="{}{}"><i>Self link</i></a></small>
+             </center>
+             '''.format(misc.make_url(experiment_uids[0], action=action, md=False), xtype)
+
+            st.write(end_html, unsafe_allow_html=True)
+
+
     return {'return':0}
+
+
+
+class OpenBrowserOnClick(mpld3.plugins.PluginBase):
+
+    JAVASCRIPT="""
+
+    mpld3.register_plugin("openbrowseronclick", PointClickableHTMLTooltip);
+
+    PointClickableHTMLTooltip.prototype = Object.create(mpld3.Plugin.prototype);
+    PointClickableHTMLTooltip.prototype.constructor = PointClickableHTMLTooltip;
+    PointClickableHTMLTooltip.prototype.requiredProps = ["id"];
+    PointClickableHTMLTooltip.prototype.defaultProps = {targets:null};
+
+    function PointClickableHTMLTooltip(fig, props){
+        mpld3.Plugin.call(this, fig, props);
+    };
+
+    PointClickableHTMLTooltip.prototype.draw = function(){
+       var obj = mpld3.get_element(this.props.id);
+       var targets = this.props.targets;
+       obj.elements()
+           .on("mousedown", function(d, i){
+                              window.open(targets[i]);
+                               });
+    };
+
+    """
+
+    def __init__(self, points, targets=None):
+        self.points = points
+        self.targets = targets
+        self.dict_ = {"type": "openbrowseronclick",
+                      "id": mpld3.utils.get_id(points, None),
+                      "targets": targets}
+
 
 
 

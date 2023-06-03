@@ -32,6 +32,7 @@ input_mapping:
   exp_tags: CM_GUI_GRAPH_EXPERIMENT_TAGS
   exp_name: CM_GUI_GRAPH_EXPERIMENT_NAME
   exp_max_results: CM_GUI_GRAPH_EXPERIMENT_MAX_RESULTS
+  exp_uid: CM_GUI_GRAPH_EXPERIMENT_RESULT_UID
 
 default_env:
   CM_GUI_EXTRA_CMD: ""

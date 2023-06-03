@@ -2,6 +2,7 @@
 
 import cmind
 import os
+import misc
 
 import streamlit as st
 import streamlit.components.v1 as components
@@ -20,7 +21,7 @@ from mpld3 import utils
 
 
 
-def page(st, params, parent, experiment):
+def page(st, params, experiment):
 
     result_uid = params.get('result_uid',[''])[0].strip()
 
@@ -33,7 +34,7 @@ def page(st, params, parent, experiment):
          <center>
           <small><a href="{}"><i>Self link</i></a></small>
          </center>
-         '''.format(parent.make_url(meta['uid'], action='experiments', md=False))
+         '''.format(misc.make_url(meta['uid'], action='experiments', md=False))
 
     name = meta.get('title', meta['alias'].replace('--',','))
 
@@ -200,7 +201,7 @@ def page(st, params, parent, experiment):
          <center>
           <small><a href="{}&result_uid={}"><i>Self link</i></a></small>
          </center>
-         '''.format(parent.make_url(alias, action='experiments', md=False), result_uid)
+         '''.format(misc.make_url(alias, action='experiments', md=False), result_uid)
 
         return {'return':0, 'end_html':end_html}
 
