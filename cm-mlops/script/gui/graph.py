@@ -55,11 +55,19 @@ class OpenBrowserOnClick(mpld3.plugins.PluginBase):
 
 
 def main():
+    current = __import__(__name__)
 
-    query_params = st.experimental_get_query_params()
+    params = st.experimental_get_query_params()
 
     # Set title
     st.title('CM experiment visualization')
+
+    return visualize(st, params, current)
+
+
+
+
+def visualize(st, query_params, parent):
 
     # Query experiment
     v_experiment_tags = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_TAGS','')
@@ -67,7 +75,9 @@ def main():
     if len(q_experiment_tags)>0:
         if q_experiment_tags[0]!='':
             v_experiment_tags = q_experiment_tags[0]
-    v_experiment_tags = st.text_input('CM experiment tags', value=v_experiment_tags, key='v_experiment_tags').strip()
+    v_experiment_tags = v_experiment_tags.replace(',',' ')
+    v_experiment_tags = st.text_input('Select CM experiment tags separated by space:', value=v_experiment_tags, key='v_experiment_tags').strip()
+    v_experiment_tags = v_experiment_tags.replace(',',' ')
 
     v_experiment_name = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_NAME','')
     q_experiment_name = query_params.get('name',[''])
@@ -80,7 +90,7 @@ def main():
           'automation':'experiment,a0a2d123ef064bcb'}
 
     if v_experiment_tags!='':
-        ii['tags']=v_experiment_tags
+        ii['tags']=v_experiment_tags.replace(' ',',')
 
     r = cmind.access(ii)
     if r['return']>0: return r
@@ -92,7 +102,7 @@ def main():
     selection = 0
     index = 1
     for l in sorted(lst_all, key=lambda x: (
-                                            x.meta.get('title',''),
+                                            ','.join(x.meta.get('tags',[])),
                                             x.meta.get('alias',''),
                                             x.meta['uid']
                                            )):
@@ -102,10 +112,10 @@ def main():
         if v_experiment_name!='' and (v_experiment_name == meta['alias'] or v_experiment_name == meta['uid']):
             selection = index
 
-        name = meta.get('title', meta.get('alias', ''))
-        if name == '':
-            tags = meta.get('tags',[])
-            name = 'Tags: '+','.join(tags) if len(tags)>0 else meta['uid']
+        name = ' '.join(meta.get('tags',[]))
+        if name =='': name = meta.get('alias', '')
+        if name =='': name = meta['uid']
+
 
         experiments.append(name)
 
@@ -115,7 +125,7 @@ def main():
         selection = 1
 
     # Show experiment artifacts
-    experiment = st.selectbox('CM experiment name', 
+    experiment = st.selectbox('Select experiment from {} found:'.format(len(experiments)-1), 
                               range(len(experiments)), 
                               format_func=lambda x: experiments[x],
                               index=selection, 
@@ -126,25 +136,100 @@ def main():
     
     # Check experiments
     results = []
+    results_with_password = []
+    passwords = []
     
     for experiment in lst:
         path = experiment.path
 
-        r = cmind.utils.list_all_files({'path':path, 'all':'yes', 'file_name':'cm-result.json'})
-        if r['return']>0: return r
+        for d in os.listdir(path):
+            path2 = os.path.join(path, d)
+            if os.path.isdir(path2):
+                path_to_result = os.path.join(path, d, 'cm-result.json')
 
-        for path_to_result in r['list']:
-            results.append(os.path.join(path, path_to_result))
+                if os.path.isfile(path_to_result):
+                    desc = {'path':path_to_result}
 
+                    pwd = experiment.meta.get('password_hash','')
+                    if pwd=='':
+                        results.append(desc)
+                    else:
+                        desc['password_hash'] = pwd
+
+                        if pwd not in passwords:
+                            passwords.append(pwd)
+                    
+                        results_with_password.append(desc)
+
+    # Check if password
+    if len(passwords)>0:
+        password = st.text_input('Some results are protected by password. Enter password to unlock them:', value='', key='v_experiment_pwd').strip()
+
+        if password!='':
+            import bcrypt
+            # salt = bcrypt.gensalt()
+            # TBD: temporal hack to demo password protection for experiments
+            # salt = bcrypt.gensalt()
+            password_salt = b'$2b$12$ionIRWe5Ft7jkn4y/7C6/e'
+            password_hash2 = bcrypt.hashpw(password.encode('utf-8'), password_salt).decode('utf-8')
+
+            for result in results_with_password:
+                if result['password_hash'] == password_hash2:
+                    results.append(result)
+    
+    # How to visualize selection
+
+    if st.session_state.get('tmp_cm_results','')=='':
+        st.session_state['tmp_cm_results']=len(results)    
+    elif int(st.session_state['tmp_cm_results'])!=len(results):
+        st.session_state['tmp_cm_results']=len(results)
+        st.session_state['how']=''
+
+    
+    how = ''
+
+    v_max_results = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_MAX_RESULTS','')
+
+    if v_max_results!='' and len(results)>int(v_max_results):
+        st.markdown('Too many results - continue pruning ...')
+        return {'return':0}
+
+    v_how = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_HOW','')
+    q_how = query_params.get('type',[''])
+    if len(q_how)>0:
+        if q_how[0]!='':
+            v_how = q_how[0]
+
+            
+    how_selection = ['', '2D', 'bar']
+    
+    how_index = 0
+    if v_how!='' and v_how in how_selection:
+        how_index = how_selection.index(v_how)
+
+    how = st.selectbox('Select how to visualize {} CM experiment set(s):'.format(len(results)),
+                       how_selection,
+                       index = how_index, 
+                       key = 'how')
+
+    if how == '':
+        return {'return':0}
+    
+
+    
+    
+    
+    
+    
+    
     # Check results
     all_values = []
     keys = []
 
-    st.markdown("""---""")
-    st.markdown('Found CM result(s): {}'.format(len(results)))
-
     if len(results)>0:
-        for path_to_result in results:
+        for result in results:
+            path_to_result = result['path']
+            
             r = cmind.utils.load_json_or_yaml(path_to_result)
             if r['return']>0: return r
 
@@ -157,30 +242,6 @@ def main():
                     if k not in keys:
                         keys.append(k)
 
-    if st.session_state.get('tmp_cm_results','')=='':
-        st.session_state['tmp_cm_results']=len(results)    
-    elif int(st.session_state['tmp_cm_results'])!=len(results):
-        st.session_state['tmp_cm_results']=len(results)
-        st.session_state['how']=''
-
-    
-    # Visualization selection
-    st.markdown("""---""")
-
-    how = ''
-
-    v_max_results = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_MAX_RESULTS','')
-
-    if v_max_results!='' and len(results)>int(v_max_results):
-        st.markdown('Too many results - continue pruning ...')
-    else:
-        how = st.selectbox('Select visualization', 
-                           ['', '2D graph', 'Bar'],
-                           index = 0, 
-                           key = 'how')
-
-    if how == '':
-        return {'return':0}
     
     # Select 2D keys
     axis_key_x=''
@@ -307,6 +368,9 @@ def main():
         components.html(fig_html, width=1100, height=900)
 
     return {'return':0}
+
+
+
 
 if __name__ == "__main__":
     r = main()
