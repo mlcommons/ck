@@ -75,8 +75,8 @@ def main():
         from playground_challenges import page
         r = page(st, params)
     elif action == 'experiments':
-        from playground_experiments import page
-        r = page(st, params)
+        from graph import visualize
+        r = visualize(st, params, action = 'experiments')
     elif action == 'contributors':
         from playground_contributors import page
         r = page(st, params)
