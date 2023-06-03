@@ -4,6 +4,12 @@ import cmind
 
 def page(st, params):
 
+    from graph import visualize
+    return visualize(st, params, action = 'experiments')
+
+    
+    
+    
     name = params.get('name',[''])[0].strip()
     tags = params.get('tags',[''])[0].lower().replace(',',' ')
 
