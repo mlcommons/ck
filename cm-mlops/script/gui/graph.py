@@ -59,18 +59,21 @@ def main():
     query_params = st.experimental_get_query_params()
 
     # Set title
-    st.title('CM (CK2) experiment visualization')
+    st.title('CM experiment visualization')
 
     # Query experiment
-    experiment_tags = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_TAGS','')
-    experiment_name = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_NAME','')
-
-
-    v_experiment_tags = ''
+    v_experiment_tags = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_TAGS','')
     q_experiment_tags = query_params.get('tags',[''])
     if len(q_experiment_tags)>0:
-        v_experiment_tags = q_experiment_tags[0]
+        if q_experiment_tags[0]!='':
+            v_experiment_tags = q_experiment_tags[0]
     v_experiment_tags = st.text_input('CM experiment tags', value=v_experiment_tags, key='v_experiment_tags').strip()
+
+    v_experiment_name = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_NAME','')
+    q_experiment_name = query_params.get('name',[''])
+    if len(q_experiment_name)>0:
+        if q_experiment_name[0]!='':
+            v_experiment_name = q_experiment_name[0]
 
     # Get all experiment names
     ii = {'action':'find', 
@@ -84,34 +87,44 @@ def main():
 
     lst_all = r['list']
 
-    experiments_all = ['']
-    for l in lst_all:
-        experiments_all.append(l.meta['alias'])
+    experiments = ['']
 
-    experiments_all=sorted(experiments_all)
+    selection = 0
+    index = 1
+    for l in sorted(lst_all, key=lambda x: (
+                                            x.meta.get('title',''),
+                                            x.meta.get('alias',''),
+                                            x.meta['uid']
+                                           )):
+    
+        meta = l.meta
 
-    v_experiment_name = st.selectbox('CM experiment name', experiments_all, index=0, key='v_experiment_name').strip()
+        if v_experiment_name!='' and (v_experiment_name == meta['alias'] or v_experiment_name == meta['uid']):
+            selection = index
 
-    lst = []
-    if v_experiment_tags!='' or v_experiment_name!='':
-        ii = {'action':'find', 
-              'automation':'experiment,a0a2d123ef064bcb'}
+        name = meta.get('title', meta.get('alias', ''))
+        if name == '':
+            tags = meta.get('tags',[])
+            name = 'Tags: '+','.join(tags) if len(tags)>0 else meta['uid']
 
-        if v_experiment_tags!='':
-            ii['tags']=v_experiment_tags
-        if v_experiment_name!='':
-            ii['artifact']=v_experiment_name
+        experiments.append(name)
 
-        r = cmind.access(ii)
-        if r['return']>0: return r
+        index+=1
 
-        lst = r['list']
+    if len(lst_all) == 1:
+        selection = 1
 
+    # Show experiment artifacts
+    experiment = st.selectbox('CM experiment name', 
+                              range(len(experiments)), 
+                              format_func=lambda x: experiments[x],
+                              index=selection, 
+                              key='experiment')
+
+
+    lst = [lst_all[experiment-1]] if experiment > 0 else lst_all
+    
     # Check experiments
-    st.markdown("""---""")
-
-    st.markdown('Found CM experiment(s): {}'.format(len(lst)))
-
     results = []
     
     for experiment in lst:
@@ -127,9 +140,10 @@ def main():
     all_values = []
     keys = []
 
-    if len(results)>0:
-        st.markdown('Found CM results: {}'.format(len(results)))
+    st.markdown("""---""")
+    st.markdown('Found CM result(s): {}'.format(len(results)))
 
+    if len(results)>0:
         for path_to_result in results:
             r = cmind.utils.load_json_or_yaml(path_to_result)
             if r['return']>0: return r
@@ -143,6 +157,31 @@ def main():
                     if k not in keys:
                         keys.append(k)
 
+    if st.session_state.get('tmp_cm_results','')=='':
+        st.session_state['tmp_cm_results']=len(results)    
+    elif int(st.session_state['tmp_cm_results'])!=len(results):
+        st.session_state['tmp_cm_results']=len(results)
+        st.session_state['how']=''
+
+    
+    # Visualization selection
+    st.markdown("""---""")
+
+    how = ''
+
+    v_max_results = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_MAX_RESULTS','')
+
+    if v_max_results!='' and len(results)>int(v_max_results):
+        st.markdown('Too many results - continue pruning ...')
+    else:
+        how = st.selectbox('Select visualization', 
+                           ['', '2D graph', 'Bar'],
+                           index = 0, 
+                           key = 'how')
+
+    if how == '':
+        return {'return':0}
+    
     # Select 2D keys
     axis_key_x=''
     axis_key_y=''

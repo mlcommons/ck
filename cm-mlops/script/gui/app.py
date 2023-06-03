@@ -57,9 +57,9 @@ def main():
     # Set title
     if title=='':
         if script_alias!='':
-            title = 'GUI for the CK2 (CM) script "{}"'.format(script_alias)
+            title = 'GUI for the CM script "{}"'.format(script_alias)
         else:
-            title = 'GUI for CK2 (CM)'
+            title = 'GUI for CM'
 
     st.title(title)
 

@@ -29,6 +29,9 @@ input_mapping:
   no_browser: CM_GUI_NO_BROWSER
   no_run: CM_GUI_NO_RUN
   app: CM_GUI_APP
+  exp_tags: CM_GUI_GRAPH_EXPERIMENT_TAGS
+  exp_name: CM_GUI_GRAPH_EXPERIMENT_NAME
+  exp_max_results: CM_GUI_GRAPH_EXPERIMENT_MAX_RESULTS
 
 default_env:
   CM_GUI_EXTRA_CMD: ""
