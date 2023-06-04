@@ -56,6 +56,9 @@ class OpenBrowserOnClick(mpld3.plugins.PluginBase):
 
 
 
+
+
+
 def main():
     params = st.experimental_get_query_params()
 
@@ -248,9 +251,7 @@ def visualize(st, query_params, action = ''):
         if how == '':
             return {'return':0}
     
-
-    
-    
+    how = how.strip().lower()
     
     
     # Continue visualizing
@@ -301,7 +302,7 @@ def visualize(st, query_params, action = ''):
                     keys.append(k)
 
     filter_value = query_params.get('filter',[''])[0].strip()
-    if result_uid=='' and filter_value!='':
+    if result_uid=='': # and filter_value!='':
         filter_value = st.text_input("Optional: add result filter in Python. Example: result['Accuracy']>75", value = filter_value).strip()
 
         st.markdown('---')
@@ -428,31 +429,43 @@ def visualize(st, query_params, action = ''):
     if len(keys)>0:
         keys = [''] + sorted(keys, key=lambda s: s.lower())
 
+        axis_key_x = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_AXIS_KEY_X','')
         q_axis_key_x = query_params.get('x',[''])
         if len(q_axis_key_x)>0:
-            axis_key_x = q_axis_key_x[0]
+            if q_axis_key_x[0]!='':
+               axis_key_x = q_axis_key_x[0]
         i_axis_key_x = 0
         if axis_key_x != '' and axis_key_x in keys: i_axis_key_x = keys.index(axis_key_x)
         if axis_key_x == '' and 'Result' in keys: i_axis_key_x = keys.index('Result')
         axis_key_x = st.selectbox('Select X key', keys, index=i_axis_key_x, key='x')
 
+        axis_key_y = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_AXIS_KEY_Y','')
         q_axis_key_y = query_params.get('y',[''])
         if len(q_axis_key_y)>0:
-            axis_key_y = q_axis_key_y[0]
+            if q_axis_key_y[0]!='':
+                axis_key_y = q_axis_key_y[0]
         i_axis_key_y = 0
         if axis_key_y != '' and axis_key_y in keys: i_axis_key_y = keys.index(axis_key_y)
         if axis_key_y == '' and 'Accuracy' in keys: i_axis_key_y = keys.index('Accuracy')
         axis_key_y = st.selectbox('Select Y key', keys, index=i_axis_key_y, key='y')
 
+        axis_key_c = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_AXIS_KEY_C','')
         q_axis_key_c = query_params.get('c',[''])
         if len(q_axis_key_c)>0:
-            axis_key_c = q_axis_key_c[0]
+            if q_axis_key_c[0]!='':
+                axis_key_c = q_axis_key_c[0]
         i_axis_key_c = 0
         if axis_key_c != '' and axis_key_c in keys: i_axis_key_c = keys.index(axis_key_c)
         if axis_key_c == '' and 'version' in keys: i_axis_key_c = keys.index('version')
         axis_key_c = st.selectbox('Select Color key', keys, index=i_axis_key_c, key='c')
 
-        axis_key_s = st.selectbox('Select Style key', keys, index=0, key='s')
+        axis_key_s = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_AXIS_KEY_S','')
+        q_axis_key_s = query_params.get('s',[''])
+        if len(q_axis_key_s)>0:
+            axis_key_s = q_axis_key_s[0]
+        i_axis_key_s = 0
+        if axis_key_s != '' and axis_key_s in keys: i_axis_key_s = keys.index(axis_key_s)
+        axis_key_s = st.selectbox('Select Style key', keys, index=i_axis_key_s, key='s')
 
 
     # Select values
@@ -469,15 +482,23 @@ def visualize(st, query_params, action = ''):
     if len(values)>0:
 
         #fig, ax = plt.subplots(figsize=(12,6))
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots() #figsize=(6,4))
 
         ax.set_xlabel(axis_key_x)
         ax.set_ylabel(axis_key_y)
 
-        ax.set_title('') #, size=20)
+        title = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_TITLE', '')
+        q_title = query_params.get('title',[''])
+        if len(q_title)>0:
+            if q_title[0]!='':
+                title = q_title[0]
+        ax.set_title(title, size=16)
 
-        ax.grid(linestyle = 'dotted')
-
+        if how == 'bar':
+            ax.set_title('Under development ...', size=16)
+            ax.yaxis.grid(linestyle = 'dotted')
+        else:
+            ax.grid(linestyle = 'dotted')
         #https://matplotlib.org/stable/api/markers_api.html
 
         unique_color_values = {}
@@ -489,10 +510,15 @@ def visualize(st, query_params, action = ''):
         unique_styles = ['o','v','^','<','>','1','2','3','4','8','s','p','P','*','+','D']
         i_unique_style_values = 0
 
+        # If Bar, use Style to separate results
+        unique_x_values = []
+        unique_s_values = []
 
         experiment_uids = []
 
-        t = 0
+        # Filter values
+        values2 = []
+
         for result in values:
             if filter_value!='':
                 try:
@@ -503,6 +529,23 @@ def visualize(st, query_params, action = ''):
                        st.markdown('*Syntax error in filter: {}*'.format(e))
                        error_shown = True
 
+            values2.append(result)
+
+            if how == 'bar':
+                x = result.get(axis_key_x, None)
+                if x != None and x!='' and x not in unique_x_values:
+                    unique_x_values.append(x)
+
+                s = result.get(axis_key_s, None)
+                if s != None and s!='' and s not in unique_s_values:
+                    unique_s_values.append(s)
+
+        # Continue visualizing
+        width = 1
+        multiplier = 0
+        
+        t = 0
+        for result in values2:
             v = result
 
             t+=1
@@ -511,6 +554,7 @@ def visualize(st, query_params, action = ''):
             y = v.get(axis_key_y, None)
 
             url = v.get('url','')
+            if url=='': url = v.get('git_url','')
 
             color = 'blue'
             if axis_key_c!='':
@@ -536,7 +580,19 @@ def visualize(st, query_params, action = ''):
                         if i_unique_style_values<(len(unique_styles)-1):
                             i_unique_style_values+=1
 
-            graph = ax.scatter(x, y, color=color, marker=style)
+            if how == 'bar':
+                if len(unique_s_values) > 0:
+                    width = float(1/len(unique_s_values))
+                    s = v.get(axis_key_s, None)
+                    if s!=None and s!='':
+                        multiplier = unique_s_values.index(s)
+                
+                offset = width * multiplier
+                xx = unique_x_values.index(x)
+
+                graph = ax.bar(xx + offset, y, width, label = 'x', tick_label='y', color=color)
+            else:
+                graph = ax.scatter(x, y, color=color, marker=style)
 
             info=''
             for key in sorted(v.keys(), key=lambda x: x.lower()):
@@ -563,7 +619,7 @@ def visualize(st, query_params, action = ''):
 
 
 
-
+        # Render graph
         fig_html = mpld3.fig_to_html(fig)
 
         #fig_html = '<div style="padding:10px;background-color:#F0F0F0;">'+fig_html+'</div>'
@@ -598,42 +654,6 @@ def visualize(st, query_params, action = ''):
 
 
     return {'return':0}
-
-
-
-class OpenBrowserOnClick(mpld3.plugins.PluginBase):
-
-    JAVASCRIPT="""
-
-    mpld3.register_plugin("openbrowseronclick", PointClickableHTMLTooltip);
-
-    PointClickableHTMLTooltip.prototype = Object.create(mpld3.Plugin.prototype);
-    PointClickableHTMLTooltip.prototype.constructor = PointClickableHTMLTooltip;
-    PointClickableHTMLTooltip.prototype.requiredProps = ["id"];
-    PointClickableHTMLTooltip.prototype.defaultProps = {targets:null};
-
-    function PointClickableHTMLTooltip(fig, props){
-        mpld3.Plugin.call(this, fig, props);
-    };
-
-    PointClickableHTMLTooltip.prototype.draw = function(){
-       var obj = mpld3.get_element(this.props.id);
-       var targets = this.props.targets;
-       obj.elements()
-           .on("mousedown", function(d, i){
-                              window.open(targets[i]);
-                               });
-    };
-
-    """
-
-    def __init__(self, points, targets=None):
-        self.points = points
-        self.targets = targets
-        self.dict_ = {"type": "openbrowseronclick",
-                      "id": mpld3.utils.get_id(points, None),
-                      "targets": targets}
-
 
 
 
