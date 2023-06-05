@@ -5,22 +5,13 @@
   "cache": true,
   "category": "ML/AI datasets",
   "category_sort": 8500,
-  "env": {
-    "CM_DATASET": "CIFAR10",
-    "CM_DAE_URL": "https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz"
-  },
+  "default_variation": "python",
   "new_env_keys": [
     "CM_DATASET_*"
   ],
-  "prehook_deps": [
+  "deps": [
     {
-      "tags": "download-and-extract,file,_extract",
-      "env": {
-        "CM_EXTRACT_FINAL_ENV_NAME": "CM_DATASET_PATH"
-      },
-      "update_tags_from_env_with_prefix": {
-        "_url.": [ "CM_DAE_URL" ]
-      }
+      "tags": "detect,os"
     }
   ],
   "tags": [
@@ -31,5 +22,15 @@
     "validation",
     "training"
   ],
+  "variations": {
+    "python": {
+      "env": {
+         "CM_DATASET": "CIFAR10",
+         "CM_DATASET_FILENAME": "cifar-10-python.tar.gz",
+         "CM_DATASET_FILENAME1": "cifar-10-python.tar",
+         "CM_DATASET_CIFAR10": "https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz"
+      }
+    }
+  },
   "uid": "2f0c0bb3663b4ed7"
 }
