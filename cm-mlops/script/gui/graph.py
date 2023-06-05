@@ -256,7 +256,7 @@ def visualize(st, query_params, action = ''):
         if how == '':
             return {'return':0}
     
-    how = how.strip().lower()
+    how = how.strip()
     
     
     # Continue visualizing
