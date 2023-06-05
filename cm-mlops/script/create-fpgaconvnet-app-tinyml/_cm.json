@@ -7,6 +7,15 @@
     {
       "names": [ "config-generator" ],
       "tags": "create,fpgaconvnet,config"
+    },
+    {
+      "names": [ "xilinx-sdk" ],
+      "tags": "get,xilinx,sdk",
+      "version": "2019.1"
+    },
+    {
+      "names": [ "tensorflow" ],
+      "tags": "get,tensorflow"
     }
   ],
   "input_description": {},
