@@ -351,8 +351,8 @@ See the development roadmap [here](https://github.com/mlcommons/ck/issues/536).
 
 # Authors
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin) (OctoML, MLCommons, cTuning foundation)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
+* [Grigori Fursin](https://cKnowledge.org/gfursin) (MLCommons, cTuning foundation, cKnowledge Ltd)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (MLCommons, cTuning foundation)
 
 # Acknowledgments
 
