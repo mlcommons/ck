@@ -30,6 +30,23 @@
          "CM_DATASET_FILENAME1": "cifar-10-python.tar",
          "CM_DATASET_CIFAR10": "https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz"
       }
+    },
+    "tinymlperf": {
+      "deps": [
+         {
+           "names": [
+             "python",
+             "python3"
+           ],
+           "tags": "get,python3"
+         },
+         {
+           "tags": "get,tinymlperf,src"
+         }
+      ],
+      "env": {
+         "CM_DATASET_CONVERT_TO_TINYMLPERF": "yes"
+      }
     }
   },
   "uid": "2f0c0bb3663b4ed7"
