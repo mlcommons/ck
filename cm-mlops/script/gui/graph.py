@@ -98,7 +98,10 @@ def visualize(st, query_params, action = ''):
     ii = {'action':'find', 
           'automation':'experiment,a0a2d123ef064bcb'}
 
-    if v_experiment_tags!='':
+    # If name is given, do not use tags 
+    if v_experiment_name!='':
+        ii['artifact']=v_experiment_name
+    elif v_experiment_tags!='':
         ii['tags']=v_experiment_tags.replace(' ',',')
 
     r = cmind.access(ii)
