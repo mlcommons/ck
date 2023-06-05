@@ -14,9 +14,10 @@ how to use and enhance CK to run and optimize MLPerf inference benchmarks.
 
 ### Status
 
-We have successfully reproduced [OctoML's v2.0 submission](https://github.com/mlcommons/tiny_results_v1.0/tree/main/closed/OctoML),
-automated it with the latest version of the [MLCommons CM automation language](https://github.com/mlcommons/ck/blob/master/docs/README.md)
-and added all past Tiny MLPerf results to the [MLCommons CK playground](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-tiny)
+We have successfully reproduced [OctoML's v1.0 submission](https://github.com/mlcommons/tiny_results_v1.0/tree/main/closed/OctoML),
+automated it with the latest version of the [MLCommons CM automation language](https://github.com/mlcommons/ck/blob/master/docs/README.md),
+submit reproduce results to [TinyMLperf v1.1 round] 
+and added all past TinyMLPerf results to the [MLCommons CK playground](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-tiny)
 for further collaborative analysis and improvement.
 
 Our tutorial and reproducibility report is available [here](https://github.com/ctuning/mlcommons-ck/blob/master/docs/tutorials/reproduce-mlperf-tiny.md).

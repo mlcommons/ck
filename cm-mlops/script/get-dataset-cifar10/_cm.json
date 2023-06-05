@@ -5,17 +5,23 @@
   "cache": true,
   "category": "ML/AI datasets",
   "category_sort": 8500,
-  "default_version": "1.0",
-  "deps": [
-    {
-      "tags": "get,sys-utils-cm"
-    }
-  ],
   "env": {
-    "CM_DATASET": "CIFAR10"
+    "CM_DATASET": "CIFAR10",
+    "CM_DAE_URL": "https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz"
   },
   "new_env_keys": [
     "CM_DATASET_*"
+  ],
+  "prehook_deps": [
+    {
+      "tags": "download-and-extract,file,_extract",
+      "env": {
+        "CM_EXTRACT_FINAL_ENV_NAME": "CM_DATASET_PATH"
+      },
+      "update_tags_from_env_with_prefix": {
+        "_url.": [ "CM_DAE_URL" ]
+      }
+    }
   ],
   "tags": [
     "get",
@@ -23,17 +29,7 @@
     "cifar10",
     "image-classification",
     "validation",
-    "training",
-    "original"
+    "training"
   ],
-  "uid": "2f0c0bb3663b4ed7",
-  "versions": {
-    "1.1": {
-      "env": {
-        "CM_TRAIN_FILENAME": "train-v1.1.json",
-        "CM_VAL_FILENAME": "dev-v1.1.json",
-        "CM_WGET_URL": "https://data.deepai.org/squad1.1.zip"
-      }
-    }
-  }
+  "uid": "2f0c0bb3663b4ed7"
 }

@@ -1,3 +1,5 @@
+# TBD Windows: Grigori added only partial support for download and extract on Windows
+
 from cmind import utils
 import os
 import hashlib
@@ -28,8 +30,14 @@ def preprocess(i):
     if filename.endswith(".zip"):
         env['CM_EXTRACT_TOOL'] = "unzip"
     elif filename.endswith(".tar.gz"):
-        env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvzf'
-        env['CM_EXTRACT_TOOL'] = 'tar '
+        if os_info['platform'] == 'windows':
+            env['CM_EXTRACT_CMD0'] = 'gzip -d ' + filename
+            filename = filename[:-3] # leave only .tar
+            env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvf'
+            env['CM_EXTRACT_TOOL'] = 'tar '
+        else:
+            env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvzf'
+            env['CM_EXTRACT_TOOL'] = 'tar '
     elif filename.endswith(".tar.xz"):
         env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvJf'
         env['CM_EXTRACT_TOOL'] = 'tar '
