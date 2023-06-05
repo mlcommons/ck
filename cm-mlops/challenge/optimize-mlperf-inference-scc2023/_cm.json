@@ -5,7 +5,10 @@
   "date_close": "20231201",
   "date_open": "20231101",
   "tags": [
+    "automate",
+    "modularize",
     "reproduce",
+    "replicate",
     "benchmark",
     "mlperf",
     "mlperf-inference",
@@ -15,7 +18,7 @@
     "mlperf-inference-v2.0-2022",
     "v2.0"
   ],
-  "title": "Reproduce and optimize MLPerf inference benchmarks at SCC'23 (SuperComputing'23)",
+  "title": "Reproduce/replicate and optimize MLPerf inference benchmarks at SCC'23 (SuperComputing'23)",
   "uid": "ddaf594f84b14bc2",
   "under_preparation": true
 }

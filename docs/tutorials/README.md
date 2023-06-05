@@ -12,5 +12,7 @@
   * [Running all MLPerf inference benchmarks out-of-the-box for MLPerf inference v3.1 community submission](../../cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/README.md)
   * [Customizing MLPerf inference benchmark and preparing submission](mlperf-inference-submission.md)
   * [Measuring power during MLPerf inference benchmarks](mlperf-inference-power-measurement.md)
+  * [Reproducing/replicating Tiny MLPerf benchmark](reproduce-mlperf-tiny.md)
+  * [Reproducing/replicating MLPerf training benchmark](reproduce-mlperf-training.md)
 * [Understanding CM concepts](concept.md)
 * [Adding new CM scripts and automation pipelines/workflows](scripts.md)

@@ -5,8 +5,11 @@
   "date_close": "20230804",
   "date_open": "20230615",
   "tags": [
+    "modularize",
     "optimize",
     "reproduce",
+    "replicate",
+    "automate",
     "benchmark",
     "kilt",
     "mlperf-inference",

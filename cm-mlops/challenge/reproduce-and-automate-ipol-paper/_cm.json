@@ -7,10 +7,11 @@
   "experiments": [],
   "tags": [
     "reproduce",
+    "replicate",
     "automate",
     "ipol",
     "paper"
   ],
-  "title": "Reproduce and automate IPOL paper (proof-of-concept)",
+  "title": "Reproduce/replicate and automate IPOL paper (proof-of-concept)",
   "uid": "f284c08891c44058"
 }

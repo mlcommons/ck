@@ -10,8 +10,11 @@
     }
   ],
   "tags": [
+    "modularize",
     "optimize",
     "reproduce",
+    "replicate",
+    "automate",
     "benchmark",
     "mlperf",
     "mlperf-inference",

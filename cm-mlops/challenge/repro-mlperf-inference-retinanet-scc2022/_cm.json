@@ -5,7 +5,10 @@
   "date_close": "20221201",
   "date_open": "20221101",
   "tags": [
+    "modularize",
     "reproduce",
+    "replicate",
+    "automate",
     "benchmark",
     "mlperf",
     "mlperf-inference",
@@ -13,6 +16,6 @@
     "mlperf-inference-v3.1-2023",
     "v3.1"
   ],
-  "title": "Reproduce MLPerf RetinaNet benchmark at SCC (SuperComputing'22)",
+  "title": "Reproduce/replicate MLPerf RetinaNet benchmark at SCC (SuperComputing'22)",
   "uid": "e71fa8b396874e68"
 }

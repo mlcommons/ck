@@ -6,8 +6,11 @@
   "date_open": "20230615",
   "experiments": [],
   "tags": [
+    "modularize",
     "optimize",
     "reproduce",
+    "replicate",
+    "automate",
     "benchmark",
     "tvm",
     "mlperf-inference",
