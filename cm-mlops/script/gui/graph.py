@@ -79,20 +79,22 @@ def visualize(st, query_params, action = ''):
         if q_result_uid[0]!='':
             result_uid = q_result_uid[0]
     
-    v_experiment_tags = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_TAGS','')
-    q_experiment_tags = query_params.get('tags',[''])
-    if len(q_experiment_tags)>0:
-        if q_experiment_tags[0]!='':
-            v_experiment_tags = q_experiment_tags[0]
-    v_experiment_tags = v_experiment_tags.replace(',',' ')
-    v_experiment_tags = st.text_input('Select CM experiment tags separated by space:', value=v_experiment_tags, key='v_experiment_tags').strip()
-    v_experiment_tags = v_experiment_tags.replace(',',' ')
-
     v_experiment_name = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_NAME','')
     q_experiment_name = query_params.get('name',[''])
     if len(q_experiment_name)>0:
         if q_experiment_name[0]!='':
             v_experiment_name = q_experiment_name[0]
+
+    v_experiment_tags=''
+    if v_experiment_name=='':
+        v_experiment_tags = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_TAGS','')
+        q_experiment_tags = query_params.get('tags',[''])
+        if len(q_experiment_tags)>0:
+            if q_experiment_tags[0]!='':
+                v_experiment_tags = q_experiment_tags[0]
+        v_experiment_tags = v_experiment_tags.replace(',',' ')
+        v_experiment_tags = st.text_input('Select CM experiment tags separated by space:', value=v_experiment_tags, key='v_experiment_tags').strip()
+        v_experiment_tags = v_experiment_tags.replace(',',' ')
 
     # Get all experiment names
     ii = {'action':'find', 
