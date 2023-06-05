@@ -9,10 +9,10 @@ echo "Cloning MLCommons from ${CM_GIT_URL} with branch ${CM_GIT_CHECKOUT} ${CM_G
 if [ ! -d "src" ]; then
   if [ -z ${CM_GIT_SHA} ]; then
     git clone ${CM_GIT_RECURSE_SUBMODULES} -b "${CM_GIT_CHECKOUT}" ${CM_GIT_URL} ${CM_GIT_DEPTH} src
-    cd inference
+    cd src
   else
     git clone ${CM_GIT_RECURSE_SUBMODULES} ${CM_GIT_URL} ${CM_GIT_DEPTH} src
-    cd inference
+    cd src
     git checkout -b "${CM_GIT_CHECKOUT}"
   fi
   if [ "${?}" != "0" ]; then exit 1; fi
