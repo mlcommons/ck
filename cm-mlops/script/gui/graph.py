@@ -630,8 +630,8 @@ def visualize(st, query_params, action = ''):
         #fig_html = '<div style="padding:10px;background-color:#F0F0F0;">'+fig_html+'</div>'
 
         #components.html(fig_html, width=1000, height=800)
-        st.markdown('---')
-        components.html(fig_html, width=1100, height=900)
+#        st.markdown('---')
+        components.html(fig_html, width=1100, height=500)
 
         df = pd.DataFrame(
           all_data,
