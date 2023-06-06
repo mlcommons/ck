@@ -8,7 +8,7 @@ def process_deps(self_module, meta, meta_url, md_script_readme, key, extra_space
     y = []
     if len(meta.get(key,{}))>0:
         x = '***'
-    
+
         for d in meta[key]:
             d_tags = d.get('tags', '')
 
@@ -19,7 +19,7 @@ def process_deps(self_module, meta, meta_url, md_script_readme, key, extra_space
             skip_if_env = d.get('skip_if_env', {})
 
             q = ''
-            
+
             q1 = ''
             for e in enable_if_env:
                 if q1!='': q1 += ' AND '
@@ -45,8 +45,6 @@ def process_deps(self_module, meta, meta_url, md_script_readme, key, extra_space
                   if q1!='': q+=' AND '
                   q+=q2
 
-
-            
             y.append(z)
 
             if q!='': 
@@ -62,7 +60,7 @@ def process_deps(self_module, meta, meta_url, md_script_readme, key, extra_space
                                           'tags':d_tags})
             if r['return']==0:
                 lst = r['list']
-                
+
                 if len(lst)==0:
                     y.append(extra_space+'       - *Warning: no scripts found*')
                 else:
@@ -86,12 +84,10 @@ def process_deps(self_module, meta, meta_url, md_script_readme, key, extra_space
                         s_alias = s.meta['alias']
                         y.append(extra_space+'       - CM script: [{}]({})'.format(s_alias, s_url+s_alias))
 
-                
-
     z = ''
     if not skip_from_meta:
         z = ' from [meta]({})'.format(meta_url)
-    
+
     if not skip_if_empty or len(y)>0:
         md_script_readme.append((extra_space+'  1. '+x+'Read "{}" on other CM scripts'+z+x).format(key))
         md_script_readme += y
@@ -125,7 +121,7 @@ def doc(i):
     self_module = i['self_module']
 
     cur_dir = os.getcwd()
-    
+
     template_file = 'template_list_of_scripts.md'
     list_file = 'list_of_scripts.md'
 
@@ -184,7 +180,7 @@ def doc(i):
                             '*Note that this README is automatically generated - don\'t edit! {{CM_SEE_README_EXTRA}}.*', 
                             ''
                             ]
-        
+
         path = artifact.path
         meta = artifact.meta
         original_meta = artifact.original_meta
@@ -202,7 +198,7 @@ def doc(i):
         tags = meta.get('tags',[])
 
         variations = meta.get('variations',{})
-        
+
         variation_keys = sorted(list(variations.keys()))
         version_keys = sorted(list(meta.get('versions',{}).keys()))
 

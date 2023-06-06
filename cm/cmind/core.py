@@ -301,27 +301,26 @@ class CM(object):
 
         artifact = i.get('artifact','').strip()
         artifacts = i.get('artifacts',[]) # Only if more than 1 artifact
-        
-        # Check artifact names
-        if artifact == '.' or '.' in artifacts:
-            return {'return':1, 'error':'forbidden artifact name "."'}
 
         # Check if automation is "." - then attempt to detect repo, automation and artifact from the current directory
-        if automation == '.':
+        if automation == '.' or artifact == '.':
             r = self.access({'action':'detect',
                              'automation':'repo,55c3e27e8a140e48'})
             if r['return']>0: return r
 
             # Check and substitute automation
-            automation = ''
-            if r.get('artifact_found', False):
-                if not r.get('found_in_current_path',False):
-                    # If not in the root directory (otherwise search through all automations)
-                    automation = r['cm_automation']
+            if automation == '.':
+                automation = ''
+                if r.get('artifact_found', False):
+                    if not r.get('found_in_current_path',False):
+                        # If not in the root directory (otherwise search through all automations)
+                        automation = r['cm_automation']
 
             # Check and make an artifact (only if artifacts are not specified)
-            if r.get('cm_artifact','')!='' and artifact == '':
-                artifact = r['cm_artifact']
+            if artifact == '.' or artifact == '':
+                artifact = ''
+                if r.get('cm_artifact','')!='':
+                    artifact = r['cm_artifact']
 
             if r.get('registered', False):
                 cm_repo = r['cm_repo']
