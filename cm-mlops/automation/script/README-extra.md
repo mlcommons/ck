@@ -687,10 +687,12 @@ cm run script "install python-venv" --name={some name}
 ```
 
 CM will create a virtual environment using default Python and save it in CM cache. 
-It is possible to create a python virtual environment with any version on Linux and MacOS as follows:
+It is possible to create a python virtual environment with a minimal required version
+or a specific one on Linux and MacOS as follows:
 
 ```bash
-cm run script "install python-venv" --version=3.10.8 --name=mlperf
+cm run script "install python-venv" --version_min=3.8 --name=mlperf
+cm run script "install python-venv" --version=3.10.8 --name=mlperf2
 ```
 
 In this case, CM will attempt to detect Python 3.10.8 on a system. 

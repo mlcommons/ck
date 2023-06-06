@@ -29,6 +29,7 @@ TinyMLPerf v1.1 results will be public at the end of June 2023.
 * https://github.com/mlcommons/ck/pull/693
 * https://github.com/mlcommons/ck/pull/700
 * https://github.com/mlcommons/ck/pull/701
+* https://github.com/mlcommons/ck/issues/606
 
 ### Results
 

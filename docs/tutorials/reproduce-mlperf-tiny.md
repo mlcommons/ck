@@ -15,7 +15,7 @@ is developing an [open-source Collective Knowledge platform](https://access.ckno
 to make it easier for the community to run, visualize and optimize MLPerf benchmarks 
 out of the box across diverse software, hardware, models and data.
 
-This tutorial demonstrates how to run and/or reproduce Tiny MLPerf benchmark and prepare your own submission
+This tutorial demonstrates how to run and/or reproduce Tiny MLPerf benchmark 
 with the help of the [MLCommons CM automation language](https://github.com/mlcommons/ck/blob/master/docs/README.md).
 
 You will build, flash and run image classification and keyword spotting applications
