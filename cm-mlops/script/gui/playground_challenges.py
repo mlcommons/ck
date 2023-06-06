@@ -3,8 +3,9 @@
 import cmind
 import os
 import datetime
+import misc
 
-def page(st, params, parent):
+def page(st, params):
 
     name = params.get('name',[''])[0].strip()
     tags = params.get('tags',[''])[0].lower()
@@ -54,12 +55,12 @@ def page(st, params, parent):
 
                 s_date_open = ''
                 if date_open!='':
-                    r = parent.convert_date(date_open)
+                    r = misc.convert_date(date_open)
                     s_date_open = r['string'] if r['return']==0 else ''
 
                 s_date_close = ''
                 if date_close!='':
-                    r = parent.convert_date(date_close)
+                    r = misc.convert_date(date_close)
                     s_date_close = r['string'] if r['return']==0 else ''
 
                 diff1 = 0
@@ -114,7 +115,7 @@ def page(st, params, parent):
              unsafe_allow_html=True
              )
 
-            end_html='<center><small><i><a href="{}">Self link</a></i></small></center>'.format(parent.make_url(meta['uid'], action='challenges', md=False))
+            end_html='<center><small><i><a href="{}">Self link</a></i></small></center>'.format(misc.make_url(meta['uid'], action='challenges', md=False))
 
 
             # Check basic password
@@ -144,14 +145,14 @@ def page(st, params, parent):
             date_open = meta.get('date_open','')
             if date_open!='':
                 # Format YYYYMMDD
-                r = parent.convert_date(date_open)
+                r = misc.convert_date(date_open)
                 if r['return']>0: return r
                 st.markdown('* **Open date:** {}'.format(r['string']))
 
             date_close = meta.get('date_close','')
             if date_close!='':
                 # Format YYYYMMDD
-                r = parent.convert_date(date_close)
+                r = misc.convert_date(date_close)
                 if r['return']>0: return r
                 st.markdown('* **Close date:** {}'.format(r['string']))
 
@@ -183,9 +184,9 @@ def page(st, params, parent):
                     name = e.get('name','')
 
                     if tags!='':
-                        md+='  * '+parent.make_url(tags, action='experiments', key='tags')
+                        md+='  * '+misc.make_url(tags, action='experiments', key='tags')
                     elif name!='':
-                       md+='  * '+parent.make_url(name, action='experiments')
+                       md+='  * '+misc.make_url(name, action='experiments')
 
                 st.markdown(md)
 

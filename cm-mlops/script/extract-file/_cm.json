@@ -2,8 +2,12 @@
   "alias": "extract-file",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
-  "cache": true,
-  "deps": [],
+  "deps": [
+    {
+      "tags": "detect,os"
+    }
+  ],
+  "cache": false,
   "env": {
     "CM_DAE_REMOVE_EXTRACTED": "yes"
   },

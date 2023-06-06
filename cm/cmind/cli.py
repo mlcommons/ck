@@ -38,7 +38,7 @@ def run(argv = None):
     if cm.save_to_json != '':
         from cmind import utils
         utils.save_json(cm.save_to_json, meta=r)
-    
+
     # Check if output to console
     if cm.output=='json':
         from cmind import utils
@@ -49,6 +49,31 @@ def run(argv = None):
 
     sys.exit(r['return'])
 
+############################################################
+def run_script(argv = None):
+    """
+    Shortcut to run cm script
+
+    CM command line format:
+
+    Args:
+        argv (list | string): command line arguments
+
+    Returns: 
+        (CM return dict):
+
+        * return (int): return code == 0 if no error and >0 if error
+        * (error) (str): error string if return>0
+
+        * Output from a CM automation action
+
+    """
+
+    # Access CM
+    if argv is None:
+        argv = sys.argv[1:]
+
+    return run(['run', 'script'] + argv)
 
 ############################################################
 def parse(cmd):

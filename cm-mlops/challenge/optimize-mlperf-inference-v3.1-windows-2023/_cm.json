@@ -6,8 +6,11 @@
   "date_open": "20230301",
   "experiments": [],
   "tags": [
+    "modularize",
     "optimize",
     "reproduce",
+    "replicate",
+    "automate",
     "benchmark",
     "windows",
     "mlperf-inference",

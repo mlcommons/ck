@@ -8,11 +8,13 @@
   "reproduced_papers_tags": "papers-adapt-2016",
   "tags": [
     "reproduce",
+    "replicate",
+    "automate",
     "papers",
     "reproduce-papers",
     "ae-adapt2014"
   ],
-  "title": "Reproduce papers at ADAPT'16 (artifact evaluation)",
+  "title": "Reproduce/replicate papers at ADAPT'16 (artifact evaluation)",
   "uid": "87c05f61f2ea4446",
   "url": "http://adapt-workshop.org/index2016.html"
 }

@@ -1,3 +1,5 @@
+# TBD Windows: Grigori added only partial support for download and extract on Windows
+
 from cmind import utils
 import os
 import hashlib
@@ -28,8 +30,14 @@ def preprocess(i):
     if filename.endswith(".zip"):
         env['CM_EXTRACT_TOOL'] = "unzip"
     elif filename.endswith(".tar.gz"):
-        env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvzf'
-        env['CM_EXTRACT_TOOL'] = 'tar '
+        if os_info['platform'] == 'windows':
+            env['CM_EXTRACT_CMD0'] = 'gzip -d ' + filename
+            filename = filename[:-3] # leave only .tar
+            env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvf'
+            env['CM_EXTRACT_TOOL'] = 'tar '
+        else:
+            env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvzf'
+            env['CM_EXTRACT_TOOL'] = 'tar '
     elif filename.endswith(".tar.xz"):
         env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvJf'
         env['CM_EXTRACT_TOOL'] = 'tar '
@@ -37,7 +45,7 @@ def preprocess(i):
         env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvf'
         env['CM_EXTRACT_TOOL'] = 'tar '
     elif filename.endswith(".gz"):
-        env['CM_EXTRACT_TOOL_OPTIONS'] = ' -d '+ ('-k ' if not remove_extracted else '') + ' > $PWD/' + env['CM_EXTRACT_EXTRACTED_FILENAME'] + '<'
+        env['CM_EXTRACT_TOOL_OPTIONS'] = ' -d '+ ('-k ' if not remove_extracted else '') + ' > ' + env['CM_EXTRACT_EXTRACTED_FILENAME'] + '<'
         env['CM_EXTRACT_TOOL'] = 'gzip '
     elif env.get('CM_EXTRACT_UNZIP','') == 'yes':
         env['CM_EXTRACT_TOOL'] = 'unzip '
@@ -57,7 +65,7 @@ def preprocess(i):
 
     env['CM_EXTRACT_CMD'] = env['CM_EXTRACT_TOOL'] + ' ' + env.get('CM_EXTRACT_TOOL_EXTRA_OPTIONS', '') + ' ' + env.get('CM_EXTRACT_TOOL_OPTIONS', '')+ ' '+ filename
 
-    if env.get('CM_EXTRACT_EXTRACTED_CHECKSUM'):
+    if env.get('CM_EXTRACT_EXTRACTED_CHECKSUM', '') != '':
         env['CM_EXTRACT_EXTRACTED_CHECKSUM_CMD'] = "echo {} {} | md5sum -c".format(env.get('CM_EXTRACT_EXTRACTED_CHECKSUM'), env['CM_EXTRACT_EXTRACTED_FILENAME'])
     else:
         env['CM_EXTRACT_EXTRACTED_CHECKSUM_CMD'] = ""

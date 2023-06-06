@@ -1,3 +1,7 @@
+## V1.4.0
+   - added cmr binary as a shortcut for "cm run script"
+   - fixed minor bug with repo/automation/artifact detection in the current path with "."
+
 ## V1.3.0
    - Turned on artifact indexing by default 
      (can be turned off by setting CM_INDEX to "no", "off" or "false")

@@ -5,6 +5,8 @@ cm create-toc-from-md utils --input=sc22-scc-mlperf-part2.md
 cm create-toc-from-md utils --input=sc22-scc-mlperf-part3.md
 cm create-toc-from-md utils --input=mlperf-inference-submission.md
 cm create-toc-from-md utils --input=concept.md
+cm create-toc-from-md utils --input=reproduce-mlperf-tiny.md
+cm create-toc-from-md utils --input=reproduce-mlperf-training.md
 
 cd ../artifact-evaluation
 

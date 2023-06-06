@@ -6,7 +6,7 @@ from streamlit_option_menu import option_menu
 
 import os
 import cmind
-
+import misc
 
 def main():
 
@@ -71,17 +71,15 @@ def main():
 
     r={'return':0}
 
-    current = __import__(__name__)
-
     if action == 'challenges':
         from playground_challenges import page
-        r = page(st, params, current)
+        r = page(st, params)
     elif action == 'experiments':
-        from playground_experiments import page
-        r = page(st, params, current)
+        from graph import visualize
+        r = visualize(st, params, action = 'experiments')
     elif action == 'contributors':
         from playground_contributors import page
-        r = page(st, params, current)
+        r = page(st, params)
 
     if r['return']>0:
         st.markdown('**CM error:** {} . Please report [here](https://github.com/mlcommons/ck/issues)'.format(r['error']))

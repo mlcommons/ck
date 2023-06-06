@@ -484,7 +484,7 @@ We can use CM commands to create modular containers:
 
 FROM ubuntu:20.04
 
-LABEL maintainer="Grigori Fursin <grigori@octoml.ai>"
+LABEL maintainer="Grigori Fursin <grigori.fursin@cTuning.org>"
 
 SHELL ["/bin/bash", "-c"]
 
