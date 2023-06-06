@@ -4,7 +4,7 @@ CUR_DIR=$PWD
 SCRIPT_DIR=${CM_TMP_CURRENT_SCRIPT_PATH}
 
 echo "******************************************************"
-echo "Cloning MLCommons from ${CM_GIT_URL} with branch ${CM_GIT_CHECKOUT} ${CM_GIT_DEPTH} ${CM_GIT_RECURSE_SUBMODULES} ..."
+echo "Cloning EEMBC Energy Runner from ${CM_GIT_URL} with branch ${CM_GIT_CHECKOUT} ${CM_GIT_DEPTH} ${CM_GIT_RECURSE_SUBMODULES} ..."
 
 if [ ! -d "src" ]; then
   if [ -z ${CM_GIT_SHA} ]; then

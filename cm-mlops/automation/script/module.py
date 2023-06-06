@@ -154,9 +154,9 @@ class CAutomation(Automation):
                                         and finish a given CM script. Useful to test/debug partial installations
 
           (json) (bool): if True, print output as JSON
-          
+
           (pause) (bool): if True, pause at the end of the main script (Press Enter to continue)
-          
+
           ...
 
         Returns:
@@ -209,6 +209,18 @@ class CAutomation(Automation):
             if 'parsed_artifact' in i: del(i['parsed_artifact'])
             # Force substitute tags
             i['tags']=artifact.replace(' ',',')
+
+        # Check if has extra tags as a second artifact
+        # Example: cmr . "_python _tiny"
+
+        parsed_artifacts = i.get('parsed_artifacts',[])
+        if len(parsed_artifacts)>0:
+            extra_tags = parsed_artifacts[0][0][0]
+            if ' ' in extra_tags or ',' in extra_tags:
+                # Add tags
+                x=i.get('tags','')
+                if x!='': x+=','
+                i['tags']=x+extra_tags.replace(' ',',')
 
         # Recursion spaces needed to format log and print
         recursion_spaces = i.get('recursion_spaces', '')
@@ -374,8 +386,6 @@ class CAutomation(Automation):
 
         variation_tags = r['variation_tags']
 
-
-
 #        # Print what was searched!
 #        cm_script_info = 'CM script'
 #
@@ -409,8 +419,10 @@ class CAutomation(Automation):
             y = ','
 
         if len(script_tags)>0 or len(variation_tags)>0:
+            cm_script_info += x
+
             if len(script_tags)>0:
-                cm_script_info += x + script_tags_string.replace(',',y)
+                cm_script_info += script_tags_string.replace(',',y)
 
             if len(variation_tags)>0:
                 if len(script_tags)>0: cm_script_info+=' '
