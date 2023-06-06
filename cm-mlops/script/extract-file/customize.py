@@ -19,6 +19,12 @@ def preprocess(i):
     if 'CM_EXTRACT_FILEPATH' not in env:
         return {'return': 1, 'error': 'Extract with no download requested and CM_EXTRACT_FILEPATH is not set'}
 
+    if env.get('CM_EXTRACT_PATH', '') != '':
+        extract_path = env['CM_EXTRACT_PATH']
+        if not os.path.exists(extract_path):
+            os.makedirs(extract_path, exist_ok = True)
+        os.chdir(extract_path)
+
     filename = env['CM_EXTRACT_FILEPATH']
     env['CM_EXTRACT_FILENAME'] = filename
 
@@ -36,7 +42,7 @@ def preprocess(i):
             env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvf'
             env['CM_EXTRACT_TOOL'] = 'tar '
         else:
-            env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvzf'
+            env['CM_EXTRACT_TOOL_OPTIONS'] = ' --skip-old-files -xvzf '
             env['CM_EXTRACT_TOOL'] = 'tar '
     elif filename.endswith(".tar.xz"):
         env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvJf'
@@ -65,8 +71,15 @@ def preprocess(i):
 
     env['CM_EXTRACT_CMD'] = env['CM_EXTRACT_TOOL'] + ' ' + env.get('CM_EXTRACT_TOOL_EXTRA_OPTIONS', '') + ' ' + env.get('CM_EXTRACT_TOOL_OPTIONS', '')+ ' '+ filename
 
-    if env.get('CM_EXTRACT_EXTRACTED_CHECKSUM', '') != '':
-        env['CM_EXTRACT_EXTRACTED_CHECKSUM_CMD'] = "echo {} {} | md5sum -c".format(env.get('CM_EXTRACT_EXTRACTED_CHECKSUM'), env['CM_EXTRACT_EXTRACTED_FILENAME'])
+    final_file = env.get('CM_EXTRACT_EXTRACTED_FILENAME')
+
+    if final_file:
+        if env.get('CM_EXTRACT_EXTRACTED_CHECKSUM_FILE', '') != '':
+            env['CM_EXTRACT_EXTRACTED_CHECKSUM_CMD'] = "cd {} &&  md5sum -c {}".format(final_file, env.get('CM_EXTRACT_EXTRACTED_CHECKSUM_FILE'))
+        elif env.get('CM_EXTRACT_EXTRACTED_CHECKSUM', '') != '':
+            env['CM_EXTRACT_EXTRACTED_CHECKSUM_CMD'] = "echo {} {} | md5sum -c".format(env.get('CM_EXTRACT_EXTRACTED_CHECKSUM'), env['CM_EXTRACT_EXTRACTED_FILENAME'])
+        else:
+            env['CM_EXTRACT_EXTRACTED_CHECKSUM_CMD'] = ""
     else:
         env['CM_EXTRACT_EXTRACTED_CHECKSUM_CMD'] = ""
 

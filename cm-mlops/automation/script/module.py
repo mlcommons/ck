@@ -2384,7 +2384,9 @@ class CAutomation(Automation):
                         }
 
                     utils.merge_dicts({'dict1':ii, 'dict2':d, 'append_lists':True, 'append_unique':True})
-                    
+
+                    update_env_with_values(ii['env']) #to update env local to a dependency
+
                     r = self.cmind.access(ii)
                     if r['return']>0: return r
 

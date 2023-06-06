@@ -8,7 +8,8 @@
   },
   "input_description": {},
   "input_mapping": {
-    "url": "CM_DOWNLOAD_URL"
+    "url": "CM_DOWNLOAD_URL",
+    "download_path": "CM_DOWNLOAD_PATH"
   },
   "new_env_keys": [
     "CM_DOWNLOAD_DOWNLOADED_PATH",
@@ -44,6 +45,17 @@
         "CM_DOWNLOAD_TOOL": "wget"
       },
       "group": "download-tool"
+    },
+    "gdown": {
+      "env": {
+        "CM_DOWNLOAD_TOOL": "gdown"
+      },
+      "group": "download-tool",
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_package.gdown"
+        }
+      ]
     },
     "cmutil": {
       "default": true,
