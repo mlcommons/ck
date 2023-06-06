@@ -42,6 +42,9 @@
          },
          {
            "tags": "get,tinymlperf,src"
+         },
+         {
+           "tags": "get,src,eembc,energy-runner"
          }
       ],
       "env": {

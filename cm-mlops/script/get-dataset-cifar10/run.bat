@@ -38,5 +38,11 @@ if "%CM_DATASET_CONVERT_TO_TINYMLPERF%" == "yes" (
  copy /B /Y y_labels.csv perf_samples
 
  echo CM_DATASET_CIFAR10_TINYMLPERF_PATH=%CD%\perf_samples >> tmp-run-env.out
+
+ echo.
+ echo Copying to EEMBC runner user space ...
+ echo.
+ 
+ copy /B /Y perf_samples\* %CM_EEMBC_ENERGY_RUNNER_DATASETS%\ic01
 )
 
