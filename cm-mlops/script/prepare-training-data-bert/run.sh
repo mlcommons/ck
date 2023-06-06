@@ -26,11 +26,9 @@ function run() {
 #Add your run commands here...
 # run "$CM_RUN_CMD"
 
-CUR=${CM_DATA_DIR:-$PWD}
-run "cd \"$CUR\""
-mkdir -p data
+CUR=${CM_DATA_DIR:-"$PWD/data"}
 run "cd \"${CM_RUN_DIR}\""
 run "docker build --pull -t mlperf-nvidia:language_model ."
-run "ID=`docker run -dt --runtime=nvidia --ipc=host -v \"$CUR\"/data:/workspace/bert_data mlperf-nvidia:language_model bash`"
+run "ID=`docker run -dt --runtime=nvidia --ipc=host -v $CUR:/workspace/bert_data mlperf-nvidia:language_model bash`"
 #run "docker exec $ID bash -c 'python3 -m pip install --upgrade gdown && cd /workspace/bert && ./input_preprocessing/prepare_data.sh -s --outputdir /workspace/bert_data'"
 run "docker exec $ID bash -c 'cd /workspace/bert && ./input_preprocessing/prepare_data.sh -s --outputdir /workspace/bert_data'"

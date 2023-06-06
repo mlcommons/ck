@@ -22,9 +22,9 @@
   ],
   "uid": "1e06a7abe23545eb",
   "variations": {
-    "group": "implementation",
-    "default": true,
     "nvidia": {
+      "group": "implementation",
+      "default": true,
       "deps": [
         {
           "tags": "get,git,repo,_repo.https://github.com/mlcommons/training_results_v2.1"
