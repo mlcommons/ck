@@ -154,6 +154,7 @@ class CAutomation(Automation):
                                         and finish a given CM script. Useful to test/debug partial installations
 
           (json) (bool): if True, print output as JSON
+          (j) (bool): if True, print output as JSON
 
           (pause) (bool): if True, pause at the end of the main script (Press Enter to continue)
 
@@ -1613,7 +1614,7 @@ class CAutomation(Automation):
 
         rr = {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state, 'deps': run_state['deps']}
         
-        if i.get('json', False):
+        if i.get('json', False) or i.get('j', False):
             import json
 
             print ('')
