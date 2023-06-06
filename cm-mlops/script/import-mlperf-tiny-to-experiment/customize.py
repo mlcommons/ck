@@ -107,6 +107,8 @@ def convert_repo_to_experiment(path, version, env):
                                     psystem_desc = os.path.join(psystems, system+'.json')
                                     psystem_dict = {}
 
+                                    print ('                                File: {}'.format(psystem_desc))
+
                                     # Check exceptions
                                     if version == 'v1.0':
                                         if company == 'OctoML':
@@ -139,7 +141,7 @@ def convert_repo_to_experiment(path, version, env):
                                             if company == 'OctoML':
                                                 x='}\n\t"'
                                             elif company == 'syntiant':
-                                                x='"\t"'
+                                                x='"\n\t"'
                                             elif company == 'hls4ml':
                                                 x='dummy'
                                         elif version == 'v0.7':

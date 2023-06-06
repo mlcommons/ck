@@ -97,6 +97,8 @@ You can now follow [this tutorial](reproduce-mlperf-tiny.md) to build, flash and
 benchmarks with MicroTVM, Zephyr and CMSIS on NUCLEO-L4R5ZI. It was prepare for the TinyMLPerf v1.1 submission round
 as a part of this [MLCommons community challenge](https://access.cknowledge.org/playground/?action=challenges&name=d98cd66e0e5641f7).
 
+You can then follow [the official README](https://github.com/eembc/energyrunner#README.md) to run benchmarks
+in performance, accuracy and energy modes.
 
 
 ## Prepare submission
@@ -107,8 +109,20 @@ as a part of this [MLCommons community challenge](https://access.cknowledge.org/
 
 ## Visualize and compare results
 
+Please follow [this README](../../cm-mlops/script/import-mlperf-tiny-to-experiment/README-extra.md)
+to import TinyMLPerf results (public or private) to the CM format to visualize and compare them
+on your local machine while adding derived metrics and providing constraints as shown in the following example:
+
+![](../../cm-mlops/script/import-mlperf-tiny-to-experiment/assets/cm-visualization-and-customization-of-tinymlperf-results.png)
 
 
+We publish all public TinyMLPerf results in the [MLCommons CK platform](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-tiny)
+to help the community analyze, compare, reproduce, reuse and improve these results.
+
+The ultimate goal of our [MLCommons task force](../taskforce.md) and the [free MLCommons CK platform](https://access.cknowledge.org)
+is to help users automatically generate Pareto-efficient
+end-to-end applications using MLPerf results based on their requirements and constraints
+(performance, accuracy, energy, hardware/software stack, costs).
 
 
 
