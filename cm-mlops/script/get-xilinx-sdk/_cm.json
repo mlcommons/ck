@@ -10,7 +10,8 @@
     "input": "CM_XILINX_SDK_FILE_PATH"
   },
   "new_env_keys": [
-    "CM_XILINX_*"
+    "CM_XILINX_*",
+    "+PATH"
   ],
   "new_state_keys": [],
   "post_deps": [],
