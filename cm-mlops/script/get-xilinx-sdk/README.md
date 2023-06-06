@@ -11,8 +11,9 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
-  * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
+* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -28,10 +29,10 @@
 #### Information
 
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-xilinx-sdk)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *extract,file*
-* Output cached?: *False*
+* CM "database" tags to find this script: *get,xilinx,sdk*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -49,11 +50,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=extract,file[,variations] `
+1. `cm run script --tags=get,xilinx,sdk [--input_flags]`
 
-2. `cm run script "extract file[,variations]" `
+2. `cm run script "get xilinx sdk" [--input_flags]`
 
-3. `cm run script 3f0b76219d004817 `
+3. `cm run script 76d4d1bd09df4490 [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -70,7 +71,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'extract,file'
+                  'tags':'get,xilinx,sdk'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -87,9 +88,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="extract,file"```
+```cm run script --tags=gui --script="get,xilinx,sdk"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=extract,file) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,xilinx,sdk) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -99,22 +100,19 @@ ___
 ### Customization
 
 
-#### Variations
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
 
-  * *No group (any variation can be selected)*
-    <details>
-    <summary>Click here to expand this section.</summary>
+* `--input=value`  &rarr;  `CM_XILINX_SDK_FILE_PATH=value`
 
-    * `_no-remove-extracted`
-      - Environment variables:
-        - *CM_EXTRACT_REMOVE_EXTRACTED*: `no`
-      - Workflow:
-    * `_path.#`
-      - Environment variables:
-        - *CM_EXTRACT_FILEPATH*: `#`
-      - Workflow:
+**Above CLI flags can be used in the Python CM API as follows:**
 
-    </details>
+```python
+r=cm.access({... , "input":...}
+```
+
+</details>
 
 #### Default environment
 
@@ -126,36 +124,34 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 </details>
 
+#### Versions
+Default version: `2019.1`
+
+* `2019.1`
 ___
 ### Script workflow, dependencies and native scripts
 
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)***
-     * detect,os
-       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-xilinx-sdk/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-xilinx-sdk/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-xilinx-sdk/_cm.json)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-xilinx-sdk/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-xilinx-sdk/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-xilinx-sdk/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-xilinx-sdk/_cm.json)
 </details>
 
 ___
 ### Script output
 #### New environment keys (filter)
 
-* `<<<CM_EXTRACT_FINAL_ENV_NAME>>>`
-* `CM_EXTRACT_EXTRACTED_PATH`
-* `CM_GET_DEPENDENT_CACHED_PATH`
+* `+PATH`
+* `CM_XILINX_*`
 #### New environment keys auto-detected from customize
 
-* `CM_EXTRACT_EXTRACTED_PATH`
-* `CM_GET_DEPENDENT_CACHED_PATH`
 ___
 ### Maintainers
 

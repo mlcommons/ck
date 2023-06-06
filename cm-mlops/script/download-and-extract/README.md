@@ -31,8 +31,8 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *file,download-and-extract*
-* Output cached?: *True*
+* CM "database" tags to find this script: *dae,file,download-and-extract*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -50,9 +50,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=file,download-and-extract[,variations] [--input_flags]`
+1. `cm run script --tags=dae,file,download-and-extract[,variations] [--input_flags]`
 
-2. `cm run script "file download-and-extract[,variations]" [--input_flags]`
+2. `cm run script "dae file download-and-extract[,variations]" [--input_flags]`
 
 3. `cm run script c67e81a4ce2649f5 [--input_flags]`
 
@@ -71,7 +71,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'file,download-and-extract'
+                  'tags':'dae,file,download-and-extract'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -88,9 +88,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="file,download-and-extract"```
+```cm run script --tags=gui --script="dae,file,download-and-extract"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=file,download-and-extract) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=dae,file,download-and-extract) to generate CM CMD.
 
 #### CM modular Docker container
 

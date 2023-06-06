@@ -28,9 +28,9 @@
 #### Information
 
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-fpgaconvnet-app-tinyml)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *extract,file*
+* CM "database" tags to find this script: *create,app,fpgaconvnet*
 * Output cached?: *False*
 ___
 ### Usage
@@ -49,11 +49,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=extract,file[,variations] `
+1. `cm run script --tags=create,app,fpgaconvnet[,variations] `
 
-2. `cm run script "extract file[,variations]" `
+2. `cm run script "create app fpgaconvnet[,variations]" `
 
-3. `cm run script 3f0b76219d004817 `
+3. `cm run script 618f3520e98e4728 `
 
 * `variations` can be seen [here](#variations)
 
@@ -70,7 +70,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'extract,file'
+                  'tags':'create,app,fpgaconvnet'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -87,9 +87,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="extract,file"```
+```cm run script --tags=gui --script="create,app,fpgaconvnet"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=extract,file) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=create,app,fpgaconvnet) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -101,21 +101,31 @@ ___
 
 #### Variations
 
-  * *No group (any variation can be selected)*
+  * Group "**benchmark**"
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_no-remove-extracted`
-      - Environment variables:
-        - *CM_EXTRACT_REMOVE_EXTRACTED*: `no`
-      - Workflow:
-    * `_path.#`
-      - Environment variables:
-        - *CM_EXTRACT_FILEPATH*: `#`
+    * **`_ic`** (default)
       - Workflow:
 
     </details>
 
+
+  * Group "**board**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_zc706`** (default)
+      - Environment variables:
+        - *CM_TINY_BOARD*: `zc706`
+      - Workflow:
+
+    </details>
+
+
+#### Default variations
+
+`_ic,_zc706`
 #### Default environment
 
 <details>
@@ -132,30 +142,31 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)***
-     * detect,os
-       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-fpgaconvnet-app-tinyml/_cm.json)***
+     * create,fpgaconvnet,config
+       * CM names: `--adr.['config-generator']...`
+       - CM script: [create-fpgaconvnet-config-tinyml](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-fpgaconvnet-config-tinyml)
+     * get,xilinx,sdk
+       * CM names: `--adr.['xilinx-sdk']...`
+       - CM script: [get-xilinx-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-xilinx-sdk)
+     * get,tensorflow
+       * CM names: `--adr.['tensorflow']...`
+       - CM script: [install-tensorflow-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-fpgaconvnet-app-tinyml/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-fpgaconvnet-app-tinyml/_cm.json)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-fpgaconvnet-app-tinyml/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-fpgaconvnet-app-tinyml/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-fpgaconvnet-app-tinyml/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-fpgaconvnet-app-tinyml/_cm.json)
 </details>
 
 ___
 ### Script output
 #### New environment keys (filter)
 
-* `<<<CM_EXTRACT_FINAL_ENV_NAME>>>`
-* `CM_EXTRACT_EXTRACTED_PATH`
-* `CM_GET_DEPENDENT_CACHED_PATH`
 #### New environment keys auto-detected from customize
 
-* `CM_EXTRACT_EXTRACTED_PATH`
-* `CM_GET_DEPENDENT_CACHED_PATH`
 ___
 ### Maintainers
 
