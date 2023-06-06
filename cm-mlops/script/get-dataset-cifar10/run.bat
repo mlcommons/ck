@@ -20,7 +20,6 @@ if "%CM_DATASET_CONVERT_TO_TINYMLPERF%" == "yes" (
  echo.
 
  copy /B /Y %CM_MLPERF_TINY_TRAINING_IC%\* .
- copy /B /Y %CM_MLPERF_TINY_TRAINING_IC%\* .
 
  echo.
  echo Installing Python requirements ...
@@ -35,6 +34,8 @@ if "%CM_DATASET_CONVERT_TO_TINYMLPERF%" == "yes" (
 
  %CM_PYTHON_BIN% perf_samples_loader.py
  IF %ERRORLEVEL% NEQ 0 EXIT 1
+
+ copy /B /Y y_labels.csv perf_samples
 
  echo CM_DATASET_CIFAR10_TINYMLPERF_PATH=%CD%\perf_samples >> tmp-run-env.out
 )
