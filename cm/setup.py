@@ -100,7 +100,7 @@ setup(
                       "cmind = cmind.cli:run",
                       "cm = cmind.cli:run",
                       "cmr = cmind.cli:run_script"
-                  ]},
+                 ]},
 
     zip_safe=False,
 
