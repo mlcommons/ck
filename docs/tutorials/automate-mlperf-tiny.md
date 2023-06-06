@@ -1,5 +1,24 @@
 [ [Back to index](../README.md) ]
 
+<details>
+<summary>Click here to see the table of contents.</summary>
+
+* [Tutorial: automate TinyMLPerf benchmark](#tutorial-automate-tinymlperf-benchmark)
+  * [Install CM automation language](#install-cm-automation-language)
+  * [Install MLCommons CK repository with CM automations](#install-mlcommons-ck-repository-with-cm-automations)
+  * [Install Python virtual environment](#install-python-virtual-environment)
+  * [Install EEMBC Energy Runner repository](#install-eembc-energy-runner-repository)
+  * [Install CIFAR10 for image classification](#install-cifar10-for-image-classification)
+  * [Setup boards](#setup-boards)
+    * [STMicroelectronics NUCLEO-L4R5ZI](#stmicroelectronics-nucleo-l4r5zi)
+  * [Download and run EEMBC Energy Runner](#download-and-run-eembc-energy-runner)
+  * [Build and run TinyMLPerf benchmarks](#build-and-run-tinymlperf-benchmarks)
+  * [Prepare submission](#prepare-submission)
+  * [Visualize and compare results](#visualize-and-compare-results)
+  * [Contact our task force](#contact-our-task-force)
+
+</details>
+
 # Tutorial: automate TinyMLPerf benchmark
 
 The [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
@@ -81,6 +100,17 @@ It will then generate samples required for EEMBC Energy Runner in the following 
 If you run EEMBC Energy runner on Linux, please check that you have [this rule](https://github.com/stlink-org/stlink/blob/develop/config/udev/rules.d/49-stlinkv2-1.rules) 
 installed in `/usr/lib/udev/rules.d`. If not, please copy it there and unplug/replug the board! See [related ticket](https://github.com/mlcommons/ck/issues/606) for more details.
 
+Here is the list of CM automations scripts that can be reused in your experiments for this (and other) board:
+
+* [Get EEMBC Energy Runner repository](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-tiny-eembc-energy-runner-src)
+* [Get TinyMLPerf repository](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-tiny-src)
+* [Get CIFAR10 dataset](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-cifar10)
+* [Build Tiny Models](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results)
+* [Flash Tiny Models](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/flash-tinyml-binary)
+* [Get Zephyr](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr)
+* [Get Zephyr SDK](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk)
+* [Get MictoTVM](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm)
+* [Get CMSIS_5](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmsis_5)
 
 
 ## Download and run EEMBC Energy Runner

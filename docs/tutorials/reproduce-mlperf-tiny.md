@@ -3,19 +3,22 @@
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [Tutorial: automate, visualize and reproduce Tiny MLPerf submissions](#tutorial-automate-visualize-and-reproduce-tiny-mlperf-submissions)
-  * [Install CM](#install-cm)
+* [Tutorial: reproducibility study for TinyMLPerf submission with MicroTVM and NUCLEO-L4R5ZI board from STMicroelecronics](#tutorial-reproducibility-study-for-tinymlperf-submission-with-microtvm-and-nucleo-l4r5zi-board-from-stmicroelecronics)
+  * [Install software and setup hardware](#install-software-and-setup-hardware)
+  * [Build all benchmarks from OctoML's v1.0 submission](#build-all-benchmarks-from-octoml's-v10-submission)
+  * [Flash](#flash)
+  * [The next steps](#the-next-steps)
 
 </details>
 
 # Tutorial: reproducibility study for TinyMLPerf submission with MicroTVM and NUCLEO-L4R5ZI board from STMicroelecronics
 
-The [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-is developing an [open-source Collective Knowledge platform](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-tiny)
-to make it easier for the community to run, visualize and optimize MLPerf benchmarks 
+The [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md),
+[cTuning foundation](https://www.linkedin.com/company/ctuning-foundation) and [cKnowledge Ltd](https://www.linkedin.com/company/cknowledge)
+organize public challenges to let the community run, visualize and optimize MLPerf benchmarks 
 out of the box across diverse software, hardware, models and data.
 
-This tutorial demonstrates how to run and/or reproduce Tiny MLPerf benchmark 
+This tutorial demonstrates how to run and/or reproduce Tiny MLPerf benchmark (OctoML v1.0 submission)
 with the help of the [MLCommons CM automation language](https://github.com/mlcommons/ck/blob/master/docs/README.md).
 
 You will build, flash and run image classification and keyword spotting applications
@@ -32,42 +35,66 @@ while running benchmark using EEMBC GUI can be done on Linux and Windows.
 If you have any questions about this tutorial, please get in touch via our public [Discord server](https://discord.gg/JjWNWXKxwT)
 or open a GitHub issue [here](https://github.com/mlcommons/ck/issues).
 
-## Install CM automation language
+## Install software and setup hardware
 
-Follow [this guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) 
-to install the MLCommons CM automation language on your platform. 
+Please follow [this tutorial](automate-mlperf-tiny.md)
+to install the MLCommons CM automation language, EEMBC Energy Runner and other software dependencies for your host platform,
+and setup NUCLEO-L4R5ZI board from STMicroelecronics.
 
-We have tested this tutorial with Ubuntu 20.04 and Windows 10.
+We reproduced/replicated OctoML's v1.0 submission using a host machine with Ubuntu 20.04 and Python 3.8.10.
 
-## Install MLCommons CK repository with CM automations
+
+## Build all benchmarks from OctoML's v1.0 submission
+
+You can use CM script to automatically build all benchmarks in all variants to reproduce OctoML's v1.0 submission:
 
 ```bash
-cm pull repo mlcommons@ck
+cm run script --tags=generate,tiny,mlperf,octoml,submission
 ```
 
-If you have been using CM and would like to have a clean installation,
-you can clean CM cache as follows:
+The main CM scripts which automatically gets called from the above command are given below.
+
+1. [Build Tiny Models](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results)
+2. [Flash Tiny Models](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/flash-tinyml-binary)
+3. [Get Zephyr](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr)
+4. [Get Zephyr SDK](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk)
+5. [Get MictoTVM](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm)
+6. [GET CMSIS_5](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmsis_5)
+
+The above command should produce five elf binaries which can be located inside the respective cache entries given by the below command
+```
+cm show cache --tags=reproduce,tiny,octoml,mlperf
+```
+
+## Flash
+
+
+To flash each benchmark, follow the command bellow. Make sure to replace `VARIANT` by either `cmsis_nn` or `native`. 
+You need to specify the model by replacing `MODEL` with a value from (`ad`, `kws`, `ic`, `vww`). 
+Finally, you need to choose `_NUCLEO` or `_NRF` to specify the target board to flash.
+
+``` 
+cm run script --tags=flash,tiny,_VARIANT,_MODEL,_BOARD
+```
+
+We have tested the following combinations:
+
 ```bash
-cm rm cache -f
+cm run script --tags=flash,tiny,_cmsis_nn,_ic,_NUCLEO
+cm run script --tags=flash,tiny,_native,_ic,_NUCLEO
+cm run script --tags=flash,tiny,_cmsis_nn,_kws,_NUCLEO
+cm run script --tags=flash,tiny,_native,_kws,_NUCLEO
 ```
 
-## Install all dependencies and build benchmarks
+After each flashing, follow the [EEMBC Runner guide](https://github.com/eembc/energyrunner#software-setup)
+to run benchmark in performance and accuracy modes.
+
+You can find the logs after each run in the following directory on your host machine:
+`$HOME/eembc/runner/sessions`.
 
 
+## The next steps
 
+Please follow the rest of this [tutorial](file:///D:/Work1/CM/ck/docs/tutorials/automate-mlperf-tiny.md#prepare-submission) 
+to see how to visualize and compare your results, and learn more about our future automation plans.
 
-
-## Setup NUCLEO-L4R5ZI board
-
-Before connecting your board to your platform via UBS port, please check that you have this 
-
-
-## Flash 
-
-
-
-
-
-
-
-To be continued ...
