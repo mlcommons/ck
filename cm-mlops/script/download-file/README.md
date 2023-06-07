@@ -126,6 +126,13 @@ ___
       - Environment variables:
         - *CM_DOWNLOAD_TOOL*: `curl`
       - Workflow:
+    * `_gdown`
+      - Environment variables:
+        - *CM_DOWNLOAD_TOOL*: `gdown`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_package.gdown
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_wget`
       - Environment variables:
         - *CM_DOWNLOAD_TOOL*: `wget`
@@ -142,12 +149,13 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--download_path=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
 * `--url=value`  &rarr;  `CM_DOWNLOAD_URL=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "url":...}
+r=cm.access({... , "download_path":...}
 ```
 
 </details>
