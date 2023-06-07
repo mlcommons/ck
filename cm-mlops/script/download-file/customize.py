@@ -8,6 +8,10 @@ def preprocess(i):
 
     env = i['env']
 
+    if env.get('CM_DOWNLOAD_URL','')=='':
+        return {'return':1, 'error': 'please specify URL using --url={URL} or --env.CM_DOWNLOAD_URL={URL}'}
+     
+
     meta = i['meta']
 
     automation = i['automation']
