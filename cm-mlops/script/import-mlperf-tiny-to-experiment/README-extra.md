@@ -48,7 +48,7 @@ cm run script "gui _graph" --exp_tags=mlperf-tiny
 You can then select the results you want to visualize and compare,
 add derived metrics and set constaints as shown in the following example:
 
-![](assets/cm-visualization-and-customization-of-tinymlperf-results.png)
+![](assets/cm-visualization-and-customization-of-tinymlperf-results2.png)
 
 
 These results are also available in the [public CK playground](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-tiny,all).

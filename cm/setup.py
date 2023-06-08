@@ -69,7 +69,7 @@ setup(
     name="cmind",
 
     author="Grigori Fursin",
-    author_email="grigori@octoml.ai",
+    author_email="Grigori.Fursin@cTuning.org",
 
     version=version,
 
@@ -99,10 +99,11 @@ setup(
     entry_points={"console_scripts": [
                       "cmind = cmind.cli:run",
                       "cm = cmind.cli:run",
-                      "cmr = cmind.cli:run_script"
+                      "cmr = cmind.cli:run_script",
+                      "cme = cmind.cli:run_experiment"
                  ]},
 
     zip_safe=False,
 
-    keywords="collective mind,cmind,cdatabase,cmeta,automation,reusability,meta,JSON,YAML,python"
+    keywords="collective mind,cmind,ck2,cdatabase,cmeta,automation,portability,reusability,meta,JSON,YAML,python,api,cli"
 )
