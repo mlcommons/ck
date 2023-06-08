@@ -1,6 +1,7 @@
 import os
 import itertools
 import copy
+import json
 
 from cmind.automation import Automation
 from cmind import utils
@@ -541,11 +542,37 @@ class CAutomation(Automation):
             print ('Path to experiment: {}'.format(experiment_path2))
             print ('Result UID: {}'.format(uid))
 
+        # Attempt to load cm-input.json
+        experiment_input_file = os.path.join(experiment_path2, self.CM_INPUT_FILE)
 
+        if not os.path.isfile(experiment_input_file):
+            return {'return':1, 'error':'{} not found - can\'t replay'.format(self.CM_INPUT_FILE)}
 
-        # TBD
+        r = utils.load_json(experiment_input_file)
+        if r['return']>0: return r
 
+        cm_input = r['meta']
 
+        tags = cm_input.get('tags','').strip()
+        if 'replay' not in tags:
+            if tags!='': tags+=','
+            tags+='replay'
+        cm_input['tags'] = tags
+        
+        if console:
+            print ('')
+            print ('Experiment input:')
+            print ('')
+            print (json.dumps(cm_input, indent=2))
+            print ('')
+        
+        # Run experiment again
+        r = self.cmind.access(cm_input)
+        if r['return']>0: return r
+
+        # TBA - validate experiment, etc ...
+        
+        
         return {'return':0}
 
 
