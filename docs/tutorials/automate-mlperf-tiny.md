@@ -143,7 +143,7 @@ Please follow [this README](../../cm-mlops/script/import-mlperf-tiny-to-experime
 to import TinyMLPerf results (public or private) to the CM format to visualize and compare them
 on your local machine while adding derived metrics and providing constraints as shown in the following example:
 
-![](../../cm-mlops/script/import-mlperf-tiny-to-experiment/assets/cm-visualization-and-customization-of-tinymlperf-results.png)
+![](../../cm-mlops/script/import-mlperf-tiny-to-experiment/assets/cm-visualization-and-customization-of-tinymlperf-results2.png)
 
 
 We publish all public TinyMLPerf results in the [MLCommons CK platform](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-tiny)

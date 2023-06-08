@@ -52,7 +52,7 @@ def run(argv = None):
 ############################################################
 def run_script(argv = None):
     """
-    Shortcut to run cm script
+    Shortcut to "cm run script ..."
 
     CM command line format:
 
@@ -74,6 +74,32 @@ def run_script(argv = None):
         argv = sys.argv[1:]
 
     return run(['run', 'script'] + argv)
+
+############################################################
+def run_experiment(argv = None):
+    """
+    Shortcut to "cm run experiment ..."
+
+    CM command line format:
+
+    Args:
+        argv (list | string): command line arguments
+
+    Returns: 
+        (CM return dict):
+
+        * return (int): return code == 0 if no error and >0 if error
+        * (error) (str): error string if return>0
+
+        * Output from a CM automation action
+
+    """
+
+    # Access CM
+    if argv is None:
+        argv = sys.argv[1:]
+
+    return run(['run', 'experiment'] + argv)
 
 ############################################################
 def parse(cmd):
