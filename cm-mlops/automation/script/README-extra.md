@@ -5,7 +5,8 @@
 
   * [Motivation](#motivation)
   * [Obtaining shared CM scripts](#obtaining-shared-cm-scripts)
-  * [Running CM scripts](#running-cm-scripts)
+  * [Getting started with CM scripts](#getting-started-with-cm-scripts)
+  * [Understanding CM scripts](#understanding-cm-scripts)
     * [Wrapping native scripts](#wrapping-native-scripts)
     * [Modifying environment variables](#modifying-environment-variables)
     * [Understanding unified output dictionary](#understanding-unified-output-dictionary)
@@ -14,19 +15,18 @@
     * [Assembling pipelines (workflows) of CM scripts](#assembling-pipelines-workflows-of-cm-scripts)
     * [Customizing CM script execution flow](#customizing-cm-script-execution-flow)
     * [Caching output of CM scripts](#caching-output-of-cm-scripts)
-    * [Assembling pipeline to compile and run image corner detection](#assembling-pipeline-to-compile-and-run-image-corner-detection)
+  * [Assembling pipeline to compile and run image corner detection](#assembling-pipeline-to-compile-and-run-image-corner-detection)
     * [Customizing sub-dependencies in a pipeline](#customizing-sub-dependencies-in-a-pipeline)
-    * [Using Python virtual environments](#using-python-virtual-environments)
-    * [Assembling pipelines with other artifacts included](#assembling-pipelines-with-other-artifacts-included)
-    * [Unifying host OS and CPU detection](#unifying-host-os-and-cpu-detection)
-    * [Detecting, installing and caching system dependencies](#detecting-installing-and-caching-system-dependencies)
-    * [Using variations](#using-variations)
-    * [Running CM scripts inside containers](#running-cm-scripts-inside-containers)
-    * [Getting help about other script automation flags](#getting-help-about-other-script-automation-flags)
+  * [Using Python virtual environments](#using-python-virtual-environments)
+  * [Assembling pipelines with other artifacts included](#assembling-pipelines-with-other-artifacts-included)
+  * [Unifying host OS and CPU detection](#unifying-host-os-and-cpu-detection)
+  * [Detecting, installing and caching system dependencies](#detecting-installing-and-caching-system-dependencies)
+  * [Using variations](#using-variations)
+  * [Running CM scripts inside containers](#running-cm-scripts-inside-containers)
+  * [Getting help about other script automation flags](#getting-help-about-other-script-automation-flags)
   * [Further reading](#further-reading)
 
 </details>
-
 
 *We suggest you to check [CM introduction](https://github.com/mlcommons/ck/blob/master/docs/introduction-cm.md) 
  and [CM CLI/API](https://github.com/mlcommons/ck/blob/master/docs/interface.md) to understand CM motivation and concepts.
@@ -89,13 +89,37 @@ cm find script install* | sort
 ```
 
 
+## Getting started with CM scripts
 
+You can run any of the above CM script on any platform as follows:
+```bash
+cm run script "tags separated by space" --keys=values --env.KEY=VALUE
+cm run script --tags="tags separated by comma" --keys=values --env.KEY=VALUE
+```
+or using a shortcut `cmr` available in CM V1.4.0+:
+```bash
+cmr "tags separated by space" --keys=values --env.KEY=VALUE
+```
 
-## Running CM scripts
+You can also use `-j` flag to print JSON output at the end of the script execution 
+and `-v` flag to show extra debug information during script execution.
+
+For example, you can download a RESNET-50 model in ONNX format from Zenodo using the following script:
+```bash
+cmr "download file" --url=https://zenodo.org/record/4735647/files/resnet50_v1.onnx
+```
+
+You can also obtain info about your OS (Linux, Windows, MacOS) in a unified way and print JSON output
+as well as CM debug info as follows:
+```bash
+cmr "detect os" -j -v
+```
+
+## Understanding CM scripts
 
 CM scripts are treated as standard CM artifacts with the associated CM automation ["script"](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/script),
 CM action ["run"](https://github.com/mlcommons/ck/blob/master/cm-mlops/automation/script/module.py#L73),
-and JSON &| YAML meta descriptions. 
+and JSON and/or YAML meta descriptions. 
 
 CM scripts can be invoked by using their alias, unique ID and human-readable tags (preferred method).
 
@@ -607,7 +631,7 @@ as shown in the next example.
 
 
 
-### Assembling pipeline to compile and run image corner detection
+## Assembling pipeline to compile and run image corner detection
 
 We can use automatically detected compiler from CM script to create simple and technology-neutral compilation and execution pipelines
 in CM scripts. 
@@ -673,7 +697,7 @@ If this compiler was not yet detected or installed by CM, it will find related s
 to install either a prebuilt version of LLVM or build it from sources.
 
 
-### Using Python virtual environments
+## Using Python virtual environments
 
 By default, CM scripts will install python dependencies into user space.
 This can influence other existing projects and may not be desirable.
@@ -718,7 +742,7 @@ You can even specify min Python version required as follows:
 export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf --adr.python.version_min=3.9"
 ```
 
-### Assembling pipelines with other artifacts included
+## Assembling pipelines with other artifacts included
 
 We can now use existing CM scripts as "LEGO" blocks to assemble more complex automation pipelines and workflows
 while automatically downloading and plugging in 
@@ -832,7 +856,7 @@ cm run script --tags=app,image-classification,onnx,python \
 
 
 
-### Unifying host OS and CPU detection
+## Unifying host OS and CPU detection
 
 In order to make experiments more portable and interoperable, we need to unify
 the information about host OS and CPU across different systems. 
@@ -861,7 +885,7 @@ to let the community reuse your knowledge and collaboratively enhance common aut
 that's why we called our project "Collective Knowledge".
 
 
-### Detecting, installing and caching system dependencies
+## Detecting, installing and caching system dependencies
 
 Many projects require installation of some system dependencies. Unfortunately, the procedure
 is different across different systems. 
@@ -886,7 +910,7 @@ cm run script "get sys-utils-cm"
 
 
 
-### Using variations
+## Using variations
 
 In some cases, we want the same CM script to download some artifact in a different format.
 
@@ -943,7 +967,7 @@ cm show cache --tags=get,ml-model,resnet50,_pytorch,_fp32
 
 
 
-### Running CM scripts inside containers
+## Running CM scripts inside containers
 
 One of the important ideas behind using a common automation language
 is to use it inside and outside containers thus avoiding the need to create 
@@ -965,7 +989,7 @@ Docker containers and README files when executing CM scripts
 
 
 
-### Getting help about other script automation flags
+## Getting help about other script automation flags
 
 You can get help about all flags used to customize execution 
 of a given CM script from the command line as follows:
