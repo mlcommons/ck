@@ -130,6 +130,8 @@ ___
       - Workflow:
     * `_curl`
       - Workflow:
+    * `_gdown`
+      - Workflow:
     * `_torrent`
       - Environment variables:
         - *CM_DAE_DOWNLOAD_USING_TORRENT*: `yes`
