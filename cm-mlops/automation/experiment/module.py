@@ -540,6 +540,8 @@ class CAutomation(Automation):
         if console:
             print ('')
             print ('Path to experiment: {}'.format(experiment_path2))
+
+            print ('')
             print ('Result UID: {}'.format(uid))
 
         # Attempt to load cm-input.json
@@ -606,6 +608,11 @@ class CAutomation(Automation):
 
         ii_copy = copy.deepcopy(ii)
 
+        # If artifact is specified, remove tags
+        artifact = ii.get('artifact','').strip()
+        if artifact!='':
+            if 'tags' in ii: del(ii['tags'])
+
         r = self.cmind.access(ii)
         if r['return']>0: return r
 
@@ -642,7 +649,7 @@ class CAutomation(Automation):
         elif len(lst)==1:
             experiment = lst[0]
         else:
-            # Create new entry
+           # Create new entry
             if i.get('fail_if_not_found',False):
                 return {'return':1, 'error':'experiment not found'}
             

@@ -15,6 +15,7 @@ and
 * [Unified CLI and Python API](interface.md)
   * [CM "script" automation](https://github.com/mlcommons/ck/blob/master/cm-mlops/automation/script/README-extra.md)
   * [CM "cache" automation](https://github.com/mlcommons/ck/blob/master/cm-mlops/automation/cache/README-extra.md)
+  * [CM "experiment" automation](https://github.com/mlcommons/ck/blob/master/cm-mlops/automation/experiment/README-extra.md)
   * [List of all unified CM automations from MLCommons](list_of_automations.md)
   * [List of all portable and reusable CM scripts from MLCommons](list_of_scripts.md)
 * [Tutorials](tutorials/README.md)
