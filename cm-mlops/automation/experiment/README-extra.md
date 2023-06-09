@@ -107,7 +107,7 @@ Note that you can obtain current directory where you called CM
 (rather than the CM experiment artifact directory) via {{CD}} variable as follows:
 ```bash
 cme --tags=my,experiment,hello-world -- echo {{CD}}
-``
+```
 
 
 ## Exploring combinations of parameters (autotuning, design space exploration)
