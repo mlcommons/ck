@@ -1,4 +1,6 @@
-﻿# CM "script" automation
+﻿[ [Back to index](../../../docs/README.md) ]
+
+# CM "script" automation
 
 <details>
 <summary>Click here to see the table of contents.</summary>

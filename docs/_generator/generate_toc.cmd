@@ -26,3 +26,5 @@ cm create-toc-from-md utils --input=crowd-benchmark-mlperf-bert-inference-cuda.m
 cd ../../../automation/script
 cm create-toc-from-md utils --input=README-extra.md
 
+cd ../experiment
+cm create-toc-from-md utils --input=README-extra.md

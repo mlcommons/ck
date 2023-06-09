@@ -1,4 +1,20 @@
-﻿# CM "experiment" automation
+﻿[ [Back to index](../../../docs/README.md) ]
+
+<details>
+<summary>Click here to see the table of contents.</summary>
+
+* [CM "experiment" automation](#cm-"experiment"-automation)
+  * [Introducing CM experiment automation](#introducing-cm-experiment-automation)
+  * [Installing CM with ResearchOps/DevOps/MLOps automations](#installing-cm-with-researchops/devops/mlops-automations)
+  * [Understanding CM experiments](#understanding-cm-experiments)
+  * [Exploring combinations of parameters (autotuning, design space exploration)](#exploring-combinations-of-parameters-autotuning-design-space-exploration)
+  * [Aggregating and unifying results](#aggregating-and-unifying-results)
+  * [Visualizing results](#visualizing-results)
+  * [Participating in further developments](#participating-in-further-developments)
+
+</details>
+
+# CM "experiment" automation
 
 *We suggest you to check [CM introduction](https://github.com/mlcommons/ck/blob/master/docs/introduction-cm.md), 
  [CM CLI/API](https://github.com/mlcommons/ck/blob/master/docs/interface.md) 
