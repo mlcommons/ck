@@ -7,7 +7,7 @@
   * [Introducing CM experiment automation](#introducing-cm-experiment-automation)
   * [Installing CM with ResearchOps/DevOps/MLOps automations](#installing-cm-with-researchops/devops/mlops-automations)
   * [Understanding CM experiments](#understanding-cm-experiments)
-  * [Exploring combinations of parameters (autotuning, design space exploration)](#exploring-combinations-of-parameters-autotuning-design-space-exploration)
+  * [Exploring combinations of parameters (auto-tuning, design space exploration)](#exploring-combinations-of-parameters-autotuning-design-space-exploration)
   * [Aggregating and unifying results](#aggregating-and-unifying-results)
   * [Visualizing results](#visualizing-results)
   * [Participating in further developments](#participating-in-further-developments)
@@ -65,8 +65,9 @@ cme --help
 
 ## Understanding CM experiments
 
-CM experiment wraps any user command line, creates an associated CM `experiment` artifact with some user tags and {date}{time} subdirectory,
-records input in `cm-input.json`, and executes the user command line inside this subdirectory.
+CM experiment simply wraps any user command line, creates an associated CM `experiment` artifact with a random ID (16 low case HEX characters) 
+and some user tags in `_cm.json`, creates extra `{date}{time}` subdirectory with `cm-input.json` file with CM input, 
+and executes the user command line inside an extra subdirectory with another random ID as shown below.
 
 The following command will print "Hello World!" while recording all the provenance in CM format in the local CM repository:
 
@@ -125,6 +126,20 @@ Note that you can obtain current directory where you called CM
 cme --tags=my,experiment,hello-world -- echo {{CD}}
 ```
 
+You can also record experiments in another CM repository instead of the `local` one as follows:
+```bash
+cm list repo
+cme {CM repository from above list}: --tags=my,experiment,hello-world -- echo {{CD}}
+```
+
+Finally, you can force a specific artifact name instead of some random ID as follows:
+```bash
+cme {my experiment artifact name} --tags=my,experiment,hello-world -- echo {{CD}}
+```
+or with given repository
+```bash
+cme {CM repository from above list}:{my experiment artifact name} --tags=my,experiment,hello-world -- echo {{CD}}
+```
 
 ## Exploring combinations of parameters (autotuning, design space exploration)
 
@@ -133,7 +148,7 @@ is to explore various combinations of parameters of some applications
 and systems to select the optimal ones to trade off performance, accuracy, 
 power consumption, memory usage and other characteristics.
 
-As a starting point, we have implemented a very simple explorer as a cartesian product
+As a starting point, we have implemented a very simple explorer as a Cartesian product
 of any number of specified variables that are passed to a user command line via double curly braces `{{VAR}}` similar to GitHub.
 
 You just need to create a simple JSON file `cm-input.json` to describe sets/ranges for each variable as follows:
@@ -173,7 +188,7 @@ Note that you can also define a Python list of range for other variables
 directly in the command line as demonstrated in above example for `VAR4` - `{{VAR4{['xx','yy','zz']}}}`.
 
 CM will create or reuse experiment artifact with tags `my,experiment,hello-world`
-and will then iterate in a cartesian product of all detected variables.
+and will then iterate in a Cartesian product of all detected variables.
 
 For each iteration, CM will create a `{date}{time}` subdirectory in a given experiment artifact
 and will then run a user command line with substituted variables there.
@@ -187,17 +202,81 @@ cm replay experiment --tags={tags} --dir={sub directory}
 
 ## Aggregating and unifying results
 
+Users can expose any information such as measured characteristics of their applications and/or systems (performance,
+hardware or OS state, accuracy, internal parameters, etc) to CM for further analysis and visualization 
+by generating a JSON `cm-result.json` file with any dictionary.
 
-, and aggregates results from `cm-result.json` 
-if produced by a user application, tool or script.
+If this file exists after executing a user command, CM will load it after each experiment or exploration step, 
+and merge it with a list in a common `cm-result.json` in `{date}{time}` directory for this experiment.
 
 
 
 ## Visualizing results
 
-cm run script "gui _playground"
+Users can now visualize multiple experiments using the CM GUI script as follows:
+```bash
+cm run script "gui _graph" --exp_tags=my,experiment,hello-world
+```
+
+This script will search for all CM experiment entries with these tags, read all `cm-result.json` files,
+detect all keys used in result dictionaries, let users select these keys for X and Y axes 
+to prepare a 2D graph using a popular [StreamLit library](https://streamlit.io), add derived metrics and set constraints
+as shown in the following example for one of the official [Tiny MLPerf submissions](https://github.com/mlcommons/tiny):
+
+![](../../script/import-mlperf-tiny-to-experiment/assets/cm-visualization-and-customization-of-tinymlperf-results2.png)
+
+
+
+
+
+
+## Sharing experiments with the community
+
+It is possible to share experiments with a common automation interface
+in your own GitHub/GitLab repository, container and zip/tar file
+in a non-intrusive way. 
+
+You need to go to a root directory of your project and initialize CM repository there
+with a unique name "my-cool-project" as follows:
+
+```bash
+cm init repo my-cool-project --path=. --prefix=cmr
+```
+
+This command will create a `cmr.yaml` file with a description and unique ID of this repository,
+and will register it in the CM. Note that all CM automations and artifacts will be located
+in the `cmr` sub-directory to avoid contaminating your project. They can be deleted
+or moved to another project at any time.
+
+You can now record new experiments in this repository by adding `my-cool-project:` to the cm experiment command line as follows:
+```bash
+cm run experiment my-cool-project: --tags=my,experiment,hello-world -- echo "Hello World!"
+```
+
+You can also move a set of existing experiments from the `local` CM repository to the new one as follows:
+```bash
+cm move experiment my-cool-project: --tags=my,experiment,hello-world 
+```
+
+You can contine replaying these experiments in the way no matter what CM repository they are in:
+```bash
+cm replay experiment --tags=my,experiment,hello-world
+```
+
+or you can enforce a specific repository as follows:
+```bash
+
+
+## Running experiments with CM scripts
+
+
+
+
+
 
 
 
 ## Participating in further developments
+
+Extra examples in [this directory](tests)
 

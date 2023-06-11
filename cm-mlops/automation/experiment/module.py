@@ -610,7 +610,8 @@ class CAutomation(Automation):
 
         # If artifact is specified, remove tags
         artifact = ii.get('artifact','').strip()
-        if artifact!='':
+        if artifact!='' and not artifact.endswith(':') \
+                        and '*' not in artifact and '?' not in artifact:
             if 'tags' in ii: del(ii['tags'])
 
         r = self.cmind.access(ii)
