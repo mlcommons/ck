@@ -258,25 +258,47 @@ You can also move a set of existing experiments from the `local` CM repository t
 cm move experiment my-cool-project: --tags=my,experiment,hello-world 
 ```
 
-You can contine replaying these experiments in the way no matter what CM repository they are in:
+You can continue replaying these experiments in the way no matter what CM repository they are in:
 ```bash
 cm replay experiment --tags=my,experiment,hello-world
 ```
 
 or you can enforce a specific repository as follows:
 ```bash
-
-
-## Running experiments with CM scripts
-
-
+cm replay experiment my-cool-project: --tags=my,experiment,hello-world
+```
 
 
 
 
 
+## Running CM experiments with CM scripts
 
-## Participating in further developments
+User scripts and tools may contain some hardwired local paths that may prevent replaying them on another platform.
+In such case, we suggest you to use [CM scripts](/../script/README-extra.md). 
 
-Extra examples in [this directory](tests)
+CM scripts solve this problem by wrapping existing user scripts and tools and detecting/resolving paths
+to specific tools and artifacts on a given user platform.
+
+You can find example of using CM scripts with CM experiments in [this directory](tests) - see `test3.bat` or `test3.sh`:
+```bash
+cm run experiment --tags=test @test3_input.yaml -- cm run script "print hello-world native" --env.CM_ENV_TEST1={{VAR1}} --const.CM_ENV_TEST2={{VAR2}}
+```
+
+Feel free to check [this tutorial](../../../docs/tutorials/common-interface-to-reproduce-research-projects.md)
+to add CM scripts for your own applications, tools and native scripts.
+
+We are currently extending CM experiments and CM scripts for MLPerf benchmarks 
+to automate benchmarking, optimization and design space exploration of ML/AI systems 
+on any software and hardware - please stay tuned via our [Discord server](https://discord.gg/JjWNWXKxwT).
+
+
+
+## Further community developments
+
+We are developing this experiment automation in CM to help the community share, reproduce and reuse experiments 
+using a common, simple, human readable, and portable [automation language](../../../docs/README.md).
+
+Join our [Discord server](https://discord.gg/JjWNWXKxwT) from the [MLCommons task force on automation and reproducibility](../taskforce.md)
+to participate in the unification and extension of this interface and CM scripts for diverse research projects and tools.
 

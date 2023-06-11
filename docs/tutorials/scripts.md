@@ -97,7 +97,7 @@ Feel free to study these two CM scripts:
 ## Collaborating with the community to unify API and meta of reusable scripts
 
 We have developed CM language to help the community reuse and improve common automations instead of reinventing the wheel.
-Feel free to join our [Discord server](https://discord.gg/JjWNWXKxwT) and [MLCommons task force on automation and reproducibility](../taskforce.md)
+Feel free to join our [Discord server](https://discord.gg/JjWNWXKxwT) and the [MLCommons task force on automation and reproducibility](../taskforce.md)
 to participate in the unification of shared scripts, APIs and meta information for diverse DevOps and MLOps scripts and tools,
 and development of automation pipelines and workflows to co-design, benchmark, optimize and deploy efficient computing systems
 for AI, ML and other emerging workloads.
