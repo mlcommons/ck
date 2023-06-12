@@ -112,6 +112,7 @@ class CAutomation(Automation):
                           (the developers have to support it in pre/post processing and scripts)
 
           (skip_cache) (bool): if True, skip caching and run in current directory
+          (force_cache) (bool): if True, force caching if can_force_cache=true in script meta
 
           (skip_remembered_selections) (bool): if True, skip remembered selections
                                                (uses or sets env.CM_TMP_SKIP_REMEMBERED_SELECTIONS to "yes")
@@ -263,6 +264,7 @@ class CAutomation(Automation):
         extra_recursion_spaces = '  '# if verbose else ''
 
         skip_cache = i.get('skip_cache', False)
+        force_cache = i.get('force_cache', False)
         fake_run = i.get('fake_run', False)
         fake_deps = i.get('fake_deps', False)
         run_state = i.get('run_state', self.run_state)
@@ -510,7 +512,7 @@ class CAutomation(Automation):
         # Found 1 or more scripts. Scans cache tags to find at least 1 with cache==True
         preload_cached_scripts = False
         for script in list_of_found_scripts:
-            if script.meta.get('cache', False):
+            if script.meta.get('cache', False) == True or (script.meta.get('can_force_cache', False) and force_cache):
                 preload_cached_scripts = True
                 break
 
@@ -922,6 +924,7 @@ class CAutomation(Automation):
         # Check if the output of a selected script should be cached
         cache = False if i.get('skip_cache', False) else meta.get('cache', False)
         cache = False if i.get('fake_run', False) else cache
+        cache = cache or (i.get('force_cache', False) and meta.get('can_force_cache', False))
 
         cached_uid = ''
         cached_tags = []
