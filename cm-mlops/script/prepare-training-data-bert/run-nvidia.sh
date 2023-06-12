@@ -27,10 +27,7 @@ function run() {
 # run "$CM_RUN_CMD"
 
 CUR=${CM_DATA_DIR:-"$PWD/data"}
-cd ${CM_RUN_DIR}
-
-if [[ ${CM_TMP_VARIATION} == "nvidia" ]]; then
-  bash ${CM_TMP_CURRENT_SCRIPT_PATH}/run-nvidia.sh
-elif [[ ${CM_TMP_VARIATION} == "reference" ]]; then
-  bash ${CM_TMP_CURRENT_SCRIPT_PATH}/run-reference.sh
-fi
+run "cd \"${CM_RUN_DIR}\""
+run "docker build --pull -t mlperf-nvidia:language_model ."
+run "ID=`docker run -dt --runtime=nvidia --ipc=host -v $CUR:/workspace/bert_data mlperf-nvidia:language_model bash`"
+run "docker exec $ID bash -c 'cd /workspace/bert && ./input_preprocessing/prepare_data.sh -s --outputdir /workspace/bert_data'"

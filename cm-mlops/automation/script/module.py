@@ -2301,6 +2301,10 @@ class CAutomation(Automation):
 
 
             for d in deps:
+
+                if not d.get('tags'):
+                    continue
+
                 if "enable_if_env" in d:
                     if not enable_or_skip_script(d["enable_if_env"], env):
                         continue
