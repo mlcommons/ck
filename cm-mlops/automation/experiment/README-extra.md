@@ -7,10 +7,12 @@
   * [Introducing CM experiment automation](#introducing-cm-experiment-automation)
   * [Installing CM with ResearchOps/DevOps/MLOps automations](#installing-cm-with-researchops/devops/mlops-automations)
   * [Understanding CM experiments](#understanding-cm-experiments)
-  * [Exploring combinations of parameters (auto-tuning, design space exploration)](#exploring-combinations-of-parameters-autotuning-design-space-exploration)
+  * [Exploring combinations of parameters (autotuning, design space exploration)](#exploring-combinations-of-parameters-autotuning-design-space-exploration)
   * [Aggregating and unifying results](#aggregating-and-unifying-results)
   * [Visualizing results](#visualizing-results)
-  * [Participating in further developments](#participating-in-further-developments)
+  * [Sharing experiments with the community](#sharing-experiments-with-the-community)
+  * [Running CM experiments with CM scripts](#running-cm-experiments-with-cm-scripts)
+  * [Further community developments](#further-community-developments)
 
 </details>
 

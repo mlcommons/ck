@@ -136,6 +136,7 @@ class CAutomation(Automation):
           (print_env) (bool): if True, print aggregated env before each run of a native script
 
           (fake_run) (bool): if True, will run the dependent scripts but will skip the main run script
+          (prepare) (bool): the same as fake_run
           (fake_deps) (bool): if True, will fake run the dependent scripts
           (print_deps) (bool): if True, will print the CM run commands of the direct dependent scripts
           (run_state) (dict): Internal run state
@@ -266,6 +267,7 @@ class CAutomation(Automation):
         skip_cache = i.get('skip_cache', False)
         force_cache = i.get('force_cache', False)
         fake_run = i.get('fake_run', False)
+        fake_run = i.get('fake_run', False) if 'fake_run' in i else i.get('prepare', False)
         fake_deps = i.get('fake_deps', False)
         run_state = i.get('run_state', self.run_state)
         if fake_deps:
