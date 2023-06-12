@@ -2360,7 +2360,6 @@ class CAutomation(Automation):
                             d['tags']+=","+t+env[key]
 
                 run_state['deps'].append(d['tags'])
-                run_state['deps'].append(d['tags'])
 
                 if not run_state['fake_deps']:
                     import copy
