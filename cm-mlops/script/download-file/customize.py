@@ -49,7 +49,7 @@ def preprocess(i):
     elif env['CM_DOWNLOAD_TOOL'] == "curl":
         env['CM_DOWNLOAD_CMD'] = f"curl {extra_download_options} {url}"
     elif env['CM_DOWNLOAD_TOOL'] == "gdown":
-        env['CM_DOWNLOAD_CMD'] = f"gdown -c {extra_download_options} {url}"
+        env['CM_DOWNLOAD_CMD'] = f"gdown {extra_download_options} {url}"
 
     filename = env['CM_DOWNLOAD_FILENAME']
     env['CM_DOWNLOAD_DOWNLOADED_FILENAME'] = filename

@@ -27,7 +27,8 @@
       "default": true,
       "deps": [
         {
-          "tags": "get,git,repo,_repo.https://github.com/mlcommons/training_results_v2.1"
+          "tags": "get,git,repo,_repo.https://github.com/mlcommons/training_results_v2.1",
+          "extra_cache_tags": "mlperf,training,results"
         }
       ],
       "prehook_deps": [
@@ -36,14 +37,16 @@
           "env": {
             "CM_DOWNLOAD_FILENAME": "bert_config.json",
             "CM_DOWNLOAD_PATH": "<<<CM_BERT_CONFIG_DOWNLOAD_DIR>>>"
-          }
+          },
+          "extra_cache_tags": "mlperf,training,bert,config"
         },
         {
           "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1USK108J6hMM_d27xCHi738qBL8_BT1u1",
           "env": {
             "CM_DOWNLOAD_FILENAME": "vocab.txt",
             "CM_DOWNLOAD_PATH": "<<<CM_BERT_VOCAB_DOWNLOAD_DIR>>>"
-          }
+          },
+          "extra_cache_tags": "bert,vocab"
         },
         {
           "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1tmMgLwoBvbEJEHXh77sqrXYw5RpqT8R_",
@@ -51,7 +54,8 @@
             "CM_DOWNLOAD_FILENAME": "bert_reference_results_text_md5.txt",
             "CM_DOWNLOAD_PATH": "<<<CM_BERT_DATA_DOWNLOAD_DIR>>>",
             "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_BERT_REFERENCE_RESULTS_TEXT_MD5_FILE_PATH"
-          }
+          },
+          "extra_cache_tags": "bert,data,results,md5"
         },
         {
           "tags": "download-and-extract,file,_gdown,_extract,_url.https://drive.google.com/uc?id=14xV2OUGSQDG_yDBrmbSdcDC-QGeqpfs_",
@@ -61,28 +65,32 @@
             "CM_DOWNLOAD_PATH": "<<<CM_BERT_DATA_DOWNLOAD_DIR>>>",
             "CM_EXTRACT_PATH": "<<<CM_BERT_DATA_DOWNLOAD_DIR>>>",
             "CM_EXTRACT_EXTRACTED_CHECKSUM_FILE": "<<<CM_BERT_REFERENCE_RESULTS_TEXT_MD5_FILE_PATH>>>"
-          }
+          },
+          "extra_cache_tags": "bert,data,results"
         },
         {
           "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1chiTBljF0Eh1U5pKs6ureVHgSbtU8OG_",
           "env": {
             "CM_DOWNLOAD_FILENAME": "model.ckpt-28252.data-00000-of-00001",
             "CM_DOWNLOAD_PATH": "<<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>"
-          }
+          },
+          "extra_cache_tags": "bert,checkpoint,data"
         },
         {
           "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1Q47V3K3jFRkbJ2zGCrKkKk-n0fvMZsa0",
           "env": {
             "CM_DOWNLOAD_FILENAME": "model.ckpt-28252.index",
             "CM_DOWNLOAD_PATH": "<<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>"
-          }
+          },
+          "extra_cache_tags": "bert,checkpoint,index"
         },
         {
           "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1vAcVmXSLsLeQ1q7gvHnQUSth5W_f_pwv",
           "env": {
             "CM_DOWNLOAD_FILENAME": "model.ckpt-28252.meta",
             "CM_DOWNLOAD_PATH": "<<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>"
-          }
+          },
+          "extra_cache_tags": "bert,checkpoint,meta"
         }
       ],
       "env": {
