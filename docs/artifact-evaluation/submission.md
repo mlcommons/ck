@@ -127,12 +127,11 @@ using the AE submission website provided by the event.
 
 ## Asking questions
 
-
  If you have questions or suggestions, 
  do not hesitate to get in touch with the the AE chairs or the community using 
- the [Artifact Evaluation google group](https://groups.google.com/forum/#!forum/artifact-evaluation)
- or weekly conf-calls of the [open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).
-
+ the public [Discord server](https://discord.gg/JjWNWXKxwT),
+ [Artifact Evaluation google group](https://groups.google.com/forum/#!forum/artifact-evaluation)
+ and weekly conf-calls of the [open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).
 
 ## Preparing your camera-ready paper
 
