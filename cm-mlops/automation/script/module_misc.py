@@ -1103,6 +1103,8 @@ def dockerfile(i):
     else:
         run_cmd = ""
 
+    #run_cmd = i.get('run_cmd_prefix') + ' && ' + run_cmd if i.get('run_cmd_prefix') else run_cmd
+
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
         meta = artifact.meta
@@ -1121,8 +1123,9 @@ def dockerfile(i):
         if not docker_settings or not docker_settings.get('build') or not run_config.get('run_with_default_inputs'):
             print("Run config is not configured for docker run in {}".format(run_config_path))
             continue
-        docker_os = docker_settings.get('docker_os', 'ubuntu')
-        docker_os_version = docker_settings.get('docker_os_version', '22.04')
+
+        docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
+        docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
 
         dockerfile_path = os.path.join(script_path,'dockerfiles', docker_os +'_'+docker_os_version +'.Dockerfile')
         if i.get('print_deps'):
@@ -1249,6 +1252,9 @@ def docker(i):
         _os=i.get('docker_os', 'ubuntu')
         version=i.get('docker_os_version', '22.04')
 
+        cm_repo=i.get('cm_repo', 'mlcommons@ck')
+        env=i.get('env', {})
+
         dockerfile_path = os.path.join(script_path,'dockerfiles', _os +'_'+version +'.Dockerfile')
 
         cm_docker_input = {'action': 'run',
@@ -1256,6 +1262,8 @@ def docker(i):
                             'tags': 'run,docker,container',
                             'recreate': 'yes',
                             'docker_os': _os,
+                            'cm_repo': cm_repo,
+                            'env': env,
                             'image_repo': 'cm',
                             'image_tag': script_alias,
                             'docker_os_version': version,
