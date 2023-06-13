@@ -8,6 +8,7 @@
     }
   ],
   "cache": false,
+  "can_force_cache": true,
   "env": {
     "CM_DAE_REMOVE_EXTRACTED": "yes"
   },

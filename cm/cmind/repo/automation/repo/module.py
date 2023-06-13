@@ -281,6 +281,7 @@ class CAutomation(Automation):
             (artifact) (str): repository name (alias)
             (uid) (str): force CM UID for this repository
             (path) (str): specify a path where to create this repository
+            (here) (str): use current path
             (desc) (str): brief repository description (1 line)
             (prefix) (str): extra directory to keep CM artifacts
 
@@ -302,7 +303,7 @@ class CAutomation(Automation):
         prefix = i.get('prefix','')
 
         # If path is not specified, initialize in the current directory!
-        if (path=='' and alias=='') or (alias!='' and path=='.'):
+        if (path=='' and alias=='') or (alias!='' and (path=='.' or i.get('here', False))):
            path = os.path.abspath(os.getcwd())
 
         # Check if there is a repo in a path

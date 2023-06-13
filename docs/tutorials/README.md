@@ -15,5 +15,6 @@
   * [Automating TinyMLPerf benchmark](automate-mlperf-tiny.md)
   * [Reproducing/replicating Tiny MLPerf benchmark](reproduce-mlperf-tiny.md)
   * [Reproducing/replicating MLPerf training benchmark](reproduce-mlperf-training.md)
+  * [Adding common CM interface to reproduce research projects and papers](common-interface-to-reproduce-research-projects.md)
 * [Understanding CM concepts](concept.md)
 * [Adding new CM scripts and automation pipelines/workflows](scripts.md)

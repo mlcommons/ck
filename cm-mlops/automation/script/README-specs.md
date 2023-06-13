@@ -70,4 +70,12 @@ Sometimes it is difficult to add all variations needed for a script like say `ba
 ### Updating ENV from inside the run script
 * [TBD]
 
+
+### Script workflow (env, deps, native scripts)
+
+![](assets/scripts-workflow.png)
+
+
+
+
 &copy; 2022-23 [MLCommons](https://mlcommons.org)<br>

@@ -8,6 +8,8 @@ cm create-toc-from-md utils --input=concept.md
 cm create-toc-from-md utils --input=reproduce-mlperf-tiny.md
 cm create-toc-from-md utils --input=automate-mlperf-tiny.md
 cm create-toc-from-md utils --input=reproduce-mlperf-training.md
+cm create-toc-from-md utils --input=common-interface-to-reproduce-research-projects.md
+
 cd ../artifact-evaluation
 
 cm create-toc-from-md utils --input=faq.md
@@ -26,3 +28,5 @@ cm create-toc-from-md utils --input=crowd-benchmark-mlperf-bert-inference-cuda.m
 cd ../../../automation/script
 cm create-toc-from-md utils --input=README-extra.md
 
+cd ../experiment
+cm create-toc-from-md utils --input=README-extra.md

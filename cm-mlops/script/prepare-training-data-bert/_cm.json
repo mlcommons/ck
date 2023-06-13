@@ -12,7 +12,86 @@
   "new_state_keys": [],
   "post_deps": [],
   "posthook_deps": [],
-  "prehook_deps": [],
+  "prehook_deps": [
+    {
+      "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1fbGClQMi2CoMv7fwrwTC5YYPooQBdcFW",
+      "env": {
+        "CM_DOWNLOAD_FILENAME": "bert_config.json",
+        "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_BERT_CONFIG_FILE_PATH",
+        "CM_DOWNLOAD_PATH": "<<<CM_BERT_CONFIG_DOWNLOAD_DIR>>>",
+        "CM_DOWNLOAD_CHECKSUM": "7f59165e21b7d566db610ff6756c926b"
+      },
+      "force_cache": true,
+      "extra_cache_tags": "mlperf,training,bert,config"
+    },
+    {
+      "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1USK108J6hMM_d27xCHi738qBL8_BT1u1",
+      "env": {
+        "CM_DOWNLOAD_FILENAME": "vocab.txt",
+        "CM_DOWNLOAD_PATH": "<<<CM_BERT_VOCAB_DOWNLOAD_DIR>>>",
+        "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_BERT_VOCAB_FILE_PATH",
+        "CM_DOWNLOAD_CHECKSUM": "64800d5d8528ce344256daf115d4965e"
+      },
+      "force_cache": true,
+      "extra_cache_tags": "bert,vocab"
+    },
+    {
+      "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1tmMgLwoBvbEJEHXh77sqrXYw5RpqT8R_",
+      "env": {
+        "CM_DOWNLOAD_FILENAME": "bert_reference_results_text_md5.txt",
+        "CM_DOWNLOAD_PATH": "<<<CM_BERT_DATA_DOWNLOAD_DIR>>>",
+        "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_BERT_REFERENCE_RESULTS_TEXT_MD5_FILE_PATH",
+        "CM_DOWNLOAD_CHECKSUM": "7d3a0619cb8bf7e829af99fa5c29daa8"
+      },
+      "force_cache": true,
+      "extra_cache_tags": "bert,data,results,md5"
+    },
+    {
+      "tags": "download-and-extract,file,_gdown,_extract,_url.https://drive.google.com/uc?id=14xV2OUGSQDG_yDBrmbSdcDC-QGeqpfs_",
+      "env": {
+        "CM_DOWNLOAD_FILENAME": "results_text.tar.gz",
+        "CM_EXTRACT_EXTRACTED_FILENAME": "results4",
+        "CM_DOWNLOAD_PATH": "<<<CM_BERT_DATA_DOWNLOAD_DIR>>>",
+        "CM_EXTRACT_PATH": "<<<CM_BERT_DATA_DOWNLOAD_DIR>>>",
+        "CM_EXTRACT_FINAL_ENV_NAME": "CM_BERT_TRAINING_DATA_PATH",
+        "CM_DOWNLOAD_CHECKSUM": "",
+        "CM_EXTRACT_EXTRACTED_CHECKSUM_FILE": "<<<CM_BERT_REFERENCE_RESULTS_TEXT_MD5_FILE_PATH>>>"
+      },
+      "force_cache": true,
+      "extra_cache_tags": "bert,data,results"
+    },
+    {
+      "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1chiTBljF0Eh1U5pKs6ureVHgSbtU8OG_",
+      "env": {
+        "CM_DOWNLOAD_FILENAME": "model.ckpt-28252.data-00000-of-00001",
+        "CM_DOWNLOAD_PATH": "<<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>",
+        "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_BERT_CHECKPOINT_FILE_PATH",
+        "CM_DOWNLOAD_CHECKSUM": "50797acd537880bfb5a7ade80d976129"
+      },
+      "force_cache": true,
+      "extra_cache_tags": "bert,checkpoint,data"
+    },
+    {
+      "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1Q47V3K3jFRkbJ2zGCrKkKk-n0fvMZsa0",
+      "env": {
+        "CM_DOWNLOAD_FILENAME": "model.ckpt-28252.index",
+        "CM_DOWNLOAD_PATH": "<<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>",
+        "CM_DOWNLOAD_CHECKSUM": "f97de3ae180eb8d479555c939d50d048"
+      },
+      "force_cache": true,
+      "extra_cache_tags": "bert,checkpoint,index"
+    },
+    {
+      "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1vAcVmXSLsLeQ1q7gvHnQUSth5W_f_pwv",
+      "env": {
+        "CM_DOWNLOAD_FILENAME": "model.ckpt-28252.meta",
+        "CM_DOWNLOAD_PATH": "<<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>",
+        "CM_DOWNLOAD_CHECKSUM": "dbd16c731e8a8113bc08eeed0326b8e7"
+      },
+      "force_cache": true,
+      "extra_cache_tags": "bert,checkpoint,meta"
+    }
+  ],
   "tags": [
     "prepare",
     "training",
@@ -27,66 +106,32 @@
       "default": true,
       "deps": [
         {
-          "tags": "get,git,repo,_repo.https://github.com/mlcommons/training_results_v2.1"
-        }
-      ],
-      "prehook_deps": [
-        {
-          "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1fbGClQMi2CoMv7fwrwTC5YYPooQBdcFW",
-          "env": {
-            "CM_DOWNLOAD_FILENAME": "bert_config.json",
-            "CM_DOWNLOAD_PATH": "<<<CM_BERT_CONFIG_DOWNLOAD_DIR>>>"
-          }
-        },
-        {
-          "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1USK108J6hMM_d27xCHi738qBL8_BT1u1",
-          "env": {
-            "CM_DOWNLOAD_FILENAME": "vocab.txt",
-            "CM_DOWNLOAD_PATH": "<<<CM_BERT_VOCAB_DOWNLOAD_DIR>>>"
-          }
-        },
-        {
-          "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1tmMgLwoBvbEJEHXh77sqrXYw5RpqT8R_",
-          "env": {
-            "CM_DOWNLOAD_FILENAME": "bert_reference_results_text_md5.txt",
-            "CM_DOWNLOAD_PATH": "<<<CM_BERT_DATA_DOWNLOAD_DIR>>>",
-            "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_BERT_REFERENCE_RESULTS_TEXT_MD5_FILE_PATH"
-          }
-        },
-        {
-          "tags": "download-and-extract,file,_gdown,_extract,_url.https://drive.google.com/uc?id=14xV2OUGSQDG_yDBrmbSdcDC-QGeqpfs_",
-          "env": {
-            "CM_DOWNLOAD_FILENAME": "results_text.tar.gz",
-            "CM_EXTRACT_EXTRACTED_FILENAME": "results4",
-            "CM_DOWNLOAD_PATH": "<<<CM_BERT_DATA_DOWNLOAD_DIR>>>",
-            "CM_EXTRACT_PATH": "<<<CM_BERT_DATA_DOWNLOAD_DIR>>>",
-            "CM_EXTRACT_EXTRACTED_CHECKSUM_FILE": "<<<CM_BERT_REFERENCE_RESULTS_TEXT_MD5_FILE_PATH>>>"
-          }
-        },
-        {
-          "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1chiTBljF0Eh1U5pKs6ureVHgSbtU8OG_",
-          "env": {
-            "CM_DOWNLOAD_FILENAME": "model.ckpt-28252.data-00000-of-00001",
-            "CM_DOWNLOAD_PATH": "<<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>"
-          }
-        },
-        {
-          "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1Q47V3K3jFRkbJ2zGCrKkKk-n0fvMZsa0",
-          "env": {
-            "CM_DOWNLOAD_FILENAME": "model.ckpt-28252.index",
-            "CM_DOWNLOAD_PATH": "<<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>"
-          }
-        },
-        {
-          "tags": "download,file,_gdown,_url.https://drive.google.com/uc?id=1vAcVmXSLsLeQ1q7gvHnQUSth5W_f_pwv",
-          "env": {
-            "CM_DOWNLOAD_FILENAME": "model.ckpt-28252.meta",
-            "CM_DOWNLOAD_PATH": "<<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>"
-          }
+          "tags": "get,git,repo,_repo.https://github.com/mlcommons/training_results_v2.1",
+          "extra_cache_tags": "mlperf,training,results"
         }
       ],
       "env": {
         "CM_TMP_VARIATION": "nvidia"
+      }
+    },
+    "reference": {
+      "group": "implementation",
+      "deps": [
+        {
+          "tags": "get,mlperf,training,src",
+          "names": [ "mlperf-training-src" ]
+        },
+        {
+          "tags": "get,python3",
+          "names": [ "python3" ]
+        },
+        {
+          "tags": "get,tensorflow",
+          "version": "v2.4.0"
+        }
+      ],
+      "env": {
+        "CM_TMP_VARIATION": "reference"
       }
     }
   },
