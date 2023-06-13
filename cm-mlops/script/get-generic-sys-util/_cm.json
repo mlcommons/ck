@@ -178,6 +178,16 @@
           "brew": ""
         }
       }
+    },
+    "zlib": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "zlib"
+      },
+      "state": {
+        "zlib": {
+          "apt": "zlib1g"
+        }
+      }
     }
   }
 }
