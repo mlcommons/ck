@@ -4,6 +4,11 @@
 
 ## Goals
 
+* Provide free help for all MLCommons member to prepare, run, optimize and compare MLPerf benchmarks (training, inference and tiny) and submit Pareto-optimal results
+  with the help of the [MLCommons CM workflow automation language](README.md) and [MLCommons CK playground](https://access.cKnowledge.org)
+  to reduce benchmarking, optimization and reproducibility costs.
+  ***We are very glad to see that more than 80% of all recent MLPerf inference benchmark submissions were automated using our open-source technology -
+  don't hesitate to get in touch with the task force via our public [Discord server](https://discord.gg/JjWNWXKxwT).***
 * Automatically run any MLPerf benchmark out-of-the-box with any software, hardware, model and data from any vendor: 
   *[prototype is available and validated during MLPerf inf v3.0 submission](../cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/README.md)*.
 * Automate optimization experiments and visualization of results with derived metrics: *[prototype](https://cknowledge.org/mlcommons-inference-gui)*.
