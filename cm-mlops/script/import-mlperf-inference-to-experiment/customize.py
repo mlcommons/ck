@@ -191,6 +191,7 @@ def convert_summary_csv_to_experiment(path, version, env):
             print ('    Preparing experiment artifact "{}"'.format(name))
 
             tags = name.split('--')
+            if 'mlperf' not in tags: tags.insert(0, 'mlperf')
 
             # Checking if experiment already exists
             r = cm.access({'action':'find',

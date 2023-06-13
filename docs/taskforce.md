@@ -1,6 +1,6 @@
 [ [Back to index](README.md) ]
 
-# MLCommons Taskforce on Automation and Reproducibility
+# MLCommons Task force on Automation and Reproducibility
 
 ## Goals
 
@@ -11,43 +11,39 @@
 * Organize reproducibility, replicability and optimization challenges to improve MLPerf results across diverse software, hardware, models and data: 
   *[on-going](https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge) 
   (see adopted terminology [here](artifact-evaluation/faq.md#what-is-the-difference-between-repeatability-reproducibility-and-replicability))*.
+* Bridge the [growing gap between research and production](https://acm-rep.github.io/2023/author/grigori-fursin).
 
 
 ## Mission
 
-This public taskforce is developing a free, open-source and technology-agnostic on-prem 
-Collective Knowledge platform (MLCommons CK playground)
-together with a portable Collective Mind automation language (MLCommons CM) - see [CK and CM documentation](README.md) 
-for more details.
+This task force was established by MLCommons and the [cTuning foundation](https://cTuning.org) in 2022 to apply 
+the [established automation and reproducibility methodology and open-source tools from ACM, IEEE and the cTuning foundation](https://learning.acm.org/techtalks/reproducibility)
+to run MLPerf benchmarks out-of-the-box across any software, hardware, models and data from any vendor
+with the help of the [MLCommons CM automation language](README.md) and the [MLCommons CK playground](https://access.cKnowledge.org).
 
-Our goal is to help the community benchmark, optimize and compare AI, ML and other emerging applications
-across diverse and rapidly evolving software, hardware, models and data from different vendors
-in a unified, collaborative, automated and reproducible way using the common CM language.
-
-We are also organizing [reproducibility, replicability and optimization challenges](https://access.cknowledge.org/playground/?action=challenges)
-powered by the common CM language and CK playground to reproduce results from research papers and MLPerf submissions, 
-optimize them in terms of  performance, power consumption, accuracy, size, costs and other metrics, 
+We use this open-source technology to organize [reproducibility, replicability and optimization challenges](https://access.cknowledge.org/playground/?action=challenges)
+to reproduce results from research papers and MLPerf submissions, 
+improve/optimize them in terms of accuracy, performance, power consumption, size, costs and other metrics, 
 and validate them in the real-world applications.
 
-For example, we thank [the community](https://access.cknowledge.org/playground/?action=contributors) for helping us to validate our CK&CM technology
-during the [1st collaborative challenge to run MLPerf inference v3.0 benchmark](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023)
+We successfully validated the latest version of open-technology during the [1st collaborative challenge to run MLPerf inference v3.0 benchmark](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023)
 across diverse models, software and hardware from Neural Magic, Qualcomm, Nvidia, Intel, AMD, Microsoft, Amazon, Google,
 Krai, cKnowledge, cTuning foundation, OctoML, Deelvin, DELL, HPE, Lenovo, Hugging Face and Apple - 
-CK has helped automate more than 80% of all recent MLPerf inference benchmark submissions 
+CK and CM has helped to automate more than 80% of all recent MLPerf inference benchmark submissions 
 (and 98% of all power results), make them more reproducible and reusable,
 and obtain record inference performance on the latest Qualcomm and Nvidia devices.
 
-Our ultimate motivation for our CK technology is to help researchers, engineers and entrepreneurs 
-accelerate innovation by automatically generating the most efficient, reproducible and deployable 
-full-stack AI/ML applications using the most suitable software/hardware stack 
-at any given time (model, framework, inference engine and any other related dependency) 
-based on their requirements and constraints including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny), 
-environment and data while slashing their development and operational costs.
+Our ultimate mission is to help all MLCommons members and the community
+slash their benchmarking, development, optimization and operational costs and accelerate innovation.
+They should be able to use the CK playground and CM language to automatically generate 
+the most efficient, reproducible and deployable application from the most suitable 
+combination of software, hardware and models based on their requirements,
+constraints and [MLPerf results](https://access.cknowledge.org/playground/?action=experiments).
 
 ## Discussions
 
-* Check our upcoming [reproducibility, replicability and optimization challenges](https://access.cknowledge.org/playground/?action=challenges)
 * Join our [public Discord server](https://discord.gg/JjWNWXKxwT) to discuss developments and challenges.
+* Check our upcoming [reproducibility, replicability and optimization challenges](https://access.cknowledge.org/playground/?action=challenges)
 * Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
 * Check our [news](news.md).
 
