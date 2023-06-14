@@ -4,8 +4,10 @@
 
 ## Goals
 
-* Provide free help for all MLCommons member to prepare, run, optimize and compare MLPerf benchmarks (training, inference and tiny) and submit Pareto-optimal results
-  with the help of the [MLCommons CM workflow automation language](README.md) and [MLCommons CK playground](https://access.cKnowledge.org)
+* Provide free help for all [MLCommons]( https://mlcommons.org ) and the community 
+  to prepare, run, optimize and compare MLPerf benchmarks (training, inference and tiny) and submit Pareto-optimal results
+  with the help of the [MLCommons CM workflow automation language](README.md) and 
+  [MLCommons CK playground (reproducibility and optimization challenges)](https://access.cKnowledge.org)
   to reduce benchmarking, optimization and reproducibility costs.
   ***We are very glad to see that more than 80% of all recent MLPerf inference benchmark submissions were automated using our open-source technology -
   don't hesitate to get in touch with the task force via our public [Discord server](https://discord.gg/JjWNWXKxwT).***
@@ -21,7 +23,7 @@
 
 ## Mission
 
-This task force was established by MLCommons and the [cTuning foundation](https://cTuning.org) in 2022 to apply 
+This task force was established by [MLCommons]( https://mlcommons.org ) and the [cTuning foundation](https://cTuning.org) in 2022 to apply 
 the [established automation and reproducibility methodology and open-source tools from ACM, IEEE and the cTuning foundation](https://learning.acm.org/techtalks/reproducibility)
 to run MLPerf benchmarks out-of-the-box across any software, hardware, models and data from any vendor
 with the help of the [MLCommons CM automation language](README.md) and the [MLCommons CK playground](https://access.cKnowledge.org).
