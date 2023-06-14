@@ -1,0 +1,869 @@
+﻿{
+    "accepted_author_visibility": true,
+    "acm_c_abstract": "",
+    "acm_c_acronym": "",
+    "acm_c_conf_number": 0,
+    "acm_c_dates": "",
+    "acm_c_proc_class": "",
+    "acm_c_proc_title": "",
+    "acm_confid": "",
+    "acm_proceedingfirstpage": 1,
+    "acm_proceedingtag": "",
+    "author_visibility": "open",
+    "automatic_tag": [],
+    "badge": [
+        {
+            "style": "black",
+            "tags": ""
+        },
+        {
+            "style": "red",
+            "tags": "acm:artifacts-evaluated-functional"
+        },
+        {
+            "style": "orange",
+            "tags": "acm:artifacts-evaluated-reusable"
+        },
+        {
+            "style": "yellow",
+            "tags": ""
+        },
+        {
+            "style": "green",
+            "tags": "acm:artifacts-available"
+        },
+        {
+            "style": "blue",
+            "tags": "acm:results-validated-reproduced"
+        },
+        {
+            "style": "purple",
+            "tags": ""
+        },
+        {
+            "style": "gray",
+            "tags": ""
+        },
+        {
+            "style": "white",
+            "tags": ""
+        },
+        {
+            "style": "pink",
+            "tags": ""
+        }
+    ],
+    "comment_allow_always": false,
+    "comment_allow_author": true,
+    "comment_visibility_anonymous": false,
+    "conference_abbreviation": "MICRO 2023 Artifact Evaluation",
+    "conference_name": "Artifact Evaluation for the 56th IEEE\/ACM International Symposium on Microarchitecture",
+    "conference_url": "https:\/\/cTuning.org\/ae\/micro2023.html",
+    "conflict_description": "This includes past advisors and students, people with the same affiliation, and any recent (~2 years) coauthors and collaborators.",
+    "conflict_visibility": "if_authors_visible",
+    "decision": [
+        {
+            "id": 1,
+            "name": "Artifact passed evaluation with at least one ACM badge",
+            "category": "accept"
+        },
+        {
+            "id": -1,
+            "name": "Artifact did not pass evaluation",
+            "category": "reject"
+        }
+    ],
+    "decision_statistics_public": false,
+    "decision_visibility_author": "yes",
+    "decision_visibility_author_condition": "",
+    "decision_visibility_reviewer": "yes",
+    "draft_submission_early_visibility": false,
+    "email_default_cc": "suvinay@google.com, ksmurthy@google.com, grigori.fursin@ctuning.org",
+    "email_default_reply_to": "suvinay@google.com, ksmurthy@google.com, grigori.fursin@ctuning.org",
+    "final_done": "",
+    "final_edit_message": "Congratulations! The paper has been accepted. Update the paper’s final version here. {deadline} You may also edit paper contacts, allowing others to view reviews and make changes.",
+    "final_open": false,
+    "final_soft": "",
+    "format": [],
+    "home_message": "MICRO 2023 artifact evaluation website: <a href=\"https:\/\/cTuning.org\/ae\/micro2023.html\">cTuning.org\/ae\/micro2023.html<\/a>.",
+    "mailbody_requestreview": "",
+    "pc_warn_bulk_download": true,
+    "preference_instructions": "<p>A review preference is a small integer that indicates how much you want to review a submission. Positive numbers mean you want to review, negative numbers mean you don’t, and −100 means you think you have a conflict. −20 to 20 is a typical range for real preferences; multiple submissions can have the same preference. The automatic assignment algorithm attempts to assign reviews in descending preference order, using topic scores to break ties. Different users’ preference values are not compared and need not use the same scale.<\/p>\n\n<p>The list shows all submissions and their topics (<span class=\"topic4\">high interest topics<\/span>, <span class=\"topic-2\">low interest topics<\/span>). “Topic score” summarizes your interest in the submission’s topics. Select a column heading to sort by that column. Enter preferences in the text boxes or on the paper pages. You may also upload preferences from a text file; see the “Download” and “Upload” links below the paper list.<\/p>",
+    "random_pids": true,
+    "response": [
+        {
+            "id": 1,
+            "name": "",
+            "open": "",
+            "done": "",
+            "grace": 0,
+            "condition": "all",
+            "wordlimit": 500,
+            "truncate": false,
+            "instructions": "The authors’ response should address reviewer concerns and correct misunderstandings. Make it short and to the point; the conference deadline has passed. Try to stay within {wordlimit} words."
+        }
+    ],
+    "response_active": false,
+    "review": [
+        {
+            "id": 3,
+            "name": "Full-Evaluation",
+            "soft": "",
+            "done": "",
+            "external_soft": "",
+            "external_done": ""
+        },
+        {
+            "id": 2,
+            "name": "Kick-the-Tires",
+            "soft": "",
+            "done": "",
+            "external_soft": "",
+            "external_done": ""
+        }
+    ],
+    "review_blind": "blind",
+    "review_default_external_round": "",
+    "review_default_round": "Kick-the-Tires",
+    "review_identity_visibility_external": "after_review",
+    "review_identity_visibility_pc": false,
+    "review_open": false,
+    "review_proposal": "no",
+    "review_proposal_editable": "no",
+    "review_rating": "pc",
+    "review_self_assign": true,
+    "review_terms": "Please, use the following guidelines to review artifacts: <a href=\"https:\/\/cTuning.org\/ae\/reviewing.html\">cTuning.org\/ae\/reviewing.html<\/a>.",
+    "review_visibility_author": "yes",
+    "review_visibility_author_condition": "",
+    "review_visibility_author_tags": "",
+    "review_visibility_external": true,
+    "review_visibility_lead": true,
+    "review_visibility_pc": "assignment_complete",
+    "rf": [
+        {
+            "id": "s04",
+            "name": "Evaluator expertise",
+            "order": 1,
+            "type": "radio",
+            "description": "",
+            "required": true,
+            "visibility": "au",
+            "condition": "all",
+            "values": [
+                {
+                    "id": 1,
+                    "symbol": 1,
+                    "name": "Some familiarity",
+                    "order": 1
+                },
+                {
+                    "id": 2,
+                    "symbol": 2,
+                    "name": "Knowledgeable",
+                    "order": 2
+                },
+                {
+                    "id": 3,
+                    "symbol": 3,
+                    "name": "Expert",
+                    "order": 3
+                }
+            ],
+            "scheme": "svr"
+        },
+        {
+            "id": "s01",
+            "name": "Artifact publicly available?",
+            "order": 2,
+            "type": "radio",
+            "description": "The author-created artifacts relevant to this paper will receive an ACM \"artifact available\" badge <strong>only if<\/strong> they have been placed on a publicly accessible archival repository such as Zenodo, FigShare and Dryad. A DOI will be then assigned to their artifacts and must be provided in the Artifact Appendix!\n\n<p>Note: publisher repositories, institutional repositories or open commercial repositories are acceptable only if they have a declared plan to enable permanent accessibility! Personal web pages, GitHub, GitLab, BitBucket, Google Drive and DropBox are not acceptable for this purpose!<\/p>\n\n<p>Artifacts do not need to have been formally evaluated in order for an article to receive this badge. In addition, they need not be complete in the sense described above. They simply need to be relevant to the study and add value beyond the text in the article. Such artifacts could be something as simple as the data from which the figures are drawn, or as complex as a complete software system under study.<\/p>",
+            "required": true,
+            "visibility": "au",
+            "condition": "all",
+            "values": [
+                {
+                    "id": 1,
+                    "symbol": 1,
+                    "name": "Publicly available",
+                    "order": 1
+                },
+                {
+                    "id": 2,
+                    "symbol": 2,
+                    "name": "Not publicly available",
+                    "order": 2
+                }
+            ],
+            "scheme": "svr"
+        },
+        {
+            "id": "s02",
+            "name": "Artifact functional?",
+            "order": 3,
+            "type": "radio",
+            "description": "<ul>\n\n <li>Package complete?\n  <ul>\n    <li>All components relevant to evaluation are included in the \npackage?<\/li>\n  <\/ul>\n <\/li>\n <li>Well documented?\n  <ul>\n    <li>Enough to understand, install and evaluate \nartifact?<\/li>\n  <\/ul>\n <\/li>\n <li>Exercisable?\n  <ul>\n    <li>Includes scripts and\/or software to perform appropriate \nexperiments and generate results?<\/li>\n  <\/ul>\n <\/li>\n <li>Consistent?\n  <ul>\n    <li>Artifacts are relevant to the associated paper and \ncontribute in some inherent way to the generation of its main \nresults?<\/li>\n  <\/ul>\n <\/li>\n<\/ul>\n\nThe artifacts associated with the paper will receive an \"Artifacts Evaluated - Functional\" badge <strong>only if<\/strong> they are found to be documented, consistent, complete, exercisable, and include appropriate evidence of verification and validation.",
+            "required": true,
+            "visibility": "au",
+            "condition": "all",
+            "values": [
+                {
+                    "id": 1,
+                    "symbol": 1,
+                    "name": "Artifact functional badge should be awarded",
+                    "order": 1
+                },
+                {
+                    "id": 2,
+                    "symbol": 2,
+                    "name": "Badge may be awarded (minor issues, specify below)",
+                    "order": 2
+                },
+                {
+                    "id": 3,
+                    "symbol": 3,
+                    "name": "Badge should not be awarded (major issues, specify below)",
+                    "order": 3
+                }
+            ],
+            "scheme": "svr"
+        },
+        {
+            "id": "s03",
+            "name": "Key results reproduced?",
+            "order": 4,
+            "type": "radio",
+            "description": "Was it possible to validate the key results from the paper using provided artifacts? \n\nThe artifacts associated with the paper will receive a Results Reproduced badge only if the main results of the paper have been obtained in a subsequent study by a person or team other than the authors, using, in part, artifacts provided by the author.\nNote that since it may take weeks and even months to rerun some complex experiments such as deep learning model training, it may not be possible to award this badge to every artifact.",
+            "required": true,
+            "visibility": "au",
+            "condition": "all",
+            "values": [
+                {
+                    "id": 1,
+                    "symbol": 1,
+                    "name": "Results Reproduced badge should be awarded",
+                    "order": 1
+                },
+                {
+                    "id": 2,
+                    "symbol": 2,
+                    "name": "Badge may be awarded",
+                    "order": 2
+                },
+                {
+                    "id": 3,
+                    "symbol": 3,
+                    "name": "Badge should not be awarded",
+                    "order": 3
+                }
+            ],
+            "scheme": "svr"
+        },
+        {
+            "id": "s07",
+            "name": "Artifact reusable? (pilot project with MLCommons)",
+            "order": 5,
+            "type": "radio",
+            "description": "Since criteria for the ACM reusability badge are very vague, we partnered with the <a href=\"https:\/\/github.com\/mlcommons\/ck\/blob\/master\/docs\/taskforce.md\">MLCommons task force on automation and reproducibility<\/a> to add their <a href=\"https:\/\/github.com\/mlcommons\/ck\/blob\/master\/docs\/README.md\">unified interface<\/a> to the submitted artifacts to make them more portable, reproducible and reusable. It is optional and we will use it as a possible criteria to obtain the ACM \"reusability badge\". Select this box if you have already added this interface yourself using <a href=\"https:\/\/github.com\/mlcommons\/ck\/blob\/master\/docs\/tutorials\/common-interface-to-reproduce-research-projects.md\">this tutorial<\/a>. Don't worry if you did not - join this <a href=\"https:\/\/discord.gg\/JjWNWXKxwT\">public Discord server<\/a> to get help from the community and MLCommons to add this interface to your artifacts and prepare your project for evaluation.",
+            "required": true,
+            "visibility": "au",
+            "condition": "all",
+            "values": [
+                {
+                    "id": 1,
+                    "symbol": 1,
+                    "name": "Artifact reusability badge should be awarded (MLCommons CM automation is used to prepare and reproduce key results)",
+                    "order": 1
+                },
+                {
+                    "id": 2,
+                    "symbol": 2,
+                    "name": "Badge may be awarded (minor issues, specify below)",
+                    "order": 2
+                },
+                {
+                    "id": 3,
+                    "symbol": 3,
+                    "name": "Badge should not be awarded (major issues, specify below)",
+                    "order": 3
+                }
+            ],
+            "scheme": "sv"
+        },
+        {
+            "id": "t01",
+            "name": "Comments for authors",
+            "order": 6,
+            "type": "text",
+            "description": "",
+            "required": false,
+            "visibility": "au",
+            "condition": "all"
+        },
+        {
+            "id": "s05",
+            "name": "Distinguished artifact?",
+            "order": 7,
+            "type": "radio",
+            "description": "Would you like to nominate this artifact for distinguished artifact award? Why?\n\nArtifact must be publicly available, functional, reproducible and easily customizable and reusable!",
+            "required": true,
+            "visibility": "au",
+            "condition": "all",
+            "values": [
+                {
+                    "id": 1,
+                    "symbol": 1,
+                    "name": "Nominate for distinguished artifact",
+                    "order": 1
+                },
+                {
+                    "id": 2,
+                    "symbol": 2,
+                    "name": "Do not nominate for distinguished artifact",
+                    "order": 2
+                }
+            ],
+            "scheme": "svr"
+        },
+        {
+            "id": "s06",
+            "name": "Final Review",
+            "order": 8,
+            "type": "radio",
+            "description": "Is this your final review (after kick-the-tires).",
+            "required": true,
+            "visibility": "au",
+            "condition": "all",
+            "values": [
+                {
+                    "id": 1,
+                    "symbol": 1,
+                    "name": "Yes, final review.",
+                    "order": 1
+                },
+                {
+                    "id": 2,
+                    "symbol": 2,
+                    "name": "No, kick-the-tires.",
+                    "order": 2
+                }
+            ],
+            "scheme": "svr"
+        }
+    ],
+    "sf": [
+        {
+            "id": 1,
+            "name": "DOI URL",
+            "order": 1,
+            "type": "text",
+            "description": "Provide DOI URL if you would like to receive the \"artifact available\" badge (for example using Zenodo)! Note that you can provide it at the very end of the AE process. You can also submit the updated version of your artifact to Zenodo or other archives at the end of AE.",
+            "required": "no",
+            "display": "prominent",
+            "visibility": "all",
+            "presence": "all"
+        },
+        {
+            "id": 2,
+            "name": "Proprietary or third-party artifacts required?",
+            "order": 2,
+            "type": "checkbox",
+            "description": "Will evaluators need to download third-party and\/or proprietary artifacts (software, data sets, models) such as Intel compilers, SPEC benchmarks, etc? Please, specify them in dependencies!",
+            "required": "no",
+            "display": "prominent",
+            "visibility": "all",
+            "presence": "all"
+        },
+        {
+            "id": 3,
+            "name": "Hardware dependencies",
+            "order": 3,
+            "type": "text",
+            "description": "Informally describe hardware dependencies (including cloud resources or specialized hardware) required to find appropriate evaluators",
+            "required": "no",
+            "display": "prominent",
+            "visibility": "all",
+            "presence": "all"
+        },
+        {
+            "id": 4,
+            "name": "Software dependencies",
+            "order": 4,
+            "type": "text",
+            "description": "Informally describe software dependencies required to find appropriate evaluators",
+            "required": "no",
+            "display": "prominent",
+            "visibility": "all",
+            "presence": "all"
+        },
+        {
+            "id": 5,
+            "name": "Data dependencies",
+            "order": 5,
+            "type": "text",
+            "description": "Informally describe data dependencies required to find appropriate evaluators",
+            "required": "no",
+            "display": "prominent",
+            "visibility": "all",
+            "presence": "all"
+        },
+        {
+            "id": 6,
+            "name": "Key results to be reproduced",
+            "order": 6,
+            "type": "text",
+            "description": "Describe the key results to be reproduced. You can reference figures and tables from your paper.",
+            "required": "no",
+            "display": "prominent",
+            "visibility": "all",
+            "presence": "all"
+        },
+        {
+            "id": 7,
+            "name": "Is MLCommons interface for reusability provided (for the ACM reusability badge)?",
+            "order": 1000,
+            "type": "checkbox",
+            "description": "Since criteria for the ACM reusability badge are very vague, we partnered with the <a href=\"https:\/\/github.com\/mlcommons\/ck\/blob\/master\/docs\/taskforce.md\">MLCommons task force on automation and reproducibility<\/a> to add their <a href=\"https:\/\/github.com\/mlcommons\/ck\/blob\/master\/docs\/README.md\">unified interface<\/a> to the submitted artifacts to make them more portable, reproducible and reusable. It is optional and we will use it as a possible criteria to obtain the ACM \"reusability badge\". Select this box if you have already added this interface yourself using <a href=\"https:\/\/github.com\/mlcommons\/ck\/blob\/master\/docs\/tutorials\/common-interface-to-reproduce-research-projects.md\">this tutorial<\/a>. Don't worry if you did not - join this <a href=\"https:\/\/discord.gg\/JjWNWXKxwT\">public Discord server<\/a> to get help from the community and MLCommons to add this interface to your artifacts and prepare your project for evaluation.",
+            "required": "no",
+            "display": "topics",
+            "visibility": "all",
+            "presence": "all"
+        }
+    ],
+    "sf_abstract": "required",
+    "sf_author_max": 0,
+    "sf_author_min": 0,
+    "sf_collaborators": false,
+    "sf_pc_conflict_types": false,
+    "sf_pc_conflicts": true,
+    "sf_pdf_submission": "required",
+    "shepherd_allow_external": false,
+    "shepherd_visibility": true,
+    "site_contact_email": "Grigori.Fursin@cTuning.org",
+    "site_contact_name": "",
+    "submission": [],
+    "submission_done": "",
+    "submission_edit_message": "Please, prepare your submission as described at <a href=\"https:\/\/cTuning.org\/ae\/micro2023.html\">MICRO 2023 AE website<\/a> . Use the same title as in your original paper. Do not forget to provide a list of hardware, software, benchmark and dataset dependencies in your abstract - this is essential to find appropriate evaluators! Submit a PDF of your paper with Artifact Appendix attached! Your artifact will be reviewed according to the \nfollowing guidelines: <a href=\"https:\/\/cTuning.org\/ae\/reviewing.html\">cTuning.org\/ae\/reviewing.html<\/a>.",
+    "submission_freeze": false,
+    "submission_grace": 3600,
+    "submission_open": false,
+    "submission_registration": "",
+    "submission_terms": "",
+    "submission_withdraw": "only_incomplete",
+    "submitted_document_early_visibility": false,
+    "tag_hidden": "",
+    "tag_rank": "",
+    "tag_readonly": "accept acm:* acm:artifacts-available acm:artifacts-evaluated-functional acm:artifacts-evaluated-reusable acm:results-validated-reproduced reject",
+    "tag_sitewide": "accept acm:* acm:artifacts-available acm:artifacts-evaluated-functional acm:artifacts-evaluated-reusable acm:results-validated-reproduced reject",
+    "tag_style": [
+        {
+            "style": "red",
+            "tags": "acm:artifacts-evaluated-functional"
+        },
+        {
+            "style": "orange",
+            "tags": "acm:artifacts-evaluated-reusable"
+        },
+        {
+            "style": "yellow",
+            "tags": ""
+        },
+        {
+            "style": "green",
+            "tags": "acm:artifacts-available"
+        },
+        {
+            "style": "blue",
+            "tags": "acm:results-validated-reproduced"
+        },
+        {
+            "style": "purple",
+            "tags": ""
+        },
+        {
+            "style": "gray",
+            "tags": ""
+        },
+        {
+            "style": "white",
+            "tags": ""
+        },
+        {
+            "style": "bold",
+            "tags": ""
+        },
+        {
+            "style": "italic",
+            "tags": ""
+        },
+        {
+            "style": "underline",
+            "tags": ""
+        },
+        {
+            "style": "strikethrough",
+            "tags": ""
+        },
+        {
+            "style": "big",
+            "tags": ""
+        },
+        {
+            "style": "small",
+            "tags": ""
+        },
+        {
+            "style": "dim",
+            "tags": ""
+        }
+    ],
+    "tag_visibility_conflict": false,
+    "tag_vote_allotment": "",
+    "tag_vote_approval": "",
+    "tag_vote_secret_ballot": false,
+    "timezone": "AoE (Anywhere on Earth)",
+    "topic": [
+        {
+            "id": 1,
+            "name": "3D integration"
+        },
+        {
+            "id": 2,
+            "name": "accelerators"
+        },
+        {
+            "id": 3,
+            "name": "approximate computing"
+        },
+        {
+            "id": 4,
+            "name": "Architecture"
+        },
+        {
+            "id": 5,
+            "name": "ASICs"
+        },
+        {
+            "id": 6,
+            "name": "benchmarking, simulation, and emulation technologies"
+        },
+        {
+            "id": 7,
+            "name": "binary instrumentation"
+        },
+        {
+            "id": 8,
+            "name": "branch prediction"
+        },
+        {
+            "id": 9,
+            "name": "cache architectures"
+        },
+        {
+            "id": 10,
+            "name": "case studies of real-world or experimental systems"
+        },
+        {
+            "id": 11,
+            "name": "cloud computing systems"
+        },
+        {
+            "id": 12,
+            "name": "cloud programming models and applications"
+        },
+        {
+            "id": 13,
+            "name": "code generation and synthesis"
+        },
+        {
+            "id": 14,
+            "name": "compiler techniques and optimizations"
+        },
+        {
+            "id": 15,
+            "name": "data analytics"
+        },
+        {
+            "id": 16,
+            "name": "data center systems architecture"
+        },
+        {
+            "id": 17,
+            "name": "data management"
+        },
+        {
+            "id": 18,
+            "name": "database accelerators"
+        },
+        {
+            "id": 19,
+            "name": "debugging correctness and performance"
+        },
+        {
+            "id": 20,
+            "name": "deep learning systems"
+        },
+        {
+            "id": 21,
+            "name": "design tools (synthesis, hardware generation, etc)"
+        },
+        {
+            "id": 22,
+            "name": "distributed systems"
+        },
+        {
+            "id": 23,
+            "name": "domain-specific languages"
+        },
+        {
+            "id": 24,
+            "name": "dynamic analysis"
+        },
+        {
+            "id": 25,
+            "name": "embedded systems, IoT, edge computing"
+        },
+        {
+            "id": 26,
+            "name": "FGPA software &amp;amp;amp; tools"
+        },
+        {
+            "id": 27,
+            "name": "file systems"
+        },
+        {
+            "id": 28,
+            "name": "formal verification &amp;amp;amp; testing"
+        },
+        {
+            "id": 29,
+            "name": "FPGA architectures"
+        },
+        {
+            "id": 30,
+            "name": "GPU microarchitecture"
+        },
+        {
+            "id": 31,
+            "name": "GPU systems"
+        },
+        {
+            "id": 32,
+            "name": "graph processing"
+        },
+        {
+            "id": 33,
+            "name": "hardware security"
+        },
+        {
+            "id": 34,
+            "name": "heterogeneous systems"
+        },
+        {
+            "id": 35,
+            "name": "high-performance computing"
+        },
+        {
+            "id": 36,
+            "name": "human factors, user evaluations, usability"
+        },
+        {
+            "id": 37,
+            "name": "interconnects (chip, system, and datacenter scale)"
+        },
+        {
+            "id": 38,
+            "name": "intermittent computing"
+        },
+        {
+            "id": 39,
+            "name": "Internet services"
+        },
+        {
+            "id": 40,
+            "name": "machine learning for systems"
+        },
+        {
+            "id": 41,
+            "name": "main memory"
+        },
+        {
+            "id": 42,
+            "name": "managed languages and runtimes"
+        },
+        {
+            "id": 43,
+            "name": "memory consistency models"
+        },
+        {
+            "id": 44,
+            "name": "memory management and garbage collection"
+        },
+        {
+            "id": 45,
+            "name": "memory\/storage technologies and architectures"
+        },
+        {
+            "id": 46,
+            "name": "microarchitecture"
+        },
+        {
+            "id": 47,
+            "name": "mobile systems"
+        },
+        {
+            "id": 48,
+            "name": "molecular computing"
+        },
+        {
+            "id": 49,
+            "name": "multicore architectures and systems"
+        },
+        {
+            "id": 50,
+            "name": "networking and switch architecture\/programming (off-chip networks)"
+        },
+        {
+            "id": 51,
+            "name": "non-ML emerging applications (PL, architecture and system support)"
+        },
+        {
+            "id": 52,
+            "name": "non-traditional computing systems, including emerging devices, bio, molecular, etc."
+        },
+        {
+            "id": 53,
+            "name": "on-chip networks"
+        },
+        {
+            "id": 54,
+            "name": "open source hardware"
+        },
+        {
+            "id": 55,
+            "name": "operating systems"
+        },
+        {
+            "id": 56,
+            "name": "parallelism and concurrency"
+        },
+        {
+            "id": 57,
+            "name": "performance and quality of service"
+        },
+        {
+            "id": 58,
+            "name": "persistent memory"
+        },
+        {
+            "id": 59,
+            "name": "PL and system support for GPUs"
+        },
+        {
+            "id": 60,
+            "name": "power, energy, and thermal management"
+        },
+        {
+            "id": 61,
+            "name": "privacy"
+        },
+        {
+            "id": 62,
+            "name": "Programming Languages"
+        },
+        {
+            "id": 63,
+            "name": "programming models, languages, and compilation"
+        },
+        {
+            "id": 64,
+            "name": "quantum computing (hardware, software, systems)"
+        },
+        {
+            "id": 65,
+            "name": "real-time systems"
+        },
+        {
+            "id": 66,
+            "name": "reconfigurable computing"
+        },
+        {
+            "id": 67,
+            "name": "reliability and availability"
+        },
+        {
+            "id": 68,
+            "name": "runtime systems"
+        },
+        {
+            "id": 69,
+            "name": "scheduling and resource management"
+        },
+        {
+            "id": 70,
+            "name": "serverless and functions-as-a-service"
+        },
+        {
+            "id": 71,
+            "name": "shared memory systems (including cache coherence)"
+        },
+        {
+            "id": 72,
+            "name": "software security"
+        },
+        {
+            "id": 73,
+            "name": "static analysis"
+        },
+        {
+            "id": 74,
+            "name": "storage systems"
+        },
+        {
+            "id": 75,
+            "name": "sustainability"
+        },
+        {
+            "id": 76,
+            "name": "symbolic computation"
+        },
+        {
+            "id": 77,
+            "name": "synchronization"
+        },
+        {
+            "id": 78,
+            "name": "Systems"
+        },
+        {
+            "id": 79,
+            "name": "systems for machine learning"
+        },
+        {
+            "id": 80,
+            "name": "tensor computation (dense and sparse)"
+        },
+        {
+            "id": 81,
+            "name": "virtualization"
+        }
+    ],
+    "topic_max": 0,
+    "topic_min": 0,
+    "track": [
+        {
+            "tag": "any",
+            "perm": {
+                "view": "all",
+                "viewpdf": "all",
+                "viewrev": "all",
+                "viewrevid": "all",
+                "assrev": "all",
+                "unassrev": "all",
+                "viewtracker": "all",
+                "admin": "none",
+                "hiddentag": "none",
+                "viewallrev": "all"
+            }
+        }
+    ]
+}
