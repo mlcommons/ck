@@ -82,7 +82,7 @@ def preprocess(i):
         f.write('ENTRYPOINT ' + entry_point + EOL)
 
     for key,value in config['ENV'].items():
-        f.write('ENV '+ key + "=" + value + EOL)
+        f.write('ENV '+ key + "=\"" + value + "\""+ EOL)
     for cmd in config['RUN_CMDS']:
         f.write('RUN '+ cmd + EOL)
 
