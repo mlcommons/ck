@@ -12,6 +12,7 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -50,11 +51,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,ml-model,dlrm,raw,terabyte,criteo-terabyte,criteo,recommendation[,variations] `
+1. `cm run script --tags=get,ml-model,dlrm,raw,terabyte,criteo-terabyte,criteo,recommendation[,variations] [--input_flags]`
 
-2. `cm run script "get ml-model dlrm raw terabyte criteo-terabyte criteo recommendation[,variations]" `
+2. `cm run script "get ml-model dlrm raw terabyte criteo-terabyte criteo recommendation[,variations]" [--input_flags]`
 
-3. `cm run script 8fa7582c603a4db3 `
+3. `cm run script 8fa7582c603a4db3 [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -131,12 +132,21 @@ ___
         - *CM_ML_MODEL_ACCURACY*: `0.8025`
         - *CM_PACKAGE_URL*: `https://dlrm.s3-us-west-1.amazonaws.com/models/tb00_40M.pt`
         - *CM_ML_MODEL_DLRM_MAX_INDEX_RANGE*: `40000000`
+        - *CM_DOWNLOAD_CHECKSUM*: `2d49a5288cddb37c3c64860a06d79bb9`
       - Workflow:
     * `_pytorch,fp32,debug`
       - Environment variables:
         - *CM_ML_MODEL_ACCURACY*: `0.8107`
         - *CM_PACKAGE_URL*: `https://dlrm.s3-us-west-1.amazonaws.com/models/tb0875_10M.pt`
         - *CM_ML_MODEL_DLRM_MAX_INDEX_RANGE*: `10000000`
+      - Workflow:
+    * `_pytorch,fp32,weight_sharded`
+      - Environment variables:
+        - *CM_ML_MODEL_ACCURACY*: `0.8025`
+        - *CM_PACKAGE_URL*: `https://cloud.mlcommons.org/index.php/s/XzfSeLgW8FYfR3S/download`
+        - *CM_DAE_EXTRACT_DOWNLOADED*: `yes`
+        - *CM_DAE_EXTRACT_TO_FOLDER*: `weights.zip`
+        - *CM_ML_MODEL_DLRM_MAX_INDEX_RANGE*: `40000000`
       - Workflow:
 
     </details>
@@ -173,9 +183,36 @@ ___
     </details>
 
 
+  * Group "**type**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_weight_sharded`** (default)
+      - Environment variables:
+        - *CM_DLRM_MULTIHOT_MODEL*: `yes`
+      - Workflow:
+
+    </details>
+
+
 #### Default variations
 
-`_fp32,_pytorch`
+`_fp32,_pytorch,_weight_sharded`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--dir=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "dir":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
@@ -193,8 +230,10 @@ ___
 <summary>Click here to expand this section.</summary>
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte/_cm.json)
+  1. Run "preprocess" function from customize.py
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte/_cm.json)***
+     * download-and-extract
+       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run native script if exists***
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte/_cm.json)
@@ -209,9 +248,6 @@ ___
 * `CM_ML_MODEL_*`
 #### New environment keys auto-detected from customize
 
-* `CM_ML_MODEL_FILE`
-* `CM_ML_MODEL_FILE_WITH_PATH`
-* `CM_ML_MODEL_PATH`
 ___
 ### Maintainers
 
