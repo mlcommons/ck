@@ -96,7 +96,6 @@ def postprocess(i):
         folderpath = env.get('CM_EXTRACT_EXTRACT_TO_PATH', os.getcwd())
         filepath = os.path.join(folderpath, filename)
     else:
-        filename = os.getcwd()
         filepath = os.getcwd() #extracted to the root cache folder
 
     if os.path.exists(filepath):

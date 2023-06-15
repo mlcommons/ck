@@ -8,7 +8,9 @@
     "CM_ML_MODEL": "dlrm",
     "CM_ML_MODEL_DATASET": "criteo-terabyte",
     "CM_ML_MODEL_RETRAINING": "no",
-    "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no"
+    "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no",
+    "CM_EXTRACT_FINAL_ENV_NAME":  "CM_ML_MODEL_FILE_WITH_PATH",
+    "CM_DOWNLOAD_FINAL_ENV_NAME":  "CM_ML_MODEL_FILE_WITH_PATH"
   },
   "new_env_keys": [
     "CM_ML_MODEL_*"
@@ -28,7 +30,7 @@
   ],
   "prehook_deps": [
     {
-      "tags": "download-and-extract",
+      "tags": "download-and-extract,_wget",
       "env": {
         "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_FILE>>>"
       },
@@ -86,8 +88,12 @@
         "CM_ML_MODEL_ACCURACY": "0.8025",
         "CM_PACKAGE_URL": "https://cloud.mlcommons.org/index.php/s/XzfSeLgW8FYfR3S/download",
         "CM_DAE_EXTRACT_DOWNLOADED": "yes",
-        "CM_DAE_EXTRACT_TO_FOLDER": "weights.zip",
-        "CM_ML_MODEL_DLRM_MAX_INDEX_RANGE": "40000000"
+        "CM_ML_MODEL_DLRM_MAX_INDEX_RANGE": "40000000",
+        "CM_DOWNLOAD_FILENAME": "download",
+        "CM_ML_MODEL_FILE": "model_weights",
+        "CM_EXTRACT_UNZIP": "yes",
+        "CM_TMP_MODEL_ADDITIONAL_NAME": "",
+        "CM_DOWNLOAD_CHECKSUM": "7b462d44cb4e99cece5420a654188b44"
       }
     },
     "debug": {
