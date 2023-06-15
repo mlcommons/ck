@@ -102,7 +102,10 @@ def preprocess(i):
             dataset_options += " --dataset-list "+ os.path.join(env['CM_DATASET_PATH'], "val_map.txt")
         env['DATA_DIR'] = env.get('CM_DATASET_PREPROCESSED_PATH')
     else:
-        env['DATA_DIR'] = env.get('CM_DATASET_PATH')
+        if 'CM_DATASET_PREPROCESSED_PATH' in env:
+            env['DATA_DIR'] = env.get('CM_DATASET_PREPROCESSED_PATH')
+        else:
+            env['DATA_DIR'] = env.get('CM_DATASET_PATH')
         dataset_options = ''
 
     if env.get('CM_MLPERF_EXTRA_DATASET_ARGS','') != '':
@@ -236,11 +239,16 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
 
     elif "dlrm" in env['CM_MODEL']: # DLRM is in draft stage
 
-        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_DLRM_PATH'], "pytorch")
+        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_DLRM_PATH'], "..", "dlrm_v2", "pytorch")
         if 'terabyte' in env['CM_ML_MODEL_DATASET']:
             dataset = "terabyte"
         elif 'kaggle' in env['CM_ML_MODEL_DATASET']:
             dataset = "kaggle"
+        elif 'multihot-criteo-sample' in env['CM_ML_MODEL_DATASET']:
+            dataset = "multihot-criteo-sample"
+        elif 'multihot-criteo' in env['CM_ML_MODEL_DATASET']:
+            dataset = "multihot-criteo"
+
         if env.get('CM_MLPERF_BIN_LOADER', '') == 'yes':
             mlperf_bin_loader_string = " --mlperf-bin-loader"
         else:
@@ -255,17 +263,18 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
             env['CUDA_VISIBLE_DEVICES'] = "0"
         else:
             gpu_options = ""
+            env['WORLD_SIZE'] = "1"
 
         if env['CM_MLPERF_LOADGEN_MODE'] == "accuracy" and env['CM_MLPERF_LOADGEN_SCENARIO'] == "Offline":
             mode_extra_options += " --samples-per-query-offline=1"
 
-        #cmd = cmd.replace("--count", "--count-samples")
         cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + \
             ' dlrm ' + dataset + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             config + mlperf_bin_loader_string + \
-            ' --test-num-workers=1 --samples-to-aggregate-quantile-file=./tools/dist_quantile.txt ' + \
+            ' --samples-to-aggregate-quantile-file=./tools/dist_quantile.txt ' + \
             scenario_extra_options + mode_extra_options + dataset_options + gpu_options
+        cmd = cmd.replace("--count", "--count-queries")
 
     return cmd
 

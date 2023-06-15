@@ -29,7 +29,8 @@ Such badges will be printed on the 1st page of the paper and can be made availab
 such as the <a href="https://dl.acm.org">ACM DL</a>.
 
 Authors and reviewers are encouraged to check the <a href="faq.md">AE FAQ</a>
-and contact the community via the <a href="https://groups.google.com/forum/#!forum/artifact-evaluation">dedicated AE google group</a> 
+and contact the community via our [Discord server for automation and reproducibility](https://discord.gg/JjWNWXKxwT) 
+or the <a href="https://groups.google.com/forum/#!forum/artifact-evaluation">dedicated AE google group</a> 
 in case of questions or suggestions.
 
 

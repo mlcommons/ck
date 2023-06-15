@@ -126,8 +126,8 @@
           "names": [ "python3" ]
         },
         {
-          "tags": "get,tensorflow",
-          "version": "v2.4.0"
+          "tags": "get,generic-python-lib,_tensorflow",
+          "version": "2.4.0"
         }
       ],
       "env": {

@@ -9,6 +9,16 @@
   "deps": [
     {
       "tags": "detect,cpu"
+    },
+    {
+      "tags": "detect,os"
+    },
+    {
+      "tags": "get,generic-sys-util,_zlib",
+      "enable_if_env": {
+        "CM_HOST_OS_FLAVOR":  [ "ubuntu" ],
+        "CM_HOST_OS_VERSION": [ "18.04" ]
+      }
     }
   ],
   "default_env": {

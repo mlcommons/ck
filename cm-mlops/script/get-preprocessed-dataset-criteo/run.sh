@@ -1,6 +1,7 @@
 #!/bin/bash
 
 CUR=$PWD
+
 if [[ ${CM_CRITEO_FAKE} == "yes" ]]; then
   exit 0
 else

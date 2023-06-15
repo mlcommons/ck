@@ -13,6 +13,9 @@
   "new_env_keys": [
     "CM_ML_MODEL_*"
   ],
+  "input_mapping": {
+    "dir": "CM_DOWNLOAD_PATH"
+  },
   "tags": [
     "get",
     "ml-model",
@@ -22,6 +25,19 @@
     "criteo-terabyte",
     "criteo",
     "recommendation"
+  ],
+  "prehook_deps": [
+    {
+      "tags": "download-and-extract",
+      "env": {
+        "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_FILE>>>"
+      },
+      "force_cache": true,
+      "extra_cache_tags": "ml-model,dlrm,terabyte,raw,ml-model-dlrm",
+      "update_tags_from_env_with_prefix": {
+        "_url.": [ "CM_PACKAGE_URL" ]
+      }
+    }
   ],
   "uid": "8fa7582c603a4db3",
   "variations": {
@@ -52,7 +68,7 @@
     "pytorch": {
       "env": {
         "CM_ML_MODEL_FRAMEWORK": "pytorch",
-	"CM_TMP_MODEL_ADDITIONAL_NAME": "dlrm_terabyte.pytorch"
+        "CM_TMP_MODEL_ADDITIONAL_NAME": "dlrm_terabyte.pytorch"
       },
       "group": "framework",
       "default": true
@@ -61,6 +77,16 @@
       "env": {
         "CM_ML_MODEL_ACCURACY": "0.8025",
         "CM_PACKAGE_URL": "https://dlrm.s3-us-west-1.amazonaws.com/models/tb00_40M.pt",
+        "CM_ML_MODEL_DLRM_MAX_INDEX_RANGE": "40000000",
+        "CM_DOWNLOAD_CHECKSUM": "2d49a5288cddb37c3c64860a06d79bb9"
+      }
+    },
+    "pytorch,fp32,weight_sharded": {
+      "env": {
+        "CM_ML_MODEL_ACCURACY": "0.8025",
+        "CM_PACKAGE_URL": "https://cloud.mlcommons.org/index.php/s/XzfSeLgW8FYfR3S/download",
+        "CM_DAE_EXTRACT_DOWNLOADED": "yes",
+        "CM_DAE_EXTRACT_TO_FOLDER": "weights.zip",
         "CM_ML_MODEL_DLRM_MAX_INDEX_RANGE": "40000000"
       }
     },
@@ -83,6 +109,13 @@
         "CM_ML_MODEL_DLRM_MAX_INDEX_RANGE": "10000000",
         "CM_UNTAR": "yes",
         "CM_ML_MODEL_FILE": "tb0875_10M.onnx"
+      }
+    },
+    "weight_sharded": {
+      "group": "type",
+      "default": true,
+      "env": {
+        "CM_DLRM_MULTIHOT_MODEL": "yes"
       }
     }
   }
