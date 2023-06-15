@@ -124,8 +124,8 @@ ___
            * get,python3
              * CM names: `--adr.['python3']...`
              - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-           * get,tensorflow
-             - CM script: [install-tensorflow-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src)
+           * get,generic-python-lib,_tensorflow
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
 
     </details>
 
