@@ -113,21 +113,19 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,git,repo,_repo.https://github.com/mlcommons/training_results_v2.1
              - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
-        1. ***Read "prehook_deps" on other CM scripts***
-           * download,file,_gdown,_url.https://drive.google.com/uc?id=1fbGClQMi2CoMv7fwrwTC5YYPooQBdcFW
-             - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
-           * download,file,_gdown,_url.https://drive.google.com/uc?id=1USK108J6hMM_d27xCHi738qBL8_BT1u1
-             - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
-           * download,file,_gdown,_url.https://drive.google.com/uc?id=1tmMgLwoBvbEJEHXh77sqrXYw5RpqT8R_
-             - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
-           * download-and-extract,file,_gdown,_extract,_url.https://drive.google.com/uc?id=14xV2OUGSQDG_yDBrmbSdcDC-QGeqpfs_
-             - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
-           * download,file,_gdown,_url.https://drive.google.com/uc?id=1chiTBljF0Eh1U5pKs6ureVHgSbtU8OG_
-             - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
-           * download,file,_gdown,_url.https://drive.google.com/uc?id=1Q47V3K3jFRkbJ2zGCrKkKk-n0fvMZsa0
-             - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
-           * download,file,_gdown,_url.https://drive.google.com/uc?id=1vAcVmXSLsLeQ1q7gvHnQUSth5W_f_pwv
-             - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+    * `_reference`
+      - Environment variables:
+        - *CM_TMP_VARIATION*: `reference`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,mlperf,training,src
+             * CM names: `--adr.['mlperf-training-src']...`
+             - CM script: [get-mlperf-training-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src)
+           * get,python3
+             * CM names: `--adr.['python3']...`
+             - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+           * get,tensorflow
+             - CM script: [install-tensorflow-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src)
 
     </details>
 
@@ -168,8 +166,24 @@ ___
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-bert/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-bert/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-bert/_cm.json)
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-bert/_cm.json)***
+     * download,file,_gdown,_url.https://drive.google.com/uc?id=1fbGClQMi2CoMv7fwrwTC5YYPooQBdcFW
+       - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+     * download,file,_gdown,_url.https://drive.google.com/uc?id=1USK108J6hMM_d27xCHi738qBL8_BT1u1
+       - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+     * download,file,_gdown,_url.https://drive.google.com/uc?id=1tmMgLwoBvbEJEHXh77sqrXYw5RpqT8R_
+       - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+     * download-and-extract,file,_gdown,_extract,_url.https://drive.google.com/uc?id=14xV2OUGSQDG_yDBrmbSdcDC-QGeqpfs_
+       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
+     * download,file,_gdown,_url.https://drive.google.com/uc?id=1chiTBljF0Eh1U5pKs6ureVHgSbtU8OG_
+       - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+     * download,file,_gdown,_url.https://drive.google.com/uc?id=1Q47V3K3jFRkbJ2zGCrKkKk-n0fvMZsa0
+       - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+     * download,file,_gdown,_url.https://drive.google.com/uc?id=1vAcVmXSLsLeQ1q7gvHnQUSth5W_f_pwv
+       - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
   1. ***Run native script if exists***
+     * [run-nvidia.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-bert/run-nvidia.sh)
+     * [run-reference.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-bert/run-reference.sh)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-bert/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-bert/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-bert/customize.py)***
