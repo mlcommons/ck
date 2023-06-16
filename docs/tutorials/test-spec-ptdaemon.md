@@ -12,7 +12,7 @@ cm run script --tags=mlperf,power,server --device_type=49 --device_port=/dev/usb
 
 ## Start Power Client
 ```
-cm run script --tags=mlperf,power,server --power_server=<POWER_SERVER_IP> --max_amps=0.1 --max_volts=250
+cm run script --tags=mlperf,power,client --power_server=<POWER_SERVER_IP> --max_amps=0.1 --max_volts=250
 ```
 
 If `--max_amps=0` or `--max_volts=0` is given, the limits are ignored and both ranging and testing modes are done. If both the values are positive, ranging mode is skipped and testing mode happens with the provided limits. 
