@@ -708,6 +708,28 @@ variations:
       CM_MLPERF_QUANTIZATION: off
       CM_MLPERF_MODEL_PRECISION: float32
 
+  # Model precision
+  float16:
+    group: precision
+    add_deps_recursive:
+      ml-model:
+        tags:
+          _fp32
+    env:
+      CM_MLPERF_QUANTIZATION: off
+      CM_MLPERF_MODEL_PRECISION: float16
+
+  # Model precision
+  bfloat16:
+    group: precision
+    add_deps_recursive:
+      ml-model:
+        tags:
+          _fp32
+    env:
+      CM_MLPERF_QUANTIZATION: off
+      CM_MLPERF_MODEL_PRECISION: bfloat16
+
   int8:
     group: precision
     env:
