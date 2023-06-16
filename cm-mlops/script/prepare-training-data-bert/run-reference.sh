@@ -30,14 +30,17 @@ DATA_DIR=${CM_DATA_DIR:-"$PWD/data"}
 
 cd ${CM_RUN_DIR}
 mkdir -p ${DATA_DIR}/tfrecords
-cmd="python3 create_pretraining_data.py \
-   --input_file=${CM_BERT_DATA_DOWNLOAD_DIR}/results4 \
-   --output_file=${DATA_DIR}/tfrecords/part-00000-of-00500 \
-   --vocab_file=${CM_BERT_CONFIG_FILE_PATH} \
+for i in $(seq -f "05g" 0 499)
+do
+  cmd="python3 create_pretraining_data.py \
+   --input_file=${CM_BERT_DATA_DOWNLOAD_DIR}/results4/part-${i}-of-00500 \
+   --output_file=${DATA_DIR}/tfrecords/part-${i}-of-00500 \
+   --vocab_file=${CM_BERT_VOCAB_FILE_PATH} \
    --do_lower_case=True \
    --max_seq_length=512 \
    --max_predictions_per_seq=76 \
    --masked_lm_prob=0.15 \
    --random_seed=12345 \
    --dupe_factor=10"
-run "$cmd"
+  run "$cmd"
+done
