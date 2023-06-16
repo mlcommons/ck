@@ -30,7 +30,7 @@ DATA_DIR=${CM_DATA_DIR:-"$PWD/data"}
 
 cd ${CM_RUN_DIR}
 mkdir -p ${DATA_DIR}/tfrecords
-for i in $(seq -f "05g" 0 499)
+for i in $(seq -f "%05g" 0 499)
 do
   cmd="python3 create_pretraining_data.py \
    --input_file=${CM_BERT_DATA_DOWNLOAD_DIR}/results4/part-${i}-of-00500 \
