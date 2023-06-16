@@ -14,12 +14,12 @@ def preprocess(i):
         return {'return': 1, 'error': 'Invalid GIT_REPO_URL for MLPERF results'}
 
     r = automation.update_deps({'deps':meta['prehook_deps'],
-                                'update_deps':{
-                                    'get-git-repo':{
-                                       'tags':"_repo."+repo
-                                        }
-                                    }
-                                })
+        'update_deps':{
+            'get-git-repo':{
+                'tags':"_repo."+repo
+                }
+            }
+        })
     if r['return']>0: return r
     env['CM_MLPERF_RESULTS_REPO_COMMIT_MESSAGE'] = env.get('CM_MLPERF_RESULTS_REPO_COMMIT_MESSAGE', 'Added new results')
 

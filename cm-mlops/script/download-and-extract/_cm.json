@@ -34,6 +34,7 @@
   "posthook_deps": [
     {
       "tags": "extract,file",
+      "names": [ "extract-script" ],
       "update_tags_from_env_with_prefix": {
         "_path.": [
           "CM_DOWNLOAD_DOWNLOADED_PATH",

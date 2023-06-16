@@ -128,6 +128,11 @@
         {
           "tags": "get,generic-python-lib,_tensorflow",
           "version": "2.4.0"
+        },
+        {
+          "tags": "get,generic-python-lib,_protobuf",
+          "version_max": "3.20.1",
+          "version_max_usable": "3.20.1"
         }
       ],
       "env": {

@@ -42,6 +42,12 @@
   ],
   "uid": "dc440bd88e794a28",
   "variations": {
+    "mlcommons": {
+      "group": "src",
+      "env": {
+        "CM_GIT_URL": "https://github.com/mlcommons/training.git"
+      }
+    },
     "default": {
       "base": [
         "short-history"
@@ -76,6 +82,13 @@
       ],
       "env": {
         "CM_GIT_PATCH_FILENAMES": "nvidia-retinanet.patch,cpu_load.patch"
+      }
+    },
+    "cknowledge": {
+      "group": "src",
+      "default": true,
+      "env": {
+        "CM_GIT_URL": "https://github.com/cknowledge/training.git"
       }
     }
   },

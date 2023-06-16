@@ -33,4 +33,4 @@ def postprocess(i):
 
     env = i['env']
 
-    return {'return':1}
+    return {'return':0}

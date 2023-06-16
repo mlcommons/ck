@@ -93,6 +93,16 @@ You can find the logs after each run in the following directory on your host mac
 `$HOME/eembc/runner/sessions`.
 
 
+
+## Generate submission
+
+[Under development](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission).
+
+## Run submission checker and prepare report
+
+Follow this [guide](https://github.com/ctuning/mlcommons-ck/blob/master/cm-mlops/script/generate-mlperf-tiny-report/README-extra.md).
+
+
 ## The next steps
 
 Please follow the rest of this [tutorial](file:///D:/Work1/CM/ck/docs/tutorials/automate-mlperf-tiny.md#prepare-submission) 

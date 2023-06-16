@@ -13,6 +13,7 @@
     "docker_os_version": "CM_DOCKER_OS_VERSION",
     "file_path": "CM_DOCKERFILE_WITH_PATH",
     "gh_token": "CM_GH_TOKEN",
+    "fake_docker_deps": "CM_DOCKER_FAKE_DEPS",
     "image_repo": "CM_DOCKER_IMAGE_REPO",
     "image_tag": "CM_DOCKER_IMAGE_TAG",
     "real_run": "CM_REAL_RUN",
