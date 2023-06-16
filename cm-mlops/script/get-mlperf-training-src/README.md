@@ -138,9 +138,25 @@ ___
     </details>
 
 
+  * Group "**src**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_cknowledge`** (default)
+      - Environment variables:
+        - *CM_GIT_URL*: `https://github.com/cknowledge/training.git`
+      - Workflow:
+    * `_mlcommons`
+      - Environment variables:
+        - *CM_GIT_URL*: `https://github.com/mlcommons/training.git`
+      - Workflow:
+
+    </details>
+
+
 #### Default variations
 
-`_default`
+`_cknowledge,_default`
 #### Default environment
 
 <details>
