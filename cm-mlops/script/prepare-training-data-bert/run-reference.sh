@@ -70,6 +70,8 @@ fi
 
 FILENAME=${DATA_DIR}/tfrecords/eval_10k
 if [[ ${CM_MLPERF_TRAINING_CLEAN_TFRECORDS} != "yes" && -f ${FILENAME} && $(stat -c%s "$FILENAME") -gt 25000000 ]] ; then
+  echo "Skipping regenerating existing ${FILENAME}"
+else
   cmd="python3 pick_eval_samples.py \
   --input_tfrecord=${DATA_DIR}/eval_intermediate \
   --output_tfrecord=${DATA_DIR}/tfrecords/eval_10k \
