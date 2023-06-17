@@ -97,6 +97,7 @@
   ],
   "tags": [
     "prepare",
+    "mlperf",
     "training",
     "data",
     "input",

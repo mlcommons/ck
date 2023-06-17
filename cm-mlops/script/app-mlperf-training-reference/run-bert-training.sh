@@ -3,7 +3,7 @@
 export TF_XLA_FLAGS='--tf_xla_auto_jit=2'
 train_batch_size=24
 cmd="python run_pretraining.py \
-  --bert_config_file=${CM_MLPERF_TRAINING_BERT_VOCAB_PATH} \
+  --bert_config_file=${CM_MLPERF_TRAINING_BERT_CONFIG_PATH} \
   --output_dir=/tmp/output/ \
   --input_file=${CM_MLPERF_TRAINING_BERT_TFRECORDS_PATH}/part* \
   --nodo_eval \
