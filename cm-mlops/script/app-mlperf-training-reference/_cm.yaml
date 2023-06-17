@@ -98,7 +98,7 @@ deps:
     - prepare-data
     - bert-model
     enable_if_env:
-      CM_MODEL:
+      CM_MLPERF_MODEL:
       - bert
 
 
