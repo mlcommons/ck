@@ -14,6 +14,8 @@ def preprocess(i):
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
     datadir = env.get('CM_DATA_DIR', os.getcwd())
+    env['CM_DATA_DIR'] = datadir
+
     env['CM_BERT_CONFIG_DOWNLOAD_DIR'] = os.path.join(datadir, "phase1")
     env['CM_BERT_VOCAB_DOWNLOAD_DIR'] = os.path.join(datadir, "phase1")
     env['CM_BERT_DATA_DOWNLOAD_DIR'] = os.path.join(datadir, "download")
@@ -32,5 +34,11 @@ def preprocess(i):
 def postprocess(i):
 
     env = i['env']
+    datadir = env['CM_DATA_DIR']
+
+    if env.get("CM_TMP_VARIATION", "") == "nvidia":
+        env['CM_GET_DEPENDENT_CACHED_PATH'] = os.path.join(data_dir, "hdf5", "eval", "eval_all.hdf5")
+    elif env.get("CM_TMP_VARIATION", "") == "reference":
+        env['CM_GET_DEPENDENT_CACHED_PATH'] = os.path.join(data_dir, "tfrecords", "eval_10k")
 
     return {'return':0}

@@ -32,9 +32,8 @@ cd ${CM_RUN_DIR}
 mkdir -p ${DATA_DIR}/tfrecords
 for i in $(seq -f "%05g" 0 499)
 do
-  FILENAME=${DATA_DIR}/tfrecords/part-${i}-of-00500
-  FILESIZE=$(stat -c%s "$FILENAME")
-  if [[ ${FILESIZE} -gt 500000000 && ${CM_MLPERF_TRAINING_CLEAN_TFRECORDS} != "yes" ]] ; then
+  FILENAME="${DATA_DIR}/tfrecords/part-${i}-of-00500"
+  if [[ ${CM_MLPERF_TRAINING_CLEAN_TFRECORDS} != "yes" && -f ${FILENAME} && $(stat -c%s "$FILENAME") -gt 500000000 ]] ; then
     echo "Skipping regenerating existing ${FILENAME}"
     continue;
   fi
@@ -51,7 +50,11 @@ do
   run "$cmd"
 done
 
-cmd="python3 create_pretraining_data.py \
+FILENAME="${DATA_DIR}/eval_intermediate"
+if [[ ${CM_MLPERF_TRAINING_CLEAN_TFRECORDS} != "yes" && -f ${FILENAME} && $(stat -c%s "$FILENAME") -gt 800000000 ]] ; then
+  echo "Skipping regenerating existing ${FILENAME}"
+else
+  cmd="python3 create_pretraining_data.py \
   --input_file=${CM_BERT_DATA_DOWNLOAD_DIR}/results4/eval.txt \
   --output_file=${DATA_DIR}/eval_intermediate \
   --vocab_file=${CM_BERT_VOCAB_FILE_PATH} \
@@ -62,11 +65,15 @@ cmd="python3 create_pretraining_data.py \
   --random_seed=12345 \
   --dupe_factor=10"
 
-run "$cmd"
+  run "$cmd"
+fi
 
-cmd="python3 pick_eval_samples.py \
+FILENAME=${DATA_DIR}/tfrecords/eval_10k
+if [[ ${CM_MLPERF_TRAINING_CLEAN_TFRECORDS} != "yes" && -f ${FILENAME} && $(stat -c%s "$FILENAME") -gt 25000000 ]] ; then
+  cmd="python3 pick_eval_samples.py \
   --input_tfrecord=${DATA_DIR}/eval_intermediate \
   --output_tfrecord=${DATA_DIR}/tfrecords/eval_10k \
   --num_examples_to_pick=10000"
 
-run "$cmd"
+  run "$cmd"
+fi
