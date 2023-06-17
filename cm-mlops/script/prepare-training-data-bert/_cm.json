@@ -6,7 +6,8 @@
   "deps": [],
   "input_description": {},
   "input_mapping": {
-    "data_dir": "CM_DATA_DIR"
+    "data_dir": "CM_DATA_DIR",
+    "clean": "CM_MLPERF_TRAINING_CLEAN_TFRECORDS"
   },
   "new_env_keys": [],
   "new_state_keys": [],
