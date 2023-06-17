@@ -145,8 +145,12 @@ ___
         - *CM_ML_MODEL_ACCURACY*: `0.8025`
         - *CM_PACKAGE_URL*: `https://cloud.mlcommons.org/index.php/s/XzfSeLgW8FYfR3S/download`
         - *CM_DAE_EXTRACT_DOWNLOADED*: `yes`
-        - *CM_DAE_EXTRACT_TO_FOLDER*: `weights.zip`
         - *CM_ML_MODEL_DLRM_MAX_INDEX_RANGE*: `40000000`
+        - *CM_DOWNLOAD_FILENAME*: `download`
+        - *CM_ML_MODEL_FILE*: `model_weights`
+        - *CM_EXTRACT_UNZIP*: `yes`
+        - *CM_TMP_MODEL_ADDITIONAL_NAME*: ``
+        - *CM_DOWNLOAD_CHECKSUM*: `7b462d44cb4e99cece5420a654188b44`
       - Workflow:
 
     </details>
@@ -232,7 +236,7 @@ ___
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte/_cm.json)
   1. Run "preprocess" function from customize.py
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte/_cm.json)***
-     * download-and-extract
+     * download-and-extract,_wget
        - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run native script if exists***
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte/run.sh)
