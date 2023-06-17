@@ -34,7 +34,8 @@ def preprocess(i):
 def postprocess(i):
 
     env = i['env']
-    datadir = env['CM_DATA_DIR']
+
+    data_dir = env['CM_DATA_DIR']
 
     if env.get("CM_TMP_VARIATION", "") == "nvidia":
         env['CM_GET_DEPENDENT_CACHED_PATH'] = os.path.join(data_dir, "hdf5", "eval", "eval_all.hdf5")
