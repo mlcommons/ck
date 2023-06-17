@@ -36,10 +36,15 @@ def postprocess(i):
     env = i['env']
 
     data_dir = env['CM_DATA_DIR']
+    env['CM_MLPERF_TRAINING_BERT_DATA_PATH'] = data_dir
 
     if env.get("CM_TMP_VARIATION", "") == "nvidia":
         env['CM_GET_DEPENDENT_CACHED_PATH'] = os.path.join(data_dir, "hdf5", "eval", "eval_all.hdf5")
     elif env.get("CM_TMP_VARIATION", "") == "reference":
         env['CM_GET_DEPENDENT_CACHED_PATH'] = os.path.join(data_dir, "tfrecords", "eval_10k")
+        env['CM_MLPERF_TRAINING_BERT_TFRECORDS_PATH'] = os.path.join(data_dir, "tfrecords")
+
+    env['CM_MLPERF_TRAINING_BERT_VOCAB_PATH'] = env['CM_BERT_VOCAB_FILE_PATH']
+    env['CM_MLPERF_TRAINING_BERT_CONFIG_PATH'] = env['CM_BERT_CONFIG_FILE_PATH']
 
     return {'return':0}
