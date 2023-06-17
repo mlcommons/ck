@@ -70,18 +70,10 @@ deps:
     - training-src
 
   # Detect CUDA if required
-  - tags: get,cuda,_cudnn
+  - tags: get,cuda
     enable_if_env:
       CM_MLPERF_DEVICE:
       - cuda
-  # Detect TensorRT if required
-  - tags: get,nvidia,tensorrt
-    enable_if_env:
-      CM_MLPERF_BACKEND:
-      - tensorrt
-
-
-
 
 
   ## Torchvision (CUDA)
@@ -91,18 +83,10 @@ deps:
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
-      - tvm-pytorch
       CM_MLPERF_DEVICE:
-      - gpu
+      - cuda
 
-  ## Transformers
-  - tags: get,generic-python-lib,_transformers
-    names:
-    - ml-engine-transformers
-    enable_if_env:
-      CM_MODEL:
-      - bert-99
-      - bert-99.9
+  - tags: get,generic-python-lib,_mlperf_logging
 
 
   ########################################################################
