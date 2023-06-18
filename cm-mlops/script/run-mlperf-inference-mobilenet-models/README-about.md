@@ -7,7 +7,7 @@ We need to get imagenet full dataset to make image-classification submissions fo
 #### Do a test run to detect and record the system performance for each model (about an hour runtime)
 
 ```
-cm run script --tags=run,mobilenet-models,_tflite,_find-performance
+cm run script --tags=run,mobilenet-models,_tflite,_find-performance --adr.compiler.tags=gcc
 ```
 
 During the run, tflite library will be installed and you can give the following answers for the prompt questions
@@ -32,16 +32,16 @@ Would you like to interactively configure ./WORKSPACE for Android builds? [y/N]:
 #### Do a full accuracy run for all the models (can take almost a day)
 
 ```
-cm run script --tags=run,mobilenet-models,_tflite,_accuracy-only --results_dir=$HOME/mobilenet_results
+cm run script --tags=run,mobilenet-models,_tflite,_accuracy-only --results_dir=$HOME/mobilenet_results --adr.compiler.tags=gcc
 ```
 #### Do a full performance run for all the models (can take almost a day)
 ```
-cm run script --tags=run,mobilenet-models,_tflite,_performance-only --results_dir=$HOME/mobilenet_results
+cm run script --tags=run,mobilenet-models,_tflite,_performance-only --results_dir=$HOME/mobilenet_results --adr.compiler.tags=gcc
 ```
 
 #### Generate README files for all the runs
 ```
-cm run script --tags=run,mobilenet-models,_tflite,_populate-readme --results_dir=$HOME/mobilenet_results
+cm run script --tags=run,mobilenet-models,_tflite,_populate-readme --results_dir=$HOME/mobilenet_results --adr.compiler.tags=gcc
 ```
 
 #### Generate actual submission tree
@@ -50,7 +50,7 @@ We should use the master branch of MLCommons inference repo for the submission c
 ```
 cm run script --tags=generate,inference,submission --results_dir=$HOME/mobilenet_results/valid_results \
 --submission_dir=$HOME/mobilenet_submission_tree --clean --infer_scenario_results=yes \
---run-checker --submitter=cTuning --adr.inference-src.version=master --hw_notes_extra="Result taken by NAME"
+--run-checker --submitter=cTuning --adr.inference-src.version=master --hw_notes_extra="Result taken by NAME" --adr.compiler.tags=gcc
 ```
 
 #### Push the results to GitHub repo
@@ -68,7 +68,7 @@ Create a PR to [cTuning repo](https://github.com/ctuning/mlperf_inference_submis
 
 Follow the same procedure as above but for the first 3 experiment runs add `_armnn,_neon` to the tags. For example
 ```
-cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_find-performance
+cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_find-performance --adr.compiler.tags=gcc
 ```
 
 `results_dir` and `submission_dir` can be the same as before as results will be going to different sub folders. 
@@ -76,7 +76,7 @@ cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_find-performance
 ### Using ARMNN with OpenCL
 Follow the same procedure as above but for the first 3 experiment runs add `_armnn,_opencl` to the tags. For example
 ```
-cm run script --tags=run,mobilenet-models,_tflite,_armnn,_opencl,_find-performance
+cm run script --tags=run,mobilenet-models,_tflite,_armnn,_opencl,_find-performance --adr.compiler.tags=gcc
 ```
 
 `results_dir` and `submission_dir` can be the same as before as results will be going to different sub folders. 
