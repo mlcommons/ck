@@ -5,7 +5,7 @@ name: MLPerf inference GPT-J
 
 on:
   pull_request:
-    branches: [ "master", "dev" ]
+    branches: [ "master1", "dev1" ]
     paths:
       - '.github/workflows/test-mlperf-inference-gptj.yml'
       - 'cm-mlops/**'

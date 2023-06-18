@@ -652,6 +652,7 @@ variations:
       CM_TMP_IGNORE_MLPERF_QUERY_COUNT: true
     deps:
     - tags: get,generic-python-lib,_librosa
+      version_max: "0.9.1"
     - tags: get,generic-python-lib,_inflect
     - tags: get,generic-python-lib,_unidecode
     - tags: get,generic-python-lib,_toml
