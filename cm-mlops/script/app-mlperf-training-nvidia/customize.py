@@ -43,6 +43,9 @@ def preprocess(i):
     if "bert" in env['CM_MLPERF_MODEL']:
         env['CM_RUN_DIR'] = os.path.join(env['CM_GIT_REPO_CHECKOUT_PATH'], "NVIDIA", "benchmarks", "bert", "implementations", "pytorch-22.09")
 
+    if "resnet" in env['CM_MLPERF_MODEL']:
+        env['CM_RUN_DIR'] = os.path.join(env['CM_GIT_REPO_CHECKOUT_PATH'], "NVIDIA", "benchmarks", "resnet", "implementations", "mxnet-22.04")
+
     env['CM_RESULTS_DIR'] = os.getcwd()
 
     return {'return':0}

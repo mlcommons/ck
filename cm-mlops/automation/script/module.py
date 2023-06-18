@@ -2240,19 +2240,22 @@ class CAutomation(Automation):
     ##############################################################################
     def _process_variation_tags_in_groups(script, variation_tags, groups, excluded_variations, variations):
         import copy
-        tmp_variation_tags= copy.deepcopy(variation_tags)
-        tmp_variation_tags_static= copy.deepcopy(variation_tags)
-        for v in tmp_variation_tags_static:
+        tmp_variation_tags = copy.deepcopy(variation_tags)
+        tmp_variation_tags_static = copy.deepcopy(variation_tags)
+
+        for v_i in range(len(tmp_variation_tags_static)):
+            v = tmp_variation_tags_static[v_i]
+
             if v not in variations:
                 v_static = script._get_name_for_dynamic_variation_tag(v)
-                tmp_variation_tags_static.remove(v)
-                tmp_variation_tags_static.append(v_static)
+                tmp_variation_tags_static[v_i] = v_static
 
         for k in groups:
             group = groups[k]
             unique_allowed_variations = group['variations']
+
             if len(set(unique_allowed_variations) & set(tmp_variation_tags_static)) > 1:
-                return {'return': 1, 'error': 'Multiple variation tags selected for the variation group "{}": {} '.format(k, str(set(unique_allowed_variations) & set(variation_tags)))}
+                return {'return': 1, 'error': 'Multiple variation tags selected for the variation group "{}": {} '.format(k, str(set(unique_allowed_variations) & set(tmp_variation_tags_static)))}
             if len(set(unique_allowed_variations) & set(tmp_variation_tags_static)) == 0:
                 if 'default' in group and group['default'] not in excluded_variations:
                     tmp_variation_tags.append(group['default'])
