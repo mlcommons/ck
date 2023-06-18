@@ -9,10 +9,14 @@ if [ ! -d ${folder} ]; then
   echo "Cloning ${CM_GIT_REPO_NAME} from ${CM_GIT_URL} with branch ${CM_GIT_CHECKOUT} ${CM_GIT_DEPTH} ${CM_GIT_RECURSE_SUBMODULES}..."
 
   if [ -z ${CM_GIT_SHA} ]; then
+    echo ""
     git clone ${CM_GIT_RECURSE_SUBMODULES} -b "${CM_GIT_CHECKOUT}" ${CM_GIT_URL} ${CM_GIT_DEPTH} ${folder}
     cd ${folder}
   else
+    echo ""
     git clone ${CM_GIT_RECURSE_SUBMODULES} ${CM_GIT_URL} ${CM_GIT_DEPTH} ${folder}
+
+    echo ""
     cd ${folder}
     git checkout -b "${CM_GIT_CHECKOUT}"
   fi

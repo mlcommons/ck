@@ -20,14 +20,17 @@ if not exist %folder% (
   echo Cloning %CM_GIT_REPO_NAME% from %CM_GIT_URL% with branch %CM_GIT_CHECKOUT% %CM_GIT_DEPTH% %CM_GIT_RECURSE_SUBMODULES% ...
 
   if not "%CM_GIT_SHA%" == "" (
+       echo.
        git clone %CM_GIT_RECURSE_SUBMODULES% -b "%CM_GIT_CHECKOUT%" %CM_GIT_URL% %CM_GIT_DEPTH% %folder%
        IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
        cd %folder%
   ) else (
+       echo.
        git clone %CM_GIT_RECURSE_SUBMODULES% %CM_GIT_URL% %CM_GIT_DEPTH% %folder%
        IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
        cd %folder%
 
+       echo.
        git checkout "%CM_GIT_CHECKOUT%"
        IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
   )

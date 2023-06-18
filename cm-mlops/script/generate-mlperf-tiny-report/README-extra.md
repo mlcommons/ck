@@ -25,6 +25,15 @@ You can also add private results to compare submissions locally before they beco
 cmr "get git repo _repo.https://github.com/mlcommons/submissions_tiny_v1.1" --extra_cache_tags=mlperf-tiny-results,version-1.1-private
 ```
 
+You can use a specific checkout/branch as follows:
+```bash
+cm run script "get git repo _repo.https://github.com/mlcommons/submissions_tiny_v1.1" \
+   --extra_cache_tags=mlperf-tiny-results,version-1.1-private,generate_final_report \
+   --depth="" \
+   --branch=generate_final_report
+```
+
+
 Now run this script:
 ```bash
 cmr "generate mlperf-tiny report"
