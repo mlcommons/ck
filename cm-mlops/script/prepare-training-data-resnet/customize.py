@@ -19,7 +19,7 @@ def preprocess(i):
     env['CM_IMAGENET_LABELS_DOWNLOAD_DIR'] = env['CM_DATASET_IMAGENET_TRAIN_PATH']
     
     if env.get("CM_TMP_VARIATION", "") == "nvidia":
-        code_path = os.path.join(env['CM_GIT_REPO_CHECKOUT_PATH'], 'NVIDIA', 'benchmarks', 'resnet', 'implementations', 'mxnet-22.04')
+        code_path = os.path.join(env['CM_NVIDIA_DEEPLEARNING_EXAMPLES_REPO_PATH'], 'MxNet', 'Classification', 'RN50v1.5')
         env['CM_RUN_DIR'] = code_path
     elif env.get("CM_TMP_VARIATION", "") == "reference":
         code_path = os.path.join(env['CM_MLPERF_TRAINING_SOURCE'], 'image_classification', 'tensorflow2')

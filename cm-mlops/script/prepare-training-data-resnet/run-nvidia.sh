@@ -25,9 +25,8 @@ function run() {
 
 #Add your run commands here...
 # run "$CM_RUN_CMD"
-
 CUR=${CM_DATA_DIR:-"$PWD/data"}
 run "cd \"${CM_RUN_DIR}\""
-run "docker build --pull -t mlperf-nvidia:language_model ."
-run "ID=`docker run -dt --runtime=nvidia --ipc=host -v $CUR:/workspace/bert_data mlperf-nvidia:language_model bash`"
-run "docker exec $ID bash -c 'cd /workspace/bert && ./input_preprocessing/prepare_data.sh -s --outputdir /workspace/bert_data'"
+run "docker build -t nvidia_rn50_mx ."
+run "ID=`docker run -dt --gpus all --runtime=nvidia --ipc=host -v ${CM_DATASET_IMAGENET_TRAIN_PATH}:/data -v ${CUR}:/preprocessed nvidia_rn50_mx bash`"
+run "docker exec $ID bash -c './scripts/prepare_imagenet.sh /data /preprocessed'"
