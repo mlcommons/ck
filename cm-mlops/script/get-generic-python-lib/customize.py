@@ -105,4 +105,11 @@ def postprocess(i):
 
     env['CM_PYTHONLIB_'+env['CM_TMP_PYTHON_PACKAGE_NAME_ENV']+'_CACHE_TAGS'] = 'version-'+version
 
+    import pkgutil
+    package_name = env.get('CM_GENERIC_PYTHON_PACKAGE_NAME', '').strip()
+    package=pkgutil.get_loader(package_name)
+    if package:
+        installed_file_path = package.get_filename()
+        env['CM_GET_DEPENDENT_CACHED_PATH'] = installed_file_path
+
     return {'return':0, 'version': version}
