@@ -6,43 +6,60 @@ def preprocess(i):
     os_info = i['os_info']
 
     env = i['env']
-
-    meta = i['meta']
-
     automation = i['automation']
+    meta = i['meta']
+    os_info = i['os_info']
+    if os_info['platform'] == 'windows':
+        return {'return':0}
 
-    quiet = (env.get('CM_QUIET', False) == 'yes')
+    env['CM_DATASET_IMAGENET_TRAIN_REQUIRE_DAE'] = 'no'
 
-    if env.get('CM_DATASET_IMAGENET_TRAIN_LOCAL_PATH'):
-        path = env['CM_DATASET_IMAGENET_TRAIN_LOCAL_PATH']
+    path = env.get('CM_INPUT', env.get('IMAGENET_TRAIN_PATH', '')).strip()
+
+    if path == '':
+        if env.get('CM_DATASET_IMAGENET_TRAIN_TORRENT_PATH'):
+            path = env['CM_DATASET_IMAGENET_TRAIN_TORRENT_PATH']
+            env['CM_DAE_EXTRA_TAGS'] = "_torrent"
+            env['CM_DAE_TORRENT_PATH'] = path
+            env['CM_DATASET_IMAGENET_VAL_REQUIRE_DAE'] = 'yes'
+
+            return {'return':0}
+
+        else:
+            return {'return':1, 'error':'Please rerun the last CM command with --env.IMAGENET_TRAIN_PATH={path the folder containing full ImageNet training images} or envoke cm run script "get train dataset imagenet" --input={path to the folder containing ImageNet training images}'}
+
+
+    elif not os.path.isdir(path):
         if path.endswith(".tar"):
             env['CM_DAE_FILEPATH'] = path
-            env['CM_DATASET_IMAGENET_TRAIN_REQUIRE_EXTRACT'] = "yes"
-
-    elif env.get('CM_DATASET_IMAGENET_TRAIN_TORRENT_PATH'):
-        path = env['CM_DATASET_IMAGENET_TRAIN_TORRENT_PATH']
-        env['CM_DAE_FILEPATH'] = path
-        env['CM_DATASET_IMAGENET_TRAIN_REQUIRE_TORRENT'] = "yes"
-
-        r = automation.update_deps({'deps':meta['prehook_deps'],
-                                'update_deps':{
-                                    'download-torrent':{
-                                       'tags':"_torrent."+path
-                                    }
-                                }
-            })
-        if r['return'] > 0 return r
+            env['CM_DAE_ONLY_EXTRACT'] = 'yes'
+            return {'return':0}
+        else:
+            return {'return':1, 'error':'Path {} doesn\'t exist'.format(path)}
     else:
-        print(i)
-        return {'return':1, 'error': 'Imagenet dataset cannot be automatically downloaded from any public URL. Please provide a torrent path which you can get from https://academictorrents.com/details/5d6d0df7ed81efd49ca99ea4737e0ae5e3a5f2e5'}
+        env['CM_EXTRACT_EXTRACTED_PATH'] = path
 
     return {'return':0}
 
 def postprocess(i):
 
-    env = i['env']
+    os_info = i['os_info']
+    if os_info['platform'] == 'windows':
+        return {'return':0}
 
-    if env.get('CM_DATASET_IMAGENET_TRAIN_REQUIRE_EXTRACT', '') == "yes":
-        env['CM_DATASET_IMAGENET_TRAIN_PATH'] = env['CM_DAE_FILE_DOWNLOADED_PATH']
+    env = i['env']
+    path = env['CM_EXTRACT_EXTRACTED_PATH']
+
+    path_image = os.path.join(path, 'n01440764', 'n01440764_10026.JPEG')
+
+    if not os.path.isfile(path_image):
+        return {'return':1, 'error':'ImageNet file {} not found'.format(path_image)}
+
+    env['CM_DATASET_PATH'] = path
+    env['CM_DATASET_IMAGENET_PATH'] = path
+    env['CM_DATASET_IMAGENET_TRAIN_PATH'] = path
+
+    env['CM_GET_DEPENDENT_CACHED_PATH'] =  path
 
     return {'return':0}
+
