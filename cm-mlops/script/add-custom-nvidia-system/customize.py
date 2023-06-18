@@ -8,6 +8,7 @@ def preprocess(i):
 
     if os_info['platform'] == 'windows':
         return {'return':1, 'error': 'Windows is not supported in this script yet'}
+
     env = i['env']
 
     return {'return':0}

@@ -40,7 +40,7 @@ def preprocess(i):
                     version = 'v'+t[8:]
                     break
 
-            # Run script
+            # Run local script
             run_script_input = i['run_script_input']
             automation = i['automation']
 
