@@ -36,3 +36,5 @@ deps:
     - python
     - python3
     tags: get,python3
+
+  - tags: get,mlperf,logging

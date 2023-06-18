@@ -9,21 +9,41 @@ import copy
 
 
 file_summary = 'summary.csv'
-file_summary_json = 'mlperf-inference-summary-{}.json'
+file_summary_json = 'mlperf-training-summary-{}.json'
+file_summary2 = 'summary.xlsx'
 file_result = 'cm-result.json'
 
 model2task = {
    "resnet":"image-classification",
-   "retinanet":"object-detection",
-   "ssd-small":"object-detection",
-   "ssd-large": "object-detection",
+   "maskrcnn":"object-detection-heavy-weight",
+   "ssd":"object-detection-light-weight",
+   "minigo": "reinforcement-learning",
    "rnnt":"speech-recognition",
-   "bert-99":"language-processing",
-   "bert-99.9":"language-processing",
-   "dlrm-99":"recommendation",
-   "dlrm-99.9":"recommendation",
-   "3d-unet-99":"image-segmentation",
-   "3d-unet-99.9":"image-segmentation"
+   "bert":"language-processing",
+   "dlrm":"recommendation",
+   "3dunet":"image-segmentation"
+}
+
+model2accuracy = {
+   "resnet":75.9,
+   "maskrcnn":0.377,
+   "ssd":34.0,
+   "minigo": 50,
+   "rnnt":0.058,
+   "bert":0.72,
+   "dlrm":0.8025,
+   "3dunet":0.908
+}
+
+model2accuracy_metric = {
+   "resnet":"% classification",
+   "maskrcnn":"Box min AP",
+   "ssd":"% mAP",
+   "minigo": "% win rate vs. checkpoint",
+   "rnnt":"Word Error Rate",
+   "bert":"Mask-LM accuracy",
+   "dlrm":"AUC",
+   "3dunet":"Mean DICE score"
 }
 
 def preprocess(i):
@@ -36,6 +56,11 @@ def preprocess(i):
     env = i['env']
 
     cur_dir = os.getcwd()
+
+    # Clean summary files
+    for f in [file_summary, file_summary2]:
+        if os.path.isfile(f):
+            os.remove(f)
 
     # Query cache for results dirs
     r = cm.access({'action':'find',
@@ -78,13 +103,14 @@ def preprocess(i):
             if r['return']>0:
                 return r
 
-            input('xyz')
+            r = convert_summary_csv_to_experiment(path, version, env)
+            if r['return']>0: return r
 
     return {'return':0}
 
 
 def convert_summary_csv_to_experiment(path, version, env):
-    print ('* Processing MLPerf repo in cache path: {}'.format(path))
+    print ('* Processing MLPerf training results repo in cache path: {}'.format(path))
 
     cur_dir = os.getcwd()
 
@@ -152,37 +178,31 @@ def convert_summary_csv_to_experiment(path, version, env):
 
         for result in summary:
 
-            # Create name
-            mlperfmodel = result['MlperfModel']
-            task = model2task[mlperfmodel]
+            for model in model2task:
+                if result.get(model, '')!='':
+                    result1 = {}
 
-            system_type = result['SystemType']
+                    result1['Result'] = result[model]
+                    result1['Result_Units'] = 'min.'
+                    result1['Accuracy'] = model2accuracy[model]
+                    result1['Accuracy_Metric'] = model2accuracy_metric[model]
+                    result1['Task'] = model2task[model]
+                    result1['Model_ID'] = model
 
-            division = result['Division']
-            has_power = result.get('has_power', False)
+                    for k in result:
+                        if k==model or k not in model2task:
+                            result1[k]=result[k]
 
-            if division == 'network':
-                xdivision = 'closed-network'
-            else:
-                xdivision = division.lower()
-                if has_power:
-                    xdivision += '-power'
+                    xdivision = result['division']
 
-            # If datacenter,edge - remove ,edge to be consistent with https://mlcommons.org/en/inference-datacenter-21/
-            j=system_type.find(',')
-            if j>=0:
-                system_type=system_type[:j]
+                    name = 'mlperf-inference--{}--'+xdivision+'--'+model2task[model]
 
-            scenario = result['Scenario'].lower()
+                    name_all = name.format('all')
+                    name_ver = name.format(version)
 
-            name = 'mlperf-inference--{}--'+system_type+'--'+xdivision+'--'+task+'--'+scenario
-
-            name_all = name.format('all')
-            name_ver = name.format(version)
-
-            for name in [name_all, name_ver]:
-                if name not in experiment: experiment[name]=[]
-                experiment[name].append(result)
+                    for name in [name_all, name_ver]:
+                        if name not in experiment: experiment[name]=[]
+                        experiment[name].append(result1)
 
         # Checking experiment
         env_target_repo=env.get('CM_IMPORT_MLPERF_INFERENCE_TARGET_REPO','').strip()
@@ -278,17 +298,6 @@ def convert_summary_csv_to_experiment(path, version, env):
                     if r['return']>0: return r
 
                     result['uid'] = r['uid']
-
-                # Get Result and Units together
-                if 'Result' in result and 'Units' in result:
-                    result['Result_Units']=result['Units']
-
-                # Temporal hack for Power to separate power from the graph
-                units = result.get('Units','')
-                if units == 'Watts' or 'joules' in units:
-                    if 'Result_Power' not in result:
-                        result['Result_Power']=result['Result']
-                        result['Result']=None
 
             # Write results
             r=utils.save_json(fresult, results)

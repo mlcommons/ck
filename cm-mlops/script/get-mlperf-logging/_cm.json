@@ -18,11 +18,15 @@
       "tags": "get,python3"
     },
     {
-      "tags": "get,git,repo,_repo.https://github.com/mlcommons/logging"
+      "tags": "get,git,repo,_repo.https://github.com/mlcommons/logging",
+      "env": {
+        "CM_GIT_CHECKOUT": "master"
+      }
     }
   ],
   "new_env_keys": [
-    "CM_MLPERF_LOGGING_*"
+    "CM_MLPERF_LOGGING_*",
+    "+PYTHONPATH"
   ],
   "tags": [
     "get",
