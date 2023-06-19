@@ -29,6 +29,7 @@ def preprocess(i):
     git_clone_cmd = "git clone " + env['CM_GIT_RECURSE_SUBMODULES'] +  git_checkout_string + " " + env['CM_GIT_URL'] + " " + env.get('CM_GIT_DEPTH','') + ' ' + env['CM_GIT_CHECKOUT_FOLDER']
 
     env['CM_GIT_CLONE_CMD'] = git_clone_cmd
+    env['CM_TMP_GIT_PATH'] = os.path.join(os.getcwd(), env['CM_GIT_CHECKOUT_FOLDER'], ".git")
 
     return {'return':0}
 

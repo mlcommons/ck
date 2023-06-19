@@ -4,7 +4,8 @@ CUR_DIR=$PWD
 SCRIPT_DIR=${CM_TMP_CURRENT_SCRIPT_PATH}
 
 folder=${CM_GIT_CHECKOUT_FOLDER}
-if [ ! -d ${folder} ]; then
+if [ ! -d "${CM_TMP_GIT_PATH}" ]; then
+  rm -rf ${folder}
   echo "******************************************************"
   echo "Cloning ${CM_GIT_REPO_NAME} from ${CM_GIT_URL}"
   echo "${CM_GIT_CLONE_CMD}";

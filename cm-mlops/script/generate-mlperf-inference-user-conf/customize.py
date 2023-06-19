@@ -109,15 +109,21 @@ def preprocess(i):
         if metric in conf:
             metric_value = str(float(conf[metric]) * tolerance) #some tolerance
         else:
-            if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
-                if metric == "target_qps":
+            #if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
+            if metric == "target_qps":
+                if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
                     print("In find performance mode: using 1 as target_qps")
-                    conf[metric] = 1
-                if metric == "target_latency":
+                else:
+                    print("No target_qps specified. Using 1 as target_qps")
+                conf[metric] = 1
+            if metric == "target_latency":
+                if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
                     print("In find performance mode: using 1000 as target_latency")
-                    conf[metric] = 1000
-            else:
-                return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
+                else:
+                    print("No target_latency specified. Using 1000 as target_latency")
+                conf[metric] = 1000
+            #else:
+            #    return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
 
     #Pass the modified performance metrics to the implementation
     if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
@@ -153,18 +159,18 @@ def preprocess(i):
             target_qps = conf['target_qps']
             query_count = str((660/fast_factor)/(float(target_qps)))
             user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
-            user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
+            #user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
             user_conf += ml_model_name + "." + scenario + ".min_duration = 0" + "\n"
 
     else:
         if scenario == "MultiStream":
             query_count = str(max(int((1000 / float(conf['target_latency'])) * 660), 662))
             user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
-            user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
+            #user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
         elif scenario == "SingleStream":
-            query_count = str(max(int((1000 / float(conf['target_latency'])) * 660), 662))
+            query_count = str(max(int((1000 / float(conf['target_latency'])) * 660), 64))
             user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
-            user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
+            #user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
 
     if query_count:
         env['CM_MAX_EXAMPLES'] = query_count #needed for squad accuracy checker
