@@ -185,6 +185,8 @@ class CAutomation(Automation):
         # Get current env and state before running this script and sub-scripts
         env = i.get('env',{})
         state = i.get('state',{})
+        const = i.get('const',{})
+        const_state = i.get('const_state',{})
 
         # Save current env and state to detect new env and state after running a given script
         saved_env = copy.deepcopy(env)
@@ -192,7 +194,9 @@ class CAutomation(Automation):
 
         for key in [ "env", "state", "const", "const_state" ]:
             if i.get("local_"+key):
-                utils.merge_dicts({'dict1':key, 'dict2':i['local_'+key], 'append_lists':True, 'append_unique':True})
+                if not i.get(key, {}):
+                    i[key] = {}
+                utils.merge_dicts({'dict1':i[key], 'dict2':i['local_'+key], 'append_lists':True, 'append_unique':True})
 
         recursion = i.get('recursion', False)
 
