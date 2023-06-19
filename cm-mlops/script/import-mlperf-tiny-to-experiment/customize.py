@@ -66,19 +66,19 @@ def convert_repo_to_experiment(path, version, env):
 
     # Create virtual experiment entries
     experiments = {}
-    
+
     for division in ['closed', 'open']:
         p1 = os.path.join(path, division)
         if os.path.isdir(p1):
             print ('  * Processing division: {}'.format(division))
-    
+
             companies = os.listdir(p1)
 
             for company in companies:
                 p2 = os.path.join (p1, company)
                 if os.path.isdir(p2):
                     print ('    * Processing company: {}'.format(company))
-                    
+
                     presults = os.path.join(p2, 'results')
                     psystems = os.path.join(p2, 'systems')
                     pcode = os.path.join(p2, 'code')
@@ -102,7 +102,7 @@ def convert_repo_to_experiment(path, version, env):
                                 psystem = os.path.join(presult, system)
                                 if os.path.isdir(psystem):
                                     print ('      * Processing result for system: {}'.format(system))
-                        
+
                                     # Check system file
                                     psystem_desc = os.path.join(psystems, system+'.json')
                                     psystem_dict = {}
@@ -167,18 +167,18 @@ def convert_repo_to_experiment(path, version, env):
                                             r = utils.load_json(psystem_desc)
                                             if r['return']>0: return r
                                             psystem_dict = r['meta']
-                                    
+
                                     else:
                                         print ('           * Warning: system description not found in {}'.format(psystem_desc))
                                         input ('             Press <Enter> to continue')
-                                    
+
                                     for benchmark in os.listdir(psystem):
                                         pbenchmark = os.path.join(psystem, benchmark)
                                         if os.path.isdir(pbenchmark):
                                             print ('         * Processing benchmark: {}'.format(benchmark))
 
                                             models = ['']
-                                            
+
                                             # May have retrained models
                                             pperf = os.path.join(pbenchmark, 'performance', 'results.txt')
                                             if not os.path.isfile(pperf):
@@ -206,11 +206,11 @@ def convert_repo_to_experiment(path, version, env):
                                                 if not os.path.isfile(pperf):
                                                     pperf = os.path.join(pbenchmark, 'performance', 'performance_results.txt')
                                                     perf_file_type=1 # outdated/weird
-                                                    
+
                                                 paccuracy = os.path.join(pbenchmark, 'accuracy', 'results.txt')
                                                 if not os.path.isfile(paccuracy):
                                                     paccuracy = os.path.join(pbenchmark, 'accuracy', 'accuracy_results.txt')
-                                                
+
                                                 penergy = os.path.join(pbenchmark, 'energy', 'results.txt')
 
                                                 if os.path.isfile(pperf) and os.path.isfile(paccuracy):
@@ -223,7 +223,7 @@ def convert_repo_to_experiment(path, version, env):
 
                                                     x1='Median throughput is ' if perf_file_type==0 else 'Throughput   :'
                                                     x2=21 if perf_file_type==0 else 18
-                                                    
+
                                                     j = s.find(x1)
                                                     if j>=0:
                                                         j1 = s.find(' inf./sec.', j)
@@ -237,7 +237,6 @@ def convert_repo_to_experiment(path, version, env):
                                                     if median_throughput==0:
                                                         print ('           * Warning: median_throughput was not detected in {}'.format(pperf))
                                                         input ('             Press <Enter> to continue')
-                                                            
 
                                                     r = utils.load_txt(paccuracy, split=True)
                                                     if r['return']>0: return r
@@ -336,7 +335,6 @@ def convert_repo_to_experiment(path, version, env):
                                                     results['__Model']=model
 
 
-                                                
                                                 # Prepare experiment name
                                                 cm_name = 'mlperf-tiny--{}--'+division+'--'+xbenchmark
                                                 print ('           * CM experiment name: {}'.format(cm_name))
@@ -352,7 +350,7 @@ def convert_repo_to_experiment(path, version, env):
                     else:
                         print ('      * Warning: some directories are not present in this submission')
                         input ('        Press <Enter> to continue')
-    
+
     os.chdir(cur_dir)
 
     r=utils.save_json(file_summary_json, experiments)
@@ -360,7 +358,7 @@ def convert_repo_to_experiment(path, version, env):
 
     env_target_repo=env.get('CM_IMPORT_TINYMLPERF_TARGET_REPO','').strip()
     target_repo='' if env_target_repo=='' else env_target_repo+':'
-    
+
     # Checking experiment
     print ('')
     for name in experiments:
@@ -369,7 +367,6 @@ def convert_repo_to_experiment(path, version, env):
         tags = name.split('--')
         if 'mlperf' not in tags: tags.insert(0, 'mlperf')
 
-        
         # Checking if experiment already exists
         r = cm.access({'action':'find',
                        'automation':'experiment,a0a2d123ef064bcb',

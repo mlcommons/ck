@@ -24,6 +24,18 @@ model2task = {
    "3dunet":"image-segmentation"
 }
 
+model2dataset = {
+   "resnet":"ImageNet",
+   "maskrcnn":"COCO",
+   "ssd":"OpenImages",
+   "minigo": "Go",
+   "rnnt":"LibriSpeech",
+   "bert":"Wikipedia",
+   "dlrm":"1TB Clickthrough",
+   "3dunet":"KiTS19"
+}
+
+
 model2accuracy = {
    "resnet":75.9,
    "maskrcnn":0.377,
@@ -69,7 +81,7 @@ def preprocess(i):
     if r['return']>0: return r
 
     lst = r['list']
-    
+
     for c in lst:
         path = os.path.join(c.path, 'repo')
 
@@ -124,7 +136,9 @@ def convert_summary_csv_to_experiment(path, version, env):
 
     os.chdir(cur_dir)
 
-    if os.path.isfile(file_summary):
+    if not os.path.isfile(file_summary):
+        return {'return':1, 'error':'{} was not created'.format(file_summary)}
+    else:
         summary = []
 
         with open (file_summary, encoding = 'utf-8') as fcsv:
@@ -187,7 +201,23 @@ def convert_summary_csv_to_experiment(path, version, env):
                     result1['Accuracy'] = model2accuracy[model]
                     result1['Accuracy_Metric'] = model2accuracy_metric[model]
                     result1['Task'] = model2task[model]
+                    result1['Benchmark'] = model2task[model]
+                    result1['Dataset'] = model2dataset[model]
                     result1['Model_ID'] = model
+
+                    result1['_Result'] = result[model]
+                    result1['_Result_Units'] = 'min.'
+                    result1['_Accuracy'] = model2accuracy[model]
+                    result1['_Accuracy_Metric'] = model2accuracy_metric[model]
+                    result1['_Task'] = model2task[model]
+                    result1['_Dataset'] = model2dataset[model]
+                    result1['_Model_ID'] = model
+
+                    result1['version']=version
+                    result1['_version']=version
+                    result1['Organization']=result['submitter']
+                    result1['_Organization']=result['submitter']
+                    result1['_System']=result['system']
 
                     for k in result:
                         if k==model or k not in model2task:
@@ -208,7 +238,6 @@ def convert_summary_csv_to_experiment(path, version, env):
         env_target_repo=env.get('CM_IMPORT_MLPERF_INFERENCE_TARGET_REPO','').strip()
         target_repo='' if env_target_repo=='' else env_target_repo+':'
 
-        
         print ('')
         for name in experiment:
             print ('    Preparing experiment artifact "{}"'.format(name))
