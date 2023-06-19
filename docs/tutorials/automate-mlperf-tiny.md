@@ -15,7 +15,7 @@
   * [Build and run TinyMLPerf benchmarks](#build-and-run-tinymlperf-benchmarks)
   * [Prepare submission](#prepare-submission)
   * [Visualize and compare results](#visualize-and-compare-results)
-  * [Contact our task force](#contact-our-task-force)
+  * [Contact MLCommons task force on automation and reproducibility](#contact-mlcommons-task-force-on-automation-and-reproducibility)
 
 </details>
 
@@ -156,7 +156,7 @@ end-to-end applications using MLPerf results based on their requirements and con
 
 
 
-## Contact our task force
+## Contact MLCommons task force on automation and reproducibility
 
 Please join the [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-to get free help to automate TinyMLPerf benchmark for your software and hardware stack using the MLCommons CM automation language!
+to get free help to automate and optimize MLPerf benchmarks for your software and hardware stack using the MLCommons CM automation language!

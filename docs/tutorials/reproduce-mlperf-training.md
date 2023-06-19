@@ -5,9 +5,11 @@
 
 * [Tutorial: automate, visualize and reproduce MLPerf training submissions](#tutorial-automate-visualize-and-reproduce-mlperf-training-submissions)
   * [Install CM](#install-cm)
+  * [Import results to the CK platform](#import-results-to-the-ck-platform)
+  * [Visualize and compare MLPerf training results](#visualize-and-compare-mlperf-training-results)
+  * [Contact MLCommons task force on automation and reproducibility](#contact-mlcommons-task-force-on-automation-and-reproducibility)
 
 </details>
-
 
 # Tutorial: automate, visualize and reproduce MLPerf training submissions
 
@@ -31,3 +33,19 @@ We have tested this tutorial with Ubuntu 20.04 and Windows 10.
 
 
 To be continued ...
+
+
+
+## Import results to the CK platform
+
+Follow this [guide](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/import-mlperf-training-to-experiment/README-extra.md)
+
+## Visualize and compare MLPerf training results
+
+You can visualize and compare MLPerf results [here](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-training).
+You can use this collaborative platform inside your organization to reproduce and optimize benchmarks and applications of your interest.
+
+## Contact MLCommons task force on automation and reproducibility
+
+Please join the [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+to get free help to automate and optimize MLPerf benchmarks for your software and hardware stack using the MLCommons CM automation language!
