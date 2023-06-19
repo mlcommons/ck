@@ -182,6 +182,18 @@ class CAutomation(Automation):
         import copy
         import time
 
+        # Get current env and state before running this script and sub-scripts
+        env = i.get('env',{})
+        state = i.get('state',{})
+
+        # Save current env and state to detect new env and state after running a given script
+        saved_env = copy.deepcopy(env)
+        saved_state = copy.deepcopy(state)
+
+        for special_keys in [ "env", "state", "const", "const_state" ]:
+            if i.get("local_"+key):
+                utils.merge_dicts({'dict1':key, 'dict2':i['local_'+key], 'append_lists':True, 'append_unique':True})
+
         recursion = i.get('recursion', False)
 
         # If first script run, check if can write to current directory
@@ -230,9 +242,6 @@ class CAutomation(Automation):
         # Caching selections to avoid asking users again
         remembered_selections = i.get('remembered_selections', [])
 
-        # Get current env and state before running this script and sub-scripts
-        env = i.get('env',{})
-        state = i.get('state',{})
         add_deps = i.get('ad',{})
         if not add_deps:
             add_deps = i.get('add_deps',{})
@@ -244,9 +253,6 @@ class CAutomation(Automation):
             add_deps_recursive = i.get('add_deps_recursive', {})
         else:
             utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':i.get('add_deps_recursive', {}), 'append_lists':True, 'append_unique':True})
-        # Save current env and state to detect new env and state after running a given script
-        saved_env = copy.deepcopy(env)
-        saved_state = copy.deepcopy(state)
 
         save_env = i.get('save_env', False)
 
@@ -2374,6 +2380,7 @@ class CAutomation(Automation):
                     import copy
                     tmp_run_state_deps = copy.deepcopy(run_state['deps'])
                     run_state['deps'] = []
+
                     # Run collective script via CM API:
                     # Not very efficient but allows logging - can be optimized later
                     ii = {
@@ -2393,6 +2400,11 @@ class CAutomation(Automation):
                             'run_state':run_state
 
                         }
+
+                    for key in [ "env", "state", "const", "const_state" ]:
+                        ii['local_'+key] = d.get(key, {})
+                        if d.get(key):
+                            d[key] = {}
 
                     utils.merge_dicts({'dict1':ii, 'dict2':d, 'append_lists':True, 'append_unique':True})
 
