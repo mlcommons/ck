@@ -36,6 +36,9 @@
       "tags": "get,generic-python-lib,_datasets"
     },
     {
+      "tags": "get,generic-python-lib,_package.tokenizers"
+    },
+    {
       "tags": "get,generic-python-lib,_numpy"
     }
   ],
