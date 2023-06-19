@@ -182,22 +182,6 @@ class CAutomation(Automation):
         import copy
         import time
 
-        # Get current env and state before running this script and sub-scripts
-        env = i.get('env',{})
-        state = i.get('state',{})
-        const = i.get('const',{})
-        const_state = i.get('const_state',{})
-
-        # Save current env and state to detect new env and state after running a given script
-        saved_env = copy.deepcopy(env)
-        saved_state = copy.deepcopy(state)
-
-        for key in [ "env", "state", "const", "const_state" ]:
-            if i.get("local_"+key):
-                if not i.get(key, {}):
-                    i[key] = {}
-                utils.merge_dicts({'dict1':i[key], 'dict2':i['local_'+key], 'append_lists':True, 'append_unique':True})
-
         recursion = i.get('recursion', False)
 
         # If first script run, check if can write to current directory
@@ -245,6 +229,22 @@ class CAutomation(Automation):
         recursion_spaces = i.get('recursion_spaces', '')
         # Caching selections to avoid asking users again
         remembered_selections = i.get('remembered_selections', [])
+
+        # Get current env and state before running this script and sub-scripts
+        env = i.get('env',{})
+        state = i.get('state',{})
+        const = i.get('const',{})
+        const_state = i.get('const_state',{})
+
+        # Save current env and state to detect new env and state after running a given script
+        saved_env = copy.deepcopy(env)
+        saved_state = copy.deepcopy(state)
+
+        for key in [ "env", "state", "const", "const_state" ]:
+            if i.get("local_"+key):
+                if not i.get(key, {}):
+                    i[key] = {}
+                utils.merge_dicts({'dict1':i[key], 'dict2':i['local_'+key], 'append_lists':True, 'append_unique':True})
 
         add_deps = i.get('ad',{})
         if not add_deps:
