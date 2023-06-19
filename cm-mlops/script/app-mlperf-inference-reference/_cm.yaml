@@ -220,6 +220,7 @@ deps:
       CM_MODEL:
       - bert-99
       - bert-99.9
+      - gptj
 
   ## Tensorflow
   - tags: get,generic-python-lib,_tensorflow
@@ -555,6 +556,15 @@ variations:
     group: models
     env:
       CM_MODEL: gptj
+    deps:
+    - tags: get,generic-python-lib,_torch
+    - tags: get,generic-python-lib,_package.filelock
+    - tags: get,generic-python-lib,_package.datasets
+    - tags: get,generic-python-lib,_package.pyarrow
+    - tags: get,generic-python-lib,_package.multiprocess
+    - tags: get,generic-python-lib,_package.sympy
+    - tags: get,generic-python-lib,_package.soundfile
+    - tags: get,generic-python-lib,_package.attrs
 
   bert-99.9:
     group: models
