@@ -6,9 +6,12 @@
   "deps": [],
   "input_description": {},
   "input_mapping": {
-    "data_dir": "CM_DATA_DIR"
+    "data_dir": "CM_DATA_DIR",
+    "clean": "CM_MLPERF_TRAINING_CLEAN_TFRECORDS"
   },
-  "new_env_keys": [],
+  "new_env_keys": [
+    "CM_MLPERF_TRAINING_BERT_*"
+  ],
   "new_state_keys": [],
   "post_deps": [],
   "posthook_deps": [],
@@ -94,6 +97,7 @@
   ],
   "tags": [
     "prepare",
+    "mlperf",
     "training",
     "data",
     "input",

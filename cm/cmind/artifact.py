@@ -129,12 +129,12 @@ class Artifact:
             for k in ['uid', 'alias', 'automation_uid', 'automation_alias']:
                 if k not in meta and k in current_meta:
                     save_info[k]=current_meta[k]
-            
+
             self.original_meta = meta
 
             if len(save_info)>0:
                 self.original_meta.update(save_info)
-        
+
         elif len(meta)>0:
             r = utils.merge_dicts({'dict1':current_meta, 'dict2':meta, 'append_lists':append_lists})
             if r['return'] >0: return 

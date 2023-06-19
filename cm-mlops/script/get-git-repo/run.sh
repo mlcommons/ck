@@ -6,15 +6,20 @@ SCRIPT_DIR=${CM_TMP_CURRENT_SCRIPT_PATH}
 folder=${CM_GIT_CHECKOUT_FOLDER}
 if [ ! -d ${folder} ]; then
   echo "******************************************************"
-  echo "Cloning ${CM_GIT_REPO_NAME} from ${CM_GIT_URL} with branch ${CM_GIT_CHECKOUT} ${CM_GIT_DEPTH} ${CM_GIT_RECURSE_SUBMODULES}..."
+  echo "Cloning ${CM_GIT_REPO_NAME} from ${CM_GIT_URL}"
+  echo "${CM_GIT_CLONE_CMD}";
 
-  if [ -z ${CM_GIT_SHA} ]; then
-    git clone ${CM_GIT_RECURSE_SUBMODULES} -b "${CM_GIT_CHECKOUT}" ${CM_GIT_URL} ${CM_GIT_DEPTH} ${folder}
+  ${CM_GIT_CLONE_CMD}
+  if [ "${?}" != "0" ]; then exit 1; fi
+
+
+  if [ ! -z ${CM_GIT_SHA} ]; then
+
+    echo ""
     cd ${folder}
-  else
-    git clone ${CM_GIT_RECURSE_SUBMODULES} ${CM_GIT_URL} ${CM_GIT_DEPTH} ${folder}
-    cd ${folder}
-    git checkout -b "${CM_GIT_CHECKOUT}"
+    cmd="git checkout -b ${CM_GIT_SHA}"
+    echo "$cmd"
+    eval "$cmd"
   fi
   if [ "${?}" != "0" ]; then exit 1; fi
 else

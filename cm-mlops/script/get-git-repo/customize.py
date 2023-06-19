@@ -21,6 +21,15 @@ def preprocess(i):
     if 'CM_GIT_RECURSE_SUBMODULES' not in env:
         env['CM_GIT_RECURSE_SUBMODULES'] = ''
 
+    if env.get('CM_GIT_CHECKOUT', '') == '':
+        env['CM_GIT_CHECKOUT'] = env.get('CM_GIT_SHA', env.get('CM_GIT_BRANCH', ''))
+
+    git_checkout_string = " -b "+ env['CM_GIT_BRANCH'] if ("CM_GIT_BRANCH" in env and env.get('CM_GIT_SHA', '') == '') else ""
+
+    git_clone_cmd = "git clone " + env['CM_GIT_RECURSE_SUBMODULES'] +  git_checkout_string + " " + env['CM_GIT_URL'] + " " + env.get('CM_GIT_DEPTH','') + ' ' + env['CM_GIT_CHECKOUT_FOLDER']
+
+    env['CM_GIT_CLONE_CMD'] = git_clone_cmd
+
     return {'return':0}
 
 
@@ -29,6 +38,7 @@ def postprocess(i):
     env = i['env']
     state = i['state']
     env['CM_GIT_CHECKOUT_PATH'] = os.path.join(os.getcwd(), env['CM_GIT_CHECKOUT_FOLDER'])
+    git_checkout_path = env['CM_GIT_CHECKOUT_PATH']
 
     # We remap CM_GIT variables with CM_GIT_REPO prefix so that they don't contaminate the env of the parent script
     env['CM_GIT_REPO_CHECKOUT_PATH'] = env['CM_GIT_CHECKOUT_PATH']
@@ -38,5 +48,10 @@ def postprocess(i):
     env['CM_GIT_REPO_CHECKOUT_FOLDER'] = env['CM_GIT_CHECKOUT_FOLDER']
     env['CM_GIT_REPO_PATCH'] = env['CM_GIT_PATCH']
     env['CM_GIT_REPO_RECURSE_SUBMODULES'] = env['CM_GIT_RECURSE_SUBMODULES']
+
+    if env.get('CM_GIT_CHECKOUT_PATH_ENV_NAME','') != '' and env.get(env['CM_GIT_CHECKOUT_PATH_ENV_NAME'], '') == '':
+        env[env['CM_GIT_CHECKOUT_PATH_ENV_NAME']] = git_checkout_path
+
+    env['CM_GET_DEPENDENT_CACHED_PATH'] = git_checkout_path
 
     return {'return':0}

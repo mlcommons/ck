@@ -93,7 +93,7 @@ class Index:
         import json
 
         s = json.dumps(self.meta, indent=2)
-        
+
         r = utils.save_txt(self.full_path_to_index, s)
 
         return r
@@ -119,7 +119,7 @@ class Index:
         """
 
         index_meta = self.meta
-        
+
         for y in [meta.get('automation_uid',''), meta.get('automation_alias','')]:
             if y!='' and y not in index_meta: 
                 index_meta[y]={}
@@ -128,7 +128,7 @@ class Index:
 
             meta_uid = meta.get('uid','')
             meta_alias = meta.get('alias','')
-            
+
             for z in [meta_uid, meta_alias]:
                 if z!='':
                     if delete:
@@ -188,7 +188,7 @@ class Index:
         """
 
         index_meta = self.meta
-        
+
         ret = {'return':0, 'list':[]}
 
         # Check automation from UID to alias with wild cards
@@ -206,7 +206,7 @@ class Index:
 
         if len(automations)==0:
             return ret
-        
+
         # Check artifacts
         artifacts = []
 
@@ -280,7 +280,7 @@ class Index:
     # Internal support function
     def _add_if_exists(self, meta, key, artifacts, keys_to_delete):
         x = meta[key]
-        
+
         if os.path.isdir(x['path']):
             artifacts.append(x)
         else:

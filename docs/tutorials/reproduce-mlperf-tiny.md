@@ -7,7 +7,12 @@
   * [Install software and setup hardware](#install-software-and-setup-hardware)
   * [Build all benchmarks from OctoML's v1.0 submission](#build-all-benchmarks-from-octoml's-v10-submission)
   * [Flash](#flash)
+  * [Generate submission](#generate-submission)
+  * [Run submission checker and prepare report](#run-submission-checker-and-prepare-report)
+  * [Import results to the CK platform](#import-results-to-the-ck-platform)
+  * [Visualize and compare TinyMLPerf](#visualize-and-compare-tinymlperf)
   * [The next steps](#the-next-steps)
+  * [Contact MLCommons task force on automation and reproducibility](#contact-mlcommons-task-force-on-automation-and-reproducibility)
 
 </details>
 
@@ -102,9 +107,23 @@ You can find the logs after each run in the following directory on your host mac
 
 Follow this [guide](https://github.com/ctuning/mlcommons-ck/blob/master/cm-mlops/script/generate-mlperf-tiny-report/README-extra.md).
 
+## Import results to the CK platform
+
+Follow this [guide](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/import-mlperf-tiny-to-experiment/README-extra.md)
+
+## Visualize and compare TinyMLPerf 
+
+You can visualize and compare TinyMLPerf results [here](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-tiny).
+You can use this collaborative platform inside your organization to reproduce and optimize benchmarks and applications of your interest.
+
 
 ## The next steps
 
-Please follow the rest of this [tutorial](file:///D:/Work1/CM/ck/docs/tutorials/automate-mlperf-tiny.md#prepare-submission) 
+Please follow the rest of this [tutorial](automate-mlperf-tiny.md) 
 to see how to visualize and compare your results, and learn more about our future automation plans.
 
+
+## Contact MLCommons task force on automation and reproducibility
+
+Please join the [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+to get free help to automate and optimize MLPerf benchmarks for your software and hardware stack using the MLCommons CM automation language!

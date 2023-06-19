@@ -5,7 +5,6 @@
   "cache": true,
   "category": "Modular MLPerf benchmarks",
   "default_env": {
-    "CM_GIT_CHECKOUT": "main",
     "CM_GIT_DEPTH": "--depth 4",
     "CM_GIT_CHECKOUT_FOLDER": "repo",
     "CM_GIT_PATCH": "no",
@@ -40,7 +39,8 @@
   ],
   "new_env_keys": [
     "CM_GIT_CHECKOUT_PATH",
-    "CM_GIT_REPO_*"
+    "CM_GIT_REPO_*",
+    "<<<CM_GIT_CHECKOUT_PATH_ENV_NAME>>>"
   ],
   "tags": [
     "get",
@@ -77,6 +77,18 @@
     "short-history": {
       "env": {
         "CM_GIT_DEPTH": "--depth 5"
+      }
+    },
+    "branch.#": {
+      "group": "checkout",
+      "env": {
+        "CM_GIT_BRANCH": "#"
+      }
+    },
+    "sha.#": {
+      "group": "checkout",
+      "env": {
+        "CM_GIT_SHA": "#"
       }
     },
     "repo.#": {

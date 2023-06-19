@@ -73,7 +73,15 @@ def postprocess(i):
     filepath = env['CM_DOWNLOAD_DOWNLOADED_PATH']
 
     if not os.path.exists(filepath):
-        return {'return':1, 'error': 'CM_DOWNLOAD_FILENAME is not set and CM_DOWNLOAD_URL given is not pointing to a file'}
+        return {'return':1, 'error': 'Downloaded path {} does not exist. Probably CM_DOWNLOAD_FILENAME is not set and CM_DOWNLOAD_URL given is not pointing to a file'.format(filepath)}
+
+    if env.get('CM_DOWNLOAD_RENAME_FILE', '') != '':
+        file_dir = os.path.dirname(filepath)
+        new_file_name = env['CM_DOWNLOAD_RENAME_FILE']
+        new_file_path = os.path.join(file_dir, new_file_name)
+        os.rename(filepath, new_file_path)
+        filepath = new_file_path
+
 
     if env.get('CM_DOWNLOAD_FINAL_ENV_NAME','') != '' and env.get(env['CM_DOWNLOAD_FINAL_ENV_NAME'], '') == '':
         env[env['CM_DOWNLOAD_FINAL_ENV_NAME']] = filepath
