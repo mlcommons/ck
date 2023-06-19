@@ -190,7 +190,7 @@ class CAutomation(Automation):
         saved_env = copy.deepcopy(env)
         saved_state = copy.deepcopy(state)
 
-        for special_keys in [ "env", "state", "const", "const_state" ]:
+        for key in [ "env", "state", "const", "const_state" ]:
             if i.get("local_"+key):
                 utils.merge_dicts({'dict1':key, 'dict2':i['local_'+key], 'append_lists':True, 'append_unique':True})
 
