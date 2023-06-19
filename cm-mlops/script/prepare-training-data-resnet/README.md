@@ -113,6 +113,8 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,git,repo,_repo.https://github.com/mlcommons/training_results_v2.1
              - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+           * get,git,repo,_repo.https://github.com/NVIDIA/DeepLearningExamples,_sha.81ee705868a11d6fe18c12d237abe4a08aab5fd6
+             - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
     * `_reference`
       - Environment variables:
         - *CM_TMP_VARIATION*: `reference`
