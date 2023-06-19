@@ -14,8 +14,11 @@ set SCRIPT_DIR=%CM_TMP_CURRENT_SCRIPT_PATH%
 
 set folder=%CM_GIT_CHECKOUT_FOLDER%
 
-if not exist %folder% (
+if not exist %CM_TMP_GIT_PATH% (
 
+  if exist %folder% (
+    deltree %folder%
+  )
   echo ******************************************************
   echo Cloning %CM_GIT_REPO_NAME% from %CM_GIT_URL%
   echo "%CM_GIT_CLONE_CMD%"
