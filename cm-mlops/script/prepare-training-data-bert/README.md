@@ -31,7 +31,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-bert)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *prepare,training,data,input,bert*
+* CM "database" tags to find this script: *prepare,mlperf,training,data,input,bert*
 * Output cached?: *True*
 ___
 ### Usage
@@ -50,9 +50,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=prepare,training,data,input,bert[,variations] [--input_flags]`
+1. `cm run script --tags=prepare,mlperf,training,data,input,bert[,variations] [--input_flags]`
 
-2. `cm run script "prepare training data input bert[,variations]" [--input_flags]`
+2. `cm run script "prepare mlperf training data input bert[,variations]" [--input_flags]`
 
 3. `cm run script 1e06a7abe23545eb [--input_flags]`
 
@@ -71,7 +71,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'prepare,training,data,input,bert'
+                  'tags':'prepare,mlperf,training,data,input,bert'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -88,9 +88,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="prepare,training,data,input,bert"```
+```cm run script --tags=gui --script="prepare,mlperf,training,data,input,bert"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=prepare,training,data,input,bert) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=prepare,mlperf,training,data,input,bert) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -140,12 +140,13 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--clean=value`  &rarr;  `CM_MLPERF_TRAINING_CLEAN_TFRECORDS=value`
 * `--data_dir=value`  &rarr;  `CM_DATA_DIR=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "data_dir":...}
+r=cm.access({... , "clean":...}
 ```
 
 </details>
@@ -196,8 +197,13 @@ ___
 ### Script output
 #### New environment keys (filter)
 
+* `CM_MLPERF_TRAINING_BERT_*`
 #### New environment keys auto-detected from customize
 
+* `CM_MLPERF_TRAINING_BERT_CONFIG_PATH`
+* `CM_MLPERF_TRAINING_BERT_DATA_PATH`
+* `CM_MLPERF_TRAINING_BERT_TFRECORDS_PATH`
+* `CM_MLPERF_TRAINING_BERT_VOCAB_PATH`
 ___
 ### Maintainers
 
