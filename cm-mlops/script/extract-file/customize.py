@@ -64,12 +64,16 @@ def preprocess(i):
     else:
         return {'return': 1, 'error': 'Neither CM_EXTRACT_UNZIP nor CM_EXTRACT_UNTAR is yes'}
 
+    env['CM_EXTRACT_PRE_CMD'] = ''
+
     if 'tar ' in env['CM_EXTRACT_TOOL'] and env.get('CM_EXTRACT_TO_FOLDER', '') != '':
-        env['CM_EXTRACT_TOOL_OPTIONS'] = ' --one-top-level='+ env['CM_EXTRACT_TO_FOLDER'] + env.get('CM_EXTRACT_TOOL_OPTIONS', '')
+        #env['CM_EXTRACT_TOOL_OPTIONS'] = ' --one-top-level='+ env['CM_EXTRACT_TO_FOLDER'] + env.get('CM_EXTRACT_TOOL_OPTIONS', '')
+        env['CM_EXTRACT_TOOL_OPTIONS'] = ' -C '+ env['CM_EXTRACT_TO_FOLDER'] + ' ' + env.get('CM_EXTRACT_TOOL_OPTIONS', '')
+        env['CM_EXTRACT_PRE_CMD'] = 'mkdir -p '+ env['CM_EXTRACT_TO_FOLDER'] +  ' && '
         env['CM_EXTRACT_EXTRACTED_FILENAME'] = env['CM_EXTRACT_TO_FOLDER']
 
 
-    env['CM_EXTRACT_CMD'] = env['CM_EXTRACT_TOOL'] + ' ' + env.get('CM_EXTRACT_TOOL_EXTRA_OPTIONS', '') + ' ' + env.get('CM_EXTRACT_TOOL_OPTIONS', '')+ ' '+ filename
+    env['CM_EXTRACT_CMD'] = env['CM_EXTRACT_PRE_CMD'] + env['CM_EXTRACT_TOOL'] + ' ' + env.get('CM_EXTRACT_TOOL_EXTRA_OPTIONS', '') + ' ' + env.get('CM_EXTRACT_TOOL_OPTIONS', '')+ ' '+ filename
 
     final_file = env.get('CM_EXTRACT_EXTRACTED_FILENAME')
 
