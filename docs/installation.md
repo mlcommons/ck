@@ -80,6 +80,8 @@ If `brew` package manager is not installed, please install it as follows (see de
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+Don't forget to add brew to PATH environment as described in the end.
+
 Then install python, pip, git and wget:
 
 ```bash
