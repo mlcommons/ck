@@ -13,7 +13,9 @@ based on our [ACM PPoPP'19 AE report](https://medium.com/@gfursin/acm-ppopp19-ar
 * [HotCRP Settings - Review form](HotCRP_Settings__Review_form__PPoPP'19_AE.pdf)
 * [HotCRP Settings - Decisions](HotCRP_Settings__Decisions__PPoPP'19_AE.pdf)
 
-You can just copy/paste different fields to configure your own HotCRP AE instance.
+You can also download this [JSON file](hotcrp-config-acm-ieee-micro-2023-ae.json) 
+with the latest configuration from the [ACM/IEEE MICRO 2023 Artifact Evaluation](https://cTuning.org/ae/micro2023.html) 
+and copy/paste it to your own HotCRP configuration in "Advanced" settings.
 
 If you have further questions, contact us via [Discord server](https://discord.gg/JjWNWXKxwT),
 and/or [AE mailing list](https://groups.google.com/g/artifact-evaluation).

@@ -35,15 +35,29 @@ You can also add private results to compare submissions locally before they beco
 cm run script "get git repo _repo.https://github.com/mlcommons/submissions_tiny_v1.1" --extra_cache_tags=mlperf-tiny-results,version-1.1-private
 ```
 
+You can use a specific checkout/branch as follows:
+```bash
+cm run script "get git repo _repo.https://github.com/mlcommons/submissions_tiny_v1.1" \
+   --extra_cache_tags=mlperf-tiny-results,version-1.1-private,generate_final_report \
+   --depth="" \
+   --branch=generate_final_report
+```
+
 Convert raw MLPerf results into CM experiment entries:
 ```bash
-cm run script "import mlperf tiny to-experiment" -s
+cm run script "import mlperf tiny to-experiment"
 ```
 
 Visualize results on your local machine via CK playground GUI:
 ```bash
-cm run script "gui _playground" -s
+cm run script "gui _graph" --exp_tags=mlperf-tiny
 ```
+
+You can then select the results you want to visualize and compare,
+add derived metrics and set constaints as shown in the following example:
+
+![](assets/cm-visualization-and-customization-of-tinymlperf-results2.png)
+
 
 These results are also available in the [public CK playground](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-tiny,all).
 

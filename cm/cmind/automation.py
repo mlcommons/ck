@@ -260,11 +260,9 @@ class Automation:
                             print (artifact_object.path)
 
                     return {'return':0, 'list':lst}
-        
-        
-        
 
-        
+
+
         # Iterate over pruned repositories
         for repo in pruned_repos:
             path_repo = repo.path_with_prefix
@@ -293,7 +291,7 @@ class Automation:
                         path_artifact = os.path.join(path_artifacts, artifact)
 
                         if os.path.isdir(path_artifact):
-                            
+
                             # Check if has CM meta to make sure that it's a CM object
                             path_artifact_meta = os.path.join(path_artifact, self.cmind.cfg['file_cmeta'])
 

@@ -103,13 +103,12 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* `--path=value`  &rarr;  `CM_DATASET_IMAGENET_TRAIN_LOCAL_PATH=value`
 * `--torrent=value`  &rarr;  `CM_DATASET_IMAGENET_TRAIN_TORRENT_PATH=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "path":...}
+r=cm.access({... , "torrent":...}
 ```
 
 </details>
@@ -133,13 +132,12 @@ ___
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-train/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-train/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-train/_cm.json)***
-     * download,torrent
-       * `if (CM_DATASET_IMAGENET_TRAIN_REQUIRE_TORRENT  == yes)`
-       * CM names: `--adr.['download-torrent']...`
-       - CM script: [download-torrent](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-torrent)
-     * download,extract,file,_extract
-       * `if (CM_DATASET_IMAGENET_TRAIN_REQUIRE_EXTRACT  == yes)`
+     * download-and-extract,file,_extract
+       * `if (CM_DATASET_IMAGENET_VAL_REQUIRE_DAE in ['yes', 'True'])`
        - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
+     * file,extract
+       * `if (CM_DAE_ONLY_EXTRACT in ['yes', 'True'])`
+       - CM script: [extract-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file)
   1. ***Run native script if exists***
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-train/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-train/_cm.json)
@@ -151,8 +149,15 @@ ___
 ### Script output
 #### New environment keys (filter)
 
+* `CM_DATASET_IMAGENET_*`
+* `CM_DATASET_PATH`
 #### New environment keys auto-detected from customize
 
+* `CM_DATASET_IMAGENET_PATH`
+* `CM_DATASET_IMAGENET_TRAIN_PATH`
+* `CM_DATASET_IMAGENET_TRAIN_REQUIRE_DAE`
+* `CM_DATASET_IMAGENET_VAL_REQUIRE_DAE`
+* `CM_DATASET_PATH`
 ___
 ### Maintainers
 

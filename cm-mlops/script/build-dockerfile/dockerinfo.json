@@ -8,7 +8,7 @@
   "ENTRYPOINT": "[\"/bin/bash\", \"-c\"]",
   "ENV": {
     "TZ": "US/Pacific",
-    "PATH": "${PATH}:$HOME/.local/bin"
+    "PATH": "${PATH}:/home/cmuser/.local/bin"
   },
   "RUN_CMDS": [
     "ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ >/etc/timezone"

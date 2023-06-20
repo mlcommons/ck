@@ -154,6 +154,10 @@ ___
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `transmission`
       - Workflow:
+    * `_zlib`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `zlib`
+      - Workflow:
 
     </details>
 

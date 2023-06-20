@@ -1,6 +1,10 @@
+## V1.4.1
+   - added cme binary as a shortcut for "cm run experiment"
+
 ## V1.4.0
    - added cmr binary as a shortcut for "cm run script"
    - fixed minor bug with repo/automation/artifact detection in the current path with "."
+   - various improvements in CM-MLOps repository to support TinyMLPerf
 
 ## V1.3.0
    - Turned on artifact indexing by default 

@@ -220,6 +220,7 @@ deps:
       CM_MODEL:
       - bert-99
       - bert-99.9
+      - gptj
 
   ## Tensorflow
   - tags: get,generic-python-lib,_tensorflow
@@ -555,6 +556,15 @@ variations:
     group: models
     env:
       CM_MODEL: gptj
+    deps:
+    - tags: get,generic-python-lib,_torch
+    - tags: get,generic-python-lib,_package.filelock
+    - tags: get,generic-python-lib,_package.datasets
+    - tags: get,generic-python-lib,_package.pyarrow
+    - tags: get,generic-python-lib,_package.multiprocess
+    - tags: get,generic-python-lib,_package.sympy
+    - tags: get,generic-python-lib,_package.soundfile
+    - tags: get,generic-python-lib,_package.attrs
 
   bert-99.9:
     group: models
@@ -639,20 +649,10 @@ variations:
     - tags: get,generic-python-lib,_opencv-python
     - tags: get,generic-python-lib,_tensorboard
     - tags: get,generic-python-lib,_protobuf
-      version: "3.20"
     - tags: get,generic-python-lib,_scikit-learn
     - tags: get,generic-python-lib,_tqdm
     - tags: get,generic-python-lib,_onnx
     - tags: get,generic-python-lib,_numpy
-      version: "1.19.5"
-    - tags: get,python3
-      version_max: "3.8.999"
-      version_max_usable: "3.8.12"
-    adr:
-      ml-engine-pytorch:
-        version: "1.10.1"
-      ml-engine-torchvision:
-        version: "0.11.2"
 
   rnnt:
     group: models
@@ -662,6 +662,8 @@ variations:
       CM_TMP_IGNORE_MLPERF_QUERY_COUNT: true
     deps:
     - tags: get,generic-python-lib,_librosa
+      names:
+        - librosa
     - tags: get,generic-python-lib,_inflect
     - tags: get,generic-python-lib,_unidecode
     - tags: get,generic-python-lib,_toml
@@ -717,6 +719,28 @@ variations:
     env:
       CM_MLPERF_QUANTIZATION: off
       CM_MLPERF_MODEL_PRECISION: float32
+
+  # Model precision
+  float16:
+    group: precision
+    add_deps_recursive:
+      ml-model:
+        tags:
+          _fp32
+    env:
+      CM_MLPERF_QUANTIZATION: off
+      CM_MLPERF_MODEL_PRECISION: float16
+
+  # Model precision
+  bfloat16:
+    group: precision
+    add_deps_recursive:
+      ml-model:
+        tags:
+          _fp32
+    env:
+      CM_MLPERF_QUANTIZATION: off
+      CM_MLPERF_MODEL_PRECISION: bfloat16
 
   int8:
     group: precision

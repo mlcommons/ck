@@ -108,6 +108,13 @@
       "env": {
         "CM_CRITEO_FAKE": "yes"
       }
+    },
+    "multihot": {
+      "group": "type",
+      "default": true,
+      "env": {
+        "CM_DATASET_CRITEO_MULTIHOT": "yes"
+      }
     }
   }
 }

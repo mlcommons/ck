@@ -8,11 +8,21 @@ def preprocess(i):
 
     env = i['env']
 
+    if env.get('CM_DOWNLOAD_URL','')=='':
+        return {'return':1, 'error': 'please specify URL using --url={URL} or --env.CM_DOWNLOAD_URL={URL}'}
+     
+
     meta = i['meta']
 
     automation = i['automation']
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
+
+    if env.get('CM_DOWNLOAD_PATH', '') != '':
+        download_path = env['CM_DOWNLOAD_PATH']
+        if not os.path.exists(download_path):
+            os.makedirs(download_path, exist_ok = True)
+        os.chdir(download_path)
 
     if not env.get('CM_DOWNLOAD_FILENAME'):
         urltail = os.path.basename(env['CM_DOWNLOAD_URL'])
@@ -38,6 +48,8 @@ def preprocess(i):
          env['CM_DOWNLOAD_CMD'] = f"wget -nc {extra_download_options} {url}"
     elif env['CM_DOWNLOAD_TOOL'] == "curl":
         env['CM_DOWNLOAD_CMD'] = f"curl {extra_download_options} {url}"
+    elif env['CM_DOWNLOAD_TOOL'] == "gdown":
+        env['CM_DOWNLOAD_CMD'] = f"gdown {extra_download_options} {url}"
 
     filename = env['CM_DOWNLOAD_FILENAME']
     env['CM_DOWNLOAD_DOWNLOADED_FILENAME'] = filename
@@ -61,9 +73,17 @@ def postprocess(i):
     filepath = env['CM_DOWNLOAD_DOWNLOADED_PATH']
 
     if not os.path.exists(filepath):
-        return {'return':1, 'error': 'CM_DOWNLOAD_FILENAME is not set and CM_DOWNLOAD_URL given is not pointing to a file'}
+        return {'return':1, 'error': 'Downloaded path {} does not exist. Probably CM_DOWNLOAD_FILENAME is not set and CM_DOWNLOAD_URL given is not pointing to a file'.format(filepath)}
 
-    if env.get('CM_DOWNLOAD_FINAL_ENV_NAME') and env.get(env['CM_DOWNLOAD_FINAL_ENV_NAME'], '') == '':
+    if env.get('CM_DOWNLOAD_RENAME_FILE', '') != '':
+        file_dir = os.path.dirname(filepath)
+        new_file_name = env['CM_DOWNLOAD_RENAME_FILE']
+        new_file_path = os.path.join(file_dir, new_file_name)
+        os.rename(filepath, new_file_path)
+        filepath = new_file_path
+
+
+    if env.get('CM_DOWNLOAD_FINAL_ENV_NAME','') != '' and env.get(env['CM_DOWNLOAD_FINAL_ENV_NAME'], '') == '':
         env[env['CM_DOWNLOAD_FINAL_ENV_NAME']] = filepath
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] =  filepath

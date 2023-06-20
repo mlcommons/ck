@@ -29,8 +29,8 @@
 
 
 **If you have questions or suggestions which are not addressed here, please feel free 
-to post them to the dedicated [AE google group](https://groups.google.com/forum/#!forum/artifact-evaluation)
-or contact the [open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).**
+to contact the [public MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
+via this [Discord server](https://discord.gg/JjWNWXKxwT) or post them to the dedicated [AE google group](https://groups.google.com/forum/#!forum/artifact-evaluation).**
 
 
 ### What is the difference between Repeatability, Reproducibility and Replicability?

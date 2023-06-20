@@ -112,6 +112,7 @@ class CAutomation(Automation):
                           (the developers have to support it in pre/post processing and scripts)
 
           (skip_cache) (bool): if True, skip caching and run in current directory
+          (force_cache) (bool): if True, force caching if can_force_cache=true in script meta
 
           (skip_remembered_selections) (bool): if True, skip remembered selections
                                                (uses or sets env.CM_TMP_SKIP_REMEMBERED_SELECTIONS to "yes")
@@ -135,6 +136,7 @@ class CAutomation(Automation):
           (print_env) (bool): if True, print aggregated env before each run of a native script
 
           (fake_run) (bool): if True, will run the dependent scripts but will skip the main run script
+          (prepare) (bool): the same as fake_run
           (fake_deps) (bool): if True, will fake run the dependent scripts
           (print_deps) (bool): if True, will print the CM run commands of the direct dependent scripts
           (run_state) (dict): Internal run state
@@ -154,6 +156,7 @@ class CAutomation(Automation):
                                         and finish a given CM script. Useful to test/debug partial installations
 
           (json) (bool): if True, print output as JSON
+          (j) (bool): if True, print output as JSON
 
           (pause) (bool): if True, pause at the end of the main script (Press Enter to continue)
 
@@ -230,6 +233,19 @@ class CAutomation(Automation):
         # Get current env and state before running this script and sub-scripts
         env = i.get('env',{})
         state = i.get('state',{})
+        const = i.get('const',{})
+        const_state = i.get('const_state',{})
+
+        # Save current env and state to detect new env and state after running a given script
+        saved_env = copy.deepcopy(env)
+        saved_state = copy.deepcopy(state)
+
+        for key in [ "env", "state", "const", "const_state" ]:
+            if i.get("local_"+key):
+                if not i.get(key, {}):
+                    i[key] = {}
+                utils.merge_dicts({'dict1':i[key], 'dict2':i['local_'+key], 'append_lists':True, 'append_unique':True})
+
         add_deps = i.get('ad',{})
         if not add_deps:
             add_deps = i.get('add_deps',{})
@@ -241,9 +257,6 @@ class CAutomation(Automation):
             add_deps_recursive = i.get('add_deps_recursive', {})
         else:
             utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':i.get('add_deps_recursive', {}), 'append_lists':True, 'append_unique':True})
-        # Save current env and state to detect new env and state after running a given script
-        saved_env = copy.deepcopy(env)
-        saved_state = copy.deepcopy(state)
 
         save_env = i.get('save_env', False)
 
@@ -262,7 +275,9 @@ class CAutomation(Automation):
         extra_recursion_spaces = '  '# if verbose else ''
 
         skip_cache = i.get('skip_cache', False)
+        force_cache = i.get('force_cache', False)
         fake_run = i.get('fake_run', False)
+        fake_run = i.get('fake_run', False) if 'fake_run' in i else i.get('prepare', False)
         fake_deps = i.get('fake_deps', False)
         run_state = i.get('run_state', self.run_state)
         if fake_deps:
@@ -509,7 +524,7 @@ class CAutomation(Automation):
         # Found 1 or more scripts. Scans cache tags to find at least 1 with cache==True
         preload_cached_scripts = False
         for script in list_of_found_scripts:
-            if script.meta.get('cache', False):
+            if script.meta.get('cache', False) == True or (script.meta.get('can_force_cache', False) and force_cache):
                 preload_cached_scripts = True
                 break
 
@@ -921,6 +936,7 @@ class CAutomation(Automation):
         # Check if the output of a selected script should be cached
         cache = False if i.get('skip_cache', False) else meta.get('cache', False)
         cache = False if i.get('fake_run', False) else cache
+        cache = cache or (i.get('force_cache', False) and meta.get('can_force_cache', False))
 
         cached_uid = ''
         cached_tags = []
@@ -1613,7 +1629,7 @@ class CAutomation(Automation):
 
         rr = {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state, 'deps': run_state['deps']}
         
-        if i.get('json', False):
+        if i.get('json', False) or i.get('j', False):
             import json
 
             print ('')
@@ -2234,19 +2250,22 @@ class CAutomation(Automation):
     ##############################################################################
     def _process_variation_tags_in_groups(script, variation_tags, groups, excluded_variations, variations):
         import copy
-        tmp_variation_tags= copy.deepcopy(variation_tags)
-        tmp_variation_tags_static= copy.deepcopy(variation_tags)
-        for v in tmp_variation_tags_static:
+        tmp_variation_tags = copy.deepcopy(variation_tags)
+        tmp_variation_tags_static = copy.deepcopy(variation_tags)
+
+        for v_i in range(len(tmp_variation_tags_static)):
+            v = tmp_variation_tags_static[v_i]
+
             if v not in variations:
                 v_static = script._get_name_for_dynamic_variation_tag(v)
-                tmp_variation_tags_static.remove(v)
-                tmp_variation_tags_static.append(v_static)
+                tmp_variation_tags_static[v_i] = v_static
 
         for k in groups:
             group = groups[k]
             unique_allowed_variations = group['variations']
+
             if len(set(unique_allowed_variations) & set(tmp_variation_tags_static)) > 1:
-                return {'return': 1, 'error': 'Multiple variation tags selected for the variation group "{}": {} '.format(k, str(set(unique_allowed_variations) & set(variation_tags)))}
+                return {'return': 1, 'error': 'Multiple variation tags selected for the variation group "{}": {} '.format(k, str(set(unique_allowed_variations) & set(tmp_variation_tags_static)))}
             if len(set(unique_allowed_variations) & set(tmp_variation_tags_static)) == 0:
                 if 'default' in group and group['default'] not in excluded_variations:
                     tmp_variation_tags.append(group['default'])
@@ -2295,6 +2314,10 @@ class CAutomation(Automation):
 
 
             for d in deps:
+
+                if not d.get('tags'):
+                    continue
+
                 if "enable_if_env" in d:
                     if not enable_or_skip_script(d["enable_if_env"], env):
                         continue
@@ -2356,12 +2379,12 @@ class CAutomation(Automation):
                             d['tags']+=","+t+env[key]
 
                 run_state['deps'].append(d['tags'])
-                run_state['deps'].append(d['tags'])
 
                 if not run_state['fake_deps']:
                     import copy
                     tmp_run_state_deps = copy.deepcopy(run_state['deps'])
                     run_state['deps'] = []
+
                     # Run collective script via CM API:
                     # Not very efficient but allows logging - can be optimized later
                     ii = {
@@ -2382,8 +2405,15 @@ class CAutomation(Automation):
 
                         }
 
+                    for key in [ "env", "state", "const", "const_state" ]:
+                        ii['local_'+key] = d.get(key, {})
+                        if d.get(key):
+                            d[key] = {}
+
                     utils.merge_dicts({'dict1':ii, 'dict2':d, 'append_lists':True, 'append_unique':True})
-                    
+
+                    update_env_with_values(ii['env']) #to update env local to a dependency
+
                     r = self.cmind.access(ii)
                     if r['return']>0: return r
 

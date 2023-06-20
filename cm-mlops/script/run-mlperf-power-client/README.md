@@ -134,10 +134,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_MLPERF_POWER_LOG_DIR: `logs`
 * CM_MLPERF_RUN_CMD: ``
 * CM_MLPERF_POWER_SERVER_ADDRESS: `localhost`
-* CM_MLPERF_LOADGEN_LOGS_DIR: `loadgen_logs`
 * CM_MLPERF_POWER_NTP_SERVER: `time.google.com`
-* CM_MLPERF_POWER_MAX_AMPS: `0`
-* CM_MLPERF_POWER_MAX_VOLTS: `0`
 
 </details>
 

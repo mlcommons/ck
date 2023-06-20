@@ -134,6 +134,22 @@ ___
     </details>
 
 
+  * Group "**checkout**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_branch.#`
+      - Environment variables:
+        - *CM_GIT_BRANCH*: `#`
+      - Workflow:
+    * `_sha.#`
+      - Environment variables:
+        - *CM_GIT_SHA*: `#`
+      - Workflow:
+
+    </details>
+
+
   * Group "**repo**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -175,7 +191,6 @@ r=cm.access({... , "branch":...}
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_GIT_CHECKOUT: `main`
 * CM_GIT_DEPTH: `--depth 4`
 * CM_GIT_CHECKOUT_FOLDER: `repo`
 * CM_GIT_PATCH: `no`
@@ -211,6 +226,7 @@ ___
 ### Script output
 #### New environment keys (filter)
 
+* `<<<CM_GIT_CHECKOUT_PATH_ENV_NAME>>>`
 * `CM_GIT_CHECKOUT_PATH`
 * `CM_GIT_REPO_*`
 #### New environment keys auto-detected from customize

@@ -1,0 +1,13 @@
+docker:
+  build: true
+  docker_os: ubuntu
+  docker_os_version: "22.04"
+  fake_run_deps: true
+  mounts:
+    - ${{ CM_DATA_DIR }}:${{ CM_DATA_DIR }}
+
+run_with_default_inputs: true #if false the script won't run automatic tests
+      
+minimum_system_requirements:
+  ram: 512 #in GB
+  disk_space: 900 #in GB

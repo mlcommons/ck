@@ -1,3 +1,8 @@
+Since March 2023, all updates to CM automations are submitted via PRs.
+You can follow our updates via https://github.com/mlcommons/ck/pulls?q=is%3Apr+is%3Aclosed .
+
+========================================
+
 # 20230214
  * experiment and graph gui are working now
 
@@ -98,7 +103,7 @@
 
 # 20220704
  * fixed a bug with searching for scripts with variations
- * added the possibilty to update deps from pre/post processing
+ * added the possibility to update deps from pre/post processing
  * added --extra-cache-tags and --name for "cm run script"
  * added prototype of selection caching
  * fixed get-python-venv

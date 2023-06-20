@@ -1103,6 +1103,8 @@ def dockerfile(i):
     else:
         run_cmd = ""
 
+    #run_cmd = i.get('run_cmd_prefix') + ' && ' + run_cmd if i.get('run_cmd_prefix') else run_cmd
+
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
         meta = artifact.meta
@@ -1121,8 +1123,10 @@ def dockerfile(i):
         if not docker_settings or not docker_settings.get('build') or not run_config.get('run_with_default_inputs'):
             print("Run config is not configured for docker run in {}".format(run_config_path))
             continue
-        docker_os = docker_settings.get('docker_os', 'ubuntu')
-        docker_os_version = docker_settings.get('docker_os_version', '22.04')
+
+        docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
+        docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
+        fake_run_deps = i.get('fake_run_deps', docker_settings.get('fake_run_deps', False))
 
         dockerfile_path = os.path.join(script_path,'dockerfiles', docker_os +'_'+docker_os_version +'.Dockerfile')
         if i.get('print_deps'):
@@ -1132,7 +1136,8 @@ def dockerfile(i):
                     'print_deps': True,
                     'quiet': True,
                     'silent': True,
-                    'fake_run': True
+                    'fake_run': True,
+                    'fake_deps': True
                     }
             r = self_module.cmind.access(cm_input)
             if r['return'] > 0:
@@ -1155,6 +1160,7 @@ def dockerfile(i):
                             'run_cmd': f'{run_cmd} --quiet',
                             'script_tags': f'{tag_string}',
                             'quiet': True,
+                            'fake_docker_deps': fake_run_deps,
                             'print_deps': True,
                             'real_run': True
                             }
@@ -1238,6 +1244,8 @@ def docker(i):
     else:
         run_cmd = ""
 
+    env=i.get('env', {})
+
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
         meta = artifact.meta
@@ -1246,8 +1254,64 @@ def docker(i):
         script_alias = meta.get('alias')
         tag_string=",".join(tags)
 
-        _os=i.get('docker_os', 'ubuntu')
-        version=i.get('docker_os_version', '22.04')
+        run_config_path = os.path.join(script_path,'run_config.yml')
+        if not os.path.exists(run_config_path):
+            print("No run_config.yml file present in {}".format(script_path))
+            continue
+        import yaml
+        with open(run_config_path, 'r') as run_config_file:
+            run_config = yaml.safe_load(run_config_file)
+        docker_settings = run_config.get('docker')
+        if not docker_settings or not docker_settings.get('build') or not run_config.get('run_with_default_inputs'):
+            print("Run config is not configured for docker run in {}".format(run_config_path))
+            continue
+
+        _os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
+        version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
+
+        import re
+        mounts = docker_settings.get('mounts', [])
+        input_mapping = meta.get('input_mapping', {})
+
+        docker_input_mapping = {}
+        for c_input in input_mapping:
+            if c_input in i:
+                docker_input_mapping[input_mapping[c_input]] = i[c_input]
+
+        for index in range(len(mounts)):
+            mount = mounts[index]
+            mount_parts = mount.split(":")
+            if len(mount_parts) != 2:
+                return {'return': 1, 'error': f'Invalid mount specified in docker settings'}
+            host_mount = mount_parts[0]
+            container_mount = mount_parts[1]
+            tmp_values = re.findall(r'\${{ (.*?) }}', str(host_mount))
+            if tmp_values:
+                for tmp_value in tmp_values:
+                    if tmp_value in env:
+                        new_host_mount = env[tmp_value]
+                    elif tmp_value in docker_input_mapping:
+                        new_host_mount = docker_input_mapping[tmp_value]
+            else:
+                new_host_mount = host_mount
+
+            tmp_values = re.findall(r'\${{ (.*?) }}', str(container_mount))
+            if tmp_values:
+                for tmp_value in tmp_values:
+                    if tmp_value in env:
+                        new_container_mount = env[tmp_value]
+                    elif tmp_value in docker_input_mapping:
+                        new_container_mount = docker_input_mapping[tmp_value]
+            else:
+                new_container_mount = container_mount
+            mounts[index] = new_host_mount+":"+new_container_mount
+
+        if mounts:
+            mount_string = ",".join(mounts)
+        else:
+            mount_string = ",".join(mounts)
+
+        cm_repo=i.get('cm_repo', 'mlcommons@ck')
 
         dockerfile_path = os.path.join(script_path,'dockerfiles', _os +'_'+version +'.Dockerfile')
 
@@ -1256,7 +1320,10 @@ def docker(i):
                             'tags': 'run,docker,container',
                             'recreate': 'yes',
                             'docker_os': _os,
+                            'cm_repo': cm_repo,
+                            'env': env,
                             'image_repo': 'cm',
+                            'mounts': mounts,
                             'image_tag': script_alias,
                             'docker_os_version': version,
                             'detached': 'no',

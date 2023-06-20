@@ -34,6 +34,8 @@
       "env": {
         "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_FILE>>>"
       },
+      "force_cache": true,
+      "extra_cache_tags": "ml-model,resnet50,raw,ml-model-resnet50",
       "update_tags_from_env_with_prefix": {
         "_url.": [ "CM_PACKAGE_URL" ]
       }

@@ -130,6 +130,22 @@ ___
     </details>
 
 
+  * Group "**type**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_multihot`** (default)
+      - Environment variables:
+        - *CM_DATASET_CRITEO_MULTIHOT*: `yes`
+      - Workflow:
+
+    </details>
+
+
+#### Default variations
+
+`_multihot`
+
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>

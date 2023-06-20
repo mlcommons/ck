@@ -35,4 +35,4 @@ jobs:
         cm run script --quiet --tags=get,sys-utils-cm
     - name: MLPerf Inference ResNet50 using TVM
       run: |
-        cm run script --tags=run,mlperf,inference,generate-run-cmds --hw_name=default --model=resnet50 --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=5 --quiet
+        cm run script --tags=run,mlperf,inference,generate-run-cmds --hw_name=default --model=resnet50 --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=5 --target_qps=1 -v --quiet
