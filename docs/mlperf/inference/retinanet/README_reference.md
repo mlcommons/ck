@@ -1,6 +1,5 @@
 Please do the system setup as described [here](README.md)
 
-Additionally, for using Nvidia MLPerf inference implementations we need to install TensorRT and set up the configuration files as detailed [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/README-about.md)
 
 ## Run Commands
 
@@ -9,17 +8,19 @@ Additionally, for using Nvidia MLPerf inference implementations we need to insta
 
 ```
 cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
---model=resnet50 --implementation=nvidia-original --device=cuda --backend=tensorrt \
+--model=retinanet --implementation=reference --device=cpu --backend=onnxruntime \
 --category=edge --division=open --quiet
 ```
+* Use `--device=cuda` to run the inference on Nvidia GPU
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
 * Use `--category=datacenter` to run datacenter scenarios
+* Use `--backend=pytorch` to use pytorch backend
 
 ### Do a full accuracy and performance runs for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --model=resnet50 \
---device=cuda --implementation=nvidia-original --backend=tensorrt \
+cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --model=retinanet \
+--device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
 --category=edge --division=open --quiet
 ```
@@ -30,8 +31,8 @@ cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --mod
 
 ### Populate the README files
 ```
-cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios \
---model=resnet50 --device=cuda --implementation=nvidia-original --backend=tensorrt \
+cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
+--model=retinanet --device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
 --category=edge --division=open --quiet
 ```
@@ -42,7 +43,7 @@ Here, we are copying the performance and accuracy log files (compliance logs als
 
 We should use the master branch of MLCommons inference repo for the submission checker. You can use `--hw_note_extra` option to add your name to the notes.
 ```
-cm run script --tags=generate,inference,submission --results_dir=$HOME/inference_3.1_results/valid_results \
+cmr "generate inference submission" --results_dir=$HOME/inference_3.1_results/valid_results \
 --submission_dir=$HOME/inference_submission_tree --clean  \
 --run-checker --submitter=cTuning --adr.inference-src.version=master \
 --hw_notes_extra="Result taken by NAME" --quiet
