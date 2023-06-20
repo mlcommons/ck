@@ -8,7 +8,7 @@ Additionally, for using Nvidia MLPerf inference implementations we need to insta
 ### Do a test run to detect and record the system performance
 
 ```
-cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
+cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 --model=resnet50 --implementation=nvidia-original --device=cuda --backend=tensorrt \
 --category=edge --division=open --quiet
 ```
@@ -18,7 +18,7 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 ### Do a full accuracy and performance runs for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --model=resnet50 \
+cmr "generate-run-cmds inference _all-modes _all-scenarios" --model=resnet50 \
 --device=cuda --implementation=nvidia-original --backend=tensorrt \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
 --category=edge --division=open --quiet
@@ -30,7 +30,7 @@ cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --mod
 
 ### Populate the README files
 ```
-cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios \
+cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
 --model=resnet50 --device=cuda --implementation=nvidia-original --backend=tensorrt \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
 --category=edge --division=open --quiet
@@ -42,7 +42,7 @@ Here, we are copying the performance and accuracy log files (compliance logs als
 
 We should use the master branch of MLCommons inference repo for the submission checker. You can use `--hw_note_extra` option to add your name to the notes.
 ```
-cm run script --tags=generate,inference,submission --results_dir=$HOME/inference_3.1_results/valid_results \
+cmr "generate inference submission" --results_dir=$HOME/inference_3.1_results/valid_results \
 --submission_dir=$HOME/inference_submission_tree --clean  \
 --run-checker --submitter=cTuning --adr.inference-src.version=master \
 --hw_notes_extra="Result taken by NAME" --quiet
