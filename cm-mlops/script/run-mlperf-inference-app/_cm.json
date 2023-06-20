@@ -342,5 +342,12 @@
       "boolean": true,
       "default": false
     }
+  },
+  "docker": {
+    "run": true,
+    "fake_run_deps": true,
+     "mounts": [
+       "${{ GPTJ_CHECKPOINT_PATH }}:${{ GPTJ_CHECKPOINT_PATH }}"
+     ]
   }
 }

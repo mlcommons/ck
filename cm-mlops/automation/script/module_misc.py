@@ -1112,7 +1112,11 @@ def dockerfile(i):
         tags = meta.get("tags", [])
         tag_string=",".join(tags)
 
-        run_config_path = os.path.join(script_path,'run_config.yml')
+        docker_settings = meta.get('docker', {})
+        if not docker_settings.get('run', False):
+            print("docker.run not set to True in _cm.json")
+            continue
+        '''run_config_path = os.path.join(script_path,'run_config.yml')
         if not os.path.exists(run_config_path):
             print("No run_config.yml file present in {}".format(script_path))
             continue
@@ -1123,6 +1127,7 @@ def dockerfile(i):
         if not docker_settings or not docker_settings.get('build') or not run_config.get('run_with_default_inputs'):
             print("Run config is not configured for docker run in {}".format(run_config_path))
             continue
+        '''
 
         docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
         docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
@@ -1160,6 +1165,7 @@ def dockerfile(i):
                             'run_cmd': f'{run_cmd} --quiet',
                             'script_tags': f'{tag_string}',
                             'quiet': True,
+                            'v': i.get('v', False),
                             'fake_docker_deps': fake_run_deps,
                             'print_deps': True,
                             'real_run': True
@@ -1254,20 +1260,26 @@ def docker(i):
         script_alias = meta.get('alias')
         tag_string=",".join(tags)
 
-        run_config_path = os.path.join(script_path,'run_config.yml')
+        '''run_config_path = os.path.join(script_path,'run_config.yml')
         if not os.path.exists(run_config_path):
             print("No run_config.yml file present in {}".format(script_path))
             continue
         import yaml
         with open(run_config_path, 'r') as run_config_file:
             run_config = yaml.safe_load(run_config_file)
-        docker_settings = run_config.get('docker')
+        '''
+        docker_settings = meta.get('docker', {})
+        if not docker_settings.get('run', False):
+            print("docker.run not set to True in _cm.json")
+            continue
+        '''
         if not docker_settings or not docker_settings.get('build') or not run_config.get('run_with_default_inputs'):
             print("Run config is not configured for docker run in {}".format(run_config_path))
             continue
+        '''
 
-        _os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
-        version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
+        _os = i.get('docker_os', meta.get('docker_os', 'ubuntu'))
+        version = i.get('docker_os_version', meta.get('docker_os_version', '22.04'))
 
         import re
         mounts = docker_settings.get('mounts', [])
@@ -1283,8 +1295,12 @@ def docker(i):
             mount_parts = mount.split(":")
             if len(mount_parts) != 2:
                 return {'return': 1, 'error': f'Invalid mount specified in docker settings'}
+
             host_mount = mount_parts[0]
+            new_host_mount = host_mount
             container_mount = mount_parts[1]
+            new_container_mount = container_mount
+
             tmp_values = re.findall(r'\${{ (.*?) }}', str(host_mount))
             if tmp_values:
                 for tmp_value in tmp_values:
@@ -1292,8 +1308,6 @@ def docker(i):
                         new_host_mount = env[tmp_value]
                     elif tmp_value in docker_input_mapping:
                         new_host_mount = docker_input_mapping[tmp_value]
-            else:
-                new_host_mount = host_mount
 
             tmp_values = re.findall(r'\${{ (.*?) }}', str(container_mount))
             if tmp_values:
@@ -1302,9 +1316,9 @@ def docker(i):
                         new_container_mount = env[tmp_value]
                     elif tmp_value in docker_input_mapping:
                         new_container_mount = docker_input_mapping[tmp_value]
-            else:
-                new_container_mount = container_mount
+
             mounts[index] = new_host_mount+":"+new_container_mount
+
 
         if mounts:
             mount_string = ",".join(mounts)
@@ -1329,6 +1343,7 @@ def docker(i):
                             'detached': 'no',
                             'script_tags': f'{tag_string}',
                             'run_cmd': run_cmd,
+                            'v': i.get('v', False),
                             'quiet': True,
                             'real_run': True,
                             'add_deps_recursive': {
