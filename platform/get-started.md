@@ -4,7 +4,7 @@
 
 The [Collective Knowledge platform](https://access.cKnowledge.org) 
 is currently having experiment results from MLPerf Inference v2.0, v2.1 and v3.0 
-in the [extensible CM format](https://github.com/mlcommons/cm_inference_results)
+in the [extensible CM format](https://github.com/mlcommons/ck_mlperf_results)
 and with the possibility to add derived metrics such as power efficiency.
 
 We are currently preparing the [optimization challenge for MLPerf Inference v3.1](https://github.com/ctuning/mlcommons-ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/README.md).

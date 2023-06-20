@@ -36,5 +36,5 @@ in mid June 2023.
 
 ### Results
 
-All results will be available in [this GitHub repo](https://github.com/ctuning/cm_inference_results)
+All results will be available in [this GitHub repo](https://github.com/ctuning/ck_mlperf_results)
 and can be visualized and compared using the [MLCommons Collective Knowledge Playground](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-tiny).

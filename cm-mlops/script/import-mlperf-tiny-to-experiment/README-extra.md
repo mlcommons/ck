@@ -9,7 +9,7 @@ and link reproducibility reports as shown in these examples:
 * [Power efficiency to compare Qualcomm, Nvidia and Sima.ai devices](https://cKnowledge.org/mlcommons-mlperf-inference-gui-derived-metrics-and-conditions)
 * [Reproducibility report for Nvidia Orin](https://access.cknowledge.org/playground/?action=experiments&name=mlperf-inference--v3.0--edge--closed--image-classification--offline&result_uid=3751b230c800434a)
 
-Aggreaged results are available in [this MLCommons repository](https://github.com/mlcommons/cm_inference_results).
+Aggreaged results are available in [this MLCommons repository](https://github.com/mlcommons/ck_mlperf_results).
 
 You can see these results at [MLCommons CK playground](You can see aggregated results [here](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-tiny,all).
 
