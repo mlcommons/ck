@@ -203,6 +203,12 @@
         },
         "imagenet-preprocessed": {
           "tags": "_full"
+        },
+        "openimages-original": {
+          "tags": "_full"
+        },
+        "imagenet-original": {
+          "tags": "_full"
         }
       }
     },

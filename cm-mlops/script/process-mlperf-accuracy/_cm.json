@@ -107,7 +107,8 @@
       "deps": [
         {
           "names": [
-            "openimages-dataset"
+            "openimages-dataset",
+            "openimages-original"
           ],
           "tags": "get,dataset,openimages,original"
         },

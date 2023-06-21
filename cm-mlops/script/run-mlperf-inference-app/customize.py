@@ -95,7 +95,7 @@ def preprocess(i):
         variation_quantization_string = ""
 
     tags =  "app,mlperf,inference,generic,"+variation_implementation+variation_model+variation_backend+variation_device+variation_run_style+variation_quantization_string+power_variation
-    silent = inp.get('silent', False)
+    verbose = inp.get('v', False)
     print_env = inp.get('print_env', False)
     print_deps = inp.get('print_deps', False)
     add_deps_recursive = inp.get('add_deps_recursive', {})
@@ -139,7 +139,7 @@ def preprocess(i):
             print(f"\nRunning loadgen scenario: {scenario} and mode: {mode}")
             r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
-                add_deps_recursive, 'ad': ad, 'adr': adr, 'silent': silent, 'print_env': print_env, 'print_deps': print_deps})
+                add_deps_recursive, 'ad': ad, 'adr': adr, 'v': verbose, 'print_env': print_env, 'print_deps': print_deps})
             if r['return'] > 0:
                 return r
             if 'CM_MLPERF_RESULTS_DIR' in r['new_env']:
@@ -157,7 +157,7 @@ def preprocess(i):
                 env['CM_MLPERF_LOADGEN_MODE'] = "compliance"
                 r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                     'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
-                    add_deps_recursive, 'adr': adr, 'ad': ad, 'silent': silent, 'print_env': print_env, 'print_deps': print_deps})
+                    add_deps_recursive, 'adr': adr, 'ad': ad, 'v': verbose, 'print_env': print_env, 'print_deps': print_deps})
                 if r['return'] > 0:
                     return r
 
