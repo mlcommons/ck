@@ -12,6 +12,7 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -50,11 +51,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,raw,ml-model,gptj,gpt-j,large-language-model[,variations] `
+1. `cm run script --tags=get,raw,ml-model,gptj,gpt-j,large-language-model[,variations] [--input_flags]`
 
-2. `cm run script "get raw ml-model gptj gpt-j large-language-model[,variations]" `
+2. `cm run script "get raw ml-model gptj gpt-j large-language-model[,variations]" [--input_flags]`
 
-3. `cm run script a41166210f294fbf `
+3. `cm run script a41166210f294fbf [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -112,7 +113,7 @@ ___
       - Workflow:
     * `_pytorch,fp32`
       - Environment variables:
-        - *CM_PACKAGE_URL*: `https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth`
+        - *CM_PACKAGE_URL*: ``
       - Workflow:
 
     </details>
@@ -161,6 +162,21 @@ ___
 #### Default variations
 
 `_fp32`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--checkpoint=value`  &rarr;  `GPTJ_CHECKPOINT_PATH=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "checkpoint":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
