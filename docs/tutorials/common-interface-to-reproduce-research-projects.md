@@ -192,4 +192,4 @@ to add and improve CM automations, templates and tutorials.
 Please join the [MLCommons task force on automation and reproducibility](../taskforce.md)
 via this public [Discord server](https://discord.gg/JjWNWXKxwT) to stay tuned, provide your feedback,
 and get help to add CM interface to your research projects, reuse and/or extend [shared CM scripts](../../cm-mlops/script), 
-add the new ones, and participate in our [open optimization and reproducibility challenges](https://access.cknowledge.org/playground/?action=challenges).
+add the new ones, and participate in our [open benchmarking, optimization and reproducibility challenges](https://access.cknowledge.org/playground/?action=challenges).

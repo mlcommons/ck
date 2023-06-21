@@ -40,7 +40,7 @@ The community helped us test a prototype of our "experiment" automation to recor
 from [several MLPerf benchmarks](https://github.com/mlcommons/ck_mlperf_results) 
 including [MLPerf inference](https://github.com/mlcommons/inference) and [MLPerf Tiny](https://github.com/mlcommons/tiny),
 visualize them at the [MLCommons CM platform](https://access.cknowledge.org/playground/?action=experiments&tags=all),
-and improve them by the community via [public reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges).
+and improve them by the community via [public benchmarking, optimization and reproducibility challenges](https://access.cknowledge.org/playground/?action=challenges).
 
 
 

@@ -92,7 +92,7 @@ def page(st, params):
                 challenges.append(prefix + name)
                 artifacts.append(l)
 
-            challenge = st.selectbox('Select your optimization and reproducibility challenge', 
+            challenge = st.selectbox('Select your benchmarking, optimization and reproducibility challenge', 
                                      range(len(challenges)), 
                                      format_func=lambda x: challenges[x],
                                      index=0, key='challenge')
