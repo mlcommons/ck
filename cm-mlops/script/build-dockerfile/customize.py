@@ -141,12 +141,12 @@ def preprocess(i):
 
     fake_run = " --fake_run"
     fake_run = fake_run + " --fake_deps" if env.get('CM_DOCKER_FAKE_DEPS') else fake_run
-    f.write('RUN ' + env['CM_DOCKER_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
+    f.write('RUN ' + env['CM_DOCKER_RUN_CMD'] + fake_run + ' --quiet ' + run_cmd_extra + EOL)
 
     #fake_run to install the dependent scripts and caching them
     if not "run" in env['CM_DOCKER_RUN_CMD'] and env.get('CM_REAL_RUN', None):
         fake_run = ""
-        f.write('RUN ' + env['CM_DOCKER_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
+        f.write('RUN ' + env['CM_DOCKER_RUN_CMD'] + fake_run + run_cmd_extra + ' --quiet ' + EOL)
 
     if 'CM_DOCKER_POST_RUN_COMMANDS' in env:
         for post_run_cmd in env['CM_DOCKER_POST_RUN_COMMANDS']:

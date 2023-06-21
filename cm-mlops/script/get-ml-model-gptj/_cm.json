@@ -10,6 +10,9 @@
     "CM_ML_MODEL_DATASET": "cnndm",
     "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no"
   },
+  "input_mapping": {
+    "checkpoint": "GPTJ_CHECKPOINT_PATH"
+  },
   "new_env_keys": [
     "CM_ML_MODEL_*"
   ],
@@ -71,7 +74,7 @@
     },
     "pytorch,fp32": {
       "env": {
-        "CM_PACKAGE_URL": "https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth"
+        "CM_PACKAGE_URL": ""
       }
     },
     "uint8": {

@@ -75,6 +75,15 @@ python3 -m pip install cmind --user
 
 ## MacOS
 
+If `brew` package manager is not installed, please install it as follows (see details [here](https://brew.sh/)):
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Don't forget to add brew to PATH environment as described in the end.
+
+Then install python, pip, git and wget:
+
 ```bash
 brew install python3 python3-pip git wget
 

@@ -7,7 +7,7 @@ The goal is to make it easier for the community to analyze MLPerf results,
 add derived metrics such as performance/Watt and constraints,
 and link reproducibility reports.
 
-Aggreaged results are available in [this MLCommons repository](https://github.com/mlcommons/cm_inference_results).
+Aggreaged results are available in [this MLCommons repository](https://github.com/mlcommons/ck_mlperf_results).
 
 You can see these results at [MLCommons CK playground](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-training,all).
 

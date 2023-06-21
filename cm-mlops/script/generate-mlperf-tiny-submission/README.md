@@ -303,7 +303,7 @@ ___
        - CM script: [app-stable-diffusion-pytorch-cuda-py](https://github.com/cknowledge/tests/tree/master/cm/script/app-stable-diffusion-pytorch-cuda-py)
        - CM script: [not-needed--get-android-cmdline-tools](https://github.com/cknowledge/tests/tree/master/cm/script/not-needed--get-android-cmdline-tools)
        - CM script: [not-needed--install-android-cmdline-tools](https://github.com/cknowledge/tests/tree/master/cm/script/not-needed--install-android-cmdline-tools)
-       - CM script: [process-mlperf-inference-results](https://github.com/mlcommons/cm_inference_results/tree/master/script/process-mlperf-inference-results)
+       - CM script: [process-mlperf-inference-results]( https://github.com/mlcommons/ck_mlperf_results/tree/master/script/process-mlperf-inference-results )
        - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
        - CM script: [extract-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file)
 </details>

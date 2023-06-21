@@ -7,7 +7,7 @@
 * Provide free help for all [MLCommons]( https://mlcommons.org ) and the community 
   to prepare, run, optimize and compare MLPerf benchmarks (training, inference and tiny) and submit Pareto-optimal results
   with the help of the [MLCommons CM workflow automation language](README.md) and 
-  [MLCommons CK playground (reproducibility and optimization challenges)](https://access.cKnowledge.org)
+  [MLCommons CK playground (benchmarking, optimization and reproducibility challenges)](https://access.cKnowledge.org)
   to reduce benchmarking, optimization and reproducibility costs.
   ***We are very glad to see that more than 80% of all recent MLPerf inference benchmark submissions were automated using our open-source technology -
   don't hesitate to get in touch with the task force via our public [Discord server](https://discord.gg/JjWNWXKxwT).***
