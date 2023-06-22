@@ -118,10 +118,10 @@ def preprocess(i):
                 conf[metric] = 1
             if metric == "target_latency":
                 if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
-                    print("In find performance mode: using 1000 as target_latency")
+                    print("In find performance mode: using 0.1ms as target_latency")
                 else:
-                    print("No target_latency specified. Using 1000 as target_latency")
-                conf[metric] = 1000
+                    print("No target_latency specified. Using 0.1ms as target_latency")
+                conf[metric] = 0.1
             #else:
             #    return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
 
@@ -148,11 +148,28 @@ def preprocess(i):
     conf[metric] = metric_value
     user_conf += ml_model_name + "." + scenario + "." + metric + " = " + str(metric_value) + "\n"
 
+    if env.get('CM_MLPERF_PERFORMANCE_SAMPLE_COUNT', '') != '':
+        performance_sample_count = env['CM_MLPERF_PERFORMANCE_SAMPLE_COUNT']
+        user_conf += ml_model_name + ".*.performance_sample_count_override = " + performance_sample_count + "\n"
+
+    if 'CM_MLPERF_POWER' in env and env.get('CM_MLPERF_SHORT_RANGING_RUN', '') == 'yes' and env['CM_MLPERF_RUN_STYLE'] == "valid" and mode == "performance":
+        short_ranging = True
+    else:
+        short_ranging = False
+
+    if short_ranging:
+        import copy
+        ranging_user_conf = copy.deepcopy(user_conf)
+        ranging_user_conf += ml_model_name + "." + scenario + ".min_duration = 120" + "\n"
+
     if env['CM_MLPERF_RUN_STYLE'] == "test":
         query_count = env.get('CM_TEST_QUERY_COUNT', "5")
         user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
         user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
         user_conf += ml_model_name + "." + scenario + ".min_duration = 0" + "\n"
+        #else:
+        #    user_conf += ml_model_name + "." + scenario + ".min_duration = 20000" + "\n"
+        #    user_conf += ml_model_name + "." + scenario + ".max_duration = 20000 \n "
 
     elif env['CM_MLPERF_RUN_STYLE'] == "fast":
         if scenario == "Server":
@@ -163,30 +180,41 @@ def preprocess(i):
             user_conf += ml_model_name + "." + scenario + ".min_duration = 0" + "\n"
 
     else:
-        if scenario == "MultiStream":
-            query_count = str(max(int((1000 / float(conf['target_latency'])) * 660), 662))
-            user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
-            #user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
-        elif scenario == "SingleStream":
+        if scenario == "MultiStream" or scenario == "SingleStream":
+            user_conf += ml_model_name + "." + scenario + ".max_duration = 620000 \n"
+            if short_ranging:
+                ranging_user_conf += ml_model_name + "." + scenario + ".max_duration = 120000 \n "
+        elif scenario == "SingleStream_old":
             query_count = str(max(int((1000 / float(conf['target_latency'])) * 660), 64))
             user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
             #user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
+            if short_ranging:
+                ranging_user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
+        elif scenario == "Offline":
+            query_count = str(int(conf['target_qps']) * 660)
+            #user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
+            if short_ranging:
+                ranging_query_count = str(int(conf['target_qps']) * 120)
+                ranging_user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(ranging_query_count) + "\n"
+                ranging_user_conf += ml_model_name + "." + scenario + ".min_query_count = 0 \n"
 
     if query_count:
         env['CM_MAX_EXAMPLES'] = query_count #needed for squad accuracy checker
 
-    if env.get('CM_MLPERF_PERFORMANCE_SAMPLE_COUNT', '') != '':
-        performance_sample_count = env['CM_MLPERF_PERFORMANCE_SAMPLE_COUNT']
-        user_conf += ml_model_name + ".*.performance_sample_count_override = " + performance_sample_count + "\n"
-
 
     import uuid
+    from pathlib import Path
     key = uuid.uuid4().hex
     user_conf_path = os.path.join(script_path, "tmp", key+".conf")
-    from pathlib import Path
     user_conf_file = Path(user_conf_path)
     user_conf_file.parent.mkdir(exist_ok=True, parents=True)
     user_conf_file.write_text(user_conf)
+
+    if short_ranging:
+        ranging_user_conf_path = os.path.join(script_path, "tmp", "ranging_"+key+".conf")
+        ranging_user_conf_file = Path(ranging_user_conf_path)
+        ranging_user_conf_file.write_text(ranging_user_conf)
+
 
     if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') == ''  and query_count:
         env['CM_MLPERF_LOADGEN_QUERY_COUNT'] = query_count
@@ -197,7 +225,7 @@ def preprocess(i):
     OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], sut_name, \
             model_full_name, scenario.lower(), mode)
 
-    if 'CM_MLPERF_POWER' in env:
+    if 'CM_MLPERF_POWER' in env and mode == "performance":
         env['CM_MLPERF_POWER_LOG_DIR'] = os.path.join(OUTPUT_DIR, "tmp_power")
 
     if mode == "accuracy":
@@ -232,7 +260,11 @@ def preprocess(i):
 
     if not run_files_exist(log_mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, \
                     required_files[4]) or env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
-        env['CM_MLPERF_USER_CONF'] = user_conf_path
+        if short_ranging:
+            prefix = "\${CM_MLPERF_USER_CONF_PREFIX}"
+        else:
+            prefix = ""
+        env['CM_MLPERF_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), prefix+key+".conf")#  user_conf_path
     else:
         print(f"Measure files exist at {OUTPUT_DIR}. Skipping regeneration...\n")
         env['CM_MLPERF_USER_CONF'] = ''
