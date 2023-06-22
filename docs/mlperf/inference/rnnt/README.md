@@ -8,7 +8,7 @@ cm pull repo mlcommons@ck
 ```
 
 
-In the edge category, RetinaNet has Offline, SingleStream and MultiStream scenarios and in the datacenter category, it has Offline and Server scenarios. 
+In the edge category, ResNet50 has Offline, SingleStream and MultiStream scenarios and in the datacenter category, it has Offline and Server scenarios.
 
 ## Run Commands
 Please follow the below readmes to run the command specific to a given implementation
