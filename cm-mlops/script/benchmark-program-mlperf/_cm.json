@@ -1,0 +1,50 @@
+{
+  "alias": "benchmark-program-mlperf",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "category": "Application automation",
+  "category_sort": 5000,
+  "default_env": {
+  },
+  "tags": [
+    "mlperf",
+    "benchmark-mlperf"
+  ],
+  "uid": "cfff0132a8aa4018",
+  "variations": {
+    "power": {
+      "group": "power-mode",
+      "env": {
+        "CM_MLPERF_POWER": "yes"
+      },
+      "new_env_keys": [
+        "CM_MLPERF_*"
+      ],
+      "post_hook_deps": [
+        {
+          "enable_if_env": {
+            "CM_MLPERF_LOADGEN_MODE": [
+              "performance"
+            ]
+          },
+          "names": [
+            "mlperf-power-client"
+          ],
+          "tags": "run,mlperf,power,client"
+        }
+      ]
+    },
+    "no-power": {
+      "group": "power-mode",
+      "default": true,
+      "post_deps": [
+        {
+          "names": [ 
+            "benchmark-program" 
+          ],
+          "tags": "benchmark-program,program"
+        }
+      ]
+    }
+  }
+}
