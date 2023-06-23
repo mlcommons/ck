@@ -112,7 +112,6 @@ ___
            * benchmark-program,program
              * CM names: `--adr.['benchmark-program']...`
              - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
-             - CM script: [benchmark-program-mlperf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf)
     * `_power`
       - Environment variables:
         - *CM_MLPERF_POWER*: `yes`
@@ -144,7 +143,6 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/_cm.json)
   1. ***Run native script if exists***
-     * [run-ubuntu.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/run-ubuntu.sh)
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/_cm.json)
