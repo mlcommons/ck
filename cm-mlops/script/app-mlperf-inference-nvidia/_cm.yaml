@@ -141,8 +141,8 @@ post_deps:
     tags: compile,cpp-program
 
   - names:
-    - runner
-    tags: benchmark,program
+    - mlperf-runner
+    tags: benchmark-mlperf
 
 
 # Variations to customize dependencies

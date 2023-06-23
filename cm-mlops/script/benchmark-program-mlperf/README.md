@@ -29,9 +29,9 @@
 
 * Category: *Application automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *program,benchmark,benchmark-program*
+* CM "database" tags to find this script: *mlperf,benchmark-mlperf*
 * Output cached?: *False*
 ___
 ### Usage
@@ -50,11 +50,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=program,benchmark,benchmark-program[,variations] `
+1. `cm run script --tags=mlperf,benchmark-mlperf[,variations] `
 
-2. `cm run script "program benchmark benchmark-program[,variations]" `
+2. `cm run script "mlperf benchmark-mlperf[,variations]" `
 
-3. `cm run script 19f369ef47084895 `
+3. `cm run script cfff0132a8aa4018 `
 
 * `variations` can be seen [here](#variations)
 
@@ -71,7 +71,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'program,benchmark,benchmark-program'
+                  'tags':'mlperf,benchmark-mlperf'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -88,9 +88,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="program,benchmark,benchmark-program"```
+```cm run script --tags=gui --script="mlperf,benchmark-mlperf"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=program,benchmark,benchmark-program) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=mlperf,benchmark-mlperf) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -102,22 +102,28 @@ ___
 
 #### Variations
 
-  * *No group (any variation can be selected)*
+  * Group "**power-mode**"
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_numactl`
+    * **`_no-power`** (default)
       - Workflow:
-    * `_numactl-interleave`
+        1. ***Read "post_deps" on other CM scripts***
+           * benchmark-program,program
+             * CM names: `--adr.['benchmark-program']...`
+             - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
+             - CM script: [benchmark-program-mlperf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf)
+    * `_power`
+      - Environment variables:
+        - *CM_MLPERF_POWER*: `yes`
       - Workflow:
-    * `_profile`
-      - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * get,profiler
-             - *Warning: no scripts found*
 
     </details>
 
+
+#### Default variations
+
+`_no-power`
 #### Default environment
 
 <details>
@@ -125,8 +131,6 @@ ___
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_ENABLE_NUMACTL: `0`
-* CM_ENABLE_PROFILING: `0`
 
 </details>
 
@@ -136,18 +140,16 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)***
-     * detect,cpu
-       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/_cm.json)
   1. ***Run native script if exists***
-     * [run-ubuntu.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/run-ubuntu.sh)
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)
+     * [run-ubuntu.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/run-ubuntu.sh)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf/_cm.json)
 </details>
 
 ___

@@ -8,7 +8,8 @@ cm pull repo mlcommons@ck
 ```
 
 
-In the edge category, RetinaNet has Offline, SingleStream and MultiStream scenarios and in the datacenter category, it has Offline and Server scenarios. 
+3d-unet has two variants - `3d-unet-99` and `3d-unet-99.9` where the `99` and `99.9` specifies the required accuracy constraint with respect to the reference floating point model. Both models can be submitter under edge as well as datacenter category.
+
 
 ## Run Commands
 Please follow the below readmes to run the command specific to a given implementation

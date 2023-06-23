@@ -52,7 +52,5 @@ def preprocess(i):
 def postprocess(i):
 
     env = i['env']
-    if env.get('CM_MLPERF_POWER', '') == "yes":
-        env['CM_MLPERF_RUN_CMD'] = env['CM_RUN_CMD'].strip()
 
     return {'return':0}
