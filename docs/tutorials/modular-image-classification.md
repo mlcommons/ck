@@ -50,11 +50,19 @@ or
 cm run script "python app image-classification onnx" --quiet
 ```
 
+or for CM v1.4.1+
+
+```bash
+cmr "python app image-classification onnx" --quiet
+```
+
+
 Note that you can also access this CM script using just one unified function `cmind.access` from CM Python API similar to micro services:
 
 ```python
 import cmind
-r=cmind.access({'action':'run', 'automation':'script'
+r=cmind.access({'action':'run', 
+                'automation':'script'
                 'tags':'app,image-classification,onnx,python',
                 'out':'con',
                 'quiet':True})
@@ -84,7 +92,9 @@ cm show cache
 cm show cache --tags=python
 cm show cache --tags=ml-model
 
-cm run script --tags=app,image-classification,onnx,python (--input=my-image.jpg)
+cm run script "python app image-classification onnx"
+cm run script "python app image-classification onnx" --input=my-image.jpg
+
 ```
 
 CM scripts converts CLI flags into environment variables and generates some input files 
