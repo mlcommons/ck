@@ -126,6 +126,7 @@ ___
 * `--power=value`  &rarr;  `CM_MLPERF_POWER=value`
 * `--push_to_github=value`  &rarr;  `CM_MLPERF_RESULT_PUSH_TO_GITHUB=value`
 * `--skip_compliance=value`  &rarr;  `CM_MLPERF_SKIP_COMPLIANCE=value`
+* `--skip_power_check=value`  &rarr;  `CM_MLPERF_SKIP_POWER_CHECK=value`
 * `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
 * `--submitter=value`  &rarr;  `CM_MLPERF_SUBMITTER=value`
 * `--version=value`  &rarr;  `CM_MLPERF_VERSION=value`

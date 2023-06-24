@@ -337,10 +337,10 @@ ___
        * `if (CM_MLPERF_SKIP_RUN  != yes)`
        * CM names: `--adr.['compiler-program']...`
        - CM script: [compile-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program)
-     * benchmark,program
+     * benchmark-mlperf
        * `if (CM_MLPERF_SKIP_RUN  != yes)`
-       * CM names: `--adr.['runner']...`
-       - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
+       * CM names: `--adr.['mlperf-runner']...`
+       - CM script: [benchmark-program-mlperf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf)
 </details>
 
 ___
