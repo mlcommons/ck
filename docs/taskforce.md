@@ -10,7 +10,8 @@
   [MLCommons CK playground (benchmarking, optimization and reproducibility challenges)](https://access.cKnowledge.org)
   to reduce benchmarking, optimization and reproducibility costs.
   ***We are very glad to see that more than 80% of all recent MLPerf inference benchmark submissions were automated using our open-source technology -
-  don't hesitate to get in touch with the task force via our public [Discord server](https://discord.gg/JjWNWXKxwT).***
+  don't hesitate to get in touch with the task force via our public [Discord server](https://discord.gg/JjWNWXKxwT) 
+  and [weekly conf-calls on Thursdays at 10am PT](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit).***
 * Automatically run any MLPerf benchmark out-of-the-box with any software, hardware, model and data from any vendor: 
   *[prototype is available and validated during MLPerf inf v3.0 submission](../cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/README.md)*.
 * Automate optimization experiments and visualization of results with derived metrics: *[prototype](https://cknowledge.org/mlcommons-inference-gui)*.

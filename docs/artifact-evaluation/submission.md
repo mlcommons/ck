@@ -34,7 +34,7 @@ Reviewers will then collaborate with the authors to evaluate their artifacts and
 ## Preparing your Artifact Appendix and the Reproducibility Checklist
 
 
-You need to prepare the [Artifact Appendix](https://github.com/ctuning/ck-artifact-evaluation/blob/master/wfe/artifact-evaluation/templates/ae.tex")
+You need to prepare the [Artifact Appendix](https://github.com/mlcommons/ck/blob/master/docs/artifact-evaluation/template/ae.tex)
 describing all software, hardware and data set dependencies, key results to be reproduced, and how to prepare, run and validated experiments.
 
 Though it is relatively intuitive and based on our 
