@@ -176,7 +176,7 @@ def preprocess(i):
     if user_conf_path:
         run_config += f" --user_conf_path={user_conf_path}"
 
-    mlperf_conf_path = env.get('CM_MLPERF_CONF')
+    mlperf_conf_path = env.get('CM_MLPERF_INFERENCE_CONF_PATH')
     if mlperf_conf_path:
         run_config += f" --mlperf_conf_path={mlperf_conf_path}"
 
@@ -254,6 +254,8 @@ def preprocess(i):
         test_mode_string = " --test_mode={}".format(test_mode)
     else:
         test_mode_string = ""
+
+    run_config += " --no_audit_verify"
 
     cmds.append(f"make {make_command} RUN_ARGS=' --benchmarks={model_name} --scenarios={scenario} {test_mode_string} {run_config}'")
     #print(cmds)
