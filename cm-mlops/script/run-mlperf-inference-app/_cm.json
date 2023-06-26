@@ -353,7 +353,9 @@
     "run": true,
     "fake_run_deps": true,
      "mounts": [
-       "${{ GPTJ_CHECKPOINT_PATH }}:${{ GPTJ_CHECKPOINT_PATH }}"
+       "${{ GPTJ_CHECKPOINT_PATH }}:${{ GPTJ_CHECKPOINT_PATH }}",
+       "${{ INSTALL_DATA_PATH }}:/install_data",
+       "${{ DATA_PATH }}:/data"
      ]
   }
 }
