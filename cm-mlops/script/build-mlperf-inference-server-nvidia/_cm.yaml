@@ -52,14 +52,15 @@ deps:
 
   # Detect CUDA
   - tags: get,cuda,_cudnn
-    version_max: "11.11"
+    names:
+    - cuda
     enable_if_env:
       CM_MLPERF_DEVICE:
         - cuda
         - inferentia
 
   # Detect Tensorrt
-  - tags: get,tensorrt
+  - tags: get,tensorrt,_dev
     enable_if_env:
       CM_MLPERF_DEVICE:
         - cuda

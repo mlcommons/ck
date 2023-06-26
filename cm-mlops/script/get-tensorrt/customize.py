@@ -11,7 +11,7 @@ def preprocess(i):
     env = i['env']
 
 
-    if env.get('CM_TENSORRT_TAR_FILE_PATH','')=='':
+    if env.get('CM_TENSORRT_TAR_FILE_PATH','')=='' and env.get('CM_TENSORRT_REQUIRE_DEV', '') != 'yes':
 
        if os_info['platform'] == 'windows':
            extra_pre=''

@@ -39,5 +39,12 @@
     "tensorrt",
     "nvidia"
   ],
-  "uid": "2a84ca505e4c408d"
+  "uid": "2a84ca505e4c408d",
+  "variations": {
+    "dev": {
+      "env": {
+        "CM_TENSORRT_REQUIRE_DEV": "yes"
+      }
+    }
+  }
 }
