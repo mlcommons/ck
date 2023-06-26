@@ -93,6 +93,13 @@ variations:
       - tags: get,generic-python-lib,_numpy
       - tags: get,generic-python-lib,_pandas
 
+  chatgpt:
+    group:
+      app
+    env:
+      CM_GUI_APP: 'chatgpt'
+
+
 input_description:
   script: "script tags"
   app: "gui app"
