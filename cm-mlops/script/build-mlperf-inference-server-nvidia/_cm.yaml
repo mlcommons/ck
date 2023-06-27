@@ -112,11 +112,11 @@ post_deps:
     names:
     - custom-system-nvidia
     - nvidia-inference-common-code
-    enable_if_env:
+    skip_if_env:
       CM_CUSTOM_SYSTEM_NVIDIA:
-      - "yes"
-      - True
-      - "True"
+      - "no"
+      - False
+      - "False"
 
 
 
