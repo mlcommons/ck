@@ -106,17 +106,34 @@ ___
 
 #### Variations
 
-  * *No group (any variation can be selected)*
+  * Group "**source-repo**"
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_ctuning`
+      - Environment variables:
+        - *GITHUB_REPO_OWNER*: `ctuning`
+      - Workflow:
     * `_custom`
       - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/arjunsuresh/inference_results_v2.1.git`
+        - *GITHUB_REPO_OWNER*: `arjunsuresh`
+      - Workflow:
+    * **`_mlcommons`** (default)
+      - Environment variables:
+        - *GITHUB_REPO_OWNER*: `mlcommons`
+      - Workflow:
+    * `_nvidia-only`
+      - Environment variables:
+        - *GITHUB_REPO_OWNER*: `GATEOverflow`
+        - *NVIDIA_ONLY*: `yes`
       - Workflow:
 
     </details>
 
+
+#### Default variations
+
+`_mlcommons`
 #### Default environment
 
 <details>
@@ -127,14 +144,14 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_GIT_CHECKOUT: `master`
 * CM_GIT_DEPTH: `--depth 1`
 * CM_GIT_PATCH: `no`
-* CM_GIT_URL: `https://github.com/mlcommons/inference_results_v2.1.git`
 
 </details>
 
 #### Versions
-Default version: `v2.1`
+Default version: `v3.0`
 
 * `v2.1`
+* `v3.0`
 ___
 ### Script workflow, dependencies and native scripts
 
@@ -143,9 +160,10 @@ ___
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results/_cm.json)
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results/_cm.json)***
+     * get,git,repo
+       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results/_cm.json)
