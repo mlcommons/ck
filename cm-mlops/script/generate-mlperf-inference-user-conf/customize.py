@@ -84,6 +84,8 @@ def preprocess(i):
         ml_model_name = "dlrm"
     if '3d-unet' in ml_model_name:
         ml_model_name = "3d-unet"
+    if 'gpt-j' in ml_model_name:
+        ml_model_name = "gptj"
 
     query_count = None
 
@@ -250,6 +252,7 @@ def preprocess(i):
         log_mode = "performance_power"
     
     if not run_files_exist(log_mode, OUTPUT_DIR, required_files) or rerun:
+
         print("Output Dir: '" + OUTPUT_DIR + "'")
         print(user_conf)
         if 'CM_MLPERF_POWER' in env and os.path.exists(env['CM_MLPERF_POWER_LOG_DIR']):

@@ -96,6 +96,18 @@
         },
         {
           "tags": "get,generic-python-lib,_package.rouge_score"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.nltk"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.evaluate"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.absl-py"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.rouge_score"
         }
       ]
     },
