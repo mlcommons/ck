@@ -18,7 +18,7 @@ cm run script --tags=get,cudnn --input=<PATH_TO_CUDNN_TAR_FILE>
 ```
 
 ```bash
-cm run script --tags=get,tensorrt --input=<PATH_TO_TENSORRT_TAR_FILE>
+cm run script --tags=get,tensorrt,_dev --input=<PATH_TO_TENSORRT_TAR_FILE>
 ```
 
 On other systems, you can do a package manager install and then CM should pick up the installation automatically during the workflow run.
