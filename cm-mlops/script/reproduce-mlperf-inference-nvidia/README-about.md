@@ -29,16 +29,16 @@ On other systems, you can do a package manager install and then CM should pick u
 ```
 cm run script --tags=build,nvidia,inference,server
 ```
-Once the below command is done, inference server will be build and your system will be automatically detected by Nvidia scripts.
+Once the below command is done, the inference server will be built and your system will be automatically detected by Nvidia scripts.
 
 Nividia code location is output by the below command
 ```
-cd `cm find cache --tags=inference,results,mlperf,_custom`
+cd `cm find cache --tags=inference,results,mlperf,_nvidia-only`
 ```
 
 Further cd into inference_results_v<>/closed/NVIDIA
 
-Nvidia runs configuration values for each model-scenario for known systems are stored in `__init__.py` files under the configs directory. For custom systems (ones that are different from the ones used by Nvidia for submission) these are stored under `custom.py` files. 
+Nvidia runs configuration values for each model-scenario for known systems are stored in the `__init__.py` files under the configs directory. For custom systems (ones that are different from the ones used by Nvidia for submission) these are stored under `custom.py` files. 
 
 **Important** When custom config files are generated they override the default config values with empty ones (not desirable). So, you'll probably need to open the custom config file and comment out the overrides. Typically `gpu_batch_size` and `offline_expected_qps` are enough for an offline scenario run on a typical single GPU system.
 
