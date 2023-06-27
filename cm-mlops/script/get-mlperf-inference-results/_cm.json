@@ -7,10 +7,23 @@
   "default_env": {
     "CM_GIT_CHECKOUT": "master",
     "CM_GIT_DEPTH": "--depth 1",
-    "CM_GIT_PATCH": "no",
-    "CM_GIT_URL": "https://github.com/mlcommons/inference_results_v2.1.git"
+    "CM_GIT_PATCH": "no"
   },
-  "default_version": "v2.1",
+  "default_version": "v3.0",
+  "prehook_deps": [
+    {
+      "tags": "get,git,repo",
+      "update_tags_from_env_with_prefix": {
+        "_repo.": [ "CM_GIT_URL" ]
+      },
+      "force_env_keys": [
+        "CM_GIT_*"
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_MLPERF_INFERENCE_RESULTS_PATH"
+      }
+    }
+  ],
   "deps": [
   ],
   "new_env_keys": [
@@ -28,14 +41,42 @@
   "versions": {
     "v2.1": {
       "env": {
-        "CM_MLPERF_INFERENCE_RESULTS_VERSION_NAME": "v2.1"
+        "CM_MLPERF_INFERENCE_RESULTS_VERSION_NAME": "v2.1",
+        "CM_GIT_URL": "https://github.com/<<<GITHUB_REPO_OWNER>>>/inference_results_v2.1.git"
+      }
+    },
+    "v3.0": {
+      "env": {
+        "CM_MLPERF_INFERENCE_RESULTS_VERSION_NAME": "v3.0",
+        "CM_GIT_URL": "https://github.com/<<<GITHUB_REPO_OWNER>>>/inference_results_v3.0.git"
       }
     }
   },
   "variations": {
-    "custom": {
+    "mlcommons": {
+      "group": "source-repo",
+      "default": true,
       "env": {
-        "CM_GIT_URL": "https://github.com/arjunsuresh/inference_results_v2.1.git"
+        "GITHUB_REPO_OWNER": "mlcommons"
+      }
+    },
+    "custom": {
+      "group": "source-repo",
+      "env": {
+        "GITHUB_REPO_OWNER": "arjunsuresh"
+      }
+    },
+    "ctuning": {
+      "group": "source-repo",
+      "env": {
+        "GITHUB_REPO_OWNER": "ctuning"
+      }
+    },
+    "nvidia-only": {
+      "group": "source-repo",
+      "env": {
+        "GITHUB_REPO_OWNER": "GATEOverflow",
+        "NVIDIA_ONLY": "yes"
       }
     }
   }

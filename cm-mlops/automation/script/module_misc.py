@@ -1251,6 +1251,10 @@ def docker(i):
         run_cmd = ""
 
     env=i.get('env', {})
+    docker_cache = i.get('docker_cache', "yes")
+    if docker_cache in ["no", False, "False" ]:
+        if 'CM_DOCKER_CACHE' not in env:
+            env['CM_DOCKER_CACHE'] = docker_cache
 
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
@@ -1302,12 +1306,17 @@ def docker(i):
             new_container_mount = container_mount
 
             tmp_values = re.findall(r'\${{ (.*?) }}', str(host_mount))
+            skip = False
             if tmp_values:
                 for tmp_value in tmp_values:
                     if tmp_value in env:
                         new_host_mount = env[tmp_value]
                     elif tmp_value in docker_input_mapping:
                         new_host_mount = docker_input_mapping[tmp_value]
+                    else:# we skip those mounts
+                        mounts[index] = None
+                        skip = True
+                        break
 
             tmp_values = re.findall(r'\${{ (.*?) }}', str(container_mount))
             if tmp_values:
@@ -1316,14 +1325,20 @@ def docker(i):
                         new_container_mount = env[tmp_value]
                     elif tmp_value in docker_input_mapping:
                         new_container_mount = docker_input_mapping[tmp_value]
-
+                    else:# we skip those mounts
+                        mounts[index] = None
+                        skip = True
+                        break
+            if skip:
+                continue
             mounts[index] = new_host_mount+":"+new_container_mount
 
+        mounts = list(filter(lambda item: item is not None, mounts))
 
         if mounts:
             mount_string = ",".join(mounts)
         else:
-            mount_string = ",".join(mounts)
+            mount_string = ""
 
         cm_repo=i.get('cm_repo', 'mlcommons@ck')
 

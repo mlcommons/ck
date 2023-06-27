@@ -95,13 +95,17 @@ deps:
   - tags: get,sys-utils-cm
 
   # Detect CUDA
+  - names:
+    - cuda
   - tags: get,cuda,_cudnn
 
   # Detect Tensorrt
   - tags: get,tensorrt
 
   # Build nvidia inference server
-  - tags: build,nvidia,inference,server
+  - names:
+    - nvidia-inference-server
+    tags: build,nvidia,inference,server
 
 
   ########################################################################
@@ -192,7 +196,7 @@ deps:
     - inference-src
 
   # Download Nvidia Submission Code
-  - tags: get,nvidia,mlperf,inference,common-code,_custom
+  - tags: get,nvidia,mlperf,inference,common-code
     names:
     - nvidia-inference-common-code
 
@@ -254,6 +258,7 @@ variations:
   bert_:
     deps:
     - tags: get,generic-python-lib,_transformers
+    - tags: get,generic-python-lib,_onnx
 
   bert-99:
     group: model

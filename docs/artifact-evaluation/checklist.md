@@ -4,7 +4,7 @@
 
 
 Here we provide a few informal suggestions to help you fill in your 
-[Artifact Appendix with the Reproducibility Checklist](https://github.com/ctuning/ck-artifact-evaluation/blob/master/wfe/artifact-evaluation/templates/ae.tex) 
+[Artifact Appendix with the Reproducibility Checklist](https://github.com/mlcommons/ck/blob/master/docs/artifact-evaluation/template/ae.tex) 
 for submission while avoiding common pitfalls. 
 
 

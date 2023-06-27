@@ -212,6 +212,25 @@
         }
       }
     },
+    "r2.1": {
+      "group": "reproducibility",
+      "env": {
+        "CM_MLPERF_INFERENCE_APP_DEFAULTS": "r2.1_default"
+      }
+    },
+    "r3.0": {
+      "group": "reproducibility",
+      "env": {
+        "CM_MLPERF_INFERENCE_APP_DEFAULTS": "r3.0_default"
+      }
+    },
+    "r3.1": {
+      "group": "reproducibility",
+      "default": true,
+      "env": {
+        "CM_MLPERF_INFERENCE_APP_DEFAULTS": "r3.1_default"
+      }
+    },
     "dashboard": {
       "default_gui": true,
       "env": {
@@ -353,7 +372,9 @@
     "run": true,
     "fake_run_deps": true,
      "mounts": [
-       "${{ GPTJ_CHECKPOINT_PATH }}:${{ GPTJ_CHECKPOINT_PATH }}"
+       "${{ GPTJ_CHECKPOINT_PATH }}:${{ GPTJ_CHECKPOINT_PATH }}",
+       "${{ INSTALL_DATA_PATH }}:/install_data",
+       "${{ DATA_PATH }}:/data"
      ]
   }
 }

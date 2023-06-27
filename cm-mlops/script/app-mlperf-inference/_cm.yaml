@@ -695,10 +695,52 @@ variations:
         tags: _octoml
       loadgen:
         version: r2.1
+      nvidia-inference-common-code:
+        version: r2.1
+        tags: _custom
+      nvidia-inference-server:
+        version: r2.1
+        tags: _custom
     env:
       CM_RERUN: 'yes'
       CM_SKIP_SYS_UTILS: 'yes'
       CM_TEST_QUERY_COUNT: '100'
+
+  r3.0_default:
+    group:
+      reproducibility
+    add_deps_recursive:
+      compiler:
+        tags: gcc
+      cuda:
+        version_max: 11.8
+      nvidia-inference-common-code:
+        version: r2.1
+        tags: _custom
+      nvidia-inference-server:
+        version: r2.1
+        tags: _custom
+    env:
+      CM_RERUN: 'yes'
+      CM_SKIP_SYS_UTILS: 'yes'
+
+  r3.1_default:
+    group:
+      reproducibility
+    add_deps_recursive:
+      compiler:
+        tags: gcc
+      cuda:
+        version_max: 11.8
+      nvidia-inference-common-code:
+        version: r3.0
+        tags: _nvidia-only
+      nvidia-inference-server:
+        version: r3.0
+        tags: _nvidia-only
+    env:
+      CM_RERUN: 'yes'
+      CM_SKIP_SYS_UTILS: 'yes'
 
 invalid_variation_combinations:
   -

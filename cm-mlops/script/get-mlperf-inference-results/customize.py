@@ -12,6 +12,12 @@ def preprocess(i):
     env = i['env']
     meta = i['meta']
 
+    if env.get('NVIDIA_ONLY', '') == 'yes':
+        env['CM_GIT_URL'] = "https://github.com/GATEOverflow/nvidia-inference-code.git"
+
+    if 'GITHUB_REPO_OWNER' in env and '<<<GITHUB_REPO_OWNER>>>' in env['CM_GIT_URL']:
+        env['CM_GIT_URL'] = env['CM_GIT_URL'].replace('<<<GITHUB_REPO_OWNER>>>', env['GITHUB_REPO_OWNER'])
+
     if 'CM_GIT_DEPTH' not in env:
         env['CM_GIT_DEPTH'] = ''
 
@@ -32,6 +38,6 @@ def postprocess(i):
     env = i['env']
     state = i['state']
 
-    env['CM_MLPERF_INFERENCE_RESULTS_PATH'] = os.path.join(os.getcwd(), "inference_results_"+env['CM_MLPERF_INFERENCE_RESULTS_VERSION_NAME'])
+#    env['CM_MLPERF_INFERENCE_RESULTS_PATH'] = os.path.join(os.getcwd(), "inference_results_"+env['CM_MLPERF_INFERENCE_RESULTS_VERSION_NAME'])
 
     return {'return':0}

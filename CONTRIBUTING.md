@@ -56,23 +56,29 @@ Thank you for your support and looking forward to collaborating with you!
 * Patrick Hesse (College of Saint Benedict and Saint John's University)
 * Nikolay Istomin (Xored)
 * Kenan Kalajdzic
+* David Kanter (MLCommons)
 * Yuriy Kashnikov 
 * Jason Knight (OctoML)
 * Alexey Kravets (Arm)
 * Michael Kruse &lt;MichaelKruse@meinersbur.de&gt;
 * Andrei Lascu &lt;andrei.lascu10@imperial.ac.uk&gt;
-* Anton Lokhmotov &lt;anton@dividiti.com&gt;
+* Anton Lokhmotov 
+* Peter Mattson (Google)
 * Graham Markall &lt;graham.markall@continuum.io&gt;
 * Michael Mcgeagh (Arm)
+* Abdul Wahid Memon &lt;engrwahidmemon@gmail.com&gt;
 * Thierry Moreau (OctoML)
 * Sachin Mudaliyar
 * Stanley Mwangi (Microsoft)
 * Luigi Nardi 
+* Cedric Nugteren &lt;web@cedricnugteren.nl&gt;
+* Lucas Nussbaum (Universite de Lorraine)
 * Ivan Ospiov (Xored)
 * Lakshman Patel @Patel230
 * Egor Pasko (Google)
 * Ed Plowman (Arm)
 * Lahiru Rasnayake (NTNU)
+* Vijay Janapa Reddi (Harvard University)
 * Alex Redshaw (Arm)
 * Vincent Rehm
 * Toomas Remmelg (University of Edinburgh)
@@ -84,10 +90,9 @@ Thank you for your support and looking forward to collaborating with you!
 * Aditya Kumar Shaw
 * Gavin Simpson (Arm)
 * Aaron Smith (Microsoft)
+* Ilya Slavutin (Deelvin)
 * Michel Steuwer (University of Edinburgh)
-* Abdul Wahid Memon &lt;engrwahidmemon@gmail.com&gt;
-* Cedric Nugteren &lt;web@cedricnugteren.nl&gt;
-* Lucas Nussbaum (Universite de Lorraine)
+* Chloe Tessier (Illustrations for CK/CM presentations)
 * Flavio Vella (Free University of Bozen-Bolzano)
 * Gaurav Verma (Stony Brook University)
 * Emanuele Vitali

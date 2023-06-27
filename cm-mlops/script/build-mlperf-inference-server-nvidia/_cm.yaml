@@ -4,7 +4,7 @@ uid: f37403af5e9f4541
 cache: true
 automation_alias: script
 automation_uid: 5b4e0237da074764
-
+default_version: r3.0
 category: "Modular MLPerf benchmarks"
 
 
@@ -52,14 +52,15 @@ deps:
 
   # Detect CUDA
   - tags: get,cuda,_cudnn
-    version_max: "11.11"
+    names:
+    - cuda
     enable_if_env:
       CM_MLPERF_DEVICE:
         - cuda
         - inferentia
 
   # Detect Tensorrt
-  - tags: get,tensorrt
+  - tags: get,tensorrt,_dev
     enable_if_env:
       CM_MLPERF_DEVICE:
         - cuda
@@ -92,7 +93,7 @@ deps:
 
 
   # Download Nvidia Submission Code
-  - tags: get,nvidia,mlperf,inference,common-code,_custom
+  - tags: get,nvidia,mlperf,inference,common-code
     names:
     - nvidia-inference-common-code
 
@@ -108,6 +109,15 @@ deps:
 post_deps:
   # Detect nvidia system
   - tags: add,custom,system,nvidia
+    names:
+    - custom-system-nvidia
+    - nvidia-inference-common-code
+    enable_if_env:
+      CM_CUSTOM_SYSTEM_NVIDIA:
+      - "yes"
+      - True
+      - "True"
+
 
 
 variations:
@@ -126,3 +136,36 @@ variations:
     env:
       CM_MLPERF_DEVICE: cuda
       CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
+
+  nvidia-only:
+    group: code
+    default: true
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        tags: _nvidia-only
+  custom:
+    group: code
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        tags: _custom
+  mlcommons:
+    group: code
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        tags: _mlcommons
+
+
+versions:
+  r2.1:
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        version: r2.1
+
+  r3.0:
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        version: r3.0
+  r3.1:
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        version: r3.1
