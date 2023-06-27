@@ -8,17 +8,18 @@ cm run script --tags=get,nvidia,common-code,_nvidia-only --out=json
 ```
 
 
-Requirements: You need to have CUDA, cuDNN and TensorRT installed on your system. 
-## Install CUDA
+## Requirements
+You need to have CUDA, cuDNN and TensorRT installed on your system. 
+### Install CUDA
 If CUDA is not detected, CM should download and install it automatically when you run the workflow. If you already have cuda drivers **ensure that you uncheck cuda drivers** while installing cuda.
 
-## Install cuDNN
+### Install cuDNN
 For x86 machines, you can download the tar files for cuDNN (for cuda 11) and TensorRT and install them using the following commands
 ```bash
 cm run script --tags=get,cudnn --input=<PATH_TO_CUDNN_TAR_FILE>
 ```
 
-## Install TensorRT
+### Install TensorRT
 ```bash
 cm run script --tags=get,tensorrt,_dev --input=<PATH_TO_TENSORRT_TAR_FILE>
 ```
