@@ -11,6 +11,7 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Input description](#input-description)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
@@ -54,9 +55,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,tensorrt,nvidia [--input_flags]`
+1. `cm run script --tags=get,tensorrt,nvidia[,variations] [--input_flags]`
 
-2. `cm run script "get tensorrt nvidia" [--input_flags]`
+2. `cm run script "get tensorrt nvidia[,variations]" [--input_flags]`
 
 3. `cm run script 2a84ca505e4c408d [--input_flags]`
 
@@ -102,6 +103,20 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,tensorrt,nvidia) t
 
 ___
 ### Customization
+
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_dev`
+      - Environment variables:
+        - *CM_TENSORRT_REQUIRE_DEV*: `yes`
+      - Workflow:
+
+    </details>
 
 
 #### Input description

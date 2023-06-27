@@ -154,6 +154,26 @@ ___
     </details>
 
 
+  * Group "**reproducibility**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_r2.1`
+      - Environment variables:
+        - *CM_MLPERF_INFERENCE_APP_DEFAULTS*: `r2.1_default`
+      - Workflow:
+    * `_r3.0`
+      - Environment variables:
+        - *CM_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.0_default`
+      - Workflow:
+    * **`_r3.1`** (default)
+      - Environment variables:
+        - *CM_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.1_default`
+      - Workflow:
+
+    </details>
+
+
   * Group "**submission-generation**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -217,7 +237,7 @@ ___
 
 #### Default variations
 
-`_find-performance,_short`
+`_find-performance,_r3.1,_short`
 
 #### Input description
 
