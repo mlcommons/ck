@@ -1,18 +1,18 @@
-This script is a CM wrapper to the official [Nvidia submission code](https://github.com/mlcommons/inference_results_v2.1/tree/master/closed/NVIDIA) used for 2.1 MLPerf inference round. 
+This script is a CM wrapper to the official [Nvidia submission code](https://github.com/mlcommons/inference_results_v3.0/tree/master/closed/NVIDIA) used for MLPerf inference submissions. 
 
-This script will automatically call the Nvidia script to [add a custom system](https://github.com/mlcommons/inference_results_v2.1/tree/master/closed/NVIDIA#adding-a-new-or-custom-system).
+This script will automatically call the Nvidia script to [add a custom system](https://github.com/mlcommons/inference_results_v3.0/tree/master/closed/NVIDIA#adding-a-new-or-custom-system).
 
 Nvidia working directory is given by `CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH` variable which can be seen by running 
 ```bash
-cm run script --tags=get,nvidia,common-code,_custom --out=json
+cm run script --tags=get,nvidia,common-code,_nvidia-only --out=json
 ```
 
 
 Requirements: You need to have CUDA, cuDNN and TensorRT installed on your system. 
 
-If CUDA is not detected, CM should download and install it automatically when you run the workflow.
+If CUDA is not detected, CM should download and install it automatically when you run the workflow. If you already have cuda drivers **ensure that you uncheck cuda drivers** while installing cuda.
 
-For x86 machines, you can download the tar files for cuDNN and TensorRT and install them using the following commands
+For x86 machines, you can download the tar files for cuDNN (for cuda 11) and TensorRT and install them using the following commands
 ```bash
 cm run script --tags=get,cudnn --input=<PATH_TO_CUDNN_TAR_FILE>
 ```
@@ -21,7 +21,7 @@ cm run script --tags=get,cudnn --input=<PATH_TO_CUDNN_TAR_FILE>
 cm run script --tags=get,tensorrt --input=<PATH_TO_TENSORRT_TAR_FILE>
 ```
 
-On other systems you can do a package manager install and then CM should pick up the installation automatically during the workflow run.
+On other systems, you can do a package manager install and then CM should pick up the installation automatically during the workflow run.
 
 ## Managing the configuration files
 
@@ -38,7 +38,7 @@ cd `cm find cache --tags=inference,results,mlperf,_custom`
 
 Further cd into inference_results_v<>/closed/NVIDIA
 
-Nvidia run configuration values for each model-sceraio for known systems are stored in `__init__.py` files under configs directory. For custom systems (ones which are different from the ones used by Nvidia for submission) these are stored under `custom.py` files. 
+Nvidia runs configuration values for each model-scenario for known systems are stored in `__init__.py` files under the configs directory. For custom systems (ones that are different from the ones used by Nvidia for submission) these are stored under `custom.py` files. 
 
 **Important** When custom config files are generated they override the default config values with empty ones (not desirable). So, you'll probably need to open the custom config file and comment out the overrides. Typically `gpu_batch_size` and `offline_expected_qps` are enough for an offline scenario run on a typical single GPU system.
 
