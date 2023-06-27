@@ -79,6 +79,9 @@ deps:
   # Detect GFlags
   - tags: get,generic,sys-util,_gflags-dev
 
+  # Detect libgmock-dev
+  - tags: get,generic,sys-util,_libgmock-dev
+
   # Detect libre2-dev
   - tags: get,generic,sys-util,_libre2-dev
 
