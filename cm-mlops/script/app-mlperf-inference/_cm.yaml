@@ -732,7 +732,7 @@ variations:
       compiler:
         tags: gcc
       cuda:
-        version_max: 11.8
+        version_max: "11.8"
       nvidia-inference-common-code:
         version: r2.1
         tags: _custom
@@ -749,7 +749,7 @@ variations:
       compiler:
         tags: gcc
       cuda:
-        version_max: 11.8
+        version_max: "11.8"
       nvidia-inference-common-code:
         version: r3.0
         tags: _nvidia-only
