@@ -84,9 +84,9 @@ using individual CM scripts to automatically plug them into the above ML applica
 cm run script "detect os" --out=json
 cm run script "get python" --version_min=3.9.1
 cm run script "install python-venv" --name=my-virtual-env
-cm run script "get ml-model-onnx resnet50"
+cm run script "get ml-model resnet50 _onnx _fp32"
 cm run script "get original imagenet dataset _2012-500"
-cm run script "get python-lib onnxruntime" --version=1.12.0
+cm run script "get generic-python-lib _onnxruntime" --version=1.12.0
 
 cm show cache
 cm show cache --tags=python
