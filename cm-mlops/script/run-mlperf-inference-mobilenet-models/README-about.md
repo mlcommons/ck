@@ -11,9 +11,6 @@ We need to get imagenet full dataset to make image-classification submissions fo
 cm run script --tags=run,mobilenet-models,_tflite,_accuracy-only --results_dir=$HOME/mobilenet_results --adr.compiler.tags=gcc
 ```
 
-During the run, tflite library will be installed and you can give the following answers to the prompt questions
-
-```
 
 #### Do a full performance run for all the models (can take almost a day)
 ```
