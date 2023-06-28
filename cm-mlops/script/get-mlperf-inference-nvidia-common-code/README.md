@@ -13,6 +13,7 @@
 * [Customization](#customization)
   * [ Variations](#variations)
   * [ Default environment](#default-environment)
+* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -104,11 +105,17 @@ ___
 
 #### Variations
 
-  * *No group (any variation can be selected)*
+  * Group "**repo-owner**"
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_ctuning`
+      - Workflow:
     * `_custom`
+      - Workflow:
+    * `_mlcommons`
+      - Workflow:
+    * `_nvidia-only`
       - Workflow:
 
     </details>
@@ -123,6 +130,10 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 </details>
 
+#### Versions
+* `r2.1`
+* `r3.0`
+* `r3.1`
 ___
 ### Script workflow, dependencies and native scripts
 

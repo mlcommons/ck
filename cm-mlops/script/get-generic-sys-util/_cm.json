@@ -179,6 +179,19 @@
         }
       }
     },
+    "libgmock-dev": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "libgmock-dev"
+      },
+      "state": {
+        "libgmock-dev": {
+          "apt": "libgmock-dev",
+          "dnf": "gmock-devel",
+          "yum": "gmock-devel",
+          "brew": ""
+        }
+      }
+    },
     "zlib": {
       "env": {
         "CM_SYS_UTIL_NAME": "zlib"

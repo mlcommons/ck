@@ -26,6 +26,10 @@ def postprocess(i):
     output_dir = env['CM_MLPERF_OUTPUT_DIR']
     mode = env['CM_MLPERF_LOADGEN_MODE']
 
+    if not os.path.exists(output_dir) or not os.path.exists(os.path.join(output_dir, "mlperf_log_summary.txt")):
+        # No output, fake_run?
+        return {'return': 0}
+
     #in power mode copy the log files from tmp_power directory
     if env.get('CM_MLPERF_POWER', '') == "yes" and mode == "performance":
         mlperf_power_logs_dir = os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "..", "power")

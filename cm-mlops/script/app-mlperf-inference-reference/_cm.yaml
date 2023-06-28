@@ -220,7 +220,8 @@ deps:
       CM_MODEL:
       - bert-99
       - bert-99.9
-      - gptj
+      - gpt-j-99
+      - gpt-j-99.9
 
   ## Tensorflow
   - tags: get,generic-python-lib,_tensorflow
@@ -261,9 +262,11 @@ deps:
     names:
     - ml-model
     - gptj-model
+    - gpt-j-model
     enable_if_env:
       CM_MODEL:
-      - gptj
+      - gpt-j-99
+      - gpt-j-99.9
 
 
   ## RetinaNet (PyTorch weights, FP32)
@@ -364,7 +367,8 @@ deps:
     - cnndm-preprocessed
     enable_if_env:
       CM_MODEL:
-      - gptj
+      - gpt-j-99
+      - gpt-j-99.9
 
   ## Squad for BERT
   - tags: get,dataset,squad,original
@@ -552,10 +556,21 @@ variations:
         tags: tvm-model,_pytorch
 
   # Reference MLPerf models
-  gptj:
+  gpt-j-99.9:
     group: models
+    base:
+    - gpt-j_
     env:
-      CM_MODEL: gptj
+      CM_MODEL: gpt-j-99.9
+
+  gpt-j-99:
+    group: models
+    base:
+    - gpt-j_
+    env:
+      CM_MODEL: gpt-j-99
+
+  gpt-j_:
     deps:
     - tags: get,generic-python-lib,_torch
     - tags: get,generic-python-lib,_package.datasets
@@ -758,6 +773,10 @@ variations:
       ml-model:
         tags:
           _batch_size.#
+
+  beam_size.#:
+    env:
+      GPTJ_BEAM_SIZE: "#"
 
   # Reproducibility (past submissions)
   r2.1_default:

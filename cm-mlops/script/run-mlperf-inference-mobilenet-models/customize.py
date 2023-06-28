@@ -118,6 +118,7 @@ def preprocess(i):
                     'automation': 'script',
                     'tags': f'generate-run-cmds,mlperf,inference,{var}',
                     'quiet': True,
+                    'env': env,
                     'implementation': 'tflite-cpp',
                     'precision': precision,
                     'model': model,
@@ -161,8 +162,7 @@ def preprocess(i):
                 print(cm_input)
                 r = cmind.access(cm_input)
                 if r['return'] > 0:
-                    print(r)
-                    #sys.exit(1)
+                    return r
 
     return {'return':0}
 

@@ -79,6 +79,9 @@ deps:
   # Detect GFlags
   - tags: get,generic,sys-util,_gflags-dev
 
+  # Detect libgmock-dev
+  - tags: get,generic,sys-util,_libgmock-dev
+
   # Detect libre2-dev
   - tags: get,generic,sys-util,_libre2-dev
 
@@ -112,11 +115,11 @@ post_deps:
     names:
     - custom-system-nvidia
     - nvidia-inference-common-code
-    enable_if_env:
+    skip_if_env:
       CM_CUSTOM_SYSTEM_NVIDIA:
-      - "yes"
-      - True
-      - "True"
+      - "no"
+      - False
+      - "False"
 
 
 

@@ -118,6 +118,10 @@ ___
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `libboost-all-dev`
       - Workflow:
+    * `_libgmock-dev`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `libgmock-dev`
+      - Workflow:
     * `_libmpfr-dev`
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `libmpfr-dev`
