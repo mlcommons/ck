@@ -1,7 +1,7 @@
 #!/bin/bash
 chmod 777 ${PWD}
 #transmission-remote --no-auth --download-dir ${PWD} -a ${CM_TORRENT_FILE}
-cmd="transmission-remote --download-dir ${PWD} -a ${CM_TORRENT_FILE}"
+cmd="transmission-remote --no-auth --download-dir ${PWD} -a ${CM_TORRENT_FILE}"
 echo $cmd
 eval $cmd
 test $? -eq 0 || exit $?

@@ -142,5 +142,14 @@
         "CM_MLPERF_TFLITE_ARMNN_OPENCL": "yes"
       }
     }
+  },
+  "docker": {
+    "run": true,
+    "fake_run_deps": false,
+     "mounts": [
+       "${{ IMAGENET_PATH }}:${{ IMAGENET_PATH }}",
+       "${{ RESULTS_DIR }}:/data/results_dir",
+       "${{ SUBMISSION_DIR }}:/data/submission_dir"
+     ]
   }
 }
