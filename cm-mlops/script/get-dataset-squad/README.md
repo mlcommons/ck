@@ -34,7 +34,7 @@ See [more info](README-extra.md).
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,dataset,squad,language-processing,validation,training,original*
+* CM "database" tags to find this script: *get,dataset,squad,language-processing,validation,original*
 * Output cached?: *True*
 ___
 ### Usage
@@ -53,9 +53,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,dataset,squad,language-processing,validation,training,original `
+1. `cm run script --tags=get,dataset,squad,language-processing,validation,original `
 
-2. `cm run script "get dataset squad language-processing validation training original" `
+2. `cm run script "get dataset squad language-processing validation original" `
 
 3. `cm run script 6651c119c3ae49b3 `
 
@@ -74,7 +74,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,dataset,squad,language-processing,validation,training,original'
+                  'tags':'get,dataset,squad,language-processing,validation,original'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -91,9 +91,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,dataset,squad,language-processing,validation,training,original"```
+```cm run script --tags=gui --script="get,dataset,squad,language-processing,validation,original"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,dataset,squad,language-processing,validation,training,original) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,dataset,squad,language-processing,validation,original) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -144,7 +144,6 @@ ___
 
 * `CM_DATASET_PATH`
 * `CM_DATASET_SQUAD_PATH`
-* `CM_DATASET_SQUAD_TRAIN_PATH`
 * `CM_DATASET_SQUAD_VAL_PATH`
 ___
 ### Maintainers
