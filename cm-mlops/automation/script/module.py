@@ -647,6 +647,12 @@ class CAutomation(Automation):
 
         found_script_tags = meta.get('tags',[])
 
+        if env.get('CM_RUN_STATE_DOCKER', False):
+            if meta.get('docker'):
+                if meta['docker'].get('run', True) == False:
+                    print (recursion_spaces+'  - Skipping script::{} run as we are inside docker'.format(found_script_artifact))
+                    return {'return': 0}
+
         if i.get('debug_script', False):
             debug_script_tags=','.join(found_script_tags)
 

@@ -11,25 +11,6 @@ We need to get imagenet full dataset to make image-classification submissions fo
 cm run script --tags=run,mobilenet-models,_tflite,_accuracy-only --results_dir=$HOME/mobilenet_results --adr.compiler.tags=gcc
 ```
 
-During the run, tflite library will be installed and you can give the following answers to the prompt questions
-
-```
-Please input the desired Python library path to use.  Default is [/home/ubuntu/CM/repos/local/cache/3795df3c20b44647/inference/tools/submission]
-
-Do you wish to build TensorFlow with ROCm support? [y/N]: N
-No ROCm support will be enabled for TensorFlow.
-
-Do you wish to build TensorFlow with CUDA support? [y/N]: N
-No CUDA support will be enabled for TensorFlow.
-
-Do you wish to download a fresh release of clang? (Experimental) [y/N]: N
-Clang will not be downloaded.
-
-Please specify optimization flags to use during compilation when bazel option "--config=opt" is specified [Default is -Wno-sign-compare]:
-
-
-Would you like to interactively configure ./WORKSPACE for Android builds? [y/N]: N
-```
 
 #### Do a full performance run for all the models (can take almost a day)
 ```

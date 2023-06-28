@@ -62,6 +62,10 @@ def postprocess(i):
     if not os.path.isfile(path_image):
         return {'return':1, 'error':'ImageNet file {} not found'.format(path_image)}
 
+    files = os.listdir(path)
+    if len(files) < int(env.get('CM_DATASET_SIZE', 0)):
+        return {'return':1, 'error':'Only {} files found in {}. {} expected'.format(len(files), path, env.get('CM_DATASET_SIZE'))}
+
     env['CM_DATASET_PATH'] = path
     env['CM_DATASET_IMAGENET_PATH'] = path
     env['CM_DATASET_IMAGENET_VAL_PATH'] = path

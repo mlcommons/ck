@@ -1132,6 +1132,9 @@ def dockerfile(i):
         docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
         docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
         fake_run_deps = i.get('fake_run_deps', docker_settings.get('fake_run_deps', False))
+        docker_run_final_cmds = docker_settings.get('docker_run_final_cmds', [])
+        dockerfile_env = {}
+        dockerfile_env['CM_DOCKER_PRE_RUN_COMMANDS'] = docker_run_final_cmds
 
         dockerfile_path = os.path.join(script_path,'dockerfiles', docker_os +'_'+docker_os_version +'.Dockerfile')
         if i.get('print_deps'):
@@ -1165,6 +1168,7 @@ def dockerfile(i):
                             'run_cmd': f'{run_cmd} --quiet',
                             'script_tags': f'{tag_string}',
                             'quiet': True,
+                            'env': dockerfile_env,
                             'v': i.get('v', False),
                             'fake_docker_deps': fake_run_deps,
                             'print_deps': True,
@@ -1242,7 +1246,7 @@ def docker(i):
         lst += r['list']
 
     if i.get('cmd'):
-        run_cmd = "cm run script " + " ".join(i['cmd'])
+        run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('docker_') )
     elif i.get('artifact'):
         run_cmd = "cm run script "+i['artifact']
     elif i.get('tags'):
@@ -1251,6 +1255,8 @@ def docker(i):
         run_cmd = ""
 
     env=i.get('env', {})
+    env['CM_RUN_STATE_DOCKER'] = True
+
     docker_cache = i.get('docker_cache', "yes")
     if docker_cache in ["no", False, "False" ]:
         if 'CM_DOCKER_CACHE' not in env:
@@ -1289,10 +1295,14 @@ def docker(i):
         mounts = docker_settings.get('mounts', [])
         input_mapping = meta.get('input_mapping', {})
 
-        docker_input_mapping = {}
+        docker_input_mapping = docker_settings.get('docker_input_mapping', {})
+
         for c_input in input_mapping:
             if c_input in i:
-                docker_input_mapping[input_mapping[c_input]] = i[c_input]
+                env[input_mapping[c_input]] = i[c_input]
+        for c_input in docker_input_mapping:
+            if c_input in i:
+                env[docker_input_mapping[c_input]] = i[c_input]
 
         for index in range(len(mounts)):
             mount = mounts[index]
@@ -1311,8 +1321,6 @@ def docker(i):
                 for tmp_value in tmp_values:
                     if tmp_value in env:
                         new_host_mount = env[tmp_value]
-                    elif tmp_value in docker_input_mapping:
-                        new_host_mount = docker_input_mapping[tmp_value]
                     else:# we skip those mounts
                         mounts[index] = None
                         skip = True
@@ -1323,8 +1331,6 @@ def docker(i):
                 for tmp_value in tmp_values:
                     if tmp_value in env:
                         new_container_mount = env[tmp_value]
-                    elif tmp_value in docker_input_mapping:
-                        new_container_mount = docker_input_mapping[tmp_value]
                     else:# we skip those mounts
                         mounts[index] = None
                         skip = True

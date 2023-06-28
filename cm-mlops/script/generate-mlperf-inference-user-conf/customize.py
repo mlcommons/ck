@@ -49,6 +49,8 @@ def preprocess(i):
     test_list = ["TEST01", "TEST04", "TEST05"]
     if env['CM_MODEL'] in ["rnnt", "bert-99", "bert-99.9", "dlrm-99", "dlrm-99.9", "3d-unet-99", "3d-unet-99.9"]:
         test_list.remove("TEST04")
+    if "gpt-" in env['CM_MODEL']:
+        test_list.remove("TEST05")
 
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
     state['RUN'][scenario] = {}
@@ -124,6 +126,7 @@ def preprocess(i):
                 else:
                     print("No target_latency specified. Using 0.1ms as target_latency")
                 conf[metric] = 0.1
+            metric_value = conf[metric]
             #else:
             #    return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
 

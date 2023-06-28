@@ -107,5 +107,8 @@
         "CM_DATASET_SIZE": "#"
       }
     }
+  },
+  "docker": {
+    "run": false
   }
 }

@@ -28,6 +28,7 @@
     "submission": "CM_MLPERF_SUBMISSION_MODE",
     "results_dir": "CM_MLPERF_RESULTS_DIR",
     "power": "CM_MLPERF_POWER",
+    "imagenet_path": "IMAGENET_PATH",
     "no-rerun": "CM_MLPERF_NO_RERUN",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR"
   },
@@ -35,7 +36,6 @@
   "variations": {
     "find-performance": {
       "group": "run-mode",
-      "default": true,
       "env": {
         "CM_MLPERF_FIND_PERFORMANCE_MODE": "yes",
         "CM_MLPERF_SUBMISSION_MODE": "no"
@@ -142,5 +142,22 @@
         "CM_MLPERF_TFLITE_ARMNN_OPENCL": "yes"
       }
     }
+  },
+  "docker": {
+    "run": true,
+    "fake_run_deps": false,
+    "docker_input_mapping": {
+      "imagenet_path": "IMAGENET_PATH",
+      "results_dir": "RESULTS_DIR",
+      "submission_dir": "SUBMISSION_DIR"
+    },
+    "mounts": [
+       "${{ IMAGENET_PATH }}:${{ IMAGENET_PATH }}",
+       "${{ RESULTS_DIR }}:${{ RESULTS_DIR }}",
+       "${{ SUBMISSION_DIR }}:${{ SUBMISSION_DIR }}"
+    ],
+    "docker_run_final_cmds":  [
+      "cm run script --tags=run,mlperf,inference,mobilenet-models,_find-performance --adr.mlperf-inference-implementation.fake_run=True --adr.compiler.tags=gcc"
+    ]
   }
 }
