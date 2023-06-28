@@ -1242,7 +1242,7 @@ def docker(i):
         lst += r['list']
 
     if i.get('cmd'):
-        run_cmd = "cm run script " + " ".join(i['cmd'])
+        run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('docker_') )
     elif i.get('artifact'):
         run_cmd = "cm run script "+i['artifact']
     elif i.get('tags'):
@@ -1251,6 +1251,8 @@ def docker(i):
         run_cmd = ""
 
     env=i.get('env', {})
+    env['CM_RUN_STATE_DOCKER'] = True
+
     docker_cache = i.get('docker_cache', "yes")
     if docker_cache in ["no", False, "False" ]:
         if 'CM_DOCKER_CACHE' not in env:

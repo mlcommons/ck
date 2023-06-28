@@ -118,6 +118,7 @@ def preprocess(i):
                     'automation': 'script',
                     'tags': f'generate-run-cmds,mlperf,inference,{var}',
                     'quiet': True,
+                    'env': env,
                     'implementation': 'tflite-cpp',
                     'precision': precision,
                     'model': model,
