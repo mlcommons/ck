@@ -1132,6 +1132,9 @@ def dockerfile(i):
         docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
         docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
         fake_run_deps = i.get('fake_run_deps', docker_settings.get('fake_run_deps', False))
+        docker_run_final_cmds = docker_settings.get('docker_run_final_cmds', [])
+        dockerfile_env = {}
+        dockerfile_env['CM_DOCKER_PRE_RUN_COMMANDS'] = docker_run_final_cmds
 
         dockerfile_path = os.path.join(script_path,'dockerfiles', docker_os +'_'+docker_os_version +'.Dockerfile')
         if i.get('print_deps'):
@@ -1165,6 +1168,7 @@ def dockerfile(i):
                             'run_cmd': f'{run_cmd} --quiet',
                             'script_tags': f'{tag_string}',
                             'quiet': True,
+                            'env': dockerfile_env,
                             'v': i.get('v', False),
                             'fake_docker_deps': fake_run_deps,
                             'print_deps': True,

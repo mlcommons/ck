@@ -150,6 +150,9 @@
        "${{ IMAGENET_PATH }}:${{ IMAGENET_PATH }}",
        "${{ RESULTS_DIR }}:/data/results_dir",
        "${{ SUBMISSION_DIR }}:/data/submission_dir"
+     ],
+     "docker_run_final_cmds":  [
+       "cm run script --tags=run,mlperf,inference,mobilenet-models,_find-performance --adr.mlperf-inference-implementation.fake_run=True"
      ]
   }
 }
