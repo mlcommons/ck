@@ -7,8 +7,16 @@ You can then register in the MLCommons CM using this portable CM script as follo
 
 ```bash
 cm pull repo mlcommons@ck
+```
 
-cm run script "get validation dataset imagenet _2012-full" --input={directory with ILSVRC2012_val_00000001.JPEG}
+```bash
+cm run script "get validation dataset imagenet _2012 _full" --input={directory with ILSVRC2012_val_00000001.JPEG}
+```
+
+Alternatively, you can download the imagenet validation dataset via torrent by giving the torrent URL as follows.
+
+```bash
+cm run script "get validation dataset imagenet _2012 _full" --torrent={Torrent URL}
 ```
 
 It can now be automatically plugged into other portable CM scripts for image classification including MLPerf inference vision benchmarks.
@@ -16,5 +24,5 @@ It can now be automatically plugged into other portable CM scripts for image cla
 You can also find the images and use them directly as follows:
 
 ```bash
-cm find cache --tags=dataset,validation,imagenet
+cm find cache --tags=dataset,validation,imagenet,_full
 ```
