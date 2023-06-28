@@ -22,7 +22,7 @@ Pull the MLCommons CK repository with automation recipes for interoperable MLOps
 cm pull repo mlcommons@ck
 ```
 
-Install repositories with raw MLPerf inference benchmark results:
+Install repositories with raw MLPerf training benchmark results:
 ```bash
 cmr "get git repo _repo.https://github.com/mlcommons/training_results_v1.0" --extra_cache_tags=mlperf-training-results,version-1.0 --branch=master --depth=""
 cmr "get git repo _repo.https://github.com/mlcommons/training_results_v1.1" --extra_cache_tags=mlperf-training-results,version-1.1 --branch=main --depth=""
@@ -37,7 +37,7 @@ cm run script "get git repo _repo.https://github.com/mlcommons/submissions_train
 
 Convert raw MLPerf training results into CM experiment entries:
 ```bash
-cmr "import mlperf inference to-experiment"
+cmr "import mlperf training to-experiment"
 ```
 
 Visualize results on your local machine via CK playground GUI:
