@@ -4,13 +4,14 @@ We need to get imagenet full dataset to make image-classification submissions fo
 
 ### Default tflite
 
-#### Do a test run to detect and record the system performance for each model (about an hour runtime)
+
+#### Do a full accuracy run for all the models (can take almost a day)
 
 ```
-cm run script --tags=run,mobilenet-models,_tflite,_find-performance --adr.compiler.tags=gcc
+cm run script --tags=run,mobilenet-models,_tflite,_accuracy-only --results_dir=$HOME/mobilenet_results --adr.compiler.tags=gcc
 ```
 
-During the run, tflite library will be installed and you can give the following answers for the prompt questions
+During the run, tflite library will be installed and you can give the following answers to the prompt questions
 
 ```
 Please input the desired Python library path to use.  Default is [/home/ubuntu/CM/repos/local/cache/3795df3c20b44647/inference/tools/submission]
@@ -29,11 +30,7 @@ Please specify optimization flags to use during compilation when bazel option "-
 
 Would you like to interactively configure ./WORKSPACE for Android builds? [y/N]: N
 ```
-#### Do a full accuracy run for all the models (can take almost a day)
 
-```
-cm run script --tags=run,mobilenet-models,_tflite,_accuracy-only --results_dir=$HOME/mobilenet_results --adr.compiler.tags=gcc
-```
 #### Do a full performance run for all the models (can take almost a day)
 ```
 cm run script --tags=run,mobilenet-models,_tflite,_performance-only --results_dir=$HOME/mobilenet_results --adr.compiler.tags=gcc
@@ -58,25 +55,25 @@ cm run script --tags=generate,inference,submission --results_dir=$HOME/mobilenet
 First create a fork of [this repo](https://github.com/ctuning/mlperf_inference_submissions_v3.0/). Then run the following command after replacing `--repo_url` with your fork URL.
 ```
 cm run script --tags=push,github,mlperf,inference,submission --submission_dir=$HOME/mobilenet_submission_tree \
---repo_url=https://github.com/ctuning/mlperf_inference_submissions_v3.0/ \
+--repo_url=https://github.com/ctuning/mlperf_inference_submissions_v3.1/ \
 --commit_message="Mobilenet results added"
 ```
 
-Create a PR to [cTuning repo](https://github.com/ctuning/mlperf_inference_submissions_v3.0/)
+Create a PR to [cTuning repo](https://github.com/ctuning/mlperf_inference_submissions_v3.1/)
 
 ### Using ARMNN with NEON
 
-Follow the same procedure as above but for the first 3 experiment runs add `_armnn,_neon` to the tags. For example
+Follow the same procedure as above but for the first three experiment runs add `_armnn,_neon` to the tags. For example
 ```
-cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_find-performance --adr.compiler.tags=gcc
+cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_accuracy-only --results_dir=$HOME/mobilenet_results --adr.compiler.tags=gcc
 ```
 
-`results_dir` and `submission_dir` can be the same as before as results will be going to different sub folders. 
+`results_dir` and `submission_dir` can be the same as before as results will be going to different subfolders. 
 
 ### Using ARMNN with OpenCL
-Follow the same procedure as above but for the first 3 experiment runs add `_armnn,_opencl` to the tags. For example
+Follow the same procedure as above but for the first three experiment runs add `_armnn,_opencl` to the tags. For example
 ```
-cm run script --tags=run,mobilenet-models,_tflite,_armnn,_opencl,_find-performance --adr.compiler.tags=gcc
+cm run script --tags=run,mobilenet-models,_tflite,_armnn,_opencl,_accuracy-only --results_dir=$HOME/mobilenet_results --adr.compiler.tags=gcc
 ```
 
-`results_dir` and `submission_dir` can be the same as before as results will be going to different sub folders. 
+`results_dir` and `submission_dir` can be the same as before as results will be going to different subfolders. 
