@@ -77,6 +77,14 @@ def postprocess(i):
     run_cmd = " && ".join(run_cmds)
 
     if mount_cmds:
+        for mount_cmd in mount_cmds:
+            mount_parts = mount_cmd.split(":")
+            if len(mount_parts) != 2:
+                return {'return': 1, 'error': 'Invalid mount {} specified'.format(mount_parts)}
+            host_mount = mount_parts[0]
+            if not os.path.exists(host_mount):
+                os.makedirs(host_mount)
+
         mount_cmd_string = " -v " + " -v ".join(mount_cmds)
     else:
         mount_cmd_string = ''

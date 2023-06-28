@@ -1295,10 +1295,14 @@ def docker(i):
         mounts = docker_settings.get('mounts', [])
         input_mapping = meta.get('input_mapping', {})
 
-        docker_input_mapping = {}
+        docker_input_mapping = docker_settings.get('docker_input_mapping', {})
+
         for c_input in input_mapping:
             if c_input in i:
-                docker_input_mapping[input_mapping[c_input]] = i[c_input]
+                env[input_mapping[c_input]] = i[c_input]
+        for c_input in docker_input_mapping:
+            if c_input in i:
+                env[docker_input_mapping[c_input]] = i[c_input]
 
         for index in range(len(mounts)):
             mount = mounts[index]
@@ -1317,8 +1321,6 @@ def docker(i):
                 for tmp_value in tmp_values:
                     if tmp_value in env:
                         new_host_mount = env[tmp_value]
-                    elif tmp_value in docker_input_mapping:
-                        new_host_mount = docker_input_mapping[tmp_value]
                     else:# we skip those mounts
                         mounts[index] = None
                         skip = True
@@ -1329,8 +1331,6 @@ def docker(i):
                 for tmp_value in tmp_values:
                     if tmp_value in env:
                         new_container_mount = env[tmp_value]
-                    elif tmp_value in docker_input_mapping:
-                        new_container_mount = docker_input_mapping[tmp_value]
                     else:# we skip those mounts
                         mounts[index] = None
                         skip = True

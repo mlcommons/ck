@@ -23,7 +23,6 @@
     "squad",
     "language-processing",
     "validation",
-    "training",
     "original"
   ],
   "uid": "6651c119c3ae49b3",
@@ -32,14 +31,14 @@
       "env": {
         "CM_TRAIN_FILENAME": "train-v1.1.json",
         "CM_VAL_FILENAME": "dev-v1.1.json",
-        "CM_WGET_URL": "https://data.deepai.org/squad1.1.zip"
+        "CM_WGET_URL": "https://github.com/rajpurkar/SQuAD-explorer/blob/master/dataset/dev-v1.1.json"
       }
     },
     "2.0": {
       "env": {
         "CM_TRAIN_FILENAME": "train-v2.0.json",
         "CM_VAL_FILENAME": "dev-v2.0.json",
-        "CM_WGET_URL": "https://data.deepai.org/squad2.0.zip"
+        "CM_WGET_URL": "https://github.com/rajpurkar/SQuAD-explorer/blob/master/dataset/dev-v2.0.json"
       }
     }
   }
