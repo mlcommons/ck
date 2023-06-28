@@ -31,14 +31,14 @@
       "env": {
         "CM_TRAIN_FILENAME": "train-v1.1.json",
         "CM_VAL_FILENAME": "dev-v1.1.json",
-        "CM_WGET_URL": "https://github.com/rajpurkar/SQuAD-explorer/blob/master/dataset/dev-v1.1.json"
+        "CM_WGET_URL": "https://raw.githubusercontent.com/rajpurkar/SQuAD-explorer/master/dataset/dev-v1.1.json"
       }
     },
     "2.0": {
       "env": {
         "CM_TRAIN_FILENAME": "train-v2.0.json",
         "CM_VAL_FILENAME": "dev-v2.0.json",
-        "CM_WGET_URL": "https://github.com/rajpurkar/SQuAD-explorer/blob/master/dataset/dev-v2.0.json"
+        "CM_WGET_URL": "https://raw.githubusercontent.com/rajpurkar/SQuAD-explorer/master/dataset/dev-v2.0.json"
       }
     }
   }
