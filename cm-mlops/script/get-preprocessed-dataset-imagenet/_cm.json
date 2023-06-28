@@ -316,5 +316,8 @@
         "CM_DATASET_INPUT_SQUARE_SIDE": "#"
       }
     }
+  },
+  "docker": {
+    "run": false
   }
 }
