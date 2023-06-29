@@ -1,9 +1,11 @@
-## Run Commands
+## Set up
 
 We need to get imagenet full dataset to make image-classification submissions for MLPerf inference. Since this dataset is not publicly available via a URL please follow the instructions given [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-dataset-imagenet-val/README-extra.md) to download the dataset and register in CM.  
 
+<details>
+<summary>Click here to set up docker (Optional).</summary>
 
-## Docker Setup
+### Docker Setup
 
 CM commands are expected to run natively but if you prefer not to modify the host system, you can do the below command to set up a docker container. 
 
@@ -21,7 +23,10 @@ This command will build a docker container and give you an interactive shell fro
 * `results_dir`, `submission_dir` and `imagenet_path` are mounted from the host system.
 * `results_dir` and `submission_dir` are expected to be empty directories to be populated by the docker
 * `imagenet_path` should point to the imagenet folder containing the 50000 validation images.
-  
+
+</details>
+
+## Run Commands
 
 ### Default tflite
 
