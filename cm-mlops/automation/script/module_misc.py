@@ -1065,7 +1065,7 @@ def dockerfile(i):
     cur_dir = os.getcwd()
 
     console = i.get('out') == 'con'
-    cm_repo = i.get('cm_repo', 'mlcommons@ck')
+    cm_repo = i.get('docker_cm_repo', 'mlcommons@ck')
 
     repos = i.get('repos','')
     if repos == '': repos='internal,a4705959af8e447a'
@@ -1095,7 +1095,7 @@ def dockerfile(i):
         lst += r['list']
 
     if i.get('cmd'):
-        run_cmd = "cm run script " + " ".join(i['cmd'])
+        run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('docker_') )
     elif i.get('artifact'):
         run_cmd = "cm run script "+i['artifact']
     elif i.get('tags'):
@@ -1103,7 +1103,7 @@ def dockerfile(i):
     else:
         run_cmd = ""
 
-    #run_cmd = i.get('run_cmd_prefix') + ' && ' + run_cmd if i.get('run_cmd_prefix') else run_cmd
+    run_cmd = i.get('docker_run_cmd_prefix') + ' && ' + run_cmd if i.get('docker_run_cmd_prefix') else run_cmd
 
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
@@ -1254,6 +1254,8 @@ def docker(i):
     else:
         run_cmd = ""
 
+    run_cmd = i.get('docker_run_cmd_prefix') + ' && ' + run_cmd if i.get('docker_run_cmd_prefix') else run_cmd
+
     env=i.get('env', {})
     env['CM_RUN_STATE_DOCKER'] = True
 
@@ -1346,9 +1348,11 @@ def docker(i):
         else:
             mount_string = ""
 
-        cm_repo=i.get('cm_repo', 'mlcommons@ck')
+        cm_repo=i.get('docker_cm_repo', 'mlcommons@ck')
 
         dockerfile_path = os.path.join(script_path,'dockerfiles', _os +'_'+version +'.Dockerfile')
+
+        docker_skip_run_cmd = i.get('docker_skip_run_cmd', docker_settings.get('skip_run_cmd')) #skips docker run cmd and gives an interactive shell to the user
 
         cm_docker_input = {'action': 'run',
                             'automation': 'script',
@@ -1363,7 +1367,7 @@ def docker(i):
                             'docker_os_version': version,
                             'detached': 'no',
                             'script_tags': f'{tag_string}',
-                            'run_cmd': run_cmd,
+                            'run_cmd': run_cmd if not docker_skip_run_cmd else '',
                             'v': i.get('v', False),
                             'quiet': True,
                             'real_run': True,
