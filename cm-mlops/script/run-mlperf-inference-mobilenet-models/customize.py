@@ -164,6 +164,9 @@ def preprocess(i):
                 if r['return'] > 0:
                     return r
 
+                if env.get('CM_TEST_ONE_RUN', '') == "yes":
+                    return {'return':0}
+
     return {'return':0}
 
 def postprocess(i):
