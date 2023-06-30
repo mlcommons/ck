@@ -1105,6 +1105,7 @@ def dockerfile(i):
 
     run_cmd = i.get('docker_run_cmd_prefix') + ' && ' + run_cmd if i.get('docker_run_cmd_prefix') else run_cmd
 
+    env=i.get('env', {})
     dockerfile_env=i.get('dockerfile_env', {})
     dockerfile_env['CM_RUN_STATE_DOCKER'] = True
 
@@ -1139,7 +1140,7 @@ def dockerfile(i):
 
         docker_copy_files = i.get('docker_copy_files', docker_settings.get('copy_files', []))
 
-        dockerfile_env['CM_DOCKER_PRE_RUN_COMMANDS'] = docker_run_final_cmds
+        env['CM_DOCKER_PRE_RUN_COMMANDS'] = docker_run_final_cmds
 
         dockerfile_path = os.path.join(script_path,'dockerfiles', docker_os +'_'+docker_os_version +'.Dockerfile')
         if i.get('print_deps'):
@@ -1174,6 +1175,7 @@ def dockerfile(i):
                             'script_tags': f'{tag_string}',
                             'copy_files': docker_copy_files,
                             'quiet': True,
+                            'env': env,
                             'dockerfile_env': dockerfile_env,
                             'v': i.get('v', False),
                             'fake_docker_deps': fake_run_deps,
