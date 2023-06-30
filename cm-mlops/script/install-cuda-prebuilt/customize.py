@@ -18,4 +18,4 @@ def preprocess(i):
     env['CM_NVCC_BIN_WITH_PATH'] = os.path.join(os.getcwd(), 'install', 'bin', nvcc_bin)
     env['CM_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
 
-    return {'return':0}
+    return {'return':1}
