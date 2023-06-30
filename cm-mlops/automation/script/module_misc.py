@@ -1105,10 +1105,8 @@ def dockerfile(i):
 
     run_cmd = i.get('docker_run_cmd_prefix') + ' && ' + run_cmd if i.get('docker_run_cmd_prefix') else run_cmd
 
-    env=i.get('env', {})
-    env['CM_RUN_STATE_DOCKER'] = True
-
-    dockerfile_env = env
+    dockerfile_env=i.get('dockerfile_env', {})
+    dockerfile_env['CM_RUN_STATE_DOCKER'] = True
 
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
@@ -1176,7 +1174,7 @@ def dockerfile(i):
                             'script_tags': f'{tag_string}',
                             'copy_files': docker_copy_files,
                             'quiet': True,
-                            'env': dockerfile_env,
+                            'dockerfile_env': dockerfile_env,
                             'v': i.get('v', False),
                             'fake_docker_deps': fake_run_deps,
                             'print_deps': True,

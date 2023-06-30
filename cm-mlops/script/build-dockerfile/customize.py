@@ -132,6 +132,12 @@ def preprocess(i):
         f.write('RUN echo "' + docker_user + ' ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers' + EOL)
         f.write('USER ' + docker_user + ":" + docker_group + EOL)
 
+    dockerfile_env = i.get('dockerfile_env', {})
+
+    dockerfile_env_input_string = ""
+    for docker_env_key in dockerfile_env:
+        dockerfile_env_input_string = dockerfile_env_input_string + " --env."+docker_env_key+"="+dockerfile_env[docker_env_key]
+
     workdir = get_value(env, config, 'WORKDIR', 'CM_DOCKER_WORKDIR')
     if workdir:
         f.write('WORKDIR ' + workdir + EOL)
@@ -161,13 +167,13 @@ def preprocess(i):
         else:
             env['CM_DOCKER_RUN_CMD']="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
 
-    fake_run = " --fake_run"
+    fake_run = " --fake_run" + dockerfile_env_input_string
     fake_run = fake_run + " --fake_deps" if env.get('CM_DOCKER_FAKE_DEPS') else fake_run
     f.write('RUN ' + env['CM_DOCKER_RUN_CMD'] + fake_run + ' --quiet ' + run_cmd_extra + EOL)
 
     #fake_run to install the dependent scripts and caching them
     if not "run" in env['CM_DOCKER_RUN_CMD'] and env.get('CM_REAL_RUN', None):
-        fake_run = ""
+        fake_run = dockerfile_env_input_string
         f.write('RUN ' + env['CM_DOCKER_RUN_CMD'] + fake_run + run_cmd_extra + ' --quiet ' + EOL)
 
     if 'CM_DOCKER_POST_RUN_COMMANDS' in env:
