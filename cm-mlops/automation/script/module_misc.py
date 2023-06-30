@@ -1264,13 +1264,13 @@ def docker(i):
 
     run_cmd = i.get('docker_run_cmd_prefix') + ' && ' + run_cmd if i.get('docker_run_cmd_prefix') else run_cmd
 
+    env=i.get('env', {})
+    env['CM_RUN_STATE_DOCKER'] = True
+
     docker_cache = i.get('docker_cache', "yes")
     if docker_cache in ["no", False, "False" ]:
         if 'CM_DOCKER_CACHE' not in env:
             env['CM_DOCKER_CACHE'] = docker_cache
-
-    env=i.get('env', {})
-    env['CM_RUN_STATE_DOCKER'] = True
 
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
