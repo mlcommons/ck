@@ -549,6 +549,15 @@ variations:
       mlperf-inference-implementation:
         tags: _pytorch
 
+  ncnn:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND:
+        ncnn
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _ncnn
+
   deepsparse:
     group: backend
     default_variations:

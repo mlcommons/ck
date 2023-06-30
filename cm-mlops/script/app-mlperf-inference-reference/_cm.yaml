@@ -487,6 +487,17 @@ variations:
       CM_MLPERF_BACKEND: pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
 
+  ncnn:
+    group: framework
+    add_deps_recursive:
+      imagenet-preprocessed:
+        tags: _NCHW
+      ml-model:
+        tags: raw,_pytorch
+    env:
+      CM_MLPERF_BACKEND: nccn
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
+
   tf:
     group: framework
     add_deps_recursive:
