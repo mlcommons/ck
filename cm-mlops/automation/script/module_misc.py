@@ -1113,8 +1113,8 @@ def dockerfile(i):
         tag_string=",".join(tags)
 
         docker_settings = meta.get('docker', {})
-        if not docker_settings.get('run', False):
-            print("docker.run not set to True in _cm.json")
+        if not docker_settings.get('run', True):
+            print("docker.run set to False in _cm.json")
             continue
         '''run_config_path = os.path.join(script_path,'run_config.yml')
         if not os.path.exists(run_config_path):
@@ -1133,6 +1133,9 @@ def dockerfile(i):
         docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
         fake_run_deps = i.get('fake_run_deps', docker_settings.get('fake_run_deps', False))
         docker_run_final_cmds = docker_settings.get('docker_run_final_cmds', [])
+
+        docker_copy_files = i.get('docker_copy_files', docker_settings.get('copy_files', []))
+
         dockerfile_env = {}
         dockerfile_env['CM_DOCKER_PRE_RUN_COMMANDS'] = docker_run_final_cmds
 
@@ -1167,6 +1170,7 @@ def dockerfile(i):
                             'comments': comments,
                             'run_cmd': f'{run_cmd} --quiet',
                             'script_tags': f'{tag_string}',
+                            'copy_files': docker_copy_files,
                             'quiet': True,
                             'env': dockerfile_env,
                             'v': i.get('v', False),
@@ -1281,8 +1285,8 @@ def docker(i):
             run_config = yaml.safe_load(run_config_file)
         '''
         docker_settings = meta.get('docker', {})
-        if not docker_settings.get('run', False):
-            print("docker.run not set to True in _cm.json")
+        if not docker_settings.get('run', True):
+            print("docker.run set to False in _cm.json")
             continue
         '''
         if not docker_settings or not docker_settings.get('build') or not run_config.get('run_with_default_inputs'):

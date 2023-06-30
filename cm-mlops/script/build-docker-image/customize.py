@@ -6,6 +6,10 @@ def preprocess(i):
 
     os_info = i['os_info']
     env = i['env']
+
+    dockerfile_dir = env['CM_DOCKERFILE_WITH_PATH']
+    os.chdir(os.path.dirname(dockerfile_dir))
+
     CM_DOCKER_BUILD_ARGS = env.get('+CM_DOCKER_BUILD_ARGS', [])
 
     if 'CM_GH_TOKEN' in env:
