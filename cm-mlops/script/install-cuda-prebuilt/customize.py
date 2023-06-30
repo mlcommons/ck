@@ -6,7 +6,7 @@ def preprocess(i):
     os_info = i['os_info']
 
     env = i['env']
-
+    print(env)
     automation = i['automation']
     version = env.get('CM_VERSION')
     if version not in env.get('CM_CUDA_LINUX_FILENAME', ''):

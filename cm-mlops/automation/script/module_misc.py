@@ -1105,6 +1105,11 @@ def dockerfile(i):
 
     run_cmd = i.get('docker_run_cmd_prefix') + ' && ' + run_cmd if i.get('docker_run_cmd_prefix') else run_cmd
 
+    env=i.get('env', {})
+    env['CM_RUN_STATE_DOCKER'] = True
+
+    dockerfile_env = env
+
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
         meta = artifact.meta
@@ -1136,7 +1141,6 @@ def dockerfile(i):
 
         docker_copy_files = i.get('docker_copy_files', docker_settings.get('copy_files', []))
 
-        dockerfile_env = {}
         dockerfile_env['CM_DOCKER_PRE_RUN_COMMANDS'] = docker_run_final_cmds
 
         dockerfile_path = os.path.join(script_path,'dockerfiles', docker_os +'_'+docker_os_version +'.Dockerfile')
@@ -1260,13 +1264,13 @@ def docker(i):
 
     run_cmd = i.get('docker_run_cmd_prefix') + ' && ' + run_cmd if i.get('docker_run_cmd_prefix') else run_cmd
 
-    env=i.get('env', {})
-    env['CM_RUN_STATE_DOCKER'] = True
-
     docker_cache = i.get('docker_cache', "yes")
     if docker_cache in ["no", False, "False" ]:
         if 'CM_DOCKER_CACHE' not in env:
             env['CM_DOCKER_CACHE'] = docker_cache
+
+    env=i.get('env', {})
+    env['CM_RUN_STATE_DOCKER'] = True
 
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
