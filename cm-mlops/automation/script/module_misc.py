@@ -1095,7 +1095,7 @@ def dockerfile(i):
         lst += r['list']
 
     if i.get('cmd'):
-        run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('docker_') )
+        run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('--docker_') )
     elif i.get('artifact'):
         run_cmd = "cm run script "+i['artifact']
     elif i.get('tags'):
@@ -1254,7 +1254,7 @@ def docker(i):
         lst += r['list']
 
     if i.get('cmd'):
-        run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('docker_') )
+        run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('--docker_') )
     elif i.get('artifact'):
         run_cmd = "cm run script "+i['artifact']
     elif i.get('tags'):

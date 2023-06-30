@@ -84,8 +84,6 @@ def preprocess(i):
             if len(copy_split) != 2:
                 return {'return': 1, 'error': 'Invalid docker copy input {} given'.format(copy_file)}
             filename = os.path.basename(copy_split[0])
-            print(filename)
-            print(copy_split)
             if not os.path.exists(os.path.join(dockerfile_dir, filename)):
                 shutil.copytree(copy_split[0], os.path.join(dockerfile_dir, filename))
             f.write('COPY '+ filename+" "+copy_split[1] + EOL)
@@ -132,11 +130,10 @@ def preprocess(i):
         f.write('RUN echo "' + docker_user + ' ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers' + EOL)
         f.write('USER ' + docker_user + ":" + docker_group + EOL)
 
-    dockerfile_env = i.get('dockerfile_env', {})
-
+    dockerfile_env = i['input'].get('dockerfile_env', {})
     dockerfile_env_input_string = ""
     for docker_env_key in dockerfile_env:
-        dockerfile_env_input_string = dockerfile_env_input_string + " --env."+docker_env_key+"="+dockerfile_env[docker_env_key]
+        dockerfile_env_input_string = dockerfile_env_input_string + " --env."+docker_env_key+"="+str(dockerfile_env[docker_env_key])
 
     workdir = get_value(env, config, 'WORKDIR', 'CM_DOCKER_WORKDIR')
     if workdir:

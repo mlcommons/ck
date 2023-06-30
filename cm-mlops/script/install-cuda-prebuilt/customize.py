@@ -6,7 +6,7 @@ def preprocess(i):
     os_info = i['os_info']
 
     env = i['env']
-    print(env)
+
     automation = i['automation']
     version = env.get('CM_VERSION')
     if version not in env.get('CM_CUDA_LINUX_FILENAME', ''):
@@ -18,4 +18,4 @@ def preprocess(i):
     env['CM_NVCC_BIN_WITH_PATH'] = os.path.join(os.getcwd(), 'install', 'bin', nvcc_bin)
     env['CM_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
 
-    return {'return':1}
+    return {'return':0}
