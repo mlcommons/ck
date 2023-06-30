@@ -12,6 +12,7 @@
     "CM_HOST_PLATFORM_*",
     "CM_HOST_PYTHON_*",
     "CM_HOST_SYSTEM_NAME",
+    "CM_RUN_STATE_DOCKER",
     "+PATH"
   ],
   "new_state_keys": [

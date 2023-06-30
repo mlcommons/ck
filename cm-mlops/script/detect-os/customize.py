@@ -85,4 +85,6 @@ def postprocess(i):
         env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "yum install -y --skip-broken"
         env['CM_HOST_OS_PACKAGE_MANAGER_UPDATE_CMD'] = "yum update -y"
 
+    if os.path.exists("/.dockerenv"):
+        env['CM_RUN_STATE_DOCKER'] = "yes"
     return {'return':0}
