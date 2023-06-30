@@ -232,6 +232,14 @@ deps:
       - tf
       - tflite
 
+  ## NCNN
+  - tags: get,generic-python-lib,_package.ncnn
+    names:
+    - ml-engine-ncnn
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - ncnn
+
 
   ########################################################################
   # Install ML models    
@@ -495,8 +503,8 @@ variations:
       ml-model:
         tags: raw,_pytorch
     env:
-      CM_MLPERF_BACKEND: nccn
-      CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
+      CM_MLPERF_BACKEND: ncnn
+      CM_MLPERF_BACKEND_VERSION: <<<CM_NCNN_VERSION>>>
 
   tf:
     group: framework
