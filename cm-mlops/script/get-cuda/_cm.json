@@ -34,6 +34,12 @@
       },
       "reuse_version": true,
       "tags": "install,cuda,prebuilt"
+    },
+    {
+      "tags": "get,generic-sys-util,_nvidia-cuda-toolkit",
+      "enable_if_env": {
+        "CM_RUN_STATE_DOCKER": [ true, "True", "yes" ]
+      }
     }
   ],
   "print_files_if_script_error": [

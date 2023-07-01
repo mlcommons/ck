@@ -15,6 +15,7 @@ def preprocess(i):
         config = json.load(f)
     build_args = []
     input_args = []
+    copy_files = []
     if 'CM_DOCKER_RUN_SCRIPT_TAGS' in env:
         script_tags=env['CM_DOCKER_RUN_SCRIPT_TAGS']
         found_scripts = cm.access({'action': 'search', 'automation': 'script', 'tags': script_tags})
@@ -53,20 +54,39 @@ def preprocess(i):
 
     if 'CM_DOCKERFILE_WITH_PATH' not in env:
         env['CM_DOCKERFILE_WITH_PATH'] = os.path.join(os.getcwd(), "Dockerfile")
-    os.makedirs(os.path.dirname(env['CM_DOCKERFILE_WITH_PATH']), exist_ok=True)
-    f = open(env['CM_DOCKERFILE_WITH_PATH'], "w")
+    dockerfile_with_path = env['CM_DOCKERFILE_WITH_PATH']
+    dockerfile_dir = os.path.dirname(dockerfile_with_path)
+
+    os.makedirs(os.path.dirname(dockerfile_with_path), exist_ok=True)
+    f = open(dockerfile_with_path, "w")
     EOL = env['CM_DOCKER_IMAGE_EOL']
     f.write('FROM ' + docker_image_base + EOL)
+
     image_label = get_value(env, config, 'LABEL', 'CM_DOCKER_IMAGE_LABEL')
     if image_label:
         f.write('LABEL ' + image_label + EOL)
+
     shell = get_value(env, config, 'SHELL', 'CM_DOCKER_IMAGE_SHELL')
     if shell:
         f.write('SHELL ' + shell + EOL)
+
     for arg in config['ARGS']:
         f.write('ARG '+ arg + EOL)
+
     for build_arg in build_args:
         f.write('ARG '+ build_arg + EOL)
+
+    copy_cmds = []
+    if 'CM_DOCKER_COPY_FILES' in env:
+        import shutil
+        for copy_file in env['CM_DOCKER_COPY_FILES']:
+            copy_split = copy_file.split(":")
+            if len(copy_split) != 2:
+                return {'return': 1, 'error': 'Invalid docker copy input {} given'.format(copy_file)}
+            filename = os.path.basename(copy_split[0])
+            if not os.path.exists(os.path.join(dockerfile_dir, filename)):
+                shutil.copytree(copy_split[0], os.path.join(dockerfile_dir, filename))
+            f.write('COPY '+ filename+" "+copy_split[1] + EOL)
 
     f.write(EOL+'# Notes: https://runnable.com/blog/9-common-dockerfile-mistakes'+EOL+'# Install system dependencies' + EOL)
     f.write('RUN ' + get_value(env, config, 'package-manager-update-cmd') + EOL)
@@ -110,6 +130,11 @@ def preprocess(i):
         f.write('RUN echo "' + docker_user + ' ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers' + EOL)
         f.write('USER ' + docker_user + ":" + docker_group + EOL)
 
+    dockerfile_env = i['input'].get('dockerfile_env', {})
+    dockerfile_env_input_string = ""
+    for docker_env_key in dockerfile_env:
+        dockerfile_env_input_string = dockerfile_env_input_string + " --env."+docker_env_key+"="+str(dockerfile_env[docker_env_key])
+
     workdir = get_value(env, config, 'WORKDIR', 'CM_DOCKER_WORKDIR')
     if workdir:
         f.write('WORKDIR ' + workdir + EOL)
@@ -139,13 +164,13 @@ def preprocess(i):
         else:
             env['CM_DOCKER_RUN_CMD']="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
 
-    fake_run = " --fake_run"
+    fake_run = " --fake_run" + dockerfile_env_input_string
     fake_run = fake_run + " --fake_deps" if env.get('CM_DOCKER_FAKE_DEPS') else fake_run
     f.write('RUN ' + env['CM_DOCKER_RUN_CMD'] + fake_run + ' --quiet ' + run_cmd_extra + EOL)
 
     #fake_run to install the dependent scripts and caching them
     if not "run" in env['CM_DOCKER_RUN_CMD'] and env.get('CM_REAL_RUN', None):
-        fake_run = ""
+        fake_run = dockerfile_env_input_string
         f.write('RUN ' + env['CM_DOCKER_RUN_CMD'] + fake_run + run_cmd_extra + ' --quiet ' + EOL)
 
     if 'CM_DOCKER_POST_RUN_COMMANDS' in env:

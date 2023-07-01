@@ -201,6 +201,19 @@
           "apt": "zlib1g"
         }
       }
+    },
+    "nvidia-cuda-toolkit": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "nvidia-cuda-toolkit"
+      },
+      "state": {
+        "nvidia-cuda-toolkit": {
+          "apt": "nvidia-cuda-toolkit",
+          "dnf": "nvidia-cuda-toolkit",
+          "yum": "nvidia-cuda-toolkit",
+          "brew": ""
+        }
+      }
     }
   }
 }

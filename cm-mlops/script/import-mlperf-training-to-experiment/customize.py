@@ -225,7 +225,7 @@ def convert_summary_csv_to_experiment(path, version, env):
 
                     xdivision = result['division']
 
-                    name = 'mlperf-inference--{}--'+xdivision+'--'+model2task[model]
+                    name = 'mlperf-training--{}--'+xdivision+'--'+model2task[model]
 
                     name_all = name.format('all')
                     name_ver = name.format(version)
@@ -235,7 +235,7 @@ def convert_summary_csv_to_experiment(path, version, env):
                         experiment[name].append(result1)
 
         # Checking experiment
-        env_target_repo=env.get('CM_IMPORT_MLPERF_INFERENCE_TARGET_REPO','').strip()
+        env_target_repo=env.get('CM_IMPORT_MLPERF_TRAINING_TARGET_REPO','').strip()
         target_repo='' if env_target_repo=='' else env_target_repo+':'
 
         print ('')

@@ -107,6 +107,26 @@
         "CM_PACKAGE_URL": "https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth"
       }
     },
+    "ncnn": {
+      "group": "framework",
+      "env": {
+        "CM_ML_MODEL_FRAMEWORK": "ncnn"
+      }
+    },
+    "ncnn,fp32": {
+      "env": {
+        "CM_PACKAGE_URL": "https://zenodo.org/record/8073420/files/resnet50_v1.bin?download=1"
+      },
+      "post_deps": [
+        {
+          "tags": "download-and-extract,_url.https://zenodo.org/record/8073420/files/resnet50_v1.param?download=",
+          "env": {
+            "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_PARAM_FILE>>>"
+          },
+          "extra_cache_tags": "ml-model-params,params,resnet50,ncnn,model-params"
+        }
+      ]
+    },
     "pytorch,int8": {
       "base": [
         "int8",

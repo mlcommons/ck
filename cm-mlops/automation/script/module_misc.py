@@ -1065,7 +1065,7 @@ def dockerfile(i):
     cur_dir = os.getcwd()
 
     console = i.get('out') == 'con'
-    cm_repo = i.get('cm_repo', 'mlcommons@ck')
+    cm_repo = i.get('docker_cm_repo', 'mlcommons@ck')
 
     repos = i.get('repos','')
     if repos == '': repos='internal,a4705959af8e447a'
@@ -1095,7 +1095,7 @@ def dockerfile(i):
         lst += r['list']
 
     if i.get('cmd'):
-        run_cmd = "cm run script " + " ".join(i['cmd'])
+        run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('--docker_') )
     elif i.get('artifact'):
         run_cmd = "cm run script "+i['artifact']
     elif i.get('tags'):
@@ -1103,7 +1103,11 @@ def dockerfile(i):
     else:
         run_cmd = ""
 
-    #run_cmd = i.get('run_cmd_prefix') + ' && ' + run_cmd if i.get('run_cmd_prefix') else run_cmd
+    run_cmd = i.get('docker_run_cmd_prefix') + ' && ' + run_cmd if i.get('docker_run_cmd_prefix') else run_cmd
+
+    env=i.get('env', {})
+    dockerfile_env=i.get('dockerfile_env', {})
+    dockerfile_env['CM_RUN_STATE_DOCKER'] = True
 
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
@@ -1113,8 +1117,8 @@ def dockerfile(i):
         tag_string=",".join(tags)
 
         docker_settings = meta.get('docker', {})
-        if not docker_settings.get('run', False):
-            print("docker.run not set to True in _cm.json")
+        if not docker_settings.get('run', True):
+            print("docker.run set to False in _cm.json")
             continue
         '''run_config_path = os.path.join(script_path,'run_config.yml')
         if not os.path.exists(run_config_path):
@@ -1133,8 +1137,10 @@ def dockerfile(i):
         docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
         fake_run_deps = i.get('fake_run_deps', docker_settings.get('fake_run_deps', False))
         docker_run_final_cmds = docker_settings.get('docker_run_final_cmds', [])
-        dockerfile_env = {}
-        dockerfile_env['CM_DOCKER_PRE_RUN_COMMANDS'] = docker_run_final_cmds
+
+        docker_copy_files = i.get('docker_copy_files', docker_settings.get('copy_files', []))
+
+        env['CM_DOCKER_PRE_RUN_COMMANDS'] = docker_run_final_cmds
 
         dockerfile_path = os.path.join(script_path,'dockerfiles', docker_os +'_'+docker_os_version +'.Dockerfile')
         if i.get('print_deps'):
@@ -1167,8 +1173,10 @@ def dockerfile(i):
                             'comments': comments,
                             'run_cmd': f'{run_cmd} --quiet',
                             'script_tags': f'{tag_string}',
+                            'copy_files': docker_copy_files,
                             'quiet': True,
-                            'env': dockerfile_env,
+                            'env': env,
+                            'dockerfile_env': dockerfile_env,
                             'v': i.get('v', False),
                             'fake_docker_deps': fake_run_deps,
                             'print_deps': True,
@@ -1246,13 +1254,15 @@ def docker(i):
         lst += r['list']
 
     if i.get('cmd'):
-        run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('docker_') )
+        run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('--docker_') )
     elif i.get('artifact'):
         run_cmd = "cm run script "+i['artifact']
     elif i.get('tags'):
         run_cmd = "cm run script \""+" "+" ".join(i['tags']) + "\""
     else:
         run_cmd = ""
+
+    run_cmd = i.get('docker_run_cmd_prefix') + ' && ' + run_cmd if i.get('docker_run_cmd_prefix') else run_cmd
 
     env=i.get('env', {})
     env['CM_RUN_STATE_DOCKER'] = True
@@ -1279,8 +1289,8 @@ def docker(i):
             run_config = yaml.safe_load(run_config_file)
         '''
         docker_settings = meta.get('docker', {})
-        if not docker_settings.get('run', False):
-            print("docker.run not set to True in _cm.json")
+        if not docker_settings.get('run', True):
+            print("docker.run set to False in _cm.json")
             continue
         '''
         if not docker_settings or not docker_settings.get('build') or not run_config.get('run_with_default_inputs'):
@@ -1346,9 +1356,11 @@ def docker(i):
         else:
             mount_string = ""
 
-        cm_repo=i.get('cm_repo', 'mlcommons@ck')
+        cm_repo=i.get('docker_cm_repo', 'mlcommons@ck')
 
         dockerfile_path = os.path.join(script_path,'dockerfiles', _os +'_'+version +'.Dockerfile')
+
+        docker_skip_run_cmd = i.get('docker_skip_run_cmd', docker_settings.get('skip_run_cmd')) #skips docker run cmd and gives an interactive shell to the user
 
         cm_docker_input = {'action': 'run',
                             'automation': 'script',
@@ -1363,7 +1375,7 @@ def docker(i):
                             'docker_os_version': version,
                             'detached': 'no',
                             'script_tags': f'{tag_string}',
-                            'run_cmd': run_cmd,
+                            'run_cmd': run_cmd if not docker_skip_run_cmd else '',
                             'v': i.get('v', False),
                             'quiet': True,
                             'real_run': True,

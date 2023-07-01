@@ -38,7 +38,10 @@ def preprocess(i):
         # (unless forced by a user)
 
         if env.get('CM_INPUT','').strip()=='' and env.get('CM_TMP_PATH','').strip()=='':
-            env['CM_TMP_PATH'] = '/usr/local/cuda/bin:/usr/cuda/bin:/usr/local/cuda-11/bin:/usr/cuda-11/bin:/usr/local/cuda-12/bin:/usr/cuda-12/bin:/usr/local/packages/cuda'
+            system_path = os.environ.get('PATH')
+            if system_path:
+                system_path = system_path + ":"
+            env['CM_TMP_PATH'] = system_path + '/usr/local/cuda/bin:/usr/cuda/bin:/usr/local/cuda-11/bin:/usr/cuda-11/bin:/usr/local/cuda-12/bin:/usr/cuda-12/bin:/usr/local/packages/cuda'
             env['CM_TMP_PATH_IGNORE_NON_EXISTANT'] = 'yes'
 
     if env['CM_CUDA_FULL_TOOLKIT_INSTALL'] == "yes":
@@ -162,7 +165,10 @@ def postprocess(i):
     env['CUDA_HOME']=cuda_path
     env['CUDA_PATH']=cuda_path
 
-
+    cuda_system_path_install = False
+    system_path = os.environ.get('PATH')
+    if os.path.join(cuda_path, "bin") in system_path.split(":"):
+        cuda_system_path_install = True
 
     # Check extra paths
     for key in ['+C_INCLUDE_PATH', '+CPLUS_INCLUDE_PATH', '+LD_LIBRARY_PATH', '+DYLD_FALLBACK_LIBRARY_PATH']:
@@ -171,7 +177,7 @@ def postprocess(i):
     ## Include
     cuda_path_include = os.path.join(cuda_path, 'include')
     if os.path.isdir(cuda_path_include):
-        if os_info['platform'] != 'windows':
+        if os_info['platform'] != 'windows' and not cuda_system_path_install:
             env['+C_INCLUDE_PATH'].append(cuda_path_include)
             env['+CPLUS_INCLUDE_PATH'].append(cuda_path_include)
 
@@ -189,16 +195,17 @@ def postprocess(i):
         if extra_dir != '':
             cuda_path_lib = os.path.join(cuda_path_lib, extra_dir)
 
-        if os.path.isdir(cuda_path):
-            env['+LD_LIBRARY_PATH'].append(cuda_path_lib)
-            env['+DYLD_FALLBACK_LIBRARY_PATH'].append(cuda_path_lib)
+        if os.path.isdir(cuda_path_lib):
+            if not cuda_system_path_install:
+                env['+LD_LIBRARY_PATH'].append(cuda_path_lib)
+                env['+DYLD_FALLBACK_LIBRARY_PATH'].append(cuda_path_lib)
 
             env['CM_CUDA_PATH_LIB'] = cuda_path_lib
             break
 
     if '+ LDFLAGS' not in env:
         env['+ LDFLAGS'] = []
-    if 'CM_CUDA_PATH_LIB' in env:
+    if 'CM_CUDA_PATH_LIB' in env and not cuda_system_path_install:
         env['+ LDFLAGS'].append("-L"+env['CM_CUDA_PATH_LIB'])
 
     return {'return':0, 'version': version}

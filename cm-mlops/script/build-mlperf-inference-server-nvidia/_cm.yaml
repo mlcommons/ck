@@ -61,6 +61,8 @@ deps:
 
   # Detect Tensorrt
   - tags: get,tensorrt,_dev
+    names:
+      - tensorrt
     enable_if_env:
       CM_MLPERF_DEVICE:
         - cuda

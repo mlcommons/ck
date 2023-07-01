@@ -51,5 +51,8 @@
         "CM_CUDA_LINUX_FILENAME": "cuda_12.0.0_525.60.13_linux.run"
       }
     }
+  },
+  "docker": {
+    "run": false
   }
 }

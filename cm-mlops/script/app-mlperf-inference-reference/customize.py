@@ -33,10 +33,10 @@ def preprocess(i):
     if 'CM_MODEL' not in env:
         return {'return': 1, 'error': "Please select a variation specifying the model to run"}
 
-    if env['CM_MODEL'] == "resnet50":
-        cmd = "cp " + os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt") + " " + os.path.join(env['CM_DATASET_PATH'],
-        "val_map.txt")
-        ret = os.system(cmd)
+    #if env['CM_MODEL'] == "resnet50":
+    #    cmd = "cp " + os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt") + " " + os.path.join(env['CM_DATASET_PATH'],
+    #    "val_map.txt")
+    #    ret = os.system(cmd)
 
     env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] = ""
 
@@ -99,7 +99,7 @@ def preprocess(i):
         if env['CM_MODEL'] == "retinanet":
             dataset_options += " --dataset-list "+ env['CM_DATASET_ANNOTATIONS_FILE_PATH']
         elif env['CM_MODEL'] == "resnet50":
-            dataset_options += " --dataset-list "+ os.path.join(env['CM_DATASET_PATH'], "val_map.txt")
+            dataset_options += " --dataset-list "+ os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt")
         env['DATA_DIR'] = env.get('CM_DATASET_PREPROCESSED_PATH')
     else:
         if 'CM_DATASET_PREPROCESSED_PATH' in env:

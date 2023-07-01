@@ -232,6 +232,14 @@ deps:
       - tf
       - tflite
 
+  ## NCNN
+  - tags: get,generic-python-lib,_package.ncnn
+    names:
+    - ml-engine-ncnn
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - ncnn
+
 
   ########################################################################
   # Install ML models    
@@ -487,6 +495,17 @@ variations:
       CM_MLPERF_BACKEND: pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
 
+  ncnn:
+    group: framework
+    add_deps_recursive:
+      imagenet-preprocessed:
+        tags: _NCHW
+      ml-model:
+        tags: raw,_ncnn
+    env:
+      CM_MLPERF_BACKEND: ncnn
+      CM_MLPERF_BACKEND_VERSION: <<<CM_NCNN_VERSION>>>
+
   tf:
     group: framework
     add_deps_recursive:
@@ -595,6 +614,8 @@ variations:
     env:
       CM_MLPERF_MODEL_SKIP_BATCHING: true
     deps:
+    - tags: get,generic-python-lib,_package.pydantic
+      version_max: "1.10.9"
     - tags: get,generic-python-lib,_tokenization
     - tags: get,generic-python-lib,_six
     - tags: get,generic-python-lib,_protobuf
@@ -672,6 +693,8 @@ variations:
       CM_MLPERF_MODEL_SKIP_BATCHING: true
       CM_TMP_IGNORE_MLPERF_QUERY_COUNT: true
     deps:
+    - tags: get,generic-python-lib,_package.pydantic
+      version_max: "1.10.9"
     - tags: get,generic-python-lib,_librosa
       names:
         - librosa
