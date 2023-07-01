@@ -117,13 +117,12 @@
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/8073420/files/resnet50_v1.bin?download=1"
       },
-      "posthook_deps": [
+      "post_deps": [
         {
           "tags": "download-and-extract,_url.https://zenodo.org/record/8073420/files/resnet50_v1.param?download=",
           "env": {
             "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_PARAM_FILE>>>"
           },
-          "force_cache": true,
           "extra_cache_tags": "ml-model-params,params,resnet50,ncnn,model-params"
         }
       ]
