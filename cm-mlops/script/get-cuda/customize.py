@@ -165,6 +165,7 @@ def postprocess(i):
     env['CUDA_HOME']=cuda_path
     env['CUDA_PATH']=cuda_path
 
+    cuda_system_path_install = False
     system_path = os.environ.get('PATH')
     if os.path.join(cuda_path, "bin") in system_path.split(":"):
         cuda_system_path_install = True
