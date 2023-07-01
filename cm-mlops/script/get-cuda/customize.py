@@ -204,7 +204,7 @@ def postprocess(i):
 
     if '+ LDFLAGS' not in env:
         env['+ LDFLAGS'] = []
-    if 'CM_CUDA_PATH_LIB' in env not cuda_system_path_install:
+    if 'CM_CUDA_PATH_LIB' in env and not cuda_system_path_install:
         env['+ LDFLAGS'].append("-L"+env['CM_CUDA_PATH_LIB'])
 
     return {'return':0, 'version': version}
