@@ -167,6 +167,7 @@ def postprocess(i):
 
     system_path = os.environ.get('PATH')
     if os.path.join(cuda_path, "bin") in system_path.split(":"):
+        env['CM_CUDA_PATH_INCLUDE'] = os.path.join(cuda_path, "include")
         return {'return': 0} #Don't include any extra folders
 
     # Check extra paths
