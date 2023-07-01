@@ -126,6 +126,7 @@ ___
 * `--cache=value`  &rarr;  `CM_DOCKER_CACHE=value`
 * `--cm_repo=value`  &rarr;  `CM_MLOPS_REPO=value`
 * `--comments=value`  &rarr;  `CM_DOCKER_RUN_COMMENTS=value`
+* `--copy_files=value`  &rarr;  `CM_DOCKER_COPY_FILES=value`
 * `--docker_os=value`  &rarr;  `CM_DOCKER_OS=value`
 * `--docker_os_version=value`  &rarr;  `CM_DOCKER_OS_VERSION=value`
 * `--fake_docker_deps=value`  &rarr;  `CM_DOCKER_FAKE_DEPS=value`

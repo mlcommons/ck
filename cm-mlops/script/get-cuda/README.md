@@ -191,6 +191,9 @@ ___
      * install,cuda,prebuilt
        * `if (CM_REQUIRE_INSTALL  == yes)`
        - CM script: [install-cuda-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt)
+     * get,generic-sys-util,_nvidia-cuda-toolkit
+       * `if (CM_RUN_STATE_DOCKER in [True, 'True', 'yes'])`
+       - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/run.sh)
