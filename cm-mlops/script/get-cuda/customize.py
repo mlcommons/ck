@@ -165,7 +165,9 @@ def postprocess(i):
     env['CUDA_HOME']=cuda_path
     env['CUDA_PATH']=cuda_path
 
-
+    system_path = os.environ.get('PATH')
+    if os.path.join(cuda_path, "bin") in system_path.split(":"):
+        return {'return': 0} #Don't include any extra folders
 
     # Check extra paths
     for key in ['+C_INCLUDE_PATH', '+CPLUS_INCLUDE_PATH', '+LD_LIBRARY_PATH', '+DYLD_FALLBACK_LIBRARY_PATH']:
