@@ -7,8 +7,9 @@ def preprocess(i):
     os_info = i['os_info']
     env = i['env']
 
-    dockerfile_dir = env['CM_DOCKERFILE_WITH_PATH']
-    os.chdir(os.path.dirname(dockerfile_dir))
+    dockerfile_dir = env.get('CM_DOCKERFILE_WITH_PATH')
+    if dockerfile_dir and os.path.exists(dockerfile_dir):
+        os.chdir(os.path.dirname(dockerfile_dir))
 
     CM_DOCKER_BUILD_ARGS = env.get('+CM_DOCKER_BUILD_ARGS', [])
 
