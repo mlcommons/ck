@@ -124,7 +124,7 @@
             "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_PARAM_FILE>>>"
           },
           "force_cache": true,
-          "extra_cache_tags": "ml-model-params,params,resnet50,ncnn,model-params",
+          "extra_cache_tags": "ml-model-params,params,resnet50,ncnn,model-params"
         }
       ]
     },

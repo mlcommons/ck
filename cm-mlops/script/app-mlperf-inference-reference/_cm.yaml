@@ -501,7 +501,7 @@ variations:
       imagenet-preprocessed:
         tags: _NCHW
       ml-model:
-        tags: raw,_pytorch
+        tags: raw,_ncnn
     env:
       CM_MLPERF_BACKEND: ncnn
       CM_MLPERF_BACKEND_VERSION: <<<CM_NCNN_VERSION>>>
