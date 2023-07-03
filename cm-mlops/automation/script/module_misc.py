@@ -1380,7 +1380,7 @@ def docker(i):
                             'docker_os_version': version,
                             'detached': 'no',
                             'script_tags': f'{tag_string}',
-                            'run_cmd': run_cmd if not docker_skip_run_cmd else '',
+                            'run_cmd': run_cmd if not docker_skip_run_cmd else 'echo "cm version"',
                             'v': i.get('v', False),
                             'quiet': True,
                             'real_run': True,
