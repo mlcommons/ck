@@ -115,11 +115,15 @@ ___
       - Workflow:
     * `_mlcommons`
       - Workflow:
-    * `_nvidia-only`
+    * **`_nvidia-only`** (default)
       - Workflow:
 
     </details>
 
+
+#### Default variations
+
+`_nvidia-only`
 #### Default environment
 
 <details>
@@ -131,6 +135,8 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 #### Versions
+Default version: `r3.1`
+
 * `r2.1`
 * `r3.0`
 * `r3.1`
