@@ -93,5 +93,8 @@
         "CM_CUDA_PACKAGE_MANAGER_INSTALL": "yes"
       }
     }
+  },
+  "docker": {
+    "run": false
   }
 }
