@@ -34,7 +34,7 @@
   "default_env": {
     "CM_ML_MODEL_MAX_BATCH_SIZE": "1",
     "CM_TUNE_TVM_MODEL": "no",
-    "CM_TVM_USE_VM": "no"
+    "CM_TVM_USE_VM": "yes"
   },
   "new_env_keys": [
     "CM_ML_MODEL_*",
@@ -157,6 +157,19 @@
           "tags": "get,generic-python-lib,_tornado"
         }
       ]
+    },
+    "virtual_machine": {
+      "default": true,
+      "env": {
+        "CM_TVM_USE_VM": "yes"
+      },
+      "group": "runtime"
+    },
+    "graph_executor": {
+      "env": {
+        "CM_TVM_USE_VM": "no"
+      },
+      "group": "runtime"
     },
     "batch_size.#": {
       "group": "batchsize",

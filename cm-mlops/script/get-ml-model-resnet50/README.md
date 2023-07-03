@@ -117,6 +117,13 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_BATCH_SIZE*: `1`
       - Workflow:
+    * `_ncnn,fp32`
+      - Environment variables:
+        - *CM_PACKAGE_URL*: `https://zenodo.org/record/8073420/files/resnet50_v1.bin?download=1`
+      - Workflow:
+        1. ***Read "post_deps" on other CM scripts***
+           * download-and-extract,_url.https://zenodo.org/record/8073420/files/resnet50_v1.param?download=
+             - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
     * `_onnx,opset-11`
       - Environment variables:
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/4735647/files/resnet50_v1.onnx`
@@ -156,6 +163,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_ncnn`
+      - Environment variables:
+        - *CM_ML_MODEL_FRAMEWORK*: `ncnn`
+      - Workflow:
     * **`_onnx`** (default)
       - Aliases: `_onnxruntime`
       - Environment variables:
