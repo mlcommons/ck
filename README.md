@@ -11,6 +11,9 @@
 
 ### About
 
+We believe in the power of collaborative research, reproducible experiments, and open science to accelerate innovation and solve the world's most complex challenges - 
+[see our ACM REP'23 keynote for more details](https://zenodo.org/record/8105339)!
+
 The "Collective Knowledge" project (CK) is motivated by the [feedback from researchers and practitioners](https://learning.acm.org/techtalks/reproducibility)
 while reproducing results from more than 150 research papers and validating them in the real world - 
 there is a need for a common and technology-agnostic framework
