@@ -71,6 +71,6 @@
     }
   },
   "docker": {
-    "run": false
+    "run": true
   }
 }
