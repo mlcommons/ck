@@ -1302,7 +1302,10 @@ def docker(i):
         version = i.get('docker_os_version', meta.get('docker_os_version', '22.04'))
 
         import re
-        mounts = docker_settings.get('mounts', [])
+        mounts = i.get('docker_mounts', [])
+        for key in docker_settings.get('mounts', []):
+            mounts.append(key)
+
         input_mapping = meta.get('input_mapping', {})
 
         docker_input_mapping = docker_settings.get('docker_input_mapping', {})

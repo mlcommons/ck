@@ -38,7 +38,7 @@
     {
       "tags": "get,generic-sys-util,_nvidia-cuda-toolkit",
       "enable_if_env": {
-        "CM_RUN_STATE_DOCKER": [ true, "True", "yes" ]
+        "CM_CUDA_PACKAGE_MANAGER_INSTALL": [ "yes" ]
       }
     }
   ],
@@ -87,6 +87,11 @@
         "CM_TMP_FILE_TO_CHECK_WINDOWS": "nvcc.exe"
       },
       "group": "installation-mode"
+    },
+    "package-manager": {
+      "env": {
+        "CM_CUDA_PACKAGE_MANAGER_INSTALL": "yes"
+      }
     }
   }
 }
