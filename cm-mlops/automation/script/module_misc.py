@@ -1365,7 +1365,7 @@ def docker(i):
 
         docker_skip_run_cmd = i.get('docker_skip_run_cmd', docker_settings.get('skip_run_cmd')) #skips docker run cmd and gives an interactive shell to the user
 
-        all_gpus = i.get('docker_all_gpus')
+        all_gpus = i.get('docker_all_gpus', docker_settings.get('all_gpus'))
 
         cm_docker_input = {'action': 'run',
                             'automation': 'script',

@@ -30,6 +30,7 @@ default_env:
 
 input_mapping:
   clean: CM_MAKE_CLEAN
+  scratch_path: MLPERF_SCRATCH_PATH
 
 # Dependencies on other CM scripts
 
@@ -174,3 +175,7 @@ versions:
     add_deps_recursive:
       nvidia-inference-common-code:
         version: r3.1
+
+docker:
+  skip_run_cmd: 'yes'
+  all_gpus: 'yes'
