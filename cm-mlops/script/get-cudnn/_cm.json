@@ -46,8 +46,5 @@
     "cudnn",
     "nvidia"
   ],
-  "uid": "d73ee19baee14df8",
-  "docker": {
-    "run": false
-  }
+  "uid": "d73ee19baee14df8"
 }

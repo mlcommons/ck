@@ -1365,6 +1365,8 @@ def docker(i):
 
         docker_skip_run_cmd = i.get('docker_skip_run_cmd', docker_settings.get('skip_run_cmd')) #skips docker run cmd and gives an interactive shell to the user
 
+        all_gpus = i.get('docker_all_gpus', docker_settings.get('all_gpus'))
+
         cm_docker_input = {'action': 'run',
                             'automation': 'script',
                             'tags': 'run,docker,container',
@@ -1378,7 +1380,7 @@ def docker(i):
                             'docker_os_version': version,
                             'detached': 'no',
                             'script_tags': f'{tag_string}',
-                            'run_cmd': run_cmd if not docker_skip_run_cmd else '',
+                            'run_cmd': run_cmd if not docker_skip_run_cmd else 'echo "cm version"',
                             'v': i.get('v', False),
                             'quiet': True,
                             'real_run': True,
@@ -1388,6 +1390,9 @@ def docker(i):
                                 }
                             }
                         }
+
+        if all_gpus:
+            cm_docker_input['all_gpus'] = True
 
         r = self_module.cmind.access(cm_docker_input)
         if r['return'] > 0:

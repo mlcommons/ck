@@ -97,10 +97,12 @@ deps:
   # Detect CUDA
   - names:
     - cuda
-  - tags: get,cuda,_cudnn
+    tags: get,cuda,_cudnn
 
   # Detect Tensorrt
-  - tags: get,tensorrt
+  - names:
+    - tensorrt
+    tags: get,tensorrt
 
   # Build nvidia inference server
   - names:
