@@ -215,24 +215,24 @@ class Index:
 
             keys_to_delete = []
 
+            check_unique_ids = []
+            
             # First check UID
             if artifact_obj[1]!='':
                 if artifact_obj[1] in index_meta_automation:
-                    self._add_if_exists(index_meta_automation, artifact_obj[1], artifacts, keys_to_delete)
+                    self._add_if_exists(index_meta_automation, artifact_obj[1], artifacts, keys_to_delete, check_unique_ids)
             else:
                if ('*' in artifact_obj[0] or '?' in artifact_obj[0]):
                    import fnmatch
                    for artifact in index_meta_automation:
                        if fnmatch.fnmatch(artifact, artifact_obj[0]):
-                           if index_meta_automation[artifact].get('uid','')!='':
-                               self._add_if_exists(index_meta_automation, artifact, artifacts, keys_to_delete)
+                           self._add_if_exists(index_meta_automation, artifact, artifacts, keys_to_delete, check_unique_ids)
                elif artifact_obj[0]=='':
                    for artifact in index_meta_automation:
                        # Add only 1 (UID) to avoid adding 2 duplicates
-                       if index_meta_automation[artifact].get('uid','')!='':
-                           self._add_if_exists(index_meta_automation, artifact, artifacts, keys_to_delete)
+                       self._add_if_exists(index_meta_automation, artifact, artifacts, keys_to_delete, check_unique_ids)
                elif artifact_obj[0] in index_meta_automation:
-                   self._add_if_exists(index_meta_automation, artifact_obj[0], artifacts, keys_to_delete)
+                   self._add_if_exists(index_meta_automation, artifact_obj[0], artifacts, keys_to_delete, check_unique_ids)
 
             if len(keys_to_delete)>0:
                 for key in keys_to_delete:
@@ -278,7 +278,20 @@ class Index:
 
     ############################################################
     # Internal support function
-    def _add_if_exists(self, meta, key, artifacts, keys_to_delete):
+    def _add_if_exists(self, meta, key, artifacts, keys_to_delete, check_unique_ids):
+
+        # Check that UID was not already added
+        uid = meta[key].get('uid','')
+        if uid =='':
+            uid = key
+
+        if uid in check_unique_ids:
+            return
+
+        check_unique_ids.append(uid)
+
+        # Continue processing
+
         x = meta[key]
 
         if os.path.isdir(x['path']):

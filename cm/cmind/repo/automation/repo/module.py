@@ -897,6 +897,9 @@ class CAutomation(Automation):
         # Clean index
         self.cmind.index.meta = {}
         
+        import time
+        t1 = time.time()
+
         r = self.cmind.access({'action':'search',
                                'automation':'*',
                                'out':out,
@@ -904,17 +907,21 @@ class CAutomation(Automation):
                                'force_index_add':True})
         if r['return']>0: return r
 
+        t2 = time.time() - t1
+
+        if console:
+            print ('Took {:.1f} sec.'.format(t2))
+
         # Save
-
         rx = self.cmind.index.save()
-        # Ignore output for now to continue working even if issues ...
 
+        # Ignore output for now to continue working even if issues ...
         if self.cmind.use_index:
             rx = self.cmind.index.load()
             # Ignore output for now to continue working even if issues ...
 
 
-        return {'return':0}
+        return {'return':0, 'self_time':t2}
 
 
 
