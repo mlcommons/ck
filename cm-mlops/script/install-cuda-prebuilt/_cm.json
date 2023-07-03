@@ -28,7 +28,7 @@
         "CM_DOWNLOAD_LOCAL_FILE_PATH": "<<<CUDA_RUN_FILE_LOCAL_PATH>>>"
       },
       "force_cache": true,
-      "extra_cache_tags": "cuda,run,file",
+      "extra_cache_tags": "cuda,run,file"
     }
   ],
   "post_deps": [
