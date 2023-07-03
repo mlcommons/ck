@@ -189,9 +189,25 @@ ___
     </details>
 
 
+  * Group "**runtime**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_graph_executor`
+      - Environment variables:
+        - *CM_TVM_USE_VM*: `no`
+      - Workflow:
+    * **`_virtual_machine`** (default)
+      - Environment variables:
+        - *CM_TVM_USE_VM*: `yes`
+      - Workflow:
+
+    </details>
+
+
 #### Default variations
 
-`_fp32,_onnx`
+`_fp32,_onnx,_virtual_machine`
 #### Default environment
 
 <details>
@@ -201,7 +217,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 * CM_ML_MODEL_MAX_BATCH_SIZE: `1`
 * CM_TUNE_TVM_MODEL: `no`
-* CM_TVM_USE_VM: `no`
+* CM_TVM_USE_VM: `yes`
 
 </details>
 
