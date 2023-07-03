@@ -1,3 +1,6 @@
+## V1.5.0
+   - fixed a serious (though rare) bug in indexing when mixing entries with UIDs and aliases
+
 ## V1.4.1
    - added cme binary as a shortcut for "cm run experiment"
 

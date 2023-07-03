@@ -4,10 +4,9 @@
 
 ### 202306
 
-We invite you to the 1st ACM conference for Reproducibility and Replicability on June 27-29
-where we will give a [keynote](https://acm-rep.github.io/2023/keynotes)
-about our MLCommons CM automation language and CK playground. 
-You can find more info [here](https://www.linkedin.com/posts/grigorifursin_acm-conference-reproducibility-activity-7067537952960118784-bK8i/?utm_source=share).
+We were honored to give a [keynote](https://doi.org/10.5281/zenodo.8105338) about our MLCommons automation and reproducibility language
+to faciliate reproducible experiments and bridge the growing gap between research and production
+at the [1st ACM conference for Reproducibility and Replicability](https://acm-rep.github.io/2023/keynotes).
 
 ### 202305
 

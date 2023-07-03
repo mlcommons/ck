@@ -505,6 +505,7 @@ variations:
     env:
       CM_MLPERF_BACKEND: ncnn
       CM_MLPERF_BACKEND_VERSION: <<<CM_NCNN_VERSION>>>
+      CM_MLPERF_VISION_DATASET_OPTION: imagenet_pytorch
 
   tf:
     group: framework
