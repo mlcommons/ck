@@ -18,6 +18,8 @@ def preprocess(i):
     if env.get('CM_MLPERF_SKIP_RUN', '') == "yes":
         return {'return': 0}
 
+    env['MLPERF_SCRATCH_PATH'] = env['CM_NVIDIA_MLPERF_SCRATCH_PATH']
+
     cmds = []
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
     mode = env['CM_MLPERF_LOADGEN_MODE']

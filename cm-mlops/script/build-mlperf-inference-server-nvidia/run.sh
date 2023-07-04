@@ -1,10 +1,6 @@
 #!/bin/bash
 CUR=$PWD
-scratch_path=${MLPERF_SCRATCH_PATH:-$CUR}
-export MLPERF_SCRATCH_PATH=${scratch_path}
-mkdir -p ${scratch_path}/data
-mkdir -p ${scratch_path}/preprocessed_data
-mkdir -p ${scratch_path}/models
+
 cd ${CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH}
 
 if [[ ${CM_MAKE_CLEAN} == "yes" ]]; then

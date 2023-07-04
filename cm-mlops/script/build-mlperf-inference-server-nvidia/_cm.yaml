@@ -22,7 +22,6 @@ tags:
 
 new_env_keys:
   - CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH
-  - MLPERF_SCRATCH_PATH
 
 default_env:
   CM_MAKE_BUILD_COMMAND: build
@@ -30,7 +29,6 @@ default_env:
 
 input_mapping:
   clean: CM_MAKE_CLEAN
-  scratch_path: MLPERF_SCRATCH_PATH
 
 # Dependencies on other CM scripts
 

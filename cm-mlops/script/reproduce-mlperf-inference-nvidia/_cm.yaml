@@ -109,6 +109,10 @@ deps:
     - nvidia-inference-server
     tags: build,nvidia,inference,server
 
+  # Get Nvidia scratch space where data and models get downloaded
+  - tags: get,mlperf,inference,nvidia,scratch,space
+    names:
+    - nvidia-scratch-space
 
   ########################################################################
   # Install ResNet50 model (ONNX) and ImageNet
