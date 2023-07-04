@@ -103,6 +103,11 @@ deps:
 
   # Detect pycuda
   - tags: get,generic-python-lib,_pycuda
+    skip_if_env:
+      CM_RUN_STATE_DOCKER:
+        - 'yes'
+        - True
+        - 'True'
 
   # Detect opencv-python
   - tags: get,generic-python-lib,_opencv-python
