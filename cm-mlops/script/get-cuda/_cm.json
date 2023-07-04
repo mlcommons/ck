@@ -98,6 +98,6 @@
     }
   },
   "docker": {
-    "run": true
+    "run": false
   }
 }
