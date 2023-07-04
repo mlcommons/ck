@@ -16,6 +16,7 @@ def preprocess(i):
 
     if env.get('CM_DOWNLOAD_LOCAL_FILE_PATH') and os.path.exists(env['CM_DOWNLOAD_LOCAL_FILE_PATH']):
         filepath = env['CM_DOWNLOAD_LOCAL_FILE_PATH']
+        env['CM_DOWNLOAD_CMD'] = ""
 
     else:
         if env.get('CM_DOWNLOAD_URL','')=='' and not filepath:
