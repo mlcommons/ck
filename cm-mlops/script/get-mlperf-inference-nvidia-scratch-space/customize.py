@@ -24,4 +24,6 @@ def postprocess(i):
 
     env = i['env']
 
+    env['MLPERF_SCRATCH_PATH'] = env['CM_NVIDIA_MLPERF_SCRATCH_PATH']
+
     return {'return':0}

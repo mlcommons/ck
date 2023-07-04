@@ -9,7 +9,8 @@
     "scratch_path": "MLPERF_SCRATCH_PATH"
   },
   "new_env_keys": [
-    "CM_NVIDIA_MLPERF_SCRATCH_PATH"
+    "CM_NVIDIA_MLPERF_SCRATCH_PATH",
+    "MLPERF_SCRATCH_PATH"
   ],
   "new_state_keys": [],
   "post_deps": [],
@@ -19,6 +20,7 @@
     "get",
     "mlperf",
     "inference",
+    "nvidia",
     "scratch",
     "space"
   ],
