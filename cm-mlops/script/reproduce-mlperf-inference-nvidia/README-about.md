@@ -20,7 +20,7 @@ For x86 machines, please download the latest install tar files from the below si
 
 <summary>
     
-### Using Docker (x86 systems)
+### Using Docker (Recommended on x86 systems)
 
 </summary>
 
