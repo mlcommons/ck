@@ -70,6 +70,21 @@
       }
     }
   },
+  "variations": {
+    "no-driver": {
+      "group": "install-driver",
+      "default": true,
+      "env": {
+        "CM_CUDA_INSTALL_DRIVER": "no"
+      }
+    },
+    "driver": {
+      "group": "install-driver",
+      "env": {
+        "CM_CUDA_INSTALL_DRIVER": "yes"
+      }
+    }
+  },
   "docker": {
     "run": true
   }
