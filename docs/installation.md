@@ -16,7 +16,10 @@
 
 # CM installation
 
-The CM tool requires minimal dependencies to run on any platform: `python 3+, pip, git, wget`.
+The CM language requires minimal dependencies to run on any platform: `python 3+, pip, git, wget`.
+
+***By default, CM will pull Git repositories and cache installations and downloaded files in your `$HOME/CM` directory (Linux/MacOS). 
+   You can change it to any another directory using the `CM_REPOS` environment variable, for example `export CM_REPOS=/scratch/CM`.***
 
 Here are typical installation procedures across different operating systems:
 
@@ -28,6 +31,7 @@ Here are typical installation procedures across different operating systems:
 You can find some Docker containers for CM [here](../docker).
 
 You can customize CM installation using environment variables described [here](#cm-customization).
+
 
 You can reuse misc CM utils listed [here](#misc-cm-utils).
 

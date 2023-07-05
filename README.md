@@ -11,9 +11,12 @@
 
 ### About
 
+***Our mission is to connect academia and industry to solve the real-world problems by facilitating reproducible research 
+and bridging the growing gap between research and production - [see our ACM REP'23 keynote to learn more about our vision](https://doi.org/10.5281/zenodo.8105339)!***
+
 The "Collective Knowledge" project (CK) is motivated by the [feedback from researchers and practitioners](https://learning.acm.org/techtalks/reproducibility)
 while reproducing results from more than 150 research papers and validating them in the real world - 
-there is a need for a common and technology-agnostic framework
+there is a need for a common and technology-agnostic language
 that can facilitate reproducible research and simplify technology transfer to production
 across diverse and rapidly evolving software, hardware, models, and data.
 It consists of the following sub-projects:

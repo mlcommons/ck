@@ -38,6 +38,5 @@ def preprocess(i):
 def postprocess(i):
 
     env = i['env']
-    env['MLPERF_SCRATCH_PATH'] = os.getcwd()
 
     return {'return':0}

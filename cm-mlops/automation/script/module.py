@@ -2369,10 +2369,6 @@ class CAutomation(Automation):
                         if k.startswith('CM_VERSION'):
                             env[k] = tmp_env[k]
 
-                inherit_variation_tags = d.get("inherit_variation_tags", False)
-                if inherit_variation_tags:
-                    d['tags']+=","+variation_tags_string #deps should have non-empty tags
-
                 update_tags_from_env = d.get("update_tags_from_env", [])
                 for t in update_tags_from_env:
                     if env.get(t, '').strip() != '':
@@ -2383,6 +2379,18 @@ class CAutomation(Automation):
                     for key in update_tags_from_env_with_prefix[t]:
                         if env.get(key, '').strip() != '':
                             d['tags']+=","+t+env[key]
+
+                inherit_variation_tags = d.get("inherit_variation_tags", False)
+                if inherit_variation_tags:
+                    variation_tags = variation_tags_string.split(",")
+                    deps_tags = d['tags'].split(",")
+                    for tag in deps_tags:
+                        if tag.startswith("-_") or tag.startswith("_-"):
+                            variation_tag = "_" + tag[2:]
+                            if variation_tag in variation_tags:
+                                variation_tags.remove(variation_tag)
+                    new_variation_tags_string = ",".join(variation_tags)
+                    d['tags']+=","+new_variation_tags_string #deps should have non-empty tags
 
                 run_state['deps'].append(d['tags'])
 

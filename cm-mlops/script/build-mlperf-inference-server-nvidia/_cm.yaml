@@ -22,13 +22,13 @@ tags:
 
 new_env_keys:
   - CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH
-  - MLPERF_SCRATCH_PATH
 
 default_env:
   CM_MAKE_BUILD_COMMAND: build
   CM_MAKE_CLEAN: "no"
 
 input_mapping:
+  custom_system: CM_CUSTOM_SYSTEM_NVIDIA
   clean: CM_MAKE_CLEAN
 
 # Dependencies on other CM scripts
@@ -104,12 +104,22 @@ deps:
 
   # Detect pycuda
   - tags: get,generic-python-lib,_pycuda
+    skip_if_env:
+      CM_RUN_STATE_DOCKER:
+        - 'yes'
+        - True
+        - 'True'
 
   # Detect opencv-python
   - tags: get,generic-python-lib,_opencv-python
 
   # Detect nvidia-dali
   - tags: get,generic-python-lib,_nvidia-dali
+
+  # Get Nvidia scratch space where data and models get downloaded
+  - tags: get,mlperf,inference,nvidia,scratch,space
+    names:
+    - nvidia-scratch-space
 
 post_deps:
   # Detect nvidia system
@@ -176,4 +186,5 @@ versions:
         version: r3.1
 
 docker:
-  run: False
+  skip_run_cmd: 'yes'
+  all_gpus: 'yes'

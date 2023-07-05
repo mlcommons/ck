@@ -10,7 +10,8 @@
   "input_description": {},
   "input_mapping": {
     "url": "CM_DOWNLOAD_URL",
-    "download_path": "CM_DOWNLOAD_PATH"
+    "download_path": "CM_DOWNLOAD_PATH",
+    "local_path": "CM_DOWNLOAD_LOCAL_FILE_PATH"
   },
   "new_env_keys": [
     "CM_DOWNLOAD_DOWNLOADED_PATH",

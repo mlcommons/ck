@@ -8,6 +8,9 @@
 
 ### About
 
+*Our mission is to connect academia and industry to solve the real-world problems by facilitating reproducible research 
+and bridging the growing gap between research and production - [see our ACM REP'23 keynote to learn more about our vision](https://doi.org/10.5281/zenodo.8105339)!*
+
 [Collective Mind scripting language (MLCommons CM)](https://github.com/mlcommons/ck/tree/master/cm/cmind) 
 is a part of the [MLCommons Collective Knowledge project](https://github.com/mlcommons/ck).
 It is motivated by the [feedback from researchers and practitioners](https://learning.acm.org/techtalks/reproducibility)

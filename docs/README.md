@@ -7,6 +7,9 @@ across rapidly evolving models, software, hardware and data
 and
 [Collective Knowledge platform (MLCommons CK)](#collective-knowledge-playground-ck).
 
+*[See our ACM REP'23 keynote to learn more about our vision](https://doi.org/10.5281/zenodo.8105339).*
+
+
 
 ## Collective Mind language (CM)
 
