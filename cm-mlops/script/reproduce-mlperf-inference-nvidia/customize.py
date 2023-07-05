@@ -107,10 +107,10 @@ def preprocess(i):
             cmds.append(f"ln -s {calibration_dataset_path} {target_data_path}")
 
         preprocessed_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'preprocessed_data')
-        target_model_path_dir = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'retinanet-resnext50-32x4d', 'submission')
+        target_model_path_dir = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'retinanet-resnext50-32x4d')
         if not os.path.exists(target_model_path_dir):
             cmds.append(f"mkdir -p {target_model_path_dir}")
-        model_path = os.path.join(target_model_path_dir, 'retinanet_resnext50_32x4d_efficientNMS.800x800.onnx')
+        model_path = os.path.join(target_model_path_dir, 'retinanet-fpn.onnx')
         model_name = "retinanet"
 
     #cmds.append(f"make prebuild")
