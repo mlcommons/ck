@@ -370,10 +370,10 @@ variations:
       - tags: reproduce,mlperf,inference,nvidia,harness,_build_engine,-_run_harness
         inherit_variation_tags: true
         force_cache: true
-      - tags: reproduce,mlperf,inference,nvidia,harness,-_build_engine,_preprocess_data
+      - tags: reproduce,mlperf,inference,nvidia,harness,-_run_harness,_preprocess_data
         inherit_variation_tags: true
         force_cache: true
-      - tags: reproduce,mlperf,inference,nvidia,harness,-_build_engine,_download_model
+      - tags: reproduce,mlperf,inference,nvidia,harness,-_run_harness,_download_model
         inherit_variation_tags: true
         force_cache: true
     env:
