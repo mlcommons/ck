@@ -27,11 +27,18 @@ For x86 machines, please download the latest install tar files from the below si
 1. Copy the downloaded tar files of `cuDNN` and `TensorRT` to a folder say `$HOME/install_data`
 2. Download the CUDA installation file to the same folder
 ```
-cmr --tags=download,file,_url.https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_520.61.05_linux.run --download_path=$HOME/install_data
+cmr --tags=download,file,_url.https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_520.61.05_linux.run \
+--download_path=$HOME/install_data
 ```
 3. Build the docker container and mount the folder with the downloaded files
 ```
-cm docker script --tags=build,nvidia,inference,server --docker_mounts,=$HOME/install_data:/data/ --adr.install-cuda-prebuilt.local_run_file_path=/data/cuda_11.8.0_520.61.05_linux.run  --adr.tensorrt.tar_file=/data/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz --adr.cudnn.tar_file=/data/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz --docker_cm_repo=mlcommons@ck  --adr.compiler.tags=gcc
+cm docker script "build nvidia inference server" \
+--docker_mounts,=$HOME/install_data:/data/ \
+--adr.install-cuda-prebuilt.local_run_file_path=/data/cuda_11.8.0_520.61.05_linux.run  \
+--adr.tensorrt.tar_file=/data/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
+--adr.cudnn.tar_file=/data/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz \
+--docker_cm_repo=mlcommons@ck  \
+--adr.compiler.tags=gcc
 ```
 
 
@@ -42,7 +49,11 @@ nvidia-smi
 
 4. Run the CM build command inside the docker. This step is necessary because the build needs Nvidia drivers which are available only after the container launch.
 ```
-cm run script --tags=build,nvidia,inference,server --adr.install-cuda-prebuilt.local_run_file_path=/data/cuda_11.8.0_520.61.05_linux.run --adr.tensorrt.tar_file=/data/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz --adr.cudnn.tar_file=/data/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz --adr.compiler.tags=gcc
+cm run script "build nvidia inference server" \
+--adr.install-cuda-prebuilt.local_run_file_path=/data/cuda_11.8.0_520.61.05_linux.run \
+--adr.tensorrt.tar_file=/data/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
+--adr.cudnn.tar_file=/data/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz \
+--adr.compiler.tags=gcc
 ```
 
 5. Once the build is complete, you can proceed with any further CM scripts like for MLPerf inference. You can also save the container at this stage using [docker commit](https://docs.docker.com/engine/reference/commandline/commit/) so that it can be launched later without having to go through the previous steps.
