@@ -8,9 +8,8 @@
 
 ### About
 
-We believe in the power of collaborative research, reproducible experiments, and open science 
-to accelerate innovation and solve the world's most complex challenges - 
-[see our ACM REP'23 keynote for more details](https://zenodo.org/record/8105339)!
+*Our mission is to connect academia and industry to solve the real-world problems by facilitating reproducible research 
+and bridging the growing gap between research and production - [see our ACM REP'23 keynote to learn more about our vision](https://doi.org/10.5281/zenodo.8105339)!*
 
 [Collective Mind scripting language (MLCommons CM)](https://github.com/mlcommons/ck/tree/master/cm/cmind) 
 is a part of the [MLCommons Collective Knowledge project](https://github.com/mlcommons/ck).
