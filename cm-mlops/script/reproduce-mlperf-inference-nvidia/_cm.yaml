@@ -353,8 +353,8 @@ variations:
   build_engine:
     group: run_mode
     env:
-      MLPERF_NVIDIA_RUN_COMMAND: build
-      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: build
+      MLPERF_NVIDIA_RUN_COMMAND: generate_engines
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: generate_engines
     deps:
       - tags: reproduce,mlperf,inference,nvidia,harness,-_build_engine,_preprocess_data
         inherit_variation_tags: true
@@ -368,6 +368,12 @@ variations:
     default: true
     deps:
       - tags: reproduce,mlperf,inference,nvidia,harness,_build_engine,-_run_harness
+        inherit_variation_tags: true
+        force_cache: true
+      - tags: reproduce,mlperf,inference,nvidia,harness,-_build_engine,_preprocess_data
+        inherit_variation_tags: true
+        force_cache: true
+      - tags: reproduce,mlperf,inference,nvidia,harness,-_build_engine,_download_model
         inherit_variation_tags: true
         force_cache: true
     env:
