@@ -33,7 +33,7 @@ See [more info](README-extra.md).
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-scratch-space)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,mlperf,inference,scratch,space*
+* CM "database" tags to find this script: *get,mlperf,inference,nvidia,scratch,space*
 * Output cached?: *True*
 ___
 ### Usage
@@ -52,9 +52,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,mlperf,inference,scratch,space [--input_flags]`
+1. `cm run script --tags=get,mlperf,inference,nvidia,scratch,space [--input_flags]`
 
-2. `cm run script "get mlperf inference scratch space" [--input_flags]`
+2. `cm run script "get mlperf inference nvidia scratch space" [--input_flags]`
 
 3. `cm run script 0b2bec8b29fb4ab7 [--input_flags]`
 
@@ -73,7 +73,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,mlperf,inference,scratch,space'
+                  'tags':'get,mlperf,inference,nvidia,scratch,space'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -90,9 +90,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,mlperf,inference,scratch,space"```
+```cm run script --tags=gui --script="get,mlperf,inference,nvidia,scratch,space"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,mlperf,inference,scratch,space) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,mlperf,inference,nvidia,scratch,space) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -148,6 +148,7 @@ ___
 #### New environment keys (filter)
 
 * `CM_NVIDIA_MLPERF_SCRATCH_PATH`
+* `MLPERF_SCRATCH_PATH`
 #### New environment keys auto-detected from customize
 
 * `CM_NVIDIA_MLPERF_SCRATCH_PATH`

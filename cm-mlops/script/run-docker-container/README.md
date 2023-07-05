@@ -107,6 +107,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--all_gpus=value`  &rarr;  `CM_DOCKER_ADD_ALL_GPUS=value`
 * `--base=value`  &rarr;  `CM_DOCKER_IMAGE_BASE=value`
 * `--cache=value`  &rarr;  `CM_DOCKER_CACHE=value`
 * `--cm_repo=value`  &rarr;  `CM_MLOPS_REPO=value`
@@ -131,7 +132,7 @@ ___
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "base":...}
+r=cm.access({... , "all_gpus":...}
 ```
 
 </details>
