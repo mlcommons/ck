@@ -28,6 +28,7 @@ default_env:
   CM_MAKE_CLEAN: "no"
 
 input_mapping:
+  custom_system: CM_CUSTOM_SYSTEM_NVIDIA
   clean: CM_MAKE_CLEAN
 
 # Dependencies on other CM scripts
