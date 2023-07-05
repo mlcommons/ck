@@ -70,11 +70,15 @@
         "CM_ML_MODEL_FRAMEWORK": "pytorch",
         "CM_ML_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>"
       },
-      "group": "framework"
+      "group": "framework",
+      "default": true
     },
     "pytorch,fp32": {
       "env": {
-        "CM_PACKAGE_URL": ""
+        "CM_DOWNLOAD_EXTRA_OPTIONS": " --output-document checkpoint.zip",
+        "CM_DOWNLOAD_FILENAME": "checkpoint.zip",
+        "CM_DOWNLOAD_CHECKSUM": "e677e28aaf03da84584bb3073b7ee315",
+        "CM_PACKAGE_URL": "https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download"
       }
     },
     "uint8": {
