@@ -1,10 +1,8 @@
 This script is a CM wrapper to the official [Nvidia submission code](https://github.com/mlcommons/inference_results_v3.0/tree/master/closed/NVIDIA) used for MLPerf inference submissions. 
 
 
-## Requirements
-You need to have CUDA, cuDNN and TensorRT installed on your system.
 
-### Download the needed files
+## Download the needed files
 For x86 machines, please download the latest install tar files from the below sites
 1. [cuDNN](https://developer.nvidia.com/cudnn) (for cuda 11)
 2. [TensorRT](https://developer.nvidia.com/tensorrt)
@@ -13,7 +11,7 @@ For x86 machines, please download the latest install tar files from the below si
 
 <summary>
     
-### Using Docker (Recommended on x86 systems)
+## Using Docker (Recommended on x86 systems)
 
 </summary>
 
@@ -59,7 +57,7 @@ Use `--custom_system=yes` if you are using a significantly different system from
 
 <summary>
 
-### Without Docker
+## Without Docker
 </summary>
 
 1. Install CUDA
