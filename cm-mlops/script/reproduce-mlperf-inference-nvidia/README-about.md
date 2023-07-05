@@ -33,7 +33,7 @@ cmr --tags=download,file,_url.https://developer.download.nvidia.com/compute/cuda
 ```
 cm docker script --tags=build,nvidia,inference,server --docker_mounts,=$HOME/install_data:/data/ --adr.install-cuda-prebuilt.local_run_file_path=/data/cuda_11.8.0_520.61.05_linux.run  --adr.tensorrt.tar_file=/data/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz --adr.cudnn.tar_file=/data/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz --docker_cm_repo=mlcommons@ck  --adr.compiler.tags=gcc
 ```
-</details>
+
 
 Now you'll be inside the CM Nvidia docker container and can run further scripts. You can try the below command to make sure things are working as expected. 
 ```
@@ -46,6 +46,8 @@ cm run script --tags=build,nvidia,inference,server --adr.install-cuda-prebuilt.l
 ```
 
 5. Once the build is complete, you can proceed with any further CM scripts like for MLPerf inference. You can also save the container at this stage using [docker commit](https://docs.docker.com/engine/reference/commandline/commit/) so that it can be launched later without having to go through the previous steps.
+
+</details>
 
 <details>
 
