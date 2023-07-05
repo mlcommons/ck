@@ -162,14 +162,7 @@ deps:
     tags: get,ml-model,dlrm,_pytorch
 
   ########################################################################
-  # Install RetinaNet model (ONNX) and OpenImages
-
-  - enable_if_env:
-      CM_MODEL:
-      - retinanet
-    names:
-      - ml-model-retinanet
-    tags: get,ml-model,nvidia-retinanet,_efficient-nms
+  # Install OpenImages
 
   - enable_if_env:
       CM_MODEL:
@@ -248,7 +241,6 @@ variations:
     group: model
     env:
       CM_MODEL: retinanet
-      CM_SKIP_MODEL_DOWNLOAD: yes
     deps:
     - tags: get,generic-python-lib,_Pillow
     - tags: get,generic-python-lib,_torch
