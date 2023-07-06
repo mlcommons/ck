@@ -21,7 +21,7 @@ For x86 machines, please download the latest install tar files from the below si
 Assuming all the downloaded files are to the user home directory please do the following steps:
 
 1. Build the docker container and mount the paths from the host machine
-    ```
+   ```bash
 cm docker script --tags=build,nvidia,inference,server \
 --cuda_run_file_path=$HOME/cuda_11.8.0_520.61.05_linux.run \
 --tensorrt_tar_file_path=$HOME/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
