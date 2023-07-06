@@ -53,7 +53,6 @@ cm docker script --tags=build,nvidia,inference,server \
 => This script will generate Benchmark Configuration stubs for the detected system.
 Continue? [y/n]: y
 ```
-</details>
 
 Now you'll be inside the CM Nvidia docker container and can run further scripts. 
 
@@ -100,8 +99,8 @@ Use `--custom_system=no` if you are using a similar system system to the [Nvidia
 
 
 5. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
-<details>
-<summary> Example output</summary>
+
+### Example output
 
 ```
 ============================================
