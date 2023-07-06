@@ -24,32 +24,32 @@ Assuming all the downloaded files are to the user home directory please do the f
   ```bash
   cm docker script --tags=build,nvidia,inference,server \
   --cuda_run_file_path=$HOME/cuda_11.8.0_520.61.05_linux.run \
---tensorrt_tar_file_path=$HOME/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
---cudnn_tar_file_path=$HOME/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz 
---imagenet_path=$HOME/imagenet-2012-val \
---scratch_path=/disk2/mlperf_scratch \
---docker_cm_repo=ctuning@mlcommons-ck  \
---results_dir=$HOME/results_dir \
---submission_dir=$HOME/submission_dir \
-    --adr.compiler.tags=gcc
+  --tensorrt_tar_file_path=$HOME/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
+  --cudnn_tar_file_path=$HOME/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz 
+  --imagenet_path=$HOME/imagenet-2012-val \
+  --scratch_path=/disk2/mlperf_scratch \
+  --docker_cm_repo=ctuning@mlcommons-ck  \
+  --results_dir=$HOME/results_dir \
+  --submission_dir=$HOME/submission_dir \
+  --adr.compiler.tags=gcc
 ```
     * Use `--docker_cache=no` to turn off docker caching
     * Use `--docker_run_cmd_prefix="cm pull repo mlcommons@ck"` to update the CK repository when docker caching is used
     * Use `--custom_system=no` if you are using a similar system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
 
 2. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
-### Example output
-```
-============================================
-=> A system ID is a string containing only letters, numbers, and underscores
-=> that is used as the human-readable name of the system. It is also used as
-=> the system name when creating the measurements/ and results/ entries.
-=> This string should also start with a letter to be a valid Python enum member name.
-=> Specify the system ID to use for the current system: phoenix
+  ### Example output
+  ```
+  ============================================
+  => A system ID is a string containing only letters, numbers, and underscores
+  => that is used as the human-readable name of the system. It is also used as
+  => the system name when creating the measurements/ and results/ entries.
+  => This string should also start with a letter to be a valid Python enum member name.
+  => Specify the system ID to use for the current system: phoenix
   => Reloaded system list. MATCHED_SYSTEM: KnownSystem.phoenix
-=> This script will generate Benchmark Configuration stubs for the detected system.
-Continue? [y/n]: y
-```
+  => This script will generate Benchmark Configuration stubs for the detected system.
+  Continue? [y/n]: y
+  ```
 Now you'll be inside the CM Nvidia docker container and can run further scripts. 
 
 3. Once the build is complete, you can proceed with any further CM scripts like for MLPerf inference. You can also save the container at this stage using [docker commit](https://docs.docker.com/engine/reference/commandline/commit/) so that it can be launched later without having to go through the previous steps.
