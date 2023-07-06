@@ -1385,7 +1385,7 @@ def docker(i):
                             'run_cmd': run_cmd if docker_skip_run_cmd not in [ 'yes', True, 'True' ] else 'echo "cm version"',
                             'v': i.get('v', False),
                             'quiet': True,
-                            'pre_run_cmds': pre_run_cmds,
+                            'pre_run_cmds': docker_pre_run_cmds,
                             'real_run': True,
                             'add_deps_recursive': {
                                 'build-docker-image': {

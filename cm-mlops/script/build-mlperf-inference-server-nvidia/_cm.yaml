@@ -205,4 +205,5 @@ docker:
    - "${{ CUDA_RUN_FILE_LOCAL_PATH }}:${{ CUDA_RUN_FILE_LOCAL_PATH }}"
    - "${{ MLPERF_SCRATCH_PATH }}:${{ MLPERF_SCRATCH_PATH }}"
   pre_run_cmds:
-    - cm run script --tags=get,dataset,imagenet,_full --imagenet_path=/data/imagenet-val
+    - cm pull repo ctuning@mlcommons-ck
+    - cm run script --tags=get,dataset,original,imagenet,_full --imagenet_path=/data/imagenet-val
