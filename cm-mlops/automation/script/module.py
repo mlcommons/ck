@@ -4060,6 +4060,7 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
 
     # Possibly restrict this to within docker environment
     docker_settings = meta.get('docker')
+    docker_input_mapping = {}
     if docker_settings:
         docker_input_mapping = docker_settings.get('docker_input_mapping', {})
         if docker_input_mapping:
