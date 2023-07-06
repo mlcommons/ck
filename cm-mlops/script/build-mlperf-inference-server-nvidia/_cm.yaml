@@ -186,5 +186,24 @@ versions:
         version: r3.1
 
 docker:
-  skip_run_cmd: 'yes'
+  skip_run_cmd: 'no'
   all_gpus: 'yes'
+  docker_input_mapping:
+    imagenet_path: IMAGENET_PATH
+    results_dir: RESULTS_DIR
+    submission_dir: SUBMISSION_DIR
+    cudnn_tar_file_path: CM_CUDNN_TAR_FILE_PATH
+    tensorrt_tar_file_path: CM_TENSORRT_TAR_FILE_PATH
+    cuda_run_file_path: CUDA_RUN_FILE_LOCAL_PATH
+    scratch_path: MLPERF_SCRATCH_PATH
+  mounts:
+   - "${{ IMAGENET_PATH }}:/data/imagenet-val"
+   - "${{ RESULTS_DIR }}:/home/cmuser/results_dir"
+   - "${{ SUBMISSION_DIR }}:/home/cmuser/submission_dir"
+   - "${{ CM_CUDNN_TAR_FILE_PATH }}:${{ CM_CUDNN_TAR_FILE_PATH }}"
+   - "${{ CM_TENSORRT_TAR_FILE_PATH }}:${{ CM_TENSORRT_TAR_FILE_PATH }}"
+   - "${{ CUDA_RUN_FILE_LOCAL_PATH }}:${{ CUDA_RUN_FILE_LOCAL_PATH }}"
+   - "${{ MLPERF_SCRATCH_PATH }}:${{ MLPERF_SCRATCH_PATH }}"
+  pre_run_cmds:
+    - cm pull repo mlcommons@ck
+    - cm run script --tags=get,dataset,original,imagenet,_full --imagenet_path=/data/imagenet-val

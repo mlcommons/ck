@@ -640,6 +640,10 @@ class CAutomation(Automation):
         prehook_deps = meta.get('prehook_deps',[])
         posthook_deps = meta.get('posthook_deps',[])
         input_mapping = meta.get('input_mapping', {})
+        docker_settings = meta.get('docker')
+        docker_input_mapping = {}
+        if docker_settings:
+            docker_input_mapping = docker_settings.get('docker_input_mapping', {})
         new_env_keys_from_meta = meta.get('new_env_keys', [])
         new_state_keys_from_meta = meta.get('new_state_keys', [])
 
@@ -715,6 +719,10 @@ class CAutomation(Automation):
             update_env_from_input_mapping(env, i, input_mapping)
             update_env_from_input_mapping(const, i, input_mapping)
 
+
+        if docker_input_mapping:
+            update_env_from_input_mapping(env, i, docker_input_mapping)
+            update_env_from_input_mapping(const, i, docker_input_mapping)
 
 
 
@@ -2083,6 +2091,7 @@ class CAutomation(Automation):
         i['meta']['new_env_keys'] = []
         i['meta']['new_state_keys'] = []
         i['meta']['input_mapping'] = {}
+        i['meta']['docker_input_mapping'] = {}
         i['meta']['deps'] = []
         i['meta']['prehook_deps'] = []
         i['meta']['posthook_deps'] = []
@@ -4049,6 +4058,14 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
     input_mapping = meta.get('input_mapping', {})
     if input_mapping:
         update_env_from_input_mapping(env, i['input'], input_mapping)
+
+    # Possibly restrict this to within docker environment
+    docker_settings = meta.get('docker')
+    docker_input_mapping = {}
+    if docker_settings:
+        docker_input_mapping = docker_settings.get('docker_input_mapping', {})
+        if docker_input_mapping:
+            update_env_from_input_mapping(env, i['input'], docker_input_mapping)
 
     new_env_keys_from_meta = meta.get('new_env_keys', [])
     if new_env_keys_from_meta:

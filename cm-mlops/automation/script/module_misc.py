@@ -1363,7 +1363,9 @@ def docker(i):
 
         dockerfile_path = os.path.join(script_path,'dockerfiles', _os +'_'+version +'.Dockerfile')
 
-        docker_skip_run_cmd = i.get('docker_skip_run_cmd', docker_settings.get('skip_run_cmd')) #skips docker run cmd and gives an interactive shell to the user
+        docker_skip_run_cmd = i.get('docker_skip_run_cmd', docker_settings.get('skip_run_cmd', False)) #skips docker run cmd and gives an interactive shell to the user
+
+        docker_pre_run_cmds = i.get('docker_pre_run_cmds', []) +  docker_settings.get('pre_run_cmds', [])
 
         all_gpus = i.get('docker_all_gpus', docker_settings.get('all_gpus'))
 
@@ -1380,9 +1382,10 @@ def docker(i):
                             'docker_os_version': version,
                             'detached': 'no',
                             'script_tags': f'{tag_string}',
-                            'run_cmd': run_cmd if not docker_skip_run_cmd else 'echo "cm version"',
+                            'run_cmd': run_cmd if docker_skip_run_cmd not in [ 'yes', True, 'True' ] else 'echo "cm version"',
                             'v': i.get('v', False),
                             'quiet': True,
+                            'pre_run_cmds': docker_pre_run_cmds,
                             'real_run': True,
                             'add_deps_recursive': {
                                 'build-docker-image': {

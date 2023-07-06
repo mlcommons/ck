@@ -26,5 +26,8 @@
   ],
   "uid": "0b2bec8b29fb4ab7",
   "variations": {},
-  "versions": {}
+  "versions": {},
+  "docker": {
+    "run": false
+  }
 }
