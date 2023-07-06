@@ -128,7 +128,7 @@
     "master": {
       "env": {
         "CM_GIT_CHECKOUT": "master",
-        "CM_MLPERF_LAST_RELEASE": "v3.0"
+        "CM_MLPERF_LAST_RELEASE": "v3.1"
       }
     },
     "r2.1": {
@@ -139,21 +139,21 @@
     },
     "tvm": {
       "env": {
-        "CM_GIT_URL": "https://github.com/octoml/inference",
+        "CM_GIT_URL": "https://github.com/mlcommons/inference",
         "CM_GIT_CHECKOUT": "tvm",
-        "CM_MLPERF_LAST_RELEASE": "v3.0"
+        "CM_MLPERF_LAST_RELEASE": "v3.1"
       }
     },
     "deepsparse": {
       "env": {
         "CM_GIT_URL": "https://github.com/neuralmagic/inference",
         "CM_GIT_CHECKOUT": "deepsparse",
-        "CM_MLPERF_LAST_RELEASE": "v3.0"
+        "CM_MLPERF_LAST_RELEASE": "v3.1"
       }
     },
     "custom": {
       "env": {
-        "CM_MLPERF_LAST_RELEASE": "v3.0"
+        "CM_MLPERF_LAST_RELEASE": "v3.1"
       }
     }
   }
