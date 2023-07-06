@@ -9,9 +9,7 @@ def preprocess(i):
     path = env.get('GPTJ_CHECKPOINT_PATH', '').strip()
 
     if path == '' or not os.path.exists(path):
-        return {'return':1, 'error':'Please rerun the last CM command with --env.GPTJ_CHECKPOINT_PATH={path to the MLPerf GPT-J checkpoint privately shared by Intel}'}
-
-    env = i['env']
+        env['CM_TMP_REQUIRE_DOWNLOAD'] = 'yes'
 
     return {'return':0}
 
