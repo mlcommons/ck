@@ -34,6 +34,9 @@ def preprocess(i):
         print(f"Reusing SUT description file {sut}")
         state['CM_SUT_META'] = json.load(open(sut_path))
     else:
+        if not os.path.exists(os.path.dirname(sut_path)):
+            os.makedirs(os.path.dirname(sut_path))
+
         print("Generating SUT description file for " + sut)
         hw_path = os.path.join(path, "hardware", hw_name + ".json")
         if not os.path.exists(hw_path):

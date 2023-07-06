@@ -3,7 +3,7 @@
 The Collective Knowledge project consists of two sub-projects 
 to facilitate reproducible research and transfer to production 
 across rapidly evolving models, software, hardware and data
-[Collective Mind language (MLCommons CM)](#collective-mind-language-cm) 
+[Collective Mind automation language (MLCommons CM)](#collective-mind-language-cm) 
 and
 [Collective Knowledge platform (MLCommons CK)](#collective-knowledge-playground-ck).
 
