@@ -75,7 +75,7 @@ Assuming all the downloaded files are to the user home directory please do the f
     ```bash
       cmr "get tensorrt _dev" --input=<PATH_TO_TENSORRT_TAR_FILE>
     ```
-  On non x86 systems like Nvidia Orin, you can do a package manager install and then CM should pick up the installation automatically during the workflow run.
+    On non x86 systems like Nvidia Orin, you can do a package manager install and then CM should pick up the installation automatically during the workflow run.
 
 4. Build the Nvidia inference server 
     ```
