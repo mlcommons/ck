@@ -32,16 +32,12 @@ cm docker script --tags=build,nvidia,inference,server \
 --submission_dir=$HOME/submission_dir \
 --adr.compiler.tags=gcc
 ```
-
-
 * Use `--docker_cache=no` to turn off docker caching
 * Use `--docker_run_cmd_prefix="cm pull repo mlcommons@ck"` to update the CK repository when docker caching is used
 * Use `--custom_system=no` if you are using a similar system system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
 
 2. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
-
 ### Example output
-
 ```
 ============================================
 => A system ID is a string containing only letters, numbers, and underscores
@@ -53,7 +49,6 @@ cm docker script --tags=build,nvidia,inference,server \
 => This script will generate Benchmark Configuration stubs for the detected system.
 Continue? [y/n]: y
 ```
-
 Now you'll be inside the CM Nvidia docker container and can run further scripts. 
 
 3. Once the build is complete, you can proceed with any further CM scripts like for MLPerf inference. You can also save the container at this stage using [docker commit](https://docs.docker.com/engine/reference/commandline/commit/) so that it can be launched later without having to go through the previous steps.
@@ -95,8 +90,6 @@ cmr "build nvidia inference server" \
 [--custom_system=no]
 ```
 Use `--custom_system=no` if you are using a similar system system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
-```
-
 
 5. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
 
