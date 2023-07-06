@@ -11,8 +11,10 @@
 
 ### About
 
-***Our mission is to connect academia and industry to solve the real-world problems by facilitating reproducible research 
-and bridging the growing gap between research and production - [see our ACM REP'23 keynote to learn more about our vision](https://doi.org/10.5281/zenodo.8105339)!***
+***We deeply believe in the power of open science and open source to solve the world's most challenging problems.
+   That's why we are developing a common automation and reproducibility language to help connect academia and industry,
+   facilitate reproducible research and bridge the growing gap between research and production - 
+   [see our ACM REP'23 keynote for more details](https://doi.org/10.5281/zenodo.8105339)!***
 
 The "Collective Knowledge" project (CK) is motivated by the [feedback from researchers and practitioners](https://learning.acm.org/techtalks/reproducibility)
 while reproducing results from more than 150 research papers and validating them in the real world - 
@@ -21,7 +23,7 @@ that can facilitate reproducible research and simplify technology transfer to pr
 across diverse and rapidly evolving software, hardware, models, and data.
 It consists of the following sub-projects:
 
-* [Collective Mind scripting language (MLCommons CM)](cm) 
+* [Collective Mind automation language (MLCommons CM)](cm) 
   is intended to help researchers and practitioners
   describe all the steps required to reproduce their experiments across any software, hardware, and data
   in a common and technology-agnostic way.
