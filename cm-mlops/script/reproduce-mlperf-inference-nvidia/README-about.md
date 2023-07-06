@@ -39,8 +39,8 @@ cm docker script --tags=build,nvidia,inference,server \
 * Use `--custom_system=no` if you are using a similar system system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
 
 2. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
-<details>
-<summary> Example output</summary>
+
+### Example output
 
 ```
 ============================================
@@ -56,9 +56,8 @@ Continue? [y/n]: y
 </details>
 
 Now you'll be inside the CM Nvidia docker container and can run further scripts. 
-```
 
-2. Once the build is complete, you can proceed with any further CM scripts like for MLPerf inference. You can also save the container at this stage using [docker commit](https://docs.docker.com/engine/reference/commandline/commit/) so that it can be launched later without having to go through the previous steps.
+3. Once the build is complete, you can proceed with any further CM scripts like for MLPerf inference. You can also save the container at this stage using [docker commit](https://docs.docker.com/engine/reference/commandline/commit/) so that it can be launched later without having to go through the previous steps.
 
 </details>
 
@@ -98,9 +97,9 @@ cmr "build nvidia inference server" \
 ```
 Use `--custom_system=no` if you are using a similar system system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
 ```
-</details>
 
-2. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
+
+5. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
 <details>
 <summary> Example output</summary>
 
