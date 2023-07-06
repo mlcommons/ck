@@ -118,12 +118,15 @@ def generate_submission(i):
             print('* Framework Version: {}'.format(framework_version))
             print('* Run Config: {}'.format(run_config))
 
+            # Override framework and framework versions from the folder name
+            system_meta['framework'] = framework + " " + framework_version
         result_path = os.path.join(results_dir, res)
         platform_prefix = inp.get('platform_prefix', '')
         if platform_prefix:
             sub_res = platform_prefix + "-" + res
         else:
             sub_res = res
+
         submission_path = os.path.join(path_submission, "results", sub_res)
         measurement_path = os.path.join(path_submission, "measurements", sub_res)
         compliance_path = os.path.join(path_submission, "compliance", sub_res)

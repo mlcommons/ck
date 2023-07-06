@@ -19,7 +19,7 @@
   "prehook_deps": [
     {
       "env": {
-        "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_FILE>>>"
+        "CM_EXTRACT_EXTRACTED_FILENAME": "<<<GPTJ_CHECKPOINT_PATH>>>"
       },
       "tags": "download-and-extract,_wget",
       "update_tags_from_env_with_prefix": {
@@ -29,7 +29,8 @@
       },
       "enable_if_env": {
         "CM_TMP_REQUIRE_DOWNLOAD": [ "yes" ]
-      }
+      },
+      "force_cache": true
     }
   ],
   "tags": [
@@ -77,7 +78,7 @@
       "env": {
         "CM_DOWNLOAD_EXTRA_OPTIONS": " --output-document checkpoint.zip",
         "CM_DOWNLOAD_FILENAME": "checkpoint.zip",
-        "CM_DOWNLOAD_CHECKSUM": "e677e28aaf03da84584bb3073b7ee315",
+        "CM_DOWNLOAD_CHECKSUM_NOT_USED": "e677e28aaf03da84584bb3073b7ee315",
         "CM_PACKAGE_URL": "https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download"
       }
     },
