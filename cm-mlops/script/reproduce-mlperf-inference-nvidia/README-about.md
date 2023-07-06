@@ -69,10 +69,9 @@ Assuming all the downloaded files are to the user home directory please do the f
 
 
 2. Install cuDNN
-
-  ```bash
-    cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
-  ```
+    ```bash
+      cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
+    ```
 
 3. Install TensorRT
   ```bash
@@ -90,7 +89,7 @@ Assuming all the downloaded files are to the user home directory please do the f
     --adr.compiler.tags=gcc \
     [--custom_system=no]
   ```
-    Use `--custom_system=no` if you are using a similar system system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
+    Use `--custom_system=no` if you are using a similar system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
 
 5. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
 
