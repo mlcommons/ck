@@ -30,7 +30,10 @@
       "enable_if_env": {
         "CM_TMP_REQUIRE_DOWNLOAD": [ "yes" ]
       },
-      "force_cache": true
+      "force_cache": true,
+      "names": [
+        "downloader"
+      ]
     }
   ],
   "tags": [
@@ -78,8 +81,14 @@
       "env": {
         "CM_DOWNLOAD_EXTRA_OPTIONS": " --output-document checkpoint.zip",
         "CM_DOWNLOAD_FILENAME": "checkpoint.zip",
+        "CM_UNZIP": "yes",
         "CM_DOWNLOAD_CHECKSUM_NOT_USED": "e677e28aaf03da84584bb3073b7ee315",
         "CM_PACKAGE_URL": "https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download"
+      },
+      "add_deps_recursive": {
+        "downloader": {
+          "tags": "_extract"
+        }
       }
     },
     "uint8": {

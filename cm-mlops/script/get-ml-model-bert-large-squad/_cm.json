@@ -63,6 +63,9 @@
     "amazon-s3": {
       "group": "download-source"
     },
+    "github": {
+      "group": "download-source"
+    },
     "onnx,fp32": {
       "env": {
         "CM_ML_MODEL_F1": "90.874"
