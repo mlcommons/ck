@@ -64,33 +64,33 @@ Assuming all the downloaded files are to the user home directory please do the f
 </summary>
 
 1. Install CUDA
-If CUDA is not detected, CM should download and install it automatically when you run the workflow. 
-** Nvidia drivers are expected to be installed on the system **
+    If CUDA is not detected, CM should download and install it automatically when you run the workflow. 
+    ** Nvidia drivers are expected to be installed on the system **
 
 
 2. Install cuDNN
 
-```bash
-cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
-```
+  ```bash
+    cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
+  ```
 
 3. Install TensorRT
-```bash
-cmr "get tensorrt _dev" --input=<PATH_TO_TENSORRT_TAR_FILE>
-```
+  ```bash
+    cmr "get tensorrt _dev" --input=<PATH_TO_TENSORRT_TAR_FILE>
+  ```
 
-On non x86 systems like Nvidia Orin, you can do a package manager install and then CM should pick up the installation automatically during the workflow run.
+    On non x86 systems like Nvidia Orin, you can do a package manager install and then CM should pick up the installation automatically during the workflow run.
 
 4. Build the Nvidia inference server 
-```
-cmr "build nvidia inference server" \
---adr.install-cuda-prebuilt.local_run_file_path=/data/cuda_11.8.0_520.61.05_linux.run \
---adr.tensorrt.tar_file=/data/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
---adr.cudnn.tar_file=/data/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz \
---adr.compiler.tags=gcc \
-[--custom_system=no]
-```
-Use `--custom_system=no` if you are using a similar system system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
+  ```
+    cmr "build nvidia inference server" \
+    --adr.install-cuda-prebuilt.local_run_file_path=/data/cuda_11.8.0_520.61.05_linux.run \
+    --adr.tensorrt.tar_file=/data/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
+    --adr.cudnn.tar_file=/data/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz \
+    --adr.compiler.tags=gcc \
+    [--custom_system=no]
+  ```
+    Use `--custom_system=no` if you are using a similar system system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
 
 5. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
 
