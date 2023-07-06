@@ -46,11 +46,11 @@ Assuming all the downloaded files are to the user home directory please do the f
     => the system name when creating the measurements/ and results/ entries.
     => This string should also start with a letter to be a valid Python enum member name.
     => Specify the system ID to use for the current system: phoenix
-    => Reloaded system list. MATCHED_SYSTEM: KnownSystem.phoenix
+      => Reloaded system list. MATCHED_SYSTEM: KnownSystem.phoenix
     => This script will generate Benchmark Configuration stubs for the detected system.
     Continue? [y/n]: y
     ```
-  Now you'll be inside the CM Nvidia docker container and can run further scripts. 
+    Now you'll be inside the CM Nvidia docker container and can run further scripts. 
 
 3. Once the build is complete, you can proceed with any further CM scripts like for MLPerf inference. You can also save the container at this stage using [docker commit](https://docs.docker.com/engine/reference/commandline/commit/) so that it can be launched later without having to go through the previous steps.
 
@@ -94,19 +94,19 @@ Use `--custom_system=no` if you are using a similar system system to the [Nvidia
 
 5. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
 
-### Example output
+  ### Example output
 
-```
-============================================
-=> A system ID is a string containing only letters, numbers, and underscores
-=> that is used as the human-readable name of the system. It is also used as
-=> the system name when creating the measurements/ and results/ entries.
-=> This string should also start with a letter to be a valid Python enum member name.
-=> Specify the system ID to use for the current system: phoenix
-  => Reloaded system list. MATCHED_SYSTEM: KnownSystem.phoenix
-=> This script will generate Benchmark Configuration stubs for the detected system.
-Continue? [y/n]: y
-```
+    ```
+    ============================================
+    => A system ID is a string containing only letters, numbers, and underscores
+    => that is used as the human-readable name of the system. It is also used as
+    => the system name when creating the measurements/ and results/ entries.
+    => This string should also start with a letter to be a valid Python enum member name.
+    => Specify the system ID to use for the current system: phoenix
+      => Reloaded system list. MATCHED_SYSTEM: KnownSystem.phoenix
+    => This script will generate Benchmark Configuration stubs for the detected system.
+    Continue? [y/n]: y
+    ```
 </details>
 
 
