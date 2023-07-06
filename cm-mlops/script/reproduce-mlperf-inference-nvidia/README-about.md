@@ -4,7 +4,8 @@ This script is a CM wrapper to the official [Nvidia submission code](https://git
 
 ## Download the needed files
 
-* Please ask privately in [this discord channel](https://discord.gg/y7hupJsUNb) if you would like to get access to an Amazon S3 bucket
+* Please ask privately in [this discord channel](https://discord.gg/y7hupJsUNb) if you would like to get access to an Amazon S3 bucket containing all the needed files for easiness. Otherwise, you can download them from the below links.
+  
 For x86 machines, please download the latest install tar files from the below sites
 1. [cuDNN](https://developer.nvidia.com/cudnn) (for cuda 11)
 2. [TensorRT](https://developer.nvidia.com/tensorrt)
@@ -20,7 +21,7 @@ For x86 machines, please download the latest install tar files from the below si
 Assuming all the downloaded files are to the user home directory please do the following steps:
 
 1. Build the docker container and mount the paths from the host machine
-```
+    ```
 cm docker script --tags=build,nvidia,inference,server \
 --cuda_run_file_path=$HOME/cuda_11.8.0_520.61.05_linux.run \
 --tensorrt_tar_file_path=$HOME/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
@@ -30,11 +31,11 @@ cm docker script --tags=build,nvidia,inference,server \
 --docker_cm_repo=ctuning@mlcommons-ck  \
 --results_dir=$HOME/results_dir \
 --submission_dir=$HOME/submission_dir \
---adr.compiler.tags=gcc
+    --adr.compiler.tags=gcc
 ```
-* Use `--docker_cache=no` to turn off docker caching
-* Use `--docker_run_cmd_prefix="cm pull repo mlcommons@ck"` to update the CK repository when docker caching is used
-* Use `--custom_system=no` if you are using a similar system system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
+    * Use `--docker_cache=no` to turn off docker caching
+    * Use `--docker_run_cmd_prefix="cm pull repo mlcommons@ck"` to update the CK repository when docker caching is used
+    * Use `--custom_system=no` if you are using a similar system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
 
 2. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
 ### Example output
