@@ -13,13 +13,12 @@ def preprocess(i):
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
-
     if env.get('CM_DOWNLOAD_LOCAL_FILE_PATH') and os.path.exists(env['CM_DOWNLOAD_LOCAL_FILE_PATH']):
         filepath = env['CM_DOWNLOAD_LOCAL_FILE_PATH']
         env['CM_DOWNLOAD_CMD'] = ""
 
     else:
-        if env.get('CM_DOWNLOAD_URL','')=='' and not filepath:
+        if env.get('CM_DOWNLOAD_URL','')=='':
             return {'return':1, 'error': 'please specify URL using --url={URL} or --env.CM_DOWNLOAD_URL={URL}'}
 
 

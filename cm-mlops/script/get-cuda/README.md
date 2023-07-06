@@ -194,6 +194,7 @@ ___
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)***
      * install,cuda,prebuilt
        * `if (CM_REQUIRE_INSTALL  == yes)`
+       * CM names: `--adr.['install-cuda-prebuilt']...`
        - CM script: [install-cuda-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt)
      * get,generic-sys-util,_nvidia-cuda-toolkit
        * `if (CM_CUDA_PACKAGE_MANAGER_INSTALL  == yes)`
