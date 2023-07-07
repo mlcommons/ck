@@ -114,6 +114,7 @@ ___
 * `--duplicate=value`  &rarr;  `CM_MLPERF_DUPLICATE_SCENARIO_RESULTS=value`
 * `--hw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_HW_NOTES_EXTRA=value`
 * `--infer_scenario_results=value`  &rarr;  `CM_MLPERF_DUPLICATE_SCENARIO_RESULTS=value`
+* `--preprocess=value`  &rarr;  `CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR=value`
 * `--results_dir=value`  &rarr;  `CM_MLPERF_RESULTS_DIR=value`
 * `--run_checker=value`  &rarr;  `CM_RUN_SUBMISSION_CHECKER=value`
 * `--run_style=value`  &rarr;  `CM_MLPERF_RUN_STYLE=value`
@@ -165,6 +166,9 @@ ___
      * accuracy,truncate,mlc
        * `if (CM_RUN_MLPERF_ACCURACY  == on) AND (CM_SKIP_TRUNCATE_ACCURACY  != yes)`
        - CM script: [truncate-mlperf-inference-accuracy-log](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log)
+     * preprocess,mlperf,submission
+       * `if (CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR in ['on', 'True', 'yes', True])`
+       - CM script: [preprocess-mlperf-inference-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/preprocess-mlperf-inference-submission)
      * submission,checker,mlc
        * `if (CM_RUN_SUBMISSION_CHECKER  == yes)`
        * CM names: `--adr.['mlperf-inference-submission-checker', 'submission-checker']...`

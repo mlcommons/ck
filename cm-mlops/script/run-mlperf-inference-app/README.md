@@ -304,6 +304,7 @@ r=cm.access({... , "adr.python.name":...}
 * `--output_dir=value`  &rarr;  `OUTPUT_BASE_DIR=value`
 * `--power=value`  &rarr;  `CM_SYSTEM_POWER=value`
 * `--precision=value`  &rarr;  `CM_MLPERF_MODEL_PRECISION=value`
+* `--preprocess_submission=value`  &rarr;  `CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR=value`
 * `--push_to_github=value`  &rarr;  `CM_MLPERF_RESULT_PUSH_TO_GITHUB=value`
 * `--readme=value`  &rarr;  `CM_MLPERF_README=value`
 * `--regenerate_files=value`  &rarr;  `CM_REGENERATE_MEASURE_FILES=value`
