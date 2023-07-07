@@ -850,6 +850,7 @@ class CAutomation(Automation):
                             self._merge_dicts_with_tags(add_deps_recursive, adr)
             #Processing them again using updated deps for add_deps_recursive
             r = update_adr_from_meta(deps, post_deps, prehook_deps, posthook_deps, add_deps_recursive)
+            if r['return']>0: return r
 
 
 
@@ -2454,6 +2455,8 @@ class CAutomation(Automation):
         """
         Merges two dictionaries and append any tag strings in them
         """
+        if dict1 == dict2:
+            return {'return': 0}
         for dep in dict1:
             if 'tags' in dict1[dep]:
                 dict1[dep]['tags_list'] = utils.convert_tags_to_list(dict1[dep])

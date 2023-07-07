@@ -213,6 +213,7 @@ variations:
     default_variations:
       backend: tensorrt
       device: cuda
+      batch_size: batch_size.8
     group:
       implementation
     add_deps_recursive:
@@ -707,6 +708,7 @@ variations:
           _mlperf-power
 
   batch_size.#:
+    group: batch_size
     env:
       CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '#'
     add_deps_recursive:

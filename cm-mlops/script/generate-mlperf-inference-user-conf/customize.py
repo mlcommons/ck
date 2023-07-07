@@ -196,7 +196,7 @@ def preprocess(i):
             if short_ranging:
                 ranging_user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
         elif scenario == "Offline":
-            query_count = str(int(conf['target_qps']) * 660)
+            query_count = str(int(float(conf['target_qps']) * 660))
             #user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
             if short_ranging:
                 ranging_query_count = str(int(conf['target_qps']) * 120)

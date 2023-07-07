@@ -43,7 +43,7 @@ def postprocess(i):
 
 
     if env.get('CM_DAE_FINAL_ENV_NAME'):
-        env['CM_DAE_FINAL_ENV_NAME'] = filepath
+        env[env['CM_DAE_FINAL_ENV_NAME']] = filepath
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] =  filepath
 

@@ -54,6 +54,7 @@
     "hw_name": "CM_HW_NAME",
     "mode": "CM_MLPERF_LOADGEN_MODE",
     "system_type": "CM_MLPERF_SUBMISSION_SYSTEM_TYPE",
+    "category": "CM_MLPERF_SUBMISSION_SYSTEM_TYPE",
     "division": "CM_MLPERF_SUBMISSION_DIVISION",
     "output_dir": "OUTPUT_BASE_DIR",
     "results_dir": "OUTPUT_BASE_DIR",

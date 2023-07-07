@@ -5,7 +5,6 @@
   "cache": true,
   "category": "ML/AI models",
   "env": {
-    "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH",
     "CM_ML_MODEL": "GPTJ",
     "CM_ML_MODEL_DATASET": "cnndm",
     "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no"
@@ -14,12 +13,14 @@
     "checkpoint": "GPTJ_CHECKPOINT_PATH"
   },
   "new_env_keys": [
-    "CM_ML_MODEL_*"
+    "CM_ML_MODEL_*",
+    "GPTJ_CHECKPOINT_PATH"
   ],
   "prehook_deps": [
     {
       "env": {
-        "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_FILE>>>"
+        "CM_EXTRACT_FINAL_ENV_NAME": "GPTJ_CHECKPOINT_PATH",
+        "CM_EXTRACT_EXTRACT_TO_FOLDER": "gpt-j"
       },
       "tags": "download-and-extract,_wget",
       "update_tags_from_env_with_prefix": {
@@ -29,7 +30,11 @@
       },
       "enable_if_env": {
         "CM_TMP_REQUIRE_DOWNLOAD": [ "yes" ]
-      }
+      },
+      "force_cache": true,
+      "names": [
+        "dae"
+      ]
     }
   ],
   "tags": [
@@ -77,8 +82,14 @@
       "env": {
         "CM_DOWNLOAD_EXTRA_OPTIONS": " --output-document checkpoint.zip",
         "CM_DOWNLOAD_FILENAME": "checkpoint.zip",
-        "CM_DOWNLOAD_CHECKSUM": "e677e28aaf03da84584bb3073b7ee315",
+        "CM_UNZIP": "yes",
+        "CM_DOWNLOAD_CHECKSUM_NOT_USED": "e677e28aaf03da84584bb3073b7ee315",
         "CM_PACKAGE_URL": "https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download"
+      },
+      "add_deps_recursive": {
+        "dae": {
+          "tags": "_extract"
+        }
       }
     },
     "uint8": {
