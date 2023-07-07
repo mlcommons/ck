@@ -115,7 +115,8 @@ ___
       - Environment variables:
         - *CM_DOWNLOAD_EXTRA_OPTIONS*: ` --output-document checkpoint.zip`
         - *CM_DOWNLOAD_FILENAME*: `checkpoint.zip`
-        - *CM_DOWNLOAD_CHECKSUM*: `e677e28aaf03da84584bb3073b7ee315`
+        - *CM_UNZIP*: `yes`
+        - *CM_DOWNLOAD_CHECKSUM_NOT_USED*: `e677e28aaf03da84584bb3073b7ee315`
         - *CM_PACKAGE_URL*: `https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download`
       - Workflow:
 
@@ -201,6 +202,7 @@ ___
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj/_cm.json)***
      * download-and-extract,_wget
        * `if (CM_TMP_REQUIRE_DOWNLOAD  == yes)`
+       * CM names: `--adr.['dae']...`
        - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run native script if exists***
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj/_cm.json)
@@ -213,6 +215,7 @@ ___
 #### New environment keys (filter)
 
 * `CM_ML_MODEL_*`
+* `GPTJ_CHECKPOINT_PATH`
 #### New environment keys auto-detected from customize
 
 * `CM_ML_MODEL_FILE`
