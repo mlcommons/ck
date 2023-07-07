@@ -162,6 +162,34 @@ deps:
     tags: get,ml-model,dlrm,_pytorch
 
   ########################################################################
+  # Install bert models
+  - enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+    names:
+      - bert-model
+      - bert-model-fp32
+    tags: get,ml-model,bert,_onnx,_fp32
+
+  - enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+    names:
+      - bert-model
+      - bert-model-int8
+    tags: get,ml-model,bert,_onnx,_int8
+
+  - enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+    names:
+      - bert-vocab
+    tags: get,squad-vocab
+
+  ########################################################################
   # Install OpenImages
 
   - enable_if_env:
