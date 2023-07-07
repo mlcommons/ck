@@ -174,7 +174,7 @@ def preprocess():
         interpolation_method = cv2.INTER_LINEAR
 
     if os.path.isdir(source_dir):
-        sorted_filenames = [filename for filename in sorted(os.listdir(source_dir)) if any(filename.lower().endswith(extension) for extension in supported_extensions) ]
+        sorted_filenames = [filename for filename in sorted(os.listdir(source_dir)) if any(filename.lower().endswith(extension) for extension in supported_extensions) and not filename.startswith(".") ]
 
         total_volume = len(sorted_filenames)
 
