@@ -284,6 +284,7 @@ r=cm.access({... , "adr.python.name":...}
 <summary>Click here to expand this section.</summary>
 
 * `--backend=value`  &rarr;  `CM_MLPERF_BACKEND=value`
+* `--category=value`  &rarr;  `CM_MLPERF_SUBMISSION_SYSTEM_TYPE=value`
 * `--clean=value`  &rarr;  `CM_MLPERF_CLEAN_ALL=value`
 * `--compliance=value`  &rarr;  `CM_MLPERF_LOADGEN_COMPLIANCE=value`
 * `--dashboard_wb_project=value`  &rarr;  `CM_MLPERF_DASHBOARD_WANDB_PROJECT=value`
