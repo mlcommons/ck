@@ -24,14 +24,15 @@ Assuming all the downloaded files are to the user home directory please do the f
     ```
     wget https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_520.61.05_linux.run
     ```
-2. Build the docker container and mount the paths from the host machine
+2. Build the docker container and mount the paths from the host machine.
+    ** You may want to change the `scratch_path` location as it can take 100s of GBs.**
     ```bash
     cm docker script --tags=build,nvidia,inference,server \
     --cuda_run_file_path=$HOME/cuda_11.8.0_520.61.05_linux.run \
     --tensorrt_tar_file_path=$HOME/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
-    --cudnn_tar_file_path=$HOME/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz 
+    --cudnn_tar_file_path=$HOME/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz \
     --imagenet_path=$HOME/imagenet-2012-val \
-    --scratch_path=/disk2/mlperf_scratch \
+    --scratch_path=$HOME/mlperf_scratch \
     --docker_cm_repo=ctuning@mlcommons-ck  \
     --results_dir=$HOME/results_dir \
     --submission_dir=$HOME/submission_dir \
@@ -41,7 +42,7 @@ Assuming all the downloaded files are to the user home directory please do the f
       * Use `--docker_run_cmd_prefix="cm pull repo mlcommons@ck"` to update the CK repository when docker caching is used
       * Use `--custom_system=no` if you are using a similar system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
 
-3. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
+4. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
     ### Example output
     ```
     ============================================
@@ -56,7 +57,7 @@ Assuming all the downloaded files are to the user home directory please do the f
     ```
     Now you'll be inside the CM Nvidia docker container and can run further scripts. 
 
-4. Once the build is complete, you can proceed with any further CM scripts like for MLPerf inference. You can also save the container at this stage using [docker commit](https://docs.docker.com/engine/reference/commandline/commit/) so that it can be launched later without having to go through the previous steps.
+5. Once the build is complete, you can proceed with any further CM scripts like for MLPerf inference. You can also save the container at this stage using [docker commit](https://docs.docker.com/engine/reference/commandline/commit/) so that it can be launched later without having to go through the previous steps.
 
 </details>
 
