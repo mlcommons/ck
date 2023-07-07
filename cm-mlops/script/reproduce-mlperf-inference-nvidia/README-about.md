@@ -24,7 +24,7 @@ Assuming all the downloaded files are to the user home directory please do the f
     ```
     wget https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_520.61.05_linux.run
     ```
-2. [Install docker](https://docs.docker.com/engine/install/)
+2. [Install docker](https://docs.docker.com/engine/install/) and [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 3. Build the docker container and mount the paths from the host machine.
     ** You may want to change the `scratch_path` location as it can take 100s of GBs.**
     ```bash
