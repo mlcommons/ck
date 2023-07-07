@@ -110,17 +110,34 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_F1*: `90.21282641816266`
         - *CM_ML_MODEL_FILE*: `oBERT-Large_95sparse_block4_qat.onnx`
-        - *CM_PACKAGE_URL*: `https://github.com/mlcommons/inference_results_v2.1/raw/master/open/NeuralMagic/code/bert/deepsparse/models/oBERT-Large_95sparse_block4_qat.onnx.tar.xz`
         - *CM_DAE_EXTRACT_DOWNLOADED*: `yes`
+      - Workflow:
+    * `_deepsparse,int8,github`
+      - Environment variables:
+        - *CM_PACKAGE_URL*: `https://github.com/mlcommons/inference_results_v2.1/raw/master/open/NeuralMagic/code/bert/deepsparse/models/oBERT-Large_95sparse_block4_qat.onnx.tar.xz`
       - Workflow:
     * `_onnx,fp32`
       - Environment variables:
         - *CM_ML_MODEL_F1*: `90.874`
+      - Workflow:
+    * `_onnx,fp32,amazon-s3`
+      - Environment variables:
+        - *CM_PACKAGE_URL*: `https://mlperf-public.s3.us-west-2.amazonaws.com/model.onnx`
+      - Workflow:
+    * `_onnx,fp32,zenodo`
+      - Environment variables:
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/3733910/files/model.onnx`
       - Workflow:
     * `_onnx,int8`
       - Environment variables:
         - *CM_ML_MODEL_F1*: `90.067`
+      - Workflow:
+    * `_onnx,int8,amazon-s3`
+      - Environment variables:
+        - *CM_PACKAGE_URL*: `https://mlperf-public.s3.us-west-2.amazonaws.com/bert_large_v1_1_fake_quant.onnx`
+      - Workflow:
+    * `_onnx,int8,zenodo`
+      - Environment variables:
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx`
       - Workflow:
     * `_onnxruntime`
@@ -128,14 +145,42 @@ ___
     * `_pytorch,fp32`
       - Environment variables:
         - *CM_ML_MODEL_F1*: `90.874`
-        - *CM_PACKAGE_URL*: `https://zenodo.org/record/3733896/files/model.pytorch`
+      - Workflow:
+    * `_pytorch,fp32,zenodo`
+      - Environment variables:
+        - *CM_ML_MODEL_F1*: `90.874`
       - Workflow:
     * `_pytorch,int8`
       - Environment variables:
         - *CM_ML_MODEL_F1*: `90.633`
+      - Workflow:
+    * `_pytorch,int8,zenodo`
+      - Environment variables:
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/4792496/files/pytorch_model.bin`
       - Workflow:
     * `_tensorflow`
+      - Workflow:
+    * `_tf,fp32`
+      - Environment variables:
+        - *CM_ML_MODEL_F1*: `90.874`
+      - Workflow:
+    * `_tf,fp32,zenodo`
+      - Environment variables:
+        - *CM_PACKAGE_URL*: `https://zenodo.org/record/3939747/files/model.pb`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**download-source**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_amazon-s3`
+      - Workflow:
+    * `_github`
+      - Workflow:
+    * `_zenodo`
       - Workflow:
 
     </details>
@@ -174,14 +219,12 @@ ___
       - Workflow:
     * `_tf`
       - Environment variables:
-        - *CM_ML_MODEL_F1*: `90.874`
         - *CM_ML_MODEL_FRAMEWORK*: `tf`
         - *CM_ML_MODEL_INPUT_IDS_NAME*: `input_ids`
         - *CM_ML_MODEL_INPUT_MASK_NAME*: `input_mask`
         - *CM_ML_MODEL_INPUT_SEGMENTS_NAME*: `segment_ids`
         - *CM_ML_MODEL_OUTPUT_END_LOGITS_NAME*: `output_end_logits`
         - *CM_ML_MODEL_OUTPUT_START_LOGITS_NAME*: `output_start_logits`
-        - *CM_PACKAGE_URL*: `https://zenodo.org/record/3939747/files/model.pb`
       - Workflow:
 
     </details>
