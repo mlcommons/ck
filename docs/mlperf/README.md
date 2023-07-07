@@ -9,6 +9,7 @@ Please choose which benchmark you want to run:
 * [MLPerf inference](inference/README.md)
 * [MLPerf training](../tutorials/reproduce-mlperf-training.md) *(prototyping phase)*
 * [MLPerf tiny](../tutorials/reproduce-mlperf-tiny.md) *(prototyping phase)*
+* MLPerf mobile *(preparation phase)*
 
 This project is supported by the [MLCommons Task Force on Automation and Reproducibility](../taskforce.md),
 [cTuning foundation](https://cTuning.org) and [cKnowledge Ltd](https://cKnowledge.org).
