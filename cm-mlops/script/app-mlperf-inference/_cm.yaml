@@ -767,8 +767,9 @@ variations:
       nvidia-inference-server:
         version: r3.0
         tags: _nvidia-only
-    env:
+    default_env:
       CM_SKIP_SYS_UTILS: 'yes'
+      CM_REGENERATE_MEASURE_FILES: 'yes'
 
 invalid_variation_combinations:
   -

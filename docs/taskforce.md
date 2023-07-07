@@ -4,22 +4,19 @@
 
 ## Goals
 
-* Provide free help for all [MLCommons]( https://mlcommons.org ) and the community 
-  to prepare, run, optimize and compare MLPerf benchmarks (training, inference and tiny) and submit Pareto-optimal results
-  with the help of the [MLCommons CM workflow automation language](README.md) and 
-  [MLCommons CK playground (benchmarking, optimization and reproducibility challenges)](https://access.cKnowledge.org)
+* Help everyone run, reproduce, optimize and compare MLPerf benchmarks (training, inference and tiny) and submit Pareto-optimal results
+  with the help of our open-source [MLCommons Collective Mind automation language (CM)](https://doi.org/10.5281/zenodo.8105339) and 
+  [MLCommons Collective Knowledge Playground (CK)](https://access.cknowledge.org/playground/?action=experiments)
   to reduce benchmarking, optimization and reproducibility costs.
-  ***We are very glad to see that more than 80% of all recent MLPerf inference benchmark submissions were automated using our open-source technology -
-  don't hesitate to get in touch with the task force via our public [Discord server](https://discord.gg/JjWNWXKxwT) 
-  and [weekly conf-calls on Thursdays at 10am PT](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit).***
-* Automatically run any MLPerf benchmark out-of-the-box with any software, hardware, model and data from any vendor: 
-  *[prototype is available and validated during MLPerf inf v3.0 submission](../cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/README.md)*.
+  ***More than 80% of the latest MLPerf inference submissions were automated using our open-source technology -
+  you can get help with your own submission and optimizations via our [public Discord server](https://discord.gg/JjWNWXKxwT).*** 
+* Automatically [run any MLPerf benchmark out-of-the-box](mlperf/README.md) with any software, hardware, model and data from any vendor.
 * Automate optimization experiments and visualization of results with derived metrics: *[prototype](https://cknowledge.org/mlcommons-inference-gui)*.
 * Generate Pareto-optimal end-to-end applications based on reproducible MLPerf results: *under development*.
 * Organize reproducibility, replicability and optimization challenges to improve MLPerf results across diverse software, hardware, models and data: 
   *[on-going](https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge) 
   (see adopted terminology [here](artifact-evaluation/faq.md#what-is-the-difference-between-repeatability-reproducibility-and-replicability))*.
-* Bridge the [growing gap between research and production](https://acm-rep.github.io/2023/author/grigori-fursin).
+* Bridge the [growing gap between research and production](https://doi.org/10.5281/zenodo.8105339) using our MLCommons Collective Mind automation language.
 
 
 ## Mission

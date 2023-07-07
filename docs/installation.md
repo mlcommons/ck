@@ -9,6 +9,7 @@
   * [MacOS](#macos)
   * [Windows](#windows)
 * [CM CLI testing](#cm-cli-testing)
+* [CUDA installation](#cuda-installation)
 * [CM customization](#cm-customization)
 * [CM automation scripts](#cm-automation-scripts)
 
@@ -125,7 +126,7 @@ You can also quickly test the installation and check the version as follows:
 ```bash
 gfursin@mlcommons-ck-cm-dev:~$ cm test core
 
-CM version: 1.2.1
+CM version: 1.5.0
 
 Python executable used by CK: /usr/bin/python3
 
@@ -141,6 +142,10 @@ Reporting issues and ideas:        https://github.com/mlcommons/ck/issues
 Joining the open MLPerf workgroup: https://cKnowledge.org/mlcommons-taskforce
 ```
 
+# CUDA installation
+
+If you plan to use CUDA for your experiments, please follow [this guide](installation-cuda.md) 
+to detect or install it and other related dependencies (cuDNN, TensorRT) using CM.
 
 # CM customization
 
