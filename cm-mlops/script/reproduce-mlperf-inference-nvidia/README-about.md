@@ -34,7 +34,7 @@ Assuming all the downloaded files are to the user home directory please do the f
     --cudnn_tar_file_path=$HOME/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz \
     --imagenet_path=$HOME/imagenet-2012-val \
     --scratch_path=$HOME/mlperf_scratch \
-    --docker_cm_repo=ctuning@mlcommons-ck  \
+    --docker_cm_repo=mlcommons@ck  \
     --results_dir=$HOME/results_dir \
     --submission_dir=$HOME/submission_dir \
     --adr.compiler.tags=gcc
