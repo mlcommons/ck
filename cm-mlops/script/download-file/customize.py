@@ -88,7 +88,7 @@ def postprocess(i):
         filepath = new_file_path
 
 
-    if env.get('CM_DOWNLOAD_FINAL_ENV_NAME','') != '' and env.get(env['CM_DOWNLOAD_FINAL_ENV_NAME'], '') == '':
+    if env.get('CM_DOWNLOAD_FINAL_ENV_NAME','') != '':
         env[env['CM_DOWNLOAD_FINAL_ENV_NAME']] = filepath
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] =  filepath

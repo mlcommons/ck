@@ -40,7 +40,16 @@ def preprocess(i):
         if not os.path.exists(target_data_path):
             cmds.append("make download_data BENCHMARKS='bert'")
 
-        model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'bert', 'bert_large_v1_1.onnx')
+        fp32_model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'bert', 'bert_large_v1_1.onnx')
+        int8_model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'bert', 'bert_large_v1_1_fake_quant.onnx')
+        vocab_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'bert', 'vocab.txt')
+
+        if not os.path.exists(fp32_model_path):
+            cmds.append(f"ln -s {env['CM_ML_MODEL_BERT_LARGE_FP32_PATH']} {fp32_model_path}")
+        if not os.path.exists(int8_model_path):
+            cmds.append(f"ln -s {env['CM_ML_MODEL_BERT_LARGE_INT8_PATH']} {int8_model_path}")
+        if not os.path.exists(vocab_path):
+            cmds.append(f"ln -s {env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH']} {vocab_path}")
         model_name = "bert"
 
     elif "3d-unet" in env['CM_MODEL']:

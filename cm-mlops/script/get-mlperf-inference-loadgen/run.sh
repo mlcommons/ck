@@ -18,7 +18,8 @@ fi
 
 cmake \
     -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}" \
-     "${CM_MLPERF_INFERENCE_SOURCE}/loadgen"
+     "${CM_MLPERF_INFERENCE_SOURCE}/loadgen" \
+     -DPYTHON_EXECUTABLE:FILEPATH=${CM_PYTHON_BIN_WITH_PATH}
 if [ "${?}" != "0" ]; then exit 1; fi
 
 echo "******************************************************"
