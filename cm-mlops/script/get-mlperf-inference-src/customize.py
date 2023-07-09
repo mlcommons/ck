@@ -44,14 +44,16 @@ def postprocess(i):
     env = i['env']
     state = i['state']
 
-    #env['CM_MLPERF_INFERENCE_SOURCE'] = os.path.join(os.getcwd(), 'inference')
-    env['CM_MLPERF_INFERENCE_VISION_PATH'] = os.path.join(os.getcwd(), 'inference', 'vision')
-    env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'] = os.path.join(os.getcwd(), 'inference', 'vision', 'classification_and_detection')
-    env['CM_MLPERF_INFERENCE_BERT_PATH'] = os.path.join(os.getcwd(), 'inference', 'language', 'bert')
-    env['CM_MLPERF_INFERENCE_RNNT_PATH'] = os.path.join(os.getcwd(), 'inference', 'speech_recognition', 'rnnt')
-    env['CM_MLPERF_INFERENCE_DLRM_PATH'] = os.path.join(os.getcwd(), 'inference', 'recommendation', 'dlrm')
-    env['CM_MLPERF_INFERENCE_3DUNET_PATH'] = os.path.join(os.getcwd(), 'inference', 'vision', 'medical_imaging', '3d-unet-kits19')
-    env['CM_MLPERF_INFERENCE_CONF_PATH'] = os.path.join(os.getcwd(), 'inference', 'mlperf.conf')
+    inference_root = env['CM_MLPERF_INFERENCE_SOURCE']
+    env['CM_MLPERF_INFERENCE_VISION_PATH'] = os.path.join(inference_root, 'inference', 'vision')
+    env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'] = os.path.join(inference_root, 'vision', 'classification_and_detection')
+    env['CM_MLPERF_INFERENCE_BERT_PATH'] = os.path.join(inference_root, 'language', 'bert')
+    env['CM_MLPERF_INFERENCE_GPTJ_PATH'] = os.path.join(inference_root, 'language', 'gpt-j')
+    env['CM_MLPERF_INFERENCE_RNNT_PATH'] = os.path.join(inference_root, 'speech_recognition', 'rnnt')
+    env['CM_MLPERF_INFERENCE_DLRM_PATH'] = os.path.join(inference_root, 'recommendation', 'dlrm')
+    env['CM_MLPERF_INFERENCE_DLRM_V2_PATH'] = os.path.join(inference_root, 'recommendation', 'dlrm_v2')
+    env['CM_MLPERF_INFERENCE_3DUNET_PATH'] = os.path.join(inference_root,'vision', 'medical_imaging', '3d-unet-kits19')
+    env['CM_MLPERF_INFERENCE_CONF_PATH'] = os.path.join(inference_root, 'mlperf.conf')
 
 #        20221024: we save and restore env in the main script and can clean env here for determinism
 #    if '+PYTHONPATH' not in env: env['+PYTHONPATH'] = []
