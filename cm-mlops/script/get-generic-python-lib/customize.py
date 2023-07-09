@@ -35,11 +35,8 @@ def preprocess(i):
         if r['return'] == 16:
             extra = env.get('CM_GENERIC_PYTHON_PIP_EXTRA','')
             if env.get('CM_HOST_OS_FLAVOR', '') == 'ubuntu':
-                version = env.get('CM_HOST_OS_VERSION', '')
-                if version:
-                    version_split = version.split(".")
-                    if (int(pip_version[0]) >= 23) and ('--break-system-packages' not in extra):
-                       extra += '  --break-system-packages '
+                if (int(pip_version[0]) >= 23) and ('--break-system-packages' not in extra):
+                    extra += '  --break-system-packages '
 
             # Check index URL
             index_url = env.get('CM_GENERIC_PYTHON_PIP_INDEX_URL','').strip()
