@@ -90,10 +90,14 @@ Don't forget to add brew to PATH environment as described in the end.
 Then install python, pip, git and wget:
 
 ```bash
-brew install python3 python3-pip git wget curl
+brew install python3 git wget curl
 
 python3 -m pip install cmind
 ```
+
+*Sometimes python does not add `cm` and `cmr` binaries to the `PATH` environment variable.
+ You may need to find these files and add their path to `PATH` variable.
+ We plan to simplify this installation in the future.*
 
 
 ## Windows
@@ -110,7 +114,7 @@ python3 -m pip install cmind
 python -m pip install cmind
 ```
 
-
+*We plan to provide a self-sustained package in the future to simplify CM installation on Windows.*
 
 # CM CLI testing
 
