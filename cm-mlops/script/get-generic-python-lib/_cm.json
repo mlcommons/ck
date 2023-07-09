@@ -443,7 +443,7 @@
       },
       "new_env_keys": [
         "CM_PIP_VERSION",
-        "CM_GENERIC_PYTHON_PIP_EXTRA"
+        "CM_PYTHON_PIP_COMMON_EXTRA"
       ]
     },
     "polygraphy": {
