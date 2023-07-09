@@ -18,6 +18,9 @@
     "benchmark",
     "benchmark-program"
   ],
+  "new_env_keys": [
+    "CM_RUN_CMD"
+  ],
   "uid": "19f369ef47084895",
   "variations": {
     "numactl": {

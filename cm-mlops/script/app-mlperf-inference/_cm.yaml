@@ -703,9 +703,9 @@ variations:
       CM_MLPERF_POWER: 'yes'
       CM_SYSTEM_POWER: 'yes'
     add_deps_recursive:
-      runner:
+      mlperf-runner:
         tags:
-          _mlperf-power
+          _power
 
   batch_size.#:
     group: batch_size
