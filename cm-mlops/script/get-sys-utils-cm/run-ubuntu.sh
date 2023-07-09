@@ -56,4 +56,4 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            libgl1-mesa-glx \
            zlib1g-dev
 
-python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt ${CM_PYTHON_PIP_USER}
+python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt ${CM_PYTHON_PIP_USER} ${CM_GENERIC_PYTHON_PIP_EXTRA}

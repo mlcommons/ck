@@ -33,7 +33,6 @@ if [ "${?}" != "0" ]; then exit 1; fi
 cd "${CUR_DIR}"
 rm -rf build
 
-${CM_PYTHON_BIN} -m pip install wheel
 PYTHON_VERSION=`${CM_PYTHON_BIN} -V |cut -d' ' -f2`
 PYTHON_SHORT_VERSION=${PYTHON_VERSION%.*}
 MLPERF_INFERENCE_PYTHON_SITE_BASE=${INSTALL_DIR}"/python"

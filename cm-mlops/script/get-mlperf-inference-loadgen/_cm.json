@@ -54,6 +54,12 @@
       ],
       "tags": "get,cmake",
       "version_min": "3.1"
+    },
+    {
+      "tags": "get,generic-python-lib,_package.wheel"
+    },
+    {
+      "tags": "get,generic-python-lib,_pip"
     }
   ],
   "default_env": {
