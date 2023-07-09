@@ -18,7 +18,16 @@
         "python3"
       ],
       "tags": "get,python3"
-    }
+    },
+    {
+      "names":[
+	"python-pip", "pip"
+      ],
+      "tags":"get,generic-python-lib,_pip",
+      "skip_if_env":{
+	"CM_GENERIC_PYTHON_PACKAGE_NAME":["pip"]
+      }
+     }
   ],
   "extra_cache_tags_from_env": [
     {

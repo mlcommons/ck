@@ -6,10 +6,12 @@ def preprocess(i):
 
     os_info = i['os_info']
     env = i['env']
+    print(env)
     meta = i['meta']
     automation = i['automation']
     run_script_input = i['run_script_input']
-
+    pip_version = env.get('CM_PIP_VERSION')
+    print(pip_version)
     package_name = env.get('CM_GENERIC_PYTHON_PACKAGE_NAME', '').strip()
     if package_name == '':
         return automation._available_variations({'meta':meta})
@@ -38,8 +40,8 @@ def preprocess(i):
                 version = env.get('CM_HOST_OS_VERSION', '')
                 if version:
                     version_split = version.split(".")
-                    if (int(version_split[0]) >= 23) and ('--break-system-packages' not in extra):
-                        extra += '  --break-system-packages '
+                    if (pip_version >= "23.0.0") and ('--break-system-packages' not in extra):
+                       extra += '  --break-system-packages '
 
             # Check index URL
             index_url = env.get('CM_GENERIC_PYTHON_PIP_INDEX_URL','').strip()
