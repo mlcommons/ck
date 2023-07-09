@@ -154,8 +154,10 @@ ___
 ### Script output
 #### New environment keys (filter)
 
+* `CM_RUN_CMD`
 #### New environment keys auto-detected from customize
 
+* `CM_RUN_CMD`
 ___
 ### Maintainers
 

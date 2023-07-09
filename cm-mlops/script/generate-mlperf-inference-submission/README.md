@@ -112,6 +112,7 @@ ___
 * `--device=value`  &rarr;  `CM_MLPERF_DEVICE=value`
 * `--division=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIVISION=value`
 * `--duplicate=value`  &rarr;  `CM_MLPERF_DUPLICATE_SCENARIO_RESULTS=value`
+* `--hw_name=value`  &rarr;  `CM_HW_NAME=value`
 * `--hw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_HW_NOTES_EXTRA=value`
 * `--infer_scenario_results=value`  &rarr;  `CM_MLPERF_DUPLICATE_SCENARIO_RESULTS=value`
 * `--preprocess=value`  &rarr;  `CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR=value`
