@@ -63,6 +63,8 @@ def postprocess(i):
 
     valid_models = get_valid_models(env['CM_MLPERF_LAST_RELEASE'], env['CM_MLPERF_INFERENCE_SOURCE'])
 
+    env['CM_GET_DEPENDENT_CACHED_PATH'] = inference_root
+
     state['CM_MLPERF_INFERENCE_MODELS'] = valid_models
 
     return {'return':0}
