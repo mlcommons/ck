@@ -19,6 +19,9 @@
         "CM_HOST_OS_FLAVOR":  [ "ubuntu" ],
         "CM_HOST_OS_VERSION": [ "18.04" ]
       }
+    },
+    {
+      "tags": "get,generic-python-lib,_package.numpy"
     }
   ],
   "default_env": {

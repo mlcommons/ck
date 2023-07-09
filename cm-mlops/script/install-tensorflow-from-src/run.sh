@@ -6,8 +6,6 @@ if [ ! -d "src" ]; then
   git clone --recursive -b "${CM_GIT_CHECKOUT}" ${CM_GIT_URL} --depth ${CM_GIT_DEPTH} src
 fi
 CM_PYTHON_BIN=${CM_PYTHON_BIN:-python3}
-${CM_PYTHON_BIN} -m pip install numpy
-test $? -eq 0 || exit 1
 
 INSTALL_DIR="${CUR_DIR}"
 
