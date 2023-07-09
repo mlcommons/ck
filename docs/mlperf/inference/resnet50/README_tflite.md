@@ -15,7 +15,7 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
 * Since only singlestream is implemented for tflite-cpp, datacenter submission is not possible
 
-### Do a full accuracy and performance runs for all the scenarios
+### Do full accuracy and performance runs for all the scenarios
 
 ```
 cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --model=resnet50 \
@@ -28,13 +28,6 @@ cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --mod
 * Use `--division=closed` to run all scenarios for the closed division including the compliance tests
 * `--offline_target_qps`, `--server_target_qps`, `--singlestream_target_latency` and `multistream_target_latency` can be used to override the determined performance numbers
 
-### Populate the README files
-```
-cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios \
---model=resnet50 --device=cpu --implementation=tflite-cpp --backend=tflite \
---execution-mode=valid --results_dir=$HOME/inference_3.1_results \
---category=edge --division=open --quiet
-```
 
 ### Generate actual submission tree
 
