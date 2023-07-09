@@ -122,7 +122,7 @@ r=cm.access({... , "name":...}
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_SUT_DESC_CACHE: `yes`
+* CM_SUT_DESC_CACHE: `no`
 
 </details>
 
