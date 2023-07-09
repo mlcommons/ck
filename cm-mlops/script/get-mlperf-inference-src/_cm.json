@@ -18,6 +18,22 @@
       "tags": "get,python3"
     }
   ],
+  "prehook_deps": [
+    {
+      "tags": "get,git,repo",
+      "update_tags_from_env_with_prefix": {
+        "_repo.": [ "CM_GIT_URL" ],
+        "_branch.": [ "CM_GIT_CHECKOUT" ]
+      },
+      "force_env_keys": [
+        "CM_GIT_*"
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_MLPERF_INFERENCE_SOURCE"
+      },
+      "extra_cache_tags": "inference,src"
+    }
+  ],
   "default_env": {
     "CM_GIT_DEPTH": "--depth 4",
     "CM_GIT_PATCH": "no",
@@ -106,11 +122,6 @@
     "deeplearningexamples": {
       "env": {
         "CM_SUBMODULE_DEEPLEARNINGEXAMPLES": "yes"
-      }
-    },
-    "power-dev": {
-      "env": {
-        "CM_SUBMODULE_POWER_DEV": "yes"
       }
     },
     "3d-unet": {

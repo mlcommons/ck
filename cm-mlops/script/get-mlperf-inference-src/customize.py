@@ -22,8 +22,7 @@ def preprocess(i):
             "gn": "third_party/gn",
             "pybind": "third_party/pybind",
             "deeplearningexamples":"language/bert/DeepLearningExamples",
-            "3d-unet":"vision/medical_imaging/3d-unet-brats19/nnUnet",
-            "power-dev": "tools/submission/power-dev"
+            "3d-unet":"vision/medical_imaging/3d-unet-brats19/nnUnet"
             }
     for submodule in possible_submodules:
         env_name = submodule.upper().replace("-","_")
@@ -45,7 +44,7 @@ def postprocess(i):
     env = i['env']
     state = i['state']
 
-    env['CM_MLPERF_INFERENCE_SOURCE'] = os.path.join(os.getcwd(), 'inference')
+    #env['CM_MLPERF_INFERENCE_SOURCE'] = os.path.join(os.getcwd(), 'inference')
     env['CM_MLPERF_INFERENCE_VISION_PATH'] = os.path.join(os.getcwd(), 'inference', 'vision')
     env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'] = os.path.join(os.getcwd(), 'inference', 'vision', 'classification_and_detection')
     env['CM_MLPERF_INFERENCE_BERT_PATH'] = os.path.join(os.getcwd(), 'inference', 'language', 'bert')
