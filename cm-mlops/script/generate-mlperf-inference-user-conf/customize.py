@@ -165,7 +165,7 @@ def preprocess(i):
     if short_ranging:
         import copy
         ranging_user_conf = copy.deepcopy(user_conf)
-        ranging_user_conf += ml_model_name + "." + scenario + ".min_duration = 120" + "\n"
+        ranging_user_conf += ml_model_name + "." + scenario + ".min_duration = 300000" + "\n"
 
     if env['CM_MLPERF_RUN_STYLE'] == "test":
         query_count = env.get('CM_TEST_QUERY_COUNT', "5")
@@ -188,7 +188,7 @@ def preprocess(i):
         if scenario == "MultiStream" or scenario == "SingleStream":
             user_conf += ml_model_name + "." + scenario + ".max_duration = 620000 \n"
             if short_ranging:
-                ranging_user_conf += ml_model_name + "." + scenario + ".max_duration = 120000 \n "
+                ranging_user_conf += ml_model_name + "." + scenario + ".max_duration = 300000 \n "
         elif scenario == "SingleStream_old":
             query_count = str(max(int((1000 / float(conf['target_latency'])) * 660), 64))
             user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
@@ -199,7 +199,7 @@ def preprocess(i):
             query_count = str(int(float(conf['target_qps']) * 660))
             #user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
             if short_ranging:
-                ranging_query_count = str(int(conf['target_qps']) * 120)
+                ranging_query_count = str(int(conf['target_qps']) * 300)
                 ranging_user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(ranging_query_count) + "\n"
                 ranging_user_conf += ml_model_name + "." + scenario + ".min_query_count = 0 \n"
 
@@ -270,7 +270,9 @@ def preprocess(i):
             prefix = "\${CM_MLPERF_USER_CONF_PREFIX}"
         else:
             prefix = ""
-        env['CM_MLPERF_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), prefix+key+".conf")#  user_conf_path
+        env['CM_MLPERF_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), key+".conf")#  user_conf_path
+        env['CM_MLPERF_TESTING_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), key+".conf")#  user_conf_path
+        env['CM_MLPERF_RANGING_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), "ranging_"+key+".conf")#  user_conf_path
     else:
         print(f"Measure files exist at {OUTPUT_DIR}. Skipping regeneration...\n")
         env['CM_MLPERF_USER_CONF'] = ''

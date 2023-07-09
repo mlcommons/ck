@@ -18,12 +18,33 @@
       "tags": "get,python3"
     }
   ],
+  "prehook_deps": [
+    {
+      "tags": "get,git,repo",
+      "update_tags_from_env_with_prefix": {
+        "_repo.": [ "CM_GIT_URL" ],
+        "_branch.": [ "CM_GIT_CHECKOUT" ],
+        "_submodules.": [ "CM_GIT_SUBMODULES" ]
+      },
+      "force_env_keys": [
+        "CM_GIT_*"
+      ],
+      "names": [
+        "inference-git-repo"
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_MLPERF_INFERENCE_SOURCE"
+      },
+      "extra_cache_tags": "inference,src"
+    }
+  ],
   "default_env": {
     "CM_GIT_DEPTH": "--depth 4",
     "CM_GIT_PATCH": "no",
     "CM_GIT_URL": "https://github.com/mlcommons/inference.git",
     "CM_GIT_RECURSE_SUBMODULES": "",
-    "CM_GIT_CHECKOUT": "master"
+    "CM_GIT_CHECKOUT": "master",
+    "CM_GIT_CHECKOUT_FOLDER": "inference"
   },
   "new_env_keys": [
     "CM_MLPERF_INFERENCE_*",
@@ -108,11 +129,6 @@
         "CM_SUBMODULE_DEEPLEARNINGEXAMPLES": "yes"
       }
     },
-    "power-dev": {
-      "env": {
-        "CM_SUBMODULE_POWER_DEV": "yes"
-      }
-    },
     "3d-unet": {
       "env": {
         "CM_SUBMODULE_3D_UNET": "yes"
@@ -154,6 +170,13 @@
     "custom": {
       "env": {
         "CM_MLPERF_LAST_RELEASE": "v3.1"
+      }
+    },
+    "pybind_fix": {
+      "env": {
+        "CM_MLPERF_LAST_RELEASE": "v3.1",
+        "CM_GIT_URL": "https://github.com/GATEOVerflow/inference",
+        "CM_GIT_CHECKOUT": "pybind_update"
       }
     }
   }

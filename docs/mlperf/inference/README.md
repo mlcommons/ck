@@ -99,12 +99,27 @@ if you are interested to collaborate/help!
 * [RNNT](rnnt)
 * GPT-J
 
+### Measure power
 
 
-## Customize benchmarks
 
 ## Optimize benchmarks
 
 ## Visualize and compare results
+
+
+
+## Customize benchmarks
+
+### Add new implementation
+
+### Add new backend
+
+### Add new model
+
+### Add new data set
+
+
+
 
 ## Participate in reproducibility and optimization challenges

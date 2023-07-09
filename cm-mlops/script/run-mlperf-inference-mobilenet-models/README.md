@@ -86,7 +86,7 @@ cmr "run mobilenet-models _tflite _populate-readme" \
 
 We should use the master branch of MLCommons inference repo for the submission checker. You can use `--hw_note_extra` option to add your name to the notes.
 ```
-cmr run "generate inference submission" \
+cmr "generate inference submission" \
 --results_dir=$HOME/mobilenet_results/valid_results \
 --submission_dir=$HOME/mobilenet_submission_tree \
 --clean \
