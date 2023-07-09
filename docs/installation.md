@@ -43,7 +43,7 @@ You can reuse misc CM utils listed [here](#misc-cm-utils).
 ```bash
 sudo apt update && sudo apt upgrade
 
-sudo apt install python3 python3-pip python3-venv git wget
+sudo apt install python3 python3-pip python3-venv git wget curl
 
 python3 -m pip install cmind
 ```
@@ -72,7 +72,7 @@ You are ready to use CM automation meta-framework.
 ```bash
 sudo dnf update
 
-sudo dnf install python3 python-pip git wget
+sudo dnf install python3 python-pip git wget curl
 
 python3 -m pip install cmind --user
 
@@ -90,7 +90,7 @@ Don't forget to add brew to PATH environment as described in the end.
 Then install python, pip, git and wget:
 
 ```bash
-brew install python3 python3-pip git wget
+brew install python3 python3-pip git wget curl
 
 python3 -m pip install cmind
 ```
