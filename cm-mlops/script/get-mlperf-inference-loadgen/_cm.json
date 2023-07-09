@@ -4,7 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "category": "Modular MLPerf benchmarks",
   "cache": true,
-  "default_version": "master",
+  "default_version": "pybind_fix",
   "deps": [
     {
       "tags": "detect,os"
@@ -24,30 +24,7 @@
       "force_env_keys": [
         "CM_GIT_URL",
         "CM_GIT_CHECKOUT"
-      ],
-      "enable_if_env": {
-        "CM_HOST_OS_FLAVOR":  [ "ubuntu" ],
-        "CM_HOST_OS_VERSION": [ "22.04", "20.04" ]
-      }
-    },
-    {
-      "names": [
-        "inference-src-loadgen"
-      ],
-      "tags": "get,mlcommons,inference,src,_pybind",
-      "force_env_keys": [
-        "CM_GIT_URL",
-        "CM_GIT_CHECKOUT"
-      ],
-      "env": {
-        "CM_GIT_URL": "https://github.com/GATEOverflow/inference",
-        "CM_GIT_CHECKOUT": "pybind_update"
-      },
-      "version": "custom",
-      "skip_if_env": {
-        "CM_HOST_OS_FLAVOR":  [ "ubuntu" ],
-        "CM_HOST_OS_VERSION": [ "22.04", "20.04" ]
-      }
+      ]
     },
     {
       "names": [
@@ -127,6 +104,13 @@
       "add_deps": {
         "inference-src-loadgen": {
           "version": "custom"
+        }
+      }
+    },
+    "pybind_fix": {
+      "add_deps": {
+        "inference-src-loadgen": {
+          "version": "pybind_fix"
         }
       }
     }

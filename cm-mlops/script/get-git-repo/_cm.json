@@ -91,6 +91,11 @@
         "CM_GIT_SHA": "#"
       }
     },
+    "submodules.#": {
+      "env": {
+        "CM_GIT_SUBMODULES": "#"
+      }
+    },
     "repo.#": {
       "group": "repo",
       "env": {

@@ -23,10 +23,14 @@
       "tags": "get,git,repo",
       "update_tags_from_env_with_prefix": {
         "_repo.": [ "CM_GIT_URL" ],
-        "_branch.": [ "CM_GIT_CHECKOUT" ]
+        "_branch.": [ "CM_GIT_CHECKOUT" ],
+        "_submodules.": [ "CM_GIT_SUBMODULES" ]
       },
       "force_env_keys": [
         "CM_GIT_*"
+      ],
+      "names": [
+        "inference-git-repo"
       ],
       "env": {
         "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_MLPERF_INFERENCE_SOURCE"
@@ -166,6 +170,13 @@
     "custom": {
       "env": {
         "CM_MLPERF_LAST_RELEASE": "v3.1"
+      }
+    },
+    "pybind_fix": {
+      "env": {
+        "CM_MLPERF_LAST_RELEASE": "v3.1",
+        "CM_GIT_URL": "https://github.com/GATEOVerflow/inference",
+        "CM_GIT_CHECKOUT": "pybind_update"
       }
     }
   }
