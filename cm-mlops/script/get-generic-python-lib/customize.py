@@ -6,12 +6,11 @@ def preprocess(i):
 
     os_info = i['os_info']
     env = i['env']
-    print(env)
     meta = i['meta']
     automation = i['automation']
     run_script_input = i['run_script_input']
     pip_version = env.get('CM_PIP_VERSION')
-    print(pip_version)
+    print("PIP Version:"+str(pip_version))
     package_name = env.get('CM_GENERIC_PYTHON_PACKAGE_NAME', '').strip()
     if package_name == '':
         return automation._available_variations({'meta':meta})
