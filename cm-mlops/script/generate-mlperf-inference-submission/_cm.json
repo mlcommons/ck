@@ -36,6 +36,8 @@
     "duplicate": "CM_MLPERF_DUPLICATE_SCENARIO_RESULTS",
     "division": "CM_MLPERF_SUBMISSION_DIVISION",
     "category": "CM_MLPERF_SUBMISSION_CATEGORY",
+    "analyzer_settings_file": "CM_MLPERF_POWER_ANALYZER_SETTINGS_FILE_PATH",
+    "power_settings_file": "CM_MLPERF_POWER_SETTINGS_FILE_PATH",
     "infer_scenario_results": "CM_MLPERF_DUPLICATE_SCENARIO_RESULTS",
     "submitter": "CM_MLPERF_SUBMITTER",
     "preprocess": "CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR"
