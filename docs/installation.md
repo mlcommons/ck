@@ -43,7 +43,7 @@ You can reuse misc CM utils listed [here](#misc-cm-utils).
 ```bash
 sudo apt update && sudo apt upgrade
 
-sudo apt install python3 python3-pip python3-venv git wget
+sudo apt install python3 python3-pip python3-venv git wget curl
 
 python3 -m pip install cmind
 ```
@@ -72,7 +72,7 @@ You are ready to use CM automation meta-framework.
 ```bash
 sudo dnf update
 
-sudo dnf install python3 python-pip git wget
+sudo dnf install python3 python-pip git wget curl
 
 python3 -m pip install cmind --user
 
@@ -90,10 +90,14 @@ Don't forget to add brew to PATH environment as described in the end.
 Then install python, pip, git and wget:
 
 ```bash
-brew install python3 python3-pip git wget
+brew install python3 git wget curl
 
 python3 -m pip install cmind
 ```
+
+*Sometimes python does not add `cm` and `cmr` binaries to the `PATH` environment variable.
+ You may need to find these files and add their path to `PATH` variable.
+ We plan to simplify this installation in the future.*
 
 
 ## Windows
@@ -101,14 +105,16 @@ python3 -m pip install cmind
 * Download and install Git from [git-for-windows.github.io](https://git-for-windows.github.io).
   * Configure Git to accept long file names: `git config --system core.longpaths true`
 * Download and install Python 3+ from [www.python.org/downloads/windows](https://www.python.org/downloads/windows).
+  * Don't forget to select option to add Python binaries to PATH environment!
   * Configure Windows to accept long fie names during Python installation!
+
 * Install CM via PIP:
 
 ```bash
 python -m pip install cmind
 ```
 
-
+*We plan to provide a self-sustained package in the future to simplify CM installation on Windows.*
 
 # CM CLI testing
 

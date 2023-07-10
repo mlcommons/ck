@@ -20,14 +20,14 @@
       "tags": "get,python3"
     },
     {
-      "names":[
-	"python-pip", "pip"
+      "names": [
+        "python-pip", "pip"
       ],
-      "tags":"get,generic-python-lib,_pip",
-      "skip_if_env":{
-	"CM_GENERIC_PYTHON_PACKAGE_NAME":["pip"]
+      "tags": "get,generic-python-lib,_pip",
+      "skip_if_env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": [ "pip" ]
       }
-     }
+    }
   ],
   "extra_cache_tags_from_env": [
     {
@@ -442,7 +442,8 @@
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "pip"
       },
       "new_env_keys": [
-        "CM_PIP_VERSION"
+        "CM_PIP_VERSION",
+        "CM_PYTHON_PIP_COMMON_EXTRA"
       ]
     },
     "polygraphy": {

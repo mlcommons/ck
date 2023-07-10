@@ -97,14 +97,14 @@ def generate_submission(i):
         os.makedirs(path_submission)
 
     # SUT base
-    system=i.get('system','default')
+    system=env.get('CM_HW_NAME','default')
 
     code_path = os.path.join(path_submission, "code")
 
     for res in results:
         parts = res.split("-")
         if len(parts) > 5: #result folder structure used by CM script
-            system = parts[0]
+            system = parts[0] if system == 'default' else system
             implementation = parts[1]
             device = parts[2]
             framework = parts[3]
@@ -118,14 +118,16 @@ def generate_submission(i):
             print('* Framework Version: {}'.format(framework_version))
             print('* Run Config: {}'.format(run_config))
 
+            new_res = system + "-" + "-".join(parts[1:])
+
             # Override framework and framework versions from the folder name
             system_meta['framework'] = framework + " " + framework_version
         result_path = os.path.join(results_dir, res)
         platform_prefix = inp.get('platform_prefix', '')
         if platform_prefix:
-            sub_res = platform_prefix + "-" + res
+            sub_res = platform_prefix + "-" + new_res
         else:
-            sub_res = res
+            sub_res = new_res
 
         submission_path = os.path.join(path_submission, "results", sub_res)
         measurement_path = os.path.join(path_submission, "measurements", sub_res)
