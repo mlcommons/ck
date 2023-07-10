@@ -36,8 +36,6 @@ def page(st, params):
                 if x!='':
                     st.write('<h2>'+x+'</h2>', unsafe_allow_html = True)
 
-
-                
                 end_html='''
                  <center>
                   <small><a href="{}"><i>Self link</i></a></small>
