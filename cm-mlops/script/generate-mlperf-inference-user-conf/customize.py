@@ -157,7 +157,7 @@ def preprocess(i):
         performance_sample_count = env['CM_MLPERF_PERFORMANCE_SAMPLE_COUNT']
         user_conf += ml_model_name + ".*.performance_sample_count_override = " + performance_sample_count + "\n"
 
-    if 'CM_MLPERF_POWER' in env and env.get('CM_MLPERF_SHORT_RANGING_RUN', '') == 'yes' and env['CM_MLPERF_RUN_STYLE'] == "valid" and mode == "performance":
+    if 'CM_MLPERF_POWER' in env and env.get('CM_MLPERF_SHORT_RANGING_RUN', '') != 'no' and env['CM_MLPERF_RUN_STYLE'] == "valid" and mode == "performance":
         short_ranging = True
     else:
         short_ranging = False
