@@ -1,0 +1,20 @@
+{
+  "alias": "reproduce-and-automate-neurips-2022-paper-arxiv-2204.09656",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230803",
+  "date_open": "20230704",
+  "experiments": [],
+  "points":3,
+  "trophies":true,
+  "prize":"300$",
+  "tags": [
+    "reproduce",
+    "replicate",
+    "automate",
+    "neurips-2022",
+    "arxiv-2204.09656"
+  ],
+  "title": "Reproduce, replicate and automate NeurIPS 2022 paper for fast BERT pruning",
+  "uid": "76885addc4c64f82"
+}

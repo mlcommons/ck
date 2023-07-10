@@ -27,6 +27,17 @@ def page(st, params):
             if name!='':
                 st.markdown("#### "+name)
 
+                x=''
+                for t in meta.get('trophies',[]):
+                    url = t.get('url','')
+                    if url != '':
+                        x+='<a href="{}">&#127942</a>&nbsp;'.format(url)
+
+                if x!='':
+                    st.write('<h2>'+x+'</h2>', unsafe_allow_html = True)
+
+
+                
                 end_html='''
                  <center>
                   <small><a href="{}"><i>Self link</i></a></small>
@@ -55,20 +66,8 @@ def page(st, params):
                     st.markdown(md)
 
                 x = str(calculate_points(meta))
-                st.markdown("* **Points:**")
-                st.write('<h2>'+x+'</h2>', unsafe_allow_html = True)
-                
-                x=''
-                for t in meta.get('trophies',[]):
-                    url = t.get('url','')
-                    if url != '':
-                        x+='<a href="{}">&#127942</a>&nbsp;'.format(url)
-
-
-                if x!='':
-                    st.markdown("* **Trophies:**")
-                    st.write('<h2>'+x+'</h2>', unsafe_allow_html = True)
-
+                st.markdown("* **Points: {}**".format(x))
+#                st.write('<h2>'+x+'</h2>', unsafe_allow_html = True)
 
                 ongoing = meta.get('ongoing',[])
                 if len(ongoing)>0:
@@ -111,10 +110,10 @@ def page_list(st, params):
 
     # Prepare the latest contributors
     all_data = []
-    keys = [('name', 'Name', 350, 'leftAligned'),
+    keys = [('name', 'Name', 400, 'leftAligned'),
             ('trophies', 'Trophies', 100, 'RightAligned'),
             ('points', 'Points', 80,'rightAligned'),
-            ('ongoing', 'Ongoing challenges', 180, 'rightAligned')]
+            ('ongoing', 'Ongoing challenges', 250, 'rightAligned')]
 
 
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
@@ -122,34 +121,41 @@ def page_list(st, params):
     md_people = ''
     md_org = ''
 #    for l in sorted(lst, key=lambda x: (-int(x.meta.get('last_participation_date','0')),
-    for l in sorted(lst, key=lambda x: x.meta.get('name', x.meta.get('organization','')).lower()):
+#    for l in sorted(lst, key=lambda x: x.meta.get('name', x.meta.get('organization','')).lower()):
+    for l in lst:
 
         row = {}
 
         m = l.meta
 
+        # Skip from stats 
+        if m.get('skip', False):
+            continue
+
         lpd = m.get('last_participation_date', '')
         trophies = m.get('trophies', [])
         ongoing = m.get('ongoing', [])
 
-        if lpd=='-' or (lpd!='' and int(lpd)<2023) :
-            continue
+#        if lpd=='-' or (lpd!='' and int(lpd)<2023) :
+#            continue
+#
+#        if len(ongoing)==0 and len(trophies)==0:
+#            continue
 
-        if len(ongoing)==0 and len(trophies)==0:
-            continue
-
-        if lpd!='':
+#        if lpd!='':
+        if True:
             uid = m['uid']
             alias = m['alias']
             name = m.get('name', '')
             org = m.get('organization', '')
 
-            row['name'] = name if name!='' else org
+            row['name_to_print'] = name if name!='' else org
 
 
             # Registration in the CK challenges gives 1 point
             row['points'] = calculate_points(m)
 
+            row['ongoing_number'] = len(ongoing)
             x = ''
             for t in ongoing:
                 if t != '':
@@ -158,6 +164,7 @@ def page_list(st, params):
 
             row['ongoing'] = x
 
+            row['trophies_number'] = len(trophies)
             x = ''
             for t in trophies:
                 url = t.get('url','')
@@ -180,20 +187,19 @@ def page_list(st, params):
                 md_org += '* '+ misc.make_url(org, alias=alias) +'\n'
                 name = org
 
-
             row['name'] = '<a href="{}" target="_blank">{}</a><i>{}</i>'.format(url_prefix + url, name, name2)
 
             all_data.append(row)
 
 
     # Visualize table
-    st.markdown("### Current Leaderboard")
-
     pd_keys = [v[0] for v in keys]
     pd_key_names = [v[1] for v in keys]
     pd_all_data = []
-    for row in sorted(all_data, key=lambda row: (-len(row.get('ongoing',[])),
-                                                 -row.get('points',0))):
+    for row in sorted(all_data, key=lambda row: (-row.get('ongoing_number',0),
+                                                 -row.get('trophies_number',0),
+                                                 -row.get('points',0),
+                                                 name_to_sort(row))):
         pd_row=[]
         for k in pd_keys:
             pd_row.append(row.get(k))
@@ -225,6 +231,14 @@ def page_list(st, params):
             """)
         )
 
+    x = '''
+        *We thank [MLCommons organizations](https://mlcommons.org), [cTuning.org](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org)
+         for sponsoring our reproducibility, replicability and optimization challenges!
+         Please contact [Grigori Fursin](https://cKnowledge.org/gfursin) 
+         if you would like to add or sponsor new challenges.*
+        '''
+    st.markdown(x)
+    
     AgGrid(df,
            gridOptions=gb.build(),
            updateMode=GridUpdateMode.VALUE_CHANGED,
@@ -249,15 +263,25 @@ def page_list(st, params):
 
     # Prepare list of all contributors
 
-    md = ''
-    for l in sorted(lst, key=lambda x: x.meta.get('name',x.meta.get('organization','')).lower()):
-        md += prepare_name(l.meta)
-
-    if md!='':
-       st.markdown("### All contributors (individuals and orgs)")
-       st.markdown(md)
+#    md = ''
+#    for l in sorted(lst, key=lambda x: x.meta.get('name',x.meta.get('organization','')).lower()):
+#        md += prepare_name(l.meta)
+#
+#    if md!='':
+#       st.markdown("### All contributors (individuals and orgs)")
+#       st.markdown(md)
 
     return {'return':0}
+
+
+def name_to_sort(meta):
+    name = meta.get('name_to_print', '')
+
+    xname = name.split(' ')
+
+    sname = xname[-1].lower()
+
+    return sname
 
 
 def calculate_points(meta):

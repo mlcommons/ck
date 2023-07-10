@@ -4,6 +4,9 @@
   "automation_uid": "3d84abd768f34e08",
   "date_close": "20230804",
   "date_open": "20230704",
+  "date_open": "20230704",
+  "points":2,
+  "trophies":true,
   "tags": [
     "modularize",
     "optimize",
