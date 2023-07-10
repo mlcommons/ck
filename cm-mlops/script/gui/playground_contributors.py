@@ -172,7 +172,7 @@ def page_list(st, params):
         for k in pd_keys:
             pd_row.append(row.get(k))
         pd_all_data.append(pd_row)
-            
+
     df = pd.DataFrame(pd_all_data, columns = pd_key_names)
     
     from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
@@ -202,6 +202,7 @@ def page_list(st, params):
     AgGrid(df,
            gridOptions=gb.build(),
            updateMode=GridUpdateMode.VALUE_CHANGED,
+           enable_enterprise_modules=False,
            allow_unsafe_jscode=True)
 
 #    st.write(grid) #, unsafe_allow_html = True)
@@ -210,7 +211,6 @@ def page_list(st, params):
 #    st.write(df.to_html(escape = False), unsafe_allow_html = True)
 
 
-    
 #    if md_people!='':
 #        st.markdown("### The latest contributors (individuals)")
 #        st.markdown('Huge thanks to all our contributors for supporing this community project:')
