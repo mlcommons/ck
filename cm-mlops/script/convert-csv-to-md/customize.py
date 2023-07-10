@@ -15,10 +15,11 @@ def preprocess(i):
 
     csv_file = env.get('CM_CSV_FILE', '')
     md_file = env.get('CM_MD_FILE', '')
+    process_file = os.path.join(i['run_script_input'], "process.py")
 
-    env['CM_RUN_CMD'] = '{}  process.py  {} {} '.format(env["CM_PYTHON_BIN_WITH_PATH"], csv_file, md_file) 
+    env['CM_RUN_CMD'] = '{} {} {} {} '.format(env["CM_PYTHON_BIN_WITH_PATH"], process_file, csv_file, md_file) 
 
-    return {'return':0}
+    return {'return':1}
 
 def postprocess(i):
 
