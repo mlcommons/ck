@@ -111,7 +111,6 @@ def page_list(st, params):
     # Prepare the latest contributors
     all_data = []
     keys = [('name', 'Name', 400, 'leftAligned'),
-            ('trophies', 'Trophies', 100, 'RightAligned'),
             ('points', 'Points', 80,'rightAligned'),
             ('ongoing', 'Ongoing challenges', 250, 'rightAligned')]
 
@@ -164,15 +163,6 @@ def page_list(st, params):
 
             row['ongoing'] = x
 
-            row['trophies_number'] = len(trophies)
-            x = ''
-            for t in trophies:
-                url = t.get('url','')
-                if url != '':
-                    x+='<a href="{}" target="_blank">&#127942;</a>&nbsp;\n'.format(url)
-
-            row['trophies'] = x
-
             name2 = ''
 
             if name!='':
@@ -188,6 +178,17 @@ def page_list(st, params):
                 name = org
 
             row['name'] = '<a href="{}" target="_blank">{}</a><i>{}</i>'.format(url_prefix + url, name, name2)
+
+            row['trophies_number'] = len(trophies)
+            x = ''
+            for t in trophies:
+                url = t.get('url','')
+                if url != '':
+                    x+='<a href="{}" target="_blank">&#127942;</a>&nbsp;\n'.format(url)
+
+            if x!='':
+                row['name'] += ' '+x
+
 
             all_data.append(row)
 
@@ -232,12 +233,20 @@ def page_list(st, params):
         )
 
     x = '''
-        *We thank [MLCommons organizations](https://mlcommons.org), [cTuning.org](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org)
-         for sponsoring our reproducibility, replicability and optimization challenges!
-         Please contact [Grigori Fursin](https://cKnowledge.org/gfursin) 
-         if you would like to add or sponsor new challenges.*
+        <center>
+         <i>
+          We thank 
+          <a href="https://mlcommons.org">MLCommons organizations</a>, 
+          <a href="https://cTuning.org">cTuning.org</a> and 
+          <a href="https://cKnowledge.org">cKnowledge.org</a>
+          for sponsoring our reproducibility, replicability and optimization challenges!
+          <br>
+          Please contact <a href="https://cKnowledge.org/gfursin">Grigori Fursin</a>
+          if you would like to add or sponsor new challenges!
+         </i>
+        </center>
         '''
-    st.markdown(x)
+    st.write(x, unsafe_allow_html = True)
     
     AgGrid(df,
            gridOptions=gb.build(),

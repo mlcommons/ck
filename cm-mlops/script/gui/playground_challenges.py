@@ -131,21 +131,53 @@ def page(st, params):
             if len(ongoing)>0:
                 ind = 1
                 
-                md = ''
+                st.markdown('#### Ongoing challenges')
+
+                x = '''
+                    <center>
+                     <i>
+                      We thank 
+                      <a href="https://mlcommons.org">MLCommons organizations</a>, 
+                      <a href="https://cTuning.org">cTuning.org</a> and 
+                      <a href="https://cKnowledge.org">cKnowledge.org</a>
+                      for sponsoring our reproducibility, replicability and optimization challenges!
+                      <br>
+                      Please contact <a href="https://cKnowledge.org/gfursin">Grigori Fursin</a>
+                      if you would like to add or sponsor new challenges!
+                      <br>
+                      Join our <a href="https://discord.gg/JjWNWXKxwT">Discord server</a> 
+                      to ask questions and learn more!</a></center><br>
+                     </i>
+                    </center>
+                    '''
+                st.write(x, unsafe_allow_html = True)
+
+                
                 for row in sorted(ongoing, key=lambda row: (int(row.get('orig_date_close', 0)),
                                                             row.get('name', ''),
                                                             row.get('under_preparation', False))):
+                    md = ''
                     up = row.get('under_preparation', False)
 
                     x = row['name']
                     y = ''
                     if up:
                         x = x[0].lower() + x[1:]
-                        y = '*Under preparation:* '
+                        y = '<i>Under preparation:</i> '
 
                     url = url_prefix + '?action=challenges&name={}'.format(row['uid'])
-                    md += '###### {}) {}[{}]({})\n'.format(str(ind), y, x, url)
+#                    md += '###### {}) {}[{}]({})\n'.format(str(ind), y, x, url)
 
+                    x = '''
+                         <div style="background-color:#dfdfdf">
+                          <b>
+                          {}) {}<a href="{}">{}</a>
+                          </b>
+                        </div>
+                        '''.format(str(ind), y, url, x)
+                    st.write(x, unsafe_allow_html = True)
+
+                    
                     ind+=1
 
                     # Assemble info
@@ -172,20 +204,7 @@ def page(st, params):
                     if x!='':    
                         md += '&nbsp;&nbsp;&nbsp;&nbsp; '+x
 
-                st.markdown("### Ongoing challenges")
-                st.write('<center>Join our <a href="https://discord.gg/JjWNWXKxwT">Discord server</a> to ask questions and learn more!</a></center><br>',
-                         unsafe_allow_html=True)
-                st.markdown(md)
-            
-
-                x = '''
-                    ---
-                    *We thank [MLCommons organizations](https://mlcommons.org), [cTuning.org](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org)
-                     for sponsoring our reproducibility, replicability and optimization challenges!
-                     Please contact [Grigori Fursin](https://cKnowledge.org/gfursin) 
-                     if you would like to add or sponsor new challenges.*
-                    '''
-                st.markdown(x)
+                    st.markdown(md)
 
 
         # Process 1 challenge
