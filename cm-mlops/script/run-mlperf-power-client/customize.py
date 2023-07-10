@@ -24,6 +24,7 @@ def preprocess(i):
     cmd = env['CM_PYTHON_BIN_WITH_PATH'] + ' ' +\
             os.path.join(env['CM_MLPERF_POWER_SOURCE'], 'ptd_client_server', 'client.py') + \
             " -a " + env['CM_MLPERF_POWER_SERVER_ADDRESS'] + \
+            " -p " + env.get('CM_MLPERF_POWER_SERVER_PORT', "4950") + \
             " -w '" + run_cmd + \
             "' -L " + env['CM_MLPERF_LOADGEN_LOGS_DIR'] + \
             " -o " + env['CM_MLPERF_POWER_LOG_DIR'] + \
