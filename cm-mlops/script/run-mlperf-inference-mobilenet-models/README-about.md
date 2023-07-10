@@ -39,7 +39,6 @@ cmr "run mobilenet-models _tflite _accuracy-only" \
 --results_dir=$HOME/mobilenet_results
 ```
 
-
 #### Do a full performance run for all the models (can take almost a day)
 ```
 cmr "run mobilenet-models _tflite _performance-only" \
@@ -66,8 +65,9 @@ cmr run "generate inference submission" \
 --adr.compiler.tags=gcc --adr.inference-src.version=master \
 --run-checker \
 --submitter=cTuning \
---hw_notes_extra="Result taken by NAME" 
+--hw_notes_extra="Result taken by NAME"
 ```
+* Use `--hw_name="My system name"` to give a meaningful system name. Examples can be seen [here](https://github.com/mlcommons/inference_results_v3.0/tree/main/open/cTuning/systems)
 
 #### Push the results to GitHub repo
 
