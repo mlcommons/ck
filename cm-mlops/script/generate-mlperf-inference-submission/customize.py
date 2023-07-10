@@ -4,7 +4,7 @@ import json
 import shutil
 
 def preprocess(i):
-    return generate_submission(i)
+    return {'return': 0}
 
 
 ##############################################################################
@@ -186,6 +186,9 @@ def generate_submission(i):
                     if os.path.exists(submission_results_path):
                         shutil.rmtree(submission_results_path)
 
+                    if not os.path.isdir(submission_measurement_path):
+                        os.makedirs(submission_measurement_path)
+
                     if mode=='performance':
                         power_run = False
 
@@ -199,6 +202,12 @@ def generate_submission(i):
                                 power_files.append(f) #Todo add required check from submission_checker
                             for f in power_files:
                                 shutil.copy(os.path.join(result_power_path, f), os.path.join(submission_power_path, f))
+
+                            analyzer_settings_file = env.get('CM_MLPERF_POWER_ANALYZER_SETTINGS_FILE_PATH', os.path.join(env['CM_TMP_CURRENT_SCRIPT_PATH'], "default_files", "analyzer_table.md"))
+                            power_settings_file = env.get('CM_MLPERF_POWER_SETTINGS_FILE_PATH', os.path.join(env['CM_TMP_CURRENT_SCRIPT_PATH'], "default_files", "power_settings.md"))
+
+                            shutil.copy(analyzer_settings_file, os.path.join(submission_measurement_path, "analyzer_table.md"))
+                            shutil.copy(power_settings_file, os.path.join(submission_measurement_path, "power_settings.md"))
 
                             result_ranging_path=os.path.join(result_mode_path, 'ranging')
                             submission_ranging_path=os.path.join(submission_mode_path, 'ranging')
@@ -214,8 +223,6 @@ def generate_submission(i):
 
                     if not os.path.isdir(submission_results_path):
                         os.makedirs(submission_results_path)
-                    if not os.path.isdir(submission_measurement_path):
-                        os.makedirs(submission_measurement_path)
 
                     #if division == "closed" and not os.path.isdir(submission_compliance_path):
                     #    os.makedirs(submission_compliance_path)
@@ -277,6 +284,10 @@ def generate_submission(i):
     return {'return':0}
 
 def postprocess(i):
+
+    r = generate_submission(i)
+    if r['return'] > 0:
+        return r
 
     env = i['env']
     if env.get('CM_TAR_SUBMISSION_DIR'):

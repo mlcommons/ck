@@ -10,6 +10,9 @@ import misc
 
 def main():
 
+    st.set_page_config(layout="wide",
+                       menu_items={})
+
     params = st.experimental_get_query_params()
 
     # Set style
@@ -45,7 +48,7 @@ def main():
     )
 
     # Check action and basic menu
-    action = params.get('action',['challenges'])[0].lower()
+    action = params.get('action',['contributors'])[0].lower()
 
     style_action_challenges='font-style:italic;font-weight:bold;color:#ffffff' if action=='challenges' else ''
     style_action_experiments='font-style:italic;font-weight:bold;color:#ffffff' if action=='experiments' else ''
@@ -54,20 +57,22 @@ def main():
 
     st.write('''
         <center>
+        <a target="_self" href="?action=contributors"><button style="{}">Leaderboard</button></a>
         <a target="_self" href="?action=challenges"><button style="{}">Challenges</button></a>
         <a target="_self" href="?action=experiments"><button style="{}">Experiments and results</button></a>
-        <a target="_self" href="?action=contributors"><button style="{}">Contributors</button></a>
         <a target="_self" href="https://github.com/mlcommons/ck"><button>GitHub</button></a>
         <a target="_self" href="https://discord.gg/JjWNWXKxwT"><button>Discord</button></a>
         </center>
-        '''.format(style_action_challenges, 
+        '''.format(style_action_contributors,
+                   style_action_challenges, 
                    style_action_experiments, 
-                   style_action_contributors),
+                   ),
         unsafe_allow_html=True
     )
 
     # Check actions
-    st.markdown("""---""")
+#    st.markdown("""---""")
+    st.markdown('')
 
     r={'return':0}
 

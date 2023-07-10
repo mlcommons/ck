@@ -5,8 +5,13 @@
   "last_participation_date": "20230220",
   "name": "Arjun Suresh",
   "organization":"OctoML, MLCommons, cTuning foundation",
+  "points": [
+  ],
   "challenges": [
     "mlperf-inference-v3.0-2023"
+  ],
+  "ongoing": [
+    "mlperf-inference-v3.1-2023"
   ],
   "tags": [],
   "uid": "43a5f30d0e4b490c"

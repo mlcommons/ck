@@ -2,9 +2,12 @@
   "alias": "optimize-mlperf-inference-v3.1-2023",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date_close": "20230804",
+  "date_close": "20230803",
   "date_open": "20230704",
   "experiments": [],
+  "points":1,
+  "trophies":true,
+  "prize":"",
   "tags": [
     "modularize",
     "optimize",

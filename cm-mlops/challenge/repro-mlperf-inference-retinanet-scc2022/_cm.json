@@ -12,9 +12,8 @@
     "benchmark",
     "mlperf",
     "mlperf-inference",
-    "mlperf-inference-v3.1",
-    "mlperf-inference-v3.1-2023",
-    "v3.1"
+    "mlperf-inference-scc",
+    "mlperf-inference-scc-2022"
   ],
   "title": "Reproduce/replicate MLPerf RetinaNet benchmark at SCC (SuperComputing'22)",
   "uid": "e71fa8b396874e68"

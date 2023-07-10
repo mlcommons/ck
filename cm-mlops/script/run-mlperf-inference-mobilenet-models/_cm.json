@@ -153,8 +153,8 @@
     },
     "mounts": [
        "${{ IMAGENET_PATH }}:${{ IMAGENET_PATH }}",
-       "${{ RESULTS_DIR }}:${{ RESULTS_DIR }}",
-       "${{ SUBMISSION_DIR }}:${{ SUBMISSION_DIR }}"
+       "${{ RESULTS_DIR }}:/home/cmuser/mobilenet_results",
+       "${{ SUBMISSION_DIR }}:/home/cmuser/inference_submission_3.1"
     ],
     "docker_run_final_cmds":  [
       "cm run script --tags=run,mlperf,inference,mobilenet-models,_find-performance --adr.mlperf-inference-implementation.fake_run=True --adr.compiler.tags=gcc"

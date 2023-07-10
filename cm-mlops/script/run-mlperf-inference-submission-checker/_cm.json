@@ -24,7 +24,9 @@
       "tags": "get,generic-python-lib,_xlsxwriter"
     },
     {
-      "tags": "get,generic-python-lib,_pandas"
+      "names": [ "pandas" ],
+      "tags": "get,generic-python-lib,_pandas",
+      "version_min": "1.0.0"
     }
   ],
   "post_deps": [
@@ -54,6 +56,7 @@
     "push_to_github": "CM_MLPERF_RESULT_PUSH_TO_GITHUB",
     "extra_model_benchmark_map": "CM_MLPERF_EXTRA_MODEL_MAPPING",
     "power": "CM_MLPERF_POWER",
+    "extra_args": "CM_MLPERF_SUBMISSION_CHECKER_EXTRA_ARGS",
     "skip_power_check": "CM_MLPERF_SKIP_POWER_CHECK"
   },
   "default_env": {

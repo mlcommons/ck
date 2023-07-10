@@ -7,6 +7,8 @@ import misc
 
 def page(st, params):
 
+    url_prefix = st.config.get_option('server.baseUrlPath')+'/'
+
     name = params.get('name',[''])[0].strip()
     tags = params.get('tags',[''])[0].lower()
 
@@ -26,7 +28,7 @@ def page(st, params):
     end_html = ''
 
     if len(lst)==0:
-        st.markdown('Challenge was not found')
+        st.markdown('Challenges were not found!')
     else:
         artifact = None
 
@@ -39,16 +41,29 @@ def page(st, params):
             date_now = datetime.datetime.now().isoformat()
             date_now2 = int(date_now[0:4]+date_now[5:7]+date_now[8:10])
 
+            ongoing = []
+            
             for l in sorted(lst, key=lambda x: (
                                                 -int(x.meta.get('date_open','0')),
                                                 -int(x.meta.get('date_close','0')),
                                                 x.meta.get('title','')
                                                )):
 
+                row = {}
+                
                 meta = l.meta
+                row['uid']= meta['uid']
+                
                 name = meta.get('title', meta['alias'])
 
+                row['name']=name
+
+                for k in ['points', 'trophies', 'prize']:
+                    if k in meta:
+                        row[k]=meta[k]
+                
                 under_preparation = meta.get('under_preparation', False)
+                row['under_preparation']=under_preparation
 
                 date_open = meta.get('date_open','')
                 date_close = meta.get('date_close','')
@@ -58,10 +73,16 @@ def page(st, params):
                     r = misc.convert_date(date_open)
                     s_date_open = r['string'] if r['return']==0 else ''
 
+                    row['orig_date_open']=date_open
+                    row['date_open']=s_date_open
+
                 s_date_close = ''
                 if date_close!='':
                     r = misc.convert_date(date_close)
                     s_date_close = r['string'] if r['return']==0 else ''
+
+                    row['orig_date_close']=date_close
+                    row['date_close']=s_date_close
 
                 diff1 = 0
                 diff2 = 0
@@ -89,16 +110,102 @@ def page(st, params):
                             prefix = 'Open: '.format(s_date_close)
 
 
+                # Check if open challenge even if under preparation
+                if date_open and diff1<0 and diff2>0:
+                    ongoing.append(row)
+
+
                 challenges.append(prefix + name)
                 artifacts.append(l)
 
-            challenge = st.selectbox('Select your benchmarking, optimization and reproducibility challenge', 
+            # Show selector for all
+            challenge = st.selectbox('View past benchmarking, optimization, reproducibility and replicability challenges:', 
                                      range(len(challenges)), 
                                      format_func=lambda x: challenges[x],
                                      index=0, key='challenge')
 
             if challenge>0:
                 artifact = artifacts[challenge]
+
+            # Show ongoing if open
+            if len(ongoing)>0:
+                ind = 1
+                
+                st.markdown('#### Ongoing challenges')
+
+                x = '''
+                    <center>
+                     <i>
+                      We thank 
+                      <a href="https://mlcommons.org">MLCommons organizations</a>, 
+                      <a href="https://cTuning.org">cTuning.org</a> and 
+                      <a href="https://cKnowledge.org">cKnowledge.org</a>
+                      for sponsoring our reproducibility, replicability and optimization challenges!
+                      <br>
+                      Please contact <a href="https://cKnowledge.org/gfursin">Grigori Fursin</a>
+                      if you would like to add or sponsor new challenges!
+                      <br>
+                      Join our <a href="https://discord.gg/JjWNWXKxwT">Discord server</a> 
+                      to ask questions and learn more!</a></center><br>
+                     </i>
+                    </center>
+                    '''
+                st.write(x, unsafe_allow_html = True)
+
+                
+                for row in sorted(ongoing, key=lambda row: (int(row.get('orig_date_close', 0)),
+                                                            row.get('name', ''),
+                                                            row.get('under_preparation', False))):
+                    md = ''
+                    up = row.get('under_preparation', False)
+
+                    x = row['name']
+                    y = ''
+                    if up:
+                        x = x[0].lower() + x[1:]
+                        y = '<i>Under preparation:</i> '
+
+                    url = url_prefix + '?action=challenges&name={}'.format(row['uid'])
+#                    md += '###### {}) {}[{}]({})\n'.format(str(ind), y, x, url)
+
+                    x = '''
+                         <div style="background-color:#dfdfdf">
+                          <b>
+                          {}) {}<a href="{}">{}</a>
+                          </b>
+                        </div>
+                        '''.format(str(ind), y, url, x)
+                    st.write(x, unsafe_allow_html = True)
+
+                    
+                    ind+=1
+
+                    # Assemble info
+                    x=''
+                    
+                    date_close = row['date_close']
+                    if date_close!='' and date_close!=None:
+                        x += '&nbsp;&nbsp;&nbsp;Closing date: **{}**\n'.format(date_close)
+
+
+                    trophies = row.get('trophies',False)
+                    if trophies:
+                        x += ' &nbsp;&nbsp;Trophy: **Yes**\n'
+
+                    points = row.get('points',0)
+                    if points>0:
+                        x += ' &nbsp;&nbsp;Points: **{}**\n'.format(str(points))
+
+                    prize = row.get('prize','')
+                    if prize!='':
+                        x += ' &nbsp;&nbsp;Prize from [MLCommons organizations]({}): **{}**\n'.format('https://mlcommons.org', prize)
+
+                    
+                    if x!='':    
+                        md += '&nbsp;&nbsp;&nbsp;&nbsp; '+x
+
+                    st.markdown(md)
+
 
         # Process 1 challenge
         if artifact is not None:

@@ -757,10 +757,6 @@ variations:
     group:
       reproducibility
     add_deps_recursive:
-      compiler:
-        tags: gcc
-      cuda:
-        version_max: "11.8"
       nvidia-inference-common-code:
         version: r3.0
         tags: _nvidia-only
