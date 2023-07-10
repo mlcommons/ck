@@ -74,7 +74,7 @@ def page(st, params):
 def page_list(st, params):
     import pandas as pd
     import numpy as np
-    
+
     # Read all contributors
     r = cmind.access({'action':'find',
                       'automation':'contributor,68eae17b590d4f8f'})
@@ -90,15 +90,17 @@ def page_list(st, params):
             ('ongoing', 'Ongoing challenges', 200, 'rightAligned')]
 
 
+    url_prefix = st.config.get_option('server.baseUrlPath')+'/'
+
     md_people = ''
     md_org = ''
 #    for l in sorted(lst, key=lambda x: (-int(x.meta.get('last_participation_date','0')),
     for l in sorted(lst, key=lambda x: x.meta.get('name', x.meta.get('organization','')).lower()):
-        
+
         row = {}
-        
+
         m = l.meta
-        
+
         lpd = m.get('last_participation_date', '')
         trophies = m.get('trophies', [])
         ongoing = m.get('ongoing', [])
@@ -122,17 +124,17 @@ def page_list(st, params):
             # Automatic challenges
             points += len(m.get('challenges',[]))
             points += len(m.get('ongoing',[]))
-            
+
             row['points'] = points
 
             x = ''
             for t in ongoing:
                 if t != '':
-                    url = '/?action=challenges&tags={}'.format(t)
+                    url = url_prefix + '?action=challenges&tags={}'.format(t)
                     x+='<a href="{}" target="_blank">{}</a><br>\n'.format(url,t.replace('-', '&nbsp;'))
-        
+
             row['ongoing'] = x
-            
+
             x = ''
             for t in trophies:
                 url = t.get('url','')
@@ -155,14 +157,15 @@ def page_list(st, params):
                 md_org += '* '+ misc.make_url(org, alias=alias) +'\n'
                 name = org
 
-            row['name'] = '<a href="{}" target="_blank">{}</a><i>{}</i>'.format('/'+url, name, name2)
+
+            row['name'] = '<a href="{}" target="_blank">{}</a><i>{}</i>'.format(url_prefix + url, name, name2)
 
             all_data.append(row)
 
 
     # Visualize table
     st.markdown("### Current Leaderboard")
-    
+
     pd_keys = [v[0] for v in keys]
     pd_key_names = [v[1] for v in keys]
     pd_all_data = []
