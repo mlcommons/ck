@@ -10,7 +10,8 @@
     },
     {
       "names": [ "pandas" ],
-      "tags": "get,generic-python-lib,_pandas"
+      "tags": "get,generic-python-lib,_pandas",
+      "version_min": "1.0"
     },
     {
       "names": [ "tabulate" ],
