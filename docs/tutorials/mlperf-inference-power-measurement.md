@@ -7,7 +7,7 @@
 ## Requirements
 
 1. Power analyzer (any one [certified by SPEC PTDaemon](https://www.spec.org/power/docs/SPECpower-Device_List.html)). 
-   Yokogawa is the one which most submitters have submitted with and a new single channel model like 310E can cost around 3000$.
+   Yokogawa is the one which most submitters have submitted with and a new single-channel model like 310E can cost around 3000$.
    The [MLCommons taskforce on automation and reproducibility ](../taksforce.md) 
    is also using the [Yokogawa 310E](https://tmi.yokogawa.com/solutions/products/power-analyzers/digital-power-meter-wt300e/) 
    to automate and simplify MLPerf submissions.
@@ -37,9 +37,9 @@ Once the measurement ends, the power log files are transferred to the client.
 
 Power analyzers usually have different current and voltage ranges it supports and the exact ranges to be used 
 depends on a given SUT and this needs some empirical data. We can do a ranging run where the current and voltage ranges 
-are set to `Auto` and power analyzer automatically figures out the correct ranges needed. 
+are set to `Auto` and the power analyzer automatically figures out the correct ranges needed. 
 These determined ranges are then used for a proper testing mode run. 
-Using the 'auto' mode in a testing run is not allowed as it can mess up with the measurements.
+Using the 'auto' mode in a testing run is not allowed as it can mess up the measurements.
 
 ## Setup using MLCommons CM
 
@@ -68,7 +68,7 @@ More configuration options can be found [here](https://github.com/mlcommons/powe
 ```bash
 cm run script --tags=run,docker,container --cm_repo=ctuning@mlcommons-ck --gh_token=<GitHub AUTH_TOKEN> \
 --docker_os=ubuntu --docker_os_version=22.04 --device=/dev/usbtmc0 --port_maps,=4950:4950 \
---run_cmd="cm run script --tags=run,mlperf,power,server --adr.power-src.tags=_octoml --adr.power-src.version=fix"
+--run_cmd="cm run script --tags=run,mlperf,power,server"
 ```
 
 ## Running a dummy workload with power (on host machine)
