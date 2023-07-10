@@ -6,6 +6,7 @@
   "name": "Arjun Suresh",
   "organization":"OctoML, MLCommons, cTuning foundation",
   "challenges": [
+    "mlperf-inference-v3.1-2023",
     "mlperf-inference-v3.0-2023"
   ],
   "tags": [],

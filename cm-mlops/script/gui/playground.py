@@ -56,7 +56,7 @@ def main():
         <center>
         <a target="_self" href="?action=challenges"><button style="{}">Challenges</button></a>
         <a target="_self" href="?action=experiments"><button style="{}">Experiments and results</button></a>
-        <a target="_self" href="?action=contributors"><button style="{}">Contributors</button></a>
+        <a target="_self" href="?action=contributors"><button style="{}">Leaderboard</button></a>
         <a target="_self" href="https://github.com/mlcommons/ck"><button>GitHub</button></a>
         <a target="_self" href="https://discord.gg/JjWNWXKxwT"><button>Discord</button></a>
         </center>
