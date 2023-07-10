@@ -47,7 +47,7 @@ def preprocess(i):
     else:
         power_check = ""
 
-    extra_args = env.get('CM_MLPERF_EXTRA_ARGS','')
+    extra_args = env.get('CM_MLPERF_SUBMISSION_CHECKER_EXTRA_ARGS','')
 
     x_submitter = ' --submitter "' + submitter + '" ' if submitter!='' else ''
 
