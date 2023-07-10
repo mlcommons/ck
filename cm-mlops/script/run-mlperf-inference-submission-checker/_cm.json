@@ -24,7 +24,9 @@
       "tags": "get,generic-python-lib,_xlsxwriter"
     },
     {
-      "tags": "get,generic-python-lib,_pandas"
+      "names": [ "pandas" ],
+      "tags": "get,generic-python-lib,_pandas",
+      "version_min": "1.0.0"
     }
   ],
   "post_deps": [
