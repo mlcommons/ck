@@ -5,6 +5,8 @@ import misc
 
 def page(st, params):
 
+    url_prefix = st.config.get_option('server.baseUrlPath')+'/'
+
     name = params.get('name',[''])[0].lower()
 
     list_all = False
@@ -52,6 +54,31 @@ def page(st, params):
 
                     st.markdown(md)
 
+                x = str(calculate_points(meta))
+                st.markdown("* **Points:**")
+                st.write('<h2>'+x+'</h2>', unsafe_allow_html = True)
+                
+                x=''
+                for t in meta.get('trophies',[]):
+                    url = t.get('url','')
+                    if url != '':
+                        x+='<a href="{}">&#127942</a>&nbsp;'.format(url)
+
+
+                if x!='':
+                    st.markdown("* **Trophies:**")
+                    st.write('<h2>'+x+'</h2>', unsafe_allow_html = True)
+
+
+                ongoing = meta.get('ongoing',[])
+                if len(ongoing)>0:
+                    x = "* **Ongoing challenges:**\n"
+
+                    for t in ongoing:
+                        if t != '':
+                            x+="   - [{}]({})\n".format(t.replace('-', '&nbsp;'),url)
+
+                    st.markdown(x)
 
                 challenges = meta.get('challenges',[])
                 if len(challenges)>0:
@@ -84,10 +111,10 @@ def page_list(st, params):
 
     # Prepare the latest contributors
     all_data = []
-    keys = [('name', 'Name', 250, 'leftAligned'),
-            ('trophies', 'Trophies', 100, 'rightAligned'),
-            ('points', 'Points', 100,'rightAligned'),
-            ('ongoing', 'Ongoing challenges', 200, 'rightAligned')]
+    keys = [('name', 'Name', 350, 'leftAligned'),
+            ('trophies', 'Trophies', 100, 'RightAligned'),
+            ('points', 'Points', 80,'rightAligned'),
+            ('ongoing', 'Ongoing challenges', 180, 'rightAligned')]
 
 
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
@@ -119,13 +146,9 @@ def page_list(st, params):
 
             row['name'] = name if name!='' else org
 
-            points = m.get('points',0)
 
-            # Automatic challenges
-            points += len(m.get('challenges',[]))
-            points += len(m.get('ongoing',[]))
-
-            row['points'] = points
+            # Registration in the CK challenges gives 1 point
+            row['points'] = calculate_points(m)
 
             x = ''
             for t in ongoing:
@@ -235,6 +258,21 @@ def page_list(st, params):
        st.markdown(md)
 
     return {'return':0}
+
+
+def calculate_points(meta):
+
+    points = 1
+
+    xpoints = meta.get('points',[])
+    for x in xpoints:
+        points += int(x.get('point',0))
+
+    # Automatic challenges
+    points += len(meta.get('challenges',[]))
+    points += len(meta.get('ongoing',[]))
+    
+    return points
 
 
 def prepare_name(meta):

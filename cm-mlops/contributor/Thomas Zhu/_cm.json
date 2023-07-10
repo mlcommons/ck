@@ -9,7 +9,9 @@
   "trophies":[
     {"url":"https://cTuning.org/awards/ck-award-202307-zhu.pdf"}
   ],
-  "points":2,
+  "points":[
+    {"point":2}
+  ],
   "name": "Thomas Zhu",
   "organization": "Oxford University, UK",
   "tags": [],
