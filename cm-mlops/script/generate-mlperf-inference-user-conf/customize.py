@@ -122,10 +122,10 @@ def preprocess(i):
                 conf[metric] = 1
             if metric == "target_latency":
                 if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
-                    print("In find performance mode: using 0.1ms as target_latency")
+                    print("In find performance mode: using 0.5ms as target_latency")
                 else:
-                    print("No target_latency specified. Using 0.1ms as target_latency")
-                conf[metric] = 0.1
+                    print("No target_latency specified. Using 0.5ms as target_latency")
+                conf[metric] = 0.5
             metric_value = conf[metric]
             #else:
             #    return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
