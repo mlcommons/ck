@@ -22,6 +22,7 @@
     }
   ],
   "new_env_keys": [
+    "CM_LIB_ARMNN_VERSION",
     "CM_LIB_DNNL_*",
     "+C_INCLUDE_PATH",
     "+CPLUS_INCLUDE_PATH",
