@@ -7,7 +7,7 @@ Please do the system setup as described [here](README.md)
 ### Do a test run to detect and record the system performance
 
 ```
-cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
+cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 --model=rnnt --implementation=reference --device=cpu --backend=pytorch \
 --category=edge --division=open --quiet
 ```
@@ -15,10 +15,10 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
 * Use `--category=datacenter` to run datacenter scenarios
 
-### Do a full accuracy and performance runs for all the scenarios
+### Do full accuracy and performance runs for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --model=rnnt \
+cmr "generate-run-cmds inference _submission _all-scenarios" --model=rnnt \
 --device=cpu --implementation=reference --backend=pytorch \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
 --category=edge --division=open --quiet
