@@ -16,10 +16,10 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 * Use `--category=datacenter` to run datacenter scenarios
 * Use `--backend=tf` or `--backend=tvm-onnx` to use tensorflow and tvm-onnx backends respectively
 
-### Do a full accuracy and performance runs for all the scenarios
+### Do full accuracy and performance runs for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --model=resnet50 \
+cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --model=resnet50 \
 --device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
 --category=edge --division=open --quiet
