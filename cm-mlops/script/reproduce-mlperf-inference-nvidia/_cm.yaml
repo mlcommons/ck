@@ -108,6 +108,11 @@ deps:
     names:
     - nvidia-scratch-space
 
+  # Get MLPerf logging library
+  - tags: get,generic-python-lib,_mlperf_logging
+    names:
+    - mlperf-logging
+
   ########################################################################
   # Install ResNet50 model (ONNX) and ImageNet
 
