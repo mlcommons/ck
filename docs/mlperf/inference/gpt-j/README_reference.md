@@ -14,13 +14,13 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 * Use `--device=cuda` to run the inference on Nvidia GPU
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
 * Use `--category=edge` to run edge scenarios (only for `--model=gptj-99`)
-* Use `--model=gptj-99` to run the low accuracy constraint gptj-99 model. But since we are running the fp32 model, this is redundant and instead we can reuse the results of gptj-99.9 for gptj-99
+* Use `--model=gptj-99` to run the low accuracy constraint gptj-99 model. But since we are running the fp32 model, this is redundant and instead, we can reuse the results of gptj-99.9 for gptj-99
 
 
-### Do a full accuracy and performance runs for all the scenarios
+### Do full accuracy and performance runs for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --model=gptj-99.9 \
+cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --model=gptj-99.9 \
 --device=cpu --implementation=reference --backend=pytorch \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
 --category=datacenter --division=open --quiet

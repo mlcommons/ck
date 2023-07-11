@@ -16,10 +16,10 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 * Use `--category=datacenter` to run datacenter scenarios
 * Use `--model=3d-unet-99.9` to run the high accuracy model
 
-### Do a full accuracy and performance runs for all the scenarios
+### Do full accuracy and performance runs for all the scenarios
 
 ```
-cmr "generate-run-cmds inference _all-modes _all-scenarios" --model=3d-unet-99 \
+cmr "generate-run-cmds inference _submission _all-scenarios" --model=3d-unet-99 \
 --device=cuda --implementation=nvidia-original --backend=tensorrt \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
 --category=edge --division=open --quiet

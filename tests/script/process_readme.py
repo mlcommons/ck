@@ -9,6 +9,8 @@ files=sys.argv[1:]
 for file in files:
   if not file.endswith("_cm.json"):
     continue
+  if not file.startswith(os.path.join("cm-mlops", "script")):
+    continue
   script_path = os.path.dirname(file)
   f = open(file)
   data = json.load(f)

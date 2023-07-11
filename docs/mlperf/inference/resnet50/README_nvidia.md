@@ -18,7 +18,7 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 ### Do a full accuracy and performance runs for all the scenarios
 
 ```
-cmr "generate-run-cmds inference _all-modes _all-scenarios" --model=resnet50 \
+cmr "generate-run-cmds inference _submission _all-scenarios" --model=resnet50 \
 --device=cuda --implementation=nvidia-original --backend=tensorrt \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
 --category=edge --division=open --quiet

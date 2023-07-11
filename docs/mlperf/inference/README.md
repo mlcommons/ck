@@ -61,6 +61,7 @@ environment variable as follows:
 
 ```bash
 export CM_REPOS={new path to CM repositories and data}
+echo "CM_REPOS=${CM_REPOS} >> $HOME/.bashrc"
 ```
 
 ## Prepare hardware
@@ -92,16 +93,23 @@ if you are interested to collaborate/help!
 
 ## Run benchmarks and prepare submissions
 
-* [BERT](bert)
-* [ResNet-50](resnet50)
-* [RetinaNet](retinanet)
-* [3D UNET](3d-unet)
-* [RNNT](rnnt)
-* GPT-J
+For MLPerf inference 3.1 we have the following benchmark tasks
+1. [Language processing](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/bert) using Bert-Large model and Squadv1.1 dataset
+2. [Image Classification](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/resnet50) using ResNet50 model and Imagenet-2012 dataset
+3. [Object Detection](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/retinanet) using Retinanet model and OpenImages dataset
+4. [Speech Recognition](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/rnnt) using RNNT model and LibriSpeech dataset
+5. [Medical Imaging](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/3d-unet)  using 3d-unet model and KiTS19 dataset
+6. Recommendation using DLRMv2 model and Criteo multihot dataset
+7. [Large Language Model](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/gpt-j) using GPT-J model and CNN Daily Mail dataset
+
+All seven tasks are applicable to the datacenter category while all except Recommendation are applicable to the edge category. 
+Further, language processing and medical imaging models have a high accuracy variant where the achieved accuracy 
+must be within `99.9%` (`99%` is the default accuracy requirement) of the fp32 reference model. 
+The recommendation task only has a high-accuracy variant. Currently, we are not supporting the Recommendation task as we are not having a high-end server which is a requirement.
 
 ### Measure power
 
-
+Power measurement is optional for MLPerf inference benchmark submissions but is nice to have especially if your system is having good power efficiency. For any benchmark run via CM, power measurement is turned on by `--power=yes --adr.mlperf-power-client.power_server=<Power server IP> --adr.mlperf-power-client.port=<Power server port>`. On the hardware side, you can follow [this tutorial](https://github.com/mlcommons/ck/blob/master/docs/tutorials/mlperf-inference-power-measurement.md) to get the setup done. 
 
 ## Optimize benchmarks
 

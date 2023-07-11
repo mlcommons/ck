@@ -15,10 +15,10 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
 * Use `--category=datacenter` to run datacenter scenarios
 
-### Do a full accuracy and performance runs for all the scenarios
+### Do full accuracy and performance runs for all the scenarios
 
 ```
-cmr "generate-run-cmds inference _all-modes _all-scenarios" --model=retinanet \
+cmr "generate-run-cmds inference _submission _all-scenarios" --model=retinanet \
 --device=cuda --implementation=nvidia-original --backend=tensorrt \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
 --category=edge --division=open --quiet
