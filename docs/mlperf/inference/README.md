@@ -61,6 +61,7 @@ environment variable as follows:
 
 ```bash
 export CM_REPOS={new path to CM repositories and data}
+echo "CM_REPOS=${CM_REPOS} >> $HOME/.bashrc"
 ```
 
 ## Prepare hardware
