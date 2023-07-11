@@ -378,7 +378,7 @@ variations:
       MLPERF_NVIDIA_RUN_COMMAND: download_model
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: download_model
     deps:
-      - tags: get,generic-python-lin,_torch_cuda
+      - tags: get,generic-python-lib,_torch_cuda
         enable_if_env:
           CM_MODEL:
             - retinanet
