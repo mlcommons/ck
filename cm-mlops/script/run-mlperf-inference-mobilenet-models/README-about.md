@@ -57,7 +57,7 @@ cmr "run mobilenet-models _tflite _populate-readme" \
 
 We should use the master branch of MLCommons inference repo for the submission checker. You can use `--hw_note_extra` option to add your name to the notes.
 ```
-cmr run "generate inference submission" \
+cmr "generate inference submission" \
 --results_dir=$HOME/mobilenet_results/valid_results \
 --submission_dir=$HOME/mobilenet_submission_tree \
 --clean \
@@ -65,7 +65,7 @@ cmr run "generate inference submission" \
 --adr.compiler.tags=gcc --adr.inference-src.version=master \
 --run-checker \
 --submitter=cTuning \
---hw_notes_extra="Result taken by NAME"
+--hw_notes_extra="Result taken by NAME" 
 ```
 * Use `--hw_name="My system name"` to give a meaningful system name. Examples can be seen [here](https://github.com/mlcommons/inference_results_v3.0/tree/main/open/cTuning/systems)
 
