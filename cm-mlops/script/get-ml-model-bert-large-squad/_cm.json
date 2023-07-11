@@ -39,7 +39,7 @@
   ],
   "post_deps": [
     {
-      "tags": "get,bert,squad,vocab"
+      "tags": "get,dataset-aux,squad-vocab"
     }
   ],
   "variations": {
