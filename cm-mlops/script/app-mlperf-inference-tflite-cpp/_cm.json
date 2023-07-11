@@ -273,7 +273,7 @@
     "armnn,tflite": {
       "env": {
         "CM_MLPERF_BACKEND": "armnn_tflite",
-        "CM_MLPERF_BACKEND_VERSION": "22.11",
+        "CM_MLPERF_BACKEND_VERSION": "<<<CM_LIB_ARMNN_VERSION>>>",
         "CM_TMP_SRC_FOLDER": "armnn",
         "CM_TMP_LINK_LIBS": "tensorflowlite,armnn,armnnTfLiteParser",
         "CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX": "tflite_armnn_cpp"

@@ -199,7 +199,7 @@ def preprocess(i):
             query_count = str(int(float(conf['target_qps']) * 660))
             #user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
             if short_ranging:
-                ranging_query_count = str(int(conf['target_qps']) * 300)
+                ranging_query_count = str(int(float(conf['target_qps']) * 300))
                 ranging_user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(ranging_query_count) + "\n"
                 ranging_user_conf += ml_model_name + "." + scenario + ".min_query_count = 0 \n"
 
