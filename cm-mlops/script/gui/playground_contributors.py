@@ -36,8 +36,6 @@ def page(st, params):
                 if x!='':
                     st.write('<h2>'+x+'</h2>', unsafe_allow_html = True)
 
-
-                
                 end_html='''
                  <center>
                   <small><a href="{}"><i>Self link</i></a></small>
@@ -237,17 +235,18 @@ def page_list(st, params):
          <i>
           We thank 
           <a href="https://mlcommons.org">MLCommons organizations</a>, 
-          <a href="https://cTuning.org">cTuning.org</a> and 
-          <a href="https://cKnowledge.org">cKnowledge.org</a>
+          <a href="https://www.linkedin.com/company/ctuning-foundation">cTuning.org</a> and 
+          <a href="https://www.linkedin.com/company/cknowledge">cKnowledge.org</a>
           for sponsoring our reproducibility, replicability and optimization challenges!
-          <br>
           Please contact <a href="https://cKnowledge.org/gfursin">Grigori Fursin</a>
-          if you would like to add or sponsor new challenges!
+          and <a href="https://www.linkedin.com/in/arjunsuresh">Arjun Suresh</a> 
+          if you would like to add/sponsor new challenges
+          or provide hardware and/or clouse access for our participants!
          </i>
         </center>
         '''
     st.write(x, unsafe_allow_html = True)
-    
+
     AgGrid(df,
            gridOptions=gb.build(),
            updateMode=GridUpdateMode.VALUE_CHANGED,

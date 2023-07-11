@@ -42,7 +42,7 @@ def page(st, params):
             date_now2 = int(date_now[0:4]+date_now[5:7]+date_now[8:10])
 
             ongoing = []
-            
+
             for l in sorted(lst, key=lambda x: (
                                                 -int(x.meta.get('date_open','0')),
                                                 -int(x.meta.get('date_close','0')),
@@ -50,10 +50,10 @@ def page(st, params):
                                                )):
 
                 row = {}
-                
+
                 meta = l.meta
                 row['uid']= meta['uid']
-                
+
                 name = meta.get('title', meta['alias'])
 
                 row['name']=name
@@ -61,7 +61,7 @@ def page(st, params):
                 for k in ['points', 'trophies', 'prize']:
                     if k in meta:
                         row[k]=meta[k]
-                
+
                 under_preparation = meta.get('under_preparation', False)
                 row['under_preparation']=under_preparation
 
@@ -130,7 +130,7 @@ def page(st, params):
             # Show ongoing if open
             if len(ongoing)>0:
                 ind = 1
-                
+
                 st.markdown('#### Ongoing challenges')
 
                 x = '''
@@ -138,13 +138,13 @@ def page(st, params):
                      <i>
                       We thank 
                       <a href="https://mlcommons.org">MLCommons organizations</a>, 
-                      <a href="https://cTuning.org">cTuning.org</a> and 
-                      <a href="https://cKnowledge.org">cKnowledge.org</a>
+                      <a href="https://www.linkedin.com/company/ctuning-foundation">cTuning.org</a> and 
+                      <a href="https://www.linkedin.com/company/cknowledge">cKnowledge.org</a>
                       for sponsoring our reproducibility, replicability and optimization challenges!
-                      <br>
                       Please contact <a href="https://cKnowledge.org/gfursin">Grigori Fursin</a>
-                      if you would like to add or sponsor new challenges!
-                      <br>
+                      and <a href="https://www.linkedin.com/in/arjunsuresh">Arjun Suresh</a> 
+                      if you would like to add/sponsor new challenges
+                      or provide hardware and/or clouse access for our participants!
                       Join our <a href="https://discord.gg/JjWNWXKxwT">Discord server</a> 
                       to ask questions and learn more!</a></center><br>
                      </i>
@@ -152,7 +152,6 @@ def page(st, params):
                     '''
                 st.write(x, unsafe_allow_html = True)
 
-                
                 for row in sorted(ongoing, key=lambda row: (int(row.get('orig_date_close', 0)),
                                                             row.get('name', ''),
                                                             row.get('under_preparation', False))):
@@ -177,12 +176,11 @@ def page(st, params):
                         '''.format(str(ind), y, url, x)
                     st.write(x, unsafe_allow_html = True)
 
-                    
                     ind+=1
 
                     # Assemble info
                     x=''
-                    
+
                     date_close = row['date_close']
                     if date_close!='' and date_close!=None:
                         x += '&nbsp;&nbsp;&nbsp;Closing date: **{}**\n'.format(date_close)
@@ -200,7 +198,6 @@ def page(st, params):
                     if prize!='':
                         x += ' &nbsp;&nbsp;Prize from [MLCommons organizations]({}): **{}**\n'.format('https://mlcommons.org', prize)
 
-                    
                     if x!='':    
                         md += '&nbsp;&nbsp;&nbsp;&nbsp; '+x
 
