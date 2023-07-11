@@ -94,11 +94,11 @@ if you are interested to collaborate/help!
 ## Run benchmarks and prepare submissions
 
 For MLPerf inference 3.1 we have the following benchmark tasks
-1. [Language processing](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-bert-submission.md) using Bert-Large model and Squadv1.1 dataset
-2. [Image Classification](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-resnet50-submission.md) using ResNet50 model and Imagenet-2012 dataset
-3. [Object Detection](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-retinanet-submission.md) using Retinanet model and OpenImages dataset
-4. [Speech Recognition](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-rnnt-submission.md) using RNNT model and LibriSpeech dataset
-5. [Medical Imaging](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-3d-unet-submission.md)  using 3d-unet model and KiTS19 dataset
+1. [Language processing]([https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-bert-submission.md](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/bert) using Bert-Large model and Squadv1.1 dataset
+2. [Image Classification]([https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-resnet50-submission.md](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/resnet50) using ResNet50 model and Imagenet-2012 dataset
+3. [Object Detection]([https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-retinanet-submission.md](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/retinanet) using Retinanet model and OpenImages dataset
+4. [Speech Recognition]([https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-rnnt-submission.md](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/rnnt) using RNNT model and LibriSpeech dataset
+5. [Medical Imaging]([https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-3d-unet-submission.md](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/3d-unet)  using 3d-unet model and KiTS19 dataset
 6. Recommendation using DLRMv2 model and Criteo multihot dataset
 7. [Large Language Model](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/gpt-j) using GPT-J model and CNN Daily Mail dataset
 
