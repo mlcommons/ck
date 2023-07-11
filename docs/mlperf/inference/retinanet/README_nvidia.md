@@ -20,7 +20,7 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 ```
 cmr "generate-run-cmds inference _submission _all-scenarios" --model=retinanet \
 --device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/inference_3.1_results \
+--execution-mode=valid --results_dir=$HOME/results_dir \
 --category=edge --division=open --quiet
 ```
 
@@ -32,7 +32,7 @@ cmr "generate-run-cmds inference _submission _all-scenarios" --model=retinanet \
 ```
 cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
 --model=retinanet --device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/inference_3.1_results \
+--execution-mode=valid --results_dir=$HOME/results_dir \
 --category=edge --division=open --quiet
 ```
 
@@ -42,8 +42,8 @@ Here, we are copying the performance and accuracy log files (compliance logs als
 
 We should use the master branch of MLCommons inference repo for the submission checker. You can use `--hw_note_extra` option to add your name to the notes.
 ```
-cmr "generate inference submission" --results_dir=$HOME/inference_3.1_results/valid_results \
---submission_dir=$HOME/inference_submission_tree --clean  \
+cmr "generate inference submission" --results_dir=$HOME/results_dir/valid_results \
+--submission_dir=$HOME/submission_dir --clean  \
 --run-checker --submitter=cTuning --adr.inference-src.version=master \
 --hw_notes_extra="Result taken by NAME" --quiet
 ```
