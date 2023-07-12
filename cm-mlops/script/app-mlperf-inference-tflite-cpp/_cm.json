@@ -245,6 +245,13 @@
         "CM_MODEL": "efficientnet"
       }
     },
+    "singlestream": {
+      "group": "loadgen-scenario",
+      "default": true,
+      "env": {
+        "CM_MLPERF_LOADGEN_SCENARIO": "SingleStream"
+      }
+    },
     "tf": {
       "group": "backend",
       "env": {
