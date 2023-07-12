@@ -454,7 +454,7 @@ variations:
       CM_MLPERF_LOADGEN_SCENARIO: MultiStream
   offline:
     group: loadgen-scenario
-    default_variations:
+    default_variations1:
       batch-size: batch_size.8
     env:
       CM_MLPERF_LOADGEN_SCENARIO: Offline

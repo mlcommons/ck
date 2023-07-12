@@ -50,7 +50,7 @@ def preprocess(i):
         int8_model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'bert', 'bert_large_v1_1_fake_quant.onnx')
         vocab_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'bert', 'vocab.txt')
 
-	if not os.path.exists(os.path.dirname(fp32_model_path)):
+        if not os.path.exists(os.path.dirname(fp32_model_path)):
           cmds.append(f"mkdir -p {os.path.dirname(fp32_model_path)}")
 
         if not os.path.exists(fp32_model_path):
