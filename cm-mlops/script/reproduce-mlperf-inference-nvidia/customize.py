@@ -93,7 +93,7 @@ def preprocess(i):
             cmds.append(f"ln -sf {env['CM_DATASET_PATH']} {target_data_path}")
 
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'dlrm', 'tb00_40M.pt')
-	if not os.path.exists(os.path.dirname(model_path)):
+        if not os.path.exists(os.path.dirname(model_path)):
           cmds.append(f"mkdir -p {os.path.dirname(model_path)}")
 
         if not os.path.exists(model_path):
