@@ -152,6 +152,7 @@ ___
 * `--download_path=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
 * `--local_path=value`  &rarr;  `CM_DOWNLOAD_LOCAL_FILE_PATH=value`
 * `--url=value`  &rarr;  `CM_DOWNLOAD_URL=value`
+* `--verify=value`  &rarr;  `CM_VERIFY_SSL=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 

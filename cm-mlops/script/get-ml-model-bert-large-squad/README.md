@@ -149,6 +149,7 @@ ___
     * `_pytorch,fp32,zenodo`
       - Environment variables:
         - *CM_ML_MODEL_F1*: `90.874`
+        - *CM_PACKAGE_URL*: `https://zenodo.org/record/3733896/files/model.pytorch`
       - Workflow:
     * `_pytorch,int8`
       - Environment variables:
@@ -275,8 +276,8 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)
   1. Run "postrocess" function from customize.py
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)***
-     * get,bert,squad,vocab
-       - CM script: [get-bert-squad-vocab](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bert-squad-vocab)
+     * get,dataset-aux,squad-vocab
+       - CM script: [get-dataset-squad-vocab](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad-vocab)
 </details>
 
 ___
