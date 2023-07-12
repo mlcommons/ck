@@ -97,7 +97,7 @@ def generate_submission(i):
         os.makedirs(path_submission)
 
     # SUT base
-    system=env.get('CM_HW_NAME','default')
+    system=env.get('CM_HW_NAME','default').replace(' ','_')
 
     code_path = os.path.join(path_submission, "code")
 
