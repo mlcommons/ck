@@ -8,23 +8,23 @@ Please do the system setup as described [here](README.md)
 
 ```
 cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
---model=bert-99.9 --implementation=reference --device=cpu --backend=onnxruntime \
---category=datacenter --division=open --quiet
+--model=bert-99 --implementation=reference --device=cpu --backend=onnxruntime \
+--category=edge --division=open --quiet
 ```
 * Use `--device=cuda` to run the inference on Nvidia GPU
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
-* Use `--category=edge` to run edge scenarios (only for `--model=bert-99`)
+* Use `--category=datacenter` to run datacenter scenarios
 * Use `--backend=pytorch` and `--backend=tf` to use the pytorch and tensorflow backends respectively
-* Use `--model=bert-99` to run the low accuracy constraint bert-99 model. But since we are running the fp32 model, this is redundant and instead, we can reuse the results of bert-99.9 for bert-99
+* Use `--model=bert-99.9` to run the high accuracy constraint bert-99 model. But since we are running the fp32 model, this is redundant and instead, we can reuse the results of bert-99 for bert-99.9
 
 
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --model=bert-99.9 \
+cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --model=bert-99 \
 --device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
---category=datacenter --division=open --quiet
+--category=edge --division=open --quiet
 ```
 
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs
@@ -34,9 +34,9 @@ cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --mo
 ### Populate the README files
 ```
 cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
---model=bert-99.9 --device=cpu --implementation=reference --backend=onnxruntime \
+--model=bert-99 --device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
---category=datacenter --division=open --quiet
+--category=edge --division=open --quiet
 ```
 
 ### Generate actual submission tree

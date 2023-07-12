@@ -123,6 +123,14 @@ deps:
       - imagenet-original
     tags: get,dataset,original,imagenet,_full
 
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    names:
+      - resnet50-model
+      - ml-model
+    tags: get,ml-model,resnet50,_fp32,_onnx
+
   ########################################################################
   # Install kits19 dataset
 
@@ -356,10 +364,11 @@ variations:
       CM_MODEL: dlrm-99.9
 
   batch_size.#:
+    group: batch-size
     env:
       CM_MODEL_BATCH_SIZE: "#"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "#"
-      CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "gpu_batch_size.#"
+      #CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "gpu_batch_size.#"
 
   dla_batch_size.#:
     env:
@@ -372,13 +381,13 @@ variations:
       CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX3: "using_triton"
 
   preprocess_data:
-    group: run_mode
+    group: run-mode
     env:
       MLPERF_NVIDIA_RUN_COMMAND: preprocess_data
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: preprocess_data
 
   download_model:
-    group: run_mode
+    group: run-mode
     env:
       MLPERF_NVIDIA_RUN_COMMAND: download_model
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: download_model
@@ -389,40 +398,95 @@ variations:
             - retinanet
 
   build_engine:
-    group: run_mode
+    group: run-mode
+    default_variations:
+      loadgen-scenario: offline
     env:
       MLPERF_NVIDIA_RUN_COMMAND: generate_engines
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: generate_engines
     deps:
-      - tags: reproduce,mlperf,inference,nvidia,harness,-_build_engine,_preprocess_data
+      - tags: reproduce,mlperf,inference,nvidia,harness,_preprocess_data
         inherit_variation_tags: true
         force_cache: true
-      - tags: reproduce,mlperf,inference,nvidia,harness,-_build_engine,_download_model
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - batch-size
+      - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
         inherit_variation_tags: true
         force_cache: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - batch-size
+        skip_if_env:
+          CM_MODEL:
+            - retinanet
+            - resnet50
+            - bert-99
+            - bert-99.9
+            - dlrm-99
+            - dlrm-99.9
+
+  singlestream:
+    group: loadgen-scenario
+    default_variations:
+      batch-size: batch_size.1
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+  multistream:
+    group: loadgen-scenario
+    default_variations:
+      batch-size: batch_size.1
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: MultiStream
+  offline:
+    group: loadgen-scenario
+    default_variations1:
+      batch-size: batch_size.8
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Offline
 
   run_harness:
-    group: run_mode
+    group: run-mode
     default: true
+    default_variations:
+      loadgen-scenario: offline
     deps:
-      - tags: reproduce,mlperf,inference,nvidia,harness,_build_engine,-_run_harness
+      - tags: reproduce,mlperf,inference,nvidia,harness,_build_engine
         inherit_variation_tags: true
+        skip_inherit_variation_groups:
+          - run-mode
         force_cache: true
-      - tags: reproduce,mlperf,inference,nvidia,harness,-_run_harness,_preprocess_data
+      - tags: reproduce,mlperf,inference,nvidia,harness,_preprocess_data
         inherit_variation_tags: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - batch-size
         force_cache: true
-      - tags: reproduce,mlperf,inference,nvidia,harness,-_run_harness,_download_model
+      - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
         inherit_variation_tags: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - batch-size
         force_cache: true
+        skip_if_env:
+          CM_MODEL:
+            - retinanet
+            - resnet50
+            - bert-99
+            - bert-99.9
+            - dlrm-99
+            - dlrm-99.9
     env:
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: run_harness
       MLPERF_NVIDIA_RUN_COMMAND: run_harness
-
     new_env_keys:
       - CM_MLPERF_*
       - CM_DATASET_*
       - CM_ML_MODEL_*
       - CM_HW_NAME
       - CM_MAX_EXAMPLES
-
 

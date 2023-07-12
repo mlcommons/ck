@@ -4,6 +4,7 @@ import json
 import shutil
 import subprocess
 import cmind as cm
+import copy
 
 def preprocess(i):
 
@@ -85,8 +86,8 @@ def preprocess(i):
 
     variation_implementation= "_" + env.get("CM_MLPERF_IMPLEMENTATION", "reference")
     variation_model= ",_" + env["CM_MLPERF_MODEL"]
-    variation_backend= ",_" + env.get("CM_MLPERF_BACKEND") if env.get("CM_MLPERF_BACKEND","") != "" else ""
-    variation_device= ",_" + env.get("CM_MLPERF_DEVICE", "cpu") if env.get("CM_MLPERF_DEVICE","") != "" else ""
+    variation_backend= ",_" + env["CM_MLPERF_BACKEND"] if env.get("CM_MLPERF_BACKEND","") != "" else ""
+    variation_device= ",_" + env["CM_MLPERF_DEVICE"] if env.get("CM_MLPERF_DEVICE","") != "" else ""
     variation_run_style= ",_" + env.get("CM_MLPERF_EXECUTION_MODE", "test")
     variation_reproducibility= ",_" + env["CM_MLPERF_INFERENCE_APP_DEFAULTS"]
 
@@ -118,29 +119,31 @@ def preprocess(i):
 
         print ('=========================================================')
 
-
     for scenario in env['CM_MLPERF_LOADGEN_SCENARIOS']:
+        scenario_tags = tags + ",_"+scenario.lower()
+        env['CM_MLPERF_LOADGEN_SCENARIO'] = scenario
+
+        if scenario == "Offline":
+            if env.get('CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS'):
+                env['CM_MLPERF_LOADGEN_TARGET_QPS'] = env['CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS']
+        elif scenario == "Server":
+            if env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS'):
+                env['CM_MLPERF_LOADGEN_TARGET_QPS'] = env['CM_MLPERF_LOADGEN_SERVER_TARGET_QPS']
+        elif scenario == "SingleStream":
+            if env.get('CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY'):
+                env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = env['CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY']
+        elif scenario == "MultiStream":
+            if env.get('CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY'):
+                env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = env['CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY']
+
         for mode in env['CM_MLPERF_LOADGEN_MODES']:
-            env['CM_MLPERF_LOADGEN_SCENARIO'] = scenario
             env['CM_MLPERF_LOADGEN_MODE'] = mode
 
-            if scenario == "Offline":
-                if env.get('CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS'):
-                    env['CM_MLPERF_LOADGEN_TARGET_QPS'] = env['CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS']
-            elif scenario == "Server":
-                if env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS'):
-                    env['CM_MLPERF_LOADGEN_TARGET_QPS'] = env['CM_MLPERF_LOADGEN_SERVER_TARGET_QPS']
-            elif scenario == "SingleStream":
-                if env.get('CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY'):
-                    env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = env['CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY']
-            elif scenario == "MultiStream":
-                if env.get('CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY'):
-                    env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = env['CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY']
-
             print(f"\nRunning loadgen scenario: {scenario} and mode: {mode}")
-            r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
+            ii = {'action':'run', 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
-                add_deps_recursive, 'ad': ad, 'adr': adr, 'v': verbose, 'print_env': print_env, 'print_deps': print_deps})
+                copy.deepcopy(add_deps_recursive), 'ad': ad, 'adr': copy.deepcopy(adr), 'v': verbose, 'print_env': print_env, 'print_deps': print_deps}
+            r = cm.access(ii)
             if r['return'] > 0:
                 return r
             if 'CM_MLPERF_RESULTS_DIR' in r['new_env']:
@@ -156,9 +159,9 @@ def preprocess(i):
             for test in test_list:
                 env['CM_MLPERF_LOADGEN_COMPLIANCE_TEST'] = test
                 env['CM_MLPERF_LOADGEN_MODE'] = "compliance"
-                r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
+                r = cm.access({'action':'run', 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
                     'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
-                    add_deps_recursive, 'adr': adr, 'ad': ad, 'v': verbose, 'print_env': print_env, 'print_deps': print_deps})
+                    copy.deepcopy(add_deps_recursive), 'adr': copy.deepcopy(adr), 'ad': ad, 'v': verbose, 'print_env': print_env, 'print_deps': print_deps})
                 if r['return'] > 0:
                     return r
 

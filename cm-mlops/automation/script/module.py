@@ -750,6 +750,8 @@ class CAutomation(Automation):
 
         variation_groups = r['variation_groups']
 
+        run_state['variation_groups'] = variation_groups
+
         # Add variation(s) if specified in the "tags" input prefixed by _
           # If there is only 1 default variation, then just use it or substitute from CMD
 
@@ -2328,6 +2330,7 @@ class CAutomation(Automation):
             # Preserve local env
             tmp_env = {}
 
+            variation_groups = run_state.get('variation_groups')
 
             for d in deps:
 
@@ -2391,8 +2394,15 @@ class CAutomation(Automation):
                             d['tags']+=","+t+env[key]
 
                 inherit_variation_tags = d.get("inherit_variation_tags", False)
+                skip_inherit_variation_groups = d.get("skip_inherit_variation_groups", [])
+                variation_tags_to_be_skipped = []
                 if inherit_variation_tags:
+                    if skip_inherit_variation_groups: #skips inheriting variations belonging to given groups
+                        for group in variation_groups:
+                            if group in skip_inherit_variation_groups:
+                                variation_tags_to_be_skipped += variation_groups[group]['variations']
                     variation_tags = variation_tags_string.split(",")
+                    variation_tags =  [ x for x in variation_tags if not x.startswith("_") or x[1:] not in set(variation_tags_to_be_skipped) ]
                     deps_tags = d['tags'].split(",")
                     for tag in deps_tags:
                         if tag.startswith("-_") or tag.startswith("_-"):

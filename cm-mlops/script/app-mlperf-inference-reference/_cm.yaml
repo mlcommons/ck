@@ -743,6 +743,17 @@ variations:
       USE_CUDA: yes
       USE_GPU: yes
 
+  # Loadgen scenarios
+  offline:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Offline
+  multistream:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: MultiStream
+  singlestream:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+
   # Model precision
   fp32:
     group: precision

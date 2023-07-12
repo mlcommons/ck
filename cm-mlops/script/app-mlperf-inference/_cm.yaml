@@ -213,7 +213,6 @@ variations:
     default_variations:
       backend: tensorrt
       device: cuda
-      batch_size: batch_size.8
     group:
       implementation
     add_deps_recursive:
@@ -697,6 +696,29 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _uint8
+
+  offline:
+    group: loadgen-scenario
+    default: true
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Offline
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _offline
+  multistream:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: MultiStream
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _multistream
+  singlestream:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _singlestream
 
   power:
     env:
