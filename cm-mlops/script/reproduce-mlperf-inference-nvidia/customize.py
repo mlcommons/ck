@@ -45,11 +45,11 @@ def preprocess(i):
         vocab_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'bert', 'vocab.txt')
 
         if not os.path.exists(fp32_model_path):
-            cmds.append(f"ln -s {env['CM_ML_MODEL_BERT_LARGE_FP32_PATH']} {fp32_model_path}")
+            cmds.append(f"ln -sf {env['CM_ML_MODEL_BERT_LARGE_FP32_PATH']} {fp32_model_path}")
         if not os.path.exists(int8_model_path):
-            cmds.append(f"ln -s {env['CM_ML_MODEL_BERT_LARGE_INT8_PATH']} {int8_model_path}")
+            cmds.append(f"ln -sf {env['CM_ML_MODEL_BERT_LARGE_INT8_PATH']} {int8_model_path}")
         if not os.path.exists(vocab_path):
-            cmds.append(f"ln -s {env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH']} {vocab_path}")
+            cmds.append(f"ln -sf {env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH']} {vocab_path}")
         model_name = "bert"
 
     elif "3d-unet" in env['CM_MODEL']:
@@ -80,11 +80,11 @@ def preprocess(i):
     elif "dlrm" in env['CM_MODEL']:
         target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'criteo')
         if not os.path.exists(target_data_path):
-            cmds.append(f"ln -s {env['CM_DATASET_PATH']} {target_data_path}")
+            cmds.append(f"ln -sf {env['CM_DATASET_PATH']} {target_data_path}")
 
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'dlrm', 'tb00_40M.pt')
         if not os.path.exists(model_path):
-            cmds.append(f"ln -s {env['CM_ML_MODEL_FILE_WITH_PATH']} {model_path}")
+            cmds.append(f"ln -sf {env['CM_ML_MODEL_FILE_WITH_PATH']} {model_path}")
         model_name = "dlrm"
 
     elif env['CM_MODEL'] == "retinanet":
@@ -98,14 +98,14 @@ def preprocess(i):
             cmds.append(f"mkdir -p {target_data_path_dir}")
         target_data_path = os.path.join(target_data_path_dir, 'annotations')
         if not os.path.exists(target_data_path):
-            cmds.append(f"ln -s {annotations_path} {target_data_path}")
+            cmds.append(f"ln -sf {annotations_path} {target_data_path}")
 
         target_data_path_dir = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'open-images-v6-mlperf', 'validation')
         if not os.path.exists(target_data_path_dir):
             cmds.append(f"mkdir -p {target_data_path_dir}")
         target_data_path = os.path.join(target_data_path_dir, 'data')
         if not os.path.exists(target_data_path):
-            cmds.append(f"ln -s {dataset_path} {target_data_path}")
+            cmds.append(f"ln -sf {dataset_path} {target_data_path}")
 
         calibration_dataset_path=env['CM_CALIBRATION_DATASET_PATH']
         target_data_path_dir = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'open-images-v6-mlperf','calibration', 'train')
@@ -113,7 +113,7 @@ def preprocess(i):
             cmds.append(f"mkdir -p {target_data_path_dir}")
         target_data_path = os.path.join(target_data_path_dir, 'data')
         if not os.path.exists(target_data_path):
-            cmds.append(f"ln -s {calibration_dataset_path} {target_data_path}")
+            cmds.append(f"ln -sf {calibration_dataset_path} {target_data_path}")
 
         preprocessed_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'preprocessed_data')
         target_model_path_dir = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'retinanet-resnext50-32x4d')
