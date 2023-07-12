@@ -9,7 +9,7 @@ Please do the system setup as described [here](README.md)
 ```
 cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
 --model=bert-99 --implementation=reference --device=cpu --backend=onnxruntime \
---category=datacenter --division=open --quiet
+--category=edge --division=open --quiet
 ```
 * Use `--device=cuda` to run the inference on Nvidia GPU
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
