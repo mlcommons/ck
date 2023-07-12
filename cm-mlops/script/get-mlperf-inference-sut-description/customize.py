@@ -94,7 +94,7 @@ def preprocess(i):
             state['CM_SUT_META']['host_processor_core_count'] = physical_cores_per_node
 
         if 'host_processor_model_name' not in state['CM_SUT_META']:
-            state['CM_SUT_META']['host_processor_model_name'] = env.get('CM_HOST_CPU_MODEL_NAME', '')
+            state['CM_SUT_META']['host_processor_model_name'] = env.get('CM_HOST_CPU_MODEL_NAME', 'undefined')
         if 'host_processors_per_node' not in state['CM_SUT_META']:
             state['CM_SUT_META']['host_processors_per_node'] = env.get('CM_HOST_CPU_SOCKETS', '')
 
