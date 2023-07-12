@@ -33,6 +33,12 @@ def preprocess(i):
             cmds.append(f"ln -sf {env['CM_DATASET_IMAGENET_PATH']} {target_data_path}")
 
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'ResNet50', 'resnet50_v1.onnx')
+
+        if not os.path.exists(os.path.dirname(model_path)):
+          cmds.append(f"mkdir -p {os.path.dirname(model_path)}")
+
+        if not os.path.exists(model_path):
+            cmds.append(f"ln -sf {env['CM_ML_MODEL_FILE_WITH_PATH']} {model_path}")
         model_name = "resnet50"
 
     elif "bert" in env['CM_MODEL']:

@@ -123,6 +123,14 @@ deps:
       - imagenet-original
     tags: get,dataset,original,imagenet,_full
 
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    names:
+      - resnet50-model
+      - ml-model
+    tags: get,ml-model,resnet50,_fp32,_onnx
+
   ########################################################################
   # Install kits19 dataset
 
@@ -415,12 +423,22 @@ variations:
         skip_inherit_variation_groups:
           - run-mode
           - loadgen-scenario
+          - batch-size
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
         inherit_variation_tags: true
         force_cache: true
         skip_inherit_variation_groups:
           - run-mode
           - loadgen-scenario
+          - batch-size
+        skip_if_env:
+          CM_MODEL:
+            - retinanet
+            - resnet50
+            - bert-99
+            - bert-99.9
+            - dlrm-99
+            - dlrm-99.9
 
   singlestream:
     group: loadgen-scenario
@@ -457,13 +475,23 @@ variations:
         skip_inherit_variation_groups:
           - run-mode
           - loadgen-scenario
+          - batch-size
         force_cache: true
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
         inherit_variation_tags: true
         skip_inherit_variation_groups:
           - run-mode
           - loadgen-scenario
+          - batch-size
         force_cache: true
+        skip_if_env:
+          CM_MODEL:
+            - retinanet
+            - resnet50
+            - bert-99
+            - bert-99.9
+            - dlrm-99
+            - dlrm-99.9
     env:
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: run_harness
       MLPERF_NVIDIA_RUN_COMMAND: run_harness
