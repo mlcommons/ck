@@ -44,6 +44,9 @@ def preprocess(i):
         int8_model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'bert', 'bert_large_v1_1_fake_quant.onnx')
         vocab_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'bert', 'vocab.txt')
 
+	if not os.path.exists(os.path.dirname(fp32_model_path)):
+          cmds.append(f"mkdir -p {os.path.dirname(fp32_model_path)}")
+
         if not os.path.exists(fp32_model_path):
             cmds.append(f"ln -sf {env['CM_ML_MODEL_BERT_LARGE_FP32_PATH']} {fp32_model_path}")
         if not os.path.exists(int8_model_path):
@@ -84,6 +87,9 @@ def preprocess(i):
             cmds.append(f"ln -sf {env['CM_DATASET_PATH']} {target_data_path}")
 
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'dlrm', 'tb00_40M.pt')
+	if not os.path.exists(os.path.dirname(model_path)):
+          cmds.append(f"mkdir -p {os.path.dirname(model_path)}")
+
         if not os.path.exists(model_path):
             cmds.append(f"ln -sf {env['CM_ML_MODEL_FILE_WITH_PATH']} {model_path}")
         model_name = "dlrm"
