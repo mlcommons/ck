@@ -370,18 +370,6 @@ variations:
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "#"
       #CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "gpu_batch_size.#"
 
-  batch_size.8:
-    group: batch-size
-    env:
-      CM_MODEL_BATCH_SIZE: "8"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "8"
-
-  batch_size.1:
-    group: batch-size
-    env:
-      CM_MODEL_BATCH_SIZE: "1"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "1"
-
   dla_batch_size.#:
     env:
       CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE: "#"
