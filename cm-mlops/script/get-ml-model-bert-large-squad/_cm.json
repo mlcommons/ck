@@ -39,7 +39,7 @@
   ],
   "post_deps": [
     {
-      "tags": "get,bert,squad,vocab"
+      "tags": "get,dataset-aux,squad-vocab"
     }
   ],
   "variations": {
@@ -156,7 +156,8 @@
     },
     "pytorch,fp32,zenodo": {
       "env": {
-        "CM_ML_MODEL_F1": "90.874"
+        "CM_ML_MODEL_F1": "90.874",
+        "CM_PACKAGE_URL": "https://zenodo.org/record/3733896/files/model.pytorch"
       }
     },
     "pytorch,int8": {
