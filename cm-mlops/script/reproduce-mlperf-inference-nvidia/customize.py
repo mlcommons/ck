@@ -51,6 +51,7 @@ def preprocess(i):
         if not os.path.exists(vocab_path):
             cmds.append(f"ln -sf {env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH']} {vocab_path}")
         model_name = "bert"
+        model_path = fp32_model_path
 
     elif "3d-unet" in env['CM_MODEL']:
         target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'KiTS19', 'kits19', 'data')
