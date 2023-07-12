@@ -30,7 +30,15 @@ Assuming all the downloaded files are to the user home directory please do the f
      sudo usermod -aG docker $USER
      ```
      Logout and login
-4. Build the docker container and mount the paths from the host machine.
+4. Check if Nvidia driver is working properly on the host. 
+     ```
+     nvidia-smi
+     ```
+     If the above command produces any error you'll need to install Nvidia drivers on the host. You can do this via CM if you have sudo access
+     ```
+     cmr "install cuda prebuilt _driver" --version=11.8.0
+     ```
+6. Build the docker container and mount the paths from the host machine.
     ** You may want to change the `scratch_path` location as it can take 100s of GBs.**
     ```bash
     cm docker script --tags=build,nvidia,inference,server \
@@ -48,7 +56,7 @@ Assuming all the downloaded files are to the user home directory please do the f
       * Use `--docker_run_cmd_prefix="cm pull repo mlcommons@ck"` to update the CK repository when docker caching is used
       * Use `--custom_system=no` if you are using a similar system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
 
-5. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
+7. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
     ### Example output
     ```
     ============================================
@@ -63,7 +71,7 @@ Assuming all the downloaded files are to the user home directory please do the f
     ```
     Now you'll be inside the CM Nvidia docker container and can run further scripts. 
 
-6. Once the build is complete, you can proceed with any further CM scripts like for MLPerf inference. You can also save the container at this stage using [docker commit](https://docs.docker.com/engine/reference/commandline/commit/) so that it can be launched later without having to go through the previous steps.
+8. Once the build is complete, you can proceed with any further CM scripts like for MLPerf inference. You can also save the container at this stage using [docker commit](https://docs.docker.com/engine/reference/commandline/commit/) so that it can be launched later without having to go through the previous steps.
 
 </details>
 
