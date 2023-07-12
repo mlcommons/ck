@@ -115,7 +115,7 @@ ___
     * `_armnn,tflite`
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `armnn_tflite`
-        - *CM_MLPERF_BACKEND_VERSION*: `22.11`
+        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_LIB_ARMNN_VERSION>>>`
         - *CM_TMP_SRC_FOLDER*: `armnn`
         - *CM_TMP_LINK_LIBS*: `tensorflowlite,armnn,armnnTfLiteParser`
         - *CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX*: `tflite_armnn_cpp`
@@ -155,6 +155,18 @@ ___
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `gpu`
         - *CM_MLPERF_DEVICE_LIB_NAMESPEC*: `cudart`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**loadgen-scenario**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_singlestream`** (default)
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_SCENARIO*: `SingleStream`
       - Workflow:
 
     </details>
@@ -220,7 +232,7 @@ ___
 
 #### Default variations
 
-`_cpu,_fp32,_resnet50,_tflite`
+`_cpu,_fp32,_resnet50,_singlestream,_tflite`
 
 #### Script flags mapped to environment
 <details>
