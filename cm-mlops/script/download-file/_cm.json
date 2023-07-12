@@ -11,7 +11,8 @@
   "input_mapping": {
     "url": "CM_DOWNLOAD_URL",
     "download_path": "CM_DOWNLOAD_PATH",
-    "local_path": "CM_DOWNLOAD_LOCAL_FILE_PATH"
+    "local_path": "CM_DOWNLOAD_LOCAL_FILE_PATH",
+    "verify": "CM_VERIFY_SSL"
   },
   "new_env_keys": [
     "CM_DOWNLOAD_DOWNLOADED_PATH",
