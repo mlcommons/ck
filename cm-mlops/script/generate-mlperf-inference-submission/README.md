@@ -107,6 +107,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--analyzer_settings_file=value`  &rarr;  `CM_MLPERF_POWER_ANALYZER_SETTINGS_FILE_PATH=value`
 * `--category=value`  &rarr;  `CM_MLPERF_SUBMISSION_CATEGORY=value`
 * `--clean=value`  &rarr;  `CM_MLPERF_CLEAN_SUBMISSION_DIR=value`
 * `--device=value`  &rarr;  `CM_MLPERF_DEVICE=value`
@@ -115,7 +116,9 @@ ___
 * `--hw_name=value`  &rarr;  `CM_HW_NAME=value`
 * `--hw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_HW_NOTES_EXTRA=value`
 * `--infer_scenario_results=value`  &rarr;  `CM_MLPERF_DUPLICATE_SCENARIO_RESULTS=value`
+* `--power_settings_file=value`  &rarr;  `CM_MLPERF_POWER_SETTINGS_FILE_PATH=value`
 * `--preprocess=value`  &rarr;  `CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR=value`
+* `--preprocess_submission=value`  &rarr;  `CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR=value`
 * `--results_dir=value`  &rarr;  `CM_MLPERF_RESULTS_DIR=value`
 * `--run_checker=value`  &rarr;  `CM_RUN_SUBMISSION_CHECKER=value`
 * `--run_style=value`  &rarr;  `CM_MLPERF_RUN_STYLE=value`
@@ -127,7 +130,7 @@ ___
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "category":...}
+r=cm.access({... , "analyzer_settings_file":...}
 ```
 
 </details>
