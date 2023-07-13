@@ -18,5 +18,6 @@
   ],
   "title": "1st public tournament to run and optimize MLPerf inference v3.1 benchmarks",
   "uid": "f4b9321ac48c4de6",
+  "skip": true,
   "under_preparation": true
 }

@@ -35,8 +35,7 @@ def page(st, params):
         if len(lst)==1:
             artifact = lst[0]
         else:
-            challenges = ['']
-            artifacts = [None]
+            challenges = []
 
             date_now = datetime.datetime.now().isoformat()
             date_now2 = int(date_now[0:4]+date_now[5:7]+date_now[8:10])
@@ -58,7 +57,7 @@ def page(st, params):
 
                 row['name']=name
 
-                for k in ['points', 'trophies', 'prize']:
+                for k in ['points', 'trophies', 'prize', 'skip']:
                     if k in meta:
                         row[k]=meta[k]
 
@@ -113,20 +112,12 @@ def page(st, params):
                 # Check if open challenge even if under preparation
                 if date_open and diff1<0 and diff2>0:
                     ongoing.append(row)
+                else:
+                    challenges.append({'prefix':prefix, 'name':name, 'uid':l.meta['uid']})
 
 
-                challenges.append(prefix + name)
-                artifacts.append(l)
-
-            # Show selector for all
-            challenge = st.selectbox('View past benchmarking, optimization, reproducibility and replicability challenges:', 
-                                     range(len(challenges)), 
-                                     format_func=lambda x: challenges[x],
-                                     index=0, key='challenge')
-
-            if challenge>0:
-                artifact = artifacts[challenge]
-
+            
+            
             # Show ongoing if open
             if len(ongoing)>0:
                 ind = 1
@@ -136,17 +127,10 @@ def page(st, params):
                 x = '''
                     <center>
                      <i>
-                      We thank 
-                      <a href="https://mlcommons.org">MLCommons organizations</a>, 
-                      <a href="https://www.linkedin.com/company/ctuning-foundation">cTuning.org</a> and 
-                      <a href="https://www.linkedin.com/company/cknowledge">cKnowledge.org</a>
-                      for sponsoring our reproducibility, replicability and optimization challenges!
-                      Please contact <a href="https://cKnowledge.org/gfursin">Grigori Fursin</a>
-                      and <a href="https://www.linkedin.com/in/arjunsuresh">Arjun Suresh</a> 
-                      if you would like to add/sponsor new challenges
-                      or provide hardware and/or clouse access for our participants!
-                      Join our <a href="https://discord.gg/JjWNWXKxwT">Discord server</a> 
-                      to ask questions and learn more!</a></center><br>
+                      Please register <a href="https://github.com/mlcommons/ck/blob/master/platform/register.md">here</a> 
+                      to be added to this leaderboard with 1 point and start participating!
+                      <br>
+                      <br>
                      </i>
                     </center>
                     '''
@@ -155,6 +139,8 @@ def page(st, params):
                 for row in sorted(ongoing, key=lambda row: (int(row.get('orig_date_close', 0)),
                                                             row.get('name', ''),
                                                             row.get('under_preparation', False))):
+                    if row.get('skip',False): continue
+                    
                     md = ''
                     up = row.get('under_preparation', False)
 
@@ -204,8 +190,54 @@ def page(st, params):
                     st.markdown(md)
 
 
+
+        # Show selector for all
+#        challenge = st.selectbox('View past benchmarking, optimization, reproducibility and replicability challenges:', 
+#                                 range(len(challenges)), 
+#                                 format_func=lambda x: challenges[x],
+#                                 index=0, key='challenge')
+#
+#        if challenge>0:
+#            artifact = artifacts[challenge]
+        
+        
+        
+        
         # Process 1 challenge
-        if artifact is not None:
+        if artifact is None:
+            st.markdown('#### Past or future challenges:')
+
+            for c in challenges:
+
+                prefix = c['prefix']
+                name = c['name']
+                uid = c['uid']
+
+                url = url_prefix + '?action=challenges&name={}'.format(uid)
+
+                x = '''
+                     <div style="">
+                      <b>
+                      {}) {}<a href="{}">{}</a>
+                      </b>
+                    </div>
+                    '''.format(str(ind), prefix, url, name)
+
+                st.write(x, unsafe_allow_html = True)
+                
+                ind+=1
+
+
+
+
+
+
+
+
+
+
+
+        else:
             meta = artifact.meta
 
             name = meta.get('title', meta['alias'])
@@ -351,4 +383,9 @@ def page(st, params):
 
 
 
+
+
+    
+    
+    
     return {'return':0, 'end_html':end_html}

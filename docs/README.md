@@ -1,17 +1,20 @@
-# MLCommons CK and CM documentation
+# Documentation
 
-The Collective Knowledge project consists of two sub-projects 
-to facilitate reproducible research and transfer to production 
-across rapidly evolving models, software, hardware and data
-[Collective Mind automation language (MLCommons CM)](#collective-mind-language-cm) 
-and
-[Collective Knowledge platform (MLCommons CK)](#collective-knowledge-playground-ck).
+The goal of the open-source Collective Knowledge technology is to facilitate knowledge sharing, reproducible research and transfer to production
+across rapidly evolving models, software, hardware and data as described in our [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339).
+It consists of two sub-projects: [MLCommons CM automation language](#collective-mind-automation-language-cm) 
+and [MLCommons CK playground](#collective-knowledge-playground-ck).
 
-*[See our ACM REP'23 keynote to learn more about our vision](https://doi.org/10.5281/zenodo.8105339).*
+*This project is currently supported by [MLCommons](https://mlcommons.org), [cTuning.org](https://linkedin.com/company/ctuning-foundation),
+ [cKnowledge.org](https://www.linkedin.com/company/cknowledge) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
+ We thank [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai) for sponsoring initial development.*
+
+**Copyright:** 2021-2023 [MLCommons](https://mlcommons.org)
+
+**License:** [Apache 2.0](../LICENSE.md)
 
 
-
-## Collective Mind language (CM)
+## Collective Mind automation language (CM)
 
 * [Introduction](introduction-cm.md)
 * [Installation and customization](installation.md)
@@ -50,19 +53,4 @@ led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
 * Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
 * Check our [news](docs/news.md).
 * Check our [presentation](https://doi.org/10.5281/zenodo.7871070) and [Forbes article](https://www.forbes.com/sites/karlfreund/2023/04/05/nvidia-performance-trounces-all-competitors-who-have-the-guts-to-submit-to-mlperf-inference-30/?sh=3c38d2866676) about our development plans.
-* Read about our [CK concept (previous version before MLCommons)](https://arxiv.org/abs/2011.01149).
-
-
-## Copyright
-
-2021-2023 [MLCommons](https://mlcommons.org)
-
-## License
-
-[Apache 2.0](../LICENSE.md)
-
-## Acknowledgments
-
-This project is currently supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://www.linkedin.com/company/ctuning-foundation),
-[cKnowledge](https://www.linkedin.com/company/cknowledge) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
-We thank [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai) for sponsoring initial development.
+* Read about [original CK framework (2014-2022) - previous version of the MLCommons CM automation language](https://arxiv.org/abs/2011.01149).

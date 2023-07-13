@@ -233,18 +233,15 @@ def page_list(st, params):
     x = '''
         <center>
          <i>
-          We thank 
-          <a href="https://mlcommons.org">MLCommons organizations</a>, 
-          <a href="https://www.linkedin.com/company/ctuning-foundation">cTuning.org</a> and 
-          <a href="https://www.linkedin.com/company/cknowledge">cKnowledge.org</a>
-          for sponsoring our reproducibility, replicability and optimization challenges!
-          Please contact <a href="https://cKnowledge.org/gfursin">Grigori Fursin</a>
-          and <a href="https://www.linkedin.com/in/arjunsuresh">Arjun Suresh</a> 
-          if you would like to add/sponsor new challenges
-          or provide hardware and/or clouse access for our participants!
+          <i>
+           Check <a href="{}?action=challenges">on-going challenges</a> 
+           and register <a href="https://github.com/mlcommons/ck/blob/master/platform/register.md">here</a>. 
+           You will be added to this leaderboard with 1 point!
+          </i>
          </i>
         </center>
-        '''
+        '''.format(url_prefix)
+
     st.write(x, unsafe_allow_html = True)
 
     AgGrid(df,
