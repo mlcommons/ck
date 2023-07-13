@@ -80,14 +80,6 @@
         "mlperf-inference-submission-checker",
         "submission-checker"
       ]
-    },
-    {
-      "enable_if_env": {
-        "CM_TAR_SUBMISSION_DIR": [
-          "yes"
-        ]
-      },
-      "tags": "run,tar"
     }
   ],
   "tags": [

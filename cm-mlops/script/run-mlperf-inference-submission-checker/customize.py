@@ -66,4 +66,9 @@ def preprocess(i):
     return {'return':0}
 
 def postprocess(i):
+
+    env = i['env']
+    if env.get('CM_TAR_SUBMISSION_DIR'):
+        env['CM_TAR_INPUT_DIR'] = env.get('CM_MLPERF_SUBMISSION_DIR', '$HOME')
+
     return {'return':0}

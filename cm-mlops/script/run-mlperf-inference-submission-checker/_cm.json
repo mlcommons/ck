@@ -47,6 +47,14 @@
       },
       "names": [ "push-to-github" ],
       "tags": "publish-results,github"
+    },
+    {
+      "enable_if_env": {
+        "CM_TAR_SUBMISSION_DIR": [
+          "yes"
+        ]
+      },
+      "tags": "run,tar"
     }
   ],
   "input_mapping": {
@@ -58,7 +66,8 @@
     "extra_model_benchmark_map": "CM_MLPERF_EXTRA_MODEL_MAPPING",
     "power": "CM_MLPERF_POWER",
     "extra_args": "CM_MLPERF_SUBMISSION_CHECKER_EXTRA_ARGS",
-    "skip_power_check": "CM_MLPERF_SKIP_POWER_CHECK"
+    "skip_power_check": "CM_MLPERF_SKIP_POWER_CHECK",
+    "tar": "CM_TAR_SUBMISSION_DIR"
   },
   "default_env": {
     "CM_MLPERF_SHORT_RUN": "no"
