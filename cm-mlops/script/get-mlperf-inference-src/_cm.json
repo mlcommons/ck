@@ -138,6 +138,21 @@
       "env": {
         "CM_SUBMODULE_GN": "yes"
       }
+    },
+    "repo.#": {
+      "env": {
+         "CM_GIT_URL" : "#"
+      }
+    },
+    "branch.#": {
+      "env": {
+        "CM_GIT_CHECKOUT": "#"
+      }
+    },
+    "submodules.#": {
+      "env": {
+        "CM_GIT_SUBMODULES": "#"
+      }
     }
   },
   "versions": {
