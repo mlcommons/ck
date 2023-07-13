@@ -36,9 +36,9 @@ def get_mod_params(
         shape_dict = eval('{' + input_shapes_str.replace('BATCH_SIZE', str(batch_size)) + '}')
     else:
         if image_width and image_height:
-            shape = [batch_size if batch_size else 1, num_channels, image_height, image_width]
+            shape = [batch_size, num_channels, image_height, image_width]
         elif max_seq_length:
-            shape = [batch_size if batch_size else 1, max_seq_length]
+            shape = [batch_size, max_seq_length]
         if frontend == "onnx":
             shape_dict = get_shape_dict_from_onnx(shape, model_path)
         else:
@@ -140,8 +140,13 @@ def compile_model(
 def serialize_vm(
     vm_exec: tvm.runtime.vm.Executable
 ) -> tvm.runtime.Module:
-    path_consts = os.path.join(tempfile.mkdtemp(
-        dir=os.getcwd(), suffix="-tvm-tmp"), "consts")
+    path_consts = os.path.join(
+        tempfile.mkdtemp(
+            dir=os.getcwd(), 
+            suffix="-tvm-tmp"
+        ), 
+        "consts"
+    )
     code_path = os.path.join(os.getcwd(), "vm_exec_code.ro")
     vm_exec.move_late_bound_consts(path_consts, byte_limit=256)
     code, lib = vm_exec.save()
@@ -155,16 +160,16 @@ def main() -> None:
     print('TVM model: ' + model_path)
     if model_path.endswith('.so') or model_path.endswith('.dylib'):
         compiled_model = model_path
-
         if not os.path.isfile(compiled_model):
             print('')
             raise RuntimeError(
-                f"Error: Model file {compiled_model} not found!")
+                f"Error: Model file {compiled_model} not found!"
+            )
     else:
         mod, params = get_mod_params(
             model_path=os.environ.get('CM_ML_MODEL_FILE_WITH_PATH', None),
             model_name=os.environ.get('CM_ML_MODEL', '').strip().lower(),
-            batch_size=os.environ.get('CM_ML_MODEL_MAX_BATCH_SIZE', None),
+            batch_size=os.environ.get('CM_ML_MODEL_MAX_BATCH_SIZE', 1),
             frontend=os.environ.get("CM_TVM_FRONTEND_FRAMEWORK", None),
             input_shapes_str=os.environ.get('CM_ML_MODEL_INPUT_SHAPES', None),
             num_channels=os.environ.get('CM_ML_MODEL_IMAGE_NUM_CHANNELS', 3),
@@ -173,8 +178,10 @@ def main() -> None:
             max_seq_length=os.environ.get('CM_ML_MODEL_MAX_SEQ_LENGTH', None),
         )
         opt_level = int(os.environ.get('CM_MLPERF_TVM_OPT_LEVEL', 3))
-        target = os.environ.get('CM_MLPERF_TVM_TARGET',
-                                f"llvm -num-cores {os.environ.get('CM_HOST_CPU_TOTAL_CORES', '1')}")
+        target = os.environ.get(
+            'CM_MLPERF_TVM_TARGET',
+            f"llvm -num-cores {os.environ.get('CM_HOST_CPU_TOTAL_CORES', '1')}"
+        )
         build_conf = {}
         target_host = None
         tvm_target = tvm.target.Target(target, host=target_host)
