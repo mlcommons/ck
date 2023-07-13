@@ -60,7 +60,7 @@ def main():
         <a target="_self" href="?action=contributors"><button style="{}">Leaderboard</button></a>
         <a target="_self" href="?action=challenges"><button style="{}">Challenges</button></a>
         <a target="_self" href="?action=experiments"><button style="{}">Experiments and results</button></a>
-        <a target="_self" href="https://github.com/mlcommons/ck"><button>GitHub</button></a>
+        <a target="_self" href="https://github.com/mlcommons/ck"><button>Sources & docs</button></a>
         <a target="_self" href="https://discord.gg/JjWNWXKxwT"><button>Discord</button></a>
         </center>
         '''.format(style_action_contributors,
@@ -100,12 +100,10 @@ def main():
 
     st.write("""
              <center>
-              <a href="https://github.com/mlcommons/ck/blob/master/platform/get-started.md">Getting Started</a>
-               &nbsp;&nbsp;&nbsp;
-              <a href="https://github.com/mlcommons/ck/tree/master/platform">About</a>
-               &nbsp;&nbsp;&nbsp;
-              <a href="https://github.com/mlcommons/ck/blob/master/docs/README.md">Docs</a>
-               &nbsp;&nbsp;&nbsp;
+              This platform is being developed by
+              <a href="https://mlcommons.org">MLCommons</a>,
+              <a href="https://cTuning.org">cTuning.org</a>
+              and <a href="https://cKnowledge.org">cKnowledge.org</a>
              </center>
              """,  
              unsafe_allow_html=True)

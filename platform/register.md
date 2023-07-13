@@ -13,9 +13,15 @@ Fork https://github.com/mlcommons/ck .
 Pull it via CM as follows:
 
 ```bash
-cm pull repo --url={URL of my fork}
+cm pull repo --url={URL of the fork of github.com/mlcommons/ck}
 ```
 
+Note that if you already have `mlcommons@ck` repository installed via CM, 
+you need to delete it and then install your fork:
+```bash
+cm rm repo mlcommons@ck --all
+cm pull repo --url={URL of the fork of github.com/mlcommons/ck}
+```
 Create a new contributor with your name:
 ```bash
 cm add contributor "your name"

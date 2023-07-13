@@ -13,7 +13,7 @@ at the [1st ACM conference for Reproducibility and Replicability](https://acm-re
 Following the successful validation of our [CK/CM technology](https://github.com/mlcommons/ck) by the community
 to automate MLPerf inference v3.0 submissions, the [MLCommons Task Force on automation and reproducibilty](taskforce.md) 
 have prepared a [presentation](https://doi.org/10.5281/zenodo.7871070) 
-about our development plans for the [MLCommons CK playground](../platform) 
+about our development plans for the [MLCommons CK playground](https://access.cKnowledge.org) 
 and [MLCommons CM scripting language](../cm) for Q3 2023.
 
 Our current mission is to prepare [new optimization challenges](../cm-mlops/challenge) 

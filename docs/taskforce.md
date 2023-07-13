@@ -64,7 +64,7 @@ constraints and [MLPerf results](https://access.cknowledge.org/playground/?actio
 - [x] DONE: prototype the CM (CK2) automation to let the community submit MLPerf inference v3.0 results across any software and hardware stack 
       (our technology powered 4K+ results (!) across diverse cloud and edge platforms with different versions of PyTorch, ONNX, TFLite, TF, TVM targeting diverse CPUs and GPUs 
       that will be announced at the beginning of April)!
-- [x] Prototype an [open-source on-prem CK platform](https://github.com/mlcommons/ck/tree/master/platform) 
+- [x] Prototype an [open-source on-prem CK platform](https://github.com/mlcommons/ck/tree/master/docs#collective-knowledge-playground-ck) 
       with a public API to automate SW/HW co-design for AI, ML and other emerging workloads based on user requirements and constraints.
 - [x] [Collaborative CK challenge](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023) 
       for the community to reproduce, optimize and submit results to MLPerf inference v3.0

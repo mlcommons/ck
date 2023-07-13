@@ -217,9 +217,7 @@ def page(st, params):
 
                 x = '''
                      <div style="">
-                      <b>
                       {}) {}<a href="{}">{}</a>
-                      </b>
                     </div>
                     '''.format(str(ind), prefix, url, name)
 

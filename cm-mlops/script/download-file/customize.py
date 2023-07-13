@@ -42,7 +42,11 @@ def preprocess(i):
         print ('')
         if env['CM_DOWNLOAD_TOOL'] == "cmutil":
             cm = automation.cmind
-            verify_ssl = bool(env.get('CM_VERIFY_SSL', True))
+            verify_ssl = env.get('CM_VERIFY_SSL', "True")
+            if verify_ssl.lower() in [ "no", "false" ]:
+                verify_ssl = False
+            else:
+                verify_ssl = True
             r = cm.access({'action':'download_file',
                 'automation':'utils,dc2743f8450541e3',
                 'url':url,

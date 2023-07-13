@@ -31,7 +31,7 @@ via our recent [open optimization challenge](https://access.cknowledge.org/playg
 
 ### Collaborative development
 
-This open-source technology is being developed by the open
+This open-source technology is being developed by the 
 [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
 led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
 [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh):
