@@ -544,9 +544,11 @@ variations:
     - tags: get,tvm
       names:
         tvm
-    add_deps_recursive:
-      ml-model:
-        tags: tvm-model,_onnx
+    prehook_deps:
+    - tags: get,tvm-model,_onnx
+      update_tags_from_env_with_prefix:
+        model.: CM_ML_MODEL
+      
   
   tvm-tflite:
     group: framework
@@ -795,6 +797,9 @@ variations:
       CM_MLPERF_LOADGEN_MAX_BATCHSIZE: "#"
     add_deps_recursive:
       ml-model:
+        tags:
+          _batch_size.#
+      tvm-model:
         tags:
           _batch_size.#
 
