@@ -15,7 +15,8 @@
     },
     {
       "names": [
-        "inference-src"
+        "inference-src",
+        "submission-checker-src"
       ],
       "tags": "get,mlcommons,inference,src"
     }
