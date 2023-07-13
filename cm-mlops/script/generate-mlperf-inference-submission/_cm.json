@@ -40,7 +40,8 @@
     "power_settings_file": "CM_MLPERF_POWER_SETTINGS_FILE_PATH",
     "infer_scenario_results": "CM_MLPERF_DUPLICATE_SCENARIO_RESULTS",
     "submitter": "CM_MLPERF_SUBMITTER",
-    "preprocess": "CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR"
+    "preprocess": "CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR",
+    "preprocess_submission": "CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR"
   },
   "default_env": {
     "CM_RUN_MLPERF_ACCURACY": "on"

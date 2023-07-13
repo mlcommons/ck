@@ -11,6 +11,18 @@
   "deps": [
     {
       "tags": "detect,cpu"
+    },
+    {
+      "tags": "set,performance,mode,_performance",
+      "enable_if_env": {
+        "CM_SET_PERFORMANCE_MODE":
+        [
+          "on",
+          "yes",
+          "True",
+          true
+        ]
+      }
     }
   ],
   "tags": [
