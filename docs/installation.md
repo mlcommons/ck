@@ -80,8 +80,8 @@ python3 -m pip install cmind --user
 
 ## MacOS
 
-*Note that we have reports that CM does not work with Python installed from the Apple Store.
- Please install Python via brew as described below while we are investigating this issue.*
+*Note that CM currently does not work with Python installed from the Apple Store.
+ Please install Python via brew as described below.*
 
 If `brew` package manager is not installed, please install it as follows (see details [here](https://brew.sh/)):
 ```bash
@@ -105,9 +105,6 @@ python3 -m pip install cmind
 
 ## Windows
 
-*Note that we have reports that CM does not work with Python installed from the Microsoft Store.
- Please use Python from `www.python.org/downloads` as described below while we are investigating this issue.*
-
 * Download and install Git from [git-for-windows.github.io](https://git-for-windows.github.io).
   * Configure Git to accept long file names: `git config --system core.longpaths true`
 * Download and install Python 3+ from [www.python.org/downloads/windows](https://www.python.org/downloads/windows).
@@ -120,7 +117,13 @@ python3 -m pip install cmind
 python -m pip install cmind
 ```
 
+*Note that we [have reports](https://github.com/mlcommons/ck/issues/844) 
+ that CM does not work when Python was first installed from the Microsoft Store.
+ If CM fails to run, you can find a fix [here](https://stackoverflow.com/questions/57485491/python-python3-executes-in-command-prompt-but-does-not-run-correctly)*.
+
+
 *We plan to provide a self-sustained package in the future to simplify CM installation on Windows.*
+
 
 # CM CLI testing
 

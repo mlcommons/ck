@@ -127,6 +127,11 @@ if your system is having good power efficiency. For any benchmark run via CM, po
 on by `--power=yes --adr.mlperf-power-client.power_server=<Power server IP> --adr.mlperf-power-client.port=<Power server port>`. 
 On the hardware side, you can follow [this tutorial](https://github.com/mlcommons/ck/blob/master/docs/tutorials/mlperf-inference-power-measurement.md) to get the setup done. 
 
+
+## Debug benchmarks
+
+
+
 ## Optimize benchmarks
 
 ## Visualize and compare results
