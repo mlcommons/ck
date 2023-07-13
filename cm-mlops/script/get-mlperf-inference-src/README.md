@@ -114,6 +114,10 @@ ___
       - Environment variables:
         - *CM_SUBMODULE_3D_UNET*: `yes`
       - Workflow:
+    * `_branch.#`
+      - Environment variables:
+        - *CM_GIT_CHECKOUT*: `#`
+      - Workflow:
     * `_deeplearningexamples`
       - Environment variables:
         - *CM_SUBMODULE_DEEPLEARNINGEXAMPLES*: `yes`
@@ -160,9 +164,17 @@ ___
       - Environment variables:
         - *CM_GIT_RECURSE_SUBMODULES*: ` --recurse-submodules`
       - Workflow:
+    * `_repo.#`
+      - Environment variables:
+        - *CM_GIT_URL*: `#`
+      - Workflow:
     * `_short-history`
       - Environment variables:
         - *CM_GIT_DEPTH*: `--depth 10`
+      - Workflow:
+    * `_submodules.#`
+      - Environment variables:
+        - *CM_GIT_SUBMODULES*: `#`
       - Workflow:
 
     </details>
