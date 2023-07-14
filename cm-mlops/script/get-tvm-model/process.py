@@ -45,6 +45,7 @@ def get_mod_params(
             raise RuntimeError(
                 "Error: Cannot find proper shapes in environment variables"
             )
+    print(f"Shape dict {shape_dict}")
     tvmc_model = load_model(path=model_path, shape_dict=shape_dict)
     mod, params = relay.transform.DynamicToStatic()(tvmc_model.mod), tvmc_model.params
     
@@ -169,13 +170,13 @@ def main() -> None:
         mod, params = get_mod_params(
             model_path=os.environ.get('CM_ML_MODEL_FILE_WITH_PATH', None),
             model_name=os.environ.get('CM_ML_MODEL', '').strip().lower(),
-            batch_size=os.environ.get('CM_ML_MODEL_MAX_BATCH_SIZE', 1),
+            batch_size=int(os.environ.get('CM_ML_MODEL_MAX_BATCH_SIZE', 1)),
             frontend=os.environ.get("CM_TVM_FRONTEND_FRAMEWORK", None),
             input_shapes_str=os.environ.get('CM_ML_MODEL_INPUT_SHAPES', None),
-            num_channels=os.environ.get('CM_ML_MODEL_IMAGE_NUM_CHANNELS', 3),
-            image_width=os.environ.get('CM_ML_MODEL_IMAGE_WIDTH', None),
-            image_height=os.environ.get('CM_ML_MODEL_IMAGE_HEIGHT', None),
-            max_seq_length=os.environ.get('CM_ML_MODEL_MAX_SEQ_LENGTH', None),
+            num_channels=int(os.environ.get('CM_ML_MODEL_IMAGE_NUM_CHANNELS', 3)),
+            image_width=int(os.environ.get('CM_ML_MODEL_IMAGE_WIDTH', None)),
+            image_height=int(os.environ.get('CM_ML_MODEL_IMAGE_HEIGHT', None)),
+            max_seq_length=int(os.environ.get('CM_ML_MODEL_MAX_SEQ_LENGTH', None)),
         )
         opt_level = int(os.environ.get('CM_MLPERF_TVM_OPT_LEVEL', 3))
         target = os.environ.get(
