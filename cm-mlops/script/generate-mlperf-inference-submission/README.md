@@ -126,6 +126,7 @@ ___
 * `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
 * `--submitter=value`  &rarr;  `CM_MLPERF_SUBMITTER=value`
 * `--sw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_SW_NOTES_EXTRA=value`
+* `--tar=value`  &rarr;  `CM_TAR_SUBMISSION_DIR=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -177,9 +178,6 @@ ___
        * `if (CM_RUN_SUBMISSION_CHECKER  == yes)`
        * CM names: `--adr.['mlperf-inference-submission-checker', 'submission-checker']...`
        - CM script: [run-mlperf-inference-submission-checker](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker)
-     * run,tar
-       * `if (CM_TAR_SUBMISSION_DIR  == yes)`
-       - CM script: [tar-my-folder](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/tar-my-folder)
 </details>
 
 ___
