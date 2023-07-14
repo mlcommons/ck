@@ -5,26 +5,36 @@
 [![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 [![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
 
+### Documentation
+
+* [Table of contents](docs/README.md)
+
 ### About
 
 We deeply believe in the power of open science and open source to solve the world's most challenging problems.
-That's why we are developing the open-source Collective Knowledge platform powered by the Collective Mind automation language
-to facilitate reproducible AI, ML and Systems research, knowledge unification and technology transfer 
-to production across rapidly evolving software, hardware, models and data.
 
-The first practical use case for our technology is to let everyone from an expert to a child participate in collaborative benchmarking,
+Following our [tedious experience reproducing 150 research papers and validating them in the real world](https://learning.acm.org/techtalks/reproducibility),
+we started developing this open-source Collective Knowledge technology to provide a common interface to access and reuse
+all shared knowledge (research projects, experiments, AI/ML models, code and data), facilitate reproducible research, 
+and simplify transfer to production across rapidly evolving models, software, hardware and data 
+as described in our [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339).
+
+Collective Knowledge project consists of the following sub-projects:
+* [Collective Mind automation language (CM)](cm) to bridge the growing gap between research and production. It is extended by the community via
+  * [Common CM automations](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation) 
+  * [Portable and reusable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
+* [Collective Knowledge Platform (CK Playground)](https://access.cKnowledge.org) to provide a user-friendly GUI 
+  to help the community explore, reproduce and reuse the state-of-the-art AI, ML and Systems research.
+
+The first practical use case for CM language and CK platform is to let everyone from an expert to a child participate in collaborative benchmarking,
 optimization and validation of the state-of-the-art AI/ML applications across rapidly evolving models, data, software and hardware 
 from different vendors - see our [reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges), 
-[shared results (performance, accuracy, power consumption, costs)](https://access.cknowledge.org/playground/?action=experiments) 
+[shared benchmarking and optimization results for ML Systems (performance, accuracy, power consumption, costs)](https://access.cknowledge.org/playground/?action=experiments) 
 and the [leaderboard](https://access.cknowledge.org/playground/?action=contributors).
-
-Check [our keynote](https://doi.org/10.5281/zenodo.8105339) at the 1st ACM conference on reproducibility and replicability (July 2023)
-to learn about our vision and development plans.
 
 Read [our documentation](docs/README.md) to learn about how our open-source technology can help you.
 
 Join our [Discord channel](https://discord.gg/JjWNWXKxwT) to ask questions, provide feedback and participate in collaborative developments.
-
 
 ### Copyright
 

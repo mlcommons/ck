@@ -136,10 +136,14 @@ def page(st, params):
                     '''
                 st.write(x, unsafe_allow_html = True)
 
+                data = []
+                
                 for row in sorted(ongoing, key=lambda row: (int(row.get('orig_date_close', 0)),
                                                             row.get('name', ''),
                                                             row.get('under_preparation', False))):
                     if row.get('skip',False): continue
+                    
+                    xrow = []
                     
                     md = ''
                     up = row.get('under_preparation', False)
@@ -154,42 +158,73 @@ def page(st, params):
 #                    md += '###### {}) {}[{}]({})\n'.format(str(ind), y, x, url)
 
                     x = '''
-                         <div style="background-color:#dfdfdf">
+                         <div style="">
                           <b>
-                          {}) {}<a href="{}">{}</a>
+                          {}<a href="{}">{}</a>
                           </b>
                         </div>
-                        '''.format(str(ind), y, url, x)
-                    st.write(x, unsafe_allow_html = True)
+                        '''.format(y, url, x).replace('\n','')
+#                    st.write(x, unsafe_allow_html = True)
 
-                    ind+=1
+                    xrow.append(x)
 
                     # Assemble info
                     x=''
 
                     date_close = row['date_close']
+                    y = ''
                     if date_close!='' and date_close!=None:
                         x += '&nbsp;&nbsp;&nbsp;Closing date: **{}**\n'.format(date_close)
+                        y = date_close.replace(' ','&nbsp;')
 
+                    xrow.append(y)
 
                     trophies = row.get('trophies',False)
+                    y = ''
                     if trophies:
                         x += ' &nbsp;&nbsp;Trophy: **Yes**\n'
+                        y = 'Yes'
+
+                    xrow.append(y)
 
                     points = row.get('points',0)
+                    y = ''
                     if points>0:
                         x += ' &nbsp;&nbsp;Points: **{}**\n'.format(str(points))
+                        y = str(points)
+
+                    xrow.append(y)
+
 
                     prize = row.get('prize','')
+                    y = ''
                     if prize!='':
                         x += ' &nbsp;&nbsp;Prize from [MLCommons organizations]({}): **{}**\n'.format('https://mlcommons.org', prize)
+                        y = prize
+
+                    xrow.append(y)
+
 
                     if x!='':    
                         md += '&nbsp;&nbsp;&nbsp;&nbsp; '+x
 
-                    st.markdown(md)
+#                    st.markdown(md)
 
 
+                    data.append(xrow)
+                    ind+=1
+
+
+                import pandas as pd
+                import numpy as np
+                
+                df = pd.DataFrame(data,
+                                  columns=['Challenge', 'Closing date', 'Tropies', 'Points', 'Prizes from MLCommons organizations'])
+                 
+                df.index+=1
+
+#                st.table(df)
+                st.write(df.to_html(escape=False), unsafe_allow_html=True)
 
         # Show selector for all
 #        challenge = st.selectbox('View past benchmarking, optimization, reproducibility and replicability challenges:', 
