@@ -21,8 +21,8 @@ in this [presentation](https://doi.org/10.5281/zenodo.8105339).
 
 ### Challenge
 
-We would like you to run as many MLPerf inference benchmarks on as many CPUs and Nvidia GPUs 
-as possible using CM and submit official results to MLPerf inference v3.1.
+We would like you to run as many MLPerf inference benchmarks on as many CPUs (Intel, AMD, Arm64) and Nvidia GPUs 
+as possible either natively or in a cloud (AWS, Azure, GCP, Alibaba) using CM and submit official results to MLPerf inference v3.1.
 
 However, since some benchmarks may take 1 day to run, we suggest to start in the following order:
 * 
@@ -30,8 +30,10 @@ However, since some benchmarks may take 1 day to run, we suggest to start in the
 Please read [this documentation](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md)
 to set up and run above benchmarks using CM.
 
+Please check the following guide to set up instances AWS, Azure and GCP
+
 * Submitting valid results for 1 complete benchmark on one system will give you 1 point.
-* The first 3 top submitters will get a prize of 200$ each.
+* The first 3 top submitters will receive a prize of 200$ each.
 * All submitters will participate in writing a common white paper about running and comparing MLPerf inference benchmarks out-of-the-box.
 
 You can register your participation for the [Collective Knowledge leaderboard](http://localhost:8501/?action=contributors)
