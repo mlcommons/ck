@@ -1,5 +1,6 @@
 [ [Back to index](README.md) ]
 
+
 <details>
 <summary>Click here to see the table of contents.</summary>
 
@@ -12,8 +13,11 @@
 * [CUDA installation](#cuda-installation)
 * [CM customization](#cm-customization)
 * [CM automation scripts](#cm-automation-scripts)
+* [Running CM scripts via Docker](#running-cm-scripts-via-docker)
 
 </details>
+
+
 
 # CM installation
 
@@ -214,3 +218,10 @@ Feel free to check [these CM tutorials](tutorials) to learn how to use CM to fac
 run MLPerf out-of-the-box and accelerate technology transfer across rapidly evolving 
 software, hardware, models and data.
 
+
+# Running CM scripts via Docker
+
+If you have Docker installed, you can run any CM script using Docker and stay in the container to continue running CM commands as follows:
+```bash
+cm docker script --tags=detect,os -j
+```

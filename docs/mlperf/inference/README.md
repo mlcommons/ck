@@ -111,6 +111,13 @@ export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf-tests2"
 
 
 
+## Test Docker
+
+If you have Docker installed on your system, you can test it and run some CM scripts as follows:
+```bash
+cm docker script --tags=detect,os -j
+```
+
 
 
 ## Prepare hardware
@@ -138,7 +145,7 @@ if you are interested to participate, collaborate and contribute to this communi
 Please check our [MLPerf inference submitter orientation slides (July 2023)](https://doi.org/10.5281/zenodo.8144274)
 explaining why we have developed a common CM interface to run all MLPerf benchmarks.
 
-Note that only registered and paid MLCommons members can submit official results to MLPerf inference.
+Note that only official (registered) MLCommons members can submit results to MLPerf inference.
 As an alternative, you can also participate in our community submissions to MLPerf
 via the [cTuning foundation](https://www.linkedin.com/company/ctuning-foundation) (a founding member of MLCommons).
 
