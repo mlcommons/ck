@@ -174,9 +174,9 @@ def main() -> None:
             frontend=os.environ.get("CM_TVM_FRONTEND_FRAMEWORK", None),
             input_shapes_str=os.environ.get('CM_ML_MODEL_INPUT_SHAPES', None),
             num_channels=int(os.environ.get('CM_ML_MODEL_IMAGE_NUM_CHANNELS', 3)),
-            image_width=int(os.environ.get('CM_ML_MODEL_IMAGE_WIDTH', None)),
-            image_height=int(os.environ.get('CM_ML_MODEL_IMAGE_HEIGHT', None)),
-            max_seq_length=int(os.environ.get('CM_ML_MODEL_MAX_SEQ_LENGTH', None)),
+            image_width=int(os.environ.get('CM_ML_MODEL_IMAGE_WIDTH', 0)),
+            image_height=int(os.environ.get('CM_ML_MODEL_IMAGE_HEIGHT', 0)),
+            max_seq_length=int(os.environ.get('CM_ML_MODEL_MAX_SEQ_LENGTH', 0)),
         )
         opt_level = int(os.environ.get('CM_MLPERF_TVM_OPT_LEVEL', 3))
         target = os.environ.get(
