@@ -289,6 +289,7 @@ r=cm.access({... , "adr.python.name":...}
 * `--compliance=value`  &rarr;  `CM_MLPERF_LOADGEN_COMPLIANCE=value`
 * `--dashboard_wb_project=value`  &rarr;  `CM_MLPERF_DASHBOARD_WANDB_PROJECT=value`
 * `--dashboard_wb_user=value`  &rarr;  `CM_MLPERF_DASHBOARD_WANDB_USER=value`
+* `--debug=value`  &rarr;  `CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM=value`
 * `--device=value`  &rarr;  `CM_MLPERF_DEVICE=value`
 * `--division=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIVISION=value`
 * `--execution_mode=value`  &rarr;  `CM_MLPERF_EXECUTION_MODE=value`
