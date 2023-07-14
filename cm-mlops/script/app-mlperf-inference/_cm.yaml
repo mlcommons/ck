@@ -341,29 +341,29 @@ variations:
       - librispeech-accuracy-script
       tags: run,accuracy,mlperf,_librispeech
 
-  gpt-j-99:
+  gptj-99:
     group:
       model
     base:
     - gptj_
     env:
       CM_MODEL:
-        gpt-j-99
+        gptj-99
     add_deps_recursive:
       mlperf-inference-implementation:
-        tags: _gpt-j-99
+        tags: _gptj-99
 
-  gpt-j-99.9:
+  gptj-99.9:
     group:
       model
     base:
     - gptj_
     env:
       CM_MODEL:
-        gpt-j-99.9
+        gptj-99.9
     add_deps_recursive:
       mlperf-inference-implementation:
-        tags: _gpt-j-99.9
+        tags: _gptj-99.9
 
   gptj:
     alias: gptj_
