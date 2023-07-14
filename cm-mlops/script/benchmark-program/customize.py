@@ -36,6 +36,10 @@ def preprocess(i):
 
             env['CM_RUN_CMD'] = CM_RUN_PREFIX + ' ' + os.path.join(env['CM_RUN_DIR'],env['CM_BIN_NAME']) + ' ' + env['CM_RUN_SUFFIX']
 
+    x = env.get('CM_RUN_PREFIX0','')
+    if x!='':
+        env['CM_RUN_CMD'] = x + ' ' + env.get('CM_RUN_CMD','')
+
     # Print info
     print ('***************************************************************************')
     print ('CM script::benchmark-program/run.sh')

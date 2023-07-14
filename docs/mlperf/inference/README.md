@@ -29,8 +29,8 @@
 
 # Run MLPerf inference benchmarks out-of-the-box
 
-This documentation will help you run, reproduce and compare MLPerf inference benchmarks out-of-the-box 
-across any software, hardware, models and data sets from any vendor
+This documentation will help you run, reproduce and compare [MLPerf inference benchmarks](https://arxiv.org/abs/1911.02549) 
+out-of-the-box across any software, hardware, models and data sets from any vendor
 using the open-source and technology-agnostic [MLCommons Collective Mind automation language (CM)](https://github.com/mlcommons/ck)
 and [MLCommons Collective Knowledge Playground (CK)](https://access.cknowledge.org/playground/?action=experiments).
 
@@ -190,6 +190,13 @@ on our system.
 
 
 Since CM language uses native OS scripts with python wrappers, it is relatively straightforward to debug it using your existing tools.
+
+You can add `--debug` flag to your CM command line when running MLPerf benchmarks
+to open a shell with all MLPerf environment variables prepared to 
+run and debug the final MLPerf loadgen tool manually.
+
+You can also use GDB by adding environment variable `--env.CM_RUN_PREFIX="gdb --args "` to the CM command line.
+
 Please check [this documentation](../../debugging.md) for more details.
 
 
