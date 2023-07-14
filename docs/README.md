@@ -3,11 +3,11 @@
 We deeply believe in the power of open science and open source to solve the world's most challenging problems.
 
 Following our [tedious experience reproducing 150 research papers and validating them in the real world](https://learning.acm.org/techtalks/reproducibility),
-we started developing this open-source Collective Knowledge technology to provide a common interface to access and reuse
+we have developed this open-source Collective Knowledge technology to provide a common interface to access and reuse
 all shared knowledge (research projects, experiments, AI/ML models, code and data), facilitate reproducible research, 
 and simplify transfer to production across rapidly evolving models, software, hardware and data.
 
-Collective Knowledge project consists of two sub-projects, [Collective Mind automation language (CM)](#collective-mind-automation-language-cm) 
+Collective Knowledge project consists of two sub-projects, non-intrusive and technology-agnostic [Collective Mind automation language (CM)](#collective-mind-automation-language-cm) 
 and [Collective Knowledge playground (CK)](#collective-knowledge-playground-ck) to let everyone, from an expert to a child,
 participate in collaborative benchmarking, optimization, co-design and deployment of the state-of-the-art AI solutions
 across any software, hardware, models and data from any vendor in the most efficient way.

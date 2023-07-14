@@ -20,7 +20,7 @@ and simplify transfer to production across rapidly evolving models, software, ha
 as described in our [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339).
 
 Collective Knowledge project consists of the following sub-projects:
-* [Collective Mind automation language (CM)](cm) to bridge the growing gap between research and production. It is extended by the community via
+* Non-intrusive and technology-agnostic [Collective Mind automation language (CM)](cm) to bridge the growing gap between research and production. It is extended by the community via
   * [Common CM automations](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation) 
   * [Portable and reusable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
 * [Collective Knowledge Platform (CK Playground)](https://access.cKnowledge.org) to provide a user-friendly GUI 

@@ -198,6 +198,13 @@ on our system.
 
 Since CM language uses native OS scripts with python wrappers, it is relatively straightforward to debug it using your existing tools.
 
+The unified CM interface to run MLPerf inference benchmarks out of the box is implemented using these CM scripts:
+* [run-mlperf-inference-app](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app)
+  * [app-mlperf-inference-reference](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference)
+  * [app-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia)
+  * [app-mlperf-inference-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
+  * [app-mlperf-inference-tflite-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp)
+
 You can add `--debug` flag to your CM command line when running MLPerf benchmarks
 to open a shell with all MLPerf environment variables prepared to 
 run and debug the final MLPerf loadgen tool manually.
