@@ -27,14 +27,14 @@ as possible either natively or in a cloud (AWS, Azure, GCP, Alibaba, Oracle, OVH
 and submit official results to MLPerf inference v3.1.
 
 However, since some benchmarks may take 1 day to run, we suggest to start in the following order:
-* CPU: Reference implementation of Image Classification with ResNet50 (open and then closed division)
-* Nvidia GPU: Nvidia optimized implementation of Image Classification with ResNet50 (open and then closed division)
-* Nvidia GPU: Nvidia optimized implementation of Language processing with BERT large (open and then closed division)
-* Nvidia GPU: Reference implementation of Image Classification with ResNet50 (open and then closed division)
-* Nvidia GPU: Reference implementation of Language processing with BERT large (open and then closed division)
-* Nvidia GPU (24GB of memory min): Reference implementation of Language processing with GPT-J 6B (open)
-* CPU: TFLite C++ implementation of Image classification with variations of MobileNets and EfficientNets (open division)
-* Nvidia GPU: Nvidia optimized implementation of all other models (open and closed division)
+* [CPU: Reference implementation of Image Classification with ResNet50 (open and then closed division)](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/resnet50/README_reference.md)
+* [Nvidia GPU: Nvidia optimized implementation of Image Classification with ResNet50 (open and then closed division)](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/resnet50/README_nvidia.md)
+* [Nvidia GPU: Nvidia optimized implementation of Language processing with BERT large (open and then closed division)](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/bert/README_nvidia.md)
+* [Nvidia GPU: Reference implementation of Image Classification with ResNet50 (open and then closed division)](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/bert/README_nvidia.md)
+* [Nvidia GPU: Reference implementation of Language processing with BERT large (open and then closed division)](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/resnet50/README_reference.md)
+* [Nvidia GPU (24GB of memory min): Reference implementation of Language processing with GPT-J 6B (open)](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/gpt-j/README_reference.md)
+* [CPU: TFLite C++ implementation of Image classification with variations of MobileNets and EfficientNets (open division)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/run-mlperf-inference-mobilenet-models/README-about.md)
+* [Nvidia GPU: Nvidia optimized implementation of all other models (open and closed division)](https://github.com/ctuning/mlcommons-ck/blob/master/docs/mlperf/inference/README.md#run-benchmarks-and-submit-results)
 
 Please read [this documentation](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md)
 to set up and run above benchmarks using CM.
@@ -60,8 +60,8 @@ Looking forward to your submissions and happy hacking!
 #### Organizers
 
 * [MLCommons](https://cKnowledge.org/mlcommons-taskforce)
-* [cTuning.org](https://cTuning.org)
-* [cKnowledge.org](https://cKnowledge.org)
+* [cTuning.org](https://www.linkedin.com/company/ctuning-foundation)
+* [cKnowledge.org](https://www.linkedin.com/company/cknowledge)
 
 ### Status
 
