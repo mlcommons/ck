@@ -41,7 +41,8 @@
     "infer_scenario_results": "CM_MLPERF_DUPLICATE_SCENARIO_RESULTS",
     "submitter": "CM_MLPERF_SUBMITTER",
     "preprocess": "CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR",
-    "preprocess_submission": "CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR"
+    "preprocess_submission": "CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR",
+    "tar": "CM_TAR_SUBMISSION_DIR"
   },
   "default_env": {
     "CM_RUN_MLPERF_ACCURACY": "on"
@@ -79,14 +80,6 @@
         "mlperf-inference-submission-checker",
         "submission-checker"
       ]
-    },
-    {
-      "enable_if_env": {
-        "CM_TAR_SUBMISSION_DIR": [
-          "yes"
-        ]
-      },
-      "tags": "run,tar"
     }
   ],
   "tags": [

@@ -289,9 +289,4 @@ def postprocess(i):
     if r['return'] > 0:
         return r
 
-    env = i['env']
-    if env.get('CM_TAR_SUBMISSION_DIR'):
-        state = i['state']
-        env['CM_TAR_INPUT_DIR'] = os.path.join(env.get('CM_MLPERF_SUBMISSION_DIR', '$HOME'), state.get('CM_SUT_META').get('division'))
-
     return {'return':0}
