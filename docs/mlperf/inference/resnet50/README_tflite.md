@@ -28,15 +28,4 @@ cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --mod
 * Use `--division=closed` to run all scenarios for the closed division including the compliance tests
 * `--offline_target_qps`, `--server_target_qps`, `--singlestream_target_latency` and `multistream_target_latency` can be used to override the determined performance numbers
 
-
-### Generate actual submission tree
-
-Here, we are copying the performance and accuracy log files (compliance logs also in the case of closed division) from the results directory to the submission tree following the [directory structure required by MLCommons Inference](https://github.com/mlcommons/policies/blob/master/submission_rules.adoc#inference-1). After the submission tree is generated, [accuracy truncate script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log) is called to truncate accuracy logs and then the [submission checker](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker) is called to validate the generated submission tree.
-
-We should use the master branch of MLCommons inference repo for the submission checker. You can use `--hw_note_extra` option to add your name to the notes.
-```
-cm run script --tags=generate,inference,submission --results_dir=$HOME/inference_3.1_results/valid_results \
---submission_dir=$HOME/inference_submission_tree --clean  \
---run-checker --submitter=cTuning --adr.inference-src.version=master \
---hw_notes_extra="Result taken by NAME" --quiet
-```
+Follow [this README](../Generate_Submission_tree.md) to generate the submission tree and upload your results. 
