@@ -27,10 +27,10 @@ CM_SUDO="sudo"
 # run "$CM_RUN_CMD"
 run "${CM_SUDO} apt-get install -y linux-tools-common linux-tools-generic linux-tools-`uname -r`"
 run "${CM_SUDO} cpupower frequency-set -g performance"
-if [[ ${CM_SET_OS_PERFORMANCE_REPRODUCIBILITY_MODE} == "yes" ]]; then
+if [[ ${CM_SET_OS_PERFORMANCE_REPRODUCIBILITY_MODE} != "no" ]]; then
   run "${CM_SUDO} sysctl -w vm.dirty_ratio=8"
   run "${CM_SUDO} sysctl -w vm.swappiness=1"
-  run "${CM_SUDO} -w vm.zone_reclaim_mode=1"
+  run "${CM_SUDO} sysctl -w vm.zone_reclaim_mode=1"
   run "${CM_SUDO} sync; sysctl -w vm.drop_caches=3"
   run "${CM_SUDO} sysctl -w kernel.randomize_va_space=0"
 fi
