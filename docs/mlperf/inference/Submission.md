@@ -7,7 +7,7 @@ cmr "generate inference submission" \
 --results_dir=$HOME/results_dir/valid_results \
 --submission_dir=$HOME/inference_submission_tree \
 --clean \
---infer_scenario_results=yes \
+--preprocess_submission=yes \
 --adr.compiler.tags=gcc --adr.inference-src.version=master \
 --run-checker \
 --submitter=cTuning \
