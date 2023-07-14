@@ -9,7 +9,7 @@ Please do the system setup as described [here](README.md)
 ```
 cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
 --model=gptj-99 --implementation=reference --device=cuda --backend=pytorch \
---category=datacenter --division=open --quiet --precision=fp32
+--category=edge --division=open --quiet --precision=fp32
 ```
 * GPU needs a minimum of 80 GB memory. For GPUs with shorter memory try `--env.GPTJ_BEAM_SIZE=2` and `--precision=float16` 
 * Use `--device=cpu` to run the inference on CPU (can be extremely slow)
@@ -40,14 +40,5 @@ cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
 --category=edge --division=open --quiet
 ```
 
-### Generate actual submission tree
-
-Here, we are copying the performance and accuracy log files (compliance logs also in the case of closed division) from the results directory to the submission tree following the [directory structure required by MLCommons Inference](https://github.com/mlcommons/policies/blob/master/submission_rules.adoc#inference-1). After the submission tree is generated, [accuracy truncate script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log) is called to truncate accuracy logs and then the [submission checker](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker) is called to validate the generated submission tree.
-
-We should use the master branch of MLCommons inference repo for the submission checker. You can use `--hw_note_extra` option to add your name to the notes.
-```
-cmr "generate inference submission" --results_dir=$HOME/results_dir/valid_results \
---submission_dir=$HOME/inference_submission_tree --clean  \
---run-checker --submitter=cTuning --adr.inference-src.version=master \
---hw_notes_extra="Result taken by NAME" --quiet
-```
+### Generate and Upload the Submission
+Follow [this README](../Generate_Submission_tree.md) to generate the submission tree and upload your results. 
