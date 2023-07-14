@@ -81,7 +81,8 @@
     "results_git_url": "CM_MLPERF_RESULTS_GIT_REPO_URL",
     "readme": "CM_MLPERF_README",
     "sw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
-    "hw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA"
+    "hw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
+    "debug": "CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM"
   },
   "tags": [
     "run",

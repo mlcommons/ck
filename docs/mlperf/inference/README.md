@@ -29,18 +29,23 @@
 
 # Run MLPerf inference benchmarks out-of-the-box
 
-This documentation will help you run, reproduce and compare MLPerf inference benchmarks out-of-the-box 
-across any software, hardware, models and data sets from any vendor
-using the open-source and technology-agnostic [MLCommons Collective Mind automation language (CM)](https://github.com/mlcommons/ck)
-and [MLCommons Collective Knowledge Playground (CK)](https://access.cknowledge.org/playground/?action=experiments).
+This documentation will help you run, reproduce and compare [MLPerf inference benchmarks](https://arxiv.org/abs/1911.02549) 
+out-of-the-box using a unified interface being developed by the [MLCommons Task Force on Automation and Reproducibility](../../taskforce.md).
 
-This project is under heavy development led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+Please check [MLPerf inference submitter orientation slides: automating and modularizing MLPerf inference benchmarks](https://doi.org/10.5281/zenodo.8144274)
+explaining why [MLCommons](https://mlcommons.org) is developing an open-source, technology-agnostic 
+and non-intrusive [Collective Mind automation language (CM)](https://github.com/mlcommons/ck)
+and [Collective Knowledge Playground (CK)](https://access.cknowledge.org/playground/?action=experiments) 
+to make it easier to run, reproduce, optimize and compare MLPerf inference benchmarks 
+accross diverse software, hardware, models and data sets from any vendor.
+
+Note that this project is under heavy development led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 and supported by the [MLCommons Task Force on Automation and Reproducibility](../taskforce.md),
-[cTuning.org](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org).
+[cTuning.org](https://www.linkedin.com/company/ctuning-foundation) and [cKnowledge.org](https://www.linkedin.com/company/cknowledge).
 
 Don't hesitate to get in touch with us using this [public Discord server](https://discord.gg/JjWNWXKxwT) 
-to provide your feedback, ask questions, add new benchmark implementations, models, data sets and hardware backends,
-prepare and optimize your MLPerf submissions and participate in our [reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges).
+to get help with MLPerf optimization and submissions, ask questions, provide your feedback, add new benchmark implementations, models, data sets and hardware backends,
+and participate in our [reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges).
 
 You can learn more about our vision and plans from our [ACM REP keynote (June 2023)](https://doi.org/10.5281/zenodo.8105339).
 
@@ -111,6 +116,13 @@ export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf-tests2"
 
 
 
+## Test Docker
+
+If you have Docker installed on your system, you can test it and run some CM scripts as follows:
+```bash
+cm docker script --tags=detect,os -j
+```
+
 
 
 ## Prepare hardware
@@ -138,19 +150,20 @@ if you are interested to participate, collaborate and contribute to this communi
 Please check our [MLPerf inference submitter orientation slides (July 2023)](https://doi.org/10.5281/zenodo.8144274)
 explaining why we have developed a common CM interface to run all MLPerf benchmarks.
 
-Note that only registered and paid MLCommons members can submit official results to MLPerf inference.
+Note that only official (registered) MLCommons members can submit results to MLPerf inference.
 As an alternative, you can also participate in our community submissions to MLPerf
 via the [cTuning foundation](https://www.linkedin.com/company/ctuning-foundation) (a founding member of MLCommons).
 
 
 We provided a unified CM interface to run the following MLPerf inference benchmarks:
 1. [Language processing](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/bert) using Bert-Large model and Squadv1.1 dataset
-2. [Image Classification](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/resnet50) using ResNet50 model and Imagenet-2012 dataset
-3. [Object Detection](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/retinanet) using Retinanet model and OpenImages dataset
-4. [Speech Recognition](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/rnnt) using RNNT model and LibriSpeech dataset
-5. [Medical Imaging](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/3d-unet)  using 3d-unet model and KiTS19 dataset
-6. Recommendation using DLRMv2 model and Criteo multihot dataset
-7. [Large Language Model](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/gpt-j) using GPT-J model and CNN Daily Mail dataset
+2. [Language processing](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/gpt-j) using GPT-J model and CNN Daily Mail dataset
+3. [Image Classification](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/resnet50) using ResNet50 model and Imagenet-2012 dataset
+4. [Image Classification](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/run-mlperf-inference-mobilenet-models/README-about.md) using variations of MobileNets and EfficientNets and Imagenet-2012 dataset
+5. [Object Detection](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/retinanet) using Retinanet model and OpenImages dataset
+6. [Speech Recognition](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/rnnt) using RNNT model and LibriSpeech dataset
+7. [Medical Imaging](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/3d-unet)  using 3d-unet model and KiTS19 dataset
+8. Recommendation using DLRMv2 model and Criteo multihot dataset
 
 All seven benchmarks can participate in the datacenter category.
 All seven benchmarks except Recommendation can participate in the edge category. 
@@ -190,6 +203,20 @@ on our system.
 
 
 Since CM language uses native OS scripts with python wrappers, it is relatively straightforward to debug it using your existing tools.
+
+The unified CM interface to run MLPerf inference benchmarks out of the box is implemented using these CM scripts:
+* [run-mlperf-inference-app](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app)
+  * [app-mlperf-inference-reference](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference)
+  * [app-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia)
+  * [app-mlperf-inference-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
+  * [app-mlperf-inference-tflite-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp)
+
+You can add `--debug` flag to your CM command line when running MLPerf benchmarks
+to open a shell with all MLPerf environment variables prepared to 
+run and debug the final MLPerf loadgen tool manually.
+
+You can also use GDB by adding environment variable `--env.CM_RUN_PREFIX="gdb --args "` to the CM command line.
+
 Please check [this documentation](../../debugging.md) for more details.
 
 

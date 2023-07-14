@@ -238,6 +238,10 @@ deps:
   - tags: generate,user-conf,mlperf,inference
     names:
     - user-conf-generator
+    enable_if_env:
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
+      - run_harness
+
 
 # Post dependencies to run this app including for power measurement
 post_deps:
@@ -383,6 +387,7 @@ variations:
   preprocess_data:
     group: run-mode
     env:
+      CM_MLPERF_SKIP_RUN: 'no'
       MLPERF_NVIDIA_RUN_COMMAND: preprocess_data
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: preprocess_data
 
@@ -390,6 +395,7 @@ variations:
     group: run-mode
     env:
       MLPERF_NVIDIA_RUN_COMMAND: download_model
+      CM_MLPERF_SKIP_RUN: 'no'
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: download_model
     deps:
       - tags: get,generic-python-lib,_torch_cuda
@@ -403,6 +409,7 @@ variations:
       loadgen-scenario: offline
     env:
       MLPERF_NVIDIA_RUN_COMMAND: generate_engines
+      CM_MLPERF_SKIP_RUN: 'no'
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: generate_engines
     deps:
       - tags: reproduce,mlperf,inference,nvidia,harness,_preprocess_data
@@ -489,4 +496,5 @@ variations:
       - CM_ML_MODEL_*
       - CM_HW_NAME
       - CM_MAX_EXAMPLES
+
 

@@ -6,7 +6,7 @@
   "date_open": "20230704",
   "points":3,
   "trophies":true,
-  "prize":"400$",
+  "prize":"400$ for the first implementation and 300$ for the fastest implementation",
   "tags": [
     "modularize",
     "optimize",
@@ -22,7 +22,6 @@
     "mlperf-inference-inferentia-v3.1-2023",
     "v3.1"
   ],
-  "title": "Implement MLPerf inference backend for Amazon Inferentia",
-  "uid": "c8f2573320424e2a",
-  "under_preparation": true
+  "title": "Develop a reference implementation of any MLPerf inference benchmark to run on Amazon Inferentia.",
+  "uid": "c8f2573320424e2a"
 }

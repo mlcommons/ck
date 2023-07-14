@@ -6,7 +6,7 @@
   "date_open": "20230704",
   "points":3,
   "trophies":true,
-  "prize":"400$",
+  "prize":"400$ for the first implementation and 300$ for the fastest implementation",
   "tags": [
     "modularize",
     "optimize",
@@ -22,7 +22,6 @@
     "mlperf-inference-tpu-v3.1-2023",
     "v3.1"
   ],
-  "title": "Run and optimize MLPerf inference v3.1 benchmarks on Google TPUs",
-  "uid": "5975fd0e18cd4073",
-  "under_preparation": true
+  "title": "Develop a reference implementation of any MLPerf inference benchmark to run on the latest publicly available Google TPU",
+  "uid": "5975fd0e18cd4073"
 }

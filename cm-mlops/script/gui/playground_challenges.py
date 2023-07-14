@@ -122,10 +122,9 @@ def page(st, params):
             if len(ongoing)>0:
                 ind = 1
 
-                st.markdown('#### Ongoing challenges')
-
                 x = '''
                     <center>
+                     <h3>Ongoing challenges</h3>
                      <i>
                       Please register <a href="https://github.com/mlcommons/ck/blob/master/platform/register.md">here</a> 
                       to be added to this leaderboard with 1 point and start participating!
@@ -241,6 +240,14 @@ def page(st, params):
         # Process 1 challenge
         if artifact is None:
             st.markdown('#### Past or future challenges:')
+
+            x = '''
+                <center>
+                 <h3>Future or past challenges</h3>
+                </center>
+                '''
+            st.write(x, unsafe_allow_html = True)
+
 
             for c in challenges:
 

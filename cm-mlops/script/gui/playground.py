@@ -37,7 +37,15 @@ def main():
 
     # Set title
     extra = os.environ.get('CM_GUI_EXTRA_HTML','')
-    
+
+    if extra!='':
+        url = ''
+        for p in params:
+            v=str(','.join(params[p]))
+            if url!='': url+=';'
+            url+=p+'='+v
+        extra=extra.replace('{{CM_URL}}', url)
+
     st.write('''
         <center>
         <h2 style="color:#2f6fb3">Collective Knowledge Playground</h2>
@@ -103,7 +111,7 @@ def main():
 
     st.write("""
              <center>
-              This platform is being developed by
+              Sponsored by
               <a href="https://mlcommons.org">MLCommons</a>,
               <a href="https://www.linkedin.com/company/ctuning-foundation">cTuning.org</a>
               and <a href="https://www.linkedin.com/company/cknowledge">cKnowledge.org</a>
