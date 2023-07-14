@@ -37,4 +37,5 @@ cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios
 --category=edge --division=open --quiet
 ```
 
+### Generate and Upload the Submission
 Follow [this README](../Generate_Submission_tree.md) to generate the submission tree and upload your results. 
