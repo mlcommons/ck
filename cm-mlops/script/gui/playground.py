@@ -35,15 +35,18 @@ def main():
 
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
-
     # Set title
+    extra = os.environ.get('CM_GUI_EXTRA_HTML','')
+    
     st.write('''
         <center>
         <h2 style="color:#2f6fb3">Collective Knowledge Playground</h2>
         <img src="https://cknowledge.org/images/logo-ck-tr.png" width="150">
-        <br><br>
+        <br>
+        {}
+        <br>
         </center>
-        ''',
+        '''.format(extra),
         unsafe_allow_html=True
     )
 
@@ -60,7 +63,7 @@ def main():
         <a target="_self" href="?action=contributors"><button style="{}">Leaderboard</button></a>
         <a target="_self" href="?action=challenges"><button style="{}">Challenges</button></a>
         <a target="_self" href="?action=experiments"><button style="{}">Experiments and results</button></a>
-        <a target="_self" href="https://github.com/mlcommons/ck"><button>Sources & docs</button></a>
+        <a target="_self" href="https://github.com/mlcommons/ck"><button>Docs / GitHub</button></a>
         <a target="_self" href="https://discord.gg/JjWNWXKxwT"><button>Discord</button></a>
         </center>
         '''.format(style_action_contributors,
@@ -102,8 +105,8 @@ def main():
              <center>
               This platform is being developed by
               <a href="https://mlcommons.org">MLCommons</a>,
-              <a href="https://cTuning.org">cTuning.org</a>
-              and <a href="https://cKnowledge.org">cKnowledge.org</a>
+              <a href="https://www.linkedin.com/company/ctuning-foundation">cTuning.org</a>
+              and <a href="https://www.linkedin.com/company/cknowledge">cKnowledge.org</a>
              </center>
              """,  
              unsafe_allow_html=True)

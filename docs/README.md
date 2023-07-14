@@ -1,12 +1,18 @@
 # Documentation
 
-The goal of the open-source Collective Knowledge technology is to facilitate knowledge sharing, reproducible research and transfer to production
-across rapidly evolving models, software, hardware and data as described in our [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339).
+We deeply believe in the power of open science and open source to solve the world's most challenging problems.
 
-CK consists of two sub-projects, [MLCommons CM automation language](#collective-mind-automation-language-cm) 
-and [MLCommons CK playground](#collective-knowledge-playground-ck), to let everyone from an expert to a child
+Following our [tedious experience reproducing 150 research papers and validating them in the real world](https://learning.acm.org/techtalks/reproducibility),
+we started developing this open-source Collective Knowledge technology to provide a common interface to access and reuse
+all shared knowledge (research projects, experiments, AI/ML models, code and data), facilitate reproducible research, 
+and simplify transfer to production across rapidly evolving models, software, hardware and data.
+
+Collective Knowledge project consists of two sub-projects, [Collective Mind automation language (CM)](#collective-mind-automation-language-cm) 
+and [Collective Knowledge playground (CK)](#collective-knowledge-playground-ck) to let everyone, from an expert to a child,
 participate in collaborative benchmarking, optimization, co-design and deployment of the state-of-the-art AI solutions
 across any software, hardware, models and data from any vendor in the most efficient way.
+
+Check our [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn about our vision and development plans.
 
 *This project is supported by [MLCommons](https://mlcommons.org), [cTuning.org](https://linkedin.com/company/ctuning-foundation),
  [cKnowledge.org](https://www.linkedin.com/company/cknowledge) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
@@ -29,6 +35,7 @@ The development is led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [
   * [CM "experiment" automation](https://github.com/mlcommons/ck/blob/master/cm-mlops/automation/experiment/README-extra.md)
   * [List of all unified CM automations from MLCommons](list_of_automations.md)
   * [List of all portable and reusable CM scripts from MLCommons](list_of_scripts.md)
+* [Debugging](debugging.md)
 * [Real-world use cases](use-cases.md)
 * [Tutorials](tutorials/README.md)
 * [Specifications](specs/README.md)
