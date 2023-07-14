@@ -100,7 +100,7 @@ def preprocess(i):
             value = env.get('CM_MLPERF_LOADGEN_TARGET_QPS')
     elif scenario in [ 'SingleStream', 'MultiStream' ]:
         metric = "target_latency"
-        tolerance = 0.95
+        tolerance = 0.4 #much lower because we have max_duration
         if not value:
             value = env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY')
     else:
