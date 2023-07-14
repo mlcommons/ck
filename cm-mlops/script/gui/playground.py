@@ -111,7 +111,7 @@ def main():
 
     st.write("""
              <center>
-              This platform is being developed by
+              Sponsored by
               <a href="https://mlcommons.org">MLCommons</a>,
               <a href="https://www.linkedin.com/company/ctuning-foundation">cTuning.org</a>
               and <a href="https://www.linkedin.com/company/cknowledge">cKnowledge.org</a>
