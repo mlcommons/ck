@@ -23,7 +23,8 @@ in this [presentation](https://doi.org/10.5281/zenodo.8105339).
 ### Challenge
 
 We would like you to run as many MLPerf inference benchmarks on as many CPUs (Intel, AMD, Arm) and Nvidia GPUs 
-as possible either natively or in a cloud (AWS, Azure, GCP, Alibaba, Oracle, OVHcloud, ...) 
+as possible across different framework (ONNX, PyTorch, TF, TFLite) 
+either natively or in a cloud (AWS, Azure, GCP, Alibaba, Oracle, OVHcloud, ...) 
 and submit official results to MLPerf inference v3.1.
 
 However, since some benchmarks may take 1 day to run, we suggest to start in the following order:
