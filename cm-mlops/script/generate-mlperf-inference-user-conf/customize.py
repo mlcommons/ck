@@ -187,6 +187,8 @@ def preprocess(i):
     else:
         if scenario == "MultiStream" or scenario == "SingleStream":
             user_conf += ml_model_name + "." + scenario + ".max_duration = 620000 \n"
+            if scenario == "MultiStream":
+                user_conf += ml_model_name + "." + scenario + ".min_query_count = 662" + "\n"
             if short_ranging:
                 ranging_user_conf += ml_model_name + "." + scenario + ".max_duration = 300000 \n "
         elif scenario == "SingleStream_old":
