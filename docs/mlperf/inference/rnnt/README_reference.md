@@ -9,7 +9,8 @@ Please do the system setup as described [here](README.md)
 ```
 cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 --model=rnnt --implementation=reference --device=cpu --backend=pytorch \
---category=edge --division=open --quiet
+--category=edge --division=open --quiet --adr.ml-engine-pytorch.version=1.13.0 --adr.ml-engine-torchvision.version=0.14.1
+
 ```
 * Use `--device=cuda` to run the inference on Nvidia GPU
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
@@ -21,7 +22,7 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 cmr "generate-run-cmds inference _submission _all-scenarios" --model=rnnt \
 --device=cpu --implementation=reference --backend=pytorch \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
---category=edge --division=open --quiet
+--category=edge --division=open --quiet --adr.ml-engine-pytorch.version=1.13.0 --adr.ml-engine-torchvision.version=0.14.1
 ```
 
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs
@@ -33,7 +34,7 @@ cmr "generate-run-cmds inference _submission _all-scenarios" --model=rnnt \
 cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
 --model=retinanet --device=cpu --implementation=reference --backend=pytorch \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
---category=edge --division=open --quiet
+--category=edge --division=open --quiet --adr.ml-engine-pytorch.version=1.13.0 --adr.ml-engine-torchvision.version=0.14.1
 ```
 
 ### Generate actual submission tree
