@@ -267,9 +267,13 @@ def preprocess(i):
     if not run_files_exist(log_mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, \
                     required_files[4]) or env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
 
-        env['CM_MLPERF_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), key+".conf")#  user_conf_path
         env['CM_MLPERF_TESTING_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), key+".conf")#  user_conf_path
-        env['CM_MLPERF_RANGING_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), "ranging_"+key+".conf")#  user_conf_path
+        env['CM_MLPERF_RANGING_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), "ranging_"+key+".conf")#  ranging_user_conf_path for a shorter run
+
+        if short_ranging:
+            env['CM_MLPERF_USER_CONF'] = "\${CM_MLPERF_USER_CONF}"
+        else:
+            env['CM_MLPERF_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), key+".conf")#  user_conf_path
     else:
         print(f"Measure files exist at {OUTPUT_DIR}. Skipping regeneration...\n")
         env['CM_MLPERF_USER_CONF'] = ''
