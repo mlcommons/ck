@@ -5,14 +5,15 @@ were developed by a [consortium of 50+ companies and universities (MLCommons)](h
 to enable trustable and reproducible comparison of popular AI tasks and models
 across diverse software/hardware stacks from different vendors.
 
-However, running MLPerf inference benchmarks and submitting results [turned out to be a challenge](https://arxiv.org/abs/1911.02549) 
-even for experts and could easily take many weeks. That's why MLCommons partnered with 
+However, running MLPerf inference benchmarks and submitting results [turned out to be a challenge](https://doi.org/10.5281/zenodo.8144274) 
+even for experts and could easily take many weeks. That's why MLCommons, 
 [cTuning.org](https://www.linkedin.com/company/ctuning-foundation)
-and [cKnowledge.org](https://www.linkedin.com/company/cknowledge) to develop an open-source, technology-agnostic 
+and [cKnowledge.org](https://www.linkedin.com/company/cknowledge) 
+decided to develop an open-source, technology-agnostic 
 and non-intrusive [Collective Mind automation language (CM)](https://github.com/mlcommons/ck)
 and [Collective Knowledge Playground (CK)](https://access.cknowledge.org/playground/?action=experiments) 
 to run, reproduce, optimize and compare MLPerf inference benchmarks out-of-the-box 
-accross diverse software, hardware, models and data sets from any vendor.
+across diverse software, hardware, models and data sets from any vendor.
 
 You can read more about our vision, open-source technology and future plans 
 in this [presentation](https://doi.org/10.5281/zenodo.8105339).
@@ -21,22 +22,28 @@ in this [presentation](https://doi.org/10.5281/zenodo.8105339).
 
 ### Challenge
 
-We would like you to run as many MLPerf inference benchmarks on as many CPUs (Intel, AMD, Arm64) and Nvidia GPUs 
-as possible either natively or in a cloud (AWS, Azure, GCP, Alibaba) using CM and submit official results to MLPerf inference v3.1.
+We would like you to run as many MLPerf inference benchmarks on as many CPUs (Intel, AMD, Arm) and Nvidia GPUs 
+as possible either natively or in a cloud (AWS, Azure, GCP, Alibaba, Oracle, OVHcloud, ...) 
+and submit official results to MLPerf inference v3.1.
 
 However, since some benchmarks may take 1 day to run, we suggest to start in the following order:
-* 
+* CPU: Reference implementation of Image Classification with ResNet50 (open and then closed division)
+* Nvidia GPU: Nvidia optimized implementation of Image Classification with ResNet50 (open and then closed division)
+* Nvidia GPU: Nvidia optimized implementation of Language processing with BERT large (open and then closed division)
+* Nvidia GPU: Reference implementation of Image Classification with ResNet50 (open and then closed division)
+* Nvidia GPU: Reference implementation of Language processing with BERT large (open and then closed division)
+* Nvidia GPU (24GB of memory min): Reference implementation of Language processing with GPT-J 6B (open)
+* CPU: TFLite C++ implementation of Image classification with variations of MobileNets and EfficientNets (open division)
+* Nvidia GPU: Nvidia optimized implementation of all other models (open and closed division)
 
 Please read [this documentation](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md)
 to set up and run above benchmarks using CM.
 
-Please check the following guide to set up instances AWS, Azure and GCP
+*To thank you for helping the community you will receive 1 point for submitting valid results for 1 complete benchmark on one system.*
+*The top 3 submitters by points will receive a prize of 200$ each.*
+*All submitters will participate in writing a common white paper about running and comparing MLPerf inference benchmarks out-of-the-box.*
 
-* Submitting valid results for 1 complete benchmark on one system will give you 1 point.
-* The first 3 top submitters will receive a prize of 200$ each.
-* All submitters will participate in writing a common white paper about running and comparing MLPerf inference benchmarks out-of-the-box.
-
-You can register your participation for the [Collective Knowledge leaderboard](http://localhost:8501/?action=contributors)
+You can register your participation for the [Collective Knowledge leaderboard]( https://access.cKnowledge.org/playground/?action=contributors )
 using this [guide](https://github.com/mlcommons/ck/blob/master/platform/register.md).
 
 Please report encountered problems using [GitHub issues](https://github.com/mlcommons/ck/issues)
