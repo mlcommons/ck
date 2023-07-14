@@ -22,7 +22,7 @@ def preprocess(i):
             else:
                 CM_RUN_PREFIX = ''
 
-            CM_RUN_PREFIX += env['CM_RUN_PREFIX'] if 'CM_RUN_PREFIX' in env else ''
+            CM_RUN_PREFIX += env.get('CM_RUN_PREFIX', '')
 
             env['CM_RUN_PREFIX'] = CM_RUN_PREFIX
 
