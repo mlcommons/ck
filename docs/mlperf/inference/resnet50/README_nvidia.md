@@ -37,4 +37,4 @@ cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
 ```
 
 ### Generate and Upload the Submission
-Follow [this README](../Generate_Submission_tree.md) to generate the submission tree and upload your results. 
+Follow [this README](../Submission.md) to generate the submission tree and upload your results. 

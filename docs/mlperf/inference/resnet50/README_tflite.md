@@ -29,4 +29,4 @@ cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --mod
 * `--offline_target_qps`, `--server_target_qps`, `--singlestream_target_latency` and `multistream_target_latency` can be used to override the determined performance numbers
 
 ### Generate and Upload the Submission
-Follow [this README](../Generate_Submission_tree.md) to generate the submission tree and upload your results. 
+Follow [this README](../Submission.md) to generate the submission tree and upload your results. 
