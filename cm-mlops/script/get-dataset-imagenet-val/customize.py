@@ -9,8 +9,6 @@ def preprocess(i):
     automation = i['automation']
     meta = i['meta']
     os_info = i['os_info']
-    if os_info['platform'] == 'windows':
-        return {'return':0}
 
     env['CM_DATASET_IMAGENET_VAL_REQUIRE_DAE'] = 'no'
 
@@ -51,8 +49,6 @@ def preprocess(i):
 def postprocess(i):
 
     os_info = i['os_info']
-    if os_info['platform'] == 'windows':
-        return {'return':0}
 
     env = i['env']
     path = env['CM_EXTRACT_EXTRACTED_PATH']
@@ -71,6 +67,8 @@ def postprocess(i):
     env['CM_DATASET_IMAGENET_VAL_PATH'] = path
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] =  path
+
+    print("The final path is:"+str(path))
 
     return {'return':0}
 
