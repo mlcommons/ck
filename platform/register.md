@@ -37,6 +37,10 @@ with 1 point after your PR is accepted (to support your intent to participate in
 Note that you will need CM and your fork of https://github.com/mlcommons/ck to participate in challenges, 
 so please keep and use it.
 
+Finally, you can also add your name, organization and URL via [GitHub ticket](https://github.com/mlcommons/ck/issues/855).
+
+Happy hacking!
+
 ## Discussions
 
 You can now join the [public Discord server](https://discord.gg/JjWNWXKxwT) 
