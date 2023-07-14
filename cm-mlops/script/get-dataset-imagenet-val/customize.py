@@ -68,7 +68,5 @@ def postprocess(i):
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] =  path
 
-    print("The final path is:"+str(path))
-
     return {'return':0}
 
