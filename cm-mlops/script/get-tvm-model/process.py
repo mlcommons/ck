@@ -28,7 +28,7 @@ def get_mod_params(
     image_height: Optional[int] = None,
     max_seq_length: Optional[int] = None
 ) -> Tuple[tvm.IRModule, Dict[str, tvm.nd.NDArray]]:
-    if not input_shapes_str and ((not image_width or not image_height) or not max_seq_length):
+    if not input_shapes_str and (not image_width or not image_height) and not max_seq_length:
         raise RuntimeError(
             "Error: None of environment variables storing shape is set!"
         )
