@@ -753,6 +753,9 @@ variations:
   singlestream:
     env:
       CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+  server:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Server
 
   # Model precision
   fp32:

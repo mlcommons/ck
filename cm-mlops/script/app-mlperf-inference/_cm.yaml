@@ -719,6 +719,13 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _singlestream
+  server:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Server
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _server
 
   power:
     env:
