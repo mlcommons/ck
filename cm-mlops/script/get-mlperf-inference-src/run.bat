@@ -14,13 +14,11 @@ if not exist %folder% (
        git clone %CM_GIT_RECURSE_SUBMODULES% -b "%CM_GIT_CHECKOUT%" %CM_GIT_URL% %CM_GIT_DEPTH% %folder%
        IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
        cd %folder%
+       git checkout "%CM_GIT_SHA%"
   ) else (
-       git clone %CM_GIT_RECURSE_SUBMODULES% %CM_GIT_URL% %CM_GIT_DEPTH% %folder%
+       git clone %CM_GIT_RECURSE_SUBMODULES% -b "%CM_GIT_CHECKOUT%" %CM_GIT_URL% %CM_GIT_DEPTH% %folder%
        IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
        cd %folder%
-
-       git checkout "%CM_GIT_CHECKOUT%"
-       IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
   )
 ) else (
 
