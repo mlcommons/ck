@@ -21,7 +21,7 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --model=resnet50 \
 --device=cpu --implementation=tflite-cpp --backend=tflite \
 --execution-mode=valid --results_dir=$HOME/inference_3.1_results \
---category=edge --division=open --quiet
+--category=edge --division=open --quiet --skip_submission_generation=yes
 ```
 
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs

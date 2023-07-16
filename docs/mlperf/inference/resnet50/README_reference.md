@@ -22,7 +22,7 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --model=resnet50 \
 --device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
+--category=edge --division=open --quiet --skip_submission_generation=yes
 ```
 
 * Use `--power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4950` for measuring power. Please adjust the server IP (where MLPerf power server is installed) and Port (default is 4950). `power=yes` is ignored for accuracy and compliance runs

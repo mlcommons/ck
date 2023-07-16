@@ -214,6 +214,19 @@
           "brew": ""
         }
       }
+    },
+    "ntpdate": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "ntpdate"
+      },
+      "state": {
+        "ntpdate": {
+          "apt": "ntpdate",
+          "dnf": "ntpdate",
+          "yum": "ntpdate",
+          "brew": ""
+        }
+      }
     }
   }
 }

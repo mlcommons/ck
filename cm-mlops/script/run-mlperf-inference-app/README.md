@@ -213,6 +213,7 @@ ___
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
            * generate,mlperf,inference,submission
+             * `if (CM_MLPERF_SKIP_SUBMISSION_GENERATION not in ['yes', 'True'])`
              * CM names: `--adr.['submission-generator']...`
              - CM script: [generate-mlperf-inference-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission)
 
@@ -317,6 +318,7 @@ r=cm.access({... , "adr.python.name":...}
 * `--scenario=value`  &rarr;  `CM_MLPERF_LOADGEN_SCENARIO=value`
 * `--server_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_SERVER_TARGET_QPS=value`
 * `--singlestream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY=value`
+* `--skip_submission_generation=value`  &rarr;  `CM_MLPERF_SKIP_SUBMISSION_GENERATION=value`
 * `--skip_truncation=value`  &rarr;  `CM_SKIP_TRUNCATE_ACCURACY=value`
 * `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
 * `--submitter=value`  &rarr;  `CM_MLPERF_SUBMITTER=value`

@@ -453,6 +453,12 @@ variations:
       batch-size: batch_size.8
     env:
       CM_MLPERF_LOADGEN_SCENARIO: Offline
+  server:
+    group: loadgen-scenario
+    default_variations1:
+      batch-size: batch_size.8
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Server
 
   run_harness:
     group: run-mode

@@ -112,8 +112,11 @@ ___
 * `--max_amps=value`  &rarr;  `CM_MLPERF_POWER_MAX_AMPS=value`
 * `--max_volts=value`  &rarr;  `CM_MLPERF_POWER_MAX_VOLTS=value`
 * `--ntp_server=value`  &rarr;  `CM_MLPERF_POWER_NTP_SERVER=value`
+* `--port=value`  &rarr;  `CM_MLPERF_POWER_SERVER_PORT=value`
 * `--power_server=value`  &rarr;  `CM_MLPERF_POWER_SERVER_ADDRESS=value`
 * `--run_cmd=value`  &rarr;  `CM_MLPERF_RUN_CMD=value`
+* `--server=value`  &rarr;  `CM_MLPERF_POWER_SERVER_ADDRESS=value`
+* `--server_port=value`  &rarr;  `CM_MLPERF_POWER_SERVER_PORT=value`
 * `--timestamp=value`  &rarr;  `CM_MLPERF_POWER_TIMESTAMP=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
@@ -151,6 +154,8 @@ ___
      * get,mlperf,power,src
        * CM names: `--adr.['power-src']...`
        - CM script: [get-mlperf-power-dev](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)
+     * get,generic-sys-util,_ntpdate
+       - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client/_cm.json)
   1. ***Run native script if exists***
