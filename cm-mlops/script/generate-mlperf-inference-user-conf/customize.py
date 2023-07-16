@@ -86,7 +86,7 @@ def preprocess(i):
         ml_model_name = "dlrm"
     if '3d-unet' in ml_model_name:
         ml_model_name = "3d-unet"
-    if 'gpt-j' in ml_model_name:
+    if 'gptj' in ml_model_name:
         ml_model_name = "gptj"
 
     query_count = None
@@ -100,7 +100,7 @@ def preprocess(i):
             value = env.get('CM_MLPERF_LOADGEN_TARGET_QPS')
     elif scenario in [ 'SingleStream', 'MultiStream' ]:
         metric = "target_latency"
-        tolerance = 0.95
+        tolerance = 0.4 #much lower because we have max_duration
         if not value:
             value = env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY')
     else:
@@ -187,6 +187,8 @@ def preprocess(i):
     else:
         if scenario == "MultiStream" or scenario == "SingleStream":
             user_conf += ml_model_name + "." + scenario + ".max_duration = 620000 \n"
+            if scenario == "MultiStream":
+                user_conf += ml_model_name + "." + scenario + ".min_query_count = 662" + "\n"
             if short_ranging:
                 ranging_user_conf += ml_model_name + "." + scenario + ".max_duration = 300000 \n "
         elif scenario == "SingleStream_old":

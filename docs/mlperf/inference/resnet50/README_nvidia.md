@@ -21,7 +21,7 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 cmr "generate-run-cmds inference _submission _all-scenarios" --model=resnet50 \
 --device=cuda --implementation=nvidia-original --backend=tensorrt \
 --execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
+--category=edge --division=open --quiet --skip_submission_generation=yes
 ```
 
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs

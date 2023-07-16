@@ -83,6 +83,8 @@ def preprocess(i):
     test_list = ["TEST01",  "TEST05"]
     if env['CM_MODEL']  in ["resnet50"]:
         test_list.append("TEST04")
+    if "gpt" in env['CM_MODEL']:
+        test_list.remove("TEST05")
 
     variation_implementation= "_" + env.get("CM_MLPERF_IMPLEMENTATION", "reference")
     variation_model= ",_" + env["CM_MLPERF_MODEL"]

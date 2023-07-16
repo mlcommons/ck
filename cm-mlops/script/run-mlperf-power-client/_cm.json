@@ -24,6 +24,9 @@
         "power-src"
       ],
       "tags": "get,mlperf,power,src"
+    },
+    {
+      "tags": "get,generic-sys-util,_ntpdate"
     }
   ],
   "input_mapping": {

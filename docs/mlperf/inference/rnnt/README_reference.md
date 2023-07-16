@@ -28,7 +28,6 @@ cmr "generate-run-cmds inference _submission _all-scenarios" --model=rnnt \
 ```
 
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs
-* Use `--division=closed` to run all scenarios for the closed division including the compliance tests
 * `--offline_target_qps`, `--server_target_qps` and  `--singlestream_target_latency` can be used to override the determined performance numbers
 
 ### Populate the README files
