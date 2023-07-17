@@ -1,3 +1,8 @@
+## V1.5.1
+   - fixed a bug with merging dictionaries in variations
+     (detected when running MLPerf inference with GPT-J):
+     https://github.com/mlcommons/ck/issues/858
+
 ## V1.5.0
    - fixed a serious (though rare) bug in indexing when mixing entries with UIDs and aliases
 
