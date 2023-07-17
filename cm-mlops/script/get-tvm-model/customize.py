@@ -39,8 +39,7 @@ def preprocess(i):
 def postprocess(i):
 
     env = i['env']
-    
-    env = i['env']
+
     env['CM_ML_MODEL_ORIGINAL_FILE_WITH_PATH'] = env['CM_ML_MODEL_FILE_WITH_PATH']
     env['CM_ML_MODEL_FILE'] = 'model-tvm.so'
     env['CM_ML_MODEL_PATH'] = os.path.join(os.getcwd())

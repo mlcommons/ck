@@ -543,11 +543,13 @@ variations:
     - tags: get,generic-python-lib,_onnx
     - tags: get,tvm
       names:
-        tvm
-    prehook_deps:
+      - tvm
     - tags: get,tvm-model,_onnx
+      names:
+      - tvm-model
       update_tags_from_env_with_prefix:
-        model.: CM_ML_MODEL
+        model.: 
+        - CM_ML_MODEL
       
   
   tvm-tflite:
