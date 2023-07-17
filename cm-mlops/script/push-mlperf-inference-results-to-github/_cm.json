@@ -13,7 +13,7 @@
       "tags": "get,python3"
     },
     {
-      "tags": "get,generic-sys-utils,_rsync"
+      "tags": "get,generic-sys-util,_rsync"
     }
   ],
   "prehook_deps": [
