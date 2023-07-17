@@ -154,6 +154,10 @@ ___
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `rapidjson-dev`
       - Workflow:
+    * `_rsync`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `rsync`
+      - Workflow:
     * `_screen`
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `screen`
