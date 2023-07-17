@@ -517,6 +517,14 @@
       ]
     },
     "cupy": {
+      "deps": [
+        {
+          "names": [
+            "cuda"
+          ],
+          "tags": "get,cuda"
+        }
+      ],
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "cupy"
       },
