@@ -163,12 +163,13 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--imagenet_path=value`  &rarr;  `IMAGENET_PATH=value`
 * `--torrent=value`  &rarr;  `CM_DATASET_IMAGENET_VAL_TORRENT_PATH=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "torrent":...}
+r=cm.access({... , "imagenet_path":...}
 ```
 
 </details>

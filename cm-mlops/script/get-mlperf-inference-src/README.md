@@ -114,6 +114,10 @@ ___
       - Environment variables:
         - *CM_SUBMODULE_3D_UNET*: `yes`
       - Workflow:
+    * `_branch.#`
+      - Environment variables:
+        - *CM_GIT_CHECKOUT*: `#`
+      - Workflow:
     * `_deeplearningexamples`
       - Environment variables:
         - *CM_SUBMODULE_DEEPLEARNINGEXAMPLES*: `yes`
@@ -152,10 +156,6 @@ ___
       - Environment variables:
         - *CM_GIT_PATCH*: `yes`
       - Workflow:
-    * `_power-dev`
-      - Environment variables:
-        - *CM_SUBMODULE_POWER_DEV*: `yes`
-      - Workflow:
     * `_pybind`
       - Environment variables:
         - *CM_SUBMODULE_PYBIND*: `yes`
@@ -164,9 +164,17 @@ ___
       - Environment variables:
         - *CM_GIT_RECURSE_SUBMODULES*: ` --recurse-submodules`
       - Workflow:
+    * `_repo.#`
+      - Environment variables:
+        - *CM_GIT_URL*: `#`
+      - Workflow:
     * `_short-history`
       - Environment variables:
         - *CM_GIT_DEPTH*: `--depth 10`
+      - Workflow:
+    * `_submodules.#`
+      - Environment variables:
+        - *CM_GIT_SUBMODULES*: `#`
       - Workflow:
 
     </details>
@@ -187,6 +195,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_GIT_URL: `https://github.com/mlcommons/inference.git`
 * CM_GIT_RECURSE_SUBMODULES: ``
 * CM_GIT_CHECKOUT: `master`
+* CM_GIT_CHECKOUT_FOLDER: `inference`
 
 </details>
 
@@ -196,6 +205,7 @@ Default version: `master`
 * `custom`
 * `deepsparse`
 * `master`
+* `pybind_fix`
 * `r2.1`
 * `tvm`
 ___
@@ -211,10 +221,12 @@ ___
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/_cm.json)
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/_cm.json)***
+     * get,git,repo
+       * CM names: `--adr.['inference-git-repo']...`
+       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/_cm.json)
@@ -232,9 +244,11 @@ ___
 * `CM_MLPERF_INFERENCE_3DUNET_PATH`
 * `CM_MLPERF_INFERENCE_BERT_PATH`
 * `CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH`
+* `CM_MLPERF_INFERENCE_CONF_PATH`
 * `CM_MLPERF_INFERENCE_DLRM_PATH`
+* `CM_MLPERF_INFERENCE_DLRM_V2_PATH`
+* `CM_MLPERF_INFERENCE_GPTJ_PATH`
 * `CM_MLPERF_INFERENCE_RNNT_PATH`
-* `CM_MLPERF_INFERENCE_SOURCE`
 * `CM_MLPERF_INFERENCE_VISION_PATH`
 ___
 ### Maintainers

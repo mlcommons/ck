@@ -64,6 +64,9 @@ def postprocess(i):
     if 'CM_DOCKER_ADD_DEVICE' in env:
         run_opts += " --device="+env['CM_DOCKER_ADD_DEVICE']
 
+    if 'CM_DOCKER_ADD_ALL_GPUS' in env:
+        run_opts += " --gpus=all"
+
     if 'CM_DOCKER_PORT_MAPS' in env:
         for ports in env['CM_DOCKER_PORT_MAPS']:
             port_map_cmds.append(ports)

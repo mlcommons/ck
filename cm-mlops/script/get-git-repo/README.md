@@ -130,6 +130,10 @@ ___
       - Environment variables:
         - *CM_GIT_DEPTH*: `--depth 5`
       - Workflow:
+    * `_submodules.#`
+      - Environment variables:
+        - *CM_GIT_SUBMODULES*: `#`
+      - Workflow:
 
     </details>
 

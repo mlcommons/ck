@@ -25,7 +25,8 @@
   ],
   "last_participation_date": "20230321",
   "name": "Grigori Fursin",
-  "organization": "cTuning foundation, MLCommons, cKnowledge Ltd",
+  "organization": "MLCommons, cTuning.org, cKnowledge.org",
+  "skip": true,
   "tags": [],
   "uid": "563c9f5f8ed34ca6"
 }

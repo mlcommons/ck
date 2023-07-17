@@ -32,7 +32,7 @@ public:
     }
 
     void LoadSamplesToRam(const std::vector<mlperf::QuerySampleIndex> &samples) override {
-        std::cerr << "loading samples to ram" << std::endl;
+        std::cerr << "loading samples to ram with total sample size: " << samples.size()<< std::endl;
         for (size_t i = 0; i < samples.size(); i++) {
             mlperf::QuerySampleIndex sample = samples[i];
             std::vector<std::vector<uint8_t>> input_datas(num_inputs);
@@ -47,8 +47,9 @@ public:
     }
 
     void UnloadSamplesFromRam(const std::vector<mlperf::QuerySampleIndex> &samples) override {
-        for (mlperf::QuerySampleIndex sample : samples)
+        for (mlperf::QuerySampleIndex sample : samples){
             backend->UnloadSampleFromRam(sample);
+	}
     }
 
     virtual size_t NumSamples() = 0;

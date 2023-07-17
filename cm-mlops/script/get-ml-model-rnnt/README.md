@@ -111,9 +111,29 @@ ___
         - *CM_ML_MODEL_ACCURACY*: `0.07452253714852645`
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/3662521/files/DistributedDataParallel_1576581068.9962234-epoch-100.pt?download=1`
       - Workflow:
+    * `_pytorch,fp32,amazon-s3`
+      - Environment variables:
+        - *CM_PACKAGE_URL*: `https://mlperf-public.s3.us-west-2.amazonaws.com/DistributedDataParallel_1576581068.9962234-epoch-100.pt`
+      - Workflow:
+    * `_pytorch,fp32,zenodo`
+      - Environment variables:
+        - *CM_PACKAGE_URL*: `https://zenodo.org/record/3662521/files/DistributedDataParallel_1576581068.9962234-epoch-100.pt?download=1`
+      - Workflow:
     * `_weights`
       - Environment variables:
         - *CM_MODEL_WEIGHTS_FILE*: `yes`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**download-src**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_amazon-s3`** (default)
+      - Workflow:
+    * `_zenodo`
       - Workflow:
 
     </details>
@@ -147,7 +167,7 @@ ___
 
 #### Default variations
 
-`_fp32,_pytorch`
+`_amazon-s3,_fp32,_pytorch`
 #### Default environment
 
 <details>

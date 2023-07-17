@@ -9,11 +9,14 @@ def preprocess(i):
 
     submitter = env.get('CM_MLPERF_SUBMITTER', 'MLCommons')
 
+    auto_detected_hw_name = False
     if env.get('CM_HW_NAME', '') == '':
         host_name =  env.get('CM_HOST_SYSTEM_NAME', 'default').replace("-", "_")
         env['CM_HW_NAME'] = host_name
+        auto_detected_hw_name = True
 
     hw_name = env['CM_HW_NAME']
+
     backend = env.get('CM_MLPERF_BACKEND', '')
     backend_version = env.get('CM_MLPERF_BACKEND_VERSION', '')
     sut_suffix = ''
@@ -34,6 +37,9 @@ def preprocess(i):
         print(f"Reusing SUT description file {sut}")
         state['CM_SUT_META'] = json.load(open(sut_path))
     else:
+        if not os.path.exists(os.path.dirname(sut_path)):
+            os.makedirs(os.path.dirname(sut_path))
+
         print("Generating SUT description file for " + sut)
         hw_path = os.path.join(path, "hardware", hw_name + ".json")
         if not os.path.exists(hw_path):
@@ -68,9 +74,10 @@ def preprocess(i):
         if not state['CM_SUT_META'].get('system_name'):
             system_name = env.get('CM_MLPERF_SYSTEM_NAME')
             if not system_name:
-                system_name = env.get('CM_HOST_SYSTEM_NAME')
+                system_name = env.get('CM_HW_NAME')
                 if system_name:
-                    system_name+=" (auto detected)"
+                    if auto_detected_hw_name:
+                        system_name+=" (auto detected)"
                 else:
                     system_name = " (generic)"
             state['CM_SUT_META']['system_name'] = system_name
@@ -87,7 +94,7 @@ def preprocess(i):
             state['CM_SUT_META']['host_processor_core_count'] = physical_cores_per_node
 
         if 'host_processor_model_name' not in state['CM_SUT_META']:
-            state['CM_SUT_META']['host_processor_model_name'] = env.get('CM_HOST_CPU_MODEL_NAME', '')
+            state['CM_SUT_META']['host_processor_model_name'] = env.get('CM_HOST_CPU_MODEL_NAME', 'undefined')
         if 'host_processors_per_node' not in state['CM_SUT_META']:
             state['CM_SUT_META']['host_processors_per_node'] = env.get('CM_HOST_CPU_SOCKETS', '')
 

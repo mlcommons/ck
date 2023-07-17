@@ -88,11 +88,11 @@ int main(int argc, const char *argv[]) {
         mlperf::TestMode::SubmissionRun;
 
     // read test settings from mlperf.conf and user.conf
-    if (test_settings.FromConfig(input_settings.mlperf_conf_path, input_settings.model_name, "Offline")) {
+    if (test_settings.FromConfig(input_settings.mlperf_conf_path, input_settings.model_name, input_settings.scenario_name)) {
         std::cerr << "Could not read mlperf.conf at " << input_settings.mlperf_conf_path << std::endl;
         return 1;
     }
-    if (test_settings.FromConfig(input_settings.user_conf_path, input_settings.model_name, "Offline")) {
+    if (test_settings.FromConfig(input_settings.user_conf_path, input_settings.model_name, input_settings.scenario_name)) {
         std::cerr << "Could not read user.conf at " << input_settings.user_conf_path << std::endl;
         return 1;
     }

@@ -50,7 +50,7 @@ def postprocess(i):
     env['CM_GIT_REPO_PATCH'] = env['CM_GIT_PATCH']
     env['CM_GIT_REPO_RECURSE_SUBMODULES'] = env['CM_GIT_RECURSE_SUBMODULES']
 
-    if (env.get('CM_GIT_CHECKOUT_PATH_ENV_NAME','') != '') and (env.get(env['CM_GIT_CHECKOUT_PATH_ENV_NAME'], '') == ''):
+    if (env.get('CM_GIT_CHECKOUT_PATH_ENV_NAME','') != ''):
         env[env['CM_GIT_CHECKOUT_PATH_ENV_NAME']] = git_checkout_path
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] = git_checkout_path

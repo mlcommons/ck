@@ -4,6 +4,9 @@
   "automation_uid": "3d84abd768f34e08",
   "date_close": "20230804",
   "date_open": "20230704",
+  "points":3,
+  "trophies":true,
+  "prize":"300$",
   "tags": [
     "modularize",
     "optimize",
@@ -19,7 +22,7 @@
     "mlperf-inference-huggingface-v3.1-2023",
     "v3.1"
   ],
-  "title": "Run and optimize MLPerf inference v3.1 benchmarks using Hugging Face models",
+  "title": "Implement CM automation to run benchmark Hugging Face models using MLPerf loadgen",
   "uid": "72b95d08a9e04698",
   "under_preparation": true
 }

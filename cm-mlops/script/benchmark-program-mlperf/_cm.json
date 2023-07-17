@@ -20,7 +20,15 @@
       "new_env_keys": [
         "CM_MLPERF_*"
       ],
-      "post_hook_deps": [
+      "prehook_deps": [
+        {
+          "names": [
+            "benchmark-program"
+          ],
+          "tags": "benchmark-program,program"
+        }
+      ],
+      "post_deps": [
         {
           "enable_if_env": {
             "CM_MLPERF_LOADGEN_MODE": [

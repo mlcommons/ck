@@ -53,7 +53,7 @@ See a few real-world examples of using the CM scripting language:
 - [Auto-generated READMEs to reproduce official MLPerf BERT inference benchmark v3.0 submission with a model from the Hugging Face Zoo](https://github.com/mlcommons/submissions_inference_3.0/tree/main/open/cTuning/code/huggingface-bert/README.md)
 - [Auto-generated Docker containers to run and reproduce MLPerf inference benchmark](cm-mlops/script/app-mlperf-inference/dockerfiles/retinanet)
 
-
+Read more about our long-term vision in our [ACM REP'23 keynote "Toward a common language to facilitate reproducible research and technology transfer: challenges and solutions"]( https://doi.org/10.5281/zenodo.8105339 ).
 
 
 # Archive (previous CK version before MLCommons)

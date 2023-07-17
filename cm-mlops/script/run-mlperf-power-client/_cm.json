@@ -24,11 +24,17 @@
         "power-src"
       ],
       "tags": "get,mlperf,power,src"
+    },
+    {
+      "tags": "get,generic-sys-util,_ntpdate"
     }
   ],
   "input_mapping": {
     "log_dir": "CM_MLPERF_POWER_LOG_DIR",
     "power_server": "CM_MLPERF_POWER_SERVER_ADDRESS",
+    "server_port": "CM_MLPERF_POWER_SERVER_PORT",
+    "server": "CM_MLPERF_POWER_SERVER_ADDRESS",
+    "port": "CM_MLPERF_POWER_SERVER_PORT",
     "loadgen_logs_dir": "CM_MLPERF_LOADGEN_LOGS_DIR",
     "ntp_server": "CM_MLPERF_POWER_NTP_SERVER",
     "run_cmd": "CM_MLPERF_RUN_CMD",

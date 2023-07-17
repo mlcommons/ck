@@ -24,9 +24,9 @@ if not exist %CM_TMP_GIT_PATH% (
   echo "%CM_GIT_CLONE_CMD%"
   %CM_GIT_CLONE_CMD%
   IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
+  cd %folder%
   if not "%CM_GIT_SHA%" == "" (
        echo.
-       cd %folder%
        echo.
        git checkout "%CM_GIT_CHECKOUT%"
        IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
@@ -36,6 +36,15 @@ if not exist %CM_TMP_GIT_PATH% (
 
   cd %folder%
 
+)
+
+if not "%CM_GIT_SUBMODULES%" == "" (
+  for /F %%s in ("%CM_GIT_SUBMODULES%") do (
+    echo.
+    echo Initializing submodule %%s
+    git submodule update --init %%s
+    IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
+  )
 )
 
 if "%CM_GIT_PATCH%" == "yes" (

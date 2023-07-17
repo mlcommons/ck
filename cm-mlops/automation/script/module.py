@@ -640,6 +640,10 @@ class CAutomation(Automation):
         prehook_deps = meta.get('prehook_deps',[])
         posthook_deps = meta.get('posthook_deps',[])
         input_mapping = meta.get('input_mapping', {})
+        docker_settings = meta.get('docker')
+        docker_input_mapping = {}
+        if docker_settings:
+            docker_input_mapping = docker_settings.get('docker_input_mapping', {})
         new_env_keys_from_meta = meta.get('new_env_keys', [])
         new_state_keys_from_meta = meta.get('new_state_keys', [])
 
@@ -716,6 +720,10 @@ class CAutomation(Automation):
             update_env_from_input_mapping(const, i, input_mapping)
 
 
+        if docker_input_mapping:
+            update_env_from_input_mapping(env, i, docker_input_mapping)
+            update_env_from_input_mapping(const, i, docker_input_mapping)
+
 
 
 
@@ -741,6 +749,8 @@ class CAutomation(Automation):
             return r
 
         variation_groups = r['variation_groups']
+
+        run_state['variation_groups'] = variation_groups
 
         # Add variation(s) if specified in the "tags" input prefixed by _
           # If there is only 1 default variation, then just use it or substitute from CMD
@@ -842,6 +852,7 @@ class CAutomation(Automation):
                             self._merge_dicts_with_tags(add_deps_recursive, adr)
             #Processing them again using updated deps for add_deps_recursive
             r = update_adr_from_meta(deps, post_deps, prehook_deps, posthook_deps, add_deps_recursive)
+            if r['return']>0: return r
 
 
 
@@ -2083,6 +2094,7 @@ class CAutomation(Automation):
         i['meta']['new_env_keys'] = []
         i['meta']['new_state_keys'] = []
         i['meta']['input_mapping'] = {}
+        i['meta']['docker_input_mapping'] = {}
         i['meta']['deps'] = []
         i['meta']['prehook_deps'] = []
         i['meta']['posthook_deps'] = []
@@ -2318,6 +2330,7 @@ class CAutomation(Automation):
             # Preserve local env
             tmp_env = {}
 
+            variation_groups = run_state.get('variation_groups')
 
             for d in deps:
 
@@ -2369,10 +2382,6 @@ class CAutomation(Automation):
                         if k.startswith('CM_VERSION'):
                             env[k] = tmp_env[k]
 
-                inherit_variation_tags = d.get("inherit_variation_tags", False)
-                if inherit_variation_tags:
-                    d['tags']+=","+variation_tags_string #deps should have non-empty tags
-
                 update_tags_from_env = d.get("update_tags_from_env", [])
                 for t in update_tags_from_env:
                     if env.get(t, '').strip() != '':
@@ -2383,6 +2392,25 @@ class CAutomation(Automation):
                     for key in update_tags_from_env_with_prefix[t]:
                         if env.get(key, '').strip() != '':
                             d['tags']+=","+t+env[key]
+
+                inherit_variation_tags = d.get("inherit_variation_tags", False)
+                skip_inherit_variation_groups = d.get("skip_inherit_variation_groups", [])
+                variation_tags_to_be_skipped = []
+                if inherit_variation_tags:
+                    if skip_inherit_variation_groups: #skips inheriting variations belonging to given groups
+                        for group in variation_groups:
+                            if group in skip_inherit_variation_groups:
+                                variation_tags_to_be_skipped += variation_groups[group]['variations']
+                    variation_tags = variation_tags_string.split(",")
+                    variation_tags =  [ x for x in variation_tags if not x.startswith("_") or x[1:] not in set(variation_tags_to_be_skipped) ]
+                    deps_tags = d['tags'].split(",")
+                    for tag in deps_tags:
+                        if tag.startswith("-_") or tag.startswith("_-"):
+                            variation_tag = "_" + tag[2:]
+                            if variation_tag in variation_tags:
+                                variation_tags.remove(variation_tag)
+                    new_variation_tags_string = ",".join(variation_tags)
+                    d['tags']+=","+new_variation_tags_string #deps should have non-empty tags
 
                 run_state['deps'].append(d['tags'])
 
@@ -2437,6 +2465,8 @@ class CAutomation(Automation):
         """
         Merges two dictionaries and append any tag strings in them
         """
+        if dict1 == dict2:
+            return {'return': 0}
         for dep in dict1:
             if 'tags' in dict1[dep]:
                 dict1[dep]['tags_list'] = utils.convert_tags_to_list(dict1[dep])
@@ -4041,6 +4071,14 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
     input_mapping = meta.get('input_mapping', {})
     if input_mapping:
         update_env_from_input_mapping(env, i['input'], input_mapping)
+
+    # Possibly restrict this to within docker environment
+    docker_settings = meta.get('docker')
+    docker_input_mapping = {}
+    if docker_settings:
+        docker_input_mapping = docker_settings.get('docker_input_mapping', {})
+        if docker_input_mapping:
+            update_env_from_input_mapping(env, i['input'], docker_input_mapping)
 
     new_env_keys_from_meta = meta.get('new_env_keys', [])
     if new_env_keys_from_meta:

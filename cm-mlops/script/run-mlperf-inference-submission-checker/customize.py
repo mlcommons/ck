@@ -47,6 +47,7 @@ def preprocess(i):
     else:
         power_check = ""
 
+    extra_args = ' ' + env.get('CM_MLPERF_SUBMISSION_CHECKER_EXTRA_ARGS','')
 
     x_submitter = ' --submitter "' + submitter + '" ' if submitter!='' else ''
 
@@ -55,7 +56,7 @@ def preprocess(i):
     CMD = env['CM_PYTHON_BIN_WITH_PATH'] + ' ' + submission_checker_file + ' --input "' + submission_dir + '"' + \
             x_submitter + \
             x_version + \
-            skip_compliance + extra_map + power_check
+            skip_compliance + extra_map + power_check + extra_args
 
     report_generator_file = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "tools", "submission",
             "generate_final_report.py")
@@ -65,4 +66,9 @@ def preprocess(i):
     return {'return':0}
 
 def postprocess(i):
+
+    env = i['env']
+    if env.get('CM_TAR_SUBMISSION_DIR'):
+        env['CM_TAR_INPUT_DIR'] = env.get('CM_MLPERF_SUBMISSION_DIR', '$HOME')
+
     return {'return':0}

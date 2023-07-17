@@ -10,6 +10,9 @@ import misc
 
 def main():
 
+    st.set_page_config(layout="wide",
+                       menu_items={})
+
     params = st.experimental_get_query_params()
 
     # Set style
@@ -32,20 +35,31 @@ def main():
 
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
-
     # Set title
+    extra = os.environ.get('CM_GUI_EXTRA_HTML','')
+
+    if extra!='':
+        url = ''
+        for p in params:
+            v=str(','.join(params[p]))
+            if url!='': url+=';'
+            url+=p+'='+v
+        extra=extra.replace('{{CM_URL}}', url)
+
     st.write('''
         <center>
         <h2 style="color:#2f6fb3">Collective Knowledge Playground</h2>
         <img src="https://cknowledge.org/images/logo-ck-tr.png" width="150">
-        <br><br>
+        <br>
+        {}
+        <br>
         </center>
-        ''',
+        '''.format(extra),
         unsafe_allow_html=True
     )
 
     # Check action and basic menu
-    action = params.get('action',['challenges'])[0].lower()
+    action = params.get('action',['contributors'])[0].lower()
 
     style_action_challenges='font-style:italic;font-weight:bold;color:#ffffff' if action=='challenges' else ''
     style_action_experiments='font-style:italic;font-weight:bold;color:#ffffff' if action=='experiments' else ''
@@ -54,20 +68,22 @@ def main():
 
     st.write('''
         <center>
+        <a target="_self" href="?action=contributors"><button style="{}">Leaderboard</button></a>
         <a target="_self" href="?action=challenges"><button style="{}">Challenges</button></a>
         <a target="_self" href="?action=experiments"><button style="{}">Experiments and results</button></a>
-        <a target="_self" href="?action=contributors"><button style="{}">Contributors</button></a>
-        <a target="_self" href="https://github.com/mlcommons/ck"><button>GitHub</button></a>
+        <a target="_self" href="https://github.com/mlcommons/ck"><button>Docs / GitHub</button></a>
         <a target="_self" href="https://discord.gg/JjWNWXKxwT"><button>Discord</button></a>
         </center>
-        '''.format(style_action_challenges, 
+        '''.format(style_action_contributors,
+                   style_action_challenges, 
                    style_action_experiments, 
-                   style_action_contributors),
+                   ),
         unsafe_allow_html=True
     )
 
     # Check actions
-    st.markdown("""---""")
+#    st.markdown("""---""")
+    st.markdown('')
 
     r={'return':0}
 
@@ -95,12 +111,10 @@ def main():
 
     st.write("""
              <center>
-              <a href="https://github.com/mlcommons/ck/blob/master/platform/get-started.md">Getting Started</a>
-               &nbsp;&nbsp;&nbsp;
-              <a href="https://github.com/mlcommons/ck/tree/master/platform">About</a>
-               &nbsp;&nbsp;&nbsp;
-              <a href="https://github.com/mlcommons/ck/blob/master/docs/README.md">Docs</a>
-               &nbsp;&nbsp;&nbsp;
+              Sponsored by
+              <a href="https://mlcommons.org">MLCommons</a>,
+              <a href="https://www.linkedin.com/company/ctuning-foundation">cTuning.org</a>
+              and <a href="https://www.linkedin.com/company/cknowledge">cKnowledge.org</a>
              </center>
              """,  
              unsafe_allow_html=True)

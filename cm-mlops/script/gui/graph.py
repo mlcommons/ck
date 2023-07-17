@@ -641,8 +641,6 @@ def visualize(st, query_params, action = ''):
         st.markdown('---')
         st.dataframe(df)
 
-#        st.markdown(df.to_html(render_links=True, escape=False),unsafe_allow_html=True)
-
         # Check if can create self link
         if len(experiment_uids)==1:
             st.markdown("""---""")

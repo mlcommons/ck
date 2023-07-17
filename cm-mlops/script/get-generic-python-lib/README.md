@@ -209,10 +209,15 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `matplotlib`
       - Workflow:
+    * `_mlperf_loadgen`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `mlperf_loadgen`
+        - *CM_GENERIC_PYTHON_PIP_URL*: `git+https://github.com/mlcommons/inference.git#subdirectory=loadgen`
+      - Workflow:
     * `_mlperf_logging`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `mlperf_logging`
-        - *CM_GENERIC_PYTHON_PIP_URL*: `git+https://github.com/mlperf/logging.git@2.1.0`
+        - *CM_GENERIC_PYTHON_PIP_URL*: `git+https://github.com/mlperf/logging.git`
       - Workflow:
     * `_mpld3`
       - Environment variables:
@@ -533,6 +538,10 @@ ___
      * get,python3
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,generic-python-lib,_pip
+       * `if (CM_GENERIC_PYTHON_PACKAGE_NAME  != pip)`
+       * CM names: `--adr.['python-pip', 'pip']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)
   1. ***Run native script if exists***

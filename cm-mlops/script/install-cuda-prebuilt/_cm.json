@@ -10,9 +10,27 @@
       "tags": "detect,os"
     }
   ],
+  "input_mapping": {
+    "local_run_file_path": "CUDA_RUN_FILE_LOCAL_PATH"
+  },
   "default_env": {
     "CM_SUDO": "sudo"
   },
+  "prehook_deps": [
+    {
+      "tags": "download,file",
+      "names": [ "download-script" ],
+      "update_tags_from_env_with_prefix": {
+        "_url.": [ "WGET_URL" ]
+      },
+      "env": {
+        "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_CUDA_RUN_FILE_PATH",
+        "CM_DOWNLOAD_LOCAL_FILE_PATH": "<<<CUDA_RUN_FILE_LOCAL_PATH>>>"
+      },
+      "force_cache": true,
+      "extra_cache_tags": "cuda,run,file"
+    }
+  ],
   "post_deps": [
     {
       "skip_if_env": {
@@ -52,7 +70,22 @@
       }
     }
   },
+  "variations": {
+    "no-driver": {
+      "group": "install-driver",
+      "default": true,
+      "env": {
+        "CM_CUDA_INSTALL_DRIVER": "no"
+      }
+    },
+    "driver": {
+      "group": "install-driver",
+      "env": {
+        "CM_CUDA_INSTALL_DRIVER": "yes"
+      }
+    }
+  },
   "docker": {
-    "run": false
+    "run": true
   }
 }

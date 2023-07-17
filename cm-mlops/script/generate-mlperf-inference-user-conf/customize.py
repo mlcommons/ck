@@ -86,7 +86,7 @@ def preprocess(i):
         ml_model_name = "dlrm"
     if '3d-unet' in ml_model_name:
         ml_model_name = "3d-unet"
-    if 'gpt-j' in ml_model_name:
+    if 'gptj' in ml_model_name:
         ml_model_name = "gptj"
 
     query_count = None
@@ -100,7 +100,7 @@ def preprocess(i):
             value = env.get('CM_MLPERF_LOADGEN_TARGET_QPS')
     elif scenario in [ 'SingleStream', 'MultiStream' ]:
         metric = "target_latency"
-        tolerance = 0.95
+        tolerance = 0.4 #much lower because we have max_duration
         if not value:
             value = env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY')
     else:
@@ -122,10 +122,10 @@ def preprocess(i):
                 conf[metric] = 1
             if metric == "target_latency":
                 if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
-                    print("In find performance mode: using 0.1ms as target_latency")
+                    print("In find performance mode: using 0.5ms as target_latency")
                 else:
-                    print("No target_latency specified. Using 0.1ms as target_latency")
-                conf[metric] = 0.1
+                    print("No target_latency specified. Using 0.5ms as target_latency")
+                conf[metric] = 0.5
             metric_value = conf[metric]
             #else:
             #    return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
@@ -157,7 +157,7 @@ def preprocess(i):
         performance_sample_count = env['CM_MLPERF_PERFORMANCE_SAMPLE_COUNT']
         user_conf += ml_model_name + ".*.performance_sample_count_override = " + performance_sample_count + "\n"
 
-    if 'CM_MLPERF_POWER' in env and env.get('CM_MLPERF_SHORT_RANGING_RUN', '') == 'yes' and env['CM_MLPERF_RUN_STYLE'] == "valid" and mode == "performance":
+    if 'CM_MLPERF_POWER' in env and env.get('CM_MLPERF_SHORT_RANGING_RUN', '') != 'no' and env['CM_MLPERF_RUN_STYLE'] == "valid" and mode == "performance":
         short_ranging = True
     else:
         short_ranging = False
@@ -165,7 +165,7 @@ def preprocess(i):
     if short_ranging:
         import copy
         ranging_user_conf = copy.deepcopy(user_conf)
-        ranging_user_conf += ml_model_name + "." + scenario + ".min_duration = 120" + "\n"
+        ranging_user_conf += ml_model_name + "." + scenario + ".min_duration = 300000" + "\n"
 
     if env['CM_MLPERF_RUN_STYLE'] == "test":
         query_count = env.get('CM_TEST_QUERY_COUNT', "5")
@@ -187,8 +187,10 @@ def preprocess(i):
     else:
         if scenario == "MultiStream" or scenario == "SingleStream":
             user_conf += ml_model_name + "." + scenario + ".max_duration = 620000 \n"
+            if scenario == "MultiStream":
+                user_conf += ml_model_name + "." + scenario + ".min_query_count = 662" + "\n"
             if short_ranging:
-                ranging_user_conf += ml_model_name + "." + scenario + ".max_duration = 120000 \n "
+                ranging_user_conf += ml_model_name + "." + scenario + ".max_duration = 300000 \n "
         elif scenario == "SingleStream_old":
             query_count = str(max(int((1000 / float(conf['target_latency'])) * 660), 64))
             user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
@@ -196,10 +198,10 @@ def preprocess(i):
             if short_ranging:
                 ranging_user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
         elif scenario == "Offline":
-            query_count = str(int(conf['target_qps']) * 660)
+            query_count = str(int(float(conf['target_qps']) * 660))
             #user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
             if short_ranging:
-                ranging_query_count = str(int(conf['target_qps']) * 120)
+                ranging_query_count = str(int(float(conf['target_qps']) * 300))
                 ranging_user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(ranging_query_count) + "\n"
                 ranging_user_conf += ml_model_name + "." + scenario + ".min_query_count = 0 \n"
 
@@ -258,7 +260,7 @@ def preprocess(i):
 
         print("Output Dir: '" + OUTPUT_DIR + "'")
         print(user_conf)
-        if 'CM_MLPERF_POWER' in env and os.path.exists(env['CM_MLPERF_POWER_LOG_DIR']):
+        if env.get('CM_MLPERF_POWER','') == "yes" and os.path.exists(env['CM_MLPERF_POWER_LOG_DIR']):
             shutil.rmtree(env['CM_MLPERF_POWER_LOG_DIR'])
     else:
         print("Run files exist, skipping run...\n")
@@ -266,11 +268,14 @@ def preprocess(i):
 
     if not run_files_exist(log_mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, \
                     required_files[4]) or env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
+
+        env['CM_MLPERF_TESTING_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), key+".conf")#  user_conf_path
+        env['CM_MLPERF_RANGING_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), "ranging_"+key+".conf")#  ranging_user_conf_path for a shorter run
+
         if short_ranging:
-            prefix = "\${CM_MLPERF_USER_CONF_PREFIX}"
+            env['CM_MLPERF_USER_CONF'] = "\${CM_MLPERF_USER_CONF}"
         else:
-            prefix = ""
-        env['CM_MLPERF_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), prefix+key+".conf")#  user_conf_path
+            env['CM_MLPERF_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), key+".conf")#  user_conf_path
     else:
         print(f"Measure files exist at {OUTPUT_DIR}. Skipping regeneration...\n")
         env['CM_MLPERF_USER_CONF'] = ''

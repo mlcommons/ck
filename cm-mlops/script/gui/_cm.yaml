@@ -92,6 +92,7 @@ variations:
       - tags: get,generic-python-lib,_streamlit_option_menu
       - tags: get,generic-python-lib,_numpy
       - tags: get,generic-python-lib,_pandas
+      - tags: get,generic-python-lib,_package.streamlit-aggrid
 
   chatgpt:
     group:

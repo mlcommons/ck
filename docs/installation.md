@@ -1,5 +1,6 @@
 [ [Back to index](README.md) ]
 
+
 <details>
 <summary>Click here to see the table of contents.</summary>
 
@@ -9,14 +10,21 @@
   * [MacOS](#macos)
   * [Windows](#windows)
 * [CM CLI testing](#cm-cli-testing)
+* [CUDA installation](#cuda-installation)
 * [CM customization](#cm-customization)
 * [CM automation scripts](#cm-automation-scripts)
+* [Running CM scripts via Docker](#running-cm-scripts-via-docker)
 
 </details>
 
+
+
 # CM installation
 
-The CM tool requires minimal dependencies to run on any platform: `python 3+, pip, git, wget`.
+The CM language requires minimal dependencies to run on any platform: `python 3+, pip, git, wget`.
+
+***By default, CM will pull Git repositories and cache installations and downloaded files in your `$HOME/CM` directory (Linux/MacOS). 
+   You can change it to any another directory using the `CM_REPOS` environment variable, for example `export CM_REPOS=/scratch/CM`.***
 
 Here are typical installation procedures across different operating systems:
 
@@ -29,6 +37,7 @@ You can find some Docker containers for CM [here](../docker).
 
 You can customize CM installation using environment variables described [here](#cm-customization).
 
+
 You can reuse misc CM utils listed [here](#misc-cm-utils).
 
 ## Ubuntu, Debian
@@ -38,7 +47,7 @@ You can reuse misc CM utils listed [here](#misc-cm-utils).
 ```bash
 sudo apt update && sudo apt upgrade
 
-sudo apt install python3 python3-pip python3-venv git wget
+sudo apt install python3 python3-pip python3-venv git wget curl
 
 python3 -m pip install cmind
 ```
@@ -67,13 +76,16 @@ You are ready to use CM automation meta-framework.
 ```bash
 sudo dnf update
 
-sudo dnf install python3 python-pip git wget
+sudo dnf install python3 python-pip git wget curl
 
 python3 -m pip install cmind --user
 
 ```
 
 ## MacOS
+
+*Note that CM currently does not work with Python installed from the Apple Store.
+ Please install Python via brew as described below.*
 
 If `brew` package manager is not installed, please install it as follows (see details [here](https://brew.sh/)):
 ```bash
@@ -85,10 +97,14 @@ Don't forget to add brew to PATH environment as described in the end.
 Then install python, pip, git and wget:
 
 ```bash
-brew install python3 python3-pip git wget
+brew install python3 git wget curl
 
 python3 -m pip install cmind
 ```
+
+*Sometimes python does not add `cm` and `cmr` binaries to the `PATH` environment variable.
+ You may need to find these files and add their path to `PATH` variable.
+ We plan to simplify this installation in the future.*
 
 
 ## Windows
@@ -96,13 +112,21 @@ python3 -m pip install cmind
 * Download and install Git from [git-for-windows.github.io](https://git-for-windows.github.io).
   * Configure Git to accept long file names: `git config --system core.longpaths true`
 * Download and install Python 3+ from [www.python.org/downloads/windows](https://www.python.org/downloads/windows).
+  * Don't forget to select option to add Python binaries to PATH environment!
   * Configure Windows to accept long fie names during Python installation!
+
 * Install CM via PIP:
 
 ```bash
 python -m pip install cmind
 ```
 
+*Note that we [have reports](https://github.com/mlcommons/ck/issues/844) 
+ that CM does not work when Python was first installed from the Microsoft Store.
+ If CM fails to run, you can find a fix [here](https://stackoverflow.com/questions/57485491/python-python3-executes-in-command-prompt-but-does-not-run-correctly)*.
+
+
+*We plan to provide a self-sustained package in the future to simplify CM installation on Windows.*
 
 
 # CM CLI testing
@@ -121,7 +145,7 @@ You can also quickly test the installation and check the version as follows:
 ```bash
 gfursin@mlcommons-ck-cm-dev:~$ cm test core
 
-CM version: 1.2.1
+CM version: 1.5.0
 
 Python executable used by CK: /usr/bin/python3
 
@@ -137,6 +161,10 @@ Reporting issues and ideas:        https://github.com/mlcommons/ck/issues
 Joining the open MLPerf workgroup: https://cKnowledge.org/mlcommons-taskforce
 ```
 
+# CUDA installation
+
+If you plan to use CUDA for your experiments, please follow [this guide](installation-cuda.md) 
+to detect or install it and other related dependencies (cuDNN, TensorRT) using CM.
 
 # CM customization
 
@@ -174,6 +202,15 @@ for portable MLOps and DevOps from MLCommons directly by installing the followin
 cm pull repo mlcommons@ck
 ```
 
+If you plan to participate in our [reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges),
+we suggest you to create a fork of [github.com/mlcommons/ck](https://github.com/mlcommons/ck) and use it. 
+In such case, you will be able to create PRs with your updates to the main repository.
+If you already installed above repo, you will need delete it and install your fork as follows:
+```bash
+cm rm repo mlcommons@ck --all
+cm pull repo --url={URL of the fork of github.com/mlcommons/ck}
+```
+
 If you use CM scripts with Python outside containers, we suggest you to set up CM Python virtual
 environment as described [here](../cm-mlops/automation/script/README-extra.md#using-python-virtual-environments).
 
@@ -181,3 +218,10 @@ Feel free to check [these CM tutorials](tutorials) to learn how to use CM to fac
 run MLPerf out-of-the-box and accelerate technology transfer across rapidly evolving 
 software, hardware, models and data.
 
+
+# Running CM scripts via Docker
+
+If you have Docker installed, you can run any CM script using Docker and stay in the container to continue running CM commands as follows:
+```bash
+cm docker script --tags=detect,os -j
+```

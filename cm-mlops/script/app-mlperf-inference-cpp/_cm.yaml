@@ -205,3 +205,17 @@ variations:
     group: model
     env:
       CM_MODEL: retinanet
+
+  offline:
+    group: loadgen-scenario
+    default: true
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Offline
+  multistream:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: MultiStream
+  singlestream:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream

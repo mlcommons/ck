@@ -212,7 +212,8 @@ class CAutomation(Automation):
         text = i.get('text','Downloaded: ')
 
         try:
-            with requests.get(url, stream=True, allow_redirects=True) as download:
+            verify = i.get('verify', True)
+            with requests.get(url, stream=True, allow_redirects=True, verify=verify) as download:
                 download.raise_for_status()
 
                 size_string = download.headers.get('Content-Length')

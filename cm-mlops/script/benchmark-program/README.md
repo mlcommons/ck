@@ -139,6 +139,9 @@ ___
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)***
      * detect,cpu
        - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+     * set,performance,mode,_performance
+       * `if (CM_SET_PERFORMANCE_MODE in ['on', 'yes', 'True', True])`
+       - CM script: [set-performance-mode](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-performance-mode)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)
   1. ***Run native script if exists***
@@ -154,8 +157,10 @@ ___
 ### Script output
 #### New environment keys (filter)
 
+* `CM_RUN_CMD`
 #### New environment keys auto-detected from customize
 
+* `CM_RUN_CMD`
 ___
 ### Maintainers
 
