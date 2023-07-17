@@ -1,17 +1,25 @@
 ### Challenge
 
 Develop a reference implementation of any MLPerf inference benchmark to run on Amazon Inferentia.
+Submit preliminary (unoptimized) benchmarking results to MLPerf inference v3.1 and beyond.
 
-*The first implementation will receive 3 points and a prize of 400$ and the fastest implementation will receive a prize of 300$.
-All submitters will participate in writing a common white paper about 
-running and comparing MLPerf inference benchmarks out-of-the-box.*
-
-Join this public [Discord server](https://discord.gg/JjWNWXKxwT) to get more details
-and help from the organizers and the community.
+Join our public [Discord server](https://discord.gg/JjWNWXKxwT) and/or
+our [weekly conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit)
+to discuss this challenge with the organizers.
 
 Read [this documentation](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md) 
 to run reference implementations of MLPerf inference benchmarks 
 using the CM automation language and use them as a base for your developments.
+
+Check [this ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn more about our open-source project and long-term vision.
+
+
+### Prizes
+
+* *All contributors will participate in writing a common white paper about running and comparing MLPerf inference benchmarks out-of-the-box.*
+* *All contributors will receive an official MLCommons Collective Knowledge contributor award (see [this example](https://ctuning.org/awards/ck-award-202307-zhu.pdf)).*
+* *The first implementation will receive 3 points and a prize of 400$ and the fastest implementation will receive a prize of 300$.*
+
 
 
 ### Organizers
@@ -20,5 +28,9 @@ using the CM automation language and use them as a base for your developments.
 * [cTuning.org](https://www.linkedin.com/company/ctuning-foundation)
 * [cKnowledge.org](https://www.linkedin.com/company/cknowledge)
 
-
 ### Results
+
+All accepted results will be publicly available in the CM format with derived metrics 
+in this [MLCommons repository](https://github.com/mlcommons/ck_mlperf_results),
+in [MLCommons Collective Knowledge explorer](https://access.cknowledge.org/playground/?action=experiments) 
+and at official [MLCommons website](https://mlcommons.org).

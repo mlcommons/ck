@@ -7,7 +7,7 @@
   "date_open": "20230704",
   "points":3,
   "trophies":true,
-  "prize":"300$",
+  "prize":"300$ for the first implementation",
   "prize_short":"co-authoring white paper , $$$",
   "tags": [
     "modularize",
@@ -25,6 +25,5 @@
     "v3.1"
   ],
   "title": "Implement CM automation to run benchmark Hugging Face models using MLPerf loadgen",
-  "uid": "72b95d08a9e04698",
-  "under_preparation": true
+  "uid": "72b95d08a9e04698"
 }

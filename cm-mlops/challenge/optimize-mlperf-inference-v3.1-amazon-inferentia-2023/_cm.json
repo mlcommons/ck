@@ -24,6 +24,6 @@
     "mlperf-inference-inferentia-v3.1-2023",
     "v3.1"
   ],
-  "title": "Develop a reference implementation of any MLPerf inference benchmark to run on Amazon Inferentia.",
+  "title": "Develop a reference implementation of any MLPerf inference benchmark to run on Amazon Inferentia and submit to MLPerf inference v3.1+",
   "uid": "c8f2573320424e2a"
 }

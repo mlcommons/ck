@@ -41,10 +41,6 @@ However, since some benchmarks may take 1 day to run, we suggest to start in the
 Please read [this documentation](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md)
 to set up and run above benchmarks using CM.
 
-*To thank you for helping the community you will receive 1 point for submitting valid results for 1 complete benchmark on one system.*
-*The top 3 submitters by points will receive a prize of 200$ each.*
-*All submitters will participate in writing a common white paper about running and comparing MLPerf inference benchmarks out-of-the-box.*
-
 You can register your participation for the [Collective Knowledge leaderboard]( https://access.cKnowledge.org/playground/?action=contributors )
 using this [guide](https://github.com/mlcommons/ck/blob/master/platform/register.md).
 
@@ -59,13 +55,29 @@ Looking forward to your submissions and happy hacking!
 
 
 
-#### Organizers
+### Prizes
+
+* *All submitters will participate in writing a common white paper about running and comparing MLPerf inference benchmarks out-of-the-box.*
+* *All submitters will receive 1 point for submitting valid results for 1 complete benchmark on one system.*
+* *All submitters will receive an official MLCommons Collective Knowledge contributor award (see [this example](https://ctuning.org/awards/ck-award-202307-zhu.pdf)).*
+* *The top 3 submitters by points will receive a prize of 200$ each.*
+
+
+### Organizers
 
 * [MLCommons](https://cKnowledge.org/mlcommons-taskforce)
 * [cTuning.org](https://www.linkedin.com/company/ctuning-foundation)
 * [cKnowledge.org](https://www.linkedin.com/company/cknowledge)
 
+
 ### Status
 
 You can see shared results in [this repostiory](https://github.com/ctuning/mlperf_inference_submissions_v3.1) 
 with PRs from participants [here](https://github.com/ctuning/mlperf_inference_submissions_v3.1/pulls).
+
+### Results
+
+All accepted results will be publicly available in the CM format with derived metrics 
+in this [MLCommons repository](https://github.com/mlcommons/ck_mlperf_results),
+in [MLCommons Collective Knowledge explorer](https://access.cknowledge.org/playground/?action=experiments) 
+and at official [MLCommons website](https://mlcommons.org).

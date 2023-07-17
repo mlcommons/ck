@@ -25,6 +25,5 @@
     "v3.1"
   ],
   "title": "Run and optimize MLPerf inference v3.1 benchmarks with Apache TVM",
-  "uid": "29c416e245884746",
-  "under_preparation": true
+  "uid": "29c416e245884746"
 }
