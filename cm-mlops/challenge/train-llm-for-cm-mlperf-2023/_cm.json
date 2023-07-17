@@ -1,0 +1,27 @@
+{
+  "alias": "train-llm-for-cm-mlperf-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_open": "20230704",
+  "experiments": [],
+  "points": 3,
+  "prize_short": "co-authoring white paper , $$$",
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "automate",
+    "benchmark",
+    "windows",
+    "mlperf-inference",
+    "mlperf-inference-windows",
+    "mlperf-inference-windows",
+    "mlperf-inference-windows-v3.1",
+    "mlperf-inference-windows-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Train and improve LLM to suggest users how to run MLPerf inference benchmarks using CM automation language",
+  "trophies": true,
+  "uid": "d37bf37a24c44ec3"
+}
