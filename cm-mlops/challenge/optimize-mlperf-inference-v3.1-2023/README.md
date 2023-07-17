@@ -2,7 +2,8 @@
 
 Open-source [MLPerf inference benchmarks](https://arxiv.org/abs/1911.02549) 
 were developed by a [consortium of 50+ companies and universities (MLCommons)](https://mlcommons.org)
-to enable trustable and reproducible comparison of popular AI tasks and models
+to enable trustable and reproducible comparison of AI/ML systems 
+in terms of latency, throughput, power consumption, accuracy and other metrics
 across diverse software/hardware stacks from different vendors.
 
 However, running MLPerf inference benchmarks and submitting results [turned out to be a challenge](https://doi.org/10.5281/zenodo.8144274) 
