@@ -140,6 +140,19 @@
         }
       }
     },
+    "rsync": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "rsync"
+      },
+      "state": {
+        "rsync": {
+          "apt": "rsync",
+          "dnf": "rsync",
+          "yum": "rsync",
+          "brew": "rsync"
+        }
+      }
+    },
     "transmission": {
       "env": {
         "CM_SYS_UTIL_NAME": "transmission"

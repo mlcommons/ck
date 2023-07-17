@@ -1,9 +1,9 @@
 ### Challenge
 
-Add CM interface to run MLPerf inference benchmarks on Qualcomm AI100-based platforms.
+Prepare, optimize and submit benchmarking results to MLPerf inference v3.1 using 
+CM automation language with the DeepSparse library, any model and any platform.
 
-You can start from reproducing any past submission from Dell, Lenovo or HPE
-and then adding CM automation.
+Check [this related challenge](https://access.cknowledge.org/playground/?action=challenges&name=3e971d8089014d1f) for more details.
 
 Join our public [Discord server](https://discord.gg/JjWNWXKxwT) and/or
 our [weekly conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit)
@@ -18,17 +18,15 @@ Check [this ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn
 ### Prizes
 
 * *All contributors will participate in writing a common white paper about running and comparing MLPerf inference benchmarks out-of-the-box.*
+* *All contributors will receive 1 point for submitting valid results for 1 complete benchmark on one system.*
 * *All contributors will receive an official MLCommons Collective Knowledge contributor award (see [this example](https://ctuning.org/awards/ck-award-202307-zhu.pdf)).*
-* *The first implementation will receive 3 points and a prize of 200$ and the fastest implementation will receive a prize of 200$.*
-
-
+* *The top 3 submitters by points will receive a prize of 150$ each.*
 
 ### Organizers
 
-* [MLCommons](https://cKnowledge.org/mlcommons-taskforce)
-* [cTuning.org](https://www.linkedin.com/company/ctuning-foundation)
-* [cKnowledge.org](https://www.linkedin.com/company/cknowledge)
-
+* [MLCommons taskforce on automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
+* [cTuning foundation](https://cTuning.org)
+* [cKnowledge Ltd](https://cKnowledge.org)
 
 ### Results
 
