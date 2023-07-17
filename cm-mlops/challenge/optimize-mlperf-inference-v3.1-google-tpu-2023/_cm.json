@@ -24,6 +24,6 @@
     "mlperf-inference-tpu-v3.1-2023",
     "v3.1"
   ],
-  "title": "Develop a reference implementation of any MLPerf inference benchmark to run on the latest publicly available Google TPU and submit to MLPerf inference v3.1+",
+  "title": "Develop a reference implementation of any MLPerf inference benchmark to run on the latest publicly available Google TPU (GCP or Coral USB accelerator) and submit to MLPerf inference v3.1+",
   "uid": "5975fd0e18cd4073"
 }
