@@ -57,7 +57,7 @@ def page(st, params):
 
                 row['name']=name
 
-                for k in ['points', 'trophies', 'prize', 'skip']:
+                for k in ['date_close_extension', 'points', 'trophies', 'prize', 'prize_short', 'skip']:
                     if k in meta:
                         row[k]=meta[k]
 
@@ -110,7 +110,7 @@ def page(st, params):
 
 
                 # Check if open challenge even if under preparation
-                if date_open and diff1<0 and diff2>0:
+                if date_open and (date_close=='' or (diff1<0 and diff2>0)):
                     ongoing.append(row)
                 else:
                     challenges.append({'prefix':prefix, 'name':name, 'uid':l.meta['uid']})
@@ -126,6 +126,9 @@ def page(st, params):
                     <center>
                      <h3>Ongoing challenges</h3>
                      <i>
+                      Our challenges focus on reproducing and optimizing latency, throughput,
+                      power consumption, memory usage, operational costs and other important metrics 
+                      of emerging algorithms besides accuracy! 
                       Please register <a href="https://github.com/mlcommons/ck/blob/master/platform/register.md">here</a> 
                       to be added to this leaderboard with 1 point and start participating!
                       <br>
@@ -137,7 +140,7 @@ def page(st, params):
 
                 data = []
                 
-                for row in sorted(ongoing, key=lambda row: (int(row.get('orig_date_close', 0)),
+                for row in sorted(ongoing, key=lambda row: (int(row.get('orig_date_close', 9999999999)),
                                                             row.get('name', ''),
                                                             row.get('under_preparation', False))):
                     if row.get('skip',False): continue
@@ -170,7 +173,7 @@ def page(st, params):
                     # Assemble info
                     x=''
 
-                    date_close = row['date_close']
+                    date_close = row.get('date_close','')
                     y = ''
                     if date_close!='' and date_close!=None:
                         x += '&nbsp;&nbsp;&nbsp;Closing date: **{}**\n'.format(date_close)
@@ -178,11 +181,9 @@ def page(st, params):
 
                     xrow.append(y)
 
-                    trophies = row.get('trophies',False)
                     y = ''
-                    if trophies:
-                        x += ' &nbsp;&nbsp;Trophy: **Yes**\n'
-                        y = 'Yes'
+                    if row.get('date_close_extension',False):
+                        y = 'until done'
 
                     xrow.append(y)
 
@@ -195,13 +196,22 @@ def page(st, params):
                     xrow.append(y)
 
 
-                    prize = row.get('prize','')
-                    y = ''
-                    if prize!='':
-                        x += ' &nbsp;&nbsp;Prize from [MLCommons organizations]({}): **{}**\n'.format('https://mlcommons.org', prize)
-                        y = prize
+                    
+                    awards = ''
 
-                    xrow.append(y)
+                    trophies = row.get('trophies',False)
+                    if trophies:
+                        x += ' &nbsp;&nbsp;Trophy: **Yes**\n'
+                        awards += '&#127942'
+
+
+                    prize = row.get('prize_short','')
+                    if prize!='':
+                        x += ' &nbsp;&nbsp;Prizes from [MLCommons organizations]({}): **{}**\n'.format('https://mlcommons.org', prize)
+                        if awards!='': awards+=' , '
+                        awards += prize
+
+                    xrow.append(awards)
 
 
                     if x!='':    
@@ -218,12 +228,12 @@ def page(st, params):
                 import numpy as np
                 
                 df = pd.DataFrame(data,
-                                  columns=['Challenge', 'Closing date', 'Tropies', 'Points', 'Prizes from MLCommons organizations'])
+                                  columns=['Challenge', 'Closing&nbsp;date', 'Extension', 'Points', 'Contributor&nbsp;award and prizes from <a href="https://mlcommons.org">MLCommons&nbsp;organizations</a>'])
                  
                 df.index+=1
 
 #                st.table(df)
-                st.write(df.to_html(escape=False), unsafe_allow_html=True)
+                st.write(df.to_html(escape=False, justify='left'), unsafe_allow_html=True)
 
         # Show selector for all
 #        challenge = st.selectbox('View past benchmarking, optimization, reproducibility and replicability challenges:', 
@@ -239,7 +249,7 @@ def page(st, params):
         
         # Process 1 challenge
         if artifact is None:
-            st.markdown('#### Past or future challenges:')
+#            st.markdown('#### Past or future challenges:')
 
             x = '''
                 <center>
@@ -318,19 +328,32 @@ def page(st, params):
 
 
 
+            z = ''
             date_open = meta.get('date_open','')
             if date_open!='':
                 # Format YYYYMMDD
                 r = misc.convert_date(date_open)
                 if r['return']>0: return r
-                st.markdown('* **Open date:** {}'.format(r['string']))
+                z+='* **Open date:** {}\n'.format(r['string'])
 
             date_close = meta.get('date_close','')
             if date_close!='':
                 # Format YYYYMMDD
                 r = misc.convert_date(date_close)
                 if r['return']>0: return r
-                st.markdown('* **Close date:** {}'.format(r['string']))
+                z+='* **Closing date:** {}\n'.format(r['string'])
+
+            if meta.get('trophies', False):
+                z+='* **MLCommons Collective Knowledge Contributor award:** Yes\n'
+            
+            prize_short = meta.get('prize_short','')
+            if prize_short!='':
+                z+='* **Prizes:** {}\n'.format(prize_short)
+
+            prize = meta.get('prize','')
+            if prize!='':
+                z+='* **Minimium prizes:** {}\n'.format(prize)
+
 
             urls = meta.get('urls',[])
             url = meta.get('url', '')
@@ -346,7 +369,7 @@ def page(st, params):
 
                 for u in urls:
                     md+=x+'[{}]({})\n'.format(u,u)
-                st.markdown(md)
+                z+=md+'\n'
 
 
             # Check if has linked experiments
@@ -364,8 +387,11 @@ def page(st, params):
                     elif name!='':
                        md+='  * '+misc.make_url(name, action='experiments')
 
-                st.markdown(md)
+                z+=md+'\n'
 
+            st.markdown(z)
+            
+            
             # Check if has text
             path = artifact.path
 

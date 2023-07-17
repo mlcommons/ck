@@ -1,8 +1,8 @@
 ### Challenge
 
-Add CM interface to run MLPerf inference benchmarks on Qualcomm AI100-based platforms.
+Add CM interface to run MLPerf inference benchmarks on Intel-based platforms.
 
-You can start from reproducing any past submission from Dell, Lenovo or HPE
+You can start from reproducing any past MLPerf inference submission from Intel and their partners
 and then adding CM automation.
 
 Join our public [Discord server](https://discord.gg/JjWNWXKxwT) and/or
@@ -19,7 +19,7 @@ Check [this ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn
 
 * *All contributors will participate in writing a common white paper about running and comparing MLPerf inference benchmarks out-of-the-box.*
 * *All contributors will receive an official MLCommons Collective Knowledge contributor award (see [this example](https://ctuning.org/awards/ck-award-202307-zhu.pdf)).*
-* *The first implementation will receive 3 points and a prize of 200$ and the fastest implementation will receive a prize of 200$.*
+* *The first implementation will receive 2 points and a prize of 200$ and the fastest implementation will receive a prize of 200$.*
 
 
 
@@ -28,7 +28,6 @@ Check [this ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn
 * [MLCommons](https://cKnowledge.org/mlcommons-taskforce)
 * [cTuning.org](https://www.linkedin.com/company/ctuning-foundation)
 * [cKnowledge.org](https://www.linkedin.com/company/cknowledge)
-
 
 ### Results
 

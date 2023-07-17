@@ -3,6 +3,11 @@
 Since the [MLCommons CK playground](https://access.cKnowledge.org) 
 is still in the heavy development stage, the registration is not yet automated via CK GUI.
 
+You can simply add add your name, organization and URL in this [GitHub ticket](https://github.com/mlcommons/ck/issues/855).
+
+You name will be added to the [CK leaderboard](https://access.cknowledge.org/playground)
+with 1 point after your PR is accepted (to support your intent to participate in our collaborative effort).
+
 You can add yourself to this [GitHub repository](https://github.com/mlcommons/ck/tree/master/cm-mlops/contributor)
 using our [CM automation language](https://doi.org/10.5281/zenodo.8105339) from the command line as follows.
 
@@ -31,13 +36,10 @@ CM will ask you a few questions and will create a new CM contributor entry with 
 
 You can commit this entry to your fork and create a PR to https://github.com/mlcommons/ck .
 
-You name will be added to the [CK leaderboard](https://access.cknowledge.org/playground)
-with 1 point after your PR is accepted (to support your intent to participate in our collaborative effort).
+*Note that you will need to sign MLCommons CLA to contribute to MLCommons projects - it may take a few days to approve it by MLCommons*.
 
 Note that you will need CM and your fork of https://github.com/mlcommons/ck to participate in challenges, 
 so please keep and use it.
-
-Finally, you can also add your name, organization and URL via [GitHub ticket](https://github.com/mlcommons/ck/issues/855).
 
 Happy hacking!
 
