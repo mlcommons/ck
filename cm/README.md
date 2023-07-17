@@ -8,7 +8,12 @@
 
 ### About
 
-[Collective Mind scripting language (MLCommons CM)](https://github.com/mlcommons/ck/tree/master/cm/cmind) 
+***We deeply believe in the power of open science and open source to solve the world's most challenging problems.
+   That's why we are developing a common automation and reproducibility language to help connect academia and industry,
+   facilitate reproducible research and bridge the growing gap between research and production - 
+   [see our ACM REP'23 keynote for more details](https://doi.org/10.5281/zenodo.8105339)!***
+
+[Collective Mind automation and reproducibility language (MLCommons CM)](https://github.com/mlcommons/ck/tree/master/cm/cmind) 
 is a part of the [MLCommons Collective Knowledge project](https://github.com/mlcommons/ck).
 It is motivated by the [feedback from researchers and practitioners](https://learning.acm.org/techtalks/reproducibility)
 when reproducing experiments from more than 150 research papers and validating them in the real world - 

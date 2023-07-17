@@ -32,6 +32,9 @@
           "yes"
         ]
       },
+      "names": [
+        "install-cuda-prebuilt"
+      ],
       "reuse_version": true,
       "tags": "install,cuda,prebuilt"
     },

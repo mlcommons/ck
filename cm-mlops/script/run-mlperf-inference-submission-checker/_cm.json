@@ -16,7 +16,8 @@
     },
     {
       "names": [
-        "inference-src"
+        "inference-src",
+        "submission-checker-src"
       ],
       "tags": "get,mlcommons,inference,src"
     },
@@ -24,7 +25,9 @@
       "tags": "get,generic-python-lib,_xlsxwriter"
     },
     {
-      "tags": "get,generic-python-lib,_pandas"
+      "names": [ "pandas" ],
+      "tags": "get,generic-python-lib,_pandas",
+      "version_min": "1.0.0"
     }
   ],
   "post_deps": [
@@ -44,6 +47,14 @@
       },
       "names": [ "push-to-github" ],
       "tags": "publish-results,github"
+    },
+    {
+      "enable_if_env": {
+        "CM_TAR_SUBMISSION_DIR": [
+          "yes"
+        ]
+      },
+      "tags": "run,tar"
     }
   ],
   "input_mapping": {
@@ -54,7 +65,9 @@
     "push_to_github": "CM_MLPERF_RESULT_PUSH_TO_GITHUB",
     "extra_model_benchmark_map": "CM_MLPERF_EXTRA_MODEL_MAPPING",
     "power": "CM_MLPERF_POWER",
-    "skip_power_check": "CM_MLPERF_SKIP_POWER_CHECK"
+    "extra_args": "CM_MLPERF_SUBMISSION_CHECKER_EXTRA_ARGS",
+    "skip_power_check": "CM_MLPERF_SKIP_POWER_CHECK",
+    "tar": "CM_TAR_SUBMISSION_DIR"
   },
   "default_env": {
     "CM_MLPERF_SHORT_RUN": "no"

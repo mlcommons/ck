@@ -26,6 +26,7 @@
     "original"
   ],
   "input_mapping": {
+    "imagenet_path": "IMAGENET_PATH",
     "torrent": "CM_DATASET_IMAGENET_VAL_TORRENT_PATH"
   },
   "uid": "7afd58d287fe4f11",

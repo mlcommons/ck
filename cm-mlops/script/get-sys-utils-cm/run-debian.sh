@@ -25,6 +25,7 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            zlib1g-dev \
            libbz2-dev \
            openssh-client \
+           kmod \
            libmesa-dev \
            libssl-dev \
            vim \

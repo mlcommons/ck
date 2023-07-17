@@ -49,6 +49,23 @@
       "env": {
         "CM_MODEL_WEIGHTS_FILE": "yes"
       }
+    },
+    "pytorch,fp32,amazon-s3": {
+      "env": {
+        "CM_PACKAGE_URL": "https://mlperf-public.s3.us-west-2.amazonaws.com/DistributedDataParallel_1576581068.9962234-epoch-100.pt"
+      }
+    },
+    "pytorch,fp32,zenodo": {
+      "env": {
+        "CM_PACKAGE_URL": "https://zenodo.org/record/3662521/files/DistributedDataParallel_1576581068.9962234-epoch-100.pt?download=1"
+      }
+    },
+    "zenodo": {
+      "group": "download-src"
+    },
+    "amazon-s3": {
+      "group": "download-src",
+      "default": true
     }
   }
 }

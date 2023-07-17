@@ -2,8 +2,11 @@
   "alias": "optimize-mlperf-inference-v3.1-amazon-inferentia-2023",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date_close": "20230804",
+  "date_close": "20230803",
   "date_open": "20230704",
+  "points":3,
+  "trophies":true,
+  "prize":"400$ for the first implementation and 300$ for the fastest implementation",
   "tags": [
     "modularize",
     "optimize",
@@ -19,7 +22,6 @@
     "mlperf-inference-inferentia-v3.1-2023",
     "v3.1"
   ],
-  "title": "Run and optimize MLPerf inference v3.1 benchmarks on Amazon Inferentia",
-  "uid": "c8f2573320424e2a",
-  "under_preparation": true
+  "title": "Develop a reference implementation of any MLPerf inference benchmark to run on Amazon Inferentia.",
+  "uid": "c8f2573320424e2a"
 }

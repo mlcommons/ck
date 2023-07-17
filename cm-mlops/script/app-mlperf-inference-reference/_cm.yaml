@@ -220,8 +220,8 @@ deps:
       CM_MODEL:
       - bert-99
       - bert-99.9
-      - gpt-j-99
-      - gpt-j-99.9
+      - gptj-99
+      - gptj-99.9
 
   ## Tensorflow
   - tags: get,generic-python-lib,_tensorflow
@@ -273,8 +273,8 @@ deps:
     - gpt-j-model
     enable_if_env:
       CM_MODEL:
-      - gpt-j-99
-      - gpt-j-99.9
+      - gptj-99
+      - gptj-99.9
 
 
   ## RetinaNet (PyTorch weights, FP32)
@@ -375,8 +375,8 @@ deps:
     - cnndm-preprocessed
     enable_if_env:
       CM_MODEL:
-      - gpt-j-99
-      - gpt-j-99.9
+      - gptj-99
+      - gptj-99.9
 
   ## Squad for BERT
   - tags: get,dataset,squad,original
@@ -580,21 +580,21 @@ variations:
         tags: tvm-model,_pytorch
 
   # Reference MLPerf models
-  gpt-j-99.9:
+  gptj-99.9:
     group: models
     base:
-    - gpt-j_
+    - gptj_
     env:
-      CM_MODEL: gpt-j-99.9
+      CM_MODEL: gptj-99.9
 
-  gpt-j-99:
+  gptj-99:
     group: models
     base:
-    - gpt-j_
+    - gptj_
     env:
-      CM_MODEL: gpt-j-99
+      CM_MODEL: gptj-99
 
-  gpt-j_:
+  gptj_:
     deps:
     - tags: get,generic-python-lib,_torch
     - tags: get,generic-python-lib,_package.datasets
@@ -746,6 +746,20 @@ variations:
       CM_MLPERF_DEVICE: gpu
       USE_CUDA: yes
       USE_GPU: yes
+
+  # Loadgen scenarios
+  offline:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Offline
+  multistream:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: MultiStream
+  singlestream:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+  server:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Server
 
   # Model precision
   fp32:

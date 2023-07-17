@@ -17,8 +17,7 @@ def preprocess(i):
         if env.get('CM_DATASET_REFERENCE_PREPROCESSOR',"0") == "1":
             print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
 
-        if 'CM_DATASET_PREPROCESSED_PATH' not in env:
-            env['CM_DATASET_PREPROCESSED_PATH'] = os.getcwd()
+        env['CM_DATASET_PREPROCESSED_PATH'] = os.getcwd()
         if not exists(os.path.join(env['CM_DATASET_PATH'], "val_map.txt")):
             shutil.copy(os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt"), os.path.join(env['CM_DATASET_PATH'],
             "val_map.txt"))

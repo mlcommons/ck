@@ -14,8 +14,16 @@ def preprocess(i):
 
     recursion_spaces = i['recursion_spaces']
     nvcc_bin = "nvcc"
+
+    env['WGET_URL']="https://developer.download.nvidia.com/compute/cuda/"+env['CM_VERSION']+"/local_installers/"+env['CM_CUDA_LINUX_FILENAME']
+
+    if env.get('CM_CUDA_INSTALL_DRIVER','') == "yes":
+        env['CUDA_ADDITIONAL_INSTALL_OPTIONS'] = " --driver"
+    else:
+        env['CUDA_ADDITIONAL_INSTALL_OPTIONS'] = ""
+
     env['CM_CUDA_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'install')
     env['CM_NVCC_BIN_WITH_PATH'] = os.path.join(os.getcwd(), 'install', 'bin', nvcc_bin)
-    env['CM_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
+    env['CM_GET_DEPENDENT_CACHED_PATH'] =  env['CM_NVCC_BIN_WITH_PATH']
 
     return {'return':0}

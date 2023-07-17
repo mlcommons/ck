@@ -30,13 +30,19 @@
     "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
     "clean": "CM_MLPERF_CLEAN_SUBMISSION_DIR",
+    "hw_name": "CM_HW_NAME",
     "sw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
     "hw_notes_extra": "CM_MLPERF_SUT_HW_NOTES_EXTRA",
     "duplicate": "CM_MLPERF_DUPLICATE_SCENARIO_RESULTS",
     "division": "CM_MLPERF_SUBMISSION_DIVISION",
     "category": "CM_MLPERF_SUBMISSION_CATEGORY",
+    "analyzer_settings_file": "CM_MLPERF_POWER_ANALYZER_SETTINGS_FILE_PATH",
+    "power_settings_file": "CM_MLPERF_POWER_SETTINGS_FILE_PATH",
     "infer_scenario_results": "CM_MLPERF_DUPLICATE_SCENARIO_RESULTS",
-    "submitter": "CM_MLPERF_SUBMITTER"
+    "submitter": "CM_MLPERF_SUBMITTER",
+    "preprocess": "CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR",
+    "preprocess_submission": "CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR",
+    "tar": "CM_TAR_SUBMISSION_DIR"
   },
   "default_env": {
     "CM_RUN_MLPERF_ACCURACY": "on"
@@ -57,6 +63,14 @@
     },
     {
       "enable_if_env": {
+        "CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR": [
+          "on", "True", "yes", true
+        ]
+      },
+      "tags": "preprocess,mlperf,submission"
+    },
+    {
+      "enable_if_env": {
         "CM_RUN_SUBMISSION_CHECKER": [
           "yes"
         ]
@@ -66,14 +80,6 @@
         "mlperf-inference-submission-checker",
         "submission-checker"
       ]
-    },
-    {
-      "enable_if_env": {
-        "CM_TAR_SUBMISSION_DIR": [
-          "yes"
-        ]
-      },
-      "tags": "run,tar"
     }
   ],
   "tags": [

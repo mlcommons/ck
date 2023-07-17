@@ -810,6 +810,8 @@ def merge_dicts(i):
 
     a = i['dict1']
     b = i['dict2']
+    if a == b:
+        return {'return': 0, 'dict1': a}
 
     append_lists = i.get('append_lists', False)
     append_unique = i.get('append_unique', False)

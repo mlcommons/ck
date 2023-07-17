@@ -11,12 +11,27 @@
   "deps": [
     {
       "tags": "detect,cpu"
+    },
+    {
+      "tags": "set,performance,mode,_performance",
+      "enable_if_env": {
+        "CM_SET_PERFORMANCE_MODE":
+        [
+          "on",
+          "yes",
+          "True",
+          true
+        ]
+      }
     }
   ],
   "tags": [
     "program",
     "benchmark",
     "benchmark-program"
+  ],
+  "new_env_keys": [
+    "CM_RUN_CMD"
   ],
   "uid": "19f369ef47084895",
   "variations": {

@@ -3,6 +3,9 @@
 Make it possible to run MLPerf inference v3.1 benchmarks on Windows
 using the [MLCommons CK framework](https://github.com/mlcommons/ck).
 
+* The first submitter will receive a prize of 200$.
+* All submitters will participate in writing a common white paper about running and comparing MLPerf inference benchmarks out-of-the-box.
+
 ### Organizers
 
 * Stanley Mwangi (Microsoft)

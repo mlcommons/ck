@@ -107,13 +107,18 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--analyzer_settings_file=value`  &rarr;  `CM_MLPERF_POWER_ANALYZER_SETTINGS_FILE_PATH=value`
 * `--category=value`  &rarr;  `CM_MLPERF_SUBMISSION_CATEGORY=value`
 * `--clean=value`  &rarr;  `CM_MLPERF_CLEAN_SUBMISSION_DIR=value`
 * `--device=value`  &rarr;  `CM_MLPERF_DEVICE=value`
 * `--division=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIVISION=value`
 * `--duplicate=value`  &rarr;  `CM_MLPERF_DUPLICATE_SCENARIO_RESULTS=value`
+* `--hw_name=value`  &rarr;  `CM_HW_NAME=value`
 * `--hw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_HW_NOTES_EXTRA=value`
 * `--infer_scenario_results=value`  &rarr;  `CM_MLPERF_DUPLICATE_SCENARIO_RESULTS=value`
+* `--power_settings_file=value`  &rarr;  `CM_MLPERF_POWER_SETTINGS_FILE_PATH=value`
+* `--preprocess=value`  &rarr;  `CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR=value`
+* `--preprocess_submission=value`  &rarr;  `CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR=value`
 * `--results_dir=value`  &rarr;  `CM_MLPERF_RESULTS_DIR=value`
 * `--run_checker=value`  &rarr;  `CM_RUN_SUBMISSION_CHECKER=value`
 * `--run_style=value`  &rarr;  `CM_MLPERF_RUN_STYLE=value`
@@ -121,11 +126,12 @@ ___
 * `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
 * `--submitter=value`  &rarr;  `CM_MLPERF_SUBMITTER=value`
 * `--sw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_SW_NOTES_EXTRA=value`
+* `--tar=value`  &rarr;  `CM_TAR_SUBMISSION_DIR=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "category":...}
+r=cm.access({... , "analyzer_settings_file":...}
 ```
 
 </details>
@@ -165,13 +171,13 @@ ___
      * accuracy,truncate,mlc
        * `if (CM_RUN_MLPERF_ACCURACY  == on) AND (CM_SKIP_TRUNCATE_ACCURACY  != yes)`
        - CM script: [truncate-mlperf-inference-accuracy-log](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log)
+     * preprocess,mlperf,submission
+       * `if (CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR in ['on', 'True', 'yes', True])`
+       - CM script: [preprocess-mlperf-inference-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/preprocess-mlperf-inference-submission)
      * submission,checker,mlc
        * `if (CM_RUN_SUBMISSION_CHECKER  == yes)`
        * CM names: `--adr.['mlperf-inference-submission-checker', 'submission-checker']...`
        - CM script: [run-mlperf-inference-submission-checker](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker)
-     * run,tar
-       * `if (CM_TAR_SUBMISSION_DIR  == yes)`
-       - CM script: [tar-my-folder](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/tar-my-folder)
 </details>
 
 ___

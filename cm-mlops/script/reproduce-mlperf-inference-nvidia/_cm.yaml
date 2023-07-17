@@ -1,6 +1,8 @@
 # Identification of this CM script
 alias: reproduce-mlperf-inference-nvidia
 uid: bc3b17fb430f4732
+cache: false
+can_force_cache: true
 
 automation_alias: script
 automation_uid: 5b4e0237da074764
@@ -28,7 +30,6 @@ default_env:
   SKIP_POLICIES: '1'
   CM_SKIP_PREPROCESS_DATASET: 'no'
   CM_SKIP_MODEL_DOWNLOAD: 'no'
-  CM_MLPERF_NVIDIA_RUN_COMMAND: run
   CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: nvidia_original
 
 # Map script inputs to environment variables
@@ -67,15 +68,8 @@ input_mapping:
   end_on_device: CM_MLPERF_NVIDIA_HARNESS_END_ON_DEVICE
   max_dlas: CM_MLPERF_NVIDIA_HARNESS_MAX_DLAS
   power_setting: CM_MLPERF_NVIDIA_HARNESS_POWER_SETTING
-  make_cmd: CM_MLPERF_NVIDIA_RUN_COMMAND
+  make_cmd: MLPERF_NVIDIA_RUN_COMMAND
   rerun: CM_RERUN
-
-new_env_keys:
-  - CM_MLPERF_*
-  - CM_DATASET_*
-  - CM_ML_MODEL_*
-  - CM_HW_NAME
-  - CM_MAX_EXAMPLES
 
 new_state_keys:
   - mlperf-inference-implementation
@@ -97,16 +91,27 @@ deps:
   # Detect CUDA
   - names:
     - cuda
-  - tags: get,cuda,_cudnn
+    tags: get,cuda,_cudnn
 
   # Detect Tensorrt
-  - tags: get,tensorrt
+  - names:
+    - tensorrt
+    tags: get,tensorrt
 
   # Build nvidia inference server
   - names:
     - nvidia-inference-server
     tags: build,nvidia,inference,server
 
+  # Get Nvidia scratch space where data and models get downloaded
+  - tags: get,mlperf,inference,nvidia,scratch,space
+    names:
+    - nvidia-scratch-space
+
+  # Get MLPerf logging library
+  - tags: get,generic-python-lib,_mlperf_logging
+    names:
+    - mlperf-logging
 
   ########################################################################
   # Install ResNet50 model (ONNX) and ImageNet
@@ -117,6 +122,14 @@ deps:
     names:
       - imagenet-original
     tags: get,dataset,original,imagenet,_full
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    names:
+      - resnet50-model
+      - ml-model
+    tags: get,ml-model,resnet50,_fp32,_onnx
 
   ########################################################################
   # Install kits19 dataset
@@ -162,14 +175,35 @@ deps:
     tags: get,ml-model,dlrm,_pytorch
 
   ########################################################################
-  # Install RetinaNet model (ONNX) and OpenImages
+  # Install bert models
+  - enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+    names:
+      - bert-model
+      - bert-model-fp32
+    tags: get,ml-model,bert,_onnx,_fp32
 
   - enable_if_env:
       CM_MODEL:
-      - retinanet
+      - bert-99
+      - bert-99.9
     names:
-      - ml-model-retinanet
-    tags: get,ml-model,nvidia-retinanet,_efficient-nms
+      - bert-model
+      - bert-model-int8
+    tags: get,ml-model,bert,_onnx,_int8
+
+  - enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+    names:
+      - bert-vocab
+    tags: get,squad-vocab
+
+  ########################################################################
+  # Install OpenImages
 
   - enable_if_env:
       CM_MODEL:
@@ -204,6 +238,10 @@ deps:
   - tags: generate,user-conf,mlperf,inference
     names:
     - user-conf-generator
+    enable_if_env:
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
+      - run_harness
+
 
 # Post dependencies to run this app including for power measurement
 post_deps:
@@ -248,7 +286,6 @@ variations:
     group: model
     env:
       CM_MODEL: retinanet
-      CM_SKIP_MODEL_DOWNLOAD: yes
     deps:
     - tags: get,generic-python-lib,_Pillow
     - tags: get,generic-python-lib,_torch
@@ -331,10 +368,11 @@ variations:
       CM_MODEL: dlrm-99.9
 
   batch_size.#:
+    group: batch-size
     env:
       CM_MODEL_BATCH_SIZE: "#"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "#"
-      CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "gpu_batch_size.#"
+      #CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "gpu_batch_size.#"
 
   dla_batch_size.#:
     env:
@@ -345,3 +383,124 @@ variations:
     env:
       CM_MLPERF_NVIDIA_HARNESS_USE_TRITON: "yes"
       CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX3: "using_triton"
+
+  preprocess_data:
+    group: run-mode
+    env:
+      CM_MLPERF_SKIP_RUN: 'no'
+      MLPERF_NVIDIA_RUN_COMMAND: preprocess_data
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: preprocess_data
+
+  download_model:
+    group: run-mode
+    env:
+      MLPERF_NVIDIA_RUN_COMMAND: download_model
+      CM_MLPERF_SKIP_RUN: 'no'
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: download_model
+    deps:
+      - tags: get,generic-python-lib,_torch_cuda
+        enable_if_env:
+          CM_MODEL:
+            - retinanet
+
+  build_engine:
+    group: run-mode
+    default_variations:
+      loadgen-scenario: offline
+    env:
+      MLPERF_NVIDIA_RUN_COMMAND: generate_engines
+      CM_MLPERF_SKIP_RUN: 'no'
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: generate_engines
+    deps:
+      - tags: reproduce,mlperf,inference,nvidia,harness,_preprocess_data
+        inherit_variation_tags: true
+        force_cache: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - batch-size
+      - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
+        inherit_variation_tags: true
+        force_cache: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - batch-size
+        skip_if_env:
+          CM_MODEL:
+            - retinanet
+            - resnet50
+            - bert-99
+            - bert-99.9
+            - dlrm-99
+            - dlrm-99.9
+
+  singlestream:
+    group: loadgen-scenario
+    default_variations:
+      batch-size: batch_size.1
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+  multistream:
+    group: loadgen-scenario
+    default_variations:
+      batch-size: batch_size.1
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: MultiStream
+  offline:
+    group: loadgen-scenario
+    default_variations1:
+      batch-size: batch_size.8
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Offline
+  server:
+    group: loadgen-scenario
+    default_variations1:
+      batch-size: batch_size.8
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Server
+
+  run_harness:
+    group: run-mode
+    default: true
+    default_variations:
+      loadgen-scenario: offline
+    deps:
+      - tags: reproduce,mlperf,inference,nvidia,harness,_build_engine
+        inherit_variation_tags: true
+        skip_inherit_variation_groups:
+          - run-mode
+        force_cache: true
+      - tags: reproduce,mlperf,inference,nvidia,harness,_preprocess_data
+        inherit_variation_tags: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - batch-size
+        force_cache: true
+      - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
+        inherit_variation_tags: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - batch-size
+        force_cache: true
+        skip_if_env:
+          CM_MODEL:
+            - retinanet
+            - resnet50
+            - bert-99
+            - bert-99.9
+            - dlrm-99
+            - dlrm-99.9
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: run_harness
+      MLPERF_NVIDIA_RUN_COMMAND: run_harness
+    new_env_keys:
+      - CM_MLPERF_*
+      - CM_DATASET_*
+      - CM_ML_MODEL_*
+      - CM_HW_NAME
+      - CM_MAX_EXAMPLES
+
+

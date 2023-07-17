@@ -1,0 +1,41 @@
+{
+  "alias": "preprocess-mlperf-inference-submission",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": false,
+  "category": "Modular MLPerf benchmarks",
+  "clean_files": [],
+  "deps": [
+    {
+      "names": [
+        "python",
+        "python3"
+      ],
+      "tags": "get,python3"
+    },
+    {
+      "names": [
+        "inference-src",
+        "submission-checker-src"
+      ],
+      "tags": "get,mlcommons,inference,src"
+    }
+  ],
+  "input_mapping": {
+    "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
+    "submitter": "CM_MLPERF_SUBMITTER"
+  },
+  "tags": [
+    "run",
+    "mlc",
+    "mlcommons",
+    "mlperf",
+    "inference",
+    "submission",
+    "mlperf-inference",
+    "processor",
+    "preprocessor",
+    "preprocess"
+  ],
+  "uid": "c23068394a314266"
+}

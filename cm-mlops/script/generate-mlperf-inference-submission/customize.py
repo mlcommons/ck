@@ -4,7 +4,7 @@ import json
 import shutil
 
 def preprocess(i):
-    return generate_submission(i)
+    return {'return': 0}
 
 
 ##############################################################################
@@ -97,14 +97,14 @@ def generate_submission(i):
         os.makedirs(path_submission)
 
     # SUT base
-    system=i.get('system','default')
+    system=env.get('CM_HW_NAME','default').replace(' ','_')
 
     code_path = os.path.join(path_submission, "code")
 
     for res in results:
         parts = res.split("-")
         if len(parts) > 5: #result folder structure used by CM script
-            system = parts[0]
+            system = parts[0] if system == 'default' else system
             implementation = parts[1]
             device = parts[2]
             framework = parts[3]
@@ -118,12 +118,17 @@ def generate_submission(i):
             print('* Framework Version: {}'.format(framework_version))
             print('* Run Config: {}'.format(run_config))
 
+            new_res = system + "-" + "-".join(parts[1:])
+
+            # Override framework and framework versions from the folder name
+            system_meta['framework'] = framework + " " + framework_version
         result_path = os.path.join(results_dir, res)
         platform_prefix = inp.get('platform_prefix', '')
         if platform_prefix:
-            sub_res = platform_prefix + "-" + res
+            sub_res = platform_prefix + "-" + new_res
         else:
-            sub_res = res
+            sub_res = new_res
+
         submission_path = os.path.join(path_submission, "results", sub_res)
         measurement_path = os.path.join(path_submission, "measurements", sub_res)
         compliance_path = os.path.join(path_submission, "compliance", sub_res)
@@ -181,6 +186,9 @@ def generate_submission(i):
                     if os.path.exists(submission_results_path):
                         shutil.rmtree(submission_results_path)
 
+                    if not os.path.isdir(submission_measurement_path):
+                        os.makedirs(submission_measurement_path)
+
                     if mode=='performance':
                         power_run = False
 
@@ -194,6 +202,12 @@ def generate_submission(i):
                                 power_files.append(f) #Todo add required check from submission_checker
                             for f in power_files:
                                 shutil.copy(os.path.join(result_power_path, f), os.path.join(submission_power_path, f))
+
+                            analyzer_settings_file = env.get('CM_MLPERF_POWER_ANALYZER_SETTINGS_FILE_PATH', os.path.join(env['CM_TMP_CURRENT_SCRIPT_PATH'], "default_files", "analyzer_table.md"))
+                            power_settings_file = env.get('CM_MLPERF_POWER_SETTINGS_FILE_PATH', os.path.join(env['CM_TMP_CURRENT_SCRIPT_PATH'], "default_files", "power_settings.md"))
+
+                            shutil.copy(analyzer_settings_file, os.path.join(submission_measurement_path, "analyzer_table.md"))
+                            shutil.copy(power_settings_file, os.path.join(submission_measurement_path, "power_settings.md"))
 
                             result_ranging_path=os.path.join(result_mode_path, 'ranging')
                             submission_ranging_path=os.path.join(submission_mode_path, 'ranging')
@@ -209,8 +223,6 @@ def generate_submission(i):
 
                     if not os.path.isdir(submission_results_path):
                         os.makedirs(submission_results_path)
-                    if not os.path.isdir(submission_measurement_path):
-                        os.makedirs(submission_measurement_path)
 
                     #if division == "closed" and not os.path.isdir(submission_compliance_path):
                     #    os.makedirs(submission_compliance_path)
@@ -273,9 +285,8 @@ def generate_submission(i):
 
 def postprocess(i):
 
-    env = i['env']
-    if env.get('CM_TAR_SUBMISSION_DIR'):
-        state = i['state']
-        env['CM_TAR_INPUT_DIR'] = os.path.join(env.get('CM_MLPERF_SUBMISSION_DIR', '$HOME'), state.get('CM_SUT_META').get('division'))
+    r = generate_submission(i)
+    if r['return'] > 0:
+        return r
 
     return {'return':0}

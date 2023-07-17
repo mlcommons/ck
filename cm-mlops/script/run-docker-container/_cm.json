@@ -29,7 +29,8 @@
     "mounts": "CM_DOCKER_VOLUME_MOUNTS",
     "port_maps": "CM_DOCKER_PORT_MAPS",
     "device": "CM_DOCKER_ADD_DEVICE",
-    "cache": "CM_DOCKER_CACHE"
+    "cache": "CM_DOCKER_CACHE",
+    "all_gpus": "CM_DOCKER_ADD_ALL_GPUS"
   },
   "prehook_deps": [
     {

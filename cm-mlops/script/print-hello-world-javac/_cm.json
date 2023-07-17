@@ -1,5 +1,5 @@
 {
-  "alias": "print-hello-world-json",
+  "alias": "print-hello-world-javac",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "category": "Tests",
@@ -21,7 +21,7 @@
     "hello-world",
     "hello",
     "world",
-    "java"
+    "javac"
   ],
   "uid": "040fafd538104819"
 }

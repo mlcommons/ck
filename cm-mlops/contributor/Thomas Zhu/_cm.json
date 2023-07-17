@@ -6,8 +6,14 @@
     "mlperf-inference-v3.0-2023"
   ],
   "last_participation_date": "20230325",
+  "trophies":[
+    {"url":"https://cTuning.org/awards/ck-award-202307-zhu.pdf"}
+  ],
+  "points":[
+    {"point":2}
+  ],
   "name": "Thomas Zhu",
-  "organization": "Oxford University",
+  "organization": "Oxford University, UK",
   "tags": [],
   "uid": "7799ffa433e44570"
 }

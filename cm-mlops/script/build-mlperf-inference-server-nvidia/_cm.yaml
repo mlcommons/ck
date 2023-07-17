@@ -22,13 +22,13 @@ tags:
 
 new_env_keys:
   - CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH
-  - MLPERF_SCRATCH_PATH
 
 default_env:
   CM_MAKE_BUILD_COMMAND: build
   CM_MAKE_CLEAN: "no"
 
 input_mapping:
+  custom_system: CM_CUSTOM_SYSTEM_NVIDIA
   clean: CM_MAKE_CLEAN
 
 # Dependencies on other CM scripts
@@ -104,12 +104,22 @@ deps:
 
   # Detect pycuda
   - tags: get,generic-python-lib,_pycuda
+    skip_if_env:
+      CM_RUN_STATE_DOCKER:
+        - 'yes'
+        - True
+        - 'True'
 
   # Detect opencv-python
   - tags: get,generic-python-lib,_opencv-python
 
   # Detect nvidia-dali
   - tags: get,generic-python-lib,_nvidia-dali
+
+  # Get Nvidia scratch space where data and models get downloaded
+  - tags: get,mlperf,inference,nvidia,scratch,space
+    names:
+    - nvidia-scratch-space
 
 post_deps:
   # Detect nvidia system
@@ -176,4 +186,24 @@ versions:
         version: r3.1
 
 docker:
-  run: False
+  skip_run_cmd: 'no'
+  all_gpus: 'yes'
+  docker_input_mapping:
+    imagenet_path: IMAGENET_PATH
+    results_dir: RESULTS_DIR
+    submission_dir: SUBMISSION_DIR
+    cudnn_tar_file_path: CM_CUDNN_TAR_FILE_PATH
+    tensorrt_tar_file_path: CM_TENSORRT_TAR_FILE_PATH
+    cuda_run_file_path: CUDA_RUN_FILE_LOCAL_PATH
+    scratch_path: MLPERF_SCRATCH_PATH
+  mounts:
+   - "${{ IMAGENET_PATH }}:/data/imagenet-val"
+   - "${{ RESULTS_DIR }}:/home/cmuser/results_dir"
+   - "${{ SUBMISSION_DIR }}:/home/cmuser/submission_dir"
+   - "${{ CM_CUDNN_TAR_FILE_PATH }}:${{ CM_CUDNN_TAR_FILE_PATH }}"
+   - "${{ CM_TENSORRT_TAR_FILE_PATH }}:${{ CM_TENSORRT_TAR_FILE_PATH }}"
+   - "${{ CUDA_RUN_FILE_LOCAL_PATH }}:${{ CUDA_RUN_FILE_LOCAL_PATH }}"
+   - "${{ MLPERF_SCRATCH_PATH }}:${{ MLPERF_SCRATCH_PATH }}"
+  pre_run_cmds:
+    - cm pull repo mlcommons@ck
+    - cm run script --tags=get,dataset,original,imagenet,_full --imagenet_path=/data/imagenet-val
