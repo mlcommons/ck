@@ -57,6 +57,7 @@ input_mapping:
   multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
   readme: CM_MLPERF_README
   debug: CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM
+  gpu_name: CM_NVIDIA_GPU_NAME
 
 # Duplicate CM environment variables to the ones used in native apps
 env_key_mappings:
@@ -245,6 +246,8 @@ variations:
         update_tags_from_env_with_prefix:
           "_gpu_memory." :
             - CM_NVIDIA_GPU_MEMORY
+        update_tags_from_env:
+            - CM_NVIDIA_HARNESS_GPU_VARIATION
 
   resnet50:
     group:

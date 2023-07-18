@@ -83,7 +83,8 @@
     "sw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
     "hw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
     "debug": "CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM",
-    "skip_submission_generation": "CM_MLPERF_SKIP_SUBMISSION_GENERATION"
+    "skip_submission_generation": "CM_MLPERF_SKIP_SUBMISSION_GENERATION",
+    "gpu_name": "CM_NVIDIA_GPU_NAME"
   },
   "tags": [
     "run",
