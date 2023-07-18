@@ -12,8 +12,9 @@
     "reproduce",
     "replicate",
     "automate",
-    "neurips-2022",
-    "arxiv-2204.09656"
+    "mlperf-inference",
+    "mlperf-inference-results",
+    "mlperf-inference-results-2023"
   ],
   "title": "Reproduce, automate with CM and explain past MLPerf inference results",
   "trophies": true,

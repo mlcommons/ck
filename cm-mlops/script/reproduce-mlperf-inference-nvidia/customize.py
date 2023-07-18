@@ -157,6 +157,7 @@ def preprocess(i):
             test_mode = ""
             test_name = env.get('CM_MLPERF_LOADGEN_COMPLIANCE_TEST', 'test01').lower()
             env['CM_MLPERF_NVIDIA_RUN_COMMAND'] = "run_audit_{}_once".format(test_name)
+            make_command = "run_audit_{}_once".format(test_name)
         else:
             return {'return': 1, 'error': 'Unsupported mode: {}'.format(env['CM_MLPERF_LOADGEN_MODE'])}
 
