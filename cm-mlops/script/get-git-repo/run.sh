@@ -24,6 +24,18 @@ if [ ! -d "${CM_TMP_GIT_PATH}" ]; then
   fi
   if [ "${?}" != "0" ]; then exit 1; fi
 
+  if [ ! -z ${CM_GIT_CHECKOUT_TAG} ]; then
+
+    echo ""
+    cmd="git fetch --all --tags"
+    echo "$cmd"
+    eval "$cmd"
+    cmd="git checkout tags/${CM_GIT_CHECKOUT_TAG} -b ${CM_GIT_CHECKOUT_TAG}"
+    echo "$cmd"
+    eval "$cmd"
+  fi
+  if [ "${?}" != "0" ]; then exit 1; fi
+
 else
   cd ${folder}
 fi
