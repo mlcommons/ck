@@ -129,7 +129,7 @@ deps:
     names:
       - resnet50-model
       - ml-model
-    tags: get,ml-model,resnet50,_fp32,_onnx
+    tags: get,ml-model,resnet50,_fp32,_onnx,_opset-8
 
   ########################################################################
   # Install kits19 dataset
