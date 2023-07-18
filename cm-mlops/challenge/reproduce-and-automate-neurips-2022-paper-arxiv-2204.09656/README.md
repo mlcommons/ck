@@ -3,8 +3,14 @@
 Reproduce and automate NeurIPS 2022 paper "A Fast Post-Training Pruning Framework for Transformers" 
 using the [CM automation language](https://doi.org/10.5281/zenodo.8105339).
 
-Create multiple BERT variations for the MLPerf inference v3.1 submission
+Convert models to ONNX format acceptable by the MLPerf BERT inference benchmark.
+
+Create multiple BERT variations in ONNX format for the MLPerf inference v3.1 submission
 with different levels of sparsity.
+
+Upload to the [cTuning space at Hugging Face](https://huggingface.co/ctuning).
+
+Run MLPerf inference v3.1 with all BERT variations on any platform and submit results to MLPerf inference v3.1.
 
 Join our public [Discord server](https://discord.gg/JjWNWXKxwT) and/or
 our [weekly conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit)

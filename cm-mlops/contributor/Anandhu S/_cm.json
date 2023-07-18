@@ -5,7 +5,9 @@
   "challenges": [
   ],
   "ongoing": [
-    "mlperf-inference-v3.1-2023"
+    "mlperf-inference-v3.1-2023",
+    "mlperf-inference-windows-v3.1-2023",
+    "replicate,automate,neurips-2022,arxiv-2204.09656"
   ],
   "points":[
     {"point":1}, {"point":1}

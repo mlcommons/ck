@@ -119,6 +119,7 @@ def page_list(st, params):
     md_org = ''
 #    for l in sorted(lst, key=lambda x: (-int(x.meta.get('last_participation_date','0')),
 #    for l in sorted(lst, key=lambda x: x.meta.get('name', x.meta.get('organization','')).lower()):
+
     for l in lst:
 
         row = {}
@@ -157,7 +158,7 @@ def page_list(st, params):
             for t in ongoing:
                 if t != '':
                     url = url_prefix + '?action=challenges&tags={}'.format(t)
-                    x+='<a href="{}" target="_blank">{}</a><br>\n'.format(url,t.replace('-', '&nbsp;'))
+                    x+='<a href="{}" target="_blank">{}</a><br>'.format(url,t.replace('-', '&nbsp;').replace(',','&nbsp;'))
 
             row['ongoing'] = x
 
@@ -182,7 +183,7 @@ def page_list(st, params):
             for t in trophies:
                 url = t.get('url','')
                 if url != '':
-                    x+='<a href="{}" target="_blank">&#127942;</a>&nbsp;\n'.format(url)
+                    x+='<a href="{}" target="_blank">&#127942;</a>&nbsp;'.format(url)
 
             if x!='':
                 row['name'] += ' '+x
@@ -205,7 +206,13 @@ def page_list(st, params):
         pd_all_data.append(pd_row)
 
     df = pd.DataFrame(pd_all_data, columns = pd_key_names)
+
+    df.index+=1
+
+    st.write('<center>'+df.to_html(escape=False, justify='left')+'</center>', unsafe_allow_html=True)
     
+
+
     from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
     from st_aggrid.shared import JsCode
 
