@@ -124,13 +124,13 @@ def page(st, params):
 
                 x = '''
                     <center>
-                     <h3>Ongoing challenges</h3>
-                     <i>
+                     <h3>Ongoing reproducibility and optimization challenges</h3>
+<!--                     <i>
                       Participate in collaborative benchmarking, optimization and co-design of Pareto-efficient AI and ML Systems
                       (latency, throughput, power consumption, accuracy, costs and other metrics):
                       <br>
                       <br>
-                     </i>
+                     </i> -->
                     </center>
                     '''
                 st.write(x, unsafe_allow_html = True)
