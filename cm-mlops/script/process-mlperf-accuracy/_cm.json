@@ -82,6 +82,9 @@
       "deps": [
         {
           "tags": "get,dataset-aux,image-classification,imagenet-aux"
+        },
+        {
+          "tags": "get,generic-python-lib,_numpy"
         }
       ]
     },
