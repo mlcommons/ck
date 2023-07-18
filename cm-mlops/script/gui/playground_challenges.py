@@ -126,11 +126,8 @@ def page(st, params):
                     <center>
                      <h3>Ongoing challenges</h3>
                      <i>
-                      Our challenges focus on reproducing and optimizing latency, throughput,
-                      power consumption, memory usage, operational costs and other important metrics 
-                      of emerging algorithms besides accuracy! 
-                      Please register <a href="https://github.com/mlcommons/ck/blob/master/platform/register.md">here</a> 
-                      to be added to this leaderboard with 1 point and start participating!
+                      Participate in collaborative benchmarking, optimization and co-design of Pareto-efficient AI and ML Systems
+                      (latency, throughput, power consumption, accuracy, costs and other metrics)
                       <br>
                       <br>
                      </i>
