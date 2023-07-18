@@ -110,7 +110,8 @@ def page_list(st, params):
     all_data = []
     keys = [('name', 'Name', 400, 'leftAligned'),
             ('points', 'Points', 80,'rightAligned'),
-            ('ongoing', 'Ongoing challenges', 250, 'rightAligned')]
+            ('trophies', 'Trophies', 80,'rightAligned')]
+#            ('ongoing', 'Ongoing challenges', 250, 'rightAligned')]
 
 
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
@@ -185,8 +186,7 @@ def page_list(st, params):
                 if url != '':
                     x+='<a href="{}" target="_blank">&#127942;</a>&nbsp;'.format(url)
 
-            if x!='':
-                row['name'] += ' '+x
+            row['trophies'] = x
 
 
             all_data.append(row)
