@@ -432,7 +432,7 @@ variations:
           - batch-size
         skip_if_env:
           CM_MODEL:
-            - retinanet
+            - retinanet_old
             - resnet50
             - bert-99
             - bert-99.9
@@ -793,9 +793,9 @@ variations:
   rtx_4090,retinanet,offline,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.8
+        tags: _batch_size.4
     env:
-      CM_MODEL_BATCH_SIZE: "8"
+      CM_MODEL_BATCH_SIZE: "4"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   rtx_4090,bert_,offline,run_harness:
@@ -846,9 +846,9 @@ variations:
   t4,retinanet,offline,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.8
+        tags: _batch_size.4
     env:
-      CM_MODEL_BATCH_SIZE: "8"
+      CM_MODEL_BATCH_SIZE: "4"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   t4,bert_,offline,run_harness:
