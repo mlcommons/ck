@@ -214,8 +214,8 @@ def page_list(st, params):
          <i>
           <i>
            Check <a href="{}?action=challenges">on-going challenges</a> 
-           and register <a href="https://github.com/mlcommons/ck/blob/master/platform/register.md">here</a>. 
-           You will be added to this leaderboard with 1 point!
+           and register <a href="https://github.com/mlcommons/ck/blob/master/platform/register.md">here</a>
+           to be added to this leaderboard.
           </i>
          </i>
         </center>
