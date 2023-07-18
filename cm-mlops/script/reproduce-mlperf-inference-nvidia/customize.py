@@ -143,7 +143,7 @@ def preprocess(i):
         if not os.path.exists(model_path):
             cmds.append(f"make download_model BENCHMARKS='{model_name}'")
         else:
-            env['CM_MLPERF_SKIP_RUN'] = "yes"
+            env['CM_CALL_RUNNER'] = "no"
             return {'return':0}
 
     elif make_command == "preprocess_data":

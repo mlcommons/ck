@@ -31,6 +31,7 @@ default_env:
   CM_SKIP_PREPROCESS_DATASET: 'no'
   CM_SKIP_MODEL_DOWNLOAD: 'no'
   CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: nvidia_original
+  CM_CALL_RUNNER: 'yes'
 
 # Map script inputs to environment variables
 input_mapping:
@@ -254,6 +255,9 @@ post_deps:
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
         - run_harness
     tags: benchmark-mlperf
+    enable_if_env:
+      CM_CALL_RUNNER:
+        - yes
 
 
 # Variations to customize dependencies
