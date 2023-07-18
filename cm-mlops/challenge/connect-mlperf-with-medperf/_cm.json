@@ -1,0 +1,27 @@
+{
+  "alias": "connect-mlperf-with-medperf",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close_extension": true,
+  "date_open": "20230704",
+  "points": 2,
+  "prize_short": "co-authoring white paper",
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "benchmark",
+    "automate",
+    "medperf",
+    "mlperf-inference",
+    "mlperf-inference-medperf",
+    "mlperf-inference-medperf",
+    "mlperf-inference-medperf-v3.1",
+    "mlperf-inference-medperf-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Connect MedPerf with MLPerf and CM",
+  "trophies": true,
+  "uid": "c26d1fbf89164728"
+}

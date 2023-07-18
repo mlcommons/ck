@@ -110,7 +110,8 @@ def page_list(st, params):
     all_data = []
     keys = [('name', 'Name', 400, 'leftAligned'),
             ('points', 'Points', 80,'rightAligned'),
-            ('ongoing', 'Ongoing challenges', 250, 'rightAligned')]
+            ('trophies', 'Trophies', 80,'rightAligned')]
+#            ('ongoing', 'Ongoing challenges', 250, 'rightAligned')]
 
 
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
@@ -119,6 +120,7 @@ def page_list(st, params):
     md_org = ''
 #    for l in sorted(lst, key=lambda x: (-int(x.meta.get('last_participation_date','0')),
 #    for l in sorted(lst, key=lambda x: x.meta.get('name', x.meta.get('organization','')).lower()):
+
     for l in lst:
 
         row = {}
@@ -157,7 +159,7 @@ def page_list(st, params):
             for t in ongoing:
                 if t != '':
                     url = url_prefix + '?action=challenges&tags={}'.format(t)
-                    x+='<a href="{}" target="_blank">{}</a><br>\n'.format(url,t.replace('-', '&nbsp;'))
+                    x+='<a href="{}" target="_blank">{}</a><br>'.format(url,t.replace('-', '&nbsp;').replace(',','&nbsp;'))
 
             row['ongoing'] = x
 
@@ -182,10 +184,9 @@ def page_list(st, params):
             for t in trophies:
                 url = t.get('url','')
                 if url != '':
-                    x+='<a href="{}" target="_blank">&#127942;</a>&nbsp;\n'.format(url)
+                    x+='<a href="{}" target="_blank">&#127942;</a>&nbsp;'.format(url)
 
-            if x!='':
-                row['name'] += ' '+x
+            row['trophies'] = x
 
 
             all_data.append(row)
@@ -205,50 +206,57 @@ def page_list(st, params):
         pd_all_data.append(pd_row)
 
     df = pd.DataFrame(pd_all_data, columns = pd_key_names)
-    
-    from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
-    from st_aggrid.shared import JsCode
 
-    gb = GridOptionsBuilder.from_dataframe(df, editable=False)
-
-    for k in keys:
-        gb.configure_column(
-            k[1],
-            headerName=k[1],
-            width=k[2],
-            type=k[3],
-            cellRenderer=JsCode("""
-                class UrlCellRenderer {
-                  init(params) {
-                    this.eGui = document.createElement('a');
-                    this.eGui.innerHTML = params.value;
-                  }
-                  getGui() {
-                    return this.eGui;
-                  }
-                }
-            """)
-        )
+    df.index+=1
 
     x = '''
         <center>
          <i>
           <i>
            Check <a href="{}?action=challenges">on-going challenges</a> 
-           and register <a href="https://github.com/mlcommons/ck/blob/master/platform/register.md">here</a>. 
-           You will be added to this leaderboard with 1 point!
+           and register <a href="https://github.com/mlcommons/ck/blob/master/platform/register.md">here</a>
+           to be added to this leaderboard.
           </i>
          </i>
         </center>
+        <br>
         '''.format(url_prefix)
 
     st.write(x, unsafe_allow_html = True)
 
-    AgGrid(df,
-           gridOptions=gb.build(),
-           updateMode=GridUpdateMode.VALUE_CHANGED,
-           enable_enterprise_modules=False,
-           allow_unsafe_jscode=True)
+    st.write('<center>'+df.to_html(escape=False, justify='left')+'</center>', unsafe_allow_html=True)
+    
+
+
+#    from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
+#    from st_aggrid.shared import JsCode
+#
+#    gb = GridOptionsBuilder.from_dataframe(df, editable=False)
+#
+#    for k in keys:
+#        gb.configure_column(
+#            k[1],
+#            headerName=k[1],
+#            width=k[2],
+#            type=k[3],
+#            cellRenderer=JsCode("""
+#                class UrlCellRenderer {
+#                  init(params) {
+#                    this.eGui = document.createElement('a');
+#                    this.eGui.innerHTML = params.value;
+#                  }
+#                  getGui() {
+#                    return this.eGui;
+#                  }
+#                }
+#            """)
+#        )
+#
+#    AgGrid(df,
+#           gridOptions=gb.build(),
+#           updateMode=GridUpdateMode.VALUE_CHANGED,
+#           enable_enterprise_modules=False,
+#           allow_unsafe_jscode=True)
 
 #    st.write(grid) #, unsafe_allow_html = True)
 

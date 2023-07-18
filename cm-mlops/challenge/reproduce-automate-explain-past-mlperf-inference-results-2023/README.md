@@ -1,13 +1,14 @@
 ### Challenge
 
-MLPerf submitters usually report the best results but rarely explain how they were achieved.
+MLPerf submitters usually report the best performance/power numbers but rarely explain how they were achieved.
 
-We invite researchers, engineers and students to reproduce the top past MLPerf inference results,
-analyze and explain performance or power efficiency improvements in comparison with unoptimized
-reference implementations and add CM automation interface. 
+We invite researchers, engineers and students to reproduce any top past MLPerf inference results,
+analyze and explain how performance or power efficiency is achieved in comparison with unoptimized
+reference implementations, and add CM automation interface to make it easier to reproduce and replicate
+them by the community. 
 
 A detailed experience report must be provided - if accepted, you will be able to present your findings 
-at the upcoming HiPEAC'23 workshop and other events that we are organizing with ACM, IEEE and HiPEAC.
+at the upcoming HiPEAC'23 workshop and our upcoming white paper with MLCommons.
 
 Join our public [Discord server](https://discord.gg/JjWNWXKxwT) and/or
 our [weekly conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit)
