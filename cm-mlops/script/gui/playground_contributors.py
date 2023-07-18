@@ -209,34 +209,6 @@ def page_list(st, params):
 
     df.index+=1
 
-    st.write('<center>'+df.to_html(escape=False, justify='left')+'</center>', unsafe_allow_html=True)
-    
-
-
-    from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
-    from st_aggrid.shared import JsCode
-
-    gb = GridOptionsBuilder.from_dataframe(df, editable=False)
-
-    for k in keys:
-        gb.configure_column(
-            k[1],
-            headerName=k[1],
-            width=k[2],
-            type=k[3],
-            cellRenderer=JsCode("""
-                class UrlCellRenderer {
-                  init(params) {
-                    this.eGui = document.createElement('a');
-                    this.eGui.innerHTML = params.value;
-                  }
-                  getGui() {
-                    return this.eGui;
-                  }
-                }
-            """)
-        )
-
     x = '''
         <center>
          <i>
@@ -247,15 +219,44 @@ def page_list(st, params):
           </i>
          </i>
         </center>
+        <br>
         '''.format(url_prefix)
 
     st.write(x, unsafe_allow_html = True)
 
-    AgGrid(df,
-           gridOptions=gb.build(),
-           updateMode=GridUpdateMode.VALUE_CHANGED,
-           enable_enterprise_modules=False,
-           allow_unsafe_jscode=True)
+    st.write('<center>'+df.to_html(escape=False, justify='left')+'</center>', unsafe_allow_html=True)
+    
+
+
+#    from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
+#    from st_aggrid.shared import JsCode
+#
+#    gb = GridOptionsBuilder.from_dataframe(df, editable=False)
+#
+#    for k in keys:
+#        gb.configure_column(
+#            k[1],
+#            headerName=k[1],
+#            width=k[2],
+#            type=k[3],
+#            cellRenderer=JsCode("""
+#                class UrlCellRenderer {
+#                  init(params) {
+#                    this.eGui = document.createElement('a');
+#                    this.eGui.innerHTML = params.value;
+#                  }
+#                  getGui() {
+#                    return this.eGui;
+#                  }
+#                }
+#            """)
+#        )
+#
+#    AgGrid(df,
+#           gridOptions=gb.build(),
+#           updateMode=GridUpdateMode.VALUE_CHANGED,
+#           enable_enterprise_modules=False,
+#           allow_unsafe_jscode=True)
 
 #    st.write(grid) #, unsafe_allow_html = True)
 
