@@ -13,15 +13,15 @@
     "replicate",
     "benchmark",
     "automate",
-    "openbenchmarking",
+    "medperf",
     "mlperf-inference",
-    "mlperf-inference-openbenchmarking",
-    "mlperf-inference-openbenchmarking",
-    "mlperf-inference-openbenchmarking-v3.1",
-    "mlperf-inference-openbenchmarking-v3.1-2023",
+    "mlperf-inference-medperf",
+    "mlperf-inference-medperf",
+    "mlperf-inference-medperf-v3.1",
+    "mlperf-inference-medperf-v3.1-2023",
     "v3.1"
   ],
-  "title": "Run MLPerf inference benchmarks via OpenBenchmarking.org",
+  "title": "Connect MedPerf with MLPerf and CM",
   "trophies": true,
   "uid": "c26d1fbf89164728"
 }
