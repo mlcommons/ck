@@ -516,6 +516,22 @@
         "CM_SCIKIT_LEARN_VERSION"
       ]
     },
+    "cupy": {
+      "deps": [
+        {
+          "names": [
+            "cuda"
+          ],
+          "tags": "get,cuda"
+        }
+      ],
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "cupy"
+      },
+      "new_env_keys": [
+        "CM_CUPY_VERSION"
+      ]
+    },
     "scipy": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "scipy"
