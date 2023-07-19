@@ -158,7 +158,7 @@
       "env": {
         "CM_MLPERF_SUBMISSION_RUN": "yes",
         "CM_RUN_SUBMISSION_CHECKER": "yes",
-        "CM_MLPERF_LOADGEN_COMPLIANCE": "yes"
+        "CM_MLPERF_LOADGEN_COMPLIANCE": "yes",
         "CM_TAR_SUBMISSION_DIR": "yes",
         "CM_RUN_MLPERF_ACCURACY": "on"
       },
