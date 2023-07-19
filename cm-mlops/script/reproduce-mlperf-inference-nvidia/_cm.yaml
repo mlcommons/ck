@@ -838,9 +838,10 @@ variations:
   t4,resnet50,offline,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.64
+        tags: _batch_size.256
     env:
-      CM_MODEL_BATCH_SIZE: "64"
+      CM_MODEL_BATCH_SIZE: "256"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "4"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   t4,retinanet,offline,run_harness:

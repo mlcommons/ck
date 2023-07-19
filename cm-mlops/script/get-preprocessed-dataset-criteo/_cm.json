@@ -29,7 +29,7 @@
       "names": [
         "inference-src"
       ],
-      "tags": "mlperf,mlcommons,inference,source,src,_octoml"
+      "tags": "mlperf,mlcommons,inference,source,src"
     },
     {
       "tags": "get,generic-python-lib,_scikit-learn"
@@ -114,7 +114,25 @@
       "default": true,
       "env": {
         "CM_DATASET_CRITEO_MULTIHOT": "yes"
-      }
+      },
+      "deps": [
+        {
+          "tags": "get,mlperf,training,src",
+          "names": [
+            "mlperf-training",
+            "training-src"
+          ]
+        },
+        {
+          "tags": "get,generic-python-lib,_package.typing_inspect"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.iopath"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.fbgemm_gpu"
+        }
+      ]
     }
   }
 }
