@@ -130,6 +130,8 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,dataset-aux,image-classification,imagenet-aux
              - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
+           * get,generic-python-lib,_numpy
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_kits19`
       - Environment variables:
         - *CM_DATASET*: `kits19`

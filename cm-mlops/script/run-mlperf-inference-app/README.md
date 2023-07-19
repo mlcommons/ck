@@ -208,6 +208,7 @@ ___
       - Environment variables:
         - *CM_MLPERF_SUBMISSION_RUN*: `yes`
         - *CM_RUN_SUBMISSION_CHECKER*: `yes`
+        - *CM_MLPERF_LOADGEN_COMPLIANCE*: `yes`
         - *CM_TAR_SUBMISSION_DIR*: `yes`
         - *CM_RUN_MLPERF_ACCURACY*: `on`
       - Workflow:
@@ -348,7 +349,6 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_MLPERF_RUN_STYLE: `test`
 * CM_MLPERF_IMPLEMENTATION: `reference`
 * CM_MLPERF_MODEL: `resnet50`
-* CM_MLPERF_LOADGEN_COMPLIANCE: `yes`
 
 </details>
 
