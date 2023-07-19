@@ -134,6 +134,10 @@
     },
     {
       "tags": "get,lib,armnn",
+      "names": [
+        "armnn",
+        "lib-armnn"
+      ],
       "enable_if_env": {
         "CM_MLPERF_TFLITE_USE_ARMNN": ["yes"]
       }
