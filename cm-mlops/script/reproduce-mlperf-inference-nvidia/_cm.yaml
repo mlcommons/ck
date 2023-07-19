@@ -31,6 +31,7 @@ default_env:
   CM_SKIP_PREPROCESS_DATASET: 'no'
   CM_SKIP_MODEL_DOWNLOAD: 'no'
   CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: nvidia_original
+  CM_CALL_RUNNER: 'yes'
 
 # Map script inputs to environment variables
 input_mapping:
@@ -253,7 +254,10 @@ post_deps:
         - yes
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
         - run_harness
-    tags: benchmark,program
+    tags: benchmark-mlperf
+    enable_if_env:
+      CM_CALL_RUNNER:
+        - yes
 
 
 # Variations to customize dependencies
@@ -345,7 +349,6 @@ variations:
     - tags: get,generic-python-lib,_unidecode
     - tags: get,generic-python-lib,_inflect
     - tags: get,generic-python-lib,_librosa
-      version_max: 0.8.1
       names:
         - librosa
     - tags: get,generic-python-lib,_sox
@@ -429,7 +432,7 @@ variations:
           - batch-size
         skip_if_env:
           CM_MODEL:
-            - retinanet
+            - retinanet_old
             - resnet50
             - bert-99
             - bert-99.9
@@ -465,6 +468,7 @@ variations:
           - build-engine
         skip_inherit_variation_groups:
           - run-mode
+          - gpu_name
           - device-memory
         force_cache: true
       - tags: reproduce,mlperf,inference,nvidia,harness,_preprocess_data
@@ -473,6 +477,7 @@ variations:
           - run-mode
           - loadgen-scenario
           - device-memory
+          - gpu_name
           - batch-size
         force_cache: true
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
@@ -481,6 +486,7 @@ variations:
           - run-mode
           - loadgen-scenario
           - device-memory
+          - gpu_name
           - batch-size
         force_cache: true
         skip_if_env:
@@ -787,9 +793,9 @@ variations:
   rtx_4090,retinanet,offline,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.8
+        tags: _batch_size.4
     env:
-      CM_MODEL_BATCH_SIZE: "8"
+      CM_MODEL_BATCH_SIZE: "4"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   rtx_4090,bert_,offline,run_harness:
@@ -808,7 +814,7 @@ variations:
       CM_MODEL_BATCH_SIZE: "8"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
-  rtx_4090,rnnt_,offline,run_harness:
+  rtx_4090,rnnt,offline,run_harness:
     add_deps_recursive:
       build-engine:
         tags: _batch_size.2048
@@ -840,9 +846,9 @@ variations:
   t4,retinanet,offline,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.8
+        tags: _batch_size.4
     env:
-      CM_MODEL_BATCH_SIZE: "8"
+      CM_MODEL_BATCH_SIZE: "4"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   t4,bert_,offline,run_harness:
@@ -861,7 +867,7 @@ variations:
       CM_MODEL_BATCH_SIZE: "8"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
-  t4,rnnt_,offline,run_harness:
+  t4,rnnt,offline,run_harness:
     add_deps_recursive:
       build-engine:
         tags: _batch_size.2048
@@ -922,7 +928,7 @@ variations:
       CM_MODEL_BATCH_SIZE: "8"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
-  a100,sxm,rnnt_,offline,run_harness:
+  a100,sxm,rnnt,offline,run_harness:
     add_deps_recursive:
       build-engine:
         tags: _batch_size.2048

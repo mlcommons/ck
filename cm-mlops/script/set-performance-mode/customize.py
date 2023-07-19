@@ -6,6 +6,7 @@ def preprocess(i):
     os_info = i['os_info']
 
     env = i['env']
+    env['OMP_PROC_BIND'] = 'true'
 
     meta = i['meta']
 
