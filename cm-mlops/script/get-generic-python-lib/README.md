@@ -248,7 +248,7 @@ ___
            * get,generic-python-lib,_torch_cuda
              * CM names: `--adr.['torch']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-           * get,git,repo,_repo.https://github.com/NVIDIA/apex
+           * get,git,repo,_repo.https://github.com/NVIDIA/apex,_tag.23.05
              - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
     * `_nvidia-dali`
       - Environment variables:

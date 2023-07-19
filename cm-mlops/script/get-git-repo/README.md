@@ -150,6 +150,10 @@ ___
       - Environment variables:
         - *CM_GIT_SHA*: `#`
       - Workflow:
+    * `_tag.#`
+      - Environment variables:
+        - *CM_GIT_CHECKOUT_TAG*: `#`
+      - Workflow:
 
     </details>
 
