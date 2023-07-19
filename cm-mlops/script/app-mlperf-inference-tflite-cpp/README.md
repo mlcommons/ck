@@ -335,6 +335,7 @@ ___
        - CM script: [install-tensorflow-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src)
      * get,lib,armnn
        * `if (CM_MLPERF_TFLITE_USE_ARMNN  == yes)`
+       * CM names: `--adr.['armnn', 'lib-armnn']...`
        - CM script: [get-lib-armnn](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-armnn)
      * generate,user-conf,mlperf,inference
        * CM names: `--adr.['user-conf-generator']...`
