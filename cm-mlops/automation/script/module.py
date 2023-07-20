@@ -4288,10 +4288,23 @@ def can_write_to_current_directory():
 
     cur_dir = os.getcwd()
 
+#    try:
+#        tmp_file = tempfile.NamedTemporaryFile(dir = cur_dir)
+#    except Exception as e:
+#        return False
+
+    tmp_file_name = next(tempfile._get_candidate_names())+'.tmp'
+
+    tmp_path = os.path.join(cur_dir, tmp_file_name)
+
     try:
-        tmp_file = tempfile.NamedTemporaryFile(dir = cur_dir)
+        tmp_file = open(tmp_file_name, 'w')
     except Exception as e:
         return False
+
+    tmp_file.close()
+
+    os.remove(tmp_file_name)
 
     return True
 
