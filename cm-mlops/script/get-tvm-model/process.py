@@ -12,7 +12,17 @@ def get_shape_dict_from_onnx(
 ) -> Dict[str, List[int]]:
     import onnx
     onnx_model = onnx.load(model_path)
+    if len(shape) == 1:
+        for _input in onnx_model.graph.input:
+            tensor_type = _input.type.tensor_type
+            if (tensor_type.HasField("shape")):
+                for dimension in tensor_type.shape.dim:
+                    if dimension.dim_value != 0:
+                        shape.append(dimension.dim_value)
+        print(shape)
     input_all = [node.name for node in onnx_model.graph.input]
+    # print(onnx_model.graph.input)
+    # raise RuntimeError("OK")
     input_initializer =  [node.name for node in onnx_model.graph.initializer]
     net_feed_input = list(set(input_all)  - set(input_initializer))
     return {input_name: shape for input_name in net_feed_input}
@@ -28,19 +38,20 @@ def get_mod_params(
     image_height: Optional[int] = None,
     max_seq_length: Optional[int] = None
 ) -> Tuple[tvm.IRModule, Dict[str, tvm.nd.NDArray]]:
-    if not input_shapes_str and (not image_width or not image_height) and not max_seq_length:
+    if not input_shapes_str and (not image_width or not image_height) and not max_seq_length and frontend != "onnx":
         raise RuntimeError(
             "Error: None of environment variables storing shape is set!"
         )
     if input_shapes_str:
         shape_dict = eval('{' + input_shapes_str.replace('BATCH_SIZE', str(batch_size)) + '}')
     else:
+        shape = []
         if image_width and image_height:
             shape = [batch_size, num_channels, image_height, image_width]
         elif max_seq_length:
             shape = [batch_size, max_seq_length]
         if frontend == "onnx":
-            shape_dict = get_shape_dict_from_onnx(shape, model_path)
+            shape_dict = get_shape_dict_from_onnx(shape if len(shape) > 0 else [batch_size], model_path)
         else:
             raise RuntimeError(
                 "Error: Cannot find proper shapes in environment variables"

@@ -46,8 +46,9 @@ def postprocess(i):
     env['CM_ML_MODEL_FILE_WITH_PATH'] = os.path.join(
         os.getcwd(), env['CM_ML_MODEL_FILE'])
     env['CM_ML_MODEL_FRAMEWORK'] = "tvm-" + env['CM_ML_MODEL_FRAMEWORK']
-    env['CM_ML_MODEL_INPUT_SHAPES'] = env['CM_ML_MODEL_INPUT_SHAPES'].replace(
-        "BATCH_SIZE", env['CM_ML_MODEL_MAX_BATCH_SIZE'])
+    if 'CM_ML_MODEL_INPUT_SHAPES' in env.keys():
+        env['CM_ML_MODEL_INPUT_SHAPES'] = env['CM_ML_MODEL_INPUT_SHAPES'].replace(
+            "BATCH_SIZE", env['CM_ML_MODEL_MAX_BATCH_SIZE'])
 
 
     return {'return':0}
