@@ -1397,6 +1397,8 @@ def docker(i):
         if all_gpus:
             cm_docker_input['all_gpus'] = True
 
+        print ('')
+        
         r = self_module.cmind.access(cm_docker_input)
         if r['return'] > 0:
             return r
