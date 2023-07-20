@@ -34,6 +34,8 @@ def preprocess(i):
     if r['return'] >0:
         if r['return'] == 16:
             extra = env.get('CM_GENERIC_PYTHON_PIP_EXTRA','')
+            print (pip_version)
+            input('xyz')
             if (pip_version and int(pip_version[0]) >= 23) and ('--break-system-packages' not in extra):
                 extra += '  --break-system-packages '
                 env['CM_PYTHON_PIP_COMMON_EXTRA'] = " --break-system-packages"

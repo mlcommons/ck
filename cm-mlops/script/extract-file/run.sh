@@ -1,4 +1,6 @@
 #!/bin/bash
+
+echo ""
 echo $PWD
 if [ -e "${CM_EXTRACT_EXTRACTED_FILENAME}" ] ; then
   CMD=${CM_EXTRACT_EXTRACTED_CHECKSUM_CMD}
