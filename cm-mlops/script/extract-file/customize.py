@@ -8,6 +8,8 @@ def preprocess(i):
 
     os_info = i['os_info']
 
+    xsep = '^&^&' if os_info['platform'] == 'windows' else '&&'
+    
     env = i['env']
 
     meta = i['meta']
@@ -37,7 +39,8 @@ def preprocess(i):
         env['CM_EXTRACT_TOOL'] = "unzip"
     elif filename.endswith(".tar.gz"):
         if os_info['platform'] == 'windows':
-            env['CM_EXTRACT_CMD0'] = 'gzip -d ' + filename
+            x = '"' if ' ' in filename else ''
+            env['CM_EXTRACT_CMD0'] = 'gzip -d ' + x + filename + x
             filename = filename[:-3] # leave only .tar
             env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvf'
             env['CM_EXTRACT_TOOL'] = 'tar '
@@ -67,19 +70,24 @@ def preprocess(i):
     env['CM_EXTRACT_PRE_CMD'] = ''
 
     if 'tar ' in env['CM_EXTRACT_TOOL'] and env.get('CM_EXTRACT_TO_FOLDER', '') != '':
+        x = '' if os_info['platform'] == 'windows' else '-p'
+
         #env['CM_EXTRACT_TOOL_OPTIONS'] = ' --one-top-level='+ env['CM_EXTRACT_TO_FOLDER'] + env.get('CM_EXTRACT_TOOL_OPTIONS', '')
         env['CM_EXTRACT_TOOL_OPTIONS'] = ' -C '+ env['CM_EXTRACT_TO_FOLDER'] + ' ' + env.get('CM_EXTRACT_TOOL_OPTIONS', '')
-        env['CM_EXTRACT_PRE_CMD'] = 'mkdir -p '+ env['CM_EXTRACT_TO_FOLDER'] +  ' && '
+        env['CM_EXTRACT_PRE_CMD'] = 'mkdir '+x+' '+ env['CM_EXTRACT_TO_FOLDER'] +  ' ' + xsep + ' '
         env['CM_EXTRACT_EXTRACTED_FILENAME'] = env['CM_EXTRACT_TO_FOLDER']
 
 
-    env['CM_EXTRACT_CMD'] = env['CM_EXTRACT_PRE_CMD'] + env['CM_EXTRACT_TOOL'] + ' ' + env.get('CM_EXTRACT_TOOL_EXTRA_OPTIONS', '') + ' ' + env.get('CM_EXTRACT_TOOL_OPTIONS', '')+ ' '+ filename
+    x = '"' if ' ' in filename else ''
+    env['CM_EXTRACT_CMD'] = env['CM_EXTRACT_PRE_CMD'] + env['CM_EXTRACT_TOOL'] + ' ' + \
+                            env.get('CM_EXTRACT_TOOL_EXTRA_OPTIONS', '') + \
+                            ' ' + env.get('CM_EXTRACT_TOOL_OPTIONS', '')+ ' '+ x + filename + x
 
     final_file = env.get('CM_EXTRACT_EXTRACTED_FILENAME')
 
     if final_file:
         if env.get('CM_EXTRACT_EXTRACTED_CHECKSUM_FILE', '') != '':
-            env['CM_EXTRACT_EXTRACTED_CHECKSUM_CMD'] = "cd {} &&  md5sum -c {}".format(final_file, env.get('CM_EXTRACT_EXTRACTED_CHECKSUM_FILE'))
+            env['CM_EXTRACT_EXTRACTED_CHECKSUM_CMD'] = "cd {}  " + xsep + "  md5sum -c {}".format(final_file, env.get('CM_EXTRACT_EXTRACTED_CHECKSUM_FILE'))
         elif env.get('CM_EXTRACT_EXTRACTED_CHECKSUM', '') != '':
             env['CM_EXTRACT_EXTRACTED_CHECKSUM_CMD'] = "echo {} {} | md5sum -c".format(env.get('CM_EXTRACT_EXTRACTED_CHECKSUM'), env['CM_EXTRACT_EXTRACTED_FILENAME'])
         else:

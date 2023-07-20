@@ -349,7 +349,7 @@ def page(st, params):
 
             prize = meta.get('prize','')
             if prize!='':
-                z+='* **Minimium prizes:** {}\n'.format(prize)
+                z+='* **Student prizes:** {}\n'.format(prize)
 
 
             urls = meta.get('urls',[])

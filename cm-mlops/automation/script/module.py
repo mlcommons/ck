@@ -3665,6 +3665,9 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
 
     # Update env with the current path
+    if os_info['platform'] == 'windows' and ' ' in path:
+        path = '"' + path + '"'
+
     env['CM_TMP_CURRENT_SCRIPT_PATH'] = path
 
     # Record state
@@ -3711,7 +3714,7 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
         # Append batch file to the tmp script
         script.append('\n')
-        script.append(os_info['run_bat'].replace('${bat_file}', path_to_run_script) + '\n')
+        script.append(os_info['run_bat'].replace('${bat_file}', '"'+path_to_run_script+'"') + '\n')
 
         # Prepare and run script
         r = record_script(run_script, script, os_info)
@@ -4285,10 +4288,23 @@ def can_write_to_current_directory():
 
     cur_dir = os.getcwd()
 
+#    try:
+#        tmp_file = tempfile.NamedTemporaryFile(dir = cur_dir)
+#    except Exception as e:
+#        return False
+
+    tmp_file_name = next(tempfile._get_candidate_names())+'.tmp'
+
+    tmp_path = os.path.join(cur_dir, tmp_file_name)
+
     try:
-        tmp_file = tempfile.NamedTemporaryFile(dir = cur_dir)
+        tmp_file = open(tmp_file_name, 'w')
     except Exception as e:
         return False
+
+    tmp_file.close()
+
+    os.remove(tmp_file_name)
 
     return True
 

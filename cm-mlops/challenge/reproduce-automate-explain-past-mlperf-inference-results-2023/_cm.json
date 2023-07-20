@@ -6,8 +6,7 @@
   "date_open": "20230704",
   "experiments": [],
   "points": 2,
-  "prize": "150$ for the 1st 3 submitters",
-  "prize_short": "co-authoring white paper , $$$ , presenting at the next HiPEAC/ACM workshop on reproducibility",
+  "prize_short": "co-authoring white paper , presenting at the next HiPEAC/ACM workshop on reproducibility",
   "tags": [
     "reproduce",
     "replicate",

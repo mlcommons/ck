@@ -25,12 +25,12 @@ Check [this ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn
 * *All contributors will be able to present their findings at the HiPEAC workshop on reproducibility and participate in writing a common white paper about running and comparing MLPerf inference benchmarks.*
 * *All contributors will receive 2 point*
 * *All contributors will receive an official MLCommons Collective Knowledge contributor award (see [this example](https://ctuning.org/awards/ck-award-202307-zhu.pdf)).*
-* *The first 3 submitters will receive a prize of 150$.*
 
 
 #### Organizers
 
-* [HiPEAC](https://hipeac.net)
-* [ACM REP'23](https://acm-rep.github.io/2023/)
 * [cTuning foundation](https://cTuning.org)
 * [cKnowledge Ltd](https://cKnowledge.org)
+* [HiPEAC](https://hipeac.net)
+* [ACM REP](https://acm-rep.github.io)
+* [MLCommons](https://mlcommons.org)
