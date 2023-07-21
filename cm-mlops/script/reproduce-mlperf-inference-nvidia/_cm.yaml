@@ -411,6 +411,23 @@ variations:
     env:
       MLPERF_NVIDIA_RUN_COMMAND: calibrate
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: calibrate
+    deps:
+      - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
+        inherit_variation_tags: true
+        force_cache: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - device-memory
+          - batch-size
+        skip_if_env:
+          CM_MODEL:
+            - retinanet_old
+            - resnet50
+            - bert-99
+            - bert-99.9
+            - dlrm-99
+            - dlrm-99.9
 
   build_engine:
     group: run-mode
@@ -421,14 +438,6 @@ variations:
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: generate_engines
     deps:
       - tags: reproduce,mlperf,inference,nvidia,harness,_preprocess_data
-        inherit_variation_tags: true
-        force_cache: true
-        skip_inherit_variation_groups:
-          - run-mode
-          - loadgen-scenario
-          - device-memory
-          - batch-size
-      - tags: reproduce,mlperf,inference,nvidia,harness,_calibrate
         inherit_variation_tags: true
         force_cache: true
         skip_inherit_variation_groups:
@@ -452,6 +461,14 @@ variations:
             - bert-99.9
             - dlrm-99
             - dlrm-99.9
+      - tags: reproduce,mlperf,inference,nvidia,harness,_calibrate
+        inherit_variation_tags: true
+        force_cache: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - device-memory
+          - batch-size
 
   singlestream:
     group: loadgen-scenario
