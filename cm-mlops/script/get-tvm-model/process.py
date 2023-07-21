@@ -21,8 +21,6 @@ def get_shape_dict_from_onnx(
                         shape.append(dimension.dim_value)
         print(shape)
     input_all = [node.name for node in onnx_model.graph.input]
-    # print(onnx_model.graph.input)
-    # raise RuntimeError("OK")
     input_initializer =  [node.name for node in onnx_model.graph.initializer]
     net_feed_input = list(set(input_all)  - set(input_initializer))
     return {input_name: shape for input_name in net_feed_input}

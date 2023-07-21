@@ -548,8 +548,8 @@ variations:
       names:
       - tvm-model
       update_tags_from_env_with_prefix:
-        model.: 
-        - CM_ML_MODEL
+        _model.: 
+        - CM_MODEL
       
   
   tvm-tflite:
@@ -558,12 +558,16 @@ variations:
       CM_MLPERF_BACKEND: tvm-tflite
       CM_MLPERF_BACKEND_VERSION: <<<CM_TVM-TFLITE_VERSION>>>
     deps:
+    - tags: get,generic-python-lib,_tflite
     - tags: get,tvm
       names:
-        tvm
-    add_deps_recursive:
-      ml-model:
-        tags: tvm-model,_tflite
+      - tvm
+    - tags: get,tvm-model,_tflite
+      names:
+      - tvm-model
+      update_tags_from_env_with_prefix:
+        _model.: 
+        - CM_MODEL
 
   tvm-pytorch:
     group: framework
@@ -572,12 +576,16 @@ variations:
       CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
       MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
     deps:
+    - tags: get,generic-python-lib,_torch
     - tags: get,tvm
       names:
-        tvm
-    add_deps_recursive:
-      ml-model:
-        tags: tvm-model,_pytorch
+      - tvm
+    - tags: get,tvm-model,_pytorch
+      names:
+      - tvm-model
+      update_tags_from_env_with_prefix:
+        _model.: 
+        - CM_MODEL
 
   # Reference MLPerf models
   gptj-99.9:
