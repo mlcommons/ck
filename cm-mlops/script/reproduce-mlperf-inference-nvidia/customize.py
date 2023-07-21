@@ -240,7 +240,7 @@ def preprocess(i):
         if input_format:
             run_config += f" --input_format={input_format}"
 
-        performance_sample_count = env.get('CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT')
+        performance_sample_count = env.get('CM_MLPERF_PERFORMANCE_SAMPLE_COUNT')
         if performance_sample_count:
             run_config += f" --performance_sample_count={performance_sample_count}"
 

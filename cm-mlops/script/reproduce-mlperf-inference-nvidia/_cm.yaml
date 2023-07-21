@@ -40,7 +40,7 @@ input_mapping:
   mlperf_conf: CM_MLPERF_CONF
   mode: CM_MLPERF_LOADGEN_MODE
   output_dir: CM_MLPERF_OUTPUT_DIR
-  performance_sample_count: CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT
+  performance_sample_count: CM_MLPERF_PERFORMANCE_SAMPLE_COUNT
   scenario: CM_MLPERF_LOADGEN_SCENARIO
   user_conf: CM_MLPERF_USER_CONF
   devices: CM_MLPERF_NVIDIA_HARNESS_DEVICES
