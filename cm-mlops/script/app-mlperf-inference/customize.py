@@ -14,7 +14,7 @@ def preprocess(i):
             env['CM_TEST_QUERY_COUNT'] = "500" #so that accuracy script doesn't complain
 
     if env.get('CM_MLPERF_IMPLEMENTATION', '') == 'nvidia-original':
-        if env.get('CM_NVIDIA_GPU_NAME', '') in [ "rtx_4090", "a100", "t4" ]:
+        if env.get('CM_NVIDIA_GPU_NAME', '') in [ "rtx_4090", "a100", "t4", "l4" ]:
             env['CM_NVIDIA_HARNESS_GPU_VARIATION'] = "_" + env['CM_NVIDIA_GPU_NAME']
             env['CM_NVIDIA_GPU_MEMORY'] = ''
         else:
