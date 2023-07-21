@@ -32,7 +32,7 @@ across different framework (ONNX, PyTorch, TF, TFLite)
 either natively or in a cloud (AWS, Azure, GCP, Alibaba, Oracle, OVHcloud, ...) 
 and submit results to MLPerf inference v3.1.
 
-However, since some benchmarks may take 1 day to run, we suggest to start in the following order:
+However, since some benchmarks may take 1..2 days to run, we suggest to start in the following order (these links describe CM commands to run benchmarks and submit results):
 * [CPU: Reference implementation of Image Classification with ResNet50 (open and then closed division)](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/resnet50/README_reference.md)
 * [CPU: TFLite C++ implementation of Image classification with variations of MobileNets and EfficientNets (open division)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/run-mlperf-inference-mobilenet-models/README-about.md)
 * [Nvidia GPU: Nvidia optimized implementation of Image Classification with ResNet50 (open and then closed division)](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/resnet50/README_nvidia.md)
