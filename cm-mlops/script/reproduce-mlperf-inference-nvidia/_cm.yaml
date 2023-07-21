@@ -389,6 +389,12 @@ variations:
       CM_MLPERF_NVIDIA_HARNESS_USE_TRITON: "yes"
       CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX3: "using_triton"
 
+  build:
+    group: run-mode
+    env:
+      MLPERF_NVIDIA_RUN_COMMAND: build
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: build
+
   preprocess_data:
     group: run-mode
     env:
@@ -411,6 +417,24 @@ variations:
     env:
       MLPERF_NVIDIA_RUN_COMMAND: calibrate
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: calibrate
+    deps:
+      - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
+        inherit_variation_tags: true
+        force_cache: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - device-memory
+          - gpu-name
+          - batch-size
+        skip_if_env:
+          CM_MODEL:
+            - retinanet_old
+            - resnet50
+            - bert-99
+            - bert-99.9
+            - dlrm-99
+            - dlrm-99.9
 
   build_engine:
     group: run-mode
@@ -427,14 +451,7 @@ variations:
           - run-mode
           - loadgen-scenario
           - device-memory
-          - batch-size
-      - tags: reproduce,mlperf,inference,nvidia,harness,_calibrate
-        inherit_variation_tags: true
-        force_cache: true
-        skip_inherit_variation_groups:
-          - run-mode
-          - loadgen-scenario
-          - device-memory
+          - gpu-name
           - batch-size
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
         inherit_variation_tags: true
@@ -443,6 +460,7 @@ variations:
           - run-mode
           - loadgen-scenario
           - device-memory
+          - gpu-name
           - batch-size
         skip_if_env:
           CM_MODEL:
@@ -452,6 +470,16 @@ variations:
             - bert-99.9
             - dlrm-99
             - dlrm-99.9
+      - tags: reproduce,mlperf,inference,nvidia,harness,_calibrate
+        inherit_variation_tags: true
+        force_cache: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - device-memory
+          - device-type
+          - gpu-name
+          - batch-size
 
   singlestream:
     group: loadgen-scenario
@@ -807,9 +835,9 @@ variations:
   rtx_4090,retinanet,offline,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.4
+        tags: _batch_size.2
     env:
-      CM_MODEL_BATCH_SIZE: "4"
+      CM_MODEL_BATCH_SIZE: "2"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   rtx_4090,bert_,offline,run_harness:
