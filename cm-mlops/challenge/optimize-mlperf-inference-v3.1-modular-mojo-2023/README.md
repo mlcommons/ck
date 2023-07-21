@@ -23,7 +23,7 @@ Check [this ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn
 * *The first implementation will receive a cache prize from organizers.*
 * *All contributors will participate in writing a common white paper about running and comparing MLPerf inference benchmarks out-of-the-box.*
 * *All contributors will receive 1 point for submitting valid results for 1 complete benchmark on one system.*
-* *All contributors will receive an official MLCommons Collective Knowledge contributor award (see [this example](https://ctuning.org/awards/ck-award-202307-zhu.pdf)).*
+* *The top contributors will receive cash prizes from [MLCommons organizations](https://mlcommons.org) and [cKnowledge.org](https://www.linkedin.com/company/cknowledge)*.
 
 ### Organizers
 

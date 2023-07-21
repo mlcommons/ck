@@ -57,6 +57,10 @@ class CAutomation(Automation):
 
         return {'return':0}
 
+
+    
+    
+    
     ############################################################
     def run(self, i):
         """

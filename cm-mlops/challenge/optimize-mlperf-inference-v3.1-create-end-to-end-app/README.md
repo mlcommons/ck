@@ -13,10 +13,10 @@ Looking forward to your submissions and happy hacking!
 
 ### Prizes
 
-*All submitters will participate in writing a common white paper about running and comparing MLPerf inference benchmarks out-of-the-box.*
-*All submitters will receive 1 point for submitting valid results for 1 complete benchmark on one system.*
-*All submitters will receive an official MLCommons Collective Knowledge contributor award (see [this example](https://ctuning.org/awards/ck-award-202307-zhu.pdf)).*
-*The top 3 submitters by points will receive a prize of 200$ each.*
+* *All submitters will participate in writing a common white paper about running and comparing MLPerf inference benchmarks out-of-the-box.*
+* *All submitters will receive 1 point for submitting valid results for 1 complete benchmark on one system.*
+* *All submitters will receive an official MLCommons Collective Knowledge contributor award (see [this example](https://ctuning.org/awards/ck-award-202307-zhu.pdf)).*
+* *The top contributors will receive cash prizes from [MLCommons organizations](https://mlcommons.org) and [cKnowledge.org](https://www.linkedin.com/company/cknowledge)*.
 
 
 ### Organizers

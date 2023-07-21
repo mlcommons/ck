@@ -22,6 +22,6 @@
     "mlperf-inference-v3.1-2023",
     "v3.1"
   ],
-  "title": "Run and optimize MLPerf inference v3.1 benchmarks (latency, throughput, power consumption, accuracy, cost)",
+  "title": "Participate in collaborative benchmarking of AI/ML systems similar to SETI@home (latency, throughput, power consumption, accuracy, cost)",
   "uid": "3e971d8089014d1f"
 }
