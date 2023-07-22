@@ -137,8 +137,8 @@ deps:
 
   - enable_if_env:
       CM_MODEL:
-      - 3d-unet-99
-      - 3d-unet-99.9
+      - 3d-unet-99-disabled
+      - 3d-unet-99.9-disabled
     names:
       - kits19-original
     tags: get,dataset,original,kits19
