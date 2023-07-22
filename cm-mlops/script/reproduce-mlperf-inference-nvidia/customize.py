@@ -285,9 +285,13 @@ def preprocess(i):
         else:
             test_mode_string = ""
 
+        extra_build_engine_options_string = env.get('CM_MLPERF_NVIDIA_HARNESS_EXTRA_BUILD_ENGINE_OPTIONS', '')
+
+        extra_run_options_string = env.get('CM_MLPERF_NVIDIA_HARNESS_EXTRA_RUN_OPTIONS', '') #will be ignored during build engine
+
         run_config += " --no_audit_verify"
 
-        cmds.append(f"make {make_command} RUN_ARGS=' --benchmarks={model_name} --scenarios={scenario} {test_mode_string} {run_config}'")
+        cmds.append(f"make {make_command} RUN_ARGS=' --benchmarks={model_name} --scenarios={scenario} {test_mode_string} {run_config} {extra_build_engine_options_string} {extra_run_options_string}'")
 
     run_cmd = " && ".join(cmds)
     env['CM_MLPERF_RUN_CMD'] = run_cmd
