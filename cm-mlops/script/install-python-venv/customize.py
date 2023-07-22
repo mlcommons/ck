@@ -70,7 +70,7 @@ def postprocess(i):
     if os_info['platform'] == 'windows':
         path_to_activate += '.bat'
 
-    s = os_info['run_bat'].replace('${bat_file}', path_to_activate)
+    s = os_info['run_bat'].replace('${bat_file}', '"'+path_to_activate+'"')
 
     script_prefix.append(s)
     state['script_prefix'] = script_prefix

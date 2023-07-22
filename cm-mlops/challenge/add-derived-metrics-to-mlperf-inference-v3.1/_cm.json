@@ -1,0 +1,27 @@
+{
+  "alias": "add-derived-metrics-to-mlperf-inference-v3.1",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close_extension": true,
+  "date_open": "20230704",
+  "points": 2,
+  "prize_short": "co-authoring white paper",
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "benchmark",
+    "automate",
+    "derived-metrics",
+    "mlperf-inference",
+    "mlperf-inference-derived-metrics",
+    "mlperf-inference-derived-metrics",
+    "mlperf-inference-derived-metrics-v3.1",
+    "mlperf-inference-derived-metrics-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Add derived metrics to MLPerf inference benchmarks (power efficiencty, results / No of cores, costs, etc)",
+  "trophies": true,
+  "uid": "c65b56d7770946ee"
+}

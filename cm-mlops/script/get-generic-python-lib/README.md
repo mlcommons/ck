@@ -150,6 +150,14 @@ ___
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `colored`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://pypi.ngc.nvidia.com`
       - Workflow:
+    * `_cupy`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `cupy`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,cuda
+             * CM names: `--adr.['cuda']...`
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
     * `_datasets`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `datasets`
@@ -240,7 +248,7 @@ ___
            * get,generic-python-lib,_torch_cuda
              * CM names: `--adr.['torch']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-           * get,git,repo,_repo.https://github.com/NVIDIA/apex
+           * get,git,repo,_repo.https://github.com/NVIDIA/apex,_tag.23.05
              - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
     * `_nvidia-dali`
       - Environment variables:

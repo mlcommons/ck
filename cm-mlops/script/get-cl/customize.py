@@ -59,13 +59,13 @@ def preprocess(i):
         
             ii['env']=env
 
-            r = automation.find_artifact(ii)
-            if r['return'] >0 : return r
+            rr = automation.find_artifact(ii)
+            if rr['return'] >0 : return rr
 
         else:
            return rr
 
-    found_path = r['found_path']
+    found_path = rr['found_path']
 
     # Check vcvarall.bat
     state = i['state']

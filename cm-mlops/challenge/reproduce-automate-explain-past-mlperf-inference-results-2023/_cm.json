@@ -1,0 +1,21 @@
+{
+  "alias": "reproduce-automate-explain-past-mlperf-inference-results-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close_extension": true,
+  "date_open": "20230704",
+  "experiments": [],
+  "points": 2,
+  "prize_short": "co-authoring white paper , presenting at the next HiPEAC/ACM workshop on reproducibility",
+  "tags": [
+    "reproduce",
+    "replicate",
+    "automate",
+    "mlperf-inference",
+    "mlperf-inference-results",
+    "mlperf-inference-results-2023"
+  ],
+  "title": "Reproduce, automate with CM and explain past MLPerf inference results",
+  "trophies": true,
+  "uid": "0678da7d38b3435a"
+}

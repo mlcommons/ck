@@ -1,0 +1,21 @@
+{
+  "alias": "github-silhouette001",
+  "automation_alias": "contributor",
+  "automation_uid": "68eae17b590d4f8f",
+  "challenges": [],
+  "name": "@silhouette001",
+  "ongoing": [
+    "mlperf-inference-v3.1-2023"
+  ],
+  "points": [
+    {
+      "point": 1
+    }
+  ],
+  "tags": [],
+  "uid": "657302842b1d4dad",
+  "urls": [
+    "https://github.com/silhouette001",
+    "https://github.com/ctuning/mlperf_inference_submissions_v3.1/pull/8"
+  ]
+}

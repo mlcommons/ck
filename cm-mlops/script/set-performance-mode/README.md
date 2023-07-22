@@ -188,6 +188,7 @@ ___
 ### Script output
 #### New environment keys (filter)
 
+* `OMP_*`
 #### New environment keys auto-detected from customize
 
 ___

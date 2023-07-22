@@ -208,6 +208,7 @@ ___
       - Environment variables:
         - *CM_MLPERF_SUBMISSION_RUN*: `yes`
         - *CM_RUN_SUBMISSION_CHECKER*: `yes`
+        - *CM_MLPERF_LOADGEN_COMPLIANCE*: `yes`
         - *CM_TAR_SUBMISSION_DIR*: `yes`
         - *CM_RUN_MLPERF_ACCURACY*: `on`
       - Workflow:
@@ -295,6 +296,7 @@ r=cm.access({... , "adr.python.name":...}
 * `--division=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIVISION=value`
 * `--execution_mode=value`  &rarr;  `CM_MLPERF_EXECUTION_MODE=value`
 * `--find_performance=value`  &rarr;  `CM_MLPERF_FIND_PERFORMANCE_MODE=value`
+* `--gpu_name=value`  &rarr;  `CM_NVIDIA_GPU_NAME=value`
 * `--hw_name=value`  &rarr;  `CM_HW_NAME=value`
 * `--hw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_SW_NOTES_EXTRA=value`
 * `--implementation=value`  &rarr;  `CM_MLPERF_IMPLEMENTATION=value`
@@ -347,7 +349,6 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_MLPERF_RUN_STYLE: `test`
 * CM_MLPERF_IMPLEMENTATION: `reference`
 * CM_MLPERF_MODEL: `resnet50`
-* CM_MLPERF_LOADGEN_COMPLIANCE: `yes`
 
 </details>
 

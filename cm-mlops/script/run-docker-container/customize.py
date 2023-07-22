@@ -7,7 +7,9 @@ from os.path import exists
 def preprocess(i):
 
     os_info = i['os_info']
+
     env = i['env']
+
     if 'CM_DOCKER_RUN_SCRIPT_TAGS' not in env:
         env['CM_DOCKER_RUN_SCRIPT_TAGS'] = "run,docker,container"
         CM_RUN_CMD="cm version"
@@ -26,8 +28,14 @@ def preprocess(i):
     env['CM_DOCKER_RUN_CMD'] = CM_RUN_CMD
     DOCKER_CONTAINER = docker_image_repo +  ":" + docker_image_tag
 
-    CMD = "docker images -q " +  DOCKER_CONTAINER + " 2> /dev/null"
+    CMD = "docker images -q " +  DOCKER_CONTAINER
+    if os_info['platform'] == 'windows':
+        CMD += " 2> nul"
+    else:
+        CMD += " 2> /dev/null"
+
     docker_image = subprocess.check_output(CMD, shell=True).decode("utf-8")
+
     recreate_image = env.get('CM_DOCKER_IMAGE_RECREATE', '')
 
     if docker_image and recreate_image != "yes":
@@ -39,6 +47,8 @@ def preprocess(i):
     return {'return':0}
 
 def postprocess(i):
+
+    os_info = i['os_info']
 
     env = i['env']
 
@@ -102,14 +112,24 @@ def postprocess(i):
     if env.get('CM_DOCKER_DETACHED_MODE','') == "yes":
         CONTAINER="docker run -dt "+ run_opts + " --rm " + docker_image_repo + ":" + docker_image_tag + " bash"
         CMD = "ID=`" + CONTAINER + "` && docker exec $ID bash -c '" + run_cmd + "' && docker kill $ID >/dev/null"
-        print("Container launch command: " + CMD)
-        print("Running "+run_cmd+" inside docker container")
+
+        print ('')
+        print ("Container launch command: " + CMD)
+        print ("Running "+run_cmd+" inside docker container")
+
+        print ('')
         docker_out = subprocess.check_output(CMD, shell=True).decode("utf-8")
         print(docker_out)
     else:
-        CONTAINER="docker run -it --entrypoint '' "+ run_opts + " " + docker_image_repo + ":" + docker_image_tag
-        CMD =  CONTAINER + " bash -c '" + run_cmd + " && bash '"
+        x = '"' if os_info['platform'] == 'windows' else "'"
+
+        CONTAINER="docker run -it --entrypoint "+x+x+" "+ run_opts + " " + docker_image_repo + ":" + docker_image_tag
+        CMD =  CONTAINER + " bash -c " + x + run_cmd + " && bash " + x
+
+        print ('')
         print("Container launch command: " + CMD)
+
+        print ('')
         docker_out = os.system(CMD)
 
     return {'return':0}

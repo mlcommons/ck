@@ -91,6 +91,12 @@
         "CM_GIT_SHA": "#"
       }
     },
+    "tag.#": {
+      "group": "checkout",
+      "env": {
+        "CM_GIT_CHECKOUT_TAG": "#"
+      }
+    },
     "submodules.#": {
       "env": {
         "CM_GIT_SUBMODULES": "#"

@@ -7,6 +7,7 @@
   * [Install CM automation language](#install-cm-automation-language)
   * [Install repository with CM automations](#install-repository-with-cm-automations)
   * [Setup virtual environment](#setup-virtual-environment)
+  * [Test Docker](#test-docker)
   * [Prepare hardware](#prepare-hardware)
     * [CPU](#cpu)
     * [CUDA GPU](#cuda-gpu)
@@ -14,6 +15,7 @@
   * [Run benchmarks and submit results](#run-benchmarks-and-submit-results)
     * [Measure power](#measure-power)
   * [Debug benchmarks](#debug-benchmarks)
+  * [Update CM language and scripts](#update-cm-language-and-scripts)
   * [Optimize benchmarks](#optimize-benchmarks)
   * [Visualize and compare results](#visualize-and-compare-results)
   * [Extend and customize benchmarks](#extend-and-customize-benchmarks)
@@ -24,7 +26,6 @@
   * [Participate in reproducibility and optimization challenges](#participate-in-reproducibility-and-optimization-challenges)
 
 </details>
-
 
 
 # Run MLPerf inference benchmarks out-of-the-box
@@ -221,6 +222,32 @@ Please check [this documentation](../../debugging.md) for more details.
 
 
 
+## Update CM language and scripts
+
+The concept of CM language is to always keep backward compatibility of the high-level interface 
+while improving and extending low-level scripts, CLI and environment variables.
+
+You should be able to update CM language and scripts at any time as follows:
+```bash
+python3 -m pip install cmind -U
+cm pull repo mlcommons@ck
+```
+
+However, some local installations and downloads may become outdated in CM cache.
+In such case, you can either start from scratch by cleaning all CM cache entries as follows
+```bash
+cm rm cache -f
+```
+
+or by cleaning only entries related to updated components such as MLPerf inference sources and harnesses:
+```bash
+cm show cache
+cm rm cache --tags=inference,src -f
+cm rm cache --tags=harness -f
+```
+
+
+
 ## Optimize benchmarks
 
 We are developing `CM experiment automation` to run multiple experiments, automatically explore multiple parameters, 
@@ -256,16 +283,23 @@ Will be added soon. In the meantime, please contact us via [Discord channel](htt
 
 ### Add new MLPerf benchmark implementation
 
+TBD
+
 ### Add new hardware backend
+
+TBD
 
 ### Add new model
 
+TBD
+
 ### Add new data set
 
-
+TBD
 
 
 ## Participate in reproducibility and optimization challenges
 
 Please help this community project by participating in our 
 [reproducibility and optimization challenges for MLPerf](https://access.cknowledge.org/playground/?action=challenges)!
+
