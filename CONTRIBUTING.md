@@ -59,6 +59,7 @@ Thank you for your support and looking forward to collaborating with you!
 * David Kanter (MLCommons)
 * Yuriy Kashnikov 
 * Jason Knight (OctoML)
+* Ilya Kozulin (Deelvin)
 * Alexey Kravets (Arm)
 * Michael Kruse &lt;MichaelKruse@meinersbur.de&gt;
 * Andrei Lascu &lt;andrei.lascu10@imperial.ac.uk&gt;
