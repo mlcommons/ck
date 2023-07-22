@@ -116,6 +116,7 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-devices/_cm.json)***
      * get,cuda,_toolkit
+       * CM names: `--adr.['cuda']...`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
   1. Run "preprocess" function from customize.py
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-devices/_cm.json)

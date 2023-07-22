@@ -158,6 +158,7 @@ Default version: `11.8.0`
 * `11.7.0`
 * `11.8.0`
 * `12.0.0`
+* `12.2.0`
 ___
 ### Script workflow, dependencies and native scripts
 
