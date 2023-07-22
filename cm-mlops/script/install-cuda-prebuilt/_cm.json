@@ -68,6 +68,11 @@
       "env": {
         "CM_CUDA_LINUX_FILENAME": "cuda_12.0.0_525.60.13_linux.run"
       }
+    },
+    "12.2.0": {
+      "env": {
+        "CM_CUDA_LINUX_FILENAME": "cuda_12.2.0_535.54.03_linux.run"
+      }
     }
   },
   "variations": {
