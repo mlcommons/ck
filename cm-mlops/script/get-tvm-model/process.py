@@ -71,7 +71,7 @@ def tune_model(
         os.mkdir(work_dir)
     print("Extracting tasks...")
     extracted_tasks = ms.relay_integration.extract_tasks(
-        mod, tvm_target, params
+        mod, target, params
     )
     tasks, task_weights = ms.relay_integration.extracted_tasks_to_tune_contexts(
         extracted_tasks, work_dir, strategy="evolutionary"
@@ -195,11 +195,11 @@ def main() -> None:
         build_conf = {}
         target_host = None
         tvm_target = tvm.target.Target(target, host=target_host)
-        tune_model = os.environ.get('CM_TUNE_TVM_MODEL', 'no') == 'yes'
+        tune_model_flag = os.environ.get('CM_TUNE_TVM_MODEL', 'no') == 'yes'
         work_dir = ''
         database = None
         use_vm = os.environ.get('CM_TVM_USE_VM', 'no') == 'yes'
-        if tune_model:
+        if tune_model_flag:
             work_dir, database = tune_model(
                 mod=mod, 
                 params=params, 
