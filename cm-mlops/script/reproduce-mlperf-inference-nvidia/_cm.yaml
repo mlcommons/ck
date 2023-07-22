@@ -386,6 +386,7 @@ variations:
       CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX2: "dla_batch_size.#"
 
   use_triton:
+    group: triton
     env:
       CM_MLPERF_NVIDIA_HARNESS_USE_TRITON: "yes"
       CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX3: "using_triton"
@@ -428,6 +429,7 @@ variations:
           - device-memory
           - gpu-name
           - batch-size
+          - triton
         skip_if_env:
           CM_MODEL:
             - retinanet_old
@@ -454,6 +456,7 @@ variations:
           - device-memory
           - gpu-name
           - batch-size
+          - triton
           - build-engine-options
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
         inherit_variation_tags: true
@@ -464,6 +467,7 @@ variations:
           - device-memory
           - gpu-name
           - batch-size
+          - triton
           - build-engine-options
         skip_if_env:
           CM_MODEL:
@@ -485,6 +489,7 @@ variations:
           - device-memory
           - device-type
           - gpu-name
+          - triton
           - batch-size
           - build-engine-options
 
@@ -528,6 +533,7 @@ variations:
           - device-memory
           - gpu_name
           - batch-size
+          - triton
           - build-engine-options
         force_cache: true
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
@@ -985,6 +991,10 @@ variations:
         tags: _batch_size.2048
     env:
       CM_MODEL_BATCH_SIZE: "2048"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "4"
+      CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_AUDIO_BATCH_SIZE: "128"
+      CM_MLPERF_NVIDIA_HARNESS_DISABLE_ENCODER_PLUGIN: "True"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   t4,dlrm_,offline,run_harness:
