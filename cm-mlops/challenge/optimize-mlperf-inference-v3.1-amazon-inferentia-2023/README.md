@@ -18,7 +18,7 @@ Check [this ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn
 
 * *All contributors will participate in writing a common white paper about running and comparing MLPerf inference benchmarks out-of-the-box.*
 * *All contributors will receive an official MLCommons Collective Knowledge contributor award (see [this example](https://ctuning.org/awards/ck-award-202307-zhu.pdf)).*
-* *The first implementation will receive 3 points and a prize of 400$ and the fastest implementation will receive a prize of 300$.*
+* *The top contributors will receive cash prizes from [MLCommons organizations](https://mlcommons.org) and [cKnowledge.org](https://www.linkedin.com/company/cknowledge)*.
 
 
 

@@ -71,6 +71,7 @@ input_mapping:
   power_setting: CM_MLPERF_NVIDIA_HARNESS_POWER_SETTING
   make_cmd: MLPERF_NVIDIA_RUN_COMMAND
   rerun: CM_RERUN
+  extra_run_options: CM_MLPERF_NVIDIA_HARNESS_EXTRA_RUN_OPTIONS
 
 new_state_keys:
   - mlperf-inference-implementation
@@ -137,8 +138,8 @@ deps:
 
   - enable_if_env:
       CM_MODEL:
-      - 3d-unet-99
-      - 3d-unet-99.9
+      - 3d-unet-99-disabled
+      - 3d-unet-99.9-disabled
     names:
       - kits19-original
     tags: get,dataset,original,kits19
@@ -453,6 +454,7 @@ variations:
           - device-memory
           - gpu-name
           - batch-size
+          - build-engine-options
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
         inherit_variation_tags: true
         force_cache: true
@@ -462,6 +464,7 @@ variations:
           - device-memory
           - gpu-name
           - batch-size
+          - build-engine-options
         skip_if_env:
           CM_MODEL:
             - retinanet_old
@@ -480,6 +483,7 @@ variations:
           - device-type
           - gpu-name
           - batch-size
+          - build-engine-options
 
   singlestream:
     group: loadgen-scenario
@@ -521,6 +525,7 @@ variations:
           - device-memory
           - gpu_name
           - batch-size
+          - build-engine-options
         force_cache: true
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
         inherit_variation_tags: true
@@ -530,6 +535,7 @@ variations:
           - device-memory
           - gpu_name
           - batch-size
+          - build-engine-options
         force_cache: true
         skip_if_env:
           CM_MODEL:
@@ -548,6 +554,11 @@ variations:
       - CM_ML_MODEL_*
       - CM_HW_NAME
       - CM_MAX_EXAMPLES
+
+  build_engine_options.#:
+    group: build-engine-options
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_EXTRA_BUILD_ENGINE_OPTIONS: "#"
 
   gpu_memory.16:
     group: device-memory
@@ -880,10 +891,12 @@ variations:
   l4,resnet50,offline,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.32
+        tags: _batch_size.16
     env:
-      CM_MODEL_BATCH_SIZE: "32"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "4"
+      CM_MODEL_BATCH_SIZE: "16"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "1"
+      CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS: 'True'
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   l4,retinanet,offline,run_harness:

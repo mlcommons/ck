@@ -2,6 +2,11 @@
 
 ## MLCommons CK and CM news
 
+### 202307
+
+The overview of the MedPerf project was published in Nature: 
+[Federated benchmarking of medical artificial intelligence with MedPerf](https://www.nature.com/articles/s42256-023-00652-2)!
+
 ### 202306
 
 We were honored to give a [keynote](https://doi.org/10.5281/zenodo.8105338) about our MLCommons automation and reproducibility language
