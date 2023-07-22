@@ -1,0 +1,29 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-android",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_open": "20230704",
+  "date_close_extension": true,
+  "experiments": [],
+  "points": 2,
+  "prize": "300$ for the first implementation",
+  "prize_short": "co-authoring white paper , $$$",
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "automate",
+    "benchmark",
+    "android",
+    "mlperf-inference",
+    "mlperf-inference-android",
+    "mlperf-inference-android",
+    "mlperf-inference-android-v3.1",
+    "mlperf-inference-android-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Add support to run some MLPerf inference benchmarks for Edge on Android mobile phone",
+  "trophies": true,
+  "uid": "3ec574afcc594574"
+}

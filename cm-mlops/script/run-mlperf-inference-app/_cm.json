@@ -37,8 +37,7 @@
     "CM_OUTPUT_FOLDER_NAME": "test_results",
     "CM_MLPERF_RUN_STYLE": "test",
     "CM_MLPERF_IMPLEMENTATION": "reference",
-    "CM_MLPERF_MODEL": "resnet50",
-    "CM_MLPERF_LOADGEN_COMPLIANCE": "yes"
+    "CM_MLPERF_MODEL": "resnet50"
   },
   "input_mapping": {
     "lang": "CM_MLPERF_IMPLEMENTATION",
@@ -83,7 +82,8 @@
     "sw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
     "hw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
     "debug": "CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM",
-    "skip_submission_generation": "CM_MLPERF_SKIP_SUBMISSION_GENERATION"
+    "skip_submission_generation": "CM_MLPERF_SKIP_SUBMISSION_GENERATION",
+    "gpu_name": "CM_NVIDIA_GPU_NAME"
   },
   "tags": [
     "run",
@@ -158,6 +158,7 @@
       "env": {
         "CM_MLPERF_SUBMISSION_RUN": "yes",
         "CM_RUN_SUBMISSION_CHECKER": "yes",
+        "CM_MLPERF_LOADGEN_COMPLIANCE": "yes",
         "CM_TAR_SUBMISSION_DIR": "yes",
         "CM_RUN_MLPERF_ACCURACY": "on"
       },

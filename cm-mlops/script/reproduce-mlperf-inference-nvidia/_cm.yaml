@@ -31,6 +31,7 @@ default_env:
   CM_SKIP_PREPROCESS_DATASET: 'no'
   CM_SKIP_MODEL_DOWNLOAD: 'no'
   CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: nvidia_original
+  CM_CALL_RUNNER: 'yes'
 
 # Map script inputs to environment variables
 input_mapping:
@@ -129,7 +130,7 @@ deps:
     names:
       - resnet50-model
       - ml-model
-    tags: get,ml-model,resnet50,_fp32,_onnx
+    tags: get,ml-model,resnet50,_fp32,_onnx,_opset-8
 
   ########################################################################
   # Install kits19 dataset
@@ -251,7 +252,12 @@ post_deps:
     skip_if_env:
       CM_MLPERF_SKIP_RUN:
         - yes
-    tags: benchmark,program
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
+        - run_harness
+    tags: benchmark-mlperf
+    enable_if_env:
+      CM_CALL_RUNNER:
+        - yes
 
 
 # Variations to customize dependencies
@@ -343,7 +349,6 @@ variations:
     - tags: get,generic-python-lib,_unidecode
     - tags: get,generic-python-lib,_inflect
     - tags: get,generic-python-lib,_librosa
-      version_max: 0.8.1
       names:
         - librosa
     - tags: get,generic-python-lib,_sox
@@ -384,10 +389,15 @@ variations:
       CM_MLPERF_NVIDIA_HARNESS_USE_TRITON: "yes"
       CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX3: "using_triton"
 
+  build:
+    group: run-mode
+    env:
+      MLPERF_NVIDIA_RUN_COMMAND: build
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: build
+
   preprocess_data:
     group: run-mode
     env:
-      CM_MLPERF_SKIP_RUN: 'no'
       MLPERF_NVIDIA_RUN_COMMAND: preprocess_data
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: preprocess_data
 
@@ -395,7 +405,6 @@ variations:
     group: run-mode
     env:
       MLPERF_NVIDIA_RUN_COMMAND: download_model
-      CM_MLPERF_SKIP_RUN: 'no'
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: download_model
     deps:
       - tags: get,generic-python-lib,_torch_cuda
@@ -403,13 +412,36 @@ variations:
           CM_MODEL:
             - retinanet
 
+  calibrate:
+    group: run-mode
+    env:
+      MLPERF_NVIDIA_RUN_COMMAND: calibrate
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: calibrate
+    deps:
+      - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
+        inherit_variation_tags: true
+        force_cache: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - device-memory
+          - gpu-name
+          - batch-size
+        skip_if_env:
+          CM_MODEL:
+            - retinanet_old
+            - resnet50
+            - bert-99
+            - bert-99.9
+            - dlrm-99
+            - dlrm-99.9
+
   build_engine:
     group: run-mode
     default_variations:
       loadgen-scenario: offline
     env:
       MLPERF_NVIDIA_RUN_COMMAND: generate_engines
-      CM_MLPERF_SKIP_RUN: 'no'
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: generate_engines
     deps:
       - tags: reproduce,mlperf,inference,nvidia,harness,_preprocess_data
@@ -418,6 +450,8 @@ variations:
         skip_inherit_variation_groups:
           - run-mode
           - loadgen-scenario
+          - device-memory
+          - gpu-name
           - batch-size
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
         inherit_variation_tags: true
@@ -425,38 +459,42 @@ variations:
         skip_inherit_variation_groups:
           - run-mode
           - loadgen-scenario
+          - device-memory
+          - gpu-name
           - batch-size
         skip_if_env:
           CM_MODEL:
-            - retinanet
+            - retinanet_old
             - resnet50
             - bert-99
             - bert-99.9
             - dlrm-99
             - dlrm-99.9
+      - tags: reproduce,mlperf,inference,nvidia,harness,_calibrate
+        inherit_variation_tags: true
+        force_cache: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - device-memory
+          - device-type
+          - gpu-name
+          - batch-size
 
   singlestream:
     group: loadgen-scenario
-    default_variations:
-      batch-size: batch_size.1
     env:
       CM_MLPERF_LOADGEN_SCENARIO: SingleStream
   multistream:
     group: loadgen-scenario
-    default_variations:
-      batch-size: batch_size.1
     env:
       CM_MLPERF_LOADGEN_SCENARIO: MultiStream
   offline:
     group: loadgen-scenario
-    default_variations1:
-      batch-size: batch_size.8
     env:
       CM_MLPERF_LOADGEN_SCENARIO: Offline
   server:
     group: loadgen-scenario
-    default_variations1:
-      batch-size: batch_size.8
     env:
       CM_MLPERF_LOADGEN_SCENARIO: Server
 
@@ -468,14 +506,20 @@ variations:
     deps:
       - tags: reproduce,mlperf,inference,nvidia,harness,_build_engine
         inherit_variation_tags: true
+        names:
+          - build-engine
         skip_inherit_variation_groups:
           - run-mode
+          - gpu_name
+          - device-memory
         force_cache: true
       - tags: reproduce,mlperf,inference,nvidia,harness,_preprocess_data
         inherit_variation_tags: true
         skip_inherit_variation_groups:
           - run-mode
           - loadgen-scenario
+          - device-memory
+          - gpu_name
           - batch-size
         force_cache: true
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
@@ -483,6 +527,8 @@ variations:
         skip_inherit_variation_groups:
           - run-mode
           - loadgen-scenario
+          - device-memory
+          - gpu_name
           - batch-size
         force_cache: true
         skip_if_env:
@@ -503,4 +549,494 @@ variations:
       - CM_HW_NAME
       - CM_MAX_EXAMPLES
 
+  gpu_memory.16:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "16"
+  gpu_memory.24:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "24"
+  gpu_memory.8:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "8"
+  gpu_memory.32:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "32"
+  gpu_memory.40:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "40"
+  gpu_memory.48:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "48"
+  gpu_memory.80:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "80"
+
+  singlestream,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.1
+    env:
+      CM_MODEL_BATCH_SIZE: "1"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.16,bert_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.256
+    env:
+      CM_MODEL_BATCH_SIZE: "256"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.24,bert_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.256
+    env:
+      CM_MODEL_BATCH_SIZE: "256"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.80,bert_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.1024
+    env:
+      CM_MODEL_BATCH_SIZE: "1024"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.80,bert_,server,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.64
+    env:
+      CM_MODEL_BATCH_SIZE: "64"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.16,resnet50,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.1024
+    env:
+      CM_MODEL_BATCH_SIZE: "1024"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "4"
+
+  gpu_memory.40,resnet50,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.2048
+    env:
+      CM_MODEL_BATCH_SIZE: "2048"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.24,resnet50,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.64
+    env:
+      CM_MODEL_BATCH_SIZE: "64"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.80,resnet50,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.2048
+    env:
+      CM_MODEL_BATCH_SIZE: "2048"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  resnet50,multistream,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.8
+    env:
+      CM_MODEL_BATCH_SIZE: "8"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  retinanet,multistream,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.1
+    env:
+      CM_MODEL_BATCH_SIZE: "1"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  rnnt,multistream,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.8
+    env:
+      CM_MODEL_BATCH_SIZE: "8"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  3d-unet,multistream,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.8
+    env:
+      CM_MODEL_BATCH_SIZE: "8"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  dlrm,multistream,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.8
+    env:
+      CM_MODEL_BATCH_SIZE: "8"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.16,retinanet,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.2
+    env:
+      CM_MODEL_BATCH_SIZE: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.40,retinanet,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.4
+    env:
+      CM_MODEL_BATCH_SIZE: "4"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.24,retinanet,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.2
+    env:
+      CM_MODEL_BATCH_SIZE: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.80,retinanet,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.32
+    env:
+      CM_MODEL_BATCH_SIZE: "32"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.16,rnnt,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.1024
+    env:
+      CM_MODEL_BATCH_SIZE: "1024"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.40,rnnt,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.2048
+    env:
+      CM_MODEL_BATCH_SIZE: "2048"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.24,rnnt,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.2048
+    env:
+      CM_MODEL_BATCH_SIZE: "2048"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.80,rnnt,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.2048
+    env:
+      CM_MODEL_BATCH_SIZE: "2048"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.16,3d-unet_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.4
+    env:
+      CM_MODEL_BATCH_SIZE: "4"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.40,3d-unet_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.8
+    env:
+      CM_MODEL_BATCH_SIZE: "8"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.24,3d-unet_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.8
+    env:
+      CM_MODEL_BATCH_SIZE: "8"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.80,3d-unet_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.8
+    env:
+      CM_MODEL_BATCH_SIZE: "8"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.16,dlrm_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.315000
+    env:
+      CM_MODEL_BATCH_SIZE: "315000"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.40,dlrm_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.315000
+    env:
+      CM_MODEL_BATCH_SIZE: "315000"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.24,dlrm_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.315000
+    env:
+      CM_MODEL_BATCH_SIZE: "315000"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.80,dlrm_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.315000
+    env:
+      CM_MODEL_BATCH_SIZE: "315000"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  rtx_4090:
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
+
+  rtx_4090,resnet50,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.64
+    env:
+      CM_MODEL_BATCH_SIZE: "64"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  rtx_4090,retinanet,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.2
+    env:
+      CM_MODEL_BATCH_SIZE: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  rtx_4090,bert_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.256
+    env:
+      CM_MODEL_BATCH_SIZE: "256"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  rtx_4090,3d-unet_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.8
+    env:
+      CM_MODEL_BATCH_SIZE: "8"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  rtx_4090,rnnt,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.2048
+    env:
+      CM_MODEL_BATCH_SIZE: "2048"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  rtx_4090,dlrm_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.315000
+    env:
+      CM_MODEL_BATCH_SIZE: "315000"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  l4:
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
+
+  l4,resnet50,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.32
+    env:
+      CM_MODEL_BATCH_SIZE: "32"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "4"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  l4,retinanet,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.2
+    env:
+      CM_MODEL_BATCH_SIZE: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  l4,bert_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.16
+    env:
+      CM_MODEL_BATCH_SIZE: "16"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  l4,3d-unet_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.1
+    env:
+      CM_MODEL_BATCH_SIZE: "1"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  l4,rnnt,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.512
+    env:
+      CM_MODEL_BATCH_SIZE: "512"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  l4,dlrm_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.315000
+    env:
+      CM_MODEL_BATCH_SIZE: "315000"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+  t4:
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
+
+  t4,resnet50,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.256
+    env:
+      CM_MODEL_BATCH_SIZE: "256"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "4"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  t4,retinanet,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.4
+    env:
+      CM_MODEL_BATCH_SIZE: "4"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  t4,bert_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.256
+    env:
+      CM_MODEL_BATCH_SIZE: "256"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  t4,3d-unet_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.8
+    env:
+      CM_MODEL_BATCH_SIZE: "8"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  t4,rnnt,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.2048
+    env:
+      CM_MODEL_BATCH_SIZE: "2048"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  t4,dlrm_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.315000
+    env:
+      CM_MODEL_BATCH_SIZE: "315000"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  pcie:
+    group: gpu-connection
+
+  sxm:
+    group: gpu-connection
+
+  a100:
+    default_variation:
+      gpu-connection: sxm
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
+
+  a100,sxm,resnet50,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.64
+    env:
+      CM_MODEL_BATCH_SIZE: "64"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  a100,sxm,retinanet,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.8
+    env:
+      CM_MODEL_BATCH_SIZE: "8"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  a100,sxm,bert_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.256
+    env:
+      CM_MODEL_BATCH_SIZE: "256"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  a100,sxm,3d-unet_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.8
+    env:
+      CM_MODEL_BATCH_SIZE: "8"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  a100,sxm,rnnt,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.2048
+    env:
+      CM_MODEL_BATCH_SIZE: "2048"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  a100,sxm,dlrm_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.315000
+    env:
+      CM_MODEL_BATCH_SIZE: "315000"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 

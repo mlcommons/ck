@@ -100,9 +100,8 @@
           "tags": "get,generic-python-lib,_torch_cuda"
         },
         {
-          "tags": "get,git,repo,_repo.https://github.com/NVIDIA/apex",
+          "tags": "get,git,repo,_repo.https://github.com/NVIDIA/apex,_tag.23.05",
           "env": {
-            "CM_GIT_CHECKOUT": "master",
             "CM_GIT_CHECKOUT_FOLDER": "apex"
           }
         }
@@ -514,6 +513,22 @@
       },
       "new_env_keys": [
         "CM_SCIKIT_LEARN_VERSION"
+      ]
+    },
+    "cupy": {
+      "deps": [
+        {
+          "names": [
+            "cuda"
+          ],
+          "tags": "get,cuda"
+        }
+      ],
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "cupy"
+      },
+      "new_env_keys": [
+        "CM_CUPY_VERSION"
       ]
     },
     "scipy": {

@@ -57,6 +57,7 @@ input_mapping:
   multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
   readme: CM_MLPERF_README
   debug: CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM
+  gpu_name: CM_NVIDIA_GPU_NAME
 
 # Duplicate CM environment variables to the ones used in native apps
 env_key_mappings:
@@ -227,6 +228,12 @@ variations:
       CM_SQUAD_ACCURACY_DTYPE: float16
       CM_IMAGENET_ACCURACY_DTYPE: int32
       CM_LIBRISPEECH_ACCURACY_DTYPE: int8
+    deps:
+      - tags: get,cuda-devices
+        skip_if_env:
+          CM_CUDA_DEVICE_PROP_GLOBAL_MEMORY:
+            - "yes"
+            - "on"
     posthook_deps:
       - names:
          - nvidia-original-mlperf-inference
@@ -236,6 +243,11 @@ variations:
         skip_if_env:
           CM_SKIP_RUN:
             - yes
+        update_tags_from_env_with_prefix:
+          "_gpu_memory." :
+            - CM_NVIDIA_GPU_MEMORY
+        update_tags_from_env:
+            - CM_NVIDIA_HARNESS_GPU_VARIATION
 
   resnet50:
     group:

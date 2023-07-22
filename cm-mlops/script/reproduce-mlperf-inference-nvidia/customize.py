@@ -10,12 +10,15 @@ def preprocess(i):
         return {'return':1, 'error': 'Windows is not supported in this script yet'}
     env = i['env']
 
-    if 'CM_MODEL' not in env:
+    if env.get('CM_MODEL', '') == '':
         return {'return': 1, 'error': 'Please select a variation specifying the model to run'}
-    if 'CM_MLPERF_DEVICE' not in env:
+
+    make_command = env['MLPERF_NVIDIA_RUN_COMMAND']
+
+    if env.get('CM_MLPERF_DEVICE', '') == '':
         return {'return': 1, 'error': 'Please select a variation specifying the device to run on'}
 
-    if env.get('CM_MLPERF_SKIP_RUN', '') == "yes":
+    if env.get('CM_MLPERF_SKIP_RUN', '') == "yes" and make_command == "run_harness":
         return {'return': 0}
 
     env['MLPERF_SCRATCH_PATH'] = env['CM_NVIDIA_MLPERF_SCRATCH_PATH']
@@ -140,7 +143,7 @@ def preprocess(i):
         if not os.path.exists(model_path):
             cmds.append(f"make download_model BENCHMARKS='{model_name}'")
         else:
-            env['CM_MLPERF_SKIP_RUN'] = "yes"
+            env['CM_CALL_RUNNER'] = "no"
             return {'return':0}
 
     elif make_command == "preprocess_data":
@@ -157,6 +160,7 @@ def preprocess(i):
             test_mode = ""
             test_name = env.get('CM_MLPERF_LOADGEN_COMPLIANCE_TEST', 'test01').lower()
             env['CM_MLPERF_NVIDIA_RUN_COMMAND'] = "run_audit_{}_once".format(test_name)
+            make_command = "run_audit_{}_once".format(test_name)
         else:
             return {'return': 1, 'error': 'Unsupported mode: {}'.format(env['CM_MLPERF_LOADGEN_MODE'])}
 
@@ -284,7 +288,7 @@ def preprocess(i):
         run_config += " --no_audit_verify"
 
         cmds.append(f"make {make_command} RUN_ARGS=' --benchmarks={model_name} --scenarios={scenario} {test_mode_string} {run_config}'")
-    #print(cmds)
+
     run_cmd = " && ".join(cmds)
     env['CM_MLPERF_RUN_CMD'] = run_cmd
     env['CM_RUN_CMD'] = run_cmd

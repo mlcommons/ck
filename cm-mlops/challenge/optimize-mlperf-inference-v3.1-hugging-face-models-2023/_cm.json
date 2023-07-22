@@ -3,10 +3,12 @@
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
   "date_close": "20230804",
+  "date_close_extension": true,
   "date_open": "20230704",
   "points":3,
   "trophies":true,
-  "prize":"300$",
+  "prize":"300$ for the first implementation",
+  "prize_short":"co-authoring white paper , $$$",
   "tags": [
     "modularize",
     "optimize",
@@ -23,6 +25,5 @@
     "v3.1"
   ],
   "title": "Implement CM automation to run benchmark Hugging Face models using MLPerf loadgen",
-  "uid": "72b95d08a9e04698",
-  "under_preparation": true
+  "uid": "72b95d08a9e04698"
 }

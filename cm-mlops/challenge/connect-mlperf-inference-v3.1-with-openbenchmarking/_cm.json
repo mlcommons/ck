@@ -1,0 +1,27 @@
+{
+  "alias": "connect-mlperf-inference-v3.1-with-openbenchmarking",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_open": "20230704",
+  "date_close_extension": true,
+  "points": 2,
+  "prize_short": "co-authoring white paper",
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "benchmark",
+    "automate",
+    "openbenchmarking",
+    "mlperf-inference",
+    "mlperf-inference-openbenchmarking",
+    "mlperf-inference-openbenchmarking",
+    "mlperf-inference-openbenchmarking-v3.1",
+    "mlperf-inference-openbenchmarking-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Run MLPerf inference benchmarks via OpenBenchmarking.org",
+  "trophies": true,
+  "uid": "534592626eb44efe"
+}

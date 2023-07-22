@@ -805,6 +805,7 @@ class CAutomation(Automation):
                 print (recursion_spaces+'    Prepared variations: {}'.format(variation_tags_string))
 
 
+
         # Update env and other keys if variations
         if len(variation_tags)>0:
             for variation_tag in variation_tags:
@@ -850,10 +851,10 @@ class CAutomation(Automation):
                         adr=get_adr(combined_variation_meta)
                         if adr:
                             self._merge_dicts_with_tags(add_deps_recursive, adr)
+
             #Processing them again using updated deps for add_deps_recursive
             r = update_adr_from_meta(deps, post_deps, prehook_deps, posthook_deps, add_deps_recursive)
             if r['return']>0: return r
-
 
 
 
@@ -1714,7 +1715,7 @@ class CAutomation(Automation):
 
                             unique_allowed_variations = variation_groups[default_base_variation]['variations']
                             # add the default only if none of the variations from the current group is selected and it is not being excluded with - prefix
-                            if len(set(unique_allowed_variations) & set(variation_tags)) == 0 and default_base_variations[default_base_variation] not in excluded_variation_tags:
+                            if len(set(unique_allowed_variations) & set(variation_tags)) == 0 and default_base_variations[default_base_variation] not in excluded_variation_tags and default_base_variations[default_base_variation] not in variation_tags:
                                 tag_to_append = default_base_variations[default_base_variation]
 
                             if tag_to_append:
@@ -2401,8 +2402,18 @@ class CAutomation(Automation):
                         for group in variation_groups:
                             if group in skip_inherit_variation_groups:
                                 variation_tags_to_be_skipped += variation_groups[group]['variations']
+
                     variation_tags = variation_tags_string.split(",")
                     variation_tags =  [ x for x in variation_tags if not x.startswith("_") or x[1:] not in set(variation_tags_to_be_skipped) ]
+
+                    # handle group in case of dynamic variations
+                    for t_variation in variation_tags_to_be_skipped:
+                        if t_variation.endswith(".#"):
+                            beg = t_variation[:-1]
+                            for m_tag in variation_tags:
+                                if m_tag.startswith("_"+beg):
+                                    variation_tags.remove(m_tag)
+
                     deps_tags = d['tags'].split(",")
                     for tag in deps_tags:
                         if tag.startswith("-_") or tag.startswith("_-"):
@@ -3654,6 +3665,9 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
 
     # Update env with the current path
+    if os_info['platform'] == 'windows' and ' ' in path:
+        path = '"' + path + '"'
+
     env['CM_TMP_CURRENT_SCRIPT_PATH'] = path
 
     # Record state
@@ -3700,7 +3714,7 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
         # Append batch file to the tmp script
         script.append('\n')
-        script.append(os_info['run_bat'].replace('${bat_file}', path_to_run_script) + '\n')
+        script.append(os_info['run_bat'].replace('${bat_file}', '"'+path_to_run_script+'"') + '\n')
 
         # Prepare and run script
         r = record_script(run_script, script, os_info)
@@ -4274,10 +4288,23 @@ def can_write_to_current_directory():
 
     cur_dir = os.getcwd()
 
+#    try:
+#        tmp_file = tempfile.NamedTemporaryFile(dir = cur_dir)
+#    except Exception as e:
+#        return False
+
+    tmp_file_name = next(tempfile._get_candidate_names())+'.tmp'
+
+    tmp_path = os.path.join(cur_dir, tmp_file_name)
+
     try:
-        tmp_file = tempfile.NamedTemporaryFile(dir = cur_dir)
+        tmp_file = open(tmp_file_name, 'w')
     except Exception as e:
         return False
+
+    tmp_file.close()
+
+    os.remove(tmp_file_name)
 
     return True
 
