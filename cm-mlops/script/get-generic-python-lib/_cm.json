@@ -95,6 +95,13 @@
       "deps": [
         {
           "names": [
+            "cuda"
+          ],
+          "tags": "get,cuda",
+          "version": "11.8.0"
+        },
+        {
+          "names": [
             "torch"
           ],
           "tags": "get,generic-python-lib,_torch_cuda"
@@ -678,7 +685,8 @@
           "names": [
             "cuda"
           ],
-          "tags": "get,cuda"
+          "tags": "get,cuda",
+          "version": "11.8.0"
         }
       ],
       "default_env": {
@@ -709,7 +717,8 @@
           "names": [
             "cuda"
           ],
-          "tags": "get,cuda"
+          "tags": "get,cuda",
+          "version": "11.8.0"
         }
       ],
       "default_env": {
@@ -740,7 +749,8 @@
           "names": [
             "cuda"
           ],
-          "tags": "get,cuda"
+          "tags": "get,cuda",
+          "version": "11.8.0"
         }
       ],
       "default_env": {

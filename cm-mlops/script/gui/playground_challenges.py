@@ -184,13 +184,13 @@ def page(st, params):
 
                     xrow.append(y)
 
-                    points = row.get('points',0)
-                    y = ''
-                    if points>0:
-                        x += ' &nbsp;&nbsp;Points: **{}**\n'.format(str(points))
-                        y = str(points)
-
-                    xrow.append(y)
+#                    points = row.get('points',0)
+#                    y = ''
+#                    if points>0:
+#                        x += ' &nbsp;&nbsp;Points: **{}**\n'.format(str(points))
+#                        y = str(points)
+#
+#                    xrow.append(y)
 
 
                     
@@ -225,7 +225,7 @@ def page(st, params):
                 import numpy as np
                 
                 df = pd.DataFrame(data,
-                                  columns=['Challenge', 'Closing&nbsp;date', 'Extension', 'Points', 'Contributor&nbsp;award and prizes from <a href="https://mlcommons.org">MLCommons&nbsp;organizations</a> and <a href="https://www.linkedin.com/company/cknowledge">cKnowledge.org</a>'])
+                                  columns=['Challenge', 'Closing&nbsp;date', 'Extension', 'Contributor&nbsp;award and prizes from <a href="https://mlcommons.org">MLCommons&nbsp;organizations</a> and <a href="https://www.linkedin.com/company/cknowledge">cKnowledge.org</a>'])
                  
                 df.index+=1
 

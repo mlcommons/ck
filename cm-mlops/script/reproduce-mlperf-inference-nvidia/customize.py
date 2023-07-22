@@ -248,6 +248,13 @@ def preprocess(i):
         if devices:
             run_config += f" --devices={devices}"
 
+        audio_batch_size = env.get('CM_MLPERF_NVIDIA_HARNESS_AUDIO_BATCH_SIZE')
+        if audio_batch_size:
+            run_config += f" --audio_batch_size={audio_batch_size}"
+
+        disable_encoder_plugin = env.get('CM_MLPERF_NVIDIA_HARNESS_DISABLE_ENCODER_PLUGIN')
+        if disable_encoder_plugin and disable_encoder_plugin.lower() not in [ "no", "false" ]:
+            run_config += " --disable_encoder_plugin"
 
         workspace_size = env.get('CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE')
         if workspace_size:
