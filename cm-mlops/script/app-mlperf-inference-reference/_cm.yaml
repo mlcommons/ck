@@ -543,10 +543,14 @@ variations:
     - tags: get,generic-python-lib,_onnx
     - tags: get,tvm
       names:
-        tvm
-    add_deps_recursive:
-      ml-model:
-        tags: tvm-model,_onnx
+      - tvm
+    - tags: get,tvm-model,_onnx
+      names:
+      - tvm-model
+      update_tags_from_env_with_prefix:
+        _model.: 
+        - CM_MODEL
+      
   
   tvm-tflite:
     group: framework
@@ -554,12 +558,16 @@ variations:
       CM_MLPERF_BACKEND: tvm-tflite
       CM_MLPERF_BACKEND_VERSION: <<<CM_TVM-TFLITE_VERSION>>>
     deps:
+    - tags: get,generic-python-lib,_tflite
     - tags: get,tvm
       names:
-        tvm
-    add_deps_recursive:
-      ml-model:
-        tags: tvm-model,_tflite
+      - tvm
+    - tags: get,tvm-model,_tflite
+      names:
+      - tvm-model
+      update_tags_from_env_with_prefix:
+        _model.: 
+        - CM_MODEL
 
   tvm-pytorch:
     group: framework
@@ -568,12 +576,16 @@ variations:
       CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
       MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
     deps:
+    - tags: get,generic-python-lib,_torch
     - tags: get,tvm
       names:
-        tvm
-    add_deps_recursive:
-      ml-model:
-        tags: tvm-model,_pytorch
+      - tvm
+    - tags: get,tvm-model,_pytorch
+      names:
+      - tvm-model
+      update_tags_from_env_with_prefix:
+        _model.: 
+        - CM_MODEL
 
   # Reference MLPerf models
   gptj-99.9:
@@ -809,6 +821,9 @@ variations:
       CM_MLPERF_LOADGEN_MAX_BATCHSIZE: "#"
     add_deps_recursive:
       ml-model:
+        tags:
+          _batch_size.#
+      tvm-model:
         tags:
           _batch_size.#
 
