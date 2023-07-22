@@ -10,7 +10,7 @@ def preprocess(i):
     automation = i['automation']
     version = env.get('CM_VERSION')
     if version not in env.get('CM_CUDA_LINUX_FILENAME', ''):
-        return {'return': 1, 'error': "Only CUDA versions 11.7.0 and 11.8.0 are supported now!"}
+        return {'return': 1, 'error': "Only CUDA versions 11.7.0, 11.8.0, 12.0.0 and 12.2.0 are supported now!"}
 
     recursion_spaces = i['recursion_spaces']
     nvcc_bin = "nvcc"
