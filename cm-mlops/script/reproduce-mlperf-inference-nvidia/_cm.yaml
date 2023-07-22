@@ -475,6 +475,9 @@ variations:
             - dlrm-99.9
       - tags: reproduce,mlperf,inference,nvidia,harness,_calibrate
         inherit_variation_tags: true
+        skip_if_env:
+          CM_MODEL:
+            - rnnt
         force_cache: true
         skip_inherit_variation_groups:
           - run-mode
