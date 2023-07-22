@@ -63,11 +63,17 @@ def page(st, params):
 
                     st.markdown(md)
 
+                ongoing = meta.get('ongoing',[])
+
                 x = str(calculate_points(meta))
-                st.markdown("* **Points: {}**".format(x))
+                y1 =''
+                y2 = ''
+                if len(ongoing)>0:
+                    y1 = '*'
+                    y2 = ' (ongoing)*'
+                st.markdown("* **Points: {}{}{}**".format(y1,x,y2))
 #                st.write('<h2>'+x+'</h2>', unsafe_allow_html = True)
 
-                ongoing = meta.get('ongoing',[])
                 if len(ongoing)>0:
                     x = "* **Ongoing challenges:**\n"
 
@@ -108,10 +114,12 @@ def page_list(st, params):
 
     # Prepare the latest contributors
     all_data = []
-    keys = [('name', 'Name', 400, 'leftAligned'),
+    keys = [
+            ('name', 'Name', 400, 'leftAligned'),
             ('points', 'Points', 80,'rightAligned'),
-            ('trophies', 'Trophies', 80,'rightAligned')]
-#            ('ongoing', 'Ongoing challenges', 250, 'rightAligned')]
+#            ('ongoing_number', 'Ongoing challenges', 80, 'rightAligned'),
+            ('trophies', 'Trophies', 80,'rightAligned')
+           ]
 
 
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
@@ -152,6 +160,12 @@ def page_list(st, params):
 
 
             # Registration in the CK challenges gives 1 point
+            y1 =''
+            y2 = ''
+            if len(ongoing)>0:
+                y1 = '*'
+                y2 = ' (ongoing)*'
+
             row['points'] = calculate_points(m)
 
             row['ongoing_number'] = len(ongoing)
@@ -196,9 +210,9 @@ def page_list(st, params):
     pd_keys = [v[0] for v in keys]
     pd_key_names = [v[1] for v in keys]
     pd_all_data = []
-    for row in sorted(all_data, key=lambda row: (-row.get('ongoing_number',0),
-                                                 -row.get('trophies_number',0),
+    for row in sorted(all_data, key=lambda row: (row.get('ongoing_number',0)<=0,
                                                  -row.get('points',0),
+                                                 -row.get('trophies_number',0),
                                                  name_to_sort(row))):
         pd_row=[]
         for k in pd_keys:
