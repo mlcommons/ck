@@ -143,7 +143,6 @@ def preprocess(i):
         if not os.path.exists(model_path):
             cmds.append(f"make download_model BENCHMARKS='{model_name}'")
         else:
-            env['CM_CALL_RUNNER'] = "no"
             return {'return':0}
 
     elif make_command == "preprocess_data":
@@ -205,15 +204,15 @@ def preprocess(i):
             run_config += f" --use_triton --config_ver=triton"
 
         user_conf_path = env.get('CM_MLPERF_USER_CONF')
-        if user_conf_path:
+        if user_conf_path and make_command == "run_harness":
             run_config += f" --user_conf_path={user_conf_path}"
 
         mlperf_conf_path = env.get('CM_MLPERF_INFERENCE_CONF_PATH')
-        if mlperf_conf_path:
+        if mlperf_conf_path and make_command == "run_harness":
             run_config += f" --mlperf_conf_path={mlperf_conf_path}"
 
         power_setting = env.get('CM_MLPERF_NVIDIA_HARNESS_POWER_SETTING')
-        if power_setting:
+        if power_setting and make_command == "run_harness":
             run_config += f" --power_setting={power_setting}"
 
         gpu_copy_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS')
