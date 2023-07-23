@@ -30,6 +30,7 @@ default_env:
   SKIP_POLICIES: '1'
   CM_SKIP_PREPROCESS_DATASET: 'no'
   CM_SKIP_MODEL_DOWNLOAD: 'no'
+  CM_SKIP_MLPERF_RUN: 'yes'
   CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: nvidia_original
   CM_CALL_RUNNER: 'yes'
 
@@ -250,6 +251,7 @@ post_deps:
 
   - names:
     - runner
+    - mlperf-runner
     skip_if_env:
       CM_MLPERF_SKIP_RUN:
         - yes
@@ -557,6 +559,7 @@ variations:
     env:
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: run_harness
       MLPERF_NVIDIA_RUN_COMMAND: run_harness
+      CM_SKIP_MLPERF_RUN: 'no'
     new_env_keys:
       - CM_MLPERF_*
       - CM_DATASET_*
