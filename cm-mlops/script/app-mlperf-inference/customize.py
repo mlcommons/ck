@@ -29,6 +29,7 @@ def postprocess(i):
 
     env = i['env']
     inp = i['input']
+    env['CMD'] = ''
     state = i['state']
 
     if env.get('CM_MLPERF_USER_CONF', '') == '':
