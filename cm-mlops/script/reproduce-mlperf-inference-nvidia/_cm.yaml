@@ -295,6 +295,7 @@ variations:
     group: model
     env:
       CM_MODEL: retinanet
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth"
     deps:
     - tags: get,generic-python-lib,_Pillow
     - tags: get,generic-python-lib,_torch
@@ -312,6 +313,7 @@ variations:
     - bert_
     env:
       CM_MODEL: bert-99
+      CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx"
 
   bert-99.9:
     group: model
@@ -319,10 +321,13 @@ variations:
     - bert_
     env:
       CM_MODEL: bert-99.9
+      CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3733910/files/model.onnx"
 
   3d-unet_:
     deps:
     - tags: get,generic-python-lib,_transformers
+    - tags: get,generic-python-lib,_pandas
+      version_max: "1.5.3"
 
   3d-unet-99:
     group: model
@@ -330,6 +335,7 @@ variations:
     - 3d-unet_
     env:
       CM_MODEL: 3d-unet-99
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/5597155/files/3dunet_kits19_128x128x128.onnx"
 
   3d-unet-99.9:
     group: model
@@ -337,11 +343,13 @@ variations:
     - 3d-unet_
     env:
       CM_MODEL: 3d-unet-99.9
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/5597155/files/3dunet_kits19_128x128x128.onnx"
 
   rnnt:
     group: model
     env:
       CM_MODEL: rnnt
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3662521/files/DistributedDataParallel_1576581068.9962234-epoch-100.pt"
     deps:
     - tags: get,generic-python-lib,_toml
     - tags: get,generic-python-lib,_torchvision
