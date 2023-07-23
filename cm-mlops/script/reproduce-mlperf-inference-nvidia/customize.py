@@ -204,15 +204,15 @@ def preprocess(i):
             run_config += f" --use_triton --config_ver=triton"
 
         user_conf_path = env.get('CM_MLPERF_USER_CONF')
-        if user_conf_path and make_command == "run_harness":
+        if user_conf_path and env['CM_MLPERF_NVIDIA_HARNESS_RUN_MODE'] == "run_harness":
             run_config += f" --user_conf_path={user_conf_path}"
 
         mlperf_conf_path = env.get('CM_MLPERF_INFERENCE_CONF_PATH')
-        if mlperf_conf_path and make_command == "run_harness":
+        if mlperf_conf_path and env['CM_MLPERF_NVIDIA_HARNESS_RUN_MODE'] == "run_harness":
             run_config += f" --mlperf_conf_path={mlperf_conf_path}"
 
         power_setting = env.get('CM_MLPERF_NVIDIA_HARNESS_POWER_SETTING')
-        if power_setting and make_command == "run_harness":
+        if power_setting and env['CM_MLPERF_NVIDIA_HARNESS_RUN_MODE'] == "run_harness":
             run_config += f" --power_setting={power_setting}"
 
         gpu_copy_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS')
