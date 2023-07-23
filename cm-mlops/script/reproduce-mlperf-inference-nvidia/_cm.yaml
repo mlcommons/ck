@@ -897,15 +897,17 @@ variations:
     env:
       CM_NVIDIA_CUSTOM_GPU: "yes"
 
-  l4,resnet50,offline,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.32
+  l4,resnet50:
     default_env:
       CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS: 10500
       CM_MLPERF_LOADGEN_SERVER_TARGET_QPS: 9000
       CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY: 0.35
       CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY: 1
+
+  l4,resnet50,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.32
 
     env:
       CM_MODEL_BATCH_SIZE: "32"
@@ -958,16 +960,17 @@ variations:
     env:
       CM_NVIDIA_CUSTOM_GPU: "yes"
 
-  t4,resnet50,offline,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.256
-
+  t4,resnet50:
     default_env:
       CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS: 4900
       CM_MLPERF_LOADGEN_SERVER_TARGET_QPS: 4000
       CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY: 0.6
       CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY: 2
+
+  t4,resnet50,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.256
 
     env:
       CM_MODEL_BATCH_SIZE: "256"
