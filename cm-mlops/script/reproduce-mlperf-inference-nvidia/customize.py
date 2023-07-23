@@ -199,9 +199,17 @@ def preprocess(i):
             multistream_target_latency_ns = int(float(multistream_target_latency) * 1000000)
             run_config += f" --multi_stream_expected_latency_ns={multistream_target_latency_ns}"
 
+        high_accuracy = "99.9" in env['CM_MODEL']
+
         use_triton = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_TRITON')
         if use_triton:
-            run_config += f" --use_triton --config_ver=triton"
+            if high_accuracy:
+                run_config += f" --use_triton --config_ver=high_accuracy_triton"
+            else:
+                run_config += f" --use_triton --config_ver=triton"
+        else:
+            if high_accuracy:
+                run_config += f" --config_ver=high_accuracy"
 
         user_conf_path = env.get('CM_MLPERF_USER_CONF')
         if user_conf_path and env['CM_MLPERF_NVIDIA_HARNESS_RUN_MODE'] == "run_harness":
