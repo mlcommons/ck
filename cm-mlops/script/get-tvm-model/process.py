@@ -4,6 +4,7 @@ import tvm
 from tvm import relay
 from tvm.driver.tvmc.model import TVMCModel
 from tvm.driver.tvmc.frontends import load_model
+from tvm import meta_schedule as ms
 from typing import Dict, Tuple, Optional, List, Any, Union
 
 def get_shape_dict_from_onnx(
@@ -65,7 +66,6 @@ def tune_model(
     params: Dict[str, tvm.nd.NDArray],
     target: tvm.target.Target,
 ) -> Tuple[str, tvm.meta_schedule.database.Database]:
-    from tvm import meta_schedule as ms
     work_dir = os.path.join(os.getcwd(), "metaschedule_workdir")
     if not os.path.exists(work_dir):
         os.mkdir(work_dir)
@@ -107,7 +107,7 @@ def compile_model(
     opt_level: int,
     build_conf: Dict[str, Any],
     use_vm: bool,
-    database: Optional[tvm.meta_schedule.database.Database] = None,
+    database: Optional[ms.database.Database] = None,
 ) -> Union[tvm.runtime.Module, tvm.runtime.vm.Executable]:
     if work_dir != '':
         if not database:
