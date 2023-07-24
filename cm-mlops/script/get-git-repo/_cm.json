@@ -16,6 +16,7 @@
     "depth": "CM_GIT_DEPTH",
     "folder": "CM_GIT_CHECKOUT_FOLDER",
     "patch": "CM_GIT_PATCH",
+    "update": "CM_GIT_REPO_PULL",
     "submodules": "CM_GIT_RECURSE_SUBMODULES"
   },
   "default_variation": "default",
