@@ -245,6 +245,9 @@ ___
         - *CM_GENERIC_PYTHON_PACKAGE_VARIANT*: `nvidia-apex`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
+           * get,cuda
+             * CM names: `--adr.['cuda']...`
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
            * get,generic-python-lib,_torch_cuda
              * CM names: `--adr.['torch']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)

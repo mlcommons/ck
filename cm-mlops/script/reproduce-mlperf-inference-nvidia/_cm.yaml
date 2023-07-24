@@ -31,7 +31,9 @@ default_env:
   CM_SKIP_PREPROCESS_DATASET: 'no'
   CM_SKIP_MODEL_DOWNLOAD: 'no'
   CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: nvidia_original
-  CM_CALL_RUNNER: 'yes'
+  CM_MLPERF_SKIP_RUN: 'no'
+env:
+  CM_CALL_MLPERF_RUNNER: 'no'
 
 # Map script inputs to environment variables
 input_mapping:
@@ -40,7 +42,7 @@ input_mapping:
   mlperf_conf: CM_MLPERF_CONF
   mode: CM_MLPERF_LOADGEN_MODE
   output_dir: CM_MLPERF_OUTPUT_DIR
-  performance_sample_count: CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT
+  performance_sample_count: CM_MLPERF_PERFORMANCE_SAMPLE_COUNT
   scenario: CM_MLPERF_LOADGEN_SCENARIO
   user_conf: CM_MLPERF_USER_CONF
   devices: CM_MLPERF_NVIDIA_HARNESS_DEVICES
@@ -250,14 +252,14 @@ post_deps:
 
   - names:
     - runner
+    - mlperf-runner
     skip_if_env:
       CM_MLPERF_SKIP_RUN:
+        - 'yes'
         - yes
-      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
-        - run_harness
     tags: benchmark-mlperf
     enable_if_env:
-      CM_CALL_RUNNER:
+      CM_CALL_MLPERF_RUNNER:
         - yes
 
 
@@ -293,6 +295,7 @@ variations:
     group: model
     env:
       CM_MODEL: retinanet
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth"
     deps:
     - tags: get,generic-python-lib,_Pillow
     - tags: get,generic-python-lib,_torch
@@ -310,6 +313,7 @@ variations:
     - bert_
     env:
       CM_MODEL: bert-99
+      CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx"
 
   bert-99.9:
     group: model
@@ -317,10 +321,13 @@ variations:
     - bert_
     env:
       CM_MODEL: bert-99.9
+      CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3733910/files/model.onnx"
 
   3d-unet_:
     deps:
     - tags: get,generic-python-lib,_transformers
+    - tags: get,generic-python-lib,_pandas
+      version_max: "1.5.3"
 
   3d-unet-99:
     group: model
@@ -328,6 +335,7 @@ variations:
     - 3d-unet_
     env:
       CM_MODEL: 3d-unet-99
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/5597155/files/3dunet_kits19_128x128x128.onnx"
 
   3d-unet-99.9:
     group: model
@@ -335,11 +343,13 @@ variations:
     - 3d-unet_
     env:
       CM_MODEL: 3d-unet-99.9
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/5597155/files/3dunet_kits19_128x128x128.onnx"
 
   rnnt:
     group: model
     env:
       CM_MODEL: rnnt
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3662521/files/DistributedDataParallel_1576581068.9962234-epoch-100.pt"
     deps:
     - tags: get,generic-python-lib,_toml
     - tags: get,generic-python-lib,_torchvision
@@ -504,9 +514,9 @@ variations:
             - dlrm-99.9
       - tags: reproduce,mlperf,inference,nvidia,harness,_calibrate
         inherit_variation_tags: true
-        skip_if_env:
+        enable_if_env:
           CM_MODEL:
-            - rnnt
+            - retinanet
         force_cache: true
         skip_inherit_variation_groups:
           - run-mode
@@ -582,6 +592,7 @@ variations:
     env:
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: run_harness
       MLPERF_NVIDIA_RUN_COMMAND: run_harness
+      CM_CALL_MLPERF_RUNNER: 'yes'
     new_env_keys:
       - CM_MLPERF_*
       - CM_DATASET_*
@@ -707,33 +718,9 @@ variations:
   retinanet,multistream,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.1
+        tags: _batch_size.2
     env:
-      CM_MODEL_BATCH_SIZE: "1"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rnnt,multistream,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.8
-    env:
-      CM_MODEL_BATCH_SIZE: "8"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  3d-unet,multistream,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.8
-    env:
-      CM_MODEL_BATCH_SIZE: "8"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  dlrm,multistream,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.8
-    env:
-      CM_MODEL_BATCH_SIZE: "8"
+      CM_MODEL_BATCH_SIZE: "2"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   gpu_memory.16,retinanet,offline,run_harness:
@@ -922,12 +909,20 @@ variations:
     env:
       CM_NVIDIA_CUSTOM_GPU: "yes"
 
+  l4,resnet50:
+    default_env:
+      CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS: 10500
+      CM_MLPERF_LOADGEN_SERVER_TARGET_QPS: 9000
+      CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY: 0.35
+      CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY: 1
+
   l4,resnet50,offline,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.16
+        tags: _batch_size.32
+
     env:
-      CM_MODEL_BATCH_SIZE: "16"
+      CM_MODEL_BATCH_SIZE: "32"
       CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
       CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "1"
       CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS: 'True'
@@ -977,10 +972,18 @@ variations:
     env:
       CM_NVIDIA_CUSTOM_GPU: "yes"
 
+  t4,resnet50:
+    default_env:
+      CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS: 4900
+      CM_MLPERF_LOADGEN_SERVER_TARGET_QPS: 4000
+      CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY: 0.6
+      CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY: 2
+
   t4,resnet50,offline,run_harness:
     add_deps_recursive:
       build-engine:
         tags: _batch_size.256
+
     env:
       CM_MODEL_BATCH_SIZE: "256"
       CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "4"
