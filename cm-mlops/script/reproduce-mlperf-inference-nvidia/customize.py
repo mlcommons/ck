@@ -143,7 +143,6 @@ def preprocess(i):
         if not os.path.exists(model_path):
             cmds.append(f"make download_model BENCHMARKS='{model_name}'")
         else:
-            env['CM_CALL_RUNNER'] = "no"
             return {'return':0}
 
     elif make_command == "preprocess_data":
@@ -200,20 +199,28 @@ def preprocess(i):
             multistream_target_latency_ns = int(float(multistream_target_latency) * 1000000)
             run_config += f" --multi_stream_expected_latency_ns={multistream_target_latency_ns}"
 
+        high_accuracy = "99.9" in env['CM_MODEL']
+
         use_triton = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_TRITON')
         if use_triton:
-            run_config += f" --use_triton --config_ver=triton"
+            if high_accuracy:
+                run_config += f" --use_triton --config_ver=high_accuracy_triton"
+            else:
+                run_config += f" --use_triton --config_ver=triton"
+        else:
+            if high_accuracy:
+                run_config += f" --config_ver=high_accuracy"
 
         user_conf_path = env.get('CM_MLPERF_USER_CONF')
-        if user_conf_path:
+        if user_conf_path and env['CM_MLPERF_NVIDIA_HARNESS_RUN_MODE'] == "run_harness":
             run_config += f" --user_conf_path={user_conf_path}"
 
         mlperf_conf_path = env.get('CM_MLPERF_INFERENCE_CONF_PATH')
-        if mlperf_conf_path:
+        if mlperf_conf_path and env['CM_MLPERF_NVIDIA_HARNESS_RUN_MODE'] == "run_harness":
             run_config += f" --mlperf_conf_path={mlperf_conf_path}"
 
         power_setting = env.get('CM_MLPERF_NVIDIA_HARNESS_POWER_SETTING')
-        if power_setting:
+        if power_setting and env['CM_MLPERF_NVIDIA_HARNESS_RUN_MODE'] == "run_harness":
             run_config += f" --power_setting={power_setting}"
 
         gpu_copy_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS')
@@ -240,7 +247,7 @@ def preprocess(i):
         if input_format:
             run_config += f" --input_format={input_format}"
 
-        performance_sample_count = env.get('CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT')
+        performance_sample_count = env.get('CM_MLPERF_PERFORMANCE_SAMPLE_COUNT')
         if performance_sample_count:
             run_config += f" --performance_sample_count={performance_sample_count}"
 

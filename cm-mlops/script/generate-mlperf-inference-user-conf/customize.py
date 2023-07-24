@@ -260,7 +260,7 @@ def preprocess(i):
 
         print("Output Dir: '" + OUTPUT_DIR + "'")
         print(user_conf)
-        if env.get('CM_MLPERF_POWER','') == "yes" and os.path.exists(env['CM_MLPERF_POWER_LOG_DIR']):
+        if env.get('CM_MLPERF_POWER','') == "yes" and os.path.exists(env.get('CM_MLPERF_POWER_LOG_DIR', '')):
             shutil.rmtree(env['CM_MLPERF_POWER_LOG_DIR'])
     else:
         print("Run files exist, skipping run...\n")

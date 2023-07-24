@@ -17,10 +17,10 @@ def preprocess(i):
 
     env['WGET_URL']="https://developer.download.nvidia.com/compute/cuda/"+env['CM_VERSION']+"/local_installers/"+env['CM_CUDA_LINUX_FILENAME']
 
+    extra_options = env.get('CUDA_ADDITIONAL_INSTALL_OPTIONS', '')
     if env.get('CM_CUDA_INSTALL_DRIVER','') == "yes":
-        env['CUDA_ADDITIONAL_INSTALL_OPTIONS'] = " --driver"
-    else:
-        env['CUDA_ADDITIONAL_INSTALL_OPTIONS'] = ""
+        extra_options += " --driver"
+    env['CUDA_ADDITIONAL_INSTALL_OPTIONS'] = extra_options
 
     env['CM_CUDA_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'install')
     env['CM_NVCC_BIN_WITH_PATH'] = os.path.join(os.getcwd(), 'install', 'bin', nvcc_bin)
