@@ -396,6 +396,30 @@ variations:
     env:
       MLPERF_NVIDIA_RUN_COMMAND: build
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: build
+    deps:
+       - tags: get,cmake
+         version_min: "3.18"
+
+       # Detect Google Logger
+       - tags: get,generic,sys-util,_glog-dev
+
+       # Detect GFlags
+       - tags: get,generic,sys-util,_gflags-dev
+
+       # Detect libgmock-dev
+       - tags: get,generic,sys-util,_libgmock-dev
+
+       # Detect libre2-dev
+       - tags: get,generic,sys-util,_libre2-dev
+
+       # Detect libnuma-dev
+       - tags: get,generic,sys-util,_libnuma-dev
+
+       # Detect libboost-all-dev
+       - tags: get,generic,sys-util,_libboost-all-dev
+
+       # Detect rapidjson-dev
+       - tags: get,generic,sys-util,_rapidjson-dev
 
   preprocess_data:
     group: run-mode
@@ -458,6 +482,7 @@ variations:
           - batch-size
           - triton
           - build-engine-options
+
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
         inherit_variation_tags: true
         force_cache: true
