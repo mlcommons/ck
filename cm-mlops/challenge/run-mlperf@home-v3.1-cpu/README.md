@@ -52,3 +52,8 @@ You can run any of these benchmarks or all depending on available time:
   led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 * [cTuning.org](https://www.linkedin.com/company/ctuning-foundation)
 * [cKnowledge.org](https://www.linkedin.com/company/cknowledge)
+
+### Advanced challenges
+
+If you feel that running these benchmarks was relatively easy, 
+please try [more advanced challenges](https://access.cknowledge.org/playground/?action=challenges)!

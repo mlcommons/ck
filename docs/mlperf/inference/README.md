@@ -91,6 +91,7 @@ export CM_REPOS={new path to CM repositories and data}
 echo "CM_REPOS=${CM_REPOS} >> $HOME/.bashrc"
 ```
 
+You will need to pull above repository with CM automations again to place it in the new directory.
 
 
 
