@@ -48,6 +48,15 @@ You can run any of these benchmarks or all depending on available time:
 * [Automated Design Space Exploration of MobileNets/EfficientNets; TFLite MLPerf implementation; native environment or Docker](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/run-mlperf%40home-v3.1-cpu/run-cpu-dse-mobilenets-efficientnets-tflite.md)
 * [BERT-99 model; DeepSparse MLPerf implementation; native environment](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/run-mlperf%40home-v3.1-cpu/run-cpu-bert-99-deepsparse.md)
 
+### Results
+
+All accepted results with submitter names will be publicly available 
+at the official [MLCommons website](https://mlcommons.org)
+and in the [Collective Knowledge explorer (MLCommons CK)](https://access.cknowledge.org/playground/?action=experiments)
+along with the reproducibility and automation report to help the community
+build efficient AI/ML systems.
+
+
 ### Organizers
 
 * [MLCommons Task Force on Automation and Reproducibility](https://cKnowledge.org/mlcommons-taskforce) 
@@ -58,4 +67,7 @@ You can run any of these benchmarks or all depending on available time:
 ### Advanced challenges
 
 If you feel that running these benchmarks was relatively easy, 
-please try [more advanced challenges](https://access.cknowledge.org/playground/?action=challenges)!
+please try [more advanced challenges](https://access.cknowledge.org/playground/?action=challenges),
+read about our [plans and long-term vision](https://doi.org/10.5281/zenodo.8105339),
+check [CM documentation](https://github.com/mlcommons/ck/blob/master/docs/README.md)
+and run other [MLPerf benchmarks](https://github.com/mlcommons/ck/tree/master/docs/mlperf).
