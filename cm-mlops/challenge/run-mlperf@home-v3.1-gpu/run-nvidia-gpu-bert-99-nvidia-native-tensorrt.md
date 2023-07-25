@@ -60,6 +60,54 @@ CM will install a new Python virtual environment in CM cache and will install al
 ```bash
 cm show cache
 ```
+## Download the needed files
+
+* Please ask privately in [this discord channel](https://discord.gg/y7hupJsUNb) if you would like to get access to an Amazon S3 bucket containing all the needed files for easiness. Otherwise, you can download them from the below links.
+  
+For x86 machines, please download the latest install tar files from the below sites
 
 
+1. [cuDNN](https://developer.nvidia.com/cudnn) (for cuda 11)
+2. [TensorRT](https://developer.nvidia.com/tensorrt)
 
+
+1. Install CUDA
+    If CUDA is not detected, CM should download and install it automatically when you run the workflow. 
+    ** Nvidia drivers are expected to be installed on the system **
+
+2. Install cuDNN
+    ```bash
+      cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
+    ```
+3. Install TensorRT
+    ```bash
+      cmr "get tensorrt _dev" --input=<PATH_TO_TENSORRT_TAR_FILE>
+    ```
+    On non x86 systems like Nvidia Orin, you can do a package manager install and then CM should pick up the installation automatically during the workflow run.
+
+4. Build the Nvidia inference server 
+    ```
+      cmr "build nvidia inference server" \
+      --adr.install-cuda-prebuilt.local_run_file_path=/data/cuda_11.8.0_520.61.05_linux.run \
+      --adr.tensorrt.tar_file=/data/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
+      --adr.cudnn.tar_file=/data/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz \
+      --adr.compiler.tags=gcc \
+      [--custom_system=no]
+      ```
+    Use `--custom_system=no` if you are using a similar system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
+
+5. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
+
+    ### Example output
+    ```
+    ============================================
+    => A system ID is a string containing only letters, numbers, and underscores
+    => that is used as the human-readable name of the system. It is also used as
+    => the system name when creating the measurements/ and results/ entries.
+    => This string should also start with a letter to be a valid Python enum member name.
+    => Specify the system ID to use for the current system: phoenix
+      => Reloaded system list. MATCHED_SYSTEM: KnownSystem.phoenix
+    => This script will generate Benchmark Configuration stubs for the detected system.
+    Continue? [y/n]: y
+    ```
+</details>
