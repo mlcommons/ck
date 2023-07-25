@@ -47,6 +47,7 @@ cm pull repo mlcommons@ck
 
 
 
+
 ## Setup virtual environment
 
 We suggest you to setup a Python virtual environment via CM to avoid contaminating your existing Python installation:
@@ -63,18 +64,17 @@ cm show cache
 
 
 
-
 ## Setup CUDA and build MLPerf Nvidia inference benchmarks
 
 1. We expect that CUDA driver 11+ is already installed on your system.
    However, even if it is not, any CM script with CUDA depedency should automatically
    download and install it using this [portable CM script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda).
 
-   Note that you will need CUDA toolkit 11 to run Nvidia implementations of MLPerf inference benchmarks.
+   Note that Nvidia suggests to use CUDA toolkit 11.8 to run Nvidia implementations of MLPerf inference benchmarks.
 
 2. Install cuDNN (x86 host)
 
-   Download [cuDNN for CUDA 11](https://developer.nvidia.com/cudnn) and install it via CM:
+   Download [cuDNN for CUDA 11](https://developer.nvidia.com/cudnn) and install it via CM (note that Nvidia recommends `cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz`):
     
     ```bash
       cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
@@ -82,7 +82,7 @@ cm show cache
 
 3. Install TensorRT (x86 host)
 
-    Download any [TensorRT](https://developer.nvidia.com/tensorrt) and install it via CM:
+    Download any [TensorRT](https://developer.nvidia.com/tensorrt) and install it via CM (note that Nvidia recommends `TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz`):
     
     ```bash
       cmr "get tensorrt _dev" --input=<PATH_TO_TENSORRT_TAR_FILE>
@@ -90,13 +90,16 @@ cm show cache
     On non x86 systems such as Nvidia Orin, you can use a package manager install and then CM should automatically pick up this installation during any workflow run.
 
 4. Build the Nvidia MLPerf benchmark with inference server 
+
+    *You may need to change --cuda_run_file_path, --tensorrt_tar_file_path and --cudnn_tar_file_path if you downloaded other versions than recommended by Nvidia.*
+
+    
     ```
       cmr "build nvidia inference server" \
       --adr.install-cuda-prebuilt.local_run_file_path=/data/cuda_11.8.0_520.61.05_linux.run \
       --adr.tensorrt.tar_file=/data/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
       --adr.cudnn.tar_file=/data/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz \
-      --adr.compiler.tags=gcc \
-      [--custom_system=no]
+      --adr.compiler.tags=gcc
       ```
 
 5. At the end of the build you'll get a prompt - please enter your system name such as "aws_nvidia_t4" 
@@ -121,6 +124,7 @@ cm show cache
 
    You can also save the container at this stage using [Docker commit](https://docs.docker.com/engine/reference/commandline/commit/) 
    so that it can be launched later without having to go through the previous steps.
+
 
 
 

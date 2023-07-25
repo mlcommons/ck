@@ -95,8 +95,11 @@ to an Amazon S3 bucket containing all the needed files to automatically download
 
 
 4. Build the docker container and mount the paths from the host machine.
-    ** You may need to change --cuda_run_file_path, --tensorrt_tar_file_path and --cudnn_tar_file_path if you used other versions than recommended by Nvidia.**
-    ** You may want to change the `scratch_path` location as it can take 100s of GBs.**
+
+    *You may need to change --cuda_run_file_path, --tensorrt_tar_file_path and --cudnn_tar_file_path if you downloaded other versions than recommended by Nvidia.*
+
+    *You may want to change the `scratch_path` location as it can take 100s of GBs.*
+
     ```bash
     cm docker script --tags=build,nvidia,inference,server \
       --cuda_run_file_path=$HOME/cuda_11.8.0_520.61.05_linux.run \
