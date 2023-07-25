@@ -33,7 +33,10 @@ Thank you in advance for helping the community find Pareto-efficient AI/ML Syste
 * GPU memory:
   * GPT-J 6B: min 24GB
   * BERT-99: min 8..16GB
-* OS: any Linux (tested on Ubuntu 22.04)
+* OS:
+  * native: any Linux (tested on Ubuntu 22.04)
+  * Docker: any OS
+ any Linux (tested on Ubuntu 22.04)
 * Disk space: ~30GB per model/data set
 * Time to run:
   * GPT-J 6B: ~ 1 day

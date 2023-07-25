@@ -31,7 +31,9 @@ Thank you in advance for helping the community find Pareto-efficient AI/ML Syste
 ### Minimal requirements
 
 * CPU: Any x86-64 or Arm64
-* OS: any Linux (tested on Ubuntu 22.04)
+* OS: 
+  * native: any Linux (tested on Ubuntu 22.04)
+  * Docker: any OS
 * Disk space: 
   * BERT-99: ~ 20GB
   * Different variations of MobileNets/EfficientNets: ~ 140GB
