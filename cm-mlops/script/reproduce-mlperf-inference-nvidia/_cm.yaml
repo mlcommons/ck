@@ -883,9 +883,9 @@ variations:
   rtx_4090,resnet50,server,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.64
+        tags: _batch_size.32
     env:
-      CM_MODEL_BATCH_SIZE: "64"
+      CM_MODEL_BATCH_SIZE: "32"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   rtx_4090,retinanet,offline,run_harness:
