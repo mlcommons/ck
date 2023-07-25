@@ -60,32 +60,36 @@ CM will install a new Python virtual environment in CM cache and will install al
 ```bash
 cm show cache
 ```
-## Download the needed files
-
-* Please ask privately in [this discord channel](https://discord.gg/y7hupJsUNb) if you would like to get access to an Amazon S3 bucket containing all the needed files for easiness. Otherwise, you can download them from the below links.
-  
-For x86 machines, please download the latest install tar files from the below sites
 
 
-1. [cuDNN](https://developer.nvidia.com/cudnn) (for cuda 11)
-2. [TensorRT](https://developer.nvidia.com/tensorrt)
 
 
-1. Install CUDA
-    If CUDA is not detected, CM should download and install it automatically when you run the workflow. 
-    ** Nvidia drivers are expected to be installed on the system **
+## Setup CUDA and build MLPerf Nvidia inference benchmarks
 
-2. Install cuDNN
+1. We expect that CUDA driver 11+ is already installed on your system.
+   However, even if it is not, any CM script with CUDA depedency should automatically
+   download and install it using this [portable CM script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda).
+
+   Note that you will need CUDA toolkit 11 to run Nvidia implementations of MLPerf inference benchmarks.
+
+2. Install cuDNN (x86 host)
+
+   Download [cuDNN for CUDA 11](https://developer.nvidia.com/cudnn) and install it via CM:
+    
     ```bash
       cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
     ```
-3. Install TensorRT
+
+3. Install TensorRT (x86 host)
+
+    Download any [TensorRT](https://developer.nvidia.com/tensorrt) and install it via CM:
+    
     ```bash
       cmr "get tensorrt _dev" --input=<PATH_TO_TENSORRT_TAR_FILE>
     ```
-    On non x86 systems like Nvidia Orin, you can do a package manager install and then CM should pick up the installation automatically during the workflow run.
+    On non x86 systems such as Nvidia Orin, you can use a package manager install and then CM should automatically pick up this installation during any workflow run.
 
-4. Build the Nvidia inference server 
+4. Build the Nvidia MLPerf benchmark with inference server 
     ```
       cmr "build nvidia inference server" \
       --adr.install-cuda-prebuilt.local_run_file_path=/data/cuda_11.8.0_520.61.05_linux.run \
@@ -94,11 +98,11 @@ For x86 machines, please download the latest install tar files from the below si
       --adr.compiler.tags=gcc \
       [--custom_system=no]
       ```
-    Use `--custom_system=no` if you are using a similar system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
 
-5. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
+5. At the end of the build you'll get a prompt - please enter your system name such as "aws_nvidia_t4" 
+   (note that space, `-` and other special characters are not allowed),
+   and say `yes` to generating the configuration files.
 
-    ### Example output
     ```
     ============================================
     => A system ID is a string containing only letters, numbers, and underscores
@@ -110,4 +114,13 @@ For x86 machines, please download the latest install tar files from the below si
     => This script will generate Benchmark Configuration stubs for the detected system.
     Continue? [y/n]: y
     ```
-</details>
+    Now you'll be inside the CM Nvidia docker container and can access Nvidia implementations of MLPerf inference benchmarks.
+
+6. Once the build is complete, you can run Nvidia implementations of MLPerf inference benchmarks
+   using the unified CM interface.
+
+   You can also save the container at this stage using [Docker commit](https://docs.docker.com/engine/reference/commandline/commit/) 
+   so that it can be launched later without having to go through the previous steps.
+
+
+

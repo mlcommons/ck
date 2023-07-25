@@ -109,8 +109,8 @@ to an Amazon S3 bucket containing all the needed files to automatically download
       --adr.compiler.tags=gcc
     ```
 
-5. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. 
-   Please enter your system name such as "aws_nvidia_t4" (note that space, `-` and other special characters are not allowed),
+5. At the end of the build you'll get a prompt - please enter your system name such as "aws_nvidia_t4" 
+   (note that space, `-` and other special characters are not allowed),
    and say `yes` to generating the configuration files.
 
     ```
@@ -131,8 +131,6 @@ to an Amazon S3 bucket containing all the needed files to automatically download
 
    You can also save the container at this stage using [Docker commit](https://docs.docker.com/engine/reference/commandline/commit/) 
    so that it can be launched later without having to go through the previous steps.
-
-
 
 
 
