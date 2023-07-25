@@ -125,18 +125,29 @@ cm docker script --tags=detect,os -j
 ```
 
 
+## Prepare cloud instances
+
+If you want to run MLPerf in multiple cloud instances, please follow these guides to set them up:
+
+* [AWS](../setup/setup-aws-instance.md)
+* [GCP](../setup/setup-gcp-instance.md)
+
 
 ## Prepare hardware
 
 Read this section if you want to run MLPerf benchmarks in a native environment, i.e. without containers.
 
-### CPU
+### CPUs
 
 If you plan to run MLPerf benchmarks on x64 and/or Arm64 CPUs, no extra setup is necessary.
 
-### CUDA GPU
+### CUDA GPUs
 
 If you plan to use CUDA in your native environment, please follow [this guide](../../installation-cuda.md) to set it up on your system.
+
+### Nvidia Jetson AGX Orin
+
+Follow [this guide](../setup/setup-nvidia-jetson-orin.md).
 
 ### Other backends
 
@@ -144,6 +155,9 @@ We work with the community to add more hardware backends (Google TPU, Amazon Inf
 to MLPerf benchmarks via our [open challenges for AI//ML systems](https://access.cknowledge.org/playground/?action=challenges),
 Please get in touch with us via [public Discord server](https://discord.gg/JjWNWXKxwT) 
 if you are interested to participate, collaborate and contribute to this community project!
+
+
+
 
 
 ## Run benchmarks and submit results
