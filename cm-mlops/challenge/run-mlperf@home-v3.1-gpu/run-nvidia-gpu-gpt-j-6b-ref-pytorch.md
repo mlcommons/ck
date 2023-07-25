@@ -60,18 +60,23 @@ CM will install a new Python virtual environment in CM cache and will install al
 cm show cache
 ```
 
-## Download and install the needed files
+## Setup CUDA
 
-* Please ask privately in [this discord channel](https://discord.gg/y7hupJsUNb) if you would like to get access to an Amazon S3 bucket containing all the needed files for easiness. Otherwise, you can download them from the below links.
-  
-For x86 machines, please download the latest install tar files from the below sites
-1. [cuDNN](https://developer.nvidia.com/cudnn)
-   
-1. Install CUDA
-    If CUDA is not detected, CM should download and install it automatically when you run the workflow. 
-    ** Nvidia drivers are expected to be installed on the system **
+1. We expect that CUDA driver 11+ is already installed on your system.
+   However, even if it is not, any CM script with CUDA depedency should automatically
+   download and install it using this [portable CM script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda).
 
-2. Install cuDNN
+
+2. Detect or install cuDNN (x86 host)
+
+   Try to detect already installed cuDNN on your system via CM:
+    
+    ```bash
+      cmr "get cudnn"
+    ```
+
+    If it is not available, you can download it from [here](https://developer.nvidia.com/cudnn) and install it via CM as follows:
+    
     ```bash
       cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
     ```
