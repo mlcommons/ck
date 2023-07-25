@@ -61,5 +61,21 @@ CM will install a new Python virtual environment in CM cache and will install al
 cm show cache
 ```
 
+## Download and install the needed files
+
+* Please ask privately in [this discord channel](https://discord.gg/y7hupJsUNb) if you would like to get access to an Amazon S3 bucket containing all the needed files for easiness. Otherwise, you can download them from the below links.
+  
+For x86 machines, please download the latest install tar files from the below sites
+1. [cuDNN](https://developer.nvidia.com/cudnn)
+   
+1. Install CUDA
+    If CUDA is not detected, CM should download and install it automatically when you run the workflow. 
+    ** Nvidia drivers are expected to be installed on the system **
+
+2. Install cuDNN
+    ```bash
+      cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
+    ```
+
 
 
