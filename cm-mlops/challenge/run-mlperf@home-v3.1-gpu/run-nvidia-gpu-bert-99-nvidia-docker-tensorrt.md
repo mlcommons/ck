@@ -46,44 +46,35 @@ cm pull repo mlcommons@ck
 
 
 
-## Setup virtual environment
+## Setup CUDA and Docker container
 
-We suggest you to setup a Python virtual environment via CM to avoid contaminating your existing Python installation:
+### Download CUDA 11.8
 
-```bash
-cm run script "install python-venv" --name=crowd-mlperf
-export CM_SCRIPT_EXTRA_CMD="--adr.python.name=crowd-mlperf"
+Nvidia recommends the following version of CUDA to be used with their MLPerf inference implementation:
+
+```
+wget https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_520.61.05_linux.run
 ```
 
-CM will install a new Python virtual environment in CM cache and will install all Python dependencies there:
-```bash
-cm show cache
-```
+However, you are very welcome to try another version!
 
-## Download the needed files
+### Download cuDNN, TensorRT
 
-* Please ask privately in [this discord channel](https://discord.gg/y7hupJsUNb) if you would like to get access to an Amazon S3 bucket containing all the needed files for easiness. Otherwise, you can download them from the below links.
-  
-For x86 machines, please download the latest install tar files from the below sites
-1. [cuDNN](https://developer.nvidia.com/cudnn) (for cuda 11)
-2. [TensorRT](https://developer.nvidia.com/tensorrt)
+For x86 machines, please download the following TAR files:
+1. [cuDNN](https://developer.nvidia.com/cudnn) - note that Nvidia recommends `cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz`
+   but you are welcome to try another version
+2. [TensorRT](https://developer.nvidia.com/tensorrt) - note that Nvidia recommends `TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz`
+   but you can try another version
 
-<details>
+Please ask privately in [this Discord server](https://discord.gg/y7hupJsUNb) if you would like to get access 
+to an Amazon S3 bucket containing all the needed files to automatically download them for the MLPerf submission. 
 
-<summary>
-    
-## Setup docker
 
-</summary>
-Assuming all the downloaded files are to the user home directory please do the following steps:
+### Set up Nvidia Docker container with MLPerf benchmarks
 
-1. Download CUDA 11.8
-    ```
-    wget https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_520.61.05_linux.run
-    ```
-2. [Install docker](https://docs.docker.com/engine/install/) and [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+1. [Install Docker](https://docs.docker.com/engine/install/) and [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
      
-3. Give docker permission to the current user
+2. Give Docker permission to the current user
      ```
      sudo usermod -aG docker $USER
      ```
@@ -92,7 +83,8 @@ Assuming all the downloaded files are to the user home directory please do the f
      ```
      nvidia-ctk --version
      ```
-4. Check if Nvidia driver is working properly on the host. 
+
+3. Check if Nvidia driver is working properly on the host. 
      ```
      nvidia-smi
      ```
@@ -100,25 +92,27 @@ Assuming all the downloaded files are to the user home directory please do the f
      ```
      cmr "install cuda prebuilt _driver" --version=11.8.0
      ```
-5. Build the docker container and mount the paths from the host machine.
+
+
+4. Build the docker container and mount the paths from the host machine.
+    ** You may need to change --cuda_run_file_path, --tensorrt_tar_file_path and --cudnn_tar_file_path if you used other versions than recommended by Nvidia.**
     ** You may want to change the `scratch_path` location as it can take 100s of GBs.**
     ```bash
     cm docker script --tags=build,nvidia,inference,server \
-    --cuda_run_file_path=$HOME/cuda_11.8.0_520.61.05_linux.run \
-    --tensorrt_tar_file_path=$HOME/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
-    --cudnn_tar_file_path=$HOME/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz \
-    --scratch_path=$HOME/mlperf_scratch \
-    --docker_cm_repo=mlcommons@ck  \
-    --results_dir=$HOME/results_dir \
-    --submission_dir=$HOME/submission_dir \
-    --adr.compiler.tags=gcc
+      --cuda_run_file_path=$HOME/cuda_11.8.0_520.61.05_linux.run \
+      --tensorrt_tar_file_path=$HOME/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
+      --cudnn_tar_file_path=$HOME/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz \
+      --scratch_path=$HOME/mlperf_scratch \
+      --docker_cm_repo=mlcommons@ck  \
+      --results_dir=$HOME/results_dir \
+      --submission_dir=$HOME/submission_dir \
+      --adr.compiler.tags=gcc
     ```
-      * Use `--docker_cache=no` to turn off docker caching
-      * Use `--docker_run_cmd_prefix="cm pull repo mlcommons@ck"` to update the CK repository when docker caching is used
-      * Use `--custom_system=no` if you are using a similar system to the [Nvidia submission systems for MLPerf inference 3.0](https://github.com/mlcommons/inference_results_v3.0/tree/main/closed/NVIDIA/systems).
 
-6. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. Please give a system name and say yes to generating the configuration files
-    ### Example output
+5. At the end of the build you'll get the following prompt unless you have chosen `--custom_system=no`. 
+   Please enter your system name such as "aws_nvidia_t4" (note that space, `-` and other special characters are not allowed),
+   and say `yes` to generating the configuration files.
+
     ```
     ============================================
     => A system ID is a string containing only letters, numbers, and underscores
@@ -130,15 +124,14 @@ Assuming all the downloaded files are to the user home directory please do the f
     => This script will generate Benchmark Configuration stubs for the detected system.
     Continue? [y/n]: y
     ```
-    Now you'll be inside the CM Nvidia docker container and can run further scripts. 
+    Now you'll be inside the CM Nvidia docker container and can access Nvidia implementations of MLPerf inference benchmarks.
 
-7. Once the build is complete, you can proceed with any further CM scripts like for MLPerf inference. You can also save the container at this stage using [docker commit](https://docs.docker.com/engine/reference/commandline/commit/) so that it can be launched later without having to go through the previous steps.
+6. Once the build is complete, you can run Nvidia implementations of MLPerf inference benchmarks
+   using the unified CM interface.
 
-</details>
+   You can also save the container at this stage using [Docker commit](https://docs.docker.com/engine/reference/commandline/commit/) 
+   so that it can be launched later without having to go through the previous steps.
 
-<details>
-
-<summary>
 
 
 
