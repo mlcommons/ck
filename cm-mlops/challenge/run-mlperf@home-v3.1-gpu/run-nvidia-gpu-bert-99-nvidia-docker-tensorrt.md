@@ -136,4 +136,35 @@ to an Amazon S3 bucket containing all the needed files to automatically download
    so that it can be launched later without having to go through the previous steps.
 
 
+### Do a test run to detect and record the system performance
+
+```
+cmr "generate-run-cmds inference _find-performance _all-scenarios" \
+--model=bert-99 --implementation=nvidia-original --device=cuda --backend=tensorrt \
+--category=edge --division=open --quiet --test_query_count=1000
+```
+
+### Do full accuracy and performance runs
+
+```
+cmr "generate-run-cmds inference _submission _allscenarios" --model=bert-99 \
+--device=cuda --implementation=nvidia-original --backend=tensorrt \
+--execution-mode=valid --results_dir=$HOME/results_dir \
+--category=edge --division=open --quiet
+```
+
+* `--offline_target_qps` and `--singlestream_target_latency` can be used to override the determined performance numbers
+
+### Populate the README files describing your submission
+
+```
+cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
+--model=bert-99 --device=cuda --implementation=nvidia-original --backend=tensorrt \
+--execution-mode=valid --results_dir=$HOME/results_dir \
+--category=edge --division=open --quiet
+```
+
+### Generate and upload MLPerf submission
+
+Follow [this guide](../Submission.md) to generate the submission tree and upload your results.
 
