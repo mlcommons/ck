@@ -6,7 +6,7 @@ with GPT-J 6B model and PyTorch on any Linux-based system with Nvidia GPU (24GB 
 This benchmark is automated by the MLCommons CM language and you should be able to submit official MLPerf v3.1 inference results
 for singlestream scenario in open division and edge category.
 
-It will require ~30GB of disk space and can take ~1 days to run on 1 system.
+It will require ~30GB of disk space and can take ~1 day to run on 1 system.
 
 
 
@@ -31,7 +31,7 @@ cm pull repo mlcommons@ck
 
 You can run it again at any time to pick up the latest updates.
 
-Note that CM will store all such repositories and downloaded/installed data sets, models and tools
+Note that CM will store all such repositories and downloaded/installed data sets, models, and tools
 in your `$HOME/CM` directory. 
 
 Since MLPerf benchmarks require lots of space (somethings hundreds of Gigabytes), 
@@ -60,5 +60,19 @@ CM will install a new Python virtual environment in CM cache and will install al
 cm show cache
 ```
 
+## Download and install the needed files
 
+* Please ask privately in [this discord channel](https://discord.gg/y7hupJsUNb) if you would like to get access to an Amazon S3 bucket containing all the needed files for easiness. Otherwise, you can download them from the below links.
+  
+For x86 machines, please download the latest install tar files from the below sites
+1. [cuDNN](https://developer.nvidia.com/cudnn)
+   
+1. Install CUDA
+    If CUDA is not detected, CM should download and install it automatically when you run the workflow. 
+    ** Nvidia drivers are expected to be installed on the system **
+
+2. Install cuDNN
+    ```bash
+      cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
+    ```
 
