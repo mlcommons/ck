@@ -43,8 +43,8 @@ Thank you in advance for helping the community find Pareto-efficient AI/ML Syste
 
 You can run any of these benchmarks or all depending on available time:
 
-* [Automated Design Space Exploration of MobileNets/EfficientNets; TFLite MLPerf implementation; native environment or Docker]()
-* [BERT-99 model; DeepSparse MLPerf implementation; native environment]()
+* [Automated Design Space Exploration of MobileNets/EfficientNets; TFLite MLPerf implementation; native environment or Docker](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/run-mlperf%40home-v3.1-cpu/run-cpu-dse-mobilenets-efficientnets-tflite.md)
+* [BERT-99 model; DeepSparse MLPerf implementation; native environment](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/run-mlperf%40home-v3.1-cpu/run-cpu-bert-99-deepsparse.md)
 
 ### Organizers
 

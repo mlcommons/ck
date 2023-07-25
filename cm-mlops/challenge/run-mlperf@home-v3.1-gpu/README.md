@@ -43,10 +43,10 @@ Thank you in advance for helping the community find Pareto-efficient AI/ML Syste
 
 You can run any of these benchmarks or all depending on available time:
 
-* [GPT-J 6B model; Reference MLPerf implementation; native environment or Docker; PyTorch+CUDA]()
-* [BERT-99 model; Nvidia MLPerf implementation; Docker; TensorRT]()
-* [BERT-99 model; Reference MLPerf implementation; native environment; PyTorch/ONNX/TensorFlow]()
-* [BERT-99 model; Nvidia MLPerf implementation; native environment; TensorRT]()
+* [GPT-J 6B model; Reference MLPerf implementation; native environment or Docker; PyTorch+CUDA](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/run-mlperf%40home-v3.1-gpu/run-nvidia-gpu-gpt-j-6b-ref-pytorch.md)
+* [BERT-99 model; Nvidia MLPerf implementation; Docker; TensorRT](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/run-mlperf%40home-v3.1-gpu/run-nvidia-gpu-bert-99-nvidia-docker-tensorrt.md)
+* [BERT-99 model; Reference MLPerf implementation; native environment; PyTorch/ONNX/TensorFlow](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/run-mlperf%40home-v3.1-gpu/run-nvidia-gpu-bert-99-ref-native-onnx-pytorch-tf.md)
+* [BERT-99 model; Nvidia MLPerf implementation; native environment; TensorRT](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/run-mlperf%40home-v3.1-gpu/run-nvidia-gpu-bert-99-nvidia-native-tensorrt.md)
 
 ### Organizers
 
