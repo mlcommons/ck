@@ -326,6 +326,7 @@ variations:
   3d-unet_:
     deps:
     - tags: get,generic-python-lib,_transformers
+    - tags: get,generic-python-lib,_package.nibabel
     - tags: get,generic-python-lib,_pandas
       version_max: "1.5.3"
 
