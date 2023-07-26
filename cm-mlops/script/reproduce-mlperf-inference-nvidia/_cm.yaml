@@ -431,6 +431,16 @@ variations:
        # Detect rapidjson-dev
        - tags: get,generic,sys-util,_rapidjson-dev
 
+  maxq:
+    group: power-mode
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_MAXQ: yes
+
+  maxn:
+    group: power-mode
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_MAXN: yes
+
   preprocess_data:
     group: run-mode
     env:
@@ -462,6 +472,7 @@ variations:
           - loadgen-scenario
           - device-memory
           - gpu-name
+          - power-mode
           - batch-size
           - triton
         skip_if_env:
@@ -503,6 +514,7 @@ variations:
           - gpu-name
           - batch-size
           - triton
+          - power-mode
           - build-engine-options
         skip_if_env:
           CM_MODEL:
@@ -523,6 +535,7 @@ variations:
           - loadgen-scenario
           - device-memory
           - device-type
+          - power-mode
           - gpu-name
           - triton
           - batch-size
@@ -560,12 +573,14 @@ variations:
           - gpu_name
           - device-memory
         force_cache: true
+
       - tags: reproduce,mlperf,inference,nvidia,harness,_preprocess_data
         inherit_variation_tags: true
         skip_inherit_variation_groups:
           - run-mode
           - loadgen-scenario
           - device-memory
+          - power-mode
           - gpu_name
           - batch-size
           - triton
@@ -578,6 +593,7 @@ variations:
           - loadgen-scenario
           - device-memory
           - gpu_name
+          - power-mode
           - batch-size
           - build-engine-options
         force_cache: true
@@ -850,6 +866,11 @@ variations:
     env:
       CM_MODEL_BATCH_SIZE: "315000"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  orin:
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
 
   rtx_4090:
     group: gpu-name
