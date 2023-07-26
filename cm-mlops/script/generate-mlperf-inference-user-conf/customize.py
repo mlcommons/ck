@@ -74,8 +74,8 @@ def preprocess(i):
     mode = env['CM_MLPERF_LOADGEN_MODE']
 
     user_conf = ''
-    if ['CM_MLPERF_RUN_STYLE'] == "fast":
-        fast_factor = env['CM_FAST_FACTOR']
+    if env['CM_MLPERF_RUN_STYLE'] == "fast":
+        fast_factor = int(env['CM_FAST_FACTOR'])
     else:
         fast_factor = 1
 
@@ -140,9 +140,9 @@ def preprocess(i):
 
     if env['CM_MLPERF_RUN_STYLE'] == "fast":
         if scenario == "Offline":
-            metric_value /= fast_factor
+            metric_value = float(metric_value) / fast_factor
         if scenario in [ "SingleStream", "MultiStream" ]:
-            metric_value *= fast_factor
+            metric_value = float(metric_value) * fast_factor
 
     elif env['CM_MLPERF_RUN_STYLE'] == "test":
         if scenario == "Offline":
