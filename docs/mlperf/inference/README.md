@@ -101,8 +101,8 @@ If you plan to use your native environment to run MLPerf benchmarks, we suggest 
 a Python virtual environment via CM to avoid contaminating your existing Python installation:
 
 ```bash
-cm run script "install python-venv" --name=mlperf-tests
-export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf-tests"
+cm run script "install python-venv" --name=mlperf
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf"
 ```
 
 CM will install a new Python virtual environment in CM cache and will install all Python dependencies there:
@@ -112,8 +112,8 @@ cm show cache
 
 Note that you can install multiple virtual environments with different names and python versions (Linux):
 ```bash
-cm run script "install python-venv" --version=3.10.8 --name=mlperf-tests2
-export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf-tests2"
+cm run script "install python-venv" --version=3.10.8 --name=mlperf2
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf2"
 ```
 
 
