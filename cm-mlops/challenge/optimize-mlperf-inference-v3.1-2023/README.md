@@ -10,7 +10,7 @@ in terms of latency, throughput, power consumption, accuracy and other metrics
 across diverse software/hardware stacks from different vendors.
 
 However, running MLPerf inference benchmarks and submitting results [turned out to be a challenge](https://doi.org/10.5281/zenodo.8144274) 
-even for experts and could easily take many weeks. That's why [MLCommons](https://mlcommons.org), 
+even for experts and could easily take many weeks to prepare. That's why [MLCommons](https://mlcommons.org), 
 [cTuning.org](https://www.linkedin.com/company/ctuning-foundation)
 and [cKnowledge.org](https://www.linkedin.com/company/cknowledge) 
 decided to develop an open-source, technology-agnostic 
@@ -24,9 +24,9 @@ in this [presentation](https://doi.org/10.5281/zenodo.8105339).
 
 
 
-### Challenge
+### Advanced challenge
 
-We would like to help volunteers run various MLPerf inference benchmarks 
+We would like to ask volunteers run various MLPerf inference benchmarks 
 on diverse CPUs (Intel, AMD, Arm) and Nvidia GPUs similar to SETI@home 
 across different framework (ONNX, PyTorch, TF, TFLite) 
 either natively or in a cloud (AWS, Azure, GCP, Alibaba, Oracle, OVHcloud, ...) 

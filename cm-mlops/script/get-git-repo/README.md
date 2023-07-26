@@ -183,6 +183,7 @@ ___
 * `--folder=value`  &rarr;  `CM_GIT_CHECKOUT_FOLDER=value`
 * `--patch=value`  &rarr;  `CM_GIT_PATCH=value`
 * `--submodules=value`  &rarr;  `CM_GIT_RECURSE_SUBMODULES=value`
+* `--update=value`  &rarr;  `CM_GIT_REPO_PULL=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 

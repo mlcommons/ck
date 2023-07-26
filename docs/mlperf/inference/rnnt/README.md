@@ -1,17 +1,23 @@
-## Setup
-Please follow the MLCommons CK [installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) to install CM.
+[ [Back to MLPerf inference benchmarks index](../README.md) ]
 
-Install MLCommons CK repository with automation workflows for MLPerf.
+## MLPerf inference: speech recognition with RNNT
 
-```
-cm pull repo mlcommons@ck
-```
-
+### Notes
 
 In the edge category, ResNet50 has Offline, SingleStream and MultiStream scenarios and in the datacenter category, it has Offline and Server scenarios.
 
-## Run Commands
-Please follow the below readmes to run the command specific to a given implementation
+Please check [MLPerf inference GitHub](https://github.com/mlcommons/inference) for more details.
+
+### Install CM
+
+Please follow this [guide](../README.md#install-cm-automation-language) 
+to install the [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339),
+pull the repository with the CM automation recipes for MLPerf and 
+set up virtual environment to run MLPerf benchmarks.
+
+### Run MLPerf via CM
+
+The following guides explain how to run different implementations of this benchmark via CM:
 
 * [MLCommons Reference implementation in Python](README_reference.md)
 * [NVIDIA implementation](README_nvidia.md)

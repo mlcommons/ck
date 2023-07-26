@@ -9,7 +9,7 @@ if [[ ${CM_GENERIC_PYTHON_PACKAGE_VARIANT} == "nvidia-apex" ]]; then
   exit 0
 fi
 
-if [[ ${CM_GENERIC_PYTHON_PACKAGE_NAME}  == "tensorflow" ]]; then
+if [[ ${CM_GENERIC_PYTHON_PACKAGE_NAME}  == "tensorflow_old" ]]; then
     if [[ ${CM_HOST_OS_FLAVOR} == "macos" ]]; then
         . ${CM_TMP_CURRENT_SCRIPT_PATH}/tensorflow/run-macos.sh
         test $? -eq 0 || exit $?

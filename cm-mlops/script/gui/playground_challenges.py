@@ -57,7 +57,7 @@ def page(st, params):
 
                 row['name']=name
 
-                for k in ['date_close_extension', 'points', 'trophies', 'prize', 'prize_short', 'skip']:
+                for k in ['date_close_extension', 'points', 'trophies', 'prize', 'prize_short', 'skip', 'sort']:
                     if k in meta:
                         row[k]=meta[k]
 
@@ -97,7 +97,7 @@ def page(st, params):
                 if under_preparation:
                     prefix = 'Under preparation: '
                 else:
-                    if date_open!='' and diff1>=0:
+                    if date_open!='' and diff1>0:
                         prefix = 'Opens on {}: '.format(s_date_open)
                     else:
                         if date_close!='':
@@ -110,7 +110,7 @@ def page(st, params):
 
 
                 # Check if open challenge even if under preparation
-                if date_open and (date_close=='' or (diff1<0 and diff2>0)):
+                if date_open and (date_close=='' or (diff1<=0 and diff2>0)):
                     ongoing.append(row)
                 else:
                     challenges.append({'prefix':prefix, 'name':name, 'uid':l.meta['uid']})
@@ -138,8 +138,10 @@ def page(st, params):
                 data = []
                 
                 for row in sorted(ongoing, key=lambda row: (int(row.get('orig_date_close', 9999999999)),
+                                                            row.get('sort', 0),
                                                             row.get('name', ''),
-                                                            row.get('under_preparation', False))):
+                                                            row.get('under_preparation', False)
+                                                            )):
                     if row.get('skip',False): continue
                     
                     xrow = []
