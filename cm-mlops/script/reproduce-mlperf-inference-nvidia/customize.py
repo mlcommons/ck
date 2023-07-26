@@ -201,15 +201,22 @@ def preprocess(i):
 
         high_accuracy = "99.9" in env['CM_MODEL']
 
+        config_ver_list = []
+
+        maxq = env.get('CM_MLPERF_NVIDIA_HARNESS_MAXQ')
+        if maxq:
+            config_ver_list.append( "maxq")
+
+        if high_accuracy:
+            config_ver_list.append( "high_accuracy")
+
         use_triton = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_TRITON')
         if use_triton:
-            if high_accuracy:
-                run_config += f" --use_triton --config_ver=high_accuracy_triton"
-            else:
-                run_config += f" --use_triton --config_ver=triton"
-        else:
-            if high_accuracy:
-                run_config += f" --config_ver=high_accuracy"
+            run_config += " --use_triton "
+            config_ver_list.append( "triton")
+
+        if config_ver_list:
+            run_config += f" --config_ver={'_'.join(config_ver_list)}"
 
         user_conf_path = env.get('CM_MLPERF_USER_CONF')
         if user_conf_path and env['CM_MLPERF_NVIDIA_HARNESS_RUN_MODE'] == "run_harness":
@@ -277,6 +284,18 @@ def preprocess(i):
         use_graphs = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS')
         if use_graphs:
             run_config += " --use_graphs"
+
+        use_deque_limit = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT')
+        if use_deque_limit:
+            run_config += " --use_deque_limit"
+
+            deque_timeout_usec = env.get('CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC')
+            if deque_timeout_usec:
+                run_config += f" --deque_timeout_usec={deque_timeout_usec}"
+
+        use_cuda_thread_per_device = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_CUDA_THREAD_PER_DEVICE')
+        if use_cuda_thread_per_device:
+            run_config += " --use_cuda_thread_per_device"
 
         run_infer_on_copy_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_RUN_INFER_ON_COPY_STREAMS')
         if run_infer_on_copy_streams:

@@ -1,7 +1,7 @@
-Please do the system setup as described [here](README.md)
+[ [Back to the common setup](README.md) ]
 
 
-## Run Commands
+## Run this benchmark via CM
 
 
 ### Do a test run to detect and record the system performance
@@ -29,7 +29,8 @@ cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --mo
 * Use `--division=closed` to run all scenarios for the closed division including the compliance tests
 * `--offline_target_qps`, `--server_target_qps`, `--singlestream_target_latency` and `multistream_target_latency` can be used to override the determined performance numbers
 
-### Populate the README files
+### Populate the README files describing your submission
+
 ```
 cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios \
 --model=resnet50 --device=cpu --implementation=reference --backend=onnxruntime \
@@ -37,5 +38,14 @@ cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios
 --category=edge --division=open --quiet
 ```
 
-### Generate and Upload the Submission
-Follow [this README](../Submission.md) to generate the submission tree and upload your results. 
+### Generate and upload MLPerf submission
+
+Follow [this guide](../Submission.md) to generate the submission tree and upload your results.
+
+### Run individual scenarios for testing and optimization
+
+TBD
+
+### Questions? Suggestions?
+
+Don't hesitate to get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).

@@ -74,8 +74,8 @@ def preprocess(i):
     mode = env['CM_MLPERF_LOADGEN_MODE']
 
     user_conf = ''
-    if ['CM_MLPERF_RUN_STYLE'] == "fast":
-        fast_factor = env['CM_FAST_FACTOR']
+    if env['CM_MLPERF_RUN_STYLE'] == "fast":
+        fast_factor = int(env['CM_FAST_FACTOR'])
     else:
         fast_factor = 1
 
@@ -140,9 +140,9 @@ def preprocess(i):
 
     if env['CM_MLPERF_RUN_STYLE'] == "fast":
         if scenario == "Offline":
-            metric_value /= fast_factor
+            metric_value = float(metric_value) / fast_factor
         if scenario in [ "SingleStream", "MultiStream" ]:
-            metric_value *= fast_factor
+            metric_value = float(metric_value) * fast_factor
 
     elif env['CM_MLPERF_RUN_STYLE'] == "test":
         if scenario == "Offline":
@@ -179,14 +179,12 @@ def preprocess(i):
     elif env['CM_MLPERF_RUN_STYLE'] == "fast":
         if scenario == "Server":
             target_qps = conf['target_qps']
-            query_count = str((660/fast_factor)/(float(target_qps)))
+            query_count = str(int((660/fast_factor) * (float(target_qps))))
             user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
-            #user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
-            user_conf += ml_model_name + "." + scenario + ".min_duration = 0" + "\n"
 
     else:
         if scenario == "MultiStream" or scenario == "SingleStream":
-            user_conf += ml_model_name + "." + scenario + ".max_duration = 620000 \n"
+            user_conf += ml_model_name + "." + scenario + ".max_duration = 660000 \n"
             if scenario == "MultiStream":
                 user_conf += ml_model_name + "." + scenario + ".min_query_count = 662" + "\n"
             if short_ranging:

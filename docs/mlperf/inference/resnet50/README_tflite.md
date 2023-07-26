@@ -1,9 +1,14 @@
-Please do the system setup as described [here](README.md)
+[ [Back to the common setup](README.md) ]
 
 
-## Run Commands
+## Run this benchmark via CM
 
-Please follow [this](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/run-mlperf-inference-mobilenet-models/README-about.md) readme for running mobilenet and efficientnet models using TFLite backend
+Please follow [this guide](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/run-mlperf-inference-mobilenet-models/README-about.md) 
+to running MobileNets and EfficientNets using TFLite backend.
+
+
+
+
 
 ### Do a test run to detect and record the system performance
 
@@ -28,5 +33,15 @@ cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --mod
 * Use `--division=closed` to run all scenarios for the closed division including the compliance tests
 * `--offline_target_qps`, `--server_target_qps`, `--singlestream_target_latency` and `multistream_target_latency` can be used to override the determined performance numbers
 
-### Generate and Upload the Submission
-Follow [this README](../Submission.md) to generate the submission tree and upload your results. 
+### Generate and upload MLPerf submission
+
+Follow [this guide](../Submission.md) to generate the submission tree and upload your results.
+
+
+### Run individual scenarios for testing and optimization
+
+TBD
+
+### Questions? Suggestions?
+
+Don't hesitate to get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).

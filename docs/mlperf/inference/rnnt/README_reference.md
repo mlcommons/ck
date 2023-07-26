@@ -1,7 +1,7 @@
-Please do the system setup as described [here](README.md)
+[ [Back to the common setup](README.md) ]
 
 
-## Run Commands
+## Run this benchmark via CM
 
 
 ### Do a test run to detect and record the system performance
@@ -30,7 +30,8 @@ cmr "generate-run-cmds inference _submission _all-scenarios" --model=rnnt \
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs
 * `--offline_target_qps`, `--server_target_qps` and  `--singlestream_target_latency` can be used to override the determined performance numbers
 
-### Populate the README files
+### Populate the README files describing your submission
+
 ```
 cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
 --model=retinanet --device=cpu --implementation=reference --backend=pytorch \
@@ -39,5 +40,14 @@ cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
 --adr.ml-engine-pytorch.version=1.13.0 --adr.ml-engine-torchvision.version=0.14.1
 ```
 
-### Generate and Upload the Submission
-Follow [this README](../Submission.md) to generate the submission tree and upload your results. 
+### Generate and upload MLPerf submission
+
+Follow [this guide](../Submission.md) to generate the submission tree and upload your results.
+
+### Run individual scenarios for testing and optimization
+
+TBD
+
+### Questions? Suggestions?
+
+Don't hesitate to get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).
