@@ -3334,6 +3334,17 @@ class CAutomation(Automation):
 
         return {'return':1, 'error':'python package variation is not defined in "{}". Available: {}'.format(meta['alias'],' '.join(list_of_variations))}
 
+    ############################################################
+    def prepare(self, i):
+        """
+        Run CM script with --fake_run only to resolve deps
+        """
+
+        i['fake_run']=True
+
+        return self.run(i)
+
+
 ##############################################################################
 def find_cached_script(i):
     """
