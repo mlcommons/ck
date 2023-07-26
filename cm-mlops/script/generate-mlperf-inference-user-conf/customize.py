@@ -75,7 +75,7 @@ def preprocess(i):
 
     user_conf = ''
     if env['CM_MLPERF_RUN_STYLE'] == "fast":
-        fast_factor = env['CM_FAST_FACTOR']
+        fast_factor = int(env['CM_FAST_FACTOR'])
     else:
         fast_factor = 1
 
