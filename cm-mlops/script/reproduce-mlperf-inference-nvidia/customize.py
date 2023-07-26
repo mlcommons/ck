@@ -285,6 +285,18 @@ def preprocess(i):
         if use_graphs:
             run_config += " --use_graphs"
 
+        use_deque_limit = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT')
+        if use_deque_limit:
+            run_config += " --use_deque_limit"
+
+            deque_timeout_usec = env.get('CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC')
+            if deque_timeout_usec:
+                run_config += f" --deque_timeout_usec={deque_timeout_usec}"
+
+        use_cuda_thread_per_device = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_CUDA_THREAD_PER_DEVICE')
+        if use_cuda_thread_per_device:
+            run_config += " --use_cuda_thread_per_device"
+
         run_infer_on_copy_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_RUN_INFER_ON_COPY_STREAMS')
         if run_infer_on_copy_streams:
             run_config += " --run_infer_on_copy_streams"
