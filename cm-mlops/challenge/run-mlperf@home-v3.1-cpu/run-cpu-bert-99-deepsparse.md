@@ -61,5 +61,24 @@ CM will install a new Python virtual environment in CM cache and will install al
 cm show cache
 ```
 
+### Do a test run to detect and record the system performance
+
+```bash
+cm run script --tags=generate-run-cmds,inference,_find-performance \
+--model=bert-99 --implementation=reference --device=cpu --backend=deepsparse \
+--category=edge --division=open --quiet --scenario=Offline
+```
+
+### Do full accuracy and performance run
+
+```
+cm run script --tags=generate-run-cmds,inference,_submission --model=bert-99 \
+--device=cpu --implementation=reference --backend=deepsparse \
+--execution-mode=valid --results_dir=$HOME/results_dir \
+--category=edge --division=open --quiet --scenario=Offline
+```
+### Generate and upload MLPerf submission
+
+Follow [this guide](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/Submission.md) to generate the submission tree and upload your results.
 
 
