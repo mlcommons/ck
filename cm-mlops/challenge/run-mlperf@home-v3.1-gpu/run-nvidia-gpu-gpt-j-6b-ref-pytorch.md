@@ -3,8 +3,10 @@
 This guide will help you automatically run the reference implementation of the MLPerf inference benchmark v3.1 
 with GPT-J 6B model and PyTorch on any Linux-based system with Nvidia GPU (24GB min memory required).
 
-This benchmark is automated by the MLCommons CM language and you should be able to submit official MLPerf v3.1 inference results
-for singlestream scenario in open division and edge category.
+This benchmark is automated by the [MLCommons CM language](https://doi.org/10.5281/zenodo.8105339) 
+and you should be able to submit official MLPerf v3.1 inference results
+for singlestream scenario in open division and edge category 
+(**deadline to send us results for v3.1 submission: August 3, 2023**).
 
 It will require ~30GB of disk space and can take ~1 day to run on 1 system.
 
@@ -12,7 +14,7 @@ It will require ~30GB of disk space and can take ~1 day to run on 1 system.
 
 ## Install CM automation language
 
-Install the [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339) as described in this [guide](../../../docs/installation.md). 
+Install the [MLCommons CM automation language](https://github.com/mlcommons/ck) as described in this [guide](../../../docs/installation.md). 
 It is a small Python library with `cm` and `cmr` command line front-ends and minimal dependencies including Python 3+, Git and wget.
 
 If you encounter problems, please report them at [GitHub](https://github.com/mlcommons/ck/issues).
@@ -57,8 +59,23 @@ export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf"
 
 CM will install a new Python virtual environment in CM cache and will install all Python dependencies there:
 ```bash
-cm show cache
+cm show cache --tags=python-venv
 ```
+
+Note that CM downloads and/or installs models, data sets, packages, libraries and tools in this cache.
+
+You can clean it at any time and start from scratch using the following command:
+```bash
+cm rm cache -f
+```
+
+Alternatively, you can remove specific entries using tags:
+```bash
+cm show cache
+cm rm cache --tags=tag1,tag2,...
+```
+
+
 
 ## Setup CUDA
 
