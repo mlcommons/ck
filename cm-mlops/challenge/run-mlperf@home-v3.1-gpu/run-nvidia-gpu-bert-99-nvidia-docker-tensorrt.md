@@ -4,7 +4,8 @@ This guide will help you run the Nvidia implementation of the MLPerf inference b
 with BERT-99 model and TensorRT on any Linux-based system with Nvidia GPU (8..16GB min memory required)
 and Docker.
 
-This benchmark is semi-automated by the MLCommons CM language and you should be able to submit official MLPerf v3.1 inference results
+This benchmark is semi-automated by the [MLCommons CM language](https://doi.org/10.5281/zenodo.8105339) 
+and you should be able to submit official MLPerf v3.1 inference results
 for all scenarios in closed division and edge category
 (**deadline to send us results for v3.1 submission: August 3, 2023**).
 
@@ -142,17 +143,29 @@ to an Amazon S3 bucket containing all the needed files to automatically download
 
 ```
 cmr "generate-run-cmds inference _find-performance _all-scenarios" \
---model=bert-99 --implementation=nvidia-original --device=cuda --backend=tensorrt \
---category=edge --division=open --quiet --test_query_count=1000
+   --model=bert-99 \
+   --implementation=nvidia-original \
+   --device=cuda \
+   --backend=tensorrt \
+   --category=edge \
+   --division=open \
+   --test_query_count=1000 \
+   --quiet
 ```
 
 ### Do full accuracy and performance runs
 
 ```
-cmr "generate-run-cmds inference _submission _allscenarios" --model=bert-99 \
---device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
+cmr "generate-run-cmds inference _submission _allscenarios" \
+   --model=bert-99 \
+   --device=cuda \
+   --implementation=nvidia-original \
+   --backend=tensorrt \
+   --execution-mode=valid \
+   --results_dir=$HOME/results_dir \
+   --category=edge \
+   --division=open \
+   --quiet
 ```
 
 * `--offline_target_qps` and `--singlestream_target_latency` can be used to override the determined performance numbers
@@ -161,9 +174,15 @@ cmr "generate-run-cmds inference _submission _allscenarios" --model=bert-99 \
 
 ```
 cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
---model=bert-99 --device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
+   --model=bert-99 \
+   --device=cuda \
+   --implementation=nvidia-original \
+   --backend=tensorrt \
+   --execution-mode=valid \
+   --results_dir=$HOME/results_dir \
+   --category=edge \
+   --division=open \
+   --quiet
 ```
 
 ### Generate and upload MLPerf submission

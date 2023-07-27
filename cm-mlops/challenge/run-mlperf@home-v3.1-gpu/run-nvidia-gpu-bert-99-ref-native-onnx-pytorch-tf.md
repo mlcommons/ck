@@ -4,7 +4,8 @@ This guide will help you run the reference implementation of the MLPerf inferenc
 with BERT-99 model and ONNX runtime, PyTorch and TensorFlow on any Linux-based system with Nvidia GPU (8..16GB min memory required)
 in a native environment.
 
-This benchmark is semi-automated by the MLCommons CM language and you should be able to submit official MLPerf v3.1 inference results
+This benchmark is semi-automated by the [MLCommons CM language](https://doi.org/10.5281/zenodo.8105339)
+and you should be able to submit official MLPerf v3.1 inference results
 for offline scenario in open division and edge category
 (**deadline to send us results for v3.1 submission: August 3, 2023**).
 

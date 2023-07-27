@@ -4,7 +4,8 @@ This guide will help you run the Nvidia implementation of the MLPerf inference b
 with BERT-99 model and TensorRT on any Linux-based system with Nvidia GPU (8..16GB min memory required)
 in a native environment.
 
-This benchmark is semi-automated by the MLCommons CM language and you should be able to submit official MLPerf v3.1 inference results
+This benchmark is semi-automated by the [MLCommons CM language](https://doi.org/10.5281/zenodo.8105339) 
+and you should be able to submit official MLPerf v3.1 inference results
 for all scenarios in closed division and edge category
 (**deadline to send us results for v3.1 submission: August 3, 2023**).
 
@@ -113,10 +114,10 @@ cm rm cache --tags=tag1,tag2,...
     
     ```
       cmr "build nvidia inference server" \
-      --adr.install-cuda-prebuilt.local_run_file_path=/data/cuda_11.8.0_520.61.05_linux.run \
-      --adr.tensorrt.tar_file=/data/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
-      --adr.cudnn.tar_file=/data/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz \
-      --adr.compiler.tags=gcc
+         --adr.install-cuda-prebuilt.local_run_file_path=/data/cuda_11.8.0_520.61.05_linux.run \
+         --adr.tensorrt.tar_file=/data/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz \
+         --adr.cudnn.tar_file=/data/cudnn-linux-x86_64-8.9.2.26_cuda11-archive.tar.xz \
+         --adr.compiler.tags=gcc
       ```
 
 5. At the end of the build you'll get a prompt - please enter your system name such as "aws_nvidia_t4" 
