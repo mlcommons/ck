@@ -107,7 +107,7 @@ Now you can run MLPerf inference benchmark to measure performance of GPT-J using
 
 ```bash
 cm run script --tags=generate-run-cmds,inference,_performance-only \
-    --model=gptj-99 \
+    --model=gpt-j-99 \
     --device=cuda \
     --implementation=reference \
     --backend=pytorch \
@@ -196,7 +196,8 @@ No errors encountered during test.
 ### Do the accuracy run
 
 ```bash
-cm run script --tags=generate-run-cmds,inference,_accuracy-only --model=gptj-99 \
+cm run script --tags=generate-run-cmds,inference,_accuracy-only \
+    --model=gpt-j-99 \
     --device=cuda \
     --implementation=reference \
     --backend=pytorch \
@@ -225,7 +226,7 @@ Now you can use CM to automatically populate README files mandated by MLPerf to 
 
 ```bash
 cmr "generate-run-cmds inference _populate-readme" \
-  --model=gptj-99 --device=cpu --implementation=reference --backend=pytorch \
+  --model=gpt-j-99 --device=cpu --implementation=reference --backend=pytorch \
   --execution-mode=valid --scenario=SingleStream --results_dir=$HOME/results_dir \
   --category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=1
 ```
