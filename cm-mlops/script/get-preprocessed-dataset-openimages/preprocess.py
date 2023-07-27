@@ -31,4 +31,6 @@ openimages.OpenImages(data_path=dataset_path,
                         preprocessed_dir=preprocessed_dir)
 src_path=os.environ.get('CM_DATASET_ANNOTATIONS_DIR_PATH', os.path.join(dataset_path, "annotations"))
 dest_path=os.path.join(preprocessed_dir, "annotations")
-shutil.copytree(src_path, dest_path)
+
+if not os.path.exists(dest_path):
+    shutil.copytree(src_path, dest_path)
