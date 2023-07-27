@@ -144,7 +144,7 @@ def preprocess(i):
     f.write('RUN cm pull repo ' + cm_mlops_repo + EOL)
 
     f.write(EOL+'# Install all system dependencies' + EOL)
-    #f.write('RUN cm run script --quiet --tags=get,sys-utils-cm' + EOL)
+    f.write('RUN cm run script --quiet --tags=get,sys-utils-cm' + EOL)
 
     if 'CM_DOCKER_PRE_RUN_COMMANDS' in env:
         for pre_run_cmd in env['CM_DOCKER_PRE_RUN_COMMANDS']:

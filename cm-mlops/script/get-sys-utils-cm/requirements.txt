@@ -1,5 +1,0 @@
-requests
-numpy
-pandas
-wheel
-giturlparse

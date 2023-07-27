@@ -34,5 +34,3 @@ brew update && \
            xz \
            zlib \
            python3
-
-python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt ${CM_PYTHON_PIP_USER}
