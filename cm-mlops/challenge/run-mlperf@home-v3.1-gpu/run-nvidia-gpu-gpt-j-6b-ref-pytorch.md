@@ -247,9 +247,7 @@ cmr "generate inference submission" \
     --preprocess_submission=yes \
     --adr.compiler.tags=gcc \
     --adr.inference-src.version=master \
-    --run-checker \
-    --tar=yes \
-    --env.CM_TAR_OUTFILE=submission.tar.gz
+    --run-checker 
 ```
 
 ## Push the results to GitHub repo
@@ -262,7 +260,7 @@ cmr "generate inference submission" \
   cmr "push github mlperf inference submission" \
       --submission_dir=$HOME/inference_submission_tree \
       --repo_url=https://github.com/ctuning/mlperf_inference_submissions_v3.1/ \
-      --commit_message="Results on <HW name> added by <Name>"
+      --commit_message="GPTJ results on <HW name> added by <Name>"
   ```
 
 3. Create a PR to the [cTuning repo with the community results](https://github.com/ctuning/mlperf_inference_submissions_v3.1)
