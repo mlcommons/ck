@@ -115,7 +115,7 @@ def postprocess(i):
         installed_file_path = package.get_filename()
         env['CM_GET_DEPENDENT_CACHED_PATH'] = installed_file_path
 
-    pip_version = env.get('CM_PIP_VERSION', '').split('.')
+    pip_version = env.get('CM_PIP_VERSION', '').strip().split('.')
     if pip_version and int(pip_version[0]) >= 23:
         env['CM_PYTHON_PIP_COMMON_EXTRA'] = " --break-system-packages"
 
