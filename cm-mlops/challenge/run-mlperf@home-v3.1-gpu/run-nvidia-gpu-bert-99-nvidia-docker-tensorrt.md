@@ -148,7 +148,7 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
    --device=cuda \
    --backend=tensorrt \
    --category=edge \
-   --division=open \
+   --division=closed \
    --test_query_count=1000 \
    --quiet
 ```
@@ -164,7 +164,7 @@ cmr "generate-run-cmds inference _submission _allscenarios" \
    --execution-mode=valid \
    --results_dir=$HOME/results_dir \
    --category=edge \
-   --division=open \
+   --division=closed \
    --quiet
 ```
 
@@ -181,7 +181,7 @@ cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
    --execution-mode=valid \
    --results_dir=$HOME/results_dir \
    --category=edge \
-   --division=open \
+   --division=closed \
    --quiet
 ```
 

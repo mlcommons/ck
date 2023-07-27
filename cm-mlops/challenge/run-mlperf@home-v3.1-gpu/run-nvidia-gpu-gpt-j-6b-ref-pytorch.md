@@ -105,7 +105,7 @@ cm run script --tags=generate-run-cmds,inference,_performance-only \
 ```
 
 Note that this command will need to automatically download the model (24GB) 
-and CNN Daily Mail dataset (relatively small)!
+and [CNN Daily Mail dataset (relatively small)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-cnndm)!
 
 The benchmark run is expected to finish within 10-100 minutes depending on the performance of your GPU.
 
@@ -283,10 +283,13 @@ cd `cm find cache --tags=inference,src,_branch.master`/language/gpt-j
 ls backend.py
 ```
 
+The original model is available at the [Hugging Face Zoo](https://huggingface.co/EleutherAI/gpt-j-6b). It was fine-tuned by Intel for this benchmark
+and is available at the MLCommons cloud. It is automatically downloaded by CM using [this script](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-ml-model-gptj/_cm.json).
+
 You can try to improve the performance (QPS) on this code or fine-tune model and substitute the default one 
 in [this line](https://github.com/mlcommons/inference/blob/master/language/gpt-j/backend.py#L27).
 
-Some examples can be seen [here](https://betterprogramming.pub/fine-tuning-gpt-j-6b-on-google-colab-or-equivalent-desktop-or-server-gpu-b6dc849cb205). 
+Some examples of fine-tuning can be seen [here](https://betterprogramming.pub/fine-tuning-gpt-j-6b-on-google-colab-or-equivalent-desktop-or-server-gpu-b6dc849cb205). 
 
 Any better performance or accuracy result will be very valuable to the community.
 
@@ -306,6 +309,7 @@ cm run script --tags=generate-run-cmds,inference,_performance-only \
     --results_dir=$HOME/results_dir \
     --quiet
 ```
+
 
 
 ## Questions? Suggestions?
