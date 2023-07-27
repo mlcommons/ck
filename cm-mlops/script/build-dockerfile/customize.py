@@ -94,7 +94,7 @@ def preprocess(i):
         'packages')) + EOL)
 
     f.write(EOL+'# Install python packages' + EOL)
-    f.write('RUN python3 -m pip install ' + " ".join(get_value(env, config, 'python-packages')) + ' --break-system-packages' + EOL)
+    f.write('RUN python3 -m pip install ' + " ".join(get_value(env, config, 'python-packages')) + EOL)
     f.write(EOL+'# Setup docker environment' + EOL)
 
     entry_point = get_value(env, config, 'ENTRYPOINT', 'CM_DOCKER_IMAGE_ENTRYPOINT')
