@@ -313,6 +313,30 @@ def preprocess(i):
         if max_dlas:
             run_config += f" --max_dlas={max_dlas}"
 
+        graphs_max_seqlen = env.get('CM_MLPERF_NVIDIA_HARNESS_GRAPHS_MAX_SEQLEN')
+        if graphs_max_seqlen:
+            run_config += f" --graphs_max_seqlen={graphs_max_seqlen}"
+
+        num_issue_query_threads = env.get('CM_MLPERF_NVIDIA_HARNESS_NUM_ISSUE_QUERY_THREADS')
+        if num_issue_query_threads:
+            run_config += f" --num_issue_query_threads={num_issue_query_threads}"
+
+        soft_drop = env.get('CM_MLPERF_NVIDIA_HARNESS_SOFT_DROP')
+        if soft_drop:
+            run_config += f" --soft_drop={soft_drop}"
+
+        use_small_tile_gemm_plugin = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_SMALL_TILE_GEMM_PLUGIN')
+        if use_small_tile_gemm_plugin:
+            run_config += f" --use_small_tile_gemm_plugin"
+
+        audio_buffer_num_lines = env.get('CM_MLPERF_NVIDIA_HARNESS_AUDIO_BUFFER_NUM_LINES')
+        if audio_buffer_num_lines:
+            run_config += f" --audio_buffer_num_lines={audio_buffer_num_lines}"
+
+        num_warmups = env.get('CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS')
+        if num_warmups:
+            run_config += f" --num_warmups={num_warmups}"
+
         if test_mode:
             test_mode_string = " --test_mode={}".format(test_mode)
         else:
