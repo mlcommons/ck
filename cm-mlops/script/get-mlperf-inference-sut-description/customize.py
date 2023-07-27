@@ -105,11 +105,11 @@ def preprocess(i):
                     ", L3 cache: " + env.get('CM_HOST_CPU_L3_CACHE_SIZE', ' ')
 
         if state['CM_SUT_META'].get('host_processor_frequency', '') == '':
-            state['CM_SUT_META']['host_processor_frequency'] = env.get('CM_HOST_CPU_MAX_MHZ','undefined')
+            state['CM_SUT_META']['host_processor_frequency'] = env.get('CM_HOST_CPU_MAX_MHZ') if env.get('CM_HOST_CPU_MAX_MHZ', '') != '' else 'undefined'
         if state['CM_SUT_META'].get('host_memory_capacity', '') == '':
-            state['CM_SUT_META']['host_memory_capacity'] = env.get('CM_HOST_MEMORY_CAPACITY', 'undefined')
+            state['CM_SUT_META']['host_memory_capacity'] = env.get('CM_HOST_MEMORY_CAPACITY') if env.get('CM_HOST_MEMORY_CAPACITY', '') != '' else 'undefined'
         if state['CM_SUT_META'].get('host_storage_capacity', '') == '':
-            state['CM_SUT_META']['host_storage_capacity'] = env.get('CM_HOST_DISK_CAPACITY', 'undefined')
+            state['CM_SUT_META']['host_storage_capacity'] = env.get('CM_HOST_DISK_CAPACITY') if env.get('CM_HOST_DISK_CAPACITY', '') != '' else 'undefined'
         if 'CM_SUT_SW_NOTES' in env:
             sw_notes = env['CM_SUT_SW_NOTES']
         else:
