@@ -1,11 +1,13 @@
 # Introduction
 
-This guide will help you automatically run the Nvidia implementation of the MLPerf inference benchmark v3.1 
+This guide will help you run the Nvidia implementation of the MLPerf inference benchmark v3.1 
 with BERT-99 model and TensorRT on any Linux-based system with Nvidia GPU (8..16GB min memory required)
 in a native environment.
 
-This benchmark is automated by the MLCommons CM language and you should be able to submit official MLPerf v3.1 inference results
-for all scenarios in closed division and edge category.
+This benchmark is semi-automated by the MLCommons CM language and you should be able to submit official MLPerf v3.1 inference results
+for all scenarios in closed division and edge category
+(**deadline to send us results for v3.1 submission: August 3, 2023**).
+
 
 It will require ~30GB of disk space and can take ~2 hours to run on 1 system.
 
@@ -143,3 +145,7 @@ cm rm cache --tags=tag1,tag2,...
 
 
 
+## Questions? Suggestions?
+
+Don't hesitate to get in touch with the community and organizers 
+via [public Discord server](https://discord.gg/JjWNWXKxwT).
