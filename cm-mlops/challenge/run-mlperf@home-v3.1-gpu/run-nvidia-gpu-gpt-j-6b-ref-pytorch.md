@@ -79,65 +79,163 @@ cm rm cache --tags=tag1,tag2,...
 
 ## Setup CUDA
 
-1. We expect that CUDA driver 11+ is already installed on your system.
-   However, even if it is not, any CM script with CUDA depedency should automatically
-   download and install it using this [portable CM script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda).
+### Driver
 
+We expect that CUDA driver 11+ is already installed on your system.
+However, even if it is not, any CM script with CUDA depedency should automatically
+download and install it using this [portable CM script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda).
 
-2. Detect or install cuDNN (x86 host)
+### cuDNN
 
-   Try to detect already installed cuDNN on your system via CM:
+Try to detect already installed cuDNN on your system via CM (x86 host):
     
-    ```bash
-      cmr "get cudnn"
-    ```
+```bash
+  cmr "get cudnn"
+```
 
-    If it is not available, you can download it from [here](https://developer.nvidia.com/cudnn) and install it via CM as follows:
-    
-    ```bash
-      cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
-    ```
+If it is not available, you can download it from [here](https://developer.nvidia.com/cudnn) and install it via CM as follows:
+
+```bash
+  cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
+```
 
 
 ### Do the performance run
 
-```
-cm run script --tags=generate-run-cmds,inference,_performance-only --model=gptj-99 \
---device=cuda --implementation=reference --backend=pytorch \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=1 \
---scenario=SingleStream --singlestream_target_latency=500
+Now you can run MLPerf inference benchmark to measure performance of GPT-J using CM command as follows
+(note that `cmr` is equivalent to `cm run script`):
+
+```bash
+cm run script --tags=generate-run-cmds,inference,_performance-only \
+    --model=gptj-99 \
+    --device=cuda \
+    --implementation=reference \
+    --backend=pytorch \
+    --execution-mode=valid \
+    --results_dir=$HOME/results_dir \
+    --category=edge \
+    --division=open \
+    --quiet \
+    --precision=bfloat16 \
+    --env.GPTJ_BEAM_SIZE=1 \
+    --scenario=SingleStream
 ```
 
-* `--singlestream_target_latency` is in milliseconds and just an approximate value is fine here as it is used just to determine the maximum number of queries to be generated.
-* Run is expected to finish in 10-100 minutes depending on the performance of the GPU
+Note that this command will need to automatically download the model (24GB) 
+and CNN Daily Mail dataset (relatively small)!
+
+The benchmark run is expected to finish within 10-100 minutes depending on the performance of your GPU.
+
+In the end of the valid run, you should see [output](https://github.com/ctuning/mlperf_inference_submissions_v3.1/blob/main/open/cTuning/results/amd_zen4_workstation-reference-gpu-pytorch-v2.0.1-default_config/gptj-99/singlestream/performance/run_1/mlperf_log_summary.txt) similar to 
+
+```txt
+================================================
+MLPerf Results Summary
+================================================
+SUT name : PySUT
+Scenario : SingleStream
+Mode     : PerformanceOnly
+90th percentile latency (ns) : 4751920830
+Result is : VALID
+  Min duration satisfied : Yes
+  Min queries satisfied : Yes
+  Early stopping satisfied: Yes
+Early Stopping Result:
+ * Processed at least 64 queries (201).
+ * Would discard 9 highest latency queries.
+ * Early stopping 90th percentile estimate: 5387449249
+ * Not enough queries processed for 99th percentile
+ early stopping estimate (would need to process at
+ least 662 total queries).
+
+================================================
+Additional Stats
+================================================
+QPS w/ loadgen overhead         : 0.33
+QPS w/o loadgen overhead        : 0.33
+
+Min latency (ns)                : 881803157
+Max latency (ns)                : 5939081711
+Mean latency (ns)               : 3008773902
+50.00 percentile latency (ns)   : 2788885477
+90.00 percentile latency (ns)   : 4751920830
+95.00 percentile latency (ns)   : 5307244203
+97.00 percentile latency (ns)   : 5677375096
+99.00 percentile latency (ns)   : 5927209480
+99.90 percentile latency (ns)   : 5939081711
+
+================================================
+Test Parameters Used
+================================================
+samples_per_query : 1
+target_qps : 2000
+target_latency (ns): 0
+max_async_queries : 1
+min_duration (ms): 600000
+max_duration (ms): 620000
+min_query_count : 100
+max_query_count : 0
+qsl_rng_seed : 148687905518835231
+sample_index_rng_seed : 520418551913322573
+schedule_rng_seed : 811580660758947900
+accuracy_log_rng_seed : 0
+accuracy_log_probability : 0
+accuracy_log_sampling_target : 0
+print_timestamps : 0
+performance_issue_unique : 0
+performance_issue_same : 0
+performance_issue_same_index : 0
+performance_sample_count : 13368
+
+No warnings encountered during test.
+
+No errors encountered during test.
+```
+
 
 ### Do the accuracy run
 
-```
+```bash
 cm run script --tags=generate-run-cmds,inference,_accuracy-only --model=gptj-99 \
---device=cuda --implementation=reference --backend=pytorch \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=1 \
---scenario=SingleStream
+    --device=cuda \
+    --implementation=reference \
+    --backend=pytorch \
+    --execution-mode=valid \
+    --results_dir=$HOME/results_dir \
+    --category=edge \
+    --division=open \
+    --quiet \
+    --precision=bfloat16 \
+    --env.GPTJ_BEAM_SIZE=1 \
+    --scenario=SingleStream
 ```
 
-* Run can take many hours and if the queries per second of the system is 0.1 (latency in millisecond of 10000), it'll take 13368/0.1 seconds which is approximately 37 hours.  
+This accuracy run can take many hours (typically 12..46 hours). You can estimate it using the QPS (queries per second) 
+from the previous performance run as follows:
+
+accuracy time = data set / QPS = 13368 / QPS .
+
+For example, if your reported QPS is 0.1 (equivalent to 10000 ms latency), it will take 13368/0.1 ~ 37 hours.
 
 
 
 ### Populate the README files describing your submission
 
-```
+Now you can use CM to automatically populate README files mandated by MLPerf to describe your submission:
+
+```bash
 cmr "generate-run-cmds inference _populate-readme" \
---model=gptj-99 --device=cpu --implementation=reference --backend=pytorch \
---execution-mode=valid --scenario=SingleStream --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=1
+  --model=gptj-99 --device=cpu --implementation=reference --backend=pytorch \
+  --execution-mode=valid --scenario=SingleStream --results_dir=$HOME/results_dir \
+  --category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=1
 ```
 
 ### Generate and upload MLPerf submission
 
-Follow [this guide](https://github.com/ctuning/mlcommons-ck/blob/master/docs/mlperf/inference/Submission.md) to generate the submission tree and upload your results.
+Follow [this guide](https://github.com/ctuning/mlcommons-ck/blob/master/docs/mlperf/inference/Submission.md) to finalize your submission, 
+i.e. generate the submission tree and upload your results.
+
+
 
 ## Additional performance optimization challenge for interested enthusiasts
 
@@ -146,7 +244,11 @@ Follow [this guide](https://github.com/ctuning/mlcommons-ck/blob/master/docs/mlp
 cd `cm find cache --tags=inference,src,_branch.master`
 ```
 
-Here, `backend.py` is the code implementing the gpt-j inference. You can try to improve the performance of the code or to do better fine-tuning (some examples can be seen [here](https://betterprogramming.pub/fine-tuning-gpt-j-6b-on-google-colab-or-equivalent-desktop-or-server-gpu-b6dc849cb205). Any better performance or accuracy result will be very valuable to the community.
+Here, `backend.py` is the code implementing the gpt-j inference
+(you can also see this code in the official MLPerf inference src repo [here]( https://github.com/mlcommons/inference/blob/master/language/gpt-j/backend.py ). 
+You can try to improve the performance of the code or to do better fine-tuning 
+(some examples can be seen [here](https://betterprogramming.pub/fine-tuning-gpt-j-6b-on-google-colab-or-equivalent-desktop-or-server-gpu-b6dc849cb205). 
+Any better performance or accuracy result will be very valuable to the community.
 
 After any modification, you can redo a quick performance run to see the performance difference. 
 ```
