@@ -121,3 +121,21 @@ cmr "generate-run-cmds inference _populate-readme" \
 ### Generate and upload MLPerf submission
 
 Follow [this guide](https://github.com/ctuning/mlcommons-ck/blob/master/docs/mlperf/inference/Submission.md) to generate the submission tree and upload your results.
+
+## Additional performance optimization challenge for interested enthusiasts
+
+`cd` into the gpt-j code folder 
+```
+cd `cm find cache --tags=inference,src,_branch.master`
+```
+
+Here, `backend.py` is the code implementing the gpt-j inference. You can try to improve the performance of the code or to do better fine-tuning (some examples can be seen [here](https://betterprogramming.pub/fine-tuning-gpt-j-6b-on-google-colab-or-equivalent-desktop-or-server-gpu-b6dc849cb205). Any better performance or accuracy result will be very valuable to the community.
+
+After any modification, you can redo a quick performance run to see the performance difference. 
+```
+cm run script --tags=generate-run-cmds,inference,_performance-only --model=gptj-99 \
+--device=cuda --implementation=reference --backend=pytorch \
+--execution-mode=fast --results_dir=$HOME/results_dir \
+--category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=1 \
+--scenario=SingleStream --singlestream_target_latency=500
+```
