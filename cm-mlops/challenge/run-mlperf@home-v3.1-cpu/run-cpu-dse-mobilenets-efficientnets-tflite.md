@@ -52,14 +52,26 @@ cm pull repo mlcommons@ck
 We suggest you to setup a Python virtual environment via CM to avoid contaminating your existing Python installation:
 
 ```bash
-cm run script "install python-venv" --name=crowd-mlperf
-export CM_SCRIPT_EXTRA_CMD="--adr.python.name=crowd-mlperf"
+cm run script "install python-venv" --name=mlperf --version_min=3.8
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf"
 ```
 
 CM will install a new Python virtual environment in CM cache and will install all Python dependencies there:
 ```bash
-cm show cache
+cm show cache --tags=python-venv
 ```
 
+Note that CM downloads and/or installs models, data sets, packages, libraries and tools in this cache.
+
+You can clean it at any time and start from scratch using the following command:
+```bash
+cm rm cache -f
+```
+
+Alternatively, you can remove specific entries using tags:
+```bash
+cm show cache
+cm rm cache --tags=tag1,tag2,...
+```
 
 

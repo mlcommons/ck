@@ -83,6 +83,8 @@ class CAutomation(Automation):
             (script_tags) (str): find and run CM script by tags
             (stags)
 
+            (rerun) (bool): if True, rerun experiment in a given entry/directory instead of creating a new one...
+
             (explore) (dict): exploration dictionary
 
           ...
@@ -119,6 +121,44 @@ class CAutomation(Automation):
         # Get directory with datetime
         datetime = i.get('dir','')
 
+        if datetime == '' and i.get('rerun', False):
+            # Check if already some dir exist
+
+            directories = os.listdir(experiment_path)
+
+            datetimes = sorted([f for f in directories if os.path.isfile(os.path.join(experiment_path, f, self.CM_RESULT_FILE))], reverse=True)
+
+            if len(datetimes)==1:
+                datetime = datetimes[0]
+            elif len(datetimes)>1:
+                print ('')
+                print ('Select experiment:')
+
+                datetimes = sorted(datetimes)
+                
+                num = 0
+                print ('')
+                for d in datetimes:
+                    print ('{}) {}'.format(num, d.replace('.',' ')))
+                    num += 1
+
+                if not console:
+                    return {'return':1, 'error':'more than 1 experiment found.\nPlease use "cm rerun experiment --dir={date and time}"'}
+
+                print ('')
+                x=input('Make your selection or press Enter for 0: ')
+
+                x=x.strip()
+                if x=='': x='0'
+
+                selection = int(x)
+
+                if selection < 0 or selection >= num:
+                    selection = 0
+
+                datetime = datetimes[selection]
+
+        
         if datetime!='':
             experiment_path2 = os.path.join(experiment_path, datetime)
         else:
@@ -373,9 +413,17 @@ class CAutomation(Automation):
 
     
     
+    ############################################################
+    def rerun(self, i):
+        """
+        Rerun experiment
     
-    
-    
+        cm run experiment --rerun=True ...
+        """
+
+        i['rerun']=True
+
+        return self.run(i)
     
     
     
@@ -479,7 +527,7 @@ class CAutomation(Automation):
                     num += 1
 
                 if not console:
-                    return {'return':1, 'error':'more than 1 experiment found.\nPlease use "cm run experiment --datetime={date and time}"'}
+                    return {'return':1, 'error':'more than 1 experiment found.\nPlease use "cm run experiment --dir={date and time}"'}
                 
                 print ('')
                 x=input('Make your selection or press Enter for 0: ')

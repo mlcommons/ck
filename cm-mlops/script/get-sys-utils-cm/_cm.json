@@ -7,9 +7,6 @@
   "deps": [
     {
       "tags": "detect,os"
-    },
-    {
-      "tags": "get,generic-python-lib,_pip"
     }
   ],
   "env": {

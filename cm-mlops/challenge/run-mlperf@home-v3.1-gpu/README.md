@@ -13,7 +13,7 @@ in a native environment or Docker container using the portable and technology-ag
 [MLCommons Collective Mind automation language (CM)](https://doi.org/10.5281/zenodo.8105339).
 
 Your name and benchmark submissions will be published in the official MLCommons inference v3.1 results
-on September 1, 2023 (submission deadline: August 4, 2023), 
+on September 1, 2023 (**submission deadline: August 3, 2023**), 
 will be published in the [official leaderboard](https://access.cknowledge.org/playground/?action=contributors),
 will be included to the prize draw, and will be presented in our upcoming ACM/HiPEAC events 
 and joint white paper about crowd-benchmarking AI/ML systems similar to SETI@home.
@@ -44,12 +44,8 @@ Thank you in advance for helping the community find Pareto-efficient AI/ML Syste
 
 ### Instructions to run benchmarks and submit results
 
-You can run any of these benchmarks or all depending on available time:
-
-* [GPT-J 6B model; Reference MLPerf implementation; native environment or Docker; PyTorch+CUDA](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/run-mlperf%40home-v3.1-gpu/run-nvidia-gpu-gpt-j-6b-ref-pytorch.md)
-* [BERT-99 model; Nvidia MLPerf implementation; Docker; TensorRT](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/run-mlperf%40home-v3.1-gpu/run-nvidia-gpu-bert-99-nvidia-docker-tensorrt.md)
-* [BERT-99 model; Reference MLPerf implementation; native environment; PyTorch/ONNX/TensorFlow](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/run-mlperf%40home-v3.1-gpu/run-nvidia-gpu-bert-99-ref-native-onnx-pytorch-tf.md)
-* [BERT-99 model; Nvidia MLPerf implementation; native environment; TensorRT](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/run-mlperf%40home-v3.1-gpu/run-nvidia-gpu-bert-99-nvidia-native-tensorrt.md)
+* [GPT-J 6B model (24GB min GPU memory); PyTorch+CUDA; native environment](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/run-mlperf%40home-v3.1-gpu/run-nvidia-gpu-gpt-j-6b-ref-pytorch.md)
+* [BERT-99 model (8GB min GPU memory); TensorRT; Docker](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/run-mlperf%40home-v3.1-gpu/run-nvidia-gpu-bert-99-nvidia-docker-tensorrt.md)
 
 ### Results
 
