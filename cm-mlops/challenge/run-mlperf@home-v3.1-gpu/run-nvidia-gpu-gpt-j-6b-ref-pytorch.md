@@ -81,3 +81,61 @@ cm show cache
       cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
     ```
 
+
+### Do the performance run
+
+```
+cm run script --tags=generate-run-cmds,inference,_performance-only --model=gptj-99 \
+--device=cuda --implementation=reference --backend=pytorch \
+--execution-mode=valid --results_dir=$HOME/results_dir \
+--category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=1 \
+--scenario=SingleStream --singlestream_target_latency=500
+```
+
+* `--singlestream_target_latency` is in milliseconds and just an approximate value is fine here as it is used just to determine the maximum number of queries to be generated.
+* Run is expected to finish in 10-100 minutes depending on the performance of the GPU
+
+### Do the accuracy run
+
+```
+cm run script --tags=generate-run-cmds,inference,_accuracy-only --model=gptj-99 \
+--device=cuda --implementation=reference --backend=pytorch \
+--execution-mode=valid --results_dir=$HOME/results_dir \
+--category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=1 \
+--scenario=SingleStream
+```
+
+* Run can take many hours and if the queries per second of the system is 0.1 (latency in millisecond of 10000), it'll take 13368/0.1 seconds which is approximately 37 hours.  
+
+
+
+### Populate the README files describing your submission
+
+```
+cmr "generate-run-cmds inference _populate-readme" \
+--model=gptj-99 --device=cpu --implementation=reference --backend=pytorch \
+--execution-mode=valid --scenario=SingleStream --results_dir=$HOME/results_dir \
+--category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=1
+```
+
+### Generate and upload MLPerf submission
+
+Follow [this guide](https://github.com/ctuning/mlcommons-ck/blob/master/docs/mlperf/inference/Submission.md) to generate the submission tree and upload your results.
+
+## Additional performance optimization challenge for interested enthusiasts
+
+`cd` into the gpt-j code folder 
+```
+cd `cm find cache --tags=inference,src,_branch.master`
+```
+
+Here, `backend.py` is the code implementing the gpt-j inference. You can try to improve the performance of the code or to do better fine-tuning (some examples can be seen [here](https://betterprogramming.pub/fine-tuning-gpt-j-6b-on-google-colab-or-equivalent-desktop-or-server-gpu-b6dc849cb205). Any better performance or accuracy result will be very valuable to the community.
+
+After any modification, you can redo a quick performance run to see the performance difference. 
+```
+cm run script --tags=generate-run-cmds,inference,_performance-only --model=gptj-99 \
+--device=cuda --implementation=reference --backend=pytorch \
+--execution-mode=fast --results_dir=$HOME/results_dir \
+--category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=1 \
+--scenario=SingleStream --singlestream_target_latency=500
+```
