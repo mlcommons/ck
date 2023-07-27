@@ -27,8 +27,7 @@ else
   test $? -eq 0 || exit 1
 fi
 cd ${INSTALL_DIR}
-if [[ ! -f "open-images-v6-mlperf" ]]; then
-  ln -s ../ open-images-v6-mlperf
-fi
+
+ln -sf ../ open-images-v6-mlperf
 
 test $? -eq 0 || exit 1
