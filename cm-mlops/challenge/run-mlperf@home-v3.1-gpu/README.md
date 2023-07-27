@@ -13,7 +13,7 @@ in a native environment or Docker container using the portable and technology-ag
 [MLCommons Collective Mind automation language (CM)](https://doi.org/10.5281/zenodo.8105339).
 
 Your name and benchmark submissions will be published in the official MLCommons inference v3.1 results
-on September 1, 2023 (submission deadline: August 4, 2023), 
+on September 1, 2023 (**submission deadline: August 3, 2023**), 
 will be published in the [official leaderboard](https://access.cknowledge.org/playground/?action=contributors),
 will be included to the prize draw, and will be presented in our upcoming ACM/HiPEAC events 
 and joint white paper about crowd-benchmarking AI/ML systems similar to SETI@home.

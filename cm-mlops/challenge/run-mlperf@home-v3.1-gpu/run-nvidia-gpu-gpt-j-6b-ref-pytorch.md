@@ -1,14 +1,21 @@
 # Introduction
 
-This guide will help you automatically run the reference implementation of the MLPerf inference benchmark v3.1 
-with GPT-J 6B model and PyTorch on any Linux-based system with Nvidia GPU (24GB min memory required).
+This guide will help you run the reference implementation of the MLPerf inference benchmark v3.1 
+with GPT-J 6B model and PyTorch on any Linux-based system with Nvidia GPU (24GB min memory required)
+using the [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339).
 
-This benchmark is automated by the [MLCommons CM language](https://doi.org/10.5281/zenodo.8105339) 
-and you should be able to submit official MLPerf v3.1 inference results
-for singlestream scenario in open division and edge category 
+CM will help you to obtain performance and accuracy numbers for GPT-J 6B model on your system
+for the SingleStream scenario and submit them to the official MLPerf v3.1 inference benchmarking round 
+in open division and edge category 
 (**deadline to send us results for v3.1 submission: August 3, 2023**).
 
-It will require ~30GB of disk space and can take ~1 day to run on 1 system.
+You can read more about scenarios, divisions and categories of MLPerf inference benchmarks
+in this [MLPerf inference benchmark paper](https://arxiv.org/abs/1911.02549) -
+our goal is to help the community compare performance, accuracy and other metrics of popular models across diverse systems
+in an automated, unified and reproducible way!
+
+This benchmark will require ~30GB of disk space and can take ~1 day to run on one system 
+to have a valid MLPerf result.
 
 
 
@@ -76,49 +83,25 @@ cm rm cache --tags=tag1,tag2,...
 ```
 
 
-
-## Setup CUDA
-
-### Driver
-
-We expect that CUDA driver 11+ is already installed on your system.
-However, even if it is not, any CM script with CUDA depedency should automatically
-download and install it using this [portable CM script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda).
-
-### cuDNN
-
-Try to detect already installed cuDNN on your system via CM (x86 host):
-    
-```bash
-  cmr "get cudnn"
-```
-
-If it is not available, you can download it from [here](https://developer.nvidia.com/cudnn) and install it via CM as follows:
-
-```bash
-  cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
-```
-
-
-### Do the performance run
+## Do the performance run
 
 Now you can run MLPerf inference benchmark to measure performance of GPT-J using CM command as follows
 (note that `cmr` is equivalent to `cm run script`):
 
 ```bash
 cm run script --tags=generate-run-cmds,inference,_performance-only \
+    --division=open \
+    --category=edge \
     --model=gpt-j-99 \
+    --precision=bfloat16 \
     --device=cuda \
     --implementation=reference \
     --backend=pytorch \
+    --scenario=SingleStream \
+    --env.GPTJ_BEAM_SIZE=1 \
     --execution-mode=valid \
     --results_dir=$HOME/results_dir \
-    --category=edge \
-    --division=open \
-    --quiet \
-    --precision=bfloat16 \
-    --env.GPTJ_BEAM_SIZE=1 \
-    --scenario=SingleStream
+    --quiet
 ```
 
 Note that this command will need to automatically download the model (24GB) 
@@ -193,22 +176,22 @@ No errors encountered during test.
 ```
 
 
-### Do the accuracy run
+## Do the accuracy run
 
 ```bash
 cm run script --tags=generate-run-cmds,inference,_accuracy-only \
+    --division=open \
+    --category=edge \
     --model=gpt-j-99 \
+    --precision=bfloat16 \
     --device=cuda \
     --implementation=reference \
     --backend=pytorch \
+    --scenario=SingleStream \
+    --env.GPTJ_BEAM_SIZE=1 \
     --execution-mode=valid \
     --results_dir=$HOME/results_dir \
-    --category=edge \
-    --division=open \
-    --quiet \
-    --precision=bfloat16 \
-    --env.GPTJ_BEAM_SIZE=1 \
-    --scenario=SingleStream
+    --quiet
 ```
 
 This accuracy run can take many hours (typically 12..46 hours). You can estimate it using the QPS (queries per second) 
@@ -220,42 +203,114 @@ For example, if your reported QPS is 0.1 (equivalent to 10000 ms latency), it wi
 
 
 
-### Populate the README files describing your submission
+## Populate the MLPerf README files describing your submission
 
-Now you can use CM to automatically populate README files mandated by MLPerf to describe your submission:
+Now you can use CM to automatically populate README files mandated by MLPerf to describe your submission
+(we also show you a simpler syntax of `cmr` instead of `cm run script --tags=`):
 
 ```bash
 cmr "generate-run-cmds inference _populate-readme" \
-  --model=gpt-j-99 --device=cpu --implementation=reference --backend=pytorch \
-  --execution-mode=valid --scenario=SingleStream --results_dir=$HOME/results_dir \
-  --category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=1
+    --division=open \
+    --category=edge \
+    --model=gpt-j-99 \
+    --precision=bfloat16 \
+    --device=cuda \
+    --implementation=reference \
+    --backend=pytorch \
+    --scenario=SingleStream \
+    --env.GPTJ_BEAM_SIZE=1 \
+    --execution-mode=valid \
+    --results_dir=$HOME/results_dir \
+    --quiet
 ```
 
-### Generate and upload MLPerf submission
 
-Follow [this guide](https://github.com/ctuning/mlcommons-ck/blob/master/docs/mlperf/inference/Submission.md) to finalize your submission, 
-i.e. generate the submission tree and upload your results.
+## Generate MLPerf submission
+
+Unless your organizations is an official member of MLCommons, you will be able to participate in the official MLPerf inference community submission
+via the cTuning foundation (founding member of MLCommons).
+
+You should update the following flags in the below CM command:
+* Use `--hw_notes_extra` option to add your name to the submission such as `--hw_notes_extra="Result taken by NAME" `.
+* Use `--hw_name="My system name"` to give a meaningful system name describing your GPU. 
+  Examples can be seen [here](https://github.com/mlcommons/inference_results_v3.0/tree/main/open/cTuning/systems).
+* Use `--submitter=<Your name>` if your organization is an official MLCommons member and you would like to submit under your organization.
+
+You should use the master branch of MLCommons inference repo for the submission checker:
+
+```bash
+cmr "generate inference submission" \
+    --clean \
+    --submitter=cTuning \
+    --results_dir=$HOME/results_dir/valid_results \
+    --submission_dir=$HOME/inference_submission_tree \
+    --preprocess_submission=yes \
+    --adr.compiler.tags=gcc \
+    --adr.inference-src.version=master \
+    --run-checker \
+    --tar=yes \
+    --env.CM_TAR_OUTFILE=submission.tar.gz
+```
+
+## Push the results to GitHub repo
+
+1. Create a fork of [this cTuning repo with the community results](https://github.com/ctuning/mlperf_inference_submissions_v3.1). 
+
+2. Run the following command after replacing `--repo_url` with your fork URL.
+
+  ```
+  cmr "push github mlperf inference submission" \
+      --submission_dir=$HOME/inference_submission_tree \
+      --repo_url=https://github.com/ctuning/mlperf_inference_submissions_v3.1/ \
+      --commit_message="Results on <HW name> added by <Name>"
+  ```
+
+3. Create a PR to the [cTuning repo with the community results](https://github.com/ctuning/mlperf_inference_submissions_v3.1)
+
+
+
+
+
+
 
 
 
 ## Additional performance optimization challenge for interested enthusiasts
 
-`cd` into the gpt-j code folder 
-```
-cd `cm find cache --tags=inference,src,_branch.master`
+The MLPerf GPT-J inference benchmark is implemented in this [backend.py](https://github.com/mlcommons/inference/blob/master/language/gpt-j/backend.py).
+
+It is automatically installed and cached by CM. You can find it on your system using this command:
+```bash
+cd `cm find cache --tags=inference,src,_branch.master`/language/gpt-j
+ls backend.py
 ```
 
-Here, `backend.py` is the code implementing the gpt-j inference
-(you can also see this code in the official MLPerf inference src repo [here]( https://github.com/mlcommons/inference/blob/master/language/gpt-j/backend.py ). 
-You can try to improve the performance of the code or to do better fine-tuning 
-(some examples can be seen [here](https://betterprogramming.pub/fine-tuning-gpt-j-6b-on-google-colab-or-equivalent-desktop-or-server-gpu-b6dc849cb205). 
+You can try to improve the performance (QPS) on this code or fine-tune model and substitute the default one 
+in [this line](https://github.com/mlcommons/inference/blob/master/language/gpt-j/backend.py#L27).
+
+Some examples can be seen [here](https://betterprogramming.pub/fine-tuning-gpt-j-6b-on-google-colab-or-equivalent-desktop-or-server-gpu-b6dc849cb205). 
+
 Any better performance or accuracy result will be very valuable to the community.
 
 After any modification, you can redo a quick performance run to see the performance difference. 
 ```
-cm run script --tags=generate-run-cmds,inference,_performance-only --model=gptj-99 \
---device=cuda --implementation=reference --backend=pytorch \
---execution-mode=fast --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=1 \
---scenario=SingleStream --singlestream_target_latency=500
+cm run script --tags=generate-run-cmds,inference,_performance-only \
+    --division=open \
+    --category=edge \
+    --model=gpt-j-99 \
+    --precision=bfloat16 \
+    --device=cuda \
+    --implementation=reference \
+    --backend=pytorch \
+    --scenario=SingleStream \
+    --env.GPTJ_BEAM_SIZE=1 \
+    --execution-mode=valid \
+    --results_dir=$HOME/results_dir \
+    --quiet
 ```
+
+
+## Questions? Suggestions?
+
+Don't hesitate to get in touch with the community and organizers 
+via [public Discord server](https://discord.gg/JjWNWXKxwT).
