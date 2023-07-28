@@ -24,23 +24,6 @@
     "get",
     "sys-utils-cm"
   ],
-  "posthook_deps": [
-    {
-      "tags": "get,generic-python-lib,_package.requests"
-    },
-    {
-      "tags": "get,genericpython-lib,_package.numpy"
-    },
-    {
-      "tags": "get,generic-python-lib,_package.pandas"
-    },
-    {
-      "tags": "get,generic-python-lib,_package.wheel"
-    },
-    {
-      "tags": "get,generic-python-lib,_package.giturlparse"
-    }
-  ],
   "uid": "bc90993277e84b8e",
   "variations": {
     "user": {
