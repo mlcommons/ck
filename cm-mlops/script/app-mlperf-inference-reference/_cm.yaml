@@ -673,6 +673,8 @@ variations:
     env:
       CM_TMP_IGNORE_MLPERF_QUERY_COUNT: true
       CM_MLPERF_MODEL_SKIP_BATCHING: true
+    deps:
+    - tags: get,generic-python-lib,_package.nibabel
 
   dlrm-99.9:
     group: models
