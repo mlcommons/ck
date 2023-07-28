@@ -233,12 +233,15 @@ def preprocess(i):
         gpu_copy_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS')
         if gpu_copy_streams:
             run_config += f" --gpu_copy_streams={gpu_copy_streams}"
+
         gpu_inference_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS')
         if gpu_inference_streams:
             run_config += f" --gpu_inference_streams={gpu_inference_streams}"
+
         dla_copy_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_DLA_COPY_STREAMS')
         if dla_copy_streams:
             run_config += f" --dla_copy_streams={dla_copy_streams}"
+
         dla_inference_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_DLA_INFERENCE_STREAMS')
         if dla_inference_streams:
             run_config += f" --dla_inference_streams={dla_inference_streams}"
@@ -246,6 +249,7 @@ def preprocess(i):
         gpu_batch_size = env.get('CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE')
         if gpu_batch_size:
             run_config += f" --gpu_batch_size={gpu_batch_size}"
+
         dla_batch_size = env.get('CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE')
         if dla_batch_size:
             run_config += f" --dla_batch_size={dla_batch_size}"
@@ -282,11 +286,11 @@ def preprocess(i):
             run_config += f" --log_dir={log_dir}"
 
         use_graphs = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS')
-        if use_graphs:
+        if use_graphs  and use_graphs.lower() not in [ "no", "false" ]:
             run_config += " --use_graphs"
 
         use_deque_limit = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT')
-        if use_deque_limit:
+        if use_deque_limit  and use_deque_limit.lower() not in [ "no", "false" ]:
             run_config += " --use_deque_limit"
 
             deque_timeout_usec = env.get('CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC')
@@ -294,19 +298,19 @@ def preprocess(i):
                 run_config += f" --deque_timeout_usec={deque_timeout_usec}"
 
         use_cuda_thread_per_device = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_CUDA_THREAD_PER_DEVICE')
-        if use_cuda_thread_per_device:
+        if use_cuda_thread_per_device  and use_cuda_thread_per_device.lower() not in [ "no", "false" ]:
             run_config += " --use_cuda_thread_per_device"
 
         run_infer_on_copy_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_RUN_INFER_ON_COPY_STREAMS')
-        if run_infer_on_copy_streams:
+        if run_infer_on_copy_streams  and run_infer_on_copy_streams.lower() not in [ "no", "false" ]:
             run_config += " --run_infer_on_copy_streams"
 
         start_from_device = env.get('CM_MLPERF_NVIDIA_HARNESS_START_FROM_DEVICE')
-        if start_from_device:
+        if start_from_device  and start_from_device.lower() not in [ "no", "false" ]:
             run_config += " --start_from_device"
 
         end_on_device = env.get('CM_MLPERF_NVIDIA_HARNESS_END_ON_DEVICE')
-        if end_on_device:
+        if end_on_device  and end_on_device.lower() not in [ "no", "false" ]:
             run_config += " --end_on_device"
 
         max_dlas = env.get('CM_MLPERF_NVIDIA_HARNESS_MAX_DLAS')
@@ -326,7 +330,7 @@ def preprocess(i):
             run_config += f" --soft_drop={soft_drop}"
 
         use_small_tile_gemm_plugin = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_SMALL_TILE_GEMM_PLUGIN')
-        if use_small_tile_gemm_plugin:
+        if use_small_tile_gemm_plugin  and use_small_tile_gemm_plugin.lower() not in [ "no", "false" ]:
             run_config += f" --use_small_tile_gemm_plugin"
 
         audio_buffer_num_lines = env.get('CM_MLPERF_NVIDIA_HARNESS_AUDIO_BUFFER_NUM_LINES')
