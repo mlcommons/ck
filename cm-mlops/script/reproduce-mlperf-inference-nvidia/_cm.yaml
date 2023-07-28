@@ -1218,6 +1218,11 @@ variations:
   sxm:
     group: gpu-connection
 
+  custom:
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
+
   a100:
     default_variation:
       gpu-connection: sxm
