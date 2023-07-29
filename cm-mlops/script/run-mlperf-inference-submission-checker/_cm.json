@@ -4,6 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "cache": false,
   "category": "Modular MLPerf benchmarks",
+  "default_version": "master",
   "clean_files": [
   ],
   "deps": [
@@ -61,7 +62,7 @@
     "skip_compliance": "CM_MLPERF_SKIP_COMPLIANCE",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
     "submitter": "CM_MLPERF_SUBMITTER",
-    "version": "CM_MLPERF_VERSION",
+    "src_version": "CM_MLPERF_SUBMISSION_CHECKER_VERSION",
     "push_to_github": "CM_MLPERF_RESULT_PUSH_TO_GITHUB",
     "extra_model_benchmark_map": "CM_MLPERF_EXTRA_MODEL_MAPPING",
     "power": "CM_MLPERF_POWER",
@@ -89,6 +90,22 @@
     "short-run": {
       "env": {
         "CM_MLPERF_SHORT_RUN": "yes"
+      }
+    }
+  },
+  "versions": {
+    "master": {
+      "adr": {
+        "submission-checker-src": {
+          "version": "master"
+        }
+      }
+    },
+    "r3.0": {
+      "adr": {
+        "submission-checker-src": {
+          "version": "r3.0"
+        }
       }
     }
   }

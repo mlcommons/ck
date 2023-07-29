@@ -158,14 +158,29 @@
   "versions": {
     "master": {
       "env": {
-        "CM_GIT_CHECKOUT": "master",
-        "CM_MLPERF_LAST_RELEASE": "v3.1"
+        "CM_MLPERF_LAST_RELEASE": "v3.1",
+        "CM_GIT_CHECKOUT": "master"
+      }
+    },
+    "r3.0": {
+      "env": {
+        "CM_MLPERF_LAST_RELEASE": "v3.0",
+        "CM_GIT_CHECKOUT": ""
+      },
+      "adr": {
+        "inference-git-repo": {
+          "tags": "_tag.v3.0"
+        }
       }
     },
     "r2.1": {
       "env": {
-        "CM_GIT_CHECKOUT": "r2.1",
         "CM_MLPERF_LAST_RELEASE": "v2.1"
+      },
+      "adr": {
+        "inference-git-repo": {
+          "tags": "_tag.v2.1"
+        }
       }
     },
     "tvm": {
