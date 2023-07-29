@@ -1233,6 +1233,8 @@ variations:
     group: gpu-name
     env:
       CM_NVIDIA_CUSTOM_GPU: "yes"
+      CM_MODEL_BATCH_SIZE: "" #we pick from nvidia config
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   a100:
     default_variation:
