@@ -51,6 +51,7 @@ def preprocess(i):
         test_list.remove("TEST04")
     if "gpt-" in env['CM_MODEL']:
         test_list.remove("TEST05")
+        test_list.remove("TEST04")
 
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
     state['RUN'][scenario] = {}
@@ -184,7 +185,8 @@ def preprocess(i):
 
     else:
         if scenario == "MultiStream" or scenario == "SingleStream":
-            user_conf += ml_model_name + "." + scenario + ".max_duration = 660000 \n"
+            if env.get('CM_MLPERF_USE_MAX_DURATION', 'yes').lower() not in [ "no", "false" ]:
+                user_conf += ml_model_name + "." + scenario + ".max_duration = 660000 \n"
             if scenario == "MultiStream":
                 user_conf += ml_model_name + "." + scenario + ".min_query_count = 662" + "\n"
             if short_ranging:
