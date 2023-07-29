@@ -187,7 +187,7 @@ cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
 
 ### Generate and upload MLPerf submission
 
-Follow [this guide](../Submission.md) to generate the submission tree and upload your results.
+Follow [this guide](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/Submission.md) to generate the submission tree and upload your results.
 
 
 ## Questions? Suggestions?
