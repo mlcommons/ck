@@ -92,7 +92,7 @@ Now you can run MLPerf inference benchmark to measure performance of GPT-J using
 cm run script --tags=generate-run-cmds,inference,_performance-only \
     --division=open \
     --category=edge \
-    --model=gpt-j-99 \
+    --model=gptj-99 \
     --precision=bfloat16 \
     --device=cuda \
     --implementation=reference \
@@ -182,7 +182,7 @@ No errors encountered during test.
 cm run script --tags=generate-run-cmds,inference,_accuracy-only \
     --division=open \
     --category=edge \
-    --model=gpt-j-99 \
+    --model=gptj-99 \
     --precision=bfloat16 \
     --device=cuda \
     --implementation=reference \
@@ -212,7 +212,7 @@ Now you can use CM to automatically populate README files mandated by MLPerf to 
 cmr "generate-run-cmds inference _populate-readme" \
     --division=open \
     --category=edge \
-    --model=gpt-j-99 \
+    --model=gptj-99 \
     --precision=bfloat16 \
     --device=cuda \
     --implementation=reference \
@@ -227,7 +227,7 @@ cmr "generate-run-cmds inference _populate-readme" \
 
 ## Generate MLPerf submission
 
-Unless your organizations is an official member of MLCommons, you will be able to participate in the official MLPerf inference community submission
+Unless your organization is an official member of MLCommons, you will be able to participate in the official MLPerf inference community submission
 via the cTuning foundation (founding member of MLCommons).
 
 You should update the following flags in the below CM command:
@@ -298,7 +298,7 @@ After any modification, you can redo a quick performance run to see the performa
 cm run script --tags=generate-run-cmds,inference,_performance-only \
     --division=open \
     --category=edge \
-    --model=gpt-j-99 \
+    --model=gptj-99 \
     --precision=bfloat16 \
     --device=cuda \
     --implementation=reference \
