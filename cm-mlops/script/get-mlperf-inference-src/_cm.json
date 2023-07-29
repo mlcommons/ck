@@ -175,12 +175,8 @@
     },
     "r2.1": {
       "env": {
-        "CM_MLPERF_LAST_RELEASE": "v2.1"
-      },
-      "adr": {
-        "inference-git-repo": {
-          "tags": "_tag.v2.1"
-        }
+        "CM_MLPERF_LAST_RELEASE": "v2.1",
+        "CM_GIT_CHECKOUT": "v2.1"
       }
     },
     "tvm": {
