@@ -1,11 +1,14 @@
 # Introduction
 
-This guide will help you automatically run the Nvidia implementation of the MLPerf inference benchmark v3.1 
+This guide will help you run the Nvidia implementation of the MLPerf inference benchmark v3.1 
 with BERT-99 model and TensorRT on any Linux-based system with Nvidia GPU (8..16GB min memory required)
 and Docker.
 
-This benchmark is automated by the MLCommons CM language and you should be able to submit official MLPerf v3.1 inference results
-for all scenarios in closed division and edge category.
+This benchmark is semi-automated by the [MLCommons CM language](https://doi.org/10.5281/zenodo.8105339) 
+and you should be able to submit official MLPerf v3.1 inference results
+for all scenarios in closed division and edge category
+(**deadline to send us results for v3.1 submission: August 3, 2023**).
+
 
 It will require ~30GB of disk space and can take ~2 hours to run on 1 system.
 
@@ -140,17 +143,29 @@ to an Amazon S3 bucket containing all the needed files to automatically download
 
 ```
 cmr "generate-run-cmds inference _find-performance _all-scenarios" \
---model=bert-99 --implementation=nvidia-original --device=cuda --backend=tensorrt \
---category=edge --division=open --quiet --test_query_count=1000
+   --model=bert-99 \
+   --implementation=nvidia-original \
+   --device=cuda \
+   --backend=tensorrt \
+   --category=edge \
+   --division=closed \
+   --test_query_count=1000 \
+   --quiet
 ```
 
 ### Do full accuracy and performance runs
 
 ```
-cmr "generate-run-cmds inference _submission _allscenarios" --model=bert-99 \
---device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
+cmr "generate-run-cmds inference _submission _allscenarios" \
+   --model=bert-99 \
+   --device=cuda \
+   --implementation=nvidia-original \
+   --backend=tensorrt \
+   --execution-mode=valid \
+   --results_dir=$HOME/results_dir \
+   --category=edge \
+   --division=closed \
+   --quiet
 ```
 
 * `--offline_target_qps` and `--singlestream_target_latency` can be used to override the determined performance numbers
@@ -159,12 +174,23 @@ cmr "generate-run-cmds inference _submission _allscenarios" --model=bert-99 \
 
 ```
 cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
---model=bert-99 --device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
+   --model=bert-99 \
+   --device=cuda \
+   --implementation=nvidia-original \
+   --backend=tensorrt \
+   --execution-mode=valid \
+   --results_dir=$HOME/results_dir \
+   --category=edge \
+   --division=closed \
+   --quiet
 ```
 
 ### Generate and upload MLPerf submission
 
 Follow [this guide](../Submission.md) to generate the submission tree and upload your results.
 
+
+## Questions? Suggestions?
+
+Don't hesitate to get in touch with the community and organizers 
+via [public Discord server](https://discord.gg/JjWNWXKxwT).

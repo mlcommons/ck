@@ -71,7 +71,7 @@ def preprocess(i):
         state['CM_SUT_META']['operating_system'] = os_name_string
         state['CM_SUT_META']['other_software_stack'] = "Python: " + python_version + ", " + compiler + "-" + compiler_version
 
-        if not state['CM_SUT_META'].get('system_name'):
+        if state['CM_SUT_META'].get('system_name','') == '':
             system_name = env.get('CM_MLPERF_SYSTEM_NAME')
             if not system_name:
                 system_name = env.get('CM_HW_NAME')
@@ -89,27 +89,27 @@ def preprocess(i):
             state['CM_SUT_META']['accelerator_model_name'] = state['cm_cuda_device_prop']['GPU Name']
             state['CM_SUT_META']['accelerators_per_node'] = "1"
 
-        if 'host_processor_core_count' not in state['CM_SUT_META']:
+        if state['CM_SUT_META'].get('host_processor_core_count', '') == '':
             physical_cores_per_node = env.get('CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET')
             state['CM_SUT_META']['host_processor_core_count'] = physical_cores_per_node
 
-        if 'host_processor_model_name' not in state['CM_SUT_META']:
+        if state['CM_SUT_META'].get('host_processor_model_name', '') == '':
             state['CM_SUT_META']['host_processor_model_name'] = env.get('CM_HOST_CPU_MODEL_NAME', 'undefined')
-        if 'host_processors_per_node' not in state['CM_SUT_META']:
+        if state['CM_SUT_META'].get('host_processors_per_node', '') == '':
             state['CM_SUT_META']['host_processors_per_node'] = env.get('CM_HOST_CPU_SOCKETS', '')
 
-        if 'host_processor_caches' not in state['CM_SUT_META']:
+        if state['CM_SUT_META'].get('host_processor_caches', '') == '':
             state['CM_SUT_META']['host_processor_caches'] = "L1d cache: " + env.get('CM_HOST_CPU_L1D_CACHE_SIZE', ' ') + \
                     ", L1i cache: " + env.get('CM_HOST_CPU_L1I_CACHE_SIZE', ' ') + ", L2 cache: " + \
                     env.get('CM_HOST_CPU_L2_CACHE_SIZE', ' ') + \
                     ", L3 cache: " + env.get('CM_HOST_CPU_L3_CACHE_SIZE', ' ')
 
-        if 'host_processor_frequency' not in state['CM_SUT_META']:
-            state['CM_SUT_META']['host_processor_frequency'] = env.get('CM_HOST_CPU_MAX_MHZ','')
-        if 'host_memory_capacity' not in state['CM_SUT_META']:
-            state['CM_SUT_META']['host_memory_capacity'] = env.get('CM_HOST_MEMORY_CAPACITY', '')
-        if 'host_storage_capacity' not in state['CM_SUT_META']:
-            state['CM_SUT_META']['host_storage_capacity'] = env.get('CM_HOST_DISK_CAPACITY', '')
+        if state['CM_SUT_META'].get('host_processor_frequency', '') == '':
+            state['CM_SUT_META']['host_processor_frequency'] = env.get('CM_HOST_CPU_MAX_MHZ') if env.get('CM_HOST_CPU_MAX_MHZ', '') != '' else 'undefined'
+        if state['CM_SUT_META'].get('host_memory_capacity', '') == '':
+            state['CM_SUT_META']['host_memory_capacity'] = env.get('CM_HOST_MEMORY_CAPACITY') if env.get('CM_HOST_MEMORY_CAPACITY', '') != '' else 'undefined'
+        if state['CM_SUT_META'].get('host_storage_capacity', '') == '':
+            state['CM_SUT_META']['host_storage_capacity'] = env.get('CM_HOST_DISK_CAPACITY') if env.get('CM_HOST_DISK_CAPACITY', '') != '' else 'undefined'
         if 'CM_SUT_SW_NOTES' in env:
             sw_notes = env['CM_SUT_SW_NOTES']
         else:

@@ -105,6 +105,11 @@ deps:
     enable_if_env:
       CM_MLPERF_DEVICE:
       - gpu
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      - tf
+      - tflite
+
   # Detect TensorRT if required
   - tags: get,nvidia,tensorrt
     enable_if_env:
@@ -668,6 +673,8 @@ variations:
     env:
       CM_TMP_IGNORE_MLPERF_QUERY_COUNT: true
       CM_MLPERF_MODEL_SKIP_BATCHING: true
+    deps:
+    - tags: get,generic-python-lib,_package.nibabel
 
   dlrm-99.9:
     group: models

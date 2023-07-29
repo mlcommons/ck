@@ -93,8 +93,10 @@ def preprocess(i):
     f.write('RUN '+ get_value(env, config, 'package-manager-get-cmd') + " " + " ".join(get_value(env, config,
         'packages')) + EOL)
 
+    pip_extra_flags = env.get('CM_DOCKER_PIP_INSTALL_EXTRA_FLAGS', '')
+
     f.write(EOL+'# Install python packages' + EOL)
-    f.write('RUN python3 -m pip install ' + " ".join(get_value(env, config, 'python-packages')) + EOL)
+    f.write('RUN python3 -m pip install ' + " ".join(get_value(env, config, 'python-packages')) + ' ' + pip_extra_flags + ' ' + EOL)
     f.write(EOL+'# Setup docker environment' + EOL)
 
     entry_point = get_value(env, config, 'ENTRYPOINT', 'CM_DOCKER_IMAGE_ENTRYPOINT')

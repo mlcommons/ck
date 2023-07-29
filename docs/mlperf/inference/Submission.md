@@ -13,7 +13,9 @@ cmr "generate inference submission" \
 --adr.compiler.tags=gcc --adr.inference-src.version=master \
 --run-checker \
 --submitter=cTuning \
---tar=yes --env.CM_TAR_OUTFILE=submission.tar.gz
+--tar=yes \
+--env.CM_TAR_OUTFILE=submission.tar.gz \
+--quiet
 ```
 
 * Use `--hw_notes_extra` option to add your name to the notes like `--hw_notes_extra="Result taken by NAME" `

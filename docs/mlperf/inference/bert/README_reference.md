@@ -14,7 +14,7 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 * Use `--device=cuda` to run the inference on Nvidia GPU
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
 * Use `--category=datacenter` to run datacenter scenarios
-* Use `--backend=pytorch` and `--backend=tf` to use the pytorch and tensorflow backends respectively
+* Use `--backend=pytorch` and `--backend=tf` to use the pytorch and tensorflow backends respectively. `--backend=deepsparse` will run the sparse int8 model using deepsparse backend (not allowed to be submitted under closed division).
 * Use `--model=bert-99.9` to run the high accuracy constraint bert-99 model. But since we are running the fp32 model, this is redundant and instead, we can reuse the results of bert-99 for bert-99.9
 
 

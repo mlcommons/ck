@@ -52,14 +52,49 @@ cm pull repo mlcommons@ck
 We suggest you to setup a Python virtual environment via CM to avoid contaminating your existing Python installation:
 
 ```bash
-cm run script "install python-venv" --name=crowd-mlperf
-export CM_SCRIPT_EXTRA_CMD="--adr.python.name=crowd-mlperf"
+cm run script "install python-venv" --name=mlperf --version_min=3.8
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf"
 ```
 
 CM will install a new Python virtual environment in CM cache and will install all Python dependencies there:
 ```bash
-cm show cache
+cm show cache --tags=python-venv
 ```
 
+Note that CM downloads and/or installs models, data sets, packages, libraries and tools in this cache.
+
+You can clean it at any time and start from scratch using the following command:
+```bash
+cm rm cache -f
+```
+
+Alternatively, you can remove specific entries using tags:
+```bash
+cm show cache
+cm rm cache --tags=tag1,tag2,...
+```
+
+
+
+
+### Do a test run to detect and record the system performance
+
+```bash
+cm run script --tags=generate-run-cmds,inference,_find-performance \
+--model=bert-99 --implementation=reference --device=cpu --backend=deepsparse \
+--category=edge --division=open --quiet --scenario=Offline
+```
+
+### Do full accuracy and performance run
+
+```
+cm run script --tags=generate-run-cmds,inference,_submission --model=bert-99 \
+--device=cpu --implementation=reference --backend=deepsparse \
+--execution-mode=valid --results_dir=$HOME/results_dir \
+--category=edge --division=open --quiet --scenario=Offline
+```
+### Generate and upload MLPerf submission
+
+Follow [this guide](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/Submission.md) to generate the submission tree and upload your results.
 
 

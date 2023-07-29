@@ -87,7 +87,7 @@ def tune_model(
         tasks=tasks,
         task_weights=task_weights,
         work_dir=work_dir,
-        max_trials_global=20000,
+        max_trials_global=10000,
         num_trials_per_iter=64,
         max_trials_per_task=512,
         builder=ms.builder.LocalBuilder(),

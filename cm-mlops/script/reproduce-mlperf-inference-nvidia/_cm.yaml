@@ -74,6 +74,15 @@ input_mapping:
   make_cmd: MLPERF_NVIDIA_RUN_COMMAND
   rerun: CM_RERUN
   extra_run_options: CM_MLPERF_NVIDIA_HARNESS_EXTRA_RUN_OPTIONS
+  use_deque_limit: CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT
+  deque_timeout_usec: CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC
+  use_cuda_thread_per_device: CM_MLPERF_NVIDIA_HARNESS_USE_CUDA_THREAD_PER_DEVICE
+  num_warmups: CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS
+  graphs_max_seqlen: CM_MLPERF_NVIDIA_HARNESS_GRAPHS_MAX_SEQLEN
+  num_issue_query_threads: CM_MLPERF_NVIDIA_HARNESS_NUM_ISSUE_QUERY_THREADS
+  soft_drop: CM_MLPERF_NVIDIA_HARNESS_SOFT_DROP
+  use_small_tile_gemm_plugin: CM_MLPERF_NVIDIA_HARNESS_USE_SMALL_TILE_GEMM_PLUGIN
+  audio_buffer_num_lines: CM_MLPERF_NVIDIA_HARNESS_AUDIO_BUFFER_NUM_LINES
 
 new_state_keys:
   - mlperf-inference-implementation
@@ -1011,13 +1020,16 @@ variations:
   l4,resnet50,server,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.32
+        tags: _batch_size.16
 
     env:
-      CM_MODEL_BATCH_SIZE: "32"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "1"
+      CM_MODEL_BATCH_SIZE: "16"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "9"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
       CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC: 2000
+      CM_MLPERF_NVIDIA_HARNESS_USE_CUDA_THREAD_PER_DEVICE: 'True'
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   l4,retinanet,offline,run_harness:
@@ -1035,6 +1047,11 @@ variations:
     env:
       CM_MODEL_BATCH_SIZE: "2"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC: 30000
+      CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE: 20000000000
 
   l4,bert_,offline,run_harness:
     add_deps_recursive:
@@ -1051,6 +1068,10 @@ variations:
     env:
       CM_MODEL_BATCH_SIZE: "16"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+      CM_MLPERF_NVIDIA_HARNESS_GRAPHS_MAX_SEQLEN: "200"
+      CM_MLPERF_NVIDIA_HARNESS_SERVER_NUM_ISSUE_QUERY_THREADS: "1"
+      CM_MLPERF_NVIDIA_HARNESS_SOFT_DROP: "1.0"
+      CM_MLPERF_NVIDIA_HARNESS_USE_SMALL_TILE_GEMM_PLUGIN: "True"
 
   l4,3d-unet_,offline,run_harness:
     add_deps_recursive:
@@ -1075,6 +1096,9 @@ variations:
     env:
       CM_MODEL_BATCH_SIZE: "512"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+      CM_MLPERF_NVIDIA_HARNESS_AUDIO_BATCH_SIZE: "64"
+      CM_MLPERF_NVIDIA_HARNESS_AUDIO_BUFFER_NUM_LINES: "1024"
+      CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS: "1024"
 
   l4,dlrm_,offline,run_harness:
     add_deps_recursive:
@@ -1108,12 +1132,16 @@ variations:
   t4,resnet50,server,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.32
+        tags: _batch_size.26
 
     env:
-      CM_MODEL_BATCH_SIZE: "32"
+      CM_MODEL_BATCH_SIZE: "26"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
       CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "4"
+      CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT: True
+      CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC: 2000
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+      CM_MLPERF_NVIDIA_HARNESS_SOFT_DROP: "0.993"
 
   t4,retinanet,offline,run_harness:
     add_deps_recursive:
@@ -1126,10 +1154,15 @@ variations:
   t4,retinanet,server,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.4
+        tags: _batch_size.2
     env:
-      CM_MODEL_BATCH_SIZE: "4"
+      CM_MODEL_BATCH_SIZE: "2"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC: 20000
+      CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE: 20000000000
 
   t4,bert_,offline,run_harness:
     add_deps_recursive:
@@ -1142,10 +1175,13 @@ variations:
   t4,bert_,server,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.256
+        tags: _batch_size.4
     env:
-      CM_MODEL_BATCH_SIZE: "256"
+      CM_MODEL_BATCH_SIZE: "4"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+      CM_MLPERF_NVIDIA_HARNESS_GRAPHS_MAX_SEQLEN: "240"
+      CM_MLPERF_NVIDIA_HARNESS_SERVER_NUM_ISSUE_QUERY_THREADS: "0"
+      CM_MLPERF_NVIDIA_HARNESS_USE_SMALL_TILE_GEMM_PLUGIN: "no"
 
   t4,3d-unet_,offline,run_harness:
     add_deps_recursive:
@@ -1192,6 +1228,11 @@ variations:
 
   sxm:
     group: gpu-connection
+
+  custom:
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
 
   a100:
     default_variation:
