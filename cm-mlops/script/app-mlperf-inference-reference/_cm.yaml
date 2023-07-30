@@ -249,6 +249,17 @@ deps:
   ########################################################################
   # Install ML models    
 
+  - tags: get,ml-model,neural-magic,zoo
+    # sets CM_MLPERF_CUSTOM_MODEL_PATH
+    names:
+    - custom-ml-model
+    enable_if_env:
+      CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB:
+      - "on"
+    update_tags_from_env_with_prefix:
+      "_model-stub.":
+        - CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB
+
   ## ResNet50
   - tags: get,ml-model,image-classification,resnet50
     names:
