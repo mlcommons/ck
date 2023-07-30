@@ -62,8 +62,8 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --execution_mode=valid \
    --adr.mlperf-inference-implementation.max_batchsize=384 \
    --offline_target_qps=20 \
-   --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base_quant-none
    --env.DEEPSPARSE_SEQLENS="64,128,192,256,384"
+   --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base_quant-none
 ```
 
 # ResNet50
@@ -91,5 +91,5 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --adr.mlperf-inference-implementation.num_threads=48 \
    --env.DEEPSPARSE_NUM_STREAMS=24 \
    --env.ENQUEUE_NUM_THREADS=2 \
-   --offline_target_qps=20480
+   --offline_target_qps=204
 ```
