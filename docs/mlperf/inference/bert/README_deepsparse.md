@@ -3,7 +3,7 @@
 
 ## BERT-99%: oBERT-Large Offline - DeepSparse
 ```
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_all-modes,_full  \
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --adr.python.name=mlperf \
    --adr.python.version_min=3.8 \
    --adr.compiler.tags=gcc \
@@ -24,7 +24,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_all-mod
 ## BERT-99%: MobileBERT Offline
 
 ```
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_all-modes,_full  \
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --adr.python.name=mlperf \
    --adr.python.version_min=3.8 \
    --adr.compiler.tags=gcc \
@@ -46,7 +46,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_all-mod
 ## BERT-99.9%: MobileBERT Offline - DeepSparse
 
 ```
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_all-modes,_full  \
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --adr.python.name=mlperf \
    --adr.python.version_min=3.8 \
    --adr.compiler.tags=gcc \
@@ -71,7 +71,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_all-mod
 ## ResNet50 Offline - DeepSparse
 
 ```
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_all-modes,_submission,_full  \
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --adr.python.name=mlperf \
    --adr.python.version_min=3.8 \
    --adr.compiler.tags=gcc \
