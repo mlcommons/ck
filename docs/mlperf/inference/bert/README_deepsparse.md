@@ -17,7 +17,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_all-mod
    --mode=performance \
    --execution_mode=valid \
    --adr.mlperf-inference-implementation.max_batchsize=384 \
-   --offline_target_qps=1280 \
+   --offline_target_qps=20 \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95_quant-none-vnni
 ```
 
@@ -38,7 +38,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_all-mod
    --mode=performance \
    --execution_mode=valid \
    --adr.mlperf-inference-implementation.max_batchsize=384 \
-   --offline_target_qps=5120 \
+   --offline_target_qps=20 \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni \
    --env.DEEPSPARSE_SEQLENS="64,128,192,256,384"
 ```
@@ -61,7 +61,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_all-mod
    --mode=performance \
    --execution_mode=valid \
    --adr.mlperf-inference-implementation.max_batchsize=384 \
-   --offline_target_qps=3072 \
+   --offline_target_qps=20 \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base_quant-none
    --env.DEEPSPARSE_SEQLENS="64,128,192,256,384"
 ```
