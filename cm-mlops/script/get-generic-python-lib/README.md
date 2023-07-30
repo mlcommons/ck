@@ -168,7 +168,7 @@ ___
       - Workflow:
     * `_deepsparse`
       - Environment variables:
-        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `deepsparse`
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `deepsparse-nightly`
       - Workflow:
     * `_dllogger`
       - Environment variables:
