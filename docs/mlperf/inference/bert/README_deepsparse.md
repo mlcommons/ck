@@ -4,10 +4,8 @@
 ## BERT-99%: oBERT-Large Offline - DeepSparse
 ```
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
-   --adr.python.name=mlperf \
    --adr.python.version_min=3.8 \
    --adr.compiler.tags=gcc \
-   --submitter=NeuralMagic \
    --implementation=reference \
    --model=bert-99 \
    --precision=int8 \
@@ -18,6 +16,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --execution_mode=valid \
    --adr.mlperf-inference-implementation.max_batchsize=384 \
    --offline_target_qps=20 \
+   --results_dir=$HOME/results_dir \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95_quant-none-vnni
 ```
 
@@ -28,7 +27,6 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --adr.python.name=mlperf \
    --adr.python.version_min=3.8 \
    --adr.compiler.tags=gcc \
-   --submitter=NeuralMagic \
    --implementation=reference \
    --model=bert-99 \
    --precision=int8 \
@@ -39,6 +37,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --execution_mode=valid \
    --adr.mlperf-inference-implementation.max_batchsize=384 \
    --offline_target_qps=20 \
+   --results_dir=$HOME/results_dir \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni \
    --env.DEEPSPARSE_SEQLENS="64,128,192,256,384"
 ```
@@ -47,10 +46,8 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
 
 ```
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
-   --adr.python.name=mlperf \
    --adr.python.version_min=3.8 \
    --adr.compiler.tags=gcc \
-   --submitter=NeuralMagic \
    --implementation=reference \
    --compliance=no \
    --model=bert-99 \
@@ -62,6 +59,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --execution_mode=valid \
    --adr.mlperf-inference-implementation.max_batchsize=384 \
    --offline_target_qps=20 \
+   --results_dir=$HOME/results_dir \
    --env.DEEPSPARSE_SEQLENS="64,128,192,256,384"
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base_quant-none
 ```
@@ -72,10 +70,8 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
 
 ```
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
-   --adr.python.name=mlperf \
    --adr.python.version_min=3.8 \
    --adr.compiler.tags=gcc \
-   --submitter=NeuralMagic \
    --implementation=reference \
    --model=resnet50 \
    --precision=int8 \
@@ -89,6 +85,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --adr.mlperf-inference-implementation.model=zoo:cv/classification/resnet_v1-50/pytorch/sparseml/imagenet/pruned85_quant-none-vnni \
    --adr.mlperf-inference-implementation.max_batchsize=16 \
    --adr.mlperf-inference-implementation.num_threads=48 \
+   --results_dir=$HOME/results_dir \
    --env.DEEPSPARSE_NUM_STREAMS=24 \
    --env.ENQUEUE_NUM_THREADS=2 \
    --offline_target_qps=204
