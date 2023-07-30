@@ -28,8 +28,13 @@ The above command should generate "submission.tar.gz" if there are no submission
 
 ### Push the results to GitHub repo (Only if you are submitting public results under cTuning)
 
-First, create a fork of [this repo](https://github.com/ctuning/mlperf_inference_submissions_v3.1). 
-Then run the following command after replacing `--repo_url` with your fork URL.
+1. First, create a fork of [this repo](https://github.com/ctuning/mlperf_inference_submissions_v3.1).
+2. If you have not set up GIT config already please do
+    ```
+    git config --global user.name "[YOUR NAME]"
+    git config --global user.email "[YOUR EMAIL]"
+    ```
+3. Then run the following command after **replacing `--repo_url` with your fork URL**.
 
 ```
 cmr "push github mlperf inference submission" \
