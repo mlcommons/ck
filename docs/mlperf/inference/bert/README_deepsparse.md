@@ -90,3 +90,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --env.ENQUEUE_NUM_THREADS=2 \
    --offline_target_qps=204
 ```
+
+### Generate and upload MLPerf submission
+
+Follow [this guide](../Submission.md) to generate the submission tree and upload your results.
