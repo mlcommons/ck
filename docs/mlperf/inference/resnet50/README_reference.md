@@ -34,7 +34,7 @@ cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --mo
 ```
 cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios \
 --model=resnet50 --device=cpu --implementation=reference --backend=onnxruntime \
---execution-mode=valid --results_dir=$HOME/inference_3.1_results \
+--execution-mode=valid --results_dir=$HOME/results_dir \
 --category=edge --division=open --quiet
 ```
 

@@ -60,7 +60,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --adr.mlperf-inference-implementation.max_batchsize=384 \
    --offline_target_qps=20 \
    --results_dir=$HOME/results_dir \
-   --env.DEEPSPARSE_SEQLENS="64,128,192,256,384"
+   --env.DEEPSPARSE_SEQLENS="64,128,192,256,384" \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base_quant-none
 ```
 
