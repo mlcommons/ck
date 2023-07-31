@@ -18,12 +18,12 @@ ${CM_SUDO} ${CM_PACKAGE_TOOL} update && \
     ${CM_SUDO} ${CM_PACKAGE_TOOL}  install -y \
            bzip2-devel bzip2 \
            ca-certificates curl  cmake \
-           gcc git g++ \
-           libtool libffi-devel libssl-devel\
+           gcc git \
+           libtool libffi-devel\
            zlib-devel \
            libbz2-devel \
            openssh-client \
-           make mesa-libGL \
+           make \
            patch python3 python3-pip python3-devel \
            openssl-devel \
            rsync \
