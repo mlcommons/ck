@@ -32,7 +32,7 @@
       }
     },
     {
-      "tags": "get,generic-python-lib,_opencv-python"
+      "tags": "get,generic-python-lib,_package.opencv-python-headless"
     },
     {
       "tags": "get,generic-python-lib,_pillow"

@@ -732,6 +732,13 @@ variations:
     - tags: get,generic-python-lib,_inflect
     - tags: get,generic-python-lib,_unidecode
     - tags: get,generic-python-lib,_toml
+    add_deps_recursive:
+      ml-engine-pytorch:
+        version: 1.13.1
+        version_max_usable: 1.13.1
+      ml-engine-torchvision:
+        version_max: 0.14.1
+        version_max_usable: 0.14.1
 
   retinanet:
     group: models
