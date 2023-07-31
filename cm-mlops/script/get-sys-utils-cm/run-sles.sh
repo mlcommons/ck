@@ -19,7 +19,7 @@ ${CM_SUDO} ${CM_PACKAGE_TOOL} update && \
            bzip2-devel bzip2 \
            ca-certificates curl  cmake \
            gcc git \
-           libtool libffi-devel\
+           libtool libffi-devel \
            zlib-devel \
            libbz2-devel \
            openssh-client \
