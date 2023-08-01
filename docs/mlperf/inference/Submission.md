@@ -15,9 +15,13 @@ cmr "generate inference submission" \
 --submitter=cTuning \
 --tar=yes \
 --env.CM_TAR_OUTFILE=submission.tar.gz \
+--division=open \
+--category=edge \
 --quiet
 ```
 
+* Use `--division=closed` to generate a closed division result
+* Use `--category=datacenter` to generate results for datacenter category
 * Use `--hw_notes_extra` option to add your name to the notes like `--hw_notes_extra="Result taken by NAME" `
 * Use `--hw_name="My system name"` to give a meaningful system name. Examples can be seen [here](https://github.com/mlcommons/inference_results_v3.0/tree/main/open/cTuning/systems)
 * Use `--submitter=<Your name>` if your organization is an official MLCommons member and would like to submit under your organization

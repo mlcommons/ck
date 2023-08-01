@@ -97,7 +97,7 @@ cm find repo my-research-project
 
 ## Adding CM script to prepare and run your experiment
 
-You can now add CM interface ([CM script](../../cm-mlops/automation/script/README-extra.md)) 
+You can now add CM interface ([CM scripts](../../cm-mlops/automation/script/README-extra.md)) 
 to your CM-compatible research project to wrap your native scripts and run experiments as follows:
 
 ```bash
@@ -106,7 +106,7 @@ cm add script my-research-project:reproduce-paper-micro-2023-016 \
            --script_name={name of your script}
 ```
 
-Please add `--yaml` flag if you prefer to describe your dependencies and execution workflow in YAML instead of JSON format (default).
+Please add `--json` flag if you prefer to describe your dependencies and execution workflow in JSON instead of YAML format (default).
 
 You can now find and edit the newly created template script using its alias as follows:
 ```bash
@@ -116,6 +116,28 @@ or tags
 ```bash
 cm find script --tags=reproduce,paper,micro,2023,016
 ```
+
+You must update the script after editing it's meta to cache it for fast search:
+```bash
+cm update script reproduce-paper-micro-2023-016
+```
+
+If you use Python and/or frameworks such as PyTorch and CUDA, you can create a new script with a template "python" or "pytorch" as follows:
+
+```bash
+cm add script my-research-project:reproduce-paper-micro-2023-016-2 \
+           --tags=reproduce,paper,micro,2023,016-2
+           --template=pytorch
+```
+
+It will include all the necessary CM dependencies to detect and/or install Python, CUDA, PyTorch, etc.
+
+If you use Python, we suggest to use virtual environment installed via CM as follows:
+```bash
+cm run script "install python-venv" --name=ae
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name=ae"
+```
+
 
 ## Testing and extending CM script
 
