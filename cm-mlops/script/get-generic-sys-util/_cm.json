@@ -136,7 +136,8 @@
           "apt": "screen",
           "dnf": "screen",
           "yum": "screen",
-          "brew": "screen"
+          "brew": "screen",
+          "zypper": "rsync"
         }
       }
     },
@@ -149,7 +150,8 @@
           "apt": "rsync",
           "dnf": "rsync",
           "yum": "rsync",
-          "brew": "rsync"
+          "brew": "rsync",
+          "zypper": "rsync"
         }
       }
     },
