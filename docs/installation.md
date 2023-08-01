@@ -42,13 +42,24 @@ You can reuse misc CM utils listed [here](#misc-cm-utils).
 
 ## Ubuntu, Debian
 
-*We have successfully tested CM on Ubuntu 18.x, 20.x, 22.x:*
+
+*We have successfully tested CM with the following system dependencies on Ubuntu 18.x, 20.x, 22.x , 23.x:*
 
 ```bash
 sudo apt update && sudo apt upgrade
 
 sudo apt install python3 python3-pip python3-venv git wget curl
+```
 
+**Note that you must set up virtual env on Ubuntu 23+ before using any Python project:**
+```bash
+python3 -m venv cm
+source cm/bin/activate
+```
+
+You can now install CM via PIP:
+
+```bash
 python3 -m pip install cmind
 ```
 
