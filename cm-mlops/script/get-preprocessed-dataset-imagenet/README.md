@@ -381,7 +381,7 @@ ___
      * get,dataset-aux,image-classification,imagenet-aux
        * `if (CM_IMAGENET_PREPROCESSED_PATH  != on)`
        - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
-     * get,generic-python-lib,_opencv-python
+     * get,generic-python-lib,_package.opencv-python-headless
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_pillow
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
