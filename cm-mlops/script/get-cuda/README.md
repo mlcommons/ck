@@ -189,7 +189,13 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+     * get,cl
+       * `if (CM_CUDA_FULL_TOOLKIT_INSTALL  == yes AND CM_HOST_OS_TYPE  == windows)`
+       * CM names: `--adr.['compiler']...`
+       - CM script: [get-cl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)***
      * install,cuda,prebuilt
