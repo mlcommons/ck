@@ -10,6 +10,9 @@
     "CM_CUDA_PATH_LIB_CUDNN_EXISTS": "no",
     "CM_REQUIRE_INSTALL": "no"
   },
+  "docker": {
+    "run": false
+  },
   "input_mapping": {
     "cudnn_tar_path": "CM_CUDNN_TAR_FILE_PATH"
   },
@@ -25,6 +28,25 @@
     "+DYLD_FALLBACK_LIBRARY_PATH",
     "+ LDFLAGS"
   ],
+  "deps": [
+    {
+      "tags": "detect,os"
+    },
+    {
+      "enable_if_env": {
+        "CM_CUDA_FULL_TOOLKIT_INSTALL": [
+          "yes"
+        ],
+        "CM_HOST_OS_TYPE": [
+          "windows"
+        ]
+      },
+      "names": [
+        "compiler"
+      ],
+      "tags": "get,cl"
+    }
+   ],
   "prehook_deps": [
     {
       "enable_if_env": {
@@ -39,10 +61,12 @@
       "tags": "install,cuda,prebuilt"
     },
     {
-      "tags": "get,generic-sys-util,_nvidia-cuda-toolkit",
       "enable_if_env": {
-        "CM_CUDA_PACKAGE_MANAGER_INSTALL": [ "yes" ]
-      }
+        "CM_CUDA_PACKAGE_MANAGER_INSTALL": [
+          "yes"
+        ]
+      },
+      "tags": "get,generic-sys-util,_nvidia-cuda-toolkit"
     }
   ],
   "print_files_if_script_error": [
@@ -82,6 +106,11 @@
       },
       "group": "installation-mode"
     },
+    "package-manager": {
+      "env": {
+        "CM_CUDA_PACKAGE_MANAGER_INSTALL": "yes"
+      }
+    },
     "toolkit": {
       "default": true,
       "env": {
@@ -90,14 +119,6 @@
         "CM_TMP_FILE_TO_CHECK_WINDOWS": "nvcc.exe"
       },
       "group": "installation-mode"
-    },
-    "package-manager": {
-      "env": {
-        "CM_CUDA_PACKAGE_MANAGER_INSTALL": "yes"
-      }
     }
-  },
-  "docker": {
-    "run": false
   }
 }
