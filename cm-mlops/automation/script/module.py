@@ -2039,8 +2039,14 @@ class CAutomation(Automation):
           (script_name) (str): name of script (it will be copied to the new entry and added to the meta)
 
           (tags) (string or list): tags to be added to meta
+
           (new_tags) (string or list): new tags to be added to meta (the same as tags)
-          (yaml) (bool): if True, record YAML instead of JSON
+
+          (json) (bool): if True, record JSON meta instead of YAML
+          
+          (meta) (dict): preloaded meta
+          
+          (template) (string): template to use (python)
           
           ...
 
@@ -2055,6 +2061,11 @@ class CAutomation(Automation):
         import shutil
 
         console = i.get('out') == 'con'
+
+        # Try to find experiment artifact by alias and/or tags
+        ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
+
+        print (ii)
 
         parsed_artifact = i.get('parsed_artifact',[])
 
@@ -2073,12 +2084,55 @@ class CAutomation(Automation):
         if 'tags' in i: del(i['tags'])
 
         # Add placeholder (use common action)
-        i['out']='con'
-        i['common']=True # Avoid recursion - use internal CM add function to add the script artifact
+        ii['out']='con'
+        ii['common']=True # Avoid recursion - use internal CM add function to add the script artifact
 
-        i['meta']={'automation_alias':self.meta['alias'],
-                   'automation_uid':self.meta['uid'],
-                   'tags':tags_list}
+        # Check template path
+        template_dir = 'template'
+        
+        template = i.get('template','')
+        if template == '' and i.get('python',False):
+            template = 'python'
+        
+        if template!='':
+            template_dir += '-'+template
+
+        template_path = os.path.join(self.path, template_dir)
+
+        if not os.path.isdir(template_path):
+            return {'return':1, 'error':'template path {} not found'.format(template_path)}
+
+        # Check if preloaded meta exists
+        meta = {
+                 'cache':False,
+                 'new_env_keys':[],
+                 'new_state_keys':[],
+                 'input_mapping':{},
+                 'docker_input_mapping':{},
+                 'deps':[],
+                 'prehook_deps':[],
+                 'posthook_deps':[],
+                 'post_deps':[],
+                 'versions':{},
+                 'variations':{},
+                 'input_description':{}
+               }
+        
+        fmeta = os.path.join(template_path, self.cmind.cfg['file_cmeta'])
+
+        r = utils.load_yaml_and_json(fmeta)
+        if r['return']==0:
+            utils.merge_dicts({'dict1':meta, 'dict2':r['meta'], 'append_lists':True, 'append_unique':True})
+
+        # Check meta from CMD
+        xmeta = i.get('meta',{})
+
+        if len(xmeta)>0:
+            utils.merge_dicts({'dict1':meta, 'dict2':xmeta, 'append_lists':True, 'append_unique':True})
+
+        meta['automation_alias']=self.meta['alias']
+        meta['automation_uid']=self.meta['uid']
+        meta['tags']=tags_list
 
         script_name_base = script_name
         script_name_ext = ''
@@ -2089,22 +2143,18 @@ class CAutomation(Automation):
                 script_name_base = script_name[:j]
                 script_name_ext = script_name[j:]
 
-            i['meta']['script_name'] = script_name_base
+            meta['script_name'] = script_name_base
 
-        i['meta']['cache'] = False
-        i['meta']['new_env_keys'] = []
-        i['meta']['new_state_keys'] = []
-        i['meta']['input_mapping'] = {}
-        i['meta']['docker_input_mapping'] = {}
-        i['meta']['deps'] = []
-        i['meta']['prehook_deps'] = []
-        i['meta']['posthook_deps'] = []
-        i['meta']['post_deps'] = []
-        i['meta']['versions'] = {}
-        i['meta']['variations'] = {}
-        i['meta']['input_description'] = {}
+        ii['meta']=meta
+        
+        ii['action']='add'
 
-        r_obj=self.cmind.access(i)
+        use_yaml = True if not i.get('json',False) else False
+
+        if use_yaml:
+            ii['yaml']=True
+
+        r_obj=self.cmind.access(ii)
         if r_obj['return']>0: return r_obj
 
         new_script_path = r_obj['path']
@@ -2112,12 +2162,11 @@ class CAutomation(Automation):
         if console:
             print ('Created script in {}'.format(new_script_path))
 
-        # Copy support files
-        template_path = os.path.join(self.path, 'template')
-
-        # Copy files
+        # Copy files from template (only if exist)
         files = [(template_path, 'README-extra.md', ''),
-                 (template_path, 'customize.py', '')]
+                 (template_path, 'customize.py', ''),
+                 (template_path, 'main.py', ''),
+                 (template_path, 'requirements.txt', '')]
 
         if script_name == '':
             files += [(template_path, 'run.bat', ''),
@@ -2143,12 +2192,13 @@ class CAutomation(Automation):
             if path!='':
                 f1 = os.path.join(path, f1)
 
-            f2 = os.path.join(new_script_path, f2)
+            if os.path.isfile(f1):
+                f2 = os.path.join(new_script_path, f2)
 
-            if console:
-                print ('  * Copying {} to {}'.format(f1, f2))
+                if console:
+                    print ('  * Copying {} to {}'.format(f1, f2))
 
-            shutil.copyfile(f1,f2)
+                shutil.copyfile(f1,f2)
 
         return r_obj
 
