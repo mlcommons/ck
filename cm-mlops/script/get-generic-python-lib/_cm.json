@@ -97,8 +97,7 @@
           "names": [
             "cuda"
           ],
-          "tags": "get,cuda",
-          "version": "11.8.0"
+          "tags": "get,cuda"
         },
         {
           "names": [
@@ -685,8 +684,7 @@
           "names": [
             "cuda"
           ],
-          "tags": "get,cuda",
-          "version": "11.8.0"
+          "tags": "get,cuda"
         }
       ],
       "default_env": {
@@ -717,8 +715,7 @@
           "names": [
             "cuda"
           ],
-          "tags": "get,cuda",
-          "version": "11.8.0"
+          "tags": "get,cuda"
         }
       ],
       "default_env": {
@@ -749,8 +746,7 @@
           "names": [
             "cuda"
           ],
-          "tags": "get,cuda",
-          "version": "11.8.0"
+          "tags": "get,cuda"
         }
       ],
       "default_env": {

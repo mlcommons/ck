@@ -86,7 +86,7 @@ def postprocess(i):
     elif env.get('CM_HOST_OS_PACKAGE_MANAGER', '') == "yum":
         env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "yum install -y --skip-broken"
         env['CM_HOST_OS_PACKAGE_MANAGER_UPDATE_CMD'] = "yum update -y"
-    elif env.get('CM_HOST_OS_PACKAGE_MANAGER', '') == "sles":
+    elif env.get('CM_HOST_OS_PACKAGE_MANAGER', '') == "zypper":
         env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "zypper install -y"
         env['CM_HOST_OS_PACKAGE_MANAGER_UPDATE_CMD'] = "zypper update -y"
 
