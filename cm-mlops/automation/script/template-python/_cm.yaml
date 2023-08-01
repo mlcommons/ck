@@ -15,10 +15,7 @@ input_mapping:
   req: PIP_REQUIREMENTS
 
 default_env:
-  CM_VAR1: '1'
-
-tags:
-- xyz
+  CM_VAR1: 'something'
 
 variations:
   req:

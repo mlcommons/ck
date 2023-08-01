@@ -1,42 +1,24 @@
 #!/bin/bash
 
-echo "======================================================="
-
 CUR_DIR=${PWD}
-echo "Current path in CM script: ${CUR_DIR}"
 
 echo ""
-echo "Installing extra requirements (latest versions) ..."
+echo "Current execution path: ${CUR_DIR}"
+echo "Path to script: ${CM_TMP_CURRENT_SCRIPT_PATH}"
+echo "ENV PIP_REQUIREMENTS: ${PIP_REQUIREMENTS}"
+echo "ENV CM_VAR1: ${CM_VAR1}"
 
-echo ""
-${CM_PYTHON_BIN_WITH_PATH} -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
+if [ "${PIP_REQUIREMENTS}" == "True" ]; then
+  if test -f "${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt"; then
+    echo ""
+    echo "Installing requirements.txt ..."
+    echo ""
 
-echo "======================================================="
-
-cd ${CM_IPOL_PATH}
-
-echo "Current path in CM cache: ${PWD}"
-
-# Check default images
-if [ "${CM_INPUT_1}" == "" ]; then
-  CM_INPUT_1=${CM_TMP_CURRENT_SCRIPT_PATH}/sample-images/1.png
+    ${CM_PYTHON_BIN_WITH_PATH} -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
+    test $? -eq 0 || exit 1
+  fi
 fi
 
-if [ "${CM_INPUT_2}" == "" ]; then
-  CM_INPUT_2=${CM_TMP_CURRENT_SCRIPT_PATH}/sample-images/2.png
-fi
-
-echo "Running author's code ..."
-
-rm -f cm.png
-rm -f ${CUR_DIR}/diff.png
-
 echo ""
-${CM_PYTHON_BIN_WITH_PATH} main.py --input_0=${CM_INPUT_1}  --input_1=${CM_INPUT_2}
+${CM_PYTHON_BIN_WITH_PATH} ${CM_TMP_CURRENT_SCRIPT_PATH}/main.py
 test $? -eq 0 || exit 1
-
-# Copy diff png to current path
-cp cm.png ${CUR_DIR}/diff.png
-test $? -eq 0 || exit 1
-
-echo "======================================================="
