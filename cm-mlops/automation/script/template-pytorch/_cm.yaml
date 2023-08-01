@@ -1,0 +1,42 @@
+cache: false
+
+deps:
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect/install python
+  - tags: get,python
+    names:
+    - python
+    - python3
+
+  - tags: get,generic-python-lib,_torch
+    skip_if_env:
+       USE_CUDA:
+         - yes
+
+  - tags: get,generic-python-lib,_torch_cuda
+    enable_if_env:
+       USE_CUDA:
+         - yes
+
+  - tags: get,generic-python-lib,_package.numpy
+
+
+input_mapping:
+  var1: CM_VAR1
+  req: PIP_REQUIREMENTS
+
+default_env:
+  CM_VAR1: 'something'
+
+variations:
+  req:
+    env:
+      PIP_REQUIREMENTS: True
+
+  cuda:
+   env: 
+       USE_CUDA: yes
+   deps:
+     - tags: get,cuda

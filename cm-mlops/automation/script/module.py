@@ -2047,6 +2047,8 @@ class CAutomation(Automation):
           (meta) (dict): preloaded meta
           
           (template) (string): template to use (python)
+          (python) (bool): template=python
+          (pytorch) (bool): template=pytorch
           
           ...
 
@@ -2091,8 +2093,12 @@ class CAutomation(Automation):
         template_dir = 'template'
         
         template = i.get('template','')
-        if template == '' and i.get('python',False):
-            template = 'python'
+
+        if template == '':
+           if i.get('python', False):
+               template = 'python'
+           elif i.get('pytorch', False):
+               template = 'pytorch'
         
         if template!='':
             template_dir += '-'+template
