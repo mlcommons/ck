@@ -115,6 +115,10 @@ ___
       - Environment variables:
         - *CM_MODEL_ZOO_STUB*: `pierreguillou/bert-base-cased-squad-v1.1-portuguese`
       - Workflow:
+    * `_prune`
+      - Environment variables:
+        - *CM_MODEL_TASK*: `prune`
+      - Workflow:
 
     </details>
 
