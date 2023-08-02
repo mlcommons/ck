@@ -21,13 +21,25 @@
       "tags": "get,generic-python-lib,_tqdm"
     },
     {
-      "tags": "get,generic-python-lib,_torch"
+      "tags": "get,generic-python-lib,_torch_cuda"
     },
     {
       "tags": "get,generic-python-lib,_datasets"
     },
     {
       "tags": "get,generic-python-lib,_transformers"
+    },    
+    {
+      "tags": "get,generic-python-lib,_scikit-learn"
+    },
+    {
+      "tags": "get,git,repo,_repo.https://github.com/anandhu-eng/retraining-free-pruning"
+    },
+    {
+      "names": [
+	"get-model"
+      ],
+      "tags": "get, ml-model, model, zoo, model-zoo, huggingface, _prune"
     }
   ],
   "tags": [
@@ -35,5 +47,27 @@
     "bert-prune",
     "prune-bert-models"
   ],
-  "uid": "76182d4896414216"
+  "uid": "76182d4896414216",
+  "variations":{
+    "path.#":{
+	"env":{
+	    "CM_UNPRUNED_MODEL_PATH":"#"
+	}
+    },
+    "task.#":{
+	"env":{
+	    "CM_PRUNE_TASK":"#"
+	}
+    },
+    "model-name.#":{
+	"adr":{
+	  "get-model":{
+	    "tags":"_model-stub.#"
+	  }
+	},
+	"env":{
+	    "CM_PRUNE_MODEL_NAME":"#"
+	}
+    }
+  }
 }
