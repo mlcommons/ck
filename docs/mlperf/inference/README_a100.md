@@ -12,7 +12,7 @@ cmr "generate-run-cmds inference _performance-only"  \
 --adr.nvidia-harness.tags=_sxm
 ```
 
-### Full run bert-99
+### Full run
 This will do performance+accuracy+compliance for singlestream+offline scenarios. Please change the `target_qps` to the actual output value from the previous command.
 
 ```
@@ -42,12 +42,86 @@ cmr "generate-run-cmds inference _performance-only"  \
 --adr.nvidia-harness.tags=_sxm
 ```
 
-### Full run resnet50
+### Full run
 This will do performance+accuracy+compliance for singlestream+offline scenarios. Please change the `target_qps` to the actual output value from the previous command.
 
 ```
 cmr "generate-run-cmds inference _submission _all-scenarios"  \
 --model=resnet50 --implementation=nvidia-original \
+--device=cuda --backend=tensorrt --category=edge \
+--division=open --quiet --execution_mode=valid \
+--target_qps=1000 --rerun --gpu_name=a100 \
+--adr.nvidia-harness.tags=_sxm
+```
+
+## Retinanet
+
+### Quick performance test
+```
+cmr "generate-run-cmds inference _performance-only"  \
+--model=retinanet --implementation=nvidia-original \
+--device=cuda --backend=tensorrt --category=edge \
+--division=open --quiet --scenario=Offline --execution_mode=fast \
+--target_qps=100 --rerun --gpu_name=a100 \
+--adr.nvidia-harness.tags=_sxm
+```
+
+### Full run
+This will do performance+accuracy+compliance for singlestream+offline scenarios. Please change the `target_qps` to the actual output value from the previous command.
+
+```
+cmr "generate-run-cmds inference _submission _all-scenarios"  \
+--model=retinanet --implementation=nvidia-original \
+--device=cuda --backend=tensorrt --category=edge \
+--division=open --quiet --execution_mode=valid \
+--target_qps=100 --rerun --gpu_name=a100 \
+--adr.nvidia-harness.tags=_sxm
+```
+
+## RNNT
+
+
+### Quick performance test
+```
+cmr "generate-run-cmds inference _performance-only"  \
+--model=rnnt --implementation=nvidia-original \
+--device=cuda --backend=tensorrt --category=edge \
+--division=open --quiet --scenario=Offline --execution_mode=fast \
+--target_qps=1000 --rerun --gpu_name=a100 \
+--adr.nvidia-harness.tags=_sxm
+```
+
+### Full run
+This will do performance+accuracy+compliance for singlestream+offline scenarios. Please change the `target_qps` to the actual output value from the previous command.
+
+```
+cmr "generate-run-cmds inference _submission _all-scenarios"  \
+--model=rnnt --implementation=nvidia-original \
+--device=cuda --backend=tensorrt --category=edge \
+--division=open --quiet --execution_mode=valid \
+--target_qps=1000 --rerun --gpu_name=a100 \
+--adr.nvidia-harness.tags=_sxm
+```
+
+## 3d-unet
+
+
+### Quick performance test
+```
+cmr "generate-run-cmds inference _performance-only"  \
+--model=3d-unet-99 --implementation=nvidia-original \
+--device=cuda --backend=tensorrt --category=edge \
+--division=open --quiet --scenario=Offline --execution_mode=fast \
+--target_qps=1000 --rerun --gpu_name=a100 \
+--adr.nvidia-harness.tags=_sxm
+```
+
+### Full run
+This will do performance+accuracy+compliance for singlestream+offline scenarios. Please change the `target_qps` to the actual output value from the previous command.
+
+```
+cmr "generate-run-cmds inference _submission _all-scenarios"  \
+--model=3d-unet-99 --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --execution_mode=valid \
 --target_qps=1000 --rerun --gpu_name=a100 \
