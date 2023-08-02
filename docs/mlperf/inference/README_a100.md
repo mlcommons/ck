@@ -127,3 +127,5 @@ cmr "generate-run-cmds inference _submission _all-scenarios"  \
 --target_qps=1000 --rerun --gpu_name=a100 \
 --adr.nvidia-harness.tags=_sxm
 ```
+
+Once all 5 model results are done, please follow [Submission](Submission.md) to generate the required submission. 
