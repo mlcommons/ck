@@ -43,6 +43,11 @@
       "env": {
         "CM_MODEL_ZOO_STUB": "pierreguillou/bert-base-cased-squad-v1.1-portuguese"
       }
+    },
+    "prune":{
+      "env":{
+	"CM_MODEL_TASK": "prune"
+      }
     }
   }
 }
