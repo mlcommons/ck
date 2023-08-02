@@ -7,7 +7,7 @@
 cmr "generate-run-cmds inference _performance-only"  \
 --model=bert-99 --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
---division=open --quiet --scenario=Offline --execution_mode=fast
+--division=open --quiet --scenario=Offline --execution_mode=fast \
 --target_qps=1000 --rerun --gpu_name=a100 \
 --adr.nvidia-harness.tags=_sxm
 ```
@@ -19,7 +19,7 @@ This will do performance+accuracy+compliance for singlestream+offline scenarios.
 cmr "generate-run-cmds inference _submission _all-scenarios"  \
 --model=bert-99 --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
---division=open --quiet --execution_mode=valid
+--division=open --quiet --execution_mode=valid \
 --target_qps=1000 --rerun --gpu_name=a100 \
 --adr.nvidia-harness.tags=_sxm
 ```
@@ -37,7 +37,7 @@ cmr "get dataset original imagenet _full" --input="<Path to imagenet dir contain
 cmr "generate-run-cmds inference _performance-only"  \
 --model=resnet50 --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
---division=open --quiet --scenario=Offline --execution_mode=fast
+--division=open --quiet --scenario=Offline --execution_mode=fast \
 --target_qps=1000 --rerun --gpu_name=a100 \
 --adr.nvidia-harness.tags=_sxm
 ```
@@ -49,7 +49,7 @@ This will do performance+accuracy+compliance for singlestream+offline scenarios.
 cmr "generate-run-cmds inference _submission _all-scenarios"  \
 --model=resnet50 --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
---division=open --quiet --execution_mode=valid
+--division=open --quiet --execution_mode=valid \
 --target_qps=1000 --rerun --gpu_name=a100 \
 --adr.nvidia-harness.tags=_sxm
 ```
