@@ -11,6 +11,7 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -49,9 +50,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=prune,bert-prune,prune-bert-models `
+1. `cm run script --tags=prune,bert-prune,prune-bert-models[,variations] `
 
-2. `cm run script "prune bert-prune prune-bert-models" `
+2. `cm run script "prune bert-prune prune-bert-models[,variations]" `
 
 3. `cm run script 76182d4896414216 `
 
@@ -98,6 +99,28 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=prune,bert-prune,prune
 ___
 ### Customization
 
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_model-name.#`
+      - Environment variables:
+        - *CM_PRUNE_MODEL_NAME*: `#`
+      - Workflow:
+    * `_path.#`
+      - Environment variables:
+        - *CM_UNPRUNED_MODEL_PATH*: `#`
+      - Workflow:
+    * `_task.#`
+      - Environment variables:
+        - *CM_PRUNE_TASK*: `#`
+      - Workflow:
+
+    </details>
+
 #### Default environment
 
 <details>
@@ -125,12 +148,19 @@ ___
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_tqdm
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-     * get,generic-python-lib,_torch
+     * get,generic-python-lib,_torch_cuda
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_datasets
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_transformers
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_scikit-learn
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,git,repo,_repo.https://github.com/anandhu-eng/retraining-free-pruning
+       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+     * get, ml-model, model, zoo, model-zoo, huggingface, _prune
+       * CM names: `--adr.['get-model']...`
+       - CM script: [get-ml-model-huggingface-zoo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prune-bert-models/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prune-bert-models/_cm.json)
   1. ***Run native script if exists***
