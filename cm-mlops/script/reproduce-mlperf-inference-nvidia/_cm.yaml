@@ -1255,9 +1255,11 @@ variations:
   a100,sxm,retinanet,offline,run_harness:
     add_deps_recursive:
       build-engine:
-        tags: _batch_size.8
+        tags: _batch_size.32
     env:
-      CM_MODEL_BATCH_SIZE: "8"
+      CM_MODEL_BATCH_SIZE: "32"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   a100,sxm,bert_,offline,run_harness:
