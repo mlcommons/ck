@@ -55,5 +55,7 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            unzip \
            libgl1-mesa-glx \
            zlib1g-dev
+test $? -eq 0 || exit $?
 
-python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt ${CM_PYTHON_PIP_USER} ${CM_PYTHON_PIP_COMMON_EXTRA}
+. ${CM_TMP_CURRENT_SCRIPT_PATH}/do_pip_installs.sh
+test $? -eq 0 || exit $?
