@@ -4,6 +4,7 @@ import json
 import shutil
 import subprocess
 import cmind as cm
+import sys
 
 def preprocess(i):
 
@@ -16,8 +17,13 @@ def preprocess(i):
     rerun = True if env.get("CM_RERUN","")!='' else False
 
     env['CM_MLPERF_SKIP_RUN'] = "no"
+
+    mlperf_path = env['CM_MLPERF_INFERENCE_SOURCE']
+    submission_checker_dir = os.path.join(mlperf_path, "tools", "submission")
+    sys.path.append(submission_checker_dir)
+
     required_files = []
-    required_files = get_checker_files(env['CM_MLPERF_INFERENCE_SOURCE'])
+    required_files = get_checker_files()
 
     if 'CM_MLPERF_LOADGEN_SCENARIO' not in env:
         env['CM_MLPERF_LOADGEN_SCENARIO'] = "Offline"
@@ -285,11 +291,25 @@ def preprocess(i):
     return {'return':0}
 
 def run_files_exist(mode, OUTPUT_DIR, run_files):
+    import submission_checker as checker
+    from log_parser import MLPerfLog
+
     file_loc = {"accuracy": 0, "performance": 1, "power": 2, "performance_power": 3, "measure": 4, "compliance": 1}
     for file in run_files[file_loc[mode]]:
         file_path = os.path.join(OUTPUT_DIR, file)
         if (not os.path.exists(file_path) or os.stat(file_path).st_size == 0)  and file != "accuracy.txt":
             return False
+        if file ==  "mlperf_log_detail.txt":
+            mlperf_log = MLPerfLog(fname)
+            if (
+                "result_validity" in mlperf_log.get_keys()
+                and mlperf_log["result_validity"] == "INVALID"
+            ):
+                return False
+
+    if mode == "compliance":
+        is_valid = checker.check_compliance_perf_dir(OUTPUT_DIR)
+        return is_valid
 
     return True
 
@@ -300,17 +320,9 @@ def measure_files_exist(OUTPUT_DIR, run_files):
             return False
     return True
 
-def get_checker_files(mlperf_path):
-
-    import sys
-    submission_checker_dir = os.path.join(mlperf_path, "tools", "submission")
-    sys.path.append(submission_checker_dir)
-
-    if not os.path.exists(os.path.join(submission_checker_dir, "submission_checker.py")):
-        shutil.copy(os.path.join(submission_checker_dir,"submission-checker.py"), os.path.join(submission_checker_dir,
-        "submission_checker.py"))
-
+def get_checker_files():
     import submission_checker as checker
+
     REQUIRED_ACC_FILES = checker.REQUIRED_ACC_FILES
     REQUIRED_PERF_FILES = checker.REQUIRED_PERF_FILES
     REQUIRED_POWER_FILES = checker.REQUIRED_POWER_FILES
