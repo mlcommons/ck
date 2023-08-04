@@ -107,6 +107,15 @@
         }
       ]
     },
+    "tflite_tpu": {
+      "default_variations": {
+        "preprocessing-source": "mlcommons-reference-preprocessor"
+      },
+      "env": {
+        "CM_MODEL": "resnet50",
+        "CM_PREPROCESS_TFLITE_TPU": "yes"
+      }
+    },
     "1": {
       "group": "size",
       "add_deps": {
