@@ -55,7 +55,6 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            unzip \
            libgl1-mesa-glx \
            zlib1g-dev
-test $? -eq 0 || exit $?
 
 . ${CM_TMP_CURRENT_SCRIPT_PATH}/do_pip_installs.sh
 test $? -eq 0 || exit $?
