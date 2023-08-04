@@ -309,7 +309,7 @@ def run_files_exist(mode, OUTPUT_DIR, run_files):
         if (not os.path.exists(file_path) or os.stat(file_path).st_size == 0)  and file != "accuracy.txt":
             return False
         if file ==  "mlperf_log_detail.txt":
-            mlperf_log = MLPerfLog(fname)
+            mlperf_log = MLPerfLog(file)
             if (
                 "result_validity" in mlperf_log.get_keys()
                 and mlperf_log["result_validity"] == "INVALID"
