@@ -9,7 +9,8 @@ cmr "generate-run-cmds inference _performance-only"  \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --scenario=Offline --execution_mode=fast \
 --target_qps=3560 --rerun --gpu_name=a100 \
---adr.nvidia-harness.tags=_sxm
+--adr.nvidia-harness.tags=_sxm \
+--results_dir=$HOME/results_dir
 ```
 
 ### Full run
@@ -21,7 +22,8 @@ cmr "generate-run-cmds inference _submission _all-scenarios"  \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --execution_mode=valid \
 --target_qps=3560 --rerun --gpu_name=a100 \
---adr.nvidia-harness.tags=_sxm
+--adr.nvidia-harness.tags=_sxm \
+--results_dir=$HOME/results_dir
 ```
 
 ## Resnet50
@@ -39,7 +41,8 @@ cmr "generate-run-cmds inference _performance-only"  \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --scenario=Offline --execution_mode=fast \
 --target_qps=43000 --rerun --gpu_name=a100 \
---adr.nvidia-harness.tags=_sxm
+--adr.nvidia-harness.tags=_sxm \
+--results_dir=$HOME/results_dir
 ```
 
 ### Full run
@@ -51,7 +54,8 @@ cmr "generate-run-cmds inference _submission _all-scenarios"  \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --execution_mode=valid \
 --target_qps=43000 --rerun --gpu_name=a100 \
---adr.nvidia-harness.tags=_sxm
+--adr.nvidia-harness.tags=_sxm \
+--results_dir=$HOME/results_dir
 ```
 
 ## Retinanet
@@ -63,7 +67,8 @@ cmr "generate-run-cmds inference _performance-only"  \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --scenario=Offline --execution_mode=fast \
 --target_qps=715 --rerun --gpu_name=a100 \
---adr.nvidia-harness.tags=_sxm
+--adr.nvidia-harness.tags=_sxm \
+--results_dir=$HOME/results_dir
 ```
 
 ### Full run
@@ -75,7 +80,8 @@ cmr "generate-run-cmds inference _submission _all-scenarios"  \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --execution_mode=valid \
 --target_qps=715 --rerun --gpu_name=a100 \
---adr.nvidia-harness.tags=_sxm
+--adr.nvidia-harness.tags=_sxm \
+--results_dir=$HOME/results_dir
 ```
 
 ## RNNT
@@ -88,7 +94,8 @@ cmr "generate-run-cmds inference _performance-only"  \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --scenario=Offline --execution_mode=fast \
 --target_qps=14000 --rerun --gpu_name=a100 \
---adr.nvidia-harness.tags=_sxm
+--adr.nvidia-harness.tags=_sxm \
+--results_dir=$HOME/results_dir
 ```
 
 ### Full run
@@ -100,7 +107,8 @@ cmr "generate-run-cmds inference _submission _all-scenarios"  \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --execution_mode=valid \
 --target_qps=14000 --rerun --gpu_name=a100 \
---adr.nvidia-harness.tags=_sxm
+--adr.nvidia-harness.tags=_sxm \
+--results_dir=$HOME/results_dir
 ```
 
 ## 3d-unet
@@ -113,7 +121,8 @@ cmr "generate-run-cmds inference _performance-only"  \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --scenario=Offline --execution_mode=fast \
 --target_qps=3.7 --rerun --gpu_name=a100 \
---adr.nvidia-harness.tags=_sxm
+--adr.nvidia-harness.tags=_sxm \
+--results_dir=$HOME/results_dir
 ```
 
 ### Full run
@@ -125,7 +134,8 @@ cmr "generate-run-cmds inference _submission _all-scenarios"  \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --execution_mode=valid \
 --target_qps=3.7 --rerun --gpu_name=a100 \
---adr.nvidia-harness.tags=_sxm
+--adr.nvidia-harness.tags=_sxm \
+--results_dir=$HOME/results_dir
 ```
 
 Once all 5 model results are done, please follow [Submission](Submission.md) to generate the required submission. 
