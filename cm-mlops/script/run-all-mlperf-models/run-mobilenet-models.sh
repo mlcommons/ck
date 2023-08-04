@@ -22,29 +22,33 @@ function run() {
     exit_if_error
   fi
 }
-
+POWER=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4940 "
 #Add your run commands here...
 # run "$CM_RUN_CMD"
-run "screen cmr 'run mobilenet-models _tflite _accuracy-only' \
+run "cm run script --tags=run,mobilenet-models,_tflite,_accuracy-only \
 --adr.compiler.tags=gcc \
 --results_dir=$HOME/mobilenet_results"
 
-screen cmr "run mobilenet-models _tflite _performance-only" \
+run "cm run script --tags=run,mobilenet-models,_tflite,_performance-only \
+${POWER} \
 --adr.compiler.tags=gcc \
---results_dir=$HOME/mobilenet_results
+--results_dir=$HOME/mobilenet_results"
 
-cmr "run mobilenet-models _tflite _populate-readme" \
+run "cm run script --tags=run,mobilenet-models,_tflite,_populate-readme \
+${POWER} \
 --adr.compiler.tags=gcc \
---results_dir=$HOME/mobilenet_results
+--results_dir=$HOME/mobilenet_results"
 
-cmr "run mobilenet-models _tflite _armnn _neon _accuracy-only" \
+run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_accuracy-only \
 --adr.compiler.tags=gcc \
---results_dir=$HOME/mobilenet_results
+--results_dir=$HOME/mobilenet_results"
 
-cmr "run mobilenet-models _tflite _armnn _neon _accuracy-only" \
+run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_performance-only \
+${POWER} \
 --adr.compiler.tags=gcc \
---results_dir=$HOME/mobilenet_results
+--results_dir=$HOME/mobilenet_results"
 
-cmr "run mobilenet-models _tflite _armnn _neon _accuracy-only" \
+run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_populate-readme \
+${POWER} \
 --adr.compiler.tags=gcc \
---results_dir=$HOME/mobilenet_results
+--results_dir=$HOME/mobilenet_results"

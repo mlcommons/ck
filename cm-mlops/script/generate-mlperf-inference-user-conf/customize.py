@@ -104,7 +104,7 @@ def preprocess(i):
         tolerance = 1.01
         #value = env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS') if scenario == "Server" else env.get('CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS')
         value = env.get('CM_MLPERF_LOADGEN_TARGET_QPS')
-        if mode == "compliance" and scenario == "Server": #Adjust the server_target_qps
+        if value and mode == "compliance" and scenario == "Server": #Adjust the server_target_qps
             test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
             if test == "TEST01":
                 value = str(int(value) * int(env.get("CM_MLPERF_TEST01_SERVER_ADJUST_FACTOR", 0.96)))
@@ -114,10 +114,11 @@ def preprocess(i):
         metric = "target_latency"
         tolerance = 0.4 #much lower because we have max_duration
         value = env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY')
-        if scenario == "SingleStream" and (1000/float(value) * 660 < 100):
-            env['CM_MLPERF_USE_MAX_DURATION'] = 'no'
-        elif scenario == "MultiStream" and (1000/float(value) * 660 < 662):
-            env['CM_MLPERF_USE_MAX_DURATION'] = 'no'
+        if value:
+            if scenario == "SingleStream" and (1000/float(value) * 660 < 100):
+                env['CM_MLPERF_USE_MAX_DURATION'] = 'no'
+            elif scenario == "MultiStream" and (1000/float(value) * 660 < 662):
+                env['CM_MLPERF_USE_MAX_DURATION'] = 'no'
     else:
         return {'return': 1, 'error': 'Invalid scenario: {}'.format(scenario)}
 
