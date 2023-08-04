@@ -175,6 +175,11 @@ ___
            * get,generic-python-lib,_torchvision
              * CM names: `--adr.['torchvision']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_tflite_tpu`
+      - Environment variables:
+        - *CM_MODEL*: `resnet50`
+        - *CM_PREPROCESS_TFLITE_TPU*: `yes`
+      - Workflow:
 
     </details>
 
