@@ -104,12 +104,6 @@ def preprocess(i):
         tolerance = 1.01
         #value = env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS') if scenario == "Server" else env.get('CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS')
         value = env.get('CM_MLPERF_LOADGEN_TARGET_QPS')
-        if value and mode == "compliance" and scenario == "Server": #Adjust the server_target_qps
-            test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
-            if test == "TEST01":
-                value = str(int(value) * int(env.get("CM_MLPERF_TEST01_SERVER_ADJUST_FACTOR", 0.96)))
-            if test == "TEST05":
-                value = str(int(value) * int(env.get("CM_MLPERF_TEST05_SERVER_ADJUST_FACTOR", 0.97)))
     elif scenario in [ 'SingleStream', 'MultiStream' ]:
         metric = "target_latency"
         tolerance = 0.4 #much lower because we have max_duration
@@ -165,6 +159,14 @@ def preprocess(i):
             metric_value = 1
         if scenario in [ "SingleStream" ]:
             metric_value = 1000
+
+    elif env['CM_MLPERF_RUN_STYLE'] == "valid":
+        if  mode == "compliance" and scenario == "Server": #Adjust the server_target_qps
+            test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
+            if test == "TEST01":
+                metric_value = str(int(metric_value) * int(env.get("CM_MLPERF_TEST01_SERVER_ADJUST_FACTOR", 0.96)))
+            if test == "TEST05":
+                metric_value = str(int(metric_value) * int(env.get("CM_MLPERF_TEST05_SERVER_ADJUST_FACTOR", 0.97)))
 
     conf[metric] = metric_value
     user_conf += ml_model_name + "." + scenario + "." + metric + " = " + str(metric_value) + "\n"
