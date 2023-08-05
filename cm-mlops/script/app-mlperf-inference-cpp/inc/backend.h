@@ -145,9 +145,10 @@ public:
     void UnloadSampleFromRam(mlperf::QuerySampleIndex sample_index) {
         for (size_t i = 0; i < num_inputs; i++)
             sample_memory_size[i] -= GetSampleSize(sample_index, i);
-            if (sample_map.find(sample_index) != sample_map.end()) {
+           /* if (sample_map.find(sample_index) != sample_map.end()) {
 		sample_map.erase(sample_index);
-	    }
+	    }*/
+	//Temporarily commenting out above until segfault issue is fixed
         batches.children.erase(sample_index);
         num_samples_in_memory--;
     }
