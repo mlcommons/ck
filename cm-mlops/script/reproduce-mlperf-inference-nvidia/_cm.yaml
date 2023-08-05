@@ -662,6 +662,14 @@ variations:
     env:
       CM_NVIDIA_GPU_MEMORY: "80"
 
+  singlestream,resnet50:
+    env:
+      SKIP_POLICIES: '1'
+
+  multistream,resnet50:
+    env:
+      SKIP_POLICIES: '1'
+
   singlestream,run_harness:
     add_deps_recursive:
       build-engine:
