@@ -11,22 +11,29 @@ def preprocess(i):
     if env["CM_DOCKER_OS"] not in [ "ubuntu", "rhel", "arch" ]:
         return {'return': 1, 'error': "Currently only ubuntu, rhel and arch are supported in CM docker"}
     path = i['run_script_input']['path']
+
     with open(os.path.join(path, "dockerinfo.json")) as f:
         config = json.load(f)
+
     build_args = []
     input_args = []
     copy_files = []
+
     if 'CM_DOCKER_RUN_SCRIPT_TAGS' in env:
         script_tags=env['CM_DOCKER_RUN_SCRIPT_TAGS']
         found_scripts = cm.access({'action': 'search', 'automation': 'script', 'tags': script_tags})
         scripts_list = found_scripts['list']
+
         if not scripts_list:
             return {'return': 1, 'error': 'No CM script found for tags ' + script_tags}
+
         if len(scripts_list) > 1:
             return {'return': 1, 'error': 'More than one scripts found for tags '+ script_tags}
+
         script = scripts_list[0]
         input_mapping = script.meta.get('input_mapping', {})
         default_env = script.meta.get('default_env', {})
+
         for input_,env_ in input_mapping.items():
             if input_ == "docker":
                 continue
@@ -57,10 +64,21 @@ def preprocess(i):
     dockerfile_with_path = env['CM_DOCKERFILE_WITH_PATH']
     dockerfile_dir = os.path.dirname(dockerfile_with_path)
 
-    os.makedirs(os.path.dirname(dockerfile_with_path), exist_ok=True)
+    extra_dir = os.path.dirname(dockerfile_with_path)
+    
+    if extra_dir!='':
+        os.makedirs(extra_dir, exist_ok=True)
+
     f = open(dockerfile_with_path, "w")
     EOL = env['CM_DOCKER_IMAGE_EOL']
     f.write('FROM ' + docker_image_base + EOL)
+
+    # Maintainers
+    f.write(EOL)
+    f.write('# Maintained by the MLCommons taskforce on automation and reproducibility' + EOL)
+    f.write('LABEL github="https://github.com/mlcommons/ck"' + EOL)
+    f.write('LABEL maintainer="https://cKnowledge.org/mlcommons-taskforce"' + EOL)
+    f.write(EOL)
 
     image_label = get_value(env, config, 'LABEL', 'CM_DOCKER_IMAGE_LABEL')
     if image_label:
@@ -89,7 +107,7 @@ def preprocess(i):
             f.write('COPY '+ filename+" "+copy_split[1] + EOL)
 
     f.write(EOL+'# Notes: https://runnable.com/blog/9-common-dockerfile-mistakes'+EOL+'# Install system dependencies' + EOL)
-    f.write('RUN ' + get_value(env, config, 'package-manager-update-cmd') + EOL)
+    f.write('RUN ' + get_value(env, config, 'package-manager-update-cmd', 'CM_PACKAGE_MANAGER_UPDATE_CMD') + EOL)
     f.write('RUN '+ get_value(env, config, 'package-manager-get-cmd') + " " + " ".join(get_value(env, config,
         'packages')) + EOL)
 
@@ -97,6 +115,7 @@ def preprocess(i):
 
     f.write(EOL+'# Install python packages' + EOL)
     f.write('RUN python3 -m pip install ' + " ".join(get_value(env, config, 'python-packages')) + ' ' + pip_extra_flags + ' ' + EOL)
+
     f.write(EOL+'# Setup docker environment' + EOL)
 
     entry_point = get_value(env, config, 'ENTRYPOINT', 'CM_DOCKER_IMAGE_ENTRYPOINT')
@@ -160,15 +179,23 @@ def preprocess(i):
     for comment in env.get('CM_DOCKER_RUN_COMMENTS', []):
         f.write(comment + EOL)
 
+    skip_extra = False
     if 'CM_DOCKER_RUN_CMD' not in env:
         if 'CM_DOCKER_RUN_SCRIPT_TAGS' not in env:
             env['CM_DOCKER_RUN_CMD']="cm version"
+            skip_extra = True
         else:
             env['CM_DOCKER_RUN_CMD']="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
 
     fake_run = " --fake_run" + dockerfile_env_input_string
     fake_run = fake_run + " --fake_deps" if env.get('CM_DOCKER_FAKE_DEPS') else fake_run
-    f.write('RUN ' + env['CM_DOCKER_RUN_CMD'] + fake_run + ' --quiet ' + run_cmd_extra + EOL)
+
+    x = 'RUN ' + env['CM_DOCKER_RUN_CMD']
+
+    if not skip_extra:
+        x += fake_run + ' --quiet ' + run_cmd_extra
+
+    f.write(x + EOL)
 
     #fake_run to install the dependent scripts and caching them
     if not "run" in env['CM_DOCKER_RUN_CMD'] and env.get('CM_REAL_RUN', None):
