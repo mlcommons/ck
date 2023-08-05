@@ -164,9 +164,9 @@ def preprocess(i):
         if  mode == "compliance" and scenario == "Server": #Adjust the server_target_qps
             test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
             if test == "TEST01":
-                metric_value = str(int(metric_value) * int(env.get("CM_MLPERF_TEST01_SERVER_ADJUST_FACTOR", 0.96)))
+                metric_value = str(float(metric_value) * float(env.get("CM_MLPERF_TEST01_SERVER_ADJUST_FACTOR", 0.96)))
             if test == "TEST05":
-                metric_value = str(int(metric_value) * int(env.get("CM_MLPERF_TEST05_SERVER_ADJUST_FACTOR", 0.97)))
+                metric_value = str(float(metric_value) * float(env.get("CM_MLPERF_TEST05_SERVER_ADJUST_FACTOR", 0.97)))
 
     conf[metric] = metric_value
     user_conf += ml_model_name + "." + scenario + "." + metric + " = " + str(metric_value) + "\n"
