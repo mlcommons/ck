@@ -1,0 +1,10 @@
+﻿set DOCKER_OS=ubuntu
+set DOCKER_OS_VER=23.04
+set DOCKER_PIP_EXTRA_FLAGS=--break-system-packages
+set DOCKER_IMAGE_REPO=cknowledge
+set DOCKER_IMAGE_NAME=cm-image-classification-onnx
+rem set DOCKER_IMAGE_TAG=%DOCKER_OS%-%DOCKER_OS_VER%-20230804
+set DOCKER_IMAGE_TAG=%DOCKER_OS%-%DOCKER_OS_VER%-20230806
+set DOCKERFILE_EXT=%DOCKER_IMAGE_NAME%-%DOCKER_IMAGE_TAG%
+set DOCKER_PACKAGE_MANAGER_UPDATE_CMD="apt-get update -y && apt-get upgrade -y"
+set DOCKER_CM_MLOPS_REPO="mlcommons@ck"
