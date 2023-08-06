@@ -44,7 +44,8 @@ The above command should generate "submission.tar.gz" if there are no submission
 cmr "push github mlperf inference submission" \
 --submission_dir=$HOME/inference_submission_tree \
 --repo_url=https://github.com/ctuning/mlperf_inference_submissions_v3.1/ \
---commit_message="Results on <HW name> added by <Name>"
+--commit_message="Results on <HW name> added by <Name> \
+--quiet"
 ```
 
 Create a PR to the [cTuning repo](https://github.com/ctuning/mlperf_inference_submissions_v3.1)
