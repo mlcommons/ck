@@ -31,8 +31,8 @@ def preprocess(i):
     if "CM_DOCKER_IMAGE_REPO" not in env:
         env['CM_DOCKER_IMAGE_REPO'] = "local"
 
-    if "CM_DOCKER_IMAGE_NAME" not in env:
-        env['CM_DOCKER_IMAGE_NAME'] = "cm"
+    docker_image_name = env.get('CM_DOCKER_IMAGE_NAME', env['CM_DOCKER_RUN_SCRIPT_TAGS'].replace(',', '-').replace('_',''))
+    env['CM_DOCKER_IMAGE_NAME'] = "cm"
 
     if "CM_DOCKER_IMAGE_TAG" not in env:
         env['CM_DOCKER_IMAGE_TAG'] = "latest"

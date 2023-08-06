@@ -17,7 +17,8 @@ def preprocess(i):
         CM_RUN_CMD="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
 
     docker_image_base = env.get('CM_DOCKER_IMAGE_BASE', "ubuntu:22.04")
-    docker_image_repo = env.get('CM_DOCKER_IMAGE_REPO', "local/" + env['CM_DOCKER_RUN_SCRIPT_TAGS'].replace(',', '-').replace('_',''))
+    docker_image_repo = env.get('CM_DOCKER_IMAGE_REPO', "local")
+    docker_image_name = env.get('CM_DOCKER_IMAGE_NAME', env['CM_DOCKER_RUN_SCRIPT_TAGS'].replace(',', '-').replace('_','') )
     docker_image_tag = env.get('CM_DOCKER_IMAGE_TAG', docker_image_base.replace(':','-').replace('_','') + "-latest")
 
     r = cm.access({'action':'search', 'automation':'script', 'tags': env['CM_DOCKER_RUN_SCRIPT_TAGS']})
@@ -26,7 +27,7 @@ def preprocess(i):
     PATH = r['list'][0].path
     os.chdir(PATH)
     env['CM_DOCKER_RUN_CMD'] = CM_RUN_CMD
-    DOCKER_CONTAINER = docker_image_repo +  ":" + docker_image_tag
+    DOCKER_CONTAINER = docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag
 
     CMD = "docker images -q " +  DOCKER_CONTAINER
     if os_info['platform'] == 'windows':
@@ -53,7 +54,8 @@ def postprocess(i):
     env = i['env']
 
     docker_image_base = env.get('CM_DOCKER_IMAGE_BASE', "ubuntu:22.04")
-    docker_image_repo = env.get('CM_DOCKER_IMAGE_REPO', "local/" + env['CM_DOCKER_RUN_SCRIPT_TAGS'].replace(',', '-').replace('_',''))
+    docker_image_repo = env.get('CM_DOCKER_IMAGE_REPO', "local")
+    docker_image_name = env.get('CM_DOCKER_IMAGE_NAME', env['CM_DOCKER_RUN_SCRIPT_TAGS'].replace(',', '-').replace('_','') )
     docker_image_tag = env.get('CM_DOCKER_IMAGE_TAG', docker_image_base.replace(':','-').replace('_','') + "-latest")
     run_cmds = []
     mount_cmds = []
@@ -110,7 +112,7 @@ def postprocess(i):
     run_opts += port_map_cmd_string
 
     if env.get('CM_DOCKER_DETACHED_MODE','') == "yes":
-        CONTAINER="docker run -dt "+ run_opts + " --rm " + docker_image_repo + ":" + docker_image_tag + " bash"
+        CONTAINER="docker run -dt "+ run_opts + " --rm " + docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag + " bash"
         CMD = "ID=`" + CONTAINER + "` && docker exec $ID bash -c '" + run_cmd + "' && docker kill $ID >/dev/null"
 
         print ('')
@@ -123,7 +125,7 @@ def postprocess(i):
     else:
         x = '"' if os_info['platform'] == 'windows' else "'"
 
-        CONTAINER="docker run -it --entrypoint "+x+x+" "+ run_opts + " " + docker_image_repo + ":" + docker_image_tag
+        CONTAINER="docker run -it --entrypoint "+x+x+" "+ run_opts + " " + docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag
         CMD =  CONTAINER + " bash -c " + x + run_cmd + " && bash " + x
 
         print ('')
