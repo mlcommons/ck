@@ -326,6 +326,11 @@ def run_files_exist(mode, OUTPUT_DIR, run_files):
         is_valid = checker.check_compliance_perf_dir(OUTPUT_DIR)
         return is_valid
 
+    if "power" in mode:
+        from power.power_checker import check as check_power_more
+        is_valid = check_power_more(os.path.dirname(OUTPUT_DIR)) == 0
+        return is_valid
+
     return True
 
 def measure_files_exist(OUTPUT_DIR, run_files):
