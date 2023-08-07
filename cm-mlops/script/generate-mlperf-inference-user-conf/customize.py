@@ -206,8 +206,10 @@ def preprocess(i):
         if scenario == "MultiStream" or scenario == "SingleStream":
             if env.get('CM_MLPERF_USE_MAX_DURATION', 'yes').lower() not in [ "no", "false" ]:
                 user_conf += ml_model_name + "." + scenario + ".max_duration = 660000 \n"
+            elif env.get('CM_MLPERF_INFERENCE_MIN_DURATION','') != '':
+                user_conf += ml_model_name + "." + scenario + ".min_duration = " + env['CM_MLPERF_INFERENCE_MIN_DURATION'] +" \n"
             if scenario == "MultiStream":
-                user_conf += ml_model_name + "." + scenario + ".min_query_count = 662" + "\n"
+                user_conf += ml_model_name + "." + scenario + ".min_query_count = "+ env.get('CM_MLPERF_INFERENCE_MULTISTREAM_MIN_QUERY_COUNT', "662") + "\n"
             if short_ranging:
                 ranging_user_conf += ml_model_name + "." + scenario + ".max_duration = 300000 \n "
         elif scenario == "SingleStream_old":
