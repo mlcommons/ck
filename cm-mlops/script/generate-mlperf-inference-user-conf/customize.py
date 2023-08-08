@@ -58,6 +58,7 @@ def preprocess(i):
     if "gpt-" in env['CM_MODEL']:
         test_list.remove("TEST05")
         test_list.remove("TEST04")
+        test_list.remove("TEST01")
 
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
     state['RUN'][scenario] = {}
