@@ -37,12 +37,12 @@
     "bert-base-pruned95_obs_quant-none": {
       "env": {
         "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned95_obs_quant-none",
-	"CM_ML_MODEL_FULL_NAME": "bert-base-pruned95_obs_quant-none-bert-99",
-	"CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/bert-large-uncased",
-	"CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "quantization, unstructured pruning",
+        "CM_ML_MODEL_FULL_NAME": "bert-base-pruned95_obs_quant-none-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/bert-base-uncased",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "quantization, unstructured pruning",
         "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "int8",
         "CM_ML_MODEL_INPUTS_DATA_TYPE": "int64",
-	"CM_ML_MODEL_RETRAINING": "yes"
+        "CM_ML_MODEL_RETRAINING": "yes"
       }
     },
     "model-stub.zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned95_obs_quant-none": {
@@ -51,12 +51,12 @@
     "obert-large-pruned95_quant-none-vnni": {
       "env": {
         "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95_quant-none-vnni",
-	"CM_ML_MODEL_FULL_NAME": "obert-large-pruned95_quant-none-vnni-bert-99",
-	"CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/bert-large-uncased",
-	"CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "quantization, unstructured pruning",
+        "CM_ML_MODEL_FULL_NAME": "obert-large-pruned95_quant-none-vnni-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/bert-large-uncased",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "quantization, unstructured pruning",
         "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "int8",
         "CM_ML_MODEL_INPUTS_DATA_TYPE": "int64",
-	"CM_ML_MODEL_RETRAINING": "yes"
+        "CM_ML_MODEL_RETRAINING": "yes"
       }
     },
     "model-stub.zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95_quant-none-vnni": {
@@ -65,12 +65,12 @@
     "mobilebert-14layer_pruned50_quant-none-vnni": {
       "env": {
         "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni",
-	"CM_ML_MODEL_FULL_NAME": "mobilebert-14layer_pruned50_quant-none-vnni-bert-99",
-	"CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://storage.googleapis.com/cloud-tpu-checkpoints/mobilebert/uncased_L-24_H-128_B-512_A-4_F-4_OPT.tar.gz",
-	"CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "quantization, unstructured pruning",
+        "CM_ML_MODEL_FULL_NAME": "mobilebert-14layer_pruned50_quant-none-vnni-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://storage.googleapis.com/cloud-tpu-checkpoints/mobilebert/uncased_L-24_H-128_B-512_A-4_F-4_OPT.tar.gz",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "quantization, unstructured pruning",
         "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "int8",
         "CM_ML_MODEL_INPUTS_DATA_TYPE": "int64",
-	"CM_ML_MODEL_RETRAINING": "yes"
+        "CM_ML_MODEL_RETRAINING": "yes"
       }
     },
     "model-stub.zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni": {
@@ -79,12 +79,12 @@
     "mobilebert-base_quant-none": {
       "env": {
         "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base_quant-none",
-	"CM_ML_MODEL_FULL_NAME": "mobilebert-base_quant-none-bert-99",
-	"CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://storage.googleapis.com/cloud-tpu-checkpoints/mobilebert/uncased_L-24_H-128_B-512_A-4_F-4_OPT.tar.gz",
-	"CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "quantization, unstructured pruning",
+        "CM_ML_MODEL_FULL_NAME": "mobilebert-base_quant-none-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://storage.googleapis.com/cloud-tpu-checkpoints/mobilebert/uncased_L-24_H-128_B-512_A-4_F-4_OPT.tar.gz",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "quantization, unstructured pruning",
         "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "int8",
         "CM_ML_MODEL_INPUTS_DATA_TYPE": "int64",
-	"CM_ML_MODEL_RETRAINING": "yes"
+        "CM_ML_MODEL_RETRAINING": "yes"
       }
     },
     "model-stub.zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base_quant-none": {
@@ -93,12 +93,12 @@
     "mobilebert-none-base-none": {
       "env": {
         "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base-none",
-	"CM_ML_MODEL_FULL_NAME": "mobilebert-none-base-none-bert-99",
-	"CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://storage.googleapis.com/cloud-tpu-checkpoints/mobilebert/uncased_L-24_H-128_B-512_A-4_F-4_OPT.tar.gz",
-	"CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "unstructured pruning",
+        "CM_ML_MODEL_FULL_NAME": "mobilebert-none-base-none-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://storage.googleapis.com/cloud-tpu-checkpoints/mobilebert/uncased_L-24_H-128_B-512_A-4_F-4_OPT.tar.gz",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "unstructured pruning",
         "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "fp32",
         "CM_ML_MODEL_INPUTS_DATA_TYPE": "fp32",
-	"CM_ML_MODEL_RETRAINING": "no"
+        "CM_ML_MODEL_RETRAINING": "no"
       }
     },
     "model-stub.zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base-none": {
@@ -107,12 +107,12 @@
     "oberta-base-pruned90-quant-none": {
       "env": {
         "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/oberta-base/pytorch/huggingface/squad/pruned90_quant-none",
-	"CM_ML_MODEL_FULL_NAME": "oberta-base-pruned90-quant-none-bert-99",
-	"CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/roberta-base",
-	"CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "quantization, unstructured pruning",
+        "CM_ML_MODEL_FULL_NAME": "oberta-base-pruned90-quant-none-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/roberta-base",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "quantization, unstructured pruning",
         "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "int8",
         "CM_ML_MODEL_INPUTS_DATA_TYPE": "int64",
-	"CM_ML_MODEL_RETRAINING": "no"
+        "CM_ML_MODEL_RETRAINING": "no"
       }
     },
     "model-stub.zoo:nlp/question_answering/oberta-base/pytorch/huggingface/squad/pruned90_quant-none": {
@@ -121,12 +121,12 @@
     "roberta-base-pruned85-quant-none": {
       "env": {
         "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/pruned85_quant-none",
-	"CM_ML_MODEL_FULL_NAME": "roberta-base-pruned85-quant-none-bert-99",
-	"CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/roberta-base",
-	"CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "quantization, unstructured pruning",
+        "CM_ML_MODEL_FULL_NAME": "roberta-base-pruned85-quant-none-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/roberta-base",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "quantization, unstructured pruning",
         "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "int8",
         "CM_ML_MODEL_INPUTS_DATA_TYPE": "int64",
-	"CM_ML_MODEL_RETRAINING": "no"
+        "CM_ML_MODEL_RETRAINING": "no"
       }
     },
     "model-stub.zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/pruned85_quant-none": {
@@ -135,16 +135,156 @@
     "mobilebert-14layer_pruned50-none-vnni": {
       "env": {
         "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50-none-vnni",
-	"CM_ML_MODEL_FULL_NAME": "mobilebert-14layer_pruned50-none-vnni-bert-99",
-	"CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://storage.googleapis.com/cloud-tpu-checkpoints/mobilebert/uncased_L-24_H-128_B-512_A-4_F-4_OPT.tar.gz",
-	"CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "unstructured pruning",
+        "CM_ML_MODEL_FULL_NAME": "mobilebert-14layer_pruned50-none-vnni-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://storage.googleapis.com/cloud-tpu-checkpoints/mobilebert/uncased_L-24_H-128_B-512_A-4_F-4_OPT.tar.gz",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "unstructured pruning",
         "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "fp32",
         "CM_ML_MODEL_INPUTS_DATA_TYPE": "fp32",
-	"CM_ML_MODEL_RETRAINING": "no"
+        "CM_ML_MODEL_RETRAINING": "no"
       }
     },
     "model-stub.zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50-none-vnni": {
       "alias": "mobilebert-14layer_pruned50-none-vnni"
+    },
+    "obert-base-pruned90-none": {
+      "env": {
+        "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/obert-base/pytorch/huggingface/squad/pruned90-none",
+        "CM_ML_MODEL_FULL_NAME": "obert-base-pruned90-none-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/bert-large-uncased",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "unstructured pruning",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_RETRAINING": "no"
+      }
+    },
+    "model-stub.zoo:nlp/question_answering/obert-base/pytorch/huggingface/squad/pruned90-none": {
+      "alias": "obert-base-pruned90-none"
+    },
+    "obert-large-pruned97-quant-none": {
+      "env": {
+        "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned97_quant-none",
+        "CM_ML_MODEL_FULL_NAME": "obert-large-pruned97-quant-none-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/bert-large-uncased",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "quantization, unstructured pruning",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "int8",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "int64",
+        "CM_ML_MODEL_RETRAINING": "no"
+      }
+    },
+    "model-stub.zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned97_quant-none": {
+      "alias": "obert-large-pruned97-quant-none"
+    },
+    "bert-base_cased-pruned90-none": {
+      "env": {
+        "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/bert-base_cased/pytorch/huggingface/squad/pruned90-none",
+        "CM_ML_MODEL_FULL_NAME": "bert-base_cased-pruned90-none-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/bert-base-cased",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "unstructured pruning",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_RETRAINING": "no"
+      }
+    },
+    "model-stub.zoo:nlp/question_answering/bert-base_cased/pytorch/huggingface/squad/pruned90-none": {
+      "alias": "bert-base_cased-pruned90-none"
+    },
+    "bert-base-pruned90-none": {
+      "env": {
+        "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned90-none",
+        "CM_ML_MODEL_FULL_NAME": "bert-base-pruned90-none-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/bert-base-uncased",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "unstructured pruning",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_RETRAINING": "no"
+      }
+    },
+    "model-stub.zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned90-none": {
+      "alias": "bert-base-pruned90-none"
+    },
+    "bert-large-pruned80_quant-none-vnni": {
+      "env": {
+        "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/bert-large/pytorch/huggingface/squad/pruned80_quant-none-vnni",
+        "CM_ML_MODEL_FULL_NAME": "bert-large-pruned80_quant-none-vnni-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/bert-large-uncased",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "quantization, unstructured pruning",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "int8",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "int64",
+        "CM_ML_MODEL_RETRAINING": "no"
+      }
+    },
+    "model-stub.zoo:nlp/question_answering/bert-large/pytorch/huggingface/squad/pruned80_quant-none-vnni": {
+      "alias": "bert-large-pruned80_quant-none-vnni"
+    },
+    "obert-large-pruned95-none-vnni": {
+      "env": {
+        "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95-none-vnni",
+        "CM_ML_MODEL_FULL_NAME": "obert-large-pruned95-none-vnni-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/bert-large-uncased",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "unstructured pruning",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_RETRAINING": "no"
+      }
+    },
+    "model-stub.zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95-none-vnni": {
+      "alias": "obert-large-pruned95-none-vnni"
+    },
+    "obert-large-pruned97-none": {
+      "env": {
+        "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned97-none",
+        "CM_ML_MODEL_FULL_NAME": "obert-large-pruned97-none-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/bert-large-uncased",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "unstructured pruning",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_RETRAINING": "no"
+      }
+    },
+    "model-stub.zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned97-none": {
+      "alias": "obert-large-pruned97-none"
+    },
+    "bert-large-base-none": {
+      "env": {
+        "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/bert-large/pytorch/huggingface/squad/base-none",
+        "CM_ML_MODEL_FULL_NAME": "bert-large-base-none-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/bert-large-uncased",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "unstructured pruning",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_RETRAINING": "no"
+      }
+    },
+    "model-stub.zoo:nlp/question_answering/bert-large/pytorch/huggingface/squad/base-none": {
+      "alias": "bert-large-base-none"
+    },
+    "obert-large-base-none": {
+      "env": {
+        "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/base-none",
+        "CM_ML_MODEL_FULL_NAME": "obert-large-base-none-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/bert-large-uncased",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "unstructured pruning",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_RETRAINING": "no"
+      }
+    },
+    "model-stub.zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/base-none": {
+      "alias": "obert-large-base-none"
+    },
+    "mobilebert-none-base-none": {
+      "env": {
+        "CM_MODEL_ZOO_STUB": "zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base-none",
+        "CM_ML_MODEL_FULL_NAME": "mobilebert-none-base-none-bert-99",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://storage.googleapis.com/cloud-tpu-checkpoints/mobilebert/uncased_L-24_H-128_B-512_A-4_F-4_OPT.tar.gz",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "unstructured pruning",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_RETRAINING": "no"
+      }
+    },
+    "model-stub.zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base-none": {
+      "alias": "mobilebert-none-base-none"
     },
     "model-stub.#": {
       "env": {
