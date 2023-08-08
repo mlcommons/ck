@@ -338,7 +338,7 @@ def run_files_exist(mode, OUTPUT_DIR, run_files, env):
         print(cmd)
         os.system(cmd)
 
-        is_valid = checker.check_compliance_perf_dir(os.path.join(COMPLIANCE_DIR, "performance", "run_1"))
+        is_valid = checker.check_compliance_perf_dir(COMPLIANCE_DIR)
 
         return is_valid
 
