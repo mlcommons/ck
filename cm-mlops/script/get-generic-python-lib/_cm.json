@@ -84,6 +84,22 @@
         "CM_APEX_VERSION"
       ]
     },
+    "safetensors": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "safetensors"
+      },
+      "new_env_keys": [
+        "CM_SAFETENSORS_VERSION"
+      ],
+      "deps": [
+        {
+          "tags": "get,rust-compiler",
+            "skip_if_env": {
+              "CM_HOST_PLATFORM_FLAVOR": [ "x86_64" ]
+          }
+        }
+      ]
+    },
     "nvidia-apex": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "apex",

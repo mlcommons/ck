@@ -23,8 +23,10 @@
     "run_cmd_extra": "CM_DOCKER_RUN_CMD_EXTRA",
     "pre_run_cmds": "CM_DOCKER_PRE_RUN_COMMANDS",
     "post_run_cmds": "CM_DOCKER_POST_RUN_COMMANDS",
+    "post_file": "DOCKER_IMAGE_POST_FILE",
     "copy_files": "CM_DOCKER_COPY_FILES",
-    "pip_extra_flags": "CM_DOCKER_PIP_INSTALL_EXTRA_FLAGS"
+    "pip_extra_flags": "CM_DOCKER_PIP_INSTALL_EXTRA_FLAGS",
+    "package_manager_update_cmd": "CM_PACKAGE_MANAGER_UPDATE_CMD"
   },
   "default_env": {
     "CM_DOCKER_BUILD_SLIM": "no",

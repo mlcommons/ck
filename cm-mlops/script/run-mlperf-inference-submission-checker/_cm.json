@@ -61,6 +61,7 @@
   "input_mapping": {
     "skip_compliance": "CM_MLPERF_SKIP_COMPLIANCE",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
+    "input": "CM_MLPERF_SUBMISSION_DIR",
     "submitter": "CM_MLPERF_SUBMITTER",
     "src_version": "CM_MLPERF_SUBMISSION_CHECKER_VERSION",
     "push_to_github": "CM_MLPERF_RESULT_PUSH_TO_GITHUB",

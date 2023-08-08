@@ -9,10 +9,6 @@ def preprocess(i):
 
     env = i['env']
 
-    if env.get('CM_MLPERF_SUBMISSION_GENERATION_STYLE', '') == "short":
-        if env.get('CM_MODEL', '') == "resnet50":
-            env['CM_TEST_QUERY_COUNT'] = "500" #so that accuracy script doesn't complain
-
     if env.get('CM_MLPERF_IMPLEMENTATION', '') == 'nvidia-original':
         if env.get('CM_NVIDIA_GPU_NAME', '') in [ "rtx_4090", "a100", "t4", "l4", "orin", "custom" ]:
             env['CM_NVIDIA_HARNESS_GPU_VARIATION'] = "_" + env['CM_NVIDIA_GPU_NAME']
@@ -89,7 +85,8 @@ def postprocess(i):
 
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
 
-    if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes" and mode == "performance" and scenario != "Server":
+    #if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes" and mode == "performance" and scenario != "Server":
+    if mode == "performance" and scenario != "Server":
         os.chdir(output_dir)
         if not os.path.exists("mlperf_log_summary.txt"):
             return {'return': 0}
@@ -131,7 +128,7 @@ def postprocess(i):
             yaml.dump(sut_config, f)
 
 
-    elif mode in [ "performance", "accuracy" ]:
+    if mode in [ "performance", "accuracy" ]:
         measurements = {}
         measurements['starting_weights_filename'] = env.get('CM_ML_MODEL_STARTING_WEIGHTS_FILENAME', env.get('CM_ML_MODEL_FILE', ''))
         measurements['retraining'] = env.get('CM_ML_MODEL_RETRAINING','no')

@@ -46,7 +46,7 @@
     },
     "prune":{
       "env":{
-	"CM_MODEL_TASK": "prune"
+	"   CM_MODEL_TASK": "prune"
       }
     }
   }

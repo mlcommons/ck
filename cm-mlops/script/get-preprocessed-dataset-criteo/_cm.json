@@ -131,6 +131,12 @@
         },
         {
           "tags": "get,generic-python-lib,_package.fbgemm_gpu"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.torchrec"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.pyre_extensions"
         }
       ]
     }

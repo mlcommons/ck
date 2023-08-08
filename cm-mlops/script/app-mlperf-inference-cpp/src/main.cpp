@@ -25,6 +25,7 @@ public:
     InputSettings() {
         mlperf_conf_path = getenv("CM_MLPERF_CONF", "../inference/mlperf.conf");
         user_conf_path = getenv("CM_MLPERF_USER_CONF", "../inference/vision/classification_and_detection/user.conf");
+        audit_conf_path = getenv("CM_MLPERF_INFERENCE_AUDIT_PATH", "");
         output_dir = getenv("CM_MLPERF_OUTPUT_DIR", ".");
         backend_name = getenv("CM_MLPERF_BACKEND", "onnxruntime");
         device_name = getenv("CM_MLPERF_DEVICE", "cpu");
@@ -54,6 +55,7 @@ public:
 
     std::string mlperf_conf_path;
     std::string user_conf_path;
+    std::string audit_conf_path;
     std::string output_dir;
     std::string backend_name;
     std::string device_name;
@@ -202,5 +204,5 @@ int main(int argc, const char *argv[]) {
 
     // start benchmark
     std::cerr << "starting benchmark" << std::endl;
-    mlperf::StartTest(sut.get(), qsl.get(), test_settings, log_settings);
+    mlperf::StartTest(sut.get(), qsl.get(), test_settings, log_settings, input_settings.audit_conf_path);
 }

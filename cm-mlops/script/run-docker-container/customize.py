@@ -10,23 +10,35 @@ def preprocess(i):
 
     env = i['env']
 
+    interactive = env.get('CM_DOCKER_INTERACTIVE','')
+
+    if interactive:
+        env['CM_DOCKER_DETACHED_MODE']='no'
+
     if 'CM_DOCKER_RUN_SCRIPT_TAGS' not in env:
         env['CM_DOCKER_RUN_SCRIPT_TAGS'] = "run,docker,container"
         CM_RUN_CMD="cm version"
     else:
         CM_RUN_CMD="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
 
-    docker_image_base = env.get('CM_DOCKER_IMAGE_BASE', "ubuntu:22.04")
-    docker_image_repo = env.get('CM_DOCKER_IMAGE_REPO', "local/" + env['CM_DOCKER_RUN_SCRIPT_TAGS'].replace(',', '-').replace('_',''))
-    docker_image_tag = env.get('CM_DOCKER_IMAGE_TAG', docker_image_base.replace(':','-').replace('_','') + "-latest")
+    # Updating Docker info
+    update_docker_info(env)
+
+    docker_image_repo = env['CM_DOCKER_IMAGE_REPO']
+    docker_image_base = env['CM_DOCKER_IMAGE_BASE']
+    docker_image_name = env['CM_DOCKER_IMAGE_NAME']
+    docker_image_tag = env['CM_DOCKER_IMAGE_TAG']
 
     r = cm.access({'action':'search', 'automation':'script', 'tags': env['CM_DOCKER_RUN_SCRIPT_TAGS']})
     if len(r['list']) < 1:
         raise Exception('CM script with tags '+ env['CM_DOCKER_RUN_SCRIPT_TAGS'] + ' not found!')
+
     PATH = r['list'][0].path
     os.chdir(PATH)
+
     env['CM_DOCKER_RUN_CMD'] = CM_RUN_CMD
-    DOCKER_CONTAINER = docker_image_repo +  ":" + docker_image_tag
+
+    DOCKER_CONTAINER = docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag
 
     CMD = "docker images -q " +  DOCKER_CONTAINER
     if os_info['platform'] == 'windows':
@@ -52,9 +64,14 @@ def postprocess(i):
 
     env = i['env']
 
-    docker_image_base = env.get('CM_DOCKER_IMAGE_BASE', "ubuntu:22.04")
-    docker_image_repo = env.get('CM_DOCKER_IMAGE_REPO', "local/" + env['CM_DOCKER_RUN_SCRIPT_TAGS'].replace(',', '-').replace('_',''))
-    docker_image_tag = env.get('CM_DOCKER_IMAGE_TAG', docker_image_base.replace(':','-').replace('_','') + "-latest")
+    # Updating Docker info
+    update_docker_info(env)
+
+    docker_image_repo = env['CM_DOCKER_IMAGE_REPO']
+    docker_image_base = env['CM_DOCKER_IMAGE_BASE']
+    docker_image_name = env['CM_DOCKER_IMAGE_NAME']
+    docker_image_tag = env['CM_DOCKER_IMAGE_TAG']
+
     run_cmds = []
     mount_cmds = []
     port_map_cmds = []
@@ -107,29 +124,59 @@ def postprocess(i):
         port_map_cmd_string = " -p " + "-p ".join(port_map_cmds)
     else:
         port_map_cmd_string = ''
+
     run_opts += port_map_cmd_string
 
-    if env.get('CM_DOCKER_DETACHED_MODE','') == "yes":
-        CONTAINER="docker run -dt "+ run_opts + " --rm " + docker_image_repo + ":" + docker_image_tag + " bash"
+    # Currently have problem running Docker in detached mode on Windows:
+    detached = env.get('CM_DOCKER_DETACHED_MODE','') == "yes"
+    if detached and os_info['platform'] != 'windows':
+        CONTAINER="docker run -dt "+ run_opts + " --rm " + docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag + " bash"
         CMD = "ID=`" + CONTAINER + "` && docker exec $ID bash -c '" + run_cmd + "' && docker kill $ID >/dev/null"
 
         print ('')
-        print ("Container launch command: " + CMD)
+        print ("Container launch command:")
+        print (CMD)
+        print ('')
         print ("Running "+run_cmd+" inside docker container")
 
         print ('')
         docker_out = subprocess.check_output(CMD, shell=True).decode("utf-8")
-        print(docker_out)
-    else:
-        x = '"' if os_info['platform'] == 'windows' else "'"
 
-        CONTAINER="docker run -it --entrypoint "+x+x+" "+ run_opts + " " + docker_image_repo + ":" + docker_image_tag
+        print(docker_out)
+
+    else:
+
+        x = "'"
+        y = '-it'
+        if os_info['platform'] == 'windows':
+            x = '"'
+            if detached:
+                y = ''
+
+        CONTAINER="docker run {} --entrypoint ".format(y) + x + x + " " + run_opts + " " + docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag
         CMD =  CONTAINER + " bash -c " + x + run_cmd + " && bash " + x
 
         print ('')
-        print("Container launch command: " + CMD)
+        print ("Container launch command:")
+        print (CMD)
 
         print ('')
         docker_out = os.system(CMD)
 
     return {'return':0}
+
+def update_docker_info(env):
+    # Updating Docker info
+    docker_image_repo = env.get('CM_DOCKER_IMAGE_REPO', 'cknowledge')
+    env['CM_DOCKER_IMAGE_REPO'] = docker_image_repo
+
+    docker_image_base = env.get('CM_DOCKER_IMAGE_BASE', 'ubuntu:22.04')
+    env['CM_DOCKER_IMAGE_BASE'] = docker_image_base
+
+    docker_image_name = env.get('CM_DOCKER_IMAGE_NAME', 'cm-script-'+env['CM_DOCKER_RUN_SCRIPT_TAGS'].replace(',', '-').replace('_',''))
+    env['CM_DOCKER_IMAGE_NAME'] = docker_image_name
+
+    docker_image_tag = env.get('CM_DOCKER_IMAGE_TAG', docker_image_base.replace(':','-').replace('_','') + "-latest")
+    env['CM_DOCKER_IMAGE_TAG'] = docker_image_tag
+
+    return

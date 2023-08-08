@@ -310,10 +310,13 @@ variations:
     - tags: get,generic-python-lib,_torch
     - tags: get,generic-python-lib,_torchvision
     - tags: get,generic-python-lib,_opencv-python
+    - tags: get,generic-python-lib,_numpy
+    - tags: get,generic-python-lib,_pycocotools
 
   bert_:
     deps:
     - tags: get,generic-python-lib,_transformers
+    - tags: get,generic-python-lib,_safetensors
     - tags: get,generic-python-lib,_onnx
 
   bert-99:
@@ -660,6 +663,14 @@ variations:
     env:
       CM_NVIDIA_GPU_MEMORY: "80"
 
+  singlestream,resnet50:
+    env:
+      SKIP_POLICIES: '1'
+
+  multistream,resnet50:
+    env:
+      SKIP_POLICIES: '1'
+
   singlestream,run_harness:
     add_deps_recursive:
       build-engine:
@@ -899,6 +910,10 @@ variations:
       CM_NVIDIA_CUSTOM_GPU: "yes"
       CM_MODEL_BATCH_SIZE: "" #we pick from nvidia config
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  orin,rnnt,singlestream,run_harness:
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS: "1"
 
   rtx_4090:
     group: gpu-name

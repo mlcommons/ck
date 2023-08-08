@@ -24,11 +24,15 @@ def preprocess(i):
                 env['CM_DAE_EXTRA_TAGS'] = "_torrent"
                 env['CM_DAE_TORRENT_PATH'] = path
                 env['CM_DATASET_IMAGENET_VAL_REQUIRE_DAE'] = 'yes'
-
                 return {'return':0}
 
             else:
-                return {'return':1, 'error':'Please rerun the last CM command with --env.IMAGENET_PATH={path the folder containing full ImageNet images} or envoke cm run script "get val dataset imagenet" --input={path to the folder containing ImageNet images}'}
+                env['CM_DAE_URL'] = 'https://image-net.org/data/ILSVRC/2012/ILSVRC2012_img_val.tar'
+                env['CM_DAE_FILENAME'] = 'ILSVRC2012_img_val.tar'
+                env['CM_DATASET_IMAGENET_VAL_REQUIRE_DAE'] = 'yes'
+
+                return {'return':0}
+                #return {'return':1, 'error':'Please rerun the last CM command with --env.IMAGENET_PATH={path the folder containing full ImageNet images} or envoke cm run script "get val dataset imagenet" --input={path to the folder containing ImageNet images}'}
 
         else:
             env['CM_DATASET_IMAGENET_VAL_REQUIRE_DAE'] = 'yes'
