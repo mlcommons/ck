@@ -121,7 +121,9 @@ def preprocess(i):
         conf[metric] = value
     else:
         if metric in conf:
+            print("Original configuration value {} {}".format(conf[metric], metric))
             metric_value = str(float(conf[metric]) * tolerance) #some tolerance
+            print("Adjusted configuration value {} {}".format(metric_value, metric))
         else:
             #if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
             if metric == "target_qps":
@@ -317,11 +319,11 @@ def run_files_exist(mode, OUTPUT_DIR, run_files, env):
         file_path = os.path.join(OUTPUT_DIR, file)
         if (not os.path.exists(file_path) or os.stat(file_path).st_size == 0)  and file != "accuracy.txt":
             return False
-        if file ==  "mlperf_log_detail.txt":
+        if file ==  "mlperf_log_detail.txt" and "performance" in mode:
             mlperf_log = MLPerfLog(file_path)
             if (
-                "result_validity" in mlperf_log.get_keys()
-                and mlperf_log["result_validity"] == "INVALID"
+                "result_validity" not in mlperf_log.get_keys()
+                or mlperf_log["result_validity"] != "VALID"
             ):
                 return False
 
