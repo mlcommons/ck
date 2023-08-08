@@ -323,6 +323,18 @@ def run_files_exist(mode, OUTPUT_DIR, run_files):
                 return False
 
     if mode == "compliance":
+        #If a performance run followed the last compliance run, compliance check needs to be redone
+        RESULT_DIR = os.path.split(OUTPUT_DIR)[0]
+        COMPLIANCE_DIR = OUTPUT_DIR
+        OUTPUT_DIR = os.path.dirname(COMPLIANCE_DIR)
+
+        test = os.path.split(OUTPUT_DIR)[1]
+
+        SCRIPT_PATH = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", test, "run_verification.py")
+        cmd = env['CM_PYTHON_BIN'] + " " + SCRIPT_PATH + " -r " + RESULT_DIR + " -c " + COMPLIANCE_DIR + " -o "+ OUTPUT_DIR
+        print(cmd)
+        os.system(cmd)
+
         is_valid = checker.check_compliance_perf_dir(OUTPUT_DIR)
         return is_valid
 
