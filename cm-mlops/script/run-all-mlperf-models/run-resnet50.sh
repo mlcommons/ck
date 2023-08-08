@@ -34,7 +34,7 @@ function run_test() {
   device=$4
   run "$5"
 }
-POWER=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4940 "
+power=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4950 "
 
 #Add your run commands here...
 find_performance_cmd='cm run script --tags=generate-run-cmds,inference,_find-performance \
