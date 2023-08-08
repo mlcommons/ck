@@ -11,7 +11,6 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
-  * [ Variations](#variations)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
@@ -28,12 +27,12 @@
 
 #### Information
 
-* Category: *ML/AI models.*
+* Category: *Tests.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-python)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,ml-model,model,zoo,model-zoo,huggingface*
-* Output cached?: *True*
+* CM "database" tags to find this script: *run,python*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -51,11 +50,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,ml-model,model,zoo,model-zoo,huggingface[,variations] [--input_flags]`
+1. `cm run script --tags=run,python [--input_flags]`
 
-2. `cm run script "get ml-model model zoo model-zoo huggingface[,variations]" [--input_flags]`
+2. `cm run script "run python" [--input_flags]`
 
-3. `cm run script 53cf8252a443446a [--input_flags]`
+3. `cm run script 75a46d84ee6f49b0 [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -72,7 +71,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,ml-model,model,zoo,model-zoo,huggingface'
+                  'tags':'run,python'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -89,9 +88,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,ml-model,model,zoo,model-zoo,huggingface"```
+```cm run script --tags=gui --script="run,python"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,ml-model,model,zoo,model-zoo,huggingface) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run,python) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -101,38 +100,16 @@ ___
 ### Customization
 
 
-#### Variations
-
-  * *No group (any variation can be selected)*
-    <details>
-    <summary>Click here to expand this section.</summary>
-
-    * `_model-stub.#`
-      - Environment variables:
-        - *CM_MODEL_ZOO_STUB*: `#`
-      - Workflow:
-    * `_pierreguillou_bert_base_cased_squad_v1.1_portuguese`
-      - Environment variables:
-        - *CM_MODEL_ZOO_STUB*: `pierreguillou/bert-base-cased-squad-v1.1-portuguese`
-      - Workflow:
-    * `_prune`
-      - Environment variables:
-        - *   CM_MODEL_TASK*: `prune`
-      - Workflow:
-
-    </details>
-
-
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
 
-* `--model_filename=value`  &rarr;  `CM_MODEL_ZOO_FILENAME=value`
+* `--command=value`  &rarr;  `CM_RUN_PYTHON_CMD=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "model_filename":...}
+r=cm.access({... , "command":...}
 ```
 
 </details>
@@ -153,28 +130,26 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-python/_cm.json)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,python3
-       * CM names: `--adr.['python3', 'python']...`
+       * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * get,generic-python-lib,_huggingface_hub
-       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)
+  1. Run "preprocess" function from customize.py
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-python/_cm.json)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-python/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-python/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-python/_cm.json)
   1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-python/_cm.json)
 </details>
 
 ___
 ### Script output
 #### New environment keys (filter)
 
-* `CM_ML_MODEL*`
-* `CM_MODEL_ZOO_STUB`
 #### New environment keys auto-detected from customize
 
 ___

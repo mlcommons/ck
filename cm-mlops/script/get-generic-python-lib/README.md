@@ -348,6 +348,14 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `requests`
       - Workflow:
+    * `_safetensors`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `safetensors`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,rust-compiler
+             * `if (CM_HOST_PLATFORM_FLAVOR  != x86_64)`
+             - CM script: [get-compiler-rust](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-rust)
     * `_scikit-learn`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `scikit-learn`
