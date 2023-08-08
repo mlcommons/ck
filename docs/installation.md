@@ -232,7 +232,21 @@ software, hardware, models and data.
 
 # Running CM scripts via Docker
 
+CM language allows users to run various automation workflows and applications in the same way either inside automatically generated container snapshots
+or the latest software/hardware stacks (that may fail and then collaboratively improved by the community).
+
 If you have Docker installed, you can run any CM script using Docker and stay in the container to continue running CM commands as follows:
 ```bash
 cm docker script --tags=detect,os -j
 ```
+
+You can see more examples of using CM with Docker containers in this [folder](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image/examples).
+
+You can browse and reuse shared CM containers from cKnowledge and cTuning via [Docker hub](https://hub.docker.com/repositories/cknowledge).
+
+
+# Problems
+
+If you experience problems with CM installation, please report [here](https://github.com/mlcommons/ck/issues) 
+or reach the community via [Discord server](https://discord.gg/JjWNWXKxwT) to help improve CM and the overall user experience!
+
