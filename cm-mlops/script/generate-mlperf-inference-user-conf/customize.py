@@ -277,7 +277,7 @@ def preprocess(i):
     if 'CM_MLPERF_POWER' in env and mode == "performance":
         log_mode = "performance_power"
     
-    if not run_files_exist(log_mode, OUTPUT_DIR, required_files) or rerun:
+    if not run_files_exist(log_mode, OUTPUT_DIR, required_files, env) or rerun:
 
         print("Output Dir: '" + OUTPUT_DIR + "'")
         print(user_conf)
@@ -287,7 +287,7 @@ def preprocess(i):
         print("Run files exist, skipping run...\n")
         env['CM_MLPERF_SKIP_RUN'] = "yes"
 
-    if not run_files_exist(log_mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, \
+    if not run_files_exist(log_mode, OUTPUT_DIR, required_files, env) or rerun or not measure_files_exist(OUTPUT_DIR, \
                     required_files[4]) or env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
 
         env['CM_MLPERF_TESTING_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), key+".conf")#  user_conf_path
@@ -305,7 +305,7 @@ def preprocess(i):
 
     return {'return':0}
 
-def run_files_exist(mode, OUTPUT_DIR, run_files):
+def run_files_exist(mode, OUTPUT_DIR, run_files, env):
     import submission_checker as checker
     from log_parser import MLPerfLog
 
@@ -328,7 +328,7 @@ def run_files_exist(mode, OUTPUT_DIR, run_files):
         COMPLIANCE_DIR = OUTPUT_DIR
         OUTPUT_DIR = os.path.dirname(COMPLIANCE_DIR)
 
-        test = os.path.split(OUTPUT_DIR)[1]
+        test = env['CM_MLPERF_LOADGEN_COMPLIANCE_TEST']
 
         SCRIPT_PATH = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", test, "run_verification.py")
         cmd = env['CM_PYTHON_BIN'] + " " + SCRIPT_PATH + " -r " + RESULT_DIR + " -c " + COMPLIANCE_DIR + " -o "+ OUTPUT_DIR

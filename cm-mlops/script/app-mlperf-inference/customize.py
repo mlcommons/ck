@@ -9,10 +9,6 @@ def preprocess(i):
 
     env = i['env']
 
-    if env.get('CM_MLPERF_SUBMISSION_GENERATION_STYLE', '') == "short":
-        if env.get('CM_MODEL', '') == "resnet50":
-            env['CM_TEST_QUERY_COUNT'] = "500" #so that accuracy script doesn't complain
-
     if env.get('CM_MLPERF_IMPLEMENTATION', '') == 'nvidia-original':
         if env.get('CM_NVIDIA_GPU_NAME', '') in [ "rtx_4090", "a100", "t4", "l4", "orin", "custom" ]:
             env['CM_NVIDIA_HARNESS_GPU_VARIATION'] = "_" + env['CM_NVIDIA_GPU_NAME']
