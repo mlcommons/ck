@@ -16,8 +16,7 @@ posthook_deps: []
 prehook_deps: []
 tags:
 - get
-- compiler
-- rust
+- rust-compiler
 uid: 97ffbd9e537b4b59
 variations: {}
 versions: {}
