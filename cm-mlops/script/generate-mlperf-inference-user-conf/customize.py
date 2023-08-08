@@ -179,6 +179,39 @@ def preprocess(i):
         performance_sample_count = env['CM_MLPERF_PERFORMANCE_SAMPLE_COUNT']
         user_conf += ml_model_name + ".*.performance_sample_count_override = " + performance_sample_count + "\n"
 
+    log_mode = mode
+    if 'CM_MLPERF_POWER' in env and mode == "performance":
+        log_mode = "performance_power"
+
+    env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
+
+    sut_name = env.get('CM_SUT_NAME', env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'])
+    OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], sut_name, \
+            model_full_name, scenario.lower(), mode)
+
+    if 'CM_MLPERF_POWER' in env and mode == "performance":
+        env['CM_MLPERF_POWER_LOG_DIR'] = os.path.join(OUTPUT_DIR, "tmp_power")
+
+    if mode == "accuracy":
+        pass
+    elif mode == "performance":
+        OUTPUT_DIR = os.path.join(OUTPUT_DIR, "run_1")
+    elif mode == "compliance":
+        test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
+        OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], sut_name, model_full_name, scenario.lower(), test)
+        if test == "TEST01":
+            audit_path = os.path.join(test, env['CM_MODEL'])
+        else:
+            audit_path = test
+
+        audit_full_path = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", audit_path, "audit.config")
+        env['CM_MLPERF_INFERENCE_AUDIT_PATH'] = audit_full_path
+
+    env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
+    env['CM_MLPERF_LOADGEN_LOGS_DIR'] = OUTPUT_DIR
+
+    run_exists = run_files_exist(log_mode, OUTPUT_DIR, required_files, env)
+
     if 'CM_MLPERF_POWER' in env and env.get('CM_MLPERF_SHORT_RANGING_RUN', '') != 'no' and env['CM_MLPERF_RUN_STYLE'] == "valid" and mode == "performance":
         short_ranging = True
     else:
@@ -249,37 +282,8 @@ def preprocess(i):
     if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') == ''  and query_count:
         env['CM_MLPERF_LOADGEN_QUERY_COUNT'] = query_count
 
-    env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
-
-    sut_name = env.get('CM_SUT_NAME', env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'])
-    OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], sut_name, \
-            model_full_name, scenario.lower(), mode)
-
-    if 'CM_MLPERF_POWER' in env and mode == "performance":
-        env['CM_MLPERF_POWER_LOG_DIR'] = os.path.join(OUTPUT_DIR, "tmp_power")
-
-    if mode == "accuracy":
-        pass
-    elif mode == "performance":
-        OUTPUT_DIR = os.path.join(OUTPUT_DIR, "run_1")
-    elif mode == "compliance":
-        test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
-        OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], sut_name, model_full_name, scenario.lower(), test)
-        if test == "TEST01":
-            audit_path = os.path.join(test, env['CM_MODEL'])
-        else:
-            audit_path = test
-
-        audit_full_path = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", audit_path, "audit.config")
-        env['CM_MLPERF_INFERENCE_AUDIT_PATH'] = audit_full_path
-
-    env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
-    env['CM_MLPERF_LOADGEN_LOGS_DIR'] = OUTPUT_DIR
-    log_mode = mode
-    if 'CM_MLPERF_POWER' in env and mode == "performance":
-        log_mode = "performance_power"
     
-    if not run_files_exist(log_mode, OUTPUT_DIR, required_files, env) or rerun:
+    if not run_exists or rerun:
 
         print("Output Dir: '" + OUTPUT_DIR + "'")
         print(user_conf)
@@ -289,7 +293,7 @@ def preprocess(i):
         print("Run files exist, skipping run...\n")
         env['CM_MLPERF_SKIP_RUN'] = "yes"
 
-    if not run_files_exist(log_mode, OUTPUT_DIR, required_files, env) or rerun or not measure_files_exist(OUTPUT_DIR, \
+    if not run_exists or rerun or not measure_files_exist(OUTPUT_DIR, \
                     required_files[4]) or env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
 
         env['CM_MLPERF_TESTING_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), key+".conf")#  user_conf_path
@@ -343,7 +347,8 @@ def run_files_exist(mode, OUTPUT_DIR, run_files, env):
         is_valid = checker.check_compliance_perf_dir(COMPLIANCE_DIR)
 
         if not is_valid and 'Stream' in env['CM_MLPERF_LOADGEN_SCENARIO']:
-            env['CM_MLPERF_USE_MAX_DURATION'] = 'no' #We have the determined latency, compliance test failed, so lets not use max duration
+            env['CM_MLPERF_USE_MAX_DURATION'] = 'no' # We have the determined latency, compliance test failed, so lets not use max duration
+            env['CM_MLPERF_INFERENCE_MIN_DURATION'] = '990000' # Try a longer run
 
         return is_valid
 
