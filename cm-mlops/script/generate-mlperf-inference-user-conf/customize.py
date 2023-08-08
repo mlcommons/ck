@@ -340,6 +340,9 @@ def run_files_exist(mode, OUTPUT_DIR, run_files, env):
 
         is_valid = checker.check_compliance_perf_dir(COMPLIANCE_DIR)
 
+        if not is_valid and 'Stream' in env['CM_MLPERF_LOADGEN_SCENARIO']:
+            env['CM_MLPERF_USE_MAX_DURATION'] = 'no' #We have the determined latency, compliance test failed, so lets not use max duration
+
         return is_valid
 
     if "power" in mode:
