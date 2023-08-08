@@ -95,7 +95,7 @@
         {
           "tags": "get,compiler,rust",
             "skip_if_env": {
-              "CM_HOST_PLATFORM_FLAVOR": "x86_64"
+              "CM_HOST_PLATFORM_FLAVOR": [ "x86_64" ]
           }
         }
       ]
