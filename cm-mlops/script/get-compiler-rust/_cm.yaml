@@ -1,0 +1,23 @@
+alias: get-compiler-rust
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+deps:
+ - tags: get,python3
+
+docker_input_mapping: {}
+input_description: {}
+input_mapping: {}
+new_env_keys:
+- "+PATH"
+new_state_keys: []
+post_deps: []
+posthook_deps: []
+prehook_deps: []
+tags:
+- get
+- compiler
+- rust
+uid: 97ffbd9e537b4b59
+variations: {}
+versions: {}

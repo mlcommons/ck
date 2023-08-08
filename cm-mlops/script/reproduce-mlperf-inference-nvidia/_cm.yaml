@@ -316,6 +316,7 @@ variations:
   bert_:
     deps:
     - tags: get,generic-python-lib,_transformers
+    - tags: get,generic-python-lib,_safetensors
     - tags: get,generic-python-lib,_onnx
 
   bert-99:
