@@ -262,11 +262,11 @@ def generate_submission(i):
                         else:
                             if f.startswith('mlperf_') and not f.endswith('trace.json'):
                                 files.append(f)
-                            if f == "spl.txt":
+                            elif f == "spl.txt":
                                 files.append(f)
-                            if f == "README.md":
-                                shutil.copy(os.path.join(result_mode_path, f), os.path.join(submission_measurement_path, f))
+                            elif f == "README.md":
                                 readme = True
+                                shutil.copy(os.path.join(result_mode_path, f), os.path.join(submission_measurement_path, f))
 
                     if mode == "accuracy":
                         if os.path.exists(os.path.join(result_mode_path, "accuracy.txt")):
@@ -277,7 +277,7 @@ def generate_submission(i):
                         p_target = os.path.join(submission_results_path, f)
                         shutil.copy(os.path.join(result_mode_path, f), p_target)
 
-                    if not readme:
+                    if not readme and mode in [ "performance", "accuracy" ]:
                         with open(os.path.join(submission_measurement_path, "README.md"), mode='w') as f:
                             f.write("TBD") #create an empty README
 

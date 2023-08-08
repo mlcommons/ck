@@ -34,6 +34,8 @@ function run_test() {
   device=$4
   run "$5"
 }
+power=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4950 "
+
 #Add your run commands here...
 find_performance_cmd='cm run script --tags=generate-run-cmds,inference,_find-performance \
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
@@ -42,22 +44,38 @@ find_performance_cmd='cm run script --tags=generate-run-cmds,inference,_find-per
 submission_cmd='cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios \
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
 --category=$category --division=$division  --quiet --results_dir=$HOME/results_dir \
---skip_submission_generation=yes --execution-mode=valid'
+--skip_submission_generation=yes --execution-mode=valid $power'
 
 submission_cmd_ss='cm run script --tags=generate-run-cmds,inference,_submission  --scenario=SingleStream \
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
 --category=$category --division=$division  --quiet --results_dir=$HOME/results_dir \
---skip_submission_generation=yes --execution-mode=valid'
+--skip_submission_generation=yes --execution-mode=valid $power'
+
+readme_cmd_single='cm run script --tags=generate-run-cmds,inference,_populate-readme \
+--model=$model --implementation=$implementation --device=$device --backend=$backend \
+--category=$category --division=$division  --quiet --results_dir=$HOME/results_dir \
+--skip_submission_generation=yes --execution-mode=valid $power'
+
+readme_cmd='cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios \
+--model=$model --implementation=$implementation --device=$device --backend=$backend \
+--category=$category --division=$division  --quiet --results_dir=$HOME/results_dir \
+--skip_submission_generation=yes --execution-mode=valid $power'
 
 # run "$CM_RUN_CMD"
 run_test "onnxruntime" "200" "reference" "cpu" "$find_performance_cmd"
 run_test "tf" "200" "reference" "cpu" "$find_performance_cmd"
-run_test "onnxruntime" "1000" "reference" "cuda" "$find_performance_cmd"
-run_test "tf" "1000" "reference" "cuda" "$find_performance_cmd"
+run_test "onnxruntime" "10000" "reference" "cuda" "$find_performance_cmd"
+run_test "tf" "20000" "reference" "cuda" "$find_performance_cmd"
 
 
 run_test "onnxruntime" "100" "reference" "cpu" "$submission_cmd"
 run_test "tf" "100" "reference" "cpu" "$submission_cmd"
-run_test "tflite" "100" "tflite-cpp" "cpu" "$submission_cmd_ss"
+run_test "tflite" "100" "tflite-cpp" "cpu" "$submission_cmd_ss --adr.compiler.tags=gcc"
 run_test "onnxruntime" "100" "reference" "cuda" "$submission_cmd"
 run_test "tf" "100" "reference" "cuda" "$submission_cmd"
+
+run_test "onnxruntime" "100" "reference" "cpu" "$readme_cmd"
+run_test "tf" "100" "reference" "cpu" "$readme_cmd"
+run_test "tflite" "100" "tflite-cpp" "cpu" "$readme_cmd_single --adr.compiler.tags=gcc --scenario=SingleStream"
+run_test "onnxruntime" "100" "reference" "cuda" "$readme_cmd"
+run_test "tf" "100" "reference" "cuda" "$readme_cmd"

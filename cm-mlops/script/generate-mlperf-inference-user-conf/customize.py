@@ -206,8 +206,10 @@ def preprocess(i):
         if scenario == "MultiStream" or scenario == "SingleStream":
             if env.get('CM_MLPERF_USE_MAX_DURATION', 'yes').lower() not in [ "no", "false" ]:
                 user_conf += ml_model_name + "." + scenario + ".max_duration = 660000 \n"
+            elif env.get('CM_MLPERF_INFERENCE_MIN_DURATION','') != '':
+                user_conf += ml_model_name + "." + scenario + ".min_duration = " + env['CM_MLPERF_INFERENCE_MIN_DURATION'] +" \n"
             if scenario == "MultiStream":
-                user_conf += ml_model_name + "." + scenario + ".min_query_count = 662" + "\n"
+                user_conf += ml_model_name + "." + scenario + ".min_query_count = "+ env.get('CM_MLPERF_INFERENCE_MULTISTREAM_MIN_QUERY_COUNT', "662") + "\n"
             if short_ranging:
                 ranging_user_conf += ml_model_name + "." + scenario + ".max_duration = 300000 \n "
         elif scenario == "SingleStream_old":
@@ -321,7 +323,24 @@ def run_files_exist(mode, OUTPUT_DIR, run_files):
                 return False
 
     if mode == "compliance":
+        #If a performance run followed the last compliance run, compliance check needs to be redone
+        RESULT_DIR = os.path.split(OUTPUT_DIR)[0]
+        COMPLIANCE_DIR = OUTPUT_DIR
+        OUTPUT_DIR = os.path.dirname(COMPLIANCE_DIR)
+
+        test = os.path.split(OUTPUT_DIR)[1]
+
+        SCRIPT_PATH = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", test, "run_verification.py")
+        cmd = env['CM_PYTHON_BIN'] + " " + SCRIPT_PATH + " -r " + RESULT_DIR + " -c " + COMPLIANCE_DIR + " -o "+ OUTPUT_DIR
+        print(cmd)
+        os.system(cmd)
+
         is_valid = checker.check_compliance_perf_dir(OUTPUT_DIR)
+        return is_valid
+
+    if "power" in mode:
+        from power.power_checker import check as check_power_more
+        is_valid = check_power_more(os.path.dirname(OUTPUT_DIR)) == 0
         return is_valid
 
     return True
