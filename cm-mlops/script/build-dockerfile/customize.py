@@ -206,26 +206,42 @@ def preprocess(i):
         for post_run_cmd in env['CM_DOCKER_POST_RUN_COMMANDS']:
             f.write('RUN '+ post_run_cmd + EOL)
 
+    post_file = env.get('DOCKER_IMAGE_POST_FILE','')
+    if post_file!='':
+        r = utils.load_txt(post_file)
+        if r['return']>0: return r
+
+        s = r['string']
+        f.write(s + EOL)
+
     f.close()
 
     f = open(env['CM_DOCKERFILE_WITH_PATH'], "r")
-    print(f.read())
+    # print(f.read())
 
     return {'return':0}
 
 def get_value(env, config, key, env_key = None):
     if not env_key:
         env_key = key
+
     if env_key in env:
         return env[env_key]
+
     docker_os = env['CM_DOCKER_OS']
     docker_os_version = env['CM_DOCKER_OS_VERSION']
+
     version_meta = config['distros'][docker_os]['versions'].get(docker_os_version, {})
+
     if key in version_meta:
         return version_meta[key]
+
     distro_meta = config['distros'][docker_os]
+
     if key in distro_meta:
         return distro_meta[key]
+
     if key in config:
         return config[key]
+
     return None

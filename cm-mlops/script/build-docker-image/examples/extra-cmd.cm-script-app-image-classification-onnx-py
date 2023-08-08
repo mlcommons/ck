@@ -1,0 +1,6 @@
+
+# Create virtual python environment
+RUN cmr "install python-venv" --name=cm --quiet
+
+# Run image classification and install all related CM components automatically
+RUN cmr "python app image-classification onnx" --adr.python.name=cm --quiet

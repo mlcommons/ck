@@ -1244,6 +1244,10 @@ def docker(i):
 
     ii['out'] = None
 
+    image_repo = i.get('image_repo','')
+    if image_repo == '':
+        image_repo = 'cknowledge'
+
     # Search for automations in repos
     lst = []
     for repo in list_of_repos:
@@ -1370,28 +1374,29 @@ def docker(i):
         all_gpus = i.get('docker_all_gpus', docker_settings.get('all_gpus'))
 
         cm_docker_input = {'action': 'run',
-                            'automation': 'script',
-                            'tags': 'run,docker,container',
-                            'recreate': 'yes',
-                            'docker_os': _os,
-                            'cm_repo': cm_repo,
-                            'env': env,
-                            'image_repo': 'cm',
-                            'mounts': mounts,
-                            'image_tag': script_alias,
-                            'docker_os_version': version,
-                            'detached': 'no',
-                            'script_tags': f'{tag_string}',
-                            'run_cmd': run_cmd if docker_skip_run_cmd not in [ 'yes', True, 'True' ] else 'echo "cm version"',
-                            'v': i.get('v', False),
-                            'quiet': True,
-                            'pre_run_cmds': docker_pre_run_cmds,
-                            'real_run': True,
-                            'add_deps_recursive': {
-                                'build-docker-image': {
-                                    'dockerfile': dockerfile_path
-                                }
-                            }
+                           'automation': 'script',
+                           'tags': 'run,docker,container',
+                           'recreate': 'yes',
+                           'docker_os': _os,
+                           'cm_repo': cm_repo,
+                           'env': env,
+                           'image_repo': image_repo,
+                           'mounts': mounts,
+                           'image_name': 'cm-script-'+script_alias,
+#                            'image_tag': script_alias,
+                           'docker_os_version': version,
+                           'detached': 'no',
+                           'script_tags': f'{tag_string}',
+                           'run_cmd': run_cmd if docker_skip_run_cmd not in [ 'yes', True, 'True' ] else 'echo "cm version"',
+                           'v': i.get('v', False),
+                           'quiet': True,
+                           'pre_run_cmds': docker_pre_run_cmds,
+                           'real_run': True,
+                           'add_deps_recursive': {
+                               'build-docker-image': {
+                                   'dockerfile': dockerfile_path
+                               }
+                           }
                         }
 
         if all_gpus:

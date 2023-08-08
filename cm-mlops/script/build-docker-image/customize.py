@@ -33,11 +33,13 @@ def preprocess(i):
 
     docker_image_name = env.get('CM_DOCKER_IMAGE_NAME', '')
     if docker_image_name == '':
-        docker_image_name = env['CM_DOCKER_RUN_SCRIPT_TAGS'].replace(',', '-').replace('_','')
+        docker_image_name = env.get('CM_DOCKER_RUN_SCRIPT_TAGS','').replace(',', '-').replace('_','')
+    if docker_image_name == '':
+        docker_image_name = 'cm'
 
-    env['CM_DOCKER_IMAGE_NAME'] = "cm"
+    env['CM_DOCKER_IMAGE_NAME'] = docker_image_name
 
-    if "CM_DOCKER_IMAGE_TAG" not in env:
+    if env.get("CM_DOCKER_IMAGE_TAG", "") == '':
         env['CM_DOCKER_IMAGE_TAG'] = "latest"
 
     if env.get("CM_DOCKER_CACHE", "yes") == "no":
