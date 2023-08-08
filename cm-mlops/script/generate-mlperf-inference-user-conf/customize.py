@@ -309,7 +309,10 @@ def run_files_exist(mode, OUTPUT_DIR, run_files, env):
     import submission_checker as checker
     from log_parser import MLPerfLog
 
+    is_valid = True
+
     file_loc = {"accuracy": 0, "performance": 1, "power": 2, "performance_power": 3, "measure": 4, "compliance": 1}
+
     for file in run_files[file_loc[mode]]:
         file_path = os.path.join(OUTPUT_DIR, file)
         if (not os.path.exists(file_path) or os.stat(file_path).st_size == 0)  and file != "accuracy.txt":
@@ -335,15 +338,19 @@ def run_files_exist(mode, OUTPUT_DIR, run_files, env):
         print(cmd)
         os.system(cmd)
 
-        is_valid = checker.check_compliance_perf_dir(OUTPUT_DIR)
+        is_valid = checker.check_compliance_perf_dir(os.path.join(COMPLIANCE_DIR, "performance", "run_1"))
+
         return is_valid
 
     if "power" in mode:
         from power.power_checker import check as check_power_more
-        is_valid = check_power_more(os.path.dirname(OUTPUT_DIR)) == 0
+        try:
+            is_valid = check_power_more(os.path.dirname(OUTPUT_DIR)) == 0
+        except:
+            is_valid = False
         return is_valid
 
-    return True
+    return is_valid
 
 def measure_files_exist(OUTPUT_DIR, run_files):
     for file in run_files:
