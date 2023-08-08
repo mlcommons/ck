@@ -134,7 +134,9 @@ ___
 * `--gh_token=value`  &rarr;  `CM_GH_TOKEN=value`
 * `--image_repo=value`  &rarr;  `CM_DOCKER_IMAGE_REPO=value`
 * `--image_tag=value`  &rarr;  `CM_DOCKER_IMAGE_TAG=value`
+* `--package_manager_update_cmd=value`  &rarr;  `CM_PACKAGE_MANAGER_UPDATE_CMD=value`
 * `--pip_extra_flags=value`  &rarr;  `CM_DOCKER_PIP_INSTALL_EXTRA_FLAGS=value`
+* `--post_file=value`  &rarr;  `DOCKER_IMAGE_POST_FILE=value`
 * `--post_run_cmds=value`  &rarr;  `CM_DOCKER_POST_RUN_COMMANDS=value`
 * `--pre_run_cmds=value`  &rarr;  `CM_DOCKER_PRE_RUN_COMMANDS=value`
 * `--real_run=value`  &rarr;  `CM_REAL_RUN=value`

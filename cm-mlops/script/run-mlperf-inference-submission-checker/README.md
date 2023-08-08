@@ -125,6 +125,7 @@ ___
 
 * `--extra_args=value`  &rarr;  `CM_MLPERF_SUBMISSION_CHECKER_EXTRA_ARGS=value`
 * `--extra_model_benchmark_map=value`  &rarr;  `CM_MLPERF_EXTRA_MODEL_MAPPING=value`
+* `--input=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
 * `--power=value`  &rarr;  `CM_MLPERF_POWER=value`
 * `--push_to_github=value`  &rarr;  `CM_MLPERF_RESULT_PUSH_TO_GITHUB=value`
 * `--skip_compliance=value`  &rarr;  `CM_MLPERF_SKIP_COMPLIANCE=value`
