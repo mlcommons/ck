@@ -319,10 +319,19 @@ def run_files_exist(mode, OUTPUT_DIR, run_files, env):
 
     file_loc = {"accuracy": 0, "performance": 1, "power": 2, "performance_power": 3, "measure": 4, "compliance": 1}
 
-    for file in run_files[file_loc[mode]]:
+    required_files = run_files[file_loc[mode]]
+    if mode == "performance_power":
+        for file in run_files[2]:
+            file_path = os.path.join(os.path.dirname(OUTPUT_DIR), "power", file)
+            if (not os.path.exists(file_path) or os.stat(file_path).st_size == 0):
+                return False
+        required_files += run_files[1] #We need performance files too in the run directory
+
+    for file in required_files:
         file_path = os.path.join(OUTPUT_DIR, file)
         if (not os.path.exists(file_path) or os.stat(file_path).st_size == 0)  and file != "accuracy.txt":
             return False
+
         if file ==  "mlperf_log_detail.txt" and "performance" in mode:
             mlperf_log = MLPerfLog(file_path)
             if (
@@ -375,6 +384,6 @@ def get_checker_files():
     REQUIRED_ACC_FILES = checker.REQUIRED_ACC_FILES
     REQUIRED_PERF_FILES = checker.REQUIRED_PERF_FILES
     REQUIRED_POWER_FILES = checker.REQUIRED_POWER_FILES
-    REQUIRED_MEASURE_FILES = checker.REQUIRED_MEASURE_FILES
     REQUIRED_PERF_POWER_FILES = checker.REQUIRED_PERF_POWER_FILES
+    REQUIRED_MEASURE_FILES = checker.REQUIRED_MEASURE_FILES
     return REQUIRED_ACC_FILES, REQUIRED_PERF_FILES, REQUIRED_POWER_FILES, REQUIRED_PERF_POWER_FILES, REQUIRED_MEASURE_FILES
