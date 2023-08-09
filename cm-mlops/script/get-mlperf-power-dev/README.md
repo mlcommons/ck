@@ -185,7 +185,6 @@ ___
 ### Script output
 #### New environment keys (filter)
 
-* `+PYTHONPATH`
 * `CM_MLPERF_POWER_SOURCE`
 #### New environment keys auto-detected from customize
 

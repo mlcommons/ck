@@ -180,6 +180,7 @@ ___
 
 * `--branch=value`  &rarr;  `CM_GIT_CHECKOUT=value`
 * `--depth=value`  &rarr;  `CM_GIT_DEPTH=value`
+* `--env_key=value`  &rarr;  `CM_GIT_ENV_KEY=value`
 * `--folder=value`  &rarr;  `CM_GIT_CHECKOUT_FOLDER=value`
 * `--patch=value`  &rarr;  `CM_GIT_PATCH=value`
 * `--submodules=value`  &rarr;  `CM_GIT_RECURSE_SUBMODULES=value`
@@ -241,14 +242,6 @@ ___
 #### New environment keys auto-detected from customize
 
 * `CM_GIT_CHECKOUT_PATH`
-* `CM_GIT_REPO_CHECKOUT`
-* `CM_GIT_REPO_CHECKOUT_FOLDER`
-* `CM_GIT_REPO_CHECKOUT_PATH`
-* `CM_GIT_REPO_DEPTH`
-* `CM_GIT_REPO_NAME`
-* `CM_GIT_REPO_PATCH`
-* `CM_GIT_REPO_RECURSE_SUBMODULES`
-* `CM_GIT_REPO_URL`
 ___
 ### Maintainers
 

@@ -337,11 +337,11 @@ ___
        * `if (CM_MLPERF_TFLITE_USE_ARMNN  == yes)`
        * CM names: `--adr.['armnn', 'lib-armnn']...`
        - CM script: [get-lib-armnn](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-armnn)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/customize.py)***
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/_cm.json)***
      * generate,user-conf,mlperf,inference
        * CM names: `--adr.['user-conf-generator']...`
        - CM script: [generate-mlperf-inference-user-conf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/_cm.json)
   1. ***Run native script if exists***
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/customize.py)***
@@ -367,6 +367,7 @@ ___
 
 * `CM_MLPERF_CONF`
 * `CM_MLPERF_DEVICE`
+* `CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX2`
 * `CM_MLPERF_USER_CONF`
 ___
 ### Maintainers
