@@ -23,6 +23,7 @@ function run() {
   fi
 }
 POWER=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4940 "
+POWER=""
 extra_option=" --adr.mlperf-inference-implementation.compressed_dataset=on"
 
 
