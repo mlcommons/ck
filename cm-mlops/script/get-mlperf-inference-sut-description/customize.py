@@ -132,7 +132,7 @@ def preprocess(i):
                 ind = 0;
                 needed_global_keys = ['Speed', 'Configured Memory Speed', 'Type']
                 added_global_keys = []
-                needed_keys = ['Size', 'Rank', 'Type']
+                needed_keys = ['Size', 'Rank']
                 for item in parsedObj:
                     if item['name'] == 'Physical Memory Array':
                         ecc_value = item['props']['Error Correction Type']['values'][0]
@@ -146,8 +146,14 @@ def preprocess(i):
                     memory.append({})
                     memory[ind]['handle'] = item['handle']
                     memory[ind]['info'] = []
-                    memory[ind]['info'].append(item['props']['Locator']['values'][0])
-                    memory[ind]['info'].append(item['props']['Bank Locator']['values'][0])
+                    locator = item['props']['Locator']['values'][0]
+                    bank_locator = item['props']['Bank Locator']['values'][0]
+
+                    if not "Not Specified" in locator:
+                        memory[ind]['info'].append(locator)
+                    if not "Not Specified" in bank_locator:
+                        memory[ind]['info'].append(bank_locator)
+
                     if item['props']['Size']['values'][0] == "No Module Installed":
                         memory[ind]['populated'] = False
                         memory[ind]['info'].append("Unpopulated")
