@@ -134,6 +134,7 @@
       ],
       "tags": "get,dataset,preprocessed,imagenet,_for.mobilenet,_rgb8,_NHWC",
       "names": [ "imagenet-preprocessed" ]
+    },
     {
       "enable_if_env": {
         "CM_MODEL": [
