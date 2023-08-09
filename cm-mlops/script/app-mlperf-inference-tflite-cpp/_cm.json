@@ -108,12 +108,32 @@
           "efficientnet"
         ]
       },
+      "skip_if_env": {
+        "CM_DATASET_COMPRESSED": [
+          "on"
+        ]
+      },
       "update_tags_from_env": [
         "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
       ],
       "tags": "get,dataset,preprocessed,imagenet,_for.mobilenet,_rgb32,_NHWC",
       "names": [ "imagenet-preprocessed" ]
     },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "mobilenet",
+          "efficientnet"
+        ],
+        "CM_DATASET_COMPRESSED": [
+          "on"
+        ]
+      },
+      "update_tags_from_env": [
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
+      ],
+      "tags": "get,dataset,preprocessed,imagenet,_for.mobilenet,_rgb8,_NHWC",
+      "names": [ "imagenet-preprocessed" ]
     {
       "enable_if_env": {
         "CM_MODEL": [
