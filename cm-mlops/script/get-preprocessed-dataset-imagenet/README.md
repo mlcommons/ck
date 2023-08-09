@@ -143,6 +143,7 @@ ___
         - *CM_DATASET_SUBTRACT_MEANS*: `0`
         - *CM_DATASET_QUANTIZE*: `0`
         - *CM_DATASET_NORMALIZE_DATA*: `1`
+        - *CM_DATASET_DATA_TYPE*: `uint8`
       - Workflow:
     * `_for.resnet50,float32`
       - Environment variables:
@@ -156,6 +157,7 @@ ___
         - *CM_DATASET_SUBTRACT_MEANS*: `0`
         - *CM_DATASET_NORMALIZE_DATA*: `0`
         - *CM_DATASET_QUANTIZE*: `0`
+        - *CM_DATASET_DATA_TYPE*: `uint8`
       - Workflow:
     * `_for.resnet50,uint8`
       - Environment variables:
