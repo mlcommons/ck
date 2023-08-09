@@ -2,6 +2,7 @@ from cmind import utils
 import os
 import json
 import shutil
+from dmiparser import DmiParser
 
 def preprocess(i):
     env = i['env']
@@ -115,6 +116,58 @@ def preprocess(i):
         else:
             sw_notes = ''
         state['CM_SUT_META']['sw_notes'] = sw_notes
+
+        if env.get('CM_SUDO_USER', '') == "yes" and env.get('CM_HOST_OS_TYPE', 'linux'):
+            r = i['automation'].run_native_script({'run_script_input':i['run_script_input'], 'env':env, 'script_name':'detect_memory'})
+            if r['return']>0:
+                return r
+            with open("meminfo.out", "r") as f:
+                text = f.read()
+                parser = DmiParser(text, sort_keys=True, indent=4)
+
+                parsedStr = str(parser)
+                parsedObj = json.loads(str(parser))
+                memory = []
+
+                ind = 0;
+                needed_global_keys = ['Speed', 'Configured Memory Speed', 'Type']
+                added_global_keys = []
+                needed_keys = ['Size', 'Rank', 'Type']
+                for item in parsedObj:
+                    if item['name'] == 'Physical Memory Array':
+                        ecc_value = item['props']['Error Correction Type']['values'][0]
+                        if not ecc_value or 'None' in ecc_value:
+                            ecc_value = "No ECC"
+                        memory.append({"info": ['Error Correction Type: ' +  ecc_value ]})
+                        ind += 1
+                        continue
+                    if item['name'] != 'Memory Device':
+                        continue
+                    memory.append({})
+                    memory[ind]['handle'] = item['handle']
+                    memory[ind]['info'] = []
+                    memory[ind]['info'].append(item['props']['Locator']['values'][0])
+                    memory[ind]['info'].append(item['props']['Bank Locator']['values'][0])
+                    if item['props']['Size']['values'][0] == "No Module Installed":
+                        memory[ind]['populated'] = False
+                        memory[ind]['info'].append("Unpopulated")
+                    else:
+                        memory[ind]['populated'] = True
+
+                        for key in item['props']:
+                            if key in needed_global_keys and key not in added_global_keys:
+                                memory[0]['info'].append(f'{key}: {";".join(item["props"][key]["values"])}')
+                                added_global_keys.append(key)
+                            elif key in needed_keys:
+                                memory[ind]['info'].append(f'{key}: {";".join(item["props"][key]["values"])}')
+                    ind+=1
+
+                meminfo = []
+                for item in memory:
+                    meminfo.append( "; ".join(item['info']))
+                meminfo_string =",   ".join(meminfo)
+                state['CM_SUT_META']['host_memory_configuration'] = meminfo_string
+
 
         state['CM_SUT_META'] = dict(sorted(state['CM_SUT_META'].items()))
 
