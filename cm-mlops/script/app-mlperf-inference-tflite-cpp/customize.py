@@ -82,7 +82,7 @@ def preprocess(i):
     if 'CM_MLPERF_USER_CONF' not in env:
         env['CM_MLPERF_USER_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "user.conf")
 
-    if env.get('CM_DATASET_COMPRESSED', "no").lower() in [ "yes", "on", "true"]:
+    if env.get('CM_DATASET_COMPRESSED', "no").lower() in [ "yes", "on", "true"] and "float" in env.get('CM_MLPERF_MODEL_PRECISION', ''):
         env['CM_HOST_USE_ALL_CORES'] = "yes" #Use all cores for input preprocessing
         env['CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX2'] = "with_live_preprocessing"
 
