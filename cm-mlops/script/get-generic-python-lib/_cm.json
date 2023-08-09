@@ -228,7 +228,7 @@
     },
     "deepsparse": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "deepsparse-nightly"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "deepsparse"
       },
       "new_env_keys": [
         "CM_DEEPSPARSE_VERSION"
