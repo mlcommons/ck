@@ -137,7 +137,7 @@ ___
       - Environment variables:
         - *CM_DATASET_SIZE*: `500`
         - *CM_DAE_FILENAME*: `ILSVRC2012_img_val_500.tar`
-        - *CM_DAE_URL*: `https://www.dropbox.com/s/57s11df6pts3z69/ILSVRC2012_img_val_500.tar?dl=1`
+        - *CM_DAE_URL*: `http://cKnowledge.org/ai/data/ILSVRC2012_img_val_500.tar`
       - Workflow:
 
     </details>

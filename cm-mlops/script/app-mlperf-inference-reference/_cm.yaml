@@ -762,6 +762,16 @@ variations:
     - tags: get,generic-python-lib,_opencv-python
     - tags: get,generic-python-lib,_numpy
     - tags: get,generic-python-lib,_pycocotools
+    prehook_deps:
+    - tags: get,generic-python-lib,_protobuf
+      names:
+      - protobuf
+      version_max: "4.23.4"
+      version_max_usable: "4.23.4"
+      enable_if_env:
+        CM_MLPERF_BACKEND:
+        - tf
+        - tflite
 
   # Target devices
   cpu:

@@ -20,9 +20,6 @@ def postprocess(i):
     env = i['env']
 
     rust_path = os.path.join(os.path.expanduser('~'),".cargo", "bin")
-    if '+PATH' in env:
-        env['+PATH'].append(rust_path)
-    else:
-        env['+PATH'] = [ rust_path ]
+    env['+PATH'] = [ rust_path ]
 
     return {'return':0}

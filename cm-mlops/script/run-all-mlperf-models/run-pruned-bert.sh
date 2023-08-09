@@ -5,34 +5,38 @@
 #"zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned95_obs_quant-none" \
 #"zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base-none" \
 #"zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50-none-vnni" \
-zoo_stub_list=( \
-zoo:nlp/question_answering/oberta-base/pytorch/huggingface/squad/pruned90-none \
-zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/base_quant-none \
-zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/pruned85-none \
-zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned97_quant-none \
-zoo:nlp/question_answering/oberta-base/pytorch/huggingface/squad/base_quant-none \
-zoo:nlp/question_answering/bert-large/pytorch/huggingface/squad/pruned80_quant-none-vnni \
-zoo:nlp/question_answering/oberta-medium/pytorch/huggingface/squad/base-none \
-zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95-none-vnni \
-zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned97-none \
-zoo:nlp/question_answering/oberta-base/pytorch/huggingface/squad/base-none \
-zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/base-none \
-zoo:nlp/question_answering/roberta-large/pytorch/huggingface/squad/base-none \
-zoo:nlp/question_answering/bert-large/pytorch/huggingface/squad/base-none \
-zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/base-none \
-zoo:nlp/question_answering/oberta-base/pytorch/huggingface/squad/pruned95-none \
-zoo:nlp/question_answering/distilbert-none/pytorch/huggingface/squad/pruned90-none \
-zoo:nlp/question_answering/oberta-small/pytorch/huggingface/squad/base-none \
-zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base-none \
-zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned90-none \
-zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/base_quant-none \
-zoo:nlp/question_answering/bert-base_cased/pytorch/huggingface/squad/pruned90-none \
-zoo:nlp/question_answering/obert-base/pytorch/huggingface/squad/pruned90-none \
-)
 
-#the below ones are segfaulting
+#not working
 #"zoo:nlp/question_answering/oberta-base/pytorch/huggingface/squad/pruned90_quant-none" \
 #"zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/pruned85_quant-none" \
+#zoo:nlp/question_answering/oberta-base/pytorch/huggingface/squad/pruned90-none \
+#zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/base_quant-none \
+#"zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/pruned85-none" \
+#"zoo:nlp/question_answering/oberta-base/pytorch/huggingface/squad/base_quant-none" \
+#"zoo:nlp/question_answering/oberta-medium/pytorch/huggingface/squad/base-none" \
+#"zoo:nlp/question_answering/oberta-base/pytorch/huggingface/squad/base-none" \
+#"zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/base-none" \
+#"zoo:nlp/question_answering/roberta-large/pytorch/huggingface/squad/base-none" \
+#"zoo:nlp/question_answering/oberta-base/pytorch/huggingface/squad/pruned95-none" \
+#"zoo:nlp/question_answering/distilbert-none/pytorch/huggingface/squad/pruned90-none" \
+#"zoo:nlp/question_answering/oberta-small/pytorch/huggingface/squad/base-none" \
+#"zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/base_quant-none" \
+zoo_stub_list=( \
+"zoo:nlp/question_answering/obert-base/pytorch/huggingface/squad/pruned90-none" \
+"zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned97_quant-none" \
+"zoo:nlp/question_answering/bert-base_cased/pytorch/huggingface/squad/pruned90-none" \
+"zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned90-none" \
+"zoo:nlp/question_answering/bert-large/pytorch/huggingface/squad/pruned80_quant-none-vnni" \
+"zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95-none-vnni" \
+"zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned97-none" \
+"zoo:nlp/question_answering/bert-large/pytorch/huggingface/squad/base-none" \
+"zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/base-none" \
+"zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base-none" \
+)
+
+rerun=""
+power=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15"
+power=""
 
 for stub in ${zoo_stub_list[@]}; do
 cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_find-performance  \
@@ -47,12 +51,10 @@ cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_find-performan
    --adr.mlperf-inference-implementation.max_batchsize=384 \
    --results_dir=$HOME/results_dir \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=$stub \
-   --rerun
+   ${rerun} \
    --quiet"
   echo ${cmd}
   eval ${cmd}
-
-exit 0
 
  cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --adr.python.version_min=3.8 \
@@ -66,7 +68,7 @@ exit 0
    --mode=performance \
    --execution_mode=valid \
    --adr.mlperf-inference-implementation.max_batchsize=384 \
-   --power=yes --adr.mlperf-power-client.power_server=192.168.0.15
+   ${power} \
    --results_dir=$HOME/results_dir \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=$stub \
    --quiet"

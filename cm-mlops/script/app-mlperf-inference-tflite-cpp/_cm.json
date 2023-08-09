@@ -141,7 +141,9 @@
       "enable_if_env": {
         "CM_MLPERF_TFLITE_USE_ARMNN": ["yes"]
       }
-    },
+    }
+  ],
+  "prehook_deps": [
     {
       "tags": "generate,user-conf,mlperf,inference",
       "names": [ "user-conf-generator" ]

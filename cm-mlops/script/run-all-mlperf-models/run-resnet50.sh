@@ -34,7 +34,7 @@ function run_test() {
   device=$4
   run "$5"
 }
-power=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4950 "
+power=' --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4950 '
 
 #Add your run commands here...
 find_performance_cmd='cm run script --tags=generate-run-cmds,inference,_find-performance \
@@ -69,12 +69,19 @@ run_test "tf" "20000" "reference" "cuda" "$find_performance_cmd"
 
 run_test "onnxruntime" "100" "reference" "cpu" "$submission_cmd"
 run_test "tf" "100" "reference" "cpu" "$submission_cmd"
-run_test "tflite" "100" "tflite-cpp" "cpu" "$submission_cmd_ss" # --adr.compiler.tags=gcc"
-run_test "onnxruntime" "100" "reference" "cuda" "$submission_cmd"
-run_test "tf" "100" "reference" "cuda" "$submission_cmd"
+scenario="SingleStream"
+run_test "tflite" "100" "tflite-cpp" "cpu" "$submission_cmd_scenario --adr.compiler.tags=gcc"
+run_test "tflite" "100" "tflite-cpp" "cpu" "$submission_cmd_scenario --adr.compiler.tags=gcc --adr.mlperf-inference-implementation.compressed_dataset=on"
+run_test "onnxruntime" "100" "reference" "cuda" "$submission_cmd "
+scenario="Offline"
+run_test "tf" "100" "reference" "cuda" "$submission_cmd_scenario"
+scenario="SingleStream"
+run_test "tf" "100" "reference" "cuda" "$submission_cmd_scenario"
 
 run_test "onnxruntime" "100" "reference" "cpu" "$readme_cmd"
 run_test "tf" "100" "reference" "cpu" "$readme_cmd"
-run_test "tflite" "100" "tflite-cpp" "cpu" "$readme_cmd_single" # --adr.compiler.tags=gcc --scenario=SingleStream"
-run_test "onnxruntime" "100" "reference" "cuda" "$readme_cmd"
-run_test "tf" "100" "reference" "cuda" "$readme_cmd"
+run_test "tflite" "100" "tflite-cpp" "cpu" "$readme_cmd_single --adr.compiler.tags=gcc --scenario=SingleStream"
+run_test "tflite" "100" "tflite-cpp" "cpu" "$readme_cmd_single --adr.compiler.tags=gcc --scenario=SingleStream  --adr.mlperf-inference-implementation.compressed_dataset=on"
+run_test "onnxruntime" "100" "reference" "cuda" "$readme_cmd --scenario=SingleStream"
+run_test "tf" "100" "reference" "cuda" "$readme_cmd_single --scenario=SingleStream"
+run_test "tf" "100" "reference" "cuda" "$readme_cmd_single --scenario=Offline"
