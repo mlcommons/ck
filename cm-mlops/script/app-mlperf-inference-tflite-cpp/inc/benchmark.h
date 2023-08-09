@@ -100,8 +100,7 @@ class BenchmarkSettings {
 public:
   const std::string images_dir = getenv_s("CM_DATASET_PREPROCESSED_PATH");
   const std::string available_images_file = getenv_s("CM_DATASET_PREPROCESSED_IMAGES_LIST");
-  const bool skip_internal_preprocessing =  ( getenv_s("CM_DATASET_DATA_TYPE") == "float32" );
-
+  const bool skip_internal_preprocessing =  (getenv_opt_s("CM_DATASET_COMPRESSED", "off") ==  "off");
   const std::string result_dir = getenv_s("CM_MLPERF_OUTPUT_DIR");
   const std::string input_layer_name = getenv_s("CM_ML_MODEL_INPUT_LAYER_NAME");
   const std::string output_layer_name = getenv_s("CM_ML_MODEL_OUTPUT_LAYER_NAME");
@@ -144,12 +143,15 @@ public:
       break;
     };
     _number_of_threads = std::thread::hardware_concurrency();
-    _number_of_threads = _number_of_threads < 1 ? 1 : _number_of_threads;
-    _number_of_threads = !getenv("CM_HOST_CPU_TOTAL_CORES")
+
+    if (getenv_opt_s("CM_HOST_USE_ALL_CORES", "no") !=  "yes") {
+        _number_of_threads = _number_of_threads < 1 ? 1 : _number_of_threads;
+        _number_of_threads = !getenv("CM_HOST_CPU_TOTAL_CORES")
                          ? _number_of_threads
                          : getenv_i("CM_HOST_CPU_TOTAL_CORES");
-    if (getenv_i("CM_HOST_CPU_TOTAL_CORES") && getenv_i("CM_HOST_CPU_THREADS_PER_CORE")) {
-        _number_of_threads = getenv_i("CM_HOST_CPU_TOTAL_CORES") / getenv_i("CM_HOST_CPU_THREADS_PER_CORE");
+        if (getenv_i("CM_HOST_CPU_TOTAL_CORES") && getenv_i("CM_HOST_CPU_THREADS_PER_CORE")) {
+            _number_of_threads = getenv_i("CM_HOST_CPU_TOTAL_CORES") / getenv_i("CM_HOST_CPU_THREADS_PER_CORE");
+        }
     }
     // Print settings
     std::cout << "Graph file: " << _graph_file << std::endl;
@@ -442,8 +444,9 @@ public:
     // Subtract mean value if required
     if (_subtract_mean) {
       if(_given_channel_means) {
-        for (int i = 0; i < source->size(); i++)
+        for (int i = 0; i < source->size(); i++){
           float_target[i] -= _given_channel_means[i % _num_channels];    // assuming NHWC order!
+	}
       } else {
         float mean = sum / static_cast<float>(source->size());
         for (int i = 0; i < source->size(); i++)

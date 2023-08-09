@@ -17,7 +17,8 @@
     }
   ],
   "input_mapping": {
-    "model_filename": "CM_MODEL_ZOO_FILENAME"
+    "model_filename": "CM_MODEL_ZOO_FILENAME",
+    "env_key": "CM_MODEL_ZOO_ENV_KEY"
   },
   "env": {},
   "new_env_keys": [

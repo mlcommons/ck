@@ -17,6 +17,7 @@
     "folder": "CM_GIT_CHECKOUT_FOLDER",
     "patch": "CM_GIT_PATCH",
     "update": "CM_GIT_REPO_PULL",
+    "env_key": "CM_GIT_ENV_KEY",
     "submodules": "CM_GIT_RECURSE_SUBMODULES"
   },
   "default_variation": "default",

@@ -81,6 +81,8 @@ def preprocess(i):
     scenario_extra_options = ''
 
     NUM_THREADS = env['CM_NUM_THREADS']
+    if int(NUM_THREADS) > 2 and env['CM_MLPERF_DEVICE'] == "gpu":
+        NUM_THREADS = "2" # Don't use more than 2 threads when run on GPU
 
     if env['CM_MODEL'] in  [ 'resnet50', 'retinanet'] :
         scenario_extra_options +=  " --threads " + NUM_THREADS
