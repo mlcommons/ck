@@ -38,6 +38,9 @@
       "enable_if_env": {
         "CM_DETERMINE_MEMORY_CONFIGURATION": [
           "yes"
+        ],
+        "CM_HOST_OS_TYPE": [
+          "linux"
         ]
       }
     },
