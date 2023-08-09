@@ -23,7 +23,7 @@ function run() {
   fi
 }
 POWER=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4940 "
-POWER=""
+POWER1=""
 extra_option=" --adr.mlperf-inference-implementation.compressed_dataset=on"
 extra_tags=",_only-fp32"
 
@@ -47,18 +47,18 @@ ${POWER} \
 ${extra_option} \
 --results_dir=$HOME/mobilenet_results"
 
-run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_accuracy-only \
+run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_accuracy-only$extra_tags \
 --adr.compiler.tags=gcc \
 ${extra_option} \
 --results_dir=$HOME/mobilenet_results"
 
-run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_performance-only \
+run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_performance-only$extra_tags \
 ${POWER} \
 ${extra_option} \
 --adr.compiler.tags=gcc \
 --results_dir=$HOME/mobilenet_results"
 
-run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_populate-readme \
+run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_populate-readme$extra_tags \
 ${POWER} \
 ${extra_option} \
 --adr.compiler.tags=gcc \
