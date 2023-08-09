@@ -762,6 +762,7 @@ variations:
     - tags: get,generic-python-lib,_opencv-python
     - tags: get,generic-python-lib,_numpy
     - tags: get,generic-python-lib,_pycocotools
+    prehook_deps:
     - tags: get,generic-python-lib,_protobuf
       names:
       - protobuf
