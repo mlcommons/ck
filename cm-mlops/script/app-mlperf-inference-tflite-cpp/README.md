@@ -324,7 +324,11 @@ ___
        * CM names: `--adr.['imagenet-preprocessed']...`
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
      * get,dataset,preprocessed,imagenet,_for.mobilenet,_rgb32,_NHWC
-       * `if (CM_MODEL in ['mobilenet', 'efficientnet'])`
+       * `if (CM_MODEL in ['mobilenet', 'efficientnet']) AND (CM_DATASET_COMPRESSED  != on)`
+       * CM names: `--adr.['imagenet-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
+     * get,dataset,preprocessed,imagenet,_for.mobilenet,_rgb8,_NHWC
+       * `if (CM_MODEL in ['mobilenet', 'efficientnet'] AND CM_DATASET_COMPRESSED  == on)`
        * CM names: `--adr.['imagenet-preprocessed']...`
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
      * get,dataset,preprocessed,imagenet,_for.resnet50,_rgb8,_NHWC
