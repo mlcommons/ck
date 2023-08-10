@@ -790,6 +790,16 @@ variations:
       USE_CUDA: yes
       USE_GPU: yes
 
+  tpu:
+    group: device
+    env:
+      CM_MLPERF_DEVICE: gpu
+
+  tpu,tflite:
+    add_deps_recursive:
+      imagenet-preprocessed:
+        tags: _tflite_tpu
+
   # Loadgen scenarios
   offline:
     env:

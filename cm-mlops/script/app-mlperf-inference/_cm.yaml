@@ -647,6 +647,16 @@ variations:
       mlperf-inference-implementation:
         tags: _cuda
 
+  tpu:
+    group:
+      device
+    env:
+      CM_MLPERF_DEVICE:
+        tpu
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tpu
+
   # Execution modes
   fast:
     group: execution-mode
