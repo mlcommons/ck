@@ -43,7 +43,7 @@ public:
             mode_name = "PerformanceOnly";
         query_count_override = std::stol(getenv("CM_MLPERF_LOADGEN_QUERY_COUNT", "0"));
         performance_sample_count = std::stol(getenv("CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT", "1024"));
-        batch_size = std::stol(getenv("CM_MLPERF_LOADGEN_MAX_BATCHSIZE", "1"));
+        batch_size = std::stol(getenv("CM_MLPERF_LOADGEN_MAX_BATCHSIZE", "32"));
         std::cout << "MLPerf Conf path: " << mlperf_conf_path << std::endl;
         std::cout << "User Conf path: " << user_conf_path << std::endl;
         std::cout << "Dataset Preprocessed path: " << dataset_preprocessed_path << std::endl;
