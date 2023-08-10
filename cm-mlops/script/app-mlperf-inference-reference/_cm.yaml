@@ -793,7 +793,7 @@ variations:
   tpu:
     group: device
     env:
-      CM_MLPERF_DEVICE: gpu
+      CM_MLPERF_DEVICE: tpu
 
   tpu,tflite:
     add_deps_recursive:
