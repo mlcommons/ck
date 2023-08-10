@@ -116,6 +116,14 @@ def preprocess(i):
             sw_notes = ''
         state['CM_SUT_META']['sw_notes'] = sw_notes
 
+        if env.get('CM_SUDO_USER', '') == "yes" and env.get('CM_HOST_OS_TYPE', 'linux'):
+            r = i['automation'].run_native_script({'run_script_input':i['run_script_input'], 'env':env, 'script_name':'detect_memory'})
+            if r['return']>0:
+                return r
+            if env.get('CM_HOST_MEM_INFO', '') != '':
+                state['CM_SUT_META']['host_memory_configuration'] = env['CM_HOST_MEM_INFO']
+
+
         state['CM_SUT_META'] = dict(sorted(state['CM_SUT_META'].items()))
 
         sut_file = open(sut_path, "w")

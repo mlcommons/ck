@@ -32,6 +32,20 @@
           "cuda"
         ]
       }
+    },
+    {
+      "tags": "detect,sudo",
+      "enable_if_env": {
+        "CM_DETERMINE_MEMORY_CONFIGURATION": [
+          "yes"
+        ],
+        "CM_HOST_OS_TYPE": [
+          "linux"
+        ]
+      }
+    },
+    {
+      "tags": "get,generic-python-lib,_package.dmiparser"
     }
   ],
   "default_env": {

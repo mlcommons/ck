@@ -33,10 +33,10 @@ public:
 
 class CPUDevice : public Device {
     size_t NumConcurrency() const override {
-        return std::thread::hardware_concurrency();
+        return 2;//std::thread::hardware_concurrency();
     }
     size_t NumMemory() const override {
-        return 1;
+        return 2;
     }
     size_t GetMemoryIndex(size_t concurrency_index) const override {
         return 0;

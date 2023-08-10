@@ -10,7 +10,7 @@
   "accelerators_per_node": "0",
   "cooling": "air",
   "division": "open",
-  "host_memory_configuration": "12 x 32GB 2Rx4 PC4-2666V-R",
+  "host_memory_configuration": "undefined",
   "host_networking": "Gig Ethernet",
   "host_networking_card_count": "1",
   "host_networking_topology": "N/A",

@@ -23,32 +23,43 @@ function run() {
   fi
 }
 POWER=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4940 "
+POWER1=""
+extra_option=" --adr.mlperf-inference-implementation.compressed_dataset=on"
+extra_tags=",_only-fp32"
+
+
 #Add your run commands here...
 # run "$CM_RUN_CMD"
-run "cm run script --tags=run,mobilenet-models,_tflite,_accuracy-only \
+run "cm run script --tags=run,mobilenet-models,_tflite,_accuracy-only$extra_tags \
 --adr.compiler.tags=gcc \
+${extra_option} \
 --results_dir=$HOME/mobilenet_results"
 
-run "cm run script --tags=run,mobilenet-models,_tflite,_performance-only \
+run "cm run script --tags=run,mobilenet-models,_tflite,_performance-only$extra_tags \
 ${POWER} \
 --adr.compiler.tags=gcc \
+${extra_option} \
 --results_dir=$HOME/mobilenet_results"
 
-run "cm run script --tags=run,mobilenet-models,_tflite,_populate-readme \
+run "cm run script --tags=run,mobilenet-models,_tflite,_populate-readme$extra_tags \
 ${POWER} \
+--adr.compiler.tags=gcc \
+${extra_option} \
+--results_dir=$HOME/mobilenet_results"
+
+run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_accuracy-only$extra_tags \
+--adr.compiler.tags=gcc \
+${extra_option} \
+--results_dir=$HOME/mobilenet_results"
+
+run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_performance-only$extra_tags \
+${POWER} \
+${extra_option} \
 --adr.compiler.tags=gcc \
 --results_dir=$HOME/mobilenet_results"
 
-run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_accuracy-only \
---adr.compiler.tags=gcc \
---results_dir=$HOME/mobilenet_results"
-
-run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_performance-only \
+run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_populate-readme$extra_tags \
 ${POWER} \
---adr.compiler.tags=gcc \
---results_dir=$HOME/mobilenet_results"
-
-run "cm run script --tags=run,mobilenet-models,_tflite,_armnn,_neon,_populate-readme \
-${POWER} \
+${extra_option} \
 --adr.compiler.tags=gcc \
 --results_dir=$HOME/mobilenet_results"

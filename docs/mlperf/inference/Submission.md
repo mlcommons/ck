@@ -17,6 +17,7 @@ cmr "generate inference submission" \
 --env.CM_TAR_OUTFILE=submission.tar.gz \
 --division=open \
 --category=edge \
+--env.CM_DETERMINE_MEMORY_CONFIGURATION=yes \
 --quiet
 ```
 

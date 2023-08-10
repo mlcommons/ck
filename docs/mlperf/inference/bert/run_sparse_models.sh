@@ -42,7 +42,7 @@ cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_find-performan
    --mode=performance \
    --execution_mode=valid \
    --adr.mlperf-inference-implementation.max_batchsize=384 \
-   --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4940
+   --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4940 --env.CM_MLPERF_SKIP_POWER_CHECKS=yes \
    --results_dir=$HOME/results_dir \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=$stub \
    --quiet"

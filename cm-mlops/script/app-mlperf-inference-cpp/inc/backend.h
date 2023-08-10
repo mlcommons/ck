@@ -168,8 +168,8 @@ public:
                 break;
             }
         }
-        std::cerr << "node " << concurrency_index
-                  << " running batch #" << batch.front().index << "-#" << batch.back().index << std::endl;
+        //std::cerr << "node " << concurrency_index
+        //          << " running batch #" << batch.front().index << "-#" << batch.back().index << std::endl;
 
         // batch pointer in memory [input_index]
         std::vector<void *> batch_data(num_inputs);
