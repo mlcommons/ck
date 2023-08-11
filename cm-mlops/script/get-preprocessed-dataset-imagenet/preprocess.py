@@ -25,7 +25,7 @@ else:
     elif os.environ.get('CM_MODEL', 'resnet50') == 'resnet50' and os.environ.get('CM_PREPROCESS_PYTORCH', '') == "yes":
         pre_process = dataset.pre_process_imagenet_pytorch
     elif os.environ.get('CM_MODEL', 'resnet50') == 'resnet50' and os.environ.get('CM_PREPROCESS_TFLITE_TPU', '') == "yes":
-        pre_process = dataset.pre_process_resnet
+        pre_process = dataset.pre_process_imagenet_tflite_tpu
     else:
         pre_process = dataset.pre_process_vgg
 

@@ -543,6 +543,7 @@ variations:
     env:
       CM_MLPERF_BACKEND: tflite
       CM_MLPERF_BACKEND_VERSION: <<<CM_TFLITE_VERSION>>>
+      CM_MLPERF_VISION_DATASET_OPTION: imagenet_tflite_tpu
 
   tf:
     group: framework

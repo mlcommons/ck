@@ -191,10 +191,14 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
         extra_options = " --output "+ env['CM_MLPERF_OUTPUT_DIR'] +" --model-name resnet50  --dataset " + env['CM_MLPERF_VISION_DATASET_OPTION'] + ' --max-batchsize ' + env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE', '1') + \
                 " --dataset-path "+env['CM_DATASET_PREPROCESSED_PATH']+" --model "+env['MODEL_FILE'] + \
                 " --preprocessed_dir "+env['CM_DATASET_PREPROCESSED_PATH']
-
-        cmd = "cd '" + os.path.join(env['RUN_DIR'],"python") + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " main.py "+\
-        "--backend "+env['CM_MLPERF_BACKEND']+ " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
-            env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + extra_options
+        if env.get('CM_MLPERF_DEVICE') == "tpu":
+            cmd = "cd '" + os.path.join(env['RUN_DIR'],"python") + "' && sudo "+env['CM_PYTHON_BIN_WITH_PATH']+ " main.py "+\
+            "--backend "+env['CM_MLPERF_BACKEND']+ " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+                env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + extra_options
+        else:
+            cmd = "cd '" + os.path.join(env['RUN_DIR'],"python") + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " main.py "+\
+            "--backend "+env['CM_MLPERF_BACKEND']+ " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+                env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + extra_options
         env['SKIP_VERIFY_ACCURACY'] = True
 
     elif "bert" in env['CM_MODEL']:
