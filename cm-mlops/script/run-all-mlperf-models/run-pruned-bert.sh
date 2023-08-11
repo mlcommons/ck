@@ -1,10 +1,4 @@
 #!/bin/bash
-#"zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95_quant-none-vnni" \
-#"zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni" \
-#"zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base_quant-none" \
-#"zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned95_obs_quant-none" \
-#"zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base-none" \
-#"zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50-none-vnni" \
 
 #not working
 #"zoo:nlp/question_answering/oberta-base/pytorch/huggingface/squad/pruned90_quant-none" \
@@ -21,10 +15,16 @@
 #"zoo:nlp/question_answering/distilbert-none/pytorch/huggingface/squad/pruned90-none" \
 #"zoo:nlp/question_answering/oberta-small/pytorch/huggingface/squad/base-none" \
 #"zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/base_quant-none" \
+#"zoo:nlp/question_answering/bert-base_cased/pytorch/huggingface/squad/pruned90-none" \
+
 zoo_stub_list=( \
+"zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95_quant-none-vnni" \
+"zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni" \
+"zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base_quant-none" \
+"zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned95_obs_quant-none" \
+"zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50-none-vnni" \
 "zoo:nlp/question_answering/obert-base/pytorch/huggingface/squad/pruned90-none" \
 "zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned97_quant-none" \
-"zoo:nlp/question_answering/bert-base_cased/pytorch/huggingface/squad/pruned90-none" \
 "zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned90-none" \
 "zoo:nlp/question_answering/bert-large/pytorch/huggingface/squad/pruned80_quant-none-vnni" \
 "zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95-none-vnni" \
@@ -35,9 +35,13 @@ zoo_stub_list=( \
 )
 
 rerun=""
-power=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15"
+power=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --env.CM_MLPERF_SKIP_POWER_CHECKS=yes"
 power=""
+max_batchsize=384
+scenario="Offline"
+scenario="SingleStream"
 
+if [[ $scenario == "Offline" ]];
 for stub in ${zoo_stub_list[@]}; do
 cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_find-performance  \
    --adr.python.version_min=3.8 \
@@ -48,7 +52,7 @@ cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_find-performan
    --device=cpu \
    --scenario=Offline \
    --test_query_count=15000 \
-   --adr.mlperf-inference-implementation.max_batchsize=384 \
+   --adr.mlperf-inference-implementation.max_batchsize=$max_batchsize \
    --results_dir=$HOME/results_dir \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=$stub \
    ${rerun} \
@@ -56,6 +60,7 @@ cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_find-performan
   echo ${cmd}
   eval ${cmd}
 done
+fi
 
 for stub in ${zoo_stub_list[@]}; do
  cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
@@ -66,31 +71,9 @@ for stub in ${zoo_stub_list[@]}; do
    --precision=int8 \
    --backend=deepsparse \
    --device=cpu \
-   --scenario=Offline \
-   --mode=performance \
+   --scenario=$scenario \
    --execution_mode=valid \
-   --adr.mlperf-inference-implementation.max_batchsize=384 \
-   ${power} \
-   --results_dir=$HOME/results_dir \
-   --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=$stub \
-   --quiet"
-  echo ${cmd}
-  eval ${cmd}
-done
-
-for stub in ${zoo_stub_list[@]}; do
- cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_populate-readme  \
-   --adr.python.version_min=3.8 \
-   --adr.compiler.tags=gcc \
-   --implementation=reference \
-   --model=bert-99 \
-   --precision=int8 \
-   --backend=deepsparse \
-   --device=cpu \
-   --scenario=Offline \
-   --mode=performance \
-   --execution_mode=valid \
-   --adr.mlperf-inference-implementation.max_batchsize=384 \
+   --adr.mlperf-inference-implementation.max_batchsize=$max_batchsize \
    ${power} \
    --results_dir=$HOME/results_dir \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=$stub \
