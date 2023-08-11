@@ -37,11 +37,12 @@ zoo_stub_list=( \
 rerun=""
 power=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --env.CM_MLPERF_SKIP_POWER_CHECKS=yes"
 power=""
-max_batchsize=384
+power=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4940 --env.CM_MLPERF_SKIP_POWER_CHECKS=yes"
+max_batchsize=1
 scenario="Offline"
 scenario="SingleStream"
 
-if [[ $scenario == "Offline" ]];
+if [[ $scenario == "Offline" ]]; then
 for stub in ${zoo_stub_list[@]}; do
 cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_find-performance  \
    --adr.python.version_min=3.8 \
