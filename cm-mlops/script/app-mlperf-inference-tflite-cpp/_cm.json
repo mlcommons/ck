@@ -338,7 +338,7 @@
           "tags": "_fp32"
         },
         "preprocessed-dataset": {
-          "tags": "_fp32"
+          "tags": "_float32"
         }
       }
     },
