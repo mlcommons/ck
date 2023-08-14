@@ -179,6 +179,8 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
 
         if env['CM_MLPERF_BACKEND'] == "ncnn":
             env['MODEL_FILE'] = os.path.join(os.path.dirname(env.get('CM_ML_MODEL_FILE_WITH_PATH')), "resnet50_v1")
+        elif env['CM_MLPERF_DEVICE'] == "tpu":
+            env['MODEL_FILE'] = "/mnt/workspace/resnet50_quant_full_mlperf_edgetpu.tflite"
         else:
             env['MODEL_FILE'] = env.get('CM_MLPERF_CUSTOM_MODEL_PATH', env.get('CM_ML_MODEL_FILE_WITH_PATH'))
         if not env['MODEL_FILE']:
