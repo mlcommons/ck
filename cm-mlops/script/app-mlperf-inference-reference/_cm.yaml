@@ -523,6 +523,18 @@ variations:
       CM_MLPERF_BACKEND_VERSION: <<<CM_NCNN_VERSION>>>
       CM_MLPERF_VISION_DATASET_OPTION: imagenet_pytorch
 
+  tflite:
+    group: framework
+    add_deps_recursive:
+      imagenet-preprocessed:
+        tags: _NHWC
+      ml-model:
+        tags: raw,_tflite,_no-argmax
+    env:
+      CM_MLPERF_BACKEND: tflite
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TFLITE_VERSION>>>
+      CM_MLPERF_VISION_DATASET_OPTION: imagenet_tflite_tpu
+
   tf:
     group: framework
     add_deps_recursive:
