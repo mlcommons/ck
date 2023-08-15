@@ -171,7 +171,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
 
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "vision", "classification_and_detection")
         env['OUTPUT_DIR'] =  env['CM_MLPERF_OUTPUT_DIR']
-        if env.get('CM_MLPERF_VISION_DATASET_OPTION','') == '':
+        if env.get('CM_MLPERF_VISION_DATASET_OPTION','') == '' and env.get('CM_MLPERF_DEVICE') != "tpu":
             cmd =  "./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
             env['CM_MODEL'] + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             scenario_extra_options + mode_extra_options + dataset_options
@@ -179,10 +179,13 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
 
         if env['CM_MLPERF_BACKEND'] == "ncnn":
             env['MODEL_FILE'] = os.path.join(os.path.dirname(env.get('CM_ML_MODEL_FILE_WITH_PATH')), "resnet50_v1")
+        elif env['CM_MLPERF_DEVICE'] == "tpu":
+            env['MODEL_FILE'] = "/mnt/workspace/resnet50_quant_full_mlperf_edgetpu.tflite"
         else:
             env['MODEL_FILE'] = env.get('CM_MLPERF_CUSTOM_MODEL_PATH', env.get('CM_ML_MODEL_FILE_WITH_PATH'))
         if not env['MODEL_FILE']:
             return {'return': 1, 'error': 'No valid model file found!'}
+
 
         env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
         
@@ -190,9 +193,14 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
                 " --dataset-path "+env['CM_DATASET_PREPROCESSED_PATH']+" --model "+env['MODEL_FILE'] + \
                 " --preprocessed_dir "+env['CM_DATASET_PREPROCESSED_PATH']
 
-        cmd = "cd '" + os.path.join(env['RUN_DIR'],"python") + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " main.py "+\
-        "--backend "+env['CM_MLPERF_BACKEND']+ " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
-            env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + extra_options
+        if env.get('CM_MLPERF_DEVICE') == "tpu":
+            cmd = "cd '" + os.path.join(env['RUN_DIR'],"python") + "' && "+env.get('CM_SUDO', "")+" "+env['CM_PYTHON_BIN_WITH_PATH']+ " main.py "+\
+            "--backend "+env['CM_MLPERF_BACKEND']+ " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] +" --device tpu "+ \
+                env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + extra_options
+        else:
+            cmd = "cd '" + os.path.join(env['RUN_DIR'],"python") + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " main.py "+\
+            "--backend "+env['CM_MLPERF_BACKEND']+ " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+                env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + extra_options
         env['SKIP_VERIFY_ACCURACY'] = True
 
     elif "bert" in env['CM_MODEL']:
