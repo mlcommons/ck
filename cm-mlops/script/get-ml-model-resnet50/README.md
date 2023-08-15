@@ -149,6 +149,13 @@ ___
         - *CM_EXTRACT_FINAL_ENV_NAME*: `CM_ML_MODEL_FILE_WITH_PATH`
         - *CM_DOWNLOAD_FINAL_ENV_NAME*: ``
       - Workflow:
+    * `_tflite,int8,no-argmax`
+      - Environment variables:
+        - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)`
+        - *CM_PACKAGE_URL*: `https://zenodo.org/record/8234946/files/resnet50_quant_full_mlperf_edgetpu.tflite?download=1`
+        - *CM_ML_MODEL_FILE*: `resnet50_quant_full_mlperf_edgetpu.tflite`
+        - *CM_DOWNLOAD_FINAL_ENV_NAME*: `CM_ML_MODEL_FILE_WITH_PATH`
+      - Workflow:
     * `_tflite,no-argmax`
       - Environment variables:
         - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)`
