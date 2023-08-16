@@ -21,7 +21,7 @@ def preprocess(i):
 def prompt_sudo():
     if os.geteuid() != 0:
         msg = "[sudo] password for %u:"
-        return subprocess.check_call("sudo -v -p '%s'" % msg, shell=True)
+        return subprocess.check_call("sudo echo 'Hi' -p '%s'" % msg, shell=True)
     return -1
 
 

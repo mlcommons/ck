@@ -12,7 +12,7 @@ cmr "generate inference submission" \
 --preprocess_submission=yes \
 --adr.compiler.tags=gcc --adr.inference-src.version=master \
 --run-checker \
---submitter=cTuning \
+--submitter=CTuning \
 --tar=yes \
 --env.CM_TAR_OUTFILE=submission.tar.gz \
 --division=open \

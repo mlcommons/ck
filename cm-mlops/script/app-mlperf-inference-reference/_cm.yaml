@@ -738,6 +738,9 @@ variations:
     - tags: get,generic-python-lib,_tqdm
     - tags: get,generic-python-lib,_onnx
     - tags: get,generic-python-lib,_numpy
+    - tags: get,generic-python-lib,_package.torchrec
+    - tags: get,generic-python-lib,_package.pyre-extensions
+    - tags: get,generic-python-lib,_package.torchsnapshot
 
   rnnt:
     group: models
