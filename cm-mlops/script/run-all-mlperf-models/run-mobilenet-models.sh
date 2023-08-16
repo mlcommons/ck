@@ -23,9 +23,10 @@ function run() {
   fi
 }
 POWER=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4940 "
-POWER1=""
+POWER=""
 extra_option=" --adr.mlperf-inference-implementation.compressed_dataset=on"
 extra_tags=",_only-fp32"
+extra_tags=""
 
 
 #Add your run commands here...

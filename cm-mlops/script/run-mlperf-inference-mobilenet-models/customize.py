@@ -143,8 +143,7 @@ def preprocess(i):
                     cm_input['add_deps_recursive'] = add_deps_recursive #script automation will merge adr and add_deps_recursive
 
                 if adr:
-                    for key in adr:
-                        cm_input['adr'][key] = adr[key]
+                    utils.merge_dicts({'dict1':cm_input['adr'], 'dict2':adr, 'append_lists':True, 'append_unique':True})
 
                 if env.get('CM_MLPERF_RESULTS_DIR', '') != '':
                     cm_input['results_dir'] = env['CM_MLPERF_RESULTS_DIR']
