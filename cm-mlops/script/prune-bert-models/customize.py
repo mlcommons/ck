@@ -36,7 +36,6 @@ def preprocess(i):
         print ('ENV["{}"]: {}'.format(k, env[k]))
 
     print ('')
-    input ('xyz')
 
     return {'return': 0}
 
