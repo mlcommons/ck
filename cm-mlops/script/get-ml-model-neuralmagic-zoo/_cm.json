@@ -29,6 +29,10 @@
       "names": [ "python3", "python" ]
     },
     {
+      "tags": "get,generic-python-lib,_package.protobuf",
+      "version_max": "3.20.1"
+    },
+    {
       "tags": "get,generic-python-lib,_sparsezoo"
     }
   ],

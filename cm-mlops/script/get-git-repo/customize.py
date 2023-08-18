@@ -13,7 +13,7 @@ def preprocess(i):
     meta = i['meta']
 
     env_key = get_env_key(env)
-    
+
     if 'CM_GIT_REPO_NAME' not in env:
         update_env(env, 'CM_GIT_REPO{}_NAME', env_key, os.path.basename(env['CM_GIT_URL']))
 
@@ -44,7 +44,7 @@ def postprocess(i):
     git_checkout_path = env['CM_GIT_CHECKOUT_PATH']
 
     env_key = get_env_key(env)
-    
+
     # We remap CM_GIT variables with CM_GIT_REPO prefix so that they don't contaminate the env of the parent script
     update_env(env, 'CM_GIT_REPO{}_CHECKOUT_PATH', env_key, env['CM_GIT_CHECKOUT_PATH'])
     update_env(env, 'CM_GIT_REPO{}_URL', env_key, env['CM_GIT_URL'])

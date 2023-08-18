@@ -4,6 +4,16 @@
   "automation_uid": "5b4e0237da074764",
   "category": "Modular ML/AI applications",
   "category_sort": 10000,
+  "default_env": {
+    "CM_BERT_PRUNE_TASK":"squad",
+    "CM_BERT_PRUNE_MODEL_NAME":"bert-large-uncased",
+    "CM_MODEL_ZOO_STUB":"bert-large-uncased",
+    "CM_BERT_PRUNE_CONSTRAINT": "0.5"
+  },
+  "input_mapping": {
+    "constraint": "CM_BERT_PRUNE_CONSTRAINT",
+    "output_dir": "CM_BERT_PRUNE_OUTPUT_DIR"
+  },
   "deps": [
     {
       "tags": "get,python3"
@@ -28,46 +38,51 @@
     },
     {
       "tags": "get,generic-python-lib,_transformers"
-    },    
+    },
     {
       "tags": "get,generic-python-lib,_scikit-learn"
     },
     {
-      "tags": "get,git,repo,_repo.https://github.com/anandhu-eng/retraining-free-pruning"
+      "tags": "get,git,repo,_repo.https://github.com/cknowledge/retraining-free-pruning",
+      "env": {
+        "CM_GIT_ENV_KEY":"BERT_PRUNER_NEURIPS_2022"
+      }
     },
     {
       "names": [
-	"get-model"
+        "get-model"
       ],
-      "tags": "get, ml-model, model, zoo, model-zoo, huggingface, _prune"
+      "tags": "get,ml-model,model,zoo,model-zoo,huggingface,_prune"
     }
   ],
   "tags": [
     "prune",
+    "bert-models",
     "bert-prune",
     "prune-bert-models"
   ],
   "uid": "76182d4896414216",
   "variations":{
     "path.#":{
-	"env":{
-	    "CM_UNPRUNED_MODEL_PATH":"#"
-	}
+      "env":{
+        "CM_BERT_PRUNE_CKPT_PATH":"#"
+      }
     },
     "task.#":{
-	"env":{
-	    "CM_PRUNE_TASK":"#"
-	}
+      "env":{
+        "CM_BERT_PRUNE_TASK":"#"
+      }
     },
-    "model-name.#":{
-	"adr":{
-	  "get-model":{
-	    "tags":"_model-stub.#"
-	  }
-	},
-	"env":{
-	    "CM_PRUNE_MODEL_NAME":"#"
-	}
+    "model.#":{
+      "adr":{
+        "get-model":{
+          "tags":"_model-stub.#"
+        }
+      },
+      "env":{
+         "CM_BERT_PRUNE_MODEL_NAME":"#",
+         "CM_MODEL_ZOO_STUB":"#"
+      }
     }
   }
 }
