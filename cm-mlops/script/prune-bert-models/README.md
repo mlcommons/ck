@@ -12,6 +12,7 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -21,9 +22,12 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
 ### Description
+
+
+See [more info](README-extra.md).
 
 #### Information
 
@@ -31,7 +35,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prune-bert-models)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *prune,bert-prune,prune-bert-models*
+* CM "database" tags to find this script: *prune,bert-models,bert-prune,prune-bert-models*
 * Output cached?: *False*
 ___
 ### Usage
@@ -50,11 +54,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=prune,bert-prune,prune-bert-models[,variations] `
+1. `cm run script --tags=prune,bert-models,bert-prune,prune-bert-models[,variations] [--input_flags]`
 
-2. `cm run script "prune bert-prune prune-bert-models[,variations]" `
+2. `cm run script "prune bert-models bert-prune prune-bert-models[,variations]" [--input_flags]`
 
-3. `cm run script 76182d4896414216 `
+3. `cm run script 76182d4896414216 [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -71,7 +75,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'prune,bert-prune,prune-bert-models'
+                  'tags':'prune,bert-models,bert-prune,prune-bert-models'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -88,9 +92,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="prune,bert-prune,prune-bert-models"```
+```cm run script --tags=gui --script="prune,bert-models,bert-prune,prune-bert-models"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=prune,bert-prune,prune-bert-models) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=prune,bert-models,bert-prune,prune-bert-models) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -106,20 +110,37 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_model-name.#`
+    * `_model.#`
       - Environment variables:
-        - *CM_PRUNE_MODEL_NAME*: `#`
+        - *CM_BERT_PRUNE_MODEL_NAME*: `#`
+        - *CM_MODEL_ZOO_STUB*: `#`
       - Workflow:
     * `_path.#`
       - Environment variables:
-        - *CM_UNPRUNED_MODEL_PATH*: `#`
+        - *CM_BERT_PRUNE_CKPT_PATH*: `#`
       - Workflow:
     * `_task.#`
       - Environment variables:
-        - *CM_PRUNE_TASK*: `#`
+        - *CM_BERT_PRUNE_TASK*: `#`
       - Workflow:
 
     </details>
+
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--constraint=value`  &rarr;  `CM_BERT_PRUNE_CONSTRAINT=value`
+* `--output_dir=value`  &rarr;  `CM_BERT_PRUNE_OUTPUT_DIR=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "constraint":...}
+```
+
+</details>
 
 #### Default environment
 
@@ -128,6 +149,10 @@ ___
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
+* CM_BERT_PRUNE_TASK: `squad`
+* CM_BERT_PRUNE_MODEL_NAME: `bert-large-uncased`
+* CM_MODEL_ZOO_STUB: `bert-large-uncased`
+* CM_BERT_PRUNE_CONSTRAINT: `0.5`
 
 </details>
 
@@ -156,9 +181,9 @@ ___
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_scikit-learn
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-     * get,git,repo,_repo.https://github.com/anandhu-eng/retraining-free-pruning
+     * get,git,repo,_repo.https://github.com/cknowledge/retraining-free-pruning
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
-     * get, ml-model, model, zoo, model-zoo, huggingface, _prune
+     * get,ml-model,model,zoo,model-zoo,huggingface,_prune
        * CM names: `--adr.['get-model']...`
        - CM script: [get-ml-model-huggingface-zoo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prune-bert-models/customize.py)***

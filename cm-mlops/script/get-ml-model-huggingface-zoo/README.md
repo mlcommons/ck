@@ -117,7 +117,7 @@ ___
       - Workflow:
     * `_prune`
       - Environment variables:
-        - *   CM_MODEL_TASK*: `prune`
+        - *CM_MODEL_TASK*: `prune`
       - Workflow:
 
     </details>
