@@ -67,6 +67,9 @@ deps:
       CM_MLPERF_DEVICE:
         - cuda
         - inferentia
+    skip_if_env:
+      CM_TENSORRT_SYSTEM_DETECT:
+        - yes
 
   # Detect gcc
   - tags: get,gcc
