@@ -31,6 +31,13 @@ cm run script "get git repo _repo.https://github.com/mlcommons/inference_results
 cm run script "get git repo _repo.https://github.com/mlcommons/inference_results_v3.0" --env.CM_GIT_CHECKOUT=main --extra_cache_tags=mlperf-inference-results,version-3.0
 ```
 
+Use the following CM command if you want to analyze private MLPerf results under submission 
+(you need to be a submitter or collaborate with cTuning.org and cKnowledge.org to have an access to such repository):
+
+```bash
+cm run script "get git repo _repo.https://github.com/mlcommons/submissions_inference_v3.1" --env.CM_GIT_CHECKOUT=main --extra_cache_tags=mlperf-inference-results,version-3.1-work
+```
+
 Convert raw MLPerf results into CM experiment entries:
 ```bash
 cm run script "import mlperf inference to-experiment" -s
