@@ -676,6 +676,11 @@ def error(i):
     See CM.error function for more details.
     """
 
+    global cm
+
+    if cm is None:
+       cm=CM()
+
     return cm.error(i)
 
 ############################################################
@@ -688,6 +693,11 @@ def halt(i):
     See CM.halt function for more details.
 
     """
+
+    global cm
+
+    if cm is None:
+       cm=CM()
 
     return cm.halt(i)
 

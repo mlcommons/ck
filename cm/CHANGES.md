@@ -1,3 +1,7 @@
+## V1.5.1.1
+   - fixed minor bug with auto-initializion of cmind 
+     for cmind.error and cmind.halt for external scripts
+
 ## V1.5.1
    - fixed a bug with merging dictionaries in variations
      (detected when running MLPerf inference with GPT-J):
