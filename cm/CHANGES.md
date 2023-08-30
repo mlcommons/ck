@@ -1,6 +1,10 @@
 ## V1.5.1.1
    - fixed minor bug with auto-initializion of cmind 
      for cmind.error and cmind.halt for external scripts
+   - added --min to `cm find repo xyz --min` to print path to CM xyz repo without any extra info
+     Needed for artifact evaluation at ACM MICRO'23
+   - added `cm where repo xyz` to print path to xyz CM repo without any extra info
+     Needed for artifact evaluation at ACM MICRO'23
 
 ## V1.5.1
    - fixed a bug with merging dictionaries in variations
