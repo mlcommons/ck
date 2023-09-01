@@ -1,4 +1,4 @@
-## V1.5.1.1
+## V1.5.2
    - fixed minor bug with auto-initializion of cmind 
      for cmind.error and cmind.halt for external scripts
    - added --min to `cm find repo xyz --min` to print path to CM xyz repo without any extra info
