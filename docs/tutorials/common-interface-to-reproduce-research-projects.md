@@ -103,7 +103,8 @@ to your CM-compatible research project to wrap your native scripts and run exper
 ```bash
 cm add script my-research-project:reproduce-paper-micro-2023-016 \
            --tags=reproduce,paper,micro,2023,016 \
-           --script_name={name of your script}
+           --script_name={name of your script} \
+           --template=ae-python
 ```
 
 Please add `--json` flag if you prefer to describe your dependencies and execution workflow in JSON instead of YAML format (default).
