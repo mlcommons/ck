@@ -2172,10 +2172,20 @@ class CAutomation(Automation):
             print ('Created script in {}'.format(new_script_path))
 
         # Copy files from template (only if exist)
-        files = [(template_path, 'README-extra.md', ''),
+        files = [
+                 (template_path, 'README-extra.md', ''),
                  (template_path, 'customize.py', ''),
                  (template_path, 'main.py', ''),
-                 (template_path, 'requirements.txt', '')]
+                 (template_path, 'requirements.txt', ''),
+                 (template_path, 'install-deps.bat', ''),
+                 (template_path, 'install-deps.sh', ''),
+                 (template_path, 'plot.bat', ''),
+                 (template_path, 'plot.sh', ''),
+                 (template_path, 'analyze.bat', ''),
+                 (template_path, 'analyze.sh', ''),
+                 (template_path, 'validate.bat', ''),
+                 (template_path, 'validate.sh', '')
+                ]
 
         if script_name == '':
             files += [(template_path, 'run.bat', ''),
