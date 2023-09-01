@@ -835,6 +835,9 @@ class CAutomation(Automation):
                 r = update_state_from_meta(variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
                 if r['return']>0: return r
 
+                if variation_meta.get('script_name', '')!='': 
+                    meta['script_name'] = variation_meta['script_name']
+
                 adr=get_adr(variation_meta)
                 if adr:
                     self._merge_dicts_with_tags(add_deps_recursive, adr)
@@ -848,18 +851,18 @@ class CAutomation(Automation):
 
                         r = update_state_from_meta(combined_variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
                         if r['return']>0: return r
+
                         adr=get_adr(combined_variation_meta)
                         if adr:
                             self._merge_dicts_with_tags(add_deps_recursive, adr)
 
+                        if combined_variation_meta.get('script_name', '')!='': 
+                            meta['script_name'] = combined_variation_meta['script_name']
+
+
             #Processing them again using updated deps for add_deps_recursive
             r = update_adr_from_meta(deps, post_deps, prehook_deps, posthook_deps, add_deps_recursive)
             if r['return']>0: return r
-
-
-
-
-
 
         # USE CASE:
         #  HERE we may have versions in script input and env['CM_VERSION_*']
@@ -4112,6 +4115,7 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
     """
     Internal: update env and state from meta
     """
+
     default_env = meta.get('default_env',{})
     for key in default_env:
         env.setdefault(key, default_env[key])

@@ -31,3 +31,8 @@ deps:
 
   # Install system dependencies on a given host
   - tags: get,sys-utils-cm
+
+variations:
+  skip_checker:
+    env:
+      CM_SKIP_SUBMISSION_CHECKER: yes

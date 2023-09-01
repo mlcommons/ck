@@ -20,8 +20,12 @@ model2task = {
    "rnnt":"speech-recognition",
    "bert-99":"language-processing",
    "bert-99.9":"language-processing",
+   "gptj-99":"language-processing",
+   "gptj-99.9":"language-processing",
    "dlrm-99":"recommendation",
+   "dlrm-v2-99":"recommendation",
    "dlrm-99.9":"recommendation",
+   "dlrm-v2-99.9":"recommendation",
    "3d-unet-99":"image-segmentation",
    "3d-unet-99.9":"image-segmentation"
 }
@@ -55,24 +59,30 @@ def preprocess(i):
                     version = 'v'+t[8:]
                     break
 
-            print ('* Running submission checker ...')
+            skip_submission_checker = env.get('CM_SKIP_SUBMISSION_CHECKER','') in ['yes','True']
 
-            if os.path.isfile(file_summary):
-                os.remove(file_summary)
+            if skip_submission_checker:
+                if not os.path.isfile(file_summary):
+                    return {'return':1, 'error':'{} not found'.format(file_summary)}
+            else:
+                if os.path.isfile(file_summary):
+                    os.remove(file_summary)
 
-            ii = {'action':'run',
-                  'automation':'script',
-                  'tags':'run,submission,checker',
-                  'submission_dir':path}
+                print ('* Running submission checker ...')
 
-            if version!='':
-                print ('  Version detected from cache tags: {}'.format(version))
-                ii['version']=version
+                ii = {'action':'run',
+                      'automation':'script',
+                      'tags':'run,submission,checker',
+                      'submission_dir':path}
 
-            r = cm.access(ii)
-            # Ignore if script fails for now (when some results are wrong)
-            if r['return']>0 and r['return']!=2:
-                return r
+                if version!='':
+                    print ('  Version detected from cache tags: {}'.format(version))
+                    ii['version']=version
+
+                r = cm.access(ii)
+                # Ignore if script fails for now (when some results are wrong)
+                if r['return']>0 and r['return']!=2:
+                    return r
 
             r = convert_summary_csv_to_experiment(path, version, env)
             if r['return']>0: return r
@@ -132,7 +142,9 @@ def convert_summary_csv_to_experiment(path, version, env):
                     if location != '':
                         result['url']=url+'/tree/master/'+location
 
-                if result.get('Accuracy',0)>0:
+                accuracy = result.get('Accuracy', 0.0)
+                print (accuracy, type(accuracy))
+                if accuracy!=None and accuracy!='None' and accuracy>0:
                     result['Accuracy_div_100'] = float('{:.5f}'.format(result['Accuracy']/100))
 
                 # Add ratios

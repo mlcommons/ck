@@ -26,19 +26,36 @@ cm pull repo mlcommons@ck
 
 Install repositories with raw MLPerf inference benchmark results:
 ```bash
-cm run script "get git repo _repo.https://github.com/mlcommons/inference_results_v2.0" --env.CM_GIT_CHECKOUT=master --extra_cache_tags=mlperf-inference-results,version-2.0
-cm run script "get git repo _repo.https://github.com/mlcommons/inference_results_v2.1" --env.CM_GIT_CHECKOUT=master --extra_cache_tags=mlperf-inference-results,version-2.1
-cm run script "get git repo _repo.https://github.com/mlcommons/inference_results_v3.0" --env.CM_GIT_CHECKOUT=main --extra_cache_tags=mlperf-inference-results,version-3.0
+cmr "get git repo _repo.https://github.com/mlcommons/inference_results_v2.0" --env.CM_GIT_CHECKOUT=master --extra_cache_tags=mlperf-inference-results,version-2.0
+cmr "get git repo _repo.https://github.com/mlcommons/inference_results_v2.1" --env.CM_GIT_CHECKOUT=master --extra_cache_tags=mlperf-inference-results,version-2.1
+cmr "get git repo _repo.https://github.com/mlcommons/inference_results_v3.0" --env.CM_GIT_CHECKOUT=main --extra_cache_tags=mlperf-inference-results,version-3.0
 ```
 
-Convert raw MLPerf results into CM experiment entries:
+Alternatively, you can pull already imported results from this [MLCommons repo](https://github.com/mlcommons/ck_mlperf_results):
 ```bash
-cm run script "import mlperf inference to-experiment" -s
+cm pull repo mlcommons@ck_mlperf_results
+```
+
+Use the following CM command if you want to analyze private MLPerf results under submission 
+(you need to be a submitter or collaborate with cTuning.org and cKnowledge.org to have an access to such repository):
+
+```bash
+cm run script "get git repo _repo.https://github.com/mlcommons/submissions_inference_v3.1" --env.CM_GIT_CHECKOUT=main --extra_cache_tags=mlperf-inference-results,version-3.1-work
+```
+
+Convert raw MLPerf results into CM experiment entries (it can take 5..15 minutes to run submission checker with raw MLPerf results before converting them to the fast CM format):
+```bash
+cm run script "import mlperf inference to-experiment"
+```
+
+If you already generated `summary.csv` in your current directory, you can skip submission checker as follows:
+```bash
+cm run script "import mlperf inference to-experiment _skip_checker"
 ```
 
 Visualize results on your local machine via CK playground GUI:
 ```bash
-cm run script "gui _playground" -s
+cm run script "gui _playground"
 ```
 
 These results are also available in the [public CK playground](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-inference,all).
