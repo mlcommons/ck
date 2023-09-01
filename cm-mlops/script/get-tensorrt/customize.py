@@ -84,9 +84,9 @@ def preprocess(i):
 
     if env.get('CM_TENSORRT_TAR_FILE_PATH','')=='':
         tags = [ "get", "tensorrt" ]
-        if env.get('CM_TENSORRT_REQUIRE_DEV', '') != 'yes'
+        if env.get('CM_TENSORRT_REQUIRE_DEV', '') != 'yes':
             tags.append("_dev")
-        return {'return': 1, 'error': 'Please envoke cm run script ' + " ".join(tags) + " --tar_file={full path to the TensorRT tar file}'}
+        return {'return': 1, 'error': 'Please envoke cm run script ' + " ".join(tags) + ' --tar_file={full path to the TensorRT tar file}'}
 
 
     print ('Untaring file - can take some time ...')
