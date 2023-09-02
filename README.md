@@ -13,7 +13,7 @@
 
 * [CK playground for MLPerf at AI hardware summit'23](https://aihwedgesummit.com/events/aihwedgesummit)
 * [CM automation for ACM MICRO'23](https://ctuning.org/ae/micro2023.html)
-* [Tutorial about CM automation and CK playground for MLPerf at IISCWC'23](https://iiswc.org/iiswc2023/#/program)
+* [Tutorial about CM automation and CK playground for MLPerf at IISCWC'23]( https://iiswc.org/iiswc2023/#/program/ )
 * [CM automation and CK playground to run MLPerf at the Student Cluster Competition at SuperComputing'23](https://sc23.supercomputing.org/students/student-cluster-competition)
 
 
