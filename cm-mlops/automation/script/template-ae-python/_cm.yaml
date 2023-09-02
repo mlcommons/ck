@@ -20,7 +20,7 @@ default_env:
 
 variations:
   install_deps:
-    script_name: install-deps
+    script_name: install_deps
 
   run:
     script_name: run
