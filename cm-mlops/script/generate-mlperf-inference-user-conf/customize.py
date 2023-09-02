@@ -201,7 +201,7 @@ def preprocess(i):
         test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
         OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], sut_name, model_full_name, scenario.lower(), test)
         if test == "TEST01":
-            audit_path = os.path.join(test, env['CM_MODEL'])
+            audit_path = os.path.join(test, ml_model_name)
         else:
             audit_path = test
 
