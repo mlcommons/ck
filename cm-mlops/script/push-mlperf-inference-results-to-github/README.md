@@ -105,6 +105,7 @@ ___
 <summary>Click here to expand this section.</summary>
 
 * `--commit_message=value`  &rarr;  `CM_MLPERF_RESULTS_REPO_COMMIT_MESSAGE=value`
+* `--repo_branch=value`  &rarr;  `CM_GIT_BRANCH=value`
 * `--repo_url=value`  &rarr;  `CM_MLPERF_RESULTS_GIT_REPO_URL=value`
 * `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
 
