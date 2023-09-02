@@ -13,10 +13,16 @@ def preprocess(i):
     if repo.strip() == '':
         return {'return': 1, 'error': 'Invalid GIT_REPO_URL for MLPERF results'}
 
+    branch = env.get('CM_GIT_BRANCH', '')
+    if branch:
+        extra_tags_string = f",_branch.{branch}"
+    else:
+        extra_tags_string = ""
+
     r = automation.update_deps({'deps':meta['prehook_deps'],
         'update_deps':{
             'get-git-repo':{
-                'tags':"_repo."+repo
+                'tags':"_repo."+repo+extra_tags_string
                 }
             }
         })
