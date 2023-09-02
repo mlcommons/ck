@@ -113,7 +113,7 @@ You can now find and edit the newly created template script using its alias as f
 ```bash
 cm find script reproduce-paper-micro-2023-016
 ```
-or tags
+You can also use tags to find your template script (preferred way since alias may change in the future):
 ```bash
 cm find script --tags=reproduce,paper,micro,2023,016
 ```
@@ -123,7 +123,7 @@ You must update the script after editing it's meta to cache it for fast search:
 cm update script reproduce-paper-micro-2023-016
 ```
 
-If you use Python and/or frameworks such as PyTorch and CUDA, you can create a new script with a template "python" or "pytorch" as follows:
+If you use extra frameworks and libraries such as PyTorch and CUDA, you can create a new script with a template "pytorch" as follows:
 
 ```bash
 cm add script my-research-project:reproduce-paper-micro-2023-016-2 \
@@ -148,6 +148,14 @@ You can already run your native script via CM interface and pass environment var
 cm run script "reproduce micro 2023 paper 016" --env.KEY1=VAL1 --env.KEY2=VAL2 ...
 ```
 
+Furthermore, you can run extra dummy scripts automatically generated for you via so-called CM variations
+(`install_deps, run, reproduce, plot, analyze,  validate`):
+```bash
+cm run script "reproduce micro 2023 paper 016 _{variation}" --env.KEY1=VAL1 --env.KEY2=VAL2 ...
+```
+
+Each variation invokes an associated script `{variation}.sh` or `{variation}.bat` and can be extended by a user.
+
 From this moment, you can extend meta description of this script (`_cm.json` or `_cm.yaml`)
 to add dependencies on other CM scripts to detect and/or install tools, data sets, models and other artifacts,
 extend `customize.py` to update environment variables based on dependencies and run other native scripts
@@ -158,6 +166,29 @@ and use the [most related CM scripts](../../cm-mlops/script) as examples/templat
 to extend your own script.
 
 
+## Adding extra Git repositories with artifacts to dependencies
+
+If you artifact/experiment depends on various Git repositories, you can add them
+as dependencies to your script in `_cm.yaml` or `_cm.json`to be automatically downloaded and cached
+as shown in the following example:
+
+
+```yaml
+deps:
+- tags: get,git,repo,_repo.https://github.com/CMU-SAFARI/Victima
+  env:
+    CM_GIT_ENV_KEY: 'CMU_SAFARI_VICTIMA'
+  extra_cache_tags: micro23,artifact,ae,cmu,safari,victima
+
+```
+
+The path to this cached GitHub repository will be available in your native scripts 
+via `CM_GIT_REPO_CMU_SAFARI_VICTIMA_CHECKOUT_PATH` environment variable.
+
+You can also find cached repo via CM CLI as follows:
+```bash
+cm find cache --tags=get,git,cmu,safari,victima
+```
 
 
 ## Sharing this script with the community and artifact evaluators
