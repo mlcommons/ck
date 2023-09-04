@@ -150,6 +150,7 @@ ___
         - *CM_ML_MODEL_FILE*: `model_weights`
         - *CM_EXTRACT_UNZIP*: `yes`
         - *CM_TMP_MODEL_ADDITIONAL_NAME*: ``
+        - *CM_DOWNLOAD_CHECKSUM*: ``
       - Workflow:
 
     </details>
