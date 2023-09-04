@@ -11,11 +11,11 @@
 
 ### Upcoming events
 
+* [CM automation and CK playground for MLPerf inference v3.1 submissions](docs/news-mlperf-v3.1.md)
 * [CK playground for MLPerf at AI hardware summit'23](https://aihwedgesummit.com/events/aihwedgesummit)
 * [CM automation for ACM MICRO'23](https://ctuning.org/ae/micro2023.html)
 * [Tutorial about CM automation and CK playground for MLPerf at IISCWC'23]( https://iiswc.org/iiswc2023/#/program/ )
 * [CM automation and CK playground to run MLPerf at the Student Cluster Competition at SuperComputing'23](https://sc23.supercomputing.org/students/student-cluster-competition)
-
 
 ### About
 
@@ -28,17 +28,20 @@ facilitate reproducible research, and simplify transfer to production across rap
 
 Collective Knowledge technology consists of the following sub-projects:
 * Non-intrusive and technology-agnostic [Collective Mind automation language (CM)](https://doi.org/10.5281/zenodo.8105339) 
-  helps to convert any project, code or data
-  into a collection of portable and reusable components 
-  with a unified interaface. 
+  helps to convert any project, code or data into a collection of portable and reusable components with a unified CM interface. 
   CM language allows users to run various automation workflows and applications in the same way either inside automatically generated container snapshots
   or the latest software/hardware stacks (that may fail and then collaboratively improved by the community).
-  CM is intended to be always backward compatible and continously extended by the community via Python automation recipes and JSON/YAML meta descriptions:
+  CM is intended to be always backward compatible and continuously extended by the community via Python automation recipes and JSON/YAML meta descriptions:
   * [Common CM automations](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation) 
   * [Portable and reusable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
   CM provides the same interface 
 * [Collective Knowledge Platform (CK Playground)](https://access.cKnowledge.org) provides a user-friendly GUI 
   to help the community explore, reproduce, understand, optimize and reuse the state-of-the-art AI/ML Systems.
+* [Modular Inference library (MIL)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-cpp/README-extra.md)
+  to help new MLPerf submitters add new hardware backends, optimize their MLPerf results using low-level knobs, 
+  and reduce their submission costs with the help of the open-source automation for MLPerf benchmarks
+  powered by MLCommons CM automation language and CK playground.
+
 
 
 The first practical use case for CM language and CK platform is to let everyone participate in collaborative benchmarking,
