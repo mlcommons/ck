@@ -62,11 +62,14 @@ readme_cmd='cm run script --tags=generate-run-cmds,inference,_populate-readme,_a
 --skip_submission_generation=yes --execution-mode=valid $power'
 
 # run "$CM_RUN_CMD"
-run_test "onnxruntime" "20" "reference" "cpu" "$find_performance_cmd"
-run_test "tf" "20" "reference" "cpu" "$find_performance_cmd"
+run_test "onnxruntime" "100" "reference" "cpu" "$find_performance_cmd"
+run_test "tf" "100" "reference" "cpu" "$find_performance_cmd"
 run_test "pytorch" "200" "reference" "cpu" "$find_performance_cmd"
 
-run_test "onnxruntime" "100" "reference" "cpu" "$submission_cmd"
-#run_test "tf" "100" "reference" "cpu" "$submission_cmd"
-run_test "pytorch" "100" "reference" "cpu" "$submission_cmd"
-
+scenario="SingleStream"
+run_test "onnxruntime" "100" "reference" "cpu" "$submission_cmd_scenario"
+run_test "tf" "100" "reference" "cpu" "$submission_cmd_scenario"
+run_test "pytorch" "100" "reference" "cpu" "$submission_cmd_scenario"
+scenario="Offline"
+division="closed"
+run_test "tf" "100" "reference" "cpu" "$submission_cmd_scenario"
