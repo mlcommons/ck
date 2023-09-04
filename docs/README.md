@@ -58,6 +58,12 @@ The development is led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [
 * [Source code (CM script)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/gui)
 
 
+## Modular Inference Library (MIL)
+
+*Note that this library is under heavy development.*
+
+* [Development link](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-cpp/README-extra.md)
+
 ## Collaborative development
 
 This open-source technology is being developed by the [MLCommons Task Force on Automation and Reproducibility](taskforce.md),

@@ -7,7 +7,7 @@ def make_url(name, alias='', action='contributors', key='name', md=True):
     if alias == '': alias = name
 
     xaction = 'action={}&'.format(action) if action!='' else ''
-    
+
     url = '?{}{}={}'.format(xaction, key, urllib.parse.quote_plus(alias))
 
     if md:

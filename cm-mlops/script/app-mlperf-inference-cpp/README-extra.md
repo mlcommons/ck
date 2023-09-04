@@ -1,12 +1,19 @@
 # About
 
-This portable CM script and C++ code was developed by [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189) 
-to provide modular C++ implementations of the [MLPerf inference benchmark](https://github.com/mlcommons/inference) 
-using the [MLCommons CM automation meta-framework](https://github.com/mlcommons/ck).
+The MLCommons C++ Modular Inference Library (MIL) provides a simple and extensible 
+C++ template to add new ML models, frameworks, data sets and hardware backends to MLPerf 
+inference benchmarks.
 
-It is being extended by the [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+It is intended to help new submitters add new hardware backends to MLPerf,
+optimize their MLPerf results using low-level knobs,
+and automate their submission using the MLCommons CM automation language.
+
+MIL is being developed by the [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
 to make it easier to run, optimize and reproduce MLPerf benchmarks 
 across diverse platforms with continuously changing software and hardware.
+
+MIL was originally developed by [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189) 
+along with the unified CM interface.
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
 [![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck)
@@ -15,11 +22,9 @@ across diverse platforms with continuously changing software and hardware.
 
 # Developers
 
-[Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), 
-[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
-and [Grigori Fursin]( https://cKnowledge.org/gfursin ).
-
-
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+* [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189)
+* [Grigori Fursin](https://cKnowledge.org/gfursin).
 
 
 ## About
