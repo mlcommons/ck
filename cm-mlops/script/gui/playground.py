@@ -59,7 +59,7 @@ def main():
     )
 
     # Check action and basic menu
-    action = params.get('action',['challenges'])[0].lower()
+    action = params.get('action',['experiments'])[0].lower()
 
     style_action_challenges='font-style:italic;font-weight:bold;color:#ffffff' if action=='challenges' else ''
     style_action_experiments='font-style:italic;font-weight:bold;color:#ffffff' if action=='experiments' else ''
