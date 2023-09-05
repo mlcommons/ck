@@ -12,7 +12,7 @@
   "division": "open",
   "host_memory_configuration": "undefined",
   "host_networking": "Gig Ethernet",
-  "host_networking_card_count": "1",
+  "host_network_card_count": "1",
   "host_networking_topology": "N/A",
   "host_processor_interconnect": "",
   "host_storage_type": "SSD",

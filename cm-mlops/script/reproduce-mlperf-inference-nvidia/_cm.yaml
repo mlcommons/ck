@@ -414,6 +414,12 @@ variations:
       CM_MLPERF_NVIDIA_HARNESS_USE_TRITON: "yes"
       CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX3: "using_triton"
 
+  prebuild:
+    group: run-mode
+    env:
+      MLPERF_NVIDIA_RUN_COMMAND: prebuild
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: prebuild
+
   build:
     group: run-mode
     env:
