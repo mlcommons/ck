@@ -120,6 +120,8 @@ def postprocess(i):
         sut_name = state['CM_SUT_CONFIG_NAME']
         sut_config = state['CM_SUT_CONFIG'][sut_name]
         sut_config_path = state['CM_SUT_CONFIG_PATH'][sut_name]
+        if scenario not in sut_config[model_full_name]:
+            sut_config[model_full_name][scenario] = {}
         sut_config[model_full_name][scenario][metric] = value
 
         print(f"SUT: {sut_name}, model: {model_full_name}, scenario: {scenario}, {metric} updated as {value}")
