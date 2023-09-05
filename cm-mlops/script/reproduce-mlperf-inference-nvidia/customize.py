@@ -171,17 +171,17 @@ def preprocess(i):
         offline_target_qps = env.get('CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS')
         server_target_qps = env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS')
         if target_qps:
-            target_qps = int(target_qps)
+            target_qps = int(float(target_qps))
             if scenario == "offline" and not offline_target_qps:
                 run_config += f" --offline_expected_qps={target_qps}"
             elif scenario == "server" and not server_target_qps:
                 run_config += f" --server_target_qps={target_qps}"
 
         if offline_target_qps:
-            offline_target_qps = int(offline_target_qps)
+            offline_target_qps = int(float(offline_target_qps))
             run_config += f" --offline_expected_qps={offline_target_qps}"
         if server_target_qps:
-            server_target_qps = int(server_target_qps)
+            server_target_qps = int(float(server_target_qps))
             run_config += f" --server_target_qps={server_target_qps}"
 
         target_latency = env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY')

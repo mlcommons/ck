@@ -62,8 +62,8 @@ readme_cmd='cm run script --tags=generate-run-cmds,inference,_populate-readme,_a
 --skip_submission_generation=yes --execution-mode=valid $power'
 
 # run "$CM_RUN_CMD"
-run_test "onnxruntime" "200" "reference" "cpu" "$find_performance_cmd"
-run_test "tf" "200" "reference" "cpu" "$find_performance_cmd"
+run_test "onnxruntime" "6000" "reference" "cpu" "$find_performance_cmd --rerun"
+run_test "tf" "6000" "reference" "cpu" "$find_performance_cmd --rerun"
 
 run_test "onnxruntime" "100" "reference" "cpu" "$submission_cmd"
 run_test "tf" "100" "reference" "cpu" "$submission_cmd"
