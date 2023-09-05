@@ -79,7 +79,7 @@ def page(st, params):
 
                     for t in ongoing:
                         if t != '':
-                            x+="   - [{}]({})\n".format(t.replace('-', '&nbsp;'),url)
+                            x+="   - {}\n".format(misc.make_url(t, action='challenges', key='tags'))
 
                     st.markdown(x)
 
