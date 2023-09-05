@@ -26,9 +26,11 @@ def preprocess(i):
     cmds = []
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
     mode = env['CM_MLPERF_LOADGEN_MODE']
-    #cmds.append(f"make prebuild")
 
     make_command = env['MLPERF_NVIDIA_RUN_COMMAND']
+
+    if make_command == "prebuild":
+        cmds.append(f"make prebuild NETWORK_NODE=SUT")
 
     if env['CM_MODEL'] == "resnet50":
         target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'imagenet')
@@ -202,6 +204,11 @@ def preprocess(i):
         high_accuracy = "99.9" in env['CM_MODEL']
 
         config_ver_list = []
+
+        use_lon = env.get('CM_MLPERF_NVIDIA_HARNESS_LON')
+        if use_lon:
+            config_ver_list.append( "lon_node")
+            #run_config += " --lon_node"
 
         maxq = env.get('CM_MLPERF_NVIDIA_HARNESS_MAXQ')
         if maxq:
