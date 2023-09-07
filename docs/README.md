@@ -3,14 +3,20 @@
 We deeply believe in the power of open science and open source to solve the world's most challenging problems.
 
 Following our [tedious experience reproducing 150 research papers and validating them in the real world](https://learning.acm.org/techtalks/reproducibility),
-we have developed this open-source Collective Knowledge technology to provide a common interface to access and reuse
+we have developed the Collective Knowledge framework to provide a common interface to access and reuse
 all shared knowledge (research projects, experiments, AI/ML models, code and data), facilitate reproducible research, 
 and simplify transfer to production across rapidly evolving models, software, hardware and data.
 
-Collective Knowledge project consists of two sub-projects, non-intrusive and technology-agnostic [Collective Mind automation language (CM)](#collective-mind-automation-language-cm) 
-and [Collective Knowledge playground (CK)](#collective-knowledge-playground-ck) to let everyone, from an expert to a child,
-participate in collaborative benchmarking, optimization, co-design and deployment of the state-of-the-art AI solutions
-across any software, hardware, models and data from any vendor in the most efficient way.
+The [cTuning foundation](https://cTuning.org) donated the original Collective Knowledge technology to MLCommons 
+to continue developments as a community effort in an [open and transparent way](docs/taskforce.md) 
+and deprecated v1 in 2021 and v2 in 2022.
+
+The new Collective Knowledge technology v3 consists of three sub-projects:
+[`Collective Mind automation language (CM)`](#collective-mind-automation-language-cm), 
+[`Collective Knowledge platform (CK playground)`](#collective-knowledge-playground-ck) 
+and [`Modular Inference Library (MIL)`](#modular-inference-library-mil)
+to let everyone participate in collaborative benchmarking, optimization, co-design 
+and deployment of the state-of-the-art AI solutions across any software, hardware, models and data from any vendor.
 
 Check our [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn about our vision and development plans.
 
