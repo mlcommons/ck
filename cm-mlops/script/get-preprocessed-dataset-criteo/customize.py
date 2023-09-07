@@ -5,10 +5,18 @@ import shutil
 def preprocess(i):
 
     env = i['env']
-    if 'CM_DATASET_PREPROCESSED_PATH' not in env:
+
+    skip_preprocessing = False
+    if env.get('CM_DATASET_PREPROCESSED_PATH', '') != '':
+        '''
+        Path with preprocessed dataset given as input
+        '''
+        skip_preprocessing = True
+
+    if not skip_preprocessing and env.get('CM_DATASET_PREPROCESSED_OUTPUT_PATH','') != '':
         env['CM_DATASET_PREPROCESSED_PATH'] = os.getcwd()
 
-    if env.get('CM_DATASET_CRITEO_MULTIHOT', '') == 'yes':
+    if not skip_preprocessing and env.get('CM_DATASET_CRITEO_MULTIHOT', '') == 'yes':
         i['run_script_input']['script_name'] = "run-multihot"
         #${CM_PYTHON_BIN_WITH_PATH} ${CM_TMP_CURRENT_SCRIPT_PATH}/preprocess.py
         output_dir = env['CM_DATASET_PREPROCESSED_PATH']
