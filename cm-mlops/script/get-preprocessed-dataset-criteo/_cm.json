@@ -58,6 +58,7 @@
   ],
   "input_mapping": {
     "dir": "CM_DATASET_PREPROCESSED_PATH",
+    "output_dir": "CM_DATASET_PREPROCESSED_OUTPUT_PATH",
     "threads": "CM_NUM_PREPROCESS_THREADS"
   },
   "new_env_keys": [
