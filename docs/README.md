@@ -14,7 +14,7 @@ and deprecated v1 in 2021 and v2 in 2022.
 The new Collective Knowledge technology v3 consists of three sub-projects:
 [`Collective Mind automation language (CM)`](#collective-mind-automation-language-cm), 
 [`Collective Knowledge platform (CK playground)`](#collective-knowledge-playground-ck) 
-and [`Modular Inference Library (MIL)`](#collective-knowledge-playground-ck)
+and [`Modular Inference Library (MIL)`](#modular-inference-library-mil)
 to let everyone participate in collaborative benchmarking, optimization, co-design 
 and deployment of the state-of-the-art AI solutions across any software, hardware, models and data from any vendor.
 
