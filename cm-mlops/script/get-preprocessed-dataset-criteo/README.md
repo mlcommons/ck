@@ -165,6 +165,7 @@ ___
 <summary>Click here to expand this section.</summary>
 
 * `--dir=value`  &rarr;  `CM_DATASET_PREPROCESSED_PATH=value`
+* `--output_dir=value`  &rarr;  `CM_DATASET_PREPROCESSED_OUTPUT_PATH=value`
 * `--threads=value`  &rarr;  `CM_NUM_PREPROCESS_THREADS=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**

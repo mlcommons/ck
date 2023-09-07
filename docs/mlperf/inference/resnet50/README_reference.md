@@ -14,7 +14,7 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 * Use `--device=cuda` to run the inference on Nvidia GPU
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
 * Use `--category=datacenter` to run datacenter scenarios
-* Use `--backend=tf` or `--backend=tvm-onnx` to use tensorflow and tvm-onnx backends respectively
+* Use `--backend=tf`, `--backend=ncnn` or `--backend=tvm-onnx` to use tensorflow, ncnn and tvm-onnx backends respectively
 
 ### Do full accuracy and performance runs for all the scenarios
 
