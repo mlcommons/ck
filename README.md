@@ -30,7 +30,7 @@ The [cTuning foundation](https://cTuning.org) donated the original Collective Kn
 to continue developments as a community effort in an [open and transparent way](docs/taskforce.md) 
 and deprecated v1 in 2021 and v2 in 2022.
 
-The Collective Knowledge technology v3 consists of the following sub-projects:
+The latest Collective Knowledge technology v3 consists of the following sub-projects:
 * Non-intrusive and technology-agnostic [Collective Mind automation language (CM)](https://doi.org/10.5281/zenodo.8105339) 
   helps to convert any project, code or data into a collection of portable and reusable components with a unified CM interface. 
   CM language allows users to run various automation workflows and applications in the same way either inside automatically generated container snapshots
@@ -38,7 +38,7 @@ The Collective Knowledge technology v3 consists of the following sub-projects:
   CM is intended to be always backward compatible and continuously extended by the community via Python automation recipes and JSON/YAML meta descriptions:
   * [Common CM automations](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation) 
   * [Portable and reusable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
-* [Collective Knowledge Platform (CK Playground)](https://access.cKnowledge.org) provides a user-friendly GUI 
+* [Collective Knowledge Platform (CK Playground v3)](https://access.cKnowledge.org) provides a user-friendly GUI 
   to help the community explore, reproduce, understand, optimize and reuse the state-of-the-art AI/ML Systems.
 * [Modular Inference library (MIL)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-cpp/README-extra.md)
   to help new MLPerf submitters add new hardware backends, optimize their MLPerf results using low-level knobs, 
