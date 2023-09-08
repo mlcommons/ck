@@ -7,8 +7,8 @@ we have developed the Collective Knowledge framework to provide a common interfa
 all shared knowledge (research projects, experiments, AI/ML models, code and data), facilitate reproducible research, 
 and simplify transfer to production across rapidly evolving models, software, hardware and data.
 
-The [cTuning foundation](https://cTuning.org) originally created the Collective Knowledge v1 technology [in 2014](https://github.com/mlcommons/ck/commit/e74f942012f3ae0825388511106fb5fd402afda7),
-donated it to MLCommons in 2021 to continue developments as a community effort in an [open and transparent way](docs/taskforce.md) and deprecated v1 in 2021 and v2 in 2022.
+The [cTuning foundation](https://cTuning.org) donated the original [Collective Knowledge technology](https://github.com/mlcommons/ck/commit/e74f942012f3ae0825388511106fb5fd402afda7)
+to MLCommons in 2021 to continue developments as a community effort in an [open and transparent way](docs/taskforce.md) and deprecated v1 in 2021 and v2 in 2022.
 
 The latest Collective Knowledge technology v3 consists of three sub-projects:
 [`Collective Mind automation language (CM)`](#collective-mind-automation-language-cm), 
