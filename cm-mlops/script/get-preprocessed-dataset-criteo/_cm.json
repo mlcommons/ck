@@ -17,7 +17,12 @@
         "original-dataset",
         "criteo-dataset"
       ],
-      "tags": "get,dataset,criteo,original"
+      "tags": "get,dataset,criteo,original",
+      "skip_if_env": {
+        "CM_DATASET_PREPROCESSED_PATH": [
+          "on"
+        ]
+      }
     },
     {
       "names": [
