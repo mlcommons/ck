@@ -3,19 +3,17 @@
 We deeply believe in the power of open science and open source to solve the world's most challenging problems.
 
 Following our [tedious experience reproducing 150 research papers and validating them in the real world](https://learning.acm.org/techtalks/reproducibility),
-we have developed the Collective Knowledge framework to provide a common interface to access and reuse
-all shared knowledge (research projects, experiments, AI/ML models, code and data), facilitate reproducible research, 
-and simplify transfer to production across rapidly evolving models, software, hardware and data.
-
-The [cTuning foundation](https://cTuning.org) donated the original [Collective Knowledge technology](https://github.com/mlcommons/ck/commit/e74f942012f3ae0825388511106fb5fd402afda7)
-to MLCommons in 2021 to continue developments as a community effort in an [open and transparent way](docs/taskforce.md) and deprecated v1 in 2021 and v2 in 2022.
+we started  working with [the community](../CONTRIBUTING.md) to develop a common interface
+to access and reuse any shared knowledge in a unified way (Collective Knowledge)
+while facilitating collaborative and reproducible research, automating co-design of efficient AI/ML systems, 
+and simplifying transfer of research ideas to production across rapidly evolving AI/ML models, software, hardware and data.
 
 The latest Collective Knowledge technology v3 consists of three sub-projects:
 [`Collective Mind automation language (CM)`](#collective-mind-automation-language-cm), 
 [`Collective Knowledge platform (CK playground v3)`](#collective-knowledge-playground-ck) 
 and [`Modular Inference Library (MIL)`](#modular-inference-library-mil)
 to let everyone participate in collaborative benchmarking, optimization, co-design 
-and deployment of the state-of-the-art AI solutions across any software, hardware, models and data from any vendor.
+and deployment of the state-of-the-art AI/ML solutions.
 
 Check our [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn about our vision and development plans.
 

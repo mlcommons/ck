@@ -22,13 +22,10 @@
 We deeply believe in the power of open science and open source to solve the world's most challenging problems.
 
 Following our [tedious experience reproducing 150 research papers and validating them in the real world](https://learning.acm.org/techtalks/reproducibility),
-we started working with [the community](CONTRIBUTING.md) to develop the [Collective Knowledge Technology](https://arxiv.org/abs/2011.01149)
-to access and reuse any shared knowledge (research projects, experiments, AI/ML models, code, data and automation scripts), 
-implement portable automation workflows, facilitate reproducible research, and simplify transfer to production across rapidly evolving models, software, hardware and data.
-
-The [cTuning foundation](https://cTuning.org) donated the original Collective Knowledge technology to MLCommons 
-to continue developments as a community effort in an [open and transparent way](docs/taskforce.md) 
-and deprecated v1 in 2021 and v2 in 2022.
+we started  working with [the community](CONTRIBUTING.md) to develop a common interface
+to access and reuse any shared knowledge in a unified way (Collective Knowledge)
+while facilitating collaborative and reproducible research, automating co-design of efficient AI/ML systems, 
+and simplifying transfer of research ideas to production across rapidly evolving AI/ML models, software, hardware and data.
 
 The latest Collective Knowledge technology v3 consists of the following sub-projects:
 * Non-intrusive and technology-agnostic [Collective Mind automation language (CM)](https://doi.org/10.5281/zenodo.8105339) 
