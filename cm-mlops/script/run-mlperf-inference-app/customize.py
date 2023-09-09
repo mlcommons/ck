@@ -183,6 +183,9 @@ def get_valid_scenarios(model, category, mlperf_version, mlperf_path):
 
     import submission_checker as checker
 
+    if "dlrm-99" in model:
+      model= model.replace("dlrm-99", "dlrm-v2-99")
+
     config = checker.MODEL_CONFIG
     internal_model_name = config[mlperf_version]["model_mapping"].get(model, model)
 

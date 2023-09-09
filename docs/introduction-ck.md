@@ -2,14 +2,14 @@
 
 # Introduction to the MLCommons CK playground
 
-[Collective Knowledge playground (MLCommons CK)](https://x.cKnowledge.org)
-is an open-source and technology-agnostic on-prem SaaS platform
-being developed by [MLCommons Task Force on Automation and Reproducibility](taskforce.md)
-and [cKnowledge.org](https://cKnowledge.org).
+[Collective Knowledge playground (MLCommons CK)](https://access.cKnowledge.org)
+is an open-source and technology-agnostic automation platform
+being developed by the [MLCommons Task Force on Automation and Reproducibility](taskforce.md),
+[cTuning.org](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org).
  
-CK is intended to help everyone from a company expert to a child
-to automatically reproduce, optimize, integrate and deploy the state-of-the-art AI/ML solutions
-in the real-world in the fastest and most efficient way while slashing all research, development, optimization and operational costs.
+CK is intended to help everyone automatically co-design optimal software and hardware for AI and ML 
+and deploy them in the real-world in the fastest and most efficient way 
+while slashing all research, development, optimization and operational costs.
 
 CK playground is powered by the portable, technology-agnostic, human-readable and open-source
 [Collective Mind automation language](introduction-cm.md) adopted and extended by [MLCommons (50+ companies and universities)](https://mlcommons.org)
