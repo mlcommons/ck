@@ -1,27 +1,17 @@
 # Documentation
 
-We deeply believe in the power of open science and open source to solve the world's most challenging problems.
+The [MLCommons Task Force on Automation and Reproducibility](taskforce.md) is developing 3 projects:
 
-Following our [tedious experience reproducing 150 research papers and validating them in the real world](https://learning.acm.org/techtalks/reproducibility),
-we have developed the Collective Knowledge framework to provide a common interface to access and reuse
-all shared knowledge (research projects, experiments, AI/ML models, code and data), facilitate reproducible research, 
-and simplify transfer to production across rapidly evolving models, software, hardware and data.
+* [Collective Mind automation language (CM)](#collective-mind-automation-language-cm)
+* [Collective Knowledge Playground (CK)](#collective-knowledge-playground-ck) 
+* [Modular Inference Library (MIL)](#modular-inference-library-mil)
 
-The [cTuning foundation](https://cTuning.org) donated the original [Collective Knowledge technology](https://github.com/mlcommons/ck/commit/e74f942012f3ae0825388511106fb5fd402afda7)
-to MLCommons in 2021 to continue developments as a community effort in an [open and transparent way](docs/taskforce.md) and deprecated v1 in 2021 and v2 in 2022.
+The goal is to help the community make it easier to reproduce research projects, 
+automate benchmarking and optimization of AI/ML systems,
+and simplify transfer of research ideas to production across rapidly evolving software, hardware and data.
 
-The latest Collective Knowledge technology v3 consists of three sub-projects:
-[`Collective Mind automation language (CM)`](#collective-mind-automation-language-cm), 
-[`Collective Knowledge platform (CK playground v3)`](#collective-knowledge-playground-ck) 
-and [`Modular Inference Library (MIL)`](#modular-inference-library-mil)
-to let everyone participate in collaborative benchmarking, optimization, co-design 
-and deployment of the state-of-the-art AI solutions across any software, hardware, models and data from any vendor.
-
-Check our [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn about our vision and development plans.
-
-*This project is supported by [MLCommons](https://mlcommons.org), [cTuning.org](https://linkedin.com/company/ctuning-foundation),
- [cKnowledge.org](https://www.linkedin.com/company/cknowledge) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
- We thank [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai) for sponsoring initial development.*
+See the [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) and [MLPerf submitters orientation](https://doi.org/10.5281/zenodo.8144274)
+for more details.
 
 The development is led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
 
