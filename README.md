@@ -22,11 +22,11 @@
 The [MLCommons Task Force on Automation and Reproducibility](docs/taskforce.md) has developed
 a common, non-intrusive and technology-agnostic automation language (Collective Mind) 
 to access, run and reuse any benchmark, research project, 
-tool, ad-hoc script, data and model in a unified way on any software and hardware.
+tool, ad-hoc script, data and model in a unified way on any hardware with any software.
 
 The goal is to help the community make it easier to reproduce research projects, 
 automate benchmarking and optimization of AI/ML systems,
-and simplify transfer of research ideas to production across rapidly evolving software and hardware.
+and simplify transfer of research ideas to production across rapidly evolving software, hardware and data.
 
 See the [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) and [MLPerf submitters orientation](https://doi.org/10.5281/zenodo.8144274)
 for more details.

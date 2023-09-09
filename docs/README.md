@@ -6,6 +6,10 @@ The [MLCommons Task Force on Automation and Reproducibility](taskforce.md) is de
 * [Collective Knowledge Playground (CK)](#collective-knowledge-playground-ck) 
 * [Modular Inference Library (MIL)](#modular-inference-library-mil)
 
+The goal is to help the community make it easier to reproduce research projects, 
+automate benchmarking and optimization of AI/ML systems,
+and simplify transfer of research ideas to production across rapidly evolving software, hardware and data.
+
 See the [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) and [MLPerf submitters orientation](https://doi.org/10.5281/zenodo.8144274)
 for more details.
 
