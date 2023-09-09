@@ -197,6 +197,7 @@ ___
        * CM names: `--adr.['python3', 'python']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,dataset,criteo,original
+       * `if (CM_DATASET_PREPROCESSED_PATH  != on)`
        * CM names: `--adr.['original-dataset', 'criteo-dataset']...`
        - CM script: [get-dataset-criteo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo)
      * get,dlrm,src
