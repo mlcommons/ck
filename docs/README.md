@@ -1,25 +1,13 @@
 # Documentation
 
-We deeply believe in the power of open science and open source to solve the world's most challenging problems.
+The [MLCommons Task Force on Automation and Reproducibility](taskforce.md) is developing 3 projects:
 
-Following our [tedious experience reproducing 150 research papers and validating them in the real world](https://learning.acm.org/techtalks/reproducibility),
-we started  working with [the community](../CONTRIBUTING.md) to develop a common interface
-to access and reuse any shared knowledge in a unified way (Collective Knowledge)
-while facilitating collaborative and reproducible research, automating co-design of efficient AI/ML systems, 
-and simplifying transfer of research ideas to production across rapidly evolving AI/ML models, software, hardware and data.
+* [Collective Mind automation language (CM)](#collective-mind-automation-language-cm)
+* [Collective Knowledge Playground (CK)](#collective-knowledge-playground-ck) 
+* [Modular Inference Library (MIL)](#modular-inference-library-mil)
 
-The latest Collective Knowledge technology v3 consists of three sub-projects:
-[`Collective Mind automation language (CM)`](#collective-mind-automation-language-cm), 
-[`Collective Knowledge platform (CK playground v3)`](#collective-knowledge-playground-ck) 
-and [`Modular Inference Library (MIL)`](#modular-inference-library-mil)
-to let everyone participate in collaborative benchmarking, optimization, co-design 
-and deployment of the state-of-the-art AI/ML solutions.
-
-Check our [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn about our vision and development plans.
-
-*This project is supported by [MLCommons](https://mlcommons.org), [cTuning.org](https://linkedin.com/company/ctuning-foundation),
- [cKnowledge.org](https://www.linkedin.com/company/cknowledge) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
- We thank [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai) for sponsoring initial development.*
+See the [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) and [MLPerf submitters orientation](https://doi.org/10.5281/zenodo.8144274)
+for more details.
 
 The development is led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
 
