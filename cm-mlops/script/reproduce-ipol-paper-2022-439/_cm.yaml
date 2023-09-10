@@ -1,4 +1,4 @@
-alias: app-ipol-reproducibility-2022-439
+alias: reproduce-ipol-paper-2022-439
 uid: f9b9e5bd65e34e4f
 
 automation_alias: script
@@ -27,6 +27,7 @@ tags:
 - app
 - python
 - reproduce
+- paper
 - ipol
 - journal
 - repro
