@@ -93,7 +93,7 @@ Our goal is to let the community start using CM within minutes!
 * [MLPerf inference automation](docs/mlperf/inference)
 * [Visualization of MLPerf results](https://access.cknowledge.org/playground/?action=experiments)
 
-#### Organize reproducible AI/ML Systems optimization challenges
+#### Participate in reproducible AI/ML Systems optimization challenges
 
 We invite the community to participate in collaborative benchmarking and optimization of AI/ML systems:
 * [Community challenges (reproducibility, extension, benchmarking, optimization)](https://access.cknowledge.org/playground/?action=challenges)
