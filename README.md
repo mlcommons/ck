@@ -17,16 +17,22 @@
 * [Tutorial about CM automation language and CK playground for MLPerf at IISCWC'23]( https://iiswc.org/iiswc2023/#/program/ )
 * [CM automation language and CK playground to run MLPerf at the Student Cluster Competition at SuperComputing'23](https://sc23.supercomputing.org/students/student-cluster-competition)
 
+*More events to come soon!*
+
 ### About
 
 The [MLCommons Task Force on Automation and Reproducibility](docs/taskforce.md) has developed
-a common, non-intrusive and technology-agnostic automation language (Collective Mind) 
+a common, non-intrusive and technology-agnostic automation language (Collective Mind aka CM) 
 to access, run and reuse any benchmark, research project, 
 tool, ad-hoc script, data and model in a unified way on any hardware with any software.
 
 The goal is to help the community make it easier to reproduce research projects, 
 automate benchmarking and optimization of AI/ML systems,
 and simplify transfer of research ideas to production across rapidly evolving software, hardware and data.
+
+CM is being extended by the community and MLCommons via [public optimization and reproducibility challenges at the CK playground](https://access.cknowledge.org/playground/?action=challenges)
+and used for [automated, collaborative and reproducible MLPerf benchmarking](docs/news-mlperf-v3.1.md) 
+of diverse software/hardware stacks from different vendors at massive scale (thousands of submissions per round).
 
 See the [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) and [MLPerf submitters orientation](https://doi.org/10.5281/zenodo.8144274)
 for more details.
