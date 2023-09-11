@@ -18,4 +18,7 @@ deps:
   extra_cache_tags: reproduce,paper,artifact,zenodo,xyz2
 new_env_keys: 
  - CM_REPRODUCE_PAPER_XYZ*
+tags:
+- test
+- download-and-extract-artifacts
 uid: 51dde7580b404b27
