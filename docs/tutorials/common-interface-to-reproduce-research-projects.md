@@ -5,12 +5,20 @@
 
 * [Tutorial: Adding a common interface to reproduce research projects](#tutorial-adding-a-common-interface-to-reproduce-research-projects)
   * [Motivation](#motivation)
+  * [Examples:](#examples)
   * [Installing CM language](#installing-cm-language)
-  * [Adding CM interface to your research project](#adding-cm-interface-to-your-research-project)
+  * [First approach: adding CM script to a common repository](#first-approach-adding-cm-script-to-a-common-repository)
+    * [Fork main repository](#fork-main-repository)
+    * [Copy demo script](#copy-demo-script)
+    * [Edit wrappers](#edit-wrappers)
+    * [Set up virtual environment before running experiments](#set-up-virtual-environment-before-running-experiments)
+    * [Run experiments](#run-experiments)
+  * [Second approach: adding CM interface to your research project](#second-approach-adding-cm-interface-to-your-research-project)
     * [Local directory](#local-directory)
     * [Git project](#git-project)
   * [Adding CM script to prepare and run your experiment](#adding-cm-script-to-prepare-and-run-your-experiment)
   * [Testing and extending CM script](#testing-and-extending-cm-script)
+  * [Adding extra Git repositories with artifacts to dependencies](#adding-extra-git-repositories-with-artifacts-to-dependencies)
   * [Sharing this script with the community and artifact evaluators](#sharing-this-script-with-the-community-and-artifact-evaluators)
   * [Automating experiments, autotuning and visualization](#automating-experiments-autotuning-and-visualization)
   * [Participating in discussions and developments](#participating-in-discussions-and-developments)
@@ -21,19 +29,22 @@
 
 ## Motivation
 
-While helping the community to reproduce and replicate [many research papers](https://learning.acm.org/techtalks/reproducibility) 
+While working with the community to reproduce and/or replicate [150+ research papers](https://learning.acm.org/techtalks/reproducibility) 
 during [artifact evaluation](https://cTuning.org/ae), we have seen that reviewers spend most of their time
-deciphering numerous ad-hoc READMEs to figure out how to prepare and run shared applications. 
+at the kick-the-tires phase deciphering numerous ad-hoc READMEs and scripts to figure out how to prepare and run shared applications. 
 
-That motivated us to develop a [human readable language (Collective Mind)](../README.md#collective-mind-language-cm) 
-to automate and unify the [most commonly used tasks](../list_of_scripts.md) 
-to reproduce or replicate shared applications across the same or different software, hardware, models and data.
+That motivated us to develop a [simple automation language (Collective Mind)](https://doi.org/10.5281/zenodo.8105339) 
+to provide the same common interface to prepare, run and visualize experiments
+from any paper or research project.
 
-The goal of our common automation and reproducibility interface is to make it easier for the community 
-to reproduce/replicate research results and apply them in the real world.
-You can see an example of using CM automation language to reproduce an IPOL journal paper 
-in this [tutorial](reproduce-research-paper-ipol.md).
+The goal is to make it easier for the community and evaluators 
+to start reproducing/replicating research results 
+and even fully automate this process in the future.
 
+## Examples:
+
+* [CM tutorial](reproduce-research-paper-ipol.md) to reproduce an IPOL journal paper.
+* [CM script](../../cm-mlops/script/reproduce-micro-paper-2023-victima) to reproduce results from a MICRO paper.
 
 
 ## Installing CM language
@@ -44,17 +55,75 @@ on Linux, MacOS, Windows and any other platform using this [guide](../installati
 If you encounter any issue, please don't hesitate to tell us via [Discord server](https://discord.gg/JjWNWXKxwT) 
 and/or open a ticket [here](https://github.com/mlcommons/ck/issues).
 
-You also need to install the following CM repository with reusable CM scripts 
-shared by the MLCommons task force on automation and reproducibility
-to make it easier to run and reproduce ML and Systems applications and benchmarks
-across diverse software and hardware:
+
+
+## First approach: adding CM script to a common repository
+
+
+### Fork main repository
+
+You can simply add a new CM script to the [MLCommons repository](https://github.com/mlcommons/ck) 
+to prepare, run and visualize your experiments without any changes required to your original repository.
+
+First, create your fork of [this repository](https://github.com/ctuning/mlcommons-ck)
+and pull it via CM:
 ```bash
-cm pull repo mlcommons@ck
+cm pull repo --url={fork of https://github.com/ctuning/mlcommons-ck}
+```
+
+### Copy demo script
+
+You can then copy [the CM script "reproduce-micro-paper-2023-victima"
+from a MICRO paper with Artifact Evaluation](../../cm-mlops/script/reproduce-micro-paper-2023-victima)
+to a new script with your paper/artifact name as follows:
+```bash
+cm copy script reproduce-micro-paper-2023-victima reproduce-micro-paper-2023-{new name}
+```
+
+### Edit wrappers
+
+You can then find its directory and edit `_cm.yaml`, `install_deps.sh`, `run.sh` and `plot.sh`
+to pull your Git repository with your artifacts and call your scripts to install dependencies,
+run experiments and plot results from above wrappers:
+```bash
+cm find reproduce-micro-paper-2023-{new name}
+```
+
+You can now add this directory to your fork and create a PR.
+
+### Set up virtual environment before running experiments
+
+We suggest to use virtual environment installed via CM as follows:
+```bash
+cm run script "install python-venv" --name=ae
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name=ae"
+```
+
+### Run experiments
+
+Each paper should have a CM script with the following variations:
+`install_deps`, `run` and `plot`
+
+It's possible to run them as follows:
+```bash
+cm find script --tags=reproduce,paper
+cm run script {name from above list} --tags=_{variation}
 ```
 
 
 
-## Adding CM interface to your research project
+
+## Second approach: adding CM interface to your research project
+
+First, you also need to install the following CM repository with reusable CM scripts 
+shared by the MLCommons task force on automation and reproducibility
+to make it easier to run and reproduce ML and Systems applications and benchmarks
+across diverse software and hardware:
+
+```bash
+cm pull repo ctuning@mlcommons-ck
+```
+
 
 ### Local directory
 

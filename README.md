@@ -53,6 +53,34 @@ cm run script --tags=print,python,hello-world
 cmr "print python hello-world"
 ```
 
+This CM script is a simple wrapper to native scripts and tools
+described by a simple declarative YAML configuration file
+specifying inputs, environment variables and dependencies on other portable
+and shared [CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script):
+
+```yaml
+alias: print-hello-world-py
+uid: d83274c7eb754d90
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+deps:
+- tags: detect,os
+- tags: get,sys-utils-cm
+- names:
+  - python
+  tags: get,python3
+
+tags:
+- print
+- hello-world
+- python
+
+```
+
+Our goal is to let the community start using CM within minutes!
+
 #### Run MLPerf benchmarks out-of-the-box
 
 * [CM automation for the new MLPerf submitters](https://doi.org/10.5281/zenodo.8144274)

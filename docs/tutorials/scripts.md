@@ -89,7 +89,7 @@ Please, follow this [document](../../cm-mlops/automation/script/README-extra.md)
 to learn more about CM script customization.
 
 Feel free to study these two CM scripts:
-* [CM script to reproduce results from IPOL'22 journal paper with PyTorch and 2 images](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439)
+* [CM script to reproduce results from IPOL'22 journal paper with PyTorch and 2 images](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-ipol-paper-2022-439)
 * [CM script to run image classification with RESNET50 ONNX model](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py)
 
 

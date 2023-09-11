@@ -287,7 +287,7 @@ and make it more portable, reproducible and comparable across very diverse and r
 software and hardware using just 2 extra CM automations: [CM scipt and cache](specs/cm-automation-script.md).
 
 You can see the use of CM in these real-world examples:
-- [README to reproduce published IPOL'22 paper](cm-mlops/script/app-ipol-reproducibility-2022-439)
+- [README to reproduce published IPOL'22 paper](cm-mlops/script/reproduce-ipol-paper-2022-439)
 - [README to reproduce MLPerf RetinaNet inference benchmark at Student Cluster Competition'22](docs/tutorials/sc22-scc-mlperf.md)
 - [Auto-generated READMEs to reproduce official MLPerf BERT inference benchmark v3.0 submission with a model from the Hugging Face Zoo](https://github.com/mlcommons/submissions_inference_3.0/tree/main/open/cTuning/code/huggingface-bert/README.md)
 - [Auto-generated Docker containers to run and reproduce MLPerf inference benchmark](cm-mlops/script/app-mlperf-inference/dockerfiles/retinanet)
