@@ -27,6 +27,15 @@ for BERT performance/power/accuracy exploration from NeuralMagic Zoo, Hugging Fa
 (sparsity, quantization and batch size) across multiple AMD, Intel and
 ARM-based systems.
 
+## Upcoming events powered by CM
+
+* [CK playground for MLPerf at AI hardware summit'23](https://aihwedgesummit.com/events/aihwedgesummit)
+* [CM automation language to reproduce papers from the ACM MICRO'23 conference](https://ctuning.org/ae/micro2023.html)
+* [Tutorial about CM automation language and CK playground for MLPerf at IISCWC'23]( https://iiswc.org/iiswc2023/#/program/ )
+* [CM automation language and CK playground to run MLPerf at the Student Cluster Competition at SuperComputing'23](https://sc23.supercomputing.org/students/student-cluster-competition)
+
+*More events to come soon!*
+
 ## Highlights of the MLPerf inference v3.1 results from the community and cTuning
 
 *These information will become public at the [MLCommons CK playground](https://access.cKnowledge.org)
