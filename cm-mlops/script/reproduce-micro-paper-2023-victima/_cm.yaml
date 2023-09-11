@@ -21,6 +21,7 @@ input_mapping:
 script_name: run
 tags:
 - reproduce
+- project
 - paper
 - micro
 - micro-2023
