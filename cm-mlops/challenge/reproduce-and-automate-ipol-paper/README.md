@@ -21,7 +21,7 @@ Reproduce and automate IPOL paper (proof-of-concept):
 Grigori implemented 2 CM scripts for this challenge:
 
 * [Download IPOL paper sources and cache them in CM](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ipol-src)
-* [Run IPOL 2022 439 paper demo using above script and PyTorch](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439)
+* [Run IPOL 2022 439 paper demo using above script and PyTorch](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-ipol-paper-2022-439)
 
 ### Validation 
 
