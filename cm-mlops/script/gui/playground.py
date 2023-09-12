@@ -48,7 +48,7 @@ def main():
 
     st.write('''
         <center>
-        <h2 style="color:#2f6fb3">Collective Knowledge v3 Playground</h2>
+        <h2 style="color:#2f6fb3">Collective Knowledge Playground</h2>
         <img src="https://cknowledge.org/images/logo-ck-tr.png" width="150">
         <br>
         {}
