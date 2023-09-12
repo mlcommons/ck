@@ -86,7 +86,7 @@ You can then find its directory and edit `_cm.yaml`, `install_deps.sh`, `run.sh`
 to pull your Git repository with your artifacts and call your scripts to install dependencies,
 run experiments and plot results from above wrappers:
 ```bash
-cm find reproduce-micro-paper-2023-{new name}
+cm find script reproduce-micro-paper-2023-{new name}
 ```
 
 You can now add this directory to your fork and create a PR.
