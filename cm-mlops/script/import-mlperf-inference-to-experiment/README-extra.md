@@ -24,16 +24,16 @@ Pull the MLCommons CK repository with automation recipes for interoperable MLOps
 cm pull repo mlcommons@ck
 ```
 
-Install repositories with raw MLPerf inference benchmark results:
-```bash
-cmr "get git repo _repo.https://github.com/mlcommons/inference_results_v2.0" --env.CM_GIT_CHECKOUT=master --extra_cache_tags=mlperf-inference-results,version-2.0
-cmr "get git repo _repo.https://github.com/mlcommons/inference_results_v2.1" --env.CM_GIT_CHECKOUT=master --extra_cache_tags=mlperf-inference-results,version-2.1
-cmr "get git repo _repo.https://github.com/mlcommons/inference_results_v3.0" --env.CM_GIT_CHECKOUT=main --extra_cache_tags=mlperf-inference-results,version-3.0
-```
+Pull already imported results (v2.0, v2.1, v3.0, v3.1) from this [mlcommons@ck_mlperf_results repo](https://github.com/mlcommons/ck_mlperf_results):
 
-Alternatively, you can pull already imported results from this [MLCommons repo](https://github.com/mlcommons/ck_mlperf_results):
 ```bash
 cm pull repo mlcommons@ck_mlperf_results
+```
+
+Install repository with raw MLPerf inference benchmark results with {NEW VERSION}:
+```bash
+cmr "get git repo _repo.https://github.com/mlcommons/inference_results_v{NEW VERSION}" --extra_cache_tags=mlperf-inference-results,version-{NEW VERSION}
+
 ```
 
 Use the following CM command if you want to analyze private MLPerf results under submission 
@@ -59,6 +59,10 @@ cm run script "gui _playground"
 ```
 
 These results are also available in the [public CK playground](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-inference,all).
+
+## Further analysis of results
+
+Please check this [README](https://github.com/mlcommons/ck_mlperf_results#how-to-update-this-repository-with-new-results).
 
 # Contact us
 
