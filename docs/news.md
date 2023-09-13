@@ -2,6 +2,16 @@
 
 ## MLCommons CK and CM news
 
+### 202309
+
+We are proud that our open-source MLCommons CM automation language and CK playground helped the community 
+automate > 90% of all [MLPerf inference v3.1 results](https://mlcommons.org/en/news/mlperf-inference-storage-q323/) 
+and cross 10000 submissions in one round for the first time (submitted via [cTuning foundation](https://cTuning.org))!
+Here is the [list of new CM/CK capabilities](docs/news-mlperf-v3.1.md) available to everyone 
+to prepare and automate their future MLPerf submissions - don't hesitate to reach us 
+via [Discord server](https://discord.gg/JjWNWXKxwT) for more info!
+
+
 ### 202307
 
 The overview of the MedPerf project was published in Nature: 
