@@ -32,7 +32,6 @@ def preprocess(i):
         env['+ CXXFLAGS'] = []
 
     env['+ CXXFLAGS'] += cxxflags
-
     return {'return':0}
 
 def postprocess(i):

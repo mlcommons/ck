@@ -37,7 +37,6 @@ deps:
 
   # Detect CUDA
   - tags: get,cuda,_cudnn
-    version_max: "11.11"
 
   # Detect Tensorrt
   - tags: get,tensorrt
@@ -77,7 +76,6 @@ deps:
 variations:
   nvidia-only:
     group: code
-    default: true
     add_deps_recursive:
       nvidia-inference-common-code:
         tags: _nvidia-only
