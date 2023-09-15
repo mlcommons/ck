@@ -4,7 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "category": "CUDA automation",
   "cache": true,
-  "default_version": "11.8.0",
+  "default_version": "12.2.0",
   "deps": [
     {
       "tags": "detect,os"

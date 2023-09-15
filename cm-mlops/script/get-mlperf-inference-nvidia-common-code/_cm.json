@@ -37,7 +37,6 @@
       "group": "repo-owner"
     },
     "nvidia-only": {
-      "default": true,
       "group": "repo-owner"
     }
   },
