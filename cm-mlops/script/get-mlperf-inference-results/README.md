@@ -148,10 +148,11 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 #### Versions
-Default version: `v3.0`
+Default version: `v3.1`
 
 * `v2.1`
 * `v3.0`
+* `v3.1`
 ___
 ### Script workflow, dependencies and native scripts
 
