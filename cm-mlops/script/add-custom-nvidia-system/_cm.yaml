@@ -89,6 +89,11 @@ variations:
     add_deps_recursive:
       nvidia-inference-common-code:
         tags: _mlcommons
+  ctuning:
+    group: code
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        tags: _ctuning
 
 
 versions:

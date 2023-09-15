@@ -818,11 +818,11 @@ variations:
       reproducibility
     add_deps_recursive:
       nvidia-inference-common-code:
-        version: r3.0
-        tags: _nvidia-only
+        version: r3.1
+        tags: _ctuning
       nvidia-inference-server:
-        version: r3.0
-        tags: _nvidia-only
+        version: r3.1
+        tags: _ctuning
     default_env:
       CM_SKIP_SYS_UTILS: 'yes'
       CM_REGENERATE_MEASURE_FILES: 'yes'

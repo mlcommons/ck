@@ -155,9 +155,14 @@ variations:
       CM_MLPERF_DEVICE: cuda
       CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
 
+  ctuning:
+    group: code
+    default: true
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        tags: _ctuning
   nvidia-only:
     group: code
-    default1: true
     add_deps_recursive:
       nvidia-inference-common-code:
         tags: _nvidia-only
