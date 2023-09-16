@@ -2,9 +2,8 @@
   "alias": "vineet",
   "automation_alias": "contributor",
   "automation_uid": "68eae17b590d4f8f",
-  "challenges": [],
   "name": "@vineet",
-  "ongoing": [
+  "challenges": [
     "mlperf-inference-v3.1-2023",
     "mlperf-inference-tpu-v3.1-2023"
   ],

@@ -3,17 +3,20 @@
   "automation_alias": "contributor",
   "automation_uid": "68eae17b590d4f8f",
   "challenges": [
-  ],
-  "ongoing": [
     "mlperf-inference-v3.1-2023",
     "mlperf-inference-windows-v3.1-2023",
     "replicate,automate,neurips-2022,arxiv-2204.09656"
   ],
-  "points":[
-    {"point":1}, {"point":1}
-  ],
-  "last_participation_date": "20230325",
+  "last_participation_date": "20230915",
   "name": "Anandhu S",
+  "points": [
+    {
+      "point": 1
+    },
+    {
+      "point": 1
+    }
+  ],
   "tags": [],
   "uid": "457012971d334b25",
   "urls": [

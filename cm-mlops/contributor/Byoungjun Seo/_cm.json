@@ -1,19 +1,19 @@
 {
-  "alias": "Ilya Kozulin",
+  "alias": "Byoungjun Seo",
   "automation_alias": "contributor",
   "automation_uid": "68eae17b590d4f8f",
   "challenges": [
-    "mlperf-inference-v3.1-2023",
-    "mlperf-inference-tvm-v3.1-2023"
+    "mlperf-inference-v3.1-2023"
   ],
   "last_participation_date": "20230915",
-  "name": "Ilya Kozulin",
-  "organization": "Deelvin",
+  "name": "Byoungjun Seo",
+  "organization": "TTA, Korea",
   "points": [
     {
       "point": 1
     }
   ],
   "tags": [],
-  "uid": "d33c523936a5405f"
+  "uid": "34ae194817f34394",
+  "urls": []
 }

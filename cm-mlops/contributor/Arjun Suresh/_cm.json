@@ -2,17 +2,22 @@
   "alias": "Arjun Suresh",
   "automation_alias": "contributor",
   "automation_uid": "68eae17b590d4f8f",
-  "last_participation_date": "20230220",
-  "name": "Arjun Suresh",
-  "organization":"cTuning foundation, MLCommons, GATE Overflow",
-  "points":[
-    {"point":5, "desc":"major CM developments"}, 
-    {"point":5, "desc":"major MLPerf submissions"}
-  ],
   "challenges": [
     "mlperf-inference-v3.0-2023"
   ],
-  "ongoing": [
+  "last_participation_date": "20230220",
+  "name": "Arjun Suresh",
+  "ongoing": [],
+  "organization": "cTuning foundation, MLCommons, GATE Overflow",
+  "points": [
+    {
+      "desc": "major CM developments",
+      "point": 5
+    },
+    {
+      "desc": "major MLPerf submissions",
+      "point": 5
+    }
   ],
   "skip": true,
   "tags": [],

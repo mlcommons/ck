@@ -1,19 +1,19 @@
 {
-  "alias": "Ilya Kozulin",
+  "alias": "Ethan Cheng",
   "automation_alias": "contributor",
   "automation_uid": "68eae17b590d4f8f",
   "challenges": [
-    "mlperf-inference-v3.1-2023",
-    "mlperf-inference-tvm-v3.1-2023"
+    "mlperf-inference-v3.1-2023"
   ],
   "last_participation_date": "20230915",
-  "name": "Ilya Kozulin",
-  "organization": "Deelvin",
+  "name": "Ethan Cheng",
+  "organization": "Nvidia",
   "points": [
     {
       "point": 1
     }
   ],
   "tags": [],
-  "uid": "d33c523936a5405f"
+  "uid": "eebd18fd6b1b4300",
+  "urls": []
 }
