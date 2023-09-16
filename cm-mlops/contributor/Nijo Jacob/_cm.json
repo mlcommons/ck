@@ -5,6 +5,11 @@
   "challenges": [
     "mlperf-inference-v3.1-2023"
   ],
+  "points": [
+    {
+      "point": 2
+    }
+  ],
   "name": "Nijo Jacob",
   "last_participation_date": "20230915",
   "uid": "f71ce09180d849c3",

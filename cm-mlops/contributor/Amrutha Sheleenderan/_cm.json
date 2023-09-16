@@ -5,10 +5,11 @@
   "challenges": [
     "mlperf-inference-v3.1-2023"
   ],
+  "organization": "Kerala Technical University, India",
   "name": "Amrutha Sheleenderan",
   "points": [
     {
-      "point": 1
+      "point": 3
     }
   ],
   "tags": [],

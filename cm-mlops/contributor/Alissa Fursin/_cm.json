@@ -5,6 +5,11 @@
   "challenges": [
     "mlperf-inference-v3.1-2023"
   ],
+  "points": [
+    {
+      "point": 2
+    }
+  ],
   "last_participation_date": "20230915",
   "name": "Alissa Fursin",
   "organization": "School, France",
