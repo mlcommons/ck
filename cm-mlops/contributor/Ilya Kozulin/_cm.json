@@ -2,15 +2,22 @@
   "alias": "Ilya Kozulin",
   "automation_alias": "contributor",
   "automation_uid": "68eae17b590d4f8f",
-  "challenges": [],
-  "last_participation_date": "20230325",
-  "name": "Ilya Kozulin",
-  "ongoing": [
+  "challenges": [
     "mlperf-inference-v3.1-2023",
     "mlperf-inference-tvm-v3.1-2023"
   ],
-  "organization": "Deelvin",
+  "last_participation_date": "20230915",
+  "name": "Ilya Kozulin",
+  "organization": "Deelvin, Canada",
+  "trophies": [
+    {
+      "url": "https://cTuning.org/awards/ck-award-202309-ilya.pdf"
+    }
+  ],
   "points": [
+    {
+      "point": 2
+    }
   ],
   "tags": [],
   "uid": "d33c523936a5405f"

@@ -1,3 +1,6 @@
+## V1.5.3
+   - fixed error when adding artifacts with --common flag
+
 ## V1.5.2
    - fixed minor bug with auto-initializion of cmind 
      for cmind.error and cmind.halt for external scripts

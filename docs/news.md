@@ -11,6 +11,11 @@ Here is the [list of new CM/CK capabilities](docs/news-mlperf-v3.1.md) available
 to prepare and automate their future MLPerf submissions - don't hesitate to reach us 
 via [Discord server](https://discord.gg/JjWNWXKxwT) for more info!
 
+### 202309
+
+Our [CK playground](https://access.cKnowledge.org) was featured at the [AI hardware summit'23](https://aihwedgesummit.com/events/aihwedgesummit)
+
+
 
 ### 202307
 

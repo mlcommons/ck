@@ -9,9 +9,9 @@
 ### Breaking news
 
 *We are proud that our open-source MLCommons CM automation language and CK playground helped the community 
-automate > 90% of all [MLPerf inference v3.1 results](https://mlcommons.org/en/news/mlperf-inference-storage-q323/) 
+automate > 90% of all [MLPerf inference v3.1 results](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark) 
 and cross 10000 submissions in one round for the first time (submitted via [cTuning foundation](https://cTuning.org))!
-Here is the [list of new CM/CK capabilities](docs/news-mlperf-v3.1.md) available to everyone 
+Here is the [list of the new CM/CK capabilities](docs/news-mlperf-v3.1.md) available to everyone 
 to prepare and automate their future MLPerf submissions - don't hesitate to reach us 
 via [Discord server](https://discord.gg/JjWNWXKxwT) for more info!*
 
@@ -21,11 +21,9 @@ via [Discord server](https://discord.gg/JjWNWXKxwT) for more info!*
 
 ### Upcoming events
 
-* [CM automation language and CK playground for MLPerf inference v3.1 submissions](docs/news-mlperf-v3.1.md)
-* [CK playground for MLPerf at AI hardware summit'23](https://aihwedgesummit.com/events/aihwedgesummit)
-* [CM automation language to reproduce papers from the ACM MICRO'23 conference](https://ctuning.org/ae/micro2023.html)
-* [Tutorial about CM automation language and CK playground for MLPerf at IISWC'23]( https://iiswc.org/iiswc2023/#/program/ )
-* [CM automation language and CK playground to run MLPerf at the Student Cluster Competition at SuperComputing'23](https://sc23.supercomputing.org/students/student-cluster-competition)
+* [CM automation language makes it easier to reproduce experiments from the accepted ACM/IEEE MICRO'23 papers](https://github.com/ctuning/cm-reproduce-research-projects/tree/main/script)
+* [CK/CM authors will give a tutorial about CM automation language and CK playground at IISWC'23](https://iiswc.org/iiswc2023/#/program/)
+* [CM automation language and CK playground will help students run MLPerf inference benchmark at the Student Cluster Competition at SuperComputing'23](https://sc23.supercomputing.org/students/student-cluster-competition)
 
 *More events to come soon!*
 
@@ -110,23 +108,22 @@ We invite the community to participate in collaborative benchmarking and optimiz
 * [Shared benchmarking results for AI/ML Systems (performance, accuracy, power consumption, costs)](https://access.cknowledge.org/playground/?action=experiments) 
 * [Leaderboard](https://access.cknowledge.org/playground/?action=contributors)
 
-### Copyright
-
-2021-2023 [MLCommons](https://mlcommons.org)
-
-### License
-
-[Apache 2.0](LICENSE.md)
-
 ### Project coordinators
 
-[Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
+* [Grigori Fursin](https://cKnowledge.org/gfursin) ([cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org))
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) ([cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org))
 
 ### Acknowledgments
 
+Collective Knowledge Technology v3 (including Collective Mind automation language and Collective Knowledge playground)
+was developed from scratch by [Grigori Fursin](https://cKnowledge.org/gfursin) 
+and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) in 2022-2023
+within the [MLCommons Task Force on Automation and Reproducibility](docs/taskforce.md)
+and with many great contributions from [the community](CONTRIBUTING.md).
+
 This project is supported by [MLCommons](https://mlcommons.org), 
+[cTuning foundation](https://cTuning.org),
 [cKnowledge.org](https://cKnowledge.org),
-[cTuning.org](https://cTuning.org),
 and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 We thank [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai) for sponsoring initial development.
 

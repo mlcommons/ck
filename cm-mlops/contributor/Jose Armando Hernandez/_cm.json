@@ -2,17 +2,23 @@
   "alias": "Jose Armando Hernandez",
   "automation_alias": "contributor",
   "automation_uid": "68eae17b590d4f8f",
-  "name": "Jose Armando Hernandez",
   "challenges": [
+    "mlperf-inference-v3.1-2023",
     "replicate,automate,ipol,paper"
   ],
-  "points":[
-    {"point":1}
+  "last_participation_date": "20230915",
+  "name": "Jose Armando Hernandez",
+  "organization": "Paris-Saclay University, France",
+  "trophies": [
+    {
+      "url": "https://cTuning.org/awards/ck-award-202309-jose.pdf"
+    }
   ],
-  "ongoing": [
-    "mlperf-inference-v3.1-2023"
+  "points": [
+    {
+      "point": 2
+    }
   ],
-  "organization": "Paris-Saclay University",
   "tags": [],
   "uid": "fc7d6c3ec7f541de"
 }

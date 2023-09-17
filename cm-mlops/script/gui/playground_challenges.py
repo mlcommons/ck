@@ -206,7 +206,7 @@ def page(st, params):
 
                     prize = row.get('prize_short','')
                     if prize!='':
-                        x += ' &nbsp;&nbsp;Prizes from [MLCommons organizations](https://mlcommons.org) and [cKnowledge.org](https://www.linkedin.com/company/cknowledge): **{}**\n'.format(prize)
+                        x += ' &nbsp;&nbsp;Prizes from [MLCommons organizations](https://mlcommons.org), [cTuning foundation](https://cTuning.org) and [cKnowledge.org](https:/cKnowledge.org): **{}**\n'.format(prize)
                         if awards!='': awards+=' , '
                         awards += prize
 
@@ -227,7 +227,7 @@ def page(st, params):
                 import numpy as np
                 
                 df = pd.DataFrame(data,
-                                  columns=['Challenge', 'Closing&nbsp;date', 'Extension', 'Contributor&nbsp;award and prizes from <a href="https://mlcommons.org">MLCommons&nbsp;organizations</a> and <a href="https://www.linkedin.com/company/cknowledge">cKnowledge.org</a>'])
+                                  columns=['Challenge', 'Closing&nbsp;date', 'Extension', 'Contributor&nbsp;award and prizes from <a href="https://mlcommons.org">MLCommons&nbsp;organizations</a>, <a href="https://cTuning.org">cTuning foundation</a> and <a href="https://cKnowledge.org">cKnowledge.org</a>'])
                  
                 df.index+=1
 

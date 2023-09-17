@@ -3,9 +3,10 @@
 <br>
 
 **Note that the 1st generation of the CK framework was discontinued in summer 2022 
-  after the [2nd generation of this framework (CM)](https://github.com/mlcommons/ck/tree/master/cm) 
-  was released by the [open taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-  at [MLCommons](https://mlcommons.org).**
+  after the [2nd generation of the CK technology (Collective Mind automation language aka CM)](https://github.com/mlcommons/ck/tree/master/cm) 
+  was developed from scratch by [Grigori Fursin](https://cKnowledge.org/gfursin) 
+  in close collaboration with [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
+  within the [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).**
 
 <br>
 <br>
