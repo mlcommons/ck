@@ -114,8 +114,8 @@ def main():
              <center>
               Sponsored by
               <a href="https://mlcommons.org">MLCommons</a>,
-              <a href="https://www.linkedin.com/company/ctuning-foundation">cTuning.org</a>
-              and <a href="https://www.linkedin.com/company/cknowledge">cKnowledge.org</a>
+              <a href="https://cTuning.org">cTuning.org</a>
+              and <a href="https://cKnowledge.org">cKnowledge.org</a>
              </center>
              """,  
              unsafe_allow_html=True)
