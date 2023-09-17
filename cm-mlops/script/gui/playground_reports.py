@@ -40,7 +40,7 @@ def page(st, params):
         uid = meta['uid']
 
         title = meta.get('title', meta['alias'])
-        
+
         path = l.path
 
         x = '''
@@ -51,7 +51,7 @@ def page(st, params):
             '''.format(title)
 
         st.write(x, unsafe_allow_html = True)
-        
+
         end_html='<center><small><i><a href="{}">Self link</a></i></small></center>'.format(misc.make_url(meta['uid'], action='reports', md=False))
 
 
@@ -110,6 +110,9 @@ def page(st, params):
         for l in sorted(lst, key=lambda x: x.meta.get('date','')):
 
             meta = l.meta
+
+            if meta.get('private',False):
+                continue
 
             uid = meta['uid']
 

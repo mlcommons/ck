@@ -65,22 +65,24 @@ def main():
     style_action_experiments='font-style:italic;font-weight:bold;color:#ffffff' if action=='experiments' else ''
     style_action_contributors='font-style:italic;font-weight:bold;color:#ffffff' if action=='contributors' else ''
     style_action_reports='font-style:italic;font-weight:bold;color:#ffffff' if action=='reports' else ''
-
+    style_action_beta='font-style:italic;font-weight:bold;color:#ffffff' if action=='beta' else ''
 
     st.write('''
         <center>
         <a target="_self" href="?action=contributors"><button style="{}">Leaderboard</button></a>
+        <a target="_self" href="?action=challenges"><button style="{}">Challenges</button></a>
         <a target="_self" href="?action=experiments"><button style="{}">Experiments and results</button></a>
         <a target="_self" href="?action=reports"><button style="{}">Reports</button></a>
-        <a target="_self" href="?action=challenges"><button style="{}">Challenges</button></a>
+        <a target="_self" href="?action=beta"><button style="{}">Beta features</button></a>
         <a target="_self" href="https://github.com/mlcommons/ck"><button>Docs / GitHub</button></a>
         <a target="_self" href="https://discord.gg/JjWNWXKxwT"><button>Discord</button></a>
         </center>
         '''.format(
                    style_action_contributors,
+                   style_action_challenges,
                    style_action_experiments, 
                    style_action_reports,
-                   style_action_challenges
+                   style_action_beta
                    ),
         unsafe_allow_html=True
     )
@@ -102,6 +104,9 @@ def main():
         r = page(st, params)
     elif action == 'reports':
         from playground_reports import page
+        r = page(st, params)
+    elif action == 'beta':
+        from playground_beta import page
         r = page(st, params)
 
     if r['return']>0:
