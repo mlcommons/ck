@@ -98,12 +98,19 @@ class CAutomation(Automation):
         elif r['return']==0 and len(r['list'])>0:
             return {'return':1, 'error':'CM artifact with name {} already exists in {}'.format(name, r['list'][0].path)}
         
+        meta = i.get('meta',{})
+        
         # Prepare meta
-        org = input('Enter your organization (optional): ').strip()
+        org = meta.get('organization','')
+        if org=='':
+            org = input('Enter your organization (optional): ').strip()
+
         url = input('Enter your webpage (optional): ').strip()
+
         tags = input('Enter tags of your challenges separate by comma (you can add them later): ').strip()
 
-        meta = {'name':name}
+        if meta.get('name','')=='':
+            meta = {'name':name}
 
         if org!='':
             meta['organization'] = org

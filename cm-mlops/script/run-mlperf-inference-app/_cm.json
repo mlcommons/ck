@@ -239,6 +239,12 @@
         "CM_MLPERF_INFERENCE_APP_DEFAULTS": "r3.1_default"
       }
     },
+    "r4.0": {
+      "group": "reproducibility",
+      "env": {
+        "CM_MLPERF_INFERENCE_APP_DEFAULTS": "r3.0_default"
+      }
+    },
     "dashboard": {
       "default_gui": true,
       "env": {

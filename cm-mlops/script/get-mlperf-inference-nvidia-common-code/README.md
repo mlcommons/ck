@@ -115,15 +115,11 @@ ___
       - Workflow:
     * `_mlcommons`
       - Workflow:
-    * **`_nvidia-only`** (default)
+    * `_nvidia-only`
       - Workflow:
 
     </details>
 
-
-#### Default variations
-
-`_nvidia-only`
 #### Default environment
 
 <details>

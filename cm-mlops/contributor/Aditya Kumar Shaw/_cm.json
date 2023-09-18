@@ -5,11 +5,13 @@
   "challenges": [
     "mlperf-inference-v3.0-2023"
   ],
-  "trophies":[
-    {"url":"https://cTuning.org/awards/ck-award-202307-shaw.pdf"}
-  ],
   "last_participation_date": "20230325",
   "name": "Aditya Kumar Shaw",
   "tags": [],
+  "trophies": [
+    {
+      "url": "https://cTuning.org/awards/ck-award-202307-shaw.pdf"
+    }
+  ],
   "uid": "ec7280d87d624a6e"
 }
