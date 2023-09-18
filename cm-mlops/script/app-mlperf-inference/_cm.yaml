@@ -610,6 +610,8 @@ variations:
 
   tvm-pytorch:
     group: backend
+    base:
+      - batch_size.1
     env:
       CM_MLPERF_BACKEND: tvm-pytorch
     add_deps_recursive:
