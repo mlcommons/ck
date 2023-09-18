@@ -12,6 +12,7 @@ def preprocess(i):
         Path with preprocessed dataset given as input
         '''
         skip_preprocessing = True
+        print("Using preprocessed criteo dataset from '" + env['CM_DATASET_PREPROCESSED_PATH'] +"'")
 
     if not skip_preprocessing and env.get('CM_DATASET_PREPROCESSED_OUTPUT_PATH','') != '':
         env['CM_DATASET_PREPROCESSED_PATH'] = os.getcwd()
@@ -25,6 +26,6 @@ def preprocess(i):
         run_dir = os.path.join(env['CM_MLPERF_TRAINING_SOURCE'], "recommendation_v2", "torchrec_dlrm", "scripts")
         env['CM_RUN_CMD'] = f'cd {run_dir} && bash ./process_Criteo_1TB_Click_Logs_dataset.sh {dataset_path} {tmp_dir} {output_dir} '
 
-    print("Using MLCommons Training source from '" + env['CM_MLPERF_TRAINING_SOURCE'] +"'")
+        print("Using MLCommons Training source from '" + env['CM_MLPERF_TRAINING_SOURCE'] +"'")
 
     return {'return': 0}

@@ -57,6 +57,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Vijay Janapa Reddi (Harvard University)
 * Andrew Reusch (OctoML)
 * Anandhu S (Kerala Technical University)
+* Warren Schultz (Principled Technologies)
 * Amrutha Sheleenderan (Kerala Technical University)
 * Byoungjun Seo (TTA)
 * Aditya Kumar Shaw (Indian Institute of Science)
