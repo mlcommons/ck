@@ -9,7 +9,7 @@
     "CM_GIT_DEPTH": "--depth 1",
     "CM_GIT_PATCH": "no"
   },
-  "default_version": "v3.0",
+  "default_version": "v3.1",
   "prehook_deps": [
     {
       "tags": "get,git,repo",
@@ -49,6 +49,12 @@
       "env": {
         "CM_MLPERF_INFERENCE_RESULTS_VERSION_NAME": "v3.0",
         "CM_GIT_URL": "https://github.com/<<<GITHUB_REPO_OWNER>>>/inference_results_v3.0.git"
+      }
+    },
+    "v3.1": {
+      "env": {
+        "CM_MLPERF_INFERENCE_RESULTS_VERSION_NAME": "v3.1",
+        "CM_GIT_URL": "https://github.com/<<<GITHUB_REPO_OWNER>>>/inference_results_v3.1.git"
       }
     }
   },

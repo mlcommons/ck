@@ -4,7 +4,7 @@ uid: f37403af5e9f4541
 cache: true
 automation_alias: script
 automation_uid: 5b4e0237da074764
-default_version: r3.0
+default_version: r3.1
 category: "Modular MLPerf benchmarks"
 
 
@@ -155,9 +155,14 @@ variations:
       CM_MLPERF_DEVICE: cuda
       CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
 
-  nvidia-only:
+  ctuning:
     group: code
     default: true
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        tags: _ctuning
+  nvidia-only:
+    group: code
     add_deps_recursive:
       nvidia-inference-common-code:
         tags: _nvidia-only

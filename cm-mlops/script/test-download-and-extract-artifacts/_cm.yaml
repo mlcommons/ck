@@ -13,7 +13,7 @@ deps:
   env:
     CM_DOWNLOAD_FINAL_ENV_NAME: CM_REPRODUCE_PAPER_XYZ2
     CM_EXTRACT_FINAL_ENV_NAME: CM_REPRODUCE_PAPER_XYZ2_EXTRACTED
-    CM_DOWNLOAD_CHECKSUM: 
+#    CM_DOWNLOAD_CHECKSUM: 
   force_cache: true
   extra_cache_tags: reproduce,paper,artifact,zenodo,xyz2
 new_env_keys: 

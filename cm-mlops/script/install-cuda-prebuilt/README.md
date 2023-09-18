@@ -153,7 +153,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 #### Versions
-Default version: `11.8.0`
+Default version: `12.2.0`
 
 * `11.7.0`
 * `11.8.0`
