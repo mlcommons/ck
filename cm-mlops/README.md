@@ -22,9 +22,9 @@ to learn how to make ML Systems more portable, reproducible and reusable
 across rapidly evolving SW/HW stacks, and automate their benchmarking, optimization, 
 design space exploration and deployment.
 
-&copy; 2021-2023 [MLCommons](https://mlcommons.org)<br>
+&copy; 2021-2023 [MLCommons](https://mlcommons.org)
 
-# Maintainers
+# Core developers and maintainers
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
