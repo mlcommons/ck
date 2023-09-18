@@ -1,5 +1,6 @@
 import os
 import tempfile
+from typing import Dict, Tuple, Optional, List, Any, Union
 
 if os.environ.get("CM_TVM_FRONTEND_FRAMEWORK", None) == "pytorch":
     import torch
@@ -7,8 +8,7 @@ if os.environ.get("CM_TVM_FRONTEND_FRAMEWORK", None) == "pytorch":
     
 import tvm
 from tvm import relay, meta_schedule
-
-from typing import Dict, Tuple, Optional, List, Any, Union
+from tvm.driver.tvmc.frontends import load_model
 
 def get_shape_dict_from_onnx(
     shape: List[int],
@@ -60,7 +60,7 @@ def get_mod_params(
             )
     print(f"Shape dict {shape_dict}")
     if frontend == "pytorch":
-        torch_model = torch.hub.load("pytorch/vision", model_name, weights=None)
+        torch_model = getattr(torchvision.models, model_name)(weights=None)
         torch_model.load_state_dict(torch.load(model_path))
         torch_model.fc = torch.nn.Sequential(
             torch_model.fc,
@@ -72,7 +72,7 @@ def get_mod_params(
         traced_model = torch.jit.trace(torch_model, input_data).eval()
         mod, params = tvm.relay.frontend.from_pytorch(traced_model, shape_list)
     else:
-        tvmc_model = tvm.driver.tvmc.frontends.load_model(path=model_path, shape_dict=shape_dict)
+        tvmc_model = load_model(path=model_path, shape_dict=shape_dict)
         mod, params = tvm.relay.transform.DynamicToStatic()(tvmc_model.mod), tvmc_model.params
     
     input_layer_name_file = os.path.join(os.getcwd(), "input_layer_name")
