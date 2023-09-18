@@ -2,6 +2,7 @@
 
 import cmind
 import misc
+import os
 
 def page(st, params):
 
@@ -22,6 +23,8 @@ def page(st, params):
 
         if r['return']==0:
             meta = r['meta']
+
+            path = r['path']
 
             name = meta.get('name',meta.get('organization',''))
             if name!='':
@@ -91,6 +94,21 @@ def page(st, params):
                         md+="  * {}\n".format(misc.make_url(c, action='challenges', key='tags'))
 
                     st.markdown(md)
+
+                # Check if README
+                md = ''
+                
+                readme = os.path.join(path, 'README.md')
+                if os.path.isfile(readme):
+                    
+                    r = cmind.utils.load_txt(readme)
+                    if r['return']>0: return r
+
+                    md += r['string']
+
+                st.markdown('---')
+                st.markdown(md)
+
 
         else:
            st.markdown('**Warning:** Contributor "{}" not found!'.format(name))
