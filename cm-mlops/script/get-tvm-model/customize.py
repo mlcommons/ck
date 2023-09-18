@@ -49,6 +49,6 @@ def postprocess(i):
     if 'CM_ML_MODEL_INPUT_SHAPES' in env.keys():
         env['CM_ML_MODEL_INPUT_SHAPES'] = env['CM_ML_MODEL_INPUT_SHAPES'].replace(
             "BATCH_SIZE", env['CM_ML_MODEL_MAX_BATCH_SIZE'])
-
-
+    if 'CM_TVM_FRONTEND_FRAMEWORK' in env and env['CM_TVM_FRONTEND_FRAMEWORK'] == 'pytorch':
+        env['CM_PREPROCESS_PYTORCH'] = 'yes'
     return {'return':0}
