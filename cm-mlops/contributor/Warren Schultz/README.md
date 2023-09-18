@@ -1,2 +1,2 @@
-﻿* Contributed in Bert Pruning from the NeurIPS paper
+﻿* Benchmarking various AI systems using MLPerf inference with CM automation.
 
