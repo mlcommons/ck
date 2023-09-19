@@ -23,7 +23,7 @@ Nvidia RTX 4090 wins the latency metric too for ResNet50, Bert and 3d-unet in th
 
 ## Benchmarking Rigel Supercomputer
 
-Rigel Edge Supercomputer from OneStopSytems wins the peak performance for all the four submitted models and comfortably beats the second-place system. It also wins the best latency for ResNet50 MultiStream scenario.
+Rigel Edge Supercomputer from OneStopSytems wins the peak performance for all four submitted models and comfortably beats the second-place system. It also wins the best latency for ResNet50 MultiStream scenario.
 ![rigel-1](https://github.com/ctuning/mlcommons-ck/assets/4791823/79b259d3-a283-4267-9844-bb12c18d09da)
 
 ![rigel-2](https://github.com/ctuning/mlcommons-ck/assets/4791823/39cb4408-ca08-4a0d-bbbf-57197babaa60)
@@ -35,5 +35,27 @@ Rigel Edge Supercomputer from OneStopSytems wins the peak performance for all th
 
 
 ## Benchmarking MLPerf Inference Reference Implementations
+
+We compared the performance of the reference implementation with that of the Nvidia optimized implementation by running both implementations on an Nvidia RTX 4090 GPU. Reference implementation uses fp32 models whereas Nvidia implementation uses quantized models.  
+
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/b46bc509-f242-4bc6-a9e8-ec318d09616b)
+
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/404b54d2-a04e-4e5e-861d-43c7d940faf8)
+
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/f5a04e85-269f-485a-8839-348dddcd5eb7)
+
+## Showcasing Apple Metal Performance
+
+We benchmarked the performance of Apple metal using Tensorflow-metal. The below graphs show the performance benefit of running inference on Apple meta using tensorflow-metal versus onnxruntime running only on CPUs. 
+
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/87385e24-b3b5-4694-8106-2c30eeb393de)
+
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/c9a38dc9-0986-461e-b81d-988297e1771e)
+
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/4b8565b4-7a23-4f29-b450-6eaf00d10f63)
+
+
+
+
 
 ## Benchmarking NeuralMagic Deepsparse Library
