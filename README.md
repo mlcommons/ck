@@ -6,14 +6,32 @@
 [![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
 
 
-### Breaking news
+### About
 
-*We are proud that our open-source MLCommons CM automation language and CK playground helped the community 
-automate > 90% of all [MLPerf inference v3.1 results](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark) 
+The [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md), 
+[cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org) 
+are developing Collective Knowledge v3 - an open-source technology 
+enabling collaborative, reproducible, automated and unified benchmarking, optimization and comparison of AI, ML and other emerging workloads
+across diverse and rapidly evolving models, data sets, software and hardware from different vendors.
+
+Collective Knowledge v3 includes:
+* [Non-intrusive, technology-agnostic and plugin-based Collective Mind automation language](cm)
+* [Collective Knowledge Playground](https://access.cKnowledge.org)
+* [Modular Inference Library](https://cknowledge.org/mil)
+
+[The community](https://access.cknowledge.org/playground/?action=challenges) successfully validated CM automation language and CK playground to automate > 90% of all [MLPerf inference v3.1 results](https://mlcommons.org/en/news/mlperf-inference-storage-q323/) 
 and cross 10000 submissions in one round for the first time (submitted via [cTuning foundation](https://cTuning.org))!
 Here is the [list of the new CM/CK capabilities](docs/news-mlperf-v3.1.md) available to everyone 
-to prepare and automate their future MLPerf submissions - don't hesitate to reach us 
-via [Discord server](https://discord.gg/JjWNWXKxwT) for more info!*
+to prepare and automate their future MLPerf submissions.
+
+See related [HPC Wire'23 article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark),
+[ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339), 
+[ACM Tech Talk](https://learning.acm.org/techtalks/reproducibility) 
+and [MLPerf submitters orientation](https://doi.org/10.5281/zenodo.8144274) 
+to learn more about our open-source developments and long-term vision.
+
+Join our [public Discord server](https://discord.gg/JjWNWXKxwT) to learn how to run and extend MLPerf benchmarks, participate in future MLPerf submissions, 
+automate reproducibility initiatives at ACM/IEEE/NeurIPS conferences and co-design efficient AI Systems.
 
 ### Documentation
 
@@ -27,34 +45,11 @@ via [Discord server](https://discord.gg/JjWNWXKxwT) for more info!*
 
 *More events to come soon!*
 
-### About
-
-The [MLCommons Task Force on Automation and Reproducibility](docs/taskforce.md) has developed
-a common, non-intrusive and technology-agnostic automation language (Collective Mind aka CM) 
-to access, run and reuse any benchmark, research project, 
-tool, ad-hoc script, data and model in a unified way on any hardware with any software.
-
-The goal is to help the community make it easier to reproduce research projects, 
-automate benchmarking and optimization of AI/ML systems,
-and simplify transfer of research ideas to production across rapidly evolving software, hardware and data.
-
-CM is being extended by the community and MLCommons via [public optimization and reproducibility challenges at the CK playground](https://access.cknowledge.org/playground/?action=challenges)
-and used for [automated, collaborative and reproducible MLPerf benchmarking](docs/news-mlperf-v3.1.md) 
-of diverse software/hardware stacks from different vendors at massive scale (thousands of submissions per round).
-
-See the [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) and [MLPerf submitters orientation](https://doi.org/10.5281/zenodo.8144274)
-for more details.
-
-Join our [Discord server](https://discord.gg/JjWNWXKxwT) to ask questions, provide feedback and participate in collaborative developments.
-
-### Docs
-
-* [Table of contents](docs/README.md) 
 
 ### Some practical use cases
 
-* [CM installation](docs/installation.md)
-* [All CM tutorials](docs/tutorials)
+* [CM installation](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [All CM tutorials](https://github.com/mlcommons/ck/blob/master/docs/tutorials)
 
 #### Run Python Hello World app
 
@@ -98,7 +93,7 @@ Our goal is to let the community start using CM within minutes!
 #### Run MLPerf benchmarks out-of-the-box
 
 * [CM automation for the new MLPerf submitters](https://doi.org/10.5281/zenodo.8144274)
-* [MLPerf inference automation](docs/mlperf/inference)
+* [MLPerf inference automation](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference)
 * [Visualization of MLPerf results](https://access.cknowledge.org/playground/?action=experiments)
 
 #### Participate in reproducible AI/ML Systems optimization challenges
@@ -108,10 +103,18 @@ We invite the community to participate in collaborative benchmarking and optimiz
 * [Shared benchmarking results for AI/ML Systems (performance, accuracy, power consumption, costs)](https://access.cknowledge.org/playground/?action=experiments) 
 * [Leaderboard](https://access.cknowledge.org/playground/?action=contributors)
 
+#### Reproduce results from ACM/IEEE/NeurIPS papers
+
+* [CM automation to reproduce results from ACM/IEEE MICRO'23 papers](https://github.com/ctuning/cm-reproduce-research-projects)
+* [CM automation to support Student Cluster Competition at SuperComputing'23](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md)
+* [CM automation to reproduce IPOL paper](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/reproduce-ipol-paper-2022-439/README-extra.md)
+
+
+
 ### Project coordinators
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin) ([cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org))
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) ([cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org))
+* [Grigori Fursin](https://cKnowledge.org/gfursin)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
 ### Acknowledgments
 

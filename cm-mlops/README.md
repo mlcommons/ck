@@ -6,7 +6,8 @@
 
 This MLCommons CM repository contains portable scripts
 in the [CM format](https://github.com/mlcommons/ck) to unify and interconnect 
-different MLOps and DevOps tools across continuously changing software, hardware and data.
+different MLOps and DevOps tools across continuously changing software, hardware and data
+from different vendors.
 **See the automatically generated catalog [here](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md).**
 
 All cross-platform СM scripts have a unified API, human readable CLI and extensible JSON/YAML meta description
@@ -17,7 +18,7 @@ adaptable to continuously changing software and hardware.
 Check the [CM docs](https://github.com/mlcommons/ck/tree/master/docs) to understand
 the CM concept, install the CM tool and reuse portable CM scripts for MLOps and DevOps.
 
-Join the [open MLCommons taskforce on automation and reproducibility](../docs/mlperf-education-workgroup.md) 
+Join the [open MLCommons taskforce on automation and reproducibility](../docs/taskforce.md) 
 to learn how to make ML Systems more portable, reproducible and reusable 
 across rapidly evolving SW/HW stacks, and automate their benchmarking, optimization, 
 design space exploration and deployment.
@@ -28,9 +29,3 @@ design space exploration and deployment.
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
-
-# Acknowledgments
-
-This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https://octoml.ai) 
-and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
-
