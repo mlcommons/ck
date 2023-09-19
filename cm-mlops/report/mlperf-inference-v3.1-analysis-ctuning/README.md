@@ -69,7 +69,7 @@ Using CM experiment automation we did a design space exploration to find the opt
 
 ## Comparing the performance of Modular MLPerf Inference C++ implementations
 
-Here we compare the performance of MIL Library used by CTuning and the KILT library used by KRAI both on CPUs and GPUs. This is not an apple-to-apple comparison as KILT used Nvidia Nvidia A1000 GPU and MIL was run on Nvidia RTX 4090 GPU. For CPUs, KILT was run on a 24-core Dell server whereas MIL was run on a 16 core PCSPECIALIST custom workstation.
+Here we compare the performance of MIL Library used by CTuning and the KILT library used by KRAI both on CPUs and GPUs. This is not an apple-to-apple comparison as KILT used Nvidia Nvidia A1000 GPU and MIL was run on Nvidia RTX 4090 GPU. For CPUs, KILT was run on a [24-core Dell server](https://github.com/mlcommons/inference_results_v3.1/blob/main/closed/Krai/systems/7920t-kilt-onnxruntime_cpu.json) with peak frequency of 4000 MHz whereas MIL was run on a [16 core PCSPECIALIST custom workstation](https://github.com/mlcommons/inference_results_v3.1/blob/main/closed/CTuning/systems/amd_ryzen_workstation-cpp-cpu-onnxruntime-vdefault-default_config.json) with peak frequency of 5900 MHz.
 
 ![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/6d73360a-27ab-4158-b4cc-a5724d6d4c73)
 
