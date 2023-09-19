@@ -11,8 +11,8 @@
 The [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md), 
 [cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org) have developed
 a non-intrusive, technology-agnostic and plugin-based [Collective Mind automation language (CM)](https://doi.org/10.5281/zenodo.8105339)
-to enable collaborative, reproducible, automated and unified benchmarking, optimization and comparison of computer systems
-access diverse and rapidly evolving models, data sets, software and hardware from different vendors.
+to enable collaborative, reproducible, automated and unified benchmarking, optimization and comparison of AI, ML and other emerging workloads
+across diverse and rapidly evolving models, data sets, software and hardware from different vendors.
 
 The CM automation language was successfully validated by the community and [cTuning foundation](https://cTuning.org)
 via [public optimization and reproducibility challenges at the CK playground](https://access.cknowledge.org/playground/?action=challenges)

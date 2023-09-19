@@ -10,9 +10,9 @@
 
 The [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md), 
 [cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org) 
-are developing Collective Knowledge v3 - an open-source technology to enable 
-collaborative, reproducible, automated and unified benchmarking, optimization and comparison of computer systems
-access diverse and rapidly evolving models, data sets, software and hardware from different vendors.
+are developing Collective Knowledge v3 - an open-source technology 
+enabling collaborative, reproducible, automated and unified benchmarking, optimization and comparison of AI, ML and other emerging workloads
+across diverse and rapidly evolving models, data sets, software and hardware from different vendors.
 
 Collective Knowledge v3 includes:
 * [Non-intrusive, technology-agnostic and plugin-based Collective Mind automation language](cm)
@@ -44,7 +44,6 @@ automate reproducibility initiatives at ACM/IEEE/NeurIPS conferences and co-desi
 * [CM automation language and CK playground will help students run MLPerf inference benchmark at the Student Cluster Competition at SuperComputing'23](https://sc23.supercomputing.org/students/student-cluster-competition)
 
 *More events to come soon!*
-
 
 
 ### Some practical use cases
