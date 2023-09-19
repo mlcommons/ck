@@ -65,3 +65,13 @@ We benchmarked the performance of Apple metal using Tensorflow-metal. The below 
 Using CM experiment automation we did a design space exploration to find the optimal batch size for the bert-99 compatible sparse models.
 
 ![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/a18088f2-c864-4c16-b714-5b375cf5fc94)
+
+
+## Comparing the performance of Modular MLPerf Inference C++ implementations
+
+Here we compare the performance of MIL Library used by CTuning and the KILT library used by KRAI both on CPUs and GPUs. This is not an apple-to-apple comparison as KILT used Nvidia Nvidia A1000 GPU and MIL was run on Nvidia RTX 4090 GPU. For CPUs, KILT was run on a 24-core Dell server whereas MIL was run on a 16 core PCSPECIALIST custom workstation.
+
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/6d73360a-27ab-4158-b4cc-a5724d6d4c73)
+
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/d6b5516b-4861-4355-badf-65decbf8d3b0)
+
