@@ -1,11 +1,14 @@
 import os
 import tempfile
-import tvm
-from tvm import relay
-from tvm.driver.tvmc.model import TVMCModel
-from tvm.driver.tvmc.frontends import load_model
-from tvm import meta_schedule as ms
 from typing import Dict, Tuple, Optional, List, Any, Union
+
+if os.environ.get("CM_TVM_FRONTEND_FRAMEWORK", None) == "pytorch":
+    import torch
+    import torchvision
+    
+import tvm
+from tvm import relay, meta_schedule
+from tvm.driver.tvmc.frontends import load_model
 
 def get_shape_dict_from_onnx(
     shape: List[int],
@@ -20,7 +23,6 @@ def get_shape_dict_from_onnx(
                 for dimension in tensor_type.shape.dim:
                     if dimension.dim_value != 0:
                         shape.append(dimension.dim_value)
-        print(shape)
     input_all = [node.name for node in onnx_model.graph.input]
     input_initializer =  [node.name for node in onnx_model.graph.initializer]
     net_feed_input = list(set(input_all)  - set(input_initializer))
@@ -32,6 +34,7 @@ def get_mod_params(
     batch_size: int,
     frontend: str,
     input_shapes_str: Optional[str] = None,
+    input_layer_name: Optional[str] = None,
     num_channels: Optional[int] = None,
     image_width: Optional[int] = None,
     image_height: Optional[int] = None,
@@ -56,8 +59,27 @@ def get_mod_params(
                 "Error: Cannot find proper shapes in environment variables"
             )
     print(f"Shape dict {shape_dict}")
-    tvmc_model = load_model(path=model_path, shape_dict=shape_dict)
-    mod, params = relay.transform.DynamicToStatic()(tvmc_model.mod), tvmc_model.params
+    if frontend == "pytorch":
+        torch_model = getattr(torchvision.models, model_name)(weights=None)
+        torch_model.load_state_dict(torch.load(model_path))
+        torch_model.fc = torch.nn.Sequential(
+            torch_model.fc,
+            torch.nn.Softmax(dim=1)
+        )
+        torch_model = torch_model.eval()
+        shape_list = list(shape_dict.items())
+        input_data = torch.randn(shape_list[0][1])
+        traced_model = torch.jit.trace(torch_model, input_data).eval()
+        mod, params = tvm.relay.frontend.from_pytorch(traced_model, shape_list)
+    else:
+        tvmc_model = load_model(path=model_path, shape_dict=shape_dict)
+        mod, params = tvm.relay.transform.DynamicToStatic()(tvmc_model.mod), tvmc_model.params
+    
+    input_layer_name_file = os.path.join(os.getcwd(), "input_layer_name")
+    if not input_layer_name:
+        input_layer_name = shape_dict.keys()[0]
+    with open(input_layer_name_file, 'w') as file:
+        file.write(input_layer_name)
     
     return mod, params
 
@@ -65,33 +87,33 @@ def tune_model(
     mod: tvm.IRModule,
     params: Dict[str, tvm.nd.NDArray],
     target: tvm.target.Target,
-) -> Tuple[str, tvm.meta_schedule.database.Database]:
+) -> Tuple[str, meta_schedule.database.Database]:
     work_dir = os.path.join(os.getcwd(), "metaschedule_workdir")
     if not os.path.exists(work_dir):
         os.mkdir(work_dir)
     print("Extracting tasks...")
-    extracted_tasks = ms.relay_integration.extract_tasks(
+    extracted_tasks = meta_schedule.relay_integration.extract_tasks(
         mod, target, params
     )
-    tasks, task_weights = ms.relay_integration.extracted_tasks_to_tune_contexts(
+    tasks, task_weights = meta_schedule.relay_integration.extracted_tasks_to_tune_contexts(
         extracted_tasks, work_dir, strategy="evolutionary"
     )
 
     print("Begin tuning...")
-    evaluator_config = ms.runner.config.EvaluatorConfig(
+    evaluator_config = meta_schedule.runner.config.EvaluatorConfig(
         number=1,
         repeat=10,
         enable_cpu_cache_flush=True
     )
-    database = ms.tune.tune_tasks(
+    database = meta_schedule.tune.tune_tasks(
         tasks=tasks,
         task_weights=task_weights,
         work_dir=work_dir,
         max_trials_global=10000,
         num_trials_per_iter=64,
         max_trials_per_task=512,
-        builder=ms.builder.LocalBuilder(),
-        runner=ms.runner.LocalRunner(
+        builder=meta_schedule.builder.LocalBuilder(),
+        runner=meta_schedule.runner.LocalRunner(
             evaluator_config=evaluator_config
         ),
     )
@@ -107,11 +129,11 @@ def compile_model(
     opt_level: int,
     build_conf: Dict[str, Any],
     use_vm: bool,
-    database: Optional[ms.database.Database] = None,
+    database: Optional[meta_schedule.database.Database] = None,
 ) -> Union[tvm.runtime.Module, tvm.runtime.vm.Executable]:
     if work_dir != '':
         if not database:
-            database = ms.database.JSONDatabase(
+            database = meta_schedule.database.JSONDatabase(
                 f"{work_dir}/database_workload.json",
                 f"{work_dir}/database_tuning_record.json",
                 allow_missing=False
@@ -121,7 +143,7 @@ def compile_model(
             opt_level=opt_level, 
             config=build_conf
         ):
-            lib = ms.relay_integration.compile_relay(
+            lib = meta_schedule.relay_integration.compile_relay(
                 database=database,
                 mod=mod,
                 target=target,
@@ -140,7 +162,7 @@ def compile_model(
                     params=params
                 )
             else:
-                lib = relay.build(
+                lib = tvm.relay.build(
                     mod, 
                     target=target, 
                     params=params
@@ -182,6 +204,7 @@ def main() -> None:
             batch_size=int(os.environ.get('CM_ML_MODEL_MAX_BATCH_SIZE', 1)),
             frontend=os.environ.get("CM_TVM_FRONTEND_FRAMEWORK", None),
             input_shapes_str=os.environ.get('CM_ML_MODEL_INPUT_SHAPES', None),
+            input_layer_name=os.environ.get('CM_ML_MODEL_INPUT_LAYER_NAME', None),
             num_channels=int(os.environ.get('CM_ML_MODEL_IMAGE_NUM_CHANNELS', 3)),
             image_width=int(os.environ.get('CM_ML_MODEL_IMAGE_WIDTH', 0)),
             image_height=int(os.environ.get('CM_ML_MODEL_IMAGE_HEIGHT', 0)),
