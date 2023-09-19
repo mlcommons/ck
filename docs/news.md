@@ -4,18 +4,18 @@
 
 ### 202309
 
-We are proud that our open-source MLCommons CM automation language and CK playground helped the community 
-automate > 90% of all [MLPerf inference v3.1 results](https://mlcommons.org/en/news/mlperf-inference-storage-q323/) 
+*Our Collective Knowledge Technology v3 with the open-source [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105338),
+[CK playground](https://access.cknowledge.org) 
+and [Modular Inference Library](https://cknowledge.org/mil)
+helped the community automate > 90% of all [MLPerf inference v3.1 results](https://mlcommons.org/en/news/mlperf-inference-storage-q323/) 
 and cross 10000 submissions in one round for the first time (submitted via [cTuning foundation](https://cTuning.org))!
-Here is the [list of new CM/CK capabilities](docs/news-mlperf-v3.1.md) available to everyone 
-to prepare and automate their future MLPerf submissions - don't hesitate to reach us 
-via [Discord server](https://discord.gg/JjWNWXKxwT) for more info!
+Here is the [list of the new CM/CK capabilities](docs/news-mlperf-v3.1.md) available to everyone 
+to prepare and automate their future MLPerf submissions - please check this [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
+about cTuning's community submission and don't hesitate to reach us via [Discord server](https://discord.gg/JjWNWXKxwT) for more info!*
 
 ### 202309
 
 Our [CK playground](https://access.cKnowledge.org) was featured at the [AI hardware summit'23](https://aihwedgesummit.com/events/aihwedgesummit)
-
-
 
 ### 202307
 
