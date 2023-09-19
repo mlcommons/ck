@@ -58,4 +58,8 @@ We benchmarked the performance of Apple metal using Tensorflow-metal. The below 
 
 
 
-## Benchmarking NeuralMagic Deepsparse Library
+## Design Space Exploration For NeuralMagic Deepsparse Library
+
+Using CM experiment automation we did a design space exploration to find the optimal batch size for the bert-99 compatible sparse models.
+
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/a18088f2-c864-4c16-b714-5b375cf5fc94)
