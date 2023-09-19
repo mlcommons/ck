@@ -2,12 +2,14 @@ On this page, we highlight some of the exciting submissions done by CTuning for 
 
 ## Top Results in Edge Category
 
-In the edge category, Rigel Supercomputers from One Stop Systems achieved the peak offline performance for the four submitted benchmarks - Image classification (ResNet50), Object detection (RetinaNet), Language processing (Bert) and Speech Recognition (RNNT). 
+In the edge category, Rigel Supercomputers from One Stop Systems achieved the peak offline performance for the four submitted benchmarks - Image classification (ResNet50), Object detection (RetinaNet), Language processing (Bert) and Speech Recognition (RNNT). The below graph compares the peak performance of bert-99 model among the top 10 performing systems.  
 
-![bert](https://github.com/ctuning/mlcommons-ck/assets/4791823/dbda735f-fbf5-4c52-a780-edd66b5853d6)
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/9f8e3367-1ca4-4298-8545-285cdedfc991)
 
-Nvidia RTX 4090 has the best performance for performance per accelerator, and this accelerator is assembled on a PC made by PCSPECIALIST UK. 
-![bert_per_accelerator](https://github.com/ctuning/mlcommons-ck/assets/4791823/30f7d8c8-5d75-481a-b4f5-3e325b504892)
+
+Nvidia RTX 4090 has the best performance for performance per accelerator, and this accelerator is assembled on a PC made by PCSPECIALIST UK. The below graph compares the performance per accelerator of bert-99 model among the top 10 performing systems.  
+
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/c02120cb-eda9-4eef-9e22-56fff4bf23a7)
 
 
 Nvidia RTX 4090 wins the latency metric too for ResNet50, Bert and 3d-unet in the SingleStream scenario. 
