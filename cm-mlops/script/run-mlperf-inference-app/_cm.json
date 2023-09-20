@@ -242,7 +242,7 @@
     "r4.0": {
       "group": "reproducibility",
       "env": {
-        "CM_MLPERF_INFERENCE_APP_DEFAULTS": "r3.0_default"
+        "CM_MLPERF_INFERENCE_APP_DEFAULTS": "r4.0_default"
       }
     },
     "dashboard": {
