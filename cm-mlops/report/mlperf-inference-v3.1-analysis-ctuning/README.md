@@ -20,6 +20,20 @@ Nvidia RTX 4090 wins the latency metric too for ResNet50, Bert and 3d-unet in th
 ![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/5cb88f53-9255-4a0b-98df-a192ba87b125)
 
 
+## Best energy efficient results in Edge category
+
+For the Speech Recognition model rnnt, CTuning submitted the best power-efficient result on Nvidia Jetson Orin AGX.
+
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/d485aa50-a0d4-4a40-a805-cc2ddc3e0ca6)
+
+
+For the Medical Imaging model 3d-unet where the samples per second is quite low, the best 4 energy efficient results are by CTuning.
+
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/d15297fb-3eff-47c9-b188-68d438b7f248)
+
+For the Language Processing model bert-99, gloria highend system from Qualcomm tops the energy efficiency metric and CTuning's Nvidia Jetson ORin AGX is at second place.
+
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/22c85404-51f5-44b7-b128-8df4579c635c)
 
 
 
@@ -65,6 +79,8 @@ We benchmarked the performance of Apple metal using Tensorflow-metal. The below 
 Using CM experiment automation we did a design space exploration to find the optimal batch size for the bert-99 compatible sparse models.
 
 ![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/a18088f2-c864-4c16-b714-5b375cf5fc94)
+
+![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/8bd95c5f-344f-4d9f-9f94-c3024efbce13)
 
 
 ## Comparing the performance of Modular MLPerf Inference C++ implementations
