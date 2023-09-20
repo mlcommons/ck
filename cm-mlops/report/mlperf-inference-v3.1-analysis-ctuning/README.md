@@ -31,7 +31,7 @@ For the Medical Imaging model 3d-unet where the samples per second is quite low,
 
 ![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/d15297fb-3eff-47c9-b188-68d438b7f248)
 
-For the Language Processing model bert-99, gloria highend system from Qualcomm tops the energy efficiency metric and CTuning's Nvidia Jetson ORin AGX is at second place.
+For the Language Processing model bert-99, gloria highend system from Qualcomm tops the energy efficiency metric and CTuning's Nvidia Jetson Orin AGX is at second place.
 
 ![image](https://github.com/ctuning/mlcommons-ck/assets/4791823/22c85404-51f5-44b7-b128-8df4579c635c)
 
