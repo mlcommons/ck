@@ -174,8 +174,8 @@ deps:
       - dlrm-99
       - dlrm-99.9
     names:
-      - criteo-original
-    tags: get,dataset,original,criteo
+      - criteo-preprocessed
+    tags: get,dataset,preprocessed,criteo
 
   ########################################################################
   # Install dlrm model
