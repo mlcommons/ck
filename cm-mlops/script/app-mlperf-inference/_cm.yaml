@@ -463,29 +463,29 @@ variations:
       - mlperf-accuracy-script
       tags: run,accuracy,mlperf,_terabyte,_float32
 
-  dlrm-99:
+  dlrm-v2-99:
     group:
       model
     base:
     - dlrm_
     env:
       CM_MODEL:
-        dlrm-99
+        dlrm-v2-99
     add_deps_recursive:
       mlperf-inference-implementation:
-        tags: _dlrm-99
+        tags: _dlrm-v2-99
 
-  dlrm-99.9:
+  dlrm-v2-99.9:
     group:
       model
     base:
     - dlrm_
     env:
       CM_MODEL:
-        dlrm-99.9
+        dlrm-v2-99.9
     add_deps_recursive:
       mlperf-inference-implementation:
-        tags: _dlrm-99.9
+        tags: _dlrm-v2-99.9
 
   mobilenet:
     group:

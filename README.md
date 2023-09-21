@@ -5,42 +5,30 @@
 [![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 [![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
 
-### Breaking news
-
-Breaking news: our open-source CM automation language and CK playground 
-enabled the 1st mass-scale community submission of 10000+ MLPerf
-inference benchmarking results (representing more than 90% of all v3.1 submissions)
-across diverse models, data sets, software and hardware 
-from different vendors via the cTuning foundation - see the [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
-for more details and get in touch via our [public Discord server](https://discord.gg/JjWNWXKxwT) 
-if you want to automate and optimize your future MLPerf submissions
-using our open-source technology! 
-
 
 ### About
 
-Collective Knowledge (CK) is an open-source, non-intrusive and technology-agnostic toolset
-to facilitate reproducible research and automate development, benchmarking, optimization, comparison and 
-deployment of Pareto-efficient AI/ML Systems across diverse and rapidly evolving models, data sets, 
-software and hardware from different vendors and users.
+The [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md), 
+[cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org) 
+are developing Collective Knowledge v3 - an open-source technology 
+enabling collaborative, reproducible, automated and unified benchmarking, optimization and comparison of AI, ML and other emerging workloads
+across diverse and rapidly evolving models, data sets, software and hardware from different vendors.
 
-Collective Knowledge v3 has been developed from scratch by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md), 
-[cTuning foundation](https://cTuning.org), [cKnowledge.org](https://cKnowledge.org) and [the community](CONTRIBUTING.md) 
-and includes the following sub-projects:
+Collective Knowledge v3 includes:
+* [Non-intrusive, technology-agnostic and plugin-based Collective Mind automation language](cm)
+* [Collective Knowledge Playground](https://access.cKnowledge.org)
+* [Modular Inference Library](https://cknowledge.org/mil)
 
-* [Collective Mind automation Language (CM)](cm) - a simple automation language
-  that helps to implement modular, portable and technology-agnostic 
-  benchmarks and applications with a common API that can automatically
-  plug in diverse and rapidly evolving models, data sets, software and hardware
-  from different vendors and users.
-* [CM scripts](cm-mlops/scripts) - a database of portable, reusable and technology-agnostic automations to modularize benchmarks, software projects and AI/ML Systems.
-* [Modular Inference Library (MIL)](https://cknowledge.org/mil) - a universal and modular C++ implementation of MLPerf inference benchmarks.
-* [Collective Knowledge Playground](https://access.cKnowledge.org) - an open platform to benchmark and optimize AI and ML Systems via community challenges.
+[The community](https://access.cknowledge.org/playground/?action=challenges) successfully validated CM automation language and CK playground to automate > 90% of all [MLPerf inference v3.1 results](https://mlcommons.org/en/news/mlperf-inference-storage-q323/) 
+and cross 10000 submissions in one round for the first time (submitted via [cTuning foundation](https://cTuning.org))!
+Here is the [list of the new CM/CK capabilities](docs/news-mlperf-v3.1.md) available to everyone 
+to prepare and automate their future MLPerf submissions.
 
-See [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339), 
+See related [HPC Wire'23 article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark),
+[ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339), 
 [ACM Tech Talk](https://learning.acm.org/techtalks/reproducibility) 
 and [MLPerf submitters orientation](https://doi.org/10.5281/zenodo.8144274) 
-to learn more about our open-source technology and long-term vision.
+to learn more about our open-source developments and long-term vision.
 
 Join our [public Discord server](https://discord.gg/JjWNWXKxwT) to learn how to run and extend MLPerf benchmarks, participate in future MLPerf submissions, 
 automate reproducibility initiatives at ACM/IEEE/NeurIPS conferences and co-design efficient AI Systems.
@@ -130,7 +118,7 @@ We invite the community to participate in collaborative benchmarking and optimiz
 
 ### Acknowledgments
 
-Collective Knowledge Technology v3 (including Collective Mind automation language and Collective Knowledge Playground)
+Collective Knowledge Technology v3 (including Collective Mind automation language and Collective Knowledge playground)
 was developed from scratch by [Grigori Fursin](https://cKnowledge.org/gfursin) 
 and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) in 2022-2023
 within the [MLCommons Task Force on Automation and Reproducibility](docs/taskforce.md)
