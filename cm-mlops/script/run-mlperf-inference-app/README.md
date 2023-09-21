@@ -172,7 +172,7 @@ ___
       - Workflow:
     * `_r4.0`
       - Environment variables:
-        - *CM_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.0_default`
+        - *CM_MLPERF_INFERENCE_APP_DEFAULTS*: `r4.0_default`
       - Workflow:
 
     </details>
