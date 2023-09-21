@@ -134,7 +134,7 @@ def visualize(st, query_params, action = ''):
         experiments.append(name)
 
         index+=1
-
+    
     if len(lst_all) == 1:
         selection = 1
 
@@ -147,7 +147,12 @@ def visualize(st, query_params, action = ''):
 
 
     lst = [lst_all[experiment-1]] if experiment > 0 else lst_all
-    
+
+    if len(lst)>8:
+        st.markdown('Too many experiments - continue pruning ...')
+        return {'return':0}
+
+
     # Check experiments
     results = []
     results_with_password = []
@@ -215,7 +220,7 @@ def visualize(st, query_params, action = ''):
     
     # How to visualize selection
     if len(results)==0:
-        st.markdown('No experiment set(s) found!')
+        st.markdown('No results found!')
         return {'return':0}
 
 
@@ -223,7 +228,7 @@ def visualize(st, query_params, action = ''):
         st.session_state['tmp_cm_results']=len(results)    
     elif int(st.session_state['tmp_cm_results'])!=len(results):
         st.session_state['tmp_cm_results']=len(results)
-        st.session_state['how']=''
+        st.session_state['how']=0
 
     
     how = ''
@@ -241,24 +246,27 @@ def visualize(st, query_params, action = ''):
             if q_how[0]!='':
                 v_how = q_how[0]
 
-                
-        how_selection = ['', '2D', 'bar']
+        how_selection = ['', '2d-static', '2d', 'bar']
+        how_selection_desc = ['', 'Scatter plot (static)', 'Scatter plot (interactive, slow - to be improved)', 'Bar plot (static)']
         
         how_index = 0
         if v_how!='' and v_how in how_selection:
             how_index = how_selection.index(v_how)
 
-        how = st.selectbox('Select how to visualize {} CM experiment set(s):'.format(len(results)),
-                           how_selection,
-                           index = how_index, 
+        how2 = st.selectbox('Select how to visualize {} CM experiment set(s):'.format(len(results)),
+                           range(len(how_selection_desc)), 
+                           format_func=lambda x: how_selection_desc[x],
+                           index = how_index,
                            key = 'how')
 
-        if how == '':
+
+        if how2 == '' or how2 == 0:
             return {'return':0}
-    
+
+        how = how_selection[how2]    
+
     how = how.strip()
-    
-    
+
     # Continue visualizing
     all_values = []
     keys = []
@@ -335,7 +343,7 @@ def visualize(st, query_params, action = ''):
             continue
 
         data = []
-        for k in sorted(keys, key=lambda s: s.lower()):
+        for k in sorted(keys, key=lambda s: s):
             data.append(result.get(k))
 
         all_data.append(data)
@@ -512,7 +520,9 @@ def visualize(st, query_params, action = ''):
         i_unique_color_values = 0
 
         unique_style_values = {}
-        unique_styles = ['o','v','^','<','>','1','2','3','4','8','s','p','P','*','+','D']
+#        unique_styles = ['o','v','^','<','>','1','2','3','4','8','s','p','P','*','+','D']
+        unique_styles = ['circle', 'square', 'diamond', 'cross', 'x', 'triangle', 'pentagon', 'hexagram', 
+                         'star', 'hourglass', 'bowtie', 'asterisk', 'hash']
         i_unique_style_values = 0
 
         # If Bar, use Style to separate results
@@ -545,103 +555,166 @@ def visualize(st, query_params, action = ''):
                 if s != None and s!='' and s not in unique_s_values:
                     unique_s_values.append(s)
 
+        ############################################################################
         # Continue visualizing
-        width = 1
-        multiplier = 0
-        
-        t = 0
-        for result in values2:
-            v = result
+        if how == '2d-static' or how == 'bar':
 
-            t+=1
+            xx = []
+            yy = []
+            cc = []
+            ss = []
+            io = []
+            
+            t = 0
+            for result in values2:
+                v = result
 
-            x = v.get(axis_key_x, None)
-            y = v.get(axis_key_y, None)
+                t+=1
 
-            url = v.get('url','')
-            if url=='': url = v.get('git_url','')
+                x = v.get(axis_key_x, None)
+                y = v.get(axis_key_y, None)
 
-            color = 'blue'
-            if axis_key_c!='':
-                c = v.get(axis_key_c, None)
-                if c!=None:
-                    if c in unique_color_values:
-                        color = unique_color_values[c]
-                    else:
-                        color = unique_colors[i_unique_color_values]
-                        unique_color_values[c] = color
-                        if i_unique_color_values<(len(unique_colors)-1):
-                            i_unique_color_values+=1
+                xx.append(x)
+                yy.append(y)
 
-            style = 'o'
-            if axis_key_s!='':
-                s = v.get(axis_key_s, None)
-                if s!=None:
-                    if s in unique_style_values:
-                        style = unique_style_values[s]
-                    else:
-                        style = unique_styles[i_unique_style_values]
-                        unique_style_values[s] = style
-                        if i_unique_style_values<(len(unique_styles)-1):
-                            i_unique_style_values+=1
+                color = 'blue'
+                if axis_key_c!='':
+                    c = v.get(axis_key_c, None)
+                    if c!=None:
+                        if c in unique_color_values:
+                            color = unique_color_values[c]
+                        else:
+                            color = unique_colors[i_unique_color_values]
+                            unique_color_values[c] = color
+                            if i_unique_color_values<(len(unique_colors)-1):
+                                i_unique_color_values+=1
+
+                cc.append(color)
+
+                style = 'o'
+                if axis_key_s!='':
+                    s = v.get(axis_key_s, None)
+                    if s!=None:
+                        if s in unique_style_values:
+                            style = unique_style_values[s]
+                        else:
+                            style = unique_styles[i_unique_style_values]
+                            unique_style_values[s] = style
+                            if i_unique_style_values<(len(unique_styles)-1):
+                                i_unique_style_values+=1
+
+                ss.append(style)
+
+                info=''
+                for key in sorted(v.keys(), key=lambda x: x):
+                    value = v[key]
+                    info+=str(key)+': '+str(value)+'<br>\n'
+
+                io.append(info)
+
+            import plotly.express as px
+
+            dd = {axis_key_x:xx,axis_key_y:yy,axis_key_c:cc,axis_key_s:ss,'info':io}
+
+            # https://docs.streamlit.io/library/api-reference/charts/st.bar_chart
+            # https://docs.streamlit.io/library/api-reference/charts/st.plotly_chart
+            # https://plotly.com/python/line-and-scatter/
+
+            df = pd.DataFrame(dd)
 
             if how == 'bar':
-                if len(unique_s_values) > 0:
-                    width = float(1/len(unique_s_values))
-                    s = v.get(axis_key_s, None)
-                    if s!=None and s!='':
-                        multiplier = unique_s_values.index(s)
-                
-                offset = width * multiplier
-                xx = unique_x_values.index(x)
-
-                graph = ax.bar(xx + offset, y, width, label = 'x', tick_label='y', color=color)
+                st.bar_chart(df, x=axis_key_x, y=axis_key_y)
             else:
+                fig = px.scatter(df, x=axis_key_x, y=axis_key_y, color=axis_key_c, symbol=axis_key_s, hover_name='info', height=1000)
+
+                st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+                  
+        
+
+        elif how == '2d':
+            #####################################################################
+            # 2D interactive graph - very slow - need to be updated
+            width = 1
+            
+            t = 0
+            for result in values2:
+                v = result
+
+                t+=1
+
+                x = v.get(axis_key_x, None)
+                y = v.get(axis_key_y, None)
+
+                url = v.get('url','')
+                if url=='': url = v.get('git_url','')
+
+                color = 'blue'
+                if axis_key_c!='':
+                    c = v.get(axis_key_c, None)
+                    if c!=None:
+                        if c in unique_color_values:
+                            color = unique_color_values[c]
+                        else:
+                            color = unique_colors[i_unique_color_values]
+                            unique_color_values[c] = color
+                            if i_unique_color_values<(len(unique_colors)-1):
+                                i_unique_color_values+=1
+
+                style = 'o'
+                if axis_key_s!='':
+                    s = v.get(axis_key_s, None)
+                    if s!=None:
+                        if s in unique_style_values:
+                            style = unique_style_values[s]
+                        else:
+                            style = unique_styles[i_unique_style_values]
+                            unique_style_values[s] = style
+                            if i_unique_style_values<(len(unique_styles)-1):
+                                i_unique_style_values+=1
+
                 graph = ax.scatter(x, y, color=color, marker=style)
 
-            info=''
-            for key in sorted(v.keys(), key=lambda x: x.lower()):
-                value = v[key]
-                info+='<b>'+str(key)+': </b>'+str(value)+'<br>\n'
+                info=''
+                for key in sorted(v.keys(), key=lambda x: x.lower()):
+                    value = v[key]
+                    info+='<b>'+str(key)+': </b>'+str(value)+'<br>\n'
 
-            info2 = '<div style="padding:10px;background-color:#FFFFE0;"><small>'+info+'</small></div>'
+                info2 = '<div style="padding:10px;background-color:#FFFFE0;"><small>'+info+'</small></div>'
 
-            label = [info2]
-            plugins.connect(fig, plugins.PointHTMLTooltip(graph, label))
+                label = [info2]
+                plugins.connect(fig, plugins.PointHTMLTooltip(graph, label))
 
-            experiment_uid = v.get('experiment_uid','')
-            if experiment_uid!='' and experiment_uid not in experiment_uids:
-                experiment_uids.append(experiment_uid)
-            
-            uid = v.get('uid','')
-            if uid!='':
-                xaction = 'action={}&'.format(action) if action!='' else ''
-                url = '?{}name={}&result_uid={}'.format(xaction, experiment_uid, uid)
+                experiment_uid = v.get('experiment_uid','')
+                if experiment_uid!='' and experiment_uid not in experiment_uids:
+                    experiment_uids.append(experiment_uid)
+                
+                uid = v.get('uid','')
+                if uid!='':
+                    xaction = 'action={}&'.format(action) if action!='' else ''
+                    url = '?{}name={}&result_uid={}'.format(xaction, experiment_uid, uid)
 
-            if url!='':
-                targets = [url]
-                plugins.connect(fig, OpenBrowserOnClick(graph, targets = targets)) 
+                if url!='':
+                    targets = [url]
+                    plugins.connect(fig, OpenBrowserOnClick(graph, targets = targets)) 
 
+            # Render graph
+            fig_html = mpld3.fig_to_html(fig)
+            components.html(fig_html, width=1100, height=500)
 
+            #fig_html = '<div style="padding:10px;background-color:#F0F0F0;">'+fig_html+'</div>'
 
-        # Render graph
-        fig_html = mpld3.fig_to_html(fig)
+            #components.html(fig_html, width=1000, height=800)
+            #st.markdown('---')
 
-        #fig_html = '<div style="padding:10px;background-color:#F0F0F0;">'+fig_html+'</div>'
-
-        #components.html(fig_html, width=1000, height=800)
-#        st.markdown('---')
-        components.html(fig_html, width=1100, height=500)
-
+        ########################################################################
+        # Show all data
         df = pd.DataFrame(
           all_data,
-          columns=(k for k in sorted(keys, key=lambda s: s.lower()) if k!='')
+          columns=(k for k in sorted(keys, key=lambda s: s) if k!='')
         )
 
         st.markdown('---')
         st.dataframe(df)
-
-#        st.markdown(df.to_html(render_links=True, escape=False),unsafe_allow_html=True)
 
         # Check if can create self link
         if len(experiment_uids)==1:

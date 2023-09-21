@@ -2,8 +2,11 @@
   "alias": "optimize-mlperf-inference-v3.1-intel-2023",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date_close": "20230804",
+  "date_close_extension": true,
   "date_open": "20230704",
+  "points": 2,
+  "prize": "200$ for the first implementation and 200 for the fastest implementation",
+  "prize_short": "co-authoring white paper , $$$",
   "tags": [
     "modularize",
     "optimize",
@@ -19,7 +22,7 @@
     "mlperf-inference-intel-v3.1-2023",
     "v3.1"
   ],
-  "title": "Run and optimize MLPerf inference v3.1 benchmarks on Intel-based platforms",
-  "uid": "ffefa5622bf34d36",
-  "under_preparation": true
+  "title": "Add CM interface to run MLPerf inference benchmarks on Intel-based platforms",
+  "trophies": true,
+  "uid": "1c1d5da6766f4afb"
 }

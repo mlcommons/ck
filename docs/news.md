@@ -2,19 +2,38 @@
 
 ## MLCommons CK and CM news
 
+### 202309
+
+*Our Collective Knowledge Technology v3 with the open-source [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105338),
+[CK playground](https://access.cknowledge.org) 
+and [Modular Inference Library](https://cknowledge.org/mil)
+helped the community automate > 90% of all [MLPerf inference v3.1 results](https://mlcommons.org/en/news/mlperf-inference-storage-q323/) 
+and cross 10000 submissions in one round for the first time (submitted via [cTuning foundation](https://cTuning.org))!
+Here is the [list of the new CM/CK capabilities](docs/news-mlperf-v3.1.md) available to everyone 
+to prepare and automate their future MLPerf submissions - please check this [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
+about cTuning's community submission and don't hesitate to reach us via [Discord server](https://discord.gg/JjWNWXKxwT) for more info!*
+
+### 202309
+
+Our [CK playground](https://access.cKnowledge.org) was featured at the [AI hardware summit'23](https://aihwedgesummit.com/events/aihwedgesummit)
+
+### 202307
+
+The overview of the MedPerf project was published in Nature: 
+[Federated benchmarking of medical artificial intelligence with MedPerf](https://www.nature.com/articles/s42256-023-00652-2)!
+
 ### 202306
 
-We invite you to the 1st ACM conference for Reproducibility and Replicability on June 27-29
-where we will give a [keynote](https://acm-rep.github.io/2023/keynotes)
-about our MLCommons CM automation language and CK playground. 
-You can find more info [here](https://www.linkedin.com/posts/grigorifursin_acm-conference-reproducibility-activity-7067537952960118784-bK8i/?utm_source=share).
+We were honored to give a [keynote](https://doi.org/10.5281/zenodo.8105338) about our MLCommons automation and reproducibility language
+to faciliate reproducible experiments and bridge the growing gap between research and production
+at the [1st ACM conference for Reproducibility and Replicability](https://acm-rep.github.io/2023/keynotes).
 
 ### 202305
 
 Following the successful validation of our [CK/CM technology](https://github.com/mlcommons/ck) by the community
 to automate MLPerf inference v3.0 submissions, the [MLCommons Task Force on automation and reproducibilty](taskforce.md) 
 have prepared a [presentation](https://doi.org/10.5281/zenodo.7871070) 
-about our development plans for the [MLCommons CK playground](../platform) 
+about our development plans for the [MLCommons CK playground](https://access.cKnowledge.org) 
 and [MLCommons CM scripting language](../cm) for Q3 2023.
 
 Our current mission is to prepare [new optimization challenges](../cm-mlops/challenge) 

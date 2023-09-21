@@ -1,0 +1,29 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-modular-mojo-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230817",
+  "date_close_extension": true,
+  "date_open": "20230704",
+  "experiments": [],
+  "points": 1,
+  "prize_short": "co-authoring white paper , $$$",
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "automate",
+    "benchmark",
+    "mojo",
+    "mlperf-inference",
+    "mlperf-inference-mojo",
+    "mlperf-inference-mojo",
+    "mlperf-inference-mojo-v3.1",
+    "mlperf-inference-mojo-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Run reference implementations of MLperf inference benchmarks using Mojo language from Modular.ai",
+  "trophies": true,
+  "uid": "0a8a7bb5572447db"
+}

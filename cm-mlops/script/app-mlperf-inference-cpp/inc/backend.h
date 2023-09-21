@@ -37,7 +37,7 @@ public:
             , num_memory(device->NumMemory()), num_inputs(model->num_inputs)
             , batch_memory_mutex(num_memory) {
         // have batch_size padding at the end that cycles back to beginning for contiguity
-        size_t memory_capacity = performance_sample_count + batch_size;
+        size_t memory_capacity = performance_sample_count + batch_size + 7;
         samples.resize(memory_capacity);
         sample_memory.resize(num_inputs);
         sample_memory_size.resize(num_inputs, 0);
@@ -102,7 +102,7 @@ public:
             size_t input_size = input_sizes[input_index];
 
             if (sample_memory_size[input_index] + input_size >
-                (performance_sample_count + batch_size) * model->input_sizes[input_index])
+                (performance_sample_count + batch_size + 7) * model->input_sizes[input_index])
                 std::cerr << "warning: memory exceeded; try increasing model->input_sizes" << std::endl;
 
             // write to end of memory
@@ -131,8 +131,8 @@ public:
                 samples[index_in_memory].index, data,
                 samples[index_in_memory].size, samples[index_in_memory].shape);
         }
-
         // write substrings of samples vector to contiguity tree
+
         for (size_t start = 0; start < num_samples_in_memory; start++) {
             Trie *node = &batches;
             for (size_t end = start; end < std::min(start + batch_size, num_samples_in_memory); end++) {
@@ -145,7 +145,10 @@ public:
     void UnloadSampleFromRam(mlperf::QuerySampleIndex sample_index) {
         for (size_t i = 0; i < num_inputs; i++)
             sample_memory_size[i] -= GetSampleSize(sample_index, i);
-        sample_map.erase(sample_index);
+           /* if (sample_map.find(sample_index) != sample_map.end()) {
+		sample_map.erase(sample_index);
+	    }*/
+	//Temporarily commenting out above until segfault issue is fixed
         batches.children.erase(sample_index);
         num_samples_in_memory--;
     }
@@ -165,8 +168,8 @@ public:
                 break;
             }
         }
-        std::cerr << "node " << concurrency_index
-                  << " running batch #" << batch.front().index << "-#" << batch.back().index << std::endl;
+        //std::cerr << "node " << concurrency_index
+        //          << " running batch #" << batch.front().index << "-#" << batch.back().index << std::endl;
 
         // batch pointer in memory [input_index]
         std::vector<void *> batch_data(num_inputs);

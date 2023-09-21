@@ -9,9 +9,15 @@ def preprocess(i):
 
     env = i['env']
 
-    if env.get('CM_MLPERF_SUBMISSION_GENERATION_STYLE', '') == "short":
-        if env.get('CM_MODEL', '') == "resnet50":
-            env['CM_TEST_QUERY_COUNT'] = "500" #so that accuracy script doesn't complain
+    if env.get('CM_MLPERF_IMPLEMENTATION', '') == 'nvidia-original':
+        if env.get('CM_NVIDIA_GPU_NAME', '') in [ "rtx_4090", "a100", "t4", "l4", "orin", "custom" ]:
+            env['CM_NVIDIA_HARNESS_GPU_VARIATION'] = "_" + env['CM_NVIDIA_GPU_NAME']
+            env['CM_NVIDIA_GPU_MEMORY'] = ''
+        else:
+            gpu_memory = i['state'].get('cm_cuda_device_prop','').get('Global memory')
+            gpu_memory_size = str(int((float(gpu_memory)/(1024*1024*1024) +7)/8) * 8)
+            env['CM_NVIDIA_GPU_MEMORY'] = gpu_memory_size
+            env['CM_NVIDIA_HARNESS_GPU_VARIATION'] = ''
 
     return {'return':0}
 
@@ -19,6 +25,7 @@ def postprocess(i):
 
     env = i['env']
     inp = i['input']
+    env['CMD'] = ''
     state = i['state']
 
     if env.get('CM_MLPERF_USER_CONF', '') == '':
@@ -78,7 +85,8 @@ def postprocess(i):
 
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
 
-    if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes" and mode == "performance" and scenario != "Server":
+    #if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes" and mode == "performance" and scenario != "Server":
+    if mode == "performance" and scenario != "Server":
         os.chdir(output_dir)
         if not os.path.exists("mlperf_log_summary.txt"):
             return {'return': 0}
@@ -112,6 +120,8 @@ def postprocess(i):
         sut_name = state['CM_SUT_CONFIG_NAME']
         sut_config = state['CM_SUT_CONFIG'][sut_name]
         sut_config_path = state['CM_SUT_CONFIG_PATH'][sut_name]
+        if scenario not in sut_config[model_full_name]:
+            sut_config[model_full_name][scenario] = {}
         sut_config[model_full_name][scenario][metric] = value
 
         print(f"SUT: {sut_name}, model: {model_full_name}, scenario: {scenario}, {metric} updated as {value}")
@@ -120,7 +130,7 @@ def postprocess(i):
             yaml.dump(sut_config, f)
 
 
-    elif mode in [ "performance", "accuracy" ]:
+    if mode in [ "performance", "accuracy" ]:
         measurements = {}
         measurements['starting_weights_filename'] = env.get('CM_ML_MODEL_STARTING_WEIGHTS_FILENAME', env.get('CM_ML_MODEL_FILE', ''))
         measurements['retraining'] = env.get('CM_ML_MODEL_RETRAINING','no')
@@ -188,10 +198,10 @@ def postprocess(i):
                     readme_body += "\n\n" + str(count) +". `" +dep+"`\n"
                     count = count+1
 
-            readme = readme_init + readme_body
+        readme = readme_init + readme_body
 
-            with open ("README.md", "w") as fp:
-                fp.write(readme)
+        with open ("README.md", "w") as fp:
+            fp.write(readme)
 
     elif mode == "compliance":
 

@@ -11,6 +11,9 @@
         "python"
       ],
       "tags": "get,python3"
+    },
+    {
+      "tags": "get,generic-sys-util,_rsync"
     }
   ],
   "prehook_deps": [
@@ -25,6 +28,7 @@
   "input_mapping": {
     "repo_url": "CM_MLPERF_RESULTS_GIT_REPO_URL",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
+    "repo_branch": "CM_GIT_BRANCH",
     "commit_message": "CM_MLPERF_RESULTS_REPO_COMMIT_MESSAGE"
   },
   "tags": [

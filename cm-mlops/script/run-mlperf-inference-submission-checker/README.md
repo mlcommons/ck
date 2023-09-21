@@ -14,6 +14,7 @@
   * [ Variations](#variations)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
+* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -122,19 +123,22 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--extra_args=value`  &rarr;  `CM_MLPERF_SUBMISSION_CHECKER_EXTRA_ARGS=value`
 * `--extra_model_benchmark_map=value`  &rarr;  `CM_MLPERF_EXTRA_MODEL_MAPPING=value`
+* `--input=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
 * `--power=value`  &rarr;  `CM_MLPERF_POWER=value`
 * `--push_to_github=value`  &rarr;  `CM_MLPERF_RESULT_PUSH_TO_GITHUB=value`
 * `--skip_compliance=value`  &rarr;  `CM_MLPERF_SKIP_COMPLIANCE=value`
 * `--skip_power_check=value`  &rarr;  `CM_MLPERF_SKIP_POWER_CHECK=value`
+* `--src_version=value`  &rarr;  `CM_MLPERF_SUBMISSION_CHECKER_VERSION=value`
 * `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
 * `--submitter=value`  &rarr;  `CM_MLPERF_SUBMITTER=value`
-* `--version=value`  &rarr;  `CM_MLPERF_VERSION=value`
+* `--tar=value`  &rarr;  `CM_TAR_SUBMISSION_DIR=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "extra_model_benchmark_map":...}
+r=cm.access({... , "extra_args":...}
 ```
 
 </details>
@@ -150,6 +154,11 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 </details>
 
+#### Versions
+Default version: `master`
+
+* `master`
+* `r3.0`
 ___
 ### Script workflow, dependencies and native scripts
 
@@ -161,11 +170,12 @@ ___
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,mlcommons,inference,src
-       * CM names: `--adr.['inference-src']...`
+       * CM names: `--adr.['inference-src', 'submission-checker-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,generic-python-lib,_xlsxwriter
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_pandas
+       * CM names: `--adr.['pandas']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/_cm.json)
@@ -182,6 +192,9 @@ ___
        * `if (CM_MLPERF_RESULT_PUSH_TO_GITHUB  == on)`
        * CM names: `--adr.['push-to-github']...`
        - CM script: [push-mlperf-inference-results-to-github](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/push-mlperf-inference-results-to-github)
+     * run,tar
+       * `if (CM_TAR_SUBMISSION_DIR  == yes)`
+       - CM script: [tar-my-folder](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/tar-my-folder)
 </details>
 
 ___

@@ -3,11 +3,23 @@
   "automation_alias": "contributor",
   "automation_uid": "68eae17b590d4f8f",
   "challenges": [
-    "mlperf-inference-v3.0-2023"
+    "mlperf-inference-v3.0-2023",
+    "mlperf-inference-v3.1-2023",
+    "mlperf-inference-deepsparse-v3.1-2023"
   ],
   "last_participation_date": "20230324",
   "name": "Michael Goin",
-  "organization": "Neural Magic",
+  "organization": "Neural Magic, USA",
   "tags": [],
+  "points": [
+    {
+      "point": 1
+    }
+  ],
+  "trophies": [
+    {
+      "url": "https://cTuning.org/awards/ck-award-202307-goin.pdf"
+    }
+  ],
   "uid": "7cdb7f3959864bf9"
 }

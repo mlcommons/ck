@@ -170,6 +170,10 @@ ___
       - Environment variables:
         - *CM_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.1_default`
       - Workflow:
+    * `_r4.0`
+      - Environment variables:
+        - *CM_MLPERF_INFERENCE_APP_DEFAULTS*: `r4.0_default`
+      - Workflow:
 
     </details>
 
@@ -208,11 +212,13 @@ ___
       - Environment variables:
         - *CM_MLPERF_SUBMISSION_RUN*: `yes`
         - *CM_RUN_SUBMISSION_CHECKER*: `yes`
+        - *CM_MLPERF_LOADGEN_COMPLIANCE*: `yes`
         - *CM_TAR_SUBMISSION_DIR*: `yes`
         - *CM_RUN_MLPERF_ACCURACY*: `on`
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
            * generate,mlperf,inference,submission
+             * `if (CM_MLPERF_SKIP_SUBMISSION_GENERATION not in ['yes', 'True'])`
              * CM names: `--adr.['submission-generator']...`
              - CM script: [generate-mlperf-inference-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission)
 
@@ -284,14 +290,17 @@ r=cm.access({... , "adr.python.name":...}
 <summary>Click here to expand this section.</summary>
 
 * `--backend=value`  &rarr;  `CM_MLPERF_BACKEND=value`
+* `--category=value`  &rarr;  `CM_MLPERF_SUBMISSION_SYSTEM_TYPE=value`
 * `--clean=value`  &rarr;  `CM_MLPERF_CLEAN_ALL=value`
 * `--compliance=value`  &rarr;  `CM_MLPERF_LOADGEN_COMPLIANCE=value`
 * `--dashboard_wb_project=value`  &rarr;  `CM_MLPERF_DASHBOARD_WANDB_PROJECT=value`
 * `--dashboard_wb_user=value`  &rarr;  `CM_MLPERF_DASHBOARD_WANDB_USER=value`
+* `--debug=value`  &rarr;  `CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM=value`
 * `--device=value`  &rarr;  `CM_MLPERF_DEVICE=value`
 * `--division=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIVISION=value`
 * `--execution_mode=value`  &rarr;  `CM_MLPERF_EXECUTION_MODE=value`
 * `--find_performance=value`  &rarr;  `CM_MLPERF_FIND_PERFORMANCE_MODE=value`
+* `--gpu_name=value`  &rarr;  `CM_NVIDIA_GPU_NAME=value`
 * `--hw_name=value`  &rarr;  `CM_HW_NAME=value`
 * `--hw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_SW_NOTES_EXTRA=value`
 * `--implementation=value`  &rarr;  `CM_MLPERF_IMPLEMENTATION=value`
@@ -303,6 +312,7 @@ r=cm.access({... , "adr.python.name":...}
 * `--output_dir=value`  &rarr;  `OUTPUT_BASE_DIR=value`
 * `--power=value`  &rarr;  `CM_SYSTEM_POWER=value`
 * `--precision=value`  &rarr;  `CM_MLPERF_MODEL_PRECISION=value`
+* `--preprocess_submission=value`  &rarr;  `CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR=value`
 * `--push_to_github=value`  &rarr;  `CM_MLPERF_RESULT_PUSH_TO_GITHUB=value`
 * `--readme=value`  &rarr;  `CM_MLPERF_README=value`
 * `--regenerate_files=value`  &rarr;  `CM_REGENERATE_MEASURE_FILES=value`
@@ -314,6 +324,7 @@ r=cm.access({... , "adr.python.name":...}
 * `--scenario=value`  &rarr;  `CM_MLPERF_LOADGEN_SCENARIO=value`
 * `--server_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_SERVER_TARGET_QPS=value`
 * `--singlestream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY=value`
+* `--skip_submission_generation=value`  &rarr;  `CM_MLPERF_SKIP_SUBMISSION_GENERATION=value`
 * `--skip_truncation=value`  &rarr;  `CM_SKIP_TRUNCATE_ACCURACY=value`
 * `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
 * `--submitter=value`  &rarr;  `CM_MLPERF_SUBMITTER=value`
@@ -342,7 +353,6 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_MLPERF_RUN_STYLE: `test`
 * CM_MLPERF_IMPLEMENTATION: `reference`
 * CM_MLPERF_MODEL: `resnet50`
-* CM_MLPERF_LOADGEN_COMPLIANCE: `yes`
 
 </details>
 

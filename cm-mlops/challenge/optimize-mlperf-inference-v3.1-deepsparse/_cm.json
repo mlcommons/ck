@@ -1,0 +1,29 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-deepsparse",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230817",
+  "date_close_extension": true,
+  "date_open": "20230704",
+  "experiments": [],
+  "points": 1,
+  "prize_short": "co-authoring white paper , $$$",
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "automate",
+    "benchmark",
+    "deepsparse",
+    "mlperf-inference",
+    "mlperf-inference-deepsparse",
+    "mlperf-inference-deepsparse",
+    "mlperf-inference-deepsparse-v3.1",
+    "mlperf-inference-deepsparse-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Run and optimize MLPerf inference v3.1 benchmarks with Neural Magic's DeepSparse library",
+  "trophies": true,
+  "uid": "c495863b08e74abc"
+}

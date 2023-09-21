@@ -32,7 +32,7 @@
       }
     },
     {
-      "tags": "get,generic-python-lib,_opencv-python"
+      "tags": "get,generic-python-lib,_package.opencv-python-headless"
     },
     {
       "tags": "get,generic-python-lib,_pillow"
@@ -106,6 +106,15 @@
           "tags": "get,generic-python-lib,_torchvision"
         }
       ]
+    },
+    "tflite_tpu": {
+      "default_variations": {
+        "preprocessing-source": "mlcommons-reference-preprocessor"
+      },
+      "env": {
+        "CM_MODEL": "resnet50",
+        "CM_PREPROCESS_TFLITE_TPU": "yes"
+      }
     },
     "1": {
       "group": "size",
@@ -238,7 +247,8 @@
         "CM_DATASET_GIVEN_CHANNEL_MEANS": "",
         "CM_DATASET_SUBTRACT_MEANS": "0",
         "CM_DATASET_NORMALIZE_DATA": "0",
-        "CM_DATASET_QUANTIZE": "0"
+        "CM_DATASET_QUANTIZE": "0",
+        "CM_DATASET_DATA_TYPE": "uint8"
       }
     },
     "for.mobilenet": {
@@ -257,9 +267,11 @@
     },
     "for.mobilenet,rgb8": {
       "env": {
+        "CM_DATASET_GIVEN_CHANNEL_MEANS": "",
         "CM_DATASET_SUBTRACT_MEANS": "0",
         "CM_DATASET_QUANTIZE": "0",
-        "CM_DATASET_NORMALIZE_DATA": "1"
+        "CM_DATASET_NORMALIZE_DATA": "0",
+        "CM_DATASET_DATA_TYPE": "uint8"
       }
     },
     "rgb8": {

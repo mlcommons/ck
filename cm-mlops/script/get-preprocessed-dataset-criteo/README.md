@@ -138,6 +138,20 @@ ___
       - Environment variables:
         - *CM_DATASET_CRITEO_MULTIHOT*: `yes`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,mlperf,training,src
+             * CM names: `--adr.['mlperf-training', 'training-src']...`
+             - CM script: [get-mlperf-training-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src)
+           * get,generic-python-lib,_package.typing_inspect
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.iopath
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.fbgemm_gpu
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.torchrec
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.pyre_extensions
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
 
     </details>
 
@@ -151,6 +165,7 @@ ___
 <summary>Click here to expand this section.</summary>
 
 * `--dir=value`  &rarr;  `CM_DATASET_PREPROCESSED_PATH=value`
+* `--output_dir=value`  &rarr;  `CM_DATASET_PREPROCESSED_OUTPUT_PATH=value`
 * `--threads=value`  &rarr;  `CM_NUM_PREPROCESS_THREADS=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
@@ -182,12 +197,13 @@ ___
        * CM names: `--adr.['python3', 'python']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,dataset,criteo,original
+       * `if (CM_DATASET_PREPROCESSED_PATH  != on)`
        * CM names: `--adr.['original-dataset', 'criteo-dataset']...`
        - CM script: [get-dataset-criteo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo)
      * get,dlrm,src
        * CM names: `--adr.['dlrm-src']...`
        - CM script: [get-dlrm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dlrm)
-     * mlperf,mlcommons,inference,source,src,_octoml
+     * mlperf,mlcommons,inference,source,src
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,generic-python-lib,_scikit-learn
@@ -209,6 +225,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/_cm.json)
   1. ***Run native script if exists***
+     * [run-multihot.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/run-multihot.sh)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/_cm.json)
   1. Run "postrocess" function from customize.py

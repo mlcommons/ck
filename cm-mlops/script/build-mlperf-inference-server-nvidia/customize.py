@@ -32,12 +32,10 @@ def preprocess(i):
         env['+ CXXFLAGS'] = []
 
     env['+ CXXFLAGS'] += cxxflags
-
     return {'return':0}
 
 def postprocess(i):
 
     env = i['env']
-    env['MLPERF_SCRATCH_PATH'] = os.getcwd()
 
     return {'return':0}

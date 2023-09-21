@@ -14,8 +14,10 @@
     "cm_repo": "CM_MLOPS_REPO",
     "recreate": "CM_DOCKER_IMAGE_RECREATE",
     "gh_token": "CM_GH_TOKEN",
-    "image_repo": "CM_DOCKER_IMAGE_REPO",
+    "it":"CM_DOCKER_INTERACTIVE",
     "detached": "CM_DOCKER_DETACHED_MODE",
+    "image_repo": "CM_DOCKER_IMAGE_REPO",
+    "image_name": "CM_DOCKER_IMAGE_NAME",
     "image_tag": "CM_DOCKER_IMAGE_TAG",
     "docker_os": "CM_DOCKER_OS",
     "docker_os_version": "CM_DOCKER_OS_VERSION",
@@ -29,7 +31,8 @@
     "mounts": "CM_DOCKER_VOLUME_MOUNTS",
     "port_maps": "CM_DOCKER_PORT_MAPS",
     "device": "CM_DOCKER_ADD_DEVICE",
-    "cache": "CM_DOCKER_CACHE"
+    "cache": "CM_DOCKER_CACHE",
+    "all_gpus": "CM_DOCKER_ADD_ALL_GPUS"
   },
   "prehook_deps": [
     {

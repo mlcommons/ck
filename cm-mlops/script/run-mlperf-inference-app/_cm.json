@@ -37,8 +37,7 @@
     "CM_OUTPUT_FOLDER_NAME": "test_results",
     "CM_MLPERF_RUN_STYLE": "test",
     "CM_MLPERF_IMPLEMENTATION": "reference",
-    "CM_MLPERF_MODEL": "resnet50",
-    "CM_MLPERF_LOADGEN_COMPLIANCE": "yes"
+    "CM_MLPERF_MODEL": "resnet50"
   },
   "input_mapping": {
     "lang": "CM_MLPERF_IMPLEMENTATION",
@@ -54,6 +53,7 @@
     "hw_name": "CM_HW_NAME",
     "mode": "CM_MLPERF_LOADGEN_MODE",
     "system_type": "CM_MLPERF_SUBMISSION_SYSTEM_TYPE",
+    "category": "CM_MLPERF_SUBMISSION_SYSTEM_TYPE",
     "division": "CM_MLPERF_SUBMISSION_DIVISION",
     "output_dir": "OUTPUT_BASE_DIR",
     "results_dir": "OUTPUT_BASE_DIR",
@@ -72,6 +72,7 @@
     "target_latency": "CM_MLPERF_LOADGEN_TARGET_LATENCY",
     "singlestream_target_latency": "CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY",
     "multistream_target_latency": "CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY",
+    "preprocess_submission": "CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR",
     "dashboard_wb_user":"CM_MLPERF_DASHBOARD_WANDB_USER",
     "dashboard_wb_project":"CM_MLPERF_DASHBOARD_WANDB_PROJECT",
     "find_performance": "CM_MLPERF_FIND_PERFORMANCE_MODE",
@@ -79,7 +80,10 @@
     "results_git_url": "CM_MLPERF_RESULTS_GIT_REPO_URL",
     "readme": "CM_MLPERF_README",
     "sw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
-    "hw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA"
+    "hw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
+    "debug": "CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM",
+    "skip_submission_generation": "CM_MLPERF_SKIP_SUBMISSION_GENERATION",
+    "gpu_name": "CM_NVIDIA_GPU_NAME"
   },
   "tags": [
     "run",
@@ -154,6 +158,7 @@
       "env": {
         "CM_MLPERF_SUBMISSION_RUN": "yes",
         "CM_RUN_SUBMISSION_CHECKER": "yes",
+        "CM_MLPERF_LOADGEN_COMPLIANCE": "yes",
         "CM_TAR_SUBMISSION_DIR": "yes",
         "CM_RUN_MLPERF_ACCURACY": "on"
       },
@@ -162,7 +167,10 @@
           "tags": "generate,mlperf,inference,submission",
           "names": [
              "submission-generator"
-          ]
+          ],
+          "skip_if_env": {
+            "CM_MLPERF_SKIP_SUBMISSION_GENERATION": [ "yes", "True" ]
+          }
         }
       ]
     },
@@ -215,20 +223,26 @@
     "r2.1": {
       "group": "reproducibility",
       "env": {
-        "CM_MLPERF_INFERENCE_APP_DEFAULTS": "r2.1_default"
+        "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r2.1_default"
       }
     },
     "r3.0": {
       "group": "reproducibility",
       "env": {
-        "CM_MLPERF_INFERENCE_APP_DEFAULTS": "r3.0_default"
+        "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r3.0_default"
       }
     },
     "r3.1": {
       "group": "reproducibility",
       "default": true,
       "env": {
-        "CM_MLPERF_INFERENCE_APP_DEFAULTS": "r3.1_default"
+        "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r3.1_default"
+      }
+    },
+    "r4.0": {
+      "group": "reproducibility",
+      "env": {
+        "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r4.0_default"
       }
     },
     "dashboard": {

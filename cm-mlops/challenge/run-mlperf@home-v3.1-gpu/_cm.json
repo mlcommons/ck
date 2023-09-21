@@ -1,0 +1,21 @@
+{
+  "alias": "run-mlperf@home-v3.1-gpu",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230817",
+  "date_open": "20230725",
+  "experiments": [],
+  "points": 2,
+  "prize_short": "helping the community , co-authoring white paper , $$$",
+  "sort": -30,
+  "tags": [
+    "run",
+    "mlperf",
+    "inference",
+    "v3.1",
+    "mlperf-inference-v3.1-simple-cpu"
+  ],
+  "title": "MLPerf@home: help the community find the most efficient Nvidia GPUs for GPT-J 6B model and BERT (latency, throughput, accuracy, number of cores, frequency, memory size, cost, and other metrics)",
+  "trophies": true,
+  "uid": "54230c3b66564cef"
+}

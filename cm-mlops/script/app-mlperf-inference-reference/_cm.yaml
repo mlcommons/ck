@@ -105,6 +105,11 @@ deps:
     enable_if_env:
       CM_MLPERF_DEVICE:
       - gpu
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      - tf
+      - tflite
+
   # Detect TensorRT if required
   - tags: get,nvidia,tensorrt
     enable_if_env:
@@ -220,8 +225,8 @@ deps:
       CM_MODEL:
       - bert-99
       - bert-99.9
-      - gpt-j-99
-      - gpt-j-99.9
+      - gptj-99
+      - gptj-99.9
 
   ## Tensorflow
   - tags: get,generic-python-lib,_tensorflow
@@ -232,9 +237,38 @@ deps:
       - tf
       - tflite
 
+  ## NCNN
+  - tags: get,generic-python-lib,_package.ncnn
+    names:
+    - ml-engine-ncnn
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - ncnn
+    
+  # - tags: get,generic-python-lib
+  #   names:
+  #   - ml-engine-tflite
+  #   enable_if_env:
+  #     CM_MLPERF_BACKEND:
+  #     - tflite
+  #     CM_MLPERF_DEVICE:
+  #     - tpu
+    
+
 
   ########################################################################
   # Install ML models    
+
+  - tags: get,ml-model,neural-magic,zoo
+    # sets CM_MLPERF_CUSTOM_MODEL_PATH
+    names:
+    - custom-ml-model
+    enable_if_env:
+      CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB:
+      - "on"
+    update_tags_from_env_with_prefix:
+      "_model-stub.":
+        - CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB
 
   ## ResNet50
   - tags: get,ml-model,image-classification,resnet50
@@ -265,8 +299,8 @@ deps:
     - gpt-j-model
     enable_if_env:
       CM_MODEL:
-      - gpt-j-99
-      - gpt-j-99.9
+      - gptj-99
+      - gptj-99.9
 
 
   ## RetinaNet (PyTorch weights, FP32)
@@ -367,8 +401,8 @@ deps:
     - cnndm-preprocessed
     enable_if_env:
       CM_MODEL:
-      - gpt-j-99
-      - gpt-j-99.9
+      - gptj-99
+      - gptj-99.9
 
   ## Squad for BERT
   - tags: get,dataset,squad,original
@@ -487,6 +521,30 @@ variations:
       CM_MLPERF_BACKEND: pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
 
+  ncnn:
+    group: framework
+    add_deps_recursive:
+      imagenet-preprocessed:
+        tags: _NCHW
+      ml-model:
+        tags: raw,_ncnn
+    env:
+      CM_MLPERF_BACKEND: ncnn
+      CM_MLPERF_BACKEND_VERSION: <<<CM_NCNN_VERSION>>>
+      CM_MLPERF_VISION_DATASET_OPTION: imagenet_pytorch
+
+  tflite:
+    group: framework
+    add_deps_recursive:
+      imagenet-preprocessed:
+        tags: _NHWC
+      ml-model:
+        tags: raw,_tflite,_no-argmax
+    env:
+      CM_MLPERF_BACKEND: tflite
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TFLITE_VERSION>>>
+      CM_MLPERF_VISION_DATASET_OPTION: imagenet_tflite_tpu
+
   tf:
     group: framework
     add_deps_recursive:
@@ -523,10 +581,14 @@ variations:
     - tags: get,generic-python-lib,_onnx
     - tags: get,tvm
       names:
-        tvm
-    add_deps_recursive:
-      ml-model:
-        tags: tvm-model,_onnx
+      - tvm
+    - tags: get,tvm-model,_onnx
+      names:
+      - tvm-model
+      update_tags_from_env_with_prefix:
+        _model.: 
+        - CM_MODEL
+      
   
   tvm-tflite:
     group: framework
@@ -534,43 +596,52 @@ variations:
       CM_MLPERF_BACKEND: tvm-tflite
       CM_MLPERF_BACKEND_VERSION: <<<CM_TVM-TFLITE_VERSION>>>
     deps:
+    - tags: get,generic-python-lib,_tflite
     - tags: get,tvm
       names:
-        tvm
-    add_deps_recursive:
-      ml-model:
-        tags: tvm-model,_tflite
+      - tvm
+    - tags: get,tvm-model,_tflite
+      names:
+      - tvm-model
+      update_tags_from_env_with_prefix:
+        _model.: 
+        - CM_MODEL
 
   tvm-pytorch:
     group: framework
     env:
       CM_MLPERF_BACKEND: tvm-pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
+      CM_PREPROCESS_PYTORCH: 'yes'
       MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
     deps:
+    - tags: get,generic-python-lib,_torch
     - tags: get,tvm
       names:
-        tvm
-    add_deps_recursive:
-      ml-model:
-        tags: tvm-model,_pytorch
+      - tvm
+    - tags: get,tvm-model,_pytorch
+      names:
+      - tvm-model
+      update_tags_from_env_with_prefix:
+        _model.: 
+        - CM_MODEL
 
   # Reference MLPerf models
-  gpt-j-99.9:
+  gptj-99.9:
     group: models
     base:
-    - gpt-j_
+    - gptj_
     env:
-      CM_MODEL: gpt-j-99.9
+      CM_MODEL: gptj-99.9
 
-  gpt-j-99:
+  gptj-99:
     group: models
     base:
-    - gpt-j_
+    - gptj_
     env:
-      CM_MODEL: gpt-j-99
+      CM_MODEL: gptj-99
 
-  gpt-j_:
+  gptj_:
     deps:
     - tags: get,generic-python-lib,_torch
     - tags: get,generic-python-lib,_package.datasets
@@ -595,6 +666,8 @@ variations:
     env:
       CM_MLPERF_MODEL_SKIP_BATCHING: true
     deps:
+    - tags: get,generic-python-lib,_package.pydantic
+      version_max: "1.10.9"
     - tags: get,generic-python-lib,_tokenization
     - tags: get,generic-python-lib,_six
     - tags: get,generic-python-lib,_protobuf
@@ -634,6 +707,8 @@ variations:
     env:
       CM_TMP_IGNORE_MLPERF_QUERY_COUNT: true
       CM_MLPERF_MODEL_SKIP_BATCHING: true
+    deps:
+    - tags: get,generic-python-lib,_package.nibabel
 
   dlrm-99.9:
     group: models
@@ -664,6 +739,9 @@ variations:
     - tags: get,generic-python-lib,_tqdm
     - tags: get,generic-python-lib,_onnx
     - tags: get,generic-python-lib,_numpy
+    - tags: get,generic-python-lib,_package.torchrec
+    - tags: get,generic-python-lib,_package.pyre-extensions
+    - tags: get,generic-python-lib,_package.torchsnapshot
 
   rnnt:
     group: models
@@ -672,12 +750,21 @@ variations:
       CM_MLPERF_MODEL_SKIP_BATCHING: true
       CM_TMP_IGNORE_MLPERF_QUERY_COUNT: true
     deps:
+    - tags: get,generic-python-lib,_package.pydantic
+      version_max: "1.10.9"
     - tags: get,generic-python-lib,_librosa
       names:
         - librosa
     - tags: get,generic-python-lib,_inflect
     - tags: get,generic-python-lib,_unidecode
     - tags: get,generic-python-lib,_toml
+    add_deps_recursive:
+      ml-engine-pytorch:
+        version: 1.13.1
+        version_max_usable: 1.13.1
+      ml-engine-torchvision:
+        version_max: 0.14.1
+        version_max_usable: 0.14.1
 
   retinanet:
     group: models
@@ -701,6 +788,16 @@ variations:
     - tags: get,generic-python-lib,_opencv-python
     - tags: get,generic-python-lib,_numpy
     - tags: get,generic-python-lib,_pycocotools
+    prehook_deps:
+    - tags: get,generic-python-lib,_protobuf
+      names:
+      - protobuf
+      version_max: "4.23.4"
+      version_max_usable: "4.23.4"
+      enable_if_env:
+        CM_MLPERF_BACKEND:
+        - tf
+        - tflite
 
   # Target devices
   cpu:
@@ -718,6 +815,30 @@ variations:
       CM_MLPERF_DEVICE: gpu
       USE_CUDA: yes
       USE_GPU: yes
+
+  tpu:
+    group: device
+    env:
+      CM_MLPERF_DEVICE: tpu
+
+  tpu,tflite:
+    add_deps_recursive:
+      imagenet-preprocessed:
+        tags: _tflite_tpu
+
+  # Loadgen scenarios
+  offline:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Offline
+  multistream:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: MultiStream
+  singlestream:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+  server:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Server
 
   # Model precision
   fp32:
@@ -771,6 +892,9 @@ variations:
       CM_MLPERF_LOADGEN_MAX_BATCHSIZE: "#"
     add_deps_recursive:
       ml-model:
+        tags:
+          _batch_size.#
+      tvm-model:
         tags:
           _batch_size.#
 

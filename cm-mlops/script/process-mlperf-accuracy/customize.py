@@ -11,7 +11,7 @@ def preprocess(i):
         print("Please set CM_MLPERF_ACCURACY_RESULTS_DIR")
         return {'return':-1}
     run_cmds = []
-    if 'CM_MAX_EXAMPLES' in env:
+    if env.get('CM_MAX_EXAMPLES', '') != '' and env.get('CM_MLPERF_RUN_STYLE', '') != 'valid':
         max_examples_string = " --max_examples " + env['CM_MAX_EXAMPLES']
     else:
         max_examples_string = ""
@@ -45,7 +45,7 @@ def preprocess(i):
         elif dataset == "cnndm":
             CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "gpt-j",
                 "evaluation.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir, "mlperf_log_accuracy.json") + \
-                "' --dataset-file '" + env['CM_DATASET_EVAL_PATH'] + "'"
+                "' --dataset-file '" + env['CM_DATASET_EVAL_PATH'] + "' > '" + os.path.join(result_dir, "accuracy.txt") + "'"
 
 
         elif dataset == "kits19":

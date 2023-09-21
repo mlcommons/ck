@@ -140,9 +140,11 @@ ___
       - Workflow:
     * `_for.mobilenet,rgb8`
       - Environment variables:
+        - *CM_DATASET_GIVEN_CHANNEL_MEANS*: ``
         - *CM_DATASET_SUBTRACT_MEANS*: `0`
         - *CM_DATASET_QUANTIZE*: `0`
-        - *CM_DATASET_NORMALIZE_DATA*: `1`
+        - *CM_DATASET_NORMALIZE_DATA*: `0`
+        - *CM_DATASET_DATA_TYPE*: `uint8`
       - Workflow:
     * `_for.resnet50,float32`
       - Environment variables:
@@ -156,6 +158,7 @@ ___
         - *CM_DATASET_SUBTRACT_MEANS*: `0`
         - *CM_DATASET_NORMALIZE_DATA*: `0`
         - *CM_DATASET_QUANTIZE*: `0`
+        - *CM_DATASET_DATA_TYPE*: `uint8`
       - Workflow:
     * `_for.resnet50,uint8`
       - Environment variables:
@@ -175,6 +178,11 @@ ___
            * get,generic-python-lib,_torchvision
              * CM names: `--adr.['torchvision']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_tflite_tpu`
+      - Environment variables:
+        - *CM_MODEL*: `resnet50`
+        - *CM_PREPROCESS_TFLITE_TPU*: `yes`
+      - Workflow:
 
     </details>
 
@@ -381,7 +389,7 @@ ___
      * get,dataset-aux,image-classification,imagenet-aux
        * `if (CM_IMAGENET_PREPROCESSED_PATH  != on)`
        - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
-     * get,generic-python-lib,_opencv-python
+     * get,generic-python-lib,_package.opencv-python-headless
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_pillow
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)

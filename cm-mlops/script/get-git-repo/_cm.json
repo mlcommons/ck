@@ -16,6 +16,8 @@
     "depth": "CM_GIT_DEPTH",
     "folder": "CM_GIT_CHECKOUT_FOLDER",
     "patch": "CM_GIT_PATCH",
+    "update": "CM_GIT_REPO_PULL",
+    "env_key": "CM_GIT_ENV_KEY",
     "submodules": "CM_GIT_RECURSE_SUBMODULES"
   },
   "default_variation": "default",
@@ -89,6 +91,17 @@
       "group": "checkout",
       "env": {
         "CM_GIT_SHA": "#"
+      }
+    },
+    "tag.#": {
+      "group": "checkout",
+      "env": {
+        "CM_GIT_CHECKOUT_TAG": "#"
+      }
+    },
+    "submodules.#": {
+      "env": {
+        "CM_GIT_SUBMODULES": "#"
       }
     },
     "repo.#": {

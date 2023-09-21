@@ -10,8 +10,9 @@
   "accelerators_per_node": "0",
   "cooling": "air",
   "division": "open",
-  "host_memory_configuration": "12 x 32GB 2Rx4 PC4-2666V-R",
+  "host_memory_configuration": "undefined",
   "host_networking": "Gig Ethernet",
+  "host_network_card_count": "1",
   "host_networking_topology": "N/A",
   "host_processor_interconnect": "",
   "host_storage_type": "SSD",
@@ -20,5 +21,6 @@
   "status": "available",
   "submitter": "cTuning",
   "sw_notes": "Powered by MLCommons CM (CK2)",
-  "system_type": "edge"
+  "system_type": "edge",
+  "system_type_detail": "edge server"
 }

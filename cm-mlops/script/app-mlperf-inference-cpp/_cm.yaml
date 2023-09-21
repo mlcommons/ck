@@ -203,5 +203,21 @@ variations:
 
   retinanet:
     group: model
+    default_env:
+      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: 1
     env:
       CM_MODEL: retinanet
+
+  offline:
+    group: loadgen-scenario
+    default: true
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Offline
+  multistream:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: MultiStream
+  singlestream:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream

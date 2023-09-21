@@ -19,6 +19,7 @@ def preprocess(i):
     automation = i['automation']
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
+    verbose = (env.get('CM_VERBOSE', False) == 'yes')
 
     models = {
         "mobilenet": {
@@ -103,6 +104,8 @@ def preprocess(i):
         implementation_tags.append("_use-opencl")
     implementation_tags_string = ",".join(implementation_tags)
 
+    inp = i['input']
+
     for model in variation_strings:
         for v in variation_strings[model]:
             for precision in precisions:
@@ -119,6 +122,8 @@ def preprocess(i):
                     'tags': f'generate-run-cmds,mlperf,inference,{var}',
                     'quiet': True,
                     'env': env,
+                    'input': inp,
+                    'v': verbose,
                     'implementation': 'tflite-cpp',
                     'precision': precision,
                     'model': model,
@@ -138,8 +143,7 @@ def preprocess(i):
                     cm_input['add_deps_recursive'] = add_deps_recursive #script automation will merge adr and add_deps_recursive
 
                 if adr:
-                    for key in adr:
-                        cm_input['adr'][key] = adr[key]
+                    utils.merge_dicts({'dict1':cm_input['adr'], 'dict2':adr, 'append_lists':True, 'append_unique':True})
 
                 if env.get('CM_MLPERF_RESULTS_DIR', '') != '':
                     cm_input['results_dir'] = env['CM_MLPERF_RESULTS_DIR']
@@ -163,6 +167,9 @@ def preprocess(i):
                 r = cmind.access(cm_input)
                 if r['return'] > 0:
                     return r
+
+                if env.get('CM_TEST_ONE_RUN', '') == "yes":
+                    return {'return':0}
 
     return {'return':0}
 

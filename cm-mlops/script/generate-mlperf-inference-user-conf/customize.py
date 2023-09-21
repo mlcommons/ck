@@ -4,6 +4,7 @@ import json
 import shutil
 import subprocess
 import cmind as cm
+import sys
 
 def preprocess(i):
 
@@ -16,8 +17,13 @@ def preprocess(i):
     rerun = True if env.get("CM_RERUN","")!='' else False
 
     env['CM_MLPERF_SKIP_RUN'] = "no"
+
+    mlperf_path = env['CM_MLPERF_INFERENCE_SOURCE']
+    submission_checker_dir = os.path.join(mlperf_path, "tools", "submission")
+    sys.path.append(submission_checker_dir)
+
     required_files = []
-    required_files = get_checker_files(env['CM_MLPERF_INFERENCE_SOURCE'])
+    required_files = get_checker_files()
 
     if 'CM_MLPERF_LOADGEN_SCENARIO' not in env:
         env['CM_MLPERF_LOADGEN_SCENARIO'] = "Offline"
@@ -51,6 +57,8 @@ def preprocess(i):
         test_list.remove("TEST04")
     if "gpt-" in env['CM_MODEL']:
         test_list.remove("TEST05")
+        test_list.remove("TEST04")
+        test_list.remove("TEST01")
 
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
     state['RUN'][scenario] = {}
@@ -74,8 +82,8 @@ def preprocess(i):
     mode = env['CM_MLPERF_LOADGEN_MODE']
 
     user_conf = ''
-    if ['CM_MLPERF_RUN_STYLE'] == "fast":
-        fast_factor = env['CM_FAST_FACTOR']
+    if env['CM_MLPERF_RUN_STYLE'] == "fast":
+        fast_factor = int(env['CM_FAST_FACTOR'])
     else:
         fast_factor = 1
 
@@ -86,7 +94,7 @@ def preprocess(i):
         ml_model_name = "dlrm"
     if '3d-unet' in ml_model_name:
         ml_model_name = "3d-unet"
-    if 'gpt-j' in ml_model_name:
+    if 'gptj' in ml_model_name:
         ml_model_name = "gptj"
 
     query_count = None
@@ -96,13 +104,16 @@ def preprocess(i):
         metric = "target_qps"
         tolerance = 1.01
         #value = env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS') if scenario == "Server" else env.get('CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS')
-        if not value:
-            value = env.get('CM_MLPERF_LOADGEN_TARGET_QPS')
+        value = env.get('CM_MLPERF_LOADGEN_TARGET_QPS')
     elif scenario in [ 'SingleStream', 'MultiStream' ]:
         metric = "target_latency"
-        tolerance = 0.95
-        if not value:
-            value = env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY')
+        tolerance = 0.4 #much lower because we have max_duration
+        value = env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY')
+        if value:
+            if scenario == "SingleStream" and (1000/float(value) * 660 < 100):
+                env['CM_MLPERF_USE_MAX_DURATION'] = 'no'
+            elif scenario == "MultiStream" and (1000/float(value) * 660 < 662):
+                env['CM_MLPERF_USE_MAX_DURATION'] = 'no'
     else:
         return {'return': 1, 'error': 'Invalid scenario: {}'.format(scenario)}
 
@@ -111,7 +122,9 @@ def preprocess(i):
         conf[metric] = value
     else:
         if metric in conf:
+            print("Original configuration value {} {}".format(conf[metric], metric))
             metric_value = str(float(conf[metric]) * tolerance) #some tolerance
+            print("Adjusted configuration value {} {}".format(metric_value, metric))
         else:
             #if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
             if metric == "target_qps":
@@ -122,10 +135,10 @@ def preprocess(i):
                 conf[metric] = 1
             if metric == "target_latency":
                 if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
-                    print("In find performance mode: using 0.1ms as target_latency")
+                    print("In find performance mode: using 0.5ms as target_latency")
                 else:
-                    print("No target_latency specified. Using 0.1ms as target_latency")
-                conf[metric] = 0.1
+                    print("No target_latency specified. Using 0.5ms as target_latency")
+                conf[metric] = 0.5
             metric_value = conf[metric]
             #else:
             #    return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
@@ -140,15 +153,25 @@ def preprocess(i):
 
     if env['CM_MLPERF_RUN_STYLE'] == "fast":
         if scenario == "Offline":
-            metric_value /= fast_factor
+            metric_value = float(metric_value) / fast_factor
         if scenario in [ "SingleStream", "MultiStream" ]:
-            metric_value *= fast_factor
+            metric_value = float(metric_value) * fast_factor
 
     elif env['CM_MLPERF_RUN_STYLE'] == "test":
         if scenario == "Offline":
             metric_value = 1
         if scenario in [ "SingleStream" ]:
             metric_value = 1000
+
+    elif env['CM_MLPERF_RUN_STYLE'] == "valid":
+        if  mode == "compliance" and scenario == "Server": #Adjust the server_target_qps
+            test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
+            if test == "TEST01":
+                metric_value = str(float(metric_value) * float(env.get("CM_MLPERF_TEST01_SERVER_ADJUST_FACTOR", 0.96)))
+            if test == "TEST05":
+                metric_value = str(float(metric_value) * float(env.get("CM_MLPERF_TEST05_SERVER_ADJUST_FACTOR", 0.97)))
+            if test == "TEST04":
+                metric_value = str(float(metric_value) * float(env.get("CM_MLPERF_TEST04_SERVER_ADJUST_FACTOR", 0.97)))
 
     conf[metric] = metric_value
     user_conf += ml_model_name + "." + scenario + "." + metric + " = " + str(metric_value) + "\n"
@@ -157,7 +180,40 @@ def preprocess(i):
         performance_sample_count = env['CM_MLPERF_PERFORMANCE_SAMPLE_COUNT']
         user_conf += ml_model_name + ".*.performance_sample_count_override = " + performance_sample_count + "\n"
 
-    if 'CM_MLPERF_POWER' in env and env.get('CM_MLPERF_SHORT_RANGING_RUN', '') == 'yes' and env['CM_MLPERF_RUN_STYLE'] == "valid" and mode == "performance":
+    log_mode = mode
+    if 'CM_MLPERF_POWER' in env and mode == "performance":
+        log_mode = "performance_power"
+
+    env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
+
+    sut_name = env.get('CM_SUT_NAME', env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'])
+    OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], sut_name, \
+            model_full_name, scenario.lower(), mode)
+
+    if 'CM_MLPERF_POWER' in env and mode == "performance":
+        env['CM_MLPERF_POWER_LOG_DIR'] = os.path.join(OUTPUT_DIR, "tmp_power")
+
+    if mode == "accuracy":
+        pass
+    elif mode == "performance":
+        OUTPUT_DIR = os.path.join(OUTPUT_DIR, "run_1")
+    elif mode == "compliance":
+        test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
+        OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], sut_name, model_full_name, scenario.lower(), test)
+        if test == "TEST01":
+            audit_path = os.path.join(test, ml_model_name)
+        else:
+            audit_path = test
+
+        audit_full_path = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", audit_path, "audit.config")
+        env['CM_MLPERF_INFERENCE_AUDIT_PATH'] = audit_full_path
+
+    env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
+    env['CM_MLPERF_LOADGEN_LOGS_DIR'] = OUTPUT_DIR
+
+    run_exists = run_files_exist(log_mode, OUTPUT_DIR, required_files, env)
+
+    if 'CM_MLPERF_POWER' in env and env.get('CM_MLPERF_SHORT_RANGING_RUN', '') != 'no' and env['CM_MLPERF_RUN_STYLE'] == "valid" and mode == "performance":
         short_ranging = True
     else:
         short_ranging = False
@@ -165,7 +221,7 @@ def preprocess(i):
     if short_ranging:
         import copy
         ranging_user_conf = copy.deepcopy(user_conf)
-        ranging_user_conf += ml_model_name + "." + scenario + ".min_duration = 120" + "\n"
+        ranging_user_conf += ml_model_name + "." + scenario + ".min_duration = 300000" + "\n"
 
     if env['CM_MLPERF_RUN_STYLE'] == "test":
         query_count = env.get('CM_TEST_QUERY_COUNT', "5")
@@ -179,16 +235,19 @@ def preprocess(i):
     elif env['CM_MLPERF_RUN_STYLE'] == "fast":
         if scenario == "Server":
             target_qps = conf['target_qps']
-            query_count = str((660/fast_factor)/(float(target_qps)))
+            query_count = str(int((660/fast_factor) * (float(target_qps))))
             user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
-            #user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
-            user_conf += ml_model_name + "." + scenario + ".min_duration = 0" + "\n"
 
     else:
         if scenario == "MultiStream" or scenario == "SingleStream":
-            user_conf += ml_model_name + "." + scenario + ".max_duration = 620000 \n"
+            if env.get('CM_MLPERF_USE_MAX_DURATION', 'yes').lower() not in [ "no", "false" ]:
+                user_conf += ml_model_name + "." + scenario + ".max_duration = 660000 \n"
+            elif env.get('CM_MLPERF_INFERENCE_MIN_DURATION','') != '':
+                user_conf += ml_model_name + "." + scenario + ".min_duration = " + env['CM_MLPERF_INFERENCE_MIN_DURATION'] +" \n"
+            if scenario == "MultiStream":
+                user_conf += ml_model_name + "." + scenario + ".min_query_count = "+ env.get('CM_MLPERF_INFERENCE_MULTISTREAM_MIN_QUERY_COUNT', "662") + "\n"
             if short_ranging:
-                ranging_user_conf += ml_model_name + "." + scenario + ".max_duration = 120000 \n "
+                ranging_user_conf += ml_model_name + "." + scenario + ".max_duration = 300000 \n "
         elif scenario == "SingleStream_old":
             query_count = str(max(int((1000 / float(conf['target_latency'])) * 660), 64))
             user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
@@ -196,10 +255,10 @@ def preprocess(i):
             if short_ranging:
                 ranging_user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
         elif scenario == "Offline":
-            query_count = str(int(conf['target_qps']) * 660)
+            query_count = str(int(float(conf['target_qps']) * 660))
             #user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
             if short_ranging:
-                ranging_query_count = str(int(conf['target_qps']) * 120)
+                ranging_query_count = str(int(float(conf['target_qps']) * 300))
                 ranging_user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(ranging_query_count) + "\n"
                 ranging_user_conf += ml_model_name + "." + scenario + ".min_query_count = 0 \n"
 
@@ -224,53 +283,27 @@ def preprocess(i):
     if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') == ''  and query_count:
         env['CM_MLPERF_LOADGEN_QUERY_COUNT'] = query_count
 
-    env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
-
-    sut_name = env.get('CM_SUT_NAME', env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'])
-    OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], sut_name, \
-            model_full_name, scenario.lower(), mode)
-
-    if 'CM_MLPERF_POWER' in env and mode == "performance":
-        env['CM_MLPERF_POWER_LOG_DIR'] = os.path.join(OUTPUT_DIR, "tmp_power")
-
-    if mode == "accuracy":
-        pass
-    elif mode == "performance":
-        OUTPUT_DIR = os.path.join(OUTPUT_DIR, "run_1")
-    elif mode == "compliance":
-        test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
-        OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], sut_name, model_full_name, scenario.lower(), test)
-        if test == "TEST01":
-            audit_path = os.path.join(test, env['CM_MODEL'])
-        else:
-            audit_path = test
-
-        audit_full_path = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", audit_path, "audit.config")
-        env['CM_MLPERF_INFERENCE_AUDIT_PATH'] = audit_full_path
-
-    env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
-    env['CM_MLPERF_LOADGEN_LOGS_DIR'] = OUTPUT_DIR
-    log_mode = mode
-    if 'CM_MLPERF_POWER' in env and mode == "performance":
-        log_mode = "performance_power"
     
-    if not run_files_exist(log_mode, OUTPUT_DIR, required_files) or rerun:
+    if not run_exists or rerun:
 
         print("Output Dir: '" + OUTPUT_DIR + "'")
         print(user_conf)
-        if 'CM_MLPERF_POWER' in env and os.path.exists(env['CM_MLPERF_POWER_LOG_DIR']):
+        if env.get('CM_MLPERF_POWER','') == "yes" and os.path.exists(env.get('CM_MLPERF_POWER_LOG_DIR', '')):
             shutil.rmtree(env['CM_MLPERF_POWER_LOG_DIR'])
     else:
         print("Run files exist, skipping run...\n")
         env['CM_MLPERF_SKIP_RUN'] = "yes"
 
-    if not run_files_exist(log_mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, \
+    if not run_exists or rerun or not measure_files_exist(OUTPUT_DIR, \
                     required_files[4]) or env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
+
+        env['CM_MLPERF_TESTING_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), key+".conf")#  user_conf_path
+        env['CM_MLPERF_RANGING_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), "ranging_"+key+".conf")#  ranging_user_conf_path for a shorter run
+
         if short_ranging:
-            prefix = "\${CM_MLPERF_USER_CONF_PREFIX}"
+            env['CM_MLPERF_USER_CONF'] = "\${CM_MLPERF_USER_CONF}"
         else:
-            prefix = ""
-        env['CM_MLPERF_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), prefix+key+".conf")#  user_conf_path
+            env['CM_MLPERF_USER_CONF'] = os.path.join(os.path.dirname(user_conf_path), key+".conf")#  user_conf_path
     else:
         print(f"Measure files exist at {OUTPUT_DIR}. Skipping regeneration...\n")
         env['CM_MLPERF_USER_CONF'] = ''
@@ -279,14 +312,65 @@ def preprocess(i):
 
     return {'return':0}
 
-def run_files_exist(mode, OUTPUT_DIR, run_files):
+def run_files_exist(mode, OUTPUT_DIR, run_files, env):
+    import submission_checker as checker
+    from log_parser import MLPerfLog
+
+    is_valid = True
+
     file_loc = {"accuracy": 0, "performance": 1, "power": 2, "performance_power": 3, "measure": 4, "compliance": 1}
-    for file in run_files[file_loc[mode]]:
+
+    required_files = run_files[file_loc[mode]]
+    if mode == "performance_power":
+        for file in run_files[2]:
+            file_path = os.path.join(os.path.dirname(OUTPUT_DIR), "power", file)
+            if (not os.path.exists(file_path) or os.stat(file_path).st_size == 0):
+                return False
+        required_files += run_files[1] #We need performance files too in the run directory
+
+    for file in required_files:
         file_path = os.path.join(OUTPUT_DIR, file)
         if (not os.path.exists(file_path) or os.stat(file_path).st_size == 0)  and file != "accuracy.txt":
             return False
 
-    return True
+        if file ==  "mlperf_log_detail.txt" and "performance" in mode:
+            mlperf_log = MLPerfLog(file_path)
+            if (
+                "result_validity" not in mlperf_log.get_keys()
+                or mlperf_log["result_validity"] != "VALID"
+            ):
+                return False
+
+    if mode == "compliance":
+        #If a performance run followed the last compliance run, compliance check needs to be redone
+        RESULT_DIR = os.path.split(OUTPUT_DIR)[0]
+        COMPLIANCE_DIR = OUTPUT_DIR
+        OUTPUT_DIR = os.path.dirname(COMPLIANCE_DIR)
+
+        test = env['CM_MLPERF_LOADGEN_COMPLIANCE_TEST']
+
+        SCRIPT_PATH = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", test, "run_verification.py")
+        cmd = env['CM_PYTHON_BIN'] + " " + SCRIPT_PATH + " -r " + RESULT_DIR + " -c " + COMPLIANCE_DIR + " -o "+ OUTPUT_DIR
+        print(cmd)
+        os.system(cmd)
+
+        is_valid = checker.check_compliance_perf_dir(COMPLIANCE_DIR)
+
+        if not is_valid and 'Stream' in env['CM_MLPERF_LOADGEN_SCENARIO']:
+            env['CM_MLPERF_USE_MAX_DURATION'] = 'no' # We have the determined latency, compliance test failed, so lets not use max duration
+            env['CM_MLPERF_INFERENCE_MIN_DURATION'] = '990000' # Try a longer run
+
+        return is_valid
+
+    if "power" in mode and env.get('CM_MLPERF_SKIP_POWER_CHECKS', 'no').lower() not in [ "yes", "true", "on" ]:
+        from power.power_checker import check as check_power_more
+        try:
+            is_valid = check_power_more(os.path.dirname(OUTPUT_DIR)) == 0
+        except:
+            is_valid = False
+        return is_valid
+
+    return is_valid
 
 def measure_files_exist(OUTPUT_DIR, run_files):
     for file in run_files:
@@ -295,20 +379,12 @@ def measure_files_exist(OUTPUT_DIR, run_files):
             return False
     return True
 
-def get_checker_files(mlperf_path):
-
-    import sys
-    submission_checker_dir = os.path.join(mlperf_path, "tools", "submission")
-    sys.path.append(submission_checker_dir)
-
-    if not os.path.exists(os.path.join(submission_checker_dir, "submission_checker.py")):
-        shutil.copy(os.path.join(submission_checker_dir,"submission-checker.py"), os.path.join(submission_checker_dir,
-        "submission_checker.py"))
-
+def get_checker_files():
     import submission_checker as checker
+
     REQUIRED_ACC_FILES = checker.REQUIRED_ACC_FILES
     REQUIRED_PERF_FILES = checker.REQUIRED_PERF_FILES
     REQUIRED_POWER_FILES = checker.REQUIRED_POWER_FILES
-    REQUIRED_MEASURE_FILES = checker.REQUIRED_MEASURE_FILES
     REQUIRED_PERF_POWER_FILES = checker.REQUIRED_PERF_POWER_FILES
+    REQUIRED_MEASURE_FILES = checker.REQUIRED_MEASURE_FILES
     return REQUIRED_ACC_FILES, REQUIRED_PERF_FILES, REQUIRED_POWER_FILES, REQUIRED_PERF_POWER_FILES, REQUIRED_MEASURE_FILES

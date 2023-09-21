@@ -52,7 +52,7 @@
     },
     "arch": {
       "FROM": "archlinux",
-      "package-manager-update-cmd": "pacman -Syu",
+      "package-manager-update-cmd": "pacman -Syu --noconfirm",
       "package-manager-get-cmd": "pacman -Sy --noconfirm",
       "packages": [
         "python", "python-pip", "git", "wget", "sudo", "binutils"

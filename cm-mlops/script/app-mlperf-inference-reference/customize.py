@@ -33,10 +33,10 @@ def preprocess(i):
     if 'CM_MODEL' not in env:
         return {'return': 1, 'error': "Please select a variation specifying the model to run"}
 
-    if env['CM_MODEL'] == "resnet50":
-        cmd = "cp " + os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt") + " " + os.path.join(env['CM_DATASET_PATH'],
-        "val_map.txt")
-        ret = os.system(cmd)
+    #if env['CM_MODEL'] == "resnet50":
+    #    cmd = "cp " + os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt") + " " + os.path.join(env['CM_DATASET_PATH'],
+    #    "val_map.txt")
+    #    ret = os.system(cmd)
 
     env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] = ""
 
@@ -57,7 +57,7 @@ def preprocess(i):
     if env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE','') != '' and not env.get('CM_MLPERF_MODEL_SKIP_BATCHING', False) :
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
-    if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') != '' and not env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', False) and (env['CM_MLPERF_LOADGEN_MODE'] == 'accuracy' or 'gpt-j' in env['CM_MODEL']) and env.get('CM_MLPERF_RUN_STYLE','') != "valid":
+    if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') != '' and not env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', False) and (env['CM_MLPERF_LOADGEN_MODE'] == 'accuracy' or 'gptj' in env['CM_MODEL']) and env.get('CM_MLPERF_RUN_STYLE','') != "valid":
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_MLPERF_LOADGEN_QUERY_COUNT']
 
     print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
@@ -68,7 +68,7 @@ def preprocess(i):
 
     env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
 
-    env['MODEL_DIR'] = env.get('CM_ML_MODEL_PATH', os.path.dirname(env.get('CM_ML_MODEL_FILE_WITH_PATH')))
+    env['MODEL_DIR'] = env.get('CM_ML_MODEL_PATH', os.path.dirname(env.get('CM_MLPERF_CUSTOM_MODEL_PATH', env.get('CM_ML_MODEL_FILE_WITH_PATH'))))
 
     RUN_CMD = ""
     state['RUN'] = {}
@@ -81,6 +81,8 @@ def preprocess(i):
     scenario_extra_options = ''
 
     NUM_THREADS = env['CM_NUM_THREADS']
+    if int(NUM_THREADS) > 2 and env['CM_MLPERF_DEVICE'] == "gpu":
+        NUM_THREADS = "2" # Don't use more than 2 threads when run on GPU
 
     if env['CM_MODEL'] in  [ 'resnet50', 'retinanet'] :
         scenario_extra_options +=  " --threads " + NUM_THREADS
@@ -99,7 +101,7 @@ def preprocess(i):
         if env['CM_MODEL'] == "retinanet":
             dataset_options += " --dataset-list "+ env['CM_DATASET_ANNOTATIONS_FILE_PATH']
         elif env['CM_MODEL'] == "resnet50":
-            dataset_options += " --dataset-list "+ os.path.join(env['CM_DATASET_PATH'], "val_map.txt")
+            dataset_options += " --dataset-list "+ os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt")
         env['DATA_DIR'] = env.get('CM_DATASET_PREPROCESSED_PATH')
     else:
         if 'CM_DATASET_PREPROCESSED_PATH' in env:
@@ -126,10 +128,10 @@ def preprocess(i):
         env['CM_MLPERF_OUTPUT_DIR'] = os.getcwd()
 
     mlperf_implementation = env.get('CM_MLPERF_IMPLEMENTATION', 'reference') 
-    cmd = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options, mlperf_implementation)
+    cmd, run_dir = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options, mlperf_implementation)
 
     env['CM_MLPERF_RUN_CMD'] = cmd
-    env['CM_RUN_DIR'] = os.getcwd()
+    env['CM_RUN_DIR'] = run_dir
     env['CM_RUN_CMD'] = cmd
     env['CK_PROGRAM_TMP_DIR'] = env.get('CM_ML_MODEL_PATH') #for tvm
 
@@ -143,15 +145,15 @@ def get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options
         return get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, dataset_options)
     if implementation == "nvidia":
         return get_run_cmd_nvidia(env, scenario_extra_options, mode_extra_options, dataset_options)
-    return ""
+    return "", os.getcwd()
 
 
 def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, dataset_options):
 
-    if env['CM_MODEL'] in [ "gpt-j-99", "gpt-j-99.9"  ]:
+    if env['CM_MODEL'] in [ "gptj-99", "gptj-99.9"  ]:
 
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "gpt-j")
-        cmd =  "cd '"+ env['RUN_DIR'] + "' &&  "+ env['CM_PYTHON_BIN_WITH_PATH'] +  \
+        cmd = env['CM_PYTHON_BIN_WITH_PATH'] +  \
             " main.py --model-path=" + env['CM_ML_MODEL_FILE_WITH_PATH'] + ' --dataset-path=' + env['CM_DATASET_EVAL_PATH'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             ' --dtype ' + env['CM_MLPERF_MODEL_PRECISION'] + \
             scenario_extra_options + mode_extra_options + dataset_options
@@ -163,20 +165,25 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
             gpu_options = ""
         cmd = cmd + gpu_options
         env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
-        return cmd
+        return cmd, env['RUN_DIR']
 
     if env['CM_MODEL'] in [ "resnet50", "retinanet" ]:
 
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "vision", "classification_and_detection")
-        if env.get('CM_MLPERF_VISION_DATASET_OPTION','') == '':
-            cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
+        env['OUTPUT_DIR'] =  env['CM_MLPERF_OUTPUT_DIR']
+        if env.get('CM_MLPERF_VISION_DATASET_OPTION','') == '' and env.get('CM_MLPERF_DEVICE') != "tpu":
+            cmd =  "./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
             env['CM_MODEL'] + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             scenario_extra_options + mode_extra_options + dataset_options
-            return cmd
+            return cmd, env['RUN_DIR']
 
-        env['MODEL_FILE'] = env.get('CM_MLPERF_CUSTOM_MODEL_PATH', env.get('CM_ML_MODEL_FILE_WITH_PATH'))
+        if env['CM_MLPERF_BACKEND'] == "ncnn":
+            env['MODEL_FILE'] = os.path.join(os.path.dirname(env.get('CM_ML_MODEL_FILE_WITH_PATH')), "resnet50_v1")
+        else:
+            env['MODEL_FILE'] = env.get('CM_MLPERF_CUSTOM_MODEL_PATH', env.get('CM_ML_MODEL_FILE_WITH_PATH'))
         if not env['MODEL_FILE']:
             return {'return': 1, 'error': 'No valid model file found!'}
+
 
         env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
         
@@ -184,9 +191,14 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
                 " --dataset-path "+env['CM_DATASET_PREPROCESSED_PATH']+" --model "+env['MODEL_FILE'] + \
                 " --preprocessed_dir "+env['CM_DATASET_PREPROCESSED_PATH']
 
-        cmd = "cd '" + os.path.join(env['RUN_DIR'],"python") + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " main.py "+\
-        "--backend "+env['CM_MLPERF_BACKEND']+ " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
-            env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + extra_options
+        if env.get('CM_MLPERF_DEVICE') == "tpu":
+            cmd = "cd '" + os.path.join(env['RUN_DIR'],"python") + "' && "+env.get('CM_SUDO', "")+" "+env['CM_PYTHON_BIN_WITH_PATH']+ " main.py "+\
+            "--backend "+env['CM_MLPERF_BACKEND']+ " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] +" --device tpu "+ \
+                env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + extra_options
+        else:
+            cmd = "cd '" + os.path.join(env['RUN_DIR'],"python") + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " main.py "+\
+            "--backend "+env['CM_MLPERF_BACKEND']+ " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+                env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + extra_options
         env['SKIP_VERIFY_ACCURACY'] = True
 
     elif "bert" in env['CM_MODEL']:
@@ -199,7 +211,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
             quantization_options = " --quantized"
         else:
             quantization_options = ""
-        cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+        cmd = env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + quantization_options
         if env['CM_MLPERF_BACKEND'] == "deepsparse":
             cmd += " --batch_size=" + env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE', '1') + " --model_path=" + env['MODEL_FILE']
@@ -216,7 +228,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
     elif "rnnt" in env['CM_MODEL']:
 
         env['RUN_DIR'] = env['CM_MLPERF_INFERENCE_RNNT_PATH']
-        cmd = "cd '" + env['RUN_DIR'] + "' && " + env['CM_PYTHON_BIN_WITH_PATH'] + " run.py --backend " + env['CM_MLPERF_BACKEND'] + \
+        cmd = env['CM_PYTHON_BIN_WITH_PATH'] + " run.py --backend " + env['CM_MLPERF_BACKEND'] + \
                 " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + \
                 " --manifest " + env['CM_DATASET_PREPROCESSED_JSON'] + \
                 " --dataset_dir " + os.path.join(env['CM_DATASET_PREPROCESSED_PATH'], "..") + \
@@ -230,7 +242,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
 
         env['RUN_DIR'] = env['CM_MLPERF_INFERENCE_3DUNET_PATH']
         backend = env['CM_MLPERF_BACKEND'] if env['CM_MLPERF_BACKEND'] != 'tf' else 'tensorflow'
-        cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + backend + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+        cmd = env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + backend + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             " --model="+env['CM_ML_MODEL_FILE_WITH_PATH'] + \
             " --preprocessed_data_dir="+env['CM_DATASET_PREPROCESSED_PATH'] + \
@@ -270,15 +282,16 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
         if env['CM_MLPERF_LOADGEN_MODE'] == "accuracy" and env['CM_MLPERF_LOADGEN_SCENARIO'] == "Offline":
             mode_extra_options += " --samples-per-query-offline=1"
 
-        cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + \
+        cmd =  " ./run_local.sh " + env['CM_MLPERF_BACKEND'] + \
             ' dlrm ' + dataset + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             config + mlperf_bin_loader_string + \
             ' --samples-to-aggregate-quantile-file=./tools/dist_quantile.txt ' + \
             scenario_extra_options + mode_extra_options + dataset_options + gpu_options
         cmd = cmd.replace("--count", "--count-queries")
+        env['OUTPUT_DIR'] =  env['CM_MLPERF_OUTPUT_DIR']
 
-    return cmd
+    return cmd, env['RUN_DIR']
 
 def postprocess(i):
 

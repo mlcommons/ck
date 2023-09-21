@@ -17,7 +17,12 @@
         "original-dataset",
         "criteo-dataset"
       ],
-      "tags": "get,dataset,criteo,original"
+      "tags": "get,dataset,criteo,original",
+      "skip_if_env": {
+        "CM_DATASET_PREPROCESSED_PATH": [
+          "on"
+        ]
+      }
     },
     {
       "names": [
@@ -29,7 +34,7 @@
       "names": [
         "inference-src"
       ],
-      "tags": "mlperf,mlcommons,inference,source,src,_octoml"
+      "tags": "mlperf,mlcommons,inference,source,src"
     },
     {
       "tags": "get,generic-python-lib,_scikit-learn"
@@ -58,6 +63,7 @@
   ],
   "input_mapping": {
     "dir": "CM_DATASET_PREPROCESSED_PATH",
+    "output_dir": "CM_DATASET_PREPROCESSED_OUTPUT_PATH",
     "threads": "CM_NUM_PREPROCESS_THREADS"
   },
   "new_env_keys": [
@@ -114,7 +120,31 @@
       "default": true,
       "env": {
         "CM_DATASET_CRITEO_MULTIHOT": "yes"
-      }
+      },
+      "deps": [
+        {
+          "tags": "get,mlperf,training,src",
+          "names": [
+            "mlperf-training",
+            "training-src"
+          ]
+        },
+        {
+          "tags": "get,generic-python-lib,_package.typing_inspect"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.iopath"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.fbgemm_gpu"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.torchrec"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.pyre_extensions"
+        }
+      ]
     }
   }
 }

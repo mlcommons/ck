@@ -212,7 +212,8 @@ class CAutomation(Automation):
         text = i.get('text','Downloaded: ')
 
         try:
-            with requests.get(url, stream=True, allow_redirects=True) as download:
+            verify = i.get('verify', True)
+            with requests.get(url, stream=True, allow_redirects=True, verify=verify) as download:
                 download.raise_for_status()
 
                 size_string = download.headers.get('Content-Length')
@@ -717,3 +718,36 @@ class CAutomation(Automation):
             rr['warning']=warning 
         
         return rr
+
+    ##############################################################################
+    def list_files_recursively(self, i):
+        """
+        List files and concatenate into string separate by comma
+
+        Args:    
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        files = os.walk('.')
+
+        s = ''
+
+        for (dir_path, dir_names, file_names) in files:
+            for f in file_names:
+                if s!='': s+=','
+
+                if dir_path=='.':
+                    dir_path2=''
+                else:
+                    dir_path2=dir_path[2:].replace('\\','/')+'/'
+
+                s+=dir_path2+f
+
+        print (s)
+
+        return {'return':0}

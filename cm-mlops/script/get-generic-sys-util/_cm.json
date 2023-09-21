@@ -136,7 +136,22 @@
           "apt": "screen",
           "dnf": "screen",
           "yum": "screen",
-          "brew": "screen"
+          "brew": "screen",
+          "zypper": "rsync"
+        }
+      }
+    },
+    "rsync": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "rsync"
+      },
+      "state": {
+        "rsync": {
+          "apt": "rsync",
+          "dnf": "rsync",
+          "yum": "rsync",
+          "brew": "rsync",
+          "zypper": "rsync"
         }
       }
     },
@@ -199,6 +214,32 @@
       "state": {
         "zlib": {
           "apt": "zlib1g"
+        }
+      }
+    },
+    "nvidia-cuda-toolkit": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "nvidia-cuda-toolkit"
+      },
+      "state": {
+        "nvidia-cuda-toolkit": {
+          "apt": "nvidia-cuda-toolkit",
+          "dnf": "nvidia-cuda-toolkit",
+          "yum": "nvidia-cuda-toolkit",
+          "brew": ""
+        }
+      }
+    },
+    "ntpdate": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "ntpdate"
+      },
+      "state": {
+        "ntpdate": {
+          "apt": "ntpdate",
+          "dnf": "ntpdate",
+          "yum": "ntpdate",
+          "brew": ""
         }
       }
     }

@@ -122,7 +122,7 @@ r=cm.access({... , "name":...}
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_SUT_DESC_CACHE: `yes`
+* CM_SUT_DESC_CACHE: `no`
 
 </details>
 
@@ -148,6 +148,11 @@ ___
      * get,cuda-devices
        * `if (CM_MLPERF_DEVICE in ['gpu', 'cuda'])`
        - CM script: [get-cuda-devices](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-devices)
+     * detect,sudo
+       * `if (CM_DETERMINE_MEMORY_CONFIGURATION  == yes AND CM_HOST_OS_TYPE  == linux)`
+       - CM script: [detect-sudo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-sudo)
+     * get,generic-python-lib,_package.dmiparser
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/_cm.json)
   1. ***Run native script if exists***

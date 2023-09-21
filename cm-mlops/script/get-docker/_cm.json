@@ -1,0 +1,24 @@
+{
+  "alias": "get-docker",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": false,
+  "deps": [],
+  "docker_input_mapping": {},
+  "input_description": {},
+  "input_mapping": {},
+  "new_env_keys": [],
+  "new_state_keys": [],
+  "post_deps": [],
+  "posthook_deps": [],
+  "prehook_deps": [],
+  "tags": [
+    "get",
+    "install",
+    "docker",
+    "engine"
+  ],
+  "uid": "6192accce4234084",
+  "variations": {},
+  "versions": {}
+}

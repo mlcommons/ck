@@ -9,7 +9,7 @@ def preprocess(i):
     meta = i['meta']
     automation = i['automation']
     run_script_input = i['run_script_input']
-
+    pip_version = env.get('CM_PIP_VERSION', '').strip().split('.')
     package_name = env.get('CM_GENERIC_PYTHON_PACKAGE_NAME', '').strip()
     if package_name == '':
         return automation._available_variations({'meta':meta})
@@ -34,12 +34,9 @@ def preprocess(i):
     if r['return'] >0:
         if r['return'] == 16:
             extra = env.get('CM_GENERIC_PYTHON_PIP_EXTRA','')
-            if env.get('CM_HOST_OS_FLAVOR', '') == 'ubuntu':
-                version = env.get('CM_HOST_OS_VERSION', '')
-                if version:
-                    version_split = version.split(".")
-                    if (int(version_split[0]) >= 23) and ('--break-system-packages' not in extra):
-                        extra += '  --break-system-packages '
+            if (pip_version and len(pip_version) > 1 and int(pip_version[0]) >= 23) and ('--break-system-packages' not in extra):
+                extra += '  --break-system-packages '
+                env['CM_PYTHON_PIP_COMMON_EXTRA'] = " --break-system-packages"
 
             # Check index URL
             index_url = env.get('CM_GENERIC_PYTHON_PIP_INDEX_URL','').strip()
@@ -117,5 +114,9 @@ def postprocess(i):
     if package:
         installed_file_path = package.get_filename()
         env['CM_GET_DEPENDENT_CACHED_PATH'] = installed_file_path
+
+    pip_version = env.get('CM_PIP_VERSION', '').strip().split('.')
+    if pip_version and len(pip_version) > 1 and int(pip_version[0]) >= 23:
+        env['CM_PYTHON_PIP_COMMON_EXTRA'] = " --break-system-packages"
 
     return {'return':0, 'version': version}

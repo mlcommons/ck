@@ -99,7 +99,10 @@
         "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
       ],
       "tags": "get,dataset,preprocessed,imagenet,_for.resnet50,_rgb32,_NHWC",
-      "names": [ "imagenet-preprocessed" ]
+      "names": [
+        "imagenet-preprocessed",
+	"preprocessed-dataset"
+      ]
     },
     {
       "enable_if_env": {
@@ -108,11 +111,38 @@
           "efficientnet"
         ]
       },
+      "skip_if_env": {
+        "CM_DATASET_COMPRESSED": [
+          "on"
+        ]
+      },
       "update_tags_from_env": [
         "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
       ],
       "tags": "get,dataset,preprocessed,imagenet,_for.mobilenet,_rgb32,_NHWC",
-      "names": [ "imagenet-preprocessed" ]
+      "names": [
+        "imagenet-preprocessed",
+	"preprocessed-dataset"
+      ]
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "mobilenet",
+          "efficientnet"
+        ],
+        "CM_DATASET_COMPRESSED": [
+          "on"
+        ]
+      },
+      "update_tags_from_env": [
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
+      ],
+      "tags": "get,dataset,preprocessed,imagenet,_for.mobilenet,_rgb8,_NHWC",
+      "names": [
+        "imagenet-preprocessed",
+	"preprocessed-dataset"
+      ]
     },
     {
       "enable_if_env": {
@@ -127,17 +157,26 @@
         "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
       ],
       "tags": "get,dataset,preprocessed,imagenet,_for.resnet50,_rgb8,_NHWC",
-      "names": [ "imagenet-preprocessed" ]
+      "names": [
+        "imagenet-preprocessed",
+	"preprocessed-dataset"
+      ]
     },
     {
       "tags": "get,tensorflow,lib,_tflite"
     },
     {
       "tags": "get,lib,armnn",
+      "names": [
+        "armnn",
+        "lib-armnn"
+      ],
       "enable_if_env": {
         "CM_MLPERF_TFLITE_USE_ARMNN": ["yes"]
       }
-    },
+    }
+  ],
+  "prehook_deps": [
     {
       "tags": "generate,user-conf,mlperf,inference",
       "names": [ "user-conf-generator" ]
@@ -245,6 +284,13 @@
         "CM_MODEL": "efficientnet"
       }
     },
+    "singlestream": {
+      "group": "loadgen-scenario",
+      "default": true,
+      "env": {
+        "CM_MLPERF_LOADGEN_SCENARIO": "SingleStream"
+      }
+    },
     "tf": {
       "group": "backend",
       "env": {
@@ -273,7 +319,7 @@
     "armnn,tflite": {
       "env": {
         "CM_MLPERF_BACKEND": "armnn_tflite",
-        "CM_MLPERF_BACKEND_VERSION": "22.11",
+        "CM_MLPERF_BACKEND_VERSION": "<<<CM_LIB_ARMNN_VERSION>>>",
         "CM_TMP_SRC_FOLDER": "armnn",
         "CM_TMP_LINK_LIBS": "tensorflowlite,armnn,armnnTfLiteParser",
         "CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX": "tflite_armnn_cpp"
@@ -304,7 +350,7 @@
           "tags": "_fp32"
         },
         "preprocessed-dataset": {
-          "tags": "_fp32"
+          "tags": "_float32"
         }
       }
     },

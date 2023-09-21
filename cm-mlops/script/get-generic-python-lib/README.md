@@ -150,6 +150,14 @@ ___
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `colored`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://pypi.ngc.nvidia.com`
       - Workflow:
+    * `_cupy`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `cupy`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,cuda
+             * CM names: `--adr.['cuda']...`
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
     * `_datasets`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `datasets`
@@ -209,10 +217,15 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `matplotlib`
       - Workflow:
+    * `_mlperf_loadgen`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `mlperf_loadgen`
+        - *CM_GENERIC_PYTHON_PIP_URL*: `git+https://github.com/mlcommons/inference.git#subdirectory=loadgen`
+      - Workflow:
     * `_mlperf_logging`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `mlperf_logging`
-        - *CM_GENERIC_PYTHON_PIP_URL*: `git+https://github.com/mlperf/logging.git@2.1.0`
+        - *CM_GENERIC_PYTHON_PIP_URL*: `git+https://github.com/mlperf/logging.git`
       - Workflow:
     * `_mpld3`
       - Environment variables:
@@ -232,10 +245,13 @@ ___
         - *CM_GENERIC_PYTHON_PACKAGE_VARIANT*: `nvidia-apex`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
+           * get,cuda
+             * CM names: `--adr.['cuda']...`
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
            * get,generic-python-lib,_torch_cuda
              * CM names: `--adr.['torch']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-           * get,git,repo,_repo.https://github.com/NVIDIA/apex
+           * get,git,repo,_repo.https://github.com/NVIDIA/apex,_tag.23.05
              - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
     * `_nvidia-dali`
       - Environment variables:
@@ -332,6 +348,14 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `requests`
       - Workflow:
+    * `_safetensors`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `safetensors`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,rust-compiler
+             * `if (CM_HOST_PLATFORM_FLAVOR  != x86_64)`
+             - CM script: [get-compiler-rust](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-rust)
     * `_scikit-learn`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `scikit-learn`
@@ -533,6 +557,10 @@ ___
      * get,python3
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,generic-python-lib,_pip
+       * `if (CM_GENERIC_PYTHON_PACKAGE_NAME  != pip)`
+       * CM names: `--adr.['python-pip', 'pip']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)
   1. ***Run native script if exists***

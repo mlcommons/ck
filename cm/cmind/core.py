@@ -336,7 +336,7 @@ class CM(object):
 
         # If automation!='', attempt to find it and load
         # Otherwise use the common automation
-        if automation != '' and not use_common_automation:
+        if automation != '':
             # Parse automation potentially with a repository
             # and convert it into CM object [(artifact,UID) (,(repo,UID))]
             r = utils.parse_cm_object(automation)
@@ -345,6 +345,15 @@ class CM(object):
             parsed_automation = r['cm_object']
             i['parsed_automation'] = parsed_automation
 
+            if use_common_automation:
+                # Check that UID is set otherwise don't know how to add
+                xuid=parsed_automation[0][1]
+                if xuid == '':
+                    return {'return':1, 'error':'you must add `,CM UID` for automation {} when using --common'.format(parsed_automation[0][0])}
+                elif not utils.is_cm_uid(xuid):
+                    return {'return':1, 'error':'you must use CM UID after automation {} when using --common'.format(parsed_automation[0][0])}
+                    
+        if automation != '' and not use_common_automation:
             # If wildcards in automation, use the common one (usually for search across different automations)
             # However, still need above "parse_automation" for proper search
             if '*' in automation or '?' in automation:
@@ -358,6 +367,7 @@ class CM(object):
                 # Search for automations in repos (local, internal, other) TBD: maybe should be local, other, internal?
                 ii={'parsed_automation':[('automation','bbeb15d8f0a944a4')],
                     'parsed_artifact':parsed_automation}
+
                 # Ignore inheritance when called recursively
                 if i.get('ignore_inheritance',False):
                    ii['ignore_inheritance']=True 
@@ -462,9 +472,9 @@ class CM(object):
             automation_full_path = loaded_automation.self_path
 
             automation_meta = {
-                            'alias':'automation',
-                            'uid':'bbeb15d8f0a944a4'
-                          }
+                               'alias':'automation',
+                               'uid':'bbeb15d8f0a944a4'
+                              }
 
         # Finalize automation class initialization
         initialized_automation = loaded_automation_class(self, automation_full_path)
@@ -676,6 +686,11 @@ def error(i):
     See CM.error function for more details.
     """
 
+    global cm
+
+    if cm is None:
+       cm=CM()
+
     return cm.error(i)
 
 ############################################################
@@ -688,6 +703,11 @@ def halt(i):
     See CM.halt function for more details.
 
     """
+
+    global cm
+
+    if cm is None:
+       cm=CM()
 
     return cm.halt(i)
 

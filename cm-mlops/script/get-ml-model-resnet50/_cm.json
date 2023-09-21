@@ -14,7 +14,7 @@
     "CM_ML_MODEL_RETRAINING": "no",
     "CM_ML_MODEL_SUBTRACT_MEANS": "YES",
     "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no",
-    "CM_DOWNLOAD_FINAL_ENV_NAME":  "CM_ML_MODEL_FILE_WITH_PATH"
+    "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH"
   },
   "new_env_keys": [
     "CM_ML_MODEL_*"
@@ -37,7 +37,9 @@
       "force_cache": true,
       "extra_cache_tags": "ml-model,resnet50,raw,ml-model-resnet50",
       "update_tags_from_env_with_prefix": {
-        "_url.": [ "CM_PACKAGE_URL" ]
+        "_url.": [
+          "CM_PACKAGE_URL"
+        ]
       }
     }
   ],
@@ -85,7 +87,7 @@
       "group": "framework",
       "default": true,
       "default_variations": {
-        "opset-version": "opset-11" 
+        "opset-version": "opset-11"
       },
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
@@ -107,6 +109,26 @@
         "CM_PACKAGE_URL": "https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth"
       }
     },
+    "ncnn": {
+      "group": "framework",
+      "env": {
+        "CM_ML_MODEL_FRAMEWORK": "ncnn"
+      }
+    },
+    "ncnn,fp32": {
+      "env": {
+        "CM_PACKAGE_URL": "https://zenodo.org/record/8073420/files/resnet50_v1.bin?download=1"
+      },
+      "post_deps": [
+        {
+          "tags": "download-and-extract,_url.https://zenodo.org/record/8073420/files/resnet50_v1.param?download=",
+          "env": {
+            "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_PARAM_FILE>>>"
+          },
+          "extra_cache_tags": "ml-model-params,params,resnet50,ncnn,model-params"
+        }
+      ]
+    },
     "pytorch,int8": {
       "base": [
         "int8",
@@ -121,10 +143,10 @@
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
         "CM_ML_MODEL_FRAMEWORK": "pytorch",
-        "CM_ML_MODEL_INPUT_LAYER_NAME": "?",
+        "CM_ML_MODEL_INPUT_LAYER_NAME": "input_tensor:0",
         "CM_ML_MODEL_OUTPUT_LAYERS": "output",
         "CM_ML_MODEL_OUTPUT_LAYER_NAME": "?",
-        "CM_ML_MODEL_INPUT_SHAPES": "(\\\"input_tensor:0\\\", [BATCH_SIZE, 3, 224, 224])",
+        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor:0\\\": [BATCH_SIZE, 3, 224, 224]",
         "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "?",
         "CM_ML_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>"
       }
@@ -148,8 +170,8 @@
         "CM_PACKAGE_URL": "https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz?dl=1",
         "CM_DAE_EXTRACT_DOWNLOADED": "yes",
         "CM_ML_MODEL_FILE": "resnet50_v1.tflite",
-        "CM_EXTRACT_FINAL_ENV_NAME":  "CM_ML_MODEL_FILE_WITH_PATH",
-        "CM_DOWNLOAD_FINAL_ENV_NAME":  ""
+        "CM_EXTRACT_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH",
+        "CM_DOWNLOAD_FINAL_ENV_NAME": ""
       }
     },
     "tflite,no-argmax": {
@@ -157,6 +179,14 @@
         "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor 2\\\": (BATCH_SIZE, 224, 224, 3)",
         "CM_PACKAGE_URL": "https://www.dropbox.com/s/vhuqo0wc39lky0a/resnet50_v1.no-argmax.tflite?dl=1",
         "CM_ML_MODEL_FILE": "resnet50_v1.no-argmax.tflite"
+      }
+    },
+    "tflite,int8,no-argmax": {
+      "env": {
+        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor 2\\\": (BATCH_SIZE, 224, 224, 3)",
+        "CM_PACKAGE_URL": "https://zenodo.org/record/8234946/files/resnet50_quant_full_mlperf_edgetpu.tflite?download=1",
+        "CM_ML_MODEL_FILE": "resnet50_quant_full_mlperf_edgetpu.tflite",
+        "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH"
       }
     },
     "tflite": {

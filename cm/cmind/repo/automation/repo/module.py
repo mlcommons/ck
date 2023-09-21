@@ -111,6 +111,8 @@ class CAutomation(Automation):
 
             parsed_artifact (list): prepared in CM CLI or CM access function - repository name with wildcards
 
+            (min) (bool): if True, return only path
+
         Returns: 
             (CM return dict):
 
@@ -127,6 +129,8 @@ class CAutomation(Automation):
         lst = []
 
         parsed_artifact = i.get('parsed_artifact',[])
+
+        min_out = i.get('min',False)
 
         artifact_obj = parsed_artifact[0] if len(parsed_artifact)>0 else ('','')
         artifact_repo = parsed_artifact[1] if len(parsed_artifact)>1 else None
@@ -161,18 +165,44 @@ class CAutomation(Automation):
 
                 path = l.path_with_prefix if with_prefix else l.path
 
-                if i.get('verbose',False):
-
-                   uid = meta['uid']
-                   desc = meta.get('desc','')
-                   git = meta.get('git',False)
-
-
-                   print ('{},{} "{}" {}'.format(alias, uid, desc, path))
+                if min_out:
+                    print (path)
                 else:
-                   print ('{},{} = {}'.format(alias, uid, path))
+                    if i.get('verbose',False):
+
+                       uid = meta['uid']
+                       desc = meta.get('desc','')
+                       git = meta.get('git',False)
+
+
+                       print ('{},{} "{}" {}'.format(alias, uid, desc, path))
+                    else:
+                       print ('{},{} = {}'.format(alias, uid, path))
 
         return {'return':0, 'list':lst}
+
+    ############################################################
+    def where(self, i):
+        """
+        Print only path to a given repo
+
+        Args:
+            (CM input dict):
+
+            The same as "search"
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * list (list): list of updated CM repository objects
+        """
+
+        i['min']=True
+
+        return self.search(i)
 
     ############################################################
     def update(self, i):
@@ -897,6 +927,9 @@ class CAutomation(Automation):
         # Clean index
         self.cmind.index.meta = {}
         
+        import time
+        t1 = time.time()
+
         r = self.cmind.access({'action':'search',
                                'automation':'*',
                                'out':out,
@@ -904,17 +937,21 @@ class CAutomation(Automation):
                                'force_index_add':True})
         if r['return']>0: return r
 
+        t2 = time.time() - t1
+
+        if console:
+            print ('Took {:.1f} sec.'.format(t2))
+
         # Save
-
         rx = self.cmind.index.save()
-        # Ignore output for now to continue working even if issues ...
 
+        # Ignore output for now to continue working even if issues ...
         if self.cmind.use_index:
             rx = self.cmind.index.load()
             # Ignore output for now to continue working even if issues ...
 
 
-        return {'return':0}
+        return {'return':0, 'self_time':t2}
 
 
 

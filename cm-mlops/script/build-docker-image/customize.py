@@ -6,6 +6,11 @@ def preprocess(i):
 
     os_info = i['os_info']
     env = i['env']
+
+    dockerfile_dir = env.get('CM_DOCKERFILE_WITH_PATH')
+    if dockerfile_dir and os.path.exists(dockerfile_dir):
+        os.chdir(os.path.dirname(dockerfile_dir))
+
     CM_DOCKER_BUILD_ARGS = env.get('+CM_DOCKER_BUILD_ARGS', [])
 
     if 'CM_GH_TOKEN' in env:
@@ -26,10 +31,15 @@ def preprocess(i):
     if "CM_DOCKER_IMAGE_REPO" not in env:
         env['CM_DOCKER_IMAGE_REPO'] = "local"
 
-    if "CM_DOCKER_IMAGE_NAME" not in env:
-        env['CM_DOCKER_IMAGE_NAME'] = "cm"
+    docker_image_name = env.get('CM_DOCKER_IMAGE_NAME', '')
+    if docker_image_name == '':
+        docker_image_name = env.get('CM_DOCKER_RUN_SCRIPT_TAGS','').replace(',', '-').replace('_','')
+    if docker_image_name == '':
+        docker_image_name = 'cm'
 
-    if "CM_DOCKER_IMAGE_TAG" not in env:
+    env['CM_DOCKER_IMAGE_NAME'] = docker_image_name
+
+    if env.get("CM_DOCKER_IMAGE_TAG", "") == '':
         env['CM_DOCKER_IMAGE_TAG'] = "latest"
 
     if env.get("CM_DOCKER_CACHE", "yes") == "no":

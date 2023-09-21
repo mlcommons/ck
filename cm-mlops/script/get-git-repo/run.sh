@@ -13,19 +13,42 @@ if [ ! -d "${CM_TMP_GIT_PATH}" ]; then
   ${CM_GIT_CLONE_CMD}
   if [ "${?}" != "0" ]; then exit 1; fi
 
+  cd ${folder}
 
   if [ ! -z ${CM_GIT_SHA} ]; then
 
     echo ""
-    cd ${folder}
     cmd="git checkout -b ${CM_GIT_SHA}"
     echo "$cmd"
     eval "$cmd"
   fi
   if [ "${?}" != "0" ]; then exit 1; fi
+
+  if [ ! -z ${CM_GIT_CHECKOUT_TAG} ]; then
+
+    echo ""
+    cmd="git fetch --all --tags"
+    echo "$cmd"
+    eval "$cmd"
+    cmd="git checkout tags/${CM_GIT_CHECKOUT_TAG} -b ${CM_GIT_CHECKOUT_TAG}"
+    echo "$cmd"
+    eval "$cmd"
+  fi
+  if [ "${?}" != "0" ]; then exit 1; fi
+
 else
   cd ${folder}
 fi
+
+
+IFS=',' read -r -a submodules <<< "${CM_GIT_SUBMODULES}"
+
+for submodule in "${submodules[@]}"
+do
+    echo "Initializing submodule ${submodule}"
+    git submodule update --init "${submodule}"
+    if [ "${?}" != "0" ]; then exit 1; fi
+done
 
 if [ ${CM_GIT_PATCH} == "yes" ]; then
   patch_filename=${CM_GIT_PATCH_FILENAME}

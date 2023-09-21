@@ -1,0 +1,18 @@
+{
+  "alias": "vineet",
+  "automation_alias": "contributor",
+  "automation_uid": "68eae17b590d4f8f",
+  "name": "@vineet",
+  "organization": "Collabora, UK",
+  "challenges": [
+    "mlperf-inference-v3.1-2023",
+    "mlperf-inference-tpu-v3.1-2023"
+  ],
+  "points": [
+    {
+      "point": 2
+    }
+  ],
+  "tags": [],
+  "uid": "c094853ddb694a3e"
+}

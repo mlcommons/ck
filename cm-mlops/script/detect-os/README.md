@@ -138,6 +138,7 @@ ___
 * `CM_HOST_PLATFORM_*`
 * `CM_HOST_PYTHON_*`
 * `CM_HOST_SYSTEM_NAME`
+* `CM_RUN_STATE_DOCKER`
 #### New environment keys auto-detected from customize
 
 * `CM_HOST_OS_BITS`
@@ -148,6 +149,7 @@ ___
 * `CM_HOST_OS_TYPE`
 * `CM_HOST_PYTHON_BITS`
 * `CM_HOST_SYSTEM_NAME`
+* `CM_RUN_STATE_DOCKER`
 ___
 ### Maintainers
 

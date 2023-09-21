@@ -2,9 +2,13 @@
   "alias": "optimize-mlperf-inference-v3.1-2023",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date_close": "20230804",
+  "date_close": "20230817",
   "date_open": "20230704",
   "experiments": [],
+  "points": 1,
+  "prize": "200$ for the top 3 submitters",
+  "prize_short": "co-authoring white paper , $$$",
+  "sort": -10,
   "tags": [
     "modularize",
     "optimize",
@@ -18,7 +22,7 @@
     "mlperf-inference-v3.1-2023",
     "v3.1"
   ],
-  "title": "Run and optimize MLPerf inference v3.1 benchmarks",
-  "uid": "3e971d8089014d1f",
-  "under_preparation": true
+  "title": "For advanced users: crowd-benchmark all MLPerf inference benchmarks similar to SETI@home (latency, throughput, power consumption, accuracy, costs)",
+  "trophies": true,
+  "uid": "3e971d8089014d1f"
 }

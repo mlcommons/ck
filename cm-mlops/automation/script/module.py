@@ -640,6 +640,10 @@ class CAutomation(Automation):
         prehook_deps = meta.get('prehook_deps',[])
         posthook_deps = meta.get('posthook_deps',[])
         input_mapping = meta.get('input_mapping', {})
+        docker_settings = meta.get('docker')
+        docker_input_mapping = {}
+        if docker_settings:
+            docker_input_mapping = docker_settings.get('docker_input_mapping', {})
         new_env_keys_from_meta = meta.get('new_env_keys', [])
         new_state_keys_from_meta = meta.get('new_state_keys', [])
 
@@ -647,7 +651,7 @@ class CAutomation(Automation):
 
         found_script_tags = meta.get('tags',[])
 
-        if env.get('CM_RUN_STATE_DOCKER', False):
+        if env.get('CM_RUN_STATE_DOCKER', False) in ['True', True, 'yes']:
             if meta.get('docker'):
                 if meta['docker'].get('run', True) == False:
                     print (recursion_spaces+'  - Skipping script::{} run as we are inside docker'.format(found_script_artifact))
@@ -716,6 +720,10 @@ class CAutomation(Automation):
             update_env_from_input_mapping(const, i, input_mapping)
 
 
+        if docker_input_mapping:
+            update_env_from_input_mapping(env, i, docker_input_mapping)
+            update_env_from_input_mapping(const, i, docker_input_mapping)
+
 
 
 
@@ -741,6 +749,8 @@ class CAutomation(Automation):
             return r
 
         variation_groups = r['variation_groups']
+
+        run_state['variation_groups'] = variation_groups
 
         # Add variation(s) if specified in the "tags" input prefixed by _
           # If there is only 1 default variation, then just use it or substitute from CMD
@@ -795,6 +805,7 @@ class CAutomation(Automation):
                 print (recursion_spaces+'    Prepared variations: {}'.format(variation_tags_string))
 
 
+
         # Update env and other keys if variations
         if len(variation_tags)>0:
             for variation_tag in variation_tags:
@@ -824,6 +835,9 @@ class CAutomation(Automation):
                 r = update_state_from_meta(variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
                 if r['return']>0: return r
 
+                if variation_meta.get('script_name', '')!='': 
+                    meta['script_name'] = variation_meta['script_name']
+
                 adr=get_adr(variation_meta)
                 if adr:
                     self._merge_dicts_with_tags(add_deps_recursive, adr)
@@ -837,17 +851,18 @@ class CAutomation(Automation):
 
                         r = update_state_from_meta(combined_variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
                         if r['return']>0: return r
+
                         adr=get_adr(combined_variation_meta)
                         if adr:
                             self._merge_dicts_with_tags(add_deps_recursive, adr)
+
+                        if combined_variation_meta.get('script_name', '')!='': 
+                            meta['script_name'] = combined_variation_meta['script_name']
+
+
             #Processing them again using updated deps for add_deps_recursive
             r = update_adr_from_meta(deps, post_deps, prehook_deps, posthook_deps, add_deps_recursive)
-
-
-
-
-
-
+            if r['return']>0: return r
 
         # USE CASE:
         #  HERE we may have versions in script input and env['CM_VERSION_*']
@@ -1703,7 +1718,7 @@ class CAutomation(Automation):
 
                             unique_allowed_variations = variation_groups[default_base_variation]['variations']
                             # add the default only if none of the variations from the current group is selected and it is not being excluded with - prefix
-                            if len(set(unique_allowed_variations) & set(variation_tags)) == 0 and default_base_variations[default_base_variation] not in excluded_variation_tags:
+                            if len(set(unique_allowed_variations) & set(variation_tags)) == 0 and default_base_variations[default_base_variation] not in excluded_variation_tags and default_base_variations[default_base_variation] not in variation_tags:
                                 tag_to_append = default_base_variations[default_base_variation]
 
                             if tag_to_append:
@@ -2027,8 +2042,16 @@ class CAutomation(Automation):
           (script_name) (str): name of script (it will be copied to the new entry and added to the meta)
 
           (tags) (string or list): tags to be added to meta
+
           (new_tags) (string or list): new tags to be added to meta (the same as tags)
-          (yaml) (bool): if True, record YAML instead of JSON
+
+          (json) (bool): if True, record JSON meta instead of YAML
+          
+          (meta) (dict): preloaded meta
+          
+          (template) (string): template to use (python)
+          (python) (bool): template=python
+          (pytorch) (bool): template=pytorch
           
           ...
 
@@ -2043,6 +2066,11 @@ class CAutomation(Automation):
         import shutil
 
         console = i.get('out') == 'con'
+
+        # Try to find experiment artifact by alias and/or tags
+        ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
+
+        print (ii)
 
         parsed_artifact = i.get('parsed_artifact',[])
 
@@ -2061,12 +2089,59 @@ class CAutomation(Automation):
         if 'tags' in i: del(i['tags'])
 
         # Add placeholder (use common action)
-        i['out']='con'
-        i['common']=True # Avoid recursion - use internal CM add function to add the script artifact
+        ii['out']='con'
+        ii['common']=True # Avoid recursion - use internal CM add function to add the script artifact
 
-        i['meta']={'automation_alias':self.meta['alias'],
-                   'automation_uid':self.meta['uid'],
-                   'tags':tags_list}
+        # Check template path
+        template_dir = 'template'
+        
+        template = i.get('template','')
+
+        if template == '':
+           if i.get('python', False):
+               template = 'python'
+           elif i.get('pytorch', False):
+               template = 'pytorch'
+        
+        if template!='':
+            template_dir += '-'+template
+
+        template_path = os.path.join(self.path, template_dir)
+
+        if not os.path.isdir(template_path):
+            return {'return':1, 'error':'template path {} not found'.format(template_path)}
+
+        # Check if preloaded meta exists
+        meta = {
+                 'cache':False,
+                 'new_env_keys':[],
+                 'new_state_keys':[],
+                 'input_mapping':{},
+                 'docker_input_mapping':{},
+                 'deps':[],
+                 'prehook_deps':[],
+                 'posthook_deps':[],
+                 'post_deps':[],
+                 'versions':{},
+                 'variations':{},
+                 'input_description':{}
+               }
+        
+        fmeta = os.path.join(template_path, self.cmind.cfg['file_cmeta'])
+
+        r = utils.load_yaml_and_json(fmeta)
+        if r['return']==0:
+            utils.merge_dicts({'dict1':meta, 'dict2':r['meta'], 'append_lists':True, 'append_unique':True})
+
+        # Check meta from CMD
+        xmeta = i.get('meta',{})
+
+        if len(xmeta)>0:
+            utils.merge_dicts({'dict1':meta, 'dict2':xmeta, 'append_lists':True, 'append_unique':True})
+
+        meta['automation_alias']=self.meta['alias']
+        meta['automation_uid']=self.meta['uid']
+        meta['tags']=tags_list
 
         script_name_base = script_name
         script_name_ext = ''
@@ -2077,21 +2152,18 @@ class CAutomation(Automation):
                 script_name_base = script_name[:j]
                 script_name_ext = script_name[j:]
 
-            i['meta']['script_name'] = script_name_base
+            meta['script_name'] = script_name_base
 
-        i['meta']['cache'] = False
-        i['meta']['new_env_keys'] = []
-        i['meta']['new_state_keys'] = []
-        i['meta']['input_mapping'] = {}
-        i['meta']['deps'] = []
-        i['meta']['prehook_deps'] = []
-        i['meta']['posthook_deps'] = []
-        i['meta']['post_deps'] = []
-        i['meta']['versions'] = {}
-        i['meta']['variations'] = {}
-        i['meta']['input_description'] = {}
+        ii['meta']=meta
+        
+        ii['action']='add'
 
-        r_obj=self.cmind.access(i)
+        use_yaml = True if not i.get('json',False) else False
+
+        if use_yaml:
+            ii['yaml']=True
+
+        r_obj=self.cmind.access(ii)
         if r_obj['return']>0: return r_obj
 
         new_script_path = r_obj['path']
@@ -2099,12 +2171,21 @@ class CAutomation(Automation):
         if console:
             print ('Created script in {}'.format(new_script_path))
 
-        # Copy support files
-        template_path = os.path.join(self.path, 'template')
-
-        # Copy files
-        files = [(template_path, 'README-extra.md', ''),
-                 (template_path, 'customize.py', '')]
+        # Copy files from template (only if exist)
+        files = [
+                 (template_path, 'README-extra.md', ''),
+                 (template_path, 'customize.py', ''),
+                 (template_path, 'main.py', ''),
+                 (template_path, 'requirements.txt', ''),
+                 (template_path, 'install_deps.bat', ''),
+                 (template_path, 'install_deps.sh', ''),
+                 (template_path, 'plot.bat', ''),
+                 (template_path, 'plot.sh', ''),
+                 (template_path, 'analyze.bat', ''),
+                 (template_path, 'analyze.sh', ''),
+                 (template_path, 'validate.bat', ''),
+                 (template_path, 'validate.sh', '')
+                ]
 
         if script_name == '':
             files += [(template_path, 'run.bat', ''),
@@ -2130,12 +2211,13 @@ class CAutomation(Automation):
             if path!='':
                 f1 = os.path.join(path, f1)
 
-            f2 = os.path.join(new_script_path, f2)
+            if os.path.isfile(f1):
+                f2 = os.path.join(new_script_path, f2)
 
-            if console:
-                print ('  * Copying {} to {}'.format(f1, f2))
+                if console:
+                    print ('  * Copying {} to {}'.format(f1, f2))
 
-            shutil.copyfile(f1,f2)
+                shutil.copyfile(f1,f2)
 
         return r_obj
 
@@ -2318,6 +2400,7 @@ class CAutomation(Automation):
             # Preserve local env
             tmp_env = {}
 
+            variation_groups = run_state.get('variation_groups')
 
             for d in deps:
 
@@ -2369,10 +2452,6 @@ class CAutomation(Automation):
                         if k.startswith('CM_VERSION'):
                             env[k] = tmp_env[k]
 
-                inherit_variation_tags = d.get("inherit_variation_tags", False)
-                if inherit_variation_tags:
-                    d['tags']+=","+variation_tags_string #deps should have non-empty tags
-
                 update_tags_from_env = d.get("update_tags_from_env", [])
                 for t in update_tags_from_env:
                     if env.get(t, '').strip() != '':
@@ -2383,6 +2462,35 @@ class CAutomation(Automation):
                     for key in update_tags_from_env_with_prefix[t]:
                         if env.get(key, '').strip() != '':
                             d['tags']+=","+t+env[key]
+
+                inherit_variation_tags = d.get("inherit_variation_tags", False)
+                skip_inherit_variation_groups = d.get("skip_inherit_variation_groups", [])
+                variation_tags_to_be_skipped = []
+                if inherit_variation_tags:
+                    if skip_inherit_variation_groups: #skips inheriting variations belonging to given groups
+                        for group in variation_groups:
+                            if group in skip_inherit_variation_groups:
+                                variation_tags_to_be_skipped += variation_groups[group]['variations']
+
+                    variation_tags = variation_tags_string.split(",")
+                    variation_tags =  [ x for x in variation_tags if not x.startswith("_") or x[1:] not in set(variation_tags_to_be_skipped) ]
+
+                    # handle group in case of dynamic variations
+                    for t_variation in variation_tags_to_be_skipped:
+                        if t_variation.endswith(".#"):
+                            beg = t_variation[:-1]
+                            for m_tag in variation_tags:
+                                if m_tag.startswith("_"+beg):
+                                    variation_tags.remove(m_tag)
+
+                    deps_tags = d['tags'].split(",")
+                    for tag in deps_tags:
+                        if tag.startswith("-_") or tag.startswith("_-"):
+                            variation_tag = "_" + tag[2:]
+                            if variation_tag in variation_tags:
+                                variation_tags.remove(variation_tag)
+                    new_variation_tags_string = ",".join(variation_tags)
+                    d['tags']+=","+new_variation_tags_string #deps should have non-empty tags
 
                 run_state['deps'].append(d['tags'])
 
@@ -2437,6 +2545,8 @@ class CAutomation(Automation):
         """
         Merges two dictionaries and append any tag strings in them
         """
+        if dict1 == dict2:
+            return {'return': 0}
         for dep in dict1:
             if 'tags' in dict1[dep]:
                 dict1[dep]['tags_list'] = utils.convert_tags_to_list(dict1[dep])
@@ -3293,6 +3403,17 @@ class CAutomation(Automation):
 
         return {'return':1, 'error':'python package variation is not defined in "{}". Available: {}'.format(meta['alias'],' '.join(list_of_variations))}
 
+    ############################################################
+    def prepare(self, i):
+        """
+        Run CM script with --fake_run only to resolve deps
+        """
+
+        i['fake_run']=True
+
+        return self.run(i)
+
+
 ##############################################################################
 def find_cached_script(i):
     """
@@ -3624,6 +3745,9 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
 
     # Update env with the current path
+    if os_info['platform'] == 'windows' and ' ' in path:
+        path = '"' + path + '"'
+
     env['CM_TMP_CURRENT_SCRIPT_PATH'] = path
 
     # Record state
@@ -3670,7 +3794,7 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
         # Append batch file to the tmp script
         script.append('\n')
-        script.append(os_info['run_bat'].replace('${bat_file}', path_to_run_script) + '\n')
+        script.append(os_info['run_bat'].replace('${bat_file}', '"'+path_to_run_script+'"') + '\n')
 
         # Prepare and run script
         r = record_script(run_script, script, os_info)
@@ -4001,6 +4125,7 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
     """
     Internal: update env and state from meta
     """
+
     default_env = meta.get('default_env',{})
     for key in default_env:
         env.setdefault(key, default_env[key])
@@ -4041,6 +4166,14 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
     input_mapping = meta.get('input_mapping', {})
     if input_mapping:
         update_env_from_input_mapping(env, i['input'], input_mapping)
+
+    # Possibly restrict this to within docker environment
+    docker_settings = meta.get('docker')
+    docker_input_mapping = {}
+    if docker_settings:
+        docker_input_mapping = docker_settings.get('docker_input_mapping', {})
+        if docker_input_mapping:
+            update_env_from_input_mapping(env, i['input'], docker_input_mapping)
 
     new_env_keys_from_meta = meta.get('new_env_keys', [])
     if new_env_keys_from_meta:
@@ -4236,10 +4369,23 @@ def can_write_to_current_directory():
 
     cur_dir = os.getcwd()
 
+#    try:
+#        tmp_file = tempfile.NamedTemporaryFile(dir = cur_dir)
+#    except Exception as e:
+#        return False
+
+    tmp_file_name = next(tempfile._get_candidate_names())+'.tmp'
+
+    tmp_path = os.path.join(cur_dir, tmp_file_name)
+
     try:
-        tmp_file = tempfile.NamedTemporaryFile(dir = cur_dir)
+        tmp_file = open(tmp_file_name, 'w')
     except Exception as e:
         return False
+
+    tmp_file.close()
+
+    os.remove(tmp_file_name)
 
     return True
 

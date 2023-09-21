@@ -811,33 +811,34 @@ def merge_dicts(i):
     a = i['dict1']
     b = i['dict2']
 
-    append_lists = i.get('append_lists', False)
-    append_unique = i.get('append_unique', False)
+    if a != b:
+        append_lists = i.get('append_lists', False)
+        append_unique = i.get('append_unique', False)
 
-    ignore_keys = i.get('ignore_keys',[])
+        ignore_keys = i.get('ignore_keys',[])
 
-    for k in b:
-        if k in ignore_keys:
-            continue
-        v = b[k]
-        if type(v) is dict:
-            if k not in a:
-                a.update({k: b[k]})
-            elif type(a[k]) == dict:
-                merge_dicts({'dict1': a[k], 'dict2': b[k], 'append_lists':append_lists})
+        for k in b:
+            if k in ignore_keys:
+                continue
+            v = b[k]
+            if type(v) is dict:
+                if k not in a:
+                    a.update({k: b[k]})
+                elif type(a[k]) == dict:
+                    merge_dicts({'dict1': a[k], 'dict2': b[k], 'append_lists':append_lists})
+                else:
+                    a[k] = b[k]
+            elif type(v) is list:
+                if not append_lists or k not in a:
+                   a[k] = []
+                for y in v:
+                    if append_unique:
+                        if y not in a[k]:
+                            a[k].append(y)
+                    else:
+                        a[k].append(y)
             else:
                 a[k] = b[k]
-        elif type(v) is list:
-            if not append_lists or k not in a:
-               a[k] = []
-            for y in v:
-                if append_unique:
-                    if y not in a[k]:
-                        a[k].append(y)
-                else:
-                    a[k].append(y)
-        else:
-            a[k] = b[k]
 
     return {'return': 0, 'dict1': a}
 

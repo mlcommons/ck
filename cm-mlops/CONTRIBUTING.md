@@ -33,7 +33,7 @@ Thank you for your support and looking forward to collaborating with you!
 
 See the full list [here](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 
-## Maintainers
+## Core developers and maintainers
 
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
-* [Grigori Fursin](https://cKnowledge.org/gfursin) (OctoML, MLCommons, cTuning foundation)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (cTuning foundation, cKnowledge.org, MLCommons)
+* [Grigori Fursin](https://cKnowledge.org/gfursin) (cTuning foundation, cKnowledge.org, MLCommons)

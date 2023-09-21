@@ -11,7 +11,7 @@ def preprocess(i):
     env = i['env']
 
 
-    if env.get('CM_TENSORRT_TAR_FILE_PATH','')=='' and env.get('CM_TENSORRT_REQUIRE_DEV', '') != 'yes':
+    if env.get('CM_TENSORRT_TAR_FILE_PATH','')=='' and env.get('CM_TENSORRT_REQUIRE_DEV', '') != 'yes' and env.get('CM_HOST_PLATFORM_FLAVOR', '') != 'aarch64':
 
        if os_info['platform'] == 'windows':
            extra_pre=''
@@ -83,7 +83,10 @@ def preprocess(i):
         return {'return': 1, 'error': 'Windows is currently not supported!'}
 
     if env.get('CM_TENSORRT_TAR_FILE_PATH','')=='':
-        return {'return': 1, 'error': 'Please envoke cm run script "get tensorrt" --tar_file={full path to the TensorRT tar file}'}
+        tags = [ "get", "tensorrt" ]
+        if env.get('CM_TENSORRT_REQUIRE_DEV', '') != 'yes':
+            tags.append("_dev")
+        return {'return': 1, 'error': 'Please envoke cm run script ' + " ".join(tags) + ' --tar_file={full path to the TensorRT tar file}'}
 
 
     print ('Untaring file - can take some time ...')

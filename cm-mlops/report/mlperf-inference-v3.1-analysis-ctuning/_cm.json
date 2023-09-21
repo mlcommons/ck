@@ -1,0 +1,16 @@
+{
+  "alias": "mlperf-inference-v3.1-analysis-ctuning",
+  "automation_alias": "report",
+  "automation_uid": "6462ecdba2054467",
+  "date":"20230917",
+  "title":"cTuning's analysis of MLPerf inference v3.1 community results",
+  "tags": [
+    "mlperf",
+    "inference",
+    "mlperf-inference",
+    "v3.1",
+    "analysis",
+    "ctuning"
+  ],
+  "uid": "ebc483653dbc45b6"
+}

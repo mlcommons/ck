@@ -9,9 +9,7 @@ def preprocess(i):
     path = env.get('GPTJ_CHECKPOINT_PATH', '').strip()
 
     if path == '' or not os.path.exists(path):
-        return {'return':1, 'error':'Please rerun the last CM command with --env.GPTJ_CHECKPOINT_PATH={path to the MLPerf GPT-J checkpoint privately shared by Intel}'}
-
-    env = i['env']
+        env['CM_TMP_REQUIRE_DOWNLOAD'] = 'yes'
 
     return {'return':0}
 
@@ -19,6 +17,7 @@ def postprocess(i):
 
     env = i['env']
 
+    env['GPTJ_CHECKPOINT_PATH'] = os.path.join(env['GPTJ_CHECKPOINT_PATH'], "checkpoint-final")
     env['CM_ML_MODEL_FILE_WITH_PATH'] = env['GPTJ_CHECKPOINT_PATH']
     env['CM_ML_MODEL_FILE'] = os.path.basename(env['CM_ML_MODEL_FILE_WITH_PATH'])
     env['CM_GET_DEPENDENT_CACHED_PATH'] = env['CM_ML_MODEL_FILE_WITH_PATH']

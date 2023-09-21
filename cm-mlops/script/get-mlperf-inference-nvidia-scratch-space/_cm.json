@@ -1,0 +1,33 @@
+{
+  "alias": "get-mlperf-inference-nvidia-scratch-space",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "deps": [],
+  "input_description": {},
+  "input_mapping": {
+    "scratch_path": "MLPERF_SCRATCH_PATH"
+  },
+  "new_env_keys": [
+    "CM_NVIDIA_MLPERF_SCRATCH_PATH",
+    "MLPERF_SCRATCH_PATH"
+  ],
+  "new_state_keys": [],
+  "post_deps": [],
+  "posthook_deps": [],
+  "prehook_deps": [],
+  "tags": [
+    "get",
+    "mlperf",
+    "inference",
+    "nvidia",
+    "scratch",
+    "space"
+  ],
+  "uid": "0b2bec8b29fb4ab7",
+  "variations": {},
+  "versions": {},
+  "docker": {
+    "run": false
+  }
+}

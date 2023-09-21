@@ -3,10 +3,30 @@
   "automation_alias": "contributor",
   "automation_uid": "68eae17b590d4f8f",
   "challenges": [
-    "mlperf-inference-v3.0-2023"
+    "mlperf-inference-v3.1-2023",
+    "mlperf-inference-windows-v3.1-2023",
+    "replicate,automate,neurips-2022,arxiv-2204.09656"
   ],
-  "last_participation_date": "20230325",
+  "last_participation_date": "20230915",
+  "organization": "Sree Chitra Thirunal College of Engineering Trivandrum, Kerala affiliated to APJ Abdul Kalam Technological University, India",
   "name": "Anandhu S",
+  "points": [
+    {
+      "point": 1
+    },
+    {
+      "point": 1
+    }
+  ],
   "tags": [],
-  "uid": "457012971d334b25"
+  "trophies": [
+    {
+      "url": "https://cTuning.org/awards/ck-award-202309-anandhu.pdf"
+    }
+  ],
+  "uid": "457012971d334b25",
+  "urls": [
+    "https://www.linkedin.com/in/anandhu-s-2337661b7/",
+    "https://github.com/anandhu-eng"
+  ]
 }

@@ -12,8 +12,10 @@ def preprocess(i):
     env = i['env']
     meta = i['meta']
 
+    env_key = get_env_key(env)
+
     if 'CM_GIT_REPO_NAME' not in env:
-        env['CM_GIT_REPO_NAME'] = os.path.basename(env['CM_GIT_URL'])
+        update_env(env, 'CM_GIT_REPO{}_NAME', env_key, os.path.basename(env['CM_GIT_URL']))
 
     if 'CM_GIT_DEPTH' not in env:
         env['CM_GIT_DEPTH'] = ''
@@ -41,18 +43,38 @@ def postprocess(i):
     env['CM_GIT_CHECKOUT_PATH'] = os.path.join(os.getcwd(), env['CM_GIT_CHECKOUT_FOLDER'])
     git_checkout_path = env['CM_GIT_CHECKOUT_PATH']
 
-    # We remap CM_GIT variables with CM_GIT_REPO prefix so that they don't contaminate the env of the parent script
-    env['CM_GIT_REPO_CHECKOUT_PATH'] = env['CM_GIT_CHECKOUT_PATH']
-    env['CM_GIT_REPO_URL'] = env['CM_GIT_URL']
-    env['CM_GIT_REPO_CHECKOUT'] = env['CM_GIT_CHECKOUT']
-    env['CM_GIT_REPO_DEPTH'] = env['CM_GIT_DEPTH']
-    env['CM_GIT_REPO_CHECKOUT_FOLDER'] = env['CM_GIT_CHECKOUT_FOLDER']
-    env['CM_GIT_REPO_PATCH'] = env['CM_GIT_PATCH']
-    env['CM_GIT_REPO_RECURSE_SUBMODULES'] = env['CM_GIT_RECURSE_SUBMODULES']
+    env_key = get_env_key(env)
 
-    if (env.get('CM_GIT_CHECKOUT_PATH_ENV_NAME','') != '') and (env.get(env['CM_GIT_CHECKOUT_PATH_ENV_NAME'], '') == ''):
+    # We remap CM_GIT variables with CM_GIT_REPO prefix so that they don't contaminate the env of the parent script
+    update_env(env, 'CM_GIT_REPO{}_CHECKOUT_PATH', env_key, env['CM_GIT_CHECKOUT_PATH'])
+    update_env(env, 'CM_GIT_REPO{}_URL', env_key, env['CM_GIT_URL'])
+    update_env(env, 'CM_GIT_REPO{}_CHECKOUT', env_key, env['CM_GIT_CHECKOUT'])
+    update_env(env, 'CM_GIT_REPO{}_DEPTH', env_key, env['CM_GIT_DEPTH'])
+    update_env(env, 'CM_GIT_REPO{}_CHECKOUT_FOLDER', env_key, env['CM_GIT_CHECKOUT_FOLDER'])
+    update_env(env, 'CM_GIT_REPO{}_PATCH', env_key, env['CM_GIT_PATCH'])
+    update_env(env, 'CM_GIT_REPO{}_RECURSE_SUBMODULES', env_key, env['CM_GIT_RECURSE_SUBMODULES'])
+
+    if (env.get('CM_GIT_CHECKOUT_PATH_ENV_NAME','') != ''):
         env[env['CM_GIT_CHECKOUT_PATH_ENV_NAME']] = git_checkout_path
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] = git_checkout_path
 
     return {'return':0}
+
+def get_env_key(env):
+
+    env_key = env.get('CM_GIT_ENV_KEY','')
+
+    if env_key!='' and not env_key.startswith('_'):
+        env_key = '_' + env_key
+
+    return env_key
+
+def update_env(env, key, env_key, var):
+
+    env[key.format('')] = var
+
+    if env_key!='':
+        env[key.format(env_key)] = var
+
+    return

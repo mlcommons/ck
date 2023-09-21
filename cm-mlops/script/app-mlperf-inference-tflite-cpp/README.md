@@ -115,7 +115,7 @@ ___
     * `_armnn,tflite`
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `armnn_tflite`
-        - *CM_MLPERF_BACKEND_VERSION*: `22.11`
+        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_LIB_ARMNN_VERSION>>>`
         - *CM_TMP_SRC_FOLDER*: `armnn`
         - *CM_TMP_LINK_LIBS*: `tensorflowlite,armnn,armnnTfLiteParser`
         - *CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX*: `tflite_armnn_cpp`
@@ -155,6 +155,18 @@ ___
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `gpu`
         - *CM_MLPERF_DEVICE_LIB_NAMESPEC*: `cudart`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**loadgen-scenario**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_singlestream`** (default)
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_SCENARIO*: `SingleStream`
       - Workflow:
 
     </details>
@@ -220,7 +232,7 @@ ___
 
 #### Default variations
 
-`_cpu,_fp32,_resnet50,_tflite`
+`_cpu,_fp32,_resnet50,_singlestream,_tflite`
 
 #### Script flags mapped to environment
 <details>
@@ -309,26 +321,31 @@ ___
        - CM script: [get-ml-model-efficientnet-lite](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-efficientnet-lite)
      * get,dataset,preprocessed,imagenet,_for.resnet50,_rgb32,_NHWC
        * `if (CM_MODEL  == resnet50) AND (CM_DATASET_COMPRESSED  != on)`
-       * CM names: `--adr.['imagenet-preprocessed']...`
+       * CM names: `--adr.['imagenet-preprocessed', 'preprocessed-dataset']...`
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
      * get,dataset,preprocessed,imagenet,_for.mobilenet,_rgb32,_NHWC
-       * `if (CM_MODEL in ['mobilenet', 'efficientnet'])`
-       * CM names: `--adr.['imagenet-preprocessed']...`
+       * `if (CM_MODEL in ['mobilenet', 'efficientnet']) AND (CM_DATASET_COMPRESSED  != on)`
+       * CM names: `--adr.['imagenet-preprocessed', 'preprocessed-dataset']...`
+       - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
+     * get,dataset,preprocessed,imagenet,_for.mobilenet,_rgb8,_NHWC
+       * `if (CM_MODEL in ['mobilenet', 'efficientnet'] AND CM_DATASET_COMPRESSED  == on)`
+       * CM names: `--adr.['imagenet-preprocessed', 'preprocessed-dataset']...`
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
      * get,dataset,preprocessed,imagenet,_for.resnet50,_rgb8,_NHWC
        * `if (CM_MODEL  == resnet50 AND CM_DATASET_COMPRESSED  == on)`
-       * CM names: `--adr.['imagenet-preprocessed']...`
+       * CM names: `--adr.['imagenet-preprocessed', 'preprocessed-dataset']...`
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
      * get,tensorflow,lib,_tflite
        - CM script: [install-tensorflow-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src)
      * get,lib,armnn
        * `if (CM_MLPERF_TFLITE_USE_ARMNN  == yes)`
+       * CM names: `--adr.['armnn', 'lib-armnn']...`
        - CM script: [get-lib-armnn](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-armnn)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/customize.py)***
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/_cm.json)***
      * generate,user-conf,mlperf,inference
        * CM names: `--adr.['user-conf-generator']...`
        - CM script: [generate-mlperf-inference-user-conf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/_cm.json)
   1. ***Run native script if exists***
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/customize.py)***
@@ -354,6 +371,7 @@ ___
 
 * `CM_MLPERF_CONF`
 * `CM_MLPERF_DEVICE`
+* `CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX2`
 * `CM_MLPERF_USER_CONF`
 ___
 ### Maintainers

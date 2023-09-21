@@ -107,6 +107,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--all_gpus=value`  &rarr;  `CM_DOCKER_ADD_ALL_GPUS=value`
 * `--base=value`  &rarr;  `CM_DOCKER_IMAGE_BASE=value`
 * `--cache=value`  &rarr;  `CM_DOCKER_CACHE=value`
 * `--cm_repo=value`  &rarr;  `CM_MLOPS_REPO=value`
@@ -115,8 +116,10 @@ ___
 * `--docker_os=value`  &rarr;  `CM_DOCKER_OS=value`
 * `--docker_os_version=value`  &rarr;  `CM_DOCKER_OS_VERSION=value`
 * `--gh_token=value`  &rarr;  `CM_GH_TOKEN=value`
+* `--image_name=value`  &rarr;  `CM_DOCKER_IMAGE_NAME=value`
 * `--image_repo=value`  &rarr;  `CM_DOCKER_IMAGE_REPO=value`
 * `--image_tag=value`  &rarr;  `CM_DOCKER_IMAGE_TAG=value`
+* `--it=value`  &rarr;  `CM_DOCKER_INTERACTIVE=value`
 * `--mounts=value`  &rarr;  `CM_DOCKER_VOLUME_MOUNTS=value`
 * `--pass_user_group=value`  &rarr;  `CM_DOCKER_PASS_USER_GROUP=value`
 * `--port_maps=value`  &rarr;  `CM_DOCKER_PORT_MAPS=value`
@@ -131,7 +134,7 @@ ___
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "base":...}
+r=cm.access({... , "all_gpus":...}
 ```
 
 </details>

@@ -1,0 +1,38 @@
+cache: false
+
+deps:
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect/install python
+  - tags: get,python
+    names:
+    - python
+    - python3
+
+script_name: run
+
+input_mapping:
+  experiment: CM_EXPERIMENT
+
+default_env:
+  CM_EXPERIMENT: '1'
+
+variations:
+  install_deps:
+    script_name: install_deps
+
+  run:
+    script_name: run
+
+  reproduce:
+    script_name: reproduce
+
+  plot:
+    script_name: plot
+
+  analyze:
+    script_name: analyze
+
+  validate:
+    script_name: validate

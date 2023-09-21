@@ -1,5 +1,6 @@
 @echo off
 
+echo.
 echo %CD%
 
 if not "%CM_EXTRACT_CMD0%" == "" (

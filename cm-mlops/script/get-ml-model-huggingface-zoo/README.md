@@ -115,6 +115,10 @@ ___
       - Environment variables:
         - *CM_MODEL_ZOO_STUB*: `pierreguillou/bert-base-cased-squad-v1.1-portuguese`
       - Workflow:
+    * `_prune`
+      - Environment variables:
+        - *CM_MODEL_TASK*: `prune`
+      - Workflow:
 
     </details>
 
@@ -123,12 +127,13 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--env_key=value`  &rarr;  `CM_MODEL_ZOO_ENV_KEY=value`
 * `--model_filename=value`  &rarr;  `CM_MODEL_ZOO_FILENAME=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "model_filename":...}
+r=cm.access({... , "env_key":...}
 ```
 
 </details>
@@ -158,9 +163,10 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)
   1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)
-  1. Run "postrocess" function from customize.py
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)
 </details>
 
@@ -172,6 +178,9 @@ ___
 * `CM_MODEL_ZOO_STUB`
 #### New environment keys auto-detected from customize
 
+* `CM_ML_MODEL_'+env_key+'_FILE_WITH_PATH`
+* `CM_ML_MODEL_'+env_key+'_PATH`
+* `CM_ML_MODEL_PATH`
 ___
 ### Maintainers
 

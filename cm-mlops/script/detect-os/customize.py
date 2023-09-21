@@ -69,6 +69,8 @@ def postprocess(i):
             env['CM_HOST_OS_PACKAGE_MANAGER'] = "arch"
         if env.get('CM_HOST_OS_FLAVOR','') == "macos":
             env['CM_HOST_OS_PACKAGE_MANAGER'] = "brew"
+        if env.get('CM_HOST_OS_FLAVOR','') == "sles":
+            env['CM_HOST_OS_PACKAGE_MANAGER'] = "zypper"
     if env.get('CM_HOST_OS_PACKAGE_MANAGER', '') == "apt":
         env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "apt-get install -y"
         env['CM_HOST_OS_PACKAGE_MANAGER_UPDATE_CMD'] = "apt-get update -y"
@@ -84,5 +86,11 @@ def postprocess(i):
     elif env.get('CM_HOST_OS_PACKAGE_MANAGER', '') == "yum":
         env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "yum install -y --skip-broken"
         env['CM_HOST_OS_PACKAGE_MANAGER_UPDATE_CMD'] = "yum update -y"
+    elif env.get('CM_HOST_OS_PACKAGE_MANAGER', '') == "zypper":
+        env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "zypper install -y"
+        env['CM_HOST_OS_PACKAGE_MANAGER_UPDATE_CMD'] = "zypper update -y"
+
+    if os.path.exists("/.dockerenv"):
+        env['CM_RUN_INSIDE_DOCKER'] = "yes"
 
     return {'return':0}

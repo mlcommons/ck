@@ -137,7 +137,7 @@ ___
       - Environment variables:
         - *CM_DATASET_SIZE*: `500`
         - *CM_DAE_FILENAME*: `ILSVRC2012_img_val_500.tar`
-        - *CM_DAE_URL*: `https://www.dropbox.com/s/57s11df6pts3z69/ILSVRC2012_img_val_500.tar?dl=1`
+        - *CM_DAE_URL*: `http://cKnowledge.org/ai/data/ILSVRC2012_img_val_500.tar`
       - Workflow:
 
     </details>
@@ -163,12 +163,13 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--imagenet_path=value`  &rarr;  `IMAGENET_PATH=value`
 * `--torrent=value`  &rarr;  `CM_DATASET_IMAGENET_VAL_TORRENT_PATH=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "torrent":...}
+r=cm.access({... , "imagenet_path":...}
 ```
 
 </details>

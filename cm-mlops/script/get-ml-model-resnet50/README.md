@@ -117,6 +117,13 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_BATCH_SIZE*: `1`
       - Workflow:
+    * `_ncnn,fp32`
+      - Environment variables:
+        - *CM_PACKAGE_URL*: `https://zenodo.org/record/8073420/files/resnet50_v1.bin?download=1`
+      - Workflow:
+        1. ***Read "post_deps" on other CM scripts***
+           * download-and-extract,_url.https://zenodo.org/record/8073420/files/resnet50_v1.param?download=
+             - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
     * `_onnx,opset-11`
       - Environment variables:
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/4735647/files/resnet50_v1.onnx`
@@ -142,6 +149,13 @@ ___
         - *CM_EXTRACT_FINAL_ENV_NAME*: `CM_ML_MODEL_FILE_WITH_PATH`
         - *CM_DOWNLOAD_FINAL_ENV_NAME*: ``
       - Workflow:
+    * `_tflite,int8,no-argmax`
+      - Environment variables:
+        - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)`
+        - *CM_PACKAGE_URL*: `https://zenodo.org/record/8234946/files/resnet50_quant_full_mlperf_edgetpu.tflite?download=1`
+        - *CM_ML_MODEL_FILE*: `resnet50_quant_full_mlperf_edgetpu.tflite`
+        - *CM_DOWNLOAD_FINAL_ENV_NAME*: `CM_ML_MODEL_FILE_WITH_PATH`
+      - Workflow:
     * `_tflite,no-argmax`
       - Environment variables:
         - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)`
@@ -156,6 +170,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_ncnn`
+      - Environment variables:
+        - *CM_ML_MODEL_FRAMEWORK*: `ncnn`
+      - Workflow:
     * **`_onnx`** (default)
       - Aliases: `_onnxruntime`
       - Environment variables:
@@ -173,10 +191,10 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
         - *CM_ML_MODEL_FRAMEWORK*: `pytorch`
-        - *CM_ML_MODEL_INPUT_LAYER_NAME*: `?`
+        - *CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor:0`
         - *CM_ML_MODEL_OUTPUT_LAYERS*: `output`
         - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `?`
-        - *CM_ML_MODEL_INPUT_SHAPES*: `(\"input_tensor:0\", [BATCH_SIZE, 3, 224, 224])`
+        - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor:0\": [BATCH_SIZE, 3, 224, 224]`
         - *CM_ML_MODEL_GIVEN_CHANNEL_MEANS*: `?`
         - *CM_ML_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
       - Workflow:

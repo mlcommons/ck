@@ -156,6 +156,8 @@ ___
      * get,generic-sys-util,_zlib
        * `if (CM_HOST_OS_FLAVOR  == ubuntu AND CM_HOST_OS_VERSION  == 18.04)`
        - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
+     * get,generic-python-lib,_package.numpy
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src/_cm.json)
   1. ***Run native script if exists***

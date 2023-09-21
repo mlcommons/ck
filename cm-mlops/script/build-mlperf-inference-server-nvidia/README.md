@@ -14,6 +14,7 @@
   * [ Variations](#variations)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
+* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -106,6 +107,20 @@ ___
 
 #### Variations
 
+  * Group "**code**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_custom`
+      - Workflow:
+    * `_mlcommons`
+      - Workflow:
+    * **`_nvidia-only`** (default)
+      - Workflow:
+
+    </details>
+
+
   * Group "**device**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -129,7 +144,7 @@ ___
 
 #### Default variations
 
-`_cuda`
+`_cuda,_nvidia-only`
 
 #### Script flags mapped to environment
 <details>
@@ -157,6 +172,12 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 </details>
 
+#### Versions
+Default version: `r3.0`
+
+* `r2.1`
+* `r3.0`
+* `r3.1`
 ___
 ### Script workflow, dependencies and native scripts
 
@@ -175,9 +196,11 @@ ___
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,cuda,_cudnn
        * `if (CM_MLPERF_DEVICE in ['cuda', 'inferentia'])`
+       * CM names: `--adr.['cuda']...`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
-     * get,tensorrt
+     * get,tensorrt,_dev
        * `if (CM_MLPERF_DEVICE in ['cuda', 'inferentia'])`
+       * CM names: `--adr.['tensorrt']...`
        - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
      * get,gcc
        - CM script: [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
@@ -187,6 +210,8 @@ ___
        - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
      * get,generic,sys-util,_gflags-dev
        - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
+     * get,generic,sys-util,_libgmock-dev
+       - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
      * get,generic,sys-util,_libre2-dev
        - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
      * get,generic,sys-util,_libnuma-dev
@@ -195,7 +220,7 @@ ___
        - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
      * get,generic,sys-util,_rapidjson-dev
        - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
-     * get,nvidia,mlperf,inference,common-code,_custom
+     * get,nvidia,mlperf,inference,common-code
        * CM names: `--adr.['nvidia-inference-common-code']...`
        - CM script: [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
      * get,generic-python-lib,_pycuda
@@ -212,6 +237,8 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-mlperf-inference-server-nvidia/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-mlperf-inference-server-nvidia/_cm.yaml)***
      * add,custom,system,nvidia
+       * `if (CM_CUSTOM_SYSTEM_NVIDIA not in ['no', False, 'False'])`
+       * CM names: `--adr.['custom-system-nvidia', 'nvidia-inference-common-code']...`
        - CM script: [add-custom-nvidia-system](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/add-custom-nvidia-system)
 </details>
 
@@ -220,7 +247,6 @@ ___
 #### New environment keys (filter)
 
 * `CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH`
-* `MLPERF_SCRATCH_PATH`
 #### New environment keys auto-detected from customize
 
 ___

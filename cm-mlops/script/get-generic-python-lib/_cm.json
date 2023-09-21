@@ -18,6 +18,15 @@
         "python3"
       ],
       "tags": "get,python3"
+    },
+    {
+      "names": [
+        "python-pip", "pip"
+      ],
+      "tags": "get,generic-python-lib,_pip",
+      "skip_if_env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": [ "pip" ]
+      }
     }
   ],
   "extra_cache_tags_from_env": [
@@ -75,6 +84,22 @@
         "CM_APEX_VERSION"
       ]
     },
+    "safetensors": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "safetensors"
+      },
+      "new_env_keys": [
+        "CM_SAFETENSORS_VERSION"
+      ],
+      "deps": [
+        {
+          "tags": "get,rust-compiler",
+            "skip_if_env": {
+              "CM_HOST_PLATFORM_FLAVOR": [ "x86_64" ]
+          }
+        }
+      ]
+    },
     "nvidia-apex": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "apex",
@@ -86,14 +111,19 @@
       "deps": [
         {
           "names": [
+            "cuda"
+          ],
+          "tags": "get,cuda"
+        },
+        {
+          "names": [
             "torch"
           ],
           "tags": "get,generic-python-lib,_torch_cuda"
         },
         {
-          "tags": "get,git,repo,_repo.https://github.com/NVIDIA/apex",
+          "tags": "get,git,repo,_repo.https://github.com/NVIDIA/apex,_tag.23.05",
           "env": {
-            "CM_GIT_CHECKOUT": "master",
             "CM_GIT_CHECKOUT_FOLDER": "apex"
           }
         }
@@ -254,10 +284,19 @@
         "CM_MATPLOTLIB_VERSION"
       ]
     },
+    "mlperf_loadgen": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "mlperf_loadgen",
+        "CM_GENERIC_PYTHON_PIP_URL": "git+https://github.com/mlcommons/inference.git#subdirectory=loadgen"
+      },
+      "new_env_keys": [
+        "CM_MLPERF_LOADGEN_VERSION"
+      ]
+    },
     "mlperf_logging": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "mlperf_logging",
-        "CM_GENERIC_PYTHON_PIP_URL": "git+https://github.com/mlperf/logging.git@2.1.0"
+        "CM_GENERIC_PYTHON_PIP_URL": "git+https://github.com/mlperf/logging.git"
       },
       "new_env_keys": [
         "CM_MLPERF_LOGGING_VERSION"
@@ -424,7 +463,8 @@
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "pip"
       },
       "new_env_keys": [
-        "CM_PIP_VERSION"
+        "CM_PIP_VERSION",
+        "CM_PYTHON_PIP_COMMON_EXTRA"
       ]
     },
     "polygraphy": {
@@ -495,6 +535,22 @@
       },
       "new_env_keys": [
         "CM_SCIKIT_LEARN_VERSION"
+      ]
+    },
+    "cupy": {
+      "deps": [
+        {
+          "names": [
+            "cuda"
+          ],
+          "tags": "get,cuda"
+        }
+      ],
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "cupy"
+      },
+      "new_env_keys": [
+        "CM_CUPY_VERSION"
       ]
     },
     "scipy": {

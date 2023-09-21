@@ -1,1 +1,3 @@
-sudo docker run -it --rm ckrepo/cm-image-classification-python-onnx:ubuntu-22.04 -c "time cm run script --tags=python,app,image-classification,onnx"
+#!/bin/bash
+
+docker run -it --rm cknowledge/cm-script-app-image-classification-onnx-py:ubuntu-23.04-latest -c "time cmr 'python app image-classification onnx' --adr.python.name=cm"

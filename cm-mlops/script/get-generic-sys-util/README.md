@@ -142,9 +142,21 @@ ___
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `libudev-dev`
       - Workflow:
+    * `_ntpdate`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `ntpdate`
+      - Workflow:
+    * `_nvidia-cuda-toolkit`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `nvidia-cuda-toolkit`
+      - Workflow:
     * `_rapidjson-dev`
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `rapidjson-dev`
+      - Workflow:
+    * `_rsync`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `rsync`
       - Workflow:
     * `_screen`
       - Environment variables:

@@ -133,7 +133,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 #### Versions
-Default version: `1.12.1`
+Default version: `1.15.1`
 
 ___
 ### Script workflow, dependencies and native scripts

@@ -1,4 +1,4 @@
-if "%CM_DATASET_PATH%" == "" (
+if "%CM_EXTRACT_EXTRACTED_PATH%" == "" (
   echo.
 
   wget -nc https://www.dropbox.com/s/57s11df6pts3z69/ILSVRC2012_img_val_500.tar --no-check-certificate

@@ -105,6 +105,7 @@ ___
 <summary>Click here to expand this section.</summary>
 
 * `--commit_message=value`  &rarr;  `CM_MLPERF_RESULTS_REPO_COMMIT_MESSAGE=value`
+* `--repo_branch=value`  &rarr;  `CM_GIT_BRANCH=value`
 * `--repo_url=value`  &rarr;  `CM_MLPERF_RESULTS_GIT_REPO_URL=value`
 * `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
 
@@ -137,6 +138,8 @@ ___
      * get,python3
        * CM names: `--adr.['python3', 'python']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,generic-sys-util,_rsync
+       - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/push-mlperf-inference-results-to-github/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/push-mlperf-inference-results-to-github/_cm.json)***
      * get,git,repo
