@@ -92,10 +92,10 @@ def preprocess(i):
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'rnn-t', 'DistributedDataParallel_1576581068.9962234-epoch-100.pt')
         model_name = "rnnt"
 
-    elif "dlrm" in env['CM_MODEL']:
+    elif "pdlrm" in env['CM_MODEL']:
         target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'criteo')
         if not os.path.exists(target_data_path):
-            cmds.append(f"ln -sf {env['CM_DATASET_PATH']} {target_data_path}")
+            cmds.append(f"ln -sf {env['CM_DATASET_PREPROCESSED_PATH']} {target_data_path}")
 
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'dlrm', 'tb00_40M.pt')
         if not os.path.exists(os.path.dirname(model_path)):
@@ -104,6 +104,9 @@ def preprocess(i):
         if not os.path.exists(model_path):
             cmds.append(f"ln -sf {env['CM_ML_MODEL_FILE_WITH_PATH']} {model_path}")
         model_name = "dlrm"
+
+    elif "dlrm-v2" in env['CM_MODEL']:
+        model_name = "dlrm-v2"
 
     elif env['CM_MODEL'] == "retinanet":
         #print(env)

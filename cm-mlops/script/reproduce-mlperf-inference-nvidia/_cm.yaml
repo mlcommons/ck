@@ -171,8 +171,8 @@ deps:
 
   - enable_if_env:
       CM_MODEL:
-      - dlrm-99
-      - dlrm-99.9
+      - dlrm-v2-99
+      - dlrm-v2-99.9
     names:
       - criteo-preprocessed
     tags: get,dataset,preprocessed,criteo
@@ -181,8 +181,8 @@ deps:
   # Install dlrm model
   - enable_if_env:
       CM_MODEL:
-      - dlrm-99
-      - dlrm-99.9
+      - dlrm-v2-99
+      - dlrm-v2-99.9
     names:
       - dlrm-model
     tags: get,ml-model,dlrm,_pytorch
@@ -382,19 +382,19 @@ variations:
     deps:
     - tags: get,generic-python-lib,_torch
 
-  dlrm-99:
+  dlrm-v2-99:
     group: model
     base:
     - dlrm_
     env:
-      CM_MODEL: dlrm-99
+      CM_MODEL: dlrm-v2-99
 
-  dlrm-99.9:
+  dlrm-v2-99.9:
     group: model
     base:
     - dlrm_
     env:
-      CM_MODEL: dlrm-99.9
+      CM_MODEL: dlrm-v2-99.9
 
   batch_size.#:
     group: batch-size
@@ -500,8 +500,8 @@ variations:
             - resnet50
             - bert-99
             - bert-99.9
-            - dlrm-99
-            - dlrm-99.9
+            - dlrm-v2-99
+            - dlrm-v2-99.9
 
   build_engine:
     group: run-mode
@@ -522,6 +522,9 @@ variations:
           - batch-size
           - triton
           - build-engine-options
+        skip_if_env:
+          CM_MODEL:
+            dlrm-v2-99
 
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
         inherit_variation_tags: true
@@ -541,8 +544,8 @@ variations:
             - resnet50
             - bert-99
             - bert-99.9
-            - dlrm-99
-            - dlrm-99.9
+            - dlrm-v2-99
+            - dlrm-v2-99.9
       - tags: reproduce,mlperf,inference,nvidia,harness,_calibrate
         inherit_variation_tags: true
         enable_if_env:
@@ -622,8 +625,8 @@ variations:
             - resnet50
             - bert-99
             - bert-99.9
-            - dlrm-99
-            - dlrm-99.9
+            - dlrm-v2-99
+            - dlrm-v2-99.9
     env:
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: run_harness
       MLPERF_NVIDIA_RUN_COMMAND: run_harness
@@ -1110,191 +1113,6 @@ variations:
       CM_MODEL_BATCH_SIZE: "315000"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
-  a6000:
-    group: gpu-name
-    env:
-      CM_NVIDIA_CUSTOM_GPU: "yes"
-
-  rtx_a6000,resnet50,offline,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.64
-    env:
-      CM_MODEL_BATCH_SIZE: "64"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_a6000,resnet50,server,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.32
-    env:
-      CM_MODEL_BATCH_SIZE: "32"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_a6000,retinanet,offline,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.2
-    env:
-      CM_MODEL_BATCH_SIZE: "2"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_a6000,retinanet,server,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.2
-    env:
-      CM_MODEL_BATCH_SIZE: "2"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_a6000,bert_,offline,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.256
-    env:
-      CM_MODEL_BATCH_SIZE: "256"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_a6000,bert_,server,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.256
-    env:
-      CM_MODEL_BATCH_SIZE: "256"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_a6000,3d-unet_,offline,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.8
-    env:
-      CM_MODEL_BATCH_SIZE: "8"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_a6000,3d-unet_,server,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.8
-    env:
-      CM_MODEL_BATCH_SIZE: "8"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_a6000,rnnt,offline,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.2048
-    env:
-      CM_MODEL_BATCH_SIZE: "2048"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_a6000,rnnt,server,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.512
-    env:
-      CM_MODEL_BATCH_SIZE: "512"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_a6000,dlrm_,offline,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.315000
-    env:
-      CM_MODEL_BATCH_SIZE: "315000"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_6000_ada:
-    group: gpu-name
-    env:
-      CM_NVIDIA_CUSTOM_GPU: "yes"
-
-  rtx_6000_ada,resnet50,offline,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.64
-    env:
-      CM_MODEL_BATCH_SIZE: "64"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_6000_ada,resnet50,server,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.32
-    env:
-      CM_MODEL_BATCH_SIZE: "32"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_6000_ada,retinanet,offline,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.2
-    env:
-      CM_MODEL_BATCH_SIZE: "2"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_6000_ada,retinanet,server,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.2
-    env:
-      CM_MODEL_BATCH_SIZE: "2"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_6000_ada,bert_,offline,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.256
-    env:
-      CM_MODEL_BATCH_SIZE: "256"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_6000_ada,bert_,server,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.256
-    env:
-      CM_MODEL_BATCH_SIZE: "256"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_6000_ada,3d-unet_,offline,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.8
-    env:
-      CM_MODEL_BATCH_SIZE: "8"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_6000_ada,3d-unet_,server,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.8
-    env:
-      CM_MODEL_BATCH_SIZE: "8"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_6000_ada,rnnt,offline,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.512
-    env:
-      CM_MODEL_BATCH_SIZE: "512"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_6000_ada,rnnt,server,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.512
-    env:
-      CM_MODEL_BATCH_SIZE: "512"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
-
-  rtx_6000_ada,dlrm_,offline,run_harness:
-    add_deps_recursive:
-      build-engine:
-        tags: _batch_size.315000
-    env:
-      CM_MODEL_BATCH_SIZE: "315000"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
   l4:
     group: gpu-name
     env:
