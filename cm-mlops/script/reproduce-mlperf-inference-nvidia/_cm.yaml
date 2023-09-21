@@ -1116,7 +1116,7 @@ variations:
       CM_MODEL_BATCH_SIZE: "315000"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
-   a6000:
+  a6000:
     group: gpu-name
     env:
       CM_NVIDIA_CUSTOM_GPU: "yes"
