@@ -381,6 +381,9 @@ variations:
   dlrm_:
     deps:
     - tags: get,generic-python-lib,_torch
+    - tags: get,generic-python-lib,_package.torchsnapshot
+    - tags: get,generic-python-lib,_package.fbgemm-gpu
+      version: 0.2.0
 
   dlrm-v2-99:
     group: model
