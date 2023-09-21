@@ -6,27 +6,34 @@
 [![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 [![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
 
+### Breaking news
+
+Breaking news: our open-source CM automation language and CK playground 
+enabled the 1st mass-scale community submission of 10000+ MLPerf
+inference benchmarking results (representing more than 90% of all v3.1 submissions)
+across diverse models, data sets, software and hardware 
+from different vendors via the cTuning foundation - see the [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
+for more details and get in touch via our [public Discord server](https://discord.gg/JjWNWXKxwT) 
+if you want to automate and optimize your future MLPerf submissions
+using our open-source technology! 
+
+
 ### About
 
-The [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md), 
-[cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org) have developed
-a non-intrusive, technology-agnostic and plugin-based [Collective Mind automation language (CM)](https://doi.org/10.5281/zenodo.8105339)
-to enable collaborative, reproducible, automated and unified benchmarking, optimization and comparison of AI, ML and other emerging workloads
-across diverse and rapidly evolving models, data sets, software and hardware from different vendors.
+Collective Mind automation Language (CM) is a simple automation language that helps to implement modular, portable and technology-agnostic 
+benchmarks and applications with a common API that can automatically plug in diverse and rapidly evolving models, data sets, software and hardware
+from different vendors and users.
+It is extended via [CM scripts](cm-mlops/scripts) - a database of portable, reusable and technology-agnostic automations 
+to modularize benchmarks, software projects and AI/ML Systems.
 
-The CM automation language was successfully validated by the community and [cTuning foundation](https://cTuning.org)
-via [public optimization and reproducibility challenges at the CK playground](https://access.cknowledge.org/playground/?action=challenges)
-to automate > 90% of all [MLPerf inference v3.1 results](https://mlcommons.org/en/news/mlperf-inference-storage-q323/) 
-and cross 10000 submissions in one round for the first time - please read this [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
-about the cTuning's community submission and check the [list of the new CM/CK capabilities](https://github.com/mlcommons/ck/blob/master/docs/news-mlperf-v3.1.md) 
-available to everyone to prepare and automate their future MLPerf submissions.
-
-See related [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339), 
-[ACM Tech Talk](https://learning.acm.org/techtalks/reproducibility) 
+CM is used by the community to provide a common interface to all shared knowledge, facilitate reproducible research and automate development, benchmarking, optimization, comparison and deployment of AI/ML Systems.
+See [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) 
 and [MLPerf submitters orientation](https://doi.org/10.5281/zenodo.8144274) 
-to learn more about our open-source developments and long-term vision.
+to learn more about our open-source technology and long-term vision.
 
-Join our [Discord server](https://discord.gg/JjWNWXKxwT) to ask questions, provide feedback and participate in collaborative developments.
+Join our [public Discord server](https://discord.gg/JjWNWXKxwT) to learn how to use CM, 
+modularize your projects and benchmarks, run and extend MLPerf benchmarks, participate in future MLPerf submissions, 
+automate reproducibility initiatives at ACM/IEEE/NeurIPS conferences and co-design efficient AI/ML Systems.
 
 ### Documentation
 
