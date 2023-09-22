@@ -28,7 +28,8 @@ Install repositories with raw MLPerf inference benchmark results:
 ```bash
 cm run script "get git repo _repo.https://github.com/mlcommons/tiny_results_v0.7" --extra_cache_tags=mlperf-tiny-results,version-0.7
 cm run script "get git repo _repo.https://github.com/mlcommons/tiny_results_v1.0" --extra_cache_tags=mlperf-tiny-results,version-1.0
-```
+cm run script "get git repo _repo.https://github.com/mlcommons/tiny_results_v1.1" --extra_cache_tags=mlperf-tiny-results,version-1.1
+````
 
 You can also add private results to compare submissions locally before they become public:
 ```bash

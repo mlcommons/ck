@@ -133,15 +133,8 @@ You can find the location of a pulled repository as follows:
 cm find repo mlcommons@ck
 ```
 
-You can also pull the stable version of this CM repository that we have used for this tutorial 
-using checkout *[f9abc76](https://github.com/mlcommons/ck/releases/tag/cm-v1.1.1)*:
-
-```bash
-cm pull repo mlcommons@ck --checkout=ac3fda5
-```
-
 You can now use the unified CM CLI/API of [reusable and cross-platform CM scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md))
-to detect or install all artifacts (tools, models, datasets, libraries, etc) 
+to detect or install all the latest artifacts (tools, models, datasets, libraries, etc) 
 required for a given software project (MLPerf inference benchmark with RetinaNet, Open Images and ONNX in our case).
 
 Conceptually, these scripts take some environment variables and files as an input, perform a cross-platform action (detect artifact, download files, install tools),

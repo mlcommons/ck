@@ -28,6 +28,7 @@ cmr "get git repo _repo.https://github.com/mlcommons/training_results_v1.0" --ex
 cmr "get git repo _repo.https://github.com/mlcommons/training_results_v1.1" --extra_cache_tags=mlperf-training-results,version-1.1 --branch=main --depth=""
 cmr "get git repo _repo.https://github.com/mlcommons/training_results_v2.0" --extra_cache_tags=mlperf-training-results,version-2.0 --branch=main --depth=""
 cmr "get git repo _repo.https://github.com/mlcommons/training_results_v2.1" --extra_cache_tags=mlperf-training-results,version-2.1 --branch=main
+cmr "get git repo _repo.https://github.com/mlcommons/training_results_v3.0" --extra_cache_tags=mlperf-training-results,version-3.0
 ```
 
 You can install private submission repository as follows:
