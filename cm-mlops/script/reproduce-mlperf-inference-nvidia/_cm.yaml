@@ -611,6 +611,9 @@ variations:
           - triton
           - build-engine-options
         force_cache: true
+        skip_if_env:
+          CM_MODEL:
+            dlrm-v2-99
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
         inherit_variation_tags: true
         skip_inherit_variation_groups:
