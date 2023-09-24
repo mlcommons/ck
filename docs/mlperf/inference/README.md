@@ -38,7 +38,7 @@ explaining why [MLCommons](https://mlcommons.org) is developing an open-source, 
 and non-intrusive [Collective Mind automation language (CM)](https://github.com/mlcommons/ck)
 and [Collective Knowledge Playground (CK)](https://access.cknowledge.org/playground/?action=experiments) 
 to make it easier to run, reproduce, optimize and compare MLPerf inference benchmarks 
-accross diverse software, hardware, models and data sets from different vendor.
+across diverse software, hardware, models and data sets from different vendor.
 
 Note that this project is under heavy development by the [MLCommons Task Force on Automation and Reproducibility](../taskforce.md),
 [cTuning.org](https://www.linkedin.com/company/ctuning-foundation) and [cKnowledge.org](https://www.linkedin.com/company/cknowledge)
@@ -312,3 +312,10 @@ Please help this community project by participating in our
 ## Questions? Suggestions?
 
 Get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).
+
+### Acknowledgments
+
+* A common CM interface and automation for MLPerf inference benchmarks was developed by Arjun Suresh and Grigori Fursin
+  sponsored by the [cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org)
+  with many contributions from [the community](../../../CONTRIBUTING.md).
+

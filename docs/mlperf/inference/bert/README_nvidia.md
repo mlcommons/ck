@@ -50,3 +50,9 @@ TBD
 ### Questions? Suggestions?
 
 Don't hesitate to get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).
+
+### Acknowledgments
+
+* CM automation for Nvidia's MLPerf inference implementation was developed by Arjun Suresh and Grigori Fursin.
+* Nvidia's MLPerf inference implementation was developed by Zhihan Jiang, Ethan Cheng, Yiheng Zhang and Jinho Suh.
+
