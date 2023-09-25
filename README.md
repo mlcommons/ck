@@ -7,7 +7,7 @@
 
 ### Breaking news
 
-Breaking news: our open-source CM automation language and CK playground 
+Our open-source CM automation language and CK playground 
 enabled the 1st mass-scale community submission of 10000+ MLPerf
 inference benchmarking results (representing more than 90% of all v3.1 submissions)
 across diverse models, data sets, software and hardware 
