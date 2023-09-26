@@ -87,7 +87,7 @@ def preprocess(i):
 
     if final_file:
         if env.get('CM_EXTRACT_EXTRACTED_CHECKSUM_FILE', '') != '':
-            env['CM_EXTRACT_EXTRACTED_CHECKSUM_CMD'] = "cd {}  " + xsep + "  md5sum -c {}".format(final_file, env.get('CM_EXTRACT_EXTRACTED_CHECKSUM_FILE'))
+            env['CM_EXTRACT_EXTRACTED_CHECKSUM_CMD'] = ("cd {}  " + xsep + "  md5sum -c {}").format(final_file, env.get('CM_EXTRACT_EXTRACTED_CHECKSUM_FILE'))
         elif env.get('CM_EXTRACT_EXTRACTED_CHECKSUM', '') != '':
             env['CM_EXTRACT_EXTRACTED_CHECKSUM_CMD'] = "echo {} {} | md5sum -c".format(env.get('CM_EXTRACT_EXTRACTED_CHECKSUM'), env['CM_EXTRACT_EXTRACTED_FILENAME'])
         else:
