@@ -129,3 +129,9 @@ Assuming all the downloaded files are to the user home directory please do the f
 </details>
 
 
+## Acknowledgments
+
+* A common CM interface and automation for MLPerf inference benchmarks was developed by Arjun Suresh and Grigori Fursin 
+  sponsored by the [cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org).
+* Nvidia's MLPerf inference implementation was developed by Zhihan Jiang, Ethan Cheng, Yiheng Zhang and Jinho Suh.
+
