@@ -496,6 +496,13 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  
 ```
 
 ## Running a mobilenet model
+
+We use a new virtual environment
+```
+cm run script "install python-venv" --name=mlperf-mobilenet
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf-mobilenet"
+```
+### Run Command
 ```
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  \
    --adr.python.version_min=3.8 \
