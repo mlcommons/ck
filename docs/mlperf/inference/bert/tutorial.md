@@ -279,10 +279,7 @@ Congratulations, you can now play with this benchmark using the unified CM comma
 Note that even if did not install all the above dependencies manually, the below command
 will automatically install all the necessary dependencies.
 
-You can check it by cleaning the CM cache and executing this command again 
-
 ```bash
-cm rm cache -f
 
 cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --adr.python.version_min=3.8 \
@@ -376,10 +373,10 @@ You are now ready to generate the submission similar to the ones appearing
 on the [official MLPerf inference dashboard](https://mlcommons.org/en/inference-edge-21).
 
 We have developed another script that runs the MLPerf inference benchmark in both accuracy and performance mode,
-runs the submission checker, unifies output for a dashboard and creates a valid MLPerf submission pack in `open.tar.gz` 
+runs the submission checker, unifies output for a dashboard and creates a valid MLPerf submission pack in `mlperf_submission.tar.gz` 
 with all required MLPerf logs and stats.
 
-You can run this script as follows (just substitute *OctoML* with the name of your organization):
+You can run this script as follows:
 
 ```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
@@ -461,11 +458,54 @@ summary.csv
 summary.json
 ```
 
-You should submit these files to the organizing committee to get extra points in the Student Cluster Competition.
-
 Note that by default, CM-MLPerf will store the raw results 
 in `$HOME/mlperf_submission` (with truncated accuracy logs) and in `$HOME/mlperf_submission_logs` 
 (with complete and very large accuracy logs).
 
 You can change this directory using the flag `--submission_dir={directory to store raw MLPerf results}`
 in the above script.
+
+## Trying deepsparse backend
+
+### int8
+```
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  \
+   --implementation=reference \
+   --model=bert-99 \
+   --backend=deepsparse \
+   --device=cpu \
+   --scenario=Offline \
+   --test_query_count=1024 \
+   --adr.mlperf-inference-implementation.max_batchsize=128 \
+   --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni \
+   --clean 
+```
+### fp32
+```
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  \
+   --adr.python.version_min=3.8 \
+   --implementation=reference \
+   --model=bert-99 \
+   --backend=deepsparse \
+   --device=cpu \
+   --scenario=Offline \
+   --test_query_count=1024 \
+   --adr.mlperf-inference-implementation.max_batchsize=128 \
+   --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni \
+   --clean 
+```
+
+## Running a mobilenet model
+```
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  \
+   --adr.python.version_min=3.8 \
+   --implementation=tflite-cpp \
+   --model=efficientnet \
+   --backend=tflite \
+   --device=cpu \
+   --scenario=SingleStream \
+   --test_query_count=100 \
+   --adr.tflite-model.tags=_lite0 \
+   --adr.mlperf-inference-implementation.tags=_armnn,_use-neon \
+   --clean
+```
