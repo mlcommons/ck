@@ -568,12 +568,12 @@ variations:
     - tags: get,generic-python-lib,_deepsparse
       skip_if_env:
         CM_HOST_PLATFORM_FLAVOR:
-          - aarch64
+        - aarch64
     deps:
     - tags: get,generic-python-lib,_package.deepsparse-nightly
       enable_if_env:
         CM_HOST_PLATFORM_FLAVOR:
-          - aarch64
+        - aarch64
     add_deps_recursive:
       inference-src:
         version: deepsparse
