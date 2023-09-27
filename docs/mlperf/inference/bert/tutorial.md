@@ -44,11 +44,12 @@ Follow [this guide](../installation.md) to install the MLCommons CM framework on
 After the installation, you should be able to access the CM command line as follows:
 
 ```bash
-$ cm
+cm
 
 cm {action} {automation} {artifact(s)} {--flags} @input.yaml @input.json
 ```
 
+```bash
 cm --version
 ```
 
