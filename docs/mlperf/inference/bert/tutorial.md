@@ -6,7 +6,7 @@
 
 # Introduction
 
-It should take less than an hour to complete this tutorial. In the end, you should obtain a tarball (open.tar.gz) with the MLPerf-compatible results.
+It should take less than an hour to complete this tutorial. In the end, you should obtain a tarball (`mlperf_submission.tar.gz`) with the MLPerf-compatible results.
 
 *Note that both MLPerf and CM automation are evolving projects.
  If you encounter issues or have questions, please submit them [here](https://github.com/mlcommons/ck/issues)
@@ -71,6 +71,12 @@ You can find the location of a pulled repository as follows:
 cm find repo mlcommons@ck
 ```
 
+## Setup a virtual environment for Python
+
+```bash
+cm run script "install python-venv" --name=mlperf
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf"
+```
 
 ## Install system dependencies for your platform
 
@@ -105,12 +111,12 @@ You need to detect it using the following [CM script](https://github.com/mlcommo
 cm run script "get python" --version_min=3.8
 ```
 
-Note, that all artifacts (including above scripts) in MLCommons CM are organized as a database of interconnected components.
+Note, that all artifacts (including the above scripts) in MLCommons CM are organized as a database of interconnected components.
 They can be found either by their user friendly tags (such as `get,python`) or aliases (`get-python3`) and unique identifiers
 (`5b4e0237da074764`).
 You can find this information in a [CM meta description of this script](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-python3/_cm.json).
 
-If required Python is already installed on your system, CM will detect it and will cache related environment variables such as PATH, PYTHONPATH, etc.
+If required Python is installed on your system, CM will detect it and cache related environment variables such as PATH, PYTHONPATH, etc.
 to be reused by other CM scripts. You can find an associated CM cache entry for your python as follows:
 
 ```bash
@@ -165,7 +171,7 @@ to enforce detection and usage of GCC to build loadgen.
 
 ## MLPerf inference - Python - Bert FP32 - SQUAD v1.1 - ONNX - CPU - Offline
 
-### Download SQAUD dataset
+### Download the SQuAD dataset
 
 
 ```bash
@@ -261,11 +267,9 @@ Post-processing predictions..
 Congratulations, you can now play with this benchmark using the unified CM commands!
 
 Note that even if did not install all the above dependencies manually, the below command
-will automatically install all the necessary dependencies (you just need to specify
-that you use GCC and 500 images). 
+will automatically install all the necessary dependencies.
 
 You can check it by cleaning the CM cache and executing this command again 
-(it will take around ~10 minutes depending on the speed of your system and the Internet connection):
 
 ```bash
 cm rm cache -f
@@ -292,7 +296,7 @@ cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" 
      --rerun
 ```
 
-It will run for a few seconds and you should see the output similar to the following one in the end
+It will run for a few seconds and you should see an output similar to the following one at the end
 (the QPS is the performance result of this benchmark that depends on the speed of your system):
 
 ```txt
@@ -380,7 +384,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
       --clean
 ```      
 
-It will take around 15-30 minutes to run and you should see the following output in the end:
+It will take a few minutes to run and you should see the following output in the end:
 
 ```txt
 
@@ -455,42 +459,3 @@ in `$HOME/mlperf_submission` (with truncated accuracy logs) and in `$HOME/mlperf
 
 You can change this directory using the flag `--submission_dir={directory to store raw MLPerf results}`
 in the above script.
-
-
-
-
-
-
-### Use Python virtual environment with CM and MLPerf
-
-If you prefer to avoid installing all above python packages to your native Python,
-you can install multiple virtual environments using the same CM interface.
-
-Here are the CM instructions to run the MLPerf benchmark in the Python virtual
-environment called "mlperf":
-
-```bash
-
-cm pull repo mlcommons@ck
-
-cm run script "get sys-utils-cm" --quiet
-
-cm run script "install python-venv" --version=3.10.8 --name=mlperf
-
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
-      --adr.python.name=mlperf \
-      --adr.python.version_min=3.8 \
-      --adr.compiler.tags=gcc \
-      --adr.openimages-preprocessed.tags=_500 \
-      --submitter="Community" \
-      --hw_name=default \
-      --model=retinanet \
-      --backend=onnxruntime \
-      --device=cpu \
-      --scenario=Offline \
-      --test_query_count=10 \
-      --clean
-
-```
-
-Note that you need to add a flag `--adr.python.name={name of a virtual environment (mlperf)`.
