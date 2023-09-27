@@ -45,7 +45,9 @@ After the installation, you should be able to access the CM command line as foll
 
 ```bash
 cm
+```
 
+```txt
 cm {action} {automation} {artifact(s)} {--flags} @input.yaml @input.json
 ```
 
