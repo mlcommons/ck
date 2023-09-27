@@ -74,12 +74,10 @@ You can find the location of a pulled repository as follows:
 cm find repo mlcommons@ck
 ```
 
-## Setup a virtual environment for Python
-
-```bash
-cm run script "install python-venv" --name=mlperf
-export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf"
+```txt
+mlcommons@ck,a4705959af8e447a = /home/ubuntu/CM/repos/mlcommons@ck
 ```
+
 
 ## Install system dependencies for your platform
 
@@ -101,6 +99,7 @@ cm run script "get sys-utils-cm" --quiet
 
 If you think that you have all system dependencies installed,
 you can run this script without `--quiet` flag and type "skip" in the script prompt.
+
 
 
 ## Use CM to detect or install Python 3.8+
@@ -148,6 +147,14 @@ Note that if you run the same script again, CM will automatically find and reuse
 ```bash
 cm run script "get python" --version_min=3.8 --out=json
 ```
+
+## Setup a virtual environment for Python
+
+```bash
+cm run script "install python-venv" --name=mlperf
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf"
+```
+
 
 ## Pull MLPerf inference sources
 
