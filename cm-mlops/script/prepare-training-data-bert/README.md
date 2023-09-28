@@ -111,7 +111,7 @@ ___
         - *CM_TMP_VARIATION*: `nvidia`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * get,git,repo,_repo.https://github.com/mlcommons/training_results_v2.1
+           * get,git,repo,_repo.https://github.com/wchen61/training_results_v2.1,_branch.fix_bert_prepare_data
              - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
     * `_reference`
       - Environment variables:
