@@ -110,7 +110,7 @@
       "default": true,
       "deps": [
         {
-          "tags": "get,git,repo,_repo.https://github.com/mlcommons/training_results_v2.1",
+          "tags": "get,git,repo,_repo.https://github.com/wchen61/training_results_v2.1,_branch.fix_bert_prepare_data",
           "extra_cache_tags": "mlperf,training,results"
         }
       ],
