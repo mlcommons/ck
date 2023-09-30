@@ -3920,9 +3920,9 @@ def get_script_name(env, path, script_name = 'run'):
 
     from os.path import exists
 
-    tmp_suff1 = env['CM_HOST_OS_FLAVOR'] if 'CM_HOST_OS_FLAVOR' in env else ''
-    tmp_suff2 = env['CM_HOST_OS_VERSION'] if 'CM_HOST_OS_VERSION' in env else ''
-    tmp_suff3 = env['CM_HOST_PLATFORM_FLAVOR'] if 'CM_HOST_PLATFORM_FLAVOR' in env else ''
+    tmp_suff1 = env.get('CM_HOST_OS_FLAVOR', '')
+    tmp_suff2 = env.get('CM_HOST_OS_VERSION', '')
+    tmp_suff3 = env.get('CM_HOST_PLATFORM_FLAVOR', '')
 
     if exists(os.path.join(path, script_name+'-' + tmp_suff1 + '-'+ tmp_suff2 + '-' + tmp_suff3 + '.sh')):
         return script_name+'-' + tmp_suff1 + '-' + tmp_suff2 + '-' + tmp_suff3 + '.sh'
