@@ -2155,7 +2155,6 @@ class CAutomation(Automation):
             meta['script_name'] = script_name_base
 
         ii['meta']=meta
-        
         ii['action']='add'
 
         use_yaml = True if not i.get('json',False) else False
@@ -2163,6 +2162,7 @@ class CAutomation(Automation):
         if use_yaml:
             ii['yaml']=True
 
+        ii['automation']='script,5b4e0237da074764'
         r_obj=self.cmind.access(ii)
         if r_obj['return']>0: return r_obj
 
