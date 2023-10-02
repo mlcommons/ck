@@ -2070,8 +2070,6 @@ class CAutomation(Automation):
         # Try to find experiment artifact by alias and/or tags
         ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
 
-        print (ii)
-
         parsed_artifact = i.get('parsed_artifact',[])
 
         artifact_obj = parsed_artifact[0] if len(parsed_artifact)>0 else ('','')
