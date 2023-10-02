@@ -2070,8 +2070,6 @@ class CAutomation(Automation):
         # Try to find experiment artifact by alias and/or tags
         ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
 
-        print (ii)
-
         parsed_artifact = i.get('parsed_artifact',[])
 
         artifact_obj = parsed_artifact[0] if len(parsed_artifact)>0 else ('','')
@@ -2155,7 +2153,6 @@ class CAutomation(Automation):
             meta['script_name'] = script_name_base
 
         ii['meta']=meta
-        
         ii['action']='add'
 
         use_yaml = True if not i.get('json',False) else False
@@ -2163,6 +2160,7 @@ class CAutomation(Automation):
         if use_yaml:
             ii['yaml']=True
 
+        ii['automation']='script,5b4e0237da074764'
         r_obj=self.cmind.access(ii)
         if r_obj['return']>0: return r_obj
 
@@ -3920,9 +3918,9 @@ def get_script_name(env, path, script_name = 'run'):
 
     from os.path import exists
 
-    tmp_suff1 = env['CM_HOST_OS_FLAVOR'] if 'CM_HOST_OS_FLAVOR' in env else ''
-    tmp_suff2 = env['CM_HOST_OS_VERSION'] if 'CM_HOST_OS_VERSION' in env else ''
-    tmp_suff3 = env['CM_HOST_PLATFORM_FLAVOR'] if 'CM_HOST_PLATFORM_FLAVOR' in env else ''
+    tmp_suff1 = env.get('CM_HOST_OS_FLAVOR', '')
+    tmp_suff2 = env.get('CM_HOST_OS_VERSION', '')
+    tmp_suff3 = env.get('CM_HOST_PLATFORM_FLAVOR', '')
 
     if exists(os.path.join(path, script_name+'-' + tmp_suff1 + '-'+ tmp_suff2 + '-' + tmp_suff3 + '.sh')):
         return script_name+'-' + tmp_suff1 + '-' + tmp_suff2 + '-' + tmp_suff3 + '.sh'
