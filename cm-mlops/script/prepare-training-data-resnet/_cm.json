@@ -18,6 +18,10 @@
     {
       "names": [ "imagenet-train" ],
       "tags": "get,dataset,imagenet,train"
+    },
+    {
+      "names": [ "imagenet-val" ],
+      "tags": "get,dataset,imagenet,val,original,_full"
     }
   ],
   "prehook_deps": [

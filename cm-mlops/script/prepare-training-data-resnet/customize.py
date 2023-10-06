@@ -21,6 +21,7 @@ def preprocess(i):
     if env.get("CM_TMP_VARIATION", "") == "nvidia":
         code_path = os.path.join(env['CM_NVIDIA_DEEPLEARNING_EXAMPLES_REPO_PATH'], 'MxNet', 'Classification', 'RN50v1.5')
         env['CM_RUN_DIR'] = code_path
+
     elif env.get("CM_TMP_VARIATION", "") == "reference":
         code_path = os.path.join(env['CM_MLPERF_TRAINING_SOURCE'], 'image_classification', 'tensorflow2')
         env['CM_RUN_DIR'] = code_path

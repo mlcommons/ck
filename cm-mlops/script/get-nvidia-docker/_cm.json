@@ -1,11 +1,14 @@
 {
-  "alias": "get-docker",
+  "alias": "get-nvidia-docker",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "deps": [
     {
       "tags": "detect,os"
+    },
+    {
+      "tags": "get,docker"
     }
   ],
   "docker_input_mapping": {},
@@ -19,10 +22,12 @@
   "tags": [
     "get",
     "install",
-    "docker",
+    "nvidia",
+    "nvidia-container-toolkit",
+    "nvidia-docker",
     "engine"
   ],
-  "uid": "6192accce4234084",
+  "uid": "465ae240998e4779",
   "variations": {},
   "versions": {}
 }

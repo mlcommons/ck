@@ -1,0 +1,70 @@
+{
+  "alias": "get-mlperf-training-nvidia-code",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "clean_files": [],
+  "default_version": "r3.0",
+  "deps": [
+    {
+      "names": [
+        "mlperf-training-results"
+      ],
+      "extra_cache_tags": "mlperf,training,results",
+      "tags": "get,git,repo",
+      "env": {
+        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_MLPERF_TRAINING_RESULTS_PATH"
+      }
+    }
+  ],
+  "new_env_keys": [
+    "CM_MLPERF_TRAINING_NVIDIA_CODE_PATH"
+  ],
+  "tags": [
+    "get",
+    "nvidia",
+    "mlperf",
+    "training",
+    "code",
+    "training-code"
+  ],
+  "uid": "fdc630b1d41743c5",
+  "variations": {
+    "ctuning": {
+      "group": "repo-owner"
+    },
+    "custom": {
+      "group": "repo-owner"
+    },
+    "mlcommons": {
+      "default": true,
+      "group": "repo-owner"
+    },
+    "nvidia-only": {
+      "group": "repo-owner"
+    }
+  },
+  "versions": {
+    "r3.1": {
+      "add_deps_recursive": {
+        "mlperf-training-results": {
+          "version": "_repo.https://github.com/mlcommons/training_results_v3.1"
+        }
+      }
+    },
+    "r3.0": {
+      "add_deps_recursive": {
+        "mlperf-training-results": {
+          "version": "_repo.https://github.com/mlcommons/training_results_v3.0"
+        }
+      }
+    },
+    "r2.1": {
+      "add_deps_recursive": {
+        "mlperf-training-results": {
+          "version": "_repo.https://github.com/mlcommons/training_results_v2.1"
+        }
+      }
+    }
+  }
+}
