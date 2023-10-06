@@ -27,10 +27,10 @@
 #### Information
 
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-docker)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-docker)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,install,docker,engine*
-* Output cached?: *False*
+* CM "database" tags to find this script: *get,install,nvidia,nvidia-container-toolkit,nvidia-docker,engine*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -48,11 +48,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,install,docker,engine `
+1. `cm run script --tags=get,install,nvidia,nvidia-container-toolkit,nvidia-docker,engine `
 
-2. `cm run script "get install docker engine" `
+2. `cm run script "get install nvidia nvidia-container-toolkit nvidia-docker engine" `
 
-3. `cm run script 6192accce4234084 `
+3. `cm run script 465ae240998e4779 `
 
 * `variations` can be seen [here](#variations)
 
@@ -69,7 +69,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,install,docker,engine'
+                  'tags':'get,install,nvidia,nvidia-container-toolkit,nvidia-docker,engine'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -86,9 +86,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,install,docker,engine"```
+```cm run script --tags=gui --script="get,install,nvidia,nvidia-container-toolkit,nvidia-docker,engine"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,install,docker,engine) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,install,nvidia,nvidia-container-toolkit,nvidia-docker,engine) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -113,14 +113,18 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-docker/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-docker/_cm.json)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+     * get,docker
+       - CM script: [get-docker](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-docker)
   1. Run "preprocess" function from customize.py
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-docker/_cm.json)
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-docker/_cm.json)
   1. ***Run native script if exists***
-     * [run-ubuntu.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-docker/run-ubuntu.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-docker/_cm.json)
+     * [run-ubuntu.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-docker/run-ubuntu.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-docker/_cm.json)
   1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-docker/_cm.json)
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-docker/_cm.json)
 </details>
 
 ___

@@ -22,19 +22,16 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
+*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
 
 ### Description
-
-
-See [more info](README-extra.md).
 
 #### Information
 
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-nvidia-code)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,nvidia,mlperf,inference,common-code*
+* CM "database" tags to find this script: *get,nvidia,mlperf,training,code,training-code*
 * Output cached?: *True*
 ___
 ### Usage
@@ -53,11 +50,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,nvidia,mlperf,inference,common-code[,variations] `
+1. `cm run script --tags=get,nvidia,mlperf,training,code,training-code[,variations] `
 
-2. `cm run script "get nvidia mlperf inference common-code[,variations]" `
+2. `cm run script "get nvidia mlperf training code training-code[,variations]" `
 
-3. `cm run script 26b78bf3ffdc4926 `
+3. `cm run script fdc630b1d41743c5 `
 
 * `variations` can be seen [here](#variations)
 
@@ -74,7 +71,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,nvidia,mlperf,inference,common-code'
+                  'tags':'get,nvidia,mlperf,training,code,training-code'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -91,9 +88,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,nvidia,mlperf,inference,common-code"```
+```cm run script --tags=gui --script="get,nvidia,mlperf,training,code,training-code"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,nvidia,mlperf,inference,common-code) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,nvidia,mlperf,training,code,training-code) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -113,13 +110,17 @@ ___
       - Workflow:
     * `_custom`
       - Workflow:
-    * `_mlcommons`
+    * **`_mlcommons`** (default)
       - Workflow:
     * `_nvidia-only`
       - Workflow:
 
     </details>
 
+
+#### Default variations
+
+`_mlcommons`
 #### Default environment
 
 <details>
@@ -131,7 +132,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 #### Versions
-Default version: `r3.1`
+Default version: `r3.0`
 
 * `r2.1`
 * `r3.0`
@@ -142,27 +143,26 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/_cm.json)***
-     * get,mlperf,inference,results
-       * CM names: `--adr.['mlperf-inference-results']...`
-       - CM script: [get-mlperf-inference-results](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-nvidia-code/_cm.json)***
+     * get,git,repo
+       * CM names: `--adr.['mlperf-training-results']...`
+       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-nvidia-code/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-nvidia-code/_cm.json)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-nvidia-code/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-nvidia-code/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-nvidia-code/_cm.json)
 </details>
 
 ___
 ### Script output
 #### New environment keys (filter)
 
-* `+PYTHONPATH`
-* `CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH`
+* `CM_MLPERF_TRAINING_NVIDIA_CODE_PATH`
 #### New environment keys auto-detected from customize
 
-* `CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH`
+* `CM_MLPERF_TRAINING_NVIDIA_CODE_PATH`
 ___
 ### Maintainers
 

@@ -23,20 +23,17 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
+*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
 
 ### Description
-
-
-See [more info](README-extra.md).
 
 #### Information
 
 * Category: *Modular MLPerf benchmarks.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-training-submission-checker)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *run,mlc,mlcommons,mlperf,inference,mlperf-inference,submission,checker,submission-checker,mlc-submission-checker*
+* CM "database" tags to find this script: *run,mlc,mlcommons,mlperf,training,train,mlperf-training,submission,checker,submission-checker,mlc-submission-checker*
 * Output cached?: *False*
 ___
 ### Usage
@@ -55,11 +52,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=run,mlc,mlcommons,mlperf,inference,mlperf-inference,submission,checker,submission-checker,mlc-submission-checker[,variations] [--input_flags]`
+1. `cm run script --tags=run,mlc,mlcommons,mlperf,training,train,mlperf-training,submission,checker,submission-checker,mlc-submission-checker[,variations] [--input_flags]`
 
-2. `cm run script "run mlc mlcommons mlperf inference mlperf-inference submission checker submission-checker mlc-submission-checker[,variations]" [--input_flags]`
+2. `cm run script "run mlc mlcommons mlperf training train mlperf-training submission checker submission-checker mlc-submission-checker[,variations]" [--input_flags]`
 
-3. `cm run script 15d03ec2c1af4297 [--input_flags]`
+3. `cm run script cb5cb60ac9a74d09 [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -76,7 +73,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'run,mlc,mlcommons,mlperf,inference,mlperf-inference,submission,checker,submission-checker,mlc-submission-checker'
+                  'tags':'run,mlc,mlcommons,mlperf,training,train,mlperf-training,submission,checker,submission-checker,mlc-submission-checker'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -93,9 +90,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="run,mlc,mlcommons,mlperf,inference,mlperf-inference,submission,checker,submission-checker,mlc-submission-checker"```
+```cm run script --tags=gui --script="run,mlc,mlcommons,mlperf,training,train,mlperf-training,submission,checker,submission-checker,mlc-submission-checker"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run,mlc,mlcommons,mlperf,inference,mlperf-inference,submission,checker,submission-checker,mlc-submission-checker) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run,mlc,mlcommons,mlperf,training,train,mlperf-training,submission,checker,submission-checker,mlc-submission-checker) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -124,7 +121,6 @@ ___
 <summary>Click here to expand this section.</summary>
 
 * `--extra_args=value`  &rarr;  `CM_MLPERF_SUBMISSION_CHECKER_EXTRA_ARGS=value`
-* `--extra_model_benchmark_map=value`  &rarr;  `CM_MLPERF_EXTRA_MODEL_MAPPING=value`
 * `--input=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
 * `--power=value`  &rarr;  `CM_MLPERF_POWER=value`
 * `--push_to_github=value`  &rarr;  `CM_MLPERF_RESULT_PUSH_TO_GITHUB=value`
@@ -159,35 +155,29 @@ Default version: `master`
 
 * `master`
 * `r3.0`
+* `r3.1`
 ___
 ### Script workflow, dependencies and native scripts
 
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-training-submission-checker/_cm.json)***
      * get,python3
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src', 'submission-checker-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
-     * get,generic-python-lib,_xlsxwriter
-       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-     * get,generic-python-lib,_pandas
-       * CM names: `--adr.['pandas']...`
-       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/_cm.json)
+     * install,mlperf,logging,from.src
+       - CM script: [install-mlperf-logging-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from.src)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-training-submission-checker/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-training-submission-checker/_cm.json)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/customize.py)***
-  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/_cm.json)***
-     * publish-results,dashboard
-       * `if (CM_MLPERF_DASHBOARD  == on)`
-       - CM script: [publish-results-to-dashboard](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/publish-results-to-dashboard)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-training-submission-checker/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-training-submission-checker/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-training-submission-checker/customize.py)***
+  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-training-submission-checker/_cm.json)***
      * publish-results,github
        * `if (CM_MLPERF_RESULT_PUSH_TO_GITHUB  == on)`
        * CM names: `--adr.['push-to-github']...`
