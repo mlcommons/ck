@@ -77,7 +77,6 @@
         "CM_ML_MODEL_F1": "90.874"
       }
     },
-    "onnx,fp32,
     "onnx,fp32,zenodo": {
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/3733910/files/model.onnx"
