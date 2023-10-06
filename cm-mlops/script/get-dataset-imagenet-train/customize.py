@@ -48,12 +48,15 @@ def postprocess(i):
         return {'return':0}
 
     env = i['env']
+
     path = env['CM_EXTRACT_EXTRACTED_PATH']
 
+    '''
     path_image = os.path.join(path, 'n01440764', 'n01440764_10026.JPEG')
 
     if not os.path.isfile(path_image):
         return {'return':1, 'error':'ImageNet file {} not found'.format(path_image)}
+    '''
 
     env['CM_DATASET_PATH'] = path
     env['CM_DATASET_IMAGENET_PATH'] = path
@@ -62,4 +65,3 @@ def postprocess(i):
     env['CM_GET_DEPENDENT_CACHED_PATH'] =  path
 
     return {'return':0}
-

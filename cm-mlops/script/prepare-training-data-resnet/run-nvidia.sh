@@ -25,6 +25,16 @@ function run() {
 
 #Add your run commands here...
 # run "$CM_RUN_CMD"
+mkdir -p train_data/train
+mkdir -p train_data/val
+cp -r ${CM_DATASET_IMAGENET_TRAIN_PATH} train_data/train/
+cp -r ${CM_DATASET_IMAGENET_VAL_PATH} train_data/val/
+cd train_data/train
+find . -name "*.tar" | while read NAME ; do mkdir -p "${NAME%.tar}"; tar -xvf "${NAME}" -C "${NAME%.tar}"; rm -f "${NAME}"; done
+cd ../val
+run "wget -qO- https://raw.githubusercontent.com/soumith/imagenetloader.torch/master/valprep.sh | bash"
+cd ../../
+
 CUR=${CM_DATA_DIR:-"$PWD/data"}
 run "cd \"${CM_RUN_DIR}\""
 run "docker build -t nvidia_rn50_mx ."
