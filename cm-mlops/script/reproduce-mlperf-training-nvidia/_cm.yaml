@@ -1,0 +1,62 @@
+# Identification of this CM script
+alias: reproduce-mlperf-training-nvidia
+uid: f183628f292341e2
+cache: false
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular MLPerf benchmarks"
+
+
+# User-friendly tags to find this CM script
+tags:
+  - reproduce
+  - mlcommons
+  - mlperf
+  - training
+  - nvidia-training
+  - nvidia
+
+# Default environment
+default_env:
+env:
+
+# Map script inputs to environment variables
+input_mapping:
+  system_conf_name: CM_MLPERF_NVIDIA_TRAINING_SYSTEM_CONF_NAME
+  results_dir: 
+
+new_state_keys:
+  - mlperf-training-implementation
+  - CM_SUT_*
+
+# Dependencies on other CM scripts
+
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,nvidia-docker
+
+  # Detect CUDA
+  - names:
+    - cuda
+    tags: get,cuda
+    version: 11.7.0
+
+variations:
+  resnet:
+    group: benchmark
+    env:
+      CM_MLPERF_TRAINING_BENCHMARK: resnet
+    deps:
+      - tags: prepare,mlperf,training,resnet,_nvidia
+      - tags: get,nvidia,training,code
+        names:
+          nvidia-training-code
