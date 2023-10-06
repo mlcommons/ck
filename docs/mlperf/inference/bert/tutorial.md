@@ -39,7 +39,7 @@ across diverse ML models, datasets, frameworks, compilers and hardware (see [HPC
 
 ## CM installation
 
-Follow [this guide](../installation.md) to install the MLCommons CM framework on your system.
+Follow [this guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) to install the MLCommons CM framework on your system.
 
 After the installation, you should be able to access the CM command line as follows:
 
