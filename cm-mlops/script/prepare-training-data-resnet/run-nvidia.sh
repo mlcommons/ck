@@ -35,7 +35,7 @@ cd ../val
 run "wget -qO- https://raw.githubusercontent.com/soumith/imagenetloader.torch/master/valprep.sh | bash"
 cd ../../
 
-CUR=${CM_DATA_DIR:-"$PWD/data"}
+CUR=${CM_DATA_DIR}
 run "cd \"${CM_RUN_DIR}\""
 run "docker build -t nvidia_rn50_mx ."
 run "ID=`docker run -dt --gpus all --runtime=nvidia --ipc=host -v ${CM_DATASET_IMAGENET_TRAIN_PATH}:/data -v ${CUR}:/preprocessed nvidia_rn50_mx bash`"

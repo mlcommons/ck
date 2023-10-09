@@ -38,7 +38,9 @@ def postprocess(i):
     env['CM_MLPERF_TRAINING_IMAGENET_PATH'] = env['CM_DATASET_IMAGENET_TRAIN_PATH']
 
     if env.get("CM_TMP_VARIATION", "") == "nvidia":
-        env['CM_GET_DEPENDENT_CACHED_PATH'] = os.path.join(data_dir)
+        env['CM_GET_DEPENDENT_CACHED_PATH'] = data_dir
+        env['CM_MLPERF_TRAINING_NVIDIA_RESNET_PREPROCESSED_PATH'] = data_dir
+
     elif env.get("CM_TMP_VARIATION", "") == "reference":
         env['CM_GET_DEPENDENT_CACHED_PATH'] = os.path.join(data_dir, "tfrecords")
         env['CM_MLPERF_TRAINING_RESNET_TFRECORDS_PATH'] = os.path.join(data_dir, "tfrecords")
