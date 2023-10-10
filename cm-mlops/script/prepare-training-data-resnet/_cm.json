@@ -23,6 +23,9 @@
     {
       "names": [ "imagenet-val" ],
       "tags": "get,dataset,imagenet,val,original,_full"
+    },
+    {
+      "tags": "get,generic-sys-util,_rsync"
     }
   ],
   "prehook_deps": [
