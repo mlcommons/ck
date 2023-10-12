@@ -103,12 +103,13 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--input=value`  &rarr;  `IMAGENET_TRAIN_PATH=value`
 * `--torrent=value`  &rarr;  `CM_DATASET_IMAGENET_TRAIN_TORRENT_PATH=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "torrent":...}
+r=cm.access({... , "input":...}
 ```
 
 </details>
