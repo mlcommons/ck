@@ -5,10 +5,10 @@
 ## Goals
 
 * Help everyone run, reproduce, optimize and compare MLPerf benchmarks (training, inference and tiny) and submit Pareto-optimal results
-  with the help of our open-source [MLCommons Collective Mind automation language (CM)](https://doi.org/10.5281/zenodo.8105339) and 
+  with the help of the open-source [MLCommons Collective Mind automation language (CM)](https://doi.org/10.5281/zenodo.8105339) and 
   [MLCommons Collective Knowledge Playground (CK)](https://access.cknowledge.org/playground/?action=experiments)
   to reduce benchmarking, optimization and reproducibility costs.
-  ***More than 80% of the latest MLPerf inference submissions were automated using our open-source technology -
+  ***More than 80% of the latest MLPerf inference submissions were automated using this open-source technology -
   you can get help with your own submission and optimizations via our [public Discord server](https://discord.gg/JjWNWXKxwT).*** 
 * Automatically [run any MLPerf benchmark out-of-the-box](mlperf/README.md) with any software, hardware, model and data from any vendor.
 * Automate optimization experiments and visualization of results with derived metrics: *[prototype](https://cknowledge.org/mlcommons-inference-gui)*.
@@ -61,22 +61,20 @@ constraints and [MLPerf results](https://access.cknowledge.org/playground/?actio
 
 ### 2023
 
-- [x] DONE: prototype the CM (CK2) automation to let the community submit MLPerf inference v3.0 results across any software and hardware stack 
+- [x] DONE: Stable CM automation language (aka CK2) to let the community submit MLPerf inference v3.0 results across any software and hardware stack 
       (our technology powered 4K+ results (!) across diverse cloud and edge platforms with different versions of PyTorch, ONNX, TFLite, TF, TVM targeting diverse CPUs and GPUs 
       that will be announced at the beginning of April)!
-- [x] Prototype an [open-source on-prem CK platform](https://github.com/mlcommons/ck/tree/master/docs#collective-knowledge-playground-ck) 
+- [x] DONE: Prototype an [open-source on-prem CK platform](https://github.com/mlcommons/ck/tree/master/docs#collective-knowledge-playground-ck) 
       with a public API to automate SW/HW co-design for AI, ML and other emerging workloads based on user requirements and constraints.
-- [x] [Collaborative CK challenge](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023) 
+- [x] DONE: [Collaborative CK challenge](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023) 
       for the community to reproduce, optimize and submit results to MLPerf inference v3.0
       - 98% of all results were automated by the MLCommons CK technology!
-- [ ] [New CK challenge](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.1-2023) 
+- [x] [New CK challenge](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.1-2023) 
       to help MLCommons organizations and the community use our platform to prepare, optimize and compare their MLPerf inference v3.1 submissions on any SW/HW stack
-- [ ] Enhance the MLCommons CK2/CM automation meta-framework to support our platform across any SW/HW stacks from MLCommons members and the community.
-- [ ] Enhance the [MLPerf C++ inference template library (MITL)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp) 
+- [ ] In progress: Enhance the MLCommons CK2/CM automation meta-framework to support our platform across any SW/HW stacks from MLCommons members and the community.
+- [ ] In progress: Enhance the [MLPerf C++ inference template library (MIL)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp) 
       to run and optimize MLPerf inference across any AI/ML/SW/HW stack.
-- [ ] Enhance the [light MLPerf inference application](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp) 
-      to benchmark any ML model on any SW/HW stack without data sets and accuracy.
-- [ ] Enhance our platform and automation framework to support [reproducibility initiatives and studies](https://cTuning.org/ae) at conferences and journals 
+- [ ] In progress: Enhance our platform and automation framework to support [reproducibility initiatives and studies](https://cTuning.org/ae) at conferences and journals 
       across rapidly evolving software, hardware and data (collaboration with the [cTuning foundation](https://cTuning.org), ACM, IEEE and NeurIPS).
 
 
