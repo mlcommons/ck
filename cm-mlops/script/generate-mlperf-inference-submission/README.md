@@ -178,6 +178,7 @@ ___
        * `if (CM_RUN_SUBMISSION_CHECKER  == yes)`
        * CM names: `--adr.['mlperf-inference-submission-checker', 'submission-checker']...`
        - CM script: [run-mlperf-inference-submission-checker](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker)
+       - CM script: [run-mlperf-training-submission-checker](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-training-submission-checker)
 </details>
 
 ___

@@ -110,9 +110,10 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 #### Versions
-Default version: `22.11`
+Default version: `23.05`
 
 * `22.11`
+* `23.05`
 ___
 ### Script workflow, dependencies and native scripts
 
@@ -140,6 +141,7 @@ ___
 * `+CPLUS_INCLUDE_PATH`
 * `+C_INCLUDE_PATH`
 * `+LD_LIBRARY_PATH`
+* `CM_LIB_ARMNN_VERSION`
 * `CM_LIB_DNNL_*`
 #### New environment keys auto-detected from customize
 

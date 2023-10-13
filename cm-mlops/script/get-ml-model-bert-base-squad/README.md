@@ -115,7 +115,7 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,ml-model,zoo,deepsparse,_pruned95_obs_quant-none
              * CM names: `--adr.['neural-magic-zoo-downloader']...`
-             - CM script: [get-ml-model-neuralmagic-zoo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-neuralmagic-zoo)
+             - *Warning: no scripts found*
 
     </details>
 

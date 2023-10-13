@@ -11,7 +11,9 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Default environment](#default-environment)
+* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -52,9 +54,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=add,custom,system,nvidia `
+1. `cm run script --tags=add,custom,system,nvidia[,variations] `
 
-2. `cm run script "add custom system nvidia" `
+2. `cm run script "add custom system nvidia[,variations]" `
 
 3. `cm run script b2e6c46c6e8745a3 `
 
@@ -101,6 +103,24 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=add,custom,system,nvid
 ___
 ### Customization
 
+
+#### Variations
+
+  * Group "**code**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_ctuning`
+      - Workflow:
+    * `_custom`
+      - Workflow:
+    * `_mlcommons`
+      - Workflow:
+    * `_nvidia-only`
+      - Workflow:
+
+    </details>
+
 #### Default environment
 
 <details>
@@ -111,6 +131,10 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 </details>
 
+#### Versions
+* `r2.1`
+* `r3.0`
+* `r3.1`
 ___
 ### Script workflow, dependencies and native scripts
 
@@ -147,7 +171,7 @@ ___
        - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
      * get,generic,sys-util,_rapidjson-dev
        - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
-     * get,nvidia,mlperf,inference,common-code,_custom
+     * get,nvidia,mlperf,inference,common-code
        * CM names: `--adr.['nvidia-inference-common-code']...`
        - CM script: [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
      * get,generic-python-lib,_pycuda

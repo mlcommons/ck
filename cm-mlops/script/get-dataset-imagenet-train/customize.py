@@ -31,7 +31,8 @@ def preprocess(i):
 
     elif not os.path.isdir(path):
         if path.endswith(".tar"):
-            env['CM_DAE_FILEPATH'] = path
+            #env['CM_DAE_FILEPATH'] = path
+            env['CM_EXTRACT_FILEPATH'] = path
             env['CM_DAE_ONLY_EXTRACT'] = 'yes'
             return {'return':0}
         else:

@@ -9,7 +9,8 @@
     "data_dir": "CM_DATA_DIR"
   },
   "new_env_keys": [
-    "CM_MLPERF_TRAINING_RESNET_*"
+    "CM_MLPERF_TRAINING_RESNET_*",
+    "CM_MLPERF_TRAINING_NVIDIA_RESNET_PREPROCESSED_PATH"
   ],
   "new_state_keys": [],
   "post_deps": [],
@@ -22,6 +23,9 @@
     {
       "names": [ "imagenet-val" ],
       "tags": "get,dataset,imagenet,val,original,_full"
+    },
+    {
+      "tags": "get,generic-sys-util,_rsync"
     }
   ],
   "prehook_deps": [
@@ -62,8 +66,10 @@
       "default": true,
       "deps": [
         {
-          "extra_cache_tags": "mlperf,training,results",
-          "tags": "get,git,repo,_repo.https://github.com/mlcommons/training_results_v2.1"
+          "names": [
+            "nvidia-training-code"
+          ],
+          "tags": "get,mlperf,training,nvidia,code"
         },
         {
           "tags": "get,git,repo,_repo.https://github.com/NVIDIA/DeepLearningExamples,_sha.81ee705868a11d6fe18c12d237abe4a08aab5fd6",

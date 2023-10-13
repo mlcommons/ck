@@ -42,10 +42,30 @@
         print(r['error'])
     ```
 
+#### where
+
+  * CM CLI: ```cm where repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L184))
+  * CM CLI with UID: ```cm where repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L184))
+  * CM Python API:
+    ```python
+    import cmind
+
+    r=cm.access({
+                 'action':'where'
+                 'automation':'repo,55c3e27e8a140e48'
+                 'out':'con'
+    ```
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L184)
+    ```python
+                })
+    if r['return']>0:
+        print(r['error'])
+    ```
+
 #### update
 
-  * CM CLI: ```cm update repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L177))
-  * CM CLI with UID: ```cm update repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L177))
+  * CM CLI: ```cm update repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L207))
+  * CM CLI with UID: ```cm update repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L207))
   * CM Python API:
     ```python
     import cmind
@@ -55,7 +75,7 @@
                  'automation':'repo,55c3e27e8a140e48'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L177)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L207)
     ```python
                 })
     if r['return']>0:
@@ -64,8 +84,8 @@
 
 #### delete
 
-  * CM CLI: ```cm delete repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L214))
-  * CM CLI with UID: ```cm delete repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L214))
+  * CM CLI: ```cm delete repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L244))
+  * CM CLI with UID: ```cm delete repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L244))
   * CM Python API:
     ```python
     import cmind
@@ -75,7 +95,7 @@
                  'automation':'repo,55c3e27e8a140e48'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L214)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L244)
     ```python
                 })
     if r['return']>0:
@@ -84,8 +104,8 @@
 
 #### init
 
-  * CM CLI: ```cm init repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L271))
-  * CM CLI with UID: ```cm init repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L271))
+  * CM CLI: ```cm init repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L301))
+  * CM CLI with UID: ```cm init repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L301))
   * CM Python API:
     ```python
     import cmind
@@ -95,7 +115,7 @@
                  'automation':'repo,55c3e27e8a140e48'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L271)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L301)
     ```python
                 })
     if r['return']>0:
@@ -104,8 +124,8 @@
 
 #### add
 
-  * CM CLI: ```cm add repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L395))
-  * CM CLI with UID: ```cm add repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L395))
+  * CM CLI: ```cm add repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L426))
+  * CM CLI with UID: ```cm add repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L426))
   * CM Python API:
     ```python
     import cmind
@@ -115,7 +135,7 @@
                  'automation':'repo,55c3e27e8a140e48'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L395)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L426)
     ```python
                 })
     if r['return']>0:
@@ -124,8 +144,8 @@
 
 #### pack
 
-  * CM CLI: ```cm pack repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L403))
-  * CM CLI with UID: ```cm pack repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L403))
+  * CM CLI: ```cm pack repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L434))
+  * CM CLI with UID: ```cm pack repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L434))
   * CM Python API:
     ```python
     import cmind
@@ -135,7 +155,7 @@
                  'automation':'repo,55c3e27e8a140e48'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L403)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L434)
     ```python
                 })
     if r['return']>0:
@@ -144,8 +164,8 @@
 
 #### unpack
 
-  * CM CLI: ```cm unpack repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L473))
-  * CM CLI with UID: ```cm unpack repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L473))
+  * CM CLI: ```cm unpack repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L504))
+  * CM CLI with UID: ```cm unpack repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L504))
   * CM Python API:
     ```python
     import cmind
@@ -155,7 +175,7 @@
                  'automation':'repo,55c3e27e8a140e48'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L473)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L504)
     ```python
                 })
     if r['return']>0:
@@ -164,8 +184,8 @@
 
 #### import_ck_to_cm
 
-  * CM CLI: ```cm import_ck_to_cm repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L580))
-  * CM CLI with UID: ```cm import_ck_to_cm repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L580))
+  * CM CLI: ```cm import_ck_to_cm repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L611))
+  * CM CLI with UID: ```cm import_ck_to_cm repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L611))
   * CM Python API:
     ```python
     import cmind
@@ -175,7 +195,7 @@
                  'automation':'repo,55c3e27e8a140e48'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L580)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L611)
     ```python
                 })
     if r['return']>0:
@@ -184,8 +204,8 @@
 
 #### convert_ck_to_cm
 
-  * CM CLI: ```cm convert_ck_to_cm repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L631))
-  * CM CLI with UID: ```cm convert_ck_to_cm repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L631))
+  * CM CLI: ```cm convert_ck_to_cm repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L662))
+  * CM CLI with UID: ```cm convert_ck_to_cm repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L662))
   * CM Python API:
     ```python
     import cmind
@@ -195,7 +215,7 @@
                  'automation':'repo,55c3e27e8a140e48'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L631)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L662)
     ```python
                 })
     if r['return']>0:
@@ -204,8 +224,8 @@
 
 #### detect
 
-  * CM CLI: ```cm detect repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L685))
-  * CM CLI with UID: ```cm detect repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L685))
+  * CM CLI: ```cm detect repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L716))
+  * CM CLI with UID: ```cm detect repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L716))
   * CM Python API:
     ```python
     import cmind
@@ -215,7 +235,7 @@
                  'automation':'repo,55c3e27e8a140e48'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L685)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L716)
     ```python
                 })
     if r['return']>0:
@@ -224,8 +244,8 @@
 
 #### reindex
 
-  * CM CLI: ```cm reindex repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L872))
-  * CM CLI with UID: ```cm reindex repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L872))
+  * CM CLI: ```cm reindex repo``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L899))
+  * CM CLI with UID: ```cm reindex repo,55c3e27e8a140e48``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L899))
   * CM Python API:
     ```python
     import cmind
@@ -235,7 +255,7 @@
                  'automation':'repo,55c3e27e8a140e48'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L872)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo/module.py#L899)
     ```python
                 })
     if r['return']>0:

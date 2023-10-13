@@ -152,6 +152,26 @@ ___
     </details>
 
 
+  * Group "**loadgen-scenario**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_multistream`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_SCENARIO*: `MultiStream`
+      - Workflow:
+    * **`_offline`** (default)
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_SCENARIO*: `Offline`
+      - Workflow:
+    * `_singlestream`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_SCENARIO*: `SingleStream`
+      - Workflow:
+
+    </details>
+
+
   * Group "**model**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -170,7 +190,7 @@ ___
 
 #### Default variations
 
-`_cpu,_onnxruntime,_resnet50`
+`_cpu,_offline,_onnxruntime,_resnet50`
 
 #### Script flags mapped to environment
 <details>
@@ -262,10 +282,10 @@ ___
        * `if (CM_MLPERF_SKIP_RUN  != True)`
        * CM names: `--adr.['compile-program']...`
        - CM script: [compile-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program)
-     * benchmark,program
+     * benchmark-mlperf
        * `if (CM_MLPERF_SKIP_RUN  != True)`
-       * CM names: `--adr.['runner']...`
-       - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
+       * CM names: `--adr.['mlperf-runner']...`
+       - CM script: [benchmark-program-mlperf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf)
 </details>
 
 ___
