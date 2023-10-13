@@ -74,8 +74,10 @@ We have developed CM as a small Python library with minimal dependencies and a u
 CM is extended by the community via [portable CM scripts] that should run on any platform with any OS. 
 Our goal is to provide a common, human-friendly and technology-agnostic interface to unify and automate all the steps 
 to prepare, run and reproduce benchmarks and research projects across diverse ML models, datasets, frameworks, compilers and hardware.
-See [ACM TechTalk'21](https://learning.acm.org/techtalks/reproducibility) 
-and [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) about our motivation and long-term vision.
+
+We suggest you to check this [simple tutorial to run modular image classification using CM](modular-image-classification.md)
+to understand how CM works and see [ACM TechTalk'21](https://learning.acm.org/techtalks/reproducibility) 
+and [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn about our motivation and long-term vision.
 
 
 
