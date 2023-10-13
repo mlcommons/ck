@@ -179,6 +179,10 @@ ___
 
     * `_amazon-s3`
       - Workflow:
+    * `_custom-url.#`
+      - Environment variables:
+        - *CM_PACKAGE_URL*: `#`
+      - Workflow:
     * `_github`
       - Workflow:
     * `_zenodo`
