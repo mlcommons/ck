@@ -159,6 +159,11 @@ cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" 
      --quiet
 ```
 
+You will see a long output that should contain the following line with accuracy:
+```bash
+{"exact_match": 70.0, "f1": 70.0}
+```
+
 
 ### Install system dependencies for your platform
 
