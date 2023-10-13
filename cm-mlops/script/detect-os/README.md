@@ -149,7 +149,6 @@ ___
 * `CM_HOST_OS_TYPE`
 * `CM_HOST_PYTHON_BITS`
 * `CM_HOST_SYSTEM_NAME`
-* `CM_RUN_STATE_DOCKER`
 ___
 ### Maintainers
 

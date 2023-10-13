@@ -31,11 +31,10 @@ See [more info](README-extra.md).
 
 #### Information
 
-* Category: *Modular MLPerf benchmarks.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-micro-paper-2023-xyz)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment*
+* CM "database" tags to find this script: *reproduce,paper,micro,micro-2023,victima*
 * Output cached?: *False*
 ___
 ### Usage
@@ -54,11 +53,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment[,variations] [--input_flags]`
+1. `cm run script --tags=reproduce,paper,micro,micro-2023,victima[,variations] [--input_flags]`
 
-2. `cm run script "import mlperf inference mlperf-inference experiment 2experiment to-experiment[,variations]" [--input_flags]`
+2. `cm run script "reproduce paper micro micro-2023 victima[,variations]" [--input_flags]`
 
-3. `cm run script 72099fa962ea499c [--input_flags]`
+3. `cm run script 0060c3fd6abe4b28 [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -75,7 +74,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment'
+                  'tags':'reproduce,paper,micro,micro-2023,victima'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -92,9 +91,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment"```
+```cm run script --tags=gui --script="reproduce,paper,micro,micro-2023,victima"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=reproduce,paper,micro,micro-2023,victima) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -110,9 +109,11 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_skip_checker`
-      - Environment variables:
-        - *CM_SKIP_SUBMISSION_CHECKER*: `True`
+    * `_install_deps`
+      - Workflow:
+    * `_plot`
+      - Workflow:
+    * `_run`
       - Workflow:
 
     </details>
@@ -122,12 +123,13 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* `--target_repo=value`  &rarr;  `CM_IMPORT_MLPERF_INFERENCE_TARGET_REPO=value`
+* `--container=value`  &rarr;  `CM_VICTIMA_CONTAINER=value`
+* `--job_manager=value`  &rarr;  `CM_VICTIMA_JOB_MANAGER=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "target_repo":...}
+r=cm.access({... , "container":...}
 ```
 
 </details>
@@ -139,6 +141,8 @@ r=cm.access({... , "target_repo":...}
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
+* CM_VICTIMA_JOB_MANAGER: `native`
+* CM_VICTIMA_CONTAINER: `docker`
 
 </details>
 
@@ -148,17 +152,21 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/_cm.yaml)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-micro-paper-2023-xyz/_cm.yaml)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-     * get,sys-utils-cm
-       - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/_cm.yaml)
+     * get,python
+       * CM names: `--adr.['python', 'python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,git,repo,_repo.https://github.com/CMU-SAFARI/Victima
+       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-micro-paper-2023-xyz/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-micro-paper-2023-xyz/_cm.yaml)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/_cm.yaml)
-  1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/_cm.yaml)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-micro-paper-2023-xyz/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-micro-paper-2023-xyz/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-micro-paper-2023-xyz/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-micro-paper-2023-xyz/_cm.yaml)
 </details>
 
 ___

@@ -26,12 +26,11 @@
 
 #### Information
 
-* Category: *Tests.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-javac)*
-* CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *print,hello world,hello-world,hello,world,javac*
-* Output cached?: *False*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-rust)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
+* CM "database" tags to find this script: *get,rust-compiler*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -49,11 +48,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=print,hello world,hello-world,hello,world,javac `
+1. `cm run script --tags=get,rust-compiler `
 
-2. `cm run script "print hello world hello-world hello world javac" `
+2. `cm run script "get rust-compiler" `
 
-3. `cm run script 040fafd538104819 `
+3. `cm run script 97ffbd9e537b4b59 `
 
 * `variations` can be seen [here](#variations)
 
@@ -70,7 +69,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'print,hello world,hello-world,hello,world,javac'
+                  'tags':'get,rust-compiler'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -87,9 +86,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="print,hello world,hello-world,hello,world,javac"```
+```cm run script --tags=gui --script="get,rust-compiler"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=print,hello world,hello-world,hello,world,javac) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,rust-compiler) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -114,26 +113,23 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-javac/_cm.json)***
-     * detect,os
-       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-     * get,javac
-       * CM names: `--adr.['javac']...`
-       - CM script: [get-javac](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-javac)
-  1. Run "preprocess" function from customize.py
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-javac/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-rust/_cm.yaml)***
+     * get,python3
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-rust/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-rust/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-javac/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-javac/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-javac/_cm.json)
-  1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-javac/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-rust/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-rust/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-rust/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-rust/_cm.yaml)
 </details>
 
 ___
 ### Script output
 #### New environment keys (filter)
 
+* `+PATH`
 #### New environment keys auto-detected from customize
 
 ___

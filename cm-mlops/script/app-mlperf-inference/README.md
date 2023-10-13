@@ -177,6 +177,10 @@ ___
         - *CM_IMAGENET_ACCURACY_DTYPE*: `int32`
         - *CM_LIBRISPEECH_ACCURACY_DTYPE*: `int8`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,cuda-devices
+             * `if (CM_CUDA_DEVICE_PROP_GLOBAL_MEMORY not in ['yes', 'on'])`
+             - CM script: [get-cuda-devices](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-devices)
         1. ***Read "posthook_deps" on other CM scripts***
            * reproduce,mlperf,nvidia,inference
              * `if (CM_SKIP_RUN  != True)`
@@ -220,6 +224,10 @@ ___
     * `_deepsparse`
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `deepsparse`
+      - Workflow:
+    * `_ncnn`
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `ncnn`
       - Workflow:
     * **`_onnxruntime`** (default)
       - Environment variables:
@@ -269,6 +277,10 @@ ___
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `gpu`
       - Workflow:
+    * `_tpu`
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `tpu`
+      - Workflow:
 
     </details>
 
@@ -293,13 +305,13 @@ ___
       - Environment variables:
         - *CM_MODEL*: `bert-99.9`
       - Workflow:
-    * `_dlrm-99`
+    * `_dlrm-v2-99`
       - Environment variables:
-        - *CM_MODEL*: `dlrm-99`
+        - *CM_MODEL*: `dlrm-v2-99`
       - Workflow:
-    * `_dlrm-99.9`
+    * `_dlrm-v2-99.9`
       - Environment variables:
-        - *CM_MODEL*: `dlrm-99.9`
+        - *CM_MODEL*: `dlrm-v2-99.9`
       - Workflow:
     * `_efficientnet`
       - Environment variables:
@@ -313,6 +325,14 @@ ___
              * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
              * CM names: `--adr.['mlperf-accuracy-script', 'imagenet-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
+    * `_gptj-99`
+      - Environment variables:
+        - *CM_MODEL*: `gptj-99`
+      - Workflow:
+    * `_gptj-99.9`
+      - Environment variables:
+        - *CM_MODEL*: `gptj-99.9`
+      - Workflow:
     * `_mobilenet`
       - Environment variables:
         - *CM_MODEL*: `mobilenet`
@@ -343,7 +363,7 @@ ___
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
            * run,accuracy,mlperf,_openimages
-             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia-original)`
              * CM names: `--adr.['mlperf-accuracy-script', 'openimages-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * `_rnnt`
@@ -352,7 +372,7 @@ ___
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
            * run,accuracy,mlperf,_librispeech
-             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia-original)`
              * CM names: `--adr.['mlperf-accuracy-script', 'librispeech-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
 
@@ -363,6 +383,16 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_bfloat16`
+      - Environment variables:
+        - *CM_MLPERF_QUANTIZATION*: `False`
+        - *CM_MLPERF_MODEL_PRECISION*: `float32`
+      - Workflow:
+    * `_float16`
+      - Environment variables:
+        - *CM_MLPERF_QUANTIZATION*: `False`
+        - *CM_MLPERF_MODEL_PRECISION*: `float32`
+      - Workflow:
     * **`_fp32`** (default)
       - Environment variables:
         - *CM_MLPERF_QUANTIZATION*: `False`
@@ -413,9 +443,16 @@ ___
 
     * `_r2.1_default`
       - Environment variables:
-        - *CM_RERUN*: `yes`
         - *CM_SKIP_SYS_UTILS*: `yes`
         - *CM_TEST_QUERY_COUNT*: `100`
+      - Workflow:
+    * `_r3.0_default`
+      - Environment variables:
+        - *CM_SKIP_SYS_UTILS*: `yes`
+      - Workflow:
+    * `_r3.1_default`
+      - Workflow:
+    * `_r4.0_default`
       - Workflow:
 
     </details>
@@ -429,7 +466,7 @@ ___
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
            * run,accuracy,mlperf,_kits19,_int8
-             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia-original)`
              * CM names: `--adr.['mlperf-accuracy-script', '3d-unet-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * `_bert_`
@@ -453,6 +490,14 @@ ___
              * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
              * CM names: `--adr.['terabyte-accuracy-script', 'mlperf-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
+    * `_gptj_`
+      - Aliases: `_gptj`
+      - Workflow:
+        1. ***Read "post_deps" on other CM scripts***
+           * run,accuracy,mlperf,_cnndm
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
+             * CM names: `--adr.['cnndm-accuracy-script', 'mlperf-accuracy-script']...`
+             - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
 
     </details>
 
@@ -461,14 +506,46 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_batch_size.#`
-      - Environment variables:
-        - *CM_MLPERF_LOADGEN_MAX_BATCHSIZE*: `#`
-      - Workflow:
     * `_power`
       - Environment variables:
         - *CM_MLPERF_POWER*: `yes`
         - *CM_SYSTEM_POWER*: `yes`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**batch_size**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_batch_size.#`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_MAX_BATCHSIZE*: `#`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**loadgen-scenario**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_multistream`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_SCENARIO*: `MultiStream`
+      - Workflow:
+    * **`_offline`** (default)
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_SCENARIO*: `Offline`
+      - Workflow:
+    * `_server`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_SCENARIO*: `Server`
+      - Workflow:
+    * `_singlestream`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_SCENARIO*: `SingleStream`
       - Workflow:
 
     </details>
@@ -486,10 +563,11 @@ ___
 * `_nvidia,_tf`
 * `_nvidia,_onnxruntime`
 * `_nvidia,_pytorch`
+* `_gptj,_tf`
 
 #### Default variations
 
-`_cpu,_fp32,_onnxruntime,_reference,_resnet50,_test`
+`_cpu,_fp32,_offline,_onnxruntime,_reference,_resnet50,_test`
 
 #### Input description
 
@@ -528,6 +606,7 @@ r=cm.access({... , "scenario":...}
 * `--count=value`  &rarr;  `CM_MLPERF_LOADGEN_QUERY_COUNT=value`
 * `--debug=value`  &rarr;  `CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM=value`
 * `--docker=value`  &rarr;  `CM_RUN_DOCKER_CONTAINER=value`
+* `--gpu_name=value`  &rarr;  `CM_NVIDIA_GPU_NAME=value`
 * `--hw_name=value`  &rarr;  `CM_HW_NAME=value`
 * `--imagenet_path=value`  &rarr;  `IMAGENET_PATH=value`
 * `--max_amps=value`  &rarr;  `CM_MLPERF_POWER_MAX_AMPS=value`
@@ -595,6 +674,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)
   1. ***Run native script if exists***
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)

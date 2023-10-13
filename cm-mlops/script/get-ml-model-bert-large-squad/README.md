@@ -268,13 +268,13 @@ ___
 <summary>Click here to expand this section.</summary>
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)
-  1. Run "preprocess" function from customize.py
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)***
      * download-and-extract
        - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run native script if exists***
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)
-  1. Run "postrocess" function from customize.py
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)***
      * get,dataset-aux,squad-vocab
        - CM script: [get-dataset-squad-vocab](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad-vocab)
@@ -287,6 +287,9 @@ ___
 * `CM_ML_MODEL*`
 #### New environment keys auto-detected from customize
 
+* `CM_ML_MODEL_BERT_LARGE_FP32_PATH`
+* `CM_ML_MODEL_BERT_LARGE_INT8_PATH`
+* `CM_ML_MODEL_FILE`
 ___
 ### Maintainers
 

@@ -111,11 +111,13 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * **`_ctuning`** (default)
+      - Workflow:
     * `_custom`
       - Workflow:
     * `_mlcommons`
       - Workflow:
-    * **`_nvidia-only`** (default)
+    * `_nvidia-only`
       - Workflow:
 
     </details>
@@ -144,13 +146,14 @@ ___
 
 #### Default variations
 
-`_cuda,_nvidia-only`
+`_ctuning,_cuda`
 
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
 
 * `--clean=value`  &rarr;  `CM_MAKE_CLEAN=value`
+* `--custom_system=value`  &rarr;  `CM_CUSTOM_SYSTEM_NVIDIA=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -173,7 +176,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 #### Versions
-Default version: `r3.0`
+Default version: `r3.1`
 
 * `r2.1`
 * `r3.0`
@@ -199,7 +202,7 @@ ___
        * CM names: `--adr.['cuda']...`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,tensorrt,_dev
-       * `if (CM_MLPERF_DEVICE in ['cuda', 'inferentia'])`
+       * `if (CM_MLPERF_DEVICE in ['cuda', 'inferentia']) AND (CM_TENSORRT_SYSTEM_DETECT  != True)`
        * CM names: `--adr.['tensorrt']...`
        - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
      * get,gcc
@@ -224,11 +227,15 @@ ___
        * CM names: `--adr.['nvidia-inference-common-code']...`
        - CM script: [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
      * get,generic-python-lib,_pycuda
+       * `if (CM_RUN_STATE_DOCKER not in ['yes', True, 'True'])`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_opencv-python
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_nvidia-dali
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,mlperf,inference,nvidia,scratch,space
+       * CM names: `--adr.['nvidia-scratch-space']...`
+       - CM script: [get-mlperf-inference-nvidia-scratch-space](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-scratch-space)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-mlperf-inference-server-nvidia/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-mlperf-inference-server-nvidia/_cm.yaml)
   1. ***Run native script if exists***

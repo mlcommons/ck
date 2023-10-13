@@ -2,6 +2,14 @@
 
 ## MLCommons CK and CM news
 
+### 202310
+
+* We gave an invited talk at [AVCC'23](https://avcc.org/avcc2023) about our CM automation language and how it can help 
+  to develop modular, portable and technology-agnostic benchmarks.
+
+* We gave an invited tutorial at [IISWC'23](https://iiswc.org/iiswc2023/#/program/) about our CM automation language and how it can provide a common, portable
+  and technology-agnostic interface to run, reproduce and reuse all shared research projects.
+
 ### 202309
 
 *Our Collective Knowledge Technology v3 with the open-source [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105338),

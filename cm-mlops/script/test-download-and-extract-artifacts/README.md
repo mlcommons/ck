@@ -29,11 +29,10 @@ See [more info](README-extra.md).
 
 #### Information
 
-* Category: *Platform information.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)*
-* CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *detect,cpu,detect-cpu,info*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-download-and-extract-artifacts)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
+* CM "database" tags to find this script: *test,download-and-extract-artifacts*
 * Output cached?: *False*
 ___
 ### Usage
@@ -52,11 +51,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=detect,cpu,detect-cpu,info `
+1. `cm run script --tags=test,download-and-extract-artifacts `
 
-2. `cm run script "detect cpu detect-cpu info" `
+2. `cm run script "test download-and-extract-artifacts" `
 
-3. `cm run script 586c8a43320142f7 `
+3. `cm run script 51dde7580b404b27 `
 
 * `variations` can be seen [here](#variations)
 
@@ -73,7 +72,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'detect,cpu,detect-cpu,info'
+                  'tags':'test,download-and-extract-artifacts'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -90,9 +89,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="detect,cpu,detect-cpu,info"```
+```cm run script --tags=gui --script="test,download-and-extract-artifacts"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=detect,cpu,detect-cpu,info) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=test,download-and-extract-artifacts) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -117,31 +116,28 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu/_cm.json)***
-     * detect,os
-       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-download-and-extract-artifacts/_cm.yaml)***
+     * download,file,_url.https://zenodo.org/record/4735647/files/resnet50_v1.onnx
+       - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+     * download-and-extract,_extract,_url.https://zenodo.org/record/5597155/files/3dunet_kits19_128x128x128.tf.zip?download=1
+       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-download-and-extract-artifacts/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-download-and-extract-artifacts/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu/_cm.json)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-download-and-extract-artifacts/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-download-and-extract-artifacts/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-download-and-extract-artifacts/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-download-and-extract-artifacts/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-download-and-extract-artifacts/_cm.yaml)
 </details>
 
 ___
 ### Script output
 #### New environment keys (filter)
 
-* `CM_HOST_CPU_*`
-* `CM_HOST_DISK_CAPACITY`
-* `CM_HOST_MEMORY_CAPACITY`
+* `CM_REPRODUCE_PAPER_XYZ*`
 #### New environment keys auto-detected from customize
 
-* `CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET`
-* `CM_HOST_CPU_SOCKETS`
-* `CM_HOST_CPU_THREADS_PER_CORE`
-* `CM_HOST_CPU_TOTAL_LOGICAL_CORES`
 ___
 ### Maintainers
 

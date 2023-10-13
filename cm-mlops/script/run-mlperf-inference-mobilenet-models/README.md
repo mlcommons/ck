@@ -56,21 +56,24 @@ This command will build a docker container and give you an interactive shell fro
 
 ## Run Commands
 
+Since the runs can take many hours, in case you are running remotely you can install screen as follows. You may omit "screen" from all commands if you are running on a host system.
+```
+cmr "get generic-sys-util _screen"
+```
 ### Default tflite
 
 
 #### Do a full accuracy run for all the models (can take almost a day)
 
 ```
-cmr "run mobilenet-models _tflite _accuracy-only" \
+screen cmr "run mobilenet-models _tflite _accuracy-only" \
 --adr.compiler.tags=gcc \
 --results_dir=$HOME/mobilenet_results
 ```
 
-
 #### Do a full performance run for all the models (can take almost a day)
 ```
-cmr "run mobilenet-models _tflite _performance-only" \
+screen cmr "run mobilenet-models _tflite _performance-only" \
 --adr.compiler.tags=gcc \
 --results_dir=$HOME/mobilenet_results 
 ```
@@ -96,6 +99,7 @@ cmr "generate inference submission" \
 --submitter=cTuning \
 --hw_notes_extra="Result taken by NAME" 
 ```
+* Use `--hw_name="My system name"` to give a meaningful system name. Examples can be seen [here](https://github.com/mlcommons/inference_results_v3.0/tree/main/open/cTuning/systems)
 
 #### Push the results to GitHub repo
 

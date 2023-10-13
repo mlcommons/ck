@@ -155,6 +155,7 @@ ___
      * [run-debian.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/run-debian.sh)
      * [run-macos.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/run-macos.sh)
      * [run-rhel.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/run-rhel.sh)
+     * [run-sles.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/run-sles.sh)
      * [run-ubuntu.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/run-ubuntu.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/_cm.json)
   1. Run "postrocess" function from customize.py
