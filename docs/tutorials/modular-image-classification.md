@@ -1,6 +1,6 @@
 [ [Back to index](../README.md) ]
 
-*This tutorial is also available in [Google Colab](https://colab.research.google.com/drive/1sRYQg-Ug8eGcQfwov0v16LaPMfEyfA0Z?usp=sharing).*
+*This tutorial is also available in [Google Colab](https://colab.research.google.com/drive/1fPFw86BKOQ79U1-lksTkAtJHn3_jhP9o?usp=sharing).*
 
 # Trying CM: modular image classification
 
