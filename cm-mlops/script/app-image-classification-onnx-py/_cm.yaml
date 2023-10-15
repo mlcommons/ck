@@ -32,6 +32,8 @@ deps:
 - tags: get,dataset,imagenet,image-classification,original
 - tags: get,dataset-aux,imagenet-aux,image-classification
 - tags: get,ml-model,resnet50,_onnx,image-classification
+  names:
+  - ml-model
 
 - tags: get,generic-python-lib,_onnxruntime
   skip_if_env:
