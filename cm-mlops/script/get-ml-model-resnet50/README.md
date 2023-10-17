@@ -117,6 +117,10 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_BATCH_SIZE*: `1`
       - Workflow:
+    * `_huggingface_default`
+      - Environment variables:
+        - *CM_PACKAGE_URL*: `https://huggingface.co/ctuning/mlperf-inference-resnet50-onnx-fp32-imagenet2012-v1.0/resolve/main/resnet50_v1.onnx`
+      - Workflow:
     * `_ncnn,fp32`
       - Environment variables:
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/8073420/files/resnet50_v1.bin?download=1`
