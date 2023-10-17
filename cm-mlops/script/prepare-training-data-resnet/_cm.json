@@ -84,6 +84,11 @@
       },
       "group": "implementation"
     },
+    "mxnet.#": {
+      "env": {
+        "CM_MXNET_VERSION": "#"
+      }
+    },
     "reference": {
       "deps": [
         {
