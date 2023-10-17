@@ -73,6 +73,11 @@
         "CM_ML_MODEL_ONNX_OPSET": "8"
       }
     },
+    "huggingface_default": {
+      "env": {
+        "CM_PACKAGE_URL": "https://huggingface.co/ctuning/mlperf-inference-resnet50-onnx-fp32-imagenet2012-v1.0/resolve/main/resnet50_v1.onnx"
+      }
+    },
     "onnx,opset-11": {
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/4735647/files/resnet50_v1.onnx"

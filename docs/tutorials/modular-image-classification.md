@@ -1,5 +1,7 @@
 [ [Back to index](../README.md) ]
 
+*This tutorial is also available in [Google Colab](https://colab.research.google.com/drive/1fPFw86BKOQ79U1-lksTkAtJHn3_jhP9o?usp=sharing).*
+
 # Trying CM: modular image classification
 
 This example demonstrates our unified, technology-agnostic and human-readable CM automation language 
@@ -19,7 +21,7 @@ to install the MLCommons CM language on your platform.
 ## Prepare and run modular image classification via CM
 
 Here is an example of a modular image classification assembled from 
-([portable and reusable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)).
+([portable and reusable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script))
 using a [human-readable YAML file](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L19).
 CM scripts simply wrap native scripts, tools, and artifacts while making them findable, accessible, portabl, interoperable, and reusable
 based on [FAIR principles](https://www.go-fair.org/fair-principles).
@@ -27,6 +29,8 @@ based on [FAIR principles](https://www.go-fair.org/fair-principles).
 CM will read this YAML (or JSON) description, go through all dependencies to run other CM scripts, 
 and attempt to automatically detect, download, install and build all related artifacts 
 and tools to adapt this example to any software and hardware.
+
+We have tested this tutorial on various Linux distributions, MacOS and Windows.
 
 Let's go through these steps manually to better understand how CM scripts work.
 
@@ -81,20 +85,20 @@ You can also force to install specific versions of ML artifacts and tools
 using individual CM scripts to automatically plug them into the above ML application:
 
 ```bash
-cm run script "detect os" --out=json
-cm run script "get python" --version_min=3.9.1
-cm run script "install python-venv" --name=my-virtual-env
-cm run script "get ml-model resnet50 _onnx _fp32"
-cm run script "get original imagenet dataset _2012-500"
-cm run script "get generic-python-lib _onnxruntime" --version=1.12.0
+cmr "detect os" --out=json
+cmr "get sys-utils-cm" --quiet
+cmr "get python" --version_min=3.9.1
+cmr "install python-venv" --name=my-virtual-env
+cmr "get ml-model resnet50 image-classification _onnx _fp32" --const.CM_PACKAGE_URL=https://huggingface.co/ctuning/mlperf-inference-resnet50-onnx-fp32-imagenet2012-v1.0/resolve/main/resnet50_v1.onnx
+cmr "get original imagenet dataset _2012-500"
+cmr "get generic-python-lib _onnxruntime" --version=1.12.0
 
 cm show cache
 cm show cache --tags=python
 cm show cache --tags=ml-model
 
-cm run script "python app image-classification onnx"
-cm run script "python app image-classification onnx" --input=my-image.jpg
-
+cmr "python app image-classification onnx"
+cmr "python app image-classification onnx" --quiet --input=`cm find script app-image-classification-onnx-py,3d5e908e472b417e`/img/computer_mouse.jpg
 ```
 
 CM scripts converts CLI flags into environment variables and generates some input files 
