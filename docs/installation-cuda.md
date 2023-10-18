@@ -40,7 +40,7 @@ cmr "install cuda prebuilt _driver" --version={any CUDA version}
 
 You may need to restart your system to load drivers. You can then test them via CM as follows:
 ```bash
-cmr "get cuda-devices
+cmr "get cuda-devices"
 ```
 
 ### Detect CUDA drivers
@@ -55,14 +55,14 @@ cmr "get cuda"
 If cuDNN is already installed on your system, you can detect and plug it into CM as follows:
     
 ```bash
-cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
+cmr "get cudnn"
 ```
 
 Otherwise, download cuDNN tar file from [Nvidia website](https://developer.nvidia.com/cudnn)
 and install it via CM as follows:
 
 ```bash
-cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
+cmr "get cudnn" --tar_file=<PATH_TO_CUDNN_TAR_FILE>
 ```
 
 
@@ -81,7 +81,7 @@ However, we suggest you to install a development version (with Python integratio
 2. Install using CM as follows:
 
 ```bash
-cmr "get tensorrt _dev" --input=<PATH_TO_TENSORRT_TAR_FILE>
+cmr "get tensorrt _dev" --tar_file=<PATH_TO_TENSORRT_TAR_FILE>
 ```
 
 ### Show/clean CM cache with all installations
