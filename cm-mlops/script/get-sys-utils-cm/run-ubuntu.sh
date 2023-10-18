@@ -14,7 +14,7 @@ fi
 CM_APT_TOOL=${CM_APT_TOOL:-apt-get}
 
 ${CM_SUDO} ${CM_APT_TOOL} update && \
-    ${CM_SUDO} ${CM_APT_TOOL} install -y --no-install-recommends \
+    ${CM_SUDO} DEBIAN_FRONTEND=noninteractive ${CM_APT_TOOL} install -y --no-install-recommends \
            apt-utils \
            git \
            wget \
