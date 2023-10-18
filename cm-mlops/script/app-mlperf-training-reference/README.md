@@ -216,24 +216,19 @@ ___
      * get,mlperf,training,src
        * CM names: `--adr.['training-src']...`
        - CM script: [get-mlperf-training-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src)
-     * get,cuda,_cudnn
+     * get,cuda
        * `if (CM_MLPERF_DEVICE  == cuda)`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
-     * get,nvidia,tensorrt
-       * `if (CM_MLPERF_BACKEND  == tensorrt)`
-       - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
      * get,generic-python-lib,_torchvision_cuda
-       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'] AND CM_MLPERF_DEVICE  == gpu)`
+       * `if (CM_MLPERF_BACKEND  == pytorch AND CM_MLPERF_DEVICE  == cuda)`
        * CM names: `--adr.['ml-engine-torchvision']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-     * get,generic-python-lib,_transformers
-       * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
-       * CM names: `--adr.['ml-engine-transformers']...`
+     * get,generic-python-lib,_mlperf_logging
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * prepare,mlperf,training,data,bert,_reference
-       * `if (CM_MODEL  == bert)`
+       * `if (CM_MLPERF_MODEL  == bert)`
        * CM names: `--adr.['prepare-data', 'bert-model']...`
-       - *Warning: no scripts found*
+       - CM script: [prepare-training-data-bert](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-bert)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-training-reference/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-training-reference/_cm.yaml)
   1. ***Run native script if exists***

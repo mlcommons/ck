@@ -27,16 +27,17 @@ function run() {
 # run "$CM_RUN_CMD"
 mkdir -p train_data/train
 mkdir -p train_data/val
-cp -r ${CM_DATASET_IMAGENET_TRAIN_PATH} train_data/train/
-cp -r ${CM_DATASET_IMAGENET_VAL_PATH} train_data/val/
+rsync -avz ${CM_DATASET_IMAGENET_TRAIN_PATH}/ train_data/train/
+rsync -avz ${CM_DATASET_IMAGENET_VAL_PATH}/ train_data/val/
 cd train_data/train
 find . -name "*.tar" | while read NAME ; do mkdir -p "${NAME%.tar}"; tar -xvf "${NAME}" -C "${NAME%.tar}"; rm -f "${NAME}"; done
 cd ../val
-run "wget -qO- https://raw.githubusercontent.com/soumith/imagenetloader.torch/master/valprep.sh | bash"
+run "wget  --no-check-certificate -qO- https://raw.githubusercontent.com/soumith/imagenetloader.torch/master/valprep.sh | bash"
 cd ../../
+DATA_DIR=`pwd`/train_data
 
-CUR=${CM_DATA_DIR:-"$PWD/data"}
+CUR=${CM_DATA_DIR}
 run "cd \"${CM_RUN_DIR}\""
-run "docker build -t nvidia_rn50_mx ."
-run "ID=`docker run -dt --gpus all --runtime=nvidia --ipc=host -v ${CM_DATASET_IMAGENET_TRAIN_PATH}:/data -v ${CUR}:/preprocessed nvidia_rn50_mx bash`"
+run "docker build --build-arg FROM_IMAGE_NAME=nvcr.io/nvidia/mxnet:${MXNET_VER}-py3 -t nvidia_rn50_mx ."
+run "ID=`docker run -dt --gpus all --runtime=nvidia --ipc=host -v ${DATA_DIR}:/data -v ${CUR}:/preprocessed nvidia_rn50_mx bash`"
 run "docker exec $ID bash -c './scripts/prepare_imagenet.sh /data /preprocessed'"

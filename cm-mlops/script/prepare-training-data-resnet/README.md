@@ -102,6 +102,18 @@ ___
 
 #### Variations
 
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_mxnet.#`
+      - Environment variables:
+        - *CM_MXNET_VERSION*: `#`
+      - Workflow:
+
+    </details>
+
+
   * Group "**implementation**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -111,8 +123,9 @@ ___
         - *CM_TMP_VARIATION*: `nvidia`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * get,git,repo,_repo.https://github.com/mlcommons/training_results_v2.1
-             - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+           * get,mlperf,training,nvidia,code
+             * CM names: `--adr.['nvidia-training-code']...`
+             - CM script: [get-mlperf-training-nvidia-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-nvidia-code)
            * get,git,repo,_repo.https://github.com/NVIDIA/DeepLearningExamples,_sha.81ee705868a11d6fe18c12d237abe4a08aab5fd6
              - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
     * `_reference`
@@ -175,6 +188,8 @@ ___
      * get,dataset,imagenet,val,original,_full
        * CM names: `--adr.['imagenet-val']...`
        - CM script: [get-dataset-imagenet-val](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)
+     * get,generic-sys-util,_rsync
+       - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-resnet/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-resnet/_cm.json)***
      * download,file,_wget,_url.https://raw.githubusercontent.com/tensorflow/models/master/research/slim/datasets/imagenet_2012_validation_synset_labels.txt
@@ -185,7 +200,6 @@ ___
   1. ***Run native script if exists***
      * [run-nvidia.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-resnet/run-nvidia.sh)
      * [run-reference.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-resnet/run-reference.sh)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-resnet/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-resnet/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-resnet/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-resnet/_cm.json)
@@ -195,9 +209,11 @@ ___
 ### Script output
 #### New environment keys (filter)
 
+* `CM_MLPERF_TRAINING_NVIDIA_RESNET_PREPROCESSED_PATH`
 * `CM_MLPERF_TRAINING_RESNET_*`
 #### New environment keys auto-detected from customize
 
+* `CM_MLPERF_TRAINING_NVIDIA_RESNET_PREPROCESSED_PATH`
 * `CM_MLPERF_TRAINING_RESNET_DATA_PATH`
 * `CM_MLPERF_TRAINING_RESNET_TFRECORDS_PATH`
 ___

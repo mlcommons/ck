@@ -124,6 +124,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_chatgpt`
+      - Environment variables:
+        - *CM_GUI_APP*: `chatgpt`
+      - Workflow:
     * `_graph`
       - Environment variables:
         - *CM_GUI_APP*: `graph`
@@ -152,6 +156,10 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_pandas
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.plotly
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.streamlit-aggrid
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
 
     </details>
 
@@ -173,6 +181,15 @@ r=cm.access({... , "script":...}
 
 * `--address=value`  &rarr;  `CM_GUI_ADDRESS=value`
 * `--app=value`  &rarr;  `CM_GUI_APP=value`
+* `--exp_key_c=value`  &rarr;  `CM_GUI_GRAPH_EXPERIMENT_AXIS_KEY_C=value`
+* `--exp_key_s=value`  &rarr;  `CM_GUI_GRAPH_EXPERIMENT_AXIS_KEY_S=value`
+* `--exp_key_x=value`  &rarr;  `CM_GUI_GRAPH_EXPERIMENT_AXIS_KEY_X=value`
+* `--exp_key_y=value`  &rarr;  `CM_GUI_GRAPH_EXPERIMENT_AXIS_KEY_Y=value`
+* `--exp_max_results=value`  &rarr;  `CM_GUI_GRAPH_EXPERIMENT_MAX_RESULTS=value`
+* `--exp_name=value`  &rarr;  `CM_GUI_GRAPH_EXPERIMENT_NAME=value`
+* `--exp_tags=value`  &rarr;  `CM_GUI_GRAPH_EXPERIMENT_TAGS=value`
+* `--exp_title=value`  &rarr;  `CM_GUI_GRAPH_EXPERIMENT_TITLE=value`
+* `--exp_uid=value`  &rarr;  `CM_GUI_GRAPH_EXPERIMENT_RESULT_UID=value`
 * `--no_browser=value`  &rarr;  `CM_GUI_NO_BROWSER=value`
 * `--no_run=value`  &rarr;  `CM_GUI_NO_RUN=value`
 * `--port=value`  &rarr;  `CM_GUI_PORT=value`

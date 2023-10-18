@@ -118,7 +118,9 @@ def page(st, params):
 
             title = meta.get('title', meta['alias'])
 
-            url = url_prefix + '?action=reports&name={}'.format(uid)
+            url = meta.get('redirect','')
+            if url == '':
+                url = url_prefix + '?action=reports&name={}'.format(uid)
 
             md += '* ['+title+']('+url+')\n'
 

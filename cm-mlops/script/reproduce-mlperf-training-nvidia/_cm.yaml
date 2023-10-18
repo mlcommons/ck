@@ -14,18 +14,16 @@ tags:
   - reproduce
   - mlcommons
   - mlperf
+  - train
   - training
   - nvidia-training
   - nvidia
 
-# Default environment
-default_env:
-env:
 
 # Map script inputs to environment variables
 input_mapping:
   system_conf_name: CM_MLPERF_NVIDIA_TRAINING_SYSTEM_CONF_NAME
-  results_dir: 
+  results_dir: CM_MLPERF_RESULTS_DIR
 
 new_state_keys:
   - mlperf-training-implementation
@@ -57,6 +55,22 @@ variations:
       CM_MLPERF_TRAINING_BENCHMARK: resnet
     deps:
       - tags: prepare,mlperf,training,resnet,_nvidia
+        names:
+        - prepare-training-data
       - tags: get,nvidia,training,code
         names:
-          nvidia-training-code
+        - nvidia-training-code
+
+versions:
+  r2.1:
+    adr:
+      nvidia-training-code:
+        version: r2.1
+    env:
+      resnet_benchmark_implementation: mxnet-22.04
+  r3.0:
+    adr:
+      nvidia-training-code:
+        version: r3.0
+    env:
+      resnet_benchmark_implementation: mxnet

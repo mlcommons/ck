@@ -14,6 +14,11 @@
       "tags": "get,git,repo",
       "env": {
         "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_MLPERF_TRAINING_RESULTS_PATH"
+      },
+      "update_tags_from_env_with_prefix": {
+        "_repo.": [
+          "CM_NVIDIA_CODE_DOWNLOAD_URL"
+        ]
       }
     }
   ],
@@ -31,39 +36,42 @@
   "uid": "fdc630b1d41743c5",
   "variations": {
     "ctuning": {
-      "group": "repo-owner"
+      "group": "repo-owner",
+      "env": {
+        "CM_TMP_TRAINING_SRC": "ctuning"
+      }
     },
     "custom": {
       "group": "repo-owner"
     },
     "mlcommons": {
       "default": true,
-      "group": "repo-owner"
+      "group": "repo-owner",
+      "env": {
+        "CM_TMP_TRAINING_SRC": "mlcommons"
+      }
     },
     "nvidia-only": {
-      "group": "repo-owner"
+      "group": "repo-owner",
+      "env": {
+        "CM_TMP_TRAINING_SRC": "GATEOverflow"
+      }
     }
   },
   "versions": {
     "r3.1": {
-      "add_deps_recursive": {
-        "mlperf-training-results": {
-          "version": "_repo.https://github.com/mlcommons/training_results_v3.1"
-        }
+      "env": {
+        "CM_NVIDIA_CODE_DOWNLOAD_URL": "https://github.com/<<<CM_TMP_TRAINING_SRC>>>/training_results_v3.1"
       }
     },
     "r3.0": {
-      "add_deps_recursive": {
-        "mlperf-training-results": {
-          "version": "_repo.https://github.com/mlcommons/training_results_v3.0"
-        }
+      "env": {
+        "CM_NVIDIA_CODE_DOWNLOAD_URL": "https://github.com/<<<CM_TMP_TRAINING_SRC>>>/training_results_v3.0"
       }
     },
     "r2.1": {
-      "add_deps_recursive": {
-        "mlperf-training-results": {
-          "version": "_repo.https://github.com/mlcommons/training_results_v2.1"
-        }
+      "env": {
+        "CM_NVIDIA_CODE_DOWNLOAD_URL": "https://github.com/<<<CM_TMP_TRAINING_SRC>>>/training_results_v2.1"
       }
     }
   }

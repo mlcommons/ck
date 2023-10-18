@@ -64,8 +64,8 @@
 
 #### unzip_file
 
-  * CM CLI: ```cm unzip_file utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L255))
-  * CM CLI with UID: ```cm unzip_file utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L255))
+  * CM CLI: ```cm unzip_file utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L256))
+  * CM CLI with UID: ```cm unzip_file utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L256))
   * CM Python API:
     ```python
     import cmind
@@ -75,7 +75,7 @@
                  'automation':'utils,dc2743f8450541e3'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L255)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L256)
     ```python
                 })
     if r['return']>0:
@@ -84,8 +84,8 @@
 
 #### compare_versions
 
-  * CM CLI: ```cm compare_versions utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L333))
-  * CM CLI with UID: ```cm compare_versions utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L333))
+  * CM CLI: ```cm compare_versions utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L334))
+  * CM CLI with UID: ```cm compare_versions utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L334))
   * CM Python API:
     ```python
     import cmind
@@ -95,7 +95,7 @@
                  'automation':'utils,dc2743f8450541e3'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L333)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L334)
     ```python
                 })
     if r['return']>0:
@@ -104,8 +104,8 @@
 
 #### json2yaml
 
-  * CM CLI: ```cm json2yaml utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L381))
-  * CM CLI with UID: ```cm json2yaml utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L381))
+  * CM CLI: ```cm json2yaml utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L382))
+  * CM CLI with UID: ```cm json2yaml utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L382))
   * CM Python API:
     ```python
     import cmind
@@ -115,7 +115,7 @@
                  'automation':'utils,dc2743f8450541e3'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L381)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L382)
     ```python
                 })
     if r['return']>0:
@@ -124,8 +124,8 @@
 
 #### yaml2json
 
-  * CM CLI: ```cm yaml2json utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L419))
-  * CM CLI with UID: ```cm yaml2json utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L419))
+  * CM CLI: ```cm yaml2json utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L420))
+  * CM CLI with UID: ```cm yaml2json utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L420))
   * CM Python API:
     ```python
     import cmind
@@ -135,7 +135,7 @@
                  'automation':'utils,dc2743f8450541e3'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L419)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L420)
     ```python
                 })
     if r['return']>0:
@@ -144,8 +144,8 @@
 
 #### sort_json
 
-  * CM CLI: ```cm sort_json utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L457))
-  * CM CLI with UID: ```cm sort_json utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L457))
+  * CM CLI: ```cm sort_json utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L458))
+  * CM CLI with UID: ```cm sort_json utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L458))
   * CM Python API:
     ```python
     import cmind
@@ -155,7 +155,7 @@
                  'automation':'utils,dc2743f8450541e3'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L457)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L458)
     ```python
                 })
     if r['return']>0:
@@ -164,8 +164,8 @@
 
 #### dos2unix
 
-  * CM CLI: ```cm dos2unix utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L494))
-  * CM CLI with UID: ```cm dos2unix utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L494))
+  * CM CLI: ```cm dos2unix utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L495))
+  * CM CLI with UID: ```cm dos2unix utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L495))
   * CM Python API:
     ```python
     import cmind
@@ -175,7 +175,7 @@
                  'automation':'utils,dc2743f8450541e3'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L494)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L495)
     ```python
                 })
     if r['return']>0:
@@ -184,8 +184,8 @@
 
 #### replace_string_in_file
 
-  * CM CLI: ```cm replace_string_in_file utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L531))
-  * CM CLI with UID: ```cm replace_string_in_file utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L531))
+  * CM CLI: ```cm replace_string_in_file utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L532))
+  * CM CLI with UID: ```cm replace_string_in_file utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L532))
   * CM Python API:
     ```python
     import cmind
@@ -195,7 +195,7 @@
                  'automation':'utils,dc2743f8450541e3'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L531)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L532)
     ```python
                 })
     if r['return']>0:
@@ -204,8 +204,8 @@
 
 #### create_toc_from_md
 
-  * CM CLI: ```cm create_toc_from_md utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L581))
-  * CM CLI with UID: ```cm create_toc_from_md utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L581))
+  * CM CLI: ```cm create_toc_from_md utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L582))
+  * CM CLI with UID: ```cm create_toc_from_md utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L582))
   * CM Python API:
     ```python
     import cmind
@@ -215,7 +215,7 @@
                  'automation':'utils,dc2743f8450541e3'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L581)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L582)
     ```python
                 })
     if r['return']>0:
@@ -224,8 +224,8 @@
 
 #### copy_to_clipboard
 
-  * CM CLI: ```cm copy_to_clipboard utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L643))
-  * CM CLI with UID: ```cm copy_to_clipboard utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L643))
+  * CM CLI: ```cm copy_to_clipboard utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L644))
+  * CM CLI with UID: ```cm copy_to_clipboard utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L644))
   * CM Python API:
     ```python
     import cmind
@@ -235,7 +235,27 @@
                  'automation':'utils,dc2743f8450541e3'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L643)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L644)
+    ```python
+                })
+    if r['return']>0:
+        print(r['error'])
+    ```
+
+#### list_files_recursively
+
+  * CM CLI: ```cm list_files_recursively utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L722))
+  * CM CLI with UID: ```cm list_files_recursively utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L722))
+  * CM Python API:
+    ```python
+    import cmind
+
+    r=cm.access({
+                 'action':'list_files_recursively'
+                 'automation':'utils,dc2743f8450541e3'
+                 'out':'con'
+    ```
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L722)
     ```python
                 })
     if r['return']>0:

@@ -32,9 +32,9 @@ See [more info](README-extra.md).
 
 * Category: *Reproduced papers.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-ipol-paper-2022-439)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *app,python,reproduce,ipol,journal,repro,reproducibility,pytorch,2022-439*
+* CM "database" tags to find this script: *app,python,reproduce,project,paper,ipol,journal,repro,reproducibility,pytorch,2022-439*
 * Output cached?: *False*
 ___
 ### Usage
@@ -53,9 +53,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=app,python,reproduce,ipol,journal,repro,reproducibility,pytorch,2022-439 [--input_flags]`
+1. `cm run script --tags=app,python,reproduce,project,paper,ipol,journal,repro,reproducibility,pytorch,2022-439 [--input_flags]`
 
-2. `cm run script "app python reproduce ipol journal repro reproducibility pytorch 2022-439" [--input_flags]`
+2. `cm run script "app python reproduce project paper ipol journal repro reproducibility pytorch 2022-439" [--input_flags]`
 
 3. `cm run script f9b9e5bd65e34e4f [--input_flags]`
 
@@ -74,7 +74,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'app,python,reproduce,ipol,journal,repro,reproducibility,pytorch,2022-439'
+                  'tags':'app,python,reproduce,project,paper,ipol,journal,repro,reproducibility,pytorch,2022-439'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -91,9 +91,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="app,python,reproduce,ipol,journal,repro,reproducibility,pytorch,2022-439"```
+```cm run script --tags=gui --script="app,python,reproduce,project,paper,ipol,journal,repro,reproducibility,pytorch,2022-439"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=app,python,reproduce,ipol,journal,repro,reproducibility,pytorch,2022-439) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=app,python,reproduce,project,paper,ipol,journal,repro,reproducibility,pytorch,2022-439) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -134,7 +134,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/_cm.yaml)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-ipol-paper-2022-439/_cm.yaml)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,python3
@@ -146,14 +146,14 @@ ___
      * get,generic-python-lib,_torch
        * CM names: `--adr.['torch']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/_cm.yaml)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-ipol-paper-2022-439/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-ipol-paper-2022-439/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/_cm.yaml)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/_cm.yaml)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-ipol-paper-2022-439/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-ipol-paper-2022-439/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-ipol-paper-2022-439/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-ipol-paper-2022-439/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-ipol-paper-2022-439/_cm.yaml)
 </details>
 
 ___
