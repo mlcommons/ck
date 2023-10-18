@@ -102,6 +102,18 @@ ___
 
 #### Variations
 
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_mxnet.#`
+      - Environment variables:
+        - *CM_MXNET_VERSION*: `#`
+      - Workflow:
+
+    </details>
+
+
   * Group "**implementation**"
     <details>
     <summary>Click here to expand this section.</summary>

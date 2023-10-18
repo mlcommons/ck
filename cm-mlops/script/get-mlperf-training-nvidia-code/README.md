@@ -107,12 +107,18 @@ ___
     <summary>Click here to expand this section.</summary>
 
     * `_ctuning`
+      - Environment variables:
+        - *CM_TMP_TRAINING_SRC*: `ctuning`
       - Workflow:
     * `_custom`
       - Workflow:
     * **`_mlcommons`** (default)
+      - Environment variables:
+        - *CM_TMP_TRAINING_SRC*: `mlcommons`
       - Workflow:
     * `_nvidia-only`
+      - Environment variables:
+        - *CM_TMP_TRAINING_SRC*: `GATEOverflow`
       - Workflow:
 
     </details>
