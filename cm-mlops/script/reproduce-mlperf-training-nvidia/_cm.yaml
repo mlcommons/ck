@@ -55,9 +55,11 @@ variations:
       CM_MLPERF_TRAINING_BENCHMARK: resnet
     deps:
       - tags: prepare,mlperf,training,resnet,_nvidia
+        names:
+        - prepare-training-data
       - tags: get,nvidia,training,code
         names:
-          nvidia-training-code
+        - nvidia-training-code
 
 versions:
   r2.1:

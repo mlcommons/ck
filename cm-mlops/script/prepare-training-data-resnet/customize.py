@@ -16,6 +16,8 @@ def preprocess(i):
     datadir = env.get('CM_DATA_DIR', os.getcwd())
     env['CM_DATA_DIR'] = datadir
 
+    env['MXNET_VER'] = env.get('CM_MXNET_VER', '22.08').replace("-", ".")
+
     env['CM_IMAGENET_LABELS_DOWNLOAD_DIR'] = env['CM_DATASET_IMAGENET_TRAIN_PATH']
     
     if env.get("CM_TMP_VARIATION", "") == "nvidia":

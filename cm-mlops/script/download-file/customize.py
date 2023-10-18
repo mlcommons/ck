@@ -45,6 +45,7 @@ def preprocess(i):
             verify_ssl = env.get('CM_VERIFY_SSL', "True")
             if verify_ssl.lower() in [ "no", "false" ]:
                 verify_ssl = False
+                extra_download_options += " --no-check-certificate"
             else:
                 verify_ssl = True
             r = cm.access({'action':'download_file',
