@@ -2,7 +2,7 @@
 
 # Tutorial to run and optimize MLPerf BERT inference benchmark at SCC'23
 
-
+*This document is still being updated and will be finalized before October 24!*
 
 
 ## Introduction
@@ -18,8 +18,8 @@ and [the community](https://discord.gg/JjWNWXKxwT).
 
 During this tutorial you will learn how to:
 - Install and use MLCommons CM automation language on your system.
-- Prepare the MLPerf BERT inference benchmark and make the test run using CM.
-- Obtain official results (accuracy and performance) for MLPerf BERT question answering model in offline mode.
+- Prepare the MLPerf BERT inference benchmark and make the first test run on a CPU using CM.
+- Obtain official results (accuracy and performance) for MLPerf BERT question answering model in offline mode on CPU or GPU.
 - Learn how to optimize this benchmark and submit your results to the SCC committee.
 
 It should take less than an hour to complete this tutorial including 30 minutes to run the benchmark to completion. 
@@ -107,14 +107,15 @@ cm --version
 
 ### Pull CM repository with cross-platform MLOps and DevOps scripts
 
-Pull the stable version of the MLCommons CM repository with [cross-platform CM scripts for modular benchmarking](../list_of_scripts.md):
+Pull the stable version of the [MLCommons repository](https://github.com/mlcommons/ck/tree/master/cm-mlops) 
+with [cross-platform CM scripts for modular benchmarking and optimization of AI/ML Systems](../list_of_scripts.md):
 
 ```bash
-cm pull repo mlcommons@ck
+cm pull repo mlcommons@ck --checkout=scc23
 ```
 or using equivalent form with a full URL:
 ```bash
-cm pull repo --url=https://github.com/mlcommons/ck
+cm pull repo --url=https://github.com/mlcommons/ck --checkout=scc23
 ```
 
 CM pulls all such repositories into the `$HOME/CM` directory to search for CM automations and portable scripts
@@ -128,9 +129,9 @@ cm find repo mlcommons@ck
 mlcommons@ck,a4705959af8e447a = /home/ubuntu/CM/repos/mlcommons@ck
 ```
 
-Note that you can fix the older/different version of this repository with the `--branch` flag
-but our goal is to keep the CM interface always unified and backward compatible while continuously 
-improving the underlying CM scripts based on the feedback from the community when running them across 
+Note that you can use the latest master version instead of the stable SCC'23 branch by removing
+`--checkout` flag - it should be safe since our goal is to keep the CM interface always unified and backward compatible 
+while continuously improving the underlying CM scripts based on the feedback from the community when running them across 
 diverse software and hardware.
 
 You can update this repository at any time with the same command:
@@ -138,7 +139,12 @@ You can update this repository at any time with the same command:
 cm pull repo mlcommons@ck
 ```
 
+Note that if something goes wrong, you can always start from scratch
+by simply removing `$HOME/CM` directory with all repositories completely:
 
+```bash
+rm -rf $HOME/CM
+```
 
 
 ### Running MLPerf BERT inference benchmark out-of-the-box.
