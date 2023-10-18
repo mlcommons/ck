@@ -2,7 +2,7 @@
 
 # Tutorial to run and optimize MLPerf BERT inference benchmark at SCC'23
 
-
+*This document is still being updated and will be finalized before October 24!*
 
 
 ## Introduction
