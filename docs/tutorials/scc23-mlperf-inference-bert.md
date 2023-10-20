@@ -2,7 +2,7 @@
 
 # Tutorial to run and optimize MLPerf BERT inference benchmark at SCC'23
 
-*This document is still being updated and will be finalized before October 24!*
+*This document is still being updated and will be finalized before Nocember 1st!*
 
 
 ## Introduction
@@ -13,19 +13,18 @@ with [BERT Large model variations](https://github.com/mlcommons/inference/tree/m
 across different software and hardware.
 The MLPerf benchmark is modularized and automated using the [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339)
 with portable, technology-agnostic and reusable [CM scripts](../list_of_scripts.md)
-being developed by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org)
-and [the community](https://discord.gg/JjWNWXKxwT).
+being developed by the [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md),
+the [cTuning foundation](https://cTuning.org) and [the community](https://discord.gg/JjWNWXKxwT).
 
 During this tutorial you will learn how to:
-- Install and use MLCommons CM automation language on your system.
+- Install, understand and use the MLCommons CM automation language on your system.
 - Prepare the MLPerf BERT inference benchmark and make the first test run on a CPU using CM.
 - Obtain official results (accuracy and performance) for MLPerf BERT question answering model in offline mode on CPU or GPU.
 - Learn how to optimize this benchmark and submit your results to the SCC committee.
 
 It should take less than an hour to complete this tutorial including 30 minutes to run the benchmark to completion. 
 In the end, you should obtain a tarball (`mlperf_submission.tar.gz`) with the MLPerf-compatible results
-that you will submit to the [SCC'22 organizers](https://sc22.supercomputing.org/program/studentssc/student-cluster-competition) 
-to get points.
+that you will submit to the SCC organizers to get points.
 
 During SCC, you will first attempt to run a reference (unoptimized) Python implementation of the MLPerf inference benchmark
 with BERT model, [SQuAd v1.1 dataset](https://datarepository.wolframcloud.com/resources/SQuAD-v1.1), 
@@ -147,11 +146,12 @@ rm -rf $HOME/CM
 ```
 
 
-### Running MLPerf BERT inference benchmark out-of-the-box.
+
+### Testing MLPerf BERT inference benchmark out-of-the-box.
 
 
-Note that at this stage, you can run MLPerf BERT inference benchmark out-of-the-box using 
-just one CM command that will automatically detect all the required dependencies
+Note that at this stage, you should normally be able to run the MLPerf BERT inference benchmark out-of-the-box 
+using just one CM command that will automatically detect all the required dependencies
 and download and install the missing ones including benchmark sources, models, data sets, 
 ML frameworks, libraries and tools. However, we suggest you to run this command only
 at the end of this tutorial to get more details about about how it works:
