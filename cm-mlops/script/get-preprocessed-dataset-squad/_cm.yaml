@@ -1,0 +1,82 @@
+alias: get-preprocessed-dataset-squad
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+deps:
+  - tags: get,python3
+    names:
+      - python
+      - python3
+  - tags: get,mlperf,inference,src
+    names:
+      - inference-src
+  - tags: get,squad,dataset,original
+    names:
+      - squad-dataset
+  - tags: get,squad,vocab
+    names:
+      - squad-vocab
+  - tags: get,generic-python-lib,_package.tokenization
+
+docker_input_mapping: {}
+input_description: {}
+env:
+  CM_DATASET_MAX_QUERY_LENGTH: 64
+
+input_mapping: {}
+new_env_keys:
+  - CM_BERT_TOKENIZED_*
+new_state_keys: []
+post_deps: []
+posthook_deps: []
+prehook_deps: []
+tags:
+- get
+- dataset
+- preprocessed
+- tokenized
+- squad
+uid: 7cd1d9b7e8af4788
+variations:
+  calib1:
+    group: calibration-set
+    env:
+      CM_SQUAD_CALIBRATION_SET: one
+  calib2:
+    group: calibration-set
+    env:
+      CM_SQUAD_CALIBRATION_SET: two
+  no-calib:
+    group: calibration-set
+    default: true
+    env:
+      CM_SQUAD_CALIBRATION_SET: two
+  raw:
+    group: raw
+    default: true
+    env:
+      CM_DATASET_RAW: "yes"
+  pickle:
+    group: raw
+    env:
+      CM_DATASET_RAW: "no"
+  seq-length.#:
+    group: seq-length
+    env:
+      CM_DATASET_MAX_SEQ_LENGTH: "#"
+  seq-length.384:
+    group: seq-length
+    default: true
+    env:
+      CM_DATASET_MAX_SEQ_LENGTH: 384
+  doc-stride.#:
+    group: doc-stride
+    env:
+      CM_DATASET_DOC_STRIDE: "#"
+  doc-stride.128:
+    group: doc-stride
+    default: true
+    env:
+      CM_DATASET_DOC_STRIDE: 128
+
+versions: {}
