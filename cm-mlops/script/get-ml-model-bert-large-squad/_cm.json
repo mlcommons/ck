@@ -34,6 +34,11 @@
       },
       "update_tags_from_env_with_prefix": {
         "_url.": [ "CM_PACKAGE_URL" ]
+      },
+      "force_cache": true,
+      "extra_cache_tags": "bert-large,ml-model",
+      "skip_if_env": {
+        "CM_ML_MODEL_BERT_PACKED": [ "yes" ]
       }
     }
   ],
@@ -211,6 +216,130 @@
       "env": {
         "CM_PACKAGE_URL": "https://github.com/mlcommons/inference_results_v2.1/raw/master/open/NeuralMagic/code/bert/deepsparse/models/oBERT-Large_95sparse_block4_qat.onnx.tar.xz"
       }
+    },
+    "unpacked": {
+      "group": "packing",
+      "default": true,
+      "env": {
+        "CM_ML_MODEL_BERT_PACKED": "no"
+      }
+    },
+    "packed": {
+      "group": "packing",
+      "env": {
+        "CM_ML_MODEL_BERT_PACKED": "yes"
+      },
+      "deps": [
+        {
+          "tags": "get,python3",
+          "names": [ "python", "python3" ]
+        },
+        {
+          "tags": "get,generic-python-lib,_torch",
+          "names": [ "torch", "pytorch" ]
+        },
+        {
+          "tags": "get,generic-python-lib,_package.tensorflow",
+          "names": [ "tensorflow" ]
+        },
+        {
+          "tags": "get,generic-python-lib,_package.setuptools_rust",
+          "names": [ "setuptools_rust" ]
+        },
+        {
+          "tags": "get,generic-python-lib,_package.transformers",
+          "names": [ "transformers" ],
+          "version": "2.4.0"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.protobuf",
+          "names": [ "protobuf" ],
+          "version1": "3.20.3"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.onnx",
+          "names": [ "onnx" ],
+          "version1": "1.12.0"
+        },
+        {
+          "tags": "get,generic-python-lib,_onnx-graphsurgeon",
+          "names": [ "onnx-graphsurgeon" ],
+          "version1": "0.3.26"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.onnx-simplifier",
+          "names": [ "onnx-simplifier" ],
+          "version1": "0.3.7"
+        },
+        {
+          "tags": "get,generic-python-lib,_numpy",
+          "names": [ "numpy" ],
+          "version1": "1.23.0"
+        },
+        {
+          "tags": "get,mlperf,inference,src",
+          "names": [ "inference-src" ]
+        }
+      ],
+      "prehook_deps": [
+        {
+          "tags": "download,file,_wget,_url.https://zenodo.org/record/3733868/files/model.ckpt-5474.data-00000-of-00001",
+          "env": {
+            "CM_DOWNLOAD_FILENAME": "model.ckpt-5474.data-00000-of-00001",
+            "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_BERT_CHECKPOINT_DATA_PATH",
+            "CM_DOWNLOAD_PATH": "<<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>",
+            "CM_DOWNLOAD_CHECKSUM": "3089b27c559906a868878741d992ade7"
+          },
+          "force_cache": true,
+          "extra_cache_tags": "bert,checkpoint,weights,bert-large"
+        },
+        {
+          "tags": "download,file,_wget,_url.https://zenodo.org/record/3733868/files/model.ckpt-5474.index",
+          "env": {
+            "CM_DOWNLOAD_FILENAME": "model.ckpt-5474.index",
+            "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_BERT_CHECKPOINT_INDEX_PATH",
+            "CM_DOWNLOAD_PATH": "<<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>",
+            "CM_DOWNLOAD_CHECKSUM": "d23d61572d9404da4dac3363b5bc735b"
+          },
+          "force_cache": true,
+          "extra_cache_tags": "bert,checkpoint-index,bert-large"
+        },
+        {
+          "tags": "download,file,_wget,_url.https://zenodo.org/record/3733868/files/model.ckpt-5474.meta",
+          "env": {
+            "CM_DOWNLOAD_FILENAME": "model.ckpt-5474.meta",
+            "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_BERT_CHECKPOINT_META_PATH",
+            "CM_DOWNLOAD_PATH": "<<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>",
+            "CM_DOWNLOAD_CHECKSUM": "83e11e57eea14c9e9a246af74af40d66"
+          },
+          "force_cache": true,
+          "extra_cache_tags": "bert,checkpoint-meta,bert-large"
+        },
+        {
+          "tags": "download,file,_wget,_url.https://zenodo.org/record/3733868/files/vocab.txt",
+          "env": {
+            "CM_DOWNLOAD_FILENAME": "vocab.txt",
+            "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_BERT_VOCAB_PATH",
+            "CM_DOWNLOAD_PATH": "<<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>",
+            "CM_DOWNLOAD_CHECKSUM": "64800d5d8528ce344256daf115d4965e"
+          },
+          "force_cache": true,
+          "extra_cache_tags": "bert,vocab,bert-large"
+        },
+        {
+          "tags": "download,file,_wget,_url.https://raw.githubusercontent.com/krai/axs2kilt/main/model_onnx_bert_large_packed_recipe/convert_model.py",
+          "env": {
+            "CM_DOWNLOAD_FILENAME": "convert_model.py",
+            "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_BERT_CONVERTER_CODE_PATH",
+            "CM_DOWNLOAD_CHECKSUM": "94c91ce422e8f36f9d98b4926e2ad688"
+          },
+          "force_cache": true,
+          "extra_cache_tags": "bert,checkpoint,converter,code,bert-large"
+        }
+      ],
+      "new_env_keys": [
+        "CM_BERT_"
+      ]
     }
   }
 }

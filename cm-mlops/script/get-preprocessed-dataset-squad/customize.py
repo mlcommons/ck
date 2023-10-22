@@ -32,9 +32,14 @@ def postprocess(i):
     env = i['env']
     cur = os.getcwd()
 
+    env['CM_DATASET_SQUAD_TOKENIZED_ROOT'] = cur
     if env.get('CM_DATASET_RAW', '') == "yes":
-        env['CM_BERT_TOKENIZED_INPUT_IDS'] = os.path.join(cur, 'bert_tokenized_squad_v1_1_input_ids.raw')
-        env['CM_BERT_TOKENIZED_SEGMENT_IDS'] = os.path.join(cur, 'bert_tokenized_squad_v1_1_segment_ids.raw')
-        env['CM_BERT_TOKENIZED_INPUT_MASK'] = os.path.join(cur, 'bert_tokenized_squad_v1_1_input_mask.raw')
+        env['CM_DATASET_SQUAD_TOKENIZED_INPUT_IDS'] = os.path.join(cur, 'bert_tokenized_squad_v1_1_input_ids.raw')
+        env['CM_DATASET_SQUAD_TOKENIZED_SEGMENT_IDS'] = os.path.join(cur, 'bert_tokenized_squad_v1_1_segment_ids.raw')
+        env['CM_DATASET_SQUAD_TOKENIZED_INPUT_MASK'] = os.path.join(cur, 'bert_tokenized_squad_v1_1_input_mask.raw')
+
+    env['CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH'] = env['CM_DATASET_MAX_SEQ_LENGTH']
+    env['CM_DATASET_SQUAD_TOKENIZED_DOC_STRIDE'] = env['CM_DATASET_DOC_STRIDE']
+    env['CM_DATASET_SQUAD_TOKENIZED_MAX_QUERY_LENGTH'] = env['CM_DATASET_MAX_QUERY_LENGTH']
 
     return {'return':0}

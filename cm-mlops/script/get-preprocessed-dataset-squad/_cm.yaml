@@ -25,7 +25,7 @@ env:
 
 input_mapping: {}
 new_env_keys:
-  - CM_BERT_TOKENIZED_*
+  - CM_DATASET_SQUAD_TOKENIZED_*
 new_state_keys: []
 post_deps: []
 posthook_deps: []
