@@ -232,19 +232,19 @@
       "deps": [
         {
           "tags": "get,python3",
-          "names": [ "python", "python3" ]
+          "names": [ "python", "python3" ],
+          "version_max": "3.10.999",
+          "version_max_usable": "3.9.12"
         },
         {
           "tags": "get,generic-python-lib,_torch",
-          "names": [ "torch", "pytorch" ]
+          "names": [ "torch", "pytorch" ],
+          "version": "1.8.1"
         },
         {
           "tags": "get,generic-python-lib,_package.tensorflow",
-          "names": [ "tensorflow" ]
-        },
-        {
-          "tags": "get,generic-python-lib,_package.setuptools_rust",
-          "names": [ "setuptools_rust" ]
+          "names": [ "tensorflow" ],
+          "version": "2.11.0"
         },
         {
           "tags": "get,generic-python-lib,_package.transformers",
@@ -254,7 +254,7 @@
         {
           "tags": "get,generic-python-lib,_package.protobuf",
           "names": [ "protobuf" ],
-          "version1": "3.20.3"
+          "version1": "3.20.1"
         },
         {
           "tags": "get,generic-python-lib,_package.onnx",
