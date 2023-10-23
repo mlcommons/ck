@@ -6,6 +6,13 @@ def preprocess(i):
     os_info = i['os_info']
 
     env = i['env']
+    if env.get('CM_ML_MODEL_BERT_PACKED', '') == 'yes':
+        i['run_script_input']['script_name'] = "run-packed"
+        env['CM_BERT_CONFIG_PATH'] = os.path.join(env['CM_MLPERF_INFERENCE_BERT_PATH'], "bert_config.json")
+        env['CM_BERT_CHECKPOINT_DOWNLOAD_DIR'] = os.path.join(os.getcwd(), "downloaded")
+        env['CM_ML_MODEL_FILE_WITH_PATH'] = os.path.join(os.getcwd(), "model.onnx")
+        env['CM_ML_MODEL_BERT_PACKED_PATH'] = os.path.join(os.getcwd(), "model.onnx")
+
     return {'return':0}
 
 def postprocess(i):

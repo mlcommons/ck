@@ -1,8 +1,8 @@
 # About
 
-The MLCommons C++ Modular Inference Library (MIL) provides a simple and extensible 
-C++ template to add new ML models, frameworks, data sets and hardware backends to MLPerf 
-inference benchmarks.
+The MLCommons C++ Modular Inference Library (MIL) is a community project to provide 
+a simple and extensible C++ template to add new ML models, frameworks, data sets and hardware 
+backends to MLPerf inference benchmarks.
 
 It is intended to help new submitters add new hardware backends to MLPerf,
 optimize their MLPerf results using low-level knobs,
@@ -18,14 +18,7 @@ along with the unified CM interface.
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
 [![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck)
 
-&copy; 2021-2022 [MLCommons](https://mlcommons.org)<br>
-
-# Developers
-
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
-* [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189)
-* [Grigori Fursin](https://cKnowledge.org/gfursin).
-
+&copy; 2021-2023 [MLCommons](https://mlcommons.org)<br>
 
 ## About
 
@@ -70,10 +63,12 @@ python \
 ```
 
 ### RetinaNet, ONNX Runtime, GPU, Accuracy
+
 Install dataset:
 ```sh
 cm run script --tags=get,preprocessed,openimages,_500,_NCHW
 ```
+
 Run benchmark:
 ```sh
 cm run script "cpp mlperf _retinanet _onnxruntime _cuda" \

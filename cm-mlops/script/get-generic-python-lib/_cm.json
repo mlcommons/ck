@@ -481,6 +481,19 @@
         "CM_POLYGRAPHY_VERSION"
       ]
     },
+    "onnx-graphsurgeon": {
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_package.nvidia-pyindex"
+        }
+      ],
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnx_graphsurgeon"
+      },
+      "new_env_keys": [
+        "CM_ONNX_GRAPHSURGEON_VERSION"
+      ]
+    },
     "protobuf": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "protobuf"
