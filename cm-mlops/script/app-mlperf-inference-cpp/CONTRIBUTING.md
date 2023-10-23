@@ -22,7 +22,8 @@ and Modular Inference Library) or participate in collaborative developments.
 
 Thank you for your support and looking forward to collaborating with you!
 
-## Project coordinators
+## Core contributors
 
+* [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 * [Grigori Fursin](https://cKnowledge.org/gfursin).
