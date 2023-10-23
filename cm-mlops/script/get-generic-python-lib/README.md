@@ -279,6 +279,13 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `onnx`
       - Workflow:
+    * `_onnx-graphsurgeon`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `onnx_graphsurgeon`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_package.nvidia-pyindex
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_onnxruntime`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `onnxruntime`
