@@ -235,6 +235,67 @@ ___
     </details>
 
 
+  * Group "**packing**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_packed`
+      - Environment variables:
+        - *CM_ML_MODEL_BERT_PACKED*: `yes`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,python3
+             * CM names: `--adr.['python', 'python3']...`
+             - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+           * get,generic-python-lib,_torch
+             * CM names: `--adr.['torch', 'pytorch']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.tensorflow
+             * CM names: `--adr.['tensorflow']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.setuptools_rust
+             * CM names: `--adr.['setuptools_rust']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.transformers
+             * CM names: `--adr.['transformers']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.protobuf
+             * CM names: `--adr.['protobuf']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.onnx
+             * CM names: `--adr.['onnx']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_onnx-graphsurgeon
+             * CM names: `--adr.['onnx-graphsurgeon']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.onnx-simplifier
+             * CM names: `--adr.['onnx-simplifier']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_numpy
+             * CM names: `--adr.['numpy']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,mlperf,inference,src
+             * CM names: `--adr.['inference-src']...`
+             - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+        1. ***Read "prehook_deps" on other CM scripts***
+           * download,file,_wget,_url.https://zenodo.org/record/3733868/files/model.ckpt-5474.data-00000-of-00001
+             - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+           * download,file,_wget,_url.https://zenodo.org/record/3733868/files/model.ckpt-5474.index
+             - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+           * download,file,_wget,_url.https://zenodo.org/record/3733868/files/model.ckpt-5474.meta
+             - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+           * download,file,_wget,_url.https://zenodo.org/record/3733868/files/vocab.txt
+             - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+           * download,file,_wget,_url.https://raw.githubusercontent.com/krai/axs2kilt/main/model_onnx_bert_large_packed_recipe/convert_model.py
+             - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+    * **`_unpacked`** (default)
+      - Environment variables:
+        - *CM_ML_MODEL_BERT_PACKED*: `no`
+      - Workflow:
+
+    </details>
+
+
   * Group "**precision**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -254,7 +315,7 @@ ___
 
 #### Default variations
 
-`_fp32,_onnx`
+`_fp32,_onnx,_unpacked`
 #### Default environment
 
 <details>
@@ -275,8 +336,10 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)***
      * download-and-extract
+       * `if (CM_ML_MODEL_BERT_PACKED  != yes)`
        - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run native script if exists***
+     * [run-packed.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/run-packed.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)***
@@ -293,7 +356,9 @@ ___
 
 * `CM_ML_MODEL_BERT_LARGE_FP32_PATH`
 * `CM_ML_MODEL_BERT_LARGE_INT8_PATH`
+* `CM_ML_MODEL_BERT_PACKED_PATH`
 * `CM_ML_MODEL_FILE`
+* `CM_ML_MODEL_FILE_WITH_PATH`
 ___
 ### Maintainers
 
