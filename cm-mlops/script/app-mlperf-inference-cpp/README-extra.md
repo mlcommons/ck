@@ -1,19 +1,19 @@
 # About
 
 The MLCommons C++ Modular Inference Library (MIL) is a community project to provide 
-a simple and extensible C++ template to add new ML models, frameworks, data sets and hardware 
-backends to MLPerf inference benchmarks.
+a simple and extensible C++ harness to connect diverse ML models, frameworks, data sets and hardware 
+backends to the [MLPerf loadgen](https://github.com/mlcommons/inference/tree/master/loadgen)
+and run it using the [MLCommons CM automation language](https://github.com/mlcommons/ck/tree/master/cm).
 
 It is intended to help new submitters add new hardware backends to MLPerf,
 optimize their MLPerf results using low-level knobs,
 and automate their submission using the MLCommons CM automation language.
 
-MIL is being developed by the [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-to make it easier to run, optimize and reproduce MLPerf benchmarks 
+MIL is maintained and extended by the [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+based on user feedback to make it easier to run, optimize and reproduce MLPerf inference benchmarks 
 across diverse platforms with continuously changing software and hardware.
 
-MIL was originally developed by [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189) 
-along with the unified CM interface.
+MIL was originally developed by [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
 [![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck)
@@ -31,7 +31,7 @@ This is a modularized C++ implementation of an MLPerf Inference SUT. Each file c
 
 Data flow:
 * Init
-   1. All classes are initialized, e.g. `Backend` is initalized with selected `Model` and `Device`
+   1. All classes are initialized, e.g. `Backend` is initialized with selected `Model` and `Device`
 * Loading samples to memory
    1. LoadGen calls `SampleLibrary->LoadSamplesFromRam()`
    2. `SampleLibrary` reads sample (e.g. from .npy file) and calls `Backend->LoadSampleFromRam()`
