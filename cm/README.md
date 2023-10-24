@@ -8,15 +8,17 @@
 
 ### Breaking news
 
-Our open-source CM automation language and CK playground 
-enabled the 1st mass-scale community submission of 10000+ MLPerf
-inference benchmarking results (representing > 90% of all v3.1 submissions)
-across diverse models, data sets, software and hardware 
-from different vendors via the [cTuning foundation](https://cTuning.org) - 
-see the [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
-for more details and get in touch via our [public Discord server](https://discord.gg/JjWNWXKxwT) 
-if you want to automate and optimize your future MLPerf submissions
-using our open-source technology! 
+* [The community](https://access.cknowledge.org/playground/?action=contributors) has successfully validated 
+  the open-source MLCommons CM automation language,
+  [C++ Modular Inference Library](../cm-mlops/script/app-mlperf-inference-cpp/README-extra.md) 
+  and [CK playground](https://access.cKnowledge.org)
+  during the 1st mass-scale community submission of 12000+ MLPerf
+  inference benchmarking results (representing more than 90% of all v3.1 submissions)
+  across diverse models, data sets, software and hardware 
+  from different vendors via the [cTuning foundation](https://cTuning.org) - 
+  see the [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
+  for more details and get in touch via our [public Discord server](https://discord.gg/JjWNWXKxwT) 
+  if you want to automate and optimize your future MLPerf submissions!
 
 
 ### About

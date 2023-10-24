@@ -5,17 +5,21 @@
 [![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 [![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
 
-### Breaking news
+### News
 
-Our open-source CM automation language and CK playground 
-enabled the 1st mass-scale community submission of 10000+ MLPerf
-inference benchmarking results (representing more than 90% of all v3.1 submissions)
-across diverse models, data sets, software and hardware 
-from different vendors via the [cTuning foundation](https://cTuning.org) - 
-see the [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
-for more details and get in touch via our [public Discord server](https://discord.gg/JjWNWXKxwT) 
-if you want to automate and optimize your future MLPerf submissions
-using our open-source technology! 
+* The MLCommons Task Force on Automation and Reproducibility is resuming [weekly conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit) - 
+  it is open to everyone!
+* [The community](https://access.cknowledge.org/playground/?action=contributors) has successfully validated 
+  the open-source MLCommons [CM automation language](cm/README.md), 
+  [C++ Modular Inference Library](cm-mlops/script/app-mlperf-inference-cpp/README-extra.md) 
+  and [CK playground](https://access.cKnowledge.org)
+  during the 1st mass-scale community submission of 12000+ MLPerf
+  inference benchmarking results (representing more than 90% of all v3.1 submissions)
+  across diverse models, data sets, software and hardware 
+  from different vendors via the [cTuning foundation](https://cTuning.org) - 
+  see the [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
+  for more details and get in touch via our [public Discord server](https://discord.gg/JjWNWXKxwT) 
+  if you want to automate and optimize your future MLPerf submissions!
 
 
 ### About

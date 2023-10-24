@@ -4,17 +4,20 @@
 
 ### 202310
 
+* The MLCommons Task Force on Automation and Reproducibility is resuming [weekly conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit) - 
+  it is open to everyone!
+
 * We gave an invited talk at [AVCC'23](https://avcc.org/avcc2023) about our CM automation language and how it can help 
   to develop modular, portable and technology-agnostic benchmarks.
 
-* We gave an invited tutorial at [IISWC'23](https://iiswc.org/iiswc2023/#/program/) about our CM automation language and how it can provide a common, portable
+* We have prepared a tutorial for [IISWC'23](https://iiswc.org/iiswc2023/#/program/) about our CM automation language and how it can provide a common, portable
   and technology-agnostic interface to run, reproduce and reuse all shared research projects.
 
 ### 202309
 
-*Our Collective Knowledge Technology v3 with the open-source [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105338),
+*The Collective Knowledge Technology v3 with the open-source [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105338),
 [CK playground](https://access.cknowledge.org) 
-and [Modular Inference Library](https://cknowledge.org/mil)
+and [C++ Modular Inference Library](https://cknowledge.org/mil)
 helped the community automate > 90% of all [MLPerf inference v3.1 results](https://mlcommons.org/en/news/mlperf-inference-storage-q323/) 
 and cross 10000 submissions in one round for the first time (submitted via [cTuning foundation](https://cTuning.org))!
 Here is the [list of the new CM/CK capabilities](docs/news-mlperf-v3.1.md) available to everyone 
