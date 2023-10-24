@@ -59,6 +59,7 @@ slashing their benchmarking, development, optimization and operational costs.
       to run and optimize MLPerf inference across any AI/ML/SW/HW stack.
 - [ ] In progress: Enhance our platform and automation framework to support [reproducibility initiatives and studies](https://cTuning.org/ae) at conferences and journals 
       across rapidly evolving software, hardware and data (collaboration with the [cTuning foundation](https://cTuning.org), ACM, IEEE and NeurIPS).
+- [ ] In progress: Connect CM and MLCube
 
 
 ### 2022
