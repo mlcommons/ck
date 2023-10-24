@@ -2,54 +2,37 @@
 
 # MLCommons Task force on Automation and Reproducibility
 
-## Goals
-
-* Help everyone run, reproduce, optimize and compare MLPerf benchmarks (training, inference and tiny) and submit Pareto-optimal results
-  with the help of the open-source [MLCommons Collective Mind automation language (CM)](https://doi.org/10.5281/zenodo.8105339) and 
-  [MLCommons Collective Knowledge Playground (CK)](https://access.cknowledge.org/playground/?action=experiments)
-  to reduce benchmarking, optimization and reproducibility costs.
-  ***More than 80% of the latest MLPerf inference submissions were automated using this open-source technology -
-  you can get help with your own submission and optimizations via our [public Discord server](https://discord.gg/JjWNWXKxwT).*** 
-* Automatically [run any MLPerf benchmark out-of-the-box](mlperf/README.md) with any software, hardware, model and data from any vendor.
-* Automate optimization experiments and visualization of results with derived metrics: *[prototype](https://cknowledge.org/mlcommons-inference-gui)*.
-* Generate Pareto-optimal end-to-end applications based on reproducible MLPerf results: *under development*.
-* Organize reproducibility, replicability and optimization challenges to improve MLPerf results across diverse software, hardware, models and data: 
-  *[on-going](https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge) 
-  (see adopted terminology [here](artifact-evaluation/faq.md#what-is-the-difference-between-repeatability-reproducibility-and-replicability))*.
-* Bridge the [growing gap between research and production](https://doi.org/10.5281/zenodo.8105339) using our MLCommons Collective Mind automation language.
-
-
 ## Mission
 
-This task force was established by [MLCommons]( https://mlcommons.org ) and the [cTuning foundation](https://cTuning.org) in 2022 to apply 
-the [established automation and reproducibility methodology and open-source tools from ACM, IEEE and the cTuning foundation](https://learning.acm.org/techtalks/reproducibility)
-to run MLPerf benchmarks out-of-the-box across any software, hardware, models and data from any vendor
-with the help of the [MLCommons CM automation language](README.md) and the [MLCommons CK playground](https://access.cKnowledge.org).
+The Task Force on Automation and Reproducibility was established by [MLCommons]( https://mlcommons.org ) and the [cTuning foundation](https://cTuning.org) in 2022
+to develop an open-source automation technology that can help everyone [run MLPerf benchmarks out-of-the-box](mlperf/README.md) 
+across diverse models, data sets, software and hardware from any vendor.
 
-We use this open-source technology to organize [reproducibility, replicability and optimization challenges](https://access.cknowledge.org/playground/?action=challenges)
+As an outcome of this community effort, we have developed the [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339), 
+[MLCommons C++ Modular Inference Library (MIL)](../cm-mlops/script/app-mlperf-inference-cpp/README-extra.md) 
+and the [MLCommons CK playground](https://access.cKnowledge.org).
+This open-source technology was successfully validated during the [1st mass-scale community MLPerf inference submission](https://www.linkedin.com/feed/update/urn:li:activity:7112057645603119104/) 
+of 12000+ benchmarking results (representing > 90% of all v3.1 submissions)
+across diverse models, data sets, software and hardware from different vendors.
+
+We also use CM/CK/MIL to support reproducibility initiatives at [ML and Systems conferences](https://cTuning.org/ae)
+and organize [reproducibility, replicability and optimization challenges](https://access.cknowledge.org/playground/?action=challenges)
 to reproduce results from research papers and MLPerf submissions, 
 improve/optimize them in terms of accuracy, performance, power consumption, size, costs and other metrics, 
-and validate them in the real-world applications.
+and [validate them in the real-world applications](https://www.youtube.com/watch?v=7zpeIVwICa4).
 
-We successfully validated the latest version of open-technology during the [1st collaborative challenge to run MLPerf inference v3.0 benchmark](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023)
-across diverse models, software and hardware from Neural Magic, Qualcomm, Nvidia, Intel, AMD, Microsoft, Amazon, Google,
-Krai, cKnowledge, cTuning foundation, OctoML, Deelvin, DELL, HPE, Lenovo, Hugging Face and Apple - 
-CK and CM has helped to automate more than 80% of all recent MLPerf inference benchmark submissions 
-(and 98% of all power results), make them more reproducible and reusable,
-and obtain record inference performance on the latest Qualcomm and Nvidia devices.
-
-Our ultimate mission is to help all MLCommons members and the community
-slash their benchmarking, development, optimization and operational costs and accelerate innovation.
-They should be able to use the CK playground and CM language to automatically generate 
-the most efficient, reproducible and deployable application from the most suitable 
+We continue collaborating with the community to extend the CM automation language, CK playground and MIL
+to automatically generate the most efficient, reproducible and deployable application from the most suitable 
 combination of software, hardware and models based on their requirements,
 constraints and [MLPerf results](https://access.cknowledge.org/playground/?action=experiments).
+Our ultimate mission is to help all AI developers and users focus on innovation while
+slashing their benchmarking, development, optimization and operational costs.
 
 ## Discussions
 
-* Join our [public Discord server](https://discord.gg/JjWNWXKxwT) to discuss developments and challenges.
-* Check our upcoming [reproducibility, replicability and optimization challenges](https://access.cknowledge.org/playground/?action=challenges)
-* Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
+* Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
+* Check our upcoming [reproducibility, replicability and optimization challenges](https://access.cknowledge.org/playground/?action=challenges).
+* See the notes from our [weekly public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
 * Check our [news](news.md).
 
 ## Chairs and Tech Leads
@@ -76,6 +59,7 @@ constraints and [MLPerf results](https://access.cknowledge.org/playground/?actio
       to run and optimize MLPerf inference across any AI/ML/SW/HW stack.
 - [ ] In progress: Enhance our platform and automation framework to support [reproducibility initiatives and studies](https://cTuning.org/ae) at conferences and journals 
       across rapidly evolving software, hardware and data (collaboration with the [cTuning foundation](https://cTuning.org), ACM, IEEE and NeurIPS).
+- [ ] In progress: Connect CM and MLCube
 
 
 ### 2022

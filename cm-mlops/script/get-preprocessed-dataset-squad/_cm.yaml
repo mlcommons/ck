@@ -50,7 +50,7 @@ variations:
     group: calibration-set
     default: true
     env:
-      CM_SQUAD_CALIBRATION_SET: two
+      CM_SQUAD_CALIBRATION_SET: ''
   raw:
     group: raw
     default: true
