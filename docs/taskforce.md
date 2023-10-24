@@ -11,8 +11,7 @@ across diverse models, data sets, software and hardware from any vendor.
 As an outcome of this community effort, we have developed the [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339), 
 [MLCommons C++ Modular Inference Library (MIL)](../cm-mlops/script/app-mlperf-inference-cpp/README-extra.md) 
 and the [MLCommons CK playground](https://access.cKnowledge.org).
-
-Our open-source technology was successfully validated during the [1st mass-scale community MLPerf inference submission](https://www.linkedin.com/feed/update/urn:li:activity:7112057645603119104/) 
+This open-source technology was successfully validated during the [1st mass-scale community MLPerf inference submission](https://www.linkedin.com/feed/update/urn:li:activity:7112057645603119104/) 
 of 12000+ benchmarking results (representing > 90% of all v3.1 submissions)
 across diverse models, data sets, software and hardware from different vendors.
 
