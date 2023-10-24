@@ -16,6 +16,7 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
 * Use `--category=datacenter` to run datacenter scenarios (only for bert-99.9)
 * Use `--model=bert-99.9` to run the high-accuracy model (only for datacenter)
+* Use `--rerun` to force a rerun even when result files (from a previous run) exist
 
 ### Do full accuracy and performance runs for all the scenarios
 
