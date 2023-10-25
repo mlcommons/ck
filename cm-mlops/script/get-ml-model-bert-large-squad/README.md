@@ -253,9 +253,6 @@ ___
            * get,generic-python-lib,_package.tensorflow
              * CM names: `--adr.['tensorflow']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-           * get,generic-python-lib,_package.setuptools_rust
-             * CM names: `--adr.['setuptools_rust']...`
-             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_package.transformers
              * CM names: `--adr.['transformers']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
