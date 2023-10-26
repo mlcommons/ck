@@ -6,7 +6,7 @@
   "category_sort": 8400,
   "cache": true,
   "clean_files": [],
-  "default_version": "1.15.1",
+  "default_version": "1.16.1",
   "default_variation": "cpu",
   "deps": [
     {
