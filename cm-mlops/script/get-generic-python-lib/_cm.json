@@ -707,6 +707,43 @@
         "CM_TORCH_VERSION*"
       ]
     },
+    "rocm": {
+      "env": {
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/rocm5.6"
+      }
+    },
+    "torchvision,rocm": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision"
+      },
+      "new_env_keys": [
+        "CM_TORCHVISION_VERSION*"
+      ]
+    },
+    "torchaudio,rocm": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio"
+      },
+      "new_env_keys": [
+        "CM_TORCHAUDIO_VERSION*"
+      ]
+    },
+    "torch,rocm": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch"
+      },
+      "new_env_keys": [
+        "CM_TORCH_VERSION*"
+      ],
+      "post_deps": [
+        {
+          "tags": "get,generic-python-lib,_torchvision,_rocm"
+        },
+        {
+          "tags": "get,generic-python-lib,_torchaudio,_rocm"
+        }
+      ]
+    },
     "torch_cuda": {
       "deps": [
         {
