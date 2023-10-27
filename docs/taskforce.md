@@ -5,7 +5,7 @@
 ## Mission
 
 The Task Force on Automation and Reproducibility was established by [MLCommons]( https://mlcommons.org ) and the [cTuning foundation](https://cTuning.org) in 2022
-to develop an open-source automation technology that can help everyone [benchmark AI & ML Systems out-of-the-box](mlperf/README.md) 
+to develop an open-source automation technology that can help everyone [co-design, benchmark and optimize AI & ML Systems](mlperf/README.md) 
 across diverse models, data sets, software and hardware from any vendor using the [MLPerf methodology](https://arxiv.org/abs/1911.02549).
 
 As an outcome of this community effort, we have developed the [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339), 
