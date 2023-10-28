@@ -133,6 +133,7 @@ deps:
       - tvm-onnx
       CM_MLPERF_DEVICE:
       - cpu
+      - rocm
 
   ## Onnx CUDA Runtime
   - tags: get,generic-python-lib,_onnxruntime_gpu
