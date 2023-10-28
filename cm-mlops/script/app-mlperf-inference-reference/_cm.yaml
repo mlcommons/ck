@@ -544,7 +544,7 @@ variations:
       onnxruntime:
         tags: _rocm
       inference-src:
-        tags: _ctuning
+        tags: _repo.https://github.com/ctuning/inference
     env:
       ONNXRUNTIME_PREFERRED_EXECUTION_PROVIDER: "ROCMExecutionProvider"
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_TRAINING_VERSION>>>
