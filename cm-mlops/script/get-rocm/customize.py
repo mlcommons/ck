@@ -11,6 +11,8 @@ def preprocess(i):
 
     file_name = 'rocminfo.exe' if os_info['platform'] == 'windows' else 'rocminfo'
     env['FILE_NAME'] = file_name
+    env['CM_TMP_PATH'] = "/opt/rocm/bin"
+
     if 'CM_ROCM_BIN_WITH_PATH' not in env:
         r = i['automation'].find_artifact({'file_name': file_name,
                                            'env': env,
@@ -30,7 +32,7 @@ def preprocess(i):
     return {'return':0}
 
 def detect_version(i):
-    r = i['automation'].parse_version({'match_text': r'*([\d.]+)',
+    r = i['automation'].parse_version({'match_text': r'([\d.]+[-\d+]*)',
                                        'group_number': 1,
                                        'env_key':'CM_ROCM_VERSION',
                                        'which_env':i['env']})
