@@ -511,6 +511,7 @@ variations:
   onnxruntime,cuda:
     env:
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_GPU_VERSION>>>
+      ONNXRUNTIME_PREFERRED_EXECUTION_PROVIDER: "CUDAExecutionProvider"
 
   pytorch:
     group: framework
@@ -534,11 +535,16 @@ variations:
     add_deps_recursive:
       tensorflow:
         tags: _rocm
+    env:
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TENSORFLOW_ROCM_VERSION>>>
 
   onnxruntime,rocm:
     add_deps_recursive:
       onnxruntime:
         tags: _rocm
+    env:
+      ONNXRUNTIME_PREFERRED_EXECUTION_PROVIDER: "ROCMExecutionProvider"
+      CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_TRAINING_VERSION>>>
 
   ncnn:
     group: framework
@@ -846,6 +852,7 @@ variations:
     group: device
     env:
       CM_MLPERF_DEVICE: rocm
+      USE_GPU: yes
 
   tpu:
     group: device
