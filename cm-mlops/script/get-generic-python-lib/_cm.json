@@ -726,7 +726,13 @@
     },
     "rocm": {
       "env": {
-      }
+      },
+      "deps": [
+        {
+          "names": [ "rocm" ],
+          "tags": "get,rocm"
+        }
+      ]
     },
     "torchvision,rocm": {
       "env": {
