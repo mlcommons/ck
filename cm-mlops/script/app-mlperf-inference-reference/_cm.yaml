@@ -185,6 +185,7 @@ deps:
       - tvm-pytorch
       CM_MLPERF_DEVICE:
       - cpu
+      - rocm
 
   ## Pytorch (CUDA)
   - tags: get,generic-python-lib,_torch_cuda
@@ -717,6 +718,7 @@ variations:
     - tags: get,generic-python-lib,_torch
       names:
       - ml-engine-pytorch
+      - pytorch
     add_deps_recursive:
       inference-src:
         tags: _deeplearningexamples
