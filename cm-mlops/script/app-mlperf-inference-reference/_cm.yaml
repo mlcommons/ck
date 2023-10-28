@@ -532,7 +532,7 @@ variations:
       pytorch:
         tags: _rocm
 
-  tensorflow,rocm:
+  tf,rocm:
     add_deps_recursive:
       tensorflow:
         tags: _rocm
