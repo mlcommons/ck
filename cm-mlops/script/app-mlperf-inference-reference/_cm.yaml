@@ -543,6 +543,8 @@ variations:
     add_deps_recursive:
       onnxruntime:
         tags: _rocm
+      inference-src:
+        tags: _ctuning
     env:
       ONNXRUNTIME_PREFERRED_EXECUTION_PROVIDER: "ROCMExecutionProvider"
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_TRAINING_VERSION>>>
