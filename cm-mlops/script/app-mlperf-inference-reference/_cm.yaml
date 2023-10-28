@@ -126,6 +126,7 @@ deps:
   - tags: get,generic-python-lib,_onnxruntime
     names:
     - ml-engine-onnxruntime
+    - onnxruntime
     enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
@@ -177,6 +178,7 @@ deps:
   - tags: get,generic-python-lib,_torch
     names:
     - ml-engine-pytorch
+    - pytorch
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
@@ -188,6 +190,7 @@ deps:
   - tags: get,generic-python-lib,_torch_cuda
     names:
     - ml-engine-pytorch
+    - pytorch
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
@@ -232,6 +235,7 @@ deps:
   - tags: get,generic-python-lib,_tensorflow
     names:
     - ml-engine-tensorflow
+    - tensorflow
     enable_if_env:
       CM_MLPERF_BACKEND:
       - tf
@@ -520,6 +524,21 @@ variations:
     env:
       CM_MLPERF_BACKEND: pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
+
+  pytorch,rocm:
+    add_deps_recursive:
+      pytorch:
+        tags: _rocm
+
+  tensorflow,rocm:
+    add_deps_recursive:
+      tensorflow:
+        tags: _rocm
+
+  onnxruntime,rocm:
+    add_deps_recursive:
+      onnxruntime:
+        tags: _rocm
 
   ncnn:
     group: framework
@@ -822,6 +841,11 @@ variations:
       CM_MLPERF_DEVICE: gpu
       USE_CUDA: yes
       USE_GPU: yes
+
+  rocm:
+    group: device
+    env:
+      CM_MLPERF_DEVICE: rocm
 
   tpu:
     group: device
