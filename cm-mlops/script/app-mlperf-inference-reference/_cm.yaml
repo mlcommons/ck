@@ -610,7 +610,7 @@ variations:
         CM_HOST_PLATFORM_FLAVOR:
         - aarch64
     add_deps_recursive:
-      inference-src:
+      mlperf-implementation:
         version: deepsparse
       ml-model:
         tags: raw,_deepsparse
