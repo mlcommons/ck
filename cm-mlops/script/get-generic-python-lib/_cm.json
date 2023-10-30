@@ -418,6 +418,15 @@
         "CM_ONNXRUNTIME_GPU_VERSION*"
       ]
     },
+    "onnxruntime,rocm": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnxruntime-training",
+        "CM_GENERIC_PYTHON_PIP_URL": "https://download.onnxruntime.ai/onnxruntime_training-1.16.0%2Brocm56-cp3<<<CM_PYTHON_MINOR_VERSION>>>-cp3<<<CM_PYTHON_MINOR_VERSION>>>-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+      },
+      "new_env_keys": [
+        "CM_ONNXRUNTIME_TRAINING_VERSION*"
+      ]
+    },
     "opencv-python": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "opencv-python"
@@ -622,6 +631,14 @@
         "CM_TENSORFLOW_VERSION"
       ]
     },
+    "tensorflow,rocm": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tensorflow-rocm"
+      },
+      "new_env_keys": [
+        "CM_TENSORFLOW_ROCM_VERSION"
+      ]
+    },
     "tflite-runtime": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "tflite-runtime"
@@ -705,6 +722,54 @@
       },
       "new_env_keys": [
         "CM_TORCH_VERSION*"
+      ]
+    },
+    "rocm": {
+      "env": {
+      },
+      "deps": [
+        {
+          "names": [ "rocm" ],
+          "tags": "get,rocm"
+        }
+      ]
+    },
+    "torchvision,rocm": {
+      "env": {
+        "CM_GENERIC_PYTHON_PIP_INDEX_URL": "https://download.pytorch.org/whl/rocm5.6",
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision",
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torchvision"
+      },
+      "new_env_keys": [
+        "CM_TORCHVISION_VERSION*"
+      ]
+    },
+    "torchaudio,rocm": {
+      "env": {
+        "CM_GENERIC_PYTHON_PIP_INDEX_URL": "https://download.pytorch.org/whl/rocm5.6",
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio",
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torchaudio"
+      },
+      "new_env_keys": [
+        "CM_TORCHAUDIO_VERSION*"
+      ]
+    },
+    "torch,rocm": {
+      "env": {
+        "CM_GENERIC_PYTHON_PIP_INDEX_URL": "https://download.pytorch.org/whl/rocm5.6",
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torch"
+      },
+      "new_env_keys": [
+        "CM_TORCH_VERSION*"
+      ],
+      "post_deps": [
+        {
+          "tags": "get,generic-python-lib,_torchvision,_rocm"
+        },
+        {
+          "tags": "get,generic-python-lib,_torchaudio,_rocm"
+        }
       ]
     },
     "torch_cuda": {
