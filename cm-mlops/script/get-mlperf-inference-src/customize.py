@@ -53,7 +53,6 @@ def postprocess(i):
     env['CM_MLPERF_INFERENCE_DLRM_PATH'] = os.path.join(inference_root, 'recommendation', 'dlrm')
     env['CM_MLPERF_INFERENCE_DLRM_V2_PATH'] = os.path.join(inference_root, 'recommendation', 'dlrm_v2')
     env['CM_MLPERF_INFERENCE_3DUNET_PATH'] = os.path.join(inference_root,'vision', 'medical_imaging', '3d-unet-kits19')
-    env['CM_MLPERF_INFERENCE_CONF_PATH'] = os.path.join(inference_root, 'mlperf.conf')
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] = inference_root
 
@@ -65,6 +64,7 @@ def postprocess(i):
     if env.get('CM_GET_MLPERF_IMPLEMENTATION_ONLY', '') == "yes":
         return {'return':0}
 
+    env['CM_MLPERF_INFERENCE_CONF_PATH'] = os.path.join(inference_root, 'mlperf.conf')
     env['+PYTHONPATH'].append(os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], 'tools', 'submission'))
 
     valid_models = get_valid_models(env['CM_MLPERF_LAST_RELEASE'], env['CM_MLPERF_INFERENCE_SOURCE'])
