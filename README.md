@@ -26,17 +26,17 @@
 
 Collective Knowledge (CK) is an open-source, non-intrusive and technology-agnostic toolset
 to facilitate reproducible research and automate development, benchmarking, optimization, comparison and 
-deployment of Pareto-efficient AI/ML Systems across diverse and rapidly evolving models, data sets, 
+deployment of Pareto-efficient AI/ML applications and systems across diverse and rapidly evolving models, data sets, 
 software and hardware from different vendors and users.
 
 Collective Knowledge v3 has been developed from scratch by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md), 
 [cTuning foundation](https://cTuning.org), [cKnowledge.org](https://cKnowledge.org) and [the community](CONTRIBUTING.md) 
 and includes the following sub-projects:
 
-* [Collective Mind automation Language (CM)](cm) - a simple automation language
-  that helps to implement modular, portable and technology-agnostic 
-  benchmarks and applications with a common API that can automatically
-  plug in diverse and rapidly evolving models, data sets, software and hardware
+* [Collective Mind automation Language (CM)](cm) - a simple workflow automation meta-framework 
+  based on Python and JSON/YAML meta descriptions. CM helps to implement modular, portable and technology-agnostic 
+  benchmarks, applications and systems that can automatically
+  plug in and optimize diverse and rapidly evolving AI/ML models, data sets, software and hardware
   from different vendors and users.
 * [CM scripts](cm-mlops/scripts) - a database of portable, reusable and technology-agnostic automations to modularize benchmarks, software projects and AI/ML Systems.
 * [Modular Inference Library (MIL)](https://cknowledge.org/mil) - a universal and modular C++ implementation of MLPerf inference benchmarks.
