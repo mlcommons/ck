@@ -290,6 +290,11 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `onnxruntime`
       - Workflow:
+    * `_onnxruntime,rocm`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `onnxruntime-training`
+        - *CM_GENERIC_PYTHON_PIP_URL*: `https://download.onnxruntime.ai/onnxruntime_training-1.16.0%2Brocm56-cp3<<<CM_PYTHON_MINOR_VERSION>>>-cp3<<<CM_PYTHON_MINOR_VERSION>>>-manylinux_2_17_x86_64.manylinux2014_x86_64.whl`
+      - Workflow:
     * `_onnxruntime_gpu`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `onnxruntime_gpu`
@@ -355,6 +360,12 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `requests`
       - Workflow:
+    * `_rocm`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,rocm
+             * CM names: `--adr.['rocm']...`
+             - CM script: [get-rocm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm)
     * `_safetensors`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `safetensors`
@@ -415,6 +426,10 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `tensorflow`
       - Workflow:
+    * `_tensorflow,rocm`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `tensorflow-rocm`
+      - Workflow:
     * `_tflite`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `tflite`
@@ -442,6 +457,17 @@ ___
         - *CM_GENERIC_PYTHON_PIP_EXTRA*: ` --pre`
         - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/nightly/cpu`
       - Workflow:
+    * `_torch,rocm`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/rocm5.6`
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
+        - *CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS*: `torch`
+      - Workflow:
+        1. ***Read "post_deps" on other CM scripts***
+           * get,generic-python-lib,_torchvision,_rocm
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_torchaudio,_rocm
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_torch_cuda`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
@@ -472,6 +498,12 @@ ___
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchaudio`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/cpu`
       - Workflow:
+    * `_torchaudio,rocm`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/rocm5.6`
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchaudio`
+        - *CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS*: `torchaudio`
+      - Workflow:
     * `_torchaudio_cuda`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchaudio`
@@ -487,6 +519,12 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchvision`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/cpu`
+      - Workflow:
+    * `_torchvision,rocm`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/rocm5.6`
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchvision`
+        - *CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS*: `torchvision`
       - Workflow:
     * `_torchvision_cuda`
       - Environment variables:
