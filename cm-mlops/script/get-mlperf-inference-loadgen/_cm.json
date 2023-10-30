@@ -4,7 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "category": "Modular MLPerf benchmarks",
   "cache": true,
-  "default_version": "pybind_fix",
+  "default_version": "master",
   "deps": [
     {
       "tags": "detect,os"

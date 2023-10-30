@@ -55,15 +55,20 @@ def postprocess(i):
     env['CM_MLPERF_INFERENCE_3DUNET_PATH'] = os.path.join(inference_root,'vision', 'medical_imaging', '3d-unet-kits19')
     env['CM_MLPERF_INFERENCE_CONF_PATH'] = os.path.join(inference_root, 'mlperf.conf')
 
+    env['CM_GET_DEPENDENT_CACHED_PATH'] = inference_root
+
 #        20221024: we save and restore env in the main script and can clean env here for determinism
 #    if '+PYTHONPATH' not in env: env['+PYTHONPATH'] = []
     env['+PYTHONPATH']=[]
     env['+PYTHONPATH'].append(os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], 'python'))
+
+    if env.get('CM_GET_MLPERF_IMPLEMENTATION_ONLY', '') == "yes":
+        return {'return':0}
+
     env['+PYTHONPATH'].append(os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], 'tools', 'submission'))
 
     valid_models = get_valid_models(env['CM_MLPERF_LAST_RELEASE'], env['CM_MLPERF_INFERENCE_SOURCE'])
 
-    env['CM_GET_DEPENDENT_CACHED_PATH'] = inference_root
 
     state['CM_MLPERF_INFERENCE_MODELS'] = valid_models
 

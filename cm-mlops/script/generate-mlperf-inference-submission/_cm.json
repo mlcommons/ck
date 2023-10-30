@@ -75,7 +75,7 @@
           "yes"
         ]
       },
-      "tags": "submission,checker,mlc",
+      "tags": "submission,inference,checker,mlc",
       "names": [
         "mlperf-inference-submission-checker",
         "submission-checker"
