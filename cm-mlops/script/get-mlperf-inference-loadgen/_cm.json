@@ -60,6 +60,9 @@
     },
     {
       "tags": "get,generic-python-lib,_pip"
+    },
+    {
+      "tags": "get,generic-python-lib,_package.pybind11"
     }
   ],
   "default_env": {
