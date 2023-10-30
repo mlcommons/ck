@@ -34,7 +34,8 @@ Collective Knowledge v3 has been developed from scratch by the [MLCommons Task F
 and includes the following sub-projects:
 
 * [Collective Mind automation Language (CM)](cm) - a simple workflow automation meta-framework 
-  based on Python and JSON/YAML meta descriptions. CM helps to implement modular, portable and technology-agnostic 
+  based on Python and JSON/YAML meta descriptions to unify, interconnect and improve any existing technology 
+  rather than substituting it. CM helps MLCommons implement modular, portable and technology-agnostic 
   benchmarks, applications and systems that can automatically
   plug in and optimize diverse and rapidly evolving AI/ML models, data sets, software and hardware
   from different vendors and users.
