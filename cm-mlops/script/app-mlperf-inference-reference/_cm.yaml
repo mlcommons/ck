@@ -466,6 +466,13 @@ deps:
     - inference-src
 
 
+  # Download MLPerf inference source
+  - tags: get,mlcommons,inference,src
+    env:
+      CM_GET_MLPERF_IMPLEMENTATION_ONLY: 'yes'
+    names:
+    - mlperf-implementation
+
 posthook_deps: 
   - names:
     - mlperf-runner
@@ -603,7 +610,7 @@ variations:
         CM_HOST_PLATFORM_FLAVOR:
         - aarch64
     add_deps_recursive:
-      inference-src:
+      mlperf-implementation:
         version: deepsparse
       ml-model:
         tags: raw,_deepsparse
@@ -796,12 +803,8 @@ variations:
     - tags: get,generic-python-lib,_unidecode
     - tags: get,generic-python-lib,_toml
     add_deps_recursive:
-      ml-engine-pytorch:
-        version: 1.13.1
-        version_max_usable: 1.13.1
-      ml-engine-torchvision:
-        version_max: 0.14.1
-        version_max_usable: 0.14.1
+      mlperf-implementation:
+        tags: _repo.https://github.com/GATEOverflow/inference
 
   retinanet:
     group: models
