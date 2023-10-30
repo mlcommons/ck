@@ -20,20 +20,17 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
+*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
 
 ### Description
-
-
-See [more info](README-extra.md).
 
 #### Information
 
 * Category: *Cloud automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,terraform,get-terraform*
+* CM "database" tags to find this script: *get,rocm,get-rocm*
 * Output cached?: *True*
 ___
 ### Usage
@@ -52,11 +49,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,terraform,get-terraform `
+1. `cm run script --tags=get,rocm,get-rocm `
 
-2. `cm run script "get terraform get-terraform" `
+2. `cm run script "get rocm get-rocm" `
 
-3. `cm run script 66b33c38a4d7461e `
+3. `cm run script 23a69f9477cb4dab `
 
 * `variations` can be seen [here](#variations)
 
@@ -73,7 +70,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,terraform,get-terraform'
+                  'tags':'get,rocm,get-rocm'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -90,9 +87,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,terraform,get-terraform"```
+```cm run script --tags=gui --script="get,rocm,get-rocm"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,terraform,get-terraform) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,rocm,get-rocm) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -117,17 +114,17 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform/customize.py)***
-  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform/_cm.json)***
-     * install,terraform
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm/customize.py)***
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm/_cm.json)***
+     * install,rocm
        * `if (CM_REQUIRE_INSTALL  == yes)`
-       - CM script: [install-terraform-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-terraform-from-src)
+       - CM script: [install-rocm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-rocm)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm/_cm.json)
 </details>
 
 ___
@@ -135,11 +132,11 @@ ___
 #### New environment keys (filter)
 
 * `+PATH`
-* `CM_TERRAFORM_*`
+* `CM_ROCM_*`
 #### New environment keys auto-detected from customize
 
-* `CM_TERRAFORM_CACHE_TAGS`
-* `CM_TERRAFORM_INSTALLED_PATH`
+* `CM_ROCM_CACHE_TAGS`
+* `CM_ROCM_INSTALLED_PATH`
 ___
 ### Maintainers
 
