@@ -153,13 +153,14 @@ rm -rf $HOME/CM
 Note that at this stage, you should normally be able to run the MLPerf BERT inference benchmark out-of-the-box 
 using just one CM command that will automatically detect all the required dependencies
 and download and install the missing ones including benchmark sources, models, data sets, 
-ML frameworks, libraries and tools. However, we suggest you to run this command only
-at the end of this tutorial to get more details about about how it works:
+ML frameworks, libraries and tools. However, we suggest you run this command only
+at the end of this tutorial to get more details about how it works:
 
 ```bash
 cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --scenario=Offline \
      --mode=accuracy \
+     --execution-mode=test \
      --test_query_count=10 \
      --rerun \
      --quiet
@@ -344,6 +345,7 @@ allows you to run this benchmark as follows:
 cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --scenario=Offline \
      --mode=accuracy \
+     --execution-mode=test \
      --test_query_count=10 \
      --rerun
 ```
@@ -378,6 +380,7 @@ cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" 
      --adr.compiler.tags=gcc \
      --scenario=Offline \
      --mode=accuracy \
+     --execution-mode=test \
      --test_query_count=10 \
      --quiet \
      --rerun
@@ -386,12 +389,14 @@ cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" 
 
 #### Run MLPerf inference benchmark (offline, performance)
 
-Let's run the MLPerf object detection while measuring performance:
+Let's run the MLPerf language processing while measuring performance:
 
 ```bash
 cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --scenario=Offline \
      --mode=performance \
+     --execution-mode=test \
+     --test_query_count=10
      --rerun
 ```
 
@@ -479,6 +484,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
       --backend=onnxruntime \
       --device=cpu \
       --scenario=Offline \
+      --execution-mode=test \
       --test_query_count=10 \
       --clean
 ```      
@@ -569,6 +575,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  
    --backend=deepsparse \
    --device=cpu \
    --scenario=Offline \
+   --execution-mode=test \
    --test_query_count=1024 \
    --adr.mlperf-inference-implementation.max_batchsize=128 \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni \
@@ -584,6 +591,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  
    --backend=deepsparse \
    --device=cpu \
    --scenario=Offline \
+   --execution-mode=test \
    --test_query_count=1024 \
    --adr.mlperf-inference-implementation.max_batchsize=128 \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni \
