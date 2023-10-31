@@ -2,7 +2,7 @@
 
 # Tutorial to run and optimize MLPerf BERT inference benchmark at SCC'23
 
-*This document is still being updated and will be finalized before Nocember 1st!*
+*This document is still being updated and will be finalized soon!*
 
 
 ## Introduction
@@ -22,25 +22,30 @@ During this tutorial you will learn how to:
 - Obtain official results (accuracy and throughput) for MLPerf BERT question answering model in offline mode on a CPU or GPU of your choice.
 - Learn how to optimize this benchmark and submit your results to the SCC committee.
 
-It should take less than an hour to complete this tutorial including 30 minutes to run the benchmark to completion. 
+It should take less than an hour to complete this tutorial including 30 minutes to run the optimized version of this benchmark to completion. 
 In the end, you should obtain a tarball (`mlperf_submission.tar.gz`) with the MLPerf-compatible results
 that you will submit to the SCC organizers to get points.
 
 ## Scoring
 
 During SCC, you will first attempt to run a reference (unoptimized) Python implementation of the MLPerf inference benchmark
-with BERT model, [SQuAd v1.1 dataset](https://datarepository.wolframcloud.com/resources/SQuAD-v1.1), 
-ONNX runtime and any CPU target to get a minimal set of points.
+with [BERT fp32 model](TBD), 
+[SQuAd v1.1 dataset](https://datarepository.wolframcloud.com/resources/SQuAD-v1.1), 
+ONNX runtime (MLPerf framework or backend) with CPU target (MLPerf device) 
+and [MLPerf loadgen](https://github.com/mlcommons/inference/tree/master/loadgen) 
+to get a minimal set of points.
 
 After a successful run, you will be able to run optimized version of this benchmark on a GPU (Nvidia, AMD) or CPU (x64, Arm64),
-change ML frameworks, try different batch sizes, etc to get extra points.
+change ML frameworks, try different batch sizes, etc to get better performance than the reference implementation that will be converted in extra points.
 
-Since not all vendor implementations of MLPerf inference benchmark are still equal and they mostly support 1-node benchmarking at this stage, 
-teams will compete to get better throughput only between the same backends (CPU, Nvidia GPU, AMD GPU, etc) to get more points.
+Note that since not all vendor implementations of MLPerf inference benchmark are still equal and they mostly support 1-node 
+benchmarking at this stage, teams will compete to get better throughput only between the same architecture type (CPU, Nvidia GPU, AMD GPU, etc) 
+to get more points.
 
-Finally, if you implement a new hardware backend for MLPerf BERT inference benchmark (such as AMD GPU) and make it publicly available,
+Furthermore, if you improve existing implementation and/or provide support for new hardware (such as AMD GPU) 
 add support for multi-node execution or improve MLPerf BERT models without dropping accuracy, 
-you will get even more points for supporting the MLPerf community.
+and make all your improvements publicly available under Apache 2.0 license when submitting results to the SCC committee,
+you will get substantial bonus points for supporting the MLPerf community.
 
 After SCC, you are welcome to prepare an official submission to the next inference v4.0 round in February 2024 
 to get your results and the team name to the official MLCommons release similar to [v3.1](https://mlcommons.org/en/inference-datacenter-31). 
@@ -182,7 +187,13 @@ You will see a long output that should contain the following line with accuracy:
 {"exact_match": 70.0, "f1": 70.0}
 ```
 
-* `--device=cuda` and `--device=rocm` can be used to run the inference on Nvidia GPU and AMD GPUs respectively. The current reference implementation supports only one GPU instance for inference but this can be changed.
+* `--device=cuda` and `--device=rocm` can be used to run the inference on Nvidia GPU and AMD GPUs respectively. 
+  The current reference implementation supports only one GPU instance for inference but this can be changed.
+
+* `--adr.mlperf-implementation.tags=_repo.URL` allows you to use your own fork 
+  of the [MLPerf inference repo](https://github.com/mlcommons/inference)
+  if you want to improve it. We use the [cTuning fork](https://github.com/ctuning/inference) 
+  to keep a stable version of the official MLPerf inference repository.
 
 ### Install system dependencies for your platform
 
