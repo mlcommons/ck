@@ -153,15 +153,19 @@ rm -rf $HOME/CM
 Note that at this stage, you should normally be able to run the MLPerf BERT inference benchmark out-of-the-box 
 using just one CM command that will automatically detect all the required dependencies
 and download and install the missing ones including benchmark sources, models, data sets, 
-ML frameworks, libraries and tools. However, we suggest you to run this command only
-at the end of this tutorial to get more details about about how it works:
+ML frameworks, libraries and tools. However, we suggest you run this command only
+at the end of this tutorial to get more details about how it works:
 
 ```bash
 cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --scenario=Offline \
      --mode=accuracy \
+     --device=cpu \
+     --execution-mode=test \
      --test_query_count=10 \
      --rerun \
+     --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
+     --adr.mlperf-implementation.version=custom \
      --quiet
 ```
 
@@ -170,6 +174,7 @@ You will see a long output that should contain the following line with accuracy:
 {"exact_match": 70.0, "f1": 70.0}
 ```
 
+* `--device=cuda` and `--device=rocm` can be used to run the inference on Nvidia GPU and AMD GPUs respectively. The current reference implementation supports only one GPU instance for inference but this can be changed.
 
 ### Install system dependencies for your platform
 
@@ -344,7 +349,10 @@ allows you to run this benchmark as follows:
 cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --scenario=Offline \
      --mode=accuracy \
+     --execution-mode=test \
      --test_query_count=10 \
+     --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
+     --adr.mlperf-implementation.version=custom \
      --rerun
 ```
 
@@ -378,7 +386,10 @@ cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" 
      --adr.compiler.tags=gcc \
      --scenario=Offline \
      --mode=accuracy \
+     --execution-mode=test \
      --test_query_count=10 \
+     --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
+     --adr.mlperf-implementation.version=custom \
      --quiet \
      --rerun
 ```
@@ -386,12 +397,16 @@ cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" 
 
 #### Run MLPerf inference benchmark (offline, performance)
 
-Let's run the MLPerf object detection while measuring performance:
+Let's run the MLPerf language processing while measuring performance:
 
 ```bash
 cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --scenario=Offline \
      --mode=performance \
+     --execution-mode=test \
+     --test_query_count=10 \
+     --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
+     --adr.mlperf-implementation.version=custom \
      --rerun
 ```
 
@@ -479,9 +494,15 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
       --backend=onnxruntime \
       --device=cpu \
       --scenario=Offline \
+      --execution-mode=test \
       --test_query_count=10 \
+      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
+      --adr.mlperf-implementation.version=custom \
       --clean
-```      
+```
+* `--execution-mode=valid` can be used to do a full valid run and in this mode `--test_query_count` is ignored and the loadgen generates the number of queries for a 10-minute run based on `--target_qps` value from a previous run. We can also override this value by giving `--offline_target_qps=<>` in case the estimated value from a test run turns out to be inaccurate.
+* We can also use custom (public/private) fork of the inference repository to enable custom changes to the harness code. For this you can change "ctuning" in the `https://github.com/ctuning/inference,_branch.scc23` to your username and can even change the branch name.
+
 
 It will take a few minutes to run and you should see the following output in the end:
 
@@ -557,9 +578,14 @@ in `$HOME/mlperf_submission` (with truncated accuracy logs) and in `$HOME/mlperf
 You can change this directory using the flag `--submission_dir={directory to store raw MLPerf results}`
 in the above script.
 
+### Trying Nvidia implementation
+
+Please follow [this README](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/bert/README_nvidia.md)
 
 
 ### Trying deepsparse backend
+
+For deepsparse backend the implementation is coming from [this repo](https://github.com/neuralmagic/inference/tree/deepsparse)
 
 #### int8
 ```
@@ -569,6 +595,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  
    --backend=deepsparse \
    --device=cpu \
    --scenario=Offline \
+   --execution-mode=test \
    --test_query_count=1024 \
    --adr.mlperf-inference-implementation.max_batchsize=128 \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni \
@@ -584,6 +611,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  
    --backend=deepsparse \
    --device=cpu \
    --scenario=Offline \
+   --execution-mode=test \
    --test_query_count=1024 \
    --adr.mlperf-inference-implementation.max_batchsize=128 \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni \
