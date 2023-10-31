@@ -29,10 +29,10 @@ that you will submit to the SCC organizers to get points.
 ## Scoring
 
 During SCC, you will first attempt to run a reference (unoptimized) Python implementation of the MLPerf inference benchmark
-with [BERT fp32 model](TBD), 
+with [BERT fp32 model](https://huggingface.co/ctuning/mlperf-inference-bert-onnx-fp32-squad-v1.1), 
 [SQuAd v1.1 dataset](https://datarepository.wolframcloud.com/resources/SQuAD-v1.1), 
-ONNX runtime (MLPerf framework or backend) with CPU target (MLPerf device) 
-and [MLPerf loadgen](https://github.com/mlcommons/inference/tree/master/loadgen) 
+ONNX runtime (`MLPerf framework` or `backend`) with CPU target (`MLPerf device`) 
+and [MLPerf loadgen library](https://github.com/mlcommons/inference/tree/master/loadgen) 
 to get a minimal set of points.
 
 After a successful run, you will be able to run optimized version of this benchmark on a GPU (Nvidia, AMD) or CPU (x64, Arm64),
