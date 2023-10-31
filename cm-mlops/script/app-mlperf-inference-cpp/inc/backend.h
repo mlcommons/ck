@@ -108,7 +108,6 @@ public:
             // write to end of memory
             sample_memory_offset[input_index][index_in_memory] = sample_memory_size[input_index];
             sample_memory_size[input_index] += input_size;
-
             for (size_t j = 0; j < num_memory; j++) {
                 void *destination = GetMemoryAddress(input_index, j, index_in_memory);
                 device->Write(j, destination, input_data);
@@ -145,10 +144,10 @@ public:
     void UnloadSampleFromRam(mlperf::QuerySampleIndex sample_index) {
         for (size_t i = 0; i < num_inputs; i++)
             sample_memory_size[i] -= GetSampleSize(sample_index, i);
-           /* if (sample_map.find(sample_index) != sample_map.end()) {
+            if (sample_map.find(sample_index) != sample_map.end()) {
 		sample_map.erase(sample_index);
-	    }*/
-	//Temporarily commenting out above until segfault issue is fixed
+	    }
+	//commenting out above can prevent segfault issue for multistream
         batches.children.erase(sample_index);
         num_samples_in_memory--;
     }

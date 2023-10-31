@@ -5,34 +5,39 @@
 [![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 [![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
 
-### Breaking news
+### News
 
-Our open-source CM automation language and CK playground 
-enabled the 1st mass-scale community submission of 10000+ MLPerf
-inference benchmarking results (representing more than 90% of all v3.1 submissions)
-across diverse models, data sets, software and hardware 
-from different vendors via the [cTuning foundation](https://cTuning.org) - 
-see the [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
-for more details and get in touch via our [public Discord server](https://discord.gg/JjWNWXKxwT) 
-if you want to automate and optimize your future MLPerf submissions
-using our open-source technology! 
+* The MLCommons Task Force on Automation and Reproducibility is resuming [weekly conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit) - 
+  it is open to everyone!
+* [The community](https://access.cknowledge.org/playground/?action=contributors) has successfully validated 
+  the open-source MLCommons [CM automation language](cm/README.md), 
+  [C++ Modular Inference Library](cm-mlops/script/app-mlperf-inference-cpp/README-extra.md) 
+  and [CK playground](https://access.cKnowledge.org)
+  during the 1st mass-scale community submission of 12000+ MLPerf
+  inference benchmarking results (representing more than 90% of all v3.1 submissions)
+  across diverse models, data sets, software and hardware 
+  from different vendors via the [cTuning foundation](https://cTuning.org) - 
+  see the [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
+  for more details and get in touch via our [public Discord server](https://discord.gg/JjWNWXKxwT) 
+  if you want to automate and optimize your future MLPerf submissions!
 
 
 ### About
 
 Collective Knowledge (CK) is an open-source, non-intrusive and technology-agnostic toolset
 to facilitate reproducible research and automate development, benchmarking, optimization, comparison and 
-deployment of Pareto-efficient AI/ML Systems across diverse and rapidly evolving models, data sets, 
+deployment of Pareto-efficient AI/ML applications and systems across diverse and rapidly evolving models, data sets, 
 software and hardware from different vendors and users.
 
 Collective Knowledge v3 has been developed from scratch by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md), 
 [cTuning foundation](https://cTuning.org), [cKnowledge.org](https://cKnowledge.org) and [the community](CONTRIBUTING.md) 
 and includes the following sub-projects:
 
-* [Collective Mind automation Language (CM)](cm) - a simple automation language
-  that helps to implement modular, portable and technology-agnostic 
-  benchmarks and applications with a common API that can automatically
-  plug in diverse and rapidly evolving models, data sets, software and hardware
+* [Collective Mind automation Language (CM)](cm) - a simple workflow automation meta-framework 
+  based on Python and JSON/YAML meta descriptions to unify, interconnect and improve any existing technology 
+  rather than substituting it. CM helps MLCommons implement modular, portable and technology-agnostic 
+  benchmarks, applications and systems that can automatically
+  plug in and optimize diverse and rapidly evolving AI/ML models, data sets, software and hardware
   from different vendors and users.
 * [CM scripts](cm-mlops/scripts) - a database of portable, reusable and technology-agnostic automations to modularize benchmarks, software projects and AI/ML Systems.
 * [Modular Inference Library (MIL)](https://cknowledge.org/mil) - a universal and modular C++ implementation of MLPerf inference benchmarks.

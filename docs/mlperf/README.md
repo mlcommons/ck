@@ -1,6 +1,6 @@
 [ [Back to CM documentation](../README.md) ]
 
-# Run MLPerf inference benchmarks out-of-the-box
+# Run MLPerf benchmarks out-of-the-box
 
 This documentation will help you run, reproduce and compare MLPerf benchmarks out-of-the-box 
 across different software, hardware, models and data sets using 

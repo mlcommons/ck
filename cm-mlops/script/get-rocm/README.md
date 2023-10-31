@@ -11,9 +11,7 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
-  * [ Variations](#variations)
   * [ Default environment](#default-environment)
-* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -28,11 +26,11 @@
 
 #### Information
 
-* Category: *ML/AI frameworks.*
+* Category: *Cloud automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *install,onnxruntime,get,prebuilt,lib,lang-c,lang-cpp*
+* CM "database" tags to find this script: *get,rocm,get-rocm*
 * Output cached?: *True*
 ___
 ### Usage
@@ -51,11 +49,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=install,onnxruntime,get,prebuilt,lib,lang-c,lang-cpp[,variations] `
+1. `cm run script --tags=get,rocm,get-rocm `
 
-2. `cm run script "install onnxruntime get prebuilt lib lang-c lang-cpp[,variations]" `
+2. `cm run script "get rocm get-rocm" `
 
-3. `cm run script be02c84ff57c4244 `
+3. `cm run script 23a69f9477cb4dab `
 
 * `variations` can be seen [here](#variations)
 
@@ -72,7 +70,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'install,onnxruntime,get,prebuilt,lib,lang-c,lang-cpp'
+                  'tags':'get,rocm,get-rocm'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -89,9 +87,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="install,onnxruntime,get,prebuilt,lib,lang-c,lang-cpp"```
+```cm run script --tags=gui --script="get,rocm,get-rocm"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=install,onnxruntime,get,prebuilt,lib,lang-c,lang-cpp) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,rocm,get-rocm) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -100,28 +98,6 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=install,onnxruntime,ge
 ___
 ### Customization
 
-
-#### Variations
-
-  * *No group (any variation can be selected)*
-    <details>
-    <summary>Click here to expand this section.</summary>
-
-    * **`_cpu`** (default)
-      - Environment variables:
-        - *CM_ONNXRUNTIME_DEVICE*: ``
-      - Workflow:
-    * `_cuda`
-      - Environment variables:
-        - *CM_ONNXRUNTIME_DEVICE*: `gpu`
-      - Workflow:
-
-    </details>
-
-
-#### Default variations
-
-`_cpu`
 #### Default environment
 
 <details>
@@ -132,37 +108,35 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 </details>
 
-#### Versions
-Default version: `1.16.1`
-
 ___
 ### Script workflow, dependencies and native scripts
 
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)***
-     * detect,os
-       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm/customize.py)***
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm/_cm.json)***
+     * install,rocm
+       * `if (CM_REQUIRE_INSTALL  == yes)`
+       - CM script: [install-rocm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-rocm)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm/_cm.json)
 </details>
 
 ___
 ### Script output
 #### New environment keys (filter)
 
-* `+CPLUS_INCLUDE_PATH`
-* `+C_INCLUDE_PATH`
-* `+DYLD_FALLBACK_LIBRARY_PATH`
-* `+LD_LIBRARY_PATH`
+* `+PATH`
+* `CM_ROCM_*`
 #### New environment keys auto-detected from customize
 
+* `CM_ROCM_CACHE_TAGS`
+* `CM_ROCM_INSTALLED_PATH`
 ___
 ### Maintainers
 

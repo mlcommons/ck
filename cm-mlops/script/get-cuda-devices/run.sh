@@ -16,7 +16,7 @@ echo ""
 
 cd ${CM_TMP_CURRENT_SCRIPT_PATH}
 
-${CM_NVCC_BIN_WITH_PATH} print_cuda_devices.cu
+${CM_NVCC_BIN_WITH_PATH} -allow-unsupported-compiler print_cuda_devices.cu
 test $? -eq 0 || exit 1
 
 # Return to the original path obtained in CM

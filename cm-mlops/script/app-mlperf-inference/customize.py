@@ -107,7 +107,7 @@ def postprocess(i):
         print("\n")
         with open("mlperf_log_summary.txt", "r") as fp:
             summary = fp.read()
-        print(summary)
+
         result = re.findall(pattern[scenario], summary)
 
         if not result:
@@ -140,9 +140,10 @@ def postprocess(i):
         os.chdir(output_dir)
         if not os.path.exists("mlperf_log_summary.txt"):
             return {'return': 0}
-        print("\n")
-        with open("mlperf_log_summary.txt", "r") as fp:
-            print(fp.read())
+        if env.get("CM_MLPERF_PRINT_SUMMARY", "").lower() not in [ "no", "0", "false"]:
+            print("\n")
+            with open("mlperf_log_summary.txt", "r") as fp:
+                print(fp.read())
 
         if mode == "accuracy":
             accuracy_result_dir = output_dir

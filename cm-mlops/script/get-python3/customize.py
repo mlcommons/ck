@@ -114,5 +114,14 @@ def postprocess(i):
                 paths.append(extra_path)
                 env['+PATH']=paths
 
+    version_split = version.split(".")
+    python_major_version = version_split[0]
+    python_minor_version = version_split[1]
+    if len(version_split) > 2:
+        python_patch_version = version_split[2]
+
+    env['CM_PYTHON_MAJOR_VERSION'] = python_major_version
+    env['CM_PYTHON_MINOR_VERSION'] = python_minor_version
+    env['CM_PYTHON_PATCH_VERSION'] = python_patch_version
 
     return {'return':0, 'version': version, 'add_extra_cache_tags':add_extra_cache_tags}

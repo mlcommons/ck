@@ -126,12 +126,14 @@ deps:
   - tags: get,generic-python-lib,_onnxruntime
     names:
     - ml-engine-onnxruntime
+    - onnxruntime
     enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
       - tvm-onnx
       CM_MLPERF_DEVICE:
       - cpu
+      - rocm
 
   ## Onnx CUDA Runtime
   - tags: get,generic-python-lib,_onnxruntime_gpu
@@ -177,17 +179,20 @@ deps:
   - tags: get,generic-python-lib,_torch
     names:
     - ml-engine-pytorch
+    - pytorch
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
       - tvm-pytorch
       CM_MLPERF_DEVICE:
       - cpu
+      - rocm
 
   ## Pytorch (CUDA)
   - tags: get,generic-python-lib,_torch_cuda
     names:
     - ml-engine-pytorch
+    - pytorch
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
@@ -232,6 +237,7 @@ deps:
   - tags: get,generic-python-lib,_tensorflow
     names:
     - ml-engine-tensorflow
+    - tensorflow
     enable_if_env:
       CM_MLPERF_BACKEND:
       - tf
@@ -460,6 +466,13 @@ deps:
     - inference-src
 
 
+  # Download MLPerf inference source
+  - tags: get,mlcommons,inference,src
+    env:
+      CM_GET_MLPERF_IMPLEMENTATION_ONLY: 'yes'
+    names:
+    - mlperf-implementation
+
 posthook_deps: 
   - names:
     - mlperf-runner
@@ -507,6 +520,7 @@ variations:
   onnxruntime,cuda:
     env:
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_GPU_VERSION>>>
+      ONNXRUNTIME_PREFERRED_EXECUTION_PROVIDER: "CUDAExecutionProvider"
 
   pytorch:
     group: framework
@@ -520,6 +534,28 @@ variations:
     env:
       CM_MLPERF_BACKEND: pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
+
+  pytorch,rocm:
+    add_deps_recursive:
+      pytorch:
+        tags: _rocm
+
+  tf,rocm:
+    add_deps_recursive:
+      tensorflow:
+        tags: _rocm
+    env:
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TENSORFLOW_ROCM_VERSION>>>
+
+  onnxruntime,rocm:
+    add_deps_recursive:
+      onnxruntime:
+        tags: _rocm
+      inference-src:
+        tags: _repo.https://github.com/ctuning/inference
+    env:
+      ONNXRUNTIME_PREFERRED_EXECUTION_PROVIDER: "ROCMExecutionProvider"
+      CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_TRAINING_VERSION>>>
 
   ncnn:
     group: framework
@@ -574,7 +610,7 @@ variations:
         CM_HOST_PLATFORM_FLAVOR:
         - aarch64
     add_deps_recursive:
-      inference-src:
+      mlperf-implementation:
         version: deepsparse
       ml-model:
         tags: raw,_deepsparse
@@ -692,6 +728,7 @@ variations:
     - tags: get,generic-python-lib,_torch
       names:
       - ml-engine-pytorch
+      - pytorch
     add_deps_recursive:
       inference-src:
         tags: _deeplearningexamples
@@ -766,12 +803,8 @@ variations:
     - tags: get,generic-python-lib,_unidecode
     - tags: get,generic-python-lib,_toml
     add_deps_recursive:
-      ml-engine-pytorch:
-        version: 1.13.1
-        version_max_usable: 1.13.1
-      ml-engine-torchvision:
-        version_max: 0.14.1
-        version_max_usable: 0.14.1
+      mlperf-implementation:
+        tags: _repo.https://github.com/GATEOverflow/inference
 
   retinanet:
     group: models
@@ -821,6 +854,12 @@ variations:
     env:
       CM_MLPERF_DEVICE: gpu
       USE_CUDA: yes
+      USE_GPU: yes
+
+  rocm:
+    group: device
+    env:
+      CM_MLPERF_DEVICE: rocm
       USE_GPU: yes
 
   tpu:
