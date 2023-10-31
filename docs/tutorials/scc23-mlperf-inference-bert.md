@@ -19,24 +19,32 @@ the [cTuning foundation](https://cTuning.org) and [the community](https://discor
 During this tutorial you will learn how to:
 - Install, understand and use the MLCommons CM automation language on your system.
 - Prepare the MLPerf BERT inference benchmark and make the first test run on a CPU using CM.
-- Obtain official results (accuracy and performance) for MLPerf BERT question answering model in offline mode on CPU or GPU.
+- Obtain official results (accuracy and throughput) for MLPerf BERT question answering model in offline mode on a CPU or GPU of your choice.
 - Learn how to optimize this benchmark and submit your results to the SCC committee.
 
 It should take less than an hour to complete this tutorial including 30 minutes to run the benchmark to completion. 
 In the end, you should obtain a tarball (`mlperf_submission.tar.gz`) with the MLPerf-compatible results
 that you will submit to the SCC organizers to get points.
 
+## Scoring
+
 During SCC, you will first attempt to run a reference (unoptimized) Python implementation of the MLPerf inference benchmark
 with BERT model, [SQuAd v1.1 dataset](https://datarepository.wolframcloud.com/resources/SQuAD-v1.1), 
-ONNX runtime and any CPU target.
+ONNX runtime and any CPU target to get a minimal set of points.
 
-After a successful run, you will be able to optimize this benchmark by running it on a GPU (Nvidia, AMD) or with a DeepSparse engine 
-on x86-64 or Arm64 CPU, change ML frameworks, try different batch sizes, etc to get extra points.
+After a successful run, you will be able to run optimized version of this benchmark on a GPU (Nvidia, AMD) or CPU (x64, Arm64),
+change ML frameworks, try different batch sizes, etc to get extra points.
 
-After SCC, you are welcome to prepare an official submission to the next inference v4.1 round in February 2024 
-to get your results and the team name to the [public leaderboard](https://access.cknowledge.org/playground/?action=contributors) 
-and [official MLCommons v4.0 release](https://mlcommons.org/en/inference-datacenter-31) 
-(see [community submissions from CTuning](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)).
+Since not all vendor implementations of MLPerf inference benchmark are still equal and they mostly support 1-node benchmarking at this stage, 
+teams will compete to get better throughput only between the same backends (CPU, Nvidia GPU, AMD GPU, etc) to get more points.
+
+Finally, if you implement a new hardware backend for MLPerf BERT inference benchmark (such as AMD GPU) and make it publicly available,
+add support for multi-node execution or improve MLPerf BERT models without dropping accuracy, 
+you will get even more points for supporting the MLPerf community.
+
+After SCC, you are welcome to prepare an official submission to the next inference v4.0 round in February 2024 
+to get your results and the team name to the official MLCommons release similar to [v3.1](https://mlcommons.org/en/inference-datacenter-31). 
+(see the announcement of [community MLPerf submissions from the cTuning foundation at HPC Wire](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)).
 
 
 *Note that both MLPerf and CM automation are evolving projects.
@@ -52,11 +60,11 @@ and [official MLCommons v4.0 release](https://mlcommons.org/en/inference-datacen
 * OS: we have tested this automation on Ubuntu 20.04, Ubuntu 22.04, Debian 10, Red Hat 9 and MacOS 13
 * Disk space: ~10GB
 * Python: 3.8+
-* All other dependencies (model, data set, benchmark, libraries and tools) will be installed by CM
+* All other dependencies (model, data set, benchmark, libraries and tools) should be detected or installed by CM
 
 ### Extra system requirements for Nvidia GPU
 
-* GPU: any Nvidia GPU with 8GB+ or memory
+* GPU: Nvidia GPU with 8GB+ memory (official optimized backend) or AMD GPU via experimental backend from one of the teams
 * Disk space: ~ 30GB
 
 
