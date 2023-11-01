@@ -144,10 +144,6 @@ public:
     void UnloadSampleFromRam(mlperf::QuerySampleIndex sample_index) {
         for (size_t i = 0; i < num_inputs; i++)
             sample_memory_size[i] -= GetSampleSize(sample_index, i);
-            if (sample_map.find(sample_index) != sample_map.end()) {
-		sample_map.erase(sample_index);
-	    }
-	//commenting out above can prevent segfault issue for multistream
         batches.children.erase(sample_index);
         num_samples_in_memory--;
     }
@@ -167,8 +163,9 @@ public:
                 break;
             }
         }
-        //std::cerr << "node " << concurrency_index
-        //          << " running batch #" << batch.front().index << "-#" << batch.back().index << std::endl;
+        // std::cerr << "node " << concurrency_index
+        //           << " running batch #" << batch.front().index << "-#" << batch.back().index
+        //           << " (" << (contiguous ? "contiguous" : "incontiguous") << ")" << std::endl;
 
         // batch pointer in memory [input_index]
         std::vector<void *> batch_data(num_inputs);
@@ -214,6 +211,10 @@ public:
 
     size_t GetSampleSize(mlperf::QuerySampleIndex sample_index, size_t input_index) {
         return sample_map[sample_index].size[input_index];
+    }
+
+    void SetDeviceConcurrencyIndex(size_t concurrency_index) {
+        device->SetConcurrencyIndex(concurrency_index);
     }
 
     /**

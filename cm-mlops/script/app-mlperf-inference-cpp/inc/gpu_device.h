@@ -45,6 +45,9 @@ class GPUDevice : public Device {
         CHECK_CUDA_SUCCESS(cudaSetDevice(memory_index));
         CHECK_CUDA_SUCCESS(cudaMemcpy(to, from, size, cudaMemcpyDeviceToDevice));
     }
+    void SetConcurrencyIndex(size_t concurrency_index) override {
+        CHECK_CUDA_SUCCESS(cudaSetDevice(concurrency_index));
+    }
 };
 
 #endif // GPU_DEVICE_H_

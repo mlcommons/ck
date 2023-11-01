@@ -29,6 +29,8 @@ public:
     virtual void Read(size_t memory_index, std::vector<uint8_t> &to, const void *from, size_t size) = 0;
     virtual void Write(size_t memory_index, void *to, const std::vector<uint8_t> &from) = 0;
     virtual void Copy(size_t memory_index, void *to, const void *from, size_t size) = 0;
+    // This is specifically for CUDA, which needs to set a device index for each host thread
+    virtual void SetConcurrencyIndex(size_t concurrency_index) {}
 };
 
 class CPUDevice : public Device {
