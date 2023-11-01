@@ -37,7 +37,7 @@ public:
             , num_memory(device->NumMemory()), num_inputs(model->num_inputs)
             , batch_memory_mutex(num_memory) {
         // have batch_size padding at the end that cycles back to beginning for contiguity
-        size_t memory_capacity = performance_sample_count + batch_size + 7;
+        size_t memory_capacity = performance_sample_count + batch_size;
         samples.resize(memory_capacity);
         sample_memory.resize(num_inputs);
         sample_memory_size.resize(num_inputs, 0);
@@ -102,7 +102,7 @@ public:
             size_t input_size = input_sizes[input_index];
 
             if (sample_memory_size[input_index] + input_size >
-                (performance_sample_count + batch_size + 7) * model->input_sizes[input_index])
+                (performance_sample_count + batch_size) * model->input_sizes[input_index])
                 std::cerr << "warning: memory exceeded; try increasing model->input_sizes" << std::endl;
 
             // write to end of memory
