@@ -33,15 +33,15 @@ public:
 
             const auto &api = Ort::GetApi();
 
-            OrtCUDAProviderOptionsV2 *cuda_options = nullptr;
-            Ort::ThrowOnError(api.CreateCUDAProviderOptions(&cuda_options));
-
             std::vector<const char *> keys{"device_id"};
             std::vector<const char *> values{std::to_string(i).c_str()};
 
-            Ort::ThrowOnError(api.UpdateCUDAProviderOptions(cuda_options, keys.data(), values.data(), keys.size()));
-
+            OrtCUDAProviderOptionsV2 *cuda_options = nullptr;
             if (use_cuda) {
+                Ort::ThrowOnError(api.CreateCUDAProviderOptions(&cuda_options));
+
+                Ort::ThrowOnError(api.UpdateCUDAProviderOptions(cuda_options, keys.data(), values.data(), keys.size()));
+
                 Ort::ThrowOnError(api.SessionOptionsAppendExecutionProvider_CUDA_V2(
                     static_cast<OrtSessionOptions *>(session_options),
                     cuda_options));
@@ -50,7 +50,9 @@ public:
             sessions.emplace_back(env, model->model_path.c_str(), session_options);
             bindings.emplace_back(sessions[i]);
 
-            api.ReleaseCUDAProviderOptions(cuda_options);
+            if (use_cuda) {
+                api.ReleaseCUDAProviderOptions(cuda_options);
+	    }
         }
     }
 
