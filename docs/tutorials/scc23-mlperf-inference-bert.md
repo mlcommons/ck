@@ -15,28 +15,29 @@
     * [CM installation](#cm-installation)
     * [Pull CM repository with cross-platform MLOps and DevOps scripts](#pull-cm-repository-with-cross-platform-mlops-and-devops-scripts)
     * [Test MLPerf BERT inference benchmark out-of-the-box](#test-mlperf-bert-inference-benchmark-out-of-the-box)
-  * [Understanding all steps to run MLPerf automated by CM](#understanding-all-steps-to-run-mlperf-automated-by-cm)
+  * [Prepare to run MLPerf step-by-step via CM](#prepare-to-run-mlperf-step-by-step-via-cm)
     * [Install system dependencies for your platform](#install-system-dependencies-for-your-platform)
     * [Use CM to detect or install Python 3.8+](#use-cm-to-detect-or-install-python-38)
     * [Setup a virtual environment for Python](#setup-a-virtual-environment-for-python)
     * [Compile MLPerf loadgen](#compile-mlperf-loadgen)
-    * [Download the SQuAD dataset](#download-the-squad-dataset)
+    * [Download the SQuAD validation dataset](#download-the-squad-validation-dataset)
     * [Detect or install ONNX runtime for CPU](#detect-or-install-onnx-runtime-for-cpu)
     * [Download Bert-large model (FP32, ONNX format)](#download-bert-large-model-fp32-onnx-format)
     * [Pull MLPerf inference sources with reference implementations](#pull-mlperf-inference-sources-with-reference-implementations)
-      * [Run reference MLPerf inference benchmark (offline, accuracy)](#run-reference-mlperf-inference-benchmark-offline-accuracy)
-      * [Run MLPerf inference benchmark (offline, performance)](#run-mlperf-inference-benchmark-offline-performance)
-      * [Prepare MLPerf submission](#prepare-mlperf-submission)
+    * [Run short reference MLPerf inference benchmark (offline, accuracy)](#run-short-reference-mlperf-inference-benchmark-offline-accuracy)
+    * [Run MLPerf inference benchmark (offline, performance)](#run-mlperf-inference-benchmark-offline-performance)
+  * [Prepare minimal MLPerf submission to the SCC committee](#prepare-minimal-mlperf-submission-to-the-scc-committee)
+  * [Run optimized implementation of the MLPerf inference benchmark](#run-optimized-implementation-of-the-mlperf-inference-benchmark)
     * [Trying Nvidia implementation](#trying-nvidia-implementation)
     * [Trying deepsparse backend](#trying-deepsparse-backend)
       * [int8](#int8)
       * [fp32](#fp32)
+  * [Optimize benchmark yourself](#optimize-benchmark-yourself)
   * [Acknowledgments](#acknowledgments)
     * [Nvidia MLPerf inference backend](#nvidia-mlperf-inference-backend)
     * [DeepSparse MLPerf inference backend](#deepsparse-mlperf-inference-backend)
 
 </details>
-
 
 *This document is still being updated and will be finalized soon!*
 
@@ -197,7 +198,6 @@ rm -rf $HOME/CM
 ```
 
 
-
 ### Test MLPerf BERT inference benchmark out-of-the-box
 
 *We suggest you to read this section but not run the CM script - 
@@ -270,7 +270,7 @@ You can add `-v` flag to debug any CM script.
 
 
 
-## Understanding all steps to run MLPerf automated by CM
+## Prepare to run MLPerf step-by-step via CM
 
 
 
@@ -317,7 +317,7 @@ You may see the output similar to
     * /usr/bin/python3
       Detected version: 3.10.12
 
-    # Found artifact in /usr/bin/python3
+      Found artifact in /usr/bin/python3
       Detected version: 3.10.12
 
 ```
@@ -522,26 +522,30 @@ to make sure that there are no last-minute changes during SCC.
 You can use your own fork if you want to improve/optimize benchmark implementations.
 
 
-#### Run reference MLPerf inference benchmark (offline, accuracy)
+### Run short reference MLPerf inference benchmark (offline, accuracy)
 
 You are now ready to run the [reference (unoptimized) Python implementation](https://github.com/mlcommons/inference/tree/master/language/bert) 
-of the MLPerf language benchmark with BERT model and [ONNX backend](https://github.com/mlcommons/inference/blob/master/language/bert/onnxruntime_SUT.py).
+of the MLPerf language benchmark with BERT model, [ONNX backend](https://github.com/mlcommons/inference/blob/master/language/bert/onnxruntime_SUT.py)
+and Offline scenario while measuring accuracy. 
 
 Normally, you would need to go through this [README.md](https://github.com/mlcommons/inference/blob/master/language/bert)
 and use Docker containers or prepare all the dependencies and environment variables manually.
 
 The [CM "app-mlperf-inference" script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#app-mlperf-inference)
-allows you to run this benchmark in a native environment as follows:
+allows you to run this benchmark in a native environment as follows (short test run):
 
 ```bash
 cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --scenario=Offline \
      --mode=accuracy \
+     --device=cpu \
      --execution-mode=test \
      --test_query_count=10 \
+     --rerun \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
      --adr.mlperf-implementation.version=custom \
-     --rerun
+     --adr.compiler.tags=gcc \
+     --quiet
 ```
 
 This CM script will automatically find or install all dependencies
@@ -562,28 +566,16 @@ Post-processing predictions..
 
 ```
 
-Congratulations, you can now play with this benchmark using the unified CM commands!
+Congratulations, you can now play with this benchmark using the unified CM interface!
 
 Note that even if did not install all the above dependencies manually, the below command
 will automatically install all the necessary dependencies.
 
-```bash
-
-cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
-     --adr.python.version_min=3.8 \
-     --adr.compiler.tags=gcc \
-     --scenario=Offline \
-     --mode=accuracy \
-     --execution-mode=test \
-     --test_query_count=10 \
-     --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
-     --adr.mlperf-implementation.version=custom \
-     --quiet \
-     --rerun
-```
 
 
-#### Run MLPerf inference benchmark (offline, performance)
+
+
+### Run MLPerf inference benchmark (offline, performance)
 
 Let's run the MLPerf language processing while measuring performance:
 
@@ -662,7 +654,7 @@ Note that QPS is very low because we use an unoptimized reference implementation
 
 
 
-#### Prepare MLPerf submission
+## Prepare minimal MLPerf submission to the SCC committee
 
 You are now ready to generate the submission similar to the ones appearing
 on the [official MLPerf inference dashboard](https://mlcommons.org/en/inference-edge-21).
@@ -766,6 +758,12 @@ in `$HOME/mlperf_submission` (with truncated accuracy logs) and in `$HOME/mlperf
 You can change this directory using the flag `--submission_dir={directory to store raw MLPerf results}`
 in the above script.
 
+
+
+## Run optimized implementation of the MLPerf inference benchmark
+
+
+
 ### Trying Nvidia implementation
 
 Please follow [this README](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/bert/README_nvidia.md)
@@ -805,6 +803,13 @@ cmr --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  \
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni \
    --clean 
 ```
+
+
+
+## Optimize benchmark yourself
+
+
+
 
 ## Acknowledgments
 
