@@ -11,7 +11,9 @@ This tutorial was prepared for the [Student Cluster Competition'23](https://stud
 to explain how to run and optimize the [MLPerf inference benchmark](https://arxiv.org/abs/1911.02549)
 with [BERT Large model variations](https://github.com/mlcommons/inference/tree/master/language/bert#supported-models)
 across different software and hardware.
-The MLPerf benchmark is modularized and automated using the [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339)
+
+You will use [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339)
+that helps to modularize and automate (MLPerf) benchmarks 
 with portable, technology-agnostic and reusable [CM scripts](../list_of_scripts.md)
 being developed by the [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md),
 the [cTuning foundation](https://cTuning.org) and [the community](https://discord.gg/JjWNWXKxwT).
@@ -79,11 +81,11 @@ to get your results and the team name to the official MLCommons release similar 
 
 The MLCommons and cTuning foundation has developed an open-source and technology-agnostic
 [Collective Mind automation language (MLCommons CM)](https://github.com/mlcommons/ck/tree/master/cm)
-to modularize ML Systems and automate their benchmarking, optimization 
+to modularize AI/ML Systems and automate their benchmarking, optimization 
 and design space exploration across continuously changing software, hardware and data.
 
-We have developed CM as a small Python library with minimal dependencies and a unified CLI, Python API and human readable YAML/JSON inputs and meta descriptions.
-CM is extended by the community via [portable CM scripts] that should run on any platform with any OS. 
+CM is a small Python library with minimal dependencies and a unified CLI, Python API and human readable YAML/JSON inputs and meta descriptions.
+It is extended by the community via [portable CM scripts] that should run on any platform with any OS. 
 Our goal is to provide a common, human-friendly and technology-agnostic interface to unify and automate all the steps 
 to prepare, run and reproduce benchmarks and research projects across diverse ML models, datasets, frameworks, compilers and hardware.
 
@@ -160,7 +162,17 @@ rm -rf $HOME/CM
 
 
 
-### Testing MLPerf BERT inference benchmark out-of-the-box.
+### Test MLPerf BERT inference benchmark out-of-the-box
+
+*We suggest you to read this section but not run the CM script - 
+ in such case, you will be able to learn how to prepare the MLPerf BERT benchmark 
+ step-by-step using reusable CM automations in the next section.*
+
+You are now ready to run the [reference (unoptimized) Python implementation](https://github.com/mlcommons/inference/tree/master/language/bert) 
+of the MLPerf language benchmark with BERT model and [ONNX backend](https://github.com/mlcommons/inference/blob/master/language/bert/onnxruntime_SUT.py).
+
+Normally, you would need to go through this [README.md](https://github.com/mlcommons/inference/blob/master/language/bert)
+and use Docker containers or prepare all the dependencies and environment variables manually.
 
 
 Note that at this stage, you should normally be able to run the MLPerf BERT inference benchmark out-of-the-box 
@@ -179,8 +191,26 @@ cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" 
      --rerun \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
      --adr.mlperf-implementation.version=custom \
+     --adr.compiler.tags=gcc \
      --quiet
 ```
+
+***Note that you can use `cmr` alias instead of `cm run script`:***
+
+```bash
+cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
+     --scenario=Offline \
+     --mode=accuracy \
+     --device=cpu \
+     --execution-mode=test \
+     --test_query_count=10 \
+     --rerun \
+     --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
+     --adr.mlperf-implementation.version=custom \
+     --adr.compiler.tags=gcc \
+     --quiet
+```
+
 
 You will see a long output that should contain the following line with accuracy:
 ```bash
@@ -194,6 +224,19 @@ You will see a long output that should contain the following line with accuracy:
   of the [MLPerf inference repo](https://github.com/mlcommons/inference)
   if you want to improve it. We use the [cTuning fork](https://github.com/ctuning/inference) 
   to keep a stable version of the official MLPerf inference repository.
+
+
+If you remove flag `--adr.compiler.tags=gcc`, CM will attempt to download nad install LLVM as a default dependency for MLPerf loadgen.
+
+You can add `-v` flag to debug any CM script.
+
+
+
+
+
+## Understanding all steps to run MLPerf automated by CM
+
+
 
 ### Install system dependencies for your platform
 
@@ -210,7 +253,7 @@ CM scripts portable and interoperable.
 You can run this CM scripts as follows (note that you may be asked for a SUDO password on your platform):
 
 ```bash
-cm run script "get sys-utils-cm" --quiet
+cmr "get sys-utils-cm" --quiet
 ```
 
 If you think that you have all system dependencies installed,
@@ -226,7 +269,7 @@ we need to detect or install Python 3.8+ (MLPerf requirement).
 You need to detect it using the following [CM script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#get-python3):
 
 ```bash
-cm run script "get python" --version_min=3.8
+cmr "get python" --version_min=3.8
 ```
 
 Note, that all artifacts (including the above scripts) in MLCommons CM are organized as a database of interconnected components.
@@ -261,24 +304,16 @@ cm find cache --tags=install,python
 
 Note that if you run the same script again, CM will automatically find and reuse the cached output:
 ```bash
-cm run script "get python" --version_min=3.8 --out=json
+cmr "get python" --version_min=3.8 --out=json
 ```
 
 ### Setup a virtual environment for Python
 
 ```bash
-cm run script "install python-venv" --name=mlperf
+cmr "install python-venv" --name=mlperf
 export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf"
 ```
 
-
-### Pull MLPerf inference sources
-
-You should now download and cache the MLPerf inference sources using the following command:
-
-```bash
-cm run script "get mlperf inference src"
-```
 
 ### Compile MLPerf loadgen
 
@@ -286,22 +321,18 @@ You need to compile loadgen from the above inference sources while forcing compi
 
 
 ```bash
-cm run script "get mlperf loadgen" --adr.compiler.tags=gcc
+cmr "get mlperf loadgen" --adr.compiler.tags=gcc
 ```
 
 The `--adr` flag stands for "Add to all Dependencies Recursively" and will find all sub-dependencies on other CM scripts 
 in the CM loadgen script with the "compiler" name and will append "gcc" tag 
 to enforce detection and usage of GCC to build loadgen.
 
-## CM automation for the MLPerf benchmark
-
-### MLPerf inference - Python - Bert FP32 - SQUAD v1.1 - ONNX - CPU - Offline
-
-#### Download the SQuAD dataset
+### Download the SQuAD dataset
 
 
 ```bash
-cm run script "get dataset squad original"
+cmr "get dataset squad original"
 ```
 
 After installing this dataset via CM, you can reuse it in your own projects or other CM scripts (including MLPerf benchmarks).
@@ -319,13 +350,13 @@ cm show cache --tags=get,dataset,squad,original
 
 
 
-#### Install ONNX runtime for CPU
+### Detect or install ONNX runtime for CPU
 
 Now detect or install ONNX Python runtime (targeting CPU) your system
 using a [generic CM script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#get-generic-python-lib) to install python package:
 
 ```bash
-cm run script "get generic-python-lib _onnxruntime"
+cmr "get generic-python-lib _onnxruntime"
 ```
 
 
@@ -334,11 +365,11 @@ cm run script "get generic-python-lib _onnxruntime"
 
 ### Download Bert-large model (FP32, ONNX format)
 
-Download and cache this [reference model](https://paperswithcode.com/model/resnext?variant=resnext-50-32x4d) in the ONNX format (float32)
-using the following [CM script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#get-ml-model-retinanet):
+Download and cache this [reference model](https://huggingface.co/ctuning/mlperf-inference-bert-onnx-fp32-squad-v1.1) in the ONNX format (float32)
+using the following [CM script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad):
 
 ```bash
-cm run script "get ml-model language-processing bert-large _onnx"
+cmr "get ml-model language-processing bert-large _onnx"
 ```
 
 It takes around ~1GB of disk space. You can find it in the CM cache as follows:
@@ -353,19 +384,38 @@ cm show cache --tags=get,ml-model,bert-large,_onnx
   Path: /home/arjun/CM/repos/local/cache/8727a38b72aa4b3f
 ```
 
-#### Run reference MLPerf inference benchmark (offline, accuracy)
+*Note that you will have a different CM UID consisting of 16 hexadecimal lowercase characters.*
 
-You are now ready to run the [reference (unoptimized) Python implementation](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection/python) 
-of the MLPerf vision benchmark with [ONNX backend](https://github.com/mlcommons/inference/blob/master/vision/classification_and_detection/python/backend_onnxruntime.py).
 
-Normally, you would need to go through this [README.md](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection)
-and prepare all the dependencies and environment variables manually.
 
-The [CM "app-mlperf-inference" script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#app-mlperf-inference)
-allows you to run this benchmark as follows:
+### Pull MLPerf inference sources with reference implementations
+
+You should now download and cache the MLPerf inference sources using the following command:
 
 ```bash
-cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
+cmr "get mlperf inference src _repo.https://github.com/ctuning/inference _branch.scc23" \
+     --version=custom
+```
+
+We use the [cTuning fork](https://github.com/ctuning/inference) of the [MLPerf inference repo](https://github.com/mlcommons/inference)
+to make sure that there are no last-minute changes during SCC.
+
+You can use your own fork if you want to improve/optimize benchmark implementations.
+
+
+#### Run reference MLPerf inference benchmark (offline, accuracy)
+
+You are now ready to run the [reference (unoptimized) Python implementation](https://github.com/mlcommons/inference/tree/master/language/bert) 
+of the MLPerf language benchmark with BERT model and [ONNX backend](https://github.com/mlcommons/inference/blob/master/language/bert/onnxruntime_SUT.py).
+
+Normally, you would need to go through this [README.md](https://github.com/mlcommons/inference/blob/master/language/bert)
+and use Docker containers or prepare all the dependencies and environment variables manually.
+
+The [CM "app-mlperf-inference" script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#app-mlperf-inference)
+allows you to run this benchmark in a native environment as follows:
+
+```bash
+cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --scenario=Offline \
      --mode=accuracy \
      --execution-mode=test \
@@ -400,7 +450,7 @@ will automatically install all the necessary dependencies.
 
 ```bash
 
-cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
+cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --adr.python.version_min=3.8 \
      --adr.compiler.tags=gcc \
      --scenario=Offline \
@@ -419,7 +469,7 @@ cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" 
 Let's run the MLPerf language processing while measuring performance:
 
 ```bash
-cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
+cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --scenario=Offline \
      --mode=performance \
      --execution-mode=test \
@@ -505,7 +555,7 @@ with all required MLPerf logs and stats.
 You can run this script as follows:
 
 ```bash
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
+cmr --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
       --submitter="Community" \
       --hw_name=default \
       --implementation=reference \
@@ -608,7 +658,7 @@ For deepsparse backend the implementation is coming from [this repo](https://git
 
 #### int8
 ```
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  \
+cmr --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  \
    --implementation=reference \
    --model=bert-99 \
    --backend=deepsparse \
@@ -623,7 +673,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  
 
 #### fp32
 ```
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  \
+cmr --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  \
    --adr.python.version_min=3.8 \
    --implementation=reference \
    --model=bert-99 \
