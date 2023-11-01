@@ -212,6 +212,10 @@ variations:
     default_env:
       CM_MLPERF_LOADGEN_MAX_BATCHSIZE: 32
 
+  resnet50,server:
+    default_env:
+      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: 32
+
   resnet50,multistream:
     default_env:
       CM_MLPERF_LOADGEN_MAX_BATCHSIZE: 8
@@ -234,3 +238,7 @@ variations:
     env:
       CM_MLPERF_LOADGEN_SCENARIO: SingleStream
       CM_MLPERF_LOADGEN_MAX_BATCHSIZE: 1
+  server:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Server

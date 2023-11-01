@@ -9,9 +9,9 @@
 ```
 cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
 --model=bert-99 --implementation=reference --device=cpu --backend=onnxruntime \
---category=edge --division=open --quiet
+--category=edge --division=open --quiet --rerun
 ```
-* Use `--device=cuda` to run the inference on Nvidia GPU
+* Use `--device=cuda` to run the inference on Nvidia GPU and `--device=rocm` to run on AMD GPUs
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
 * Use `--category=datacenter` to run datacenter scenarios
 * Use `--backend=pytorch` and `--backend=tf` to use the pytorch and tensorflow backends respectively. `--backend=deepsparse` will run the sparse int8 model using deepsparse backend (not allowed to be submitted under closed division).
@@ -30,6 +30,7 @@ cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --mo
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs
 * Use `--division=closed` to run all scenarios for the closed division including the compliance tests
 * `--offline_target_qps`, `--server_target_qps`, and `--singlestream_target_latency` can be used to override the determined performance numbers
+* `--rerun` flag can be used to force a rerun even when a valid result exists in the results_dir
 
 ### Populate the README files describing your submission
 

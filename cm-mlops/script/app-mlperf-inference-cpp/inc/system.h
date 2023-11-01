@@ -42,6 +42,9 @@ public:
         size_t max_batch_size = backend->MaxBatchSize();
         size_t size = samples.size();
 
+        // for CUDA, set the device to use for this thread
+        backend->SetDeviceConcurrencyIndex(0);
+
         for (auto batch_begin = samples.begin(); batch_begin < samples.end(); batch_begin += max_batch_size) {
             auto batch_end = std::min(batch_begin + max_batch_size, samples.end());
             const std::vector<mlperf::QuerySample> batch_queries(batch_begin, batch_end);
@@ -90,6 +93,9 @@ private:
         std::vector<mlperf::QuerySample> batch_queries;
         batch_queries.reserve(max_batch_size);
         size_t size;
+
+        // for CUDA, set the device to use for this thread
+        backend->SetDeviceConcurrencyIndex(concurrency_index);
 
         while (true) {
             // dequeue queries
