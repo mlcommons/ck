@@ -161,7 +161,10 @@ class CAutomation(Automation):
         # Check simplified CMD: cm show cache "get python"
         # If artifact has spaces, treat them as tags!
         artifact = i.get('artifact','')
-        tags = i.get('tags','').strip()
+        tags = i.get('tags','')
+        # Tags may be a list (if comes internally from CM scripts) or string if comes from CMD
+        if type(tags)!=list:
+            tags = tags.strip()
         if ' ' in artifact or ',' in artifact:
             del(i['artifact'])
             if 'parsed_artifact' in i: del(i['parsed_artifact'])
