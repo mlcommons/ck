@@ -2,6 +2,42 @@
 
 # Tutorial to run and optimize MLPerf BERT inference benchmark at SCC'23
 
+<details>
+<summary>Click here to see the table of contents.</summary>
+
+* [Tutorial to run and optimize MLPerf BERT inference benchmark at SCC'23](#tutorial-to-run-and-optimize-mlperf-bert-inference-benchmark-at-scc'23)
+  * [Introduction](#introduction)
+  * [Scoring](#scoring)
+  * [System preparation](#system-preparation)
+    * [Minimal system requirements to run unoptimized MLPerf BERT inference benchmark](#minimal-system-requirements-to-run-unoptimized-mlperf-bert-inference-benchmark)
+    * [Extra system requirements for Nvidia GPU](#extra-system-requirements-for-nvidia-gpu)
+  * [MLCommons CM automation language](#mlcommons-cm-automation-language)
+    * [CM installation](#cm-installation)
+    * [Pull CM repository with cross-platform MLOps and DevOps scripts](#pull-cm-repository-with-cross-platform-mlops-and-devops-scripts)
+    * [Test MLPerf BERT inference benchmark out-of-the-box](#test-mlperf-bert-inference-benchmark-out-of-the-box)
+  * [Understanding all steps to run MLPerf automated by CM](#understanding-all-steps-to-run-mlperf-automated-by-cm)
+    * [Install system dependencies for your platform](#install-system-dependencies-for-your-platform)
+    * [Use CM to detect or install Python 3.8+](#use-cm-to-detect-or-install-python-38)
+    * [Setup a virtual environment for Python](#setup-a-virtual-environment-for-python)
+    * [Compile MLPerf loadgen](#compile-mlperf-loadgen)
+    * [Download the SQuAD dataset](#download-the-squad-dataset)
+    * [Detect or install ONNX runtime for CPU](#detect-or-install-onnx-runtime-for-cpu)
+    * [Download Bert-large model (FP32, ONNX format)](#download-bert-large-model-fp32-onnx-format)
+    * [Pull MLPerf inference sources with reference implementations](#pull-mlperf-inference-sources-with-reference-implementations)
+      * [Run reference MLPerf inference benchmark (offline, accuracy)](#run-reference-mlperf-inference-benchmark-offline-accuracy)
+      * [Run MLPerf inference benchmark (offline, performance)](#run-mlperf-inference-benchmark-offline-performance)
+      * [Prepare MLPerf submission](#prepare-mlperf-submission)
+    * [Trying Nvidia implementation](#trying-nvidia-implementation)
+    * [Trying deepsparse backend](#trying-deepsparse-backend)
+      * [int8](#int8)
+      * [fp32](#fp32)
+  * [Acknowledgments](#acknowledgments)
+    * [Nvidia MLPerf inference backend](#nvidia-mlperf-inference-backend)
+    * [DeepSparse MLPerf inference backend](#deepsparse-mlperf-inference-backend)
+
+</details>
+
+
 *This document is still being updated and will be finalized soon!*
 
 
@@ -195,7 +231,7 @@ cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" 
      --quiet
 ```
 
-***Note that you can use `cmr` alias instead of `cm run script`:***
+*Note that you can use `cmr` alias instead of `cm run script`:*
 
 ```bash
 cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
@@ -272,6 +308,20 @@ You need to detect it using the following [CM script](https://github.com/mlcommo
 cmr "get python" --version_min=3.8
 ```
 
+You may see the output similar to
+```bash
+
+* cm run script "get python"
+  - Searching for versions:  >= 3.8
+
+    * /usr/bin/python3
+      Detected version: 3.10.12
+
+    # Found artifact in /usr/bin/python3
+      Detected version: 3.10.12
+
+```
+
 Note, that all artifacts (including the above scripts) in MLCommons CM are organized as a database of interconnected components.
 They can be found either by their user friendly tags (such as `get,python`) or aliases (`get-python3`) and unique identifiers
 (`5b4e0237da074764`).
@@ -284,22 +334,41 @@ to be reused by other CM scripts. You can find an associated CM cache entry for 
 cm show cache --tags=get,python
 ```
 
-You can see the environment variables produced by this CM script in the following JSON file:
+or
+
 ```bash
-cat `cm find cache --tags=get,python`/cm-cached-state.json
+cm show cache "get python"
+```
+
+You should see the output similar to
+```bash
+
+* Tags: get,get-python,get-python3,non-virtual,python,python3,script-artifact-d0b5dd74373f4a62,version-3.10.12
+  Path: /home/ubuntu/CM/repos/local/cache/d7d9e170f0ac498f
+  Version: 3.10.12
+
+```
+
+CM will automatically generate a unique CM ID (16 hexadecimal lowercase characters) on your system and cache produced artifacts and meta descriptions there.
+
+For example, you can see all the environment variables produced by this CM script (that can be reused in your projects or other CM scripts) in the following JSON file:
+```bash
+cat `cm find cache "get python"`/cm-cached-state.json
 ```
 
 If required Python is not detected, CM will automatically attempt to download and build it from sources 
 using another [cross-platform CM script "install-python-src"](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#install-python-src).
-In the end, CM will also cache new binaries and related environment variables such as PATH, PYTHONPATH, etc:
+In the end, CM will also cache new binaries and related environment variables such as PATH, PYTHONPATH.
+
+You can see the state of CM cache with all reusable artifacts and meta-descriptions as follows:
 
 ```bash
 cm show cache
 ```
 
-You can find installed binaries and reuse them in your own project with or without CM as follows:
+You can find the PATH to cached artifacts and reuse them in your own projects as follows:
 ```bash
-cm find cache --tags=install,python
+cm find cache "get python"
 ```
 
 Note that if you run the same script again, CM will automatically find and reuse the cached output:
@@ -307,29 +376,75 @@ Note that if you run the same script again, CM will automatically find and reuse
 cmr "get python" --version_min=3.8 --out=json
 ```
 
+You can also clean CM cache and start from scratch as follows:
+```bash
+cm rm cache -f
+```
+
+
 ### Setup a virtual environment for Python
+
+We also automated the very commonly used command to install virtual environment.
+You can create multiple virtual environments that will be automatically used by CM scripts as follows:
 
 ```bash
 cmr "install python-venv" --name=mlperf
 export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf"
 ```
 
+Now flag `--adr.python.name=mlperf` will be added to all CM scripts automatically forcing them to use this virtual environment.
+You can also delete a given virtual environment and start from scratch as follows:
+```bash
+cm rm cache "python name-mlperf" -f
+```
+
+You can test the virtual environment using CM script to print "Hello World" via detected python
+```bash
+cmr "python hello-world"
+```
+
+You should normally see that python is used from the CM cache:
+```bash
+* cm run script "python hello-world"
+  * cm run script "detect os"
+  * cm run script "get sys-utils-cm"
+  * cm run script "get python3"
+  * cm run script "print python-version"
+    * cm run script "get python3"
+
+CM_PYTHON_BIN = python3
+CM_PYTHON_BIN_WITH_PATH = /home/ubuntu/CM/repos/local/cache/b9dafcf15d4045af/mlperf/bin/python3
+
+Python 3.10.12
+/home/ubuntu/CM/repos/local/cache/b9dafcf15d4045af/mlperf/bin/python3
+Python 3.10.12
+
+HELLO WORLD from Python
+```
+
+
 
 ### Compile MLPerf loadgen
 
-You need to compile loadgen from the above inference sources while forcing compiler dependency to GCC:
+You need to compile the [MLPerf C++ loadgen library with Python bindings](https://github.com/mlcommons/inference/tree/master/loadgen) 
+while forcing compiler dependency to GCC using the 
+[CM "get-mlperf-inference-loadgen" script](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-mlperf-inference-loadgen/README-extra.md):
 
 
 ```bash
-cmr "get mlperf loadgen" --adr.compiler.tags=gcc
+cmr "get mlperf loadgen" --adr.compiler.tags=gcc --quiet
 ```
 
 The `--adr` flag stands for "Add to all Dependencies Recursively" and will find all sub-dependencies on other CM scripts 
 in the CM loadgen script with the "compiler" name and will append "gcc" tag 
 to enforce detection and usage of GCC to build loadgen.
 
-### Download the SQuAD dataset
 
+
+
+### Download the SQuAD validation dataset
+
+You can download the SQuAD v1.1 validation dataset using the [CM "get-dataset-squad" script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad) as follows:
 
 ```bash
 cmr "get dataset squad original"
@@ -338,7 +453,7 @@ cmr "get dataset squad original"
 After installing this dataset via CM, you can reuse it in your own projects or other CM scripts (including MLPerf benchmarks).
 You can check the CM cache as follows (the unique ID of the CM cache entry will be different on your machine):
 ```bash
-cm show cache --tags=get,dataset,squad,original
+cm show cache "get dataset squad original"
 ```
 
 ```txt
@@ -352,14 +467,18 @@ cm show cache --tags=get,dataset,squad,original
 
 ### Detect or install ONNX runtime for CPU
 
-Now detect or install ONNX Python runtime (targeting CPU) your system
-using a [generic CM script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#get-generic-python-lib) to install python package:
+You can now detect or install the ONNX Python run-time on your system while targeting CPU
+using this [generic CM script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#get-generic-python-lib)
+to install any Python package to the default or virtual Python installation using so-called CM script variations prefixed by `_`:
 
 ```bash
 cmr "get generic-python-lib _onnxruntime"
 ```
 
-
+If needed, you can install a specific version of ONNX runtime using flag `--version`:
+```bash
+cmr "get generic-python-lib _onnxruntime" --version=1.16.1
+```
 
 
 
@@ -707,4 +826,3 @@ Nvidia's MLPerf inference implementation was developed by Zhihan Jiang, Ethan Ch
 We thank Michael Goin from Neural Magic for fruitful collaboration to add DeepSparse backend for x86-64 and Arm64 CPU targets
 to MLPerf inference benchmarks and submit many competitive BERT results across diverse hardware 
 to [MLPerf inference v3.1](https://neuralmagic.com/blog/latest-mlperf-inference-v3-1-results-show-50x-faster-ai-inference-for-x86-and-arm-from-neural-magic).
-
