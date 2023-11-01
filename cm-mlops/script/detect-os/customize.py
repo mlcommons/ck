@@ -54,8 +54,11 @@ def postprocess(i):
         state['os_uname_all'] = s[1]
 
         env['CM_HOST_OS_MACHINE'] = state['os_uname_machine']
+
     import platform
+
     env['CM_HOST_SYSTEM_NAME'] = platform.node()
+
     if 'CM_HOST_OS_PACKAGE_MANAGER' not in env:
         if env.get('CM_HOST_OS_FLAVOR','') == "ubuntu" or \
            "debian" in env.get('CM_HOST_OS_FLAVOR_LIKE','') or \

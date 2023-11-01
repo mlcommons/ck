@@ -72,6 +72,8 @@ env_key_mappings:
 new_env_keys:
   - CM_MLPERF_*
 
+new_state_keys:
+  - app_mlperf_inference_*
 
 # Dependencies on other CM scripts
 deps:
@@ -418,7 +420,6 @@ variations:
     - skip_if_env:
         CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": "on"
       tags: get,dataset-aux,squad-vocab
-
     post_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
