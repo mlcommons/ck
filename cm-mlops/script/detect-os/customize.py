@@ -76,7 +76,7 @@ def postprocess(i):
         if env.get('CM_HOST_OS_FLAVOR','') == "sles":
             env['CM_HOST_OS_PACKAGE_MANAGER'] = "zypper"
     if env.get('CM_HOST_OS_PACKAGE_MANAGER', '') == "apt":
-        env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "apt-get install -y"
+        env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "DEBIAN_FRONTEND=noninteractive apt-get install -y"
         env['CM_HOST_OS_PACKAGE_MANAGER_UPDATE_CMD'] = "apt-get update -y"
     elif env.get('CM_HOST_OS_PACKAGE_MANAGER', '') == "dnf":
         env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "dnf install -y"
