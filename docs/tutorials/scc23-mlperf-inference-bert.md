@@ -670,7 +670,7 @@ with all required MLPerf logs and stats.
 You can run this script as follows:
 
 ```bash
-cmr --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
+cmr "run mlperf inference generate-run-cmds _submission _short" \
       --submitter="SCC23" \
       --hw_name=default \
       --implementation=reference \
@@ -772,9 +772,132 @@ in `$HOME/mlperf_submission` (with truncated accuracy logs) and in `$HOME/mlperf
 You can change this directory using the flag `--submission_dir={directory to store raw MLPerf results}`
 in the above script.
 
+You can also add `--j` flag to see the JSON output of this CM script (MLPerf inference workflow) that you can reuse in higher-level 
+automations and GUI:
+
+```bash
+cmr "run mlperf inference generate-run-cmds _submission _short" \
+      --submitter="SCC23" \
+      --hw_name=default \
+      --implementation=reference \
+      --model=bert-99 \
+      --backend=onnxruntime \
+      --device=cpu \
+      --scenario=Offline \
+      --execution-mode=test \
+      --test_query_count=10 \
+      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
+      --adr.mlperf-implementation.version=custom \
+      --quiet \
+      --output_tar=mlperf_submission_short.tar.gz \
+      --output_summary=mlperf_submission_short_summary \
+      --clean \
+      --j
+
+```
+
+or
+
+```python
+import cmind
+import json
+
+r=cmind.access({'action':'run',
+                'automation':'script',
+                'out':'con',
+                'tags':'run,mlperf,inference,generate-run-cmds,_submission,_short',
+                'submitter':'SCC23',
+                'hw_name':'default',
+                'implementation':'reference',
+                'model':'bert-99',
+                'backend':'onnxruntime',
+                'device':'cpu',
+                'scenario':'Offline',
+                'execution-mode':'test',
+                'test_query_count':'10',
+                'adr':{
+                   'mlperf-implementation':{'tags':'_repo.https://github.com/ctuning/inference,_branch.scc23'},
+                   'mlperf-implementation':{'version':'custom'}
+                },
+                'quiet':True,
+                'output_tar':'mlperf_submission_short.tar.gz',
+                'output_summary':'mlperf_submission_short_summary',
+                'clean':True
+                })
+
+print (json.dumps(r, indent=2))
+
+```
+
+JSON output:
+
+```json
+
+{
+  "return": 0,
+  "new_state": {
+    "app_mlperf_inference_log_summary": {
+      "sut name": "PySUT",
+      "scenario": "Offline",
+      "mode": "PerformanceOnly",
+      "samples per second": "0.599291",
+      "result is": "VALID",
+      "min duration satisfied": "Yes",
+      "min queries satisfied": "Yes",
+      "early stopping satisfied": "Yes",
+      "min latency (ns)": "2886616648",
+      "max latency (ns)": "16686371378",
+      "mean latency (ns)": "9949423118",
+      "50.00 percentile latency (ns)": "10739129219",
+      "90.00 percentile latency (ns)": "16686371378",
+      "95.00 percentile latency (ns)": "16686371378",
+      "97.00 percentile latency (ns)": "16686371378",
+      "99.00 percentile latency (ns)": "16686371378",
+      "99.90 percentile latency (ns)": "16686371378",
+      "samples_per_query": "10",
+      "target_qps": "1",
+      "target_latency (ns)": "0",
+      "max_async_queries": "1",
+      "min_duration (ms)": "0",
+      "max_duration (ms)": "0",
+      "min_query_count": "1",
+      "max_query_count": "10",
+      "qsl_rng_seed": "148687905518835231",
+      "sample_index_rng_seed": "520418551913322573",
+      "schedule_rng_seed": "811580660758947900",
+      "accuracy_log_rng_seed": "0",
+      "accuracy_log_probability": "0",
+      "accuracy_log_sampling_target": "0",
+      "print_timestamps": "0",
+      "performance_issue_unique": "0",
+      "performance_issue_same": "0",
+      "performance_issue_same_index": "0",
+      "performance_sample_count": "10833"
+    },
+    "app_mlperf_inference_measurements": {
+      "starting_weights_filename": "model.onnx",
+      "retraining": "no",
+      "input_data_types": "fp32",
+      "weight_data_types": "fp32",
+      "weight_transformations": "none"
+    },
+    "app_mlperf_inference_accuracy": {
+      "exact_match": 70.0,
+      "f1": 70.0
+    }
+  },
+  "deps": [
+    "detect,os",
+    "detect,cpu",
+    "get,python3",
+    "get,mlcommons,inference,src",
+    "get,sut,description",
+    "generate,mlperf,inference,submission"
+  ]
+}
 
 
-
+```
 
 ## Run optimized implementation of the MLPerf inference benchmark
 
