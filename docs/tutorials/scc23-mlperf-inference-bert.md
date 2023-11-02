@@ -47,11 +47,12 @@
 This tutorial was prepared for the [Student Cluster Competition'23](https://studentclustercompetition.us/2023/index.html) 
 to explain how to run and optimize the [MLPerf inference benchmark](https://arxiv.org/abs/1911.02549)
 with [BERT Large model variations](https://github.com/mlcommons/inference/tree/master/language/bert#supported-models)
-across different software and hardware.
+across different software and hardware. You will need to obtain the best throughput for your system
+(samples per second) without degrading accuracy.
 
 You will use [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339)
 that helps to modularize and automate (MLPerf) benchmarks 
-with portable, technology-agnostic and reusable [CM scripts](../list_of_scripts.md)
+using portable, technology-agnostic and reusable [CM scripts](../list_of_scripts.md)
 being developed by the [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md),
 the [cTuning foundation](https://cTuning.org) and [the community](https://discord.gg/JjWNWXKxwT).
 
@@ -522,7 +523,7 @@ to make sure that there are no last-minute changes during SCC.
 You can use your own fork if you want to improve/optimize benchmark implementations.
 
 
-### Run short reference MLPerf inference benchmark (offline, accuracy)
+### Run short reference MLPerf inference benchmark to measure accuracy (offline scenario)
 
 You are now ready to run the [reference (unoptimized) Python implementation](https://github.com/mlcommons/inference/tree/master/language/bert) 
 of the MLPerf language benchmark with BERT model, [ONNX backend](https://github.com/mlcommons/inference/blob/master/language/bert/onnxruntime_SUT.py)
@@ -532,7 +533,7 @@ Normally, you would need to go through this [README.md](https://github.com/mlcom
 and use Docker containers or prepare all the dependencies and environment variables manually.
 
 The [CM "app-mlperf-inference" script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#app-mlperf-inference)
-allows you to run this benchmark in a native environment as follows (short test run):
+allows you to run this benchmark in a native environment as follows (short test run with 10 samples):
 
 ```bash
 cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
@@ -541,11 +542,11 @@ cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --device=cpu \
      --execution-mode=test \
      --test_query_count=10 \
-     --rerun \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
      --adr.mlperf-implementation.version=custom \
      --adr.compiler.tags=gcc \
-     --quiet
+     --quiet \
+     --rerun
 ```
 
 This CM script will automatically find or install all dependencies
@@ -575,9 +576,10 @@ will automatically install all the necessary dependencies.
 
 
 
-### Run MLPerf inference benchmark (offline, performance)
+### Run short MLPerf inference benchmark to measure performance (offline scenario)
 
-Let's run the MLPerf language processing while measuring performance:
+Let's run the MLPerf language processing benchmark while measuring performance in offline scenario
+(samples per second):
 
 ```bash
 cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
@@ -587,6 +589,8 @@ cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --test_query_count=10 \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
      --adr.mlperf-implementation.version=custom \
+     --adr.compiler.tags=gcc \
+     --quiet \
      --rerun
 ```
 
@@ -657,17 +661,17 @@ Note that QPS is very low because we use an unoptimized reference implementation
 ## Prepare minimal MLPerf submission to the SCC committee
 
 You are now ready to generate the submission similar to the ones appearing
-on the [official MLPerf inference dashboard](https://mlcommons.org/en/inference-edge-21).
+on the [official MLPerf inference dashboard](https://mlcommons.org/en/inference-edge-31).
 
 We have developed another script that runs the MLPerf inference benchmark in both accuracy and performance mode,
-runs the submission checker, unifies output for a dashboard and creates a valid MLPerf submission pack in `mlperf_submission.tar.gz` 
+runs the submission checker, unifies output for a dashboard and creates a valid MLPerf submission pack in `mlperf_submission_short.tar.gz` 
 with all required MLPerf logs and stats.
 
 You can run this script as follows:
 
 ```bash
 cmr --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
-      --submitter="Community" \
+      --submitter="SCC23" \
       --hw_name=default \
       --implementation=reference \
       --model=bert-99 \
@@ -678,6 +682,9 @@ cmr --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
       --test_query_count=10 \
       --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
       --adr.mlperf-implementation.version=custom \
+      --quiet \
+      --output_tar=mlperf_submission_short.tar.gz \
+      --output_summary=mlperf_submission_short_summary \
       --clean
 ```
 * `--execution-mode=valid` can be used to do a full valid run and in this mode `--test_query_count` is ignored and the loadgen generates the number of queries for a 10-minute run based on `--target_qps` value from a previous run. We can also override this value by giving `--offline_target_qps=<>` in case the estimated value from a test run turns out to be inaccurate.
@@ -688,7 +695,7 @@ It will take a few minutes to run and you should see the following output in the
 
 ```txt
 
-[2023-09-26 19:20:42,245 submission_checker1.py:3308 INFO] Results open/Community/results/default-reference-cpu-onnxruntime-v1.15.1-default_config/bert-99/offline 3.72101
+[2023-09-26 19:20:42,245 submission_checker1.py:3308 INFO] Results open/SCC23/results/default-reference-cpu-onnxruntime-v1.15.1-default_config/bert-99/offline 3.72101
 [2023-09-26 19:20:42,245 submission_checker1.py:3310 INFO] ---
 [2023-09-26 19:20:42,245 submission_checker1.py:3395 INFO] ---
 [2023-09-26 19:20:42,245 submission_checker1.py:3396 INFO] Results=1, NoResults=0, Power Results=0
@@ -712,7 +719,7 @@ Searching for summary.csv ...
 Converting to json ...
 
                                                                            0
-Organization                                                       Community
+Organization                                                           SCC23
 Availability                                                       available
 Division                                                                open
 SystemType                                                              edge
@@ -729,7 +736,7 @@ host_processors_per_node                                                   1
 host_processor_core_count                                                 16
 accelerator_model_name                                                   NaN
 accelerators_per_node                                                      0
-Location                   open/Community/results/default-reference-cpu-o...
+Location                       open/SCC23/results/default-reference-cpu-o...
 framework                                                onnxruntime v1.15.1
 operating_system             Ubuntu 22.04 (linux-6.2.0-32-generic-glibc2.35)
 notes                      Powered by MLCommons Collective Mind framework...
@@ -743,13 +750,20 @@ Units                                                              Samples/s
 
 Note that `--clean` flag cleans all previous runs of MLPerf benchmark to make sure that the MLPerf submission script picks up the latest results.
 
-You will also see the following 3 files in your current directory:
+You will also see the following 4 files in your current directory:
 ```
 ls -l
-mlperf_submission.tar.gz
-summary.csv
-summary.json
+
+mlperf_submission_short.tar.gz
+mlperf_submission_short_summary.csv
+mlperf_submission_short_summary.json
+mlperf_submission_short_summary.xlsx
 ```
+
+Please submit `mlperf_submission_short.tar.gz`
+and `mlperf_submission_short_summary.json`  
+to the SCC'23 committee to get the first (minimum) set of points 
+for managing to run MLPerf on your system.
 
 Note that by default, CM-MLPerf will store the raw results 
 in `$HOME/mlperf_submission` (with truncated accuracy logs) and in `$HOME/mlperf_submission_logs` 
@@ -757,6 +771,8 @@ in `$HOME/mlperf_submission` (with truncated accuracy logs) and in `$HOME/mlperf
 
 You can change this directory using the flag `--submission_dir={directory to store raw MLPerf results}`
 in the above script.
+
+
 
 
 
