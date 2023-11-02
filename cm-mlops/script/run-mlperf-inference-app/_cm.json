@@ -237,6 +237,8 @@
     "multistream_target_latency": "CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY",
     "offline_target_qps": "CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS",
     "output_dir": "OUTPUT_BASE_DIR",
+    "output_summary": "MLPERF_INFERENCE_SUBMISSION_SUMMARY",
+    "output_tar": "MLPERF_INFERENCE_SUBMISSION_TAR_FILE",
     "power": "CM_SYSTEM_POWER",
     "precision": "CM_MLPERF_MODEL_PRECISION",
     "preprocess_submission": "CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR",
