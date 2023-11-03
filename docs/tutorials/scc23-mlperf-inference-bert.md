@@ -8,6 +8,8 @@
 * [Tutorial to run and optimize MLPerf BERT inference benchmark at SCC'23](#tutorial-to-run-and-optimize-mlperf-bert-inference-benchmark-at-scc'23)
   * [Introduction](#introduction)
   * [Scoring](#scoring)
+  * [Files to submit to the SCC committee](#files-to-submit-to-the-scc-committee)
+  * [SCC interview](#scc-interview)
   * [System preparation](#system-preparation)
     * [Minimal system requirements to run unoptimized MLPerf BERT inference benchmark](#minimal-system-requirements-to-run-unoptimized-mlperf-bert-inference-benchmark)
     * [Extra system requirements for Nvidia GPU](#extra-system-requirements-for-nvidia-gpu)
@@ -24,15 +26,20 @@
     * [Detect or install ONNX runtime for CPU](#detect-or-install-onnx-runtime-for-cpu)
     * [Download Bert-large model (FP32, ONNX format)](#download-bert-large-model-fp32-onnx-format)
     * [Pull MLPerf inference sources with reference implementations](#pull-mlperf-inference-sources-with-reference-implementations)
-    * [Run short reference MLPerf inference benchmark (offline, accuracy)](#run-short-reference-mlperf-inference-benchmark-offline-accuracy)
-    * [Run MLPerf inference benchmark (offline, performance)](#run-mlperf-inference-benchmark-offline-performance)
+    * [Run short reference MLPerf inference benchmark to measure accuracy (offline scenario)](#run-short-reference-mlperf-inference-benchmark-to-measure-accuracy-offline-scenario)
+    * [Run short MLPerf inference benchmark to measure performance (offline scenario)](#run-short-mlperf-inference-benchmark-to-measure-performance-offline-scenario)
   * [Prepare minimal MLPerf submission to the SCC committee](#prepare-minimal-mlperf-submission-to-the-scc-committee)
   * [Run optimized implementation of the MLPerf inference benchmark](#run-optimized-implementation-of-the-mlperf-inference-benchmark)
-    * [Trying Nvidia implementation](#trying-nvidia-implementation)
-    * [Trying deepsparse backend](#trying-deepsparse-backend)
+    * [Showcasing CPU performance (x64 or Arm64)](#showcasing-cpu-performance-x64-or-arm64)
       * [int8](#int8)
       * [fp32](#fp32)
+    * [Showcasing Nvidia GPU performance](#showcasing-nvidia-gpu-performance)
+    * [Showcasing Nvidia AMD performance](#showcasing-nvidia-amd-performance)
   * [Optimize benchmark yourself](#optimize-benchmark-yourself)
+    * [Using quantized models](#using-quantized-models)
+    * [Changing batch size](#changing-batch-size)
+    * [Adding support for multi-node execution](#adding-support-for-multi-node-execution)
+    * [Adding new implementation for new hardware](#adding-new-implementation-for-new-hardware)
   * [Acknowledgments](#acknowledgments)
     * [Nvidia MLPerf inference backend](#nvidia-mlperf-inference-backend)
     * [DeepSparse MLPerf inference backend](#deepsparse-mlperf-inference-backend)
@@ -92,7 +99,9 @@ to get more points proportional to the MLPerf BERT inference throughput obtained
 Furthermore, if you improve existing implementation and/or provide support for new hardware (such as AMD GPU) 
 add support for multi-node execution or improve MLPerf BERT models without dropping accuracy, 
 and make all your improvements publicly available under Apache 2.0 license when submitting results to the SCC committee,
-you will get substantial bonus points for supporting the MLPerf community.
+you will get major bonus points for supporting the MLPerf community.
+For example, improving reference implementation or adding new hardware backend will give more points 
+than just running official Nvidia implementation of the MLPerf inference benchmark.
 
 After SCC, you are welcome to prepare an official submission to the next inference v4.0 round in February 2024 
 to get your results and the team name to the official MLCommons release similar to [v3.1](https://mlcommons.org/en/inference-datacenter-31). 
@@ -129,8 +138,21 @@ implementations and adding new hardware backends):
 * `mlperf_submission_{N}_summary.json` - automatically generated summary of MLPerf results.
 * `mlperf_submission_{N}.run` - CM commands to run MLPerf BERT inference benchmark saved to this file.
 * `mlperf_submission_{N}.tstamps` - execution timestamps before and after CM command saved to this file.
+* `mlperf_submission_{N}.community.md` - your optimizations, improvements and extensions of the MLPerf BERT inference benchmark
+   (new hardware backends, support for multi-node execution, batch size, quantization, etc).
+   Note that you will need to provide a PR with open-source Apache 2.0 improvements 
+   to the [MLCommons inference repo](https://github.com/mlcommons/inference)
+   our our [stable fork](https://github.com/ctuning/inference).
 
 where N is your attempt number out of 5.
+
+
+## SCC interview
+
+You are encouraged to highlight and explain the obtained MLPerf BERT inference throughput on your system
+and describe any improvements and extensions to this benchmark (such as adding new hardware backend
+or supporting multi-node execution) useful for the community and [MLCommons](https://mlcommons.org).
+
 
 
 
@@ -934,8 +956,11 @@ JSON output:
 ## Run optimized implementation of the MLPerf inference benchmark
 
 Now you are ready to run an optimized implementation of the MLPerf inference benchmark
-for the hardware that you want to showcase at SCC'23. The highest throughput 
-for the same type of architecture will get the highest number of points.
+for the hardware that you want to showcase at SCC'23. You will get extra points propotional
+to the MLPerf BERT inference throughput obtained on your system. You will also get the major
+bonus points for any improvements to the MLPerf inference implementation including support 
+for new hardware such as AMD GPUs.
+
 
 
 
@@ -989,6 +1014,8 @@ Please follow [this README](https://github.com/mlcommons/ck/blob/master/docs/mlp
 
 
 ## Optimize benchmark yourself
+
+### Using quantized models
 
 ### Changing batch size
 
