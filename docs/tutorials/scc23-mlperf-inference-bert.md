@@ -50,10 +50,10 @@ with [BERT Large model variations](https://github.com/mlcommons/inference/tree/m
 across different software and hardware. You will need to obtain the best throughput for your system
 (samples per second) without degrading accuracy.
 
-You will use [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339)
+You will also learn how to use the [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339)
 that helps to modularize and automate (MLPerf) benchmarks 
-using portable, technology-agnostic and reusable [CM scripts](../list_of_scripts.md)
-being developed by the [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md),
+using portable, technology-agnostic and reusable [CM scripts](../list_of_scripts.md).
+CM scripts are developed by the [MLCommons task force on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md),
 the [cTuning foundation](https://cTuning.org) and [the community](https://discord.gg/JjWNWXKxwT).
 
 During this tutorial you will learn how to:
@@ -66,12 +66,19 @@ It should take less than an hour to complete this tutorial including 30 minutes 
 In the end, you should obtain a tarball (`mlperf_submission.tar.gz`) with the MLPerf-compatible results
 that you will submit to the SCC organizers to get points.
 
+
+
+
+
+
+
+
 ## Scoring
 
 During SCC, you will first attempt to run a reference (unoptimized) Python implementation of the MLPerf inference benchmark
-with [BERT fp32 model](https://huggingface.co/ctuning/mlperf-inference-bert-onnx-fp32-squad-v1.1), 
+with the [BERT fp32 model](https://huggingface.co/ctuning/mlperf-inference-bert-onnx-fp32-squad-v1.1), 
 [SQuAd v1.1 dataset](https://datarepository.wolframcloud.com/resources/SQuAD-v1.1), 
-ONNX runtime (`MLPerf framework` or `backend`) with CPU target (`MLPerf device`) 
+any ONNX runtime (`MLPerf framework` or `backend`) with CPU target (`MLPerf device`) 
 and [MLPerf loadgen library](https://github.com/mlcommons/inference/tree/master/loadgen) 
 to get a minimal set of points.
 
@@ -80,7 +87,7 @@ change ML frameworks, try different batch sizes, etc to get better performance t
 
 Note that since not all vendor implementations of MLPerf inference benchmark are still equal and they mostly support 1-node 
 benchmarking at this stage, teams will compete to get better throughput only between the same architecture type (CPU, Nvidia GPU, AMD GPU, etc) 
-to get more points.
+to get more points proportional to the MLPerf BERT inference throughput obtained on their systems.
 
 Furthermore, if you improve existing implementation and/or provide support for new hardware (such as AMD GPU) 
 add support for multi-node execution or improve MLPerf BERT models without dropping accuracy, 
@@ -95,6 +102,36 @@ to get your results and the team name to the official MLCommons release similar 
 *Note that both MLPerf and CM automation are evolving projects.
  If you encounter issues or have questions, please submit them [here](https://github.com/mlcommons/ck/issues)
  and feel free to get in touch with the CM-MLPerf community via our [public Discord server](https://discord.gg/JjWNWXKxwT).*
+
+
+
+
+
+
+
+
+
+## Files to submit to the SCC committee
+
+You will need to submit the following files with the reference (non-optimized) MLPerf BERT inference results 
+to obtain the first (min) set of points:
+
+* `mlperf_submission_short.tar.gz` - automatically generated file with validated MLPerf results.
+* `mlperf_submission_short_summary.json` - automatically generated summary of MLPerf results.
+* `mlperf_submission_short.run` - CM commands to run MLPerf BERT inference benchmark saved to this file.
+* `mlperf_submission_short.tstamps` - execution timestamps before and after CM command saved to this file.
+
+You will need to submit the following files with the optimized MLPerf BERT inference results
+to obtain main points (including major bonus points for improving exisitng benchmark
+implementations and adding new hardware backends):
+
+* `mlperf_submission_{N}.tar.gz` - automatically generated file with validated MLPerf results.
+* `mlperf_submission_{N}_summary.json` - automatically generated summary of MLPerf results.
+* `mlperf_submission_{N}.run` - CM commands to run MLPerf BERT inference benchmark saved to this file.
+* `mlperf_submission_{N}.tstamps` - execution timestamps before and after CM command saved to this file.
+
+where N is your attempt number out of 5.
+
 
 
 ## System preparation
@@ -263,7 +300,7 @@ You will see a long output that should contain the following line with accuracy:
   to keep a stable version of the official MLPerf inference repository.
 
 
-If you remove flag `--adr.compiler.tags=gcc`, CM will attempt to download nad install LLVM as a default dependency for MLPerf loadgen.
+If you remove flag `--adr.compiler.tags=gcc`, CM will attempt to download and install LLVM as a default dependency for MLPerf loadgen.
 
 You can add `-v` flag to debug any CM script.
 
@@ -654,7 +691,7 @@ No errors encountered during test.
 
 ```
 
-Note that QPS is very low because we use an unoptimized reference implementation of this benchmark on CPU.
+Note that the MLPerf BERT inference throughput (samples per second) is very low because we use an unoptimized reference implementation of this benchmark on CPU.
 
 
 
@@ -663,7 +700,9 @@ Note that QPS is very low because we use an unoptimized reference implementation
 You are now ready to generate the submission similar to the ones appearing
 on the [official MLPerf inference dashboard](https://mlcommons.org/en/inference-edge-31).
 
-We have developed another script that runs the MLPerf inference benchmark in both accuracy and performance mode,
+Don't forget to record timestamps to the file `mlperf_submission_short.tstamps` before and after CM command.
+
+You will use another CM script that runs the MLPerf inference benchmark in both accuracy and performance mode,
 runs the submission checker, unifies output for a dashboard and creates a valid MLPerf submission pack in `mlperf_submission_short.tar.gz` 
 with all required MLPerf logs and stats.
 
@@ -750,20 +789,13 @@ Units                                                              Samples/s
 
 Note that `--clean` flag cleans all previous runs of MLPerf benchmark to make sure that the MLPerf submission script picks up the latest results.
 
-You will also see the following 4 files in your current directory:
-```
-ls -l
+Please submit the following files to the SCC'23 committee to get the first (minimum) set of points 
+for managing to run the MLPerf BERT inference benchmark on your system:
 
-mlperf_submission_short.tar.gz
-mlperf_submission_short_summary.csv
-mlperf_submission_short_summary.json
-mlperf_submission_short_summary.xlsx
-```
-
-Please submit `mlperf_submission_short.tar.gz`
-and `mlperf_submission_short_summary.json`  
-to the SCC'23 committee to get the first (minimum) set of points 
-for managing to run MLPerf on your system.
+* `mlperf_submission_short.tar.gz` - automatically generated file with validated MLPerf results.
+* `mlperf_submission_short_summary.json` - automatically generated summary of MLPerf results.
+* `mlperf_submission_short.run` - CM commands to run MLPerf BERT inference benchmark saved to this file.
+* `mlperf_submission_short.tstamps` - execution timestamps before and after CM command saved to this file.
 
 Note that by default, CM-MLPerf will store the raw results 
 in `$HOME/mlperf_submission` (with truncated accuracy logs) and in `$HOME/mlperf_submission_logs` 
@@ -901,16 +933,16 @@ JSON output:
 
 ## Run optimized implementation of the MLPerf inference benchmark
 
+Now you are ready to run an optimized implementation of the MLPerf inference benchmark
+for the hardware that you want to showcase at SCC'23. The highest throughput 
+for the same type of architecture will get the highest number of points.
 
 
-### Trying Nvidia implementation
 
-Please follow [this README](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/bert/README_nvidia.md)
+### Showcasing CPU performance (x64 or Arm64)
 
 
-### Trying deepsparse backend
-
-For deepsparse backend the implementation is coming from [this repo](https://github.com/neuralmagic/inference/tree/deepsparse)
+For DeepSparse backend the implementation is coming from [this repo](https://github.com/neuralmagic/inference/tree/deepsparse)
 
 #### int8
 ```
@@ -945,8 +977,24 @@ cmr --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  \
 
 
 
+
+### Showcasing Nvidia GPU performance
+
+Please follow [this README](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/bert/README_nvidia.md)
+
+
+
+### Showcasing Nvidia AMD performance
+
+
+
 ## Optimize benchmark yourself
 
+### Changing batch size
+
+### Adding support for multi-node execution
+
+### Adding new implementation for new hardware
 
 
 
