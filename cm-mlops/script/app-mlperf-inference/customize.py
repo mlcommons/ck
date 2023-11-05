@@ -3,6 +3,7 @@ import os
 import json
 import shutil
 import subprocess
+import copy
 import cmind as cm
 
 def preprocess(i):
@@ -22,6 +23,7 @@ def preprocess(i):
     return {'return':0}
 
 def postprocess(i):
+
 
     env = i['env']
     inp = i['input']
@@ -137,20 +139,40 @@ def postprocess(i):
         measurements['input_data_types'] = env.get('CM_ML_MODEL_INPUTS_DATA_TYPE', 'fp32')
         measurements['weight_data_types'] = env.get('CM_ML_MODEL_WEIGHTS_DATA_TYPE', 'fp32')
         measurements['weight_transformations'] = env.get('CM_ML_MODEL_WEIGHT_TRANSFORMATIONS', 'none')
+
         os.chdir(output_dir)
+
         if not os.path.exists("mlperf_log_summary.txt"):
             return {'return': 0}
+
+        mlperf_log_summary = ''
+        if os.path.isfile("mlperf_log_summary.txt"):
+            with open("mlperf_log_summary.txt", "r") as fp:
+                mlperf_log_summary=fp.read()
+
+        if mlperf_log_summary!='':
+            state['app_mlperf_inference_log_summary']={}
+            for x in mlperf_log_summary.split('\n'):
+                y = x.split(': ')
+                if len(y)==2:
+                    state['app_mlperf_inference_log_summary'][y[0].strip().lower()]=y[1].strip()
+
         if env.get("CM_MLPERF_PRINT_SUMMARY", "").lower() not in [ "no", "0", "false"]:
             print("\n")
-            with open("mlperf_log_summary.txt", "r") as fp:
-                print(fp.read())
+            print(mlperf_log_summary)
 
         if mode == "accuracy":
             accuracy_result_dir = output_dir
+
         with open ("measurements.json", "w") as fp:
             json.dump(measurements, fp, indent=2)
+
+        # Add to the state
+        state['app_mlperf_inference_measurements'] = copy.deepcopy(measurements)
+
         if os.path.exists(env['CM_MLPERF_CONF']):
             shutil.copy(env['CM_MLPERF_CONF'], 'mlperf.conf')
+
         if os.path.exists(env['CM_MLPERF_USER_CONF']):
             shutil.copy(env['CM_MLPERF_USER_CONF'], 'user.conf')
 

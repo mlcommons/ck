@@ -2,6 +2,11 @@
 
 ## MLCommons CK and CM news
 
+### 202311
+
+* The ACM YouTube channel has released the ACM REP'23 keynote about the MLCommons CM automation language and CK playground:
+  [toward a common language to facilitate reproducible research and technology transfer](https://youtu.be/_1f9i_Bzjmg?si=7XoXRtcU0rglRJr0).
+
 ### 202310
 
 * The MLCommons Task Force on Automation and Reproducibility is resuming [weekly conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit) - 

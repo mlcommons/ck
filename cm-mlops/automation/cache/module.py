@@ -83,18 +83,19 @@ class CAutomation(Automation):
 
         show_env = i.get('env', False)
 
-        # Check simplified CMD: cm run script "get compiler"
-        # If artifact has spaces, treat them as tags!
-        artifact = i.get('artifact','')
-        tags = i.get('tags','').strip()
-        if ' ' in artifact or ',' in artifact:
-            del(i['artifact'])
-            if 'parsed_artifact' in i: del(i['parsed_artifact'])
-
-            new_tags = artifact.replace(' ',',')
-            tags = new_tags if tags=='' else new_tags+','+tags
-
-            i['tags'] = tags
+# Moved to search function
+#        # Check simplified CMD: cm show cache "get python"
+#        # If artifact has spaces, treat them as tags!
+#        artifact = i.get('artifact','')
+#        tags = i.get('tags','').strip()
+#        if ' ' in artifact or ',' in artifact:
+#            del(i['artifact'])
+#            if 'parsed_artifact' in i: del(i['parsed_artifact'])
+#
+#            new_tags = artifact.replace(' ',',')
+#            tags = new_tags if tags=='' else new_tags+','+tags
+#
+#            i['tags'] = tags
 
         # Find CM artifact(s)
         i['out'] = None
@@ -148,3 +149,35 @@ class CAutomation(Automation):
                         print (json.dumps(new_env, indent=6, sort_keys=True))
 
         return {'return':0, 'list': lst}
+
+    ############################################################
+    def search(self, i):
+        """
+        Overriding the automation search function to add support for a simplified CMD with tags with spaces
+
+        TBD: add input/output description
+        """
+
+        # Check simplified CMD: cm show cache "get python"
+        # If artifact has spaces, treat them as tags!
+        artifact = i.get('artifact','')
+        tags = i.get('tags','')
+        # Tags may be a list (if comes internally from CM scripts) or string if comes from CMD
+        if type(tags)!=list:
+            tags = tags.strip()
+        if ' ' in artifact or ',' in artifact:
+            del(i['artifact'])
+            if 'parsed_artifact' in i: del(i['parsed_artifact'])
+
+            new_tags = artifact.replace(' ',',')
+            tags = new_tags if tags=='' else new_tags+','+tags
+
+            i['tags'] = tags
+
+        # Force automation when reruning access with processed input
+        i['automation']='cache,541d6f712a6b464e'
+        i['action']='search'
+        i['common'] = True # Avoid recursion - use internal CM add function to add the script artifact
+
+        # Find CM artifact(s)
+        return self.cmind.access(i)

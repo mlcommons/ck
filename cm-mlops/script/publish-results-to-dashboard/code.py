@@ -11,7 +11,12 @@ def main():
     print ('')
 
     import json
-    f = open('summary.json')
+    filename = os.environ.get('MLPERF_INFERENCE_SUBMISSION_SUMMARY','')
+    if filename=='':
+        filename = 'summary'
+    filename+='.json'
+
+    f = open(filename)
 
     results = json.load(f)
 

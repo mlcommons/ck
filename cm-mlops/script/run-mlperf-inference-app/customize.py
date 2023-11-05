@@ -6,6 +6,8 @@ import subprocess
 import cmind as cm
 import copy
 
+summary_ext = ['.csv', '.json', '.xlsx']
+
 def preprocess(i):
 
     os_info = i['os_info']
@@ -21,6 +23,19 @@ def preprocess(i):
     env['CM_SUT_META_EXISTS'] = "yes"
 
     env['CM_MODEL'] = env['CM_MLPERF_MODEL']
+
+    # Clean MLPerf inference output tar file if non-standard
+    x=env.get('MLPERF_INFERENCE_SUBMISSION_TAR_FILE','')
+    if x!='' and os.path.isfile(x):
+        os.remove(x)
+
+    # Clean MLPerf inference submission summary files
+    x=env.get('MLPERF_INFERENCE_SUBMISSION_SUMMARY','')
+    if x!='':
+        for y in summary_ext:
+            z = x+y
+            if os.path.isfile(z):
+                os.remove(z)
 
     if env.get('CM_MLPERF_SUBMISSION_SYSTEM_TYPE', '') != '':
         system_type = env['CM_MLPERF_SUBMISSION_SYSTEM_TYPE']
@@ -196,4 +211,5 @@ def get_valid_scenarios(model, category, mlperf_version, mlperf_path):
     return valid_scenarios
 
 def postprocess(i):
+
     return {'return':0}

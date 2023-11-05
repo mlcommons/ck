@@ -9,7 +9,7 @@ to develop an open-source automation technology that can help everyone [co-desig
 that can run AI and ML applications in the most efficient way across diverse models, data sets, software and hardware from any vendor 
 using the [MLPerf methodology](https://arxiv.org/abs/1911.02549).
 
-As an outcome of this community effort, we have developed the [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339), 
+As an outcome of this community effort, we have developed the [MLCommons CM automation language](https://youtu.be/_1f9i_Bzjmg?si=l0Qqon2Rt7pSji36), 
 [MLCommons C++ Modular Inference Library (MIL)](../cm-mlops/script/app-mlperf-inference-cpp/README-extra.md) 
 and the [MLCommons CK playground](https://access.cKnowledge.org).
 This open-source technology was successfully validated during the [1st mass-scale community MLPerf inference submission](https://www.linkedin.com/feed/update/urn:li:activity:7112057645603119104/) 
