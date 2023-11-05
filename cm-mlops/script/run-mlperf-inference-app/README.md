@@ -184,37 +184,37 @@ ___
 
     * `_accuracy-only`
       - Environment variables:
-        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
         - *CM_MLPERF_LOADGEN_MODE*: `accuracy`
-        - *CM_RUN_SUBMISSION_CHECKER*: `no`
+        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
         - *CM_RUN_MLPERF_ACCURACY*: `on`
+        - *CM_RUN_SUBMISSION_CHECKER*: `no`
       - Workflow:
     * **`_find-performance`** (default)
       - Environment variables:
+        - *CM_MLPERF_FIND_PERFORMANCE_MODE*: `yes`
         - *CM_MLPERF_LOADGEN_ALL_MODES*: `no`
         - *CM_MLPERF_LOADGEN_MODE*: `performance`
-        - *CM_MLPERF_FIND_PERFORMANCE_MODE*: `yes`
         - *CM_MLPERF_RESULT_PUSH_TO_GITHUB*: `False`
       - Workflow:
     * `_performance-only`
       - Environment variables:
-        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
         - *CM_MLPERF_LOADGEN_MODE*: `performance`
+        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
         - *CM_RUN_SUBMISSION_CHECKER*: `no`
       - Workflow:
     * `_populate-readme`
       - Environment variables:
-        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
         - *CM_MLPERF_README*: `yes`
+        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
         - *CM_RUN_SUBMISSION_CHECKER*: `no`
       - Workflow:
     * `_submission`
       - Environment variables:
-        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
-        - *CM_RUN_SUBMISSION_CHECKER*: `yes`
         - *CM_MLPERF_LOADGEN_COMPLIANCE*: `yes`
-        - *CM_TAR_SUBMISSION_DIR*: `yes`
+        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
         - *CM_RUN_MLPERF_ACCURACY*: `on`
+        - *CM_RUN_SUBMISSION_CHECKER*: `yes`
+        - *CM_TAR_SUBMISSION_DIR*: `yes`
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
            * generate,mlperf,inference,submission
@@ -247,42 +247,42 @@ ___
 
 #### Input description
 
-* --**adr.python.name** Python virtual environment name (optional) (*mlperf*)
-* --**adr.python.version_min** Minimal Python version (*3.8*)
-* --**adr.python.version** Force Python version (must have all system deps)
 * --**adr.compiler.tags** Compiler for loadgen and any C/C++ part of implementation (*gcc*)
 * --**adr.inference-src-loadgen.env.CM_GIT_URL** Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)
 * --**adr.inference-src.env.CM_GIT_URL** Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)
-* --**submitter** Submitter name (without space) (*TheCommunity*)
-* --**implementation** MLPerf implementation {reference,cpp,nvidia-original,tflite-cpp} (*reference*)
-* --**compliance** Whether to run compliance tests (applicable only for closed division) {yes,no} (*yes*)
-* --**model** MLPerf model {resnet50,retinanet,bert-99,bert-99.9,3d-unet,rnnt} (*resnet50*)
-* --**precision** MLPerf model precision {fp32,int8}
-* --**backend** MLPerf backend {onnxruntime,tf,pytorch,deepsparse,tensorrt,tvm-onnx} (*onnxruntime*)
-* --**hw_name** MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware)) (*default*)
-* --**device** MLPerf device {cpu,cuda} (*cpu*)
-* --**scenario** MLPerf scenario {Offline,Server,SingleStream,MultiStream} (*Offline*)
-* --**mode** MLPerf mode {,accuracy,performance}
-* --**execution_mode** Execution mode {test,fast,valid} (*test*)
 * --**adr.mlperf-inference-implementation.max_batchsize** Maximum batchsize to be used
 * --**adr.mlperf-inference-implementation.num_threads** Number of threads (reference&C++ implementation only)
-* --**target_qps** Set LoadGen target QPS
-* --**offline_target_qps** Set LoadGen Offline target QPS
-* --**server_target_qps** Set Server target QPS
-* --**target_latency** Set Target latency
-* --**singlestream_target_latency** Set SingleStream target latency
-* --**multistream_target_latency** Set MultiStream target latency
-* --**results_dir** Folder path where run results should be stored (defaults to the current working directory)
-* --**submission_dir** Folder path where submission tree (to be submitted) must be stored
-* --**dashboard_wb_user** W&B dashboard user (*cmind*)
-* --**dashboard_wb_project** W&B dashboard project (*cm-mlperf-dse-testing*)
+* --**adr.python.name** Python virtual environment name (optional) (*mlperf*)
+* --**adr.python.version** Force Python version (must have all system deps)
+* --**adr.python.version_min** Minimal Python version (*3.8*)
+* --**backend** MLPerf backend {onnxruntime,tf,pytorch,deepsparse,tensorrt,tvm-onnx} (*onnxruntime*)
 * --**clean** Clean run (*True*)
+* --**compliance** Whether to run compliance tests (applicable only for closed division) {yes,no} (*yes*)
+* --**dashboard_wb_project** W&B dashboard project (*cm-mlperf-dse-testing*)
+* --**dashboard_wb_user** W&B dashboard user (*cmind*)
+* --**device** MLPerf device {cpu,cuda} (*cpu*)
+* --**execution_mode** Execution mode {test,fast,valid} (*test*)
+* --**hw_name** MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware)) (*default*)
+* --**implementation** MLPerf implementation {reference,cpp,nvidia-original,tflite-cpp} (*reference*)
+* --**mode** MLPerf mode {,accuracy,performance}
+* --**model** MLPerf model {resnet50,retinanet,bert-99,bert-99.9,3d-unet,rnnt} (*resnet50*)
+* --**multistream_target_latency** Set MultiStream target latency
+* --**offline_target_qps** Set LoadGen Offline target QPS
+* --**precision** MLPerf model precision {fp32,int8}
 * --**quiet** Quiet run (select default values for all questions) (*False*)
+* --**results_dir** Folder path where run results should be stored (defaults to the current working directory)
+* --**scenario** MLPerf scenario {Offline,Server,SingleStream,MultiStream} (*Offline*)
+* --**server_target_qps** Set Server target QPS
+* --**singlestream_target_latency** Set SingleStream target latency
+* --**submission_dir** Folder path where submission tree (to be submitted) must be stored
+* --**submitter** Submitter name (without space) (*TheCommunity*)
+* --**target_latency** Set Target latency
+* --**target_qps** Set LoadGen target QPS
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "adr.python.name":...}
+r=cm.access({... , "adr.compiler.tags":...}
 ```
 
 #### Script flags mapped to environment
@@ -310,6 +310,8 @@ r=cm.access({... , "adr.python.name":...}
 * `--multistream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY=value`
 * `--offline_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS=value`
 * `--output_dir=value`  &rarr;  `OUTPUT_BASE_DIR=value`
+* `--output_summary=value`  &rarr;  `MLPERF_INFERENCE_SUBMISSION_SUMMARY=value`
+* `--output_tar=value`  &rarr;  `MLPERF_INFERENCE_SUBMISSION_TAR_FILE=value`
 * `--power=value`  &rarr;  `CM_SYSTEM_POWER=value`
 * `--precision=value`  &rarr;  `CM_MLPERF_MODEL_PRECISION=value`
 * `--preprocess_submission=value`  &rarr;  `CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR=value`
@@ -349,10 +351,10 @@ r=cm.access({... , "backend":...}
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_OUTPUT_FOLDER_NAME: `test_results`
-* CM_MLPERF_RUN_STYLE: `test`
 * CM_MLPERF_IMPLEMENTATION: `reference`
 * CM_MLPERF_MODEL: `resnet50`
+* CM_MLPERF_RUN_STYLE: `test`
+* CM_OUTPUT_FOLDER_NAME: `test_results`
 
 </details>
 

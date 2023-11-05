@@ -71,4 +71,22 @@ def postprocess(i):
     if env.get('CM_TAR_SUBMISSION_DIR'):
         env['CM_TAR_INPUT_DIR'] = env.get('CM_MLPERF_SUBMISSION_DIR', '$HOME')
 
+    x=env.get('MLPERF_INFERENCE_SUBMISSION_TAR_FILE','')
+    if x!='':
+        env['CM_TAR_OUTFILE']=x
+
+    x=env.get('MLPERF_INFERENCE_SUBMISSION_SUMMARY','')
+    if x!='':
+        for y in ['.csv', '.json', '.xlsx']:
+
+            z0 = 'summary'+y
+
+            if os.path.isfile(z0):
+                z1 = x+y
+
+                if os.path.isfile(z1):
+                    os.remove(z1)
+
+                os.rename(z0, z1)
+
     return {'return':0}

@@ -25,7 +25,7 @@ def preprocess(i):
     env['CM_TMP_PYTHON_PACKAGE_NAME_ENV'] = prepare_env_key.upper()
 
     recursion_spaces = i['recursion_spaces']
-    
+
     r = automation.detect_version_using_script({
                'env': env,
                'run_script_input':i['run_script_input'],
@@ -33,6 +33,12 @@ def preprocess(i):
 
     if r['return'] >0:
         if r['return'] == 16:
+            # Clean detected version env if exists otherwise takes detected version
+            # for example, when we reinstall generic python lib package
+            env_version_key = 'CM_'+env['CM_TMP_PYTHON_PACKAGE_NAME_ENV'].upper()+'_VERSION'
+            if env.get(env_version_key,'')!='':
+                del(env[env_version_key])
+
             extra = env.get('CM_GENERIC_PYTHON_PIP_EXTRA','')
             if (pip_version and len(pip_version) > 1 and int(pip_version[0]) >= 23) and ('--break-system-packages' not in extra):
                 extra += '  --break-system-packages '

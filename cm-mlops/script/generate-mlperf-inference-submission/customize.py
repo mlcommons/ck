@@ -6,9 +6,6 @@ import shutil
 def preprocess(i):
     return {'return': 0}
 
-
-##############################################################################
-
 def generate_submission(i):
 
     # Save current user directory

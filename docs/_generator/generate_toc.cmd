@@ -1,5 +1,6 @@
 cd ../tutorials
 
+cm create-toc-from-md utils --input=scc23-mlperf-inference-bert.md
 cm create-toc-from-md utils --input=sc22-scc-mlperf.md
 cm create-toc-from-md utils --input=sc22-scc-mlperf-part2.md
 cm create-toc-from-md utils --input=sc22-scc-mlperf-part3.md

@@ -7,14 +7,17 @@ def preprocess(i):
     os_info = i['os_info']
     env = i['env']
     results_dir = env.get("CM_MLPERF_ACCURACY_RESULTS_DIR", "")
+
     if results_dir == "":
         print("Please set CM_MLPERF_ACCURACY_RESULTS_DIR")
         return {'return':-1}
     run_cmds = []
+
     if env.get('CM_MAX_EXAMPLES', '') != '' and env.get('CM_MLPERF_RUN_STYLE', '') != 'valid':
         max_examples_string = " --max_examples " + env['CM_MAX_EXAMPLES']
     else:
         max_examples_string = ""
+
     results_dir_split = results_dir.split(":")
     dataset = env['CM_DATASET']
 
@@ -84,12 +87,39 @@ def postprocess(i):
 
     os_info = i['os_info']
     env = i['env']
+    state = i['state']
+
     results_dir = env.get("CM_MLPERF_ACCURACY_RESULTS_DIR", "")
     results_dir_split = results_dir.split(":")
+
     for result_dir in results_dir_split:
         accuracy_file = os.path.join(result_dir, "accuracy.txt")
+
         if os.path.exists(accuracy_file):
+            print ('')
+            print ('Accuracy file: {}'.format(accuracy_file))
+            print ('')
+            x = ''
             with open(accuracy_file, "r") as fp:
-                print(fp.read())
+                x=fp.read()
+
+            if x!='':
+                print(x)
+
+                # Trying to extract accuracy dict
+                for y in x.split('\n'):
+                    if y.startswith('{') and y.endswith('}'):
+
+                        import json
+
+                        try:
+                           z=json.loads(y)
+                           state['app_mlperf_inference_accuracy']=z
+
+                           break
+                        except ValueError as e:
+                           pass
+
+            print ('')
     return {'return':0}
 

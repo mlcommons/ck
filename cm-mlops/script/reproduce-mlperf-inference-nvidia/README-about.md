@@ -93,11 +93,11 @@ Assuming all the downloaded files are to the user home directory please do the f
 
 2. Install cuDNN
     ```bash
-      cmr "get cudnn" --input=<PATH_TO_CUDNN_TAR_FILE>
+      cmr "get cudnn" --tar_file=<PATH_TO_CUDNN_TAR_FILE>
     ```
 3. Install TensorRT
     ```bash
-      cmr "get tensorrt _dev" --input=<PATH_TO_TENSORRT_TAR_FILE>
+      cmr "get tensorrt _dev" --tar_file=<PATH_TO_TENSORRT_TAR_FILE>
     ```
     On non x86 systems like Nvidia Orin, you can do a package manager install and then CM should pick up the installation automatically during the workflow run.
 

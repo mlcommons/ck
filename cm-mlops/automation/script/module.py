@@ -2013,7 +2013,7 @@ class CAutomation(Automation):
 
         # Add CMD        
         script.append(cmd)
-        
+
         # Record script
         r = utils.save_txt(file_name=script_name, string='\n'.join(script))
         if r['return']>0: return r
@@ -2022,7 +2022,7 @@ class CAutomation(Automation):
         rc = os.system(xcmd)
 
         return {'return':0, 'return_code':rc}
-    
+
     ############################################################
     def add(self, i):
         """
@@ -2046,13 +2046,12 @@ class CAutomation(Automation):
           (new_tags) (string or list): new tags to be added to meta (the same as tags)
 
           (json) (bool): if True, record JSON meta instead of YAML
-          
+
           (meta) (dict): preloaded meta
-          
+
           (template) (string): template to use (python)
           (python) (bool): template=python
           (pytorch) (bool): template=pytorch
-          
           ...
 
         Returns:
@@ -2092,7 +2091,7 @@ class CAutomation(Automation):
 
         # Check template path
         template_dir = 'template'
-        
+
         template = i.get('template','')
 
         if template == '':
@@ -2100,7 +2099,7 @@ class CAutomation(Automation):
                template = 'python'
            elif i.get('pytorch', False):
                template = 'pytorch'
-        
+
         if template!='':
             template_dir += '-'+template
 
@@ -2124,7 +2123,7 @@ class CAutomation(Automation):
                  'variations':{},
                  'input_description':{}
                }
-        
+
         fmeta = os.path.join(template_path, self.cmind.cfg['file_cmeta'])
 
         r = utils.load_yaml_and_json(fmeta)
