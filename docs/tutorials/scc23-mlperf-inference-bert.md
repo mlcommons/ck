@@ -25,21 +25,22 @@
     * [Download the SQuAD validation dataset](#download-the-squad-validation-dataset)
     * [Detect or install ONNX runtime for CPU](#detect-or-install-onnx-runtime-for-cpu)
     * [Download Bert-large model (FP32, ONNX format)](#download-bert-large-model-fp32-onnx-format)
-    * [Pull MLPerf inference sources with reference implementations](#pull-mlperf-inference-sources-with-reference-implementations)
+    * [Pull MLPerf inference sources with reference benchmark implementations](#pull-mlperf-inference-sources-with-reference-benchmark-implementations)
     * [Run short reference MLPerf inference benchmark to measure accuracy (offline scenario)](#run-short-reference-mlperf-inference-benchmark-to-measure-accuracy-offline-scenario)
     * [Run short MLPerf inference benchmark to measure performance (offline scenario)](#run-short-mlperf-inference-benchmark-to-measure-performance-offline-scenario)
   * [Prepare minimal MLPerf submission to the SCC committee](#prepare-minimal-mlperf-submission-to-the-scc-committee)
+  * [Publish results at the live SCC'23 dashboard](#publish-results-at-the-live-scc'23-dashboard)
   * [Run optimized implementation of the MLPerf inference benchmark](#run-optimized-implementation-of-the-mlperf-inference-benchmark)
     * [Showcasing CPU performance (x64 or Arm64)](#showcasing-cpu-performance-x64-or-arm64)
-      * [int8](#int8)
-      * [fp32](#fp32)
+      * [Quantized and pruned BERT model (int8)](#quantized-and-pruned-bert-model-int8)
+      * [Pruned BERT model (fp32)](#pruned-bert-model-fp32)
     * [Showcasing Nvidia GPU performance](#showcasing-nvidia-gpu-performance)
     * [Showcasing Nvidia AMD performance](#showcasing-nvidia-amd-performance)
   * [Optimize benchmark yourself](#optimize-benchmark-yourself)
-    * [Using quantized models](#using-quantized-models)
     * [Changing batch size](#changing-batch-size)
     * [Adding support for multi-node execution](#adding-support-for-multi-node-execution)
     * [Adding new implementation for new hardware](#adding-new-implementation-for-new-hardware)
+  * [The next steps](#the-next-steps)
   * [Acknowledgments](#acknowledgments)
     * [Nvidia MLPerf inference backend](#nvidia-mlperf-inference-backend)
     * [DeepSparse MLPerf inference backend](#deepsparse-mlperf-inference-backend)
@@ -76,7 +77,8 @@ that you will submit to the SCC organizers to get points.
 
 
 
-
+*An interactive version of the short versionof this tutorial is available 
+ at this [Google colab page](https://colab.research.google.com/drive/1kgw1pdKi8QcCTqPZu1Vh_ur1NOeTRdWJ?usp=sharing)*.
 
 
 
@@ -565,9 +567,18 @@ cm show cache --tags=get,ml-model,bert-large,_onnx
 
 *Note that you will have a different CM UID consisting of 16 hexadecimal lowercase characters.*
 
+You can find downloaded model as follows:
+
+```bash
+ls `cm find cache "download ml-model bert-large"` -l
+
+...
+ 1340711828 Nov  5 14:31 model.onnx
+...
+```
 
 
-### Pull MLPerf inference sources with reference implementations
+### Pull MLPerf inference sources with reference benchmark implementations
 
 You should now download and cache the MLPerf inference sources using the following command:
 
@@ -1012,13 +1023,13 @@ Don't forget to set this environment if you use Python virtual environment insta
 export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf"
 ```
 
-#### Int8 pruned BERT model
+#### Quantized and pruned BERT model (int8)
 
 First you can make a full (valid) run of the MLPerf inference benchmark with quantized and pruned Int8 BERT model, 
 batch size of 128 and DeepSparse backend via CM as follows:
 
 ```
-cmr "run mlperf inference generate-run-cmds _submission _short" \
+cmr "run mlperf inference generate-run-cmds _submission _short _dashboard" \
       --submitter="SCC23" \
       --hw_name=default \
       --implementation=reference \
@@ -1026,9 +1037,11 @@ cmr "run mlperf inference generate-run-cmds _submission _short" \
       --backend=deepsparse \
       --device=cpu \
       --scenario=Offline \
-      --execution-mode=valid \
+      --execution-mode=test \
+      --test_query_count=2000 \
       --adr.mlperf-inference-implementation.max_batchsize=128 \
       --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni \
+      --dashboard_wb_project=cm-mlperf-scc23-bert-offline \
       --quiet \
       --output_tar=mlperf_submission_1.tar.gz \
       --output_summary=mlperf_submission_1_summary \
@@ -1037,7 +1050,10 @@ cmr "run mlperf inference generate-run-cmds _submission _short" \
 ```
 
 
-#### fp32 pruned BERT model
+
+
+
+#### Pruned BERT model (fp32)
 
 ```bash
 cmr "run mlperf inference generate-run-cmds _submission _short" \
