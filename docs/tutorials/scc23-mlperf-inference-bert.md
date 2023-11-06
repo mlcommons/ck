@@ -593,6 +593,9 @@ to make sure that there are no last-minute changes during SCC.
 You can use your own fork if you want to improve/optimize benchmark implementations.
 
 
+
+
+
 ### Run short reference MLPerf inference benchmark to measure accuracy (offline scenario)
 
 You are now ready to run the [reference (unoptimized) Python implementation](https://github.com/mlcommons/inference/tree/master/language/bert) 
@@ -991,9 +994,35 @@ cmr "run mlperf inference generate-run-cmds _submission _short _dashboard" \
 
 
 
+## Debug reference implementation
+
+Here we explain you how to debug MLPerf inference benchmark implementations when using CM.  
+
+You can add `--debug` flag to any of the above commands to run the MLPerf inference benchmark.
+CM will open a shell just before executing the benchmark implementation and with all preset environment variables.
+You can then copy/paste prepared command to run MLPerf natively or via `gdb` and then `exit` shell
+to finish the CM script.
+
+You can also use GDB via environment variable `--env.CM_RUN_PREFIX="gdb --args "` instead of opening a shell.
 
 
-## Run optimized implementation of the MLPerf inference benchmark
+
+
+## Extend reference implementation
+
+You can locate the sources of the MLPerf inference reference implementation in the CM cache using the following command:
+```bash
+cm show cache "clone inference _branch.scc23"
+```
+
+You can then locate and change/updated/extend the file `inference/language/bert/onnxruntime_SUT.py` in the above CM cache path
+with the MLPerf BERT inference benchmark and ONNX backend and rerun CM commands to run MLPerf benchmark with your changes.
+You can explore other backends in that path too.
+
+
+
+
+## Run optimized implementation of the MLPerf inference BERT benchmark
 
 Now you are ready to run optimized implementations of the MLPerf inference benchmark
 for the hardware that you want to showcase at SCC'23. 
@@ -1115,7 +1144,9 @@ to help test it.
 The [MLCommons Task Force on Automation and Reproducibility](../taskforce.md) 
 and the [cTuning foundation](https://cTuning.org) continue working with the community 
 to enable universal benchmarking of AI/ML systems across any model, data set, software and hardware
-using CM. We are also developing a [user-friendly GUI/platform](https://cknowledge.org/mlperf-inference-gui) to run this benchmark.
+using CM and loadgen. We are also developing a universal Python and C++ harness
+to make it easier to plug in different models, data sets, frameworks and hardware backends
+together with a [user-friendly GUI/platform](https://cknowledge.org/mlperf-inference-gui) to run this benchmark.
 Please join our [Discord server](https://discord.gg/JjWNWXKxwT) to provide your feedback and participate in these community developments!
 
 
@@ -1128,7 +1159,8 @@ for MLPerf were developed by [Grigori Fursin](https://cKnowledge.org/gfursin)
 and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) ([cTuning foundation](https://cTuning.org) 
 and [cKnowledge.org](https://cKnowledge.org)) in collaboration with the community and MLCommons.
 
-We thank Peter Mattson, David Kanter, Miro Hodak, Mitchelle Rasquinha, Vijay Janappa Reddi 
+We thank Miro Hodak, Mitchelle Rasquinha, Amiya K. Maji, Steve Leak, Michael Goin, Kasper Mecklenburg, 
+Lior Khermosh, James Goel, Jinho Suh, Thomas Zhu, Peter Mattson, David Kanter, Vijay Janappa Reddi 
 and [the community](../../CONTRIBUTING.md) for their feedback, suggestions and contributions!
 
 ### Nvidia MLPerf inference backend
