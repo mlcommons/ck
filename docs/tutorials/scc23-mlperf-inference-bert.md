@@ -1021,6 +1021,40 @@ You can explore other backends in that path too.
 
 
 
+## Use another compatible BERT model (for example from the Hugging Face Hub)
+
+You can manually download some compatible BERT model and use it with MLPerf inference benchmark via CM as follows.
+
+First download a model to your local host such as `$HOME` directory. Here is an example of the original BERT MLPerf FP32 model from the Hugging Face Hub:
+
+```bash
+wget https://huggingface.co/ctuning/mlperf-inference-bert-onnx-fp32-squad-v1.1/resolve/main/model.onnx
+```
+
+Then add the following flags to above commands to run MLPerf inference:
+```bash
+ --env.CM_MLPERF_CUSTOM_MODEL_PATH=$HOME/model.onnx \
+ --env.CM_ML_MODEL_FULL_NAME=bert-99-custom \
+```
+
+For example, you can measure performance of this model in a short MLPerf run as follows:
+```bash
+cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
+     --scenario=Offline \
+     --mode=performance \
+     --execution-mode=test \
+     --test_query_count=10 \
+     --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
+     --adr.mlperf-implementation.version=custom \
+     --env.CM_MLPERF_CUSTOM_MODEL_PATH=$HOME/model.onnx \
+     --env.CM_ML_MODEL_FULL_NAME=bert-99-custom \
+     --adr.compiler.tags=gcc \
+     --quiet \
+     --rerun
+```
+
+
+
 
 ## Run optimized implementation of the MLPerf inference BERT benchmark
 
