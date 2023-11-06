@@ -122,7 +122,7 @@ to get your results and the team name to the official MLCommons release similar 
 
 
 
-## Files to submit to the SCC committee
+## Artifacts to submit to the SCC committee
 
 You will need to submit the following files with the reference (non-optimized) MLPerf BERT inference results 
 to obtain the first (min) set of points:
@@ -131,6 +131,7 @@ to obtain the first (min) set of points:
 * `mlperf_submission_short_summary.json` - automatically generated summary of MLPerf results.
 * `mlperf_submission_short.run` - CM commands to run MLPerf BERT inference benchmark saved to this file.
 * `mlperf_submission_short.tstamps` - execution timestamps before and after CM command saved to this file.
+* `mlperf_submission_short.md` - description of your platform and some highlights of the MLPerf benchmark execution.
 
 You will need to submit the following files with the optimized MLPerf BERT inference results
 to obtain main points (including major bonus points for improving exisitng benchmark
@@ -140,7 +141,7 @@ implementations and adding new hardware backends):
 * `mlperf_submission_{N}_summary.json` - automatically generated summary of MLPerf results.
 * `mlperf_submission_{N}.run` - CM commands to run MLPerf BERT inference benchmark saved to this file.
 * `mlperf_submission_{N}.tstamps` - execution timestamps before and after CM command saved to this file.
-* `mlperf_submission_{N}.community.md` - your optimizations, improvements and extensions of the MLPerf BERT inference benchmark
+* `mlperf_submission_{N}.md` - your highglights, optimizations, improvements and extensions of the MLPerf BERT inference benchmark
    (new hardware backends, support for multi-node execution, batch size, quantization, etc).
    Note that you will need to provide a PR with open-source Apache 2.0 improvements 
    to the [MLCommons inference repo](https://github.com/mlcommons/inference)
@@ -148,6 +149,8 @@ implementations and adding new hardware backends):
 
 where N is your attempt number out of 5.
 
+
+You can find sample artifacts in this [shared drive](https://drive.google.com/drive/folders/18opEffoFEVS1AH65aI1oWx2IZ_1JzchX?usp=sharing).
 
 ## SCC interview
 
@@ -832,6 +835,9 @@ for managing to run the MLPerf BERT inference benchmark on your system:
 * `mlperf_submission_short_summary.json` - automatically generated summary of MLPerf results.
 * `mlperf_submission_short.run` - CM commands to run MLPerf BERT inference benchmark saved to this file.
 * `mlperf_submission_short.tstamps` - execution timestamps before and after CM command saved to this file.
+* `mlperf_submission_short.md` - description of your platform and some highlights of the MLPerf benchmark execution.
+
+You can find sample artifacts in this [shared drive](https://drive.google.com/drive/folders/18opEffoFEVS1AH65aI1oWx2IZ_1JzchX?usp=sharing).
 
 Note that by default, CM-MLPerf will store the raw results 
 in `$HOME/mlperf_submission` (with truncated accuracy logs) and in `$HOME/mlperf_submission_logs` 
