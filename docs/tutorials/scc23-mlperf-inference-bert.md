@@ -29,7 +29,7 @@
   * [Run reference MLPerf inference benchmark with ONNX run-time](#run-reference-mlperf-inference-benchmark-with-onnx-run-time)
     * [Run short reference MLPerf inference benchmark to measure accuracy (offline scenario)](#run-short-reference-mlperf-inference-benchmark-to-measure-accuracy-offline-scenario)
     * [Run short MLPerf inference benchmark to measure performance (offline scenario)](#run-short-mlperf-inference-benchmark-to-measure-performance-offline-scenario)
-    * [Prepare minimal MLPerf submission to the SCC committee](#prepare-minimal-mlperf-submission-to-the-scc-committee)
+    * [**Prepare minimal MLPerf submission to the SCC committee**](#prepare-minimal-mlperf-submission-to-the-scc-committee)
     * [Optional: publish results at the live SCC'23 dashboard](#optional-publish-results-at-the-live-scc'23-dashboard)
     * [Optional: debug reference implementation](#optional-debug-reference-implementation)
     * [Optional: extend reference implementation](#optional-extend-reference-implementation)
@@ -42,13 +42,13 @@
   * [Run optimized implementation of the MLPerf inference BERT benchmark](#run-optimized-implementation-of-the-mlperf-inference-bert-benchmark)
     * [Showcase CPU performance (x64 or Arm64)](#showcase-cpu-performance-x64-or-arm64)
       * [Run quantized and pruned BERT model (int8) on CPU](#run-quantized-and-pruned-bert-model-int8-on-cpu)
-      * [Prepare optimized MLPerf submission to the SCC committee](#prepare-optimized-mlperf-submission-to-the-scc-committee)
+      * [**Prepare optimized MLPerf submission to the SCC committee**](#prepare-optimized-mlperf-submission-to-the-scc-committee)
       * [Optional: debug DeepSparse implementation](#optional-debug-deepsparse-implementation)
       * [Optional: extend this implementation](#optional-extend-this-implementation)
       * [Optional: use another compatible BERT model with DeepSparse backend](#optional-use-another-compatible-bert-model-with-deepsparse-backend)
       * [Optional: use another compatible BERT model from the NeuralMagic Zoo directly (fp32)](#optional-use-another-compatible-bert-model-from-the-neuralmagic-zoo-directly-fp32)
     * [Showcase Nvidia GPU performance](#showcase-nvidia-gpu-performance)
-    * [Showcase Nvidia AMD performance](#showcase-nvidia-amd-performance)
+    * [Showcase AMD performance](#showcase-amd-performance)
   * [Optimize benchmark yourself](#optimize-benchmark-yourself)
     * [Changing batch size](#changing-batch-size)
     * [Adding support for multi-node execution](#adding-support-for-multi-node-execution)
@@ -751,7 +751,7 @@ Note that the MLPerf BERT inference throughput (samples per second) is very low 
 
 
 
-### Prepare minimal MLPerf submission to the SCC committee
+### **Prepare minimal MLPerf submission to the SCC committee**
 
 You are now ready to generate the submission similar to the ones appearing
 on the [official MLPerf inference dashboard](https://mlcommons.org/en/inference-edge-31).
@@ -1224,7 +1224,7 @@ cmr "run mlperf inference generate-run-cmds _submission _short" \
       --clean
 ```
 
-#### Prepare optimized MLPerf submission to the SCC committee
+#### **Prepare optimized MLPerf submission to the SCC committee**
 
 You will need to submit the following files with the optimized MLPerf BERT inference results
 to obtain main points (including major bonus points for improving exisitng benchmark
@@ -1349,7 +1349,7 @@ to run the MLPerf BERT inference benchmark on Nvidia GPU(s).
 
 
 
-### Showcase Nvidia AMD performance
+### Showcase AMD performance
 
 
 
