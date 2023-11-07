@@ -34,6 +34,7 @@
     * [Optional: debug reference implementation](#optional-debug-reference-implementation)
     * [Optional: extend reference implementation](#optional-extend-reference-implementation)
     * [Optional: use another compatible BERT model (for example from the Hugging Face Hub)](#optional-use-another-compatible-bert-model-for-example-from-the-hugging-face-hub)
+    * [Optional (research): pruning and benchmarking BERT models](#optional-research-pruning-and-benchmarking-bert-models)
     * [Optional: use another ML framework](#optional-use-another-ml-framework)
       * [PyTorch](#pytorch)
       * [TensorFlow](#tensorflow)
@@ -1075,6 +1076,20 @@ cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --rerun
 ```
 
+### Optional (research): pruning and benchmarking BERT models
+
+You can check our [reproducibility initiative for ACM/IEEE/NeurIPS conferences](https://cTuning.org/ae),
+prune BERT model based on [NeurIPS 2022 paper "A Fast Post-Training Pruning Framework for Transformers"](https://arxiv.org/abs/2204.09656)
+using [this CM script](https://github.com/ctuning/cm-reproduce-research-projects/blob/main/script/reproduce-neurips-paper-2022-arxiv-2204.09656/README-extra.md)
+and feed a newly pruned BERT model to the MLPerf inference benchmarking using `--env.CM_MLPERF_CUSTOM_MODEL_PATH` flag in the above command.
+
+We also suggest you to check another [related project from Hugging Face](https://github.com/huggingface/nn_pruning),
+add CM interface and test it with the MLPerf inference benchmark. 
+
+Please contact us via the public [Discord server](https://discord.gg/JjWNWXKxwT) to participate in this collaborative R&D.
+
+
+
 
 ### Optional: use another ML framework
 
@@ -1121,6 +1136,32 @@ from [Zenodo](https://zenodo.org/record/3939747) (~1.3GB) and plug it into the C
 
 
 ### Optional: use CUDA with reference implementation
+
+You can install or detect CUDA drivers, toolkit and cuDNN via CM as follows:
+```bash
+cmr "install prebuilt-cuda _driver"
+cmr "get cuda _cudnn"
+```
+
+You can print info about CUDA devices via CM as follows:
+```bash
+cmr "get cuda-devices"
+```
+
+You can now run MLPerf inference benchmark with PyTorch and CUDA as follows:
+
+```bash
+cmr "app mlperf inference generic _python _bert-99 _pytorch _cuda" \
+     --scenario=Offline \
+     --mode=performance \
+     --execution-mode=test \
+     --test_query_count=10 \
+     --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
+     --adr.mlperf-implementation.version=custom \
+     --adr.compiler.tags=gcc \
+     --quiet \
+     --rerun
+```
 
 
 
