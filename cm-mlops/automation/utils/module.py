@@ -626,6 +626,12 @@ class CAutomation(Automation):
 
                     x = title.lower().replace(' ','-')
 
+                    for k in range(0,2):
+                        if x.startswith('*'):
+                            x=x[1:]
+                        if x.endswith('*'):
+                            x=x[:-1]
+
                     for z in [':', '+', '.', '(', ')', ',']:
                         x = x.replace(z, '')
 

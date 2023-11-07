@@ -29,11 +29,12 @@
   * [Run reference MLPerf inference benchmark with ONNX run-time](#run-reference-mlperf-inference-benchmark-with-onnx-run-time)
     * [Run short reference MLPerf inference benchmark to measure accuracy (offline scenario)](#run-short-reference-mlperf-inference-benchmark-to-measure-accuracy-offline-scenario)
     * [Run short MLPerf inference benchmark to measure performance (offline scenario)](#run-short-mlperf-inference-benchmark-to-measure-performance-offline-scenario)
-    * [Prepare minimal MLPerf submission to the SCC committee](#prepare-minimal-mlperf-submission-to-the-scc-committee)
+    * [**Prepare minimal MLPerf submission to the SCC committee**](#prepare-minimal-mlperf-submission-to-the-scc-committee)
     * [Optional: publish results at the live SCC'23 dashboard](#optional-publish-results-at-the-live-scc'23-dashboard)
     * [Optional: debug reference implementation](#optional-debug-reference-implementation)
     * [Optional: extend reference implementation](#optional-extend-reference-implementation)
     * [Optional: use another compatible BERT model (for example from the Hugging Face Hub)](#optional-use-another-compatible-bert-model-for-example-from-the-hugging-face-hub)
+    * [Optional (research): pruning and benchmarking BERT models](#optional-research-pruning-and-benchmarking-bert-models)
     * [Optional: use another ML framework](#optional-use-another-ml-framework)
       * [PyTorch](#pytorch)
       * [TensorFlow](#tensorflow)
@@ -41,23 +42,20 @@
   * [Run optimized implementation of the MLPerf inference BERT benchmark](#run-optimized-implementation-of-the-mlperf-inference-bert-benchmark)
     * [Showcase CPU performance (x64 or Arm64)](#showcase-cpu-performance-x64-or-arm64)
       * [Run quantized and pruned BERT model (int8) on CPU](#run-quantized-and-pruned-bert-model-int8-on-cpu)
-      * [Prepare optimized MLPerf submission to the SCC committee](#prepare-optimized-mlperf-submission-to-the-scc-committee)
+      * [**Prepare optimized MLPerf submission to the SCC committee**](#prepare-optimized-mlperf-submission-to-the-scc-committee)
       * [Optional: debug DeepSparse implementation](#optional-debug-deepsparse-implementation)
       * [Optional: extend this implementation](#optional-extend-this-implementation)
       * [Optional: use another compatible BERT model with DeepSparse backend](#optional-use-another-compatible-bert-model-with-deepsparse-backend)
       * [Optional: use another compatible BERT model from the NeuralMagic Zoo directly (fp32)](#optional-use-another-compatible-bert-model-from-the-neuralmagic-zoo-directly-fp32)
     * [Showcase Nvidia GPU performance](#showcase-nvidia-gpu-performance)
-    * [Showcase Nvidia AMD performance](#showcase-nvidia-amd-performance)
-  * [Optimize benchmark yourself](#optimize-benchmark-yourself)
-    * [Changing batch size](#changing-batch-size)
-    * [Adding support for multi-node execution](#adding-support-for-multi-node-execution)
-    * [Adding new implementation for new hardware](#adding-new-implementation-for-new-hardware)
+    * [Showcase AMD performance](#showcase-amd-performance)
   * [The next steps](#the-next-steps)
   * [Acknowledgments](#acknowledgments)
     * [Nvidia MLPerf inference backend](#nvidia-mlperf-inference-backend)
     * [DeepSparse MLPerf inference backend](#deepsparse-mlperf-inference-backend)
 
 </details>
+
 
 *This document is still being updated and will be finalized soon!*
 
@@ -89,8 +87,8 @@ that you will submit to the SCC organizers to get points.
 
 
 
-*An interactive version of the short versionof this tutorial is available 
- at this [Google colab page](https://colab.research.google.com/drive/1kgw1pdKi8QcCTqPZu1Vh_ur1NOeTRdWJ?usp=sharing)*.
+*An interactive version of the short version of this tutorial is available 
+ at this [Google Colab page](https://colab.research.google.com/drive/1kgw1pdKi8QcCTqPZu1Vh_ur1NOeTRdWJ?usp=sharing)*.
 
 
 
@@ -146,14 +144,14 @@ to obtain the first (min) set of points:
 * `mlperf_submission_short.md` - description of your platform and some highlights of the MLPerf benchmark execution.
 
 You will need to submit the following files with the optimized MLPerf BERT inference results
-to obtain main points (including major bonus points for improving exisitng benchmark
+to obtain main points (including major bonus points for improving existing benchmark
 implementations and adding new hardware backends):
 
 * `mlperf_submission_{N}.tar.gz` - automatically generated file with validated MLPerf results.
 * `mlperf_submission_{N}_summary.json` - automatically generated summary of MLPerf results.
 * `mlperf_submission_{N}.run` - CM commands to run MLPerf BERT inference benchmark saved to this file.
 * `mlperf_submission_{N}.tstamps` - execution timestamps before and after CM command saved to this file.
-* `mlperf_submission_{N}.md` - your highglights, optimizations, improvements and extensions of the MLPerf BERT inference benchmark
+* `mlperf_submission_{N}.md` - your highlights, optimizations, improvements and extensions of the MLPerf BERT inference benchmark
    (new hardware backends, support for multi-node execution, batch size, quantization, etc).
    Note that you will need to provide a PR with open-source Apache 2.0 improvements 
    to the [MLCommons inference repo](https://github.com/mlcommons/inference)
@@ -750,7 +748,7 @@ Note that the MLPerf BERT inference throughput (samples per second) is very low 
 
 
 
-### Prepare minimal MLPerf submission to the SCC committee
+### **Prepare minimal MLPerf submission to the SCC committee**
 
 You are now ready to generate the submission similar to the ones appearing
 on the [official MLPerf inference dashboard](https://mlcommons.org/en/inference-edge-31).
@@ -1075,6 +1073,20 @@ cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
      --rerun
 ```
 
+### Optional (research): pruning and benchmarking BERT models
+
+You can check our [reproducibility initiative for ACM/IEEE/NeurIPS conferences](https://cTuning.org/ae),
+prune BERT model based on [NeurIPS 2022 paper "A Fast Post-Training Pruning Framework for Transformers"](https://arxiv.org/abs/2204.09656)
+using [this CM script](https://github.com/ctuning/cm-reproduce-research-projects/blob/main/script/reproduce-neurips-paper-2022-arxiv-2204.09656/README-extra.md)
+and feed a newly pruned BERT model to the MLPerf inference benchmarking using `--env.CM_MLPERF_CUSTOM_MODEL_PATH` flag in the above command.
+
+We also suggest you to check another [related project from Hugging Face](https://github.com/huggingface/nn_pruning),
+add CM interface and test it with the MLPerf inference benchmark. 
+
+Please contact us via the public [Discord server](https://discord.gg/JjWNWXKxwT) to participate in this collaborative R&D.
+
+
+
 
 ### Optional: use another ML framework
 
@@ -1122,6 +1134,32 @@ from [Zenodo](https://zenodo.org/record/3939747) (~1.3GB) and plug it into the C
 
 ### Optional: use CUDA with reference implementation
 
+You can install or detect CUDA drivers, toolkit and cuDNN via CM as follows:
+```bash
+cmr "install prebuilt-cuda _driver"
+cmr "get cuda _cudnn"
+```
+
+You can print info about CUDA devices via CM as follows:
+```bash
+cmr "get cuda-devices"
+```
+
+You can now run MLPerf inference benchmark with PyTorch and CUDA as follows:
+
+```bash
+cmr "app mlperf inference generic _python _bert-99 _pytorch _cuda" \
+     --scenario=Offline \
+     --mode=performance \
+     --execution-mode=test \
+     --test_query_count=10 \
+     --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
+     --adr.mlperf-implementation.version=custom \
+     --adr.compiler.tags=gcc \
+     --quiet \
+     --rerun
+```
+
 
 
 
@@ -1131,7 +1169,7 @@ from [Zenodo](https://zenodo.org/record/3939747) (~1.3GB) and plug it into the C
 Now you are ready to run optimized implementations of the MLPerf inference benchmark
 for the hardware that you want to showcase at SCC'23. 
 
-You will get extra points propotional
+You will get extra points proportional
 to the MLPerf BERT inference throughput obtained on your system. You will also get the major
 bonus points for any improvements to the MLPerf inference implementation including support 
 for new hardware such as AMD GPUs.
@@ -1183,17 +1221,17 @@ cmr "run mlperf inference generate-run-cmds _submission _short" \
       --clean
 ```
 
-#### Prepare optimized MLPerf submission to the SCC committee
+#### **Prepare optimized MLPerf submission to the SCC committee**
 
 You will need to submit the following files with the optimized MLPerf BERT inference results
-to obtain main points (including major bonus points for improving exisitng benchmark
+to obtain main points (including major bonus points for improving existing benchmark
 implementations and adding new hardware backends):
 
 * `mlperf_submission_{N}.tar.gz` - automatically generated file with validated MLPerf results.
 * `mlperf_submission_{N}_summary.json` - automatically generated summary of MLPerf results.
 * `mlperf_submission_{N}.run` - CM commands to run MLPerf BERT inference benchmark saved to this file.
 * `mlperf_submission_{N}.tstamps` - execution timestamps before and after CM command saved to this file.
-* `mlperf_submission_{N}.md` - your highglights, optimizations, improvements and extensions of the MLPerf BERT inference benchmark
+* `mlperf_submission_{N}.md` - your highlights, optimizations, improvements and extensions of the MLPerf BERT inference benchmark
    (new hardware backends, support for multi-node execution, batch size, quantization, etc).
    Note that you will need to provide a PR with open-source Apache 2.0 improvements 
    to the [MLCommons inference repo](https://github.com/mlcommons/inference)
@@ -1274,7 +1312,7 @@ used to prepare MLPerf inference v3.1 submissions with multiple BERT model varia
 
 #### Optional: use another compatible BERT model from the NeuralMagic Zoo directly (fp32)
 
-You can find and use any compatible model from the NueralMagic Zoo with the MLPerf inference benchmark via CM as follows:
+You can find and use any compatible model from the NeuralMagic Zoo with the MLPerf inference benchmark via CM as follows:
 
 ```bash
 cmr "run mlperf inference generate-run-cmds _submission _short" \
@@ -1289,8 +1327,8 @@ cmr "run mlperf inference generate-run-cmds _submission _short" \
       --adr.mlperf-inference-implementation.max_batchsize=128 \
       --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50-none-vnni \
       --quiet \
-      --output_tar=mlperf_submission_1.tar.gz \
-      --output_summary=mlperf_submission_1_summary \
+      --output_tar=mlperf_submission_3.tar.gz \
+      --output_summary=mlperf_submission_3_summary \
       --clean
 ```
 
@@ -1300,33 +1338,169 @@ used to prepare MLPerf inference v3.1 submissions with multiple BERT model varia
 * https://github.com/mlcommons/ck/blob/master/cm-mlops/script/run-all-mlperf-models/run-pruned-bert.sh
 
 
+
+
+
+
+
+
 ### Showcase Nvidia GPU performance
 
 Please follow [this README](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/bert/README_nvidia.md)
 to run the MLPerf BERT inference benchmark on Nvidia GPU(s).
 
+A summary of CM commands you may need to run Nvidia's implementation of the MLPerf inference benchmark 
+while adapting to your environment unless you want to use a container 
+(note that Nvidia setup will be interactive and you will need answer a few questions about your system):
+
+```bash
+cmr "install prebuilt-cuda _driver"
+
+cmr "get cudnn" --tar_file={full path to the cuDNN tar file downloaded from https://developer.nvidia.com/cudnn}
+
+cmr "get tensorrt _dev" --tar_file={full path to the TensorRT tar file downloaded from https://developer.nvidia.com/tensorrt-download}
+
+nohup time cmr "generate-run-cmds inference _find-performance" \
+    --submitter="SCC23" \
+    --hw_name=default \
+    --implementation=nvidia-original \
+    --model=bert-99 \
+    --backend=tensorrt \
+    --device=cuda \
+    --scenario=Offline \
+    --category=edge \
+    --division=open \
+    --quiet \
+    --clean
+
+cmr "generate-run-cmds inference _submission" \
+    --submitter="SCC23" \
+    --hw_name=default \
+    --implementation=nvidia-original \
+    --model=bert-99 \
+    --backend=tensorrt \
+    --device=cuda \
+    --scenario=Offline \
+    --category=edge \
+    --division=open \
+    --execution-mode=valid \
+    --quiet \
+    --output_tar=mlperf_submission_1.tar.gz \
+    --output_summary=mlperf_submission_1_summary \
+    --clean
+
+
+```
+
+Note, that since CM attempts to adapt MLPerf to your environment, your combination of dependencies
+may not have been tested by the community and may sometimes fail. In such case, please
+report issues [here](https://github.com/mlcommons/ck/issues) to help the community
+continuously and collaboratively improve CM workflows and make them more portable 
+(that's why we called our automation language "Collective Mind").
+
+For example, you may often need to uprage protobuf to the latest version until the community adds a better
+handling of the protobuf version to the CM-MLPerf pipeline:
+```bash
+pip install --upgrade protobuf
+```
+
+#### **Prepare optimized MLPerf submission to the SCC committee**
+
+You will need to submit the following files with the optimized MLPerf BERT inference results
+to obtain more points proportional to your performance (in comparison with other teams
+using Nvidia GPUs):
+
+* `mlperf_submission_{N}.tar.gz` - automatically generated file with validated MLPerf results.
+* `mlperf_submission_{N}_summary.json` - automatically generated summary of MLPerf results.
+* `mlperf_submission_{N}.run` - CM commands to run MLPerf BERT inference benchmark saved to this file.
+* `mlperf_submission_{N}.tstamps` - execution timestamps before and after CM command saved to this file.
+* `mlperf_submission_{N}.md` - description of your submission
+
+where N is your attempt number out of 5.
+
+You will need to get in touch with Nvidia if you want to optimize this submission further.
+
+For example, our Nvidia colleagues shared the following suggestions that may improve performance of their implementations wrapped and unified by CM:
+* change the version of TRT
+* tune the config files
+* check this [performance guide](https://github.com/mlcommons/inference_results_v3.1/blob/main/closed/NVIDIA/documentation/performance_tuning_guide.md)
 
 
 
-### Showcase Nvidia AMD performance
 
 
+### Showcase AMD performance
 
 
-There is a pilot project to run MLPerf BERT inference on AMD GPU. 
-We are testing it and plan to add to CM workflows soon.
+There is a pilot CM support to run MLPerf BERT inference on AMD GPU 
+with [ROCm](https://www.amd.com/en/graphics/servers-solutions-rocm).
+
+You can test it as follows:
+
+```bash
+cmr "app mlperf inference generic _python _bert-99 _onnxruntime" \
+     --scenario=Offline \
+     --mode=performance \
+     --device=rocm \
+     --execution-mode=test \
+     --test_query_count=10 \
+     --rerun \
+     --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
+     --adr.mlperf-implementation.version=custom \
+     --adr.compiler.tags=gcc \
+     --quiet
+```
+
+You can then prepare a submission as follows:
+
+```
+cmr "run mlperf inference generate-run-cmds _submission _short" \
+      --submitter="SCC23" \
+      --hw_name=default \
+      --implementation=reference \
+      --model=bert-99 \
+      --backend=onnxruntime \
+      --device=rocm \
+      --scenario=Offline \
+      --execution-mode=test \
+      --test_query_count=1000 \
+      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
+      --adr.mlperf-implementation.version=custom \
+      --quiet \
+      --output_tar=mlperf_submission_2.tar.gz \
+      --output_summary=mlperf_submission_2_summary \
+      --clean
+
+```
+
+
+You will see a long output that should contain the following line with accuracy 
+(to make sure that MLPerf works properly):
+```bash
+{"exact_match": 70.0, "f1": 70.0}
+```
 Please get in touch with [the community via Discord server](https://discord.gg/JjWNWXKxwT)
-to help test it.
+if you encounter issues or would like to extend it!
 
 
+#### **Prepare optimized MLPerf submission to the SCC committee**
 
-## Optimize benchmark yourself
+You will need to submit the following files with the optimized MLPerf BERT inference results
+to obtain main points (including major bonus points for improving existing benchmark
+implementations and adding new hardware backends):
 
-### Changing batch size
+* `mlperf_submission_{N}.tar.gz` - automatically generated file with validated MLPerf results.
+* `mlperf_submission_{N}_summary.json` - automatically generated summary of MLPerf results.
+* `mlperf_submission_{N}.run` - CM commands to run MLPerf BERT inference benchmark saved to this file.
+* `mlperf_submission_{N}.tstamps` - execution timestamps before and after CM command saved to this file.
+* `mlperf_submission_{N}.md` - your highlights, optimizations, improvements and extensions of the MLPerf BERT inference benchmark
+   (new hardware backends, support for multi-node execution, batch size, quantization, etc).
+   Note that you will need to provide a PR with open-source Apache 2.0 improvements 
+   to the [MLCommons inference repo](https://github.com/mlcommons/inference)
+   our our [stable fork](https://github.com/ctuning/inference).
 
-### Adding support for multi-node execution
+where N is your attempt number out of 5.
 
-### Adding new implementation for new hardware
 
 
 
@@ -1340,11 +1514,10 @@ and the [cTuning foundation](https://cTuning.org) continue working with the comm
 to enable universal benchmarking of AI/ML systems across any model, data set, software and hardware
 using CM and loadgen. We are also developing a universal Python and C++ harness
 to make it easier to plug in different models, data sets, frameworks and hardware backends
-together with a [user-friendly GUI/platform](https://cknowledge.org/mlperf-inference-gui) to run this benchmark.
+together with a [user-friendly GUI/platform](https://cknowledge.org/mlperf-inference-gui) to run, compare and reproduce ML(Perf) benchmarks.
+We welcome other MLPerf and CM extensions including support for multi-node execution, better implementations, optimizations and new hardware backends.
+
 Please join our [Discord server](https://discord.gg/JjWNWXKxwT) to provide your feedback and participate in these community developments!
-
-
-
 
 ## Acknowledgments
 
