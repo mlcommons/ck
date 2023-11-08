@@ -43,12 +43,15 @@
     * [Showcase CPU performance (x64 or Arm64)](#showcase-cpu-performance-x64-or-arm64)
       * [Run quantized and pruned BERT model (int8) on CPU](#run-quantized-and-pruned-bert-model-int8-on-cpu)
       * [**Prepare optimized MLPerf submission to the SCC committee**](#prepare-optimized-mlperf-submission-to-the-scc-committee)
+      * [Optional: optimize/tune batch size using CM experiment automation](#optional-optimize/tune-batch-size-using-cm-experiment-automation)
       * [Optional: debug DeepSparse implementation](#optional-debug-deepsparse-implementation)
       * [Optional: extend this implementation](#optional-extend-this-implementation)
       * [Optional: use another compatible BERT model with DeepSparse backend](#optional-use-another-compatible-bert-model-with-deepsparse-backend)
       * [Optional: use another compatible BERT model from the NeuralMagic Zoo directly (fp32)](#optional-use-another-compatible-bert-model-from-the-neuralmagic-zoo-directly-fp32)
     * [Showcase Nvidia GPU performance](#showcase-nvidia-gpu-performance)
+      * [**Prepare optimized MLPerf submission to the SCC committee**](#prepare-optimized-mlperf-submission-to-the-scc-committee)
     * [Showcase AMD performance](#showcase-amd-performance)
+      * [**Prepare optimized MLPerf submission to the SCC committee**](#prepare-optimized-mlperf-submission-to-the-scc-committee)
   * [The next steps](#the-next-steps)
   * [Acknowledgments](#acknowledgments)
     * [Nvidia MLPerf inference backend](#nvidia-mlperf-inference-backend)
@@ -56,8 +59,6 @@
 
 </details>
 
-
-*This document is still being updated and will be finalized soon!*
 
 
 ## Introduction
@@ -1241,6 +1242,59 @@ where N is your attempt number out of 5.
 
 
 
+#### Optional: optimize/tune batch size using CM experiment automation
+
+You can now tune batch size of the MLPerf inference benchmark 
+using the [CM experiment automation](https://github.com/mlcommons/ck/blob/master/cm-mlops/automation/experiment/README-extra.md):
+
+
+```bash
+
+cm run experiment --tags=tuning,mlperf,bert,deepsparse,cpu,batch-size -- \
+     cmr "run mlperf inference generate-run-cmds _submission _short" \
+           --submitter="SCC23" \
+           --hw_name=default \
+           --implementation=reference \
+           --model=bert-99 \
+           --backend=deepsparse \
+           --device=cpu \
+           --scenario=Offline \
+           --execution-mode=test \
+           --test_query_count=10000 \
+           --adr.mlperf-inference-implementation.max_batchsize="{{BATCH_SIZE{[8,16,32,64,128,256,192,384]}}}" \
+           --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni \
+           --dashboard_wb_project=cm-mlperf-scc23-bert-offline \
+           --quiet \
+           --output_tar=mlperf_submission_1.tar.gz \
+           --output_summary=mlperf_submission_1_summary \
+           --submission_dir="{{CM_EXPERIMENT_PATH3}}/output" \
+           --clean
+```
+
+CM experiment will create a new CM experiment artifact in the `local` repository
+with tags `tuning,mlperf,bert,deepsparse,cpu,batch-size` and will record
+all MLPerf artifacts together with input/output in separate directories there.
+
+It allows you to encapsulate, analyze and replay multiple experiments.
+
+CM experiment will detect `{{BATCH_SIZE{[8,16,32,64,128,256,192,384]}}}` after `--` 
+and will substitute it with  Python function `eval("[8,16,32,64,128,256,192,384"])`.
+If it is a list, CM experiment will iterate over it and run the command after `--`.
+
+`{{CM_EXPERIMENT_PATH3}}` will be substituted with the CM holder directory for experiment artifacts.
+
+You can find this CM entry with all MLPerf artifacts as follows:
+```bash
+cm find experiment --tags=tuning,mlperf,bert,deepsparse,cpu,batch-size
+```
+
+You can replay some experiments as follows:
+```bash
+cm replay experiment --tags=tuning,mlperf,bert,deepsparse,cpu,batch-size
+```
+
+
+
 
 #### Optional: debug DeepSparse implementation
 
@@ -1398,7 +1452,7 @@ report issues [here](https://github.com/mlcommons/ck/issues) to help the communi
 continuously and collaboratively improve CM workflows and make them more portable 
 (that's why we called our automation language "Collective Mind").
 
-For example, you may often need to uprage protobuf to the latest version until the community adds a better
+For example, you may often need to upgrade protobuf to the latest version until the community adds a better
 handling of the protobuf version to the CM-MLPerf pipeline:
 ```bash
 pip install --upgrade protobuf
@@ -1512,12 +1566,14 @@ where N is your attempt number out of 5.
 The [MLCommons Task Force on Automation and Reproducibility](../taskforce.md) 
 and the [cTuning foundation](https://cTuning.org) continue working with the community 
 to enable universal benchmarking of AI/ML systems across any model, data set, software and hardware
-using CM and loadgen. We are also developing a universal Python and C++ harness
+using CM and loadgen. We are also developing a universal Python and [C++ harness](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
 to make it easier to plug in different models, data sets, frameworks and hardware backends
 together with a [user-friendly GUI/platform](https://cknowledge.org/mlperf-inference-gui) to run, compare and reproduce ML(Perf) benchmarks.
 We welcome other MLPerf and CM extensions including support for multi-node execution, better implementations, optimizations and new hardware backends.
 
 Please join our [Discord server](https://discord.gg/JjWNWXKxwT) to provide your feedback and participate in these community developments!
+
+
 
 ## Acknowledgments
 
