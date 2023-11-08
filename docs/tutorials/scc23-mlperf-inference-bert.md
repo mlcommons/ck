@@ -1582,7 +1582,7 @@ for MLPerf were developed by [Grigori Fursin](https://cKnowledge.org/gfursin)
 and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) ([cTuning foundation](https://cTuning.org) 
 and [cKnowledge.org](https://cKnowledge.org)) in collaboration with the community and MLCommons.
 
-We thank Miro Hodak, Mitchelle Rasquinha, Amiya K. Maji, Steve Leak, Michael Goin, Kasper Mecklenburg, 
+We thank Miro Hodak, Mitchelle Rasquinha, Amiya K. Maji, Ryan T DeRue, Michael Goin, Kasper Mecklenburg, 
 Lior Khermosh, James Goel, Jinho Suh, Thomas Zhu, Peter Mattson, David Kanter, Vijay Janappa Reddi 
 and [the community](../../CONTRIBUTING.md) for their feedback, suggestions and contributions!
 

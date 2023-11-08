@@ -102,4 +102,4 @@ cm run script --tags=run,docker,container --cm_repo=ctuning@mlcommons-ck  \
 ## Further questions?
 
 If you have further questions, interested in our development roadmap or need help to automate, optimize and validate your MLPerf submission,
-feel free to get in touch with the [MLCommons taskforce on automation and reproducibility](../taksforce.md).
+feel free to get in touch with the [MLCommons taskforce on automation and reproducibility](../taskforce.md).
