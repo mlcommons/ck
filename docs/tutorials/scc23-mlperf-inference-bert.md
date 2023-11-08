@@ -1414,7 +1414,7 @@ cmr "get cudnn" --tar_file={full path to the cuDNN tar file downloaded from http
 
 cmr "get tensorrt _dev" --tar_file={full path to the TensorRT tar file downloaded from https://developer.nvidia.com/tensorrt-download}
 
-nohup time cmr "generate-run-cmds inference _find-performance" \
+cmr "generate-run-cmds inference _find-performance" \
     --submitter="SCC23" \
     --hw_name=default \
     --implementation=nvidia-original \
