@@ -330,6 +330,7 @@ class CAutomation(Automation):
             
             # Change only in CMD
             env_local={'CD':cur_dir,
+                       'CM_EXPERIMENT_STEP':str(step),
                        'CM_EXPERIMENT_PATH':experiment_path,
                        'CM_EXPERIMENT_PATH2':experiment_path2,
                        'CM_EXPERIMENT_PATH3':experiment_path3}
