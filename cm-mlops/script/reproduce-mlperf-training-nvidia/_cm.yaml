@@ -57,6 +57,7 @@ variations:
       - tags: prepare,mlperf,training,resnet,_nvidia
         names:
         - prepare-training-data
+        - nvidia-training-data
       - tags: get,nvidia,training,code
         names:
         - nvidia-training-code
