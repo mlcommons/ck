@@ -172,7 +172,7 @@ ___
              * `if (CM_MLPERF_BACKEND  == pytorch)`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_torch
-             * CM names: `--adr.['ml-engine-pytorch']...`
+             * CM names: `--adr.['ml-engine-pytorch', 'pytorch']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_dlrm`
       - Environment variables:
@@ -219,6 +219,14 @@ ___
     * `_onnxruntime,cuda`
       - Environment variables:
         - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_ONNXRUNTIME_GPU_VERSION>>>`
+        - *ONNXRUNTIME_PREFERRED_EXECUTION_PROVIDER*: `CUDAExecutionProvider`
+      - Workflow:
+    * `_onnxruntime,rocm`
+      - Environment variables:
+        - *ONNXRUNTIME_PREFERRED_EXECUTION_PROVIDER*: `ROCMExecutionProvider`
+        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_ONNXRUNTIME_TRAINING_VERSION>>>`
+      - Workflow:
+    * `_pytorch,rocm`
       - Workflow:
     * `_r2.1_default`
       - Environment variables:
@@ -233,6 +241,10 @@ ___
     * `_singlestream`
       - Environment variables:
         - *CM_MLPERF_LOADGEN_SCENARIO*: `SingleStream`
+      - Workflow:
+    * `_tf,rocm`
+      - Environment variables:
+        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_TENSORFLOW_ROCM_VERSION>>>`
       - Workflow:
     * `_tpu,tflite`
       - Workflow:
@@ -255,6 +267,11 @@ ___
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `gpu`
         - *USE_CUDA*: `True`
+        - *USE_GPU*: `True`
+      - Workflow:
+    * `_rocm`
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `rocm`
         - *USE_GPU*: `True`
       - Workflow:
     * `_tpu`
@@ -571,8 +588,8 @@ ___
        * `if (CM_MLPERF_BACKEND  == tensorrt)`
        - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
      * get,generic-python-lib,_onnxruntime
-       * `if (CM_MLPERF_BACKEND in ['onnxruntime', 'tvm-onnx'] AND CM_MLPERF_DEVICE  == cpu)`
-       * CM names: `--adr.['ml-engine-onnxruntime']...`
+       * `if (CM_MLPERF_BACKEND in ['onnxruntime', 'tvm-onnx'] AND CM_MLPERF_DEVICE in ['cpu', 'rocm'])`
+       * CM names: `--adr.['ml-engine-onnxruntime', 'onnxruntime']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnxruntime_gpu
        * `if (CM_MLPERF_BACKEND in ['onnxruntime', 'tvm-onnx'] AND CM_MLPERF_DEVICE  == gpu) AND (CM_MODEL not in ['3d-unet-99', '3d-unet-99.9', 'resnet50'])`
@@ -585,12 +602,12 @@ ___
        * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == gpu AND CM_MODEL in ['3d-unet-99', '3d-unet-99.9', 'resnet50'])`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torch
-       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'] AND CM_MLPERF_DEVICE  == cpu)`
-       * CM names: `--adr.['ml-engine-pytorch']...`
+       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'] AND CM_MLPERF_DEVICE in ['cpu', 'rocm'])`
+       * CM names: `--adr.['ml-engine-pytorch', 'pytorch']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torch_cuda
        * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'] AND CM_MLPERF_DEVICE  == gpu)`
-       * CM names: `--adr.['ml-engine-pytorch']...`
+       * CM names: `--adr.['ml-engine-pytorch', 'pytorch']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torchvision
        * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'] AND CM_MLPERF_DEVICE  == cpu)`
@@ -606,7 +623,7 @@ ___
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_tensorflow
        * `if (CM_MLPERF_BACKEND in ['tf', 'tflite'])`
-       * CM names: `--adr.['ml-engine-tensorflow']...`
+       * CM names: `--adr.['ml-engine-tensorflow', 'tensorflow']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_package.ncnn
        * `if (CM_MLPERF_BACKEND  == ncnn)`
@@ -692,6 +709,11 @@ ___
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+     * get,mlcommons,inference,src
+       * CM names: `--adr.['mlperf-implementation']...`
+       - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+     * get,generic-python-lib,_package.psutil
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)
   1. ***Run native script if exists***

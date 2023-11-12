@@ -13,7 +13,6 @@ deps:
       CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_MLPERF_LOGGING_REPO_PATH
 docker_input_mapping:
 input_description:
-input_mapping:
 new_env_keys:
   - CM_MLPERF_LOGGING_REPO_PATH
 new_state_keys: []
