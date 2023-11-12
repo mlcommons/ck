@@ -473,6 +473,8 @@ deps:
     names:
     - mlperf-implementation
 
+  - tags: get,generic-python-lib,_package.psutil
+
 posthook_deps: 
   - names:
     - mlperf-runner
