@@ -12,6 +12,7 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Default environment](#default-environment)
+* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -26,12 +27,11 @@
 
 #### Information
 
-* Category: *Tests.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py)*
-* CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *print,hello world,hello-world,hello,world,python*
-* Output cached?: *False*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from.src)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
+* CM "database" tags to find this script: *install,mlperf,logging,from.src*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -49,11 +49,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=print,hello world,hello-world,hello,world,python `
+1. `cm run script --tags=install,mlperf,logging,from.src `
 
-2. `cm run script "print hello world hello-world hello world python" `
+2. `cm run script "install mlperf logging from.src" `
 
-3. `cm run script d83274c7eb754d90 `
+3. `cm run script f67cb84a5dc942c3 `
 
 * `variations` can be seen [here](#variations)
 
@@ -70,7 +70,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'print,hello world,hello-world,hello,world,python'
+                  'tags':'install,mlperf,logging,from.src'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -87,9 +87,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="print,hello world,hello-world,hello,world,python"```
+```cm run script --tags=gui --script="install,mlperf,logging,from.src"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=print,hello world,hello-world,hello,world,python) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=install,mlperf,logging,from.src) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -108,36 +108,35 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 </details>
 
+#### Versions
+* `master`
+* `v3.1`
 ___
 ### Script workflow, dependencies and native scripts
 
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)***
-     * detect,os
-       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-     * get,sys-utils-cm
-       - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from.src/_cm.yaml)***
      * get,python3
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * print,python-version
-       - CM script: [print-python-version](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-python-version)
-  1. Run "preprocess" function from customize.py
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)
+     * get,git,repo,_repo.https://github.com/mlcommons/logging
+       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from.src/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from.src/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)
-  1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from.src/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from.src/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from.src/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from.src/_cm.yaml)
 </details>
 
 ___
 ### Script output
 #### New environment keys (filter)
 
+* `CM_MLPERF_LOGGING_REPO_PATH`
 #### New environment keys auto-detected from customize
 
 ___

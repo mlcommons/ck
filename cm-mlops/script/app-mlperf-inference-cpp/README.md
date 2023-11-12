@@ -106,6 +106,24 @@ ___
 
 #### Variations
 
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_batch-size.#`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_MAX_BATCHSIZE*: `#`
+      - Workflow:
+    * `_resnet50,multistream`
+      - Workflow:
+    * `_resnet50,offline`
+      - Workflow:
+    * `_resnet50,server`
+      - Workflow:
+
+    </details>
+
+
   * Group "**device**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -164,9 +182,14 @@ ___
       - Environment variables:
         - *CM_MLPERF_LOADGEN_SCENARIO*: `Offline`
       - Workflow:
+    * `_server`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_SCENARIO*: `Server`
+      - Workflow:
     * `_singlestream`
       - Environment variables:
         - *CM_MLPERF_LOADGEN_SCENARIO*: `SingleStream`
+        - *CM_MLPERF_LOADGEN_MAX_BATCHSIZE*: `1`
       - Workflow:
 
     </details>

@@ -185,7 +185,7 @@ ___
            * reproduce,mlperf,nvidia,inference
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['nvidia-original-mlperf-inference', 'nvidia-harness', 'mlperf-inference-implementation']...`
-             - CM script: [reproduce-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia)
+             - CM script: [reproduce-mlperf-inference-kilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-kilt)
     * **`_reference`** (default)
       - Aliases: `_python`
       - Environment variables:
@@ -276,6 +276,10 @@ ___
     * `_cuda`
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `gpu`
+      - Workflow:
+    * `_rocm`
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `rocm`
       - Workflow:
     * `_tpu`
       - Environment variables:
@@ -372,7 +376,7 @@ ___
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
            * run,accuracy,mlperf,_librispeech
-             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia-original)`
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION not in ['nvidia-original', 'reference'])`
              * CM names: `--adr.['mlperf-accuracy-script', 'librispeech-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
 
@@ -510,6 +514,10 @@ ___
       - Environment variables:
         - *CM_MLPERF_POWER*: `yes`
         - *CM_SYSTEM_POWER*: `yes`
+      - Workflow:
+    * `_rnnt,reference`
+      - Environment variables:
+        - *CM_MLPERF_PRINT_SUMMARY*: `no`
       - Workflow:
 
     </details>
