@@ -295,11 +295,9 @@ ML frameworks, libraries and tools. However, we suggest you run this command onl
 at the end of this tutorial to get more details about how it works:
 
 ```bash
-cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
+cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu _test" \
      --scenario=Offline \
      --mode=accuracy \
-     --device=cpu \
-     --execution-mode=test \
      --test_query_count=10 \
      --rerun \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
@@ -311,11 +309,9 @@ cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" 
 *Note that you can use `cmr` alias instead of `cm run script`:*
 
 ```bash
-cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
+cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu _test" \
      --scenario=Offline \
      --mode=accuracy \
-     --device=cpu \
-     --execution-mode=test \
      --test_query_count=10 \
      --rerun \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
@@ -777,7 +773,7 @@ cmr "run mlperf inference generate-run-cmds _submission _short" \
       --output_summary=mlperf_submission_short_summary \
       --clean
 ```
-* `--execution-mode=valid` can be used to do a full valid run and in this mode `--test_query_count` is ignored and the loadgen generates the number of queries for a 10-minute run based on `--target_qps` value from a previous run. We can also override this value by giving `--offline_target_qps=<>` in case the estimated value from a test run turns out to be inaccurate.
+* `--execution-mode=valid` (Also remove `_short` tag) can be used to do a full valid run and in this mode `--test_query_count` is ignored and the loadgen generates the number of queries for a 10-minute run based on `--target_qps` value from a previous run. We can also override this value by giving `--offline_target_qps=<>` in case the estimated value from a test run turns out to be inaccurate.
 * We can also use custom (public/private) fork of the inference repository to enable custom changes to the harness code. For this you can change "ctuning" in the `https://github.com/ctuning/inference,_branch.scc23` to your username and can even change the branch name.
 
 
@@ -1057,10 +1053,9 @@ Then add the following flags to above commands to run MLPerf inference:
 
 For example, you can measure performance of this model in a short MLPerf run as follows:
 ```bash
-cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
+cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu _test" \
      --scenario=Offline \
      --mode=performance \
-     --execution-mode=test \
      --test_query_count=10 \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
      --adr.mlperf-implementation.version=custom \
@@ -1094,10 +1089,9 @@ instead of `onnxruntime`:
 #### PyTorch
 
 ```
-cmr "app mlperf inference generic _python _bert-99 _pytorch _cpu" \
+cmr "app mlperf inference generic _python _bert-99 _pytorch _cpu _test" \
      --scenario=Offline \
      --mode=performance \
-     --execution-mode=test \
      --test_query_count=10 \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
      --adr.mlperf-implementation.version=custom \
@@ -1113,10 +1107,9 @@ from [Zenodo](https://zenodo.org/record/3733896) (~1.3GB) and plug it into the C
 #### TensorFlow
 
 ```
-cmr "app mlperf inference generic _python _bert-99 _tf _cpu" \
+cmr "app mlperf inference generic _python _bert-99 _tf _cpu _test" \
      --scenario=Offline \
      --mode=performance \
-     --execution-mode=test \
      --test_query_count=10 \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
      --adr.mlperf-implementation.version=custom \
@@ -1146,10 +1139,9 @@ cmr "get cuda-devices"
 You can now run MLPerf inference benchmark with PyTorch and CUDA as follows:
 
 ```bash
-cmr "app mlperf inference generic _python _bert-99 _pytorch _cuda" \
+cmr "app mlperf inference generic _python _bert-99 _pytorch _cuda _test" \
      --scenario=Offline \
      --mode=performance \
-     --execution-mode=test \
      --test_query_count=10 \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
      --adr.mlperf-implementation.version=custom \
@@ -1489,11 +1481,9 @@ with [ROCm](https://www.amd.com/en/graphics/servers-solutions-rocm).
 You can test it as follows:
 
 ```bash
-cmr "app mlperf inference generic _python _bert-99 _onnxruntime" \
+cmr "app mlperf inference generic _python _bert-99 _onnxruntime _rocm _test" \
      --scenario=Offline \
      --mode=performance \
-     --device=rocm \
-     --execution-mode=test \
      --test_query_count=10 \
      --rerun \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
