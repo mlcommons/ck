@@ -155,7 +155,9 @@ def preprocess():
     quant_offset            = float( os.environ['CM_DATASET_QUANT_OFFSET'] )
     quantize                = int( os.environ['CM_DATASET_QUANTIZE'] ) #1 for quantize to int8
     convert_to_unsigned     = int( os.environ['CM_DATASET_CONVERT_TO_UNSIGNED'] ) #1 for int8 to uint8
-    
+
+    images_list = os.getenv('CM_DATASET_IMAGES_LIST')
+
     if given_channel_means:
         given_channel_means = [ float(x) for x in given_channel_means.split(' ') ]
 
@@ -173,8 +175,16 @@ def preprocess():
         # Default interpolation method.
         interpolation_method = cv2.INTER_LINEAR
 
+    filenames = []
+    if images_list:
+        with open(images_list) as f:
+            filenames = f.read().splitlines()
+    else:
+        filenames = sorted(os.listdir(source_dir))
+
+
     if os.path.isdir(source_dir):
-        sorted_filenames = [filename for filename in sorted(os.listdir(source_dir)) if any(filename.lower().endswith(extension) for extension in supported_extensions) and not filename.startswith(".") ]
+        sorted_filenames = [filename for filename in filenames if any(filename.lower().endswith(extension) for extension in supported_extensions) and not filename.startswith(".") ]
 
         total_volume = len(sorted_filenames)
 
