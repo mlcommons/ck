@@ -700,7 +700,7 @@ def doc(i):
 
 
 
-        if len(input_description)>0:
+        if input_description and len(input_description)>0:
             x = 'Input description'
             md_script_readme.append('')
             md_script_readme.append('#### '+x)
@@ -737,7 +737,7 @@ def doc(i):
         
         
         # Check input flags
-        if len(input_mapping)>0:
+        if input_mapping and len(input_mapping)>0:
             x = 'Script flags mapped to environment'
             md_script_readme.append('')
             md_script_readme.append('#### '+x)

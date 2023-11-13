@@ -38,7 +38,7 @@ def preprocess(i):
     #    "val_map.txt")
     #    ret = os.system(cmd)
 
-    env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] = ""
+    env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] =  " " + env.get('CM_MLPERF_LOADGEN_EXTRA_OPTIONS', '') + " "
 
     if 'CM_MLPERF_LOADGEN_QPS' not in env:
         env['CM_MLPERF_LOADGEN_QPS_OPT'] = ""
