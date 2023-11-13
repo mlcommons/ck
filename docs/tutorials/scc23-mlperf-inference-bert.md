@@ -627,11 +627,9 @@ The [CM "app-mlperf-inference" script](https://github.com/mlcommons/ck/blob/mast
 allows you to run this benchmark in a native environment as follows (short test run with 10 samples):
 
 ```bash
-cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
+cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu _test" \
      --scenario=Offline \
      --mode=accuracy \
-     --device=cpu \
-     --execution-mode=test \
      --test_query_count=10 \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
      --adr.mlperf-implementation.version=custom \
@@ -673,10 +671,9 @@ Let's run the MLPerf language processing benchmark while measuring performance i
 (samples per second):
 
 ```bash
-cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu" \
+cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu _test" \
      --scenario=Offline \
      --mode=performance \
-     --execution-mode=test \
      --test_query_count=10 \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
      --adr.mlperf-implementation.version=custom \
