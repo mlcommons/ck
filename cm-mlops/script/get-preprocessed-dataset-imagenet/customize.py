@@ -24,9 +24,13 @@ def preprocess(i):
 
     preprocessed_path = env['CM_DATASET_PREPROCESSED_PATH']
     
-    if not exists(os.path.join(preprocessed_path, "val_map.txt")):
+    if env.get('CM_DATASET_TYPE', '') == "validation" and not exists(os.path.join(preprocessed_path, "val_map.txt")):
         shutil.copy(os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt"), 
                     os.path.join(preprocessed_path, "val_map.txt"))
+
+    if env.get('CM_DATASET_TYPE', '') == "calibration":
+        env['CM_DATASET_IMAGES_LIST'] = env['CM_MLPERF_IMAGENET_CALIBRATION_LIST_FILE_WITH_PATH']
+        env['CM_DATASET_SIZE'] = 500
 
     return {'return': 0}
 

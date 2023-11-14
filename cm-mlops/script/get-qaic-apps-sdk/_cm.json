@@ -1,0 +1,29 @@
+{
+  "alias": "get-qaic-apps-sdk",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "deps": [
+  ],
+  "input_description": {},
+  "input_mapping": {},
+  "new_env_keys": [
+    "+PATH",
+    "CM_QAIC_EXEC_PATH"
+  ],
+  "new_state_keys": [],
+  "post_deps": [],
+  "posthook_deps": [],
+  "prehook_deps": [],
+  "tags": [
+    "get",
+    "detect",
+    "qaic",
+    "apps",
+    "sdk",
+    "qaic-apps-sdk"
+  ],
+  "uid": "0a9e206af6764da9",
+  "variations": {},
+  "versions": {}
+}

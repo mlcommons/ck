@@ -142,7 +142,7 @@ class Index:
                                 del(index_meta[y][z])
                                 self.updated = True
 
-                    elif z not in index_meta[y] or update:
+                    elif y !='' and z not in index_meta[y] or update:
                         blob = {'tags': meta.get('tags',[]),
                                 'repo': repo,
                                 'path': path}

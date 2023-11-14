@@ -25,7 +25,7 @@ def postprocess(i):
     if '+PATH' not in env:
       env['+PATH'] = []
 
-    env['CM_QAIC_RUNNER_PATH'] = os.path.join(env['CM_QAIC_SOFTWARE_KIT_PATH'], "build", "utils", "qaic-runner")
     env['+PATH'].append(env['CM_QAIC_RUNNER_PATH'])
+    env['CM_QAIC_RUNNER_PATH'] = os.path.join(env['CM_QAIC_RUNNER_PATH'], "qaic-runner")
 
     return {'return':0}
