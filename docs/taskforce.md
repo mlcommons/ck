@@ -33,8 +33,22 @@ slashing their benchmarking, development, optimization and operational costs.
 
 * Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
 * Check our upcoming [reproducibility, replicability and optimization challenges](https://access.cknowledge.org/playground/?action=challenges).
-* See the notes from our [weekly public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
 * Check our [news](news.md).
+
+## Conf-calls
+
+Since we already participate in many weekly conf-calls to support various MLCommons initiatives, we decided not to have yet another separate conf-call for our TF.
+Instead, we can discuss CM and universal AI/ML Systems benchmarking at existing MLCommons conf-calls:
+* [MLPerf automotive WG](https://mlcommons.org/working-groups/benchmarks/automotive)
+  * Automotive TF weekly conf-calls on Wednesday at 8am PST
+  * Automotive implementation bi-weekly conf-calls on Friday at 9:30am PST
+* [Croissant TF](https://github.com/mlcommons/croissant): weekly at 8am PST
+* [MLPerf inference WG](https://mlcommons.org/working-groups/benchmarks/inference): weekly conf-calls on Tuesday at 8:30am PST
+  * MLPerf network division TF: weekly conf-calls on Monday at 11am PST
+
+You can reach us at [this Discord server](https://discord.gg/JjWNWXKxwT) to arrange a private conf-call if needed.
+
+See the notes from our past [public conf-calls]( https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw ).
 
 ## Chairs and Tech Leads
 
