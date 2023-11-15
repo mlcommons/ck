@@ -1,0 +1,158 @@
+{
+  "alias": "calibrate-model-for.qaic",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "new_env_keys": [
+    "CM_QAIC_*"
+  ],
+  "deps": [
+    {
+      "tags": "get,qaic,apps,sdk",
+      "names": [
+        "qaic-apps-sdk"
+      ]
+    },
+    {
+      "enable_if_env":
+      {
+        "CM_CALIBRATE_OPENIMAGES": [
+          "yes"
+        ]
+      },
+      "names": [
+        "openimages-cal",
+        "preprocessed-dataset"
+      ],
+      "tags": "get,dataset,calibration,openimages",
+      "update_tags_from_env": {
+        "for.retinanet.onnx.preprocessed":
+          {
+            "_MODEL_TO_CONVERT": [
+              "calibrate_retinanet_no_nms_mlperf"
+            ]
+          },
+        "mlperf":
+          {
+            "_COCO_CAL": [
+              "calibrate_mlperf"
+            ]
+          }
+      }
+    },
+    {
+      "enable_if_env":
+        {
+          "CM_CALIBRATE_IMAGENET": [
+            "on"
+          ]
+        },
+      "names": [
+        "imagenet-cal",
+        "preprocessed-dataset"
+      ],
+      "tags": "get,dataset,imagenet,preprocessed,_calibration,_for.resnet50"
+    },
+    {
+      "names": [
+        "model-src"
+      ],
+      "tags": "get,ml-model"
+    }
+  ],
+  "tags": [
+    "qaic",
+    "calibrate",
+    "profile",
+    "qaic-profile",
+    "qaic-calibrate"
+  ],
+  "uid": "817bad70df2f4e45",
+  "variations": {
+    "bs.1": {
+      "group": "batch-size",
+      "default": true,
+      "env": {
+        "CM_QAIC_MODEL_BATCH_SIZE": "1"
+      }
+    },
+    "bs.#": {
+      "group": "batch-size",
+      "env": {
+        "CM_QAIC_MODEL_BATCH_SIZE": "#"
+      }
+    },
+    "first.#": {
+      "adr": {
+        "preprocessed-dataset": {
+          "tags": "first.#"
+        }
+      }
+    },
+    "mlperf.option1": {
+      "group": "calibration-option",
+      "adr": {
+        "preprocessed-dataset": {
+          "tags": "_mlperf.option1"
+        }
+      }
+    },
+    "mlperf.option2": {
+      "group": "calibration-option",
+      "adr": {
+        "preprocessed-dataset": {
+          "tags": "_mlperf.option2"
+        }
+      }
+    },
+    "resnet50": {
+      "default_variations": {
+        "calibration-option": "mlperf.option1",
+        "model-framework": "tf"
+      },
+      "env": {
+        "CM_CALIBRATE_IMAGENET": "yes",
+        "CM_QAIC_COMPILER_ARGS": "",
+        "CM_QAIC_COMPILER_PARAMS": "-output-node-name=ArgMax -profiling-threads=8",
+        "CM_QAIC_OUTPUT_NODE_NAME": "-output-node-name=ArgMax",
+        "CM_QAIC_MODEL_TO_CONVERT": "calibrate_resnet50_tf"
+      },
+      "adr": {
+        "model-src": {
+          "tags": "resnet50,_tf"
+        }
+      }
+    },
+    "tf": {
+      "group": "model-framework"
+    },
+    "resnet50,tf": {
+      "env": {
+        "CM_QAIC_MODEL_TO_CONVERT": "calibrate_resnet50_tf"
+      },
+      "adr": {
+        "preprocessed-dataset": {
+          "tags": "_NHWC"
+        },
+        "model-src": {
+          "tags": "_fix-input-shape"
+        }
+      }
+    },
+    "retinanet": {
+      "adr": {
+        "model-src": {
+          "tags": "retinanet,_no-nms"
+        }
+      },
+      "env": {
+        "CM_CALIBRATE_OPENIMAGES": "yes",
+        "CM_QAIC_COMPILER_ARGS": "",
+        "CM_QAIC_NODE_PRECISION_FILE_PATH": "retinanet/node-precision.yaml",
+        "CM_QAIC_COMPILER_PARAMS": "-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,<<<CM_QAIC_MODEL_BATCH_SIZE>>> -node-precision-info=<<<CM_QAIC_NODE_PRECISION_FILE_PATH>>>",
+        "CM_IMAGE_ORDER_FILE_PATH": "retinanet/openimages_cal_images_list.txt",
+        "CM_QAIC_MODEL_TO_CONVERT": "calibrate_retinanet_no_nms_mlperf"
+      }
+    }
+  }
+}

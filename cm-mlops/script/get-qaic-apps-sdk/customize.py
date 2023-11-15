@@ -68,6 +68,7 @@ def postprocess(i):
     if "+PATH" not in env:
         env["+PATH"] = []
 
-    env['+PATH'].append(env['CM_QAIC_EXEC_PATH'])
+    env['+PATH'].append(os.path.dirname(env['CM_QAIC_EXEC_PATH']))
+
 
     return {'return':0, 'version': version}
