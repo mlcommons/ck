@@ -29,6 +29,18 @@
       "tags": "get,dataset-aux,image-classification,imagenet-aux",
       "skip_if_env": {
         "CM_IMAGENET_PREPROCESSED_PATH": [ "on" ]
+      },
+      "enable_if_env": {
+        "CM_DATASET_TYPE": "validation"
+      }
+    },
+    {
+      "tags": "get,dataset,imagenet,calibration",
+      "skip_if_env": {
+        "CM_IMAGENET_PREPROCESSED_PATH": [ "on" ]
+      },
+      "enable_if_env": {
+        "CM_DATASET_TYPE": "calibration"
       }
     },
     {
@@ -129,14 +141,20 @@
     },
     "500": {
       "group": "size",
-      "default": true,
       "add_deps": {
         "original-dataset": {
-          "tags": "_2012-500"
+          "tags": "_2012"
         }
       },
       "env": {
         "CM_DATASET_SIZE": "500"
+      }
+    },
+    "500,validation": {
+      "add_deps": {
+        "original-dataset": {
+          "tags": "_size.500"
+        }
       }
     },
     "size.#": {
@@ -326,6 +344,43 @@
       "group": "resolution",
       "env": {
         "CM_DATASET_INPUT_SQUARE_SIDE": "#"
+      }
+    },
+    "validation": {
+      "group": "dataset-type",
+      "default": "true",
+      "env": {
+        "CM_DATASET_TYPE": "validation"
+      },
+      "default_variations": {
+        "size": "500"
+      }
+    },
+    "calibration": {
+      "group": "dataset-type",
+      "env": {
+        "CM_DATASET_TYPE": "calibration"
+      },
+      "default_variations": {
+        "calibration-option": "mlperf.option1",
+        "preprocessing-source": "generic-preprocessor"
+      },
+      "add_deps": {
+        "original-dataset": {
+          "tags": "_full"
+        }
+      }
+    },
+    "mlperf.option1": {
+      "group": "calibration-option",
+      "env": {
+        "CM_DATASET_CALIBRATION_OPTION": "one"
+      }
+    },
+    "mlperf.option2": {
+      "group": "calibration-option",
+      "env": {
+        "CM_DATASET_CALIBRATION_OPTION": "two"
       }
     }
   },

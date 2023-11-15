@@ -232,6 +232,22 @@
         "CM_PACKAGE_URL": "https://zenodo.org/record/2535873/files/resnet50_v1.pb"
       }
     },
+    "fix-input-shape": {
+      "deps": [
+        {
+          "tags": "get,python3",
+          "names": [
+            "python",
+            "python3"
+          ]
+        }
+      ]
+    },
+    "tensorflow,fix-input-shape": {
+      "env": {
+        "CM_ML_MODEL_TF_FIX_INPUT_SHAPE": "yes"
+      }
+    },
     "uint8": {
       "group": "precision",
       "env": {

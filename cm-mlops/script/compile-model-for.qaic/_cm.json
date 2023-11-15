@@ -1,0 +1,170 @@
+{
+  "alias": "compile-model-for.qaic",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "new_env_keys": [
+    "CM_QAIC_*"
+  ],
+  "deps": [
+    {
+      "tags": "get,qaic,apps,sdk",
+      "names": [
+        "qaic-apps-sdk"
+      ]
+    },
+    {
+      "enable_if_env":
+      {
+        "CM_COMPILE_RETINANET": [
+          "yes"
+        ]
+      },
+      "names": [
+        "retinanet-profile",
+        "qaic-profile"
+      ],
+      "tags": "qaic,calibrate,_retinanet"
+    },
+    {
+      "enable_if_env":
+        {
+          "CM_COMPILE_RESNET": [
+            "on"
+          ]
+        },
+      "names": [
+        "resnet-profile",
+        "qaic-profile"
+      ],
+      "tags": "qaic,calibrate,_resnet50"
+    },
+    {
+      "names": [
+        "model-src"
+      ],
+      "tags": "get,ml-model"
+    }
+  ],
+  "tags": [
+    "qaic",
+    "compile",
+    "qaic-compile"
+  ],
+  "uid": "3f0f43b5d0304d1c",
+  "variations": {
+    "bs.1": {
+      "group": "batch-size",
+      "default": true,
+      "env": {
+        "CM_QAIC_MODEL_BATCH_SIZE": "1"
+      },
+      "adr": {
+        "qaic-profile": {
+          "tags": "_bs.1"
+        }
+      }
+    },
+    "bs.#": {
+      "group": "batch-size",
+      "env": {
+        "CM_QAIC_MODEL_BATCH_SIZE": "#"
+      },
+      "adr": {
+        "qaic-profile": {
+          "tags": "_bs.#"
+        }
+      }
+    },
+    "quantized": {
+      "group": "quantization",
+      "default": true,
+      "env": {
+        "CM_QAIC_MODEL_QUANTIZATION": "yes"
+      }
+    },
+    "no-quantized": {
+      "group": "quantization",
+      "env": {
+        "CM_QAIC_MODEL_QUANTIZATION": "no"
+      }
+    },
+    "resnet50": {
+      "default_variations": {
+        "model-framework": "tf"
+      },
+      "env": {
+        "CM_COMPILE_RESNET": "on",
+        "CM_QAIC_MODEL_TO_CONVERT": "compile_resnet50_tf",
+        "CM_QAIC_MODEL_COMPILER_PARAMS_BASE": "-aic-hw -aic-hw-version=2.0 -quantization-schema=symmetric_with_uint8 -quantization-precision=Int8 -output-node-name=ArgMax -vvv -compile-only -use-producer-dma=1"
+      },
+      "adr": {
+        "model-src": {
+          "tags": "resnet50,_tf"
+        }
+      }
+    },
+    "offline": {
+      "group": "mlperf-scenario"
+    },
+    "server": {
+      "group": "mlperf-scenario"
+    },
+    "singlestream": {
+      "group": "mlperf-scenario",
+      "default": true
+    },
+    "multistream": {
+      "group": "mlperf-scenario"
+    },
+    "resnet50,offline": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS": "-sdp-cluster-sizes=2,2 -multicast-weights"
+      }
+    },
+    "resnet50,singlestream": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS": "-aic-num-of-instances=1"
+      }
+    },
+    "resnet50,multistream": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS": "-sdp-cluster-sizes=4,4 -mos=1,4"
+      }
+    },
+    "resnet50,server": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_PARAMS_BASE": "-aic-hw -aic-hw-version=2.0 -aic-num-of-instances=1 -use-producer-dma=0 -output-node-name=ArgMax -compile-only",
+        "CM_QAIC_MODEL_COMPILER_ARGS": "-sdp-cluster-sizes=4,4 -mos=1,4"
+      }
+    },
+    "tf": {
+      "group": "model-framework"
+    },
+    "resnet50,tf": {
+      "env": {
+        "CM_QAIC_MODEL_TO_CONVERT": "calibrate_resnet50_tf"
+      },
+      "ad": {
+        "model-src": {
+          "tags": "_fix-input-shape"
+        }
+      }
+    },
+    "retinanet": {
+      "adr": {
+        "model-src": {
+          "tags": "retinanet,_no-nms"
+        }
+      },
+      "env": {
+        "CM_COMPILE_RETINANET": "on",
+        "CM_QAIC_MODEL_TO_CONVERT": "calibrate_retinanet_no_nms_mlperf",
+        "CM_QAIC_MODEL_COMPILER_ARGS": "",
+        "CM_QAIC_MODEL_COMPILER_PARAMS": "-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,[BATCH_SIZE] -node-precision-info=[NODE_PRECISION_FILE]",
+        "CM_IMAGE_ORDER_FILE_PATH": "retinanet/openimages_cal_images_list.txt",
+        "CM_QAIC_NODE_PRECISION_FILE_PATH": "retinanet/node-precision.yaml"
+      }
+    }
+  }
+}
