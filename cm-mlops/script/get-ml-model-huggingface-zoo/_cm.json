@@ -40,6 +40,11 @@
         "CM_MODEL_ZOO_STUB": "#"
       }
     },
+    "onnx-subfolder": {
+      "env": {
+        "CM_HF_SUBFOLDER": "onnx"
+      }
+    },
     "pierreguillou_bert_base_cased_squad_v1.1_portuguese": {
       "env": {
         "CM_MODEL_ZOO_STUB": "pierreguillou/bert-base-cased-squad-v1.1-portuguese"

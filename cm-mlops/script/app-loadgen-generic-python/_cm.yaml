@@ -153,6 +153,8 @@ variations:
   custom,huggingface:
     deps:
     - tags: get,ml-model,huggingface
+      names:
+      - hf-downloader
       update_tags_from_env_with_prefix:
         "_model-stub.":
         - CM_ML_MODEL_STUB

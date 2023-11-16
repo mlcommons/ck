@@ -21,6 +21,8 @@ else:
         if model_filename == '': 
             model_filename = 'model.onnx'
 
+        subfolder = os.environ.get('CM_HF_SUBFOLDER', '')
+
         model_filenames = model_filename.split(',') if ',' in model_filename else [model_filename]
 
         # First must be model
@@ -35,10 +37,17 @@ else:
             if extra_dir!='' and not os.path.exists(extra_dir):
                 os.makedirs(extra_dir)
 
-            hf_hub_download(repo_id=model_stub,
+            if subfolder == '':
+                 hf_hub_download(repo_id=model_stub,
                             filename=model_filename,
-                            cache_dir=os.getcwd(),
-                            force_filename=model_filename)
+                            force_filename=model_filename,
+                            cache_dir=os.getcwd())
+            else:
+                 hf_hub_download(repo_id=model_stub,
+                            subfolder=subfolder,
+                            filename=model_filename,
+                            force_filename=model_filename,
+                            cache_dir=os.getcwd())
 
         with open('tmp-run-env.out', 'w') as f:
             f.write(f"CM_ML_MODEL_FILE_WITH_PATH={os.path.join(os.getcwd(),base_model_filename)}")
