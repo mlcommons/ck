@@ -7,7 +7,7 @@ import onnxruntime as ort
 from loadgen.model import Model, ModelFactory, ModelInput, ModelInputSampler
 
 ONNX_TO_NP_TYPE_MAP = {
-    "tensor(bool)": np.bool,
+    "tensor(bool)": bool,
     "tensor(int)": np.int32,
     "tensor(int32)": np.int32,
     "tensor(int8)": np.int8,
