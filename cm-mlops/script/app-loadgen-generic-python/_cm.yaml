@@ -140,6 +140,29 @@ variations:
     env:
       CM_MODEL: resnet50
 
+  custom:
+    group:
+      models
+    env:
+      CM_MODEL: custom
+
+  huggingface:
+    env:
+      CM_CUSTOM_MODEL_SOURCE: huggingface
+
+  custom,huggingface:
+    deps:
+    - tags: get,ml-model,huggingface
+      names:
+      - hf-downloader
+      update_tags_from_env_with_prefix:
+        "_model-stub.":
+        - CM_ML_MODEL_STUB
+
+  model-stub.#:
+    env:
+      CM_ML_MODEL_STUB: "#"
+
   retinanet:
     group:
       models
