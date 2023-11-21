@@ -1,10 +1,12 @@
 # Documentation
 
-The [MLCommons Task Force on Automation and Reproducibility](taskforce.md) is developing 3 projects:
+Collective Knowledge project consists of several sub-projects being developed by the [MLCommons Task Force on Automation and Reproducibility](taskforce.md) and the community:
 
 * [Collective Mind automation language (CM)](#collective-mind-automation-language-cm)
-* [Collective Knowledge Playground (CK)](#collective-knowledge-playground-ck) 
+* [CM automation for Artifact Evaluation](https://github.com/ctuning/cm-reproduce-research-projects)
 * [Modular Inference Library (MIL)](#modular-inference-library-mil)
+* [Collective Knowledge Playground (CK)](#collective-knowledge-playground-ck) 
+
 
 The goal is to help the community make it easier to reproduce research projects, 
 automate benchmarking and optimization of AI/ML systems,
