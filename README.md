@@ -42,7 +42,7 @@ and includes the following sub-projects:
   plug in and optimize diverse and rapidly evolving AI/ML models, data sets, software and hardware
   from different vendors and users.
 * [CM scripts](cm-mlops/scripts) - a database of portable, reusable and technology-agnostic automations to modularize benchmarks, software projects and AI/ML Systems.
-* [CM automation for Artifact Evaluation](https://github.com/ctuning/cm-reproduce-research-projects) - unified CM interface to access research projects, run experiments and reuse artifacts.
+* [CM automation for Artifact Evaluation](https://github.com/ctuning/cm-reproduce-research-projects) - common CM interface to access research projects, run experiments and reuse artifacts in a unified way.
 * [Modular Inference Library (MIL)](https://cknowledge.org/mil) - a universal and modular C++ implementation of MLPerf inference benchmarks.
 * [Collective Knowledge Playground](https://access.cKnowledge.org) - an open platform to benchmark and optimize AI and ML Systems via community challenges.
 
