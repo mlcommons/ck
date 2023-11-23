@@ -121,6 +121,7 @@
     },
     "pybind": {
       "env": {
+        "CM_SUBMODULE_PYBIND": "yes"
       }
     },
     "deeplearningexamples": {
