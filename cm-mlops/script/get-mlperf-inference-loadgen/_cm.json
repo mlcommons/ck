@@ -20,7 +20,7 @@
       "names": [
         "inference-src-loadgen"
       ],
-      "tags": "get,mlcommons,inference,src,_pybind",
+      "tags": "get,mlcommons,inference,src",
       "force_env_keys": [
         "CM_GIT_URL",
         "CM_GIT_CHECKOUT"
@@ -105,7 +105,8 @@
     "r2.1": {
       "add_deps": {
         "inference-src-loadgen": {
-          "version": "r2.1"
+          "version": "r2.1",
+          "tags": "_pybind"
         }
       }
     },
