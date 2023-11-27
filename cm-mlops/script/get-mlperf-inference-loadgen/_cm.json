@@ -33,16 +33,9 @@
       "names": [
         "inference-src-loadgen-download"
       ],
-      "tags": "download-and-extract,file",
+      "tags": "download-and-extract,file,_wget,_extract",
       "update_tags_from_env_with_prefix": {
         "_url.": [ "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD_URL" ]
-      },
-      "env": {
-        "CM_DOWNLOAD_FILENAME": "loadgen.zip",
-        "CM_EXTRACT_FINAL_ENV_NAME": "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD_PATH",
-        "CM_DOWNLOAD_PATH": "loadgen",
-        "CM_EXTRACT_PATH": "loadgen",
-        "CM_DOWNLOAD_CHECKSUM": "123"
       },
       "force_cache": true,
       "enable_if_env": {
@@ -120,16 +113,22 @@
   "variations": {
     "download": {
       "env": {
-        "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD_URL":"https://www.dropbox.com/scl/fi/36dgoiur26i2tvwgsaatf/loadgen.zip?rlkey=ab68i7uza9anvaw0hk1xvf0qk",
+        "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD_URL":"https://www.dropbox.com/scl/fi/36dgoiur26i2tvwgsaatf/loadgen.zip?rlkey=ab68i7uza9anvaw0hk1xvf0qk&dl=0",
         "CM_MLPERF_INFERENCE_LOADGEN_VERSION":"v3.1",
-        "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD":"YES"
+        "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD":"YES",
+        "CM_DOWNLOAD_CHECKSUM": "af3f9525965b2c1acc348fb882a5bfd1",
+        "CM_EXTRACT_ADD_PATH": "loadgen",
+        "CM_VERIFY_SSL":false
       }
     },
     "download_v3.1": {
       "env": {
-        "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD_URL":"https://www.dropbox.com/scl/fi/36dgoiur26i2tvwgsaatf/loadgen.zip?rlkey=ab68i7uza9anvaw0hk1xvf0qk",
+        "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD_URL":"https://www.dropbox.com/scl/fi/36dgoiur26i2tvwgsaatf/loadgen.zip?rlkey=ab68i7uza9anvaw0hk1xvf0qk&dl=0",
         "CM_MLPERF_INFERENCE_LOADGEN_VERSION":"v3.1",
-        "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD":"YES"
+        "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD":"YES",
+        "CM_DOWNLOAD_CHECKSUM": "af3f9525965b2c1acc348fb882a5bfd1",
+        "CM_EXTRACT_ADD_PATH": "loadgen",
+        "CM_VERIFY_SSL":false
       }
     }
   },

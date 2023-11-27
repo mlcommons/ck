@@ -111,6 +111,9 @@ def postprocess(i):
     else:
         filepath = os.getcwd() #extracted to the root cache folder
 
+    if env.get('CM_EXTRACT_ADD_PATH','')!='':
+        filepath=os.path.join(filepath, env['CM_EXTRACT_ADD_PATH'])
+    
     if os.path.exists(filepath):
         env['CM_EXTRACT_EXTRACTED_PATH'] = filepath
     else:
