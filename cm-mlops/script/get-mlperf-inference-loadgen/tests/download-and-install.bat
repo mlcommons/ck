@@ -1,1 +1,1 @@
-﻿cmr "get loadgen _download"
+cmr "get loadgen _download"

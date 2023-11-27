@@ -23,8 +23,11 @@ def preprocess(i):
         if url=='':
             return {'return':1, 'error': 'please specify URL using --url={URL} or --env.CM_DOWNLOAD_URL={URL}'}
 
-        if os_info['platform'] == 'windows' and '&' in url and env.get('CM_DOWNLOAD_TOOL','') != "cmutil":
-            url = '"'+url+'"'    
+        if '&' in url and env.get('CM_DOWNLOAD_TOOL','') != "cmutil":
+            if os_info['platform'] == 'windows':
+                url = '"'+url+'"'
+            else:
+                url = url.replace('&','\&')
 
         extra_download_options = env.get('CM_DOWNLOAD_EXTRA_OPTIONS', '')
 
@@ -53,8 +56,9 @@ def preprocess(i):
             else:
                 env['CM_DOWNLOAD_FILENAME'] = "index.html"
 
-        print ('')
         if env['CM_DOWNLOAD_TOOL'] == "cmutil":
+            print ('')
+
             cm = automation.cmind
             r = cm.access({'action':'download_file',
                            'automation':'utils,dc2743f8450541e3',
@@ -94,7 +98,7 @@ def preprocess(i):
         # Check that if empty CMD, should add ""
         for x in ['CM_DOWNLOAD_CMD', 'CM_DOWNLOAD_CHECKSUM_CMD']:
             env[x+'_USED']='YES' if env.get(x,'')!='' else 'NO'
-    
+
     return {'return':0}
 
 def postprocess(i):

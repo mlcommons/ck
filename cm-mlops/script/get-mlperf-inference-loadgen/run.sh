@@ -11,6 +11,11 @@ echo "******************************************************"
 
 cd build
 
+if [ "${CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD}" == "YES" ]; then
+    export CM_MLPERF_INFERENCE_SOURCE="${CM_EXTRACT_EXTRACTED_PATH}"
+fi
+
+
 if [ -z "${CM_MLPERF_INFERENCE_SOURCE}" ]; then
    echo "Error: env CM_MLPERF_INFERENCE_SOURCE is not defined - something is wrong with script automation!"
    exit 1

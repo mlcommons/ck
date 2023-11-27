@@ -117,7 +117,6 @@
         "CM_MLPERF_INFERENCE_LOADGEN_VERSION":"v3.1",
         "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD":"YES",
         "CM_DOWNLOAD_CHECKSUM": "af3f9525965b2c1acc348fb882a5bfd1",
-        "CM_EXTRACT_ADD_PATH": "loadgen",
         "CM_VERIFY_SSL":false
       }
     },
@@ -127,7 +126,6 @@
         "CM_MLPERF_INFERENCE_LOADGEN_VERSION":"v3.1",
         "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD":"YES",
         "CM_DOWNLOAD_CHECKSUM": "af3f9525965b2c1acc348fb882a5bfd1",
-        "CM_EXTRACT_ADD_PATH": "loadgen",
         "CM_VERIFY_SSL":false
       }
     }
