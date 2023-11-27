@@ -291,6 +291,9 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
         cmd = cmd.replace("--count", "--count-queries")
         env['OUTPUT_DIR'] =  env['CM_MLPERF_OUTPUT_DIR']
 
+    if env.get('CM_MLPERF_INFERENCE_NETWORK_LOADGEN', '') in [ "lon", "sut" ]:
+        cmd = cmd + " " + "--network " + env['CM_MLPERF_INFERENCE_NETWORK_LOADGEN']
+
     return cmd, env['RUN_DIR']
 
 def postprocess(i):
