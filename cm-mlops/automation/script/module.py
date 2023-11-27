@@ -3956,8 +3956,27 @@ def convert_env_to_script(env, os_info, start_script = []):
     import copy
     script = copy.deepcopy(start_script)
 
+    windows = True if os_info['platform'] == 'windows' else False
+
     for k in sorted(env):
         env_value = env[k]
+
+        if windows:
+            x = env_value
+            if type(env_value)!=list:
+                x = [x]
+
+            xx = []
+            for y in x:
+                # If " is already in env value, it means that there was some custom processing to consider special characters
+                if '"' not in y:
+                    for z in ['|', '&', '>', '<']:
+                        if z in y:
+                            y = '"'+y+'"'
+                            break
+                xx.append(y)
+
+            env_value = xx if type(env_value)==list else xx[0]
 
         # Process special env 
         key = k

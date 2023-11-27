@@ -8,8 +8,9 @@ def preprocess(i):
 
     os_info = i['os_info']
 
-    xsep = '^&^&' if os_info['platform'] == 'windows' else '&&'
-    
+#    xsep = '^&^&' if os_info['platform'] == 'windows' else '&&'
+    xsep = '&&'
+   
     env = i['env']
 
     meta = i['meta']
