@@ -52,12 +52,10 @@ def postprocess(i):
 
     path = env['CM_EXTRACT_EXTRACTED_PATH']
 
-    '''
-    path_image = os.path.join(path, 'n01440764', 'n01440764_10026.JPEG')
+    path_tar = os.path.join(path, 'n01440764.tar')
 
-    if not os.path.isfile(path_image):
-        return {'return':1, 'error':'ImageNet file {} not found'.format(path_image)}
-    '''
+    if not os.path.isfile(path_tar):
+        return {'return':1, 'error':'ImageNet file {} not found'.format(path_tar)}
 
     env['CM_DATASET_PATH'] = path
     env['CM_DATASET_IMAGENET_PATH'] = path
