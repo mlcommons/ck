@@ -1,0 +1,83 @@
+{
+  "alias": "get-dataset-coco",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "ML/AI datasets",
+  "category_sort": 8500,
+  "deps": [
+    {
+      "tags": "detect,os"
+    }
+  ],
+  "post_deps": [
+    {
+      "names": [
+        "get-dataset-coco-data"
+      ],
+      "tags": "download-and-extract,file,_wget,_extract",
+      "update_tags_from_env_with_prefix": {
+        "_url.": [ "CM_DATASET_COCO_URL_ZIPS_FULL" ]
+      },
+      "env": {
+        "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_DATASET_COCO_DATA_DOWNLOAD_PATH",
+        "CM_EXTRACT_FINAL_ENV_NAME": "CM_DATASET_COCO_DATA_PATH"
+      },
+      "force_cache": true
+    },
+    {
+      "names": [
+        "get-dataset-coco-annotations"
+      ],
+      "tags": "download-and-extract,file,_wget,_extract",
+      "update_tags_from_env_with_prefix": {
+        "_url.": [ "CM_DATASET_COCO_URL_ANNOTATIONS_FULL" ]
+      },
+      "env": {
+        "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_DATASET_COCO_ANNOTATIONS_DOWNLOAD_PATH",
+        "CM_EXTRACT_FINAL_ENV_NAME": "CM_DATASET_COCO_ANNOTATIONS_PATH"
+      },
+      "force_cache": true
+    }
+  ],
+  "env": {
+    "CM_DATASET": "COCO",
+    "CM_DATASET_COCO_URL_ZIPS":"http://images.cocodataset.org/zips",
+    "CM_DATASET_COCO_URL_ANNOTATIONS":"http://images.cocodataset.org/annotations"
+  },
+  "new_env_keys": [
+    "CM_DATASET_COCO*",
+    "CM_DATASET_PATH",
+    "CM_DATASET_PATH_ROOT",
+    "CM_DATASET_ANNOTATIONS_DIR_PATH",
+    "CM_DATASET_ANNOTATIONS_FILE_PATH"
+  ],
+  "tags": [
+    "get",
+    "dataset",
+    "coco"
+  ],
+  "uid": "c198e1f60ac6445c",
+  "variations": {
+    "2017": {
+      "default":true,
+      "env": {
+        "CM_DATASET_COCO_VERSION": "2017"
+      },
+      "group": "version"
+    },
+    "train": {
+      "env": {
+        "CM_DATASET_COCO_SPLIT": "train"
+      },
+      "group": "mode"
+    },
+    "val": {
+      "default":true,
+      "env": {
+        "CM_DATASET_COCO_SPLIT": "val"
+      },
+      "group": "mode"
+    }
+  }
+}
