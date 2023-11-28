@@ -11,17 +11,11 @@
   "default_variation": "validation",
   "deps": [
     {
-      "tags": "get,sys-utils-cm"
-    },
-    {
       "names": [
         "python",
         "python3"
       ],
       "tags": "get,python3"
-    },
-    {
-      "tags": "get,generic-python-lib,_requests"
     },
     {
       "force_env_keys": [

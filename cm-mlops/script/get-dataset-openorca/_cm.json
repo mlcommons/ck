@@ -11,16 +11,6 @@
   "default_variation": "validation",
   "deps": [
     {
-      "tags": "get,sys-utils-cm"
-    },
-    {
-      "names": [
-        "python",
-        "python3"
-      ],
-      "tags": "get,python3"
-    },
-    {
       "force_env_keys": [
         "CM_GIT_*"
       ],
@@ -38,8 +28,7 @@
     "CM_DATASET": "OPENORCA"
   },
   "new_env_keys": [
-    "CM_DATASET_PATH",
-    "CM_DATASET_PATH_ROOT"
+    "CM_DATASET_*"
   ],
   "tags": [
     "get",
