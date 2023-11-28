@@ -61,7 +61,7 @@ input_mapping:
   server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
   singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
   multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
-  network: CM_MLPERF_INFERENCE_NETWORK_LOADGEN
+  network: CM_NETWORK_LOADGEN
 
 
 # Duplicate CM environment variables to the ones used in native apps
