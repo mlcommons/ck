@@ -51,9 +51,6 @@
     "file",
     "download-and-extract"
   ],
-  "env": {
-    "CM_DAE_REMOVE_EXTRACTED": "yes"
-  },
   "uid": "c67e81a4ce2649f5",
   "variations": {
     "cmutil": {
@@ -121,7 +118,7 @@
     },
     "no-remove-extracted": {
       "env": {
-        "CM_DAE_REMOVE_EXTRACTED": "no"
+        "CM_EXTRACT_REMOVE_EXTRACTED": "no"
       }
     }
   },

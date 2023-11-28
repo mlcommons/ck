@@ -19,7 +19,7 @@ def preprocess(i):
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
-    if 'CM_EXTRACT_FILEPATH' not in env:
+    if env.get('CM_EXTRACT_FILEPATH','')=='':
         return {'return': 1, 'error': 'Extract with no download requested and CM_EXTRACT_FILEPATH is not set'}
 
     if env.get('CM_EXTRACT_PATH', '') != '':
@@ -31,10 +31,8 @@ def preprocess(i):
     filename = env['CM_EXTRACT_FILEPATH']
     env['CM_EXTRACT_FILENAME'] = filename
 
-    if env.get('CM_EXTRACT_REMOVE_EXTRACTED','') == 'yes':
-        remove_extracted = True
-    else:
-        remove_extracted = False
+    # By default remove archive after extraction
+    remove_extracted = False if env.get('CM_EXTRACT_REMOVE_EXTRACTED','').lower() == 'no' else True
 
     if filename.endswith(".zip"):
         env['CM_EXTRACT_TOOL'] = "unzip"
@@ -125,5 +123,11 @@ def postprocess(i):
         env[env['CM_EXTRACT_FINAL_ENV_NAME']] = filepath
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] =  filepath
+
+    # Check if need to remove archive after extraction
+    if env.get('CM_EXTRACT_REMOVE_EXTRACTED','').lower() != 'no':
+        archive_filepath=env.get('CM_EXTRACT_FILEPATH','')
+        if archive_filepath!='' and os.path.isfile(archive_filepath):
+            os.remove(archive_filepath)
 
     return {'return':0}
