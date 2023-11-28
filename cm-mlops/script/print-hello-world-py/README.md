@@ -1,15 +1,15 @@
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [Description](#description)
-* [Information](#information)
-* [Usage](#usage)
-  * [ CM installation](#cm-installation)
-  * [ CM script automation help](#cm-script-automation-help)
-  * [ CM CLI](#cm-cli)
-  * [ CM Python API](#cm-python-api)
-  * [ CM GUI](#cm-gui)
-  * [ CM modular Docker container](#cm-modular-docker-container)
+* [About](#about)
+* [Summary](#summary)
+* [Reuse this script in your project](#reuse-this-script-in-your-project)
+  * [ Install CM automation language](#install-cm-automation-language)
+  * [ Check CM script flags](#check-cm-script-flags)
+  * [ Run this script from command line](#run-this-script-from-command-line)
+  * [ Run this script from Python](#run-this-script-from-python)
+  * [ Run this script via GUI](#run-this-script-via-gui)
+  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
@@ -20,46 +20,38 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
+*Note that this README is automatically generated - don't edit!*
 
-### Description
+### About
 
-#### Information
+#### Summary
 
 * Category: *Tests.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py)*
-* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
 * CM "database" tags to find this script: *print,hello world,hello-world,hello,world,python*
-* Output cached?: *False*
+* Output cached? *False*
 ___
-### Usage
+### Reuse this script in your project
 
-#### CM installation
+#### Install CM automation language
 
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [CM intro](https://doi.org/10.5281/zenodo.8105339)
 
-##### CM pull repository
+#### Pull CM repository with this automation
 
 ```cm pull repo mlcommons@ck```
 
-##### CM script automation help
 
-```cm run script --help```
-
-#### CM CLI
+#### Run this script from command line
 
 1. `cm run script --tags=print,hello world,hello-world,hello,world,python `
 
-2. `cm run script "print hello world hello-world hello world python" `
+2. `cmr "print hello world hello-world hello world python" `
 
-3. `cm run script d83274c7eb754d90 `
-
-* `variations` can be seen [here](#variations)
-
-* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
-
-#### CM Python API
+#### Run this script from Python
 
 <details>
 <summary>Click here to expand this section.</summary>
@@ -85,15 +77,15 @@ if r['return']>0:
 </details>
 
 
-#### CM GUI
+#### Run this script via GUI
 
-```cm run script --tags=gui --script="print,hello world,hello-world,hello,world,python"```
+```cmr "cm gui" --script="print,hello world,hello-world,hello,world,python"```
 
 Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=print,hello world,hello-world,hello,world,python) to generate CM CMD.
 
-#### CM modular Docker container
+#### Run this script via Docker (beta)
 
-*TBD*
+`cm docker script "print hello world hello-world hello world python" `
 
 ___
 ### Customization
@@ -114,7 +106,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.yaml)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,sys-utils-cm
@@ -125,17 +117,18 @@ ___
      * print,python-version
        - CM script: [print-python-version](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-python-version)
   1. Run "preprocess" function from customize.py
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.yaml)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.yaml)
   1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.yaml)
 </details>
 
 ___
 ### Script output
+`cmr "print hello world hello-world hello world python"  -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize

@@ -224,8 +224,8 @@
 
 #### copy_to_clipboard
 
-  * CM CLI: ```cm copy_to_clipboard utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L644))
-  * CM CLI with UID: ```cm copy_to_clipboard utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L644))
+  * CM CLI: ```cm copy_to_clipboard utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L650))
+  * CM CLI with UID: ```cm copy_to_clipboard utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L650))
   * CM Python API:
     ```python
     import cmind
@@ -235,7 +235,7 @@
                  'automation':'utils,dc2743f8450541e3'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L644)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L650)
     ```python
                 })
     if r['return']>0:
@@ -244,8 +244,8 @@
 
 #### list_files_recursively
 
-  * CM CLI: ```cm list_files_recursively utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L722))
-  * CM CLI with UID: ```cm list_files_recursively utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L722))
+  * CM CLI: ```cm list_files_recursively utils``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L728))
+  * CM CLI with UID: ```cm list_files_recursively utils,dc2743f8450541e3``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L728))
   * CM Python API:
     ```python
     import cmind
@@ -255,7 +255,7 @@
                  'automation':'utils,dc2743f8450541e3'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L722)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/utils/module.py#L728)
     ```python
                 })
     if r['return']>0:

@@ -13,7 +13,6 @@
     }
   ],
   "category": "Detection or installation of tools and artifacts",
-  "category_sort":7500,
   "env": {},
   "post_deps": [
     {

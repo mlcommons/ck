@@ -2,7 +2,7 @@
   "alias": "get-mlperf-inference-loadgen",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
-  "category": "Modular MLPerf benchmarks",
+  "category": "MLPerf benchmark support",
   "cache": true,
   "default_version": "master",
   "deps": [
@@ -24,7 +24,23 @@
       "force_env_keys": [
         "CM_GIT_URL",
         "CM_GIT_CHECKOUT"
-      ]
+      ],
+      "skip_if_env": {
+        "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD":["YES"]
+      }
+    },
+    {
+      "names": [
+        "inference-src-loadgen-download"
+      ],
+      "tags": "download-and-extract,file,_wget,_extract",
+      "update_tags_from_env_with_prefix": {
+        "_url.": [ "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD_URL" ]
+      },
+      "force_cache": true,
+      "enable_if_env": {
+        "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD":["YES"]
+      }
     },
     {
       "names": [
@@ -94,6 +110,26 @@
     "mlcommons"
   ],
   "uid": "64c3d98d0ba04950",
+  "variations": {
+    "download": {
+      "env": {
+        "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD_URL":"https://www.dropbox.com/scl/fi/36dgoiur26i2tvwgsaatf/loadgen.zip?rlkey=ab68i7uza9anvaw0hk1xvf0qk&dl=0",
+        "CM_MLPERF_INFERENCE_LOADGEN_VERSION":"v3.1",
+        "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD":"YES",
+        "CM_DOWNLOAD_CHECKSUM": "af3f9525965b2c1acc348fb882a5bfd1",
+        "CM_VERIFY_SSL":false
+      }
+    },
+    "download_v3.1": {
+      "env": {
+        "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD_URL":"https://www.dropbox.com/scl/fi/36dgoiur26i2tvwgsaatf/loadgen.zip?rlkey=ab68i7uza9anvaw0hk1xvf0qk&dl=0",
+        "CM_MLPERF_INFERENCE_LOADGEN_VERSION":"v3.1",
+        "CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD":"YES",
+        "CM_DOWNLOAD_CHECKSUM": "af3f9525965b2c1acc348fb882a5bfd1",
+        "CM_VERIFY_SSL":false
+      }
+    }
+  },
   "versions": {
     "master": {
       "add_deps": {

@@ -1,15 +1,15 @@
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [Description](#description)
-* [Information](#information)
-* [Usage](#usage)
-  * [ CM installation](#cm-installation)
-  * [ CM script automation help](#cm-script-automation-help)
-  * [ CM CLI](#cm-cli)
-  * [ CM Python API](#cm-python-api)
-  * [ CM GUI](#cm-gui)
-  * [ CM modular Docker container](#cm-modular-docker-container)
+* [About](#about)
+* [Summary](#summary)
+* [Reuse this script in your project](#reuse-this-script-in-your-project)
+  * [ Install CM automation language](#install-cm-automation-language)
+  * [ Check CM script flags](#check-cm-script-flags)
+  * [ Run this script from command line](#run-this-script-from-command-line)
+  * [ Run this script from Python](#run-this-script-from-python)
+  * [ Run this script via GUI](#run-this-script-via-gui)
+  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
   * [ Default environment](#default-environment)
@@ -21,46 +21,40 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
+*Note that this README is automatically generated - don't edit!*
 
-### Description
+### About
 
-#### Information
+#### Summary
 
-* Category: *ML/AI datasets.*
+* Category: *AI/ML datasets.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-cnndm)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,dataset,gpt-j,cnndm,cnn-dailymail,original*
-* Output cached?: *True*
+* Output cached? *True*
 ___
-### Usage
+### Reuse this script in your project
 
-#### CM installation
+#### Install CM automation language
 
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [CM intro](https://doi.org/10.5281/zenodo.8105339)
 
-##### CM pull repository
+#### Pull CM repository with this automation
 
 ```cm pull repo mlcommons@ck```
 
-##### CM script automation help
 
-```cm run script --help```
-
-#### CM CLI
+#### Run this script from command line
 
 1. `cm run script --tags=get,dataset,gpt-j,cnndm,cnn-dailymail,original[,variations] `
 
-2. `cm run script "get dataset gpt-j cnndm cnn-dailymail original[,variations]" `
-
-3. `cm run script aed298c156e24257 `
+2. `cmr "get dataset gpt-j cnndm cnn-dailymail original[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
-* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
-
-#### CM Python API
+#### Run this script from Python
 
 <details>
 <summary>Click here to expand this section.</summary>
@@ -86,15 +80,15 @@ if r['return']>0:
 </details>
 
 
-#### CM GUI
+#### Run this script via GUI
 
-```cm run script --tags=gui --script="get,dataset,gpt-j,cnndm,cnn-dailymail,original"```
+```cmr "cm gui" --script="get,dataset,gpt-j,cnndm,cnn-dailymail,original"```
 
 Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,dataset,gpt-j,cnndm,cnn-dailymail,original) to generate CM CMD.
 
-#### CM modular Docker container
+#### Run this script via Docker (beta)
 
-*TBD*
+`cm docker script "get dataset gpt-j cnndm cnn-dailymail original[ variations]" `
 
 ___
 ### Customization
@@ -166,6 +160,7 @@ ___
 
 ___
 ### Script output
+`cmr "get dataset gpt-j cnndm cnn-dailymail original[,variations]"  -j`
 #### New environment keys (filter)
 
 * `CM_CALIBRATION_DATASET_PATH`

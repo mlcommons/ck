@@ -5,19 +5,14 @@ This file is generated automatically - don't edit!
 -->
 
 This is an automatically generated list of reusable CM scripts being developed
-by the [open taskforce on automation and reproducibility](https://github.com/mlcommons/ck/issues/536) 
+by the [open taskforce on automation and reproducibility](../../../docs/taskforce.md) 
 to make MLOps and DevOps tools more interoperable, portable, deterministic and reproducible.
 These scripts suppport the community effort to modularize ML Systems and automate their bechmarking, optimization,
 design space exploration and deployment across continuously changing software and hardware. 
 
 # List of CM scripts by categories
 
-<details>
-<summary>Click here to see the table of contents.</summary>
-
 {{CM_TOC_CATEGORIES}}
-
-</details>
 
 {{CM_TOC2}}
 
@@ -28,6 +23,6 @@ design space exploration and deployment across continuously changing software an
 
 {{CM_MAIN}}
 
-# Maintainers
+# Community
 
-* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)'
+* [Discord server](https://discord.gg/JjWNWXKxwT)

@@ -5,8 +5,7 @@ uid: d775cac873ee4231
 automation_alias: script
 automation_uid: 5b4e0237da074764
 
-category: "Modular MLPerf benchmarks"
-category_sort: 20000
+category: "Modular MLPerf inference benchmark pipeline"
 
 developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Grigori Fursin](https://cKnowledge.org/gfursin)"
 
@@ -342,6 +341,31 @@ variations:
       - mlperf-accuracy-script
       - 3d-unet-accuracy-script
       tags: run,accuracy,mlperf,_kits19,_int8
+
+  sdxl:
+    group:
+      model
+    env:
+      CM_MODEL:
+        sdxl
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _sdxl
+    post_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      skip_if_env:
+        CM_MLPERF_IMPLEMENTATION:
+        - nvidia-original
+        - reference
+      names:
+      - mlperf-accuracy-script
+      - coco2014-accuracy-script
+      tags: run,accuracy,mlperf,_coco2014
 
   rnnt:
     group:
@@ -703,6 +727,9 @@ variations:
     alias: int8
 
   fp32:
+    alias: float32
+
+  float32:
     group: precision
     default: true
     env:

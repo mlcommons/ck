@@ -5,8 +5,7 @@ uid: ff149e9781fc4b65
 automation_alias: script
 automation_uid: 5b4e0237da074764
 
-category: "Modular MLPerf benchmarks"
-category_sort: 20000
+category: "Modular MLPerf inference benchmark pipeline"
 
 developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Grigori Fursin](https://cKnowledge.org/gfursin)"
 
@@ -61,7 +60,7 @@ input_mapping:
   server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
   singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
   multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
-  network: CM_MLPERF_INFERENCE_NETWORK_LOADGEN
+  network: CM_NETWORK_LOADGEN
 
 
 # Duplicate CM environment variables to the ones used in native apps
@@ -336,6 +335,18 @@ deps:
       CM_MLPERF_CUSTOM_MODEL_PATH:
       - "on"
 
+  ## SDXL
+  - tags: get,ml-model,stable-diffusion,text-to-image,sdxl
+    names:
+    - ml-model
+    - sdxl-model
+    enable_if_env:
+      CM_MODEL:
+      - sdxl
+    skip_if_env:
+      CM_MLPERF_CUSTOM_MODEL_PATH:
+      - "on"
+
 
   ## 3d-unet
   - tags: get,ml-model,medical-imaging,3d-unet
@@ -424,6 +435,11 @@ deps:
       - bert-99
       - bert-99.9
 
+  ## COCO for SDXL
+  - tags: get,dataset,coco2014,_validation
+    enable_if_env:
+      CM_MODEL:
+      - sdxl
 
   ## Kits19 for 3d-unet
   - tags: get,dataset,kits19,preprocessed
@@ -735,6 +751,28 @@ variations:
     add_deps_recursive:
       inference-src:
         tags: _deeplearningexamples
+
+  sdxl:
+    group: models
+    env:
+      CM_MODEL: sdxl
+    deps:
+      - tags: get,generic-python-lib,_package.diffusers
+        names:
+          - diffusers
+      - tags: get,generic-python-lib,_package.transformers
+        names:
+          - transformers
+      - tags: get,generic-python-lib,_package.accelerate
+        names:
+          - accelerate
+      - tags: get,generic-python-lib,_package.torchmetrics
+        names:
+          - torchmetrics
+    adr:
+      mlperf-implementation:
+        tags: _repo.https://github.com/pgmpablo157321/inference
+        version: custom
 
   3d-unet-99.9:
     group: models

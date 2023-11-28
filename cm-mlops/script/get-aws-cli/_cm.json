@@ -5,7 +5,6 @@
   "cache": true,
   "clean_files": [],
   "category": "Cloud automation",
-  "category_sort":8000,
   "new_env_keys": [
     "CM_AWS_*"
   ],

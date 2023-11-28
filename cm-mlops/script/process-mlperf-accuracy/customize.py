@@ -43,7 +43,7 @@ def preprocess(i):
                 "' --log_file '" + os.path.join(result_dir, "mlperf_log_accuracy.json") + \
                 "' --vocab_file '" + env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH'] + \
                 "' --out_file '" + os.path.join(result_dir, 'predictions.json') + \
-                "' --features_cache_file '" + os.path.expanduser('~/.cache/eval_features.pickle') + \
+                "' --features_cache_file '" + os.path.join(env['CM_MLPERF_INFERENCE_BERT_PATH'], 'eval_features.pickle') + \
                 "' --output_dtype " + env['CM_ACCURACY_DTYPE'] + env.get('CM_OUTPUT_TRANSPOSED','') + max_examples_string + " > '" + os.path.join(result_dir, "accuracy.txt") + "'"
 
         elif dataset == "cnndm":

@@ -42,6 +42,26 @@
         print(r['error'])
     ```
 
+#### search
+
+  * CM CLI: ```cm search cache``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/cache/module.py#L153))
+  * CM CLI with UID: ```cm search cache,541d6f712a6b464e``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/cache/module.py#L153))
+  * CM Python API:
+    ```python
+    import cmind
+
+    r=cm.access({
+                 'action':'search'
+                 'automation':'cache,541d6f712a6b464e'
+                 'out':'con'
+    ```
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/cache/module.py#L153)
+    ```python
+                })
+    if r['return']>0:
+        print(r['error'])
+    ```
+
 ### Maintainers
 
 * [Open MLCommons taskforce on automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce)

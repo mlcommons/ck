@@ -5,8 +5,7 @@ uid: b13d9b7337414f17
 automation_alias: script
 automation_uid: 5b4e0237da074764
 
-category: "Modular MLPerf benchmarks"
-category_sort: 20000
+category: "MLPerf benchmark support"
 
 developers: "[Grigori Fursin](https://cKnowledge.org/gfursin)"
 

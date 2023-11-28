@@ -238,6 +238,20 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
                 env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options
         env['SKIP_VERIFY_ACCURACY'] = True
 
+    elif "sdxl" in env['CM_MODEL']:
+        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "text_to_image")
+        backend = env['CM_MLPERF_BACKEND']
+        device = env['CM_MLPERF_DEVICE'] if env['CM_MLPERF_DEVICE'] != "gpu" else "cuda"
+        cmd = env['CM_PYTHON_BIN_WITH_PATH'] + " main.py " \
+                " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+                " --profile " + 'stable-diffusion-xl-pytorch ' + \
+                " --dataset " + 'coco-1024' +  \
+                " --dataset-path " + env['CM_DATASET_PATH_ROOT'] + \
+                ' --dtype ' + env['CM_MLPERF_MODEL_PRECISION'].replace("float", "fp") + \
+                " --device " + device + \
+                 env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS']
+                #" --model-path " + env['MODEL_DIR'] + \
+
     elif "3d-unet" in env['CM_MODEL']:
 
         env['RUN_DIR'] = env['CM_MLPERF_INFERENCE_3DUNET_PATH']
@@ -291,8 +305,8 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
         cmd = cmd.replace("--count", "--count-queries")
         env['OUTPUT_DIR'] =  env['CM_MLPERF_OUTPUT_DIR']
 
-    if env.get('CM_MLPERF_INFERENCE_NETWORK_LOADGEN', '') in [ "lon", "sut" ]:
-        cmd = cmd + " " + "--network " + env['CM_MLPERF_INFERENCE_NETWORK_LOADGEN']
+    if env.get('CM_NETWORK_LOADGEN', '') in [ "lon", "sut" ]:
+        cmd = cmd + " " + "--network " + env['CM_NETWORK_LOADGEN']
 
     return cmd, env['RUN_DIR']
 
