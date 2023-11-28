@@ -6,7 +6,7 @@ cache: false
 automation_alias: script
 automation_uid: 5b4e0237da074764
 
-category: "Modular MLPerf benchmarks"
+category: "Reproduce MLPerf benchmarks"
 
 
 # User-friendly tags to find this CM script

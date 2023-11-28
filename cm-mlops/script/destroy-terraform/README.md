@@ -1,15 +1,15 @@
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [Description](#description)
-* [Information](#information)
-* [Usage](#usage)
-  * [ CM installation](#cm-installation)
-  * [ CM script automation help](#cm-script-automation-help)
-  * [ CM CLI](#cm-cli)
-  * [ CM Python API](#cm-python-api)
-  * [ CM GUI](#cm-gui)
-  * [ CM modular Docker container](#cm-modular-docker-container)
+* [About](#about)
+* [Summary](#summary)
+* [Reuse this script in your project](#reuse-this-script-in-your-project)
+  * [ Install CM automation language](#install-cm-automation-language)
+  * [ Check CM script flags](#check-cm-script-flags)
+  * [ Run this script from command line](#run-this-script-from-command-line)
+  * [ Run this script from Python](#run-this-script-from-python)
+  * [ Run this script via GUI](#run-this-script-via-gui)
+  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
@@ -20,49 +20,41 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
+*Note that this README is automatically generated - don't edit!*
 
-### Description
+### About
 
 
-See [more info](README-extra.md).
+See extra [notes](README-extra.md) from the authors and contributors.
 
-#### Information
+#### Summary
 
 * Category: *Cloud automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/destroy-terraform)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *destroy,terraform,cmd*
-* Output cached?: *False*
+* Output cached? *False*
 ___
-### Usage
+### Reuse this script in your project
 
-#### CM installation
+#### Install CM automation language
 
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [CM intro](https://doi.org/10.5281/zenodo.8105339)
 
-##### CM pull repository
+#### Pull CM repository with this automation
 
 ```cm pull repo mlcommons@ck```
 
-##### CM script automation help
 
-```cm run script --help```
-
-#### CM CLI
+#### Run this script from command line
 
 1. `cm run script --tags=destroy,terraform,cmd `
 
-2. `cm run script "destroy terraform cmd" `
+2. `cmr "destroy terraform cmd" `
 
-3. `cm run script 3463458d03054856 `
-
-* `variations` can be seen [here](#variations)
-
-* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
-
-#### CM Python API
+#### Run this script from Python
 
 <details>
 <summary>Click here to expand this section.</summary>
@@ -88,15 +80,15 @@ if r['return']>0:
 </details>
 
 
-#### CM GUI
+#### Run this script via GUI
 
-```cm run script --tags=gui --script="destroy,terraform,cmd"```
+```cmr "cm gui" --script="destroy,terraform,cmd"```
 
 Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=destroy,terraform,cmd) to generate CM CMD.
 
-#### CM modular Docker container
+#### Run this script via Docker (beta)
 
-*TBD*
+`cm docker script "destroy terraform cmd" `
 
 ___
 ### Customization
@@ -133,6 +125,7 @@ ___
 
 ___
 ### Script output
+`cmr "destroy terraform cmd"  -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize

@@ -2,6 +2,7 @@ alias: test-download-and-extract-artifacts
 automation_alias: script
 automation_uid: 5b4e0237da074764
 cache: false
+category: Tests
 deps:
 - tags: download,file,_url.https://zenodo.org/record/4735647/files/resnet50_v1.onnx
   env:

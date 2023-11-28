@@ -1,15 +1,15 @@
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [Description](#description)
-* [Information](#information)
-* [Usage](#usage)
-  * [ CM installation](#cm-installation)
-  * [ CM script automation help](#cm-script-automation-help)
-  * [ CM CLI](#cm-cli)
-  * [ CM Python API](#cm-python-api)
-  * [ CM GUI](#cm-gui)
-  * [ CM modular Docker container](#cm-modular-docker-container)
+* [About](#about)
+* [Summary](#summary)
+* [Reuse this script in your project](#reuse-this-script-in-your-project)
+  * [ Install CM automation language](#install-cm-automation-language)
+  * [ Check CM script flags](#check-cm-script-flags)
+  * [ Run this script from command line](#run-this-script-from-command-line)
+  * [ Run this script from Python](#run-this-script-from-python)
+  * [ Run this script via GUI](#run-this-script-via-gui)
+  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
   * [ Default environment](#default-environment)
@@ -22,49 +22,43 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
+*Note that this README is automatically generated - don't edit!*
 
-### Description
+### About
 
 
-See [more info](README-extra.md).
+See extra [notes](README-extra.md) from the authors and contributors.
 
-#### Information
+#### Summary
 
-* Category: *Modular MLPerf benchmarks.*
+* Category: *MLPerf benchmark support.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,src,source,power,power-dev,mlperf,mlcommons*
-* Output cached?: *True*
+* Output cached? *True*
 ___
-### Usage
+### Reuse this script in your project
 
-#### CM installation
+#### Install CM automation language
 
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [CM intro](https://doi.org/10.5281/zenodo.8105339)
 
-##### CM pull repository
+#### Pull CM repository with this automation
 
 ```cm pull repo mlcommons@ck```
 
-##### CM script automation help
 
-```cm run script --help```
-
-#### CM CLI
+#### Run this script from command line
 
 1. `cm run script --tags=get,src,source,power,power-dev,mlperf,mlcommons[,variations] `
 
-2. `cm run script "get src source power power-dev mlperf mlcommons[,variations]" `
-
-3. `cm run script 72aa56768c994bcf `
+2. `cmr "get src source power power-dev mlperf mlcommons[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
-* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
-
-#### CM Python API
+#### Run this script from Python
 
 <details>
 <summary>Click here to expand this section.</summary>
@@ -90,15 +84,15 @@ if r['return']>0:
 </details>
 
 
-#### CM GUI
+#### Run this script via GUI
 
-```cm run script --tags=gui --script="get,src,source,power,power-dev,mlperf,mlcommons"```
+```cmr "cm gui" --script="get,src,source,power,power-dev,mlperf,mlcommons"```
 
 Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,src,source,power,power-dev,mlperf,mlcommons) to generate CM CMD.
 
-#### CM modular Docker container
+#### Run this script via Docker (beta)
 
-*TBD*
+`cm docker script "get src source power power-dev mlperf mlcommons[ variations]" `
 
 ___
 ### Customization
@@ -183,6 +177,7 @@ ___
 
 ___
 ### Script output
+`cmr "get src source power power-dev mlperf mlcommons[,variations]"  -j`
 #### New environment keys (filter)
 
 * `CM_MLPERF_POWER_SOURCE`

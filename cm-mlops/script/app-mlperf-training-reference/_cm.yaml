@@ -5,8 +5,7 @@ uid: 0c4b11bdcf494b4f
 automation_alias: script
 automation_uid: 5b4e0237da074764
 
-category: "Modular MLPerf benchmarks"
-category_sort: 20000
+category: "Modular MLPerf training benchmark pipeline"
 
 # User-friendly tags to find this CM script
 tags:

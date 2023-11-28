@@ -2,7 +2,7 @@
   "alias": "push-csv-to-spreadsheet",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
-  "category": "Misc automation",
+  "category": "DevOps automation",
   "default_env": {
     "CM_GOOGLE_SPREADSHEET_ID": "1gMHjXmFmwZR4-waPPyxy5Pc3VARqX3kKUWxkP97Xa6Y"
   },

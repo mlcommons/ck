@@ -1,15 +1,15 @@
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [Description](#description)
-* [Information](#information)
-* [Usage](#usage)
-  * [ CM installation](#cm-installation)
-  * [ CM script automation help](#cm-script-automation-help)
-  * [ CM CLI](#cm-cli)
-  * [ CM Python API](#cm-python-api)
-  * [ CM GUI](#cm-gui)
-  * [ CM modular Docker container](#cm-modular-docker-container)
+* [About](#about)
+* [Summary](#summary)
+* [Reuse this script in your project](#reuse-this-script-in-your-project)
+  * [ Install CM automation language](#install-cm-automation-language)
+  * [ Check CM script flags](#check-cm-script-flags)
+  * [ Run this script from command line](#run-this-script-from-command-line)
+  * [ Run this script from Python](#run-this-script-from-python)
+  * [ Run this script via GUI](#run-this-script-via-gui)
+  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
@@ -22,45 +22,42 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
+*Note that this README is automatically generated - don't edit!*
 
-### Description
+### About
 
-#### Information
+#### Summary
 
+* Category: *DevOps automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *dae,file,download-and-extract*
-* Output cached?: *False*
+* Output cached? *False*
 ___
-### Usage
+### Reuse this script in your project
 
-#### CM installation
+#### Install CM automation language
 
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [CM intro](https://doi.org/10.5281/zenodo.8105339)
 
-##### CM pull repository
+#### Pull CM repository with this automation
 
 ```cm pull repo mlcommons@ck```
 
-##### CM script automation help
 
-```cm run script --help```
-
-#### CM CLI
+#### Run this script from command line
 
 1. `cm run script --tags=dae,file,download-and-extract[,variations] [--input_flags]`
 
-2. `cm run script "dae file download-and-extract[,variations]" [--input_flags]`
-
-3. `cm run script c67e81a4ce2649f5 [--input_flags]`
+2. `cmr "dae file download-and-extract[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
 * `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
-#### CM Python API
+#### Run this script from Python
 
 <details>
 <summary>Click here to expand this section.</summary>
@@ -86,15 +83,15 @@ if r['return']>0:
 </details>
 
 
-#### CM GUI
+#### Run this script via GUI
 
-```cm run script --tags=gui --script="dae,file,download-and-extract"```
+```cmr "cm gui" --script="dae,file,download-and-extract"```
 
 Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=dae,file,download-and-extract) to generate CM CMD.
 
-#### CM modular Docker container
+#### Run this script via Docker (beta)
 
-*TBD*
+`cm docker script "dae file download-and-extract[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -112,7 +109,7 @@ ___
       - Workflow:
     * `_no-remove-extracted`
       - Environment variables:
-        - *CM_DAE_REMOVE_EXTRACTED*: `no`
+        - *CM_EXTRACT_REMOVE_EXTRACTED*: `no`
       - Workflow:
     * `_url.#`
       - Environment variables:
@@ -201,6 +198,7 @@ ___
 
 ___
 ### Script output
+`cmr "dae file download-and-extract[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 * `<<<CM_DOWNLOAD_FINAL_ENV_NAME>>>`

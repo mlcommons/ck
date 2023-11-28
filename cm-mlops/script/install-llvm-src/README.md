@@ -1,15 +1,15 @@
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [Description](#description)
-* [Information](#information)
-* [Usage](#usage)
-  * [ CM installation](#cm-installation)
-  * [ CM script automation help](#cm-script-automation-help)
-  * [ CM CLI](#cm-cli)
-  * [ CM Python API](#cm-python-api)
-  * [ CM GUI](#cm-gui)
-  * [ CM modular Docker container](#cm-modular-docker-container)
+* [About](#about)
+* [Summary](#summary)
+* [Reuse this script in your project](#reuse-this-script-in-your-project)
+  * [ Install CM automation language](#install-cm-automation-language)
+  * [ Check CM script flags](#check-cm-script-flags)
+  * [ Run this script from command line](#run-this-script-from-command-line)
+  * [ Run this script from Python](#run-this-script-from-python)
+  * [ Run this script via GUI](#run-this-script-via-gui)
+  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
@@ -20,48 +20,40 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
+*Note that this README is automatically generated - don't edit!*
 
-### Description
+### About
 
 *Build LLVM compiler from sources (can take >30 min).*
 
-#### Information
+#### Summary
 
 * Category: *Compiler automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *install,src,llvm,src-llvm*
-* Output cached?: *True*
+* Output cached? *True*
 ___
-### Usage
+### Reuse this script in your project
 
-#### CM installation
+#### Install CM automation language
 
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [CM intro](https://doi.org/10.5281/zenodo.8105339)
 
-##### CM pull repository
+#### Pull CM repository with this automation
 
 ```cm pull repo mlcommons@ck```
 
-##### CM script automation help
 
-```cm run script --help```
-
-#### CM CLI
+#### Run this script from command line
 
 1. `cm run script --tags=install,src,llvm,src-llvm `
 
-2. `cm run script "install src llvm src-llvm" `
+2. `cmr "install src llvm src-llvm" `
 
-3. `cm run script 2af16e9a6c5f4702 `
-
-* `variations` can be seen [here](#variations)
-
-* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
-
-#### CM Python API
+#### Run this script from Python
 
 <details>
 <summary>Click here to expand this section.</summary>
@@ -87,15 +79,15 @@ if r['return']>0:
 </details>
 
 
-#### CM GUI
+#### Run this script via GUI
 
-```cm run script --tags=gui --script="install,src,llvm,src-llvm"```
+```cmr "cm gui" --script="install,src,llvm,src-llvm"```
 
 Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=install,src,llvm,src-llvm) to generate CM CMD.
 
-#### CM modular Docker container
+#### Run this script via Docker (beta)
 
-*TBD*
+`cm docker script "install src llvm src-llvm" `
 
 ___
 ### Customization
@@ -137,6 +129,7 @@ ___
 
 ___
 ### Script output
+`cmr "install src llvm src-llvm"  -j`
 #### New environment keys (filter)
 
 * `CM_GET_DEPENDENT_CACHED_PATH`

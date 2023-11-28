@@ -4,6 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "cache": false,
   "can_force_cache": true,
+  "category": "DevOps automation",
   "deps": [
   ],
   "input_description": {},

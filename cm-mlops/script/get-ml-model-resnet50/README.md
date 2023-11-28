@@ -1,15 +1,15 @@
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [Description](#description)
-* [Information](#information)
-* [Usage](#usage)
-  * [ CM installation](#cm-installation)
-  * [ CM script automation help](#cm-script-automation-help)
-  * [ CM CLI](#cm-cli)
-  * [ CM Python API](#cm-python-api)
-  * [ CM GUI](#cm-gui)
-  * [ CM modular Docker container](#cm-modular-docker-container)
+* [About](#about)
+* [Summary](#summary)
+* [Reuse this script in your project](#reuse-this-script-in-your-project)
+  * [ Install CM automation language](#install-cm-automation-language)
+  * [ Check CM script flags](#check-cm-script-flags)
+  * [ Run this script from command line](#run-this-script-from-command-line)
+  * [ Run this script from Python](#run-this-script-from-python)
+  * [ Run this script via GUI](#run-this-script-via-gui)
+  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
   * [ Default environment](#default-environment)
@@ -21,49 +21,43 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
+*Note that this README is automatically generated - don't edit!*
 
-### Description
+### About
 
 
-See [more info](README-extra.md).
+See extra [notes](README-extra.md) from the authors and contributors.
 
-#### Information
+#### Summary
 
-* Category: *ML/AI models.*
+* Category: *AI/ML models.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,raw,ml-model,resnet50,ml-model-resnet50,image-classification*
-* Output cached?: *True*
+* Output cached? *True*
 ___
-### Usage
+### Reuse this script in your project
 
-#### CM installation
+#### Install CM automation language
 
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [CM intro](https://doi.org/10.5281/zenodo.8105339)
 
-##### CM pull repository
+#### Pull CM repository with this automation
 
 ```cm pull repo mlcommons@ck```
 
-##### CM script automation help
 
-```cm run script --help```
-
-#### CM CLI
+#### Run this script from command line
 
 1. `cm run script --tags=get,raw,ml-model,resnet50,ml-model-resnet50,image-classification[,variations] `
 
-2. `cm run script "get raw ml-model resnet50 ml-model-resnet50 image-classification[,variations]" `
-
-3. `cm run script 56203e4e998b4bc0 `
+2. `cmr "get raw ml-model resnet50 ml-model-resnet50 image-classification[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
-* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
-
-#### CM Python API
+#### Run this script from Python
 
 <details>
 <summary>Click here to expand this section.</summary>
@@ -89,15 +83,15 @@ if r['return']>0:
 </details>
 
 
-#### CM GUI
+#### Run this script via GUI
 
-```cm run script --tags=gui --script="get,raw,ml-model,resnet50,ml-model-resnet50,image-classification"```
+```cmr "cm gui" --script="get,raw,ml-model,resnet50,ml-model-resnet50,image-classification"```
 
 Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,raw,ml-model,resnet50,ml-model-resnet50,image-classification) to generate CM CMD.
 
-#### CM modular Docker container
+#### Run this script via Docker (beta)
 
-*TBD*
+`cm docker script "get raw ml-model resnet50 ml-model-resnet50 image-classification[ variations]" `
 
 ___
 ### Customization
@@ -117,6 +111,12 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_BATCH_SIZE*: `1`
       - Workflow:
+    * `_fix-input-shape`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,python3
+             * CM names: `--adr.['python', 'python3']...`
+             - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
     * `_huggingface_default`
       - Environment variables:
         - *CM_PACKAGE_URL*: `https://huggingface.co/ctuning/mlperf-inference-resnet50-onnx-fp32-imagenet2012-v1.0/resolve/main/resnet50_v1.onnx`
@@ -143,6 +143,10 @@ ___
     * `_pytorch,int8`
       - Environment variables:
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/4589637/files/resnet50_INT8bit_quantized.pt`
+      - Workflow:
+    * `_tensorflow,fix-input-shape`
+      - Environment variables:
+        - *CM_ML_MODEL_TF_FIX_INPUT_SHAPE*: `yes`
       - Workflow:
     * `_tflite,argmax`
       - Environment variables:
@@ -321,6 +325,7 @@ ___
      * download-and-extract
        - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run native script if exists***
+     * [run-fix-input.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/run-fix-input.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)
@@ -328,12 +333,15 @@ ___
 
 ___
 ### Script output
+`cmr "get raw ml-model resnet50 ml-model-resnet50 image-classification[,variations]"  -j`
 #### New environment keys (filter)
 
 * `CM_ML_MODEL_*`
 #### New environment keys auto-detected from customize
 
 * `CM_ML_MODEL_FILE`
+* `CM_ML_MODEL_FILE_WITH_PATH`
+* `CM_ML_MODEL_STARTING_FILE_PATH`
 ___
 ### Maintainers
 

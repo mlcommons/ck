@@ -177,7 +177,7 @@ def doc(i):
                             '{{CM_README_TOC}}',
                             '</details>',
                             '',
-                            '*Note that this README is automatically generated - don\'t edit! {{CM_SEE_README_EXTRA}}.*', 
+                            '*Note that this README is automatically generated - don\'t edit!*', 
                             ''
                             ]
 
@@ -195,7 +195,12 @@ def doc(i):
         name = meta.get('name','')
         developers = meta.get('developers','')
 
-        tags = meta.get('tags',[])
+        # Check if has tags help otherwise all tags
+        tags = meta.get('tags_help','').strip()
+        if tags=='':
+            tags = meta.get('tags',[])
+        else:
+            tags = tags.split(' ')
 
         variations = meta.get('variations',{})
 
@@ -250,7 +255,7 @@ def doc(i):
         md_script.append('## '+alias)
         md_script.append('')
 
-        x = 'Description'
+        x = 'About'
 #        md_script_readme.append('___')
         md_script_readme.append('### '+x)
         md_script_readme.append('')
@@ -316,7 +321,7 @@ def doc(i):
 #            md_script.append('Developers: '+developers)
 #            md_script.append('')
 
-        x = 'Information'
+        x = 'Summary'
 #        md_script_readme.append('___')
         md_script_readme.append('#### '+x)
         md_script_readme.append('')
@@ -369,8 +374,10 @@ def doc(i):
 
         if len(variation_keys)>0:
             variation_pointer="[,variations]"
+            variation_pointer2="[ variations]"
         else:
             variation_pointer=''
+            variation_pointer2=''
 
         if len(input_mapping)>0:
             input_mapping_pointer="[--input_flags]"
@@ -381,13 +388,17 @@ def doc(i):
         x = '* CM CLI with all tags: {}*'.format(cli_all_tags)
         md_script.append(x)
 
-        cli_all_tags_alternative = '`cm run script "{}{}" {}`'.format(' '.join(tags), variation_pointer, input_mapping_pointer)
+        cli_all_tags_alternative = '`cmr "{}{}" {}`'.format(' '.join(tags), variation_pointer2, input_mapping_pointer)
+        cli_all_tags_alternative_j = '`cmr "{}{}" {} -j`'.format(' '.join(tags), variation_pointer, input_mapping_pointer)
         x = '* CM CLI alternative: {}*'.format(cli_all_tags_alternative)
         md_script.append(x)
 
-        cli_uid = '`cm run script {} {}`'.format(meta['uid'], input_mapping_pointer)
-        x = '* CM CLI with alias and UID: {}*'.format(cli_uid)
-        md_script.append(x)
+        cli_all_tags_alternative_docker = '`cm docker script "{}{}" {}`'.format(' '.join(tags), variation_pointer2, input_mapping_pointer)
+
+
+#        cli_uid = '`cm run script {} {}`'.format(meta['uid'], input_mapping_pointer)
+#        x = '* CM CLI with alias and UID: {}*'.format(cli_uid)
+#        md_script.append(x)
 
         if len(variation_keys)>0:
             x=''
@@ -417,7 +428,7 @@ def doc(i):
             x = '* More info: [*GitHub*]({})'.format(readme_extra_url)
             md_script.append(x)
 
-            cm_see_readme_extra = 'See [more info](README-extra.md)'
+            cm_see_readme_extra = 'See extra [notes](README-extra.md) from the authors and contributors'
             cm_readme_extra='\n'+cm_see_readme_extra+'.\n'
 
 
@@ -441,49 +452,52 @@ def doc(i):
 
 
         cache = meta.get('cache', False)
-        md_script_readme.append('* Output cached?: *{}*'.format(str(cache)))
+        md_script_readme.append('* Output cached? *{}*'.format(str(cache)))
 
 
         
         
         # Add usage
-        x1 = 'Usage'
-        x1a = 'CM installation'
-        x1aa = 'CM pull repository'
-        x1b = 'CM script automation help'
-        x2 = 'CM CLI'
-        x3 = 'CM Python API'
-        x3a = 'CM GUI'
-        x4 = 'CM modular Docker container'
+        x1 = 'Reuse this script in your project'
+        x1a = 'Install CM automation language'
+        x1aa = 'Pull CM repository with this automation'
+        x1b = 'Check CM script flags'
+        x2 = 'Run this script from command line'
+        x3 = 'Run this script from Python'
+        x3a = 'Run this script via GUI'
+        x4 = 'Run this script via Docker (beta)'
         md_script_readme += ['___',
                              '### '+x1,
                              '',
                              '#### '+x1a,
                              '',
-                             '[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)',
+                             '* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)',
+                             '* [CM intro](https://doi.org/10.5281/zenodo.8105339)',
                              '',
-                             '##### '+x1aa,
+                             '#### '+x1aa,
                              '',
                              '```cm pull repo {}```'.format(repo_alias),
                              '',
-                             '##### '+x1b,
-                             '',
-                             '```cm run script --help```',
+#                             '##### '+x1b,
+#                             '',
+#                             '```cm run script --help```',
                              '',
                              '#### '+x2,
                              '',
                              '1. {}'.format(cli_all_tags),
                              '',
                              '2. {}'.format(cli_all_tags_alternative),
-                             '',
-                             '3. {}'.format(cli_uid),
+#                             '',
+#                             '3. {}'.format(cli_uid),
                              '']
-        md_script_readme += ['* `variations` can be seen [here](#variations)',
-                             ''
-                             ]
-        md_script_readme += ['* `input_flags` can be seen [here](#script-flags-mapped-to-environment)',
-                             ''
-                             ]
+        if len(variation_keys)>0:
+            md_script_readme += ['* `variations` can be seen [here](#variations)',
+                                 ''
+                                 ]
+        if len(input_mapping)>0:
+            md_script_readme += ['* `input_flags` can be seen [here](#script-flags-mapped-to-environment)',
+                                 ''
+                                 ]
         md_script_readme += ['#### '+x3,
                              '',
                              '<details>',
@@ -513,13 +527,13 @@ def doc(i):
                              '',
                              '#### '+x3a,
                              '',
-                             '```cm run script --tags=gui --script="'+','.join(tags)+'"```',
+                             '```cmr "cm gui" --script="'+','.join(tags)+'"```',
                              '',
                              'Use this [online GUI](https://cKnowledge.org/cm-gui/?tags={}) to generate CM CMD.'.format(','.join(tags)),
                              '',
                              '#### '+x4,
                              '',
-                             '*TBD*',
+                             '{}'.format(cli_all_tags_alternative_docker),
                              ''
                             ]
         toc_readme.append(x1)
@@ -907,7 +921,9 @@ def doc(i):
         md_script_readme.append('___')
         md_script_readme.append('### '+x)
         toc_readme.append(x)
-        
+
+        md_script_readme.append(cli_all_tags_alternative_j)
+
         x = 'New environment keys (filter)'
         md_script_readme.append('#### '+x)
         toc_readme.append(x)
@@ -984,7 +1000,7 @@ def doc(i):
     # Recreate TOC with categories
     toc2 = []
 
-    for category in sorted(toc_category, key = lambda x: -toc_category_sort[x]):
+    for category in sorted(toc_category):#, key = lambda x: -toc_category_sort[x]):
         toc2.append('### '+category)
         toc2.append('')
 
