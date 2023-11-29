@@ -36,7 +36,7 @@ cmr "test abtf ssd-pytorch" --adr.ml-model.tags=_e01 --adr.python.name=abtf --in
 cmr "test abtf ssd-pytorch" --adr.python.name=abtf --adr.torch.version=1.13.1 --adr.torchvision.version=0.14.1 --input=computer_mouse.jpg --output=computer_mouse_ssd.jpg
 ```
 
-# Testing docker
+# TBD: testing docker
 
 ```bash
 cm docker script --tags=test,abtf,ssd-pytorch --docker_cm_repo=ctuning@mlcommons-ck --env.CM_GH_TOKEN=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 --input=computer_mouse.jpg --output=computer_mouse_ssd.jpg
@@ -47,3 +47,22 @@ cm docker script --tags=test,abtf,ssd-pytorch --docker_cm_repo=ctuning@mlcommons
 ```
 
 TBD: pass file to CM docker: [meta](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/build-mlperf-inference-server-nvidia/_cm.yaml#L197).
+
+
+
+# TBD
+
+```bash
+cmr "get dataset coco _train _2017"
+cmr "get dataset coco _val _2017"
+
+cmr "get ml-model abtf-ssd-pytorch _e65"
+
+cmr "get mlperf inference loadgen"
+```
+
+* Add Croissant
+* Add pre/post processing for COCO
+* Automate training with Cognata (+ Croissant)
+* Run loadgen with trained model and different devices and frameworks
+* Create GUI with StreamLit
