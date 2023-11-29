@@ -5,6 +5,7 @@
   "cache": true,
   "category": "AI/ML datasets",
   "default_variation": "validation",
+  "category_sort":8500,
   "deps": [
     {
       "tags": "get,sys-utils-cm"
