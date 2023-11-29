@@ -1,6 +1,6 @@
-diff -ruN src\model.py src-new\model.py
---- src\model.py	Wed Nov 29 11:21:15 2023
-+++ src-new\model.py	Wed Nov 29 11:47:37 2023
+diff -ruN src/model.py src-new/model.py
+--- src/model.py	Wed Nov 29 11:21:15 2023
++++ src-new/model.py	Wed Nov 29 11:47:37 2023
 @@ -4,7 +4,8 @@
  import torch
  import torch.nn as nn
