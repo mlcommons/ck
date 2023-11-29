@@ -1,0 +1,107 @@
+{
+  "alias": "get-preprocessed-dataset-openorca",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "ML/AI datasets",
+  "category_sort": 8500,
+  "default_env": {
+    "CM_DATASET_CALIBRATION": "no"
+  },
+  "default_variation": "validation",
+  "deps": [
+    {
+      "tags": "get,sys-utils-cm"
+    },
+    {
+      "names": [
+        "python",
+        "python3"
+      ],
+      "tags": "get,python3"
+    },
+    {
+      "names": [
+        "openorca-original",
+        "dataset-original"
+      ],
+      "tags": "get,dataset,original,openorca"
+    },
+    {
+      "force_env_keys": [
+        "CM_GIT_*"
+      ],
+      "names": [
+        "inference-src"
+      ],
+      "tags": "mlperf,inference,source,_repo.https://github.com/attafosu/inference,_branch.tattafosu/llama2-70b",
+      "version": "custom"
+    },
+    {
+      "tags": "get,generic-python-lib,_package.pyarrow",
+      "names": [
+        "pyarrow"
+      ]
+    },
+    {
+      "tags": "get,generic-python-lib,_package.fastparquet",
+      "names": [
+        "fastparquet"
+      ]
+    }
+  ],
+  "env": {
+    "CM_DATASET": "OPENORCA"
+  },
+  "new_env_keys": [
+    "CM_PREPROCESSED_DATASET_*"
+  ],
+  "tags": [
+    "get",
+    "dataset",
+    "openorca",
+    "language-processing",
+    "preprocessed"
+  ],
+  "uid": "5614c39cb1564d72",
+  "variations": {
+    "60": {
+      "default": true,
+      "ad": {
+        "dataset-original": {
+          "tags": "_60"
+        }
+      },
+      "group": "size"
+    },
+    "calibration": {
+      "env": {
+        "CM_DATASET_CALIBRATION": "yes"
+      },
+      "group": "dataset-type"
+    },
+    "full": {
+      "ad": {
+        "dataset-original": {
+          "tags": "_full"
+        }
+      },
+      "group": "size"
+    },
+    "size.#": {
+      "ad": {
+        "dataset-original": {
+          "tags": "_size.#"
+        }
+      },
+      "group": "size"
+    },
+    "validation": {
+      "default": true,
+      "env": {
+        "CM_DATASET_CALIBRATION": "no"
+      },
+      "group": "dataset-type"
+    }
+  }
+}
