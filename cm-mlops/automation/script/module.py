@@ -735,6 +735,11 @@ class CAutomation(Automation):
 
         # VARIATIONS OVERWRITE current ENV but not input keys (they become const)
 
+
+        # Save current explicit variations
+        explicit_variation_tags=copy.deepcopy(variation_tags)
+
+
         variations = script_artifact.meta.get('variations', {})
         # variation_tags get appended by any aliases
         r = self._get_variations_with_aliases(variation_tags, variations)
@@ -989,6 +994,7 @@ class CAutomation(Automation):
                                     'script_tags':script_tags,
                                     'found_script_tags':found_script_tags,
                                     'variation_tags':variation_tags,
+                                    'explicit_variation_tags':explicit_variation_tags,
                                     'version':version,
                                     'version_min':version_min,
                                     'version_max':version_max,
@@ -3428,11 +3434,14 @@ def find_cached_script(i):
        * (error) (str): error string if return>0
     """
 
+    import copy
+    
     recursion_spaces = i['recursion_spaces']
     script_tags = i['script_tags']
     cached_tags = []
     found_script_tags = i['found_script_tags']
     variation_tags = i['variation_tags']
+    explicit_variation_tags = i['explicit_variation_tags']
     version = i['version']
     version_min = i['version_min']
     version_max = i['version_max']
@@ -3466,6 +3475,26 @@ def find_cached_script(i):
             if x not in cached_tags: 
                 cached_tags.append(x)
 
+    explicit_cached_tags=copy.deepcopy(cached_tags)
+
+    if len(explicit_variation_tags)>0:
+        explicit_variation_tags_string = ''
+
+        for t in explicit_variation_tags:
+            if explicit_variation_tags_string != '': 
+                explicit_variation_tags_string += ','
+            if t.startswith("-"):
+                x = "-_" + t[1:]
+            else:
+                x = '_' + t
+            explicit_variation_tags_string += x
+
+            if x not in explicit_cached_tags: 
+                explicit_cached_tags.append(x)
+
+        if verbose:
+            print (recursion_spaces+'    - Prepared explicit variations: {}'.format(explicit_variation_tags_string))
+    
     if len(variation_tags)>0:
         variation_tags_string = ''
 
@@ -3486,13 +3515,16 @@ def find_cached_script(i):
 
     # Add version
     if version !='':
-        if 'version-'+version not in cached_tags: cached_tags.append('version-'+version)
+        if 'version-'+version not in cached_tags: 
+            cached_tags.append('version-'+version)
+            explicit_cached_tags.append('version-'+version)
 
     # Add extra cache tags (such as "virtual" for python)
     if len(extra_cache_tags)>0:
         for t in extra_cache_tags:
             if t not in cached_tags: 
                 cached_tags.append(t)
+                explicit_cached_tags.append(t)
 
     # Add tags from deps (will be also duplicated when creating new cache entry)
     extra_cache_tags_from_env = meta.get('extra_cache_tags_from_env',[])
@@ -3506,12 +3538,13 @@ def find_cached_script(i):
                 x = 'deps-' + prefix + t
                 if x not in cached_tags: 
                     cached_tags.append(x)
+                    explicit_cached_tags.append(x)
 
     # Check if already cached
     if not new_cache_entry:
         search_tags = '-tmp'
         if len(cached_tags) >0 : 
-            search_tags += ',' + ','.join(cached_tags)
+            search_tags += ',' + ','.join(explicit_cached_tags)
 
         if verbose:
             print (recursion_spaces+'    - Searching for cached script outputs with the following tags: {}'.format(search_tags))
@@ -3967,8 +4000,11 @@ def convert_env_to_script(env, os_info, start_script = []):
                 x = [x]
 
             xx = []
-            for y in x:
+            for v in x:
                 # If " is already in env value, it means that there was some custom processing to consider special characters
+
+                y=str(v)
+
                 if '"' not in y:
                     for z in ['|', '&', '>', '<']:
                         if z in y:

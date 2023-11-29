@@ -20,7 +20,7 @@
       "env": {
         "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_DATASET_OPENORCA_PATH"
       },
-      "tags": "get,git,repo,_repo.https://huggingface.co/datasets/Open-Orca/OpenOrca",
+      "tags": "get,git,repo,_lfs,_repo.https://huggingface.co/datasets/Open-Orca/OpenOrca",
       "extra_cache_tags": "openorca,repo,src"
     }
   ],
@@ -39,10 +39,10 @@
   ],
   "uid": "9252c4d90d5940b7",
   "variations": {
-    "50": {
+    "60": {
       "default": true,
       "env": {
-        "CM_DATASET_SIZE": "50"
+        "CM_DATASET_SIZE": "60"
       },
       "group": "size"
     },
@@ -60,7 +60,7 @@
     },
     "full": {
       "env": {
-        "CM_DATASET_SIZE": ""
+        "CM_DATASET_SIZE": "24576"
       },
       "group": "size"
     },

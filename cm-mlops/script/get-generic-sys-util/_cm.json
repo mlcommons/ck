@@ -242,6 +242,19 @@
           "brew": ""
         }
       }
+    },
+    "git-lfs": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "git-lfs"
+      },
+      "state": {
+        "git-lfs": {
+          "apt": "git-lfs",
+          "dnf": "git-lfs",
+          "yum": "git-lfs",
+          "brew": "git-lfs"
+        }
+      }
     }
   }
 }

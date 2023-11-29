@@ -11,7 +11,16 @@ def preprocess(i):
 
     cm = automation.cmind
 
+    script_path = i['run_script_input']['path']
+
     path = os.getcwd()
+
+    if env.get('CM_GIT_CLONE_REPO', '') != 'yes':
+        run_cmd = env.get('CM_PYTHON_BIN_WITH_PATH') + " " +  os.path.join(script_path, 'download_model.py')
+    else:
+        run_cmd = ''
+
+    env['CM_RUN_CMD'] = run_cmd
 
     return {'return':0}
 

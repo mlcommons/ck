@@ -109,6 +109,16 @@
       "env": {
         "CM_GIT_URL": "#"
       }
+    },
+    "lfs": {
+      "env": {
+        "CM_GIT_REPO_NEEDS_LFS": "yes"
+      },
+      "deps": [
+        {
+          "tags": "get,generic,sys-util,_git-lfs"
+        }
+      ]
     }
   }
 }
