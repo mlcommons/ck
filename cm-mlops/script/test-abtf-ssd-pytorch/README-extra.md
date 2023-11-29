@@ -39,7 +39,7 @@ cmr "test abtf ssd-pytorch" --adr.python.name=abtf --adr.torch.version=1.13.1 --
 # TBD: testing docker
 
 ```bash
-cm docker script --tags=test,abtf,ssd-pytorch --docker_cm_repo=ctuning@mlcommons-ck --env.CM_GH_TOKEN=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 --input=computer_mouse.jpg --output=computer_mouse_ssd.jpg
+cm docker script --tags=test,abtf,ssd-pytorch --docker_cm_repo=ctuning@mlcommons-ck --env.CM_GH_TOKEN={TOKEN} --input=computer_mouse.jpg --output=computer_mouse_ssd.jpg
 ```
 
 ```bash
