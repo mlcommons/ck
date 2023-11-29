@@ -375,6 +375,8 @@
       "env": {
         "CM_DATASET_CALIBRATION_OPTION": "two"
       }
+    },
+    "default": {
     }
   },
   "docker": {
