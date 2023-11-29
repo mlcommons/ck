@@ -249,7 +249,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
                 " --dataset-path " + env['CM_DATASET_PATH_ROOT'] + \
                 ' --dtype ' + env['CM_MLPERF_MODEL_PRECISION'].replace("float", "fp") + \
                 " --device " + device + \
-                 env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +
+                 env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
                 " --model-path " + env['MODEL_DIR']
 
     elif "3d-unet" in env['CM_MODEL']:
