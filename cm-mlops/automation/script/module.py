@@ -3967,8 +3967,11 @@ def convert_env_to_script(env, os_info, start_script = []):
                 x = [x]
 
             xx = []
-            for y in x:
+            for v in x:
                 # If " is already in env value, it means that there was some custom processing to consider special characters
+
+                y=str(v)
+
                 if '"' not in y:
                     for z in ['|', '&', '>', '<']:
                         if z in y:

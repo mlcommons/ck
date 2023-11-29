@@ -1,0 +1,45 @@
+diff -ruN src\model.py src-new\model.py
+--- src\model.py	Wed Nov 29 11:21:15 2023
++++ src-new\model.py	Wed Nov 29 11:47:37 2023
+@@ -4,7 +4,8 @@
+ import torch
+ import torch.nn as nn
+ from torchvision.models.resnet import resnet50
+-from torchvision.models.mobilenet import mobilenet_v2, InvertedResidual
++from torchvision.models.mobilenet import mobilenet_v2
++from torchvision.models.mobilenetv2 import InvertedResidual
+ 
+ class Base(nn.Module):
+     def __init__(self):
+
+--- test_image.py	Wed Nov 29 11:21:15 2023
++++ test_image.py.new	Wed Nov 29 12:21:49 2023
+@@ -25,10 +25,17 @@
+ 
+ 
+ def test(opt):
++    import os
++    device = os.environ.get('CM_DEVICE','')
++    if device == 'cuda' and not torch.cuda.is_available():
++        print ('')
++        print ('Error: CUDA is forced but not available...')
++        exit(1)
++    
+     model = SSD(backbone=ResNet())
+-    checkpoint = torch.load(opt.pretrained_model)
++    checkpoint = torch.load(opt.pretrained_model, map_location=torch.device(device))
+     model.load_state_dict(checkpoint["model_state_dict"])
+-    if torch.cuda.is_available():
++    if device=='cuda':
+         model.cuda()
+     model.eval()
+     dboxes = generate_dboxes()
+@@ -37,7 +44,7 @@
+     img, _, _, _ = transformer(img, None, torch.zeros(1,4), torch.zeros(1))
+     encoder = Encoder(dboxes)
+ 
+-    if torch.cuda.is_available():
++    if device=='cuda':
+         img = img.cuda()
+     with torch.no_grad():
+         ploc, plabel = model(img.unsqueeze(dim=0))
