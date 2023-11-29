@@ -4,7 +4,6 @@
   "automation_uid": "5b4e0237da074764",
   "category": "MLPerf benchmark support",
   "cache": true,
-  "default_variation": "default",
   "default_version": "master",
   "deps": [
     {
@@ -63,15 +62,8 @@
   ],
   "uid": "4b57186581024797",
   "variations": {
-    "default": {
-      "base": [
-        "short-history"
-      ],
-      "env": {
-        "CM_GIT_PATCH": "no"
-      }
-    },
     "full-history": {
+      "group": "git-history",
       "env": {
         "CM_GIT_DEPTH": ""
       }
@@ -115,6 +107,8 @@
       }
     },
     "short-history": {
+      "group": "git-history",
+      "default": true,
       "env": {
         "CM_GIT_DEPTH": "--depth 10"
       }
