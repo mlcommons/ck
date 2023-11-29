@@ -20,7 +20,7 @@
       "env": {
         "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_DATASET_OPENORCA_PATH"
       },
-      "tags": "get,git,repo,_repo.https://huggingface.co/datasets/Open-Orca/OpenOrca",
+      "tags": "get,git,repo,_lfs,_repo.https://huggingface.co/datasets/Open-Orca/OpenOrca",
       "extra_cache_tags": "openorca,repo,src"
     }
   ],
