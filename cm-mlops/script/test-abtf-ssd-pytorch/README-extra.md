@@ -61,8 +61,14 @@ cmr "get ml-model abtf-ssd-pytorch _e65"
 cmr "get mlperf inference loadgen"
 ```
 
-* Add Croissant
+* Automatically generate docker
+  * Pass input/output files (CM has support in meta)
+  * Pass git auth token for prive GitHub
+* Use model from local file -> skip_if_env ...
 * Add pre/post processing for COCO
 * Automate training with Cognata (+ Croissant)
 * Run loadgen with trained model and different devices and frameworks
+* Test Croissant
+* Automate multiple benchmark experiments
+  * Create MLPerf-like logging and structure
 * Create GUI with StreamLit
