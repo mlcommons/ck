@@ -20,7 +20,6 @@
     "env_key": "CM_GIT_ENV_KEY",
     "submodules": "CM_GIT_RECURSE_SUBMODULES"
   },
-  "default_variation": "default",
   "deps": [
     {
       "tags": "detect,os"
@@ -53,15 +52,8 @@
   ],
   "uid": "ed603e7292974f10",
   "variations": {
-    "default": {
-      "base": [
-        "short-history"
-      ],
-      "env": {
-        "CM_GIT_PATCH": "no"
-      }
-    },
     "full-history": {
+      "group": "git-history",
       "env": {
         "CM_GIT_DEPTH": ""
       }
@@ -77,6 +69,8 @@
       }
     },
     "short-history": {
+      "group": "git-history",
+      "default": true,
       "env": {
         "CM_GIT_DEPTH": "--depth 5"
       }

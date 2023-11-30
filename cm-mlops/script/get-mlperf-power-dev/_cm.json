@@ -5,29 +5,35 @@
   "cache": true,
   "category": "MLPerf benchmark support",
   "default_env": {
-    "CM_GIT_CHECKOUT": "master",
     "CM_GIT_DEPTH": "--depth 1",
     "CM_GIT_PATCH": "no",
-    "CM_GIT_REPO_FOLDER_NAME": "power-dev",
-    "CM_GIT_RECURSE_SUBMODULES": " ",
-    "CM_GIT_URL": "https://github.com/mlcommons/power-dev.git"
+    "CM_GIT_CHECKOUT_FOLDER": "power-dev"
   },
-  "default_variation": "default",
-  "default_version": "master",
   "deps": [
-    {
-      "tags": "detect,os"
-    },
-    {
-      "names": [
-        "python",
-        "python3"
-      ],
-      "tags": "get,python3"
-    }
   ],
   "new_env_keys": [
     "CM_MLPERF_POWER_SOURCE"
+  ],
+  "prehook_deps": [
+    {
+      "tags": "get,git,repo",
+      "update_tags_from_env_with_prefix": {
+        "_repo.": [ "CM_GIT_URL" ],
+        "_branch.": [ "CM_GIT_CHECKOUT" ],
+        "_tag.": [ "CM_GIT_CHECKOUT_TAG" ],
+        "_sha.": [ "CM_GIT_SHA" ]
+      },
+      "force_env_keys": [
+        "CM_GIT_*"
+      ],
+      "names": [
+        "mlperf-power-dev-git-repo"
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_MLPERF_POWER_SOURCE"
+      },
+      "extra_cache_tags": "mlperf,power,power-dev,src"
+    }
   ],
   "tags": [
     "get",
@@ -40,54 +46,41 @@
   ],
   "uid": "72aa56768c994bcf",
   "variations": {
-    "default": {
-      "base": [
-        "short-history"
-      ],
-      "env": {
-        "CM_GIT_PATCH": "no"
-      }
-    },
-    "full-history": {
-      "env": {
-        "CM_GIT_DEPTH": ""
-      }
-    },
-    "patch": {
-      "env": {
-        "CM_GIT_PATCH": "yes"
-      }
-    },
-    "short-history": {
-      "env": {
-        "CM_GIT_DEPTH": "--depth 5"
-      }
-    },
     "octoml": {
+      "group": "repo",
       "env": {
         "CM_GIT_URL": "https://github.com/octoml/power-dev.git"
       }
-    }
-  },
-  "versions": {
-    "custom": {
+    },
+    "mlcommons": {
+      "group": "repo",
+      "default": true,
       "env": {
-        "CM_MLPERF_LAST_RELEASE": "v2.1"
+        "CM_GIT_URL": "https://github.com/mlcommons/power-dev.git"
       }
     },
-    "master": {
+    "repo.#": {
+      "group": "repo",
       "env": {
-        "CM_GIT_CHECKOUT": "master"
+         "CM_GIT_URL" : "#"
       }
     },
-    "fix": {
+    "branch.#": {
+      "group": "checkout",
       "env": {
-        "CM_GIT_CHECKOUT": "fix"
+        "CM_GIT_CHECKOUT": "#"
       }
     },
-    "v3.0": {
+    "sha.#": {
+      "group": "checkout",
       "env": {
-        "CM_GIT_CHECKOUT": "r3.0"
+        "CM_GIT_SHA": "#"
+      }
+    },
+    "tag.#": {
+      "group": "checkout",
+      "env": {
+        "CM_GIT_CHECKOUT_TAG": "#"
       }
     }
   }

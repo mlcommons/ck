@@ -6,7 +6,6 @@
   "cache": true,
   "clean_files": [],
   "default_version": "1.16.1",
-  "default_variation": "cpu",
   "deps": [
     {
       "tags": "detect,os"
@@ -30,11 +29,14 @@
   "uid": "be02c84ff57c4244",
   "variations": {
     "cpu": {
+      "group": "device",
+      "default": true,
       "env": {
         "CM_ONNXRUNTIME_DEVICE": ""
       }
     },
     "cuda": {
+      "group": "device",
       "env": {
         "CM_ONNXRUNTIME_DEVICE": "gpu"
       }

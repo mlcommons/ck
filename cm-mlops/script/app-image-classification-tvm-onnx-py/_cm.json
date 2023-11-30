@@ -7,7 +7,6 @@
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1"
   },
-  "default_variation": "tvm",
   "deps": [
     {
       "tags": "detect,os"
@@ -33,6 +32,10 @@
     },
     {
       "tags": "get,generic-python-lib,_onnxruntime"
+    },
+    {
+      "names": [ "tvm" ],
+      "tags": "get,tvm"
     }
   ],
   "tags": [
@@ -44,14 +47,6 @@
   "tags_help":"app image-classification python tvm-onnx",
   "uid": "63080407db4d4ac4",
   "variations": {
-    "tvm": {
-      "deps": [
-        {
-          "names": [ "tvm" ],
-          "tags": "get,tvm"
-        }
-      ]
-    },
     "llvm": {
       "add_deps_recursive": {
         "tvm": {

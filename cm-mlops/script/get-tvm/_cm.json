@@ -4,7 +4,6 @@
   "automation_uid": "5b4e0237da074764",
   "category": "AI/ML frameworks",
   "cache": true,
-  "default_variation": "llvm",
   "deps": [
     {
       "tags": "cmake,get-cmake",
@@ -55,6 +54,7 @@
   "uid": "93c89140e6224f4b",
   "variations": {
     "pip-install": {
+      "group": "installation-type",
       "deps": [
         {
           "tags": "get,generic-python-lib,_apache-tvm"
@@ -75,6 +75,8 @@
       }
     },
     "llvm": {
+      "group": "installation-type",
+      "default": true,
       "deps": [
         {
           "names": [ "llvm" ],

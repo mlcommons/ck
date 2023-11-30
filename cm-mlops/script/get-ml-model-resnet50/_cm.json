@@ -4,7 +4,6 @@
   "automation_uid": "5b4e0237da074764",
   "category": "AI/ML models",
   "cache": true,
-  "default_variation": "onnx",
   "env": {
     "CM_ML_MODEL": "RESNET50",
     "CM_ML_MODEL_DATASET": "imagenet2012-val",

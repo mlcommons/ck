@@ -7,7 +7,6 @@
   "default_env": {
     "CM_DATASET_CALIBRATION": "no"
   },
-  "default_variation": "validation",
   "deps": [
     {
       "tags": "get,sys-utils-cm"
