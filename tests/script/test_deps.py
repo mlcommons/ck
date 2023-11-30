@@ -11,8 +11,8 @@ checks.check_return(r)
 r = cm.access({'action':'search', 'automation': 'cache', 'tags': 'loadgen,version-r3.0,deps-python-non-virtual'})
 checks.check_list(r, "loadgen,version-r3.0,deps-python-non-virtual")
 
-r = cm.access({'action':'search', 'automation': 'cache', 'tags': 'inference,src,version-master'})
-checks.check_list(r, "inference,src,version-master")
+r = cm.access({'action':'search', 'automation': 'cache', 'tags': 'inference,src,version-r3.0'})
+checks.check_list(r, "inference,src,version-r3.0")
 
 r = cm.access({'action':'run', 'automation':'script', 'tags': 'app,mlperf,inference,generic,_python,_resnet50,_onnxruntime,_cpu,_r3.0_default', 'adr': {'mlperf-implementation': { 'version': 'master'}}, 'quiet': 'yes'})
 checks.check_return(r)

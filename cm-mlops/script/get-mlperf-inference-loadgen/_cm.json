@@ -138,6 +138,22 @@
         }
       }
     },
+    "r3.1": {
+      "add_deps": {
+        "inference-src-loadgen": {
+          "version": "r3.1",
+          "tags": "_pybind"
+        }
+      }
+    },
+    "r3.0": {
+      "add_deps": {
+        "inference-src-loadgen": {
+          "version": "r3.0",
+          "tags": "_pybind"
+        }
+      }
+    },
     "r2.1": {
       "add_deps": {
         "inference-src-loadgen": {
