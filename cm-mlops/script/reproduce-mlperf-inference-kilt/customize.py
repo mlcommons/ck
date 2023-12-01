@@ -34,11 +34,10 @@ def preprocess(i):
 
 
     if env.get('CM_MODEL') == "resnet50":
-        env['CK_ENV_DATASET_IMAGENET_PREPROCESSED_SUBSET_FOF'] = env['CM_DATASET_IMAGENET_VAL_PATH']
-        env['CK_ENV_DATASET_IMAGENET_PREPROCESSED_DIR'] = env['CM_DATASET_IMAGENET_VAL_PATH']
         env['kilt_model_root'] = "/home/arjun/CM/repos/ctuning@mlcommons-ck/cm-mlops/script/reproduce-mlperf-inference-kilt/resnet.onnx"#env['CM_ML_MODEL_FILE_WITH_PATH']# to KILT_MODEL_ROOT
-        env['dataset_imagenet_preprocessed_subset_fof'] = env['CM_DATASET_PREPROCESSED_IMAGES_LIST']
+        env['dataset_imagenet_preprocessed_subset_fof'] = env['CM_DATASET_PREPROCESSED_IMAGENAMES_LIST']
         env['dataset_imagenet_preprocessed_dir'] = env['CM_DATASET_PREPROCESSED_PATH']# to KILT_DATASET_IMAGENET_PREPROCESSED_DIR
+
     elif "bert" in env.get('CM_MODEL'):
         env['dataset_squad_tokenized_max_seq_length'] = env['CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH']
         env['dataset_squad_tokenized_root'] =  env['CM_DATASET_SQUAD_TOKENIZED_ROOT']

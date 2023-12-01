@@ -770,6 +770,9 @@ variations:
       - tags: get,generic-python-lib,_package.torchmetrics
         names:
           - torchmetrics
+      - tags: get,generic-python-lib,_package.torch-fidelity
+        names:
+          - torch-fidelity
     adr:
       mlperf-implementation:
         tags: _repo.https://github.com/pgmpablo157321/inference
