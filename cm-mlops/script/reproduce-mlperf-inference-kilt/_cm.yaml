@@ -235,6 +235,9 @@ variations:
       CM_MLPERF_DEVICE: qaic
       CM_MLPERF_DEVICE_LIB_NAMESPEC: qaic
       kilt_backend_type:  qaic
+    deps:
+      - tags: get,qaic,api
+      - tags: get,qaic,apps-sdk
 
   tensorrt:
     group: framework
