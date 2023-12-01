@@ -245,7 +245,13 @@
     "tensorflow,fix-input-shape": {
       "env": {
         "CM_ML_MODEL_TF_FIX_INPUT_SHAPE": "yes"
-      }
+      },
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_package.tensorflow",
+          "names": [ "tensorflow" ]
+        }
+      ]
     },
     "uint8": {
       "group": "precision",
