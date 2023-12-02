@@ -125,7 +125,7 @@
     "onnx,from-tf,fp32": {
       "env": {
         "CM_PACKAGE_URL": "https://drive.google.com/uc?id=15wZ_8Vt12cb10IEBsln8wksD1zGwlbOM",
-        "CM_DOWNLOAD_FILENAME": "resnet50_v1_modified.onnx.gz"
+        "CM_DOWNLOAD_FILENAME": "resnet50_v1_modified.onnx"
       },
       "adr": {
         "model-downloader": {

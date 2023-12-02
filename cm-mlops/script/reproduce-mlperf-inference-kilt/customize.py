@@ -69,7 +69,8 @@ def preprocess(i):
     if 'SERVER' not in env['CM_BENCHMARK']:
         source_files.append(os.path.join(kilt_root, "benchmarks", "harness", "harness.cpp"))
 
-    print(source_files)
+    source_files.append(env['CM_QAIC_API_SRC_FILE'])
+    print(f"Compiling the source files: {source_files}")
 
     env['CM_CXX_SOURCE_FILES'] = ";".join(source_files)
 
@@ -83,6 +84,7 @@ def preprocess(i):
         env['+DYLD_FALLBACK_LIBRARY_PATH'].append(env['CM_CUDA_PATH_INCLUDE'])
 
     env['+ CXXFLAGS'].append("-std=c++17")
+    env['+ CXXFLAGS'].append("-fpermissive")
 
     env['+ CXXFLAGS'].append("-DKILT_CONFIG_FROM_ENV")
     env['+ CXXFLAGS'].append("-DKILT_CONFIG_TRANSLATE_X")

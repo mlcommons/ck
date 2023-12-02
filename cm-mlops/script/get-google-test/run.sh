@@ -5,6 +5,7 @@ INSTALL_DIR=$CUR/install
 cd ${CM_GIT_REPO_CHECKOUT_PATH}
 mkdir build
 cd build
+export MAKEFLAGS=-j${CM_MAKE_CORES}
 cmake -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} ..
 test $? -eq 0 || exit $?
 

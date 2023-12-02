@@ -137,7 +137,7 @@ deps:
       - bert-99
       - bert-99.9
     names:
-      - squad-itokenized
+      - squad-tokenized
     tags: get,dataset,tokenized,squad
 
   ########################################################################
@@ -233,11 +233,12 @@ variations:
     group: device
     env:
       CM_MLPERF_DEVICE: qaic
-      CM_MLPERF_DEVICE_LIB_NAMESPEC: qaic
+      CM_MLPERF_DEVICE_LIB_NAMESPEC: QAic
       kilt_backend_type:  qaic
     deps:
       - tags: get,qaic,api
       - tags: get,qaic,apps-sdk
+      - tags: get,lib,protobuf,_tag.v3.11.4
 
   tensorrt:
     group: framework
@@ -260,7 +261,7 @@ variations:
     env:
       device: qaic
       CM_MLPERF_BACKEND: glow
-      CM_MLPERF_BACKEND_LIB_NAMESPEC: qaic
+      CM_MLPERF_BACKEND_LIB_NAMESPEC: QAic
 
   # Reference MLPerf models
   resnet50:
