@@ -50,6 +50,8 @@
   "tags": [
     "qaic",
     "compile",
+    "model",
+    "model-compile",
     "qaic-compile"
   ],
   "uid": "3f0f43b5d0304d1c",

@@ -102,6 +102,7 @@ deps:
       - resnet50
     names:
       - imagenet-preprocessed
+      - dataset-preprocessed
     tags: get,dataset,imagenet,preprocessed,_NHWC,_full
 
   - enable_if_env:
@@ -263,6 +264,13 @@ variations:
       CM_MLPERF_BACKEND: glow
       CM_MLPERF_BACKEND_LIB_NAMESPEC: QAic
 
+  bs.#:
+    env:
+      kilt_model_batch_size: "#"
+    adr:
+      qaic-model-compiler:
+        tags: "_bs.#"
+
   # Reference MLPerf models
   resnet50:
     group: model
@@ -282,6 +290,12 @@ variations:
       loadgen_dataset_size: 50000
       CM_BENCHMARK: STANDALONE_CLASSIFICATION
 
+  resnet50,qaic:
+    deps:
+      - tags: compile,qaic,model,_resnet50
+        names:
+          - qaic-model-compiler
+          - resnet50-compiler
 
   retinanet:
     group: model
@@ -390,3 +404,8 @@ variations:
     env:
       CM_MLPERF_LOADGEN_SCENARIO: Server
 
+  uint8:
+    group: precision
+    adr:
+      dataset-preprocessed:
+        tags: _uint8

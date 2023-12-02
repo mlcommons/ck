@@ -253,6 +253,19 @@ variations:
         update_tags_from_env:
             - CM_NVIDIA_HARNESS_GPU_VARIATION
 
+  kilt:
+    group:
+      implementation
+    posthook_deps:
+      - names:
+         - kilt
+         - kilt-harness
+         - mlperf-inference-implementation
+        tags: reproduce,mlperf,inference,kilt
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+
   resnet50:
     group:
       model
@@ -631,6 +644,14 @@ variations:
       mlperf-inference-implementation:
         tags: _tflite
 
+  glow:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND: glow
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _glow
+
   tvm-onnx:
     group: backend
     base:
@@ -690,6 +711,15 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _rocm
+  qaic:
+    group:
+      device
+    env:
+      CM_MLPERF_DEVICE:
+        qaic
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _qaic
 
   tpu:
     group:
