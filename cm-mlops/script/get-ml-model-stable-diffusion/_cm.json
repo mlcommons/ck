@@ -33,13 +33,14 @@
       "names": [
         "hf-zoo"
       ],
-      "tags": "get,ml-model,huggingface,zoo,_model-stub.stabilityai/stable-diffusion-xl-base-1.0"
+      "tags": "get,ml-model,huggingface,zoo,_clone-repo,_model-stub.stabilityai/stable-diffusion-xl-base-1.0"
     }
   ],
   "tags": [
     "get",
     "raw",
     "ml-model",
+    "stable-diffusion",
     "sdxl",
     "text-to-image"
   ],

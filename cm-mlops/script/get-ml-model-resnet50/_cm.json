@@ -39,7 +39,10 @@
         "_url.": [
           "CM_PACKAGE_URL"
         ]
-      }
+      },
+      "names": [
+        "model-downloader"
+      ]
     }
   ],
   "variations": {
@@ -103,6 +106,31 @@
         "CM_ML_MODEL_OUTPUT_LAYER_NAME": "softmax_tensor:0",
         "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>",
         "CM_ML_MODEL_VER": "1.5"
+      }
+    },
+    "from-tf": {
+    },
+    "onnx,from-tf": {
+      "env": {
+        "CM_ML_MODEL_DATA_LAYOUT": "NHWC",
+        "CM_ML_MODEL_FRAMEWORK": "onnx",
+        "CM_ML_MODEL_INPUT_LAYERS": "input_tensor",
+        "CM_ML_MODEL_INPUT_LAYER_NAME": "input_tensor",
+        "CM_ML_MODEL_OUTPUT_LAYERS": "softmax_tensor",
+        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor\\\": (BATCH_SIZE, 224, 224, 3)",
+        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "softmax_tensor",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://zenodo.org/record/2535873/files/resnet50_v1.pb"
+      }
+    },
+    "onnx,from-tf,fp32": {
+      "env": {
+        "CM_PACKAGE_URL": "https://drive.google.com/uc?id=15wZ_8Vt12cb10IEBsln8wksD1zGwlbOM",
+        "CM_DOWNLOAD_FILENAME": "resnet50_v1_modified.onnx.gz"
+      },
+      "adr": {
+        "model-downloader": {
+          "tags": "_gdown"
+        }
       }
     },
     "onnxruntime": {
@@ -245,7 +273,13 @@
     "tensorflow,fix-input-shape": {
       "env": {
         "CM_ML_MODEL_TF_FIX_INPUT_SHAPE": "yes"
-      }
+      },
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_package.tensorflow",
+          "names": [ "tensorflow" ]
+        }
+      ]
     },
     "uint8": {
       "group": "precision",

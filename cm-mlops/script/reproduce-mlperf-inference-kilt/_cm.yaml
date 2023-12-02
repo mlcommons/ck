@@ -79,11 +79,6 @@ deps:
   # Install system dependencies on a given host
   - tags: get,sys-utils-cm
 
-  # Detect CUDA
-  - names:
-    - cuda
-    tags: get,cuda,_cudnn
-
   - tags: get,git,repo
     names:
     - kilt-repo
@@ -115,7 +110,7 @@ deps:
     names:
       - resnet50-model
       - ml-model
-    tags: get,ml-model,resnet50,_fp32,_onnx,_no-argmax
+    tags: get,ml-model,resnet50,_fp32,_onnx,_from-tf
 
 
 
@@ -234,6 +229,15 @@ variations:
       CM_MLPERF_DEVICE: gpu
       CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
       kilt_backend_type:  gpu
+  qaic:
+    group: device
+    env:
+      CM_MLPERF_DEVICE: qaic
+      CM_MLPERF_DEVICE_LIB_NAMESPEC: qaic
+      kilt_backend_type:  qaic
+    deps:
+      - tags: get,qaic,api
+      - tags: get,qaic,apps-sdk
 
   tensorrt:
     group: framework
@@ -250,6 +254,13 @@ variations:
       device: onnxrt
       CM_MLPERF_BACKEND: onnxruntime
       CM_MLPERF_BACKEND_LIB_NAMESPEC: onnxruntime
+
+  glow:
+    group: framework
+    env:
+      device: qaic
+      CM_MLPERF_BACKEND: glow
+      CM_MLPERF_BACKEND_LIB_NAMESPEC: qaic
 
   # Reference MLPerf models
   resnet50:
@@ -360,48 +371,6 @@ variations:
     env:
       CM_MLPERF_NVIDIA_HARNESS_MAXN: yes
 
-  preprocess_data:
-    group: run-mode
-    env:
-      MLPERF_NVIDIA_RUN_COMMAND: preprocess_data
-      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: preprocess_data
-
-  download_model:
-    group: run-mode
-    env:
-      MLPERF_NVIDIA_RUN_COMMAND: download_model
-      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: download_model
-    deps:
-      - tags: get,generic-python-lib,_torch_cuda
-        enable_if_env:
-          CM_MODEL:
-            - retinanet
-
-  calibrate:
-    group: run-mode
-    env:
-      MLPERF_NVIDIA_RUN_COMMAND: calibrate
-      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: calibrate
-    deps:
-      - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
-        inherit_variation_tags: true
-        force_cache: true
-        skip_inherit_variation_groups:
-          - run-mode
-          - loadgen-scenario
-          - device-memory
-          - gpu-name
-          - power-mode
-          - batch-size
-          - triton
-        skip_if_env:
-          CM_MODEL:
-            - retinanet_old
-            - resnet50
-            - bert-99
-            - bert-99.9
-            - dlrm-v2-99
-            - dlrm-v2-99.9
   singlestream:
     group: loadgen-scenario
     env:

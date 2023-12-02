@@ -39,6 +39,9 @@ def postprocess(i):
         if env_key!='':
             env['CM_ML_MODEL_'+env_key+'_PATH'] = path_dir
 
+    else:
+        path_dir = env['CM_ML_MODEL_PATH']
+
     if env_key!='':
         env['CM_ML_MODEL_'+env_key+'_FILE_WITH_PATH'] = path_dir
 

@@ -261,7 +261,8 @@
     "system_type": "CM_MLPERF_SUBMISSION_SYSTEM_TYPE",
     "target_latency": "CM_MLPERF_LOADGEN_TARGET_LATENCY",
     "target_qps": "CM_MLPERF_LOADGEN_TARGET_QPS",
-    "test_query_count": "CM_TEST_QUERY_COUNT"
+    "test_query_count": "CM_TEST_QUERY_COUNT",
+    "network": "CM_NETWORK_LOADGEN"
   },
   "new_state_keys": [
     "app_mlperf_inference_*"

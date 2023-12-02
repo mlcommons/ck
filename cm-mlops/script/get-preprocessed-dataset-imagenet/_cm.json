@@ -30,7 +30,7 @@
         "CM_IMAGENET_PREPROCESSED_PATH": [ "on" ]
       },
       "enable_if_env": {
-        "CM_DATASET_TYPE": "validation"
+        "CM_DATASET_TYPE": [ "validation" ]
       }
     },
     {

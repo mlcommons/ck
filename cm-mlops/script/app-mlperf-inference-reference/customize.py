@@ -68,7 +68,9 @@ def preprocess(i):
 
     env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
 
-    env['MODEL_DIR'] = env.get('CM_ML_MODEL_PATH', os.path.dirname(env.get('CM_MLPERF_CUSTOM_MODEL_PATH', env.get('CM_ML_MODEL_FILE_WITH_PATH'))))
+    env['MODEL_DIR'] = env.get('CM_ML_MODEL_PATH')
+    if not env['MODEL_DIR']:
+        env['MODEL_DIR'] = os.path.dirname(env.get('CM_MLPERF_CUSTOM_MODEL_PATH', env.get('CM_ML_MODEL_FILE_WITH_PATH')))
 
     RUN_CMD = ""
     state['RUN'] = {}
@@ -84,7 +86,7 @@ def preprocess(i):
     if int(NUM_THREADS) > 2 and env['CM_MLPERF_DEVICE'] == "gpu":
         NUM_THREADS = "2" # Don't use more than 2 threads when run on GPU
 
-    if env['CM_MODEL'] in  [ 'resnet50', 'retinanet'] :
+    if env['CM_MODEL'] in  [ 'resnet50', 'retinanet', 'sdxl' ] :
         scenario_extra_options +=  " --threads " + NUM_THREADS
 
     ml_model_name = env['CM_MODEL']
@@ -250,10 +252,12 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
                 " --profile " + 'stable-diffusion-xl-pytorch ' + \
                 " --dataset " + 'coco-1024' +  \
                 " --dataset-path " + env['CM_DATASET_PATH_ROOT'] + \
-                ' --dtype ' + env['CM_MLPERF_MODEL_PRECISION'].replace("float", "fp") + \
+                ' --dtype ' + env['CM_MLPERF_MODEL_PRECISION'].replace("bfloat", "bf").replace("float", "fp") + \
                 " --device " + device + \
                  env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
-                " --model-path " + env['MODEL_DIR']
+                 scenario_extra_options + mode_extra_options + \
+                " --output " + env['CM_MLPERF_OUTPUT_DIR'] + \
+                " "#--model-path " + env['MODEL_DIR']
 
     elif "3d-unet" in env['CM_MODEL']:
 
