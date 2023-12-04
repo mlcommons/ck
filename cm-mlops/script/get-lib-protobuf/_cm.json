@@ -1,0 +1,64 @@
+{
+  "alias": "get-lib-protobuf",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "Detection or installation of tools and artifacts",
+  "default_version": "1.13.0",
+  "deps": [
+    {
+      "tags": "get,cmake"
+    },
+    {
+      "tags": "get,gcc"
+    }
+  ],
+  "input_description": {},
+  "input_mapping": {},
+  "new_env_keys": [
+    "CM_GOOGLE_PROTOBUF_SRC_PATH",
+    "CM_GOOGLE_PROTOBUF_INSTALL_PATH",
+    "+C_INCLUDE_PATH",
+    "+CPLUS_INCLUDE_PATH",
+    "+LD_LIBRARY_PATH"
+  ],
+  "new_state_keys": [],
+  "post_deps": [],
+  "posthook_deps": [],
+  "prehook_deps": [
+    {
+      "force_env_keys": [
+        "CM_GIT_*"
+      ],
+      "update_tags_from_env_with_prefix": {
+        "_repo.": [ "CM_TMP_GIT_URL" ],
+        "_branch.": [ "CM_TMP_GIT_CHECKOUT" ],
+        "_tag.": [ "CM_GIT_CHECKOUT_TAG" ]
+      },
+      "tags": "get,git,repo,_repo.https://github.com/google/protobuf.git",
+      "extra_cache_tags": "lib,protobuf,src"
+    }
+  ],
+  "tags": [
+    "get",
+    "google-protobuf",
+    "protobuf",
+    "lib",
+    "lib-protobuf",
+    "google"
+  ],
+  "uid": "db45f1eb73934f91",
+  "variations": {
+    "branch.#": {
+      "env": {
+        "CM_TMP_GIT_CHECKOUT": "#"
+      }
+    },
+    "tag.#": {
+      "env": {
+        "CM_GIT_CHECKOUT_TAG": "#"
+      }
+    }
+  },
+  "versions": {}
+}

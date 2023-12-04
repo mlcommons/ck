@@ -14,6 +14,7 @@
   },
   "new_env_keys": [
     "CM_LIB_QAIC_*",
+    "CM_QAIC_API_*",
     "+C_INCLUDE_PATH",
     "+CPLUS_INCLUDE_PATH",
     "+LD_LIBRARY_PATH"

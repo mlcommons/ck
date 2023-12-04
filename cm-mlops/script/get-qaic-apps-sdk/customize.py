@@ -70,5 +70,34 @@ def postprocess(i):
 
     env['+PATH'].append(os.path.dirname(env['CM_QAIC_EXEC_PATH']))
 
+    paths = [
+            "+C_INCLUDE_PATH",
+            "+CPLUS_INCLUDE_PATH",
+            "+LD_LIBRARY_PATH",
+            "+DYLD_FALLBACK_LIBRARY_PATH"
+            ]
+
+    for key in paths:
+        env[key] = []
+
+    include_paths = []
+    lib_paths = []
+
+    inc_path = os.path.join(env['CM_QAIC_APPS_SDK_PATH'], "dev", "inc")
+    if os.path.exists(inc_path):
+        include_paths.append(inc_path)
+
+    for inc_path in include_paths:
+        env['+C_INCLUDE_PATH'].append(inc_path)
+        env['+CPLUS_INCLUDE_PATH'].append(inc_path)
+
+
+    lib_path = os.path.join(env['CM_QAIC_APPS_SDK_PATH'], "dev", "lib", "x86_64")
+    if os.path.exists(lib_path):
+        lib_paths.append(lib_path)
+
+    for lib_path in lib_paths:
+        env['+LD_LIBRARY_PATH'].append(lib_path)
+        env['+DYLD_FALLBACK_LIBRARY_PATH'].append(lib_path)
 
     return {'return':0, 'version': version}

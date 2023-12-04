@@ -102,6 +102,7 @@ deps:
       - resnet50
     names:
       - imagenet-preprocessed
+      - dataset-preprocessed
     tags: get,dataset,imagenet,preprocessed,_NHWC,_full
 
   - enable_if_env:
@@ -137,7 +138,7 @@ deps:
       - bert-99
       - bert-99.9
     names:
-      - squad-itokenized
+      - squad-tokenized
     tags: get,dataset,tokenized,squad
 
   ########################################################################
@@ -233,11 +234,12 @@ variations:
     group: device
     env:
       CM_MLPERF_DEVICE: qaic
-      CM_MLPERF_DEVICE_LIB_NAMESPEC: qaic
+      CM_MLPERF_DEVICE_LIB_NAMESPEC: QAic
       kilt_backend_type:  qaic
     deps:
       - tags: get,qaic,api
       - tags: get,qaic,apps-sdk
+      - tags: get,lib,protobuf,_tag.v3.11.4
 
   tensorrt:
     group: framework
@@ -260,7 +262,14 @@ variations:
     env:
       device: qaic
       CM_MLPERF_BACKEND: glow
-      CM_MLPERF_BACKEND_LIB_NAMESPEC: qaic
+      CM_MLPERF_BACKEND_LIB_NAMESPEC: QAic
+
+  bs.#:
+    env:
+      kilt_model_batch_size: "#"
+    adr:
+      qaic-model-compiler:
+        tags: "_bs.#"
 
   # Reference MLPerf models
   resnet50:
@@ -281,6 +290,12 @@ variations:
       loadgen_dataset_size: 50000
       CM_BENCHMARK: STANDALONE_CLASSIFICATION
 
+  resnet50,qaic:
+    deps:
+      - tags: compile,qaic,model,_resnet50
+        names:
+          - qaic-model-compiler
+          - resnet50-compiler
 
   retinanet:
     group: model
@@ -389,3 +404,8 @@ variations:
     env:
       CM_MLPERF_LOADGEN_SCENARIO: Server
 
+  uint8:
+    group: precision
+    adr:
+      dataset-preprocessed:
+        tags: _uint8
