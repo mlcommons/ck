@@ -17,14 +17,94 @@ def postprocess(i):
 
     env = i['env']
 
-    if not os.path.isfile(lscpu_out):
-        print ('WARNING TBD: Add Windows support in the "detect-cpu" script ...')
+    os_info = i['os_info']
+
+    automation = i['automation']
+    logger = automation.cmind.logger
+    
+    if os_info['platform'] == 'windows':
+        sys = []
+        sys1 = []
+        cpu = []
+        cpu1 = []
+        
+        import csv
+
+        try:
+            f = 'tmp-systeminfo.csv'
+
+            if not os.path.isfile(f):
+                print ('WARNING: {} file was not generated!'.format(f))
+            else:
+                keys = {}
+                j = 0
+                with open(f, 'r') as csvf:
+                    for s in csv.reader(csvf):
+                        if j==0:
+                            keys=s
+                        else:
+                            x = {}
+                            for k in range(0, len(s)):
+                                x[keys[k]]=s[k]
+
+                            sys.append(x)    
+
+                            if j==1:
+                                sys1 = x
+
+                        j+=1
+
+        except Exception as e:
+            logger.warning ('WARNING: problem processing file {} ({})!'.format(f, format(e)))
+            pass
+
+        try:
+            f = 'tmp-wmic-cpu.csv'
+            if not os.path.isfile(f):
+                logger.warning ('WARNING: {} file was not generated!'.format(f))
+            else:
+
+                keys = {}
+                j = 0
+
+                with open(f, 'r', encoding='utf16') as csvf:
+                    for s in csv.reader(csvf):
+                        if j==1:
+                            keys=s
+                        elif j>1:
+                            x = {}
+                            for k in range(0, len(s)):
+                                x[keys[k]]=s[k]
+
+                            cpu.append(x)    
+
+                            if j==2:
+                                cpu1 = x
+
+                        j+=1
+        
+        except Exception as e:
+            logger.warning ('WARNING: problem processing file {} ({})!'.format(f, format(e)))
+            pass
+        
+
+        state['host_device_raw_info']={'sys':sys, 'sys1':sys1, 'cpu':cpu, 'cpu1':cpu1}
+        
+        logger.warning ('WARNING: need to unify system and cpu output on Windows')
 
         return {'return':0}
-#        return {'return':1, 'error':'{} was not generated'.format(lscpu_out)}
+
+
+    ###############################################################################
+    # Linux
+    if not os.path.isfile(lscpu_out):
+        print ('WARNING: lscpu.out file was not generated!')
+
+        # Currently ignore this error though probably should fail?
+        # But need to check that is supported on all platforms.
+        return {'return':0}
 
     r = utils.load_txt(file_name=lscpu_out)
-
     if r['return']>0: return r
 
     ss = r['string']
