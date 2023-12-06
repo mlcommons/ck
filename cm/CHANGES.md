@@ -1,3 +1,8 @@
+## V1.5.3.1
+   - added --depth to "cm pull repo" to reduce size of stable repos
+   - added possibility to download zip repository in "cm pull repo --url={...}.zip" 
+     to download small and stable repositories with CM automation recipes
+
 ## V1.5.3
    - fixed error when adding artifacts with --common flag
 
