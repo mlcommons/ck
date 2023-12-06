@@ -28,7 +28,16 @@ def preprocess(i):
         add_extra_cache_tags.append('name-'+name)
 
     # Check target ENV depending on selected device
-    if target_type == 'cuda':
+    if target_type == 'cpu':
+        new_env={}
+        for k in env:
+            if k.startswith('CM_HOST_'):
+                new_env['CM_TARGET_DEVICE_ENV_'+k[8:]]=env[k]
+
+        if 'host_device_raw_info' in state:
+                state['target_device_raw_info']=copy.deepcopy(state['host_device_raw_info'])
+        
+    elif target_type == 'cuda':
         new_env={}
         for k in env:
             if k.startswith('CM_CUDA_DEVICE'):
