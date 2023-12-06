@@ -14,7 +14,7 @@
         "python"
       ],
       "tags": "get,python3",
-      "version_min":"3.9"
+      "version_min":"3.10"
     },
     {
       "names": [
