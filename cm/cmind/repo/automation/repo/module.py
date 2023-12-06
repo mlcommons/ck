@@ -26,6 +26,7 @@ class CAutomation(Automation):
           (url) (str): URL of a repository
           (branch) (str): Git branch
           (checkout) (str): Git checkout
+          (depth) (int): Git depth
           (desc) (str): brief repository description (1 line)
           (prefix) (str): extra directory to keep CM artifacts
 
@@ -57,13 +58,20 @@ class CAutomation(Automation):
            if alias == '':
                # Get alias from URL
                alias = url
-               if alias.endswith('.git'): alias=alias[:-4]
 
-               j = alias.find('//')
-               if j>=0:
-                   j1 = alias.find('/', j+2)
-                   if j1>=0:
-                       alias = alias[j1+1:].replace('/','@')
+               # Check if zip file
+               j = alias.find('.zip')
+               if j>0:
+                   j1 = alias.rfind('/')
+                   alias = alias[j1+1:j+4]
+               else:
+                   if alias.endswith('.git'): alias=alias[:-4]
+
+                   j = alias.find('//')
+                   if j>=0:
+                       j1 = alias.find('/', j+2)
+                       if j1>=0:
+                           alias = alias[j1+1:].replace('/','@')
 
         if url == '':
             return {'return':1, 'error':'TBD: no URL - need to update all Git repos'}
@@ -71,6 +79,7 @@ class CAutomation(Automation):
         # Branch and checkout
         branch = i.get('branch','')
         checkout = i.get('checkout','')
+        depth = i.get('depth','')
 
         if console:
             print (self.cmind.cfg['line'])
@@ -78,12 +87,14 @@ class CAutomation(Automation):
             print ('URL:      {}'.format(url))
             print ('Branch:   {}'.format(branch))
             print ('Checkout: {}'.format(checkout))
+            if depth!='' and depth!=None:
+                print ('Depth:    {}'.format(str(depth)))
             print ('')
 
         # Prepare path to repo
         repos = self.cmind.repos
 
-        r = repos.pull(alias = alias, url = url, branch = branch, checkout = checkout, console = console, desc=desc, prefix=prefix)
+        r = repos.pull(alias = alias, url = url, branch = branch, checkout = checkout, console = console, desc=desc, prefix=prefix, depth=depth)
         if r['return']>0: return r
 
         repo_meta = r['meta']
@@ -91,7 +102,6 @@ class CAutomation(Automation):
         if self.cmind.use_index:
             ii = {'out':'con'} if console else {}
             rx = self.reindex(ii)
-
 
         return {'return':0, 'meta':repo_meta}
 
