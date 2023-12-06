@@ -374,8 +374,15 @@ variations:
     group: batch-size
     env:
       CM_MODEL_BATCH_SIZE: "#"
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "#"
+      CM_MLPERF_QAIC_BATCH_SIZE: "#"
       #CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "gpu_batch_size.#"
+
+  activation-count.#:
+    env:
+      CM_MODEL_BATCH_SIZE: "#"
+      CM_MLPERF_QAIC_ACTIVATION_COUNT: "#"
+      #CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "activation_count.#"
+
   maxq:
     group: power-mode
     env:

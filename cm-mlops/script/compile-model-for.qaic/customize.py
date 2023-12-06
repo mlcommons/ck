@@ -26,7 +26,7 @@ def preprocess(i):
 
 def construct_compilation_cmd(env):
     compiler_params_base = env['CM_QAIC_MODEL_COMPILER_PARAMS_BASE']
-    compiler_args = env['CM_QAIC_MODEL_COMPILER_ARGS']
+    compiler_args = env['CM_QAIC_MODEL_COMPILER_ARGS'] + ' ' + env.get('CM_QAIC_MODEL_COMPILER_ARGS_SUT', '')
     batchsize = env['CM_QAIC_MODEL_BATCH_SIZE']
 
     if env.get('CM_QAIC_MODEL_QUANTIZATION', '') == 'yes':
