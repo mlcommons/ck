@@ -268,18 +268,18 @@ class Repos:
 
         clone=False
 
-        download=True if url.find('.zip') else False
-        
+        download=True if url.find('.zip')>0 else False
+
         if download:
             if os.path.isdir(path_to_repo):
                 return {'return':1, 'error':'repository is already installed'}
 
             os.makedirs(path_to_repo)
-            
+
             os.chdir(path_to_repo)
-            
+
             cmd = 'wget --no-check-certificate "'+url+'" -O '+alias
-                
+
         else:
             if os.path.isdir(path_to_repo):
                 # Attempt to update
