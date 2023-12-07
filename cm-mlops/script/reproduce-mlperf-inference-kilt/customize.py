@@ -24,7 +24,7 @@ def preprocess(i):
     source_files = []
     env['CM_SOURCE_FOLDER_PATH'] = env['CM_KILT_CHECKOUT_PATH']
 
-    env['kilt_model_root'] = env['CM_ML_MODEL_FILE_WITH_PATH']
+    env['kilt_model_root'] = env.get('CM_ML_MODEL_FILE_WITH_PATH')
 
     if '+ CXXFLAGS' not in env:
         env['+ CXXFLAGS'] = []
