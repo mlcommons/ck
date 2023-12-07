@@ -460,6 +460,8 @@ variations:
   dl2q.24xlarge,singlestream:
     env:
       kilt_device_ids: 0
+    base:
+      - activation-count.1
 
   dl2q.24xlarge,resnet50,offline:
     base:
