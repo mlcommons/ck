@@ -34,8 +34,8 @@ def preprocess(i):
 
 
     if env.get('CM_MODEL') == "resnet50":
-        env['kilt_model_root'] = env['CM_ML_MODEL_FILE_WITH_PATH']
-        env['kilt_model_root'] = os.path.dirname(env['CM_QAIC_MODEL_COMPILED_BINARY_WITH_PATH'])
+        if env['CM_MLPERF_DEVICE'] == "qaic":
+            env['kilt_model_root'] = os.path.dirname(env['CM_QAIC_MODEL_COMPILED_BINARY_WITH_PATH'])
         env['dataset_imagenet_preprocessed_subset_fof'] = env['CM_DATASET_PREPROCESSED_IMAGENAMES_LIST']
         env['dataset_imagenet_preprocessed_dir'] = env['CM_DATASET_PREPROCESSED_PATH']
 
