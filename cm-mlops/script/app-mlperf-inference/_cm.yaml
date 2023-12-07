@@ -768,6 +768,8 @@ variations:
     add_deps_recursive:
       python-reference-mlperf-inference:
         tags: _fp32
+      kilt-harness:
+        tags: _fp32
 
   float16:
     group: precision
@@ -777,6 +779,8 @@ variations:
     add_deps_recursive:
       python-reference-mlperf-inference:
         tags: _float16
+      kilt-harness:
+        tags: _fp16
 
   bfloat16:
     group: precision
@@ -795,6 +799,8 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _int8
+      kilt-harness:
+        tags: _int8
 
   uint8:
     group: precision
@@ -803,6 +809,8 @@ variations:
       CM_MLPERF_MODEL_PRECISION: uint8
     add_deps_recursive:
       mlperf-inference-implementation:
+        tags: _uint8
+      kilt-harness:
         tags: _uint8
 
   offline:
