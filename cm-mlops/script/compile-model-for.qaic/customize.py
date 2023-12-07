@@ -50,5 +50,6 @@ def postprocess(i):
 
     env = i['env']
     env['CM_QAIC_MODEL_COMPILED_BINARY_WITH_PATH'] = os.path.join(os.getcwd(), "elfs", "programqpc.bin")
+    env['CM_ML_MODEL_FILE_WITH_PATH'] = env['CM_QAIC_MODEL_COMPILED_BINARY_WITH_PATH']
 
     return {'return':0}
