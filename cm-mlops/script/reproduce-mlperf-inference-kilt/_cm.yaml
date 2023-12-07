@@ -118,6 +118,9 @@ deps:
   - enable_if_env:
       CM_MODEL:
       - resnet50
+    skip_if_env:
+      CM_MLPERF_DEVICE:
+      - qaic
     names:
       - resnet50-model
       - ml-model
@@ -301,7 +304,8 @@ variations:
   resnet50,uint8:
     env:
       kilt_input_format: "UINT8,-1,224,224,3"
-      CM_IMAGENET_ACCURACY_DTYPE: "int8"
+      kilt_device_qaic_skip_stage: convert
+      CM_IMAGENET_ACCURACY_DTYPE: int8
 
   resnet50,qaic:
     deps:
@@ -438,7 +442,6 @@ variations:
     env:
       CM_IMAGENET_ACCURACY_DTYPE: float32
 
-
   nsp.14:
     group: nsp
     default: true
@@ -446,3 +449,14 @@ variations:
       qaic-model-compiler:
         tags: _nsp.14
 
+  dl2q.24xlarge:
+    group: sut
+    base:
+      - nsp.14
+    env:
+      kilt_device_ids: 0,1,2,3,4,5,6,7
+      qaic_queue_length: 6
+
+  dl2q.24xlarge,resnet50,offline:
+    base:
+      - activation-count.3
