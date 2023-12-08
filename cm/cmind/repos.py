@@ -233,7 +233,7 @@ class Repos:
         return {'return':0}
 
     ############################################################
-    def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = ''):
+    def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = '', depth = None):
         """
         Clone or pull CM repository
 
@@ -242,6 +242,7 @@ class Repos:
             (url) (str): Git repository URL
             (branch) (str): Git repository branch
             (checkout) (str): Git repository checkout
+            (depth) (int): Git repository depth
             (console) (bool): if True, print some info to console
             (desc) (str): optional repository description
             (prefix) (str): sub-directory to be used inside this CM repository to store artifacts
@@ -266,18 +267,44 @@ class Repos:
         cur_dir = os.getcwd()
 
         clone=False
-        if os.path.isdir(path_to_repo):
-            # Attempt to update
+
+        download=True if url.find('.zip')>0 else False
+
+        if download:
+            if os.path.isdir(path_to_repo):
+                return {'return':1, 'error':'repository is already installed'}
+
+            os.makedirs(path_to_repo)
+
             os.chdir(path_to_repo)
 
-            cmd = 'git pull'
+            cmd = 'wget --no-check-certificate "'+url+'" -O '+alias
+
         else:
-            # Attempt to clone
-            clone = True
+            if os.path.isdir(path_to_repo):
+                # Attempt to update
+                os.chdir(path_to_repo)
 
-            os.chdir(self.full_path_to_repos)
+                cmd = 'git pull'
+                # Attempt to clone
+                os.chdir(self.full_path_to_repos)
 
-            cmd = 'git clone '+url+' '+alias
+                cmd = 'git clone '+url+' '+alias
+
+                # Check if depth is set
+                if depth!=None and depth!='':
+                    cmd+=' --depth '+str(depth)
+            else:
+                # Attempt to clone
+                clone = True
+
+                os.chdir(self.full_path_to_repos)
+
+                cmd = 'git clone '+url+' '+alias
+
+                # Check if depth is set
+                if depth!=None and depth!='':
+                    cmd+=' --depth '+str(depth)
 
         if console:
             print (cmd)
@@ -289,6 +316,46 @@ class Repos:
             return {'return':1, 'error':'repository was not cloned'}
 
         os.chdir(path_to_repo)
+
+        if download:
+            import zipfile
+
+            pack_file = os.path.join(path_to_repo, alias)
+            
+            # Attempt to read cmr.json 
+            repo_pack_file = open(pack_file, 'rb')
+            repo_pack_zip = zipfile.ZipFile(repo_pack_file)
+
+            repo_pack_desc = self.cfg['file_meta_repo']
+
+            files=repo_pack_zip.namelist()
+
+            repo_path = path_to_repo
+
+            if console:
+                print ('Unpacking {} to {} ...'.format(pack_file, repo_path))
+
+            # Unpacking zip
+            for f in files:
+                if not f.startswith('..') and not f.startswith('/') and not f.startswith('\\'):
+                    file_path = os.path.join(repo_path, f)
+                    if f.endswith('/'):
+                        # create directory
+                        if not os.path.exists(file_path):
+                            os.makedirs(file_path)
+                    else:
+                        dir_name = os.path.dirname(file_path)
+                        if not os.path.exists(dir_name):
+                            os.makedirs(dir_name)
+
+                        # extract file
+                        file_out = open(file_path, 'wb')
+                        file_out.write(repo_pack_zip.read(f))
+                        file_out.close()
+
+            repo_pack_zip.close()
+            repo_pack_file.close()
+            
 
         # Check if branch 
         if branch != '' or checkout != '':

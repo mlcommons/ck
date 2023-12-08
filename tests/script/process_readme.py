@@ -8,9 +8,10 @@ import yaml
 files=sys.argv[1:]
 
 for file in files:
-    if not file.endswith("_cm.json") and not file.endswith("_cm.yaml"):
+    filename = os.path.basename(file)
+    if not filename.endswith("_cm.json") and not filename.endswith("_cm.yaml"):
         continue
-    if not file.startswith(os.path.join("cm-mlops", "script")):
+    if not str(file).startswith(os.path.join("cm-mlops", "script")):
         continue
     script_path = os.path.dirname(file)
     f = open(file)

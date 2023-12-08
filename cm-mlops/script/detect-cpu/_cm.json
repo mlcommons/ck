@@ -4,7 +4,9 @@
   "automation_uid": "5b4e0237da074764",
   "category": "Platform information",
   "clean_files": [
-    "tmp-lscpu.out"
+     "tmp-lscpu.out",
+     "tmp-systeminfo.csv",
+     "tmp-wmic-cpu.csv"
   ],
   "deps": [
     {
@@ -15,6 +17,9 @@
     "CM_HOST_CPU_*",
     "CM_HOST_MEMORY_CAPACITY",
     "CM_HOST_DISK_CAPACITY"
+  ],
+  "new_state_keys": [
+    "host_device_raw_info"
   ],
   "tags": [
     "detect",

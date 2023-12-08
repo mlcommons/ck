@@ -5,7 +5,8 @@
   "cache": true,
   "category": "AI/ML optimization",
   "new_env_keys": [
-    "CM_QAIC_*"
+    "CM_QAIC_*",
+    "CM_ML_MODEL_FILE_WITH_PATH"
   ],
   "deps": [
     {
@@ -120,9 +121,53 @@
     "multistream": {
       "group": "mlperf-scenario"
     },
+    "nsp.14": {
+      "group": "nsp"
+    },
+    "nsp.16": {
+      "group": "nsp"
+    },
+    "nsp.8": {
+      "group": "nsp"
+    },
+    "nsp.9": {
+      "group": "nsp"
+    },
     "resnet50,offline": {
       "env": {
         "CM_QAIC_MODEL_COMPILER_ARGS": "-sdp-cluster-sizes=2,2 -multicast-weights"
+      }
+    },
+    "resnet50,offline,nsp.14": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4 -mos=1,2 -ols=4"
+      },
+      "default_variations": {
+        "batch-size": "bs.8"
+      }
+    },
+    "resnet50,server,nsp.14": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=48 -ols=4"
+      },
+      "default_variations": {
+        "batch-size": "bs.8"
+      }
+    },
+    "resnet50,multistream,nsp.14": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4"
+      },
+      "default_variations": {
+        "batch-size": "bs.1"
+      }
+    },
+    "resnet50,singlestream,nsp.14": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4 -mos=1,2 -ols=4"
+      },
+      "default_variations": {
+        "batch-size": "bs.1"
       }
     },
     "resnet50,singlestream": {

@@ -24,7 +24,7 @@ def preprocess(i):
     source_files = []
     env['CM_SOURCE_FOLDER_PATH'] = env['CM_KILT_CHECKOUT_PATH']
 
-    env['kilt_model_root'] = env['CM_ML_MODEL_FILE_WITH_PATH']
+    env['kilt_model_root'] = env.get('CM_ML_MODEL_FILE_WITH_PATH')
 
     if '+ CXXFLAGS' not in env:
         env['+ CXXFLAGS'] = []
@@ -34,8 +34,8 @@ def preprocess(i):
 
 
     if env.get('CM_MODEL') == "resnet50":
-        env['kilt_model_root'] = env['CM_ML_MODEL_FILE_WITH_PATH']
-        env['kilt_model_root'] = os.path.dirname(env['CM_QAIC_MODEL_COMPILED_BINARY_WITH_PATH'])
+        if env['CM_MLPERF_DEVICE'] == "qaic":
+            env['kilt_model_root'] = os.path.dirname(env['CM_QAIC_MODEL_COMPILED_BINARY_WITH_PATH'])
         env['dataset_imagenet_preprocessed_subset_fof'] = env['CM_DATASET_PREPROCESSED_IMAGENAMES_LIST']
         env['dataset_imagenet_preprocessed_dir'] = env['CM_DATASET_PREPROCESSED_PATH']
 
@@ -70,10 +70,7 @@ def preprocess(i):
     if 'SERVER' not in env['CM_BENCHMARK']:
         source_files.append(os.path.join(kilt_root, "benchmarks", "harness", "harness.cpp"))
 
-    source_files.append(env['CM_QAIC_API_SRC_FILE'])
-    print(f"Compiling the source files: {source_files}")
-
-    env['CM_CXX_SOURCE_FILES'] = ";".join(source_files)
+    #source_files.append(env['CM_QAIC_API_SRC_FILE'])
 
     env['+CPLUS_INCLUDE_PATH'].append(kilt_root) 
     env['+C_INCLUDE_PATH'].append(kilt_root)
@@ -83,6 +80,12 @@ def preprocess(i):
         env['+CPLUS_INCLUDE_PATH'].append(env['CM_CUDA_PATH_INCLUDE'])
         env['+LD_LIBRARY_PATH'].append(env['CM_CUDA_PATH_LIB'])
         env['+DYLD_FALLBACK_LIBRARY_PATH'].append(env['CM_CUDA_PATH_INCLUDE'])
+
+    elif env['CM_MLPERF_DEVICE'] == 'qaic':
+        source_files.append(os.path.join(kilt_root, "devices", "qaic", "api", "master", "QAicInfApi.cpp"))
+
+    print(f"Compiling the source files: {source_files}")
+    env['CM_CXX_SOURCE_FILES'] = ";".join(source_files)
 
     env['+ CXXFLAGS'].append("-std=c++17")
     env['+ CXXFLAGS'].append("-fpermissive")
@@ -115,7 +118,7 @@ def preprocess(i):
     env['+ LDCXXFLAGS'].append('-ldl')
 
     env['CM_LINKER_LANG'] = 'CXX'
-    env['CM_RUN_DIR'] = os.getcwd()
+    env['CM_RUN_DIR'] = env.get('CM_MLPERF_OUTPUT_DIR', os.getcwd())
 
     if 'CM_MLPERF_CONF' not in env:
         env['CM_MLPERF_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "mlperf.conf")
