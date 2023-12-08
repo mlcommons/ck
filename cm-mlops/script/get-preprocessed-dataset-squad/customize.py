@@ -25,6 +25,13 @@ def preprocess(i):
 
     env['CK_ENV_MLPERF_INFERENCE'] = env['CM_MLPERF_INFERENCE_SOURCE']
 
+    if env.get('CM_DATASET_SQUAD_PACKED', '') == "yes":
+        i['run_script_input']['script_name'] = "run-packed"
+        if env.get('+PYTHONPATH', '') == '':
+            env['+PYTHONPATH'] = []
+
+    env['+PYTHONPATH'].append(env['CM_MLPERF_INFERENCE_BERT_PATH'])
+
     return {'return':0}
 
 def postprocess(i):
@@ -32,14 +39,24 @@ def postprocess(i):
     env = i['env']
     cur = os.getcwd()
 
-    env['CM_DATASET_SQUAD_TOKENIZED_ROOT'] = cur
-    if env.get('CM_DATASET_RAW', '') == "yes":
-        env['CM_DATASET_SQUAD_TOKENIZED_INPUT_IDS'] = os.path.join(cur, 'bert_tokenized_squad_v1_1_input_ids.raw')
-        env['CM_DATASET_SQUAD_TOKENIZED_SEGMENT_IDS'] = os.path.join(cur, 'bert_tokenized_squad_v1_1_segment_ids.raw')
-        env['CM_DATASET_SQUAD_TOKENIZED_INPUT_MASK'] = os.path.join(cur, 'bert_tokenized_squad_v1_1_input_mask.raw')
+    if env.get('CM_DATASET_SQUAD_PACKED', '') != "yes":
+        env['CM_DATASET_SQUAD_TOKENIZED_ROOT'] = cur
+        if env.get('CM_DATASET_RAW', '') == "yes":
+            env['CM_DATASET_SQUAD_TOKENIZED_INPUT_IDS'] = os.path.join(cur, 'bert_tokenized_squad_v1_1_input_ids.raw')
+            env['CM_DATASET_SQUAD_TOKENIZED_SEGMENT_IDS'] = os.path.join(cur, 'bert_tokenized_squad_v1_1_segment_ids.raw')
+            env['CM_DATASET_SQUAD_TOKENIZED_INPUT_MASK'] = os.path.join(cur, 'bert_tokenized_squad_v1_1_input_mask.raw')
+        else:
+            env['CM_DATASET_SQUAD_TOKENIZED_PICKLE_FILE'] = os.path.join(cur, 'bert_tokenized_squad_v1_1.pickle')
 
-    env['CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH'] = env['CM_DATASET_MAX_SEQ_LENGTH']
-    env['CM_DATASET_SQUAD_TOKENIZED_DOC_STRIDE'] = env['CM_DATASET_DOC_STRIDE']
-    env['CM_DATASET_SQUAD_TOKENIZED_MAX_QUERY_LENGTH'] = env['CM_DATASET_MAX_QUERY_LENGTH']
+        env['CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH'] = env['CM_DATASET_MAX_SEQ_LENGTH']
+        env['CM_DATASET_SQUAD_TOKENIZED_DOC_STRIDE'] = env['CM_DATASET_DOC_STRIDE']
+        env['CM_DATASET_SQUAD_TOKENIZED_MAX_QUERY_LENGTH'] = env['CM_DATASET_MAX_QUERY_LENGTH']
+
+    else:
+        with open("packed_filenames.txt", "w") as f:
+            for dirname in os.listdir(cur):
+                if os.path.isdir(dirname):
+                    f.write(os.path.join(cur, "input_ids.raw") + ", " + os.path.join(cur, "segment_ids.raw") + ", " + os.path.join(cur, "input_position_ids.raw")+ "\n")
+        env['CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE'] = os.path.join(cur, "packed_filenames.txt")
 
     return {'return':0}

@@ -56,6 +56,13 @@
     },
     {
       "names": [
+        "squad-cal",
+        "preprocessed-dataset"
+      ],
+      "tags": "get,dataset,calibration,squad,_pickle,_width.384"
+    },
+    {
+      "names": [
         "model-src"
       ],
       "tags": "get,ml-model"
@@ -107,6 +114,7 @@
       }
     },
     "resnet50": {
+      "group": "model",
       "default_variations": {
         "calibration-option": "mlperf.option1",
         "model-framework": "tf"
@@ -141,6 +149,7 @@
       }
     },
     "retinanet": {
+      "group": "model",
       "adr": {
         "model-src": {
           "tags": "retinanet,_no-nms"
@@ -153,6 +162,38 @@
         "CM_QAIC_COMPILER_PARAMS": "-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,<<<CM_QAIC_MODEL_BATCH_SIZE>>> -node-precision-info=<<<CM_QAIC_NODE_PRECISION_FILE_PATH>>>",
         "CM_IMAGE_ORDER_FILE_PATH": "retinanet/openimages_cal_images_list.txt",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_retinanet_no_nms_mlperf"
+      }
+    },
+    "bert-99": {
+      "group": "model",
+      "adr": {
+        "model-src": {
+          "tags": "retinanet,_no-nms"
+        }
+      },
+      "deps": [
+        {
+          "tags": "get,preprocessed,dataset,squad,_packed,_pickle"
+        }
+      ],
+      "env": {
+        "CM_CALIBRATE_SQUAD": "yes",
+        "CM_QAIC_COMPILER_ARGS": "",
+        "CM_QAIC_NODE_PRECISION_FILE_PATH": "retinanet/node-precision.yaml",
+        "CM_QAIC_COMPILER_PARAMS": "-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_SQUAD_PACKED_SEQ_LEN>>> -input-list-file=<<<CM_SQUAD_PACKED_INPUT_FILES>>> -num-histogram-bins=512 -profiling-threads=4",
+        "CM_QAIC_MODEL_TO_CONVERT": "calibrate_bert_mlperf"
+    },
+    "seq.#": {
+      "group": "seq-length",
+      "env": {
+        "CM_SQUAD_PACKED_SEQ_LEN": "#"
+      }
+    },
+    "seq.384": {
+      "group": "seq-length",
+      "default": true,
+      "env": {
+        "CM_SQUAD_PACKED_SEQ_LEN": "#"
       }
     }
   }

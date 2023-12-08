@@ -79,5 +79,14 @@ variations:
     default: true
     env:
       CM_DATASET_DOC_STRIDE: 128
+  packed:
+    group: packing
+    env:
+      CM_DATASET_SQUAD_PACKED: 'yes'
+    deps:
+      - tags: get,preprocessed,squad,_pickle
+        inherit_varation_tags: true
+        skipa_inherit_variation_groups:
+        - packing
 
 versions: {}
