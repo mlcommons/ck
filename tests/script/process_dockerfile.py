@@ -14,9 +14,9 @@ for file in files:
         continue
     script_path = os.path.dirname(file)
     f = open(file)
-    if f.endswith(".json"):
+    if file.endswith(".json"):
         data = json.load(f)
-    elif f.endswith(".yaml"):
+    elif file.endswith(".yaml"):
         data = yaml.safe_load(f)
     uid = data['uid']
 

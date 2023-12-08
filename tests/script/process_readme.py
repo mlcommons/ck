@@ -8,16 +8,15 @@ import yaml
 files=sys.argv[1:]
 
 for file in files:
-    filename = os.path.basename(file)
-    if not filename.endswith("_cm.json") and not filename.endswith("_cm.yaml"):
+    if not file.endswith("_cm.json") and not file.endswith("_cm.yaml"):
         continue
-    if not str(file).startswith(os.path.join("cm-mlops", "script")):
+    if not file.startswith(os.path.join("cm-mlops", "script")):
         continue
     script_path = os.path.dirname(file)
     f = open(file)
-    if f.endswith(".json"):
+    if file.endswith(".json"):
         data = json.load(f)
-    elif f.endswith(".yaml"):
+    elif file.endswith(".yaml"):
         data = yaml.safe_load(f)
     uid = data['uid']
 
