@@ -30,7 +30,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-apps-sdk)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,detect,qaic,apps,sdk,qaic-apps-sdk*
+* CM "database" tags to find this script: *get,detect,qaic,apps,sdk,apps-sdk,qaic-apps-sdk*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -47,9 +47,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,detect,qaic,apps,sdk,qaic-apps-sdk `
+1. `cm run script --tags=get,detect,qaic,apps,sdk,apps-sdk,qaic-apps-sdk `
 
-2. `cmr "get detect qaic apps sdk qaic-apps-sdk" `
+2. `cmr "get detect qaic apps sdk apps-sdk qaic-apps-sdk" `
 
 #### Run this script from Python
 
@@ -62,7 +62,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,detect,qaic,apps,sdk,qaic-apps-sdk'
+                  'tags':'get,detect,qaic,apps,sdk,apps-sdk,qaic-apps-sdk'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -79,13 +79,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,detect,qaic,apps,sdk,qaic-apps-sdk"```
+```cmr "cm gui" --script="get,detect,qaic,apps,sdk,apps-sdk,qaic-apps-sdk"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,detect,qaic,apps,sdk,qaic-apps-sdk) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,detect,qaic,apps,sdk,apps-sdk,qaic-apps-sdk) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get detect qaic apps sdk qaic-apps-sdk" `
+`cm docker script "get detect qaic apps sdk apps-sdk qaic-apps-sdk" `
 
 ___
 ### Customization
@@ -117,9 +117,13 @@ ___
 
 ___
 ### Script output
-`cmr "get detect qaic apps sdk qaic-apps-sdk"  -j`
+`cmr "get detect qaic apps sdk apps-sdk qaic-apps-sdk"  -j`
 #### New environment keys (filter)
 
+* `+CPLUS_INCLUDE_PATH`
+* `+C_INCLUDE_PATH`
+* `+DYLD_FALLBACK_LIBRARY_PATH`
+* `+LD_LIBRARY_PATH`
 * `+PATH`
 * `CM_QAIC_EXEC_PATH`
 #### New environment keys auto-detected from customize

@@ -27,11 +27,10 @@
 
 #### Summary
 
-* Category: *MLPerf benchmark support.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)*
-* CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,src,source,power,power-dev,mlperf,mlcommons*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
+* CM "database" tags to find this script: *get,dataset,imagenet,calibration*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -48,9 +47,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,src,source,power,power-dev,mlperf,mlcommons[,variations] `
+1. `cm run script --tags=get,dataset,imagenet,calibration[,variations] `
 
-2. `cmr "get src source power power-dev mlperf mlcommons[ variations]" `
+2. `cmr "get dataset imagenet calibration[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -65,7 +64,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,src,source,power,power-dev,mlperf,mlcommons'
+                  'tags':'get,dataset,imagenet,calibration'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -82,13 +81,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,src,source,power,power-dev,mlperf,mlcommons"```
+```cmr "cm gui" --script="get,dataset,imagenet,calibration"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,src,source,power,power-dev,mlperf,mlcommons) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,dataset,imagenet,calibration) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get src source power power-dev mlperf mlcommons[ variations]" `
+`cm docker script "get dataset imagenet calibration[ variations]" `
 
 ___
 ### Customization
@@ -96,41 +95,19 @@ ___
 
 #### Variations
 
-  * Group "**checkout**"
+  * Group "**calibration-option**"
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_branch.#`
+    * **`_mlperf.option1`** (default)
       - Environment variables:
-        - *CM_GIT_CHECKOUT*: `#`
+        - *CM_MLPERF_IMAGENET_CALIBRATION_OPTION*: `one`
+        - *CM_DOWNLOAD_CHECKSUM*: `f09719174af3553119e2c621157773a6`
       - Workflow:
-    * `_sha.#`
+    * `_mlperf.option2`
       - Environment variables:
-        - *CM_GIT_SHA*: `#`
-      - Workflow:
-    * `_tag.#`
-      - Environment variables:
-        - *CM_GIT_CHECKOUT_TAG*: `#`
-      - Workflow:
-
-    </details>
-
-
-  * Group "**repo**"
-    <details>
-    <summary>Click here to expand this section.</summary>
-
-    * **`_mlcommons`** (default)
-      - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/mlcommons/power-dev.git`
-      - Workflow:
-    * `_octoml`
-      - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/octoml/power-dev.git`
-      - Workflow:
-    * `_repo.#`
-      - Environment variables:
-        - *CM_GIT_URL*: `#`
+        - *CM_MLPERF_IMAGENET_CALIBRATION_OPTION*: `two`
+        - *CM_DOWNLOAD_CHECKSUM*: `e44582af00e3b4fc3fac30efd6bdd05f`
       - Workflow:
 
     </details>
@@ -138,7 +115,7 @@ ___
 
 #### Default variations
 
-`_mlcommons`
+`_mlperf.option1`
 #### Default environment
 
 <details>
@@ -146,9 +123,6 @@ ___
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_GIT_DEPTH: `--depth 1`
-* CM_GIT_PATCH: `no`
-* CM_GIT_CHECKOUT_FOLDER: `power-dev`
 
 </details>
 
@@ -158,24 +132,26 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/customize.py)***
-  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)***
-     * get,git,repo
-       * CM names: `--adr.['mlperf-power-dev-git-repo']...`
-       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/_cm.yaml)***
+     * download,file
+       * CM names: `--adr.['calibration-file-downloader']...`
+       - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/_cm.yaml)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/_cm.yaml)
 </details>
 
 ___
 ### Script output
-`cmr "get src source power power-dev mlperf mlcommons[,variations]"  -j`
+`cmr "get dataset imagenet calibration[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_MLPERF_POWER_SOURCE`
+* `CM_MLPERF_IMAGENET_CALIBRATION_LIST_FILE_WITH_PATH`
 #### New environment keys auto-detected from customize
 
 ___

@@ -104,14 +104,6 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * **`_default`** (default)
-      - Environment variables:
-        - *CM_GIT_PATCH*: `no`
-      - Workflow:
-    * `_full-history`
-      - Environment variables:
-        - *CM_GIT_DEPTH*: ``
-      - Workflow:
     * `_no-recurse-submodules`
       - Environment variables:
         - *CM_GIT_RECURSE_SUBMODULES*: ``
@@ -124,9 +116,53 @@ ___
       - Environment variables:
         - *CM_GIT_PATCH*: `yes`
       - Workflow:
-    * `_short-history`
+
+    </details>
+
+
+  * Group "**checkout**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_branch.#`
+      - Environment variables:
+        - *CM_GIT_CHECKOUT*: `#`
+      - Workflow:
+    * `_sha.#`
+      - Environment variables:
+        - *CM_GIT_SHA*: `#`
+      - Workflow:
+    * `_tag.#`
+      - Environment variables:
+        - *CM_GIT_CHECKOUT_TAG*: `#`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**git-history**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_full-history`
+      - Environment variables:
+        - *CM_GIT_DEPTH*: ``
+      - Workflow:
+    * **`_short-history`** (default)
       - Environment variables:
         - *CM_GIT_DEPTH*: `--depth 5`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**repo**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_repo.#`
+      - Environment variables:
+        - *CM_GIT_URL*: `#`
       - Workflow:
 
     </details>
@@ -150,7 +186,7 @@ ___
 
 #### Default variations
 
-`_cknowledge,_default`
+`_cknowledge,_short-history`
 #### Default environment
 
 <details>
@@ -162,7 +198,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_GIT_DEPTH: `--depth 4`
 * CM_GIT_PATCH: `no`
 * CM_GIT_RECURSE_SUBMODULES: ` --recurse-submodules`
-* CM_GIT_URL: `https://github.com/mlcommons/training.git`
+* CM_GIT_CHECKOUT_FOLDER: `training`
 
 </details>
 
@@ -177,16 +213,13 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/_cm.json)***
-     * detect,os
-       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-     * get,python3
-       * CM names: `--adr.['python', 'python3']...`
-       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/_cm.json)
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/_cm.json)***
+     * get,git,repo
+       * CM names: `--adr.['mlperf-training-repo']...`
+       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/_cm.json)
@@ -202,7 +235,6 @@ ___
 * `CM_MLPERF_TRAINING_LAST_RELEASE`
 #### New environment keys auto-detected from customize
 
-* `CM_MLPERF_TRAINING_SOURCE`
 ___
 ### Maintainers
 
