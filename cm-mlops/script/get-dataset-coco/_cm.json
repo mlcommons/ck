@@ -9,20 +9,26 @@
       "tags": "detect,os"
     }
   ],
-  "post_deps": [
+  "prehook_deps": [
     {
       "names": [
         "get-dataset-coco-data"
       ],
       "tags": "download-and-extract,file,_wget,_extract",
       "update_tags_from_env_with_prefix": {
-        "_url.": [ "CM_DATASET_COCO_URL_ZIPS_FULL" ]
+        "_url.": [ "CM_DATASET_COCO_URL_DATA_FULL" ]
       },
       "env": {
         "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_DATASET_COCO_DATA_DOWNLOAD_PATH",
-        "CM_EXTRACT_FINAL_ENV_NAME": "CM_DATASET_COCO_DATA_PATH"
+        "CM_EXTRACT_FINAL_ENV_NAME": "CM_DATASET_COCO_DATA_PATH",
+        "CM_DOWNLOAD_CHECKSUM": "<<<CM_DATASET_COCO_MD5SUM_DATA>>>"
       },
-      "force_cache": true
+      "force_cache": true,
+      "skip_if_env": {
+        "CM_DATASET_COCO_DETECTED": [
+          "yes"
+        ]
+      }
     },
     {
       "names": [
@@ -35,22 +41,26 @@
       "env": {
         "CM_DOWNLOAD_PATH":"<<<CM_DATASET_COCO_DATA_DOWNLOAD_PATH>>>",
         "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_DATASET_COCO_ANNOTATIONS_DOWNLOAD_PATH",
+        "CM_DOWNLOAD_CHECKSUM": "<<<CM_DATASET_COCO_MD5SUM_ANN>>>",
         "CM_EXTRACT_FINAL_ENV_NAME": "CM_DATASET_COCO_ANNOTATIONS_PATH"
       },
-      "force_cache": true
+      "force_cache": true,
+      "skip_if_env": {
+        "CM_DATASET_COCO_DETECTED": [
+          "yes"
+        ]
+      }
     }
   ],
   "env": {
     "CM_DATASET": "COCO",
-    "CM_DATASET_COCO_URL_ZIPS":"http://images.cocodataset.org/zips",
+    "CM_DATASET_COCO_URL_DATA":"http://images.cocodataset.org/zips",
     "CM_DATASET_COCO_URL_ANNOTATIONS":"http://images.cocodataset.org/annotations"
   },
   "new_env_keys": [
     "CM_DATASET_COCO*",
     "CM_DATASET_PATH",
-    "CM_DATASET_PATH_ROOT",
-    "CM_DATASET_ANNOTATIONS_DIR_PATH",
-    "CM_DATASET_ANNOTATIONS_FILE_PATH"
+    "CM_DATASET_PATH_ROOT"
   ],
   "tags": [
     "get",
@@ -68,14 +78,14 @@
     },
     "train": {
       "env": {
-        "CM_DATASET_COCO_SPLIT": "train"
+        "CM_DATASET_COCO_TYPE": "train"
       },
       "group": "mode"
     },
     "val": {
       "default":true,
       "env": {
-        "CM_DATASET_COCO_SPLIT": "val"
+        "CM_DATASET_COCO_TYPE": "val"
       },
       "group": "mode"
     }
