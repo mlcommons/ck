@@ -5,7 +5,8 @@
   "cache": true,
   "category": "AI/ML optimization",
   "new_env_keys": [
-    "CM_QAIC_*"
+    "CM_QAIC_*",
+    "CM_ML_MODEL_FILE_WITH_PATH"
   ],
   "deps": [
     {

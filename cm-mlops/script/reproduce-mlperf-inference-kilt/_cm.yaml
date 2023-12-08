@@ -66,6 +66,16 @@ new_state_keys:
   - mlperf-inference-implementation
   - CM_SUT_*
 
+# Env keys which are exposed to higher level scripts
+new_env_keys:
+  - CM_MLPERF_*
+  - CM_DATASET_*
+  - CM_HW_NAME
+  - CM_ML_MODEL_*
+  - CM_MAX_EXAMPLES
+  - CM_IMAGENET_ACCURACY_DTYPE
+
+
 # Dependencies on other CM scripts
 
 deps:
@@ -103,11 +113,14 @@ deps:
     names:
       - imagenet-preprocessed
       - dataset-preprocessed
-    tags: get,dataset,imagenet,preprocessed,_NHWC,_full
+    tags: get,dataset,imagenet,preprocessed,_for.resnet50,_NHWC,_full
 
   - enable_if_env:
       CM_MODEL:
       - resnet50
+    skip_if_env:
+      CM_MLPERF_DEVICE:
+      - qaic
     names:
       - resnet50-model
       - ml-model
@@ -237,7 +250,6 @@ variations:
       CM_MLPERF_DEVICE_LIB_NAMESPEC: QAic
       kilt_backend_type:  qaic
     deps:
-      - tags: get,qaic,api
       - tags: get,qaic,apps-sdk
       - tags: get,lib,protobuf,_tag.v3.11.4
 
@@ -282,13 +294,18 @@ variations:
       kilt_output_count: 1
       kilt_input_format: "FLOAT32,-1,224,224,3"
       kilt_output_format: "INT64,-1"
-      kilt_model_batch_size: 32
       dataset_imagenet_preprocessed_input_square_side: 224
       ml_model_has_background_class: "YES"
       ml_model_image_height: 224
       loadgen_buffer_size: 1024
       loadgen_dataset_size: 50000
       CM_BENCHMARK: STANDALONE_CLASSIFICATION
+
+  resnet50,uint8:
+    env:
+      kilt_input_format: "UINT8,-1,224,224,3"
+      kilt_device_qaic_skip_stage: convert
+      CM_IMAGENET_ACCURACY_DTYPE: int8
 
   resnet50,qaic:
     deps:
@@ -398,6 +415,7 @@ variations:
     env:
       CM_MLPERF_LOADGEN_SCENARIO: SingleStream
       kilt_model_batch_size: 1
+
   multistream:
     group: loadgen-scenario
     env:
@@ -415,4 +433,36 @@ variations:
     group: precision
     adr:
       dataset-preprocessed:
-        tags: _uint8
+        tags: _uint8,_rgb8
+  fp32:
+    group: precision
+    adr:
+      dataset-preprocessed:
+        tags: _float32,_rgb32
+    env:
+      CM_IMAGENET_ACCURACY_DTYPE: float32
+
+  nsp.14:
+    group: nsp
+    default: true
+    adr:
+      qaic-model-compiler:
+        tags: _nsp.14
+
+  dl2q.24xlarge:
+    group: sut
+    base:
+      - nsp.14
+    env:
+      kilt_device_ids: 0,1,2,3,4,5,6,7
+      qaic_queue_length: 6
+
+  dl2q.24xlarge,singlestream:
+    env:
+      kilt_device_ids: 0
+    base:
+      - activation-count.1
+
+  dl2q.24xlarge,resnet50,offline:
+    base:
+      - activation-count.3
