@@ -6,8 +6,33 @@ def preprocess(i):
 
     env = i['env']
 
-    ver = env['CM_DATASET_COCO_VERSION']
-    tp = env['CM_DATASET_COCO_TYPE']
+    # Check if path is there to detect existing data set
+    path = env.get('CM_TMP_PATH','')
+    if path!='':
+        if not os.path.isdir(path):
+            return {'return':1, 'error':'path to dataset "{}" doesn\'t exist'.format(path)}
+
+        # Check which dataset
+        found = False
+
+        p = os.path.join(path, 'annotations')
+        if os.path.isdir(p):
+            for d in [('val2017','val','2017'), ('train2017','train','2017')]:
+                p = os.path.join(path, d[0])
+
+                if os.path.isdir(p):
+                    tp = d[1]
+                    ver = d[2]
+                    found = True
+                    break
+
+        if not found:
+            return {'return':1, 'error':'COCO dataset is not detected in "{}"'.format(path)}
+
+        env['CM_DATASET_COCO_DETECTED'] = 'yes'
+    else:
+        ver = env['CM_DATASET_COCO_VERSION']
+        tp = env['CM_DATASET_COCO_TYPE']
 
     url_data = env['CM_DATASET_COCO_URL_DATA']
     url_ann = env['CM_DATASET_COCO_URL_ANNOTATIONS']
@@ -52,37 +77,44 @@ def postprocess(i):
 
     env = i['env']
 
-    path_data = env['CM_DATASET_COCO_DATA_PATH']
-    path_ann = env['CM_DATASET_COCO_ANNOTATIONS_PATH']
+    path_all = os.getcwd()
 
     tp_ver = env['CM_DATASET_COCO_TYPE_AND_VERSION']
 
-    path_data_full = os.path.join(path_data, tp_ver)
-    path_ann_full = os.path.join(path_ann, 'annotations')
-
-    path_all = os.getcwd()
-
-    print ('')
-    print (path_all)
-    print ('')
-
-    if os_info['platform'] == 'windows':
-        # Moving to this directory since can't make symbolic links
-        command1 = '  move /y ' + path_data_full + ' ' + tp_ver
-        command2 = '  move /y ' + path_ann_full + ' annotations' 
-
+    # Check if detected or downloaded
+    if env.get('CM_DATASET_COCO_DETECTED', '').lower() == 'yes':
         env['CM_DATASET_COCO_DATA_PATH'] = os.path.join(path_all, tp_ver)
         env['CM_DATASET_COCO_ANNOTATIONS_PATH'] = os.path.join(path_all, 'annotations')
     else:
-        # Make soft links from data and annotations into 1 directory 
-        # (standard way for COCO)
+    
+        path_data = env['CM_DATASET_COCO_DATA_PATH']
+        path_ann = env['CM_DATASET_COCO_ANNOTATIONS_PATH']
 
-        command1 = '  ln -s ' + path_data_full + ' ' + tp_ver
-        command2 = '  ln -s ' + path_ann_full + ' annotations' 
+        path_data_full = os.path.join(path_data, tp_ver)
+        path_ann_full = os.path.join(path_ann, 'annotations')
 
-    for command in [command1, command2]:
-        print (command)
-        os.system(command)
+
+        print ('')
+        print (path_all)
+        print ('')
+
+        if os_info['platform'] == 'windows':
+            # Moving to this directory since can't make symbolic links
+            command1 = '  move /y ' + path_data_full + ' ' + tp_ver
+            command2 = '  move /y ' + path_ann_full + ' annotations' 
+
+            env['CM_DATASET_COCO_DATA_PATH'] = os.path.join(path_all, tp_ver)
+            env['CM_DATASET_COCO_ANNOTATIONS_PATH'] = os.path.join(path_all, 'annotations')
+        else:
+            # Make soft links from data and annotations into 1 directory 
+            # (standard way for COCO)
+
+            command1 = '  ln -s ' + path_data_full + ' ' + tp_ver
+            command2 = '  ln -s ' + path_ann_full + ' annotations' 
+
+        for command in [command1, command2]:
+            print (command)
+            os.system(command)
 
     env['CM_DATASET_COCO_PATH'] = path_all
     env['CM_DATASET_PATH'] = path_all
