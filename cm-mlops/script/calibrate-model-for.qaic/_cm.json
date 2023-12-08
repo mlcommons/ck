@@ -166,6 +166,9 @@
     },
     "bert-99": {
       "group": "model",
+      "default-variations": {
+        "seq-length": "seq.384"
+      },
       "adr": {
         "model-src": {
           "tags": "retinanet,_no-nms"
@@ -173,27 +176,39 @@
       },
       "deps": [
         {
+          "names": [
+            "squad-preprocessed",
+            "preprocessed-dataset"
+          ],
           "tags": "get,preprocessed,dataset,squad,_packed,_pickle"
         }
       ],
       "env": {
         "CM_CALIBRATE_SQUAD": "yes",
         "CM_QAIC_COMPILER_ARGS": "",
-        "CM_QAIC_NODE_PRECISION_FILE_PATH": "retinanet/node-precision.yaml",
-        "CM_QAIC_COMPILER_PARAMS": "-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_SQUAD_PACKED_SEQ_LEN>>> -input-list-file=<<<CM_SQUAD_PACKED_INPUT_FILES>>> -num-histogram-bins=512 -profiling-threads=4",
+        "CM_QAIC_COMPILER_PARAMS": "-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>> -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512 -profiling-threads=4",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_bert_mlperf"
     },
     "seq.#": {
       "group": "seq-length",
       "env": {
-        "CM_SQUAD_PACKED_SEQ_LEN": "#"
+        "CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH": "#"
+      },
+      "ad": {
+        "squad-preprocessed": {
+          "tags": "_seq.#"
+        }
       }
     },
     "seq.384": {
       "group": "seq-length",
-      "default": true,
       "env": {
-        "CM_SQUAD_PACKED_SEQ_LEN": "#"
+        "CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH": "#"
+      },
+      "ad": {
+        "squad-preprocessed": {
+          "tags": "_seq.384"
+        }
       }
     }
   }
