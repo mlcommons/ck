@@ -32,10 +32,10 @@ def preprocess(i):
     if '+CPLUS_INCLUDE_PATH' not in env:
         env['+CPLUS_INCLUDE_PATH']  = []
 
+    if env['CM_MLPERF_DEVICE'] == "qaic":
+        env['kilt_model_root'] = os.path.dirname(env['CM_QAIC_MODEL_COMPILED_BINARY_WITH_PATH'])
 
     if env.get('CM_MODEL') == "resnet50":
-        if env['CM_MLPERF_DEVICE'] == "qaic":
-            env['kilt_model_root'] = os.path.dirname(env['CM_QAIC_MODEL_COMPILED_BINARY_WITH_PATH'])
         env['dataset_imagenet_preprocessed_subset_fof'] = env['CM_DATASET_PREPROCESSED_IMAGENAMES_LIST']
         env['dataset_imagenet_preprocessed_dir'] = env['CM_DATASET_PREPROCESSED_PATH']
 

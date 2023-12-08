@@ -314,6 +314,13 @@ variations:
           - qaic-model-compiler
           - resnet50-compiler
 
+  bert-99,qaic:
+    deps:
+      - tags: compile,qaic,model,_bert-99
+        names:
+          - qaic-model-compiler
+          - bert-99-compiler
+
   retinanet:
     group: model
     env:
