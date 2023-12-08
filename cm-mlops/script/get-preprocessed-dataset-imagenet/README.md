@@ -124,10 +124,7 @@ ___
 
     * `_500,validation`
       - Workflow:
-    * **`_default`** (default)
-      - Environment variables:
-        - *CM_PREPROCESS_VGG*: `yes`
-        - *CM_MODEL*: `resnet50`
+    * `_default`
       - Workflow:
     * `_for.mobilenet,float32`
       - Environment variables:
@@ -313,7 +310,7 @@ ___
         1. ***Read "prehook_deps" on other CM scripts***
            * get,generic,image-preprocessor
              - CM script: [get-preprocesser-script-generic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocesser-script-generic)
-    * `_mlcommons-reference-preprocessor`
+    * **`_mlcommons-reference-preprocessor`** (default)
       - Environment variables:
         - *CM_DATASET_REFERENCE_PREPROCESSOR*: `1`
       - Workflow:
@@ -363,7 +360,7 @@ ___
 
 #### Default variations
 
-`_NCHW,_default,_resolution.224,_validation`
+`_NCHW,_mlcommons-reference-preprocessor,_resolution.224,_validation`
 
 #### Script flags mapped to environment
 <details>
@@ -398,6 +395,8 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_DATASET_PREPROCESSED_EXTENSION: `npy`
 * CM_DATASET_CONVERT_TO_UNSIGNED: `0`
 * CM_DATASET_REFERENCE_PREPROCESSOR: `1`
+* CM_PREPROCESS_VGG: `yes`
+* CM_MODEL: `resnet50`
 
 </details>
 
@@ -417,11 +416,11 @@ ___
        * CM names: `--adr.['original-dataset']...`
        - CM script: [get-dataset-imagenet-val](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)
      * get,dataset-aux,image-classification,imagenet-aux
-       * `if (CM_DATASET_TYPE in validation) AND (CM_IMAGENET_PREPROCESSED_PATH  != on)`
+       * `if (CM_DATASET_TYPE  == validation) AND (CM_IMAGENET_PREPROCESSED_PATH  != on)`
        - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
      * get,dataset,imagenet,calibration
        * `if (CM_DATASET_TYPE in calibration) AND (CM_IMAGENET_PREPROCESSED_PATH  != on)`
-       - *Warning: no scripts found*
+       - CM script: [get-dataset-imagenet-calibration](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration)
      * get,generic-python-lib,_package.opencv-python-headless
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_pillow
@@ -449,9 +448,11 @@ ___
 #### New environment keys auto-detected from customize
 
 * `CM_DATASET_IMAGES_LIST`
+* `CM_DATASET_PREPROCESSED_IMAGENAMES_LIST`
 * `CM_DATASET_PREPROCESSED_IMAGES_LIST`
 * `CM_DATASET_PREPROCESSED_PATH`
 * `CM_DATASET_SIZE`
+* `CM_DATASET_TYPE`
 ___
 ### Maintainers
 

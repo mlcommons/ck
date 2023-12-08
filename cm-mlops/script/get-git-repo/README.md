@@ -106,14 +106,13 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * **`_default`** (default)
+    * `_lfs`
       - Environment variables:
-        - *CM_GIT_PATCH*: `no`
+        - *CM_GIT_REPO_NEEDS_LFS*: `yes`
       - Workflow:
-    * `_full-history`
-      - Environment variables:
-        - *CM_GIT_DEPTH*: ``
-      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic,sys-util,_git-lfs
+             - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
     * `_no-recurse-submodules`
       - Environment variables:
         - *CM_GIT_RECURSE_SUBMODULES*: ``
@@ -121,10 +120,6 @@ ___
     * `_patch`
       - Environment variables:
         - *CM_GIT_PATCH*: `yes`
-      - Workflow:
-    * `_short-history`
-      - Environment variables:
-        - *CM_GIT_DEPTH*: `--depth 5`
       - Workflow:
     * `_submodules.#`
       - Environment variables:
@@ -154,6 +149,22 @@ ___
     </details>
 
 
+  * Group "**git-history**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_full-history`
+      - Environment variables:
+        - *CM_GIT_DEPTH*: ``
+      - Workflow:
+    * **`_short-history`** (default)
+      - Environment variables:
+        - *CM_GIT_DEPTH*: `--depth 5`
+      - Workflow:
+
+    </details>
+
+
   * Group "**repo**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -168,7 +179,7 @@ ___
 
 #### Default variations
 
-`_default`
+`_short-history`
 
 #### Script flags mapped to environment
 <details>

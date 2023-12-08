@@ -148,7 +148,6 @@ ___
            * get,dataset,openimages,original
              * CM names: `--adr.['openimages-dataset', 'openimages-original']...`
              - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
-             - CM script: [get-dataset-coco](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco)
            * get,generic-python-lib,_pycocotools
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_squad`

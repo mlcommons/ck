@@ -12,6 +12,7 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Default environment](#default-environment)
+* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -26,12 +27,12 @@
 
 #### Summary
 
-* Category: *Tests.*
+* Category: *Detection or installation of tools and artifacts.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-qaic-api)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *print,hello world,hello-world,hello,world,python*
-* Output cached? *False*
+* CM "database" tags to find this script: *get,api,lib-qaic-api,lib,qaic*
+* Output cached? *True*
 ___
 ### Reuse this script in your project
 
@@ -47,9 +48,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=print,hello world,hello-world,hello,world,python `
+1. `cm run script --tags=get,api,lib-qaic-api,lib,qaic `
 
-2. `cmr "print hello world hello-world hello world python" `
+2. `cmr "get api lib-qaic-api lib qaic" `
 
 #### Run this script from Python
 
@@ -62,7 +63,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'print,hello world,hello-world,hello,world,python'
+                  'tags':'get,api,lib-qaic-api,lib,qaic'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -79,13 +80,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="print,hello world,hello-world,hello,world,python"```
+```cmr "cm gui" --script="get,api,lib-qaic-api,lib,qaic"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=print,hello world,hello-world,hello,world,python) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,api,lib-qaic-api,lib,qaic) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "print hello world hello-world hello world python" `
+`cm docker script "get api lib-qaic-api lib qaic" `
 
 ___
 ### Customization
@@ -100,39 +101,42 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 </details>
 
+#### Versions
+Default version: `master`
+
+* `master`
 ___
 ### Script workflow, dependencies and native scripts
 
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-qaic-api/_cm.json)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-     * get,sys-utils-cm
-       - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
-     * get,python3
-       * CM names: `--adr.['python', 'python3']...`
-       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * print,python-version
-       - CM script: [print-python-version](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-python-version)
-  1. Run "preprocess" function from customize.py
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-qaic-api/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-qaic-api/_cm.json)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)
-  1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-qaic-api/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-qaic-api/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-qaic-api/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-qaic-api/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "print hello world hello-world hello world python"  -j`
+`cmr "get api lib-qaic-api lib qaic"  -j`
 #### New environment keys (filter)
 
+* `+CPLUS_INCLUDE_PATH`
+* `+C_INCLUDE_PATH`
+* `+LD_LIBRARY_PATH`
+* `CM_LIB_QAIC_*`
+* `CM_QAIC_API_*`
 #### New environment keys auto-detected from customize
 
+* `CM_QAIC_API_INC_FILE`
+* `CM_QAIC_API_SRC_FILE`
 ___
 ### Maintainers
 
