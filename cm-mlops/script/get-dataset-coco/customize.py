@@ -62,27 +62,27 @@ def postprocess(i):
 
     path_all = os.getcwd()
 
+    print ('')
+    print (path_all)
+    print ('')
+
     if os_info['platform'] == 'windows':
         # Moving to this directory since can't make symbolic links
-        print ('')
-        print (path_all)
-        
-        print ('')
-
-        x = '  move /y '+path_data_full+' '+tp_ver
-        print (x)
-        os.system(x)
-
-        x ='  move /y '+path_ann_full+' annotations' 
-        print (x)
-        os.system(x)
+        command1 = '  move /y ' + path_data_full + ' ' + tp_ver
+        command2 = '  move /y ' + path_ann_full + ' annotations' 
 
         env['CM_DATASET_COCO_DATA_PATH'] = os.path.join(path_all, tp_ver)
         env['CM_DATASET_COCO_ANNOTATIONS_PATH'] = os.path.join(path_all, 'annotations')
+    else:
+        # Make soft links from data and annotations into 1 directory 
+        # (standard way for COCO)
 
+        command1 = '  ln -s ' + path_data_full + ' ' + tp_ver
+        command2 = '  ln -s ' + path_ann_full + ' annotations' 
 
-
-
+    for command in [command1, command2]:
+        print (command)
+        os.system(command)
 
     env['CM_DATASET_COCO_PATH'] = path_all
     env['CM_DATASET_PATH'] = path_all
