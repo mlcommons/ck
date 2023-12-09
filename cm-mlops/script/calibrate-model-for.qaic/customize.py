@@ -67,7 +67,7 @@ def create_batched_inputs(env):
 
 def construct_calibration_cmd(env):
     compiler_params = env['CM_QAIC_COMPILER_PARAMS']
-    batchsize = env['CM_QAIC_MODEL_BATCH_SIZE']
+    batchsize = env.get('CM_QAIC_MODEL_BATCH_SIZE', "1")
     cmd = env['CM_QAIC_EXEC_PATH']  + " "
     if env.get('CM_CREATE_INPUT_BATCH', '') == 'yes':
         cmd += " -input-list-file=batched_input_files  -batchsize="+batchsize + " "
