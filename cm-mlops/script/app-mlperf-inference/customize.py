@@ -32,6 +32,7 @@ def postprocess(i):
 
     if env.get('CM_MLPERF_USER_CONF', '') == '':
         return {'return': 0}
+
     output_dir = env['CM_MLPERF_OUTPUT_DIR']
     mode = env['CM_MLPERF_LOADGEN_MODE']
 
@@ -61,7 +62,8 @@ def postprocess(i):
     model = env['CM_MODEL']
     model_full_name = env.get('CM_ML_MODEL_FULL_NAME', model)
 
-    if model == "resnet50":
+    if mode ==accuracy:
+      if model == "resnet50":
         accuracy_filename = "accuracy-imagenet.py"
         accuracy_filepath = os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
                         accuracy_filename)
@@ -70,7 +72,7 @@ def postprocess(i):
         accuracy_log_file_option_name = " --mlperf-accuracy-file "
         datatype_option = " --dtype "+env['CM_IMAGENET_ACCURACY_DTYPE']
 
-    elif model == "retinanet":
+      elif model == "retinanet":
         accuracy_filename = "accuracy-openimages.py"
         accuracy_filepath = os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
                         accuracy_filename)
@@ -78,7 +80,7 @@ def postprocess(i):
         accuracy_log_file_option_name = " --mlperf-accuracy-file "
         datatype_option = ""
 
-    elif 'bert' in model:
+      elif 'bert' in model:
         accuracy_filename = "accuracy-squad.py"
         accuracy_filepath = os.path.join(env['CM_MLPERF_INFERENCE_BERT_PATH'], accuracy_filename)
         dataset_args = " --val_data '" + env['CM_DATASET_SQUAD_VAL_PATH'] + "' --vocab_file '" + env['CM_DATASET_SQUAD_VOCAB_PATH'] + "' --out_file predictions.json "

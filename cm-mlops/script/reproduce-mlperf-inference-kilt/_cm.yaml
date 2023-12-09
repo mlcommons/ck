@@ -74,6 +74,7 @@ new_env_keys:
   - CM_ML_MODEL_*
   - CM_MAX_EXAMPLES
   - CM_IMAGENET_ACCURACY_DTYPE
+  - CM_SQUAD_ACCURACY_DTYPE
 
 
 # Dependencies on other CM scripts
@@ -152,7 +153,7 @@ deps:
       - bert-99.9
     names:
       - squad-tokenized
-    tags: get,dataset,tokenized,squad
+    tags: get,dataset,tokenized,squad,_raw
 
   ########################################################################
   # Install OpenImages
@@ -343,13 +344,18 @@ variations:
       CM_BENCHMARK: STANDALONE_BERT
       kilt_model_name: bert
       kilt_model_seq_length: 384
-      kilt_model_batch_size: 384
+      kilt_model_batch_size: 1
       kilt_model_bert_variant: BERT_PACKED
       kilt_input_format: "INT64,1,384:INT64,1,8:INT64,1,384:INT64,1,384"
       kilt_output_format: "FLOAT32,1,384:FLOAT32,1,384"
       dataset_squad_tokenized_max_seq_length: 384
       loadgen_buffer_size: 10833
       loadgen_dataset_size: 10833
+
+  bert_,qaic:
+    env:
+      kilt_input_format: "UINT32,1,384:UINT32,1,8:UINT32,1,384:UINT32,1,384"
+      kilt_device_qaic_skip_stage: convert
 
   standalone:
     group: run-mode

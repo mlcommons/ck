@@ -42,9 +42,9 @@ def preprocess(i):
     elif "bert" in env.get('CM_MODEL'):
         env['dataset_squad_tokenized_max_seq_length'] = env['CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH']
         env['dataset_squad_tokenized_root'] =  env['CM_DATASET_SQUAD_TOKENIZED_ROOT']
-        env['dataset_squad_tokenized_input_ids'] = env['CM_DATASET_SQUAD_TOKENIZED_INPUT_IDS']
-        env['dataset_squad_tokenized_input_mask'] =  env['CM_DATASET_SQUAD_TOKENIZED_INPUT_MASK']
-        env['dataset_squad_tokenized_segment_ids'] =  env['CM_DATASET_SQUAD_TOKENIZED_SEGMENT_IDS']
+        env['dataset_squad_tokenized_input_ids'] = os.path.basename(env['CM_DATASET_SQUAD_TOKENIZED_INPUT_IDS'])
+        env['dataset_squad_tokenized_input_mask'] =  os.path.basename(env['CM_DATASET_SQUAD_TOKENIZED_INPUT_MASK'])
+        env['dataset_squad_tokenized_segment_ids'] =  os.path.basename(env['CM_DATASET_SQUAD_TOKENIZED_SEGMENT_IDS'])
 
     if env.get('CM_BENCHMARK', '') == 'NETWORK_BERT_SERVER':
         source_files.append(os.path.join(kilt_root, "benchmarks", "network", "bert", "server", "pack.cpp"))
