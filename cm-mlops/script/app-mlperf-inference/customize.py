@@ -62,7 +62,7 @@ def postprocess(i):
     model = env['CM_MODEL']
     model_full_name = env.get('CM_ML_MODEL_FULL_NAME', model)
 
-    if mode ==accuracy:
+    if mode == "accuracy":
       if model == "resnet50":
         accuracy_filename = "accuracy-imagenet.py"
         accuracy_filepath = os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \

@@ -55,6 +55,12 @@
       "tags": "get,dataset,imagenet,preprocessed,_calibration,_for.resnet50"
     },
     {
+      "enable_if_env":
+      {
+        "CM_CALIBRATE_SQUAD": [
+          "on"
+          ]
+      },
       "names": [
         "squad-cal",
         "preprocessed-dataset"

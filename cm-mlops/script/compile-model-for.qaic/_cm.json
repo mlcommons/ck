@@ -147,7 +147,7 @@
     },
     "resnet50,server,nsp.14": {
       "env": {
-        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=48 -ols=4"
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4 -ols=4"
       },
       "default_variations": {
         "batch-size": "bs.8"
@@ -183,6 +183,30 @@
       "env": {
         "CM_QAIC_MODEL_COMPILER_PARAMS_BASE": "-aic-hw -aic-hw-version=2.0 -aic-num-of-instances=1 -use-producer-dma=0 -output-node-name=ArgMax -compile-only",
         "CM_QAIC_MODEL_COMPILER_ARGS": "-sdp-cluster-sizes=4,4 -mos=1,4"
+      }
+    },
+    "bert-99,offline": {
+      "env": {
+      }
+    },
+    "bert-99,offline,nsp.14": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=1 -mos=1 -ols=3"
+      }
+    },
+    "bert-99,server,nsp.14": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=1 -mos=1 -ols=3"
+      }
+    },
+    "bert-99,multistream,nsp.14": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4"
+      }
+    },
+    "bert-99,singlestream,nsp.14": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=8"
       }
     },
     "tf": {
