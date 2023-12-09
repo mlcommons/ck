@@ -104,6 +104,10 @@ ___
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `gflags-dev`
       - Workflow:
+    * `_git-lfs`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `git-lfs`
+      - Workflow:
     * `_glog-dev`
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `glog-dev`

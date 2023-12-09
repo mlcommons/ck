@@ -25,13 +25,16 @@
 
 ### About
 
+
+See extra [notes](README-extra.md) from the authors and contributors.
+
 #### Summary
 
-* Category: *MLPerf benchmark support.*
+* Category: *AI/ML models.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-abtf-ssd-pytorch)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,src,source,power,power-dev,mlperf,mlcommons*
+* CM "database" tags to find this script: *get,ml-model,abtf-ssd-pytorch*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -48,9 +51,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,src,source,power,power-dev,mlperf,mlcommons[,variations] `
+1. `cm run script --tags=get,ml-model,abtf-ssd-pytorch[,variations] `
 
-2. `cmr "get src source power power-dev mlperf mlcommons[ variations]" `
+2. `cmr "get ml-model abtf-ssd-pytorch[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -65,7 +68,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,src,source,power,power-dev,mlperf,mlcommons'
+                  'tags':'get,ml-model,abtf-ssd-pytorch'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -82,13 +85,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,src,source,power,power-dev,mlperf,mlcommons"```
+```cmr "cm gui" --script="get,ml-model,abtf-ssd-pytorch"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,src,source,power,power-dev,mlperf,mlcommons) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,ml-model,abtf-ssd-pytorch) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get src source power power-dev mlperf mlcommons[ variations]" `
+`cm docker script "get ml-model abtf-ssd-pytorch[ variations]" `
 
 ___
 ### Customization
@@ -96,41 +99,21 @@ ___
 
 #### Variations
 
-  * Group "**checkout**"
+  * Group "**epoch**"
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_branch.#`
+    * `_e01`
       - Environment variables:
-        - *CM_GIT_CHECKOUT*: `#`
+        - *CM_ML_MODEL_URL*: `https://www.dropbox.com/scl/fi/7nqt5z8gplgeaveo933eo/SSD_e1.pth?rlkey=7lyb4qs2hzg491bfprwcuvx54&dl=0`
+        - *CM_ML_MODEL_FILENAME*: `SSD_e1.pth`
+        - *CM_ML_MODEL_CHECKSUM*: `31d177228308bbe43917c912b01c2d67`
       - Workflow:
-    * `_sha.#`
+    * **`_e65`** (default)
       - Environment variables:
-        - *CM_GIT_SHA*: `#`
-      - Workflow:
-    * `_tag.#`
-      - Environment variables:
-        - *CM_GIT_CHECKOUT_TAG*: `#`
-      - Workflow:
-
-    </details>
-
-
-  * Group "**repo**"
-    <details>
-    <summary>Click here to expand this section.</summary>
-
-    * **`_mlcommons`** (default)
-      - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/mlcommons/power-dev.git`
-      - Workflow:
-    * `_octoml`
-      - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/octoml/power-dev.git`
-      - Workflow:
-    * `_repo.#`
-      - Environment variables:
-        - *CM_GIT_URL*: `#`
+        - *CM_ML_MODEL_URL*: `https://www.dropbox.com/scl/fi/wkegl2qxvm8cefbqq00o3/SSD_e65.pth?rlkey=ez26jafjdcly665npl6pdqxl8&dl=0`
+        - *CM_ML_MODEL_FILENAME*: `SSD_e65.pth`
+        - *CM_ML_MODEL_CHECKSUM*: `f769eb0321ac7fc1c16f982db6131d2f`
       - Workflow:
 
     </details>
@@ -138,7 +121,7 @@ ___
 
 #### Default variations
 
-`_mlcommons`
+`_e65`
 #### Default environment
 
 <details>
@@ -146,9 +129,6 @@ ___
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_GIT_DEPTH: `--depth 1`
-* CM_GIT_PATCH: `no`
-* CM_GIT_CHECKOUT_FOLDER: `power-dev`
 
 </details>
 
@@ -158,26 +138,29 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/customize.py)***
-  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)***
-     * get,git,repo
-       * CM names: `--adr.['mlperf-power-dev-git-repo']...`
-       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-abtf-ssd-pytorch/_cm.json)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+     * download,file,_wget
+       * CM names: `--adr.['get-ml-model']...`
+       - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-abtf-ssd-pytorch/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-abtf-ssd-pytorch/_cm.json)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-abtf-ssd-pytorch/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-abtf-ssd-pytorch/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-abtf-ssd-pytorch/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "get src source power power-dev mlperf mlcommons[,variations]"  -j`
+`cmr "get ml-model abtf-ssd-pytorch[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_MLPERF_POWER_SOURCE`
+* `CM_ML_MODEL_*`
 #### New environment keys auto-detected from customize
 
+* `CM_ML_MODEL_FILE`
 ___
 ### Maintainers
 

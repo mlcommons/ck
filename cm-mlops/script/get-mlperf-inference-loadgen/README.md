@@ -141,6 +141,8 @@ Default version: `master`
 * `master`
 * `pybind_fix`
 * `r2.1`
+* `r3.0`
+* `r3.1`
 ___
 ### Script workflow, dependencies and native scripts
 

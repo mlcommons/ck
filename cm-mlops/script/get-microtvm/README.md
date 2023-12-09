@@ -107,10 +107,6 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * **`_default`** (default)
-      - Environment variables:
-        - *CM_GIT_PATCH*: `no`
-      - Workflow:
     * `_full-history`
       - Environment variables:
         - *CM_GIT_DEPTH*: `--depth 10`
@@ -122,10 +118,6 @@ ___
 
     </details>
 
-
-#### Default variations
-
-`_default`
 
 #### Script flags mapped to environment
 <details>

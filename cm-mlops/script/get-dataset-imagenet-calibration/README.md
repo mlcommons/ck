@@ -25,16 +25,12 @@
 
 ### About
 
-
-See extra [notes](README-extra.md) from the authors and contributors.
-
 #### Summary
 
-* Category: *AI/ML datasets.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco)*
-* CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,dataset,coco*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
+* CM "database" tags to find this script: *get,dataset,imagenet,calibration*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -51,9 +47,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,dataset,coco[,variations] `
+1. `cm run script --tags=get,dataset,imagenet,calibration[,variations] `
 
-2. `cmr "get dataset coco[ variations]" `
+2. `cmr "get dataset imagenet calibration[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -68,7 +64,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,dataset,coco'
+                  'tags':'get,dataset,imagenet,calibration'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -85,13 +81,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,dataset,coco"```
+```cmr "cm gui" --script="get,dataset,imagenet,calibration"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,dataset,coco) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,dataset,imagenet,calibration) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get dataset coco[ variations]" `
+`cm docker script "get dataset imagenet calibration[ variations]" `
 
 ___
 ### Customization
@@ -99,29 +95,19 @@ ___
 
 #### Variations
 
-  * Group "**mode**"
+  * Group "**calibration-option**"
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_train`
+    * **`_mlperf.option1`** (default)
       - Environment variables:
-        - *CM_DATASET_COCO_SPLIT*: `train`
+        - *CM_MLPERF_IMAGENET_CALIBRATION_OPTION*: `one`
+        - *CM_DOWNLOAD_CHECKSUM*: `f09719174af3553119e2c621157773a6`
       - Workflow:
-    * **`_val`** (default)
+    * `_mlperf.option2`
       - Environment variables:
-        - *CM_DATASET_COCO_SPLIT*: `val`
-      - Workflow:
-
-    </details>
-
-
-  * Group "**version**"
-    <details>
-    <summary>Click here to expand this section.</summary>
-
-    * **`_2017`** (default)
-      - Environment variables:
-        - *CM_DATASET_COCO_VERSION*: `2017`
+        - *CM_MLPERF_IMAGENET_CALIBRATION_OPTION*: `two`
+        - *CM_DOWNLOAD_CHECKSUM*: `e44582af00e3b4fc3fac30efd6bdd05f`
       - Workflow:
 
     </details>
@@ -129,7 +115,7 @@ ___
 
 #### Default variations
 
-`_2017,_val`
+`_mlperf.option1`
 #### Default environment
 
 <details>
@@ -146,37 +132,28 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco/_cm.json)***
-     * detect,os
-       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/_cm.yaml)***
+     * download,file
+       * CM names: `--adr.['calibration-file-downloader']...`
+       - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/_cm.yaml)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco/customize.py)***
-  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco/_cm.json)***
-     * download-and-extract,file,_wget,_extract
-       * CM names: `--adr.['get-dataset-coco-data']...`
-       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
-     * download-and-extract,file,_wget,_extract
-       * CM names: `--adr.['get-dataset-coco-annotations']...`
-       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/_cm.yaml)
 </details>
 
 ___
 ### Script output
-`cmr "get dataset coco[,variations]"  -j`
+`cmr "get dataset imagenet calibration[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_DATASET_ANNOTATIONS_DIR_PATH`
-* `CM_DATASET_ANNOTATIONS_FILE_PATH`
-* `CM_DATASET_COCO*`
-* `CM_DATASET_PATH`
-* `CM_DATASET_PATH_ROOT`
+* `CM_MLPERF_IMAGENET_CALIBRATION_LIST_FILE_WITH_PATH`
 #### New environment keys auto-detected from customize
 
-* `CM_DATASET_COCO_URL_ANNOTATIONS_FULL`
-* `CM_DATASET_COCO_URL_ZIPS_FULL`
 ___
 ### Maintainers
 

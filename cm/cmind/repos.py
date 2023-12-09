@@ -321,7 +321,7 @@ class Repos:
             import zipfile
 
             pack_file = os.path.join(path_to_repo, alias)
-            
+
             # Attempt to read cmr.json 
             repo_pack_file = open(pack_file, 'rb')
             repo_pack_zip = zipfile.ZipFile(repo_pack_file)
@@ -355,7 +355,9 @@ class Repos:
 
             repo_pack_zip.close()
             repo_pack_file.close()
-            
+
+            # remove original file
+            os.remove(pack_file)
 
         # Check if branch 
         if branch != '' or checkout != '':

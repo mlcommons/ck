@@ -26,7 +26,7 @@ function run() {
 #Add your run commands here...
 # run "$CM_RUN_CMD"
 CUR=$PWD
-run "wget -nc https://raw.githubusercontent.com/krai/ck-mlperf/master/package/dataset-squad-tokenized_for_bert/tokenize_and_pack.py"
+run "wget --no-check-certificate -nc https://raw.githubusercontent.com/krai/ck-mlperf/master/package/dataset-squad-tokenized_for_bert/tokenize_and_pack.py"
 
 run "${CM_PYTHON_BIN_WITH_PATH} tokenize_and_pack.py \
     ${CM_DATASET_SQUAD_VAL_PATH} \
@@ -38,3 +38,4 @@ run "${CM_PYTHON_BIN_WITH_PATH} tokenize_and_pack.py \
     ${CM_DATASET_RAW} \
     ${DATASET_CALIBRATION_FILE} \
     ${DATASET_CALIBRATION_ID}"
+

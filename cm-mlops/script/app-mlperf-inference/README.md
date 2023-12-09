@@ -143,6 +143,13 @@ ___
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['cpp-mlperf-inference', 'mlperf-inference-implementation']...`
              - CM script: [app-mlperf-inference-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
+    * `_kilt`
+      - Workflow:
+        1. ***Read "posthook_deps" on other CM scripts***
+           * reproduce,mlperf,inference,kilt
+             * `if (CM_SKIP_RUN  != True)`
+             * CM names: `--adr.['kilt', 'kilt-harness', 'mlperf-inference-implementation']...`
+             - CM script: [reproduce-mlperf-inference-kilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-kilt)
     * `_nvidia`
       - Environment variables:
         - *CM_MLPERF_IMPLEMENTATION*: `nvidia`
@@ -221,6 +228,10 @@ ___
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `deepsparse`
       - Workflow:
+    * `_glow`
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `glow`
+      - Workflow:
     * `_ncnn`
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `ncnn`
@@ -272,6 +283,10 @@ ___
     * `_cuda`
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `gpu`
+      - Workflow:
+    * `_qaic`
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `qaic`
       - Workflow:
     * `_rocm`
       - Environment variables:
@@ -375,6 +390,15 @@ ___
              * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION not in ['nvidia-original', 'reference'])`
              * CM names: `--adr.['mlperf-accuracy-script', 'librispeech-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
+    * `_sdxl`
+      - Environment variables:
+        - *CM_MODEL*: `sdxl`
+      - Workflow:
+        1. ***Read "post_deps" on other CM scripts***
+           * run,accuracy,mlperf,_coco2014
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION not in ['nvidia-original', 'reference'])`
+             * CM names: `--adr.['mlperf-accuracy-script', 'coco2014-accuracy-script']...`
+             - *Warning: no scripts found*
 
     </details>
 
@@ -393,7 +417,8 @@ ___
         - *CM_MLPERF_QUANTIZATION*: `False`
         - *CM_MLPERF_MODEL_PRECISION*: `float32`
       - Workflow:
-    * **`_fp32`** (default)
+    * **`_float32`** (default)
+      - Aliases: `_fp32`
       - Environment variables:
         - *CM_MLPERF_QUANTIZATION*: `False`
         - *CM_MLPERF_MODEL_PRECISION*: `float32`
@@ -571,7 +596,7 @@ ___
 
 #### Default variations
 
-`_cpu,_fp32,_offline,_onnxruntime,_reference,_resnet50,_test`
+`_cpu,_float32,_offline,_onnxruntime,_reference,_resnet50,_test`
 
 #### Input description
 

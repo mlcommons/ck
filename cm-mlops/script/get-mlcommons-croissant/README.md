@@ -26,12 +26,12 @@
 
 #### Summary
 
-* Category: *Tests.*
+* Category: *AI/ML datasets.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlcommons-croissant)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *print,hello world,hello-world,hello,world,python*
-* Output cached? *False*
+* CM "database" tags to find this script: *get,mlcommons,croissant*
+* Output cached? *True*
 ___
 ### Reuse this script in your project
 
@@ -47,9 +47,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=print,hello world,hello-world,hello,world,python `
+1. `cm run script --tags=get,mlcommons,croissant `
 
-2. `cmr "print hello world hello-world hello world python" `
+2. `cmr "get mlcommons croissant" `
 
 #### Run this script from Python
 
@@ -62,7 +62,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'print,hello world,hello-world,hello,world,python'
+                  'tags':'get,mlcommons,croissant'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -79,13 +79,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="print,hello world,hello-world,hello,world,python"```
+```cmr "cm gui" --script="get,mlcommons,croissant"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=print,hello world,hello-world,hello,world,python) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,mlcommons,croissant) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "print hello world hello-world hello world python" `
+`cm docker script "get mlcommons croissant" `
 
 ___
 ### Customization
@@ -106,29 +106,28 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlcommons-croissant/_cm.json)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-     * get,sys-utils-cm
-       - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
      * get,python3
-       * CM names: `--adr.['python', 'python3']...`
+       * CM names: `--adr.['python3', 'python']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * print,python-version
-       - CM script: [print-python-version](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-python-version)
-  1. Run "preprocess" function from customize.py
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)
+     * git,repo,_repo.https://github.com/mlcommons/croissant
+       * CM names: `--adr.['git-mlcommons-croissant']...`
+       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlcommons-croissant/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlcommons-croissant/_cm.json)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)
-  1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlcommons-croissant/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlcommons-croissant/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlcommons-croissant/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlcommons-croissant/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlcommons-croissant/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "print hello world hello-world hello world python"  -j`
+`cmr "get mlcommons croissant"  -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize

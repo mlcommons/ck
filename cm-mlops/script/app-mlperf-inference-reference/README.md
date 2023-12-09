@@ -466,6 +466,26 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_toml
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_sdxl`
+      - Environment variables:
+        - *CM_MODEL*: `sdxl`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_package.diffusers
+             * CM names: `--adr.['diffusers']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.transformers
+             * CM names: `--adr.['transformers']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.accelerate
+             * CM names: `--adr.['accelerate']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.torchmetrics
+             * CM names: `--adr.['torchmetrics']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.torch-fidelity
+             * CM names: `--adr.['torch-fidelity']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
 
     </details>
 
@@ -535,6 +555,7 @@ ___
 * `--target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_TARGET_LATENCY=value`
 * `--target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_TARGET_QPS=value`
 * `--test_query_count=value`  &rarr;  `CM_TEST_QUERY_COUNT=value`
+* `--threads=value`  &rarr;  `CM_NUM_THREADS=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -642,6 +663,7 @@ ___
        * `if (CM_MODEL in ['gptj-99', 'gptj-99.9'])`
        * CM names: `--adr.['ml-model', 'gptj-model', 'gpt-j-model']...`
        - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)
+       - CM script: [get-ml-model-stable-diffusion](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion)
      * get,ml-model,object-detection,resnext50,fp32,_pytorch-weights
        * `if (CM_MLPERF_BACKEND  == pytorch AND CM_MLPERF_IMPLEMENTATION  == nvidia AND CM_MODEL  == retinanet)`
        * CM names: `--adr.['ml-model', 'retinanet-model']...`
@@ -650,6 +672,10 @@ ___
        * `if (CM_MODEL in ['bert-99', 'bert-99.9']) AND (CM_MLPERF_CUSTOM_MODEL_PATH  != on)`
        * CM names: `--adr.['ml-model', 'bert-model']...`
        - CM script: [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)
+     * get,ml-model,stable-diffusion,text-to-image,sdxl
+       * `if (CM_MODEL  == sdxl) AND (CM_MLPERF_CUSTOM_MODEL_PATH  != on)`
+       * CM names: `--adr.['ml-model', 'sdxl-model']...`
+       - CM script: [get-ml-model-stable-diffusion](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion)
      * get,ml-model,medical-imaging,3d-unet
        * `if (CM_MODEL in ['3d-unet-99', '3d-unet-99.9'])`
        * CM names: `--adr.['ml-model', '3d-unet-model']...`
@@ -662,7 +688,7 @@ ___
        * `if (CM_MODEL in ['dlrm-99', 'dlrm-99.9'])`
        * CM names: `--adr.['ml-model', 'dlrm-model']...`
        - CM script: [get-ml-model-dlrm-terabyte](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte)
-     * get,dataset,image-classification,imagenet,preprocessed,_default
+     * get,dataset,image-classification,imagenet,preprocessed
        * `if (CM_MODEL  == resnet50) AND (CM_MLPERF_VISION_DATASET_OPTION  != True)`
        * CM names: `--adr.['imagenet-preprocessed']...`
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
@@ -687,6 +713,9 @@ ___
      * get,dataset-aux,squad-vocab
        * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
        - CM script: [get-dataset-squad-vocab](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad-vocab)
+     * get,dataset,coco2014,_validation
+       * `if (CM_MODEL  == sdxl)`
+       - CM script: [get-dataset-coco2014](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco2014)
      * get,dataset,kits19,preprocessed
        * `if (CM_MODEL in ['3d-unet-99', '3d-unet-99.9'])`
        - CM script: [get-preprocessed-dataset-kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-kits19)

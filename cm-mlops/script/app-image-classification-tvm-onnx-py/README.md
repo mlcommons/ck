@@ -112,19 +112,9 @@ ___
              - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
     * `_llvm`
       - Workflow:
-    * **`_tvm`** (default)
-      - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * get,tvm
-             * CM names: `--adr.['tvm']...`
-             - CM script: [get-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm)
 
     </details>
 
-
-#### Default variations
-
-`_tvm`
 #### Default environment
 
 <details>
@@ -159,6 +149,9 @@ ___
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
      * get,generic-python-lib,_onnxruntime
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,tvm
+       * CM names: `--adr.['tvm']...`
+       - CM script: [get-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm)
   1. Run "preprocess" function from customize.py
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-tvm-onnx-py/_cm.json)
   1. ***Run native script if exists***

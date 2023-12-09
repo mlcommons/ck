@@ -304,6 +304,7 @@ r=cm.access({... , "adr.compiler.tags":...}
 * `--mode=value`  &rarr;  `CM_MLPERF_LOADGEN_MODE=value`
 * `--model=value`  &rarr;  `CM_MLPERF_MODEL=value`
 * `--multistream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY=value`
+* `--network=value`  &rarr;  `CM_NETWORK_LOADGEN=value`
 * `--offline_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS=value`
 * `--output_dir=value`  &rarr;  `OUTPUT_BASE_DIR=value`
 * `--output_summary=value`  &rarr;  `MLPERF_INFERENCE_SUBMISSION_SUMMARY=value`

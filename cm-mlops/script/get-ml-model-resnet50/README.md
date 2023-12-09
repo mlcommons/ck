@@ -117,6 +117,8 @@ ___
            * get,python3
              * CM names: `--adr.['python', 'python3']...`
              - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+    * `_from-tf`
+      - Workflow:
     * `_huggingface_default`
       - Environment variables:
         - *CM_PACKAGE_URL*: `https://huggingface.co/ctuning/mlperf-inference-resnet50-onnx-fp32-imagenet2012-v1.0/resolve/main/resnet50_v1.onnx`
@@ -128,6 +130,22 @@ ___
         1. ***Read "post_deps" on other CM scripts***
            * download-and-extract,_url.https://zenodo.org/record/8073420/files/resnet50_v1.param?download=
              - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
+    * `_onnx,from-tf`
+      - Environment variables:
+        - *CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
+        - *CM_ML_MODEL_FRAMEWORK*: `onnx`
+        - *CM_ML_MODEL_INPUT_LAYERS*: `input_tensor`
+        - *CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor`
+        - *CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor`
+        - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor\": (BATCH_SIZE, 224, 224, 3)`
+        - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor`
+        - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/2535873/files/resnet50_v1.pb`
+      - Workflow:
+    * `_onnx,from-tf,fp32`
+      - Environment variables:
+        - *CM_PACKAGE_URL*: `https://drive.google.com/uc?id=15wZ_8Vt12cb10IEBsln8wksD1zGwlbOM`
+        - *CM_DOWNLOAD_FILENAME*: `resnet50_v1_modified.onnx`
+      - Workflow:
     * `_onnx,opset-11`
       - Environment variables:
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/4735647/files/resnet50_v1.onnx`
@@ -148,6 +166,10 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_TF_FIX_INPUT_SHAPE*: `yes`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_package.tensorflow
+             * CM names: `--adr.['tensorflow']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_tflite,argmax`
       - Environment variables:
         - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)`
@@ -323,6 +345,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)***
      * download-and-extract
+       * CM names: `--adr.['model-downloader']...`
        - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run native script if exists***
      * [run-fix-input.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/run-fix-input.sh)
