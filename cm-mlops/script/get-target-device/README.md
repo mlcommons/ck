@@ -27,11 +27,11 @@
 
 #### Summary
 
-* Category: *MLPerf benchmark support.*
+* Category: *Hardware automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)*
-* CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,src,source,power,power-dev,mlperf,mlcommons*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-target-device)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
+* CM "database" tags to find this script: *get,target,device,target-device*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -48,9 +48,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,src,source,power,power-dev,mlperf,mlcommons[,variations] `
+1. `cm run script --tags=get,target,device,target-device[,variations] `
 
-2. `cmr "get src source power power-dev mlperf mlcommons[ variations]" `
+2. `cmr "get target device target-device[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -65,7 +65,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,src,source,power,power-dev,mlperf,mlcommons'
+                  'tags':'get,target,device,target-device'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -82,13 +82,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,src,source,power,power-dev,mlperf,mlcommons"```
+```cmr "cm gui" --script="get,target,device,target-device"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,src,source,power,power-dev,mlperf,mlcommons) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,target,device,target-device) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get src source power power-dev mlperf mlcommons[ variations]" `
+`cm docker script "get target device target-device[ variations]" `
 
 ___
 ### Customization
@@ -96,41 +96,17 @@ ___
 
 #### Variations
 
-  * Group "**checkout**"
+  * Group "**device**"
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_branch.#`
+    * **`_cpu`** (default)
       - Environment variables:
-        - *CM_GIT_CHECKOUT*: `#`
+        - *CM_TARGET_DEVICE_ENV_TYPE*: `cpu`
       - Workflow:
-    * `_sha.#`
+    * `_cuda`
       - Environment variables:
-        - *CM_GIT_SHA*: `#`
-      - Workflow:
-    * `_tag.#`
-      - Environment variables:
-        - *CM_GIT_CHECKOUT_TAG*: `#`
-      - Workflow:
-
-    </details>
-
-
-  * Group "**repo**"
-    <details>
-    <summary>Click here to expand this section.</summary>
-
-    * **`_mlcommons`** (default)
-      - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/mlcommons/power-dev.git`
-      - Workflow:
-    * `_octoml`
-      - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/octoml/power-dev.git`
-      - Workflow:
-    * `_repo.#`
-      - Environment variables:
-        - *CM_GIT_URL*: `#`
+        - *CM_TARGET_DEVICE_ENV_TYPE*: `cuda`
       - Workflow:
 
     </details>
@@ -138,7 +114,7 @@ ___
 
 #### Default variations
 
-`_mlcommons`
+`_cpu`
 #### Default environment
 
 <details>
@@ -146,9 +122,6 @@ ___
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_GIT_DEPTH: `--depth 1`
-* CM_GIT_PATCH: `no`
-* CM_GIT_CHECKOUT_FOLDER: `power-dev`
 
 </details>
 
@@ -158,26 +131,46 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/customize.py)***
-  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)***
-     * get,git,repo
-       * CM names: `--adr.['mlperf-power-dev-git-repo']...`
-       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-target-device/_cm.yaml)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+     * detect,cpu
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+     * get,cuda,_toolkit
+       * `if (CM_TARGET_DEVICE_ENV_TYPE  == cuda)`
+       * CM names: `--adr.['get-cuda', '46d133d9ef92422d']...`
+       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+     * get,cuda-devices
+       * `if (CM_TARGET_DEVICE_ENV_TYPE  == cuda)`
+       * CM names: `--adr.['get-cuda-devices', '46d133d9ef92422d']...`
+       - CM script: [get-cuda-devices](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-devices)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-target-device/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-target-device/_cm.yaml)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-target-device/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-target-device/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-target-device/_cm.yaml)
 </details>
 
 ___
 ### Script output
-`cmr "get src source power power-dev mlperf mlcommons[,variations]"  -j`
+`cmr "get target device target-device[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_MLPERF_POWER_SOURCE`
+* `+ LDFLAGS`
+* `+CPLUS_INCLUDE_PATH`
+* `+C_INCLUDE_PATH`
+* `+DYLD_FALLBACK_LIBRARY_PATH`
+* `+LD_LIBRARY_PATH`
+* `+PATH`
+* `CM_CUDA_*`
+* `CM_HOST_*`
+* `CM_NVCC_*`
+* `CM_TARGET_*`
+* `CUDA_HOME*`
 #### New environment keys auto-detected from customize
 
+* `CM_TARGET_DEVICE_PATH`
 ___
 ### Maintainers
 

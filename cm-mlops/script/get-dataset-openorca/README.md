@@ -27,11 +27,11 @@
 
 #### Summary
 
-* Category: *MLPerf benchmark support.*
+* Category: *ML/AI datasets.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openorca)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,src,source,power,power-dev,mlperf,mlcommons*
+* CM "database" tags to find this script: *get,dataset,openorca,language-processing,original*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -48,9 +48,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,src,source,power,power-dev,mlperf,mlcommons[,variations] `
+1. `cm run script --tags=get,dataset,openorca,language-processing,original[,variations] `
 
-2. `cmr "get src source power power-dev mlperf mlcommons[ variations]" `
+2. `cmr "get dataset openorca language-processing original[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -65,7 +65,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,src,source,power,power-dev,mlperf,mlcommons'
+                  'tags':'get,dataset,openorca,language-processing,original'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -82,13 +82,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,src,source,power,power-dev,mlperf,mlcommons"```
+```cmr "cm gui" --script="get,dataset,openorca,language-processing,original"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,src,source,power,power-dev,mlperf,mlcommons) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,dataset,openorca,language-processing,original) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get src source power power-dev mlperf mlcommons[ variations]" `
+`cm docker script "get dataset openorca language-processing original[ variations]" `
 
 ___
 ### Customization
@@ -96,41 +96,41 @@ ___
 
 #### Variations
 
-  * Group "**checkout**"
+  * Group "**dataset-type**"
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_branch.#`
+    * `_calibration`
       - Environment variables:
-        - *CM_GIT_CHECKOUT*: `#`
+        - *CM_DATASET_CALIBRATION*: `yes`
       - Workflow:
-    * `_sha.#`
+    * **`_validation`** (default)
       - Environment variables:
-        - *CM_GIT_SHA*: `#`
-      - Workflow:
-    * `_tag.#`
-      - Environment variables:
-        - *CM_GIT_CHECKOUT_TAG*: `#`
+        - *CM_DATASET_CALIBRATION*: `no`
       - Workflow:
 
     </details>
 
 
-  * Group "**repo**"
+  * Group "**size**"
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * **`_mlcommons`** (default)
+    * `_500`
       - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/mlcommons/power-dev.git`
+        - *CM_DATASET_SIZE*: `500`
       - Workflow:
-    * `_octoml`
+    * **`_60`** (default)
       - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/octoml/power-dev.git`
+        - *CM_DATASET_SIZE*: `60`
       - Workflow:
-    * `_repo.#`
+    * `_full`
       - Environment variables:
-        - *CM_GIT_URL*: `#`
+        - *CM_DATASET_SIZE*: `24576`
+      - Workflow:
+    * `_size.#`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `#`
       - Workflow:
 
     </details>
@@ -138,7 +138,7 @@ ___
 
 #### Default variations
 
-`_mlcommons`
+`_60,_validation`
 #### Default environment
 
 <details>
@@ -146,9 +146,7 @@ ___
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_GIT_DEPTH: `--depth 1`
-* CM_GIT_PATCH: `no`
-* CM_GIT_CHECKOUT_FOLDER: `power-dev`
+* CM_DATASET_CALIBRATION: `no`
 
 </details>
 
@@ -158,26 +156,29 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/customize.py)***
-  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)***
-     * get,git,repo
-       * CM names: `--adr.['mlperf-power-dev-git-repo']...`
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openorca/_cm.json)***
+     * get,git,repo,_lfs,_repo.https://huggingface.co/datasets/Open-Orca/OpenOrca
+       * CM names: `--adr.['openorca-src']...`
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openorca/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openorca/_cm.json)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openorca/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openorca/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openorca/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "get src source power power-dev mlperf mlcommons[,variations]"  -j`
+`cmr "get dataset openorca language-processing original[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_MLPERF_POWER_SOURCE`
+* `CM_DATASET_*`
 #### New environment keys auto-detected from customize
 
+* `CM_DATASET_OPENORCA_PARQUET`
+* `CM_DATASET_PATH`
+* `CM_DATASET_PATH_ROOT`
 ___
 ### Maintainers
 

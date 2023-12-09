@@ -122,14 +122,6 @@ ___
         - *CM_GIT_CHECKOUT*: `deepsparse`
         - *CM_MLPERF_LAST_RELEASE*: `v3.0`
       - Workflow:
-    * **`_default`** (default)
-      - Environment variables:
-        - *CM_GIT_PATCH*: `no`
-      - Workflow:
-    * `_full-history`
-      - Environment variables:
-        - *CM_GIT_DEPTH*: ``
-      - Workflow:
     * `_gn`
       - Environment variables:
         - *CM_SUBMODULE_GN*: `yes`
@@ -162,10 +154,6 @@ ___
       - Environment variables:
         - *CM_GIT_URL*: `#`
       - Workflow:
-    * `_short-history`
-      - Environment variables:
-        - *CM_GIT_DEPTH*: `--depth 10`
-      - Workflow:
     * `_submodules.#`
       - Environment variables:
         - *CM_GIT_SUBMODULES*: `#`
@@ -174,9 +162,25 @@ ___
     </details>
 
 
+  * Group "**git-history**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_full-history`
+      - Environment variables:
+        - *CM_GIT_DEPTH*: ``
+      - Workflow:
+    * **`_short-history`** (default)
+      - Environment variables:
+        - *CM_GIT_DEPTH*: `--depth 10`
+      - Workflow:
+
+    </details>
+
+
 #### Default variations
 
-`_default`
+`_short-history`
 #### Default environment
 
 <details>
@@ -202,6 +206,7 @@ Default version: `master`
 * `pybind_fix`
 * `r2.1`
 * `r3.0`
+* `r3.1`
 * `tvm`
 ___
 ### Script workflow, dependencies and native scripts

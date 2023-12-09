@@ -31,7 +31,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *qaic,compile,qaic-compile*
+* CM "database" tags to find this script: *qaic,compile,model,model-compile,qaic-compile*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -48,9 +48,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=qaic,compile,qaic-compile[,variations] `
+1. `cm run script --tags=qaic,compile,model,model-compile,qaic-compile[,variations] `
 
-2. `cmr "qaic compile qaic-compile[ variations]" `
+2. `cmr "qaic compile model model-compile qaic-compile[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -65,7 +65,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'qaic,compile,qaic-compile'
+                  'tags':'qaic,compile,model,model-compile,qaic-compile'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -82,13 +82,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="qaic,compile,qaic-compile"```
+```cmr "cm gui" --script="qaic,compile,model,model-compile,qaic-compile"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=qaic,compile,qaic-compile) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=qaic,compile,model,model-compile,qaic-compile) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "qaic compile qaic-compile[ variations]" `
+`cm docker script "qaic compile model model-compile qaic-compile[ variations]" `
 
 ___
 ### Customization
@@ -100,6 +100,13 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_bert-99`
+      - Environment variables:
+        - *CM_COMPILE_BERT*: `on`
+        - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_bert_mlperf`
+        - *CM_QAIC_MODEL_COMPILER_ARGS*: `-aic-hw -aic-hw-version=2.0 -execute-nodes-in-fp16=Mul,Sqrt,Div,Add,ReduceMean,Softmax,Sub,Gather,Erf,Pow,Concat,Tile,LayerNormalization -quantization-schema=symmetric_with_uint8 -quantization-precision=Int8 -quantization-precision-bias=Int32 -vvv -compile-only -onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,[SEG] -multicast-weights`
+        - *CM_QAIC_MODEL_COMPILER_PARAMS*: `-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,[BATCH_SIZE] -node-precision-info=[NODE_PRECISION_FILE]`
+      - Workflow:
     * `_resnet50`
       - Environment variables:
         - *CM_COMPILE_RESNET*: `on`
@@ -110,18 +117,34 @@ ___
       - Environment variables:
         - *CM_QAIC_MODEL_COMPILER_ARGS*: `-sdp-cluster-sizes=4,4 -mos=1,4`
       - Workflow:
+    * `_resnet50,multistream,nsp.14`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4`
+      - Workflow:
     * `_resnet50,offline`
       - Environment variables:
         - *CM_QAIC_MODEL_COMPILER_ARGS*: `-sdp-cluster-sizes=2,2 -multicast-weights`
+      - Workflow:
+    * `_resnet50,offline,nsp.14`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4 -mos=1,2 -ols=4`
       - Workflow:
     * `_resnet50,server`
       - Environment variables:
         - *CM_QAIC_MODEL_COMPILER_PARAMS_BASE*: `-aic-hw -aic-hw-version=2.0 -aic-num-of-instances=1 -use-producer-dma=0 -output-node-name=ArgMax -compile-only`
         - *CM_QAIC_MODEL_COMPILER_ARGS*: `-sdp-cluster-sizes=4,4 -mos=1,4`
       - Workflow:
+    * `_resnet50,server,nsp.14`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=48 -ols=4`
+      - Workflow:
     * `_resnet50,singlestream`
       - Environment variables:
         - *CM_QAIC_MODEL_COMPILER_ARGS*: `-aic-num-of-instances=1`
+      - Workflow:
+    * `_resnet50,singlestream,nsp.14`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4 -mos=1,2 -ols=4`
       - Workflow:
     * `_resnet50,tf`
       - Environment variables:
@@ -182,6 +205,22 @@ ___
     </details>
 
 
+  * Group "**nsp**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_nsp.14`
+      - Workflow:
+    * `_nsp.16`
+      - Workflow:
+    * `_nsp.8`
+      - Workflow:
+    * `_nsp.9`
+      - Workflow:
+
+    </details>
+
+
   * Group "**quantization**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -232,6 +271,7 @@ ___
      * get,ml-model
        * CM names: `--adr.['model-src']...`
        - CM script: [get-ml-model-3d-unet-kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-3d-unet-kits19)
+       - CM script: [get-ml-model-abtf-ssd-pytorch](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-abtf-ssd-pytorch)
        - CM script: [get-ml-model-bert-base-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-base-squad)
        - CM script: [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)
        - CM script: [get-ml-model-dlrm-terabyte](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte)
@@ -244,6 +284,7 @@ ___
        - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
        - CM script: [get-ml-model-retinanet-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia)
        - CM script: [get-ml-model-rnnt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt)
+       - CM script: [get-ml-model-stable-diffusion](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion)
        - CM script: [get-ml-model-tiny-resnet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-tiny-resnet)
        - CM script: [get-ml-model-using-imagenet-from-model-zoo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-using-imagenet-from-model-zoo)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic/customize.py)***
@@ -257,12 +298,14 @@ ___
 
 ___
 ### Script output
-`cmr "qaic compile qaic-compile[,variations]"  -j`
+`cmr "qaic compile model model-compile qaic-compile[,variations]"  -j`
 #### New environment keys (filter)
 
+* `CM_ML_MODEL_FILE_WITH_PATH`
 * `CM_QAIC_*`
 #### New environment keys auto-detected from customize
 
+* `CM_ML_MODEL_FILE_WITH_PATH`
 * `CM_QAIC_MODEL_COMPILED_BINARY_WITH_PATH`
 ___
 ### Maintainers

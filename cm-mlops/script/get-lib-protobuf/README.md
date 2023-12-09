@@ -13,6 +13,7 @@
 * [Customization](#customization)
   * [ Variations](#variations)
   * [ Default environment](#default-environment)
+* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -27,11 +28,11 @@
 
 #### Summary
 
-* Category: *MLPerf benchmark support.*
+* Category: *Detection or installation of tools and artifacts.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,src,source,power,power-dev,mlperf,mlcommons*
+* CM "database" tags to find this script: *get,google-protobuf,protobuf,lib,lib-protobuf,google*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -48,9 +49,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,src,source,power,power-dev,mlperf,mlcommons[,variations] `
+1. `cm run script --tags=get,google-protobuf,protobuf,lib,lib-protobuf,google[,variations] `
 
-2. `cmr "get src source power power-dev mlperf mlcommons[ variations]" `
+2. `cmr "get google-protobuf protobuf lib lib-protobuf google[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -65,7 +66,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,src,source,power,power-dev,mlperf,mlcommons'
+                  'tags':'get,google-protobuf,protobuf,lib,lib-protobuf,google'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -82,13 +83,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,src,source,power,power-dev,mlperf,mlcommons"```
+```cmr "cm gui" --script="get,google-protobuf,protobuf,lib,lib-protobuf,google"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,src,source,power,power-dev,mlperf,mlcommons) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,google-protobuf,protobuf,lib,lib-protobuf,google) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get src source power power-dev mlperf mlcommons[ variations]" `
+`cm docker script "get google-protobuf protobuf lib lib-protobuf google[ variations]" `
 
 ___
 ### Customization
@@ -96,17 +97,13 @@ ___
 
 #### Variations
 
-  * Group "**checkout**"
+  * *No group (any variation can be selected)*
     <details>
     <summary>Click here to expand this section.</summary>
 
     * `_branch.#`
       - Environment variables:
-        - *CM_GIT_CHECKOUT*: `#`
-      - Workflow:
-    * `_sha.#`
-      - Environment variables:
-        - *CM_GIT_SHA*: `#`
+        - *CM_TMP_GIT_CHECKOUT*: `#`
       - Workflow:
     * `_tag.#`
       - Environment variables:
@@ -115,30 +112,6 @@ ___
 
     </details>
 
-
-  * Group "**repo**"
-    <details>
-    <summary>Click here to expand this section.</summary>
-
-    * **`_mlcommons`** (default)
-      - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/mlcommons/power-dev.git`
-      - Workflow:
-    * `_octoml`
-      - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/octoml/power-dev.git`
-      - Workflow:
-    * `_repo.#`
-      - Environment variables:
-        - *CM_GIT_URL*: `#`
-      - Workflow:
-
-    </details>
-
-
-#### Default variations
-
-`_mlcommons`
 #### Default environment
 
 <details>
@@ -146,11 +119,11 @@ ___
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_GIT_DEPTH: `--depth 1`
-* CM_GIT_PATCH: `no`
-* CM_GIT_CHECKOUT_FOLDER: `power-dev`
 
 </details>
+
+#### Versions
+Default version: `1.13.0`
 
 ___
 ### Script workflow, dependencies and native scripts
@@ -158,26 +131,36 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/customize.py)***
-  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)***
-     * get,git,repo
-       * CM names: `--adr.['mlperf-power-dev-git-repo']...`
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf/_cm.json)***
+     * get,cmake
+       - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
+     * get,gcc
+       - CM script: [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf/customize.py)***
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf/_cm.json)***
+     * get,git,repo,_repo.https://github.com/google/protobuf.git
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "get src source power power-dev mlperf mlcommons[,variations]"  -j`
+`cmr "get google-protobuf protobuf lib lib-protobuf google[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_MLPERF_POWER_SOURCE`
+* `+CPLUS_INCLUDE_PATH`
+* `+C_INCLUDE_PATH`
+* `+LD_LIBRARY_PATH`
+* `CM_GOOGLE_PROTOBUF_INSTALL_PATH`
+* `CM_GOOGLE_PROTOBUF_SRC_PATH`
 #### New environment keys auto-detected from customize
 
+* `CM_GOOGLE_PROTOBUF_INSTALL_PATH`
+* `CM_GOOGLE_PROTOBUF_SRC_PATH`
 ___
 ### Maintainers
 

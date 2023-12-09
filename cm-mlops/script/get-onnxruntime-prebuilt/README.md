@@ -97,7 +97,7 @@ ___
 
 #### Variations
 
-  * *No group (any variation can be selected)*
+  * Group "**device**"
     <details>
     <summary>Click here to expand this section.</summary>
 

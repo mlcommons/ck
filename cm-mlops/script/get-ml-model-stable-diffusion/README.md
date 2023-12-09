@@ -30,9 +30,9 @@
 
 * Category: *AI/ML models.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,ml-model,model,zoo,model-zoo,huggingface*
+* CM "database" tags to find this script: *get,raw,ml-model,stable-diffusion,sdxl,text-to-image*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -49,9 +49,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,ml-model,model,zoo,model-zoo,huggingface[,variations] [--input_flags]`
+1. `cm run script --tags=get,raw,ml-model,stable-diffusion,sdxl,text-to-image[,variations] [--input_flags]`
 
-2. `cmr "get ml-model model zoo model-zoo huggingface[ variations]" [--input_flags]`
+2. `cmr "get raw ml-model stable-diffusion sdxl text-to-image[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -68,7 +68,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,ml-model,model,zoo,model-zoo,huggingface'
+                  'tags':'get,raw,ml-model,stable-diffusion,sdxl,text-to-image'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -85,13 +85,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,ml-model,model,zoo,model-zoo,huggingface"```
+```cmr "cm gui" --script="get,raw,ml-model,stable-diffusion,sdxl,text-to-image"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,ml-model,model,zoo,model-zoo,huggingface) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,raw,ml-model,stable-diffusion,sdxl,text-to-image) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get ml-model model zoo model-zoo huggingface[ variations]" [--input_flags]`
+`cm docker script "get raw ml-model stable-diffusion sdxl text-to-image[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -103,52 +103,68 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_model-stub.#`
+    * `_batch_size.#`
       - Environment variables:
-        - *CM_MODEL_ZOO_STUB*: `#`
+        - *CM_ML_MODEL_BATCH_SIZE*: `#`
       - Workflow:
-    * `_onnx-subfolder`
-      - Environment variables:
-        - *CM_HF_SUBFOLDER*: `onnx`
-      - Workflow:
-    * `_pierreguillou_bert_base_cased_squad_v1.1_portuguese`
-      - Environment variables:
-        - *CM_MODEL_ZOO_STUB*: `pierreguillou/bert-base-cased-squad-v1.1-portuguese`
-      - Workflow:
-    * `_prune`
-      - Environment variables:
-        - *CM_MODEL_TASK*: `prune`
+    * `_pytorch,fp32`
       - Workflow:
 
     </details>
 
 
-  * Group "**download-type**"
+  * Group "**framework**"
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_clone-repo`
+    * **`_pytorch`** (default)
       - Environment variables:
-        - *CM_GIT_CLONE_REPO*: `yes`
+        - *CM_ML_MODEL_FRAMEWORK*: `pytorch`
       - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * get,git,repo,_lfs
-             - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
 
     </details>
 
+
+  * Group "**precision**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_fp32`** (default)
+      - Environment variables:
+        - *CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
+        - *CM_ML_MODEL_PRECISION*: `fp32`
+        - *CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp32`
+      - Workflow:
+    * `_int8`
+      - Environment variables:
+        - *CM_ML_MODEL_INPUT_DATA_TYPES*: `int8`
+        - *CM_ML_MODEL_PRECISION*: `int8`
+        - *CM_ML_MODEL_WEIGHT_DATA_TYPES*: `int8`
+      - Workflow:
+    * `_uint8`
+      - Environment variables:
+        - *CM_ML_MODEL_INPUT_DATA_TYPES*: `uint8`
+        - *CM_ML_MODEL_PRECISION*: `uint8`
+        - *CM_ML_MODEL_WEIGHT_DATA_TYPES*: `uint8`
+      - Workflow:
+
+    </details>
+
+
+#### Default variations
+
+`_fp32,_pytorch`
 
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
 
-* `--env_key=value`  &rarr;  `CM_MODEL_ZOO_ENV_KEY=value`
-* `--model_filename=value`  &rarr;  `CM_MODEL_ZOO_FILENAME=value`
+* `--checkpoint=value`  &rarr;  `SDXL_CHECKPOINT_PATH=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "env_key":...}
+r=cm.access({... , "checkpoint":...}
 ```
 
 </details>
@@ -169,33 +185,28 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)***
-     * get,python3
-       * CM names: `--adr.['python3', 'python']...`
-       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * get,generic-python-lib,_huggingface_hub
-       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion/customize.py)***
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion/_cm.json)***
+     * get,ml-model,huggingface,zoo,_clone-repo,_model-stub.stabilityai/stable-diffusion-xl-base-1.0
+       * `if (CM_TMP_REQUIRE_DOWNLOAD  == yes)`
+       * CM names: `--adr.['hf-zoo']...`
+       - CM script: [get-ml-model-huggingface-zoo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "get ml-model model zoo model-zoo huggingface[,variations]" [--input_flags] -j`
+`cmr "get raw ml-model stable-diffusion sdxl text-to-image[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
-* `CM_ML_MODEL*`
-* `CM_MODEL_ZOO_STUB`
+* `CM_ML_MODEL_*`
+* `SDXL_CHECKPOINT_PATH`
 #### New environment keys auto-detected from customize
 
-* `CM_ML_MODEL_'+env_key+'_FILE_WITH_PATH`
-* `CM_ML_MODEL_'+env_key+'_PATH`
 * `CM_ML_MODEL_PATH`
 ___
 ### Maintainers

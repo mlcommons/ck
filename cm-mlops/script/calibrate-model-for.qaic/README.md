@@ -102,26 +102,9 @@ ___
 
     * `_first.#`
       - Workflow:
-    * `_resnet50`
-      - Environment variables:
-        - *CM_CALIBRATE_IMAGENET*: `yes`
-        - *CM_QAIC_COMPILER_ARGS*: ``
-        - *CM_QAIC_COMPILER_PARAMS*: `-output-node-name=ArgMax -profiling-threads=8`
-        - *CM_QAIC_OUTPUT_NODE_NAME*: `-output-node-name=ArgMax`
-        - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_resnet50_tf`
-      - Workflow:
     * `_resnet50,tf`
       - Environment variables:
         - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_resnet50_tf`
-      - Workflow:
-    * `_retinanet`
-      - Environment variables:
-        - *CM_CALIBRATE_OPENIMAGES*: `yes`
-        - *CM_QAIC_COMPILER_ARGS*: ``
-        - *CM_QAIC_NODE_PRECISION_FILE_PATH*: `retinanet/node-precision.yaml`
-        - *CM_QAIC_COMPILER_PARAMS*: `-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,<<<CM_QAIC_MODEL_BATCH_SIZE>>> -node-precision-info=<<<CM_QAIC_NODE_PRECISION_FILE_PATH>>>`
-        - *CM_IMAGE_ORDER_FILE_PATH*: `retinanet/openimages_cal_images_list.txt`
-        - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_retinanet_no_nms_mlperf`
       - Workflow:
 
     </details>
@@ -134,10 +117,12 @@ ___
     * `_bs.#`
       - Environment variables:
         - *CM_QAIC_MODEL_BATCH_SIZE*: `#`
+        - *CM_CREATE_INPUT_BATCH*: `yes`
       - Workflow:
-    * **`_bs.1`** (default)
+    * `_bs.1`
       - Environment variables:
         - *CM_QAIC_MODEL_BATCH_SIZE*: `1`
+        - *CM_CREATE_INPUT_BATCH*: `yes`
       - Workflow:
 
     </details>
@@ -155,6 +140,42 @@ ___
     </details>
 
 
+  * Group "**model**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_bert-99`
+      - Environment variables:
+        - *CM_CALIBRATE_SQUAD*: `yes`
+        - *CM_QAIC_COMPILER_ARGS*: ``
+        - *CM_QAIC_COMPILER_PARAMS*: `-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>> -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512 -profiling-threads=4`
+        - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_bert_mlperf`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,preprocessed,dataset,squad,_packed,_pickle
+             * CM names: `--adr.['squad-preprocessed', 'preprocessed-dataset']...`
+             - CM script: [get-preprocessed-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad)
+    * `_resnet50`
+      - Environment variables:
+        - *CM_CALIBRATE_IMAGENET*: `yes`
+        - *CM_QAIC_COMPILER_ARGS*: ``
+        - *CM_QAIC_COMPILER_PARAMS*: `-output-node-name=ArgMax -profiling-threads=8`
+        - *CM_QAIC_OUTPUT_NODE_NAME*: `-output-node-name=ArgMax`
+        - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_resnet50_tf`
+      - Workflow:
+    * `_retinanet`
+      - Environment variables:
+        - *CM_CALIBRATE_OPENIMAGES*: `yes`
+        - *CM_QAIC_COMPILER_ARGS*: ``
+        - *CM_QAIC_NODE_PRECISION_FILE_PATH*: `retinanet/node-precision.yaml`
+        - *CM_QAIC_COMPILER_PARAMS*: `-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,<<<CM_QAIC_MODEL_BATCH_SIZE>>> -node-precision-info=<<<CM_QAIC_NODE_PRECISION_FILE_PATH>>>`
+        - *CM_IMAGE_ORDER_FILE_PATH*: `retinanet/openimages_cal_images_list.txt`
+        - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_retinanet_no_nms_mlperf`
+      - Workflow:
+
+    </details>
+
+
   * Group "**model-framework**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -164,10 +185,6 @@ ___
 
     </details>
 
-
-#### Default variations
-
-`_bs.1`
 #### Default environment
 
 <details>
@@ -196,9 +213,13 @@ ___
        * `if (CM_CALIBRATE_IMAGENET  == on)`
        * CM names: `--adr.['imagenet-cal', 'preprocessed-dataset']...`
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
+     * get,dataset,calibration,squad,_pickle,_width.384
+       * CM names: `--adr.['squad-cal', 'preprocessed-dataset']...`
+       - *Warning: no scripts found*
      * get,ml-model
        * CM names: `--adr.['model-src']...`
        - CM script: [get-ml-model-3d-unet-kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-3d-unet-kits19)
+       - CM script: [get-ml-model-abtf-ssd-pytorch](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-abtf-ssd-pytorch)
        - CM script: [get-ml-model-bert-base-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-base-squad)
        - CM script: [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)
        - CM script: [get-ml-model-dlrm-terabyte](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte)
@@ -211,6 +232,7 @@ ___
        - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
        - CM script: [get-ml-model-retinanet-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia)
        - CM script: [get-ml-model-rnnt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt)
+       - CM script: [get-ml-model-stable-diffusion](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion)
        - CM script: [get-ml-model-tiny-resnet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-tiny-resnet)
        - CM script: [get-ml-model-using-imagenet-from-model-zoo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-using-imagenet-from-model-zoo)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/calibrate-model-for.qaic/customize.py)***
@@ -230,7 +252,6 @@ ___
 * `CM_QAIC_*`
 #### New environment keys auto-detected from customize
 
-* `CM_QAIC_EXEC_PATH`
 * `CM_QAIC_MODEL_PROFILE_WITH_PATH`
 ___
 ### Maintainers
