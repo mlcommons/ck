@@ -198,6 +198,7 @@ deps:
       CM_MLPERF_BACKEND:
       - pytorch
       - tvm-pytorch
+      - ray
       CM_MLPERF_DEVICE:
       - gpu
 
@@ -220,8 +221,43 @@ deps:
       CM_MLPERF_BACKEND:
       - pytorch
       - tvm-pytorch
+      - ray
       CM_MLPERF_DEVICE:
       - gpu
+
+  ## tensorrt
+  - tags: get,generic-python-lib,_tensorrt
+    names:
+    - ml-engine-tensorrt
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - ray
+
+  ## torch_tensorrt
+  - tags: get,generic-python-lib,_torch_tensorrt
+    names:
+    - ml-engine-torch_tensorrt
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - ray
+
+  ## Ray
+  - tags: get,generic-python-lib,_ray
+    names:
+    - ray
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+        - ray
+
+  ## async_timeout (for multi-node)
+  # NOTE. This is a bug in ray 2.8.0. Ray 2.8.0 needs the pip package
+  # async_timeout to be installed, so we need to install it manually.
+  - tags: get,generic-python-lib,_async_timeout
+    names:
+    - async_timeout
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+        - ray
 
   ## Transformers
   - tags: get,generic-python-lib,_transformers
@@ -559,6 +595,19 @@ variations:
     add_deps_recursive:
       pytorch:
         tags: _rocm
+
+  ray:
+    group: framework
+    add_deps_recursive:
+      imagenet-preprocessed:
+        tags: _NCHW
+      openimages-preprocessed:
+        tags: _NCHW
+      ml-model:
+        tags: raw,_pytorch
+    env:
+      CM_MLPERF_BACKEND: ray
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
 
   tf,rocm:
     add_deps_recursive:

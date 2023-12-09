@@ -682,6 +682,15 @@ variations:
       mlperf-inference-implementation:
         tags: _tvm-tflite
 
+  ray:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND:
+        ray
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _ray
+
   cpu:
     group:
       device
