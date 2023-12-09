@@ -13,9 +13,10 @@ def preprocess(i):
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
-    r = create_batched_inputs(env)
-    if r['return'] > 0:
-        return r
+    if env.get('CM_CREATE_INPUT_BATCH', '') == 'yes':
+        r = create_batched_inputs(env)
+        if r['return'] > 0:
+            return r
 
     r = construct_calibration_cmd(env)
     if r['return'] > 0:
@@ -67,9 +68,11 @@ def create_batched_inputs(env):
 def construct_calibration_cmd(env):
     compiler_params = env['CM_QAIC_COMPILER_PARAMS']
     batchsize = env['CM_QAIC_MODEL_BATCH_SIZE']
-    cmd = env['CM_QAIC_EXEC_PATH'] + " -input-list-file=batched_input_files " + \
-        compiler_params + " -dump-profile=profile.yaml -model=" + env['CM_ML_MODEL_FILE_WITH_PATH'] + \
-        " -batchsize="+batchsize
+    cmd = env['CM_QAIC_EXEC_PATH']  + " "
+    if env.get('CM_CREATE_INPUT_BATCH', '') == 'yes':
+        cmd += " -input-list-file=batched_input_files  -batchsize="+batchsize + " "
+    cmd += compiler_params + " -dump-profile=profile.yaml -model=" + env['CM_ML_MODEL_FILE_WITH_PATH']
+
     return {'return': 0, 'cmd': cmd}
 
 def postprocess(i):

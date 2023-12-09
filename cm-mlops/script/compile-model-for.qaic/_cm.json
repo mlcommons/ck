@@ -213,6 +213,19 @@
         "CM_IMAGE_ORDER_FILE_PATH": "retinanet/openimages_cal_images_list.txt",
         "CM_QAIC_NODE_PRECISION_FILE_PATH": "retinanet/node-precision.yaml"
       }
+    },
+    "bert-99": {
+      "adr": {
+        "model-src": {
+          "tags": "bert-99,_onnx"
+        }
+      },
+      "env": {
+        "CM_COMPILE_BERT": "on",
+        "CM_QAIC_MODEL_TO_CONVERT": "calibrate_bert_mlperf",
+        "CM_QAIC_MODEL_COMPILER_ARGS": "-aic-hw -aic-hw-version=2.0 -execute-nodes-in-fp16=Mul,Sqrt,Div,Add,ReduceMean,Softmax,Sub,Gather,Erf,Pow,Concat,Tile,LayerNormalization -quantization-schema=symmetric_with_uint8 -quantization-precision=Int8 -quantization-precision-bias=Int32 -vvv -compile-only -onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,[SEG] -multicast-weights",
+        "CM_QAIC_MODEL_COMPILER_PARAMS": "-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,[BATCH_SIZE] -node-precision-info=[NODE_PRECISION_FILE]"
+      }
     }
   }
 }

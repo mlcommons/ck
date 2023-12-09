@@ -79,15 +79,16 @@
   "variations": {
     "bs.1": {
       "group": "batch-size",
-      "default": true,
       "env": {
-        "CM_QAIC_MODEL_BATCH_SIZE": "1"
+        "CM_QAIC_MODEL_BATCH_SIZE": "1",
+        "CM_CREATE_INPUT_BATCH": "yes"
       }
     },
     "bs.#": {
       "group": "batch-size",
       "env": {
-        "CM_QAIC_MODEL_BATCH_SIZE": "#"
+        "CM_QAIC_MODEL_BATCH_SIZE": "#",
+        "CM_CREATE_INPUT_BATCH": "yes"
       }
     },
     "first.#": {
