@@ -132,6 +132,21 @@ ___
     </details>
 
 
+  * Group "**packing**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_packed`
+      - Environment variables:
+        - *CM_DATASET_SQUAD_PACKED*: `yes`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,preprocessed,squad,_pickle
+             - CM script: [get-preprocessed-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad)
+
+    </details>
+
+
   * Group "**raw**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -201,6 +216,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad/_cm.yaml)
   1. ***Run native script if exists***
+     * [run-packed.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad/run-packed.sh)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad/_cm.yaml)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad/customize.py)***
@@ -220,6 +236,8 @@ ___
 * `CM_DATASET_SQUAD_TOKENIZED_INPUT_MASK`
 * `CM_DATASET_SQUAD_TOKENIZED_MAX_QUERY_LENGTH`
 * `CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH`
+* `CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE`
+* `CM_DATASET_SQUAD_TOKENIZED_PICKLE_FILE`
 * `CM_DATASET_SQUAD_TOKENIZED_ROOT`
 * `CM_DATASET_SQUAD_TOKENIZED_SEGMENT_IDS`
 ___

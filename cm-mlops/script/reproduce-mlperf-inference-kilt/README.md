@@ -136,6 +136,12 @@ ___
         - *CM_MODEL_BATCH_SIZE*: `#`
         - *CM_MLPERF_QAIC_ACTIVATION_COUNT*: `#`
       - Workflow:
+    * `_bert-99,qaic`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * compile,qaic,model,_bert-99
+             * CM names: `--adr.['qaic-model-compiler', 'bert-99-compiler']...`
+             - CM script: [compile-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic)
     * `_bert_,network-client`
       - Environment variables:
         - *CM_BENCHMARK*: `NETWORK_BERT_CLIENT`
