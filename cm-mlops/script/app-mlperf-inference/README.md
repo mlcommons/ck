@@ -244,6 +244,10 @@ ___
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `pytorch`
       - Workflow:
+    * `_ray`
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `ray`
+      - Workflow:
     * `_tensorrt`
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `tensorrt`
