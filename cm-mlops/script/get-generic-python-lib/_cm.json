@@ -68,6 +68,14 @@
         "CM_APACHE_TVM_VERSION"
       ]
     },
+    "async_timeout": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "async_timeout"
+      },
+      "new_env_keys": [
+        "CM_ASYNC_TIMEOUT_VERSION"
+      ]
+    },
     "attrs": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "attrs"
@@ -543,6 +551,14 @@
         "CM_PYCUDA_VERSION"
       ]
     },
+    "ray": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "ray[default]"
+      },
+      "new_env_keys": [
+        "CM_RAY_VERSION"
+      ]
+    },
     "requests": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "requests"
@@ -653,6 +669,28 @@
       },
       "new_env_keys": [
         "CM_TOKENIZATION_VERSION"
+      ]
+    },
+    "tensorrt": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tensorrt",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
+        "CM_TORCH_CUDA": "cu118",
+        "CM_TORCH_VERSION_EXTRA": "CUDA"
+      },
+      "new_env_keys": [
+        "CM_TENSORRT_VERSION"
+      ]
+    },
+    "torch_tensorrt": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch-tensorrt",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
+        "CM_TORCH_CUDA": "cu118",
+        "CM_TORCH_VERSION_EXTRA": "CUDA"
+      },
+      "new_env_keys": [
+        "CM_TORCH_TENSORRT_VERSION"
       ]
     },
     "six": {
