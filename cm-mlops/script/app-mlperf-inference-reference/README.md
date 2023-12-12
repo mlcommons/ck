@@ -309,6 +309,11 @@ ___
         - *CM_MLPERF_BACKEND*: `pytorch`
         - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_TORCH_VERSION>>>`
       - Workflow:
+    * `_ray`
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `ray`
+        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_TORCH_VERSION>>>`
+      - Workflow:
     * `_tf`
       - Aliases: `_tensorflow`
       - Environment variables:
@@ -624,7 +629,7 @@ ___
        * CM names: `--adr.['ml-engine-pytorch', 'pytorch']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torch_cuda
-       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'] AND CM_MLPERF_DEVICE  == gpu)`
+       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch', 'ray'] AND CM_MLPERF_DEVICE  == gpu)`
        * CM names: `--adr.['ml-engine-pytorch', 'pytorch']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torchvision
@@ -632,8 +637,24 @@ ___
        * CM names: `--adr.['ml-engine-torchvision']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torchvision_cuda
-       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'] AND CM_MLPERF_DEVICE  == gpu)`
+       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch', 'ray'] AND CM_MLPERF_DEVICE  == gpu)`
        * CM names: `--adr.['ml-engine-torchvision']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_tensorrt
+       * `if (CM_MLPERF_BACKEND  == ray)`
+       * CM names: `--adr.['ml-engine-tensorrt']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_torch_tensorrt
+       * `if (CM_MLPERF_BACKEND  == ray)`
+       * CM names: `--adr.['ml-engine-torch_tensorrt']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_ray
+       * `if (CM_MLPERF_BACKEND  == ray)`
+       * CM names: `--adr.['ray']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_async_timeout
+       * `if (CM_MLPERF_BACKEND  == ray)`
+       * CM names: `--adr.['async_timeout']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_transformers
        * `if (CM_MODEL in ['bert-99', 'bert-99.9', 'gptj-99', 'gptj-99.9'])`
@@ -663,7 +684,6 @@ ___
        * `if (CM_MODEL in ['gptj-99', 'gptj-99.9'])`
        * CM names: `--adr.['ml-model', 'gptj-model', 'gpt-j-model']...`
        - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)
-       - CM script: [get-ml-model-stable-diffusion](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion)
      * get,ml-model,object-detection,resnext50,fp32,_pytorch-weights
        * `if (CM_MLPERF_BACKEND  == pytorch AND CM_MLPERF_IMPLEMENTATION  == nvidia AND CM_MODEL  == retinanet)`
        * CM names: `--adr.['ml-model', 'retinanet-model']...`

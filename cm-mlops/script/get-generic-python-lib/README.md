@@ -119,6 +119,10 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `apex`
       - Workflow:
+    * `_async_timeout`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `async_timeout`
+      - Workflow:
     * `_attr`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `attr`
@@ -350,6 +354,10 @@ ___
            * get,cuda
              * CM names: `--adr.['cuda']...`
              - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+    * `_ray`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `ray[default]`
+      - Workflow:
     * `_requests`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `requests`
@@ -424,6 +432,13 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `tensorflow-rocm`
       - Workflow:
+    * `_tensorrt`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `tensorrt`
+        - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
+        - *CM_TORCH_CUDA*: `cu118`
+        - *CM_TORCH_VERSION_EXTRA*: `CUDA`
+      - Workflow:
     * `_tflite`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `tflite`
@@ -487,6 +502,13 @@ ___
              - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
            * get,generic-python-lib,_numpy
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_torch_tensorrt`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch-tensorrt`
+        - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
+        - *CM_TORCH_CUDA*: `cu118`
+        - *CM_TORCH_VERSION_EXTRA*: `CUDA`
+      - Workflow:
     * `_torchaudio`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchaudio`
