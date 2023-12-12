@@ -20,6 +20,9 @@ def preprocess(i):
             env['CM_NVIDIA_GPU_MEMORY'] = gpu_memory_size
             env['CM_NVIDIA_HARNESS_GPU_VARIATION'] = ''
 
+    if 'cmd' in i['input']:
+        i['state']['mlperf_inference_run_cmd'] = "cm run script " + " ".join(i['input']['cmd'])
+
     return {'return':0}
 
 def postprocess(i):

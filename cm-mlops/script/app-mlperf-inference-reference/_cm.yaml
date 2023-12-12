@@ -529,6 +529,14 @@ deps:
 
   - tags: get,generic-python-lib,_package.psutil
 
+prehook_deps:
+  - names:
+    - remote-run-cmds
+    tags: remote,run,cmds
+    enable_if_env:
+      CM_SSH_RUN_COMMANDS:
+      - "on"
+
 posthook_deps: 
   - names:
     - mlperf-runner
