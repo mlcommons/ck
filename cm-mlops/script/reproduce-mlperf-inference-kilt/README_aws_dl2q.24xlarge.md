@@ -22,4 +22,7 @@ cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic
 --test_query_count=40000 --precision=fp32 --rerun
 ```
 
+* `--adr.lperf-inference-implementation.device_ids=0` can be used to run the inference only on the first QAIC device
+* `--precision=uint8` is the best option to be used but unfortunately, it is not working with the default platform SDK. When we use `--precision=fp32` the float32 inputs are on the fly converted by the QAIC driver to uint8 format. This overhead and 4x memory BW usage reduces the Offline scenario performance by nearly 50%. We got `~9000` QPS for a single device run
+
 *WIP*
