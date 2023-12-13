@@ -147,7 +147,8 @@
     },
     "resnet50,offline": {
       "env": {
-        "CM_QAIC_MODEL_COMPILER_ARGS": "-sdp-cluster-sizes=2,2 -multicast-weights"
+        "CM_QAIC_MODEL_COMPILER_ARGS": "-sdp-cluster-sizes=2,2 -multicast-weights",
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4 -mos=1,2 -ols=4"
       }
     },
     "resnet50,offline,nsp.14": {
