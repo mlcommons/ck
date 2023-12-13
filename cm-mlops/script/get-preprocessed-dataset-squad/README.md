@@ -102,15 +102,15 @@ ___
 
     * `_calib1`
       - Environment variables:
-        - *CM_SQUAD_CALIBRATION_SET*: `one`
+        - *CM_DATASET_SQUAD_CALIBRATION_SET*: `one`
       - Workflow:
     * `_calib2`
       - Environment variables:
-        - *CM_SQUAD_CALIBRATION_SET*: `two`
+        - *CM_DATASET_SQUAD_CALIBRATION_SET*: `two`
       - Workflow:
     * **`_no-calib`** (default)
       - Environment variables:
-        - *CM_SQUAD_CALIBRATION_SET*: ``
+        - *CM_DATASET_SQUAD_CALIBRATION_SET*: ``
       - Workflow:
 
     </details>

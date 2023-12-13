@@ -104,8 +104,30 @@ ___
       - Environment variables:
         - *CM_COMPILE_BERT*: `on`
         - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_bert_mlperf`
-        - *CM_QAIC_MODEL_COMPILER_ARGS*: `-aic-hw -aic-hw-version=2.0 -execute-nodes-in-fp16=Mul,Sqrt,Div,Add,ReduceMean,Softmax,Sub,Gather,Erf,Pow,Concat,Tile,LayerNormalization -quantization-schema=symmetric_with_uint8 -quantization-precision=Int8 -quantization-precision-bias=Int32 -vvv -compile-only -onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,[SEG] -multicast-weights`
-        - *CM_QAIC_MODEL_COMPILER_PARAMS*: `-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,[BATCH_SIZE] -node-precision-info=[NODE_PRECISION_FILE]`
+        - *CM_QAIC_MODEL_COMPILER_ARGS*: `-aic-hw -aic-hw-version=2.0 -execute-nodes-in-fp16=Mul,Sqrt,Div,Add,ReduceMean,Softmax,Sub,Gather,Erf,Pow,Concat,Tile,LayerNormalization -quantization-schema=symmetric_with_uint8 -quantization-precision=Int8 -quantization-precision-bias=Int32 -vvv -compile-only -onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,384 -multicast-weights`
+        - *CM_QAIC_MODEL_COMPILER_PARAMS_BASE*: ``
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * calibrate,qaic,_bert-99
+             * CM names: `--adr.['bert-profile', 'qaic-profile']...`
+             - CM script: [calibrate-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/calibrate-model-for.qaic)
+    * `_bert-99,multistream,nsp.14`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4`
+      - Workflow:
+    * `_bert-99,offline`
+      - Workflow:
+    * `_bert-99,offline,nsp.14`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=1 -mos=1 -ols=3`
+      - Workflow:
+    * `_bert-99,server,nsp.14`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=1 -mos=1 -ols=3`
+      - Workflow:
+    * `_bert-99,singlestream,nsp.14`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=8`
       - Workflow:
     * `_resnet50`
       - Environment variables:
@@ -136,7 +158,7 @@ ___
       - Workflow:
     * `_resnet50,server,nsp.14`
       - Environment variables:
-        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=48 -ols=4`
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4 -ols=4`
       - Workflow:
     * `_resnet50,singlestream`
       - Environment variables:
@@ -171,7 +193,7 @@ ___
       - Environment variables:
         - *CM_QAIC_MODEL_BATCH_SIZE*: `#`
       - Workflow:
-    * **`_bs.1`** (default)
+    * `_bs.1`
       - Environment variables:
         - *CM_QAIC_MODEL_BATCH_SIZE*: `1`
       - Workflow:
@@ -239,7 +261,7 @@ ___
 
 #### Default variations
 
-`_bs.1,_quantized,_singlestream`
+`_quantized,_singlestream`
 #### Default environment
 
 <details>

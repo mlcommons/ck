@@ -108,7 +108,7 @@ ___
         - *CM_BENCHMARK*: `STANDALONE_BERT`
         - *kilt_model_name*: `bert`
         - *kilt_model_seq_length*: `384`
-        - *kilt_model_batch_size*: `384`
+        - *kilt_model_batch_size*: `1`
         - *kilt_model_bert_variant*: `BERT_PACKED`
         - *kilt_input_format*: `INT64,1,384:INT64,1,8:INT64,1,384:INT64,1,384`
         - *kilt_output_format*: `FLOAT32,1,384:FLOAT32,1,384`
@@ -150,6 +150,11 @@ ___
       - Environment variables:
         - *CM_BENCHMARK*: `NETWORK_BERT_SERVER`
       - Workflow:
+    * `_bert_,qaic`
+      - Environment variables:
+        - *kilt_input_format*: `UINT32,1,384:UINT32,1,8:UINT32,1,384:UINT32,1,384`
+        - *kilt_device_qaic_skip_stage*: `convert`
+      - Workflow:
     * `_bert_,singlestream`
       - Environment variables:
         - *kilt_model_batch_size*: `1`
@@ -158,11 +163,18 @@ ___
       - Environment variables:
         - *kilt_model_batch_size*: `#`
       - Workflow:
+    * `_dl2q.24xlarge,bert-99,offline`
+      - Environment variables:
+        - *qaic_activation_count*: `14`
+      - Workflow:
     * `_dl2q.24xlarge,resnet50,offline`
+      - Environment variables:
+        - *qaic_activation_count*: `3`
       - Workflow:
     * `_dl2q.24xlarge,singlestream`
       - Environment variables:
         - *kilt_device_ids*: `0`
+        - *qaic_activation_count*: `1`
       - Workflow:
     * `_resnet50,qaic`
       - Workflow:
@@ -281,6 +293,7 @@ ___
     * `_bert-99`
       - Environment variables:
         - *CM_MODEL*: `bert-99`
+        - *CM_SQUAD_ACCURACY_DTYPE*: `float32`
         - *CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx`
       - Workflow:
     * `_bert-99.9`
@@ -391,7 +404,7 @@ ___
 
     * `_dl2q.24xlarge`
       - Environment variables:
-        - *kilt_device_ids*: `0,1,2,3,4,5,6,7`
+        - *kilt_device_ids*: `0`
         - *qaic_queue_length*: `6`
       - Workflow:
 
@@ -492,7 +505,7 @@ ___
        * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
        * CM names: `--adr.['bert-vocab']...`
        - CM script: [get-dataset-squad-vocab](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad-vocab)
-     * get,dataset,tokenized,squad
+     * get,dataset,tokenized,squad,_raw
        * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
        * CM names: `--adr.['squad-tokenized']...`
        - CM script: [get-preprocessed-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad)
@@ -547,6 +560,7 @@ ___
 * `CM_MAX_EXAMPLES`
 * `CM_MLPERF_*`
 * `CM_ML_MODEL_*`
+* `CM_SQUAD_ACCURACY_DTYPE`
 #### New environment keys auto-detected from customize
 
 * `CM_DATASET_LIST`
