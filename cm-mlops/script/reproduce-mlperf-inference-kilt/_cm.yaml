@@ -74,6 +74,7 @@ new_env_keys:
   - CM_ML_MODEL_*
   - CM_MAX_EXAMPLES
   - CM_IMAGENET_ACCURACY_DTYPE
+  - CM_SQUAD_ACCURACY_DTYPE
 
 
 # Dependencies on other CM scripts
@@ -152,7 +153,7 @@ deps:
       - bert-99.9
     names:
       - squad-tokenized
-    tags: get,dataset,tokenized,squad
+    tags: get,dataset,tokenized,squad,_raw
 
   ########################################################################
   # Install OpenImages
@@ -343,13 +344,18 @@ variations:
       CM_BENCHMARK: STANDALONE_BERT
       kilt_model_name: bert
       kilt_model_seq_length: 384
-      kilt_model_batch_size: 384
+      kilt_model_batch_size: 1
       kilt_model_bert_variant: BERT_PACKED
       kilt_input_format: "INT64,1,384:INT64,1,8:INT64,1,384:INT64,1,384"
       kilt_output_format: "FLOAT32,1,384:FLOAT32,1,384"
       dataset_squad_tokenized_max_seq_length: 384
       loadgen_buffer_size: 10833
       loadgen_dataset_size: 10833
+
+  bert_,qaic:
+    env:
+      kilt_input_format: "UINT32,1,384:UINT32,1,8:UINT32,1,384:UINT32,1,384"
+      kilt_device_qaic_skip_stage: convert
 
   standalone:
     group: run-mode
@@ -384,6 +390,7 @@ variations:
     - bert_
     env:
       CM_MODEL: bert-99
+      CM_SQUAD_ACCURACY_DTYPE: float32
       CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx"
 
   bert-99.9:
@@ -422,19 +429,31 @@ variations:
     env:
       CM_MLPERF_LOADGEN_SCENARIO: SingleStream
       kilt_model_batch_size: 1
+    adr:
+      qaic-model-compiler:
+        tags: _singlestream
 
   multistream:
     group: loadgen-scenario
     env:
       CM_MLPERF_LOADGEN_SCENARIO: MultiStream
+    adr:
+      qaic-model-compiler:
+        tags: _multistream
   offline:
     group: loadgen-scenario
     env:
       CM_MLPERF_LOADGEN_SCENARIO: Offline
+    adr:
+      qaic-model-compiler:
+        tags: _offline
   server:
     group: loadgen-scenario
     env:
       CM_MLPERF_LOADGEN_SCENARIO: Server
+    adr:
+      qaic-model-compiler:
+        tags: _server
 
   uint8:
     group: precision
@@ -461,15 +480,18 @@ variations:
     base:
       - nsp.14
     env:
-      kilt_device_ids: 0,1,2,3,4,5,6,7
+      kilt_device_ids: "0"
       qaic_queue_length: 6
 
   dl2q.24xlarge,singlestream:
     env:
       kilt_device_ids: 0
-    base:
-      - activation-count.1
+      qaic_activation_count: "1"
 
   dl2q.24xlarge,resnet50,offline:
-    base:
-      - activation-count.3
+    env:
+      qaic_activation_count: "3"
+
+  dl2q.24xlarge,bert-99,offline:
+    env:
+      qaic_activation_count: "14"

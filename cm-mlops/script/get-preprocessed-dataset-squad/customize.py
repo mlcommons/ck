@@ -13,10 +13,10 @@ def preprocess(i):
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
-    if env.get('CM_SQUAD_CALIBRATION_SET', '') == "one":
+    if env.get('CM_DATASET_SQUAD_CALIBRATION_SET', '') == "one":
         env['DATASET_CALIBRATION_FILE'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], 'calibration', 'SQuAD-v1.1', 'bert_calibration_features.txt')
         env['DATASET_CALIBRATION_ID'] = 1
-    elif env.get('CM_SQUAD_CALIBRATION_SET', '') == "two":
+    elif env.get('CM_DATASET_SQUAD_CALIBRATION_SET', '') == "two":
         env['DATASET_CALIBRATION_FILE'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], 'calibration', 'SQuAD-v1.1', 'bert_calibration_qas_ids.txt')
         env['DATASET_CALIBRATION_ID'] = 2
     else:
@@ -55,8 +55,8 @@ def postprocess(i):
     else:
         with open("packed_filenames.txt", "w") as f:
             for dirname in os.listdir(cur):
-                if os.path.isdir(dirname):
-                    f.write(os.path.join(cur, "input_ids.raw") + ", " + os.path.join(cur, "segment_ids.raw") + ", " + os.path.join(cur, "input_position_ids.raw")+ "\n")
+                if os.path.isdir(dirname) and not dirname.startswith("_"):
+                    f.write(os.path.join(cur, dirname, "input_ids.raw") + "," + os.path.join(cur, dirname, "segment_ids.raw") + "," + os.path.join(cur, dirname, "input_position_ids.raw")+ "\n")
         env['CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE'] = os.path.join(cur, "packed_filenames.txt")
 
     return {'return':0}

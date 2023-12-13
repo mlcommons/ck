@@ -55,11 +55,17 @@
       "tags": "get,dataset,imagenet,preprocessed,_calibration,_for.resnet50"
     },
     {
+      "enable_if_env":
+      {
+        "CM_CALIBRATE_SQUAD": [
+          "on"
+          ]
+      },
       "names": [
         "squad-cal",
         "preprocessed-dataset"
       ],
-      "tags": "get,dataset,calibration,squad,_pickle,_width.384"
+      "tags": "get,dataset,preprocessed,_calib1,squad,_pickle,_seq-length.384,_packed"
     },
     {
       "names": [
@@ -172,22 +178,13 @@
       },
       "adr": {
         "model-src": {
-          "tags": "retinanet,_no-nms"
+          "tags": "bert-large,_onnx"
         }
       },
-      "deps": [
-        {
-          "names": [
-            "squad-preprocessed",
-            "preprocessed-dataset"
-          ],
-          "tags": "get,preprocessed,dataset,squad,_packed,_pickle"
-        }
-      ],
       "env": {
         "CM_CALIBRATE_SQUAD": "yes",
         "CM_QAIC_COMPILER_ARGS": "",
-        "CM_QAIC_COMPILER_PARAMS": "-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>> -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512 -profiling-threads=4",
+        "CM_QAIC_COMPILER_PARAMS": "-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>> -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512 -profiling-threads=96",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_bert_mlperf"
       },
       "seq.#": {

@@ -42,16 +42,16 @@ variations:
   calib1:
     group: calibration-set
     env:
-      CM_SQUAD_CALIBRATION_SET: one
+      CM_DATASET_SQUAD_CALIBRATION_SET: one
   calib2:
     group: calibration-set
     env:
-      CM_SQUAD_CALIBRATION_SET: two
+      CM_DATASET_SQUAD_CALIBRATION_SET: two
   no-calib:
     group: calibration-set
     default: true
     env:
-      CM_SQUAD_CALIBRATION_SET: ''
+      CM_DATASET_SQUAD_CALIBRATION_SET: ''
   raw:
     group: raw
     default: true
@@ -85,8 +85,10 @@ variations:
       CM_DATASET_SQUAD_PACKED: 'yes'
     deps:
       - tags: get,preprocessed,squad,_pickle
-        inherit_varation_tags: true
-        skipa_inherit_variation_groups:
+        env:
+          CM_DATASET_SQUAD_PACKED: ''
+        inherit_variation_tags: true
+        skip_inherit_variation_groups:
         - packing
 
 versions: {}
