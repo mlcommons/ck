@@ -47,6 +47,7 @@ cm run script --tags=generate-run-cmds,inference,_accuracy-only --device=qaic \
 The expected accuracy is ~90
 
 
+
 ## ResNet50
 
 ### Quick performance run
@@ -59,7 +60,6 @@ cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic
 ```
 
 ### Full valid run
-
 
 ```
 cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic --backend=glow \
@@ -79,6 +79,8 @@ cm run script --tags=generate-run-cmds,inference,_accuracy-only --device=qaic --
 ```
 
 Expected accuracy is 75.936%
-### RetinaNet
+
+
+## RetinaNet
 
 *TODO*
