@@ -148,13 +148,9 @@ ___
       - Environment variables:
         - *CM_CALIBRATE_SQUAD*: `yes`
         - *CM_QAIC_COMPILER_ARGS*: ``
-        - *CM_QAIC_COMPILER_PARAMS*: `-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>> -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512 -profiling-threads=4`
+        - *CM_QAIC_COMPILER_PARAMS*: `-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>> -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512 -profiling-threads=96`
         - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_bert_mlperf`
       - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * get,preprocessed,dataset,squad,_packed,_pickle
-             * CM names: `--adr.['squad-preprocessed', 'preprocessed-dataset']...`
-             - CM script: [get-preprocessed-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad)
     * `_resnet50`
       - Environment variables:
         - *CM_CALIBRATE_IMAGENET*: `yes`
@@ -213,9 +209,10 @@ ___
        * `if (CM_CALIBRATE_IMAGENET  == on)`
        * CM names: `--adr.['imagenet-cal', 'preprocessed-dataset']...`
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
-     * get,dataset,calibration,squad,_pickle,_width.384
+     * get,dataset,preprocessed,_calib1,squad,_pickle,_seq-length.384,_packed
+       * `if (CM_CALIBRATE_SQUAD  == on)`
        * CM names: `--adr.['squad-cal', 'preprocessed-dataset']...`
-       - *Warning: no scripts found*
+       - CM script: [get-preprocessed-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad)
      * get,ml-model
        * CM names: `--adr.['model-src']...`
        - CM script: [get-ml-model-3d-unet-kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-3d-unet-kits19)
