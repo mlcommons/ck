@@ -129,7 +129,15 @@ def preprocess(i):
     env['loadgen_mlperf_conf_path'] = env['CM_MLPERF_CONF']# to LOADGEN_MLPERF_CONF
     env['loadgen_user_conf_path'] = env['CM_MLPERF_USER_CONF']# to LOADGEN_USER_CONF
     env['loadgen_scenario'] = env['CM_MLPERF_LOADGEN_SCENARIO']
-    env['loadgen_mode'] = env['CM_MLPERF_LOADGEN_MODE']
+
+    loadgen_mode = env['CM_MLPERF_LOADGEN_MODE']
+    if loadgen_mode == 'performance':
+        kilt_loadgen_mode = 'PerformanceOnly'
+    elif loadgen_mode == 'accuracy':
+        kilt_loadgen_mode = 'AccuracyOnly'
+    else:
+        return {'return':1, 'error': 'Unknown loadgen mode'}
+    env['loadgen_mode'] = kilt_loadgen_mode
 
 
     return {'return':0}

@@ -8,12 +8,20 @@
     "CM_QAIC_*",
     "CM_ML_MODEL_FILE_WITH_PATH"
   ],
+  "input_mapping": {
+    "register": "CM_REGISTER_CACHE"
+  },
   "deps": [
     {
       "tags": "get,qaic,apps,sdk",
       "names": [
         "qaic-apps-sdk"
-      ]
+      ],
+      "skip_if_env": {
+        "CM_REGISTER_CACHE": [
+	  "on"
+	]
+      }
     },
     {
       "enable_if_env":
@@ -35,6 +43,11 @@
             "on"
           ]
         },
+      "skip_if_env": {
+        "CM_REGISTER_CACHE": [
+	  "on"
+	]
+      },
       "names": [
         "resnet-profile",
         "qaic-profile"
