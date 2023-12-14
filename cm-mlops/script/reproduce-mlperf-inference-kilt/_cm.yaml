@@ -344,7 +344,6 @@ variations:
       CM_BENCHMARK: STANDALONE_BERT
       kilt_model_name: bert
       kilt_model_seq_length: 384
-      kilt_model_batch_size: 1
       kilt_model_bert_variant: BERT_PACKED
       kilt_input_format: "INT64,1,384:INT64,1,8:INT64,1,384:INT64,1,384"
       kilt_output_format: "FLOAT32,1,384:FLOAT32,1,384"
@@ -355,7 +354,9 @@ variations:
   bert_,qaic:
     env:
       kilt_input_format: "UINT32,1,384:UINT32,1,8:UINT32,1,384:UINT32,1,384"
-      kilt_device_qaic_skip_stage: convert
+      kilt_input_formata: "UINT32,1,384:UINT32,1,384:UINT32,1,384"
+      kilt_output_formatia: "UINT8,1,384:UINT8,1,384"
+      kilt_device_qaic_skip_stage: 'convert'
 
   standalone:
     group: run-mode
@@ -401,12 +402,9 @@ variations:
       CM_MODEL: bert-99.9
       CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3733910/files/model.onnx"
 
-  batch_size.#:
-    group: batch-size
+  loadgen-batch-size.#:
     env:
-      CM_MODEL_BATCH_SIZE: "#"
-      CM_MLPERF_QAIC_BATCH_SIZE: "#"
-      #CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "gpu_batch_size.#"
+      CM_MLPERF_LOADGEN_BATCH_SIZE: "#"
 
   activation-count.#:
     env:

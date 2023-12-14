@@ -26,6 +26,9 @@ def preprocess(i):
 
     env['kilt_model_root'] = env.get('CM_ML_MODEL_FILE_WITH_PATH')
 
+    if env.get('CM_MLPERF_LOADGEN_BATCH_SIZE'):
+        env['kilt_model_batch_size'] = env['CM_MLPERF_LOADGEN_BATCH_SIZE']
+
     if '+ CXXFLAGS' not in env:
         env['+ CXXFLAGS'] = []
 
