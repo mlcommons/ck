@@ -155,6 +155,12 @@ ___
         - *CM_DATASET_QUANTIZE*: `0`
         - *CM_DATASET_DATA_TYPE*: `uint8`
       - Workflow:
+    * `_for.resnet50,rgb8,uint8`
+      - Environment variables:
+        - *CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
+        - *CM_DATASET_SUBTRACT_MEANS*: `1`
+        - *CM_DATASET_QUANTIZE*: `1`
+      - Workflow:
     * `_for.resnet50,uint8`
       - Environment variables:
         - *CM_DATASET_NORMALIZE_DATA*: `0`
@@ -292,6 +298,7 @@ ___
     * `_uint8`
       - Environment variables:
         - *CM_DATASET_DATA_TYPE*: `uint8`
+        - *CM_DATASET_DATA_TYPE_INPUT*: `float32`
         - *CM_DATASET_QUANTIZE*: `1`
         - *CM_DATASET_CONVERT_TO_UNSIGNED*: `1`
       - Workflow:
@@ -447,6 +454,7 @@ ___
 * `CM_DATASET_*`
 #### New environment keys auto-detected from customize
 
+* `CM_DATASET_DATA_TYPE_INPUT`
 * `CM_DATASET_IMAGES_LIST`
 * `CM_DATASET_PREPROCESSED_IMAGENAMES_LIST`
 * `CM_DATASET_PREPROCESSED_IMAGES_LIST`
