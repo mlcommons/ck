@@ -51,7 +51,7 @@
       }
     },
     {
-      "tags": "file,extract",
+      "tags": "file,extract,_no-remove-extracted",
       "update_tags_from_env_with_prefix": {
         "_path.": [ "CM_EXTRACT_PATH" ]
       },

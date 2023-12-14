@@ -224,7 +224,7 @@
     },
     "bert-99,offline": {
       "env": {
-        "CM_QAIC_MODEL_COMPILER_ARGSa": "-allocator-dealloc-delay=2 -size-split-granularity=1536 -vtcm-working-set-limit-ratio=1",
+        "CM_QAIC_MODEL_COMPILER_ARGS": "-allocator-dealloc-delay=2 -size-split-granularity=1536 -vtcm-working-set-limit-ratio=1",
         "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=1 -mos=1 -ols=3"
       }
     },

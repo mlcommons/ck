@@ -130,14 +130,7 @@ deps:
 
 
   ########################################################################
-  # Install bert models
-  - enable_if_env:
-      CM_MODEL:
-      - bert-99
-      - bert-99.9
-    names:
-      - bert-model
-    tags: get,ml-model,bert-large,_packed,_pytorch
+  # Install bert dependencies
 
   - enable_if_env:
       CM_MODEL:
@@ -317,7 +310,7 @@ variations:
 
   bert-99,qaic:
     deps:
-      - tags: compile,qaic,model,_bert-99
+      - tags: compile,qaic,model,_bert-99,_pc.99.9980
         names:
           - qaic-model-compiler
           - bert-99-compiler
@@ -484,8 +477,8 @@ variations:
     base:
       - nsp.14
     env:
-      kilt_device_ids: "0"
-      qaic_queue_length: 6
+      kilt_device_ids: "0,1,2,3,4,5,6,7"
+      qaic_queue_length: 4
 
   dl2q.24xlarge,singlestream:
     env:

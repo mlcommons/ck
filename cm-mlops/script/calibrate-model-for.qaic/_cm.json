@@ -48,14 +48,14 @@
       "enable_if_env":
       {
         "CM_CALIBRATE_IMAGENET": [
-          "on"
+          "yes"
           ]
       },
       "names": [
         "imagenet-cal",
         "preprocessed-dataset"
       ],
-      "tags": "get,dataset,imagenet,preprocessed,_calibration,_for.resnet50"
+      "tags": "get,dataset,imagenet,preprocessed,_calibration,_for.resnet50,_float32,_rgb32"
     },
     {
       "enable_if_env":
@@ -181,7 +181,7 @@
       },
       "adr": {
         "model-src": {
-          "tags": "bert-large,_onnx"
+          "tags": "bert-large,_onnx,_packed"
         }
       },
       "env": {

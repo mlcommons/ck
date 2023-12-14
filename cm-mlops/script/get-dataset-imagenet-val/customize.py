@@ -40,7 +40,7 @@ def preprocess(i):
 
     elif not os.path.isdir(path):
         if path.endswith(".tar"):
-            env['CM_DAE_FILEPATH'] = path
+            env['CM_EXTRACT_FILEPATH'] = path
             env['CM_DAE_ONLY_EXTRACT'] = 'yes'
             return {'return':0}
         else:
@@ -56,6 +56,9 @@ def postprocess(i):
 
     env = i['env']
     path = env['CM_EXTRACT_EXTRACTED_PATH']
+    path1 = os.path.join(path, 'imagenet-2012-val')
+    if os.path.isdir(path1):
+        path = path1
 
     path_image = os.path.join(path, 'ILSVRC2012_val_00000001.JPEG')
 
