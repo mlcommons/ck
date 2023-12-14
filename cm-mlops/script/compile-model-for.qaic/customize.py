@@ -13,14 +13,21 @@ def preprocess(i):
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
-    r = construct_compilation_cmd(env)
-    if r['return'] > 0:
-        return r
-    cmd = r['cmd']
-    
-    print("Compiling from "+ os.getcwd())
+    if env.get('CM_REGISTER_CACHE', '') == '':
 
-    env['CM_RUN_CMD'] = cmd
+        r = construct_compilation_cmd(env)
+        if r['return'] > 0:
+            return r
+        cmd = r['cmd']
+    
+        print("Compiling from "+ os.getcwd())
+
+        env['CM_RUN_CMD'] = cmd
+    else:
+        import shutil
+        print("Creating cache entry from " + env['CM_REGISTER_CACHE'] + " to "  + os.getcwd())
+        r = shutil.copytree(env['CM_REGISTER_CACHE'], os.path.join(os.getcwd(), "elfs"))
+        print(r)
 
     return {'return':0}
 
@@ -51,6 +58,9 @@ def postprocess(i):
 
     env = i['env']
     env['CM_QAIC_MODEL_COMPILED_BINARY_WITH_PATH'] = os.path.join(os.getcwd(), "elfs", "programqpc.bin")
+    if not os.path.isdir(os.path.join(os.getcwd(), "elfs")):
+        return {'return': 1, 'error': 'elfs directory not found inside the compiled directory'}
+
     env['CM_ML_MODEL_FILE_WITH_PATH'] = env['CM_QAIC_MODEL_COMPILED_BINARY_WITH_PATH']
 
     return {'return':0}

@@ -32,6 +32,9 @@ def preprocess(i):
         env['CM_DATASET_IMAGES_LIST'] = env['CM_MLPERF_IMAGENET_CALIBRATION_LIST_FILE_WITH_PATH']
         env['CM_DATASET_SIZE'] = 500
 
+    if env.get('CM_DATASET_DATA_TYPE_INPUT', '') == '':
+        env['CM_DATASET_DATA_TYPE_INPUT'] = env['CM_DATASET_DATA_TYPE']
+
     return {'return': 0}
 
 def postprocess(i):

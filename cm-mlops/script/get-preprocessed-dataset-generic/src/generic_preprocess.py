@@ -145,7 +145,7 @@ def preprocess():
     offset                  = int( os.getenv('CM_DATASET_SUBSET_OFFSET', 0) )
     volume                  = int( os.environ['CM_DATASET_SIZE'] )
     fof_name                = os.getenv('CM_DATASET_SUBSET_FOF', 'files.txt')
-    data_type               = os.getenv('CM_DATASET_DATA_TYPE', 'float32')
+    data_type               = os.getenv('CM_DATASET_DATA_TYPE_INPUT', 'float32')
     data_layout             = os.getenv('CM_DATASET_DATA_LAYOUT', '').lower()
     new_file_extension      = os.getenv('CM_DATASET_PREPROCESSED_EXTENSION', '')
     normalize_data          = int(os.getenv('CM_DATASET_NORMALIZE_DATA', '0'))

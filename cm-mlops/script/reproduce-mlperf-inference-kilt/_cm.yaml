@@ -251,7 +251,7 @@ variations:
       CM_MLPERF_DEVICE_LIB_NAMESPEC: QAic
       kilt_backend_type:  qaic
     deps:
-      - tags: get,qaic,apps-sdk
+      - tags: get,qaic,platform,sdk
       - tags: get,lib,protobuf,_tag.v3.11.4
 
   tensorrt:
@@ -470,10 +470,16 @@ variations:
 
   nsp.14:
     group: nsp
-    default: true
     adr:
       qaic-model-compiler:
         tags: _nsp.14
+
+  nsp.#:
+    group: nsp
+    adr:
+      qaic-model-compiler:
+        tags: _nsp.#
+
 
   dl2q.24xlarge:
     group: sut
