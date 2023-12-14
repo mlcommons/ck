@@ -5,9 +5,12 @@
   "cache": true,
   "category": "AI/ML optimization",
   "new_env_keys": [
-    "CM_QAIC_*"
+    "CM_QAIC_MODEL_PROFILE_*"
   ],
   "deps": [
+    {
+      "tags": "detect,cpu"
+    },
     {
       "tags": "get,qaic,apps,sdk",
       "names": [
@@ -184,7 +187,7 @@
       "env": {
         "CM_CALIBRATE_SQUAD": "yes",
         "CM_QAIC_COMPILER_ARGS": "",
-        "CM_QAIC_COMPILER_PARAMS": "-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>> -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512 -profiling-threads=96",
+        "CM_QAIC_COMPILER_PARAMS": "-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>> -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512 -profiling-threads=<<<CM_HOST_CPU_TOTAL_CORES>>>",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_bert_mlperf"
       },
       "seq.#": {

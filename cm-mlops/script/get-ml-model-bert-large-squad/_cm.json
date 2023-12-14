@@ -233,7 +233,7 @@
         {
           "tags": "get,python3",
           "names": [ "python", "python3" ],
-          "version_max": "3.10.999",
+          "version_max": "3.8.999",
           "version_max_usable": "3.9.12"
         },
         {
@@ -254,17 +254,17 @@
         {
           "tags": "get,generic-python-lib,_package.protobuf",
           "names": [ "protobuf" ],
-          "version1": "3.20.1"
+          "version": "3.20.1"
         },
         {
           "tags": "get,generic-python-lib,_package.onnx",
           "names": [ "onnx" ],
-          "version1": "1.12.0"
+          "version": "1.12.0"
         },
         {
           "tags": "get,generic-python-lib,_onnx-graphsurgeon",
           "names": [ "onnx-graphsurgeon" ],
-          "version1": "0.3.26"
+          "version": "0.3.26"
         },
         {
           "tags": "get,generic-python-lib,_package.onnx-simplifier",
@@ -274,7 +274,7 @@
         {
           "tags": "get,generic-python-lib,_numpy",
           "names": [ "numpy" ],
-          "version1": "1.23.0"
+          "version": "1.23.0"
         },
         {
           "tags": "get,mlperf,inference,src",
