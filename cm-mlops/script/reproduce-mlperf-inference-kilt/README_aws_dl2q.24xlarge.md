@@ -60,6 +60,7 @@ cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic
 --test_query_count=400000 --precision=uint8 --rerun --adr.compiler.tags=gcc \
 --adr.mlperf-inference-implementation.tags=_bs.8,_dl2q.24xlarge --execution-mode=valid
 ```
+Expected performance is ~157500
 
 ### Accuracy run
 
@@ -69,6 +70,8 @@ cm run script --tags=generate-run-cmds,inference,_accuracy-only --device=qaic --
 --test_query_count=400000 --precision=uint8 --rerun --adr.compiler.tags=gcc \
 --adr.mlperf-inference-implementation.tags=_bs.8,_dl2q.24xlarge --execution-mode=valid
 ```
+
+Expected accuracy is 75.936%
 ### RetinaNet
 
 *TODO*
