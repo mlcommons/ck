@@ -1,11 +1,8 @@
 # MLPerf Inference Benchmarking on AWS dl2q.24xlarge instance using 8 QAIC Cloud AI 100
 
 `dl2q.24xlarge` instance is available in `us-west-2d` and it has 96 vCPUs and 768 GB of memory. 
-Community AMIs
-Deep Learning Base Qualcomm AMI (Amazon Linux 2) 20231213
-ami-08cae482e3b14c9b8
 
-[Deep Learning Base Qualcomm AMI (Amazon Linux 2)](https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;imageId=ami-0287712deef96ecc6) image is recommended OS image as it comes with the QIAC SDKs (both Apps and Platform) preinstalled. 
+[Deep Learning Base Qualcomm AMI (Amazon Linux 2) 20231213, ami-08cae482e3b14c9b8](https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#ImageDetails:imageId=ami-08cae482e3b14c9b8) image from the Community AMIs is the recommended OS image as it comes with the QIAC SDKs (both Apps and Platform) preinstalled. 
 
 
 ## System setup
