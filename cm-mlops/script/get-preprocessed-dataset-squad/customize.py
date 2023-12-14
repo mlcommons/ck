@@ -56,7 +56,7 @@ def postprocess(i):
         with open("packed_filenames.txt", "w") as f:
             for dirname in os.listdir(cur):
                 if os.path.isdir(dirname) and not dirname.startswith("_"):
-                    f.write(os.path.join(cur, dirname, "input_ids.raw") + "," + os.path.join(cur, dirname, "segment_ids.raw") + "," + os.path.join(cur, dirname, "input_position_ids.raw")+ "\n")
+                    f.write(os.path.join(cur, dirname, "input_ids.raw") + "," + os.path.join(cur, dirname, "input_mask.raw") + "," + os.path.join(cur, dirname, "segment_ids.raw") + "," + os.path.join(cur, dirname, "input_position_ids.raw")+ "\n")
         env['CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE'] = os.path.join(cur, "packed_filenames.txt")
 
     return {'return':0}
