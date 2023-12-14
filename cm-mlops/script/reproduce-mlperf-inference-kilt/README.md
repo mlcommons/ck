@@ -227,8 +227,8 @@ ___
         - *kilt_backend_type*: `qaic`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * get,qaic,apps-sdk
-             - CM script: [get-qaic-apps-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-apps-sdk)
+           * get,qaic,platform,sdk
+             - CM script: [get-qaic-platform-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk)
            * get,lib,protobuf,_tag.v3.11.4
              - CM script: [get-lib-protobuf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf)
 
@@ -342,7 +342,9 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * **`_nsp.14`** (default)
+    * `_nsp.#`
+      - Workflow:
+    * `_nsp.14`
       - Workflow:
 
     </details>
@@ -413,7 +415,7 @@ ___
 
 #### Default variations
 
-`_cpu,_nsp.14,_onnxruntime,_resnet50,_standalone`
+`_cpu,_onnxruntime,_resnet50,_standalone`
 
 #### Script flags mapped to environment
 <details>

@@ -12,6 +12,7 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -48,11 +49,13 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=qaic,compile,model,model-compile,qaic-compile[,variations] `
+1. `cm run script --tags=qaic,compile,model,model-compile,qaic-compile[,variations] [--input_flags]`
 
-2. `cmr "qaic compile model model-compile qaic-compile[ variations]" `
+2. `cmr "qaic compile model model-compile qaic-compile[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
+
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### Run this script from Python
 
@@ -88,7 +91,7 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=qaic,compile,model,mod
 
 #### Run this script via Docker (beta)
 
-`cm docker script "qaic compile model model-compile qaic-compile[ variations]" `
+`cm docker script "qaic compile model model-compile qaic-compile[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -262,6 +265,21 @@ ___
 #### Default variations
 
 `_quantized,_singlestream`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--register=value`  &rarr;  `CM_REGISTER_CACHE=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "register":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
@@ -280,6 +298,7 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic/_cm.json)***
      * get,qaic,apps,sdk
+       * `if (CM_REGISTER_CACHE  != on)`
        * CM names: `--adr.['qaic-apps-sdk']...`
        - CM script: [get-qaic-apps-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-apps-sdk)
      * qaic,calibrate,_retinanet
@@ -287,7 +306,7 @@ ___
        * CM names: `--adr.['retinanet-profile', 'qaic-profile']...`
        - CM script: [calibrate-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/calibrate-model-for.qaic)
      * qaic,calibrate,_resnet50
-       * `if (CM_COMPILE_RESNET  == on)`
+       * `if (CM_COMPILE_RESNET  == on) AND (CM_REGISTER_CACHE  != on)`
        * CM names: `--adr.['resnet-profile', 'qaic-profile']...`
        - CM script: [calibrate-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/calibrate-model-for.qaic)
      * get,ml-model
@@ -320,7 +339,7 @@ ___
 
 ___
 ### Script output
-`cmr "qaic compile model model-compile qaic-compile[,variations]"  -j`
+`cmr "qaic compile model model-compile qaic-compile[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 * `CM_ML_MODEL_FILE_WITH_PATH`
