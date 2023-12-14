@@ -31,7 +31,7 @@ default_env:
   CM_SKIP_MODEL_DOWNLOAD: 'no'
   CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: kilt
   CM_MLPERF_SKIP_RUN: 'no'
-  CM_KILT_REPO_URL: https://github.com/krai/kilt-mlperf
+  CM_KILT_REPO_URL: https://github.com/GATEOverflow/kilt-mlperf
   kilt_device_ids: "0"
   kilt_max_wait_abs: 10000
   verbosity: 1
@@ -96,6 +96,7 @@ deps:
     update_tags_from_env_with_prefix:
       _repo.:
         - CM_KILT_REPO_URL
+    extra_cache_tags: kilt,kilt-repo
     env:
       CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_KILT_CHECKOUT_PATH
 
