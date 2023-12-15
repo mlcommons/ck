@@ -18,7 +18,7 @@ def preprocess(i):
         for device in env['CM_QAIC_DEVICES'].split(","):
             ecc_template = {}
             ecc_template['request'] = []
-            ecc_template['request'][0] = {}
+            ecc_template['request'].append({})
             ecc_template['request'][0]['qid'] = device
             ecc_template['request'][0]['dev_config'] = {}
             ecc_template['request'][0]['dev_config']['update_ras_ecc_config_request'] = {}
