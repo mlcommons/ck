@@ -247,6 +247,17 @@ variations:
     deps:
       - tags: get,qaic,platform,sdk
       - tags: get,lib,protobuf,_tag.v3.11.4
+      - tags: set,device,mode,qaic
+        enable_if_env:
+          CM_QAIC_VC:
+            "on"
+        update_tags_from_env_with_prefix":
+          _vc.:
+            - CM_QAIC_VC
+      - tags: set,device,mode,qaic,_ecc
+        enable_if_env:
+          CM_QAIC_ECC:
+            "yes"
 
   tensorrt:
     group: framework
