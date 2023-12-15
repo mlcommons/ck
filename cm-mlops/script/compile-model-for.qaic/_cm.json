@@ -105,21 +105,6 @@
         "CM_QAIC_MODEL_QUANTIZATION": "no"
       }
     },
-    "resnet50": {
-      "default_variations": {
-        "model-framework": "tf"
-      },
-      "env": {
-        "CM_COMPILE_RESNET": "on",
-        "CM_QAIC_MODEL_TO_CONVERT": "compile_resnet50_tf",
-        "CM_QAIC_MODEL_COMPILER_PARAMS_BASE": "-aic-hw -aic-hw-version=2.0 -quantization-schema=symmetric_with_uint8 -quantization-precision=Int8 -output-node-name=ArgMax -vvv -compile-only -use-producer-dma=1"
-      },
-      "adr": {
-        "model-src": {
-          "tags": "resnet50,_tf"
-        }
-      }
-    },
     "offline": {
       "group": "mlperf-scenario"
     },
@@ -145,6 +130,21 @@
     "nsp.9": {
       "group": "nsp"
     },
+    "resnet50": {
+      "default_variations": {
+        "model-framework": "tf"
+      },
+      "env": {
+        "CM_COMPILE_RESNET": "on",
+        "CM_QAIC_MODEL_TO_CONVERT": "compile_resnet50_tf",
+        "CM_QAIC_MODEL_COMPILER_PARAMS_BASE": "-aic-hw -aic-hw-version=2.0 -quantization-schema=symmetric_with_uint8 -quantization-precision=Int8 -output-node-name=ArgMax -vvv -compile-only -use-producer-dma=1"
+      },
+      "adr": {
+        "model-src": {
+          "tags": "resnet50,_tf"
+        }
+      }
+    },
     "resnet50,offline": {
       "env": {
         "CM_QAIC_MODEL_COMPILER_ARGS": "-sdp-cluster-sizes=2,2 -multicast-weights",
@@ -161,7 +161,17 @@
     },
     "resnet50,server,nsp.14": {
       "env": {
-        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4 -ols=4"
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4 -ols=4",
+        "CM_QAIC_MODEL_COMPILER_ARGS": "-sdp-cluster-sizes=2,2 -mos=1,2 -multicast-weights"
+      },
+      "default_variations": {
+        "batch-size": "bs.8"
+      }
+    },
+    "resnet50,server,nsp.16": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4 -ols=4",
+        "CM_QAIC_MODEL_COMPILER_ARGS": "-sdp-cluster-sizes=4,4 -mos=1,4"
       },
       "default_variations": {
         "batch-size": "bs.8"
@@ -196,8 +206,6 @@
     },
     "resnet50,server": {
       "env": {
-        "CM_QAIC_MODEL_COMPILER_PARAMS_BASE": "-aic-hw -aic-hw-version=2.0 -aic-num-of-instances=1 -use-producer-dma=0 -output-node-name=ArgMax -compile-only",
-        "CM_QAIC_MODEL_COMPILER_ARGS": "-sdp-cluster-sizes=4,4 -mos=1,4"
       }
     },
     "bert-99": {

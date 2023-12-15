@@ -497,10 +497,10 @@ variations:
       CM_QAIC_DEVICES: 0
       qaic_activation_count: "1"
 
-  dl2q.24xlarge,resnet50,offline:
+  dl2q.24xlarge,resnet50:
     env:
       qaic_activation_count: "3"
 
-  dl2q.24xlarge,bert-99,offline:
+  dl2q.24xlarge,bert-99:
     env:
       qaic_activation_count: "14"
