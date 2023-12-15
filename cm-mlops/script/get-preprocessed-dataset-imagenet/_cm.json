@@ -250,7 +250,8 @@
       "env": {
         "CM_DATASET_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
         "CM_DATASET_SUBTRACT_MEANS": "1",
-        "CM_DATASET_NORMALIZE_DATA": "0"
+        "CM_DATASET_NORMALIZE_DATA": "0",
+        "CM_DATASET_CONVERT_TO_UNSIGNED": "0"
       }
     },
     "for.resnet50,rgb8": {
