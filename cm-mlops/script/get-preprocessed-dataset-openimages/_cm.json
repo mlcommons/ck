@@ -43,7 +43,12 @@
   ],
   "default_env": {
     "CM_DATASET": "OPENIMAGES",
-    "CM_DATASET_DTYPE": "fp32"
+    "CM_DATASET_DTYPE": "fp32",
+    "CM_DATASET_INPUT_SQUARE_SIDE": "800",
+    "CM_DATASET_CROP_FACTOR": "100.0",
+    "CM_DATASET_QUANT_SCALE": "1",
+    "CM_DATASET_QUANTIZE": "0",
+    "CM_DATASET_QUANT_OFFSET": "0"
   },
   "input_mapping": {
     "dir": "CM_DATASET_PREPROCESSED_PATH",
@@ -62,6 +67,24 @@
   ],
   "uid": "9842f1be8cba4c7b",
   "variations": {
+    "generic-preprocessor": {
+      "group": "preprocessing-source",
+      "prehook_deps": [
+        {
+          "tags": "get,generic,image-preprocessor"
+        }
+      ],
+      "env": {
+        "CM_DATASET_REFERENCE_PREPROCESSOR": "0"
+      }
+    },
+    "mlcommons-reference-preprocessor": {
+      "group": "preprocessing-source",
+      "default": true,
+      "env": {
+        "CM_DATASET_REFERENCE_PREPROCESSOR": "1"
+      }
+    },
     "size.#": {
       "group": "dataset-count",
       "env": {
@@ -127,13 +150,20 @@
           "tags": "_calibration"
         }
       },
+      "default_variations": {
+        "dataset-count": "500"
+      },
       "env": {
-        "CM_DATASET_PATH": "<<<CM_CALIBRATION_DATASET_PATH>>>"
+        "CM_DATASET_PATH": "<<<CM_CALIBRATION_DATASET_PATH>>>",
+        "CM_DATASET_TYPE": "calibration"
       }
     },
     "validation": {
       "group": "dataset-type",
       "default": true,
+      "env": {
+        "CM_DATASET_TYPE": "validation"
+      },
       "add_deps": {
         "original-dataset": {
           "tags": "_validation"
@@ -162,17 +192,75 @@
         }
       }
     },
+    "for.retinanet.onnx": {
+      "default_variations": {
+        "preprocessing-source": "generic-preprocessor",
+        "interpolation-method": "inter.linear",
+        "dataset-layout": "NHWC"
+      },
+      "env": {
+        "CM_DATASET_SUBTRACT_MEANS": "1",
+        "CM_DATASET_GIVEN_CHANNEL_MEANS": "0.485 0.456 0.406",
+        "CM_DATASET_GIVEN_CHANNEL_STDS": "0.229 0.224 0.225",
+        "CM_DATASET_NORMALIZE_DATA": "1",
+        "CM_DATASET_INTERPOLATION_METHOD": "INTER_AREA"
+      }
+    },
+    "for.retinanet.onnx,fp32": {
+      "env": {
+      }
+    },
+    "for.retinanet.onnx,int8": {
+      "env": {
+        "CM_DATASET_QUANT_SCALE": "0.0186584499",
+        "CM_DATASET_QUANT_OFFSET": "114"
+      }
+    },
+    "inter.linear": {
+      "group": "interpolation-method",
+      "env": {
+        "CM_DATASET_INTERPOLATION_METHOD": "INTER_LINEAR"
+      }
+    },
+    "inter.area": {
+      "group": "interpolation-method",
+      "env": {
+        "CM_DATASET_INTERPOLATION_METHOD": "INTER_AREA"
+      }
+    },
+    "rgb8": {
+      "group": "extension",
+      "env": {
+        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb8"
+      }
+    },
+    "rgb32": {
+      "group": "extension",
+      "env": {
+        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb32"
+      }
+    },
     "fp32": {
       "group": "dataset-precision",
+      "default_variations": {
+        "extension": "rgb32"
+      },
       "default": true,
       "env": {
-        "CM_DATASET_DTYPE": "fp32"
+        "CM_DATASET_DTYPE": "fp32",
+        "CM_DATASET_INPUT_DTYPE": "fp32",
+        "CM_DATASET_CONVERT_TO_UNSIGNED": "0"
       }
     },
     "int8": {
       "group": "dataset-precision",
+      "default_variations": {
+        "extension": "rgb8"
+      },
       "env": {
-        "CM_DATASET_DTYPE": "int8"
+        "CM_DATASET_DTYPE": "int8",
+        "CM_DATASET_INPUT_DTYPE": "fp32",
+        "CM_DATASET_CONVERT_TO_UNSIGNED": "0"
       }
     }
   }

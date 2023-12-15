@@ -9,17 +9,23 @@ import openimages
 import dataset
 import shutil
 
-dataset_path = os.environ['CM_DATASET_PATH']
-dataset_list = os.environ.get('CM_DATASET_ANNOTATIONS_FILE_PATH', None)
-img_format = os.environ.get('CM_DATASET_DATA_LAYOUT', 'NHWC')
-count = int(os.environ.get('CM_DATASET_SIZE', 0)) or None
-preprocessed_dir = os.environ.get('CM_DATASET_PREPROCESSED_PATH', os.getcwd())
-image_width = int(os.environ.get('CM_DATASET_OPENIMAGES_RESIZE', 800))
-threads = os.environ.get('CM_NUM_THREADS', os.cpu_count())
-threads = os.environ.get('CM_NUM_PREPROCESS_THREADS', threads)
-name="openimages-" + str(image_width) + "-retinanet"
 
-openimages.OpenImages(data_path=dataset_path,
+dataset_path = os.environ['CM_DATASET_PATH']
+preprocessed_dir = os.environ.get('CM_DATASET_PREPROCESSED_PATH', os.getcwd())
+
+if os.environ.get('CM_DATASET_REFERENCE_PREPROCESSOR', '1') == "0":
+    import generic_preprocess
+    generic_preprocess.preprocess()
+else:
+    dataset_list = os.environ.get('CM_DATASET_ANNOTATIONS_FILE_PATH', None)
+    img_format = os.environ.get('CM_DATASET_DATA_LAYOUT', 'NHWC')
+    count = int(os.environ.get('CM_DATASET_SIZE', 0)) or None
+    image_width = int(os.environ.get('CM_DATASET_OPENIMAGES_RESIZE', 800))
+    threads = os.environ.get('CM_NUM_THREADS', os.cpu_count())
+    threads = os.environ.get('CM_NUM_PREPROCESS_THREADS', threads)
+    name="openimages-" + str(image_width) + "-retinanet"
+
+    openimages.OpenImages(data_path=dataset_path,
                         image_list=dataset_list,
                         name=name,
                         image_format=img_format,
@@ -29,8 +35,10 @@ openimages.OpenImages(data_path=dataset_path,
                         count=count,
                         threads=threads,
                         preprocessed_dir=preprocessed_dir)
-src_path=os.environ.get('CM_DATASET_ANNOTATIONS_DIR_PATH', os.path.join(dataset_path, "annotations"))
-dest_path=os.path.join(preprocessed_dir, "annotations")
 
-if not os.path.exists(dest_path):
-    shutil.copytree(src_path, dest_path)
+if os.environ["CM_DATASET_TYPE"] == "validation":
+    src_path=os.environ.get('CM_DATASET_ANNOTATIONS_DIR_PATH', os.path.join(dataset_path, "annotations"))
+    dest_path=os.path.join(preprocessed_dir, "annotations")
+
+    if not os.path.exists(dest_path):
+        shutil.copytree(src_path, dest_path)
