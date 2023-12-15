@@ -259,9 +259,6 @@ ___
            * get,generic-python-lib,_onnx-graphsurgeon
              * CM names: `--adr.['onnx-graphsurgeon']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-           * get,generic-python-lib,_package.onnx-simplifier
-             * CM names: `--adr.['onnx-simplifier']...`
-             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_numpy
              * CM names: `--adr.['numpy']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)

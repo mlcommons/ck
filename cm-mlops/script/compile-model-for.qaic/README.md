@@ -12,6 +12,7 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -48,11 +49,13 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=qaic,compile,model,model-compile,qaic-compile[,variations] `
+1. `cm run script --tags=qaic,compile,model,model-compile,qaic-compile[,variations] [--input_flags]`
 
-2. `cmr "qaic compile model model-compile qaic-compile[ variations]" `
+2. `cmr "qaic compile model model-compile qaic-compile[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
+
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### Run this script from Python
 
@@ -88,7 +91,7 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=qaic,compile,model,mod
 
 #### Run this script via Docker (beta)
 
-`cm docker script "qaic compile model model-compile qaic-compile[ variations]" `
+`cm docker script "qaic compile model model-compile qaic-compile[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -104,30 +107,39 @@ ___
       - Environment variables:
         - *CM_COMPILE_BERT*: `on`
         - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_bert_mlperf`
-        - *CM_QAIC_MODEL_COMPILER_ARGS*: `-aic-hw -aic-hw-version=2.0 -execute-nodes-in-fp16=Mul,Sqrt,Div,Add,ReduceMean,Softmax,Sub,Gather,Erf,Pow,Concat,Tile,LayerNormalization -quantization-schema=symmetric_with_uint8 -quantization-precision=Int8 -quantization-precision-bias=Int32 -vvv -compile-only -onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,384 -multicast-weights`
-        - *CM_QAIC_MODEL_COMPILER_PARAMS_BASE*: ``
+        - *CM_QAIC_MODEL_COMPILER_PARAMS_BASE*: `-aic-hw -aic-hw-version=2.0 -execute-nodes-in-fp16=Mul,Sqrt,Div,Add,ReduceMean,Softmax,Sub,Gather,Erf,Pow,Concat,Tile,LayerNormalization -quantization-schema=symmetric_with_uint8 -quantization-precision=Int8 -quantization-precision-bias=Int32 -vvv -compile-only -onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,384 -multicast-weights -combine-inputs=false -combine-outputs=false`
+        - *CM_QAIC_MODEL_COMPILER_ARGS*: ``
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * calibrate,qaic,_bert-99
              * CM names: `--adr.['bert-profile', 'qaic-profile']...`
              - CM script: [calibrate-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/calibrate-model-for.qaic)
-    * `_bert-99,multistream,nsp.14`
-      - Environment variables:
-        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4`
-      - Workflow:
     * `_bert-99,offline`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS*: `-allocator-dealloc-delay=2 -size-split-granularity=1536 -vtcm-working-set-limit-ratio=1`
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=1 -mos=1 -ols=3`
       - Workflow:
     * `_bert-99,offline,nsp.14`
       - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=1 -mos=1 -ols=3`
+      - Workflow:
+    * `_bert-99,server`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS*: `-allocator-dealloc-delay=2 -size-split-granularity=1536 -vtcm-working-set-limit-ratio=1`
         - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=1 -mos=1 -ols=3`
       - Workflow:
     * `_bert-99,server,nsp.14`
       - Environment variables:
         - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=1 -mos=1 -ols=3`
       - Workflow:
+    * `_bert-99,singlestream`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS*: ``
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=8 -mos=8 -ols=1`
+      - Workflow:
     * `_bert-99,singlestream,nsp.14`
       - Environment variables:
-        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=8`
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=8 -mos=8 -ols=1`
       - Workflow:
     * `_resnet50`
       - Environment variables:
@@ -146,6 +158,7 @@ ___
     * `_resnet50,offline`
       - Environment variables:
         - *CM_QAIC_MODEL_COMPILER_ARGS*: `-sdp-cluster-sizes=2,2 -multicast-weights`
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4 -mos=1,2 -ols=4`
       - Workflow:
     * `_resnet50,offline,nsp.14`
       - Environment variables:
@@ -163,10 +176,11 @@ ___
     * `_resnet50,singlestream`
       - Environment variables:
         - *CM_QAIC_MODEL_COMPILER_ARGS*: `-aic-num-of-instances=1`
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=8 -mos=1 -ols=1`
       - Workflow:
     * `_resnet50,singlestream,nsp.14`
       - Environment variables:
-        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4 -mos=1,2 -ols=4`
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=8 -mos=1 -ols=1`
       - Workflow:
     * `_resnet50,tf`
       - Environment variables:
@@ -243,6 +257,19 @@ ___
     </details>
 
 
+  * Group "**percentile-calibration**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_pc.#`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_PERCENTILE_CALIBRATION_VALUE*: `#`
+        - *CM_QAIC_MODEL_COMPILER_QUANTIZATION_PARAMS*: `-quantization-calibration=Percentile  -percentile-calibration-value=<<<CM_QAIC_MODEL_COMPILER_PERCENTILE_CALIBRATION_VALUE>>>`
+      - Workflow:
+
+    </details>
+
+
   * Group "**quantization**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -262,6 +289,21 @@ ___
 #### Default variations
 
 `_quantized,_singlestream`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--register=value`  &rarr;  `CM_REGISTER_CACHE=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "register":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
@@ -280,6 +322,7 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic/_cm.json)***
      * get,qaic,apps,sdk
+       * `if (CM_REGISTER_CACHE  != on)`
        * CM names: `--adr.['qaic-apps-sdk']...`
        - CM script: [get-qaic-apps-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-apps-sdk)
      * qaic,calibrate,_retinanet
@@ -287,7 +330,7 @@ ___
        * CM names: `--adr.['retinanet-profile', 'qaic-profile']...`
        - CM script: [calibrate-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/calibrate-model-for.qaic)
      * qaic,calibrate,_resnet50
-       * `if (CM_COMPILE_RESNET  == on)`
+       * `if (CM_COMPILE_RESNET  == on) AND (CM_REGISTER_CACHE  != on)`
        * CM names: `--adr.['resnet-profile', 'qaic-profile']...`
        - CM script: [calibrate-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/calibrate-model-for.qaic)
      * get,ml-model
@@ -320,7 +363,7 @@ ___
 
 ___
 ### Script output
-`cmr "qaic compile model model-compile qaic-compile[,variations]"  -j`
+`cmr "qaic compile model model-compile qaic-compile[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 * `CM_ML_MODEL_FILE_WITH_PATH`

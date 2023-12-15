@@ -108,7 +108,6 @@ ___
         - *CM_BENCHMARK*: `STANDALONE_BERT`
         - *kilt_model_name*: `bert`
         - *kilt_model_seq_length*: `384`
-        - *kilt_model_batch_size*: `1`
         - *kilt_model_bert_variant*: `BERT_PACKED`
         - *kilt_input_format*: `INT64,1,384:INT64,1,8:INT64,1,384:INT64,1,384`
         - *kilt_output_format*: `FLOAT32,1,384:FLOAT32,1,384`
@@ -139,7 +138,7 @@ ___
     * `_bert-99,qaic`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * compile,qaic,model,_bert-99
+           * compile,qaic,model,_bert-99,_pc.99.9980
              * CM names: `--adr.['qaic-model-compiler', 'bert-99-compiler']...`
              - CM script: [compile-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic)
     * `_bert_,network-client`
@@ -153,6 +152,8 @@ ___
     * `_bert_,qaic`
       - Environment variables:
         - *kilt_input_format*: `UINT32,1,384:UINT32,1,8:UINT32,1,384:UINT32,1,384`
+        - *kilt_input_formata*: `UINT32,1,384:UINT32,1,384:UINT32,1,384`
+        - *kilt_output_formatia*: `UINT8,1,384:UINT8,1,384`
         - *kilt_device_qaic_skip_stage*: `convert`
       - Workflow:
     * `_bert_,singlestream`
@@ -176,6 +177,10 @@ ___
         - *kilt_device_ids*: `0`
         - *qaic_activation_count*: `1`
       - Workflow:
+    * `_loadgen-batch-size.#`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_BATCH_SIZE*: `#`
+      - Workflow:
     * `_resnet50,qaic`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
@@ -187,19 +192,6 @@ ___
         - *kilt_input_format*: `UINT8,-1,224,224,3`
         - *kilt_device_qaic_skip_stage*: `convert`
         - *CM_IMAGENET_ACCURACY_DTYPE*: `int8`
-      - Workflow:
-
-    </details>
-
-
-  * Group "**batch-size**"
-    <details>
-    <summary>Click here to expand this section.</summary>
-
-    * `_batch_size.#`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `#`
-        - *CM_MLPERF_QAIC_BATCH_SIZE*: `#`
       - Workflow:
 
     </details>
@@ -227,8 +219,8 @@ ___
         - *kilt_backend_type*: `qaic`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * get,qaic,apps-sdk
-             - CM script: [get-qaic-apps-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-apps-sdk)
+           * get,qaic,platform,sdk
+             - CM script: [get-qaic-platform-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk)
            * get,lib,protobuf,_tag.v3.11.4
              - CM script: [get-lib-protobuf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf)
 
@@ -342,7 +334,9 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * **`_nsp.14`** (default)
+    * `_nsp.#`
+      - Workflow:
+    * `_nsp.14`
       - Workflow:
 
     </details>
@@ -404,8 +398,8 @@ ___
 
     * `_dl2q.24xlarge`
       - Environment variables:
-        - *kilt_device_ids*: `0`
-        - *qaic_queue_length*: `6`
+        - *kilt_device_ids*: `0,1,2,3,4,5,6,7`
+        - *qaic_queue_length*: `4`
       - Workflow:
 
     </details>
@@ -413,7 +407,7 @@ ___
 
 #### Default variations
 
-`_cpu,_nsp.14,_onnxruntime,_resnet50,_standalone`
+`_cpu,_onnxruntime,_resnet50,_standalone`
 
 #### Script flags mapped to environment
 <details>
@@ -462,7 +456,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_SKIP_MODEL_DOWNLOAD: `no`
 * CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: `kilt`
 * CM_MLPERF_SKIP_RUN: `no`
-* CM_KILT_REPO_URL: `https://github.com/krai/kilt-mlperf`
+* CM_KILT_REPO_URL: `https://github.com/GATEOverflow/kilt-mlperf`
 * kilt_device_ids: `0`
 * kilt_max_wait_abs: `10000`
 * verbosity: `1`
@@ -497,10 +491,6 @@ ___
        * `if (CM_MODEL  == resnet50) AND (CM_MLPERF_DEVICE  != qaic)`
        * CM names: `--adr.['resnet50-model', 'ml-model']...`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
-     * get,ml-model,bert-large,_packed,_pytorch
-       * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
-       * CM names: `--adr.['bert-model']...`
-       - CM script: [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)
      * get,squad-vocab
        * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
        * CM names: `--adr.['bert-vocab']...`

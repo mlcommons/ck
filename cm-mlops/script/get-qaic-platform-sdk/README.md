@@ -28,9 +28,9 @@
 
 * Category: *AI/ML frameworks.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-apps-sdk)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,detect,qaic,apps,sdk,apps-sdk,qaic-apps-sdk*
+* CM "database" tags to find this script: *get,detect,qaic,platform,sdk,platform-sdk,qaic-platform-sdk*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -47,9 +47,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,detect,qaic,apps,sdk,apps-sdk,qaic-apps-sdk `
+1. `cm run script --tags=get,detect,qaic,platform,sdk,platform-sdk,qaic-platform-sdk `
 
-2. `cmr "get detect qaic apps sdk apps-sdk qaic-apps-sdk" `
+2. `cmr "get detect qaic platform sdk platform-sdk qaic-platform-sdk" `
 
 #### Run this script from Python
 
@@ -62,7 +62,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,detect,qaic,apps,sdk,apps-sdk,qaic-apps-sdk'
+                  'tags':'get,detect,qaic,platform,sdk,platform-sdk,qaic-platform-sdk'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -79,13 +79,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,detect,qaic,apps,sdk,apps-sdk,qaic-apps-sdk"```
+```cmr "cm gui" --script="get,detect,qaic,platform,sdk,platform-sdk,qaic-platform-sdk"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,detect,qaic,apps,sdk,apps-sdk,qaic-apps-sdk) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,detect,qaic,platform,sdk,platform-sdk,qaic-platform-sdk) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get detect qaic apps sdk apps-sdk qaic-apps-sdk" `
+`cm docker script "get detect qaic platform sdk platform-sdk qaic-platform-sdk" `
 
 ___
 ### Customization
@@ -106,18 +106,20 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-apps-sdk/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-apps-sdk/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-apps-sdk/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk/_cm.json)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk/_cm.json)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-apps-sdk/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-apps-sdk/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-apps-sdk/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "get detect qaic apps sdk apps-sdk qaic-apps-sdk"  -j`
+`cmr "get detect qaic platform sdk platform-sdk qaic-platform-sdk"  -j`
 #### New environment keys (filter)
 
 * `+CPLUS_INCLUDE_PATH`
@@ -125,10 +127,10 @@ ___
 * `+DYLD_FALLBACK_LIBRARY_PATH`
 * `+LD_LIBRARY_PATH`
 * `+PATH`
-* `CM_QAIC_EXEC_PATH`
+* `CM_QAIC_RUNNER_PATH`
 #### New environment keys auto-detected from customize
 
-* `CM_QAIC_EXEC_PATH`
+* `CM_QAIC_RUNNER_PATH`
 ___
 ### Maintainers
 

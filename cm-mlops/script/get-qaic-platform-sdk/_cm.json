@@ -14,6 +14,7 @@
   "new_env_keys": [
     "+PATH",
     "CM_QAIC_RUNNER_PATH",
+    "CM_QAIC_TOOLS_PATH",
     "+C_INCLUDE_PATH",
     "+CPLUS_INCLUDE_PATH",
     "+LD_LIBRARY_PATH",

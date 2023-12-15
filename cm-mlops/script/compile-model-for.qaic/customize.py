@@ -42,8 +42,13 @@ def construct_compilation_cmd(env):
         profile_string = ''
 
     compiler_params = compiler_params_base + ' ' + compiler_args
+
     if batchsize:
         compiler_params += " -batchsize="+batchsize
+
+    percentile_calibration_params = env.get('CM_QAIC_MODEL_COMPILER_QUANTIZATION_PARAMS')
+    if percentile_calibration_params:
+        compiler_params += " " + percentile_calibration_params
 
     aic_binary_dir = os.path.join(os.getcwd(), "elfs")
 
