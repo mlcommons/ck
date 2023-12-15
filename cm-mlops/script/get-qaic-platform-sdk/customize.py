@@ -45,11 +45,17 @@ def detect_version(i):
     version_info = et.parse(version_xml_path)
 
     versions = version_info.getroot()
+    build_id = None
+
     for child1 in versions:
         if child1.tag == "ci_build":
             for child2 in child1:
                 if child2.tag == "base_version":
                     version = child2.text
+                if child2.tag == "build_id":
+                    build_id = child2.text
+    if build_id:
+        version=version+"."+build_id
 
     if not version:
         return {'return':1, 'error': f'qaic platform sdk version info not found'}
