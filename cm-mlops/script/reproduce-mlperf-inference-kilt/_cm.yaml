@@ -32,7 +32,7 @@ default_env:
   CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: kilt
   CM_MLPERF_SKIP_RUN: 'no'
   CM_KILT_REPO_URL: https://github.com/GATEOverflow/kilt-mlperf
-  kilt_device_ids: "0"
+  CM_QAIC_DEVICES: "0"
   kilt_max_wait_abs: 10000
   verbosity: 1
   loadgen_trigger_cold_run: 0
@@ -489,12 +489,12 @@ variations:
     base:
       - nsp.14
     env:
-      kilt_device_ids: "0,1,2,3,4,5,6,7"
+      CM_QAIC_DEVICES: "0,1,2,3,4,5,6,7"
       qaic_queue_length: 4
 
   dl2q.24xlarge,singlestream:
     env:
-      kilt_device_ids: 0
+      CM_QAIC_DEVICES: 0
       qaic_activation_count: "1"
 
   dl2q.24xlarge,resnet50,offline:
