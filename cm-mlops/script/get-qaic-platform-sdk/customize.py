@@ -30,6 +30,7 @@ def preprocess(i):
 
     env['CM_QAIC_PLATFORM_SDK_PATH'] = path
     env['CM_QAIC_RUNNER_PATH'] = os.path.join(path, "exec", "qaic-runner")
+    env['CM_QAIC_TOOLS_PATH'] = os.path.join(path, "tools")
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
