@@ -4177,7 +4177,6 @@ def append_deps(deps, new_deps):
                     deps[i] = new_dep
                     existing = True
                     break
-                    existing = True
 
         if not existing:
             deps.append(new_dep)
