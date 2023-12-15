@@ -31,16 +31,27 @@ def preprocess(i):
             })
         if r['return']>0: return r
 
+    if env.get('CM_DOWNLOAD_LOCAL_FILE_PATH'):
+        filepath = env['CM_DOWNLOAD_LOCAL_FILE_PATH']
+
+        if not os.path.exists(filepath):
+            return {'return':1, 'error':'Local file {} doesn\'t exist'.format(filepath)}
+
+        env['CM_EXTRACT_REMOVE_EXTRACTED']='no'
+    
     return {'return':0}
 
 def postprocess(i):
 
     env = i['env']
-    filepath = env.get('CM_EXTRACT_EXTRACTED_PATH', env.get('CM_DOWNLOAD_DOWNLOADED_PATH'))
+    filepath = env.get('CM_EXTRACT_EXTRACTED_PATH', '')
+    if filepath == '':
+        filepath = env.get('CM_DOWNLOAD_DOWNLOADED_PATH', '')
 
-    if not os.path.exists(filepath):
+    if filepath == '':
         return {'return':1, 'error': 'No extracted path set in "CM_EXTRACT_EXTRACTED_PATH"'}
-
+    if not os.path.exists(filepath):
+        return {'return':1, 'error': 'Extracted path doesn\'t exist: {}'.format(filepath)}
 
     if env.get('CM_DAE_FINAL_ENV_NAME'):
         env[env['CM_DAE_FINAL_ENV_NAME']] = filepath

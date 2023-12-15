@@ -13,6 +13,7 @@ if exist "%CM_DOWNLOAD_DOWNLOADED_PATH%" (
         echo %CM_DOWNLOAD_CHECKSUM_CMD%
         cmd /c %CM_DOWNLOAD_CHECKSUM_CMD%
         IF !ERRORLEVEL! NEQ 0 (
+           if NOT "%CM_DOWNLOAD_LOCAL_FILE_PATH%" == "" exit 1
            if "%CM_DOWNLOAD_CMD_USED%" == "NO" exit 1
            set require_download=1
         )

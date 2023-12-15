@@ -13,17 +13,28 @@ def preprocess(i):
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
-    if env.get('CM_DOWNLOAD_LOCAL_FILE_PATH') and os.path.exists(env['CM_DOWNLOAD_LOCAL_FILE_PATH']):
+    tool = env.get('CM_DOWNLOAD_TOOL', '')
+
+    if env.get('CM_DOWNLOAD_LOCAL_FILE_PATH'):
         filepath = env['CM_DOWNLOAD_LOCAL_FILE_PATH']
+
+        if not os.path.exists(filepath):
+            return {'return':1, 'error':'Local file {} doesn\'t exist'.format(filepath)}
+
         env['CM_DOWNLOAD_CMD'] = ""
 
+        env['CM_DOWNLOAD_FILENAME'] = filepath
+        
+        if not quiet:
+            print ('')
+            print ('Using local file: {}'.format(filepath))
     else:
         url = env.get('CM_DOWNLOAD_URL','')
 
         if url=='':
             return {'return':1, 'error': 'please specify URL using --url={URL} or --env.CM_DOWNLOAD_URL={URL}'}
 
-        if '&' in url and env.get('CM_DOWNLOAD_TOOL','') != "cmutil":
+        if '&' in url and tool != "cmutil":
             if os_info['platform'] == 'windows':
                 url = '"'+url+'"'
             else:
@@ -34,7 +45,8 @@ def preprocess(i):
         verify_ssl = env.get('CM_VERIFY_SSL', "True")
         if verify_ssl.lower() in [ "no", "false" ]:
             verify_ssl = False
-            extra_download_options += " --no-check-certificate"
+            if tool == 'wget':
+                extra_download_options += " --no-check-certificate"
         else:
             verify_ssl = True
 
@@ -56,7 +68,7 @@ def preprocess(i):
             else:
                 env['CM_DOWNLOAD_FILENAME'] = "index.html"
 
-        if env['CM_DOWNLOAD_TOOL'] == "cmutil":
+        if tool == "cmutil":
             print ('')
 
             cm = automation.cmind
@@ -68,15 +80,19 @@ def preprocess(i):
             env['CM_DOWNLOAD_CMD'] = ""
             env['CM_DOWNLOAD_FILENAME'] = r['filename']
 
-        elif env['CM_DOWNLOAD_TOOL'] == "wget":
+        elif tool == "wget":
             if env.get('CM_DOWNLOAD_FILENAME', '') != '':
                 extra_download_options +=' -O '+env['CM_DOWNLOAD_FILENAME']+' '
             env['CM_DOWNLOAD_CMD'] = f"wget -nc {extra_download_options} {url}"
 
-        elif env['CM_DOWNLOAD_TOOL'] == "curl":
+        elif tool == "curl":
+            if env.get('CM_DOWNLOAD_FILENAME', '') != '':
+                extra_download_options +=' --output '+env['CM_DOWNLOAD_FILENAME']+' '
+
             env['CM_DOWNLOAD_CMD'] = f"curl {extra_download_options} {url}"
 
-        elif env['CM_DOWNLOAD_TOOL'] == "gdown":
+
+        elif tool == "gdown":
             env['CM_DOWNLOAD_CMD'] = f"gdown {extra_download_options} {url}"
 
         filename = env['CM_DOWNLOAD_FILENAME']
@@ -103,6 +119,8 @@ def preprocess(i):
 
 def postprocess(i):
 
+    automation = i['automation']
+
     env = i['env']
 
     filepath = env['CM_DOWNLOAD_DOWNLOADED_PATH']
@@ -122,5 +140,8 @@ def postprocess(i):
         env[env['CM_DOWNLOAD_FINAL_ENV_NAME']] = filepath
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] =  filepath
+
+    # Since may change directory, check if need to clean some temporal files
+    automation.clean_some_tmp_files({'env':env})
 
     return {'return':0}

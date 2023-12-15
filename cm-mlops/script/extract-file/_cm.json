@@ -12,6 +12,9 @@
   "can_force_cache": true,
   "input_description": {},
   "input_mapping": {
+    "input": "CM_EXTRACT_FILEPATH",
+    "extract_path": "CM_EXTRACT_PATH",
+    "extra_folder": "CM_EXTRACT_TO_FOLDER"
   },
   "new_env_keys": [
     "CM_EXTRACT_EXTRACTED_PATH",
@@ -28,6 +31,11 @@
   ],
   "uid": "3f0b76219d004817",
   "variations": {
+    "keep": {
+      "env": {
+        "CM_EXTRACT_REMOVE_EXTRACTED": "no"
+      }
+    },
     "no-remove-extracted": {
       "env": {
         "CM_EXTRACT_REMOVE_EXTRACTED": "no"
