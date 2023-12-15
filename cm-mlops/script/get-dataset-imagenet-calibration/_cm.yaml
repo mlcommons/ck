@@ -10,7 +10,6 @@ deps:
       - calibration-file-downloader
     env:
         CM_DOWNLOAD_FINAL_ENV_NAME: CM_MLPERF_IMAGENET_CALIBRATION_LIST_FILE_WITH_PATH
-        CM_DOWNLOAD_LOCAL_FILE_PATH: <<<CM_MLPERF_IMAGENET_CALIBRATION_LIST_LOCAL_PATH>>>
 
 docker_input_mapping: {}
 input_description: {}
