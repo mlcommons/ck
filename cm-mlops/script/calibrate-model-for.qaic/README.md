@@ -148,7 +148,7 @@ ___
       - Environment variables:
         - *CM_CALIBRATE_SQUAD*: `yes`
         - *CM_QAIC_COMPILER_ARGS*: ``
-        - *CM_QAIC_COMPILER_PARAMS*: `-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>> -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512 -profiling-threads=96`
+        - *CM_QAIC_COMPILER_PARAMS*: `-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>> -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512 -profiling-threads=<<<CM_HOST_CPU_TOTAL_CORES>>>`
         - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_bert_mlperf`
       - Workflow:
     * `_resnet50`
@@ -198,6 +198,8 @@ ___
 <summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/calibrate-model-for.qaic/_cm.json)***
+     * detect,cpu
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,qaic,apps,sdk
        * CM names: `--adr.['qaic-apps-sdk']...`
        - CM script: [get-qaic-apps-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-apps-sdk)
@@ -205,8 +207,8 @@ ___
        * `if (CM_CALIBRATE_OPENIMAGES  == yes)`
        * CM names: `--adr.['openimages-cal', 'preprocessed-dataset']...`
        - *Warning: no scripts found*
-     * get,dataset,imagenet,preprocessed,_calibration,_for.resnet50
-       * `if (CM_CALIBRATE_IMAGENET  == on)`
+     * get,dataset,imagenet,preprocessed,_calibration,_for.resnet50,_float32,_rgb32
+       * `if (CM_CALIBRATE_IMAGENET  == yes)`
        * CM names: `--adr.['imagenet-cal', 'preprocessed-dataset']...`
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
      * get,dataset,preprocessed,_calib1,squad,_pickle,_seq-length.384,_packed
@@ -246,7 +248,7 @@ ___
 `cmr "qaic calibrate profile qaic-profile qaic-calibrate[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_QAIC_*`
+* `CM_QAIC_MODEL_PROFILE_*`
 #### New environment keys auto-detected from customize
 
 * `CM_QAIC_MODEL_PROFILE_WITH_PATH`

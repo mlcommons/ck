@@ -194,7 +194,7 @@ ___
      * download-and-extract,file,_extract
        * `if (CM_DATASET_IMAGENET_VAL_REQUIRE_DAE in ['yes', 'True'])`
        - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
-     * file,extract
+     * file,extract,_no-remove-extracted
        * `if (CM_DAE_ONLY_EXTRACT in ['yes', 'True'])`
        - CM script: [extract-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file)
   1. ***Run native script if exists***
