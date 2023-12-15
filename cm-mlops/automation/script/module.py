@@ -854,6 +854,12 @@ class CAutomation(Automation):
                     self._merge_dicts_with_tags(add_deps_recursive, adr)
 
                 combined_variations = [ t for t in variations if ',' in t ]
+
+                combined_variations.sort(key=lambda x: x.count(','))
+                ''' By sorting based on the number of variations users can safely override
+                env and state in a larger combined variation
+                '''
+
                 for combined_variation in combined_variations:
                     v = combined_variation.split(",")
                     all_present = set(v).issubset(set(variation_tags))
@@ -4173,7 +4179,7 @@ def append_deps(deps, new_deps):
             for i in range(len(deps)):
                 dep = deps[i]
                 dep_tags_list = dep.get('tags').split(",")
-                if set(new_dep_tags_list) & set (dep_tags_list):
+                if set(new_dep_tags_list) == set (dep_tags_list):
                     deps[i] = new_dep
                     existing = True
                     break
