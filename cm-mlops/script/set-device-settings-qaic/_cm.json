@@ -28,6 +28,9 @@
   "tags": [
     "set",
     "device",
+    "qaic",
+    "ai100",
+    "cloud",
     "performance",
     "power",
     "setting",
@@ -37,22 +40,14 @@
   ],
   "uid": "408a1a1563b44780",
   "variations": {
-    "performance": {
-      "default": true,
+    "ecc": {
       "env": {
-        "CM_QAIC_PERFORMANCE_MODE": "performance"
-      },
-      "group": "performance-mode"
+        "CM_QAIC_ECC": "yes"
+      }
     },
-    "power": {
+    "vc.#": {
       "env": {
-        "CM_QAIC_PERFORMANCE_MODE": "power"
-      },
-      "group": "performance-mode"
-    },
-    "reproducibility": {
-      "env": {
-        "CM_QAIC_PERFORMANCE_REPRODUCIBILITY_MODE": "yes"
+        "CM_QAIC_VC": "#"
       }
     }
   }

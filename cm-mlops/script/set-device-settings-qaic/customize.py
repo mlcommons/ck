@@ -23,7 +23,7 @@ def preprocess(i):
             ecc_template['dev_config']['update_ras_ecc_config_request']['ras_ecc'] = []
             ecc_template['dev_config']['update_ras_ecc_config_request']['ras_ecc'].append("RAS_DDR_ECC")
             with open("request_"+device+".json", "w") as f:
-                f.write(json.dumps(ecc_template)
+                f.write(json.dumps(ecc_template))
 
 
     return {'return':0}
