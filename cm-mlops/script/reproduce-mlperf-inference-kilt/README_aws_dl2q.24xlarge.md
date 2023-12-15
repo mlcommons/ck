@@ -35,6 +35,7 @@ cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic
 ```
 
 The expected performance is ~5700 QPS
+* Use `--scenario=Server --server_target_qps=5200` to run the server scenario
 
 ### Accuracy run
 ```
@@ -74,6 +75,7 @@ cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic
 --adr.mlperf-inference-implementation.tags=_bs.8,_dl2q.24xlarge --execution-mode=valid --quiet
 ```
 Expected performance is ~157500
+* Use `--scenario=Server --server_target_qps=152000` to run the server scenario
 
 ### Accuracy run
 
@@ -85,6 +87,8 @@ cm run script --tags=generate-run-cmds,inference,_accuracy-only --device=qaic --
 ```
 
 Expected accuracy is 75.936%
+
+
 
 
 ## RetinaNet
