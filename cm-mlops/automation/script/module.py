@@ -4167,6 +4167,18 @@ def append_deps(deps, new_deps):
                         deps[i] = new_dep
                         existing = True
                         break
+        else: #when no name, check for tags
+            new_dep_tags = new_dep.get('tags')
+            new_dep_tags_list = new_dep_tags.split(",")
+            for i in range(len(deps)):
+                dep = deps[i]
+                dep_tags_list = dep.get('tags').split(",")
+                if set(new_dep_tags_list) & set (dep_tags_list):
+                    deps[i] = new_dep
+                    existing = True
+                    break
+                    existing = True
+
         if not existing:
             deps.append(new_dep)
 
