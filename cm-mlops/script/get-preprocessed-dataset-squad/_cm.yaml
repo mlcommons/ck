@@ -18,6 +18,7 @@ deps:
     names:
       - squad-vocab
   - tags: get,generic-python-lib,_package.tokenization
+  - tags: get,generic-python-lib,_package.transformers
 
 docker_input_mapping: {}
 input_description: {}
