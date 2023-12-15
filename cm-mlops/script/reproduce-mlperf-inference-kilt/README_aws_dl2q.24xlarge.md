@@ -9,7 +9,7 @@
 
 ## System setup
 ```
-sudo yum install -y python3-devel git
+sudo yum install -y python38-devel git
 python3.8 -m pip install cmind
 cm pull repo mlcommons@ck
 cm run script --tags=get,python --version_min=3.8.1
