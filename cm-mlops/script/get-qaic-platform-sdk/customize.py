@@ -30,6 +30,7 @@ def preprocess(i):
 
     env['CM_QAIC_PLATFORM_SDK_PATH'] = path
     env['CM_QAIC_RUNNER_PATH'] = os.path.join(path, "exec", "qaic-runner")
+    env['CM_QAIC_TOOLS_PATH'] = os.path.join(path, "tools")
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
@@ -44,11 +45,17 @@ def detect_version(i):
     version_info = et.parse(version_xml_path)
 
     versions = version_info.getroot()
+    build_id = None
+
     for child1 in versions:
         if child1.tag == "ci_build":
             for child2 in child1:
                 if child2.tag == "base_version":
                     version = child2.text
+                if child2.tag == "build_id":
+                    build_id = child2.text
+    if build_id:
+        version=version+"."+build_id
 
     if not version:
         return {'return':1, 'error': f'qaic platform sdk version info not found'}

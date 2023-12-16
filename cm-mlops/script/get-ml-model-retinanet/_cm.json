@@ -15,7 +15,8 @@
     "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no"
   },
   "new_env_keys": [
-    "CM_ML_MODEL_*"
+    "CM_ML_MODEL_*",
+    "<<<CM_ENV_NAME_ML_MODEL_FILE>>>"
   ],
   "tags": [
     "get",
@@ -39,7 +40,12 @@
       },
       "names": [
         "dae"
-      ]
+      ],
+      "skip_if_env": {
+        "CM_TMP_ML_MODEL_RETINANET_NO_NMS": [
+          "yes"
+        ]
+      }
     }
   ],
   "variations": {
@@ -96,6 +102,52 @@
           "tags": "_extract"
         }
       }
+    },
+    "no-nms": {
+      "env": {
+        "CM_TMP_ML_MODEL_RETINANET_NO_NMS": "yes",
+        "CM_ML_MODEL_RETINANET_NO_NMS": "yes"
+      }
+    },
+    "onnx,no-nms": {
+      "env": {
+      },
+      "deps": [
+        {
+          "tags": "get,python3",
+          "names": [
+            "python, python3"
+          ]
+        },
+        {
+          "tags": "download,file,_url.https://raw.githubusercontent.com/arjunsuresh/ck-qaic/main/package/model-onnx-mlperf-retinanet-no-nms/remove-nms-and-extract-priors.patch",
+          "extra_cache_tags": "retinanet,training,patch,file",
+          "force_cache": true,
+          "env": {
+            "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_RETINANET_NO_NMS_PATCH_FILE_PATH"
+          }
+        },
+        {
+          "tags": "get,git,repo,_repo.https://github.com/mlcommons/training.git,_patch",
+          "extra_cache_tags": "training,src,mlperf,patched",
+          "names": [
+            "mlperf-training-src"
+          ],
+          "env": {
+            "CM_GIT_PATCH_FILEPATHS": "<<<CM_RETINANET_NO_NMS_PATCH_FILE_PATH>>>",
+            "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_MLPERF_TRAINING_REPO_PATCHED_PATH"
+          }
+        },
+        {
+          "tags": "get,ml-model,retinanet,_pytorch,_fp32,_weights",
+          "names": [
+            "pytorch-weights"
+          ],
+          "env": {
+            "CM_ENV_NAME_ML_MODEL_FILE": "CM_ML_MODEL_RETINANET_PYTORCH_WEIGHTS_FILE_PATH"
+          }
+        }
+      ]
     }
   }
 }

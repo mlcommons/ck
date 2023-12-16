@@ -42,7 +42,7 @@ class CAutomation(Automation):
         self.tmp_file_run_env = 'tmp-run-env.out'
         self.tmp_file_ver = 'tmp-ver.out'
 
-        self.__version__ = "1.1.4"
+        self.__version__ = "1.1.5"
 
         self.local_env_keys = ['CM_VERSION',
                                'CM_VERSION_MIN',
@@ -854,6 +854,12 @@ class CAutomation(Automation):
                     self._merge_dicts_with_tags(add_deps_recursive, adr)
 
                 combined_variations = [ t for t in variations if ',' in t ]
+
+                combined_variations.sort(key=lambda x: x.count(','))
+                ''' By sorting based on the number of variations users can safely override
+                env and state in a larger combined variation
+                '''
+
                 for combined_variation in combined_variations:
                     v = combined_variation.split(",")
                     all_present = set(v).issubset(set(variation_tags))
@@ -3437,6 +3443,25 @@ class CAutomation(Automation):
 
         return self.run(i)
 
+    ############################################################
+    # Reusable blocks for some scripts
+    def clean_some_tmp_files(self, i):
+        """
+        Clean tmp files
+        """
+
+        env = i.get('env',{})
+
+        cur_work_dir = env.get('CM_TMP_CURRENT_SCRIPT_WORK_PATH','')
+        if cur_work_dir !='' and os.path.isdir(cur_work_dir):
+           for x in ['tmp-run.bat', 'tmp-state.json']:
+               xx = os.path.join(cur_work_dir, x)
+               if os.path.isfile(xx):
+                   os.remove(xx)
+
+        return {'return':0}
+
+
 
 ##############################################################################
 def find_cached_script(i):
@@ -3799,7 +3824,10 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     if os_info['platform'] == 'windows' and ' ' in path:
         path = '"' + path + '"'
 
+    cur_dir = os.getcwd()
+    
     env['CM_TMP_CURRENT_SCRIPT_PATH'] = path
+    env['CM_TMP_CURRENT_SCRIPT_WORK_PATH'] = cur_dir
 
     # Record state
     if tmp_file_state != '':
@@ -3819,7 +3847,7 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
         if verbose:
             print ('')
-            print (recursion_spaces + '  - Running native script "{}" from temporal script "{}" in "{}" ...'.format(path_to_run_script, run_script, os.getcwd()))
+            print (recursion_spaces + '  - Running native script "{}" from temporal script "{}" in "{}" ...'.format(path_to_run_script, run_script, cur_dir))
             print ('')
 
         # Prepare env variables
@@ -3870,14 +3898,12 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
                            print (r['string'])
                            print ("")
 
-            note = '''Note that it is often a portability problem of the third-party tool or native script that is wrapped and unified by this CM script.
-The CM concept is to collaboratively fix such issues inside portable CM scripts to make existing tools and native script more portable, interoperable, deterministic and reproducible.
-
-Please help the community by reporting the full log with the command line here:
-* https://github.com/mlcommons/ck/issues 
-* https://cKnowledge.org/mlcommons-taskforce
-
-Thank you'''
+            note = '''^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note that it may be a portability issue of a third-party tool or a native script 
+wrapped and unified by this portable CM script. In such case, please report this issue 
+with a full log at "https://github.com/mlcommons/ck". The CM concept is to collaboratively 
+fix such issues inside portable CM scripts to make existing tools  and native script 
+more portable, interoperable, deterministic and reproducible. Thank you'''
 
             return {'return':2, 'error':'Portable CM script failed (name = {}, return code = {})\n\n{}'.format(meta['alias'], rc, note)}
 
@@ -4147,6 +4173,17 @@ def append_deps(deps, new_deps):
                         deps[i] = new_dep
                         existing = True
                         break
+        else: #when no name, check for tags
+            new_dep_tags = new_dep.get('tags')
+            new_dep_tags_list = new_dep_tags.split(",")
+            for i in range(len(deps)):
+                dep = deps[i]
+                dep_tags_list = dep.get('tags').split(",")
+                if set(new_dep_tags_list) == set (dep_tags_list):
+                    deps[i] = new_dep
+                    existing = True
+                    break
+
         if not existing:
             deps.append(new_dep)
 

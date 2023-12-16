@@ -32,7 +32,7 @@ default_env:
   CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: kilt
   CM_MLPERF_SKIP_RUN: 'no'
   CM_KILT_REPO_URL: https://github.com/GATEOverflow/kilt-mlperf
-  kilt_device_ids: "0"
+  CM_QAIC_DEVICES: "0"
   kilt_max_wait_abs: 10000
   verbosity: 1
   loadgen_trigger_cold_run: 0
@@ -50,7 +50,7 @@ input_mapping:
   performance_sample_count: CM_MLPERF_PERFORMANCE_SAMPLE_COUNT
   scenario: CM_MLPERF_LOADGEN_SCENARIO
   user_conf: CM_MLPERF_USER_CONF
-  devices: CM_MLPERF_NVIDIA_HARNESS_DEVICES
+  devices: CM_QAIC_DEVICES
   skip_preprocess: CM_SKIP_PREPROCESS_DATASET
   skip_preprocessing: CM_SKIP_PREPROCESS_DATASET
   target_qps: CM_MLPERF_LOADGEN_TARGET_QPS
@@ -247,6 +247,17 @@ variations:
     deps:
       - tags: get,qaic,platform,sdk
       - tags: get,lib,protobuf,_tag.v3.11.4
+      - tags: set,device,mode,qaic
+        enable_if_env:
+          CM_QAIC_VC:
+            "on"
+        update_tags_from_env_with_prefix":
+          _vc.:
+            - CM_QAIC_VC
+      - tags: set,device,mode,qaic,_ecc
+        enable_if_env:
+          CM_QAIC_ECC:
+            "yes"
 
   tensorrt:
     group: framework
@@ -478,18 +489,18 @@ variations:
     base:
       - nsp.14
     env:
-      kilt_device_ids: "0,1,2,3,4,5,6,7"
+      CM_QAIC_DEVICES: "0,1,2,3,4,5,6,7"
       qaic_queue_length: 4
 
   dl2q.24xlarge,singlestream:
     env:
-      kilt_device_ids: 0
+      CM_QAIC_DEVICES: 0
       qaic_activation_count: "1"
 
-  dl2q.24xlarge,resnet50,offline:
+  dl2q.24xlarge,resnet50:
     env:
       qaic_activation_count: "3"
 
-  dl2q.24xlarge,bert-99,offline:
+  dl2q.24xlarge,bert-99:
     env:
       qaic_activation_count: "14"

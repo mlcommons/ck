@@ -20,7 +20,7 @@
     {
       "env": {
         "CM_EXTRACT_FINAL_ENV_NAME": "GPTJ_CHECKPOINT_PATH",
-        "CM_EXTRACT_EXTRACT_TO_FOLDER": "gpt-j"
+        "CM_EXTRACT_TO_FOLDER": "gpt-j"
       },
       "tags": "download-and-extract,_wget",
       "update_tags_from_env_with_prefix": {

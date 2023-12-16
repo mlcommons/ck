@@ -12,7 +12,8 @@
   "prehook_deps": [
     {
       "names": [
-        "get-dataset-coco-data"
+        "get-dataset-coco-data",
+        "746e5dad5e784ad6"
       ],
       "tags": "download-and-extract,file,_wget,_extract",
       "update_tags_from_env_with_prefix": {
@@ -32,7 +33,8 @@
     },
     {
       "names": [
-        "get-dataset-coco-annotations"
+        "get-dataset-coco-annotations",
+        "edb6cd092ff64171"
       ],
       "tags": "download-and-extract,file,_wget,_extract",
       "update_tags_from_env_with_prefix": {
@@ -80,14 +82,14 @@
       "env": {
         "CM_DATASET_COCO_TYPE": "train"
       },
-      "group": "mode"
+      "group": "type"
     },
     "val": {
       "default":true,
       "env": {
         "CM_DATASET_COCO_TYPE": "val"
       },
-      "group": "mode"
+      "group": "type"
     }
   }
 }

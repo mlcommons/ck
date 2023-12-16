@@ -1,0 +1,54 @@
+{
+  "alias": "set-device-settings-qaic",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": false,
+  "category": "DevOps automation",
+  "deps": [
+    {
+      "tags": "detect-os"
+    },
+    {
+      "tags": "get,qaic,platform,sdk"
+    }
+  ],
+  "docker_input_mapping": {},
+  "input_description": {},
+  "input_mapping": {},
+  "new_env_keys": [
+    "CM_QAIC_DEVICE_*"
+  ],
+  "default_env": {
+    "CM_QAIC_DEVICES": "0"
+  },
+  "new_state_keys": [],
+  "post_deps": [],
+  "posthook_deps": [],
+  "prehook_deps": [],
+  "tags": [
+    "set",
+    "device",
+    "qaic",
+    "ai100",
+    "cloud",
+    "performance",
+    "power",
+    "setting",
+    "mode",
+    "vc",
+    "ecc"
+  ],
+  "uid": "408a1a1563b44780",
+  "variations": {
+    "ecc": {
+      "env": {
+        "CM_QAIC_ECC": "yes"
+      }
+    },
+    "vc.#": {
+      "env": {
+        "CM_QAIC_VC": "#"
+      }
+    }
+  }
+}

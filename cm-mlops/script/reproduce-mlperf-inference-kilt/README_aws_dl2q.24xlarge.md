@@ -9,7 +9,7 @@
 
 ## System setup
 ```
-sudo yum install -y python3-devel git
+sudo yum install -y python38-devel git
 python3.8 -m pip install cmind
 cm pull repo mlcommons@ck
 cm run script --tags=get,python --version_min=3.8.1
@@ -35,6 +35,7 @@ cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic
 ```
 
 The expected performance is ~5700 QPS
+* Use `--scenario=Server --server_target_qps=5200` to run the server scenario
 
 ### Accuracy run
 ```
@@ -50,13 +51,19 @@ The expected accuracy is ~90
 
 ## ResNet50
 
+(Optional)
+If you have Imagenet 2012 validation dataset downloaded, you can register it in CM as follows. This step is optional and can avoid the download from the public URL which can be slow at times.
+```
+cm run script --tags=get,dataset,imagenet,original,_full --env.IMAGENET_PATH=`pwd`/imagenet-2012-val
+```
+
 ### Quick performance run
 
 ```
 cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic --backend=glow \
 --scenario=Offline  --implementation=kilt --model=resnet50 \
 --test_query_count=400000 --precision=uint8 --rerun --adr.compiler.tags=gcc \
---adr.mlperf-inference-implementation.tags=_bs.8,_dl2q.24xlarge --execution-mode=test
+--adr.mlperf-inference-implementation.tags=_bs.8,_dl2q.24xlarge --execution-mode=test --quiet
 ```
 
 ### Full valid run
@@ -65,9 +72,10 @@ cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic
 cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic --backend=glow \
 --scenario=Offline  --implementation=kilt --model=resnet50 \
 --test_query_count=400000 --precision=uint8 --rerun --adr.compiler.tags=gcc \
---adr.mlperf-inference-implementation.tags=_bs.8,_dl2q.24xlarge --execution-mode=valid
+--adr.mlperf-inference-implementation.tags=_bs.8,_dl2q.24xlarge --execution-mode=valid --quiet
 ```
 Expected performance is ~157500
+* Use `--scenario=Server --server_target_qps=152000` to run the server scenario
 
 ### Accuracy run
 
@@ -75,10 +83,12 @@ Expected performance is ~157500
 cm run script --tags=generate-run-cmds,inference,_accuracy-only --device=qaic --backend=glow \
 --scenario=Offline  --implementation=kilt --model=resnet50 \
 --test_query_count=400000 --precision=uint8 --rerun --adr.compiler.tags=gcc \
---adr.mlperf-inference-implementation.tags=_bs.8,_dl2q.24xlarge --execution-mode=valid
+--adr.mlperf-inference-implementation.tags=_bs.8,_dl2q.24xlarge --execution-mode=valid --quiet
 ```
 
 Expected accuracy is 75.936%
+
+
 
 
 ## RetinaNet

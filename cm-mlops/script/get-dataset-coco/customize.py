@@ -4,32 +4,40 @@ import shutil
 
 def preprocess(i):
 
+    variation_tags = i.get('variation_tags',[])
+
     env = i['env']
 
+    quiet = (env.get('CM_QUIET', False) == 'yes')
+
     # Check if path is there to detect existing data set
+    detected = False
     path = env.get('CM_TMP_PATH','')
     if path!='':
         if not os.path.isdir(path):
             return {'return':1, 'error':'path to dataset "{}" doesn\'t exist'.format(path)}
 
         # Check which dataset
-        found = False
-
         p = os.path.join(path, 'annotations')
         if os.path.isdir(p):
-            for d in [('val2017','val','2017'), ('train2017','train','2017')]:
+            for d in [('val2017','val','2017'), 
+                      ('train2017','train','2017')]:
                 p = os.path.join(path, d[0])
 
                 if os.path.isdir(p):
                     tp = d[1]
                     ver = d[2]
-                    found = True
+                    detected = True
                     break
 
-        if not found:
+        if not detected:
             return {'return':1, 'error':'COCO dataset is not detected in "{}"'.format(path)}
 
+        print ('')
+        print ('Detected COCO dataset {} {}'.format(tp,ver))
+        
         env['CM_DATASET_COCO_DETECTED'] = 'yes'
+        env['CM_DATASET_COCO_PATH'] = path
     else:
         ver = env['CM_DATASET_COCO_VERSION']
         tp = env['CM_DATASET_COCO_TYPE']
@@ -37,7 +45,6 @@ def preprocess(i):
     url_data = env['CM_DATASET_COCO_URL_DATA']
     url_ann = env['CM_DATASET_COCO_URL_ANNOTATIONS']
 
-    quiet = (env.get('CM_QUIET', False) == 'yes')
     
     filename = tp + ver + '.zip'
 
@@ -64,12 +71,18 @@ def preprocess(i):
     if md5sum_ann != '':
         env['CM_DATASET_COCO_MD5SUM_ANN'] = md5sum_ann
 
-    if not quiet:
+    if not detected:
         print ('')
         print ('URL for data: {}'.format(url_data_full))
-        print ('URL for data: {}'.format(url_ann_full))
+        print ('URL for annotations: {}'.format(url_ann_full))
 
-    return {'return': 0}
+    # Add version and type to tags
+    extra_cache_tags = []
+    for tag in [ver, tp]:
+        if tag not in variation_tags: 
+            extra_cache_tags.append(tag)
+
+    return {'return':0, 'add_extra_cache_tags':extra_cache_tags}
 
 def postprocess(i):
 
@@ -77,26 +90,28 @@ def postprocess(i):
 
     env = i['env']
 
-    path_all = os.getcwd()
-
     tp_ver = env['CM_DATASET_COCO_TYPE_AND_VERSION']
 
     # Check if detected or downloaded
     if env.get('CM_DATASET_COCO_DETECTED', '').lower() == 'yes':
+        path_all = env['CM_DATASET_COCO_PATH']
+
         env['CM_DATASET_COCO_DATA_PATH'] = os.path.join(path_all, tp_ver)
         env['CM_DATASET_COCO_ANNOTATIONS_PATH'] = os.path.join(path_all, 'annotations')
     else:
+        path_all = os.getcwd()
     
+        # Moving 2 directories to 1 place
+        
         path_data = env['CM_DATASET_COCO_DATA_PATH']
         path_ann = env['CM_DATASET_COCO_ANNOTATIONS_PATH']
-
-        path_data_full = os.path.join(path_data, tp_ver)
-        path_ann_full = os.path.join(path_ann, 'annotations')
-
 
         print ('')
         print (path_all)
         print ('')
+
+        path_data_full = os.path.join(path_data, tp_ver)
+        path_ann_full = os.path.join(path_ann, 'annotations')
 
         if os_info['platform'] == 'windows':
             # Moving to this directory since can't make symbolic links
@@ -115,6 +130,7 @@ def postprocess(i):
         for command in [command1, command2]:
             print (command)
             os.system(command)
+
 
     env['CM_DATASET_COCO_PATH'] = path_all
     env['CM_DATASET_PATH'] = path_all
