@@ -155,7 +155,6 @@
         "CM_CALIBRATE_OPENIMAGES": "yes",
         "CM_QAIC_COMPILER_ARGS": "",
         "CM_QAIC_COMPILER_PARAMS": "-enable-channelwise -profiling-threads=<<<CM_HOST_CPU_TOTAL_CORES>>> -onnx-define-symbol=batch_size,<<<CM_QAIC_MODEL_BATCH_SIZE>>> -node-precision-info=<<<CM_QAIC_NODE_PRECISION_FILE_PATH>>>",
-        "CM_IMAGE_ORDER_FILE_PATH": "retinanet/openimages_cal_images_list.txt",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_retinanet_no_nms_mlperf"
       },
       "deps": [
