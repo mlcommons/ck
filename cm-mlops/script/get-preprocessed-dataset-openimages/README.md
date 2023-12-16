@@ -106,6 +106,21 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_for.retinanet.onnx`
+      - Environment variables:
+        - *CM_DATASET_SUBTRACT_MEANS*: `1`
+        - *CM_DATASET_GIVEN_CHANNEL_MEANS*: `0.485 0.456 0.406`
+        - *CM_DATASET_GIVEN_CHANNEL_STDS*: `0.229 0.224 0.225`
+        - *CM_DATASET_NORMALIZE_DATA*: `1`
+        - *CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
+      - Workflow:
+    * `_for.retinanet.onnx,fp32`
+      - Workflow:
+    * `_for.retinanet.onnx,int8`
+      - Environment variables:
+        - *CM_DATASET_QUANT_SCALE*: `0.0186584499`
+        - *CM_DATASET_QUANT_OFFSET*: `114`
+      - Workflow:
     * `_nvidia`
       - Environment variables:
         - *CM_PREPROCESSING_BY_NVIDIA*: `yes`
@@ -173,10 +188,14 @@ ___
     * **`_fp32`** (default)
       - Environment variables:
         - *CM_DATASET_DTYPE*: `fp32`
+        - *CM_DATASET_INPUT_DTYPE*: `fp32`
+        - *CM_DATASET_CONVERT_TO_UNSIGNED*: `0`
       - Workflow:
     * `_int8`
       - Environment variables:
         - *CM_DATASET_DTYPE*: `int8`
+        - *CM_DATASET_INPUT_DTYPE*: `fp32`
+        - *CM_DATASET_CONVERT_TO_UNSIGNED*: `0`
       - Workflow:
 
     </details>
@@ -189,8 +208,62 @@ ___
     * `_calibration`
       - Environment variables:
         - *CM_DATASET_PATH*: `<<<CM_CALIBRATION_DATASET_PATH>>>`
+        - *CM_DATASET_TYPE*: `calibration`
       - Workflow:
     * **`_validation`** (default)
+      - Environment variables:
+        - *CM_DATASET_TYPE*: `validation`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**extension**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_rgb32`
+      - Environment variables:
+        - *CM_DATASET_PREPROCESSED_EXTENSION*: `rgb32`
+      - Workflow:
+    * `_rgb8`
+      - Environment variables:
+        - *CM_DATASET_PREPROCESSED_EXTENSION*: `rgb8`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**interpolation-method**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_inter.area`
+      - Environment variables:
+        - *CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
+      - Workflow:
+    * `_inter.linear`
+      - Environment variables:
+        - *CM_DATASET_INTERPOLATION_METHOD*: `INTER_LINEAR`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**preprocessing-source**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_generic-preprocessor`
+      - Environment variables:
+        - *CM_DATASET_REFERENCE_PREPROCESSOR*: `0`
+      - Workflow:
+        1. ***Read "prehook_deps" on other CM scripts***
+           * get,generic,image-preprocessor
+             - CM script: [get-preprocesser-script-generic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocesser-script-generic)
+    * **`_mlcommons-reference-preprocessor`** (default)
+      - Environment variables:
+        - *CM_DATASET_REFERENCE_PREPROCESSOR*: `1`
       - Workflow:
 
     </details>
@@ -198,7 +271,7 @@ ___
 
 #### Default variations
 
-`_50,_NCHW,_default-annotations,_fp32,_validation`
+`_50,_NCHW,_default-annotations,_fp32,_mlcommons-reference-preprocessor,_validation`
 
 #### Script flags mapped to environment
 <details>
@@ -224,6 +297,11 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 * CM_DATASET: `OPENIMAGES`
 * CM_DATASET_DTYPE: `fp32`
+* CM_DATASET_INPUT_SQUARE_SIDE: `800`
+* CM_DATASET_CROP_FACTOR: `100.0`
+* CM_DATASET_QUANT_SCALE: `1`
+* CM_DATASET_QUANTIZE: `0`
+* CM_DATASET_QUANT_OFFSET: `0`
 
 </details>
 
@@ -272,7 +350,10 @@ ___
 
 * `CM_DATASET_ANNOTATIONS_DIR_PATH`
 * `CM_DATASET_ANNOTATIONS_FILE_PATH`
+* `CM_DATASET_PREPROCESSED_IMAGENAMES_LIST`
+* `CM_DATASET_PREPROCESSED_IMAGES_LIST`
 * `CM_DATASET_PREPROCESSED_PATH`
+* `CM_DATASET_TYPE`
 ___
 ### Maintainers
 

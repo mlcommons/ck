@@ -103,11 +103,30 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_no-nms`
+      - Environment variables:
+        - *CM_TMP_ML_MODEL_RETINANET_NO_NMS*: `yes`
+        - *CM_ML_MODEL_RETINANET_NO_NMS*: `yes`
+      - Workflow:
     * `_onnx,fp32`
       - Environment variables:
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/6617879/files/resnext50_32x4d_fpn.onnx`
         - *CM_ML_MODEL_ACCURACY*: `0.3757`
       - Workflow:
+    * `_onnx,no-nms`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,python3
+             * CM names: `--adr.['python, python3']...`
+             - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+           * download,file,_url.https://raw.githubusercontent.com/arjunsuresh/ck-qaic/main/package/model-onnx-mlperf-retinanet-no-nms/remove-nms-and-extract-priors.patch
+             - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
+           * get,git,repo,_repo.https://github.com/mlcommons/training.git,_patch
+             * CM names: `--adr.['mlperf-training-src']...`
+             - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+           * get,ml-model,retinanet,_pytorch,_fp32,_weights
+             * CM names: `--adr.['pytorch-weights']...`
+             - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
     * `_pytorch,fp32`
       - Environment variables:
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth`
@@ -183,9 +202,11 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)***
      * download-and-extract
+       * `if (CM_TMP_ML_MODEL_RETINANET_NO_NMS  != yes)`
        * CM names: `--adr.['dae']...`
        - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run native script if exists***
+     * [run-no-nms.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/run-no-nms.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)
@@ -196,10 +217,12 @@ ___
 `cmr "get ml-model raw resnext50 retinanet object-detection[,variations]"  -j`
 #### New environment keys (filter)
 
+* `<<<CM_ENV_NAME_ML_MODEL_FILE>>>`
 * `CM_ML_MODEL_*`
 #### New environment keys auto-detected from customize
 
 * `CM_ML_MODEL_FILE`
+* `CM_ML_MODEL_FILE_WITH_PATH`
 ___
 ### Maintainers
 

@@ -12,6 +12,7 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -48,11 +49,13 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=extract,file[,variations] `
+1. `cm run script --tags=extract,file[,variations] [--input_flags]`
 
-2. `cmr "extract file[ variations]" `
+2. `cmr "extract file[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
+
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### Run this script from Python
 
@@ -88,7 +91,7 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=extract,file) to gener
 
 #### Run this script via Docker (beta)
 
-`cm docker script "extract file[ variations]" `
+`cm docker script "extract file[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -100,6 +103,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_keep`
+      - Environment variables:
+        - *CM_EXTRACT_REMOVE_EXTRACTED*: `no`
+      - Workflow:
     * `_no-remove-extracted`
       - Environment variables:
         - *CM_EXTRACT_REMOVE_EXTRACTED*: `no`
@@ -110,6 +117,23 @@ ___
       - Workflow:
 
     </details>
+
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--extra_folder=value`  &rarr;  `CM_EXTRACT_TO_FOLDER=value`
+* `--extract_path=value`  &rarr;  `CM_EXTRACT_PATH=value`
+* `--input=value`  &rarr;  `CM_EXTRACT_FILEPATH=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "extra_folder":...}
+```
+
+</details>
 
 #### Default environment
 
@@ -142,7 +166,7 @@ ___
 
 ___
 ### Script output
-`cmr "extract file[,variations]"  -j`
+`cmr "extract file[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 * `<<<CM_EXTRACT_FINAL_ENV_NAME>>>`
