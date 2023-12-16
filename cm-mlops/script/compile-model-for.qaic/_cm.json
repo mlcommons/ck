@@ -286,17 +286,8 @@
         "CM_COMPILE_RETINANET": "on",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_retinanet_no_nms_mlperf",
         "CM_QAIC_MODEL_COMPILER_ARGS": "-aic-enable-depth-first",
-        "CM_QAIC_MODEL_COMPILER_PARAMS_BASE": "-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,1 -node-precision-info=<<<CM_QAIC_NODE_PRECISION_FILE_PATH>>>"
-      },
-      "deps": [
-        {
-          "tags": "download,file,_url.https://raw.githubusercontent.com/arjunsuresh/ck-qaic/main/package/model-qaic-calibrate/retinanet/node-precision.yaml",
-          "extra_cache_tags": "retinanet,node-precision-file,qaic",
-          "env": {
-            "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_QAIC_NODE_PRECISION_FILE_PATH"
-          }
-        }
-      ]
+        "CM_QAIC_MODEL_COMPILER_PARAMS_BASE": "-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,1 -node-precision-info=<<<CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH>>>"
+      }
     },
     "retinanet,offline": {
       "env": {

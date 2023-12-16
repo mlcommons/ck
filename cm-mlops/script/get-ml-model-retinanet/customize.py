@@ -21,6 +21,9 @@ def postprocess(i):
     if env.get('CM_ENV_NAME_ML_MODEL_FILE', '') != '':
         env[env['CM_ENV_NAME_ML_MODEL_FILE']] = env['CM_ML_MODEL_FILE_WITH_PATH']
 
+    if env.get("CM_QAIC_PRINT_NODE_PRECISION_INFO", '') == 'yes':
+        env['CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH'] = os.path.join(os.getcwd(), 'node-precision-info.yaml')
+
     env['CM_GET_DEPENDENT_CACHED_PATH'] = env['CM_ML_MODEL_FILE_WITH_PATH']
 
     return {'return':0}
