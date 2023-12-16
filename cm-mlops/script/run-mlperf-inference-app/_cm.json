@@ -263,7 +263,8 @@
     "target_qps": "CM_MLPERF_LOADGEN_TARGET_QPS",
     "test_query_count": "CM_TEST_QUERY_COUNT",
     "network": "CM_NETWORK_LOADGEN",
-    "imagenet_path": "IMAGENET_PATH"
+    "imagenet_path": "IMAGENET_PATH",
+    "sut_servers": "CM_NETWORK_LOADGEN_SUT_SERVERS"
   },
   "new_state_keys": [
     "app_mlperf_inference_*"
