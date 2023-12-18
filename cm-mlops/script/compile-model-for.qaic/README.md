@@ -165,13 +165,16 @@ ___
         - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4 -mos=1,2 -ols=4`
       - Workflow:
     * `_resnet50,server`
-      - Environment variables:
-        - *CM_QAIC_MODEL_COMPILER_PARAMS_BASE*: `-aic-hw -aic-hw-version=2.0 -aic-num-of-instances=1 -use-producer-dma=0 -output-node-name=ArgMax -compile-only`
-        - *CM_QAIC_MODEL_COMPILER_ARGS*: `-sdp-cluster-sizes=4,4 -mos=1,4`
       - Workflow:
     * `_resnet50,server,nsp.14`
       - Environment variables:
         - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4 -ols=4`
+        - *CM_QAIC_MODEL_COMPILER_ARGS*: `-sdp-cluster-sizes=2,2 -mos=1,2 -multicast-weights`
+      - Workflow:
+    * `_resnet50,server,nsp.16`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4 -ols=4`
+        - *CM_QAIC_MODEL_COMPILER_ARGS*: `-sdp-cluster-sizes=4,4 -mos=1,4`
       - Workflow:
     * `_resnet50,singlestream`
       - Environment variables:
@@ -190,10 +193,33 @@ ___
       - Environment variables:
         - *CM_COMPILE_RETINANET*: `on`
         - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_retinanet_no_nms_mlperf`
-        - *CM_QAIC_MODEL_COMPILER_ARGS*: ``
+        - *CM_QAIC_MODEL_COMPILER_ARGS*: `-aic-enable-depth-first`
         - *CM_QAIC_MODEL_COMPILER_PARAMS*: `-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,[BATCH_SIZE] -node-precision-info=[NODE_PRECISION_FILE]`
         - *CM_IMAGE_ORDER_FILE_PATH*: `retinanet/openimages_cal_images_list.txt`
         - *CM_QAIC_NODE_PRECISION_FILE_PATH*: `retinanet/node-precision.yaml`
+      - Workflow:
+    * `_retinanet,multistream`
+      - Workflow:
+    * `_retinanet,nsp.14`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=1 -mos=1 -ols=1`
+      - Workflow:
+    * `_retinanet,offline`
+      - Workflow:
+    * `_retinanet,offline,nsp.14`
+      - Workflow:
+    * `_retinanet,server`
+      - Workflow:
+    * `_retinanet,server,nsp.14`
+      - Workflow:
+    * `_retinanet,singlestream`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS*: ``
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=8 -mos=1 -ols=1`
+      - Workflow:
+    * `_retinanet,singlestream,nsp.14`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=8 -mos=1 -ols=1`
       - Workflow:
 
     </details>

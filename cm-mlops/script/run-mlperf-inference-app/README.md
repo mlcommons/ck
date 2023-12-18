@@ -299,6 +299,7 @@ r=cm.access({... , "adr.compiler.tags":...}
 * `--gpu_name=value`  &rarr;  `CM_NVIDIA_GPU_NAME=value`
 * `--hw_name=value`  &rarr;  `CM_HW_NAME=value`
 * `--hw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_SW_NOTES_EXTRA=value`
+* `--imagenet_path=value`  &rarr;  `IMAGENET_PATH=value`
 * `--implementation=value`  &rarr;  `CM_MLPERF_IMPLEMENTATION=value`
 * `--lang=value`  &rarr;  `CM_MLPERF_IMPLEMENTATION=value`
 * `--mode=value`  &rarr;  `CM_MLPERF_LOADGEN_MODE=value`

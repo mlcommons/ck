@@ -128,9 +128,11 @@ ___
 * `+LD_LIBRARY_PATH`
 * `+PATH`
 * `CM_QAIC_RUNNER_PATH`
+* `CM_QAIC_TOOLS_PATH`
 #### New environment keys auto-detected from customize
 
 * `CM_QAIC_RUNNER_PATH`
+* `CM_QAIC_TOOLS_PATH`
 ___
 ### Maintainers
 

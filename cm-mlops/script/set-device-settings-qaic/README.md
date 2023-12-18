@@ -25,17 +25,14 @@
 
 ### About
 
-
-See extra [notes](README-extra.md) from the authors and contributors.
-
 #### Summary
 
-* Category: *AI/ML datasets.*
+* Category: *DevOps automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,dataset,coco*
-* Output cached? *True*
+* CM "database" tags to find this script: *set,device,qaic,ai100,cloud,performance,power,setting,mode,vc,ecc*
+* Output cached? *False*
 ___
 ### Reuse this script in your project
 
@@ -51,9 +48,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,dataset,coco[,variations] `
+1. `cm run script --tags=set,device,qaic,ai100,cloud,performance,power,setting,mode,vc,ecc[,variations] `
 
-2. `cmr "get dataset coco[ variations]" `
+2. `cmr "set device qaic ai100 cloud performance power setting mode vc ecc[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -68,7 +65,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,dataset,coco'
+                  'tags':'set,device,qaic,ai100,cloud,performance,power,setting,mode,vc,ecc'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -85,13 +82,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,dataset,coco"```
+```cmr "cm gui" --script="set,device,qaic,ai100,cloud,performance,power,setting,mode,vc,ecc"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,dataset,coco) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=set,device,qaic,ai100,cloud,performance,power,setting,mode,vc,ecc) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get dataset coco[ variations]" `
+`cm docker script "set device qaic ai100 cloud performance power setting mode vc ecc[ variations]" `
 
 ___
 ### Customization
@@ -99,37 +96,21 @@ ___
 
 #### Variations
 
-  * Group "**type**"
+  * *No group (any variation can be selected)*
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_train`
+    * `_ecc`
       - Environment variables:
-        - *CM_DATASET_COCO_TYPE*: `train`
+        - *CM_QAIC_ECC*: `yes`
       - Workflow:
-    * **`_val`** (default)
+    * `_vc.#`
       - Environment variables:
-        - *CM_DATASET_COCO_TYPE*: `val`
+        - *CM_QAIC_VC*: `#`
       - Workflow:
 
     </details>
 
-
-  * Group "**version**"
-    <details>
-    <summary>Click here to expand this section.</summary>
-
-    * **`_2017`** (default)
-      - Environment variables:
-        - *CM_DATASET_COCO_VERSION*: `2017`
-      - Workflow:
-
-    </details>
-
-
-#### Default variations
-
-`_2017,_val`
 #### Default environment
 
 <details>
@@ -137,6 +118,7 @@ ___
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
+* CM_QAIC_DEVICES: `0`
 
 </details>
 
@@ -146,48 +128,28 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco/_cm.json)***
-     * detect,os
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic/_cm.json)***
+     * detect-os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco/customize.py)***
-  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco/_cm.json)***
-     * download-and-extract,file,_wget,_extract
-       * `if (CM_DATASET_COCO_DETECTED  != yes)`
-       * CM names: `--adr.['get-dataset-coco-data', '746e5dad5e784ad6']...`
-       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
-     * download-and-extract,file,_wget,_extract
-       * `if (CM_DATASET_COCO_DETECTED  != yes)`
-       * CM names: `--adr.['get-dataset-coco-annotations', 'edb6cd092ff64171']...`
-       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
+     * get,qaic,platform,sdk
+       - CM script: [get-qaic-platform-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic/_cm.json)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "get dataset coco[,variations]"  -j`
+`cmr "set device qaic ai100 cloud performance power setting mode vc ecc[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_DATASET_COCO*`
-* `CM_DATASET_PATH`
-* `CM_DATASET_PATH_ROOT`
+* `CM_QAIC_DEVICE_*`
 #### New environment keys auto-detected from customize
 
-* `CM_DATASET_COCO_ANNOTATIONS_PATH`
-* `CM_DATASET_COCO_DATA_PATH`
-* `CM_DATASET_COCO_DETECTED`
-* `CM_DATASET_COCO_MD5SUM_ANN`
-* `CM_DATASET_COCO_MD5SUM_DATA`
-* `CM_DATASET_COCO_PATH`
-* `CM_DATASET_COCO_TYPE`
-* `CM_DATASET_COCO_TYPE_AND_VERSION`
-* `CM_DATASET_COCO_URL_ANNOTATIONS_FULL`
-* `CM_DATASET_COCO_URL_DATA_FULL`
-* `CM_DATASET_COCO_VERSION`
-* `CM_DATASET_PATH`
-* `CM_DATASET_PATH_ROOT`
 ___
 ### Maintainers
 

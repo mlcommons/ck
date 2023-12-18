@@ -28,9 +28,9 @@
 #### Summary
 
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-calibration)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *get,dataset,imagenet,calibration*
+* CM "database" tags to find this script: *get,dataset,openimages,calibration*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -47,9 +47,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,dataset,imagenet,calibration[,variations] `
+1. `cm run script --tags=get,dataset,openimages,calibration[,variations] `
 
-2. `cmr "get dataset imagenet calibration[ variations]" `
+2. `cmr "get dataset openimages calibration[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -64,7 +64,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,dataset,imagenet,calibration'
+                  'tags':'get,dataset,openimages,calibration'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -81,13 +81,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,dataset,imagenet,calibration"```
+```cmr "cm gui" --script="get,dataset,openimages,calibration"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,dataset,imagenet,calibration) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,dataset,openimages,calibration) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get dataset imagenet calibration[ variations]" `
+`cm docker script "get dataset openimages calibration[ variations]" `
 
 ___
 ### Customization
@@ -101,13 +101,8 @@ ___
 
     * **`_mlperf.option1`** (default)
       - Environment variables:
-        - *CM_MLPERF_IMAGENET_CALIBRATION_OPTION*: `one`
-        - *CM_DOWNLOAD_CHECKSUM*: `f09719174af3553119e2c621157773a6`
-      - Workflow:
-    * `_mlperf.option2`
-      - Environment variables:
-        - *CM_MLPERF_IMAGENET_CALIBRATION_OPTION*: `two`
-        - *CM_DOWNLOAD_CHECKSUM*: `e44582af00e3b4fc3fac30efd6bdd05f`
+        - *CM_MLPERF_OPENIMAGES_CALIBRATION_OPTION*: `one`
+        - *CM_DOWNLOAD_CHECKSUM1*: `f09719174af3553119e2c621157773a6`
       - Workflow:
 
     </details>
@@ -132,24 +127,24 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/_cm.yaml)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-calibration/_cm.yaml)***
      * download,file
        * CM names: `--adr.['calibration-file-downloader']...`
        - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
   1. Run "preprocess" function from customize.py
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/_cm.yaml)
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-calibration/_cm.yaml)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/_cm.yaml)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-calibration/_cm.yaml)
   1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration/_cm.yaml)
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-calibration/_cm.yaml)
 </details>
 
 ___
 ### Script output
-`cmr "get dataset imagenet calibration[,variations]"  -j`
+`cmr "get dataset openimages calibration[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_MLPERF_IMAGENET_CALIBRATION_LIST_FILE_WITH_PATH`
+* `CM_MLPERF_OPENIMAGES_CALIBRATION_LIST_FILE_WITH_PATH`
 #### New environment keys auto-detected from customize
 
 ___

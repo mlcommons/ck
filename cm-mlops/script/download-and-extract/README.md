@@ -107,6 +107,10 @@ ___
       - Environment variables:
         - *CM_DAE_EXTRACT_DOWNLOADED*: `yes`
       - Workflow:
+    * `_keep`
+      - Environment variables:
+        - *CM_EXTRACT_REMOVE_EXTRACTED*: `no`
+      - Workflow:
     * `_no-remove-extracted`
       - Environment variables:
         - *CM_EXTRACT_REMOVE_EXTRACTED*: `no`
@@ -153,12 +157,17 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--download_path=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
+* `--extra_folder=value`  &rarr;  `CM_EXTRACT_TO_FOLDER=value`
+* `--extract_path=value`  &rarr;  `CM_EXTRACT_PATH=value`
+* `--local_path=value`  &rarr;  `CM_DOWNLOAD_LOCAL_FILE_PATH=value`
 * `--url=value`  &rarr;  `CM_DAE_URL=value`
+* `--verify=value`  &rarr;  `CM_VERIFY_SSL=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "url":...}
+r=cm.access({... , "download_path":...}
 ```
 
 </details>

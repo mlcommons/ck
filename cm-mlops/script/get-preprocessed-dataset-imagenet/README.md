@@ -142,10 +142,6 @@ ___
         - *CM_DATASET_DATA_TYPE*: `uint8`
       - Workflow:
     * `_for.resnet50,float32`
-      - Environment variables:
-        - *CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
-        - *CM_DATASET_SUBTRACT_MEANS*: `1`
-        - *CM_DATASET_NORMALIZE_DATA*: `0`
       - Workflow:
     * `_for.resnet50,rgb8`
       - Environment variables:
@@ -163,10 +159,6 @@ ___
       - Workflow:
     * `_for.resnet50,uint8`
       - Environment variables:
-        - *CM_DATASET_NORMALIZE_DATA*: `0`
-        - *CM_DATASET_SUBTRACT_MEANS*: `1`
-        - *CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
-        - *CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
         - *CM_DATASET_QUANT_SCALE*: `1.18944883`
         - *CM_DATASET_QUANT_OFFSET*: `0`
       - Workflow:
@@ -275,6 +267,11 @@ ___
     * `_for.mobilenet`
       - Workflow:
     * `_for.resnet50`
+      - Environment variables:
+        - *CM_DATASET_SUBTRACT_MEANS*: `1`
+        - *CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
+        - *CM_DATASET_NORMALIZE_DATA*: `0`
+        - *CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
       - Workflow:
 
     </details>
@@ -288,6 +285,7 @@ ___
       - Environment variables:
         - *CM_DATASET_DATA_TYPE*: `float32`
         - *CM_DATASET_QUANTIZE*: `0`
+        - *CM_DATASET_CONVERT_TO_UNSIGNED*: `0`
       - Workflow:
     * `_int8`
       - Environment variables:
