@@ -72,11 +72,20 @@ def preprocess(i):
             print ('')
 
             cm = automation.cmind
-            r = cm.access({'action':'download_file',
+            for i in range(1,5):
+                r = cm.access({'action':'download_file',
                            'automation':'utils,dc2743f8450541e3',
                            'url':url,
                            'verify': verify_ssl})
+                if r['return'] == 0: break
+                oldurl = url
+                url = env.get('CM_DOWNLOAD_URL'+str(i),'')
+                if url == '':
+                    break
+                print(f"Download from {oldurl} failed, trying from {url}")
+
             if r['return']>0: return r
+
             env['CM_DOWNLOAD_CMD'] = ""
             env['CM_DOWNLOAD_FILENAME'] = r['filename']
 
