@@ -4,10 +4,11 @@ import shutil
 
 def preprocess(i):
 
+    # CM script internal variables
     variation_tags = i.get('variation_tags',[])
-
+    automation = i['automation']
     env = i['env']
-
+    meta = i['meta']
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
     # Check if path is there to detect existing data set
@@ -42,6 +43,21 @@ def preprocess(i):
         ver = env['CM_DATASET_COCO_VERSION']
         tp = env['CM_DATASET_COCO_TYPE']
 
+    # Add extra tags with type and version to "download-and-extract" deps to be able to reuse them
+    download_extra_cache_tags='dataset,coco,data,'+tp+','+ver
+    r = automation.update_deps({'deps':meta['prehook_deps'],
+                                'update_deps':{
+                                  '746e5dad5e784ad6': {
+                                    'extra_cache_tags':download_extra_cache_tags
+                                  },
+                                  'edb6cd092ff64171': {
+                                    'extra_cache_tags':download_extra_cache_tags
+                                  }
+                                }
+                               })
+    if r['return']>0: return r
+
+    # Prepare URL
     url_data = env['CM_DATASET_COCO_URL_DATA']
     url_ann = env['CM_DATASET_COCO_URL_ANNOTATIONS']
 
