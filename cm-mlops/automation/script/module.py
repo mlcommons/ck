@@ -3902,8 +3902,8 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 Note that it may be a portability issue of a third-party tool or a native script 
 wrapped and unified by this portable CM script. In such case, please report this issue 
 with a full log at "https://github.com/mlcommons/ck". The CM concept is to collaboratively 
-fix such issues inside portable CM scripts to make existing tools  and native script 
-more portable, interoperable, deterministic and reproducible. Thank you'''
+fix such issues inside portable CM scripts to make existing tools and native scripts
+more portable, interoperable and deterministic. Thank you'''
 
             return {'return':2, 'error':'Portable CM script failed (name = {}, return code = {})\n\n{}'.format(meta['alias'], rc, note)}
 

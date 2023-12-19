@@ -286,18 +286,18 @@
         "CM_COMPILE_RETINANET": "on",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_retinanet_no_nms_mlperf",
         "CM_QAIC_MODEL_COMPILER_ARGS": "-aic-enable-depth-first",
-        "CM_QAIC_MODEL_COMPILER_PARAMS": "-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,[BATCH_SIZE] -node-precision-info=[NODE_PRECISION_FILE]",
-        "CM_IMAGE_ORDER_FILE_PATH": "retinanet/openimages_cal_images_list.txt",
-        "CM_QAIC_NODE_PRECISION_FILE_PATH": "retinanet/node-precision.yaml"
+        "CM_QAIC_MODEL_COMPILER_PARAMS_BASE": "-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,1 -node-precision-info=<<<CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH>>>"
       }
     },
     "retinanet,offline": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=1 -mos=1 -ols=1"
+      }
     },
     "retinanet,offline,nsp.14": {
     },
     "retinanet,nsp.14": {
       "env": {
-        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=1 -mos=1 -ols=1"
       }
     },
     "retinanet,server": {

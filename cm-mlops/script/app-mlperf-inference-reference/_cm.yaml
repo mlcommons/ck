@@ -62,6 +62,7 @@ input_mapping:
   singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
   multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
   network: CM_NETWORK_LOADGEN
+  sut_servers: CM_NETWORK_LOADGEN_SUT_SERVERS
 
 
 # Duplicate CM environment variables to the ones used in native apps
@@ -528,6 +529,14 @@ deps:
     - mlperf-implementation
 
   - tags: get,generic-python-lib,_package.psutil
+
+prehook_deps:
+  - names:
+    - remote-run-cmds
+    tags: remote,run,cmds
+    enable_if_env:
+      CM_SSH_RUN_COMMANDS:
+      - "on"
 
 posthook_deps: 
   - names:

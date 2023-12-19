@@ -30,7 +30,8 @@
       "env": {
         "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_FILE>>>",
         "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH",
-        "CM_EXTRACT_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH"
+        "CM_EXTRACT_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH",
+        "CM_DOWNLOAD_URL1": "<<<CM_PACKAGE_URL1>>>"
       },
       "update_tags_from_env_with_prefix": {
         "_url.": [ "CM_PACKAGE_URL" ]
@@ -71,6 +72,9 @@
     "github": {
       "group": "download-source"
     },
+    "armi": {
+      "group": "download-source"
+    },
     "custom-url.#": {
       "group": "download-source",
       "env": {
@@ -87,9 +91,10 @@
         "CM_PACKAGE_URL": "https://zenodo.org/record/3733910/files/model.onnx"
       }
     },
-    "onnx,fp32,amazon-s3": {
+    "onnx,fp32,armi": {
       "env": {
-        "CM_PACKAGE_URL": "https://mlperf-public.s3.us-west-2.amazonaws.com/model.onnx"
+        "CM_PACKAGE_URL": "https://armi.in/files/model.onnx1",
+        "CM_PACKAGE_URL1": "https://zenodo.org/record/3733910/files/model.onnx"
       }
     },
     "onnx,int8": {
@@ -111,7 +116,7 @@
       "group": "framework",
       "default": true,
       "default_variations": {
-        "download-source": "amazon-s3"
+        "download-source": "armi"
       },
       "env": {
         "CM_ML_MODEL_FRAMEWORK": "onnx",

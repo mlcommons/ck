@@ -135,6 +135,13 @@ def preprocess(i):
     mlperf_implementation = env.get('CM_MLPERF_IMPLEMENTATION', 'reference') 
     cmd, run_dir = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options, mlperf_implementation)
 
+    if env.get('CM_NETWORK_LOADGEN', '') == "lon":
+
+        run_cmd = i['state']['mlperf_inference_run_cmd']
+        env['CM_SSH_RUN_COMMANDS'] = []
+        env['CM_SSH_RUN_COMMANDS'].append(run_cmd.replace("--network=lon", "--network=sut") + " &")
+
+
     env['CM_MLPERF_RUN_CMD'] = cmd
     env['CM_RUN_DIR'] = run_dir
     env['CM_RUN_CMD'] = cmd
@@ -314,6 +321,9 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
 
     if env.get('CM_NETWORK_LOADGEN', '') in [ "lon", "sut" ]:
         cmd = cmd + " " + "--network " + env['CM_NETWORK_LOADGEN']
+        if env.get('CM_NETWORK_LOADGEN_SUT_SERVERS', []):
+            sut_servers = env['CM_NETWORK_LOADGEN_SUT_SERVERS']
+            cmd += " --sut_server '"+"','".join(sut_servers)+"' "
 
     return cmd, env['RUN_DIR']
 
