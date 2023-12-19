@@ -114,9 +114,10 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_F1*: `90.874`
       - Workflow:
-    * `_onnx,fp32,amazon-s3`
+    * `_onnx,fp32,armi`
       - Environment variables:
-        - *CM_PACKAGE_URL*: `https://mlperf-public.s3.us-west-2.amazonaws.com/model.onnx`
+        - *CM_PACKAGE_URL*: `https://armi.in/files/model.onnx1`
+        - *CM_PACKAGE_URL1*: `https://zenodo.org/record/3733910/files/model.onnx`
       - Workflow:
     * `_onnx,fp32,zenodo`
       - Environment variables:
@@ -172,6 +173,8 @@ ___
     <summary>Click here to expand this section.</summary>
 
     * `_amazon-s3`
+      - Workflow:
+    * `_armi`
       - Workflow:
     * `_custom-url.#`
       - Environment variables:
