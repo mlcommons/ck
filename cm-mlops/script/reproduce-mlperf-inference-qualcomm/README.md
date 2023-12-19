@@ -164,17 +164,17 @@ ___
       - Environment variables:
         - *kilt_model_batch_size*: `#`
       - Workflow:
-    * `_dl2q.24xlarge,bert-99`
+    * `_dl2q.24xlarge,bert-99,offline`
       - Environment variables:
         - *qaic_activation_count*: `14`
       - Workflow:
-    * `_dl2q.24xlarge,resnet50`
+    * `_dl2q.24xlarge,resnet50,offline`
       - Environment variables:
         - *qaic_activation_count*: `3`
       - Workflow:
     * `_dl2q.24xlarge,singlestream`
       - Environment variables:
-        - *CM_QAIC_DEVICES*: `0`
+        - *kilt_device_ids*: `0`
         - *qaic_activation_count*: `1`
       - Workflow:
     * `_loadgen-batch-size.#`
@@ -223,12 +223,6 @@ ___
              - CM script: [get-qaic-platform-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk)
            * get,lib,protobuf,_tag.v3.11.4
              - CM script: [get-lib-protobuf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf)
-           * set,device,mode,qaic
-             * `if (CM_QAIC_VC in on)`
-             - CM script: [set-device-settings-qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic)
-           * set,device,mode,qaic,_ecc
-             * `if (CM_QAIC_ECC in yes)`
-             - CM script: [set-device-settings-qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic)
 
     </details>
 
@@ -404,7 +398,7 @@ ___
 
     * `_dl2q.24xlarge`
       - Environment variables:
-        - *CM_QAIC_DEVICES*: `0,1,2,3,4,5,6,7`
+        - *kilt_device_ids*: `0,1,2,3,4,5,6,7`
         - *qaic_queue_length*: `4`
       - Workflow:
 
@@ -420,7 +414,7 @@ ___
 <summary>Click here to expand this section.</summary>
 
 * `--count=value`  &rarr;  `CM_MLPERF_LOADGEN_QUERY_COUNT=value`
-* `--devices=value`  &rarr;  `CM_QAIC_DEVICES=value`
+* `--devices=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DEVICES=value`
 * `--max_batchsize=value`  &rarr;  `CM_MLPERF_LOADGEN_MAX_BATCHSIZE=value`
 * `--mlperf_conf=value`  &rarr;  `CM_MLPERF_CONF=value`
 * `--mode=value`  &rarr;  `CM_MLPERF_LOADGEN_MODE=value`
@@ -463,7 +457,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: `kilt`
 * CM_MLPERF_SKIP_RUN: `no`
 * CM_KILT_REPO_URL: `https://github.com/GATEOverflow/kilt-mlperf`
-* CM_QAIC_DEVICES: `0`
+* kilt_device_ids: `0`
 * kilt_max_wait_abs: `10000`
 * verbosity: `1`
 * loadgen_trigger_cold_run: `0`

@@ -31,8 +31,6 @@ cmr "get coco dataset" ^
   --adr.get-dataset-coco-data.local_path="D:\Work2\COCO-2017-val\val2017.zip" ^
   --adr.get-dataset-coco-data.env.CM_EXTRACT_TO_FOLDER="D:\Work22" ^
   --adr.get-dataset-coco-annotations.local_path="D:\Work2\COCO-2017-val\annotations_trainval2017.zip" ^
-
-  
   --adr.get-dataset-coco-annotations.extract_to... env.CM_EXTRACT_TO_FOLDER="D:\Work22"
 
 cmr "get coco dataset" --adr.get-dataset-coco-data.env.CM_DOWNLOAD_LOCAL_FILE_PATH="D:\Work1\!!Work\COCO 2017 val\val2017.zip"

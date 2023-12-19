@@ -1,5 +1,5 @@
 # Identification of this CM script
-alias: reproduce-mlperf-inference-kilt
+alias: reproduce-mlperf-inference-qualcomm
 uid: eef1aca5d7c0470e
 cache: false
 can_force_cache: true
@@ -17,6 +17,8 @@ tags:
   - mlperf
   - inference
   - harness
+  - qualcomm-harness
+  - qualcomm
   - kilt-harness
   - kilt
 
