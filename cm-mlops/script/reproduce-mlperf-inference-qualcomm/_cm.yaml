@@ -17,6 +17,8 @@ tags:
   - mlperf
   - inference
   - harness
+  - qualcomm-harness
+  - qualcomm
   - kilt-harness
   - kilt
 
