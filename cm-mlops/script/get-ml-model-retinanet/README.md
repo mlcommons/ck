@@ -107,6 +107,7 @@ ___
       - Environment variables:
         - *CM_TMP_ML_MODEL_RETINANET_NO_NMS*: `yes`
         - *CM_ML_MODEL_RETINANET_NO_NMS*: `yes`
+        - *CM_QAIC_PRINT_NODE_PRECISION_INFO*: `yes`
       - Workflow:
     * `_onnx,fp32`
       - Environment variables:
@@ -223,6 +224,7 @@ ___
 
 * `CM_ML_MODEL_FILE`
 * `CM_ML_MODEL_FILE_WITH_PATH`
+* `CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH`
 ___
 ### Maintainers
 

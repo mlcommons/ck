@@ -163,13 +163,9 @@ ___
       - Environment variables:
         - *CM_CALIBRATE_OPENIMAGES*: `yes`
         - *CM_QAIC_COMPILER_ARGS*: ``
-        - *CM_QAIC_COMPILER_PARAMS*: `-enable-channelwise -profiling-threads=<<<CM_HOST_CPU_TOTAL_CORES>>> -onnx-define-symbol=batch_size,<<<CM_QAIC_MODEL_BATCH_SIZE>>> -node-precision-info=<<<CM_QAIC_NODE_PRECISION_FILE_PATH>>>`
-        - *CM_IMAGE_ORDER_FILE_PATH*: `retinanet/openimages_cal_images_list.txt`
+        - *CM_QAIC_COMPILER_PARAMS*: `-enable-channelwise -profiling-threads=<<<CM_HOST_CPU_TOTAL_CORES>>> -onnx-define-symbol=batch_size,<<<CM_QAIC_MODEL_BATCH_SIZE>>> -node-precision-info=<<<CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH>>>`
         - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_retinanet_no_nms_mlperf`
       - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * download,file,_url.https://raw.githubusercontent.com/arjunsuresh/ck-qaic/main/package/model-qaic-calibrate/retinanet/node-precision.yaml
-             - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
 
     </details>
 
