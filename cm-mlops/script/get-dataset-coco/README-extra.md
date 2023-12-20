@@ -1,4 +1,6 @@
-﻿This CM automation recipe helps to download [COCO datasets](https://cocodataset.org).
+﻿This CM automation recipe helps to download or detect [COCO datasets](https://cocodataset.org)
+and register them in the CM cache with various environment variables 
+to be reused in CM workflows and other projects.
 
 ## Use-cases
 
