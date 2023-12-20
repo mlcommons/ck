@@ -3,15 +3,6 @@
 CUR_DIR=$PWD
 
 
-if [ ! -d "llvm" ]; then
-   echo "******************************************************"
-   echo "Cloning LLVM from ${CM_GIT_URL} with branch ${CM_GIT_CHECKOUT}..."
-
-   git clone -b "${CM_GIT_CHECKOUT}" ${CM_GIT_URL} llvm
-   if [ "${?}" != "0" ]; then exit 1; fi
-fi
-
-
 INSTALL_DIR="${CUR_DIR}/install"
 
 # If install exist, then configure was done 
@@ -21,13 +12,8 @@ if [ ! -d "${INSTALL_DIR}" ]; then
     mkdir -p build
     cd build
 
-    cmake \
-        -DLLVM_ENABLE_PROJECTS=clang \
-        -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}" \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DLLVM_ENABLE_RTTI=ON \
-        -DLLVM_INSTALL_UTILS=ON \
-        ../llvm/llvm
+    ${CM_LLVM_CMAKE_CMD}
+
     if [ "${?}" != "0" ]; then exit 1; fi
 
     mkdir -p ${INSTALL_DIR}
@@ -52,4 +38,4 @@ cd ${CUR_DIR}
 rm -rf build
 
 echo "******************************************************"
-echo "LLVM was built and installed to ${INSTALL_DIR} ..."
+echo "LLVM is built and installed to ${INSTALL_DIR} ..."

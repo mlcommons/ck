@@ -2293,10 +2293,15 @@ class CAutomation(Automation):
                             else:
                                 item_value[item_key] = item_value[item_key].replace("#", variation_tag_dynamic_suffix)
                     else:
-                        value[item] = value[item].replace("#", variation_tag_dynamic_suffix)
+                        if type(item_value) is list: # lists inside env...
+                            for i,l_item in enumerate(item_value):
+                                if type(l_item) is str:
+                                    item_value[i] = l_item.replace("#", variation_tag_dynamic_suffix)
+                        else:
+                            value[item] = value[item].replace("#", variation_tag_dynamic_suffix)
 
             else: #scalar value
-                            pass #no dynamic update for now
+                pass #no dynamic update for now
 
 
     ##############################################################################
