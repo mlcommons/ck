@@ -831,8 +831,11 @@ variations:
       - tags: get,generic-python-lib,_package.torch-fidelity
         names:
           - torch-fidelity
+      - tags: get,generic-python-lib,_package.open_clip_torch
+        names:
+          - open-clip
     adr:
-      mlperf-implementation:
+      mlperf-implementation1:
         tags: _repo.https://github.com/pgmpablo157321/inference
         version: custom
 
