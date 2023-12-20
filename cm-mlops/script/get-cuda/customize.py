@@ -208,4 +208,6 @@ def postprocess(i):
     if 'CM_CUDA_PATH_LIB' in env and not cuda_system_path_install:
         env['+ LDFLAGS'].append("-L"+env['CM_CUDA_PATH_LIB'])
 
+    env['CM_CUDA_VERSION_STRING'] = "cu"+env['CM_CUDA_VERSION'].replace(".", "")
+
     return {'return':0, 'version': version}
