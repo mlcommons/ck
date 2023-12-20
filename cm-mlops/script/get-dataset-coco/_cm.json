@@ -46,7 +46,8 @@
         "_url.": [
           "CM_DATASET_COCO_URL_DATA_FULL"
         ]
-      }
+      },
+      "verify":false
     },
     {
       "env": {
@@ -70,7 +71,8 @@
         "_url.": [
           "CM_DATASET_COCO_URL_ANNOTATIONS_FULL"
         ]
-      }
+      },
+      "verify":false
     }
   ],
   "tags": [
@@ -99,6 +101,19 @@
         "CM_DATASET_COCO_TYPE": "val"
       },
       "group": "type"
+    },
+    "complete": {
+      "default": true,
+      "env": {
+        "CM_DATASET_COCO_SIZE": "complete"
+      },
+      "group": "size"
+    },
+    "small": {
+      "env": {
+        "CM_DATASET_COCO_SIZE": "small"
+      },
+      "group": "size"
     }
   }
 }

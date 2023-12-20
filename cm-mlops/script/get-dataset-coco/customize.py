@@ -44,15 +44,25 @@ def preprocess(i):
         tp = env['CM_DATASET_COCO_TYPE']
 
     # Prepare URL
-    url_data = env['CM_DATASET_COCO_URL_DATA']
-    url_ann = env['CM_DATASET_COCO_URL_ANNOTATIONS']
+    size=env.get('CM_DATASET_COCO_SIZE','')
+    if size=='small' and tp=='val' and ver=='2017':
+        # We prepared a small version with 50 images for val 2017
 
-    
-    filename_data = tp + ver + '.zip'
-    filename_annotation = 'annotations_trainval' + ver + '.zip'
+        filename_data = 'val2017_small.zip'
+        filename_annotation = 'annotations_val2017_small.zip'
 
-    url_data_full = url_data + '/' + filename_data
-    url_ann_full = url_ann + '/' + filename_annotation
+        url_data_full = 'https://www.dropbox.com/scl/fi/whokyb7b7hyjqqotruyqb/{}?rlkey=hhgt4xtir91ej0nro6h69l22s&dl=0'.format(filename_data)
+        url_ann_full = 'https://www.dropbox.com/scl/fi/bu41y62v9zqhee8w7q6z3/{}?rlkey=seqtgozldkc0ztu76kbd47p5w&dl=0'.format(filename_annotation)
+
+    else:
+        url_data = env['CM_DATASET_COCO_URL_DATA']
+        url_ann = env['CM_DATASET_COCO_URL_ANNOTATIONS']
+        
+        filename_data = tp + ver + '.zip'
+        filename_annotation = 'annotations_trainval' + ver + '.zip'
+
+        url_data_full = url_data + '/' + filename_data
+        url_ann_full = url_ann + '/' + filename_annotation
 
     # Add extra tags with type and version to "download-and-extract" deps to be able to reuse them
     # Add "from" and "to" to "download-and-extract" deps
@@ -111,8 +121,12 @@ def preprocess(i):
 
     if ver == '2017':
         if tp == 'val':
-            md5sum_data = '442b8da7639aecaf257c1dceb8ba8c80'
-            md5sum_ann = 'f4bbac642086de4f52a3fdda2de5fa2c'
+            if size == 'small':
+               md5sum_data = '16fab985a33afa66beeb987f68c2023c'
+               md5sum_ann = '78c0cfd9fc32c825d4ae693fd0d91407'
+            else:
+               md5sum_data = '442b8da7639aecaf257c1dceb8ba8c80'
+               md5sum_ann = 'f4bbac642086de4f52a3fdda2de5fa2c'
 
     if md5sum_data != '':
         env['CM_DATASET_COCO_MD5SUM_DATA'] = md5sum_data

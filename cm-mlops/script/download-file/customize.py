@@ -43,7 +43,7 @@ def preprocess(i):
         extra_download_options = env.get('CM_DOWNLOAD_EXTRA_OPTIONS', '')
 
         verify_ssl = env.get('CM_VERIFY_SSL', "True")
-        if verify_ssl.lower() in [ "no", "false" ]:
+        if str(verify_ssl).lower() in [ "no", "false" ]:
             verify_ssl = False
             if tool == 'wget':
                 extra_download_options += " --no-check-certificate"
