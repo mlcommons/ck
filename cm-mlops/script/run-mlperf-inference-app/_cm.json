@@ -344,6 +344,12 @@
         },
         "openorca-preprocessed": {
           "tags": "_full"
+        },
+        "coco2014-original": {
+          "tags": "_full"
+        },
+        "coco2014-preprocessed": {
+          "tags": "_full"
         }
       },
       "env": {

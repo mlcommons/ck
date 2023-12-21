@@ -374,7 +374,6 @@ variations:
       skip_if_env:
         CM_MLPERF_IMPLEMENTATION:
         - nvidia-original
-        - reference
       names:
       - mlperf-accuracy-script
       - coco2014-accuracy-script

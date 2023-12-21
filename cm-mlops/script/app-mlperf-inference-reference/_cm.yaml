@@ -473,6 +473,8 @@ deps:
 
   ## Squad for BERT
   - tags: get,dataset,squad,original
+    names:
+    - cnndm-preprocessed
     enable_if_env:
       CM_MODEL:
       - bert-99
@@ -486,6 +488,8 @@ deps:
 
   ## COCO for SDXL
   - tags: get,dataset,coco2014,_validation
+    names:
+    - coco2014-preprocessed
     enable_if_env:
       CM_MODEL:
       - sdxl
@@ -500,6 +504,8 @@ deps:
 
   ## Kits19 for 3d-unet
   - tags: get,dataset,kits19,preprocessed
+    names:
+    - kits19-preprocessed
     enable_if_env:
       CM_MODEL:
       - 3d-unet-99
@@ -507,6 +513,8 @@ deps:
 
   ## Librispeech for rnnt
   - tags: get,dataset,librispeech,preprocessed
+    names:
+    - librispeech-preprocessed
     enable_if_env:
       CM_MODEL:
       - rnnt
@@ -853,6 +861,10 @@ variations:
       - tags: get,generic-python-lib,_package.open_clip_torch
         names:
           - open-clip
+      - tags: get,generic-python-lib,_package.scipy
+        names:
+          - scipy
+        version: 1.10.1
 
   llama2-70b:
     group: models

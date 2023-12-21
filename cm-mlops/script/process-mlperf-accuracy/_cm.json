@@ -209,6 +209,21 @@
         "CM_DATASET": "squad"
       },
       "group": "dataset"
+    },
+    "coco2014": {
+      "deps": [
+        {
+          "names": [
+            "coco2014-dataset",
+            "coco2014-original"
+          ],
+          "tags": "get,dataset,coco2014,original"
+        }
+      ],
+      "env": {
+        "CM_DATASET": "coco2014"
+      },
+      "group": "dataset"
     }
   }
 }
