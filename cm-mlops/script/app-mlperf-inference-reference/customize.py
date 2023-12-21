@@ -266,6 +266,19 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
                 " --output " + env['CM_MLPERF_OUTPUT_DIR'] + \
                 " "#--model-path " + env['MODEL_DIR']
 
+    elif "llama2-70b" in env['CM_MODEL']:
+        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "llama2-70b")
+        backend = env['CM_MLPERF_BACKEND']
+        device = env['CM_MLPERF_DEVICE'] if env['CM_MLPERF_DEVICE'] != "gpu" else "cuda"
+        cmd = env['CM_PYTHON_BIN_WITH_PATH'] + " main.py " \
+                " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+                " --dataset-path " + env['CM_DATASET_PREPROCESSED_PATH'] + \
+                " --device " + device.replace("cuda", "cuda:0") + \
+                 env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
+                 scenario_extra_options + mode_extra_options + \
+                " --output-log-dir " + env['CM_MLPERF_OUTPUT_DIR'] + \
+                " --model-path " + env['MODEL_DIR']
+
     elif "3d-unet" in env['CM_MODEL']:
 
         env['RUN_DIR'] = env['CM_MLPERF_INFERENCE_3DUNET_PATH']

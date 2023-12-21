@@ -338,6 +338,12 @@
         },
         "openimages-preprocessed": {
           "tags": "_full"
+        },
+        "openorca-original": {
+          "tags": "_full"
+        },
+        "openorca-preprocessed": {
+          "tags": "_full"
         }
       },
       "env": {

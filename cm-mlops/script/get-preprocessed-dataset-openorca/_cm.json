@@ -33,8 +33,7 @@
       "names": [
         "inference-src"
       ],
-      "tags": "mlperf,inference,source,_repo.https://github.com/attafosu/inference,_branch.tattafosu/llama2-70b",
-      "version": "custom"
+      "tags": "mlperf,inference,source"
     },
     {
       "tags": "get,generic-python-lib,_package.pyarrow",
@@ -47,13 +46,16 @@
       "names": [
         "fastparquet"
       ]
+    },
+    {
+      "tags": "get,ml-model,llama2"
     }
   ],
   "env": {
     "CM_DATASET": "OPENORCA"
   },
   "new_env_keys": [
-    "CM_PREPROCESSED_DATASET_*"
+    "CM_DATASET_PREPROCESSED_PATH"
   ],
   "tags": [
     "get",

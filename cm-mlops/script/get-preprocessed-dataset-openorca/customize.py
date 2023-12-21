@@ -8,7 +8,7 @@ def preprocess(i):
     inference_src = env['CM_MLPERF_INFERENCE_SOURCE']
 
     run_dir = os.path.join(inference_src, 'language', 'llama2-70b')
-    model_dir = '/home/arjun/Llama-2-70b-chat-hf'
+    model_dir = env['CM_ML_MODEL_PATH']
     run_cmd = env['CM_PYTHON_BIN_WITH_PATH'] + ' processorca.py --dataset_pq_path=' + env['CM_DATASET_OPENORCA_PARQUET'] + ' --model_dir=' + model_dir +' --seqlen_limit=2048 --export_dir=' + os.path.join(os.getcwd(), "processed-openorca") + ' --num_total_samples=' + env['CM_DATASET_SIZE']
 
     env['CM_RUN_DIR'] = run_dir

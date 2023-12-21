@@ -385,6 +385,17 @@ deps:
       CM_MLPERF_CUSTOM_MODEL_PATH:
       - "on"
 
+  ## LLAMA2-70B
+  - tags: get,ml-model,llama2
+    names:
+    - ml-model
+    - llama2-model
+    enable_if_env:
+      CM_MODEL:
+      - llama2-70b
+    skip_if_env:
+      CM_MLPERF_CUSTOM_MODEL_PATH:
+      - "on"
 
   ## 3d-unet
   - tags: get,ml-model,medical-imaging,3d-unet
@@ -478,6 +489,14 @@ deps:
     enable_if_env:
       CM_MODEL:
       - sdxl
+
+  ## OpenOrca for LLAMA2-70b
+  - tags: get,preprocessed,dataset,openorca,_validation
+    names:
+    - openorca-preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - llama2-70b
 
   ## Kits19 for 3d-unet
   - tags: get,dataset,kits19,preprocessed
@@ -834,6 +853,15 @@ variations:
       - tags: get,generic-python-lib,_package.open_clip_torch
         names:
           - open-clip
+
+  llama2-70b:
+    group: models
+    env:
+      CM_MODEL: llama2-70b
+    deps:
+      - tags: get,generic-python-lib,_package.transformers
+        names:
+          - transformers
 
   3d-unet-99.9:
     group: models
