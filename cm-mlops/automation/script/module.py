@@ -2450,6 +2450,12 @@ class CAutomation(Automation):
                 if from_cache and not d.get("dynamic", None):
                     continue
 
+                update_tags_from_env_with_prefix = d.get("update_tags_from_env_with_prefix", {})
+                for t in update_tags_from_env_with_prefix:
+                    for key in update_tags_from_env_with_prefix[t]:
+                        if env.get(key, '').strip() != '':
+                            d['tags']+=","+t+env[key]
+
                 for key in clean_env_keys_deps:
                     if '?' in key or '*' in key:
                         import fnmatch
@@ -2488,12 +2494,6 @@ class CAutomation(Automation):
                 for t in update_tags_from_env:
                     if env.get(t, '').strip() != '':
                         d['tags']+=","+env[t]
-
-                update_tags_from_env_with_prefix = d.get("update_tags_from_env_with_prefix", {})
-                for t in update_tags_from_env_with_prefix:
-                    for key in update_tags_from_env_with_prefix[t]:
-                        if env.get(key, '').strip() != '':
-                            d['tags']+=","+t+env[key]
 
                 inherit_variation_tags = d.get("inherit_variation_tags", False)
                 skip_inherit_variation_groups = d.get("skip_inherit_variation_groups", [])
