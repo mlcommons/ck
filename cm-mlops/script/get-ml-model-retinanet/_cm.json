@@ -121,6 +121,12 @@
           ]
         },
         {
+          "tags": "get,generic-python-lib,_package.onnx"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.onnxsim"
+        },
+        {
           "tags": "download,file,_url.https://raw.githubusercontent.com/arjunsuresh/ck-qaic/main/package/model-onnx-mlperf-retinanet-no-nms/remove-nms-and-extract-priors.patch",
           "extra_cache_tags": "retinanet,training,patch,file",
           "force_cache": true,
