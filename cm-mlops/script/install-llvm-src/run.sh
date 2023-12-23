@@ -4,33 +4,25 @@ CUR_DIR=$PWD
 
 
 INSTALL_DIR="${CUR_DIR}/install"
+echo "INSTALL_DIR=${INSTALL_DIR}"
+
+rm -rf "${INSTALL_DIR}"
+mkdir -p build
+#rm -rf build
 
 # If install exist, then configure was done 
 if [ ! -d "${INSTALL_DIR}" ]; then
     echo "******************************************************"
 
-    mkdir -p build
     cd build
 
-    ${CM_LLVM_CMAKE_CMD}
-
+    echo "${CM_LLVM_CMAKE_CMD}"
+    eval "${CM_LLVM_CMAKE_CMD}"
+    ninja
+    ninja install
     if [ "${?}" != "0" ]; then exit 1; fi
 
     mkdir -p ${INSTALL_DIR}
-fi
-
-
-if [ "${CM_RENEW_CACHE_ENTRY}" != "yes" ]; then
-
-    echo "******************************************************"
-    CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_TOTAL_CORES}}
-    CM_MAKE_CORES=${CM_MAKE_CORES:-2}
-
-    echo "Using ${CM_MAKE_CORES} cores ..."
-
-    cd build
-    cmake --build . --target install -j${CM_MAKE_CORES}
-    if [ "${?}" != "0" ]; then exit 1; fi
 fi
 
 # Clean build directory (too large)

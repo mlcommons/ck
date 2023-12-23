@@ -24,7 +24,7 @@ def preprocess(i):
 
     clang_file_name = "clang"
 
-    cmake_cmd = "cmake " + os.path.join(env["CM_LLVM_SRC_REPO_PATH"], "llvm") + " -GNinja -DCMAKE_BUILD_TYPE="+llvm_build_type + " -DLLVM_ENABLE_PROJECTS="+ enable_projects+ " -DENABLE_RUNTIMES="+enable_runtimes + " -DCMAKE_INSTALL_PREFIX=" + os.path.join(os.getcwd(), "install")+ " -DLLVM_ENABLE_RTTI=ON  -DLLVM_INSTALL_UTILS=ON "
+    cmake_cmd = "cmake " + os.path.join(env["CM_LLVM_SRC_REPO_PATH"], "llvm") + " -GNinja -DCMAKE_BUILD_TYPE="+llvm_build_type + " -DLLVM_ENABLE_PROJECTS="+ enable_projects+ " -DLLVM_ENABLE_RUNTIMES='"+enable_runtimes + "' -DCMAKE_INSTALL_PREFIX=" + os.path.join(os.getcwd(), "install")+ " -DLLVM_ENABLE_RTTI=ON  -DLLVM_INSTALL_UTILS=ON "
     need_version = env.get('CM_VERSION','')
     #cm_git_checkout = 'master' if need_version =='' else 'llvmorg-' + need_version
 

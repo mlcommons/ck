@@ -15,6 +15,9 @@
       "tags": "get,cmake"
     },
     {
+      "tags": "get,generic-sys-util,_ninja-build"
+    },
+    {
       "tags": "get,git,repo",
       "update_tags_from_env_with_prefix": {
         "_repo.": [ "CM_GIT_URL" ],
@@ -76,6 +79,13 @@
         "CM_LLVM_BUILD_TYPE": "debug"
       }
     },
+    "full-history": {
+      "ad": {
+        "llvm-src-repo": {
+          "tags": "_full-history"
+        }
+      }
+    },
     "repo.#": {
       "group": "repo",
       "env": {
@@ -103,6 +113,9 @@
       }
     },
     "tag.#": {
+      "base": [
+        "full-history"
+      ],
       "env": {
         "CM_GIT_CHECKOUT_TAG": "#"
       }
