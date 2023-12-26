@@ -13,6 +13,28 @@
     },
     {
       "tags": "get,cmake"
+    },
+    {
+      "tags": "get,generic-sys-util,_ninja-build"
+    },
+    {
+      "tags": "get,git,repo",
+      "update_tags_from_env_with_prefix": {
+        "_repo.": [ "CM_GIT_URL" ],
+        "_branch.": [ "CM_GIT_CHECKOUT" ],
+        "_tag.": [ "CM_GIT_CHECKOUT_TAG" ],
+        "_sha.": [ "CM_GIT_CHECKOUT_SHA" ]
+      },
+      "force_env_keys": [
+        "CM_GIT_*"
+      ],
+      "names": [
+        "llvm-src-repo"
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_LLVM_SRC_REPO_PATH"
+      },
+      "extra_cache_tags": "llvm,src,llvm-src,llvm-src-repo"
     }
   ],
   "env": {
@@ -22,6 +44,8 @@
   "new_env_keys": [
     "CM_LLVM_*",
     "CM_GET_DEPENDENT_CACHED_PATH"
+  ],
+  "prehook_deps": [
   ],
   "post_deps": [
     {
@@ -40,5 +64,63 @@
     "llvm",
     "src-llvm"
   ],
-  "uid": "2af16e9a6c5f4702"
+  "uid": "2af16e9a6c5f4702",
+  "variations": {
+    "release": {
+      "group": "build-type",
+      "default": true,
+      "env": {
+        "CM_LLVM_BUILD_TYPE": "release"
+      }
+    },
+    "debug": {
+      "group": "build-type",
+      "env": {
+        "CM_LLVM_BUILD_TYPE": "debug"
+      }
+    },
+    "full-history": {
+      "ad": {
+        "llvm-src-repo": {
+          "tags": "_full-history"
+        }
+      }
+    },
+    "repo.#": {
+      "group": "repo",
+      "env": {
+        "CM_GIT_URL": "#"
+      }
+    },
+    "clang": {
+      "env": {
+        "CM_LLVM_ENABLE_PROJECTS": "clang"
+      }
+    },
+    "runtimes.#": {
+      "env": {
+        "CM_LLVM_ENABLE_RUNTIMES": "#"
+      }
+    },
+    "branch.#": {
+      "env": {
+        "CM_GIT_CHECKOUT": "#"
+      }
+    },
+    "sha.#": {
+      "env": {
+        "CM_GIT_CHECKOUT_SHA": "#"
+      }
+    },
+    "tag.#": {
+      "base": [
+        "full-history"
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT_TAG": "#"
+      }
+    }
+  },
+  "versions": {
+  }
 }

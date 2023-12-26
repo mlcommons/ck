@@ -23,8 +23,8 @@
       "names": [
         "inference-src"
       ],
-      "tags": "mlperf,inference,source,_repo.https://github.com/pgmpablo157321/inference,_branch.stable_diffusion_reference",
-      "version": "custom"
+      "tags": "mlperf,inference,source",
+      "version": "master"
     }
   ],
   "env": {

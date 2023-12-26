@@ -3,48 +3,26 @@
 CUR_DIR=$PWD
 
 
-if [ ! -d "llvm" ]; then
-   echo "******************************************************"
-   echo "Cloning LLVM from ${CM_GIT_URL} with branch ${CM_GIT_CHECKOUT}..."
-
-   git clone -b "${CM_GIT_CHECKOUT}" ${CM_GIT_URL} llvm
-   if [ "${?}" != "0" ]; then exit 1; fi
-fi
-
-
 INSTALL_DIR="${CUR_DIR}/install"
+echo "INSTALL_DIR=${INSTALL_DIR}"
+
+rm -rf "${INSTALL_DIR}"
+mkdir -p build
+#rm -rf build
 
 # If install exist, then configure was done 
 if [ ! -d "${INSTALL_DIR}" ]; then
     echo "******************************************************"
 
-    mkdir -p build
     cd build
 
-    cmake \
-        -DLLVM_ENABLE_PROJECTS=clang \
-        -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}" \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DLLVM_ENABLE_RTTI=ON \
-        -DLLVM_INSTALL_UTILS=ON \
-        ../llvm/llvm
+    echo "${CM_LLVM_CMAKE_CMD}"
+    eval "${CM_LLVM_CMAKE_CMD}"
+    ninja
+    ninja install
     if [ "${?}" != "0" ]; then exit 1; fi
 
     mkdir -p ${INSTALL_DIR}
-fi
-
-
-if [ "${CM_RENEW_CACHE_ENTRY}" != "yes" ]; then
-
-    echo "******************************************************"
-    CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_TOTAL_CORES}}
-    CM_MAKE_CORES=${CM_MAKE_CORES:-2}
-
-    echo "Using ${CM_MAKE_CORES} cores ..."
-
-    cd build
-    cmake --build . --target install -j${CM_MAKE_CORES}
-    if [ "${?}" != "0" ]; then exit 1; fi
 fi
 
 # Clean build directory (too large)
@@ -52,4 +30,4 @@ cd ${CUR_DIR}
 rm -rf build
 
 echo "******************************************************"
-echo "LLVM was built and installed to ${INSTALL_DIR} ..."
+echo "LLVM is built and installed to ${INSTALL_DIR} ..."

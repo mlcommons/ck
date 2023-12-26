@@ -13,6 +13,9 @@
   },
   "deps": [
     {
+      "tags": "detect,cpu"
+    },
+    {
       "tags": "get,qaic,apps,sdk",
       "names": [
         "qaic-apps-sdk"
@@ -286,7 +289,7 @@
         "CM_COMPILE_RETINANET": "on",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_retinanet_no_nms_mlperf",
         "CM_QAIC_MODEL_COMPILER_ARGS": "-aic-enable-depth-first",
-        "CM_QAIC_MODEL_COMPILER_PARAMS_BASE": "-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,1 -node-precision-info=<<<CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH>>>"
+        "CM_QAIC_MODEL_COMPILER_PARAMS_BASE": "-enable-channelwise -onnx-define-symbol=batch_size,1 -node-precision-info=<<<CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH>>> -quantization-schema=asymmetric -quantization-calibration=None  -execute-nodes-in-fp16=Sigmoid"
       }
     },
     "retinanet,offline": {

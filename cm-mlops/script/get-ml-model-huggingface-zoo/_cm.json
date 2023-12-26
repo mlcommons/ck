@@ -30,6 +30,7 @@
     "ml-model",
     "model",
     "zoo",
+    "raw",
     "model-zoo",
     "huggingface"
   ],

@@ -674,8 +674,7 @@
     "tensorrt": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "tensorrt",
-        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
-        "CM_TORCH_CUDA": "cu118",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/<<<CM_CUDA_VERSION_STRING>>>",
         "CM_TORCH_VERSION_EXTRA": "CUDA"
       },
       "new_env_keys": [
@@ -685,8 +684,7 @@
     "torch_tensorrt": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch-tensorrt",
-        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
-        "CM_TORCH_CUDA": "cu118",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/<<<CM_CUDA_VERSION_STRING>>>",
         "CM_TORCH_VERSION_EXTRA": "CUDA"
       },
       "new_env_keys": [
@@ -744,9 +742,8 @@
       },
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
-        "CM_GENERIC_PYTHON_PIP_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
+        "CM_GENERIC_PYTHON_PIP_INDEX_URL": "https://download.pytorch.org/whl/<<<CM_CUDA_VERSION_STRING>>>",
         "CM_GENERIC_PYTHON_PIP_EXTRA": " --pre",
-        "CM_TORCH_CUDA": "cu118",
         "CM_TORCH_VERSION_EXTRA": "CUDA"
       },
       "new_env_keys": [
@@ -824,8 +821,7 @@
       },
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
-        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
-        "CM_TORCH_CUDA": "cu118",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/<<<CM_CUDA_VERSION_STRING>>>",
         "CM_TORCH_VERSION_EXTRA": "CUDA"
       },
       "new_env_keys": [
@@ -855,9 +851,8 @@
       },
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio",
-        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
-        "CM_TORCHAUDIO_VERSION_EXTRA": "CUDA",
-        "CM_TORCH_CUDA": "cu118"
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/<<<CM_CUDA_VERSION_STRING>>>",
+        "CM_TORCHAUDIO_VERSION_EXTRA": "CUDA"
       },
       "new_env_keys": [
         "CM_TORCHAUDIO_VERSION*"

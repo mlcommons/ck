@@ -73,7 +73,7 @@ def preprocess(i):
         if file.endswith(".c") or file.endswith(".cpp"):
             source_files.append(file)
 
-    if 'SERVER' not in env['CM_BENCHMARK']:
+    if 'SERVER' not in env.get('CM_BENCHMARK', ''):
         source_files.append(os.path.join(kilt_root, "benchmarks", "harness", "harness.cpp"))
 
     #source_files.append(env['CM_QAIC_API_SRC_FILE'])

@@ -374,12 +374,35 @@ variations:
       skip_if_env:
         CM_MLPERF_IMPLEMENTATION:
         - nvidia-original
-        - reference
       names:
       - mlperf-accuracy-script
       - coco2014-accuracy-script
       tags: run,accuracy,mlperf,_coco2014
 
+  llama2-70b:
+    group:
+      model
+    env:
+      CM_MODEL:
+        llama2-70b
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _llama2-70b
+    post_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      skip_if_env:
+        CM_MLPERF_IMPLEMENTATION:
+        - nvidia-original
+        - reference
+      names:
+      - mlperf-accuracy-script
+      - open-orca-accuracy-script
+      tags: run,accuracy,mlperf,_open-orca
   rnnt:
     group:
       model

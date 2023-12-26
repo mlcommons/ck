@@ -141,6 +141,20 @@
         }
       }
     },
+    "ninja-build": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "ninja-build"
+      },
+      "state": {
+        "ninja-build": {
+          "apt": "ninja-build",
+          "dnf": "ninja-build",
+          "yum": "ninja-build",
+          "brew": "ninja-build",
+          "zypper": "ninja-build"
+        }
+      }
+    },
     "rsync": {
       "env": {
         "CM_SYS_UTIL_NAME": "rsync"
