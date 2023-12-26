@@ -32,7 +32,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,ml-model,model,zoo,model-zoo,huggingface*
+* CM "database" tags to find this script: *get,ml-model,model,zoo,raw,model-zoo,huggingface*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -49,9 +49,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,ml-model,model,zoo,model-zoo,huggingface[,variations] [--input_flags]`
+1. `cm run script --tags=get,ml-model,model,zoo,raw,model-zoo,huggingface[,variations] [--input_flags]`
 
-2. `cmr "get ml-model model zoo model-zoo huggingface[ variations]" [--input_flags]`
+2. `cmr "get ml-model model zoo raw model-zoo huggingface[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -68,7 +68,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,ml-model,model,zoo,model-zoo,huggingface'
+                  'tags':'get,ml-model,model,zoo,raw,model-zoo,huggingface'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -85,13 +85,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,ml-model,model,zoo,model-zoo,huggingface"```
+```cmr "cm gui" --script="get,ml-model,model,zoo,raw,model-zoo,huggingface"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,ml-model,model,zoo,model-zoo,huggingface) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,ml-model,model,zoo,raw,model-zoo,huggingface) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get ml-model model zoo model-zoo huggingface[ variations]" [--input_flags]`
+`cm docker script "get ml-model model zoo raw model-zoo huggingface[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -187,7 +187,7 @@ ___
 
 ___
 ### Script output
-`cmr "get ml-model model zoo model-zoo huggingface[,variations]" [--input_flags] -j`
+`cmr "get ml-model model zoo raw model-zoo huggingface[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 * `CM_ML_MODEL*`

@@ -12,6 +12,7 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -51,11 +52,13 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,dataset,coco[,variations] `
+1. `cm run script --tags=get,dataset,coco[,variations] [--input_flags]`
 
-2. `cmr "get dataset coco[ variations]" `
+2. `cmr "get dataset coco[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
+
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### Run this script from Python
 
@@ -91,13 +94,29 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,dataset,coco) to g
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get dataset coco[ variations]" `
+`cm docker script "get dataset coco[ variations]" [--input_flags]`
 
 ___
 ### Customization
 
 
 #### Variations
+
+  * Group "**size**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_complete`** (default)
+      - Environment variables:
+        - *CM_DATASET_COCO_SIZE*: `complete`
+      - Workflow:
+    * `_small`
+      - Environment variables:
+        - *CM_DATASET_COCO_SIZE*: `small`
+      - Workflow:
+
+    </details>
+
 
   * Group "**type**"
     <details>
@@ -129,7 +148,24 @@ ___
 
 #### Default variations
 
-`_2017,_val`
+`_2017,_complete,_val`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--from=value`  &rarr;  `CM_FROM=value`
+* `--keep=value`  &rarr;  `CM_KEEP=value`
+* `--to=value`  &rarr;  `CM_TO=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "from":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
@@ -167,7 +203,7 @@ ___
 
 ___
 ### Script output
-`cmr "get dataset coco[,variations]"  -j`
+`cmr "get dataset coco[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 * `CM_DATASET_COCO*`

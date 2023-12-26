@@ -155,7 +155,7 @@ ___
      * get,dataset,original,openorca
        * CM names: `--adr.['openorca-original', 'dataset-original']...`
        - CM script: [get-dataset-openorca](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openorca)
-     * mlperf,inference,source,_repo.https://github.com/attafosu/inference,_branch.tattafosu/llama2-70b
+     * mlperf,inference,source
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,generic-python-lib,_package.pyarrow
@@ -164,6 +164,8 @@ ___
      * get,generic-python-lib,_package.fastparquet
        * CM names: `--adr.['fastparquet']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,ml-model,llama2
+       - *Warning: no scripts found*
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openorca/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openorca/_cm.json)
   1. ***Run native script if exists***
@@ -178,9 +180,10 @@ ___
 `cmr "get dataset openorca language-processing preprocessed[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_PREPROCESSED_DATASET_*`
+* `CM_DATASET_PREPROCESSED_PATH`
 #### New environment keys auto-detected from customize
 
+* `CM_DATASET_PREPROCESSED_PATH`
 ___
 ### Maintainers
 

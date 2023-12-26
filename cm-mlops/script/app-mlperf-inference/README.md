@@ -149,7 +149,7 @@ ___
            * reproduce,mlperf,inference,kilt
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['kilt', 'kilt-harness', 'mlperf-inference-implementation']...`
-             - CM script: [reproduce-mlperf-inference-kilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-kilt)
+             - CM script: [reproduce-mlperf-inference-qualcomm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm)
     * `_nvidia`
       - Environment variables:
         - *CM_MLPERF_IMPLEMENTATION*: `nvidia`
@@ -352,6 +352,15 @@ ___
       - Environment variables:
         - *CM_MODEL*: `gptj-99.9`
       - Workflow:
+    * `_llama2-70b`
+      - Environment variables:
+        - *CM_MODEL*: `llama2-70b`
+      - Workflow:
+        1. ***Read "post_deps" on other CM scripts***
+           * run,accuracy,mlperf,_open-orca
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION not in ['nvidia-original', 'reference'])`
+             * CM names: `--adr.['mlperf-accuracy-script', 'open-orca-accuracy-script']...`
+             - *Warning: no scripts found*
     * `_mobilenet`
       - Environment variables:
         - *CM_MODEL*: `mobilenet`
@@ -400,9 +409,9 @@ ___
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
            * run,accuracy,mlperf,_coco2014
-             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION not in ['nvidia-original', 'reference'])`
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia-original)`
              * CM names: `--adr.['mlperf-accuracy-script', 'coco2014-accuracy-script']...`
-             - *Warning: no scripts found*
+             - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
 
     </details>
 
