@@ -210,7 +210,7 @@
       "env": {
       }
     },
-    "for.retinanet.onnx,int8": {
+    "for.retinanet.onnx,uint8": {
       "env": {
         "CM_DATASET_QUANT_SCALE": "0.0186584499",
         "CM_DATASET_QUANT_OFFSET": "114"
@@ -250,6 +250,18 @@
         "CM_DATASET_DTYPE": "fp32",
         "CM_DATASET_INPUT_DTYPE": "fp32",
         "CM_DATASET_CONVERT_TO_UNSIGNED": "0"
+      }
+    },
+    "uint8": {
+      "group": "dataset-precision",
+      "default_variations": {
+        "extension": "rgb8"
+      },
+      "env": {
+        "CM_DATASET_DTYPE": "uint8",
+        "CM_DATASET_INPUT_DTYPE": "fp32",
+        "CM_DATASET_QUANTIZE": "1",
+        "CM_DATASET_CONVERT_TO_UNSIGNED": "1"
       }
     },
     "int8": {

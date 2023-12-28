@@ -21,6 +21,9 @@ def preprocess(i):
         return {'return': 1, 'error': 'Please select a variation specifying the device to run on'}
 
     kilt_root = env['CM_KILT_CHECKOUT_PATH']
+
+    print(f"Harness Root: {kilt_root}")
+
     source_files = []
     env['CM_SOURCE_FOLDER_PATH'] = env['CM_KILT_CHECKOUT_PATH']
 
@@ -51,6 +54,13 @@ def preprocess(i):
         env['dataset_squad_tokenized_input_ids'] = os.path.basename(env['CM_DATASET_SQUAD_TOKENIZED_INPUT_IDS'])
         env['dataset_squad_tokenized_input_mask'] =  os.path.basename(env['CM_DATASET_SQUAD_TOKENIZED_INPUT_MASK'])
         env['dataset_squad_tokenized_segment_ids'] =  os.path.basename(env['CM_DATASET_SQUAD_TOKENIZED_SEGMENT_IDS'])
+
+    elif "retinanet" in env.get('CM_MODEL'):
+        env['kilt_prior_bin_path'] = os.path.join(kilt_root, "plugins", "nms-abp", "data")
+        env['kilt_object_detection_preprocessed_subset_fof'] = os.path.basename(env['CM_DATASET_PREPROCESSED_IMAGENAMES_LIST'])
+        env['kilt_object_detection_preprocessed_dir'] = env['CM_DATASET_PREPROCESSED_PATH']
+        env['+ CXXFLAGS'].append("-DMODEL_RX50")
+        env['+ CXXFLAGS'].append("-DSDK_1_11_X")
 
     if env.get('CM_BENCHMARK', '') == 'NETWORK_BERT_SERVER':
         source_files.append(os.path.join(kilt_root, "benchmarks", "network", "bert", "server", "pack.cpp"))
