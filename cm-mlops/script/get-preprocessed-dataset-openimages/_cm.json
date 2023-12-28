@@ -122,7 +122,7 @@
     "full": {
       "group": "dataset-count",
       "env": {
-        "CM_DATASET_SIZE": "0"
+        "CM_DATASET_SIZE": "24576"
       },
       "adr": {
         "original-dataset": {
@@ -260,6 +260,7 @@
       "env": {
         "CM_DATASET_DTYPE": "int8",
         "CM_DATASET_INPUT_DTYPE": "fp32",
+        "CM_DATASET_QUANTIZE": "1",
         "CM_DATASET_CONVERT_TO_UNSIGNED": "0"
       }
     }

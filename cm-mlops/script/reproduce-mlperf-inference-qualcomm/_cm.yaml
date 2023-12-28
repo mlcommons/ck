@@ -158,15 +158,9 @@ deps:
       CM_MODEL:
       - retinanet
     names:
-      - openimages-original
-    tags: get,dataset,original,openimages,_validation,_full,_custom-annotations
-
-  - enable_if_env:
-      CM_MODEL:
-      - retinanet
-    names:
-      - openimages-calibration
-    tags: get,dataset,original,openimages,_calibration
+      - openimages-preprocessed
+      - dataset-preprocessed
+    tags: get,dataset,preprocessed,openimages,_for.retinanet,_validation,_full,_custom-annotations
 
 
 
