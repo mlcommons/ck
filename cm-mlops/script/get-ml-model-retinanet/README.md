@@ -120,6 +120,10 @@ ___
            * get,python3
              * CM names: `--adr.['python, python3']...`
              - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+           * get,generic-python-lib,_package.onnx
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.onnxsim
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * download,file,_url.https://raw.githubusercontent.com/arjunsuresh/ck-qaic/main/package/model-onnx-mlperf-retinanet-no-nms/remove-nms-and-extract-priors.patch
              - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
            * get,git,repo,_repo.https://github.com/mlcommons/training.git,_patch

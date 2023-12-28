@@ -194,7 +194,7 @@ ___
         - *CM_COMPILE_RETINANET*: `on`
         - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_retinanet_no_nms_mlperf`
         - *CM_QAIC_MODEL_COMPILER_ARGS*: `-aic-enable-depth-first`
-        - *CM_QAIC_MODEL_COMPILER_PARAMS_BASE*: `-enable-channelwise -profiling-threads=32 -onnx-define-symbol=batch_size,1 -node-precision-info=<<<CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH>>>`
+        - *CM_QAIC_MODEL_COMPILER_PARAMS_BASE*: `-enable-channelwise -onnx-define-symbol=batch_size,1 -node-precision-info=<<<CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH>>> -quantization-schema=asymmetric -quantization-calibration=None  -execute-nodes-in-fp16=Sigmoid`
       - Workflow:
     * `_retinanet,multistream`
       - Workflow:
@@ -345,6 +345,8 @@ ___
 <summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic/_cm.json)***
+     * detect,cpu
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,qaic,apps,sdk
        * `if (CM_REGISTER_CACHE  != on)`
        * CM names: `--adr.['qaic-apps-sdk']...`

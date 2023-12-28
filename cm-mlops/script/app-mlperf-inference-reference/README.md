@@ -423,6 +423,14 @@ ___
       - Environment variables:
         - *CM_MODEL*: `gptj-99.9`
       - Workflow:
+    * `_llama2-70b`
+      - Environment variables:
+        - *CM_MODEL*: `llama2-70b`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_package.transformers
+             * CM names: `--adr.['transformers']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * **`_resnet50`** (default)
       - Environment variables:
         - *CM_MODEL*: `resnet50`
@@ -490,6 +498,12 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_package.torch-fidelity
              * CM names: `--adr.['torch-fidelity']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.open_clip_torch
+             * CM names: `--adr.['open-clip']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.scipy
+             * CM names: `--adr.['scipy']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
 
     </details>
@@ -697,6 +711,10 @@ ___
        * `if (CM_MODEL  == sdxl) AND (CM_MLPERF_CUSTOM_MODEL_PATH  != on)`
        * CM names: `--adr.['ml-model', 'sdxl-model']...`
        - CM script: [get-ml-model-stable-diffusion](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion)
+     * get,ml-model,llama2
+       * `if (CM_MODEL  == llama2-70b) AND (CM_MLPERF_CUSTOM_MODEL_PATH  != on)`
+       * CM names: `--adr.['ml-model', 'llama2-model']...`
+       - *Warning: no scripts found*
      * get,ml-model,medical-imaging,3d-unet
        * `if (CM_MODEL in ['3d-unet-99', '3d-unet-99.9'])`
        * CM names: `--adr.['ml-model', '3d-unet-model']...`
@@ -730,18 +748,26 @@ ___
        - CM script: [get-dataset-cnndm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-cnndm)
      * get,dataset,squad,original
        * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
+       * CM names: `--adr.['cnndm-preprocessed']...`
        - CM script: [get-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)
      * get,dataset-aux,squad-vocab
        * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
        - CM script: [get-dataset-squad-vocab](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad-vocab)
      * get,dataset,coco2014,_validation
        * `if (CM_MODEL  == sdxl)`
+       * CM names: `--adr.['coco2014-preprocessed']...`
        - CM script: [get-dataset-coco2014](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco2014)
+     * get,preprocessed,dataset,openorca,_validation
+       * `if (CM_MODEL  == llama2-70b)`
+       * CM names: `--adr.['openorca-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-openorca](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openorca)
      * get,dataset,kits19,preprocessed
        * `if (CM_MODEL in ['3d-unet-99', '3d-unet-99.9'])`
+       * CM names: `--adr.['kits19-preprocessed']...`
        - CM script: [get-preprocessed-dataset-kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-kits19)
      * get,dataset,librispeech,preprocessed
        * `if (CM_MODEL  == rnnt)`
+       * CM names: `--adr.['librispeech-preprocessed']...`
        - CM script: [get-preprocessed-dataset-librispeech](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-librispeech)
      * get,dataset,criteo,preprocessed
        * `if (CM_MODEL in ['dlrm-99', 'dlrm-99.9'])`

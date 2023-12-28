@@ -117,6 +117,14 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_package.rouge_score
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_coco2014`
+      - Environment variables:
+        - *CM_DATASET*: `coco2014`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,dataset,coco2014,original
+             * CM names: `--adr.['coco2014-dataset', 'coco2014-original']...`
+             - CM script: [get-dataset-coco2014](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco2014)
     * **`_imagenet`** (default)
       - Environment variables:
         - *CM_DATASET*: `imagenet`

@@ -148,14 +148,14 @@ ___
       - Environment variables:
         - *CM_CALIBRATE_SQUAD*: `yes`
         - *CM_QAIC_COMPILER_ARGS*: ``
-        - *CM_QAIC_COMPILER_PARAMS*: `-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>> -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512 -profiling-threads=<<<CM_HOST_CPU_TOTAL_CORES>>>`
+        - *CM_QAIC_COMPILER_PARAMS*: `-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>> -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512 -profiling-threads=<<<CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET>>>`
         - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_bert_mlperf`
       - Workflow:
     * `_resnet50`
       - Environment variables:
         - *CM_CALIBRATE_IMAGENET*: `yes`
         - *CM_QAIC_COMPILER_ARGS*: ``
-        - *CM_QAIC_COMPILER_PARAMS*: `-output-node-name=ArgMax -profiling-threads=<<<CM_HOST_CPU_TOTAL_CORES>>>`
+        - *CM_QAIC_COMPILER_PARAMS*: `-output-node-name=ArgMax -profiling-threads=<<<CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET>>>`
         - *CM_QAIC_OUTPUT_NODE_NAME*: `-output-node-name=ArgMax`
         - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_resnet50_tf`
       - Workflow:
@@ -163,7 +163,7 @@ ___
       - Environment variables:
         - *CM_CALIBRATE_OPENIMAGES*: `yes`
         - *CM_QAIC_COMPILER_ARGS*: ``
-        - *CM_QAIC_COMPILER_PARAMS*: `-enable-channelwise -profiling-threads=<<<CM_HOST_CPU_TOTAL_CORES>>> -onnx-define-symbol=batch_size,<<<CM_QAIC_MODEL_BATCH_SIZE>>> -node-precision-info=<<<CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH>>>`
+        - *CM_QAIC_COMPILER_PARAMS*: `-enable-channelwise -profiling-threads=<<<CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET>>> -onnx-define-symbol=batch_size,<<<CM_QAIC_MODEL_BATCH_SIZE>>> -node-precision-info=<<<CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH>>>`
         - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_retinanet_no_nms_mlperf`
       - Workflow:
 

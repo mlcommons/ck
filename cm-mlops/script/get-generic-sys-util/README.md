@@ -140,6 +140,10 @@ ___
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `libudev-dev`
       - Workflow:
+    * `_ninja-build`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `ninja-build`
+      - Workflow:
     * `_ntpdate`
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `ntpdate`
