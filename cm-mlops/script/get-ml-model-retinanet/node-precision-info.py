@@ -54,7 +54,8 @@ def main(args):
     fp16nodes = valid_list
     fp16nodes += [ "boxes_1", "boxes_2", "boxes_3", "boxes_4", "boxes_5", "scores_1", "scores_2", "scores_3", "scores_4", "scores_5"]
 
-    node_precision_info['FP16NodeInstanceNames'] = "["+", ".join(fp16nodes)+"]"
+    #node_precision_info['FP16NodeInstanceNames'] = "["+", ".join(fp16nodes)+"]"
+    node_precision_info['FP16NodeInstanceNames'] = fp16nodes
 
     yaml_output = yaml.safe_dump(node_precision_info, default_style=None)
     with open(args.output, "w") as f:

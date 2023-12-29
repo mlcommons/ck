@@ -158,15 +158,9 @@ deps:
       CM_MODEL:
       - retinanet
     names:
-      - openimages-original
-    tags: get,dataset,original,openimages,_validation,_full,_custom-annotations
-
-  - enable_if_env:
-      CM_MODEL:
-      - retinanet
-    names:
-      - openimages-calibration
-    tags: get,dataset,original,openimages,_calibration
+      - openimages-preprocessed
+      - dataset-preprocessed
+    tags: get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_full
 
 
 
@@ -334,6 +328,20 @@ variations:
     env:
       CM_MODEL: retinanet
       CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth"
+      kilt_model_name: retinanet
+      kilt_input_count: 1
+      kilt_model_disable_nms: ''
+      kilt_model_max_detections: 600
+      kilt_output_count: 1
+      kilt_input_format: "FLOAT32,-1,3,800,800"
+      kilt_output_format: "INT64,-1"
+      dataset_imagenet_preprocessed_input_square_side: 224
+      ml_model_image_height: 800
+      ml_model_image_width: 800
+      loadgen_buffer_size: 64
+      loadgen_dataset_size: 24576
+      CM_BENCHMARK: STANDALONE_OBJECT_DETECTION
+
     deps:
     - tags: get,generic-python-lib,_Pillow
     - tags: get,generic-python-lib,_torch
@@ -341,6 +349,20 @@ variations:
     - tags: get,generic-python-lib,_opencv-python
     - tags: get,generic-python-lib,_numpy
     - tags: get,generic-python-lib,_pycocotools
+
+  retinanet,qaic:
+    deps:
+      - tags: compile,qaic,model,_retinanet
+        names:
+          - qaic-model-compiler
+          - retinanet-compiler
+
+  retinanet,qaic,uint8:
+    env:
+      kilt_device_qaic_skip_stage: 'convert'
+      kilt_input_format: "UINT8,1,3,800,800"
+      kilt_output_format: "INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,4,1000:INT8,14,1000:INT8,1,4,1000:INT8,1,4,1000:INT8,1,4,1000"
+
 
   bert_:
     deps:
@@ -499,10 +521,13 @@ variations:
       CM_QAIC_DEVICES: 0
       qaic_activation_count: "1"
 
-  dl2q.24xlarge,resnet50:
+  dl2q.24xlarge,resnet50,offline:
     env:
       qaic_activation_count: "3"
 
-  dl2q.24xlarge,bert-99:
+  dl2q.24xlarge,bert-99,offline:
+    env:
+      qaic_activation_count: "14"
+  dl2q.24xlarge,retinanet,offline:
     env:
       qaic_activation_count: "14"

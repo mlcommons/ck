@@ -25,7 +25,7 @@ def preprocess(i):
 
         if dataset == "openimages":
             env['DATASET_ANNOTATIONS_FILE_PATH'] = env['CM_DATASET_ANNOTATIONS_FILE_PATH']
-            dataset_dir = env['CM_DATASET_PATH']
+            dataset_dir = os.path.join(env['CM_DATASET_PATH'], "..", "..")
             CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
                 "accuracy-openimages.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir, \
                     "mlperf_log_accuracy.json") + "' --openimages-dir '" + dataset_dir + "' --verbose > '" + \

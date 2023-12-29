@@ -26,7 +26,7 @@ function run() {
 #Add your run commands here...
 # run "$CM_RUN_CMD"
 
-cmd="PYTHONPATH=${CM_MLPERF_TRAINING_REPO_PATCHED_PATH}/single_stage_detector/ssd/ ${CM_PYTHON_BIN_WITH_PATH} ${CM_MLPERF_TRAINING_REPO_PATCHED_PATH}/single_stage_detector/scripts/pth_to_onnx.py --input ${CM_ML_MODEL_RETINANET_PYTORCH_WEIGHTS_FILE_PATH} --output $PWD/retinanet.onnx --image-size 800 800"
+cmd="PYTHONPATH=${PYTHONPATH}:${CM_MLPERF_TRAINING_REPO_PATCHED_PATH}/single_stage_detector/ssd/ ${CM_PYTHON_BIN_WITH_PATH} ${CM_MLPERF_TRAINING_REPO_PATCHED_PATH}/single_stage_detector/scripts/pth_to_onnx.py --input ${CM_ML_MODEL_RETINANET_PYTORCH_WEIGHTS_FILE_PATH} --output $PWD/retinanet.onnx --image-size 800 800"
 run "$cmd"
 
 if [[ ${CM_QAIC_PRINT_NODE_PRECISION_INFO} == "yes" ]]; then
