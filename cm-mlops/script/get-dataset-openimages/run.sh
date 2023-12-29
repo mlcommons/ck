@@ -1,4 +1,8 @@
 #!/bin/bash
+python3() {
+  ${CM_PYTHON_BIN_WITH_PATH} "$@"
+}
+export -f python3
 
 CUR=${PWD}
 mkdir -p install
@@ -6,7 +10,6 @@ INSTALL_DIR=${CUR}/install
 
 cd ${CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH}
 cd tools
-
 if [[ ${CM_DATASET_CALIBRATION} == "no" ]]; then
   if [ ! -z ${CM_DATASET_SIZE} ]; then
     max_images=" -m ${CM_DATASET_SIZE}"

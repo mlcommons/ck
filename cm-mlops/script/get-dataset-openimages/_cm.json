@@ -135,7 +135,7 @@
     "full": {
       "group": "size",
       "env": {
-        "CM_DATASET_SIZE": ""
+        "CM_DATASET_SIZE": "24781"
       }
     },
     "custom-annotations": {

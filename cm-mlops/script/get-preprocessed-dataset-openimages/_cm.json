@@ -90,7 +90,7 @@
       "env": {
         "CM_DATASET_SIZE": "#"
       },
-      "adr": {
+      "ad": {
         "original-dataset": {
           "tags": "_#"
         }
@@ -102,7 +102,7 @@
       "env": {
         "CM_DATASET_SIZE": "50"
       },
-      "adr": {
+      "ad": {
         "original-dataset": {
           "tags": "_50"
         }
@@ -113,21 +113,23 @@
       "env": {
         "CM_DATASET_SIZE": "500"
       },
-      "adr": {
+      "ad": {
         "original-dataset": {
           "tags": "_500"
         }
       }
     },
     "full": {
-      "group": "dataset-count",
-      "env": {
-        "CM_DATASET_SIZE": "24576"
-      },
-      "adr": {
+      "group": "dataset-count"
+    },
+    "full,validation": {
+      "ad": {
         "original-dataset": {
           "tags": "_full"
         }
+      },
+      "env": {
+        "CM_DATASET_SIZE": "24781"
       }
     },
     "NCHW": {
@@ -145,7 +147,7 @@
     },
     "calibration": {
       "group": "dataset-type",
-      "add_deps": {
+      "ad": {
         "original-dataset": {
           "tags": "_calibration"
         }
@@ -164,7 +166,7 @@
       "env": {
         "CM_DATASET_TYPE": "validation"
       },
-      "add_deps": {
+      "ad": {
         "original-dataset": {
           "tags": "_validation"
         }
@@ -196,14 +198,13 @@
       "default_variations": {
         "preprocessing-source": "generic-preprocessor",
         "interpolation-method": "inter.linear",
-        "dataset-layout": "NHWC"
+        "dataset-layout": "NCHW"
       },
       "env": {
         "CM_DATASET_SUBTRACT_MEANS": "1",
         "CM_DATASET_GIVEN_CHANNEL_MEANS": "0.485 0.456 0.406",
         "CM_DATASET_GIVEN_CHANNEL_STDS": "0.229 0.224 0.225",
-        "CM_DATASET_NORMALIZE_DATA": "1",
-        "CM_DATASET_INTERPOLATION_METHOD": "INTER_AREA"
+        "CM_DATASET_NORMALIZE_DATA": "1"
       }
     },
     "for.retinanet.onnx,fp32": {
@@ -249,6 +250,7 @@
       "env": {
         "CM_DATASET_DTYPE": "fp32",
         "CM_DATASET_INPUT_DTYPE": "fp32",
+        "CM_DATASET_QUANTIZE": "0",
         "CM_DATASET_CONVERT_TO_UNSIGNED": "0"
       }
     },

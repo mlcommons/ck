@@ -153,6 +153,14 @@
           "env": {
             "CM_ENV_NAME_ML_MODEL_FILE": "CM_ML_MODEL_RETINANET_PYTORCH_WEIGHTS_FILE_PATH"
           }
+        },
+        {
+          "tags": "get,generic-python-lib,_package.torch",
+          "names": [
+            "torch",
+            "pytorch"
+          ],
+          "version_min": "1.13.1"
         }
       ]
     }
