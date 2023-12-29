@@ -132,6 +132,9 @@ ___
            * get,ml-model,retinanet,_pytorch,_fp32,_weights
              * CM names: `--adr.['pytorch-weights']...`
              - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
+           * get,generic-python-lib,_package.torch
+             * CM names: `--adr.['torch', 'pytorch']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_pytorch,fp32`
       - Environment variables:
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth`

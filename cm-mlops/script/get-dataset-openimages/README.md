@@ -158,7 +158,7 @@ ___
       - Workflow:
     * `_full`
       - Environment variables:
-        - *CM_DATASET_SIZE*: ``
+        - *CM_DATASET_SIZE*: `24781`
       - Workflow:
     * `_size.#`
       - Environment variables:

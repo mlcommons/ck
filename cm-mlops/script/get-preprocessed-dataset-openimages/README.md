@@ -112,14 +112,17 @@ ___
         - *CM_DATASET_GIVEN_CHANNEL_MEANS*: `0.485 0.456 0.406`
         - *CM_DATASET_GIVEN_CHANNEL_STDS*: `0.229 0.224 0.225`
         - *CM_DATASET_NORMALIZE_DATA*: `1`
-        - *CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
       - Workflow:
     * `_for.retinanet.onnx,fp32`
       - Workflow:
-    * `_for.retinanet.onnx,int8`
+    * `_for.retinanet.onnx,uint8`
       - Environment variables:
         - *CM_DATASET_QUANT_SCALE*: `0.0186584499`
         - *CM_DATASET_QUANT_OFFSET*: `114`
+      - Workflow:
+    * `_full,validation`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `24781`
       - Workflow:
     * `_nvidia`
       - Environment variables:
@@ -154,8 +157,6 @@ ___
         - *CM_DATASET_SIZE*: `500`
       - Workflow:
     * `_full`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: `0`
       - Workflow:
     * `_size.#`
       - Environment variables:
@@ -189,13 +190,22 @@ ___
       - Environment variables:
         - *CM_DATASET_DTYPE*: `fp32`
         - *CM_DATASET_INPUT_DTYPE*: `fp32`
+        - *CM_DATASET_QUANTIZE*: `0`
         - *CM_DATASET_CONVERT_TO_UNSIGNED*: `0`
       - Workflow:
     * `_int8`
       - Environment variables:
         - *CM_DATASET_DTYPE*: `int8`
         - *CM_DATASET_INPUT_DTYPE*: `fp32`
+        - *CM_DATASET_QUANTIZE*: `1`
         - *CM_DATASET_CONVERT_TO_UNSIGNED*: `0`
+      - Workflow:
+    * `_uint8`
+      - Environment variables:
+        - *CM_DATASET_DTYPE*: `uint8`
+        - *CM_DATASET_INPUT_DTYPE*: `fp32`
+        - *CM_DATASET_QUANTIZE*: `1`
+        - *CM_DATASET_CONVERT_TO_UNSIGNED*: `1`
       - Workflow:
 
     </details>
