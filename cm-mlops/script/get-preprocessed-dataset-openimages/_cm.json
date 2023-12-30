@@ -207,6 +207,7 @@
         "CM_DATASET_NORMALIZE_DATA": "0",
         "CM_DATASET_NORMALIZE_LOWER": "0.0",
         "CM_DATASET_NORMALIZE_UPPER": "1.0",
+        "CM_DATASET_CONVERT_TO_BGR": "0",
         "CM_DATASET_CROP_FACTOR": "100.0"
       }
     },
