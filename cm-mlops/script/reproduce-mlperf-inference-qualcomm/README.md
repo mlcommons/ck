@@ -30,9 +30,9 @@
 
 * Category: *Modular MLPerf benchmarks.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-kilt)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *reproduce,mlcommons,mlperf,inference,harness,kilt-harness,kilt*
+* CM "database" tags to find this script: *reproduce,mlcommons,mlperf,inference,harness,qualcomm-harness,qualcomm,kilt-harness,kilt*
 * Output cached? *False*
 ___
 ### Reuse this script in your project
@@ -49,9 +49,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=reproduce,mlcommons,mlperf,inference,harness,kilt-harness,kilt[,variations] [--input_flags]`
+1. `cm run script --tags=reproduce,mlcommons,mlperf,inference,harness,qualcomm-harness,qualcomm,kilt-harness,kilt[,variations] [--input_flags]`
 
-2. `cmr "reproduce mlcommons mlperf inference harness kilt-harness kilt[ variations]" [--input_flags]`
+2. `cmr "reproduce mlcommons mlperf inference harness qualcomm-harness qualcomm kilt-harness kilt[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -68,7 +68,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'reproduce,mlcommons,mlperf,inference,harness,kilt-harness,kilt'
+                  'tags':'reproduce,mlcommons,mlperf,inference,harness,qualcomm-harness,qualcomm,kilt-harness,kilt'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -85,13 +85,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="reproduce,mlcommons,mlperf,inference,harness,kilt-harness,kilt"```
+```cmr "cm gui" --script="reproduce,mlcommons,mlperf,inference,harness,qualcomm-harness,qualcomm,kilt-harness,kilt"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=reproduce,mlcommons,mlperf,inference,harness,kilt-harness,kilt) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=reproduce,mlcommons,mlperf,inference,harness,qualcomm-harness,qualcomm,kilt-harness,kilt) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "reproduce mlcommons mlperf inference harness kilt-harness kilt[ variations]" [--input_flags]`
+`cm docker script "reproduce mlcommons mlperf inference harness qualcomm-harness qualcomm kilt-harness kilt[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -172,9 +172,13 @@ ___
       - Environment variables:
         - *qaic_activation_count*: `3`
       - Workflow:
+    * `_dl2q.24xlarge,retinanet,offline`
+      - Environment variables:
+        - *qaic_activation_count*: `14`
+      - Workflow:
     * `_dl2q.24xlarge,singlestream`
       - Environment variables:
-        - *kilt_device_ids*: `0`
+        - *CM_QAIC_DEVICES*: `0`
         - *qaic_activation_count*: `1`
       - Workflow:
     * `_loadgen-batch-size.#`
@@ -192,6 +196,18 @@ ___
         - *kilt_input_format*: `UINT8,-1,224,224,3`
         - *kilt_device_qaic_skip_stage*: `convert`
         - *CM_IMAGENET_ACCURACY_DTYPE*: `int8`
+      - Workflow:
+    * `_retinanet,qaic`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * compile,qaic,model,_retinanet
+             * CM names: `--adr.['qaic-model-compiler', 'retinanet-compiler']...`
+             - CM script: [compile-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic)
+    * `_retinanet,qaic,uint8`
+      - Environment variables:
+        - *kilt_device_qaic_skip_stage*: `convert`
+        - *kilt_input_format*: `UINT8,1,3,800,800`
+        - *kilt_output_format*: `INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,4,1000:INT8,14,1000:INT8,1,4,1000:INT8,1,4,1000:INT8,1,4,1000`
       - Workflow:
 
     </details>
@@ -223,6 +239,12 @@ ___
              - CM script: [get-qaic-platform-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk)
            * get,lib,protobuf,_tag.v3.11.4
              - CM script: [get-lib-protobuf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf)
+           * set,device,mode,qaic
+             * `if (CM_QAIC_VC in on)`
+             - CM script: [set-device-settings-qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic)
+           * set,device,mode,qaic,_ecc
+             * `if (CM_QAIC_ECC in yes)`
+             - CM script: [set-device-settings-qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic)
 
     </details>
 
@@ -312,6 +334,19 @@ ___
       - Environment variables:
         - *CM_MODEL*: `retinanet`
         - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth`
+        - *kilt_model_name*: `retinanet`
+        - *kilt_input_count*: `1`
+        - *kilt_model_disable_nms*: ``
+        - *kilt_model_max_detections*: `600`
+        - *kilt_output_count*: `1`
+        - *kilt_input_format*: `FLOAT32,-1,3,800,800`
+        - *kilt_output_format*: `INT64,-1`
+        - *dataset_imagenet_preprocessed_input_square_side*: `224`
+        - *ml_model_image_height*: `800`
+        - *ml_model_image_width*: `800`
+        - *loadgen_buffer_size*: `64`
+        - *loadgen_dataset_size*: `24576`
+        - *CM_BENCHMARK*: `STANDALONE_OBJECT_DETECTION`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_Pillow
@@ -398,7 +433,7 @@ ___
 
     * `_dl2q.24xlarge`
       - Environment variables:
-        - *kilt_device_ids*: `0,1,2,3,4,5,6,7`
+        - *CM_QAIC_DEVICES*: `0,1,2,3,4,5,6,7`
         - *qaic_queue_length*: `4`
       - Workflow:
 
@@ -414,7 +449,7 @@ ___
 <summary>Click here to expand this section.</summary>
 
 * `--count=value`  &rarr;  `CM_MLPERF_LOADGEN_QUERY_COUNT=value`
-* `--devices=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DEVICES=value`
+* `--devices=value`  &rarr;  `CM_QAIC_DEVICES=value`
 * `--max_batchsize=value`  &rarr;  `CM_MLPERF_LOADGEN_MAX_BATCHSIZE=value`
 * `--mlperf_conf=value`  &rarr;  `CM_MLPERF_CONF=value`
 * `--mode=value`  &rarr;  `CM_MLPERF_LOADGEN_MODE=value`
@@ -457,7 +492,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: `kilt`
 * CM_MLPERF_SKIP_RUN: `no`
 * CM_KILT_REPO_URL: `https://github.com/GATEOverflow/kilt-mlperf`
-* kilt_device_ids: `0`
+* CM_QAIC_DEVICES: `0`
 * kilt_max_wait_abs: `10000`
 * verbosity: `1`
 * loadgen_trigger_cold_run: `0`
@@ -470,7 +505,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-kilt/_cm.yaml)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm/_cm.yaml)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
@@ -499,14 +534,10 @@ ___
        * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
        * CM names: `--adr.['squad-tokenized']...`
        - CM script: [get-preprocessed-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad)
-     * get,dataset,original,openimages,_validation,_full,_custom-annotations
+     * get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_full
        * `if (CM_MODEL  == retinanet)`
-       * CM names: `--adr.['openimages-original']...`
-       - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
-     * get,dataset,original,openimages,_calibration
-       * `if (CM_MODEL  == retinanet)`
-       * CM names: `--adr.['openimages-calibration']...`
-       - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
+       * CM names: `--adr.['openimages-preprocessed', 'dataset-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
@@ -522,13 +553,13 @@ ___
      * get,lib,onnxruntime,lang-cpp,_cuda
        * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == gpu)`
        - CM script: [get-onnxruntime-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-kilt/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-kilt/_cm.yaml)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-kilt/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-kilt/_cm.yaml)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-kilt/customize.py)***
-  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-kilt/_cm.yaml)***
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm/customize.py)***
+  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm/_cm.yaml)***
      * compile,cpp-program
        * `if (CM_MLPERF_SKIP_RUN  != True)`
        * CM names: `--adr.['compile-program']...`
@@ -541,7 +572,7 @@ ___
 
 ___
 ### Script output
-`cmr "reproduce mlcommons mlperf inference harness kilt-harness kilt[,variations]" [--input_flags] -j`
+`cmr "reproduce mlcommons mlperf inference harness qualcomm-harness qualcomm kilt-harness kilt[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 * `CM_DATASET_*`
