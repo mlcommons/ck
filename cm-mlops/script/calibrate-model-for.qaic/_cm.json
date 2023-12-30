@@ -28,7 +28,7 @@
         "openimages-cal",
         "preprocessed-dataset"
       ],
-      "tags": "get,preprocessed,dataset,_calibration,openimages,_for.retinanet.onnx,_NCHW,_fp32"
+      "tags": "get,preprocessed,dataset,_calibration,openimages,_for.retinanet.onnx,_NCHW,_fp32,_custom-annotations"
     },
     {
       "enable_if_env":
@@ -39,7 +39,8 @@
       },
       "names": [
         "imagenet-cal",
-        "preprocessed-dataset"
+        "preprocessed-dataset",
+        "dataset-preprocessed"
       ],
       "tags": "get,dataset,imagenet,preprocessed,_calibration,_for.resnet50,_float32,_rgb32"
     },
