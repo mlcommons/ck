@@ -71,7 +71,7 @@ cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic
 ```
 cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic --backend=glow \
 --scenario=Offline  --implementation=kilt --model=resnet50 \
---test_query_count=400000 --precision=uint8 --rerun --adr.compiler.tags=gcc \
+--precision=uint8 --rerun --adr.compiler.tags=gcc \
 --adr.mlperf-inference-implementation.tags=_bs.8,_dl2q.24xlarge --execution-mode=valid --quiet
 ```
 Expected performance is ~157500
@@ -82,7 +82,7 @@ Expected performance is ~157500
 ```
 cm run script --tags=generate-run-cmds,inference,_accuracy-only --device=qaic --backend=glow \
 --scenario=Offline  --implementation=kilt --model=resnet50 \
---test_query_count=400000 --precision=uint8 --rerun --adr.compiler.tags=gcc \
+--precision=uint8 --rerun --adr.compiler.tags=gcc \
 --adr.mlperf-inference-implementation.tags=_bs.8,_dl2q.24xlarge --execution-mode=valid --quiet
 ```
 
@@ -93,4 +93,34 @@ Expected accuracy is 75.936%
 
 ## RetinaNet
 
-*TODO*
+### Quick performance run
+
+```
+cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic --backend=glow \
+--scenario=Offline  --implementation=kilt --model=retinanet --test_query_count=40000 --precision=uint8 \
+--rerun --quiet --adr.mlperf-inference-implementation.tags=_loadgen-batch-size.1,_dl2q.24xlarge,_bs.1 \
+--adr.compiler.tags=gcc --execution-mode=test 
+```
+
+### Full valid run
+
+```
+cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic --backend=glow \
+--scenario=Offline  --implementation=kilt --model=retinanet \
+--precision=uint8 --rerun --adr.compiler.tags=gcc --adr.dataset-preprocessed.tags=_custom-annotations\
+--adr.mlperf-inference-implementation.tags=_bs.1,_dl2q.24xlarge --execution-mode=valid --quiet
+```
+Expected performance is ~2200
+* Use `--scenario=Server --server_target_qps=2000` to run the server scenario
+
+### Accuracy run
+
+```
+cm run script --tags=generate-run-cmds,inference,_accuracy-only --device=qaic --backend=glow \
+--scenario=Offline  --implementation=kilt --model=retinanet \
+--precision=uint8 --rerun --adr.compiler.tags=gcc --adr.dataset-preprocessed.tags=_custom-annotations \
+--adr.mlperf-inference-implementation.tags=_bs.1,_dl2q.24xlarge --execution-mode=valid --quiet
+```
+
+The expected accuracy is 37.xx
+
