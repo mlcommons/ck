@@ -51,7 +51,9 @@
   "variations": {
     "package.#": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "#"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "#",
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "",
+        "CM_GENERIC_PYTHON_PIP_URL": ""
       }
     },
     "apache-tvm": {
