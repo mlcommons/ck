@@ -528,6 +528,19 @@ variations:
   dl2q.24xlarge,bert-99,offline:
     env:
       qaic_activation_count: "14"
+
   dl2q.24xlarge,retinanet,offline:
+    env:
+      qaic_activation_count: "14"
+
+  dl2q.24xlarge,resnet50,server:
+    env:
+      qaic_activation_count: "3"
+
+  dl2q.24xlarge,bert-99,server:
+    env:
+      qaic_activation_count: "14"
+
+  dl2q.24xlarge,retinanet,server:
     env:
       qaic_activation_count: "14"
