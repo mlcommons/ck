@@ -111,7 +111,7 @@ cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic
 --adr.mlperf-inference-implementation.tags=_bs.1,_dl2q.24xlarge --execution-mode=valid --quiet
 ```
 Expected performance is ~2200
-* Use `--scenario=Server --server_target_qps=2000` to run the server scenario
+* Use `--scenario=Server --server_target_qps=2050` to run the server scenario
 
 ### Accuracy run
 
