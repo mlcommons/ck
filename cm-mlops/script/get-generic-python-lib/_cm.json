@@ -370,7 +370,16 @@
       },
       "deps": [
         {
+          "names": [
+            "cython"
+          ],
           "tags": "get,generic-python-lib,_package.cython"
+        },
+        {
+          "names": [
+            "numpy"
+          ],
+          "tags": "get,generic-python-lib,_package.numpy"
         }
       ]
     },
