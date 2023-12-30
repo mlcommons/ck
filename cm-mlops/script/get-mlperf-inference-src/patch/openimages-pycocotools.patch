@@ -1,0 +1,24 @@
+diff --git a/vision/classification_and_detection/tools/accuracy-openimages.py b/vision/classification_and_detection/tools/accuracy-openimages.py
+index 655ae5c..497dcbd 100644
+--- a/vision/classification_and_detection/tools/accuracy-openimages.py
++++ b/vision/classification_and_detection/tools/accuracy-openimages.py
+@@ -36,7 +36,7 @@ def main():
+     annotations_file = os.environ.get('DATASET_ANNOTATIONS_FILE_PATH')
+     if not annotations_file:
+         annotations_file = os.path.join(args.openimages_dir, "annotations/openimages-mlperf.json")
+-    cocoGt = COCO(annotations_file)
++    cocoGt = COCO(annotations_file, use_ext=True)
+ 
+     if args.use_inv_map:
+         inv_map = [0] + cocoGt.getCatIds() # First label in inv_map is not used
+@@ -100,8 +100,8 @@ def main():
+     with open(args.output_file, "w") as fp:
+         json.dump(detections, fp, sort_keys=True, indent=4)
+ 
+-    cocoDt = cocoGt.loadRes(args.output_file) # Load from file to bypass error with Python3
+-    cocoEval = COCOeval(cocoGt, cocoDt, iouType='bbox')
++    cocoDt = cocoGt.loadRes(args.output_file, use_ext=True) # Load from file to bypass error with Python3
++    cocoEval = COCOeval(cocoGt, cocoDt, iouType='bbox', use_ext=True)
+     cocoEval.params.imgIds = list(image_ids)
+     cocoEval.evaluate()
+     cocoEval.accumulate()

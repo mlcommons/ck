@@ -89,6 +89,14 @@
         "patch"
       ]
     },
+    "openimages-nvidia-pycocotools": {
+      "env": {
+        "CM_GIT_PATCH_FILENAME": "openimages-pycocotools.patch"
+      },
+      "base": [
+        "patch"
+      ]
+    },
     "deepsparse": {
       "env": {
         "CM_GIT_URL": "https://github.com/neuralmagic/inference",

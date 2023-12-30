@@ -363,8 +363,14 @@
         "pycocotools"
       ],
       "env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "pycocotools",
         "CM_GENERIC_PYTHON_PIP_URL": "pycocotools@git+https://github.com/NVIDIA/cocoapi#subdirectory=PythonAPI"
-      }
+      },
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_package.cython"
+        }
+      ]
     },
     "nvidia-pyindex": {
       "env": {
