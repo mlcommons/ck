@@ -36,3 +36,12 @@ variations:
     adr:
       calibration-file-downloader:
         tags: _url.https://github.com/mlcommons/inference/raw/master/calibration/openimages/openimages_cal_images_list.txt
+  filter:
+    deps:
+      - names:
+        - python
+        - python3
+        tags: get,python3
+      - tags: get,openimages,annotations,dataset-aux
+    env:
+      CM_CALIBRATE_FILTER: 'yes'
