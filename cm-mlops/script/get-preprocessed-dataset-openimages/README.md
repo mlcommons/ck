@@ -111,7 +111,11 @@ ___
         - *CM_DATASET_SUBTRACT_MEANS*: `1`
         - *CM_DATASET_GIVEN_CHANNEL_MEANS*: `0.485 0.456 0.406`
         - *CM_DATASET_GIVEN_CHANNEL_STDS*: `0.229 0.224 0.225`
-        - *CM_DATASET_NORMALIZE_DATA*: `1`
+        - *CM_DATASET_NORMALIZE_DATA*: `0`
+        - *CM_DATASET_NORMALIZE_LOWER*: `0.0`
+        - *CM_DATASET_NORMALIZE_UPPER*: `1.0`
+        - *CM_DATASET_CONVERT_TO_BGR*: `0`
+        - *CM_DATASET_CROP_FACTOR*: `100.0`
       - Workflow:
     * `_for.retinanet.onnx,fp32`
       - Workflow:
