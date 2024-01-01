@@ -201,13 +201,13 @@ ___
      * get,qaic,apps,sdk
        * CM names: `--adr.['qaic-apps-sdk']...`
        - CM script: [get-qaic-apps-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-apps-sdk)
-     * get,preprocessed,dataset,_calibration,openimages,_for.retinanet.onnx,_NCHW,_fp32
+     * get,preprocessed,dataset,_calibration,openimages,_for.retinanet.onnx,_NCHW,_fp32,_custom-annotations
        * `if (CM_CALIBRATE_OPENIMAGES  == yes)`
        * CM names: `--adr.['openimages-cal', 'preprocessed-dataset']...`
        - CM script: [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
      * get,dataset,imagenet,preprocessed,_calibration,_for.resnet50,_float32,_rgb32
        * `if (CM_CALIBRATE_IMAGENET  == yes)`
-       * CM names: `--adr.['imagenet-cal', 'preprocessed-dataset']...`
+       * CM names: `--adr.['imagenet-cal', 'preprocessed-dataset', 'dataset-preprocessed']...`
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
      * get,dataset,preprocessed,_calib1,squad,_pickle,_seq-length.384,_packed
        * `if (CM_CALIBRATE_SQUAD  == on)`

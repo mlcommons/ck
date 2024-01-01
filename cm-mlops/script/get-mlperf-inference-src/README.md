@@ -138,6 +138,10 @@ ___
       - Environment variables:
         - *CM_GIT_URL*: `https://github.com/octoml/inference`
       - Workflow:
+    * `_openimages-nvidia-pycocotools`
+      - Environment variables:
+        - *CM_GIT_PATCH_FILENAME*: `openimages-pycocotools.patch`
+      - Workflow:
     * `_patch`
       - Environment variables:
         - *CM_GIT_PATCH*: `yes`

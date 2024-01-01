@@ -153,10 +153,9 @@ ___
         - *CM_DATASET*: `openimages`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * get,dataset,openimages,original
-             * CM names: `--adr.['openimages-dataset', 'openimages-original']...`
-             - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
-           * get,generic-python-lib,_pycocotools
+           * get,dataset-aux,openimages,annotations
+             - CM script: [get-dataset-openimages-annotations](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-annotations)
+           * get,generic-python-lib,_nvidia-pycocotools
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_squad`
       - Environment variables:

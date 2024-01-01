@@ -263,8 +263,16 @@ ___
              - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
     * `_nvidia-pycocotools`
       - Environment variables:
+        - *CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS*: `pycocotools`
         - *CM_GENERIC_PYTHON_PIP_URL*: `pycocotools@git+https://github.com/NVIDIA/cocoapi#subdirectory=PythonAPI`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_package.cython
+             * CM names: `--adr.['cython']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.numpy
+             * CM names: `--adr.['numpy']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_nvidia-pyindex`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `nvidia-pyindex`
@@ -309,6 +317,8 @@ ___
     * `_package.#`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `#`
+        - *CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS*: ``
+        - *CM_GENERIC_PYTHON_PIP_URL*: ``
       - Workflow:
     * `_pandas`
       - Environment variables:

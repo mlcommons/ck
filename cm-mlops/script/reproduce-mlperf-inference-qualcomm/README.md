@@ -168,11 +168,23 @@ ___
       - Environment variables:
         - *qaic_activation_count*: `14`
       - Workflow:
+    * `_dl2q.24xlarge,bert-99,server`
+      - Environment variables:
+        - *qaic_activation_count*: `14`
+      - Workflow:
     * `_dl2q.24xlarge,resnet50,offline`
       - Environment variables:
         - *qaic_activation_count*: `3`
       - Workflow:
+    * `_dl2q.24xlarge,resnet50,server`
+      - Environment variables:
+        - *qaic_activation_count*: `3`
+      - Workflow:
     * `_dl2q.24xlarge,retinanet,offline`
+      - Environment variables:
+        - *qaic_activation_count*: `14`
+      - Workflow:
+    * `_dl2q.24xlarge,retinanet,server`
       - Environment variables:
         - *qaic_activation_count*: `14`
       - Workflow:
@@ -336,7 +348,6 @@ ___
         - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth`
         - *kilt_model_name*: `retinanet`
         - *kilt_input_count*: `1`
-        - *kilt_model_disable_nms*: ``
         - *kilt_model_max_detections*: `600`
         - *kilt_output_count*: `1`
         - *kilt_input_format*: `FLOAT32,-1,3,800,800`
@@ -534,7 +545,7 @@ ___
        * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
        * CM names: `--adr.['squad-tokenized']...`
        - CM script: [get-preprocessed-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad)
-     * get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_full
+     * get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_custom-annotations
        * `if (CM_MODEL  == retinanet)`
        * CM names: `--adr.['openimages-preprocessed', 'dataset-preprocessed']...`
        - CM script: [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
