@@ -14,7 +14,12 @@ def preprocess(i):
     if package_name == '':
         return automation._available_variations({'meta':meta})
 
-    if env.get('CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS'):
+    extra = env.get('CM_GENERIC_PYTHON_PIP_EXTRA','')
+    if (pip_version and len(pip_version) > 1 and int(pip_version[0]) >= 23) and ('--break-system-packages' not in extra):
+        extra += '  --break-system-packages '
+        env['CM_PYTHON_PIP_COMMON_EXTRA'] = " --break-system-packages"
+
+    if env.get('CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS', '') != '':
         r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'uninstall_deps'})
         if r['return']>0: return r
 
@@ -38,11 +43,6 @@ def preprocess(i):
             env_version_key = 'CM_'+env['CM_TMP_PYTHON_PACKAGE_NAME_ENV'].upper()+'_VERSION'
             if env.get(env_version_key,'')!='':
                 del(env[env_version_key])
-
-            extra = env.get('CM_GENERIC_PYTHON_PIP_EXTRA','')
-            if (pip_version and len(pip_version) > 1 and int(pip_version[0]) >= 23) and ('--break-system-packages' not in extra):
-                extra += '  --break-system-packages '
-                env['CM_PYTHON_PIP_COMMON_EXTRA'] = " --break-system-packages"
 
             # Check index URL
             index_url = env.get('CM_GENERIC_PYTHON_PIP_INDEX_URL','').strip()

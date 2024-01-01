@@ -51,7 +51,9 @@
   "variations": {
     "package.#": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "#"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "#",
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "",
+        "CM_GENERIC_PYTHON_PIP_URL": ""
       }
     },
     "apache-tvm": {
@@ -363,8 +365,23 @@
         "pycocotools"
       ],
       "env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "pycocotools",
         "CM_GENERIC_PYTHON_PIP_URL": "pycocotools@git+https://github.com/NVIDIA/cocoapi#subdirectory=PythonAPI"
-      }
+      },
+      "deps": [
+        {
+          "names": [
+            "cython"
+          ],
+          "tags": "get,generic-python-lib,_package.cython"
+        },
+        {
+          "names": [
+            "numpy"
+          ],
+          "tags": "get,generic-python-lib,_package.numpy"
+        }
+      ]
     },
     "nvidia-pyindex": {
       "env": {

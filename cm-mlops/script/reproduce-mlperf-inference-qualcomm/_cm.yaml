@@ -160,7 +160,7 @@ deps:
     names:
       - openimages-preprocessed
       - dataset-preprocessed
-    tags: get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_full
+    tags: get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_custom-annotations
 
 
 
@@ -330,7 +330,7 @@ variations:
       CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth"
       kilt_model_name: retinanet
       kilt_input_count: 1
-      kilt_model_disable_nms: ''
+      #kilt_model_disable_nms: ''
       kilt_model_max_detections: 600
       kilt_output_count: 1
       kilt_input_format: "FLOAT32,-1,3,800,800"
@@ -528,6 +528,19 @@ variations:
   dl2q.24xlarge,bert-99,offline:
     env:
       qaic_activation_count: "14"
+
   dl2q.24xlarge,retinanet,offline:
+    env:
+      qaic_activation_count: "14"
+
+  dl2q.24xlarge,resnet50,server:
+    env:
+      qaic_activation_count: "3"
+
+  dl2q.24xlarge,bert-99,server:
+    env:
+      qaic_activation_count: "14"
+
+  dl2q.24xlarge,retinanet,server:
     env:
       qaic_activation_count: "14"

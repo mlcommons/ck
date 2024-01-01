@@ -142,16 +142,17 @@
     "openimages": {
       "deps": [
         {
-          "names": [
-            "openimages-dataset",
-            "openimages-original"
-          ],
-          "tags": "get,dataset,openimages,original"
+          "tags": "get,dataset-aux,openimages,annotations"
         },
         {
-          "tags": "get,generic-python-lib,_pycocotools"
+          "tags": "get,generic-python-lib,_nvidia-pycocotools"
         }
       ],
+      "ad": {
+        "inference-src": {
+          "tags": "_openimages-nvidia-pycocotools"
+        }
+      },
       "env": {
         "CM_DATASET": "openimages"
       },

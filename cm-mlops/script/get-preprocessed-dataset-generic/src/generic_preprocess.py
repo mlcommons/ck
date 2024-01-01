@@ -62,7 +62,7 @@ def load_image(image_path,            # Full path to processing image
 
 
 def preprocess_files(selected_filenames, source_dir, destination_dir, crop_percentage, square_side, inter_size, convert_to_bgr,
-    data_type, data_layout, new_file_extension, normalize_data, subtract_mean, given_channel_means, quantize, quant_scale, quant_offset, convert_to_unsigned, interpolation_method):
+    data_type, data_layout, new_file_extension, normalize_data, subtract_mean, given_channel_means, given_channel_stds, quantize, quant_scale, quant_offset, convert_to_unsigned, interpolation_method):
     "Go through the selected_filenames and preprocess all the files (optionally normalize and subtract mean)"
 
     output_filenames = []
@@ -92,6 +92,10 @@ def preprocess_files(selected_filenames, source_dir, destination_dir, crop_perce
                 image_data -= given_channel_means
             else:
                 image_data -= np.mean(image_data)
+
+        # Subtract standard deviations.
+        if len(given_channel_stds):
+            image_data /= given_channel_stds
 
         # NHWC -> NCHW.
         if data_layout == 'nchw':
@@ -151,6 +155,7 @@ def preprocess():
     normalize_data          = int(os.getenv('CM_DATASET_NORMALIZE_DATA', '0'))
     subtract_mean           = int(os.getenv('CM_DATASET_SUBTRACT_MEANS', '0'))
     given_channel_means     = os.getenv('CM_DATASET_GIVEN_CHANNEL_MEANS', '')
+    given_channel_stds     = os.getenv('CM_DATASET_GIVEN_CHANNEL_STDS', '')
     quant_scale             = float( os.environ['CM_DATASET_QUANT_SCALE'] )
     quant_offset            = float( os.environ['CM_DATASET_QUANT_OFFSET'] )
     quantize                = int( os.environ['CM_DATASET_QUANTIZE'] ) #1 for quantize to int8
@@ -161,12 +166,15 @@ def preprocess():
     if given_channel_means:
         given_channel_means = [ float(x) for x in given_channel_means.split(' ') ]
 
+    if given_channel_stds:
+        given_channel_stds = [ float(x) for x in given_channel_stds.split(' ') ]
+
     interpolation_method    = os.getenv('CM_DATASET_INTERPOLATION_METHOD', '')
 
     print(("From: {}, To: {}, Size: {}, Crop: {}, InterSize: {}, 2BGR: {}, OFF: {}, VOL: '{}', FOF: {},"+
         " DTYPE: {}, DLAYOUT: {}, EXT: {}, NORM: {}, SMEAN: {}, GCM: {}, QUANTIZE: {}, QUANT_SCALE: {}, QUANT_OFFSET: {}, CONV_UNSIGNED: {}, INTER: {}").format(
         source_dir, destination_dir, square_side, crop_percentage, inter_size, convert_to_bgr, offset, volume, fof_name,
-        data_type, data_layout, new_file_extension, normalize_data, subtract_mean, given_channel_means, quantize, quant_scale, quant_offset, convert_to_unsigned, interpolation_method) )
+        data_type, data_layout, new_file_extension, normalize_data, subtract_mean, given_channel_means, given_channel_stds, quantize, quant_scale, quant_offset, convert_to_unsigned, interpolation_method) )
 
     if interpolation_method == 'INTER_AREA':
         # Used for ResNet in pre_process_vgg.
@@ -197,7 +205,7 @@ def preprocess():
 
     output_filenames = preprocess_files(
         selected_filenames, source_dir, destination_dir, crop_percentage, square_side, inter_size, convert_to_bgr,
-        data_type, data_layout, new_file_extension, normalize_data, subtract_mean, given_channel_means, quantize, quant_scale, quant_offset, convert_to_unsigned, interpolation_method)
+        data_type, data_layout, new_file_extension, normalize_data, subtract_mean, given_channel_means, given_channel_stds, quantize, quant_scale, quant_offset, convert_to_unsigned, interpolation_method)
 
     fof_full_path = os.path.join(destination_dir, fof_name)
     with open(fof_full_path, 'w') as fof:
