@@ -326,6 +326,14 @@
         "CM_QAIC_MODEL_COMPILER_PERCENTILE_CALIBRATION_VALUE": "#",
         "CM_QAIC_MODEL_COMPILER_QUANTIZATION_PARAMS": "-quantization-calibration=Percentile  -percentile-calibration-value=<<<CM_QAIC_MODEL_COMPILER_PERCENTILE_CALIBRATION_VALUE>>>"
       }
+    },
+    "filter-size.#": {
+      "group": "calib-dataset-filter-size",
+      "ad": {
+        "qaic-profile": {
+          "tags": "_filter-size.#"
+        }
+      }
     }
   }
 }

@@ -21,12 +21,14 @@ if [[ ${CM_DATASET_CALIBRATION} == "no" ]]; then
   eval $cmd
   test $? -eq 0 || exit 1
 else
-  cmd="./openimages_calibration_mlperf.sh -d ${INSTALL_DIR}"
+  if [ -n ${CM_MLPERF_OPENIMAGES_CALIBRATION_LIST_FILE_WITH_PATH} ]; then
+    calibration_file_string=" --calibration-file ${CM_MLPERF_OPENIMAGES_CALIBRATION_LIST_FILE_WITH_PATH}"
+  else
+    calibration_file_string=""
+  fi
+  cmd="./openimages_calibration_mlperf.sh -d \"${INSTALL_DIR} ${calibration_file_string}\""
   echo $cmd
   eval $cmd
-  test $? -eq 0 || exit 1
-  cd $INSTALL_DR
-  wget ${CM_CALIBRATION_DATASET_WGET_URL}
   test $? -eq 0 || exit 1
 fi
 cd ${INSTALL_DIR}

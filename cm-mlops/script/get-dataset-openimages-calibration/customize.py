@@ -15,7 +15,7 @@ def preprocess(i):
 
     if env.get("CM_CALIBRATE_FILTER", "") == "yes":
         i['run_script_input']['script_name'] = "run-filter"
-        env['CM_MLPERF_OPENIMAGES_CALIBRATION_FILTERED_LIST'] = os.ptah.join(os.getcwd(), "filtered.txt")
+        env['CM_MLPERF_OPENIMAGES_CALIBRATION_FILTERED_LIST'] = os.path.join(os.getcwd(), "filtered.txt")
         env['CM_MLPERF_OPENIMAGES_CALIBRATION_LIST_FILE_WITH_PATH'] = env['CM_MLPERF_OPENIMAGES_CALIBRATION_FILTERED_LIST']
 
     return {'return':0}

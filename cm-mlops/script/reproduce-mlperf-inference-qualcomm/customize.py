@@ -123,7 +123,8 @@ def preprocess(i):
 
     env['+ LDCXXFLAGS'] += [
         "-lmlperf_loadgen",
-        "-lpthread"
+        "-lpthread",
+        "-ldl"
     ]
     # e.g. -lonnxruntime
     if 'CM_MLPERF_BACKEND_LIB_NAMESPEC' in env:
@@ -131,7 +132,9 @@ def preprocess(i):
     # e.g. -lcudart
     if 'CM_MLPERF_DEVICE_LIB_NAMESPEC' in env:
         env['+ LDCXXFLAGS'].append('-l' + env['CM_MLPERF_DEVICE_LIB_NAMESPEC'])
-    env['+ LDCXXFLAGS'].append('-ldl')
+
+    if '-DPRINT_NETWORK_DESCRIPTOR' in env['+ CXXFLAGS']:
+        env['+ LDCXXFLAGS'].append('-lprotobuf')
 
     env['CM_LINKER_LANG'] = 'CXX'
     env['CM_RUN_DIR'] = env.get('CM_MLPERF_OUTPUT_DIR', os.getcwd())

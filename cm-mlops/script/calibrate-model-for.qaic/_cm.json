@@ -174,27 +174,35 @@
         "CM_QAIC_COMPILER_ARGS": "",
         "CM_QAIC_COMPILER_PARAMS": "-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>> -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512 -profiling-threads=<<<CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET>>>",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_bert_mlperf"
+      }
+    },
+    "seq.#": {
+      "group": "seq-length",
+      "env": {
+        "CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH": "#"
       },
-      "seq.#": {
-        "group": "seq-length",
-        "env": {
-          "CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH": "#"
-        },
-        "ad": {
-          "squad-preprocessed": {
-            "tags": "_seq.#"
-          }
+      "ad": {
+        "squad-preprocessed": {
+          "tags": "_seq.#"
         }
+      }
+    },
+    "seq.384": {
+      "group": "seq-length",
+      "env": {
+        "CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH": "#"
       },
-      "seq.384": {
-        "group": "seq-length",
-        "env": {
-          "CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH": "#"
-        },
-        "ad": {
-          "squad-preprocessed": {
-            "tags": "_seq.384"
-          }
+      "ad": {
+        "squad-preprocessed": {
+          "tags": "_seq.384"
+        }
+      }
+    },
+    "filter-size.#": {
+      "group": "calib-dataset-filter-size",
+      "ad": {
+        "preprocessed-dataset": {
+          "tags": "_filter-size.#,_filter,_size.#"
         }
       }
     }
