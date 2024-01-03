@@ -1,0 +1,64 @@
+{
+  "alias": "install-generic-conda-package",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "Python automation",
+  "clean_files": [],
+  "deps": [
+    {
+      "tags": "detect,os"
+    },
+    {
+      "tags": "detect,cpu"
+    },
+    {
+      "names": [
+        "python",
+        "python3"
+      ],
+      "tags": "get,python3"
+    },
+    {
+      "names": [
+        "conda"
+      ],
+      "tags": "get,conda"
+    }
+  ],
+  "extra_cache_tags_from_env": [
+    {
+      "env": "CM_PYTHON_CACHE_TAGS",
+      "prefix": "python-"
+    }
+  ],
+  "local_env_keys": [
+    "CM_GENERIC_PYTHON_PACKAGE_VARIANT"
+  ],
+  "new_env_keys": [
+    "CM_PYTHONLIB_*"
+  ],
+  "tags": [
+    "get",
+    "install",
+    "generic",
+    "generic-conda-lib",
+    "conda-lib",
+    "conda-package",
+    "generic-conda-package"
+  ],
+  "uid": "d9275487f5314195",
+  "variations": {
+    "package.#": {
+      "env": {
+        "CM_CONDA_PKG_NAME": "#"
+      }
+    },
+    "source.#": {
+      "group": "package-source",
+      "env": {
+        "CM_CONDA_PKG_SRC": "#"
+      }
+    }
+  }
+}
