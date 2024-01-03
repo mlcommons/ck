@@ -35,8 +35,7 @@ def preprocess(i):
 
     if env.get('CM_GIT_PATCH_FILENAME', '') != '':
         patch_file_name = env['CM_GIT_PATCH_FILENAME']
-
-    env['CM_GIT_PATCH_FILEPATHS'] = os.path.join(script_path, 'patch', patch_file_name)
+        env['CM_GIT_PATCH_FILEPATHS'] = os.path.join(script_path, 'patch', patch_file_name)
 
     need_version = env.get('CM_VERSION','')
     versions = meta['versions']
