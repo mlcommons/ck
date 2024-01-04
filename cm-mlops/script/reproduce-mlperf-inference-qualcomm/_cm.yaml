@@ -110,15 +110,7 @@ deps:
 
   ########################################################################
   # Install ResNet50 model (ONNX) and ImageNet
-
-  - enable_if_env:
-      CM_MODEL:
-      - resnet50
-    names:
-      - imagenet-preprocessed
-      - dataset-preprocessed
-    tags: get,dataset,imagenet,preprocessed,_for.resnet50,_NHWC,_full
-
+ 
   - enable_if_env:
       CM_MODEL:
       - resnet50
@@ -129,6 +121,24 @@ deps:
       - resnet50-model
       - ml-model
     tags: get,ml-model,resnet50,_fp32,_onnx,_from-tf
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+      CM_MLPERF_DEVICE:
+      - qaic
+      tags: compile,qaic,model,_resnet50
+      names:
+        - qaic-model-compiler
+        - resnet50-compiler
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    names:
+      - imagenet-preprocessed
+      - dataset-preprocessed
+    tags: get,dataset,imagenet,preprocessed,_for.resnet50,_NHWC,_full
 
 
 
@@ -153,6 +163,16 @@ deps:
 
   ########################################################################
   # Install OpenImages
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+      CM_MLPERF_DEVICE:
+      - qaic
+      tags: compile,qaic,model,_retinanet
+      names:
+        - qaic-model-compiler
+        - retinanet-compiler
 
   - enable_if_env:
       CM_MODEL:
@@ -309,13 +329,6 @@ variations:
       kilt_device_qaic_skip_stage: convert
       CM_IMAGENET_ACCURACY_DTYPE: int8
 
-  resnet50,qaic:
-    deps:
-      - tags: compile,qaic,model,_resnet50
-        names:
-          - qaic-model-compiler
-          - resnet50-compiler
-
   bert-99,qaic:
     deps:
       - tags: compile,qaic,model,_bert-99,_pc.99.9980
@@ -349,13 +362,6 @@ variations:
     - tags: get,generic-python-lib,_opencv-python
     - tags: get,generic-python-lib,_numpy
     - tags: get,generic-python-lib,_pycocotools
-
-  retinanet,qaic:
-    deps:
-      - tags: compile,qaic,model,_retinanet
-        names:
-          - qaic-model-compiler
-          - retinanet-compiler
 
   retinanet,qaic,uint8:
     env:

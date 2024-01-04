@@ -285,6 +285,9 @@
           "tags": "retinanet,_no-nms"
         }
       },
+      "new_env_keys": [
+        "CM_QAIC_MODEL_RETINANET_*"
+      ],
       "env": {
         "CM_COMPILE_RETINANET": "on",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_retinanet_no_nms_mlperf",

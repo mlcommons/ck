@@ -117,6 +117,7 @@
         "model-framework": "tf"
       },
       "env": {
+        "CM_QAIC_MODEL_NAME": "resnet50",
         "CM_CALIBRATE_IMAGENET": "yes",
         "CM_QAIC_COMPILER_ARGS": "",
         "CM_QAIC_COMPILER_PARAMS": "-output-node-name=ArgMax -profiling-threads=<<<CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET>>>",
@@ -152,23 +153,35 @@
           "tags": "retinanet,_no-nms,_onnx"
         }
       },
+      "new_env_keys": [
+        "CM_QAIC_MODEL_RETINANET_*"
+      ],
       "env": {
+        "CM_QAIC_MODEL_NAME": "retinanet",
         "CM_CALIBRATE_OPENIMAGES": "yes",
         "CM_QAIC_COMPILER_ARGS": "",
         "CM_QAIC_COMPILER_PARAMS": "-enable-channelwise -profiling-threads=<<<CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET>>> -onnx-define-symbol=batch_size,<<<CM_QAIC_MODEL_BATCH_SIZE>>> -node-precision-info=<<<CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH>>>",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_retinanet_no_nms_mlperf"
       }
     },
-    "bert-99": {
-      "group": "model",
+    "bert_": {
       "default-variations": {
         "seq-length": "seq.384"
+      },
+      "env": {
+        "CM_QAIC_MODEL_NAME": "bert-large"
       },
       "adr": {
         "model-src": {
           "tags": "bert-large,_onnx,_packed"
         }
-      },
+      }
+    },
+    "bert-99": {
+      "group": "model",
+      "base": [
+        "bert_"
+      ],
       "env": {
         "CM_CALIBRATE_SQUAD": "yes",
         "CM_QAIC_COMPILER_ARGS": "",
