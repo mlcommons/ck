@@ -73,5 +73,6 @@
       "group": "download-tool"
     }
   },
+  "tags_help":"download file",
   "versions": {}
 }
