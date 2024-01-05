@@ -93,7 +93,7 @@ def preprocess(i):
         dae_input_annotation['extract_path'] = path_to
     
     path_store = env.get('CM_STORE', '')
-    if path_keep!='':
+    if path_store!='':
         dae_input_data['download_path'] = path_store
         dae_input_data['tags'] = '_keep'
         dae_input_annotation['download_path'] = path_store

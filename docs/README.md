@@ -43,6 +43,7 @@ The development is led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [
       * [detect or install python](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
       * [install/manage multiple python venv](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv)
       * [detect conda manager](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)
+      * [detect/download COCO dataset](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco/README-extra.md)
 * [Debugging](debugging.md)
 * [Real-world use cases](use-cases.md)
 * [Tutorials](tutorials/README.md)
