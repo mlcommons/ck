@@ -1,5 +1,7 @@
 from cmind import utils
 import os
+import sys
+import yaml
 
 def preprocess(i):
 
@@ -78,6 +80,128 @@ def construct_calibration_cmd(env):
 def postprocess(i):
 
     env = i['env']
-    env['CM_QAIC_MODEL_PROFILE_WITH_PATH'] = os.path.join(os.getcwd(), "profile.yaml")
+    profile_file_path = os.path.join(os.getcwd(), "profile.yaml")
+    env['CM_QAIC_MODEL_PROFILE_WITH_PATH'] = profile_file_path
 
-    return {'return':0}
+    input_layer_name = env.get('CM_ML_MODEL_INPUT_LAYER_NAME', 'images:0')
+
+
+    output_layer_names_conf = [ [], [] ]
+    output_layer_names_loc = [ [], [] ]
+
+    output_layer_names_loc[0] = [
+        "/GatherElements/:0",
+        "/GatherElements_1/:0",
+        "/GatherElements_2/:0",
+        "/GatherElements_3/:0",
+        "/GatherElements_4/:0"
+        ]
+
+    output_layer_names_conf[0] = [
+        "/TopK/:0",
+        "/TopK_1/:0",
+        "/TopK_2/:0",
+        "/TopK_3/:0"
+        "/TopK_4/:0"
+        ]
+
+    output_layer_names_loc[1] = [
+    "GatherElements_588/:0",
+    "GatherElements_598/:0",
+    "GatherElements_608/:0",
+    "GatherElements_618/:0",
+    "GatherElements_628/:0"
+    ]
+
+    output_layer_names_conf[1] = [
+            "TopK_570/:0",
+            "TopK_572/:0",
+            "TopK_574/:0",
+            "TopK_576/:0",
+            "TopK_578/:0"
+            ]
+
+    if env.get('CM_QAIC_MODEL_NAME', '') == "retinanet":
+        with open(profile_file_path, "r") as stream:
+            try:
+                output_min_val_loc = sys.maxsize
+                output_max_val_loc = -sys.maxsize
+                output_min_val_conf = sys.maxsize
+                output_max_val_conf = -sys.maxsize
+                docs = yaml.load_all(stream, yaml.FullLoader)
+                for doc in docs:
+                    if type(doc) == list:
+
+                        node_names = [ k['NodeOutputName'] for k in doc]
+                        #print(node_names)
+                        oindex = None
+
+                        for output in output_layer_names_loc:
+                            if output[0] in node_names:
+                                print(output[0])
+                                oindex = output_layer_names_loc.index(output)
+                                print(oindex)
+                                break
+
+                        if oindex is None:
+                            return {'return': 1, 'error': 'Output node names not found for the given retinanet model'}
+
+                        for k in doc:
+                            #print(k['NodeOutputName'])
+                            if k["NodeOutputName"] == input_layer_name:
+                                min_val = k['Min']
+                                max_val = k['Max']
+                                scale, offset = get_scale_offset(min_val, max_val)
+                                env['CM_QAIC_MODEL_RETINANET_IMAGE_SCALE'] = scale
+                                env['CM_QAIC_MODEL_RETINANET_IMAGE_OFFSET'] = offset
+
+                            if k["NodeOutputName"] in output_layer_names_loc[oindex]:
+                                min_val = k['Min']
+                                max_val = k['Max']
+                                if min_val < output_min_val_loc:
+                                    output_min_val_loc = min_val
+                                if max_val > output_max_val_loc:
+                                    output_max_val_loc = max_val
+                                loc_scale, loc_offset = get_scale_offset(min_val, max_val)
+                                index = output_layer_names_loc[oindex].index(k["NodeOutputName"])
+                                env[f'CM_QAIC_MODEL_RETINANET_LOC_SCALE_{index}'] = loc_scale
+                                env[f'CM_QAIC_MODEL_RETINANET_LOC_OFFSET_{index}'] = loc_offset - 128 # to uint8 is done in NMS code
+
+                                total_range = max_val - min_val
+                                scale = total_range/256.0
+                                offset = round(-min_val / scale)
+
+                            if k["NodeOutputName"] in output_layer_names_conf[oindex]:
+                                min_val = k['Min']
+                                max_val = k['Max']
+                                if min_val < output_min_val_conf:
+                                    output_min_val_conf = min_val
+                                if max_val > output_max_val_conf:
+                                    output_max_val_conf = max_val
+                                conf_scale, conf_offset = get_scale_offset(min_val, max_val)
+                                index = output_layer_names_conf[oindex].index(k["NodeOutputName"])
+                                env[f'CM_QAIC_MODEL_RETINANET_CONF_SCALE_{index}'] = conf_scale
+                                env[f'CM_QAIC_MODEL_RETINANET_CONF_OFFSET_{index}'] = conf_offset - 128 # to uint8 is done in NMS code
+                                total_range = max_val - min_val
+                                scale = total_range/256.0
+                                offset = round(-min_val / scale)
+
+                loc_scale, loc_offset = get_scale_offset(output_min_val_loc, output_max_val_loc)
+                conf_scale, conf_offset = get_scale_offset(output_min_val_conf, output_max_val_conf)
+                env['CM_QAIC_MODEL_RETINANET_LOC_SCALE'] = loc_scale
+                env['CM_QAIC_MODEL_RETINANET_LOC_OFFSET'] = loc_offset - 128 # to uint8 is done in NMS code
+                env['CM_QAIC_MODEL_RETINANET_CONF_SCALE'] = conf_scale
+                env['CM_QAIC_MODEL_RETINANET_CONF_OFFSET'] = conf_offset - 128 # to uint8 is done in NMS code
+
+            except yaml.YAMLError as exc:
+                return {'return': 1, 'error': exc}
+
+    print(env)
+    return {'return':1}
+
+def get_scale_offset(min_val, max_val):
+    total_range = max_val - min_val
+    scale = total_range/256.0
+    offset = round(-min_val / scale)
+    return scale, offset
+

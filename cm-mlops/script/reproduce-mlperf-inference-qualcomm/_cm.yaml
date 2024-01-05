@@ -102,6 +102,23 @@ deps:
     env:
       CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_KILT_CHECKOUT_PATH
 
+  ########################################################################
+  # Install MLPerf inference dependencies
+
+  # Download MLPerf inference source
+  - tags: get,mlcommons,inference,src
+    names:
+    - inference-src
+
+  # Download MLPerf inference loadgen
+  - tags: get,mlcommons,inference,loadgen
+    names:
+    - inference-loadgen
+
+  # Creates user conf for given SUT
+  - tags: generate,user-conf,mlperf,inference
+    names:
+    - user-conf-generator
 
   # Get MLPerf logging library
   - tags: get,generic-python-lib,_mlperf_logging
@@ -131,6 +148,9 @@ deps:
     names:
       - qaic-model-compiler
       - resnet50-compiler
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
 
   - enable_if_env:
       CM_MODEL:
@@ -139,6 +159,9 @@ deps:
       - imagenet-preprocessed
       - dataset-preprocessed
     tags: get,dataset,imagenet,preprocessed,_for.resnet50,_NHWC,_full
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
 
 
 
@@ -152,6 +175,9 @@ deps:
     names:
       - bert-vocab
     tags: get,squad-vocab
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
 
   - enable_if_env:
       CM_MODEL:
@@ -160,6 +186,9 @@ deps:
     names:
       - squad-tokenized
     tags: get,dataset,tokenized,squad,_raw
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
 
   ########################################################################
   # Install OpenImages
@@ -173,6 +202,9 @@ deps:
     names:
       - qaic-model-compiler
       - retinanet-compiler
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
 
   - enable_if_env:
       CM_MODEL:
@@ -181,26 +213,12 @@ deps:
       - openimages-preprocessed
       - dataset-preprocessed
     tags: get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_custom-annotations
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
 
 
 
-  ########################################################################
-  # Install MLPerf inference dependencies
-
-  # Download MLPerf inference source
-  - tags: get,mlcommons,inference,src
-    names:
-    - inference-src
-
-  # Download MLPerf inference loadgen
-  - tags: get,mlcommons,inference,loadgen
-    names:
-    - inference-loadgen
-
-  # Creates user conf for given SUT
-  - tags: generate,user-conf,mlperf,inference
-    names:
-    - user-conf-generator
 
 ########################################################################
   # Install ML engines via CM
@@ -262,6 +280,9 @@ variations:
       kilt_backend_type:  qaic
     deps:
       - tags: get,qaic,platform,sdk
+        skip_if_env:
+          CM_MLPERF_SKIP_RUN:
+            - yes
       - tags: get,lib,protobuf,_tag.v3.11.4
       - tags: set,device,mode,qaic
         enable_if_env:
@@ -335,6 +356,9 @@ variations:
         names:
           - qaic-model-compiler
           - bert-99-compiler
+        skip_if_env:
+          CM_MLPERF_SKIP_RUN:
+            - yes
 
   retinanet:
     group: model
