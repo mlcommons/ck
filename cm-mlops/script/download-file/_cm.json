@@ -10,13 +10,14 @@
       "tags": "detect,os"
     }
   ],
-  "env": {
-  },
+  "env": {},
   "input_description": {},
   "input_mapping": {
-    "url": "CM_DOWNLOAD_URL",
     "download_path": "CM_DOWNLOAD_PATH",
+    "from": "CM_DOWNLOAD_LOCAL_FILE_PATH",
     "local_path": "CM_DOWNLOAD_LOCAL_FILE_PATH",
+    "store": "CM_DOWNLOAD_PATH",
+    "url": "CM_DOWNLOAD_URL",
     "verify": "CM_VERIFY_SSL"
   },
   "new_env_keys": [
@@ -32,14 +33,33 @@
     "file",
     "download-file"
   ],
+  "tags_help": "download file",
   "uid": "9cdc8dc41aae437e",
   "variations": {
+    "cmutil": {
+      "default": true,
+      "env": {
+        "CM_DOWNLOAD_TOOL": "cmutil"
+      },
+      "group": "download-tool"
+    },
     "curl": {
       "default_env": {
         "CM_DOWNLOAD_CURL_EMULATE_BROWSER": "no"
       },
       "env": {
         "CM_DOWNLOAD_TOOL": "curl"
+      },
+      "group": "download-tool"
+    },
+    "gdown": {
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_package.gdown"
+        }
+      ],
+      "env": {
+        "CM_DOWNLOAD_TOOL": "gdown"
       },
       "group": "download-tool"
     },
@@ -53,26 +73,7 @@
         "CM_DOWNLOAD_TOOL": "wget"
       },
       "group": "download-tool"
-    },
-    "gdown": {
-      "env": {
-        "CM_DOWNLOAD_TOOL": "gdown"
-      },
-      "group": "download-tool",
-      "deps": [
-        {
-          "tags": "get,generic-python-lib,_package.gdown"
-        }
-      ]
-    },
-    "cmutil": {
-      "default": true,
-      "env": {
-        "CM_DOWNLOAD_TOOL": "cmutil"
-      },
-      "group": "download-tool"
     }
   },
-  "tags_help":"download file",
   "versions": {}
 }

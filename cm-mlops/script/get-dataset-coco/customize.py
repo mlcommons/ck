@@ -92,11 +92,11 @@ def preprocess(i):
         dae_input_data['extract_path'] = path_to
         dae_input_annotation['extract_path'] = path_to
     
-    path_keep = env.get('CM_KEEP', '')
+    path_store = env.get('CM_STORE', '')
     if path_keep!='':
-        dae_input_data['download_path'] = path_keep
+        dae_input_data['download_path'] = path_store
         dae_input_data['tags'] = '_keep'
-        dae_input_annotation['download_path'] = path_keep
+        dae_input_annotation['download_path'] = path_store
         dae_input_annotation['tags'] = '_keep'
 
     

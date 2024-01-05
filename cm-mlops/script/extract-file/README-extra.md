@@ -6,7 +6,7 @@ You can use this script to extract `.tar`, `.gz`, `.zip`, `.bz2`, `.tag.gz` and 
 
 Before using further examples, you can download `coco-2017-val-annotations.zip` using CM:
 ```bash
-cmr "download file _url.https://cKnowledge.org/test/coco-2017-val-annotations.zip"
+cmr "download file" --url=https://cKnowledge.org/test/coco-2017-val-annotations.zip
 ```
 
 Extract this archive in the current path while keeping the archive file:
@@ -42,10 +42,10 @@ cmr "extract file _keep" --input=coco-2017-val-annotations.zip -j
   },
 ```
 
-#### Input flags and equivalent environmnet variables
+#### Input flags and equivalent environment variables
 
 * `--input` or `--env.CM_EXTRACT_FILEPATH` - input file
-* `--extract_path` or `--env.CM_EXTRACT_PATH` - where to extract files (--input should have full path then)
+* `--extract_path` or `--to` or `--env.CM_EXTRACT_PATH` - where to extract files (--input should have full path then)
 * `--extra_folder` or `--env.CM_EXTRACT_TO_FOLDER` - extra directory when extracting file (to avoid messing up current directory)
 
 #### Variations

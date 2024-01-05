@@ -5,7 +5,7 @@
 ### Use internal CM download function
 
 This script will use [internal CM download function](https://github.com/mlcommons/ck/blob/master/cm-mlops/automation/utils/module.py#L157) 
-to donwload a give file to the current directory:
+to download a given file to the current directory:
 
 ```bash
 cmr "download file" --url=https://cKnowledge.org/test/coco-2017-val-annotations.zip
@@ -13,7 +13,7 @@ cmr "download file" --url=https://cKnowledge.org/test/coco-2017-val-annotations.
 or
 
 ```bash
-cmr "download file" _url.https://cKnowledge.org/test/coco-2017-val-annotations.zip
+cmr "download file _url.https://cKnowledge.org/test/coco-2017-val-annotations.zip"
 ```
 
 #### Output environment variables
@@ -31,11 +31,11 @@ cmr "download file" _url.https://cKnowledge.org/test/coco-2017-val-annotations.z
   },
 ```
 
-#### Input flags and equivalent environmnet variables
+#### Input flags and equivalent environment variables
 
 * `--url` or `--env.CM_DAE_URL` - URL to download file
-* `--download_path` or `--env.CM_DOWNLOAD_PATH` - where to download file
-* `--local_path` or `--env.CM_DOWNLOAD_LOCAL_FILE_PATH` - where to take file from instead of downloading
+* `--download_path` or `--to` or `--env.CM_DOWNLOAD_PATH` - where to download file
+* `--local_path` or `--from` or `--env.CM_DOWNLOAD_LOCAL_FILE_PATH` - where to take file from instead of downloading
 * `--verify` or `--env.CM_VERIFY_SSL` - set to `no` to skip SSL certificate verification
 
 

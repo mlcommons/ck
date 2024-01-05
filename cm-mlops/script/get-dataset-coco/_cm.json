@@ -16,7 +16,7 @@
   },
   "input_mapping": {
     "from": "CM_FROM",
-    "keep": "CM_KEEP",
+    "store": "CM_STORE",
     "to": "CM_TO"
   },
   "new_env_keys": [
