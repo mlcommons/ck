@@ -12,7 +12,6 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
-  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -26,17 +25,14 @@
 
 ### About
 
-
-See extra [notes](README-extra.md) from the authors and contributors.
-
 #### Summary
 
-* Category: *DevOps automation.*
+* Category: *Python automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *extract,file*
-* Output cached? *False*
+* CM "database" tags to find this script: *get,install,generic,generic-conda-lib,conda-lib,conda-package,generic-conda-package*
+* Output cached? *True*
 ___
 ### Reuse this script in your project
 
@@ -52,13 +48,11 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=extract,file[,variations] [--input_flags]`
+1. `cm run script --tags=get,install,generic,generic-conda-lib,conda-lib,conda-package,generic-conda-package[,variations] `
 
-2. `cmr "extract file[ variations]" [--input_flags]`
+2. `cmr "get install generic generic-conda-lib conda-lib conda-package generic-conda-package[ variations]" `
 
 * `variations` can be seen [here](#variations)
-
-* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### Run this script from Python
 
@@ -71,7 +65,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'extract,file'
+                  'tags':'get,install,generic,generic-conda-lib,conda-lib,conda-package,generic-conda-package'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -88,13 +82,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="extract,file"```
+```cmr "cm gui" --script="get,install,generic,generic-conda-lib,conda-lib,conda-package,generic-conda-package"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=extract,file) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,install,generic,generic-conda-lib,conda-lib,conda-package,generic-conda-package) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "extract file[ variations]" [--input_flags]`
+`cm docker script "get install generic generic-conda-lib conda-lib conda-package generic-conda-package[ variations]" `
 
 ___
 ### Customization
@@ -106,38 +100,24 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_keep`
+    * `_package.#`
       - Environment variables:
-        - *CM_EXTRACT_REMOVE_EXTRACTED*: `no`
-      - Workflow:
-    * `_no-remove-extracted`
-      - Environment variables:
-        - *CM_EXTRACT_REMOVE_EXTRACTED*: `no`
-      - Workflow:
-    * `_path.#`
-      - Environment variables:
-        - *CM_EXTRACT_FILEPATH*: `#`
+        - *CM_CONDA_PKG_NAME*: `#`
       - Workflow:
 
     </details>
 
 
-#### Script flags mapped to environment
-<details>
-<summary>Click here to expand this section.</summary>
+  * Group "**package-source**"
+    <details>
+    <summary>Click here to expand this section.</summary>
 
-* `--extra_folder=value`  &rarr;  `CM_EXTRACT_TO_FOLDER=value`
-* `--extract_path=value`  &rarr;  `CM_EXTRACT_PATH=value`
-* `--input=value`  &rarr;  `CM_EXTRACT_FILEPATH=value`
-* `--to=value`  &rarr;  `CM_EXTRACT_PATH=value`
+    * `_source.#`
+      - Environment variables:
+        - *CM_CONDA_PKG_SRC*: `#`
+      - Workflow:
 
-**Above CLI flags can be used in the Python CM API as follows:**
-
-```python
-r=cm.access({... , "extra_folder":...}
-```
-
-</details>
+    </details>
 
 #### Default environment
 
@@ -155,31 +135,34 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package/_cm.json)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)
+     * detect,cpu
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+     * get,python3
+       * CM names: `--adr.['python', 'python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,conda
+       * CM names: `--adr.['conda']...`
+       - CM script: [get-conda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package/_cm.json)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "extract file[,variations]" [--input_flags] -j`
+`cmr "get install generic generic-conda-lib conda-lib conda-package generic-conda-package[,variations]"  -j`
 #### New environment keys (filter)
 
-* `<<<CM_EXTRACT_FINAL_ENV_NAME>>>`
-* `CM_EXTRACT_EXTRACTED_PATH`
-* `CM_GET_DEPENDENT_CACHED_PATH`
+* `CM_PYTHONLIB_*`
 #### New environment keys auto-detected from customize
 
-* `CM_EXTRACT_EXTRACTED_PATH`
-* `CM_GET_DEPENDENT_CACHED_PATH`
 ___
 ### Maintainers
 

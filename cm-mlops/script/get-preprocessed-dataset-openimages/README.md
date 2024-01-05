@@ -106,8 +106,15 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_filter`
+      - Workflow:
+    * `_filter,calibration`
+      - Environment variables:
+        - *CM_DATASET_CALIBRATION_FILTER*: `yes`
+      - Workflow:
     * `_for.retinanet.onnx`
       - Environment variables:
+        - *CM_ML_MODEL_NAME*: `retinanet`
         - *CM_DATASET_SUBTRACT_MEANS*: `1`
         - *CM_DATASET_GIVEN_CHANNEL_MEANS*: `0.485 0.456 0.406`
         - *CM_DATASET_GIVEN_CHANNEL_STDS*: `0.229 0.224 0.225`
@@ -222,6 +229,7 @@ ___
     * `_calibration`
       - Environment variables:
         - *CM_DATASET_PATH*: `<<<CM_CALIBRATION_DATASET_PATH>>>`
+        - *CM_DATASET_ANNOTATIONS_FILE_PATH*: `<<<CM_DATASET_CALIBRATION_ANNOTATIONS_FILE_PATH>>>`
         - *CM_DATASET_TYPE*: `calibration`
       - Workflow:
     * **`_validation`** (default)
@@ -243,6 +251,16 @@ ___
     * `_rgb8`
       - Environment variables:
         - *CM_DATASET_PREPROCESSED_EXTENSION*: `rgb8`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**filter-size**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_filter-size.#`
       - Workflow:
 
     </details>
@@ -342,6 +360,8 @@ ___
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_pillow
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_package.ujson
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_numpy
        * CM names: `--adr.['numpy']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
@@ -367,6 +387,8 @@ ___
 * `CM_DATASET_PREPROCESSED_IMAGENAMES_LIST`
 * `CM_DATASET_PREPROCESSED_IMAGES_LIST`
 * `CM_DATASET_PREPROCESSED_PATH`
+* `CM_DATASET_QUANT_OFFSET`
+* `CM_DATASET_QUANT_SCALE`
 * `CM_DATASET_TYPE`
 ___
 ### Maintainers

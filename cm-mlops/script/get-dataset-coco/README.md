@@ -155,7 +155,7 @@ ___
 <summary>Click here to expand this section.</summary>
 
 * `--from=value`  &rarr;  `CM_FROM=value`
-* `--keep=value`  &rarr;  `CM_KEEP=value`
+* `--store=value`  &rarr;  `CM_STORE=value`
 * `--to=value`  &rarr;  `CM_TO=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
