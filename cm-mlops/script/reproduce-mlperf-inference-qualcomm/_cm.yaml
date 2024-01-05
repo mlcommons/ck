@@ -284,6 +284,9 @@ variations:
           CM_MLPERF_SKIP_RUN:
             - yes
       - tags: get,lib,protobuf,_tag.v3.11.4
+        skip_if_env:
+        CM_MLPERF_SKIP_RUN:
+          - yes
       - tags: set,device,mode,qaic
         enable_if_env:
           CM_QAIC_VC:

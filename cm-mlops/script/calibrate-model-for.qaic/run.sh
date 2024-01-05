@@ -24,5 +24,5 @@ function run() {
 }
 
 #Add your run commands here...
-run "$CM_RUN_CMD"
+#run "$CM_RUN_CMD"
 

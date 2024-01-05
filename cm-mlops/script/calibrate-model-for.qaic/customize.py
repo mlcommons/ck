@@ -24,7 +24,7 @@ def preprocess(i):
     if r['return'] > 0:
         return r
     cmd = r['cmd']
-    
+
     print("Profiling from "+ os.getcwd())
 
     env['CM_RUN_CMD'] = cmd
@@ -196,8 +196,7 @@ def postprocess(i):
             except yaml.YAMLError as exc:
                 return {'return': 1, 'error': exc}
 
-    print(env)
-    return {'return':1}
+    return {'return':0}
 
 def get_scale_offset(min_val, max_val):
     total_range = max_val - min_val
