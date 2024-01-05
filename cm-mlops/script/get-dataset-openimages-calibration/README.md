@@ -95,6 +95,24 @@ ___
 
 #### Variations
 
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_filter`
+      - Environment variables:
+        - *CM_CALIBRATE_FILTER*: `yes`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,python3
+             * CM names: `--adr.['python', 'python3']...`
+             - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+           * get,openimages,dataset,original,_calibration
+             - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
+
+    </details>
+
+
   * Group "**calibration-option**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -103,6 +121,22 @@ ___
       - Environment variables:
         - *CM_MLPERF_OPENIMAGES_CALIBRATION_OPTION*: `one`
         - *CM_DOWNLOAD_CHECKSUM1*: `f09719174af3553119e2c621157773a6`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**filter-size**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_filter-size.#`
+      - Environment variables:
+        - *CM_CALIBRATION_FILTER_SIZE*: `#`
+      - Workflow:
+    * `_filter-size.400`
+      - Environment variables:
+        - *CM_CALIBRATION_FILTER_SIZE*: `400`
       - Workflow:
 
     </details>
@@ -131,11 +165,12 @@ ___
      * download,file
        * CM names: `--adr.['calibration-file-downloader']...`
        - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
-  1. Run "preprocess" function from customize.py
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-calibration/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-calibration/_cm.yaml)
   1. ***Run native script if exists***
+     * [run-filter.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-calibration/run-filter.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-calibration/_cm.yaml)
-  1. Run "postrocess" function from customize.py
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-calibration/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-calibration/_cm.yaml)
 </details>
 
@@ -147,6 +182,7 @@ ___
 * `CM_MLPERF_OPENIMAGES_CALIBRATION_LIST_FILE_WITH_PATH`
 #### New environment keys auto-detected from customize
 
+* `CM_MLPERF_OPENIMAGES_CALIBRATION_LIST_FILE_WITH_PATH`
 ___
 ### Maintainers
 

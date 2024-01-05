@@ -139,6 +139,7 @@ ___
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * compile,qaic,model,_bert-99,_pc.99.9980
+             * `if (CM_MLPERF_SKIP_RUN  != True)`
              * CM names: `--adr.['qaic-model-compiler', 'bert-99-compiler']...`
              - CM script: [compile-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic)
     * `_bert_,network-client`
@@ -197,24 +198,12 @@ ___
       - Environment variables:
         - *CM_MLPERF_LOADGEN_BATCH_SIZE*: `#`
       - Workflow:
-    * `_resnet50,qaic`
-      - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * compile,qaic,model,_resnet50
-             * CM names: `--adr.['qaic-model-compiler', 'resnet50-compiler']...`
-             - CM script: [compile-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic)
     * `_resnet50,uint8`
       - Environment variables:
         - *kilt_input_format*: `UINT8,-1,224,224,3`
         - *kilt_device_qaic_skip_stage*: `convert`
         - *CM_IMAGENET_ACCURACY_DTYPE*: `int8`
       - Workflow:
-    * `_retinanet,qaic`
-      - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * compile,qaic,model,_retinanet
-             * CM names: `--adr.['qaic-model-compiler', 'retinanet-compiler']...`
-             - CM script: [compile-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic)
     * `_retinanet,qaic,uint8`
       - Environment variables:
         - *kilt_device_qaic_skip_stage*: `convert`
@@ -248,6 +237,7 @@ ___
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,qaic,platform,sdk
+             * `if (CM_MLPERF_SKIP_RUN  != True)`
              - CM script: [get-qaic-platform-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk)
            * get,lib,protobuf,_tag.v3.11.4
              - CM script: [get-lib-protobuf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf)
@@ -526,29 +516,6 @@ ___
      * get,git,repo
        * CM names: `--adr.['kilt-repo']...`
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
-     * get,generic-python-lib,_mlperf_logging
-       * CM names: `--adr.['mlperf-logging']...`
-       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-     * get,dataset,imagenet,preprocessed,_for.resnet50,_NHWC,_full
-       * `if (CM_MODEL  == resnet50)`
-       * CM names: `--adr.['imagenet-preprocessed', 'dataset-preprocessed']...`
-       - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
-     * get,ml-model,resnet50,_fp32,_onnx,_from-tf
-       * `if (CM_MODEL  == resnet50) AND (CM_MLPERF_DEVICE  != qaic)`
-       * CM names: `--adr.['resnet50-model', 'ml-model']...`
-       - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
-     * get,squad-vocab
-       * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
-       * CM names: `--adr.['bert-vocab']...`
-       - CM script: [get-dataset-squad-vocab](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad-vocab)
-     * get,dataset,tokenized,squad,_raw
-       * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
-       * CM names: `--adr.['squad-tokenized']...`
-       - CM script: [get-preprocessed-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad)
-     * get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_custom-annotations
-       * `if (CM_MODEL  == retinanet)`
-       * CM names: `--adr.['openimages-preprocessed', 'dataset-preprocessed']...`
-       - CM script: [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
@@ -558,6 +525,37 @@ ___
      * generate,user-conf,mlperf,inference
        * CM names: `--adr.['user-conf-generator']...`
        - CM script: [generate-mlperf-inference-user-conf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf)
+     * get,generic-python-lib,_mlperf_logging
+       * CM names: `--adr.['mlperf-logging']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,ml-model,resnet50,_fp32,_onnx,_from-tf
+       * `if (CM_MODEL  == resnet50) AND (CM_MLPERF_DEVICE  != qaic)`
+       * CM names: `--adr.['resnet50-model', 'ml-model']...`
+       - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+     * compile,qaic,model,_resnet50
+       * `if (CM_MODEL  == resnet50 AND CM_MLPERF_DEVICE  == qaic) AND (CM_MLPERF_SKIP_RUN  != True)`
+       * CM names: `--adr.['qaic-model-compiler', 'resnet50-compiler']...`
+       - CM script: [compile-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic)
+     * get,dataset,imagenet,preprocessed,_for.resnet50,_NHWC,_full
+       * `if (CM_MODEL  == resnet50) AND (CM_MLPERF_SKIP_RUN  != True)`
+       * CM names: `--adr.['imagenet-preprocessed', 'dataset-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
+     * get,squad-vocab
+       * `if (CM_MODEL in ['bert-99', 'bert-99.9']) AND (CM_MLPERF_SKIP_RUN  != True)`
+       * CM names: `--adr.['bert-vocab']...`
+       - CM script: [get-dataset-squad-vocab](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad-vocab)
+     * get,dataset,tokenized,squad,_raw
+       * `if (CM_MODEL in ['bert-99', 'bert-99.9']) AND (CM_MLPERF_SKIP_RUN  != True)`
+       * CM names: `--adr.['squad-tokenized']...`
+       - CM script: [get-preprocessed-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-squad)
+     * compile,qaic,model,_retinanet
+       * `if (CM_MODEL  == retinanet AND CM_MLPERF_DEVICE  == qaic) AND (CM_MLPERF_SKIP_RUN  != True)`
+       * CM names: `--adr.['qaic-model-compiler', 'retinanet-compiler']...`
+       - CM script: [compile-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic)
+     * get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_custom-annotations
+       * `if (CM_MODEL  == retinanet) AND (CM_MLPERF_SKIP_RUN  != True)`
+       * CM names: `--adr.['openimages-preprocessed', 'dataset-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
      * get,lib,onnxruntime,lang-cpp,_cpu
        * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == cpu)`
        - CM script: [get-onnxruntime-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt)

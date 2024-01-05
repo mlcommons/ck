@@ -96,6 +96,18 @@ ___
 
 #### Variations
 
+  * *Internal group (variations should not be selected manually)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_bert_`
+      - Environment variables:
+        - *CM_QAIC_MODEL_NAME*: `bert-large`
+      - Workflow:
+
+    </details>
+
+
   * *No group (any variation can be selected)*
     <details>
     <summary>Click here to expand this section.</summary>
@@ -119,10 +131,20 @@ ___
         - *CM_QAIC_MODEL_BATCH_SIZE*: `#`
         - *CM_CREATE_INPUT_BATCH*: `yes`
       - Workflow:
-    * `_bs.1`
+    * **`_bs.1`** (default)
       - Environment variables:
         - *CM_QAIC_MODEL_BATCH_SIZE*: `1`
         - *CM_CREATE_INPUT_BATCH*: `yes`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**calib-dataset-filter-size**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_filter-size.#`
       - Workflow:
 
     </details>
@@ -153,6 +175,7 @@ ___
       - Workflow:
     * `_resnet50`
       - Environment variables:
+        - *CM_QAIC_MODEL_NAME*: `resnet50`
         - *CM_CALIBRATE_IMAGENET*: `yes`
         - *CM_QAIC_COMPILER_ARGS*: ``
         - *CM_QAIC_COMPILER_PARAMS*: `-output-node-name=ArgMax -profiling-threads=<<<CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET>>>`
@@ -161,6 +184,7 @@ ___
       - Workflow:
     * `_retinanet`
       - Environment variables:
+        - *CM_QAIC_MODEL_NAME*: `retinanet`
         - *CM_CALIBRATE_OPENIMAGES*: `yes`
         - *CM_QAIC_COMPILER_ARGS*: ``
         - *CM_QAIC_COMPILER_PARAMS*: `-enable-channelwise -profiling-threads=<<<CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET>>> -onnx-define-symbol=batch_size,<<<CM_QAIC_MODEL_BATCH_SIZE>>> -node-precision-info=<<<CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH>>>`
@@ -179,6 +203,26 @@ ___
 
     </details>
 
+
+  * Group "**seq-length**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_seq.#`
+      - Environment variables:
+        - *CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH*: `#`
+      - Workflow:
+    * `_seq.384`
+      - Environment variables:
+        - *CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH*: `#`
+      - Workflow:
+
+    </details>
+
+
+#### Default variations
+
+`_bs.1`
 #### Default environment
 
 <details>
@@ -223,6 +267,7 @@ ___
        - CM script: [get-ml-model-efficientnet-lite](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-efficientnet-lite)
        - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)
        - CM script: [get-ml-model-huggingface-zoo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo)
+       - CM script: [get-ml-model-llama2](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2)
        - CM script: [get-ml-model-mobilenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-mobilenet)
        - CM script: [get-ml-model-neuralmagic-zoo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-neuralmagic-zoo)
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)

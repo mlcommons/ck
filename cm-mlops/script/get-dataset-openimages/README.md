@@ -100,6 +100,12 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_filter`
+      - Workflow:
+    * `_filter,calibration`
+      - Workflow:
+    * `_filter-size.#`
+      - Workflow:
     * `_using-fiftyone`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
@@ -133,9 +139,12 @@ ___
 
     * `_calibration`
       - Environment variables:
-        - *CM_CALIBRATION_DATASET_WGET_URL*: `https://github.com/mlcommons/inference/blob/master/calibration/openimages/openimages_cal_images_list.txt`
         - *CM_DATASET_CALIBRATION*: `yes`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,openimages,calibration
+             * CM names: `--adr.['openimages-calibration']...`
+             - CM script: [get-dataset-openimages-calibration](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-calibration)
     * **`_validation`** (default)
       - Environment variables:
         - *CM_DATASET_CALIBRATION*: `no`
@@ -233,15 +242,19 @@ ___
 * `CM_CALIBRATION_DATASET_PATH`
 * `CM_DATASET_ANNOTATIONS_DIR_PATH`
 * `CM_DATASET_ANNOTATIONS_FILE_PATH`
+* `CM_DATASET_CALIBRATION_ANNOTATIONS_FILE_PATH`
 * `CM_DATASET_PATH`
 * `CM_DATASET_PATH_ROOT`
+* `CM_DATASET_VALIDATION_ANNOTATIONS_FILE_PATH`
 #### New environment keys auto-detected from customize
 
 * `CM_CALIBRATION_DATASET_PATH`
 * `CM_DATASET_ANNOTATIONS_DIR_PATH`
 * `CM_DATASET_ANNOTATIONS_FILE_PATH`
+* `CM_DATASET_CALIBRATION_ANNOTATIONS_FILE_PATH`
 * `CM_DATASET_PATH`
 * `CM_DATASET_PATH_ROOT`
+* `CM_DATASET_VALIDATION_ANNOTATIONS_FILE_PATH`
 ___
 ### Maintainers
 

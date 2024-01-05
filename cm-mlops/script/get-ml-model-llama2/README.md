@@ -26,17 +26,14 @@
 
 ### About
 
-
-See extra [notes](README-extra.md) from the authors and contributors.
-
 #### Summary
 
-* Category: *DevOps automation.*
+* Category: *AI/ML models.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *download,file*
-* Output cached? *False*
+* CM "database" tags to find this script: *get,raw,ml-model,language-processing,llama2,llama2-70b,text-summarization*
+* Output cached? *True*
 ___
 ### Reuse this script in your project
 
@@ -52,9 +49,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=download,file[,variations] [--input_flags]`
+1. `cm run script --tags=get,raw,ml-model,language-processing,llama2,llama2-70b,text-summarization[,variations] [--input_flags]`
 
-2. `cmr "download file[ variations]" [--input_flags]`
+2. `cmr "get raw ml-model language-processing llama2 llama2-70b text-summarization[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -71,7 +68,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'download,file'
+                  'tags':'get,raw,ml-model,language-processing,llama2,llama2-70b,text-summarization'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -88,13 +85,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="download,file"```
+```cmr "cm gui" --script="get,raw,ml-model,language-processing,llama2,llama2-70b,text-summarization"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=download,file) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,raw,ml-model,language-processing,llama2,llama2-70b,text-summarization) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "download file[ variations]" [--input_flags]`
+`cm docker script "get raw ml-model language-processing llama2 llama2-70b text-summarization[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -106,36 +103,49 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_url.#`
+    * `_batch_size.#`
       - Environment variables:
-        - *CM_DOWNLOAD_URL*: `#`
+        - *CM_ML_MODEL_BATCH_SIZE*: `#`
+      - Workflow:
+    * `_pytorch,fp32`
       - Workflow:
 
     </details>
 
 
-  * Group "**download-tool**"
+  * Group "**framework**"
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * **`_cmutil`** (default)
+    * **`_pytorch`** (default)
       - Environment variables:
-        - *CM_DOWNLOAD_TOOL*: `cmutil`
+        - *CM_ML_MODEL_FRAMEWORK*: `pytorch`
       - Workflow:
-    * `_curl`
+
+    </details>
+
+
+  * Group "**precision**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_fp32`** (default)
       - Environment variables:
-        - *CM_DOWNLOAD_TOOL*: `curl`
+        - *CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
+        - *CM_ML_MODEL_PRECISION*: `fp32`
+        - *CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp32`
       - Workflow:
-    * `_gdown`
+    * `_int8`
       - Environment variables:
-        - *CM_DOWNLOAD_TOOL*: `gdown`
+        - *CM_ML_MODEL_INPUT_DATA_TYPES*: `int8`
+        - *CM_ML_MODEL_PRECISION*: `int8`
+        - *CM_ML_MODEL_WEIGHT_DATA_TYPES*: `int8`
       - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * get,generic-python-lib,_package.gdown
-             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-    * `_wget`
+    * `_uint8`
       - Environment variables:
-        - *CM_DOWNLOAD_TOOL*: `wget`
+        - *CM_ML_MODEL_INPUT_DATA_TYPES*: `uint8`
+        - *CM_ML_MODEL_PRECISION*: `uint8`
+        - *CM_ML_MODEL_WEIGHT_DATA_TYPES*: `uint8`
       - Workflow:
 
     </details>
@@ -143,23 +153,18 @@ ___
 
 #### Default variations
 
-`_cmutil`
+`_fp32,_pytorch`
 
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
 
-* `--download_path=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
-* `--from=value`  &rarr;  `CM_DOWNLOAD_LOCAL_FILE_PATH=value`
-* `--local_path=value`  &rarr;  `CM_DOWNLOAD_LOCAL_FILE_PATH=value`
-* `--store=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
-* `--url=value`  &rarr;  `CM_DOWNLOAD_URL=value`
-* `--verify=value`  &rarr;  `CM_VERIFY_SSL=value`
+* `--checkpoint=value`  &rarr;  `LLAMA2_CHECKPOINT_PATH=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "download_path":...}
+r=cm.access({... , "checkpoint":...}
 ```
 
 </details>
@@ -180,31 +185,29 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/_cm.json)***
-     * detect,os
-       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/_cm.json)
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2/customize.py)***
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2/_cm.json)***
+     * get,ml-model,huggingface,zoo,_clone-repo,_model-stub.meta-llama/Llama-2-70b-chat-hf
+       * `if (CM_TMP_REQUIRE_DOWNLOAD  == yes)`
+       * CM names: `--adr.['hf-zoo']...`
+       - CM script: [get-ml-model-huggingface-zoo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "download file[,variations]" [--input_flags] -j`
+`cmr "get raw ml-model language-processing llama2 llama2-70b text-summarization[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
-* `<<<CM_DOWNLOAD_FINAL_ENV_NAME>>>`
-* `CM_DOWNLOAD_DOWNLOADED_PATH`
-* `CM_GET_DEPENDENT_CACHED_PATH`
+* `CM_ML_MODEL_*`
+* `LLAMA2_CHECKPOINT_PATH`
 #### New environment keys auto-detected from customize
 
-* `CM_DOWNLOAD_DOWNLOADED_PATH`
-* `CM_GET_DEPENDENT_CACHED_PATH`
+* `CM_ML_MODEL_PATH`
 ___
 ### Maintainers
 

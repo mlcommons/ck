@@ -26,13 +26,16 @@
 
 ### About
 
+
+See extra [notes](README-extra.md) from the authors and contributors.
+
 #### Summary
 
 * Category: *DevOps automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *dae,file,download-and-extract*
+* CM "database" tags to find this script: *download-and-extract,file*
 * Output cached? *False*
 ___
 ### Reuse this script in your project
@@ -49,9 +52,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=dae,file,download-and-extract[,variations] [--input_flags]`
+1. `cm run script --tags=download-and-extract,file[,variations] [--input_flags]`
 
-2. `cmr "dae file download-and-extract[ variations]" [--input_flags]`
+2. `cmr "download-and-extract file[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -68,7 +71,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'dae,file,download-and-extract'
+                  'tags':'download-and-extract,file'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -85,13 +88,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="dae,file,download-and-extract"```
+```cmr "cm gui" --script="download-and-extract,file"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=dae,file,download-and-extract) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=download-and-extract,file) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "dae file download-and-extract[ variations]" [--input_flags]`
+`cm docker script "download-and-extract file[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -136,9 +139,9 @@ ___
     * `_torrent`
       - Environment variables:
         - *CM_DAE_DOWNLOAD_USING_TORRENT*: `yes`
-        - *CM_TORRENT_WAIT_UNTIL_COMPLETED*: `yes`
-        - *CM_TORRENT_DOWNLOADED_PATH_ENV_KEY*: `CM_DAE_FILEPATH`
         - *CM_TORRENT_DOWNLOADED_FILE_NAME*: `<<<CM_DAE_FILENAME>>>`
+        - *CM_TORRENT_DOWNLOADED_PATH_ENV_KEY*: `CM_DAE_FILEPATH`
+        - *CM_TORRENT_WAIT_UNTIL_COMPLETED*: `yes`
       - Workflow:
         1. ***Read "prehook_deps" on other CM scripts***
            * download,torrent
@@ -160,7 +163,10 @@ ___
 * `--download_path=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
 * `--extra_folder=value`  &rarr;  `CM_EXTRACT_TO_FOLDER=value`
 * `--extract_path=value`  &rarr;  `CM_EXTRACT_PATH=value`
+* `--from=value`  &rarr;  `CM_DOWNLOAD_LOCAL_FILE_PATH=value`
 * `--local_path=value`  &rarr;  `CM_DOWNLOAD_LOCAL_FILE_PATH=value`
+* `--store=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
+* `--to=value`  &rarr;  `CM_EXTRACT_PATH=value`
 * `--url=value`  &rarr;  `CM_DAE_URL=value`
 * `--verify=value`  &rarr;  `CM_VERIFY_SSL=value`
 
@@ -207,7 +213,7 @@ ___
 
 ___
 ### Script output
-`cmr "dae file download-and-extract[,variations]" [--input_flags] -j`
+`cmr "download-and-extract file[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 * `<<<CM_DOWNLOAD_FINAL_ENV_NAME>>>`
