@@ -102,68 +102,6 @@ deps:
     env:
       CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_KILT_CHECKOUT_PATH
 
-
-  # Get MLPerf logging library
-  - tags: get,generic-python-lib,_mlperf_logging
-    names:
-    - mlperf-logging
-
-  ########################################################################
-  # Install ResNet50 model (ONNX) and ImageNet
-
-  - enable_if_env:
-      CM_MODEL:
-      - resnet50
-    names:
-      - imagenet-preprocessed
-      - dataset-preprocessed
-    tags: get,dataset,imagenet,preprocessed,_for.resnet50,_NHWC,_full
-
-  - enable_if_env:
-      CM_MODEL:
-      - resnet50
-    skip_if_env:
-      CM_MLPERF_DEVICE:
-      - qaic
-    names:
-      - resnet50-model
-      - ml-model
-    tags: get,ml-model,resnet50,_fp32,_onnx,_from-tf
-
-
-
-  ########################################################################
-  # Install bert dependencies
-
-  - enable_if_env:
-      CM_MODEL:
-      - bert-99
-      - bert-99.9
-    names:
-      - bert-vocab
-    tags: get,squad-vocab
-
-  - enable_if_env:
-      CM_MODEL:
-      - bert-99
-      - bert-99.9
-    names:
-      - squad-tokenized
-    tags: get,dataset,tokenized,squad,_raw
-
-  ########################################################################
-  # Install OpenImages
-
-  - enable_if_env:
-      CM_MODEL:
-      - retinanet
-    names:
-      - openimages-preprocessed
-      - dataset-preprocessed
-    tags: get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_custom-annotations
-
-
-
   ########################################################################
   # Install MLPerf inference dependencies
 
@@ -181,6 +119,106 @@ deps:
   - tags: generate,user-conf,mlperf,inference
     names:
     - user-conf-generator
+
+  # Get MLPerf logging library
+  - tags: get,generic-python-lib,_mlperf_logging
+    names:
+    - mlperf-logging
+
+  ########################################################################
+  # Install ResNet50 model (ONNX) and ImageNet
+ 
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    skip_if_env:
+      CM_MLPERF_DEVICE:
+      - qaic
+    names:
+      - resnet50-model
+      - ml-model
+    tags: get,ml-model,resnet50,_fp32,_onnx,_from-tf
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+      CM_MLPERF_DEVICE:
+      - qaic
+    tags: compile,qaic,model,_resnet50
+    names:
+      - qaic-model-compiler
+      - resnet50-compiler
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    names:
+      - imagenet-preprocessed
+      - dataset-preprocessed
+    tags: get,dataset,imagenet,preprocessed,_for.resnet50,_NHWC,_full
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
+
+
+
+  ########################################################################
+  # Install bert dependencies
+
+  - enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+    names:
+      - bert-vocab
+    tags: get,squad-vocab
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
+
+  - enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+    names:
+      - squad-tokenized
+    tags: get,dataset,tokenized,squad,_raw
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
+
+  ########################################################################
+  # Install OpenImages
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+      CM_MLPERF_DEVICE:
+      - qaic
+    tags: compile,qaic,model,_retinanet
+    names:
+      - qaic-model-compiler
+      - retinanet-compiler
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    names:
+      - openimages-preprocessed
+      - dataset-preprocessed
+    tags: get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_custom-annotations
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
+
+
+
 
 ########################################################################
   # Install ML engines via CM
@@ -242,6 +280,9 @@ variations:
       kilt_backend_type:  qaic
     deps:
       - tags: get,qaic,platform,sdk
+        skip_if_env:
+          CM_MLPERF_SKIP_RUN:
+            - yes
       - tags: get,lib,protobuf,_tag.v3.11.4
       - tags: set,device,mode,qaic
         enable_if_env:
@@ -309,19 +350,15 @@ variations:
       kilt_device_qaic_skip_stage: convert
       CM_IMAGENET_ACCURACY_DTYPE: int8
 
-  resnet50,qaic:
-    deps:
-      - tags: compile,qaic,model,_resnet50
-        names:
-          - qaic-model-compiler
-          - resnet50-compiler
-
   bert-99,qaic:
     deps:
       - tags: compile,qaic,model,_bert-99,_pc.99.9980
         names:
           - qaic-model-compiler
           - bert-99-compiler
+        skip_if_env:
+          CM_MLPERF_SKIP_RUN:
+            - yes
 
   retinanet:
     group: model
@@ -349,13 +386,6 @@ variations:
     - tags: get,generic-python-lib,_opencv-python
     - tags: get,generic-python-lib,_numpy
     - tags: get,generic-python-lib,_pycocotools
-
-  retinanet,qaic:
-    deps:
-      - tags: compile,qaic,model,_retinanet
-        names:
-          - qaic-model-compiler
-          - retinanet-compiler
 
   retinanet,qaic,uint8:
     env:

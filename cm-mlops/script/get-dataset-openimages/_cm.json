@@ -71,6 +71,8 @@
     "CM_DATASET_PATH_ROOT",
     "CM_DATASET_ANNOTATIONS_DIR_PATH",
     "CM_DATASET_ANNOTATIONS_FILE_PATH",
+    "CM_DATASET_CALIBRATION_ANNOTATIONS_FILE_PATH",
+    "CM_DATASET_VALIDATION_ANNOTATIONS_FILE_PATH",
     "CM_CALIBRATION_DATASET_PATH"
   ],
   "tags": [
@@ -101,9 +103,32 @@
     },
     "calibration": {
       "group": "dataset-type",
+      "deps": [
+        {
+          "names": [
+            "openimages-calibration"
+          ],
+          "tags": "get,openimages,calibration"
+        }
+      ],
       "env": {
-        "CM_CALIBRATION_DATASET_WGET_URL": "https://github.com/mlcommons/inference/blob/master/calibration/openimages/openimages_cal_images_list.txt",
         "CM_DATASET_CALIBRATION": "yes"
+      }
+    },
+    "filter": {
+    },
+    "filter-size.#": {
+      "ad": {
+        "openimages-calibration": {
+          "tags": "_filter-size.#"
+        }
+      }
+    },
+    "filter,calibration": {
+      "ad": {
+        "openimages-calibration": {
+          "tags": "_filter"
+        }
       }
     },
     "validation": {

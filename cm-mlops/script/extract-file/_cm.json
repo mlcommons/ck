@@ -2,19 +2,20 @@
   "alias": "extract-file",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "cache": false,
+  "can_force_cache": true,
   "category": "DevOps automation",
   "deps": [
     {
       "tags": "detect,os"
     }
   ],
-  "cache": false,
-  "can_force_cache": true,
   "input_description": {},
   "input_mapping": {
-    "input": "CM_EXTRACT_FILEPATH",
+    "extra_folder": "CM_EXTRACT_TO_FOLDER",
     "extract_path": "CM_EXTRACT_PATH",
-    "extra_folder": "CM_EXTRACT_TO_FOLDER"
+    "input": "CM_EXTRACT_FILEPATH",
+    "to": "CM_EXTRACT_PATH"
   },
   "new_env_keys": [
     "CM_EXTRACT_EXTRACTED_PATH",
@@ -29,6 +30,7 @@
     "extract",
     "file"
   ],
+  "tags_help": "extract file",
   "uid": "3f0b76219d004817",
   "variations": {
     "keep": {

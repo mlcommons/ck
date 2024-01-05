@@ -75,6 +75,7 @@
   "variations": {
     "bs.1": {
       "group": "batch-size",
+      "default": true,
       "env": {
         "CM_QAIC_MODEL_BATCH_SIZE": "1",
         "CM_CREATE_INPUT_BATCH": "yes"
@@ -117,6 +118,7 @@
         "model-framework": "tf"
       },
       "env": {
+        "CM_QAIC_MODEL_NAME": "resnet50",
         "CM_CALIBRATE_IMAGENET": "yes",
         "CM_QAIC_COMPILER_ARGS": "",
         "CM_QAIC_COMPILER_PARAMS": "-output-node-name=ArgMax -profiling-threads=<<<CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET>>>",
@@ -152,49 +154,69 @@
           "tags": "retinanet,_no-nms,_onnx"
         }
       },
+      "new_env_keys": [
+        "CM_QAIC_MODEL_RETINANET_*"
+      ],
       "env": {
+        "CM_QAIC_MODEL_NAME": "retinanet",
         "CM_CALIBRATE_OPENIMAGES": "yes",
         "CM_QAIC_COMPILER_ARGS": "",
         "CM_QAIC_COMPILER_PARAMS": "-enable-channelwise -profiling-threads=<<<CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET>>> -onnx-define-symbol=batch_size,<<<CM_QAIC_MODEL_BATCH_SIZE>>> -node-precision-info=<<<CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH>>>",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_retinanet_no_nms_mlperf"
       }
     },
-    "bert-99": {
-      "group": "model",
+    "bert_": {
       "default-variations": {
         "seq-length": "seq.384"
+      },
+      "env": {
+        "CM_QAIC_MODEL_NAME": "bert-large"
       },
       "adr": {
         "model-src": {
           "tags": "bert-large,_onnx,_packed"
         }
-      },
+      }
+    },
+    "bert-99": {
+      "group": "model",
+      "base": [
+        "bert_"
+      ],
       "env": {
         "CM_CALIBRATE_SQUAD": "yes",
         "CM_QAIC_COMPILER_ARGS": "",
         "CM_QAIC_COMPILER_PARAMS": "-onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>> -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512 -profiling-threads=<<<CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET>>>",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_bert_mlperf"
+      }
+    },
+    "seq.#": {
+      "group": "seq-length",
+      "env": {
+        "CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH": "#"
       },
-      "seq.#": {
-        "group": "seq-length",
-        "env": {
-          "CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH": "#"
-        },
-        "ad": {
-          "squad-preprocessed": {
-            "tags": "_seq.#"
-          }
+      "ad": {
+        "squad-preprocessed": {
+          "tags": "_seq.#"
         }
+      }
+    },
+    "seq.384": {
+      "group": "seq-length",
+      "env": {
+        "CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH": "#"
       },
-      "seq.384": {
-        "group": "seq-length",
-        "env": {
-          "CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH": "#"
-        },
-        "ad": {
-          "squad-preprocessed": {
-            "tags": "_seq.384"
-          }
+      "ad": {
+        "squad-preprocessed": {
+          "tags": "_seq.384"
+        }
+      }
+    },
+    "filter-size.#": {
+      "group": "calib-dataset-filter-size",
+      "ad": {
+        "preprocessed-dataset": {
+          "tags": "_filter-size.#,_filter,_size.#"
         }
       }
     }

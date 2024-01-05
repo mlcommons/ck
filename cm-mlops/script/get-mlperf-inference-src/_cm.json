@@ -79,6 +79,11 @@
     "patch": {
       "env": {
         "CM_GIT_PATCH": "yes"
+      },
+      "ad": {
+        "inference-git-repo": {
+          "tags": "_patch"
+        }
       }
     },
     "nvidia-pycocotools": {

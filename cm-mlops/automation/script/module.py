@@ -1694,6 +1694,15 @@ class CAutomation(Automation):
 
     def _update_variation_tags_from_variations(self, variation_tags, variations, variation_groups, excluded_variation_tags):
 
+        import copy
+        tmp_variation_tags_static = copy.deepcopy(variation_tags)
+        for v_i in range(len(tmp_variation_tags_static)):
+            v = tmp_variation_tags_static[v_i]
+
+            if v not in variations:
+                v_static = self._get_name_for_dynamic_variation_tag(v)
+                tmp_variation_tags_static[v_i] = v_static
+
         # Recursively add any base variations specified
         if len(variation_tags) > 0:
             tmp_variations = {k: False for k in variation_tags}
@@ -1748,7 +1757,7 @@ class CAutomation(Automation):
 
                             unique_allowed_variations = variation_groups[default_base_variation]['variations']
                             # add the default only if none of the variations from the current group is selected and it is not being excluded with - prefix
-                            if len(set(unique_allowed_variations) & set(variation_tags)) == 0 and default_base_variations[default_base_variation] not in excluded_variation_tags and default_base_variations[default_base_variation] not in variation_tags:
+                            if len(set(unique_allowed_variations) & set(tmp_variation_tags_static)) == 0 and default_base_variations[default_base_variation] not in excluded_variation_tags and default_base_variations[default_base_variation] not in tmp_variation_tags_static:
                                 tag_to_append = default_base_variations[default_base_variation]
 
                             if tag_to_append:
@@ -3412,6 +3421,7 @@ class CAutomation(Automation):
         """
 
         return utils.call_internal_module(self, __file__, 'module_misc', 'docker', i)
+
 
     ##############################################################################
     def _available_variations(self, i):

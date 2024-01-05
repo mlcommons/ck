@@ -19,18 +19,21 @@ def preprocess(i):
 def postprocess(i):
 
     env = i['env']
-    if '+C_INCLUDE_PATH' not in env:
-      env['+C_INCLUDE_PATH'] = []
-    if '+CPLUS_INCLUDE_PATH' not in env:
-      env['+CPLUS_INCLUDE_PATH'] = []
-    if '+LD_LIBRARY_PATH' not in env:
-      env['+LD_LIBRARY_PATH'] = []
+    env['+C_INCLUDE_PATH'] = []
+    env['+CPLUS_INCLUDE_PATH'] = []
+    env['+LD_LIBRARY_PATH'] = []
 
     protobuf_install_path = os.path.join(os.getcwd(), "install")
     env['CM_GOOGLE_PROTOBUF_SRC_PATH'] = env['CM_GIT_REPO_CHECKOUT_PATH']
     env['CM_GOOGLE_PROTOBUF_INSTALL_PATH'] = protobuf_install_path
     env['+C_INCLUDE_PATH'].append(os.path.join(protobuf_install_path, "include"))
     env['+CPLUS_INCLUDE_PATH'].append(os.path.join(protobuf_install_path, "include"))
-    env['+LD_LIBRARY_PATH'].append(os.path.join(protobuf_install_path, "lib"))
+
+    if os.path.exists(os.path.join(protobuf_install_path, "lib")):
+        env['+LD_LIBRARY_PATH'].append(os.path.join(protobuf_install_path, "lib"))
+    elif os.path.exists(os.path.join(protobuf_install_path, "lib64")):
+        env['+LD_LIBRARY_PATH'].append(os.path.join(protobuf_install_path, "lib64"))
+    else:
+        return {'return':1, 'error': f'Protobuf library path not found in {protobuf_install_path}'}
 
     return {'return':0}

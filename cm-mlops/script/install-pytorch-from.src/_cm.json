@@ -29,7 +29,7 @@
       "names": [
         "pytorch-src-repo"
       ],
-      "tags": "get,git,repo,_full-history",
+      "tags": "get,git,repo",
       "update_tags_from_env_with_prefix": {
         "_branch.": [
           "CM_GIT_CHECKOUT"
@@ -101,6 +101,11 @@
     "tag.#": {
       "env": {
         "CM_GIT_CHECKOUT_TAG": "#"
+      },
+      "ad": {
+      "pytorch-src-repo": {
+          "tags": "_no-recurse-submodules,_full-history"
+        }
       }
     }
   },

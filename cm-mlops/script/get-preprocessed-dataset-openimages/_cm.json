@@ -37,6 +37,9 @@
       "tags": "get,generic-python-lib,_pillow"
     },
     {
+      "tags": "get,generic-python-lib,_package.ujson"
+    },
+    {
       "names": [ "numpy" ],
       "tags": "get,generic-python-lib,_numpy"
     }
@@ -92,7 +95,7 @@
       },
       "ad": {
         "original-dataset": {
-          "tags": "_#"
+          "tags": "_size.#"
         }
       }
     },
@@ -157,7 +160,28 @@
       },
       "env": {
         "CM_DATASET_PATH": "<<<CM_CALIBRATION_DATASET_PATH>>>",
+        "CM_DATASET_ANNOTATIONS_FILE_PATH": "<<<CM_DATASET_CALIBRATION_ANNOTATIONS_FILE_PATH>>>",
         "CM_DATASET_TYPE": "calibration"
+      }
+    },
+    "filter-size.#": {
+      "group": "filter-size",
+      "ad": {
+        "original-dataset": {
+          "tags": "_filter-size.#"
+        }
+      }
+    },
+    "filter": {
+      "ad": {
+        "original-dataset": {
+          "tags": "_filter"
+        }
+      }
+    },
+    "filter,calibration": {
+      "env": {
+        "CM_DATASET_CALIBRATION_FILTER": "yes"
       }
     },
     "validation": {
@@ -201,6 +225,7 @@
         "dataset-layout": "NCHW"
       },
       "env": {
+        "CM_ML_MODEL_NAME": "retinanet",
         "CM_DATASET_SUBTRACT_MEANS": "1",
         "CM_DATASET_GIVEN_CHANNEL_MEANS": "0.485 0.456 0.406",
         "CM_DATASET_GIVEN_CHANNEL_STDS": "0.229 0.224 0.225",

@@ -12,6 +12,8 @@ def preprocess(i):
     env = i['env']
     meta = i['meta']
 
+    script_path = i['run_script_input']['path']
+
     if 'CM_GIT_DEPTH' not in env:
         env['CM_GIT_DEPTH'] = ''
 
@@ -30,6 +32,11 @@ def preprocess(i):
             submodules.append(possible_submodules[submodule])
 
     env['CM_GIT_SUBMODULES'] = ",".join(submodules)
+
+    if env.get('CM_GIT_PATCH_FILENAME', '') != '':
+        patch_file_name = env['CM_GIT_PATCH_FILENAME']
+        env['CM_GIT_PATCH_FILEPATHS'] = os.path.join(script_path, 'patch', patch_file_name)
+
     need_version = env.get('CM_VERSION','')
     versions = meta['versions']
 

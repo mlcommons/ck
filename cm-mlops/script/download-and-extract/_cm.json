@@ -5,15 +5,17 @@
   "cache": false,
   "can_force_cache": true,
   "category": "DevOps automation",
-  "deps": [
-  ],
+  "deps": [],
   "input_description": {},
   "input_mapping": {
-    "url": "CM_DAE_URL",
     "download_path": "CM_DOWNLOAD_PATH",
-    "extract_path": "CM_EXTRACT_PATH",
     "extra_folder": "CM_EXTRACT_TO_FOLDER",
+    "extract_path": "CM_EXTRACT_PATH",
+    "from": "CM_DOWNLOAD_LOCAL_FILE_PATH",
     "local_path": "CM_DOWNLOAD_LOCAL_FILE_PATH",
+    "store": "CM_DOWNLOAD_PATH",
+    "to": "CM_EXTRACT_PATH",
+    "url": "CM_DAE_URL",
     "verify": "CM_VERIFY_SSL"
   },
   "new_env_keys": [
@@ -25,30 +27,42 @@
   ],
   "new_state_keys": [],
   "post_deps": [],
-  "prehook_deps": [
-    {
-      "tags": "download,file",
-      "names": [ "download-script" ],
-      "update_tags_from_env_with_prefix": {
-        "_url.": [ "CM_DAE_URL" ]
-      },
-      "skip_if_env": {
-        "CM_DAE_DOWNLOAD_USING_TORRENT": [ "yes", "True" ]
-      }
-    }
-  ],
   "posthook_deps": [
     {
+      "enable_if_env": {
+        "CM_DAE_EXTRACT_DOWNLOADED": [
+          "yes",
+          "True"
+        ]
+      },
+      "names": [
+        "extract-script"
+      ],
       "tags": "extract,file",
-      "names": [ "extract-script" ],
       "update_tags_from_env_with_prefix": {
         "_path.": [
           "CM_DOWNLOAD_DOWNLOADED_PATH",
           "CM_TORRENT_DOWNLOADED_PATH"
         ]
+      }
+    }
+  ],
+  "prehook_deps": [
+    {
+      "names": [
+        "download-script"
+      ],
+      "skip_if_env": {
+        "CM_DAE_DOWNLOAD_USING_TORRENT": [
+          "yes",
+          "True"
+        ]
       },
-      "enable_if_env": {
-        "CM_DAE_EXTRACT_DOWNLOADED": [ "yes", "True" ]
+      "tags": "download,file",
+      "update_tags_from_env_with_prefix": {
+        "_url.": [
+          "CM_DAE_URL"
+        ]
       }
     }
   ],
@@ -57,70 +71,38 @@
     "file",
     "download-and-extract"
   ],
+  "tags_help": "download-and-extract file",
   "uid": "c67e81a4ce2649f5",
   "variations": {
     "cmutil": {
-      "group": "download-tool",
-      "default": true,
       "add_deps_recursive": {
         "download-script": {
           "tags": "_cmutil"
         }
-      }
-    },
-    "wget": {
-      "group": "download-tool",
-      "add_deps_recursive": {
-        "download-script": {
-          "tags": "_wget"
-        }
-      }
+      },
+      "default": true,
+      "group": "download-tool"
     },
     "curl": {
-      "group": "download-tool",
       "add_deps_recursive": {
         "download-script": {
           "tags": "_wget"
         }
-      }
-    },
-    "gdown": {
-      "group": "download-tool",
-      "add_deps_recursive": {
-        "download-script": {
-          "tags": "_gdown"
-        }
-      }
-    },
-    "torrent": {
-      "group": "download-tool",
-      "prehook_deps": [
-        {
-          "tags": "download,torrent",
-          "update_tags_from_env_with_prefix": {
-            "_torrent.": [ "CM_DAE_TORRENT_PATH" ]
-          }
-        }
-      ],
-      "env": {
-        "CM_DAE_DOWNLOAD_USING_TORRENT": "yes",
-        "CM_TORRENT_WAIT_UNTIL_COMPLETED": "yes",
-        "CM_TORRENT_DOWNLOADED_PATH_ENV_KEY": "CM_DAE_FILEPATH",
-        "CM_TORRENT_DOWNLOADED_FILE_NAME": "<<<CM_DAE_FILENAME>>>"
       },
-      "new_env_keys": [
-        "CM_TORRENT_DOWNLOADED_PATH"
-      ]
-    },
-    "url.#": {
-      "env": {
-        "CM_DAE_URL": "#"
-      }
+      "group": "download-tool"
     },
     "extract": {
       "env": {
         "CM_DAE_EXTRACT_DOWNLOADED": "yes"
       }
+    },
+    "gdown": {
+      "add_deps_recursive": {
+        "download-script": {
+          "tags": "_gdown"
+        }
+      },
+      "group": "download-tool"
     },
     "keep": {
       "env": {
@@ -131,6 +113,41 @@
       "env": {
         "CM_EXTRACT_REMOVE_EXTRACTED": "no"
       }
+    },
+    "torrent": {
+      "env": {
+        "CM_DAE_DOWNLOAD_USING_TORRENT": "yes",
+        "CM_TORRENT_DOWNLOADED_FILE_NAME": "<<<CM_DAE_FILENAME>>>",
+        "CM_TORRENT_DOWNLOADED_PATH_ENV_KEY": "CM_DAE_FILEPATH",
+        "CM_TORRENT_WAIT_UNTIL_COMPLETED": "yes"
+      },
+      "group": "download-tool",
+      "new_env_keys": [
+        "CM_TORRENT_DOWNLOADED_PATH"
+      ],
+      "prehook_deps": [
+        {
+          "tags": "download,torrent",
+          "update_tags_from_env_with_prefix": {
+            "_torrent.": [
+              "CM_DAE_TORRENT_PATH"
+            ]
+          }
+        }
+      ]
+    },
+    "url.#": {
+      "env": {
+        "CM_DAE_URL": "#"
+      }
+    },
+    "wget": {
+      "add_deps_recursive": {
+        "download-script": {
+          "tags": "_wget"
+        }
+      },
+      "group": "download-tool"
     }
   },
   "versions": {}

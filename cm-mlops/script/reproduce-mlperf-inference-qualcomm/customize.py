@@ -62,6 +62,22 @@ def preprocess(i):
         env['+ CXXFLAGS'].append("-DMODEL_RX50")
         env['+ CXXFLAGS'].append("-DSDK_1_11_X")
 
+        loc_offset = env.get('CM_QAIC_MODEL_RETINANET_LOC_OFFSET')
+        if loc_offset:
+            env['+ CXXFLAGS'].append("-DMODEL_RX50")
+
+        keys = [ 'LOC_OFFSET', 'LOC_SCALE', 'CONF_OFFSET', 'CONF_SCALE' ]
+        for i in range(0,4):
+            keys.append(f'LOC_OFFSET_{i}')
+            keys.append(f'LOC_SCALE_{i}')
+            keys.append(f'CONF_OFFSET_{i}')
+            keys.append(f'CONF_SCALE_{i}')
+
+        for key in keys:
+            value = env.get('CM_QAIC_MODEL_RETINANET_'+key)
+            if value:
+                env['+ CXXFLAGS'].append(f" -D{key}={value} ")
+
     if env.get('CM_BENCHMARK', '') == 'NETWORK_BERT_SERVER':
         source_files.append(os.path.join(kilt_root, "benchmarks", "network", "bert", "server", "pack.cpp"))
         source_files.append(os.path.join(kilt_root, "benchmarks", "network", "bert", "server", "server.cpp"))
@@ -123,7 +139,8 @@ def preprocess(i):
 
     env['+ LDCXXFLAGS'] += [
         "-lmlperf_loadgen",
-        "-lpthread"
+        "-lpthread",
+        "-ldl"
     ]
     # e.g. -lonnxruntime
     if 'CM_MLPERF_BACKEND_LIB_NAMESPEC' in env:
@@ -131,7 +148,9 @@ def preprocess(i):
     # e.g. -lcudart
     if 'CM_MLPERF_DEVICE_LIB_NAMESPEC' in env:
         env['+ LDCXXFLAGS'].append('-l' + env['CM_MLPERF_DEVICE_LIB_NAMESPEC'])
-    env['+ LDCXXFLAGS'].append('-ldl')
+
+    if '-DPRINT_NETWORK_DESCRIPTOR' in env['+ CXXFLAGS']:
+        env['+ LDCXXFLAGS'].append('-lprotobuf')
 
     env['CM_LINKER_LANG'] = 'CXX'
     env['CM_RUN_DIR'] = env.get('CM_MLPERF_OUTPUT_DIR', os.getcwd())

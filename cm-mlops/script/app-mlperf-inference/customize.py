@@ -79,7 +79,7 @@ def postprocess(i):
         accuracy_filename = "accuracy-openimages.py"
         accuracy_filepath = os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
                         accuracy_filename)
-        dataset_args = " --openimages-dir " + env['CM_DATASET_PATH']
+        dataset_args = " --openimages-dir " + os.getcwd() #just to make the script happy
         accuracy_log_file_option_name = " --mlperf-accuracy-file "
         datatype_option = ""
 

@@ -285,6 +285,9 @@
           "tags": "retinanet,_no-nms"
         }
       },
+      "new_env_keys": [
+        "CM_QAIC_MODEL_RETINANET_*"
+      ],
       "env": {
         "CM_COMPILE_RETINANET": "on",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_retinanet_no_nms_mlperf",
@@ -325,6 +328,14 @@
       "env": {
         "CM_QAIC_MODEL_COMPILER_PERCENTILE_CALIBRATION_VALUE": "#",
         "CM_QAIC_MODEL_COMPILER_QUANTIZATION_PARAMS": "-quantization-calibration=Percentile  -percentile-calibration-value=<<<CM_QAIC_MODEL_COMPILER_PERCENTILE_CALIBRATION_VALUE>>>"
+      }
+    },
+    "filter-size.#": {
+      "group": "calib-dataset-filter-size",
+      "ad": {
+        "qaic-profile": {
+          "tags": "_filter-size.#"
+        }
       }
     }
   }
