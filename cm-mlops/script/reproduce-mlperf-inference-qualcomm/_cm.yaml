@@ -127,10 +127,10 @@ deps:
       - resnet50
       CM_MLPERF_DEVICE:
       - qaic
-      tags: compile,qaic,model,_resnet50
-      names:
-        - qaic-model-compiler
-        - resnet50-compiler
+    tags: compile,qaic,model,_resnet50
+    names:
+      - qaic-model-compiler
+      - resnet50-compiler
 
   - enable_if_env:
       CM_MODEL:
@@ -169,10 +169,10 @@ deps:
       - retinanet
       CM_MLPERF_DEVICE:
       - qaic
-      tags: compile,qaic,model,_retinanet
-      names:
-        - qaic-model-compiler
-        - retinanet-compiler
+    tags: compile,qaic,model,_retinanet
+    names:
+      - qaic-model-compiler
+      - retinanet-compiler
 
   - enable_if_env:
       CM_MODEL:
