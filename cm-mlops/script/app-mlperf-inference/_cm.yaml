@@ -310,8 +310,6 @@ variations:
       skip_if_env:
         CM_MLPERF_IMPLEMENTATION:
         - nvidia-original
-        - reference
-        - kilt
       names:
       - mlperf-accuracy-script
       - openimages-accuracy-script
