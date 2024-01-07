@@ -67,7 +67,9 @@ def preprocess(i):
             env['+ CXXFLAGS'].append("-DMODEL_RX50")
 
         keys = [ 'LOC_OFFSET', 'LOC_SCALE', 'CONF_OFFSET', 'CONF_SCALE' ]
-        if env.get('USE_MULTIPLE_SCALES_OFFSETS', '') == 'yes':
+
+        if env.get('CM_RETINANET_USE_MULTIPLE_SCALES_OFFSETS', '') == 'yes':
+            env['+ CXXFLAGS'].append("-DUSE_MULTIPLE_SCALES_OFFSETS=1")
             for j in range(0,4):
                 keys.append(f'LOC_OFFSET{j}')
                 keys.append(f'LOC_SCALE{j}')
