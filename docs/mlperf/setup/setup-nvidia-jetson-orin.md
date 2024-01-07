@@ -23,8 +23,7 @@ Login to Orin and register the imagenet dataset as
 ```
 cm run script --tags=get,imagenet,dataset,_2012,_full --input=$HOME/imagenet-2012-val
 ```
-
-Once all the required files are copied over, follow the individual benchmark instructions from the README files given [here](./../) All the required dependencies should be resolved by CM.
+Once all the required files are copied over, follow the individual benchmark instructions from the README files given [here](./../inference/README.md#run-benchmarks-and-submit-results) All the required dependencies should be resolved by CM.
 
 ### Power Measurement Setup
 
