@@ -67,16 +67,17 @@ def preprocess(i):
             env['+ CXXFLAGS'].append("-DMODEL_RX50")
 
         keys = [ 'LOC_OFFSET', 'LOC_SCALE', 'CONF_OFFSET', 'CONF_SCALE' ]
-        for i in range(0,4):
-            keys.append(f'LOC_OFFSET_{i}')
-            keys.append(f'LOC_SCALE_{i}')
-            keys.append(f'CONF_OFFSET_{i}')
-            keys.append(f'CONF_SCALE_{i}')
+        if env.get('USE_MULTIPLE_SCALES_OFFSETS', '') == 'yes':
+            for j in range(0,4):
+                keys.append(f'LOC_OFFSET{j}')
+                keys.append(f'LOC_SCALE{j}')
+                keys.append(f'CONF_OFFSET{j}')
+                keys.append(f'CONF_SCALE{j}')
 
         for key in keys:
-            value = env.get('CM_QAIC_MODEL_RETINANET_'+key)
-            if value:
-                env['+ CXXFLAGS'].append(f" -D{key}={value} ")
+            value = env.get('CM_QAIC_MODEL_RETINANET_'+key, '')
+            if value != '':
+                env['+ CXXFLAGS'].append(f" -D{key}_={value} ")
 
     if env.get('CM_BENCHMARK', '') == 'NETWORK_BERT_SERVER':
         source_files.append(os.path.join(kilt_root, "benchmarks", "network", "bert", "server", "pack.cpp"))
