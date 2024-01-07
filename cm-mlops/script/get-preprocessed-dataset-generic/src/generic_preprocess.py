@@ -172,7 +172,7 @@ def preprocess():
     interpolation_method    = os.getenv('CM_DATASET_INTERPOLATION_METHOD', '')
 
     print(("From: {}, To: {}, Size: {}, Crop: {}, InterSize: {}, 2BGR: {}, OFF: {}, VOL: '{}', FOF: {},"+
-        " DTYPE: {}, DLAYOUT: {}, EXT: {}, NORM: {}, SMEAN: {}, GCM: {}, QUANTIZE: {}, QUANT_SCALE: {}, QUANT_OFFSET: {}, CONV_UNSIGNED: {}, INTER: {}").format(
+        " DTYPE: {}, DLAYOUT: {}, EXT: {}, NORM: {}, SMEAN: {}, GCM: {}, GSTD: {}, QUANTIZE: {}, QUANT_SCALE: {}, QUANT_OFFSET: {}, CONV_UNSIGNED: {}, INTER: {}").format(
         source_dir, destination_dir, square_side, crop_percentage, inter_size, convert_to_bgr, offset, volume, fof_name,
         data_type, data_layout, new_file_extension, normalize_data, subtract_mean, given_channel_means, given_channel_stds, quantize, quant_scale, quant_offset, convert_to_unsigned, interpolation_method) )
 
