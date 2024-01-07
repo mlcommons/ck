@@ -2462,8 +2462,8 @@ class CAutomation(Automation):
                 update_tags_from_env_with_prefix = d.get("update_tags_from_env_with_prefix", {})
                 for t in update_tags_from_env_with_prefix:
                     for key in update_tags_from_env_with_prefix[t]:
-                        if env.get(key, '').strip() != '':
-                            d['tags']+=","+t+env[key]
+                        if str(env.get(key, '')).strip() != '':
+                            d['tags']+=","+t+str(env[key])
 
                 for key in clean_env_keys_deps:
                     if '?' in key or '*' in key:

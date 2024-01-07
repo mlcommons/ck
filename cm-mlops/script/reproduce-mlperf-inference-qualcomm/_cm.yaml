@@ -213,6 +213,11 @@ deps:
       - openimages-preprocessed
       - dataset-preprocessed
     tags: get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_custom-annotations
+    update_tags_from_env_with_prefix:
+      _quant-scale.:
+        - CM_QAIC_MODEL_RETINANET_IMAGE_OFFSET
+      _quant-offset.:
+        - CM_QAIC_MODEL_RETINANET_IMAGE_SCALE
     skip_if_env:
       CM_MLPERF_SKIP_RUN:
         - yes
@@ -285,8 +290,8 @@ variations:
             - yes
       - tags: get,lib,protobuf,_tag.v3.11.4
         skip_if_env:
-        CM_MLPERF_SKIP_RUN:
-          - yes
+          CM_MLPERF_SKIP_RUN:
+            - yes
       - tags: set,device,mode,qaic
         enable_if_env:
           CM_QAIC_VC:
