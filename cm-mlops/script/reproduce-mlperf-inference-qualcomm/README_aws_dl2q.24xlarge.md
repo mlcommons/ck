@@ -122,5 +122,5 @@ cm run script --tags=generate-run-cmds,inference,_accuracy-only --device=qaic --
 --adr.mlperf-inference-implementation.tags=_bs.1,_dl2q.24xlarge --execution-mode=valid --quiet
 ```
 
-The expected accuracy is 37.xx
+The expected accuracy is 37.234
 
