@@ -1,0 +1,396 @@
+# Identification of this CM script
+alias: reproduce-mlperf-inference-intel
+uid: c05a90433bb04cc1
+cache: false
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular MLPerf benchmarks"
+
+
+# User-friendly tags to find this CM script
+tags:
+  - reproduce
+  - mlcommons
+  - mlperf
+  - inference
+  - harness
+  - intel-harness
+  - intel
+  - intel-harness
+  - intel
+
+# Default environment
+default_env:
+  CM_BATCH_COUNT: '1'
+  CM_BATCH_SIZE: '1'
+  CM_FAST_COMPILATION: 'yes'
+  CM_MLPERF_LOADGEN_SCENARIO: Offline
+  CM_MLPERF_LOADGEN_MODE: performance
+  CM_SKIP_PREPROCESS_DATASET: 'no'
+  CM_SKIP_MODEL_DOWNLOAD: 'no'
+  CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: intel
+  CM_MLPERF_SKIP_RUN: 'no'
+  verbosity: 1
+  loadgen_trigger_cold_run: 0
+
+env:
+  CM_CALL_MLPERF_RUNNER: 'no'
+
+# Map script inputs to environment variables
+input_mapping:
+  count: CM_MLPERF_LOADGEN_QUERY_COUNT
+  max_batchsize: CM_MLPERF_LOADGEN_MAX_BATCHSIZE
+  mlperf_conf: CM_MLPERF_CONF
+  mode: CM_MLPERF_LOADGEN_MODE
+  output_dir: CM_MLPERF_OUTPUT_DIR
+  performance_sample_count: CM_MLPERF_PERFORMANCE_SAMPLE_COUNT
+  scenario: CM_MLPERF_LOADGEN_SCENARIO
+  user_conf: CM_MLPERF_USER_CONF
+  skip_preprocess: CM_SKIP_PREPROCESS_DATASET
+  skip_preprocessing: CM_SKIP_PREPROCESS_DATASET
+  target_qps: CM_MLPERF_LOADGEN_TARGET_QPS
+  offline_target_qps: CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS
+  server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
+  target_latency: CM_MLPERF_LOADGEN_TARGET_LATENCY
+  singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
+  multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
+  performance_sample_count: CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT
+  rerun: CM_RERUN
+
+new_state_keys:
+  - mlperf-inference-implementation
+  - CM_SUT_*
+
+# Env keys which are exposed to higher level scripts
+new_env_keys:
+  - CM_MLPERF_*
+  - CM_DATASET_*
+  - CM_HW_NAME
+  - CM_ML_MODEL_*
+  - CM_MAX_EXAMPLES
+  - CM_IMAGENET_ACCURACY_DTYPE
+  - CM_SQUAD_ACCURACY_DTYPE
+
+
+# Dependencies on other CM scripts
+
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+
+  # Get MLPerf logging library
+  - tags: get,generic-python-lib,_mlperf_logging
+    names:
+    - mlperf-logging
+
+  - tags: get,generic,conda-package,_package.python
+    version: "3.9"
+  - tags: get,generic,conda-package,_package.ninja
+    version: "1.10.2"
+  - tags: get,generic,conda-package,_package.cmake
+    version_min: "3.22.1"
+  - tags: get,generic,conda-package,_package.mkl,_source.intel
+    version: "2023.1.0"
+  - tags: get,generic,conda-package,_package.mkl-include,_source.intel
+    version: "2023.1.0"
+  - tags: get,generic,conda-package,_package.intel-openmp,_source.intel
+    version: "2023.1.0"
+  - tags: get,generic,conda-package,_package.llvm-openmp,_source.conda-forge
+    version: "12.0.1"
+  - tags: get,generic,conda-package,_package.jemalloc,_source.conda-forge
+    version: "5.2.1"
+  - tags: get,generic,conda-package,_package.wheel,_source.conda-forge
+    version: "0.38.1"
+  - tags: get,generic,conda-package,_package.setuptools,_source.conda-forge
+    version: "65.5.1"
+  - tags: get,generic,conda-package,_package.future,_source.conda-forge
+    version: "0.18.3"
+  - tags: get,onednn,from.src,_for-intel-mlperf-3.1
+    version: "2.6"
+
+  ########################################################################
+  # Install ResNet50 model (ONNX) and ImageNet
+ 
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    names:
+      - resnet50-model
+      - ml-model
+    tags: get,ml-model,resnet50,_fp32,_onnx,_from-tf
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    tags: compile,intel,model,_resnet50
+    names:
+      - resnet50-compiler
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    names:
+      - imagenet-preprocessed
+      - dataset-preprocessed
+    tags: get,dataset,imagenet,preprocessed,_for.resnet50,_NHWC,_full
+
+
+
+  ########################################################################
+  # Install bert dependencies
+
+  - enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+    names:
+      - bert-vocab
+    tags: get,squad-vocab
+
+  - enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+    names:
+      - squad-tokenized
+    tags: get,dataset,tokenized,squad,_raw
+
+  ########################################################################
+  # Install OpenImages
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    tags: compile,intel,model,_retinanet
+    names:
+      - retinanet-compiler
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    names:
+      - openimages-preprocessed
+      - dataset-preprocessed
+    tags: get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_custom-annotations
+
+
+
+  ########################################################################
+  # Install MLPerf inference dependencies
+
+  # Download MLPerf inference source
+  - tags: get,mlcommons,inference,src
+    names:
+    - inference-src
+
+  # Download MLPerf inference loadgen
+  - tags: get,mlcommons,inference,loadgen
+    names:
+    - inference-loadgen
+
+  # Creates user conf for given SUT
+  - tags: generate,user-conf,mlperf,inference
+    names:
+    - user-conf-generator
+
+
+
+# Post dependencies to run this app including for power measurement
+post_deps:
+
+  - names:
+    - compile-program
+    tags: compile,cpp-program
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
+
+  - names:
+    - runner
+    - mlperf-runner
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - 'yes'
+        - yes
+    tags: benchmark-mlperf
+
+
+# Variations to customize dependencies
+variations:
+  # Target devices
+  cpu:
+    group: device
+    default: true
+    env:
+      CM_MLPERF_DEVICE: cpu
+
+  # ML engine
+  pytorch:
+    group: framework
+    default: true
+    env:
+      CM_MLPERF_BACKEND: pytorch
+      CM_MLPERF_BACKEND_LIB_NAMESPEC: pytorch
+    deps:
+    - tags: get,llvm,from.src,_for-intel-mlperf-3.1
+      version: 15.0.7
+    - tags: get,pytorch,from.src,_for-intel-mlperf-3.1
+      version: 1.12.0
+    - tags: get,transformers,from.src,_checkout.9f4e0c23d68366985f9f584388874477ad6472d8
+
+
+
+  bs.#:
+    env:
+      ML_MLPERF_MODEL_BATCH_SIZE: "#"
+
+  # Reference MLPerf models
+  resnet50:
+    group: model
+    default: true
+    env:
+      CM_MODEL: resnet50
+      dataset_imagenet_preprocessed_input_square_side: 224
+      ml_model_has_background_class: "YES"
+      ml_model_image_height: 224
+      loadgen_buffer_size: 1024
+      loadgen_dataset_size: 50000
+      CM_BENCHMARK: STANDALONE_CLASSIFICATION
+
+  resnet50,uint8:
+    env:
+      CM_IMAGENET_ACCURACY_DTYPE: int8
+
+  bert-99:
+    deps:
+      - tags: compile,intel,model,_bert-99
+        names:
+          - bert-99-compiler
+
+  retinanet:
+    group: model
+    env:
+      CM_MODEL: retinanet
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth"
+      dataset_imagenet_preprocessed_input_square_side: 224
+      ml_model_image_height: 800
+      ml_model_image_width: 800
+      loadgen_buffer_size: 64
+      loadgen_dataset_size: 24576
+      CM_BENCHMARK: STANDALONE_OBJECT_DETECTION
+
+    deps:
+    - tags: get,generic-python-lib,_numpy
+
+
+  bert_:
+    deps:
+    - tags: get,generic-python-lib,_onnx
+    env:
+      CM_BENCHMARK: STANDALONE_BERT
+      dataset_squad_tokenized_max_seq_length: 384
+      loadgen_buffer_size: 10833
+      loadgen_dataset_size: 10833
+
+
+  standalone:
+    group: run-mode
+    default: true
+    env:
+      CM_RUN_MODE: standalone
+
+  network-server:
+    group: run-mode
+    env:
+      CM_RUN_MODE: network-server
+
+  network-client:
+    group: run-mode
+    env:
+      CM_RUN_MODE: network-client
+
+  bert_,network-server:
+    env:
+      CM_BENCHMARK: NETWORK_BERT_SERVER
+
+  bert_,network-client:
+    env:
+      CM_BENCHMARK: NETWORK_BERT_CLIENT
+
+  bert-99:
+    group: model
+    base:
+    - bert_
+    env:
+      CM_MODEL: bert-99
+      CM_SQUAD_ACCURACY_DTYPE: float32
+      CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx"
+
+  bert-99.9:
+    group: model
+    base:
+    - bert_
+    env:
+      CM_MODEL: bert-99.9
+      CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3733910/files/model.onnx"
+
+  loadgen-batch-size.#:
+    env:
+      CM_MLPERF_LOADGEN_BATCH_SIZE: "#"
+
+  activation-count.#:
+    env:
+      CM_MODEL_BATCH_SIZE: "#"
+      #CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "activation_count.#"
+
+  maxq:
+    group: power-mode
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_MAXQ: yes
+
+  maxn:
+    group: power-mode
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_MAXN: yes
+
+  singlestream:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+
+  multistream:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: MultiStream
+  offline:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Offline
+  server:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Server
+
+  uint8:
+    group: precision
+    adr:
+      dataset-preprocessed:
+        tags: _uint8,_rgb8
+  fp32:
+    group: precision
+    adr:
+      dataset-preprocessed:
+        tags: _float32,_rgb32
+    env:
+      CM_IMAGENET_ACCURACY_DTYPE: float32
+
