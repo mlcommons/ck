@@ -13,7 +13,7 @@ def preprocess(i):
     if env.get('CM_DATASET_REFERENCE_PREPROCESSOR',"0") == "1":
         print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
 
-    if env.get('CM_MODEL_NAME', '') == 'retinanet':
+    if env.get('CM_ML_MODEL_NAME', '') == 'retinanet':
         if env.get('CM_DATASET_QUANTIZE', '') == '1':
             if env.get('CM_QAIC_MODEL_RETINANET_IMAGE_SCALE', '') != '':
                 env['CM_DATASET_QUANT_SCALE'] = env['CM_QAIC_MODEL_RETINANET_IMAGE_SCALE']

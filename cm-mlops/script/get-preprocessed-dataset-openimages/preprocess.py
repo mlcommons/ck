@@ -16,7 +16,7 @@ preprocessed_dir = os.environ.get('CM_DATASET_PREPROCESSED_PATH', os.getcwd())
 if os.environ.get('CM_DATASET_REFERENCE_PREPROCESSOR', '1') == "0":
     #import generic_preprocess
     #generic_preprocess.preprocess()
-    import preprocess_image_dataset as pp
+    import preprocess_object_detection_dataset as pp
     pp.preprocess()
 else:
     dataset_list = os.environ.get('CM_DATASET_ANNOTATIONS_FILE_PATH', None)

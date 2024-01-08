@@ -246,6 +246,16 @@
         "CM_DATASET_QUANT_OFFSET": "114"
       }
     },
+    "quant-scale.#": {
+      "const": {
+        "CM_DATASET_QUANT_SCALE": "#"
+      }
+    },
+    "quant-offset.#": {
+      "const": {
+        "CM_DATASET_QUANT_OFFSET": "#"
+      }
+    },
     "inter.linear": {
       "group": "interpolation-method",
       "env": {

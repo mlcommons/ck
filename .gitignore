@@ -16,5 +16,5 @@ wheels/
 htmlcov
 *tmp/
 *tmp-ck-*/
-cache/
+local/cache/
 

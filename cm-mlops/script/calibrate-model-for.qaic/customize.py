@@ -24,7 +24,7 @@ def preprocess(i):
     if r['return'] > 0:
         return r
     cmd = r['cmd']
-    
+
     print("Profiling from "+ os.getcwd())
 
     env['CM_RUN_CMD'] = cmd
@@ -83,8 +83,10 @@ def postprocess(i):
     profile_file_path = os.path.join(os.getcwd(), "profile.yaml")
     env['CM_QAIC_MODEL_PROFILE_WITH_PATH'] = profile_file_path
 
-    input_layer_name = env.get('CM_ML_MODEL_INPUT_LAYER_NAME', 'images:0')
-
+    if env.get('CM_ML_MODEL_INPUT_LAYER_NAME', '') != '':
+        input_layer_names = [ env.get('CM_ML_MODEL_INPUT_LAYER_NAME') ]
+    else:
+        input_layer_names = [ "images:0", "images/:0" ]
 
     output_layer_names_conf = [ [], [] ]
     output_layer_names_loc = [ [], [] ]
@@ -101,7 +103,7 @@ def postprocess(i):
         "/TopK/:0",
         "/TopK_1/:0",
         "/TopK_2/:0",
-        "/TopK_3/:0"
+        "/TopK_3/:0",
         "/TopK_4/:0"
         ]
 
@@ -133,22 +135,18 @@ def postprocess(i):
                     if type(doc) == list:
 
                         node_names = [ k['NodeOutputName'] for k in doc]
-                        #print(node_names)
                         oindex = None
 
                         for output in output_layer_names_loc:
                             if output[0] in node_names:
-                                print(output[0])
                                 oindex = output_layer_names_loc.index(output)
-                                print(oindex)
                                 break
 
                         if oindex is None:
                             return {'return': 1, 'error': 'Output node names not found for the given retinanet model'}
 
                         for k in doc:
-                            #print(k['NodeOutputName'])
-                            if k["NodeOutputName"] == input_layer_name:
+                            if k["NodeOutputName"] in input_layer_names:
                                 min_val = k['Min']
                                 max_val = k['Max']
                                 scale, offset = get_scale_offset(min_val, max_val)
@@ -164,8 +162,8 @@ def postprocess(i):
                                     output_max_val_loc = max_val
                                 loc_scale, loc_offset = get_scale_offset(min_val, max_val)
                                 index = output_layer_names_loc[oindex].index(k["NodeOutputName"])
-                                env[f'CM_QAIC_MODEL_RETINANET_LOC_SCALE_{index}'] = loc_scale
-                                env[f'CM_QAIC_MODEL_RETINANET_LOC_OFFSET_{index}'] = loc_offset - 128 # to uint8 is done in NMS code
+                                env[f'CM_QAIC_MODEL_RETINANET_LOC_SCALE{index}'] = loc_scale
+                                env[f'CM_QAIC_MODEL_RETINANET_LOC_OFFSET{index}'] = loc_offset - 128 # to uint8 is done in NMS code
 
                                 total_range = max_val - min_val
                                 scale = total_range/256.0
@@ -180,8 +178,8 @@ def postprocess(i):
                                     output_max_val_conf = max_val
                                 conf_scale, conf_offset = get_scale_offset(min_val, max_val)
                                 index = output_layer_names_conf[oindex].index(k["NodeOutputName"])
-                                env[f'CM_QAIC_MODEL_RETINANET_CONF_SCALE_{index}'] = conf_scale
-                                env[f'CM_QAIC_MODEL_RETINANET_CONF_OFFSET_{index}'] = conf_offset - 128 # to uint8 is done in NMS code
+                                env[f'CM_QAIC_MODEL_RETINANET_CONF_SCALE{index}'] = conf_scale
+                                env[f'CM_QAIC_MODEL_RETINANET_CONF_OFFSET{index}'] = conf_offset - 128 # to uint8 is done in NMS code
                                 total_range = max_val - min_val
                                 scale = total_range/256.0
                                 offset = round(-min_val / scale)
@@ -196,8 +194,7 @@ def postprocess(i):
             except yaml.YAMLError as exc:
                 return {'return': 1, 'error': exc}
 
-    print(env)
-    return {'return':1}
+    return {'return':0}
 
 def get_scale_offset(min_val, max_val):
     total_range = max_val - min_val

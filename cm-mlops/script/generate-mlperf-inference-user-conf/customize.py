@@ -16,7 +16,7 @@ def preprocess(i):
 
     rerun = True if env.get("CM_RERUN","")!='' else False
 
-    env['CM_MLPERF_SKIP_RUN'] = "no"
+    env['CM_MLPERF_SKIP_RUN'] = env.get('CM_MLPERF_SKIP_RUN', "no")
 
     mlperf_path = env['CM_MLPERF_INFERENCE_SOURCE']
     submission_checker_dir = os.path.join(mlperf_path, "tools", "submission")
