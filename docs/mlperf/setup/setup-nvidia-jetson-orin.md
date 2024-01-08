@@ -13,7 +13,7 @@ We need to get imagenet full dataset to make image-classification submissions fo
 
 ### Copy the needed files from a host machine
 
-Copy the imagenet dataset to the created instance. For example,
+[Optional but can avoid download] Copy the imagenet dataset to the created instance. For example,
 
 ```
 rsync -avz  $HOME/imagenet-2012-val/ user@192.168.0.27:
@@ -23,8 +23,7 @@ Login to Orin and register the imagenet dataset as
 ```
 cm run script --tags=get,imagenet,dataset,_2012,_full --input=$HOME/imagenet-2012-val
 ```
-
-Once all the required files are copied over, follow the individual benchmark instructions from the README files given [here](./) All the required dependencies should be resolved by CM.
+Once all the required files are copied over, follow the individual benchmark instructions from the README files given [here](./../inference/README.md#run-benchmarks-and-submit-results). All the required dependencies should be resolved by CM.
 
 ### Power Measurement Setup
 
