@@ -253,9 +253,32 @@ variations:
         update_tags_from_env:
             - CM_NVIDIA_HARNESS_GPU_VARIATION
 
+  intel:
+    group:
+      implementation
+    default_variations:
+      device: cpu
+      backend: pytorch
+    posthook_deps:
+      - names:
+         - intel
+         - intel-harness
+         - mlperf-inference-implementation
+        tags: reproduce,mlperf,inference,intel
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+
+   kilt:
+     group:
+       implementation
+
   kilt:
     group:
       implementation
+    default_variations:
+      device: qaic
+      backend: glow
     posthook_deps:
       - names:
          - kilt

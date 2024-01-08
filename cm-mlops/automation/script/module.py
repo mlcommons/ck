@@ -2363,6 +2363,8 @@ class CAutomation(Automation):
 
         for k in variations:
             variation = variations[k]
+            if not variation:
+                continue
             if 'group' in variation:
                 if variation['group'] not in groups:
                     groups[variation['group']] = {}

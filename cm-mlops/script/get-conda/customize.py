@@ -15,7 +15,9 @@ def preprocess(i):
     tmp_path = env.get('CM_CONDA_INSTALL_PATH', env.get('CM_TMP_PATH', ''))
     if tmp_path:
         tmp_path+=":"
-    tmp_path += os.path.join(os.path.expanduser("~"), "miniconda3", "bin")
+    conda_path = os.path.join(os.path.expanduser("~"), "miniconda3", "bin")
+    if os.path.exists(conda_path):
+        tmp_path += os.path.join(os.path.expanduser("~"), "miniconda3", "bin")
     env['CM_TMP_PATH'] = tmp_path
 
     r = i['automation'].find_artifact({'file_name': file_name,
