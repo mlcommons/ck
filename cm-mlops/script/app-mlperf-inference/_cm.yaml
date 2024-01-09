@@ -497,7 +497,7 @@ variations:
         CM_DATASET_SQUAD_VAL_PATH: "on"
       tags: get,dataset,squad,language-processing
     - skip_if_env:
-        CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": "on"
+        CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH: "on"
       tags: get,dataset-aux,squad-vocab
     post_deps:
     - enable_if_env:
