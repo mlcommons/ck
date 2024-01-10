@@ -22,7 +22,6 @@ logger = logging.getLogger(__name__)
 
 
 LOADGEN_EXPECTED_QPS = 50
-LOADGEN_SAMPLE_COUNT = 100
 LOADGEN_DURATION_SEC = 10
 
 
@@ -35,7 +34,9 @@ def main(
     execution_mode: str,
     intraop_threads: int,
     interop_threads: int,
+    samples: int
 ):
+    
     model_factory = ORTModelFactory(
         model_path,
         execution_provider,
@@ -43,6 +44,8 @@ def main(
         interop_threads,
         intraop_threads,
     )
+
+    
     model_dataset = ORTModelInputSampler(model_factory)
 
     runner: ModelRunner = None
@@ -71,7 +74,7 @@ def main(
     settings.scenario = mlperf_loadgen.TestScenario.Offline
     settings.mode = mlperf_loadgen.TestMode.PerformanceOnly
     settings.offline_expected_qps = LOADGEN_EXPECTED_QPS
-    settings.min_query_count = LOADGEN_SAMPLE_COUNT * 2
+    settings.min_query_count = samples * 2
     settings.min_duration_ms = LOADGEN_DURATION_SEC * 1000
     # Duration isn't enforced in offline mode
     # Instead, it is used to determine total sample count via
@@ -99,8 +102,8 @@ def main(
         harness = Harness(model_dataset, runner)
         try:
             query_sample_libary = mlperf_loadgen.ConstructQSL(
-                LOADGEN_SAMPLE_COUNT,  # Total sample count
-                LOADGEN_SAMPLE_COUNT,  # Num to load in RAM at a time
+                samples,  # Total sample count
+                samples,  # Num to load in RAM at a time
                 harness.load_query_samples,
                 harness.unload_query_samples,
             )
@@ -171,6 +174,12 @@ if __name__ == "__main__":
         choices=["sequential", "parallel"],
         default="sequential",
     )
+    parser.add_argument(
+        "--samples",
+        help="number of samples",
+        default=100,
+        type=int,
+    )
 
     args = parser.parse_args()
     main(
@@ -182,4 +191,5 @@ if __name__ == "__main__":
         args.execmode,
         args.intraop,
         args.interop,
+        args.samples
     )

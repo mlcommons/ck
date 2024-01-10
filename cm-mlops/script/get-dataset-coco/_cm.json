@@ -47,7 +47,7 @@
           "CM_DATASET_COCO_URL_DATA_FULL"
         ]
       },
-      "verify":false
+      "verify": false
     },
     {
       "env": {
@@ -72,12 +72,13 @@
           "CM_DATASET_COCO_URL_ANNOTATIONS_FULL"
         ]
       },
-      "verify":false
+      "verify": false
     }
   ],
   "tags": [
     "get",
     "dataset",
+    "object-detection",
     "coco"
   ],
   "uid": "c198e1f60ac6445c",
@@ -88,19 +89,6 @@
         "CM_DATASET_COCO_VERSION": "2017"
       },
       "group": "version"
-    },
-    "train": {
-      "env": {
-        "CM_DATASET_COCO_TYPE": "train"
-      },
-      "group": "type"
-    },
-    "val": {
-      "default": true,
-      "env": {
-        "CM_DATASET_COCO_TYPE": "val"
-      },
-      "group": "type"
     },
     "complete": {
       "default": true,
@@ -114,6 +102,19 @@
         "CM_DATASET_COCO_SIZE": "small"
       },
       "group": "size"
+    },
+    "train": {
+      "env": {
+        "CM_DATASET_COCO_TYPE": "train"
+      },
+      "group": "type"
+    },
+    "val": {
+      "default": true,
+      "env": {
+        "CM_DATASET_COCO_TYPE": "val"
+      },
+      "group": "type"
     }
   }
 }

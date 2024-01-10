@@ -14,17 +14,17 @@
         "python"
       ],
       "tags": "get,python3",
-      "version_min":"3.10"
+      "version_min": "3.10"
     },
     {
-      "names": [
-        "git-mlcommons-croissant"
-      ],
       "env": {
         "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_MLCOMMONS_CROISSANT_PATH"
       },
-      "tags": "git,repo,_repo.https://github.com/mlcommons/croissant",
-      "extra_cache_tags": "mlcommons,croissant"
+      "extra_cache_tags": "mlcommons,croissant",
+      "names": [
+        "git-mlcommons-croissant"
+      ],
+      "tags": "git,repo,_repo.https://github.com/mlcommons/croissant"
     }
   ],
   "tags": [

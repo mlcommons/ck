@@ -32,6 +32,7 @@ input_mapping:
   interop: CM_MLPERF_INTEROP
   execmode: CM_MLPERF_EXEC_MODE
   modelpath: CM_ML_MODEL_FILE_WITH_PATH
+  samples: CM_MLPERF_LOADGEN_SAMPLES
 
 new_env_keys:
   - CM_MLPERF_*
