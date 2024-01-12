@@ -31,11 +31,12 @@ def preprocess(i):
     install_prefix = os.path.join(os.getcwd(), "install")
     if env.get('CM_LLVM_CONDA_ENV', '') == "yes":
         install_prefix = env['CM_CONDA_PREFIX']
-        extra_cmake_options = "-DCMAKE_SHARED_LINKER_FLAGS=-L${CONDA_PREFIX} -Wl,-rpath,${CONDA_PREFIX}"
+        extra_cmake_options = f"-DCMAKE_SHARED_LINKER_FLAGS=-L{install_prefix} -Wl,-rpath,{install_prefix}"
 
     cmake_cmd = "cmake " + os.path.join(env["CM_LLVM_SRC_REPO_PATH"], "llvm") + " -GNinja -DCMAKE_BUILD_TYPE="+llvm_build_type + " -DLLVM_ENABLE_PROJECTS="+ enable_projects+ " -DLLVM_ENABLE_RUNTIMES='"+enable_runtimes + "' -DCMAKE_INSTALL_PREFIX=" + install_prefix + " -DLLVM_ENABLE_RTTI=ON  -DLLVM_INSTALL_UTILS=ON " + extra_cmake_options
     need_version = env.get('CM_VERSION','')
 
+    #print(cmake_cmd)
     env['CM_LLVM_CMAKE_CMD'] = cmake_cmd
 
     env['CM_LLVM_INSTALLED_PATH'] = install_prefix

@@ -9,6 +9,8 @@ if [[ ${CM_LLVM_CONDA_ENV} != "yes" ]]; then
     cmd="rm -rf ${INSTALL_DIR}"
     echo "$cmd"
     eval "$cmd"
+else
+    export PATH=${CM_CONDA_BIN_PATH}:$PATH
 fi
 
 rm -rf build
