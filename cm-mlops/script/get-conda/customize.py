@@ -43,9 +43,6 @@ def preprocess(i):
         found_path = r['found_path']
         env['+PATH'] = [ found_path ]
 
-    conda_prefix = env.get('CM_CONDA_PREFIX', os.path.join(os.path.expanduser("~"), ".conda"))
-    env['CM_CONDA_PREFIX'] = conda_prefix
-
     return {'return':0}
 
 def detect_version(i):
@@ -62,9 +59,20 @@ def postprocess(i):
     r = detect_version(i)
     if r['return'] >0: return r
 
+    conda_bin_path = os.path.dirname(env['CM_CONDA_BIN_WITH_PATH'])
+    env['CM_CONDA_BIN_PATH'] = conda_bin_path
+
+    conda_prefix = os.path.dirname(conda_bin_path)
+    env['CM_CONDA_PREFIX'] = conda_prefix
+
+    conda_lib_path = os.path.join(conda_prefix, "lib")
+
+    if os.path.exists(conda_lib_path):
+        env['CM_CONDA_LIB_PATH'] = conda_lib_path
+        env['+LD_LIBRARY_PATH'] = [ conda_lib_path ]
+
     version = r['version']
 
     print (i['recursion_spaces'] + '    Detected version: {}'.format(version))
-
 
     return {'return':0, 'version':version}

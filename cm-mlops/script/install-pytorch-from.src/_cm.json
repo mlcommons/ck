@@ -19,9 +19,6 @@
       ]
     },
     {
-      "tags": "install,llvm,src,_tag.llvmorg-15.0.7,_runtimes.libcxx:libcxxabi:openmp,_clang,_release"
-    },
-    {
       "env": {
         "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_PYTORCH_SRC_REPO_PATH"
       },
@@ -107,6 +104,125 @@
           "tags": "_no-recurse-submodules,_full-history"
         }
       }
+    },
+    "for-intel-mlperf-inference": {
+      "adr": {
+        "conda-package": {
+          "tags": "_name.bert-pt"
+        }
+      },
+      "deps": [
+        {
+          "tags": "get,conda-env,_name.bert-pt",
+          "names": [ "conda-env" ]
+        },
+        {
+          "tags": "install,llvm,src,_tag.llvmorg-15.0.7,_runtimes.libcxx:libcxxabi:openmp,_clang,_release,_for-intel-mlperf-inference"
+        },
+        {
+          "names": [
+            "conda-package",
+            "python3"
+          ],
+          "tags": "get,generic,conda-package,_package.python",
+          "version": "3.9"
+        },
+        {
+          "names": [
+            "conda-package",
+            "ninja"
+          ],
+          "tags": "get,generic,conda-package,_package.ninja",
+          "version": "1.10.2"
+        },
+        {
+          "names": [
+            "conda-package",
+            "cmake"
+          ],
+          "tags": "get,generic,conda-package,_package.cmake",
+          "version": "3.22.1"
+        },
+        {
+          "names": [
+            "conda-package",
+            "mkl"
+          ],
+          "tags": "get,generic,conda-package,_package.mkl,_source.intel",
+          "version": "2023.1.0"
+        },
+        {
+          "names": [
+            "conda-package",
+            "mkl-include"
+          ],
+          "tags": "get,generic,conda-package,_package.mkl-include,_source.intel",
+          "version": "2023.1.0"
+        },
+        {
+          "names": [
+            "conda-package",
+            "intel-openmp"
+          ],
+          "tags": "get,generic,conda-package,_package.intel-openmp,_source.intel",
+          "version": "2023.1.0"
+        },
+        {
+          "names": [
+            "conda-package",
+            "llvm-openmp"
+          ],
+          "tags": "get,generic,conda-package,_package.llvm-openmp,_source.conda-forge",
+          "version": "12.0.1"
+        },
+        {
+          "names": [
+            "conda-package",
+            "jemalloc"
+          ],
+          "tags": "get,generic,conda-package,_package.jemalloc,_source.conda-forge",
+          "version": "5.2.1"
+        },
+        {
+          "names": [
+            "conda-package",
+            "wheel"
+          ],
+          "tags": "get,generic,conda-package,_package.wheel,_source.conda-forge",
+          "versiona": "0.38.1"
+        },
+        {
+          "names": [
+            "conda-package",
+            "setuptools"
+          ],
+          "tags": "get,generic,conda-package,_package.setuptools,_source.conda-forge",
+          "version_min": "65.5.1"
+        },
+        {
+          "names": [
+            "conda-package",
+            "future"
+          ],
+          "tags": "get,generic,conda-package,_package.future,_source.conda-forge",
+          "version": "0.18.3"
+        },
+        {
+          "names": [
+            "conda-package",
+            "libstdcxx-ng"
+          ],
+          "tags": "get,generic,conda-package,_package.libstdcxx-ng,_source.conda-forge",
+          "versiona": "12"
+        },
+        {
+          "names": [
+            "conda-package",
+            "ncurses"
+          ],
+          "tags": "get,generic,conda-package,_package.ncurses,_source.conda-forge"
+        }
+      ]
     }
   },
   "versions": {}

@@ -21,6 +21,12 @@
     },
     {
       "names": [
+        "conda-env"
+      ],
+      "tags": "get,conda-env"
+    },
+    {
+      "names": [
         "conda"
       ],
       "tags": "get,conda"
@@ -58,6 +64,13 @@
       "group": "package-source",
       "env": {
         "CM_CONDA_PKG_SRC": "#"
+      }
+    },
+    "name.#": {
+      "adr": {
+        "conda-env": {
+          "tags": "_name.#"
+        }
       }
     }
   }

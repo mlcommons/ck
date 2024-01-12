@@ -12,7 +12,11 @@
   ],
   "new_env_keys": [
     "+PATH",
-    "CM_CONDA_PREFIX"
+    "+LD_LIBRARY_PATH",
+    "CM_CONDA_PREFIX",
+    "CM_CONDA_BIN_PATH",
+    "CM_CONDA_BIN_WITH_PATH",
+    "CM_CONDA_LIB_PATH"
   ],
   "tags": [
     "get",

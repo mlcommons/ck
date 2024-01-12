@@ -62,6 +62,7 @@
     "install",
     "src",
     "llvm",
+    "from.src",
     "src-llvm"
   ],
   "uid": "2af16e9a6c5f4702",
@@ -118,6 +119,28 @@
       ],
       "env": {
         "CM_GIT_CHECKOUT_TAG": "#"
+      }
+    },
+    "for-intel-mlperf-inference": {
+      "deps": [
+        {
+          "tags": "get,gcc",
+          "version_max": "9.9.999"
+        },
+        {
+          "tags": "get,conda,env,_name.bert-pt",
+          "names": [ "conda-env" ]
+        },
+        {
+          "tags": "get,conda-package,_package.llvm-openmp,_source.conda-forge",
+          "version": "12.0.1"
+        },
+        {
+          "tags": "get,conda-package,_package.ncurses,_source.conda-forge"
+        }
+      ],
+      "env": {
+        "CM_LLVM_CONDA_ENV": "yes"
       }
     }
   },

@@ -4186,7 +4186,7 @@ def append_deps(deps, new_deps):
                 dep = deps[i]
                 dep_names = dep.get('names',[])
                 if len(dep_names)>0:
-                    if set(new_dep_names) & set(dep_names):
+                    if set(new_dep_names) == set(dep_names):
                         deps[i] = new_dep
                         existing = True
                         break

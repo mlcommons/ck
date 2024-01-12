@@ -13,7 +13,7 @@ def preprocess(i):
     version_string = env.get('CM_TMP_PIP_VERSION_STRING', '').strip()
     package_name = env['CM_CONDA_PKG_NAME'].strip()
 
-    install_cmd = "conda install -y "
+    install_cmd = env['CM_CONDA_BIN_WITH_PATH'] + " install -y "
     if env.get('CM_CONDA_PKG_SRC', '') != '':
         install_cmd += " -c "+env['CM_CONDA_PKG_SRC'] + " "
 
