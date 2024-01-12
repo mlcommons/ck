@@ -122,8 +122,8 @@
       },
       "deps": [
         {
-          "tags": "get,conda-env,_name.bert-pt",
-          "names": [ "conda-env" ]
+          "tags": "get,conda,_name.bert-pt",
+          "names": [ "conda" ]
         },
         {
           "tags": "install,llvm,src,_tag.llvmorg-15.0.7,_runtimes.libcxx:libcxxabi:openmp,_clang,_release,_for-intel-mlperf-inference"

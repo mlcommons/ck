@@ -14,9 +14,9 @@
     },
     {
       "names": [
-        "conda-env"
+        "conda"
       ],
-      "tags": "get,conda-env"
+      "tags": "get,conda"
     },
     {
       "names": [

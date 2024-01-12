@@ -11,16 +11,19 @@ def preprocess(i):
 
     recursion_spaces = i['recursion_spaces']
 
-    file_name = 'conda.exe' if os_info['platform'] == 'windows' else 'conda'
-    tmp_path = env.get('CM_CONDA_INSTALL_PATH', env.get('CM_TMP_PATH', ''))
-    if tmp_path:
-        tmp_path+=":"
-    conda_path = os.path.join(os.path.expanduser("~"), "miniconda3", "bin")
-    if os.path.exists(conda_path):
-        tmp_path += os.path.join(os.path.expanduser("~"), "miniconda3", "bin")
-    env['CM_TMP_PATH'] = tmp_path
+    conda_prefix_name = env.get('CM_CONDA_PREFIX_NAME', '')
+    r = None
+    if conda_prefix_name == '':
+        file_name = 'conda.exe' if os_info['platform'] == 'windows' else 'conda'
+        tmp_path = env.get('CM_CONDA_INSTALL_PATH', env.get('CM_TMP_PATH', ''))
+        if tmp_path:
+            tmp_path+=":"
+        conda_path = os.path.join(os.path.expanduser("~"), "miniconda3", "bin")
+        if os.path.exists(conda_path):
+            tmp_path += os.path.join(os.path.expanduser("~"), "miniconda3", "bin")
+        env['CM_TMP_PATH'] = tmp_path
 
-    r = i['automation'].find_artifact({'file_name': file_name,
+        r = i['automation'].find_artifact({'file_name': file_name,
                                        'env': env,
                                        'os_info':os_info,
                                        'default_path_env_key': 'PATH',
@@ -28,16 +31,21 @@ def preprocess(i):
                                        'env_path_key':'CM_CONDA_BIN_WITH_PATH',
                                        'run_script_input':i['run_script_input'],
                                        'recursion_spaces':recursion_spaces})
-    if r['return'] >0 : 
-       if r['return'] == 16:
-           if env.get('CM_TMP_FAIL_IF_NOT_FOUND','').lower() == 'yes':
-               return r
+    else:
+        env['CM_CONDA_INSTALL_PATH'] = os.path.join(os.getcwd(), "miniconda3")
+        env['CM_CONDA_BIN_WITH_PATH'] = os.path.join(env['CM_CONDA_INSTALL_PATH'], "bin", "conda")
 
-           print (recursion_spaces+'    # {}'.format(r['error']))
+    if conda_prefix_name != '' or r['return'] >0 : 
+        if conda_prefix_name != '' or r['return'] == 16:
+            if conda_prefix_name == '':
+                if env.get('CM_TMP_FAIL_IF_NOT_FOUND','').lower() == 'yes':
+                    return r
 
-           # Attempt to run installer
-           r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'install'})
-           if r['return']>0: return r
+                print (recursion_spaces+'    # {}'.format(r['error']))
+
+            # Attempt to run installer
+            r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'install'})
+            if r['return']>0: return r
 
     else:
         found_path = r['found_path']

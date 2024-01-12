@@ -127,8 +127,8 @@
           "tags": "get,gcc"
         },
         {
-          "tags": "get,conda-env,_name.bert-pt",
-          "names": [ "conda-env" ]
+          "tags": "get,conda,_name.bert-pt",
+          "names": [ "conda" ]
         },
         {
           "tags": "get,conda-package,_package.llvm-openmp,_source.conda-forge",

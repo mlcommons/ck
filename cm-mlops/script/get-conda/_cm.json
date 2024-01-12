@@ -23,5 +23,12 @@
     "conda",
     "get-conda"
   ],
-  "uid": "6600115f41324c7b"
+  "uid": "6600115f41324c7b",
+  "variations": {
+    "name.#": {
+      "env": {
+        "CM_CONDA_PREFIX_NAME": "#"
+      }
+    }
+  }
 }
