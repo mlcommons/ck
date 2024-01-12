@@ -10,9 +10,7 @@ def preprocess(i):
 
     env = i['env']
 
-    env['+ CXXFLAGS'] = [ "-Wno-error", "-unqualified-std-cast-call" ]
-    env['CMAKE_CXX_FLAGS'] = "-Wno-error -unqualified-std-cast-call"
-    run_cmd="CC="+os.path.join(env['CM_LLVM_INSTALLED_PATH'], 'clang') + " CXX="+ os.path.join(env['CM_LLVM_INSTALLED_PATH'], 'clang++') +" USE_CUDA=OFF python3 -m pip install -e ."
+    run_cmd="CC=clang CXX=clang++ USE_CUDA=OFF python -m pip install -e . "
 
     env['CM_RUN_CMD'] = run_cmd
 

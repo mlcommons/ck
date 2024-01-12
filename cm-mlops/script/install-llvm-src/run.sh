@@ -1,18 +1,21 @@
 #!/bin/bash
 
 CUR_DIR=$PWD
-export CC=/usr/bin/gcc-9
-export CXX=/usr/bin/g++-9
 
 INSTALL_DIR="${CM_LLVM_INSTALLED_PATH}"
 echo "INSTALL_DIR=${INSTALL_DIR}"
 
-#rm -rf "${INSTALL_DIR}"
+if [[ ${CM_LLVM_CONDA_ENV} != "yes" ]]; then
+    cmd="rm -rf ${INSTALL_DIR}"
+    echo "$cmd"
+    eval "$cmd"
+fi
+
 rm -rf build
 mkdir -p build
 
 # If install exist, then configure was done 
-if [ ! -d "${INSTALL_DIR}" ]; then
+if [ ! -d "${INSTALL_DIR}" ] || [ ${CM_LLVM_CONDA_ENV} == "yes" ]; then
     echo "******************************************************"
 
     cd build

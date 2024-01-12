@@ -14,13 +14,6 @@
     },
     {
       "names": [
-        "python",
-        "python3"
-      ],
-      "tags": "get,python3"
-    },
-    {
-      "names": [
         "conda-env"
       ],
       "tags": "get,conda-env"

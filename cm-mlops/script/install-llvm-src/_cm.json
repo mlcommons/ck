@@ -124,11 +124,10 @@
     "for-intel-mlperf-inference": {
       "deps": [
         {
-          "tags": "get,gcc",
-          "version_max": "9.9.999"
+          "tags": "get,gcc"
         },
         {
-          "tags": "get,conda,env,_name.bert-pt",
+          "tags": "get,conda-env,_name.bert-pt",
           "names": [ "conda-env" ]
         },
         {
