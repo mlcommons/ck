@@ -757,3 +757,26 @@ class CAutomation(Automation):
         print (s)
 
         return {'return':0}
+
+    ##############################################################################
+    def generate_secret(self, i):
+        """
+        Generate secret for web apps
+
+        Args:    
+
+        Returns:
+           (CM return dict):
+
+           secret (str): secret
+           
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        import secrets
+        s = secrets.token_urlsafe(16)       
+
+        print (s)
+
+        return {'return':0, 'secret': s}
