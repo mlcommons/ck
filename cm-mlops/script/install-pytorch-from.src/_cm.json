@@ -222,7 +222,7 @@
             "libstdcxx-ng"
           ],
           "tags": "get,generic,conda-package,_package.libstdcxx-ng,_source.conda-forge"
-        }
+	}
       ]
     }
   },

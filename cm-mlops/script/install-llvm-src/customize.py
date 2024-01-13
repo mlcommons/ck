@@ -33,7 +33,7 @@ def preprocess(i):
         install_prefix = env['CM_CONDA_PREFIX']
         extra_cmake_options = f"-DCMAKE_SHARED_LINKER_FLAGS=-L{install_prefix} -Wl,-rpath,{install_prefix}"
 
-    cmake_cmd = "cmake " + os.path.join(env["CM_LLVM_SRC_REPO_PATH"], "llvm") + " -GNinja -DCMAKE_BUILD_TYPE="+llvm_build_type + " -DLLVM_ENABLE_PROJECTS="+ enable_projects+ " -DLLVM_ENABLE_RUNTIMES='"+enable_runtimes + "' -DCMAKE_INSTALL_PREFIX=" + install_prefix + " -DLLVM_ENABLE_RTTI=ON  -DLLVM_INSTALL_UTILS=ON -DLLVM_TARGETS_TO_BUILD=X86" + extra_cmake_options
+    cmake_cmd = "cmake " + os.path.join(env["CM_LLVM_SRC_REPO_PATH"], "llvm") + " -GNinja -DCMAKE_BUILD_TYPE="+llvm_build_type + " -DLLVM_ENABLE_PROJECTS="+ enable_projects+ " -DLLVM_ENABLE_RUNTIMES='"+enable_runtimes + "' -DCMAKE_INSTALL_PREFIX=" + install_prefix + " -DLLVM_ENABLE_RTTI=ON  -DLLVM_INSTALL_UTILS=ON -DLLVM_TARGETS_TO_BUILD=X86 " + extra_cmake_options
 
     need_version = env.get('CM_VERSION','')
 
