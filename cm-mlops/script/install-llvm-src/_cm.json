@@ -130,9 +130,14 @@
     "for-intel-mlperf-inference": {
       "base": [
         "tag.llvmorg-15.0.7",
-	"clang",
-	"release"
+        "clang",
+        "release"
       ],
+      "adr": {
+        "conda-package": {
+          "tags": "_name.bert-pt"
+        }
+      },
       "deps": [
         {
           "tags": "get,gcc"
@@ -163,14 +168,14 @@
         },
         {
           "tags": "get,conda-package,_package.chardet"
-	},
-	{
+        },
+        {
           "names": [
             "conda-package",
             "libstdcxx-ng"
           ],
           "tags": "get,generic,conda-package,_package.libstdcxx-ng,_source.conda-forge"
-	}
+        }
       ],
       "env": {
         "CM_LLVM_CONDA_ENV": "yes"
