@@ -269,6 +269,16 @@
           "brew": "git-lfs"
         }
       }
+    },
+    "libffi7": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "libffi7"
+      },
+      "state": {
+        "libffidev": {
+          "apt": "libffi7"
+        }
+      }
     }
   }
 }

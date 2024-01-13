@@ -112,6 +112,9 @@
       },
       "deps": [
         {
+          "tags": "get,generic-sys-util,_libffi7"
+        },
+        {
           "tags": "get,conda,_name.bert-pt",
           "names": [ "conda" ]
         },
