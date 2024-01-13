@@ -51,18 +51,7 @@
   },
   "name": "Build pytorch from sources",
   "new_env_keys": [
-    "CM_PYTORCH_*",
-    "CM_GET_DEPENDENT_CACHED_PATH"
-  ],
-  "post_deps": [
-    {
-      "skip_if_env": {
-        "CM_REQUIRE_INSTALL": [
-          "yes"
-        ]
-      },
-      "tags": "get,llvm"
-    }
+    "CM_PYTORCH_*"
   ],
   "prehook_deps": [],
   "sort": 1000,

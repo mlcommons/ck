@@ -85,6 +85,9 @@
       "group": "checkout",
       "env": {
         "CM_GIT_SHA": "#"
+      },
+      "default_variations": {
+        "git-history": "full-history"
       }
     },
     "tag.#": {
