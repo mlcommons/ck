@@ -275,7 +275,7 @@
         "CM_SYS_UTIL_NAME": "libffi7"
       },
       "state": {
-        "libffidev": {
+        "libffi7": {
           "apt": "libffi7"
         }
       }
