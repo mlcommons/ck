@@ -279,6 +279,16 @@
           "apt": "libffi7"
         }
       }
+    },
+    "numactl": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "numactl"
+      },
+      "state": {
+        "numactl": {
+          "apt": "numactl"
+        }
+      }
     }
   }
 }

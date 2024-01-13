@@ -94,29 +94,10 @@ deps:
     - mlperf-logging
 
   - tags: get,generic,conda-package,_package.python
-    version: "3.9"
-  - tags: get,generic,conda-package,_package.ninja
-    version: "1.10.2"
-  - tags: get,generic,conda-package,_package.cmake
-    version_min: "3.22.1"
-  - tags: get,generic,conda-package,_package.mkl,_source.intel
-    version: "2023.1.0"
-  - tags: get,generic,conda-package,_package.mkl-include,_source.intel
-    version: "2023.1.0"
-  - tags: get,generic,conda-package,_package.intel-openmp,_source.intel
-    version: "2023.1.0"
-  - tags: get,generic,conda-package,_package.llvm-openmp,_source.conda-forge
-    version: "12.0.1"
+    version: "3.8"
+  - tags: get,generic-sys-util,_numactl
   - tags: get,generic,conda-package,_package.jemalloc,_source.conda-forge
-    version: "5.2.1"
-  - tags: get,generic,conda-package,_package.wheel,_source.conda-forge
-    version: "0.38.1"
-  - tags: get,generic,conda-package,_package.setuptools,_source.conda-forge
-    version: "65.5.1"
-  - tags: get,generic,conda-package,_package.future,_source.conda-forge
-    version: "0.18.3"
-  - tags: get,onednn,from.src,_for-intel-mlperf-3.1
-    version: "2.6"
+  - tags: get,onednn,from.src,_for-intel-mlperf-inference
 
   ########################################################################
   # Install ResNet50 model (ONNX) and ImageNet
@@ -242,11 +223,8 @@ variations:
       CM_MLPERF_BACKEND: pytorch
       CM_MLPERF_BACKEND_LIB_NAMESPEC: pytorch
     deps:
-    - tags: get,llvm,from.src,_for-intel-mlperf-3.1
-      version: 15.0.7
-    - tags: get,pytorch,from.src,_for-intel-mlperf-3.1
-      version: 1.12.0
-    - tags: get,transformers,from.src,_checkout.9f4e0c23d68366985f9f584388874477ad6472d8
+    - tags: get,pytorch,from.src,_for-intel-mlperf-inference
+    - tags: get,onednn,from.src,_for-intel-mlperf-inference
 
 
 
@@ -296,6 +274,7 @@ variations:
   bert_:
     deps:
     - tags: get,generic-python-lib,_onnx
+    - tags: install,transformers,from.src,_for-intel-mlperf-inference
     env:
       CM_BENCHMARK: STANDALONE_BERT
       dataset_squad_tokenized_max_seq_length: 384
