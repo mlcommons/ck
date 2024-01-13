@@ -57,6 +57,7 @@
   "sort": 1000,
   "tags": [
     "install",
+    "get",
     "src",
     "from.src",
     "pytorch",
