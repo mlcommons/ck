@@ -13,6 +13,10 @@ def preprocess(i):
     run_cmd=""
 
     env['CM_RUN_CMD'] = run_cmd
+    env['CM_ONEDNN_INSTALLED_PATH'] = os.path.join(os.getcwd(), "onednn")
+
+    if env.get('CM_FOR_INTEL_MLPERF_INFERENCE', '') == "yes":
+        i['run_script_input']['script_name'] = "run-intel-mlperf-inference"
 
     automation = i['automation']
 

@@ -72,6 +72,7 @@ def postprocess(i):
 
     conda_prefix = os.path.dirname(conda_bin_path)
     env['CM_CONDA_PREFIX'] = conda_prefix
+    env['CONDA_PREFIX'] = conda_prefix
 
     conda_lib_path = os.path.join(conda_prefix, "lib")
 

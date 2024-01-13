@@ -13,6 +13,7 @@ def preprocess(i):
     if env.get('CM_MLPERF_SKIP_RUN', '') == "yes":
         return {'return':0}
 
+    import json
     if 'CM_MODEL' not in env:
         return {'return': 1, 'error': 'Please select a variation specifying the model to run'}
     if 'CM_MLPERF_BACKEND' not in env:
@@ -20,34 +21,21 @@ def preprocess(i):
     if 'CM_MLPERF_DEVICE' not in env:
         return {'return': 1, 'error': 'Please select a variation specifying the device to run on'}
 
+    ml_model = env['CM_MODEL']
+    backend = env['CM_MLPERF_BACKEND']
+    device = env['CM_MLPERF_DEVICE']
+    harness_root = os.path.join(env['CM_MLPERF_INFERENCE_RESULTS_PATH'], 'closed', 'Intel', 'code', ml_model, backend+"-"+device)
+    print(f"Harness Root: {harness_root}")
 
-    print(f"Harness Root: {}")
-
-    source_files = []
-    env['CM_SOURCE_FOLDER_PATH'] = env['CM_CHECKOUT_PATH']
-
-
-
-    if '+ CXXFLAGS' not in env:
-        env['+ CXXFLAGS'] = []
-
-    if '+CPLUS_INCLUDE_PATH' not in env:
-        env['+CPLUS_INCLUDE_PATH']  = []
-
+    env['CM_HARNESS_CODE_ROOT'] = harness_root
 
     if env.get('CM_MODEL') == "resnet50":
-        env['dataset_imagenet_preprocessed_subset_fof'] = env['CM_DATASET_PREPROCESSED_IMAGENAMES_LIST']
-        env['dataset_imagenet_preprocessed_dir'] = env['CM_DATASET_PREPROCESSED_PATH']
+        pass
 
     elif "bert" in env.get('CM_MODEL'):
-        env['dataset_squad_tokenized_max_seq_length'] = env['CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH']
-        env['dataset_squad_tokenized_root'] =  env['CM_DATASET_SQUAD_TOKENIZED_ROOT']
-        env['dataset_squad_tokenized_input_ids'] = os.path.basename(env['CM_DATASET_SQUAD_TOKENIZED_INPUT_IDS'])
-        env['dataset_squad_tokenized_input_mask'] =  os.path.basename(env['CM_DATASET_SQUAD_TOKENIZED_INPUT_MASK'])
-        env['dataset_squad_tokenized_segment_ids'] =  os.path.basename(env['CM_DATASET_SQUAD_TOKENIZED_SEGMENT_IDS'])
-
+        pass
     elif "retinanet" in env.get('CM_MODEL'):
-        env['+ CXXFLAGS'].append("-DMODEL_RX50")
+        pass
 
 
     script_path = i['run_script_input']['path']
@@ -55,33 +43,6 @@ def preprocess(i):
         env['CM_DATASET_LIST'] = env['CM_DATASET_ANNOTATIONS_FILE_PATH']
 
 
-    for file in os.listdir(env['CM_SOURCE_FOLDER_PATH']):
-        if file.endswith(".c") or file.endswith(".cpp"):
-            source_files.append(file)
-
-
-    print(f"Compiling the source files: {source_files}")
-    env['CM_CXX_SOURCE_FILES'] = ";".join(source_files)
-
-    env['+ CXXFLAGS'].append("-std=c++17")
-    env['+ CXXFLAGS'].append("-fpermissive")
-
-
-    if '+ LDCXXFLAGS' not in env:
-        env['+ LDCXXFLAGS'] = [ ]
-
-    env['+ LDCXXFLAGS'] += [
-        "-lmlperf_loadgen",
-        "-lpthread",
-        "-ldl"
-    ]
-    # e.g. -lonnxruntime
-    if 'CM_MLPERF_BACKEND_LIB_NAMESPEC' in env:
-        env['+ LDCXXFLAGS'].append('-l' + env['CM_MLPERF_BACKEND_LIB_NAMESPEC'])
-
-
-    env['CM_LINKER_LANG'] = 'CXX'
-    env['CM_RUN_DIR'] = env.get('CM_MLPERF_OUTPUT_DIR', os.getcwd())
 
     if 'CM_MLPERF_CONF' not in env:
         env['CM_MLPERF_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "mlperf.conf")
@@ -89,11 +50,18 @@ def preprocess(i):
         env['CM_MLPERF_USER_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "user.conf")
 
     
-    env['loadgen_mlperf_conf_path'] = env['CM_MLPERF_CONF']# to LOADGEN_MLPERF_CONF
-    env['loadgen_user_conf_path'] = env['CM_MLPERF_USER_CONF']# to LOADGEN_USER_CONF
-    env['loadgen_scenario'] = env['CM_MLPERF_LOADGEN_SCENARIO']
-
     loadgen_mode = env['CM_MLPERF_LOADGEN_MODE']
+    env['CONDA_PREFIX'] = env['CM_CONDA_PREFIX']
+
+    if env['CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE'] == "build_harness":
+        i['run_script_input']['script_name'] = "build_harness"
+        env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH'] = os.path.join(os.getcwd(), "harness", "build", "bert_inference")
+        env['DATA_PATH'] = os.path.join(os.getcwd(), "harness", "bert")
+    elif env['CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE'] == "run_harness":
+        env['MODEL_PATH'] = os.path.dirname(os.path.dirname(env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH']))
+        env['DATASET_PATH'] = os.path.dirname(os.path.dirname(env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH']))
+        env['CM_RUN_DIR'] = os.getcwd()
+        env['CM_RUN_CMD'] = "bash run_harness.sh"
 
     return {'return':0}
 
