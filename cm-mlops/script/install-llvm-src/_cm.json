@@ -122,6 +122,10 @@
       }
     },
     "for-intel-mlperf-inference": {
+      "base": [
+        "tag.llvmorg-15.0.7",
+	"clang"
+      ],
       "deps": [
         {
           "tags": "get,gcc"
@@ -130,33 +134,29 @@
           "tags": "get,conda,_name.bert-pt",
           "names": [ "conda" ]
         },
-	{
+        {
           "names": [
             "conda-package",
             "ninja"
           ],
-          "tags": "get,generic,conda-package,_package.ninja",
-          "version": "1.10.2"
+          "tags": "get,generic,conda-package,_package.ninja"
         },
         {
           "names": [
             "conda-package",
             "cmake"
           ],
-          "tags": "get,generic,conda-package,_package.cmake",
-          "version": "3.22.1"
+          "tags": "get,generic,conda-package,_package.cmake"
         },
         {
-          "tags": "get,conda-package,_package.llvm-openmp,_source.conda-forge",
-          "version": "12.0.1"
-        },
-        {
-          "tags": "get,conda-package,_package.libffi",
-          "version": "3.3"
+          "tags": "get,conda-package,_package.llvm-openmp,_source.conda-forge"
         },
         {
           "tags": "get,conda-package,_package.ncurses,_source.conda-forge"
         },
+        {
+          "tags": "get,conda-package,_package.chardet"
+	},
 	{
           "names": [
             "conda-package",
