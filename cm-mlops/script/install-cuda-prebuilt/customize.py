@@ -26,4 +26,7 @@ def preprocess(i):
     env['CM_NVCC_BIN_WITH_PATH'] = os.path.join(os.getcwd(), 'install', 'bin', nvcc_bin)
     env['CM_GET_DEPENDENT_CACHED_PATH'] =  env['CM_NVCC_BIN_WITH_PATH']
 
+    # Set CUDA_RUN_FILE_LOCAL_PATH to empty if not set for backwards compatibility in download file
+    env['CUDA_RUN_FILE_LOCAL_PATH'] = env.get('CUDA_RUN_FILE_LOCAL_PATH','')
+
     return {'return':0}
