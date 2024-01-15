@@ -18,7 +18,7 @@ if [ ! -d "${CM_TMP_GIT_PATH}" ]; then
   if [ ! -z ${CM_GIT_SHA} ]; then
 
     echo ""
-    cmd="git checkout -b ${CM_GIT_SHA}"
+    cmd="git checkout -b ${CM_GIT_SHA} ${CM_GIT_SHA}"
     echo "$cmd"
     eval "$cmd"
   fi

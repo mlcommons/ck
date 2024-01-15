@@ -34,6 +34,7 @@
     "model-zoo",
     "huggingface"
   ],
+  "tags_help": "get ml-model huggingface zoo",
   "uid": "53cf8252a443446a",
   "variations": {
     "model-stub.#": {

@@ -10,7 +10,7 @@ def preprocess(i):
 
     env = i['env']
 
-    run_cmd="CC=clang CXX=clang++ USE_CUDA=OFF python -m pip install -e . "
+    run_cmd="python setup.py install"
 
     env['CM_RUN_CMD'] = run_cmd
 

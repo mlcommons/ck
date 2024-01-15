@@ -14,10 +14,9 @@
     },
     {
       "names": [
-        "python",
-        "python3"
+        "conda"
       ],
-      "tags": "get,python3"
+      "tags": "get,conda"
     },
     {
       "names": [
@@ -58,6 +57,13 @@
       "group": "package-source",
       "env": {
         "CM_CONDA_PKG_SRC": "#"
+      }
+    },
+    "name.#": {
+      "ad": {
+        "conda": {
+          "tags": "_name.#"
+        }
       }
     }
   }

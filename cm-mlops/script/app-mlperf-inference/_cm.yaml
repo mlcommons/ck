@@ -253,9 +253,28 @@ variations:
         update_tags_from_env:
             - CM_NVIDIA_HARNESS_GPU_VARIATION
 
+  intel:
+    group:
+      implementation
+    default_variations:
+      device: cpu
+      backend: pytorch
+    posthook_deps:
+      - names:
+         - intel
+         - intel-harness
+         - mlperf-inference-implementation
+        tags: reproduce,mlperf,inference,intel
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+
   kilt:
     group:
       implementation
+    default_variations:
+      device: qaic
+      backend: glow
     posthook_deps:
       - names:
          - kilt
@@ -478,7 +497,7 @@ variations:
         CM_DATASET_SQUAD_VAL_PATH: "on"
       tags: get,dataset,squad,language-processing
     - skip_if_env:
-        CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": "on"
+        CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH: "on"
       tags: get,dataset-aux,squad-vocab
     post_deps:
     - enable_if_env:

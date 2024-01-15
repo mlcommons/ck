@@ -1,5 +1,5 @@
 {
-  "alias": "get-conda",
+  "alias": "create-conda-env",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
@@ -8,6 +8,12 @@
   "deps": [
     {
       "tags": "detect,os"
+    },
+    {
+      "names": [
+        "conda"
+      ],
+      "tags": "get,conda"
     }
   ],
   "new_env_keys": [
@@ -16,19 +22,21 @@
     "CM_CONDA_PREFIX",
     "CONDA_PREFIX",
     "CM_CONDA_BIN_PATH",
-    "CM_CONDA_BIN_WITH_PATH",
     "CM_CONDA_LIB_PATH"
   ],
   "tags": [
+    "create",
     "get",
-    "conda",
-    "get-conda"
+    "env",
+    "conda-env",
+    "conda-environment",
+    "create-conda-environment"
   ],
-  "uid": "6600115f41324c7b",
+  "uid": "e39e0b04c86a40f2",
   "variations": {
     "name.#": {
       "env": {
-        "CM_CONDA_PREFIX_NAME": "#"
+        "CM_CONDA_ENV_NAME": "#"
       }
     }
   }
