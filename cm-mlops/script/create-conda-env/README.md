@@ -29,9 +29,9 @@
 
 * Category: *DevOps automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-conda-env)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,conda,get-conda*
+* CM "database" tags to find this script: *create,get,env,conda-env,conda-environment,create-conda-environment*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -48,9 +48,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,conda,get-conda[,variations] `
+1. `cm run script --tags=create,get,env,conda-env,conda-environment,create-conda-environment[,variations] `
 
-2. `cmr "get conda get-conda[ variations]" `
+2. `cmr "create get env conda-env conda-environment create-conda-environment[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -65,7 +65,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,conda,get-conda'
+                  'tags':'create,get,env,conda-env,conda-environment,create-conda-environment'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -82,13 +82,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,conda,get-conda"```
+```cmr "cm gui" --script="create,get,env,conda-env,conda-environment,create-conda-environment"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,conda,get-conda) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=create,get,env,conda-env,conda-environment,create-conda-environment) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get conda get-conda[ variations]" `
+`cm docker script "create get env conda-env conda-environment create-conda-environment[ variations]" `
 
 ___
 ### Customization
@@ -102,7 +102,7 @@ ___
 
     * `_name.#`
       - Environment variables:
-        - *CM_CONDA_PREFIX_NAME*: `#`
+        - *CM_CONDA_ENV_NAME*: `#`
       - Workflow:
 
     </details>
@@ -123,34 +123,35 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-conda-env/_cm.json)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda/_cm.json)
+     * get,conda
+       * CM names: `--adr.['conda']...`
+       - CM script: [get-conda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-conda-env/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-conda-env/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-conda-env/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-conda-env/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-conda-env/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-conda-env/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "get conda get-conda[,variations]"  -j`
+`cmr "create get env conda-env conda-environment create-conda-environment[,variations]"  -j`
 #### New environment keys (filter)
 
 * `+LD_LIBRARY_PATH`
 * `+PATH`
 * `CM_CONDA_BIN_PATH`
-* `CM_CONDA_BIN_WITH_PATH`
 * `CM_CONDA_LIB_PATH`
 * `CM_CONDA_PREFIX`
 * `CONDA_PREFIX`
 #### New environment keys auto-detected from customize
 
 * `CM_CONDA_BIN_PATH`
-* `CM_CONDA_BIN_WITH_PATH`
 * `CM_CONDA_LIB_PATH`
 * `CM_CONDA_PREFIX`
 ___
