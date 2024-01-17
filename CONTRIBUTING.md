@@ -67,6 +67,7 @@ Thank you for your support and looking forward to collaborating with you!
 * David Tafur (MLCommons)
 * Chloe Tessier
 * Gaurav Verma (Stony Brook University)
+* Scott Wasson (MLCommons)
 * Haoyang Zhang  (UIUC)
 * Bojian Zheng (University of Toronto)
 * Thomas Zhu (Oxford University)
