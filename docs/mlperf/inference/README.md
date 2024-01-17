@@ -31,39 +31,35 @@
 # Run MLPerf inference benchmarks out-of-the-box
 
 This documentation will help you run, reproduce and compare [MLPerf inference benchmarks](https://arxiv.org/abs/1911.02549) 
-out-of-the-box using a unified interface being developed by the [MLCommons Task Force on Automation and Reproducibility](../../taskforce.md).
+out-of-the-box using a [unified CM interface and workflow automation language](https://doi.org/10.5281/zenodo.8105339) 
+being developed and maintained by the [MLCommons Task Force on Automation and Reproducibility](../../taskforce.md).
 
-Please check [MLPerf inference submitter orientation slides](https://doi.org/10.5281/zenodo.8144274)
-explaining why [MLCommons](https://mlcommons.org) is developing an open-source, technology-agnostic 
-and non-intrusive [Collective Mind automation language (CM)](https://github.com/mlcommons/ck)
-and [Collective Knowledge Playground (CK)](https://access.cknowledge.org/playground/?action=experiments) 
-to make it easier to run, reproduce, optimize and compare MLPerf inference benchmarks 
-across diverse software, hardware, models and data sets from different vendor.
-
-Note that this project is under heavy development by the [MLCommons Task Force on Automation and Reproducibility](../taskforce.md),
-[cTuning.org](https://www.linkedin.com/company/ctuning-foundation) and [cKnowledge.org](https://www.linkedin.com/company/cknowledge)
-led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
-You can learn more about our plans and long-term vision from our [ACM REP keynote (June 2023)](https://doi.org/10.5281/zenodo.8105339).
+You can see the current CM coverage to run and reproduce MLPerf inference benchmarks [here](https://github.com/mlcommons/ck/issues/1052).
 
 Don't hesitate to get in touch with us using this [public Discord server](https://discord.gg/JjWNWXKxwT) 
-to get help with MLPerf optimization and submissions, ask questions, provide your feedback, add new benchmark implementations, models, data sets and hardware backends,
-and participate in our [reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges).
+to get free help with MLPerf submissions and optimization, ask questions, provide your feedback 
+and add new MLPerf benchmark implementations, models, data sets and hardware backends.
 
+## Motivation
 
-## Install CM automation language
+Please check [MLPerf inference submitter orientation slides](https://doi.org/10.5281/zenodo.8144274)
+and [ACM REP'23 keynote slides](https://doi.org/10.5281/zenodo.8105339) to learn more about the CM 
+MLCommons interface and workflow automation language.
 
-Install the [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339) as described in this [guide](../../installation.md). 
-It is a small Python library with `cm` and `cmr` command line front-ends and minimal dependencies including Python 3+, Git and wget.
+## Install CM 
+
+Follow [this guide](../../installation.md) to install CM on Linux, Windows or MacOS.
+It is a small Python library with minimal dependencies (Python 3+, Git and wget) and `cm` and `cmr` command line.
 
 If you encounter problems, please report them at [GitHub](https://github.com/mlcommons/ck/issues).
 
 
-## Install repository with CM automations
+## Install repository with CM automation recipes
 
-Install the MLCommons repository with [reusable and portable automation recipes (CM scripts)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) via CM.
+Install the MLCommons repository with [portable and reusable automation recipes for MLOps and DevOps (CM scripts)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script).
 These scripts are being developed and shared by the community and MLCommons under Apache 2.0 license 
-to enable portable, modular, and technology-agnostic benchmarks and applications 
-that can automatically run with any software, hardware, models and data sets.
+to decompose complex software projects into small, simple, reusable, portable and technology-agnostic 
+components that can automatically run on any software, hardware, models and data sets.
 
 ```bash
 cm pull repo mlcommons@ck
@@ -315,7 +311,7 @@ Get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).
 
 ### Acknowledgments
 
-* A common CM interface and automation for MLPerf inference benchmarks was developed by Arjun Suresh and Grigori Fursin
-  sponsored by the [cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org)
-  with many contributions from [the community](../../../CONTRIBUTING.md).
+The first version of a common CM interface and unified workflow automation for MLPerf inference benchmarks 
+was developed by Arjun Suresh and Grigori Fursin and sponsored by MLCommons.org, cTuning.org and cKnowledge.org
+with great contributions from [the community](../../../CONTRIBUTING.md).
 
