@@ -24,7 +24,9 @@ It includes the following sub-projects:
   to make them run in a more unified and deterministic way on any Operating System (Windows, Ubuntu, MacOS, RedHat ...) with any software and hardware.
   CM scripts should work in the same way in a native environment or inside containers.
 
-* [CM automation for Artifact Evaluation and reproducibility initiatives at ML and Systems conferences](https://github.com/ctuning/cm-reproduce-research-projects) - a common CM interface to help the community prepare, run and reproduce experiments from research projects and reuse automations in a unified way.
+* [CM automation for Artifact Evaluation and reproducibility initiatives at ML and Systems conferences](https://github.com/ctuning/cm-reproduce-research-projects) - 
+  a common CM interface to help the community prepare, run and reproduce experiments 
+  from research projects and reuse their automations and artifacts in a simple and unified way.
 * [Modular Inference Library (MIL)](https://cknowledge.org/mil) - a universal, modular and extensible C++ implementation of MLPerf inference benchmarks.
 * [Collective Knowledge Playground](https://access.cKnowledge.org) - an open platform to benchmark, optimize and compare AI and ML Systems using CM.
 
