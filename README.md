@@ -5,7 +5,7 @@
 ### About
 
 MLCommons' [Collective Knowledge (CK)](https://www.youtube.com/watch?v=7zpeIVwICa4) is an open-source community project 
-to make AI accessible to everyone by harnessing the growing complexity and cost of development, benchmarking, optimization, deployment and maintenance of
+to make AI accessible to everyone by harnessing the growing complexity and cost of development, benchmarking, optimization, deployment, and maintenance of
 AI/ML applications and systems across diverse and rapidly evolving models, datasets, software and hardware from the cloud to the edge.
 
 MLCommons CK is being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md), 
@@ -14,13 +14,17 @@ It includes the following sub-projects:
 
 * [Collective Mind scripting language (CM)](cm) - a light-weight and non-intrusive workflow automation meta-framework 
   that helps users decompose complex software projects into simple, portable, reusable and extensible automation recipes (CM scripts). 
-  These scripts can be easily reused and connected into portable and technology-agnostic workflows 
-  that can run a given application on any platform with any software and hardware in a unified way using a common and human-readable interface.
+  These scripts are connected into portable and technology-agnostic workflows that can run a given application 
+  on any platform with any software and hardware in an automated and unified way using a common and human-readable interface.
+  The goal is to help researchers and developers focus on innovation while automating all their tedious, repetitive and manual tasks 
+  when bechmarking, optimizing and porting AI, ML and other complex projects to continuously evolving models, datasets, software and hardware.
   *CM is complementary to existing automation tools including Docker, Kubeflow, MLFlow, cmake, spack, etc.*
 * [CM scripts](cm-mlops/scripts) - a collection of portable, reusable, customizable and  technology-agnostic automations
-    that wrap existing MLOps, DevOps, ResearchOps and LLMOps with a human-readable command line, simple Python API and extensible JSON/YAML meta descriptions 
-    to make them run in a more unified and deterministic way on any Operating System (Windows, Ubuntu, MacOS, RedHat ...) with any software and hardware.
-* [CM automation for Artifact Evaluation](https://github.com/ctuning/cm-reproduce-research-projects) - a common CM interface to help the community prepare, run and reproduce experiments from research projects and reuse automations in a unified way.
+  that wrap existing MLOps, DevOps, ResearchOps and LLMOps with a human-readable command line, simple Python API and extensible JSON/YAML meta descriptions 
+  to make them run in a more unified and deterministic way on any Operating System (Windows, Ubuntu, MacOS, RedHat ...) with any software and hardware.
+  CM scripts should work in the same way in a native environment or inside containers.
+
+* [CM automation for Artifact Evaluation and reproducibility initiatives at ML and Systems conferences](https://github.com/ctuning/cm-reproduce-research-projects) - a common CM interface to help the community prepare, run and reproduce experiments from research projects and reuse automations in a unified way.
 * [Modular Inference Library (MIL)](https://cknowledge.org/mil) - a universal, modular and extensible C++ implementation of MLPerf inference benchmarks.
 * [Collective Knowledge Playground](https://access.cKnowledge.org) - an open platform to benchmark, optimize and compare AI and ML Systems using CM.
 
