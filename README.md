@@ -146,6 +146,5 @@ was developed by the [MLCommons Task Force on Automation and Reproducibility](do
 led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
 with many great contributions from [the community](CONTRIBUTING.md).
 
-This community project is now officially supported by MLCommons.org, cTuning.org and cKnowledge.org 
-to make AI accessible to everyone by harnessing the complexity of development, benchmarking, optimization
-and deployment of ML/AI applications and systems.
+This community project is now officially supported and maintained by [MLCommons.org](https://mlcommons.org), 
+[cTuning.org](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org).
