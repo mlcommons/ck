@@ -5,7 +5,7 @@
 ### About
 
 MLCommons' [Collective Knowledge (CK)](https://www.youtube.com/watch?v=7zpeIVwICa4) is an open-source community project 
-to make AI accessible to everyone by harnessing the growing complexity and cost of development, benchmarking, optimization, deployment, and maintenance of
+to harness the growing complexity and cost of development, benchmarking, optimization, deployment, and maintenance of
 AI/ML applications and systems across diverse and rapidly evolving models, datasets, software and hardware from the cloud to the edge.
 
 MLCommons CK is being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md), 
@@ -17,7 +17,7 @@ It includes the following sub-projects:
   These scripts are connected into portable and technology-agnostic workflows that can run a given application 
   on any platform with any software and hardware in an automated and unified way using a common and human-readable interface.
   The goal is to help researchers and developers focus on innovation while automating all their tedious, repetitive and manual tasks 
-  when bechmarking, optimizing and porting AI, ML and other complex projects to continuously evolving models, datasets, software and hardware.
+  when preparing, bechmarking, reproducing, optimizing and porting AI, ML and other complex projects to continuously evolving models, datasets, software and hardware.
   *CM is complementary to existing automation tools including Docker, Kubeflow, MLFlow, cmake, spack, etc.*
 * [CM scripts](cm-mlops/scripts) - a collection of portable, reusable, customizable and  technology-agnostic automations
   that wrap existing MLOps, DevOps, ResearchOps and LLMOps with a human-readable command line, simple Python API and extensible JSON/YAML meta descriptions 
