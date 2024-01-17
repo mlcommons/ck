@@ -1,11 +1,12 @@
 [![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
 [![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE.md)
+[![Downloads](https://static.pepy.tech/badge/cmind)](https://pepy.tech/project/cmind)
 
 ### About
 
 [Collective Knowledge (CK)](https://www.youtube.com/watch?v=7zpeIVwICa4) is an open-source community project 
-intended to make AI accessible to everyone by solving the growing complexity and reducing cost of development, benchmarking, optimization, deployment, and maintenance of
+intended to make AI accessible to everyone by solving the growing complexity and reducing cost of prototyping, development, benchmarking, optimization, deployment, and maintenance of
 AI/ML applications and systems across diverse and rapidly evolving models, datasets, software and hardware from the cloud to the edge.
 
 This project is being developed, supported and maintained by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md), 
@@ -23,7 +24,6 @@ It includes the following sub-projects:
   that wrap existing MLOps, DevOps, ResearchOps and LLMOps with a human-readable command line, simple Python API and extensible JSON/YAML meta descriptions 
   to make them run in a more unified and deterministic way on any Operating System (Windows, Ubuntu, MacOS, RedHat ...) with any software and hardware.
   CM scripts should work in the same way in a native environment or inside containers.
-
 * [CM automation for Artifact Evaluation and reproducibility initiatives at ML and Systems conferences](https://github.com/ctuning/cm-reproduce-research-projects) - 
   a common CM interface to help the community prepare, run and reproduce experiments 
   from research projects and reuse their automations and artifacts in a simple and unified way.
@@ -34,10 +34,21 @@ Join our [public Discord server](https://discord.gg/JjWNWXKxwT) to learn how thi
 automate reproducibility initiatives at ACM/IEEE/NeurIPS conferences and co-design efficient AI Systems.
 
 
+### Getting Started
+
+An important requirement from the community is to let anyone start using CM on any platform 
+and access any complex project in a unified way within minutes!
+
+* [CM installation](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+* [CM tutorials](https://github.com/mlcommons/ck/blob/master/docs/tutorials/README.md)
+
+
 
 ### Documentation
 
 * [Table of Contents](docs/README.md)
+
+
 
 ### Motivation
 
@@ -45,6 +56,24 @@ automate reproducibility initiatives at ACM/IEEE/NeurIPS conferences and co-desi
 * [CK concepts (Philosophical Transactions of the Royal Society)](https://arxiv.org/abs/2011.01149) 
 * [CM workflow automation introduction (slides from ACM REP'23 keynote)](https://doi.org/10.5281/zenodo.8105339)
 * [MLPerf inference submitter orientation (slides)](https://doi.org/10.5281/zenodo.8144274) 
+
+
+### Some projects modularized and automated by CM
+
+* [A unified way to run MLPerf inference benchmarks with different models, software and hardware](docs/mlperf/inference). See [current coverage](https://github.com/mlcommons/ck/issues/1052).
+* [A unitied way to run MLPerf training benchmarks](docs/tutorials/reproduce-mlperf-training.md) *(prototyping phase)*
+* [A unified way to run MLPerf tiny benchmarks](docs/tutorials/reproduce-mlperf-tiny.md) *(prototyping phase)*
+* A unified CM to run automotive benchmarks *(prototyping phase)*
+* [An open-source platform to aggregate, visualize and compare MLPerf results](https://access.cknowledge.org/playground/?action=experiments)
+  * [Leaderboard for community contributions](https://access.cknowledge.org/playground/?action=contributors)
+* [Artifact Evaluation and reproducibility initiatives](https://cTuning.org/ae) at ACM/IEEE/NeurIPS conferences:
+  * [A unified way to run experiments and reproduce results from ACM/IEEE MICRO'23 and ASPLOS papers](https://github.com/ctuning/cm-reproduce-research-projects)
+  * [Student Cluster Competition at SuperComputing'23](https://github.com/mlcommons/ck/blob/master/docs/tutorials/scc23-mlperf-inference-bert.md)
+  * [CM automation to reproduce IPOL paper](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/reproduce-ipol-paper-2022-439/README-extra.md)
+
+
+Feel free to add the following badge to your projects if it can be accessed and managed by the CM interface and automation workflows:
+[![Supported by CM](https://img.shields.io/badge/Supported_by-MLCommons%20CM-blue)](https://github.com/mlcommons/ck).
 
 ### Tests
 
@@ -56,72 +85,6 @@ automate reproducibility initiatives at ACM/IEEE/NeurIPS conferences and co-desi
 [![MLPerf inference bert](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml)
 [![MLPerf inference rnnt](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-rnnt.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-rnnt.yml)
 
-
-
-### Getting Started
-
-* [CM installation](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-* [All CM tutorials](https://github.com/mlcommons/ck/blob/master/docs/tutorials)
-
-#### Run Python Hello World app on Linux, Windows and MacOS
-
-```bash
-python3 -m pip install cmind
-# restart bash to add cm and cmr binaries to PATH
-
-cm pull repo mlcommons@ck
-cm run script --tags=print,python,hello-world
-cmr "print python hello-world"
-```
-
-This CM script is a simple wrapper to native scripts and tools
-described by a simple declarative YAML configuration file
-specifying inputs, environment variables and dependencies on other portable
-and shared [CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script):
-
-```yaml
-alias: print-hello-world-py
-uid: d83274c7eb754d90
-
-automation_alias: script
-automation_uid: 5b4e0237da074764
-
-deps:
-- tags: detect,os
-- tags: get,sys-utils-cm
-- names:
-  - python
-  tags: get,python3
-
-tags:
-- print
-- hello-world
-- python
-
-```
-
-Our goal is to let the community start using CM within minutes!
-
-### Projects supported by CM
-
-#### Running MLPerf benchmarks out-of-the-box
-
-* [Unified CM interface and workflow automation to run MLPerf inference benchmarks](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference)
-* CM to run the future automotive benchmark (under preparation)
-* [CK playground to aggregate, visualize and compare MLPerf results](https://access.cknowledge.org/playground/?action=experiments)
-
-#### Supporting reproducible AI/ML Systems optimization challenges
-
-We invite the community to participate in collaborative benchmarking and optimization of AI/ML systems:
-* [Community challenges (reproducibility, extension, benchmarking, optimization)](https://access.cknowledge.org/playground/?action=challenges)
-* [Shared benchmarking results for AI/ML Systems (performance, accuracy, power consumption, costs)](https://access.cknowledge.org/playground/?action=experiments) 
-* [Leaderboard](https://access.cknowledge.org/playground/?action=contributors)
-
-#### Making it easier to reproducing research results from ACM/IEEE/NeurIPS papers
-
-* [CM automation to reproduce results from ACM/IEEE MICRO'23 papers](https://github.com/ctuning/cm-reproduce-research-projects)
-* [CM automation to support Student Cluster Competition at SuperComputing'23](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md)
-* [CM automation to reproduce IPOL paper](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/reproduce-ipol-paper-2022-439/README-extra.md)
 
 
 

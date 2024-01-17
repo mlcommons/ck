@@ -2,8 +2,7 @@
 
 # Tutorials
 
-*Feel free to prepare and add your own tutorials!*
-
+* [Running Hello World example in a unified way on Windows, Linux and MacOS](hello-world.md)
 * [Testing CM automation language to run image classification on any platform with CPU and GPU](modular-image-classification.md)
 * [Reproducing experiments from the IPOL'22 journal article using CM](reproduce-research-paper-ipol.md)
 * MLPerf modularization, automation and reproducibility using the CM automation language:
