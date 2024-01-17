@@ -2,9 +2,12 @@
 
 ## MLCommons CK and CM news
 
-### Upcoming events
+### 202401
 
-* [
+* [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+  are working for MLCommons.org to help all MLPerf inference benchmark v4.0 submitters automate and reproduce their submissions
+  using the unified MLCOmmons CM interface and automation: [current CM coverage for MLPerf inference](https://github.com/mlcommons/ck/issues/1052), 
+  [current progress report](https://github.com/mlcommons/inference/issues/1559).
 
 
 ### 202311
