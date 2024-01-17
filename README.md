@@ -36,7 +36,8 @@ automate reproducibility initiatives at ACM/IEEE/NeurIPS conferences and co-desi
 
 ### Getting Started
 
-An important requirement for the project is to let anyone start using CM on any platform within minutes!
+An important requirement for the project is to let anyone start using CM on any platform 
+and access any complex project in a unified way within minutes!
 
 * [CM installation](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 * [CM tutorials](https://github.com/mlcommons/ck/blob/master/docs/tutorials/README.md)
