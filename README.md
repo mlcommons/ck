@@ -16,6 +16,7 @@ It includes the following sub-projects:
   that helps users decompose complex software projects into simple, portable, reusable and extensible automation recipes (CM scripts). 
   These scripts can be easily reused and connected into portable and technology-agnostic workflows 
   that can run a given application on any platform with any software and hardware in a unified way using a common and human-readable interface.
+  *CM is complementary to existing automation tools including Docker, Kubeflow, MLFlow, cmake, spack, etc.*
 * [CM scripts](cm-mlops/scripts) - a collection of portable, reusable, customizable and  technology-agnostic automations
     that wrap existing MLOps, DevOps, ResearchOps and LLMOps with a human-readable command line, simple Python API and extensible JSON/YAML meta descriptions 
     to make them run in a more unified and deterministic way on any Operating System (Windows, Ubuntu, MacOS, RedHat ...) with any software and hardware.
