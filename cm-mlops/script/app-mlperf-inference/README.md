@@ -143,6 +143,13 @@ ___
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['cpp-mlperf-inference', 'mlperf-inference-implementation']...`
              - CM script: [app-mlperf-inference-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
+    * `_intel`
+      - Workflow:
+        1. ***Read "posthook_deps" on other CM scripts***
+           * reproduce,mlperf,inference,intel
+             * `if (CM_SKIP_RUN  != True)`
+             * CM names: `--adr.['intel', 'intel-harness', 'mlperf-inference-implementation']...`
+             - CM script: [reproduce-mlperf-inference-intel](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel)
     * `_kilt`
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
@@ -514,7 +521,7 @@ ___
              * `if (CM_DATASET_SQUAD_VAL_PATH not in on)`
              - CM script: [get-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)
            * get,dataset-aux,squad-vocab
-             * `if (CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH" not in on)`
+             * `if (CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH not in on)`
              - CM script: [get-dataset-squad-vocab](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad-vocab)
         1. ***Read "post_deps" on other CM scripts***
            * run,accuracy,mlperf,_squad

@@ -188,6 +188,7 @@ ___
 * `--modelpath=value`  &rarr;  `CM_ML_MODEL_FILE_WITH_PATH=value`
 * `--output_dir=value`  &rarr;  `CM_MLPERF_OUTPUT_DIR=value`
 * `--runner=value`  &rarr;  `CM_MLPERF_RUNNER=value`
+* `--samples=value`  &rarr;  `CM_MLPERF_LOADGEN_SAMPLES=value`
 * `--scenario=value`  &rarr;  `CM_MLPERF_LOADGEN_SCENARIO=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
@@ -253,6 +254,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
   1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/customize.py)***

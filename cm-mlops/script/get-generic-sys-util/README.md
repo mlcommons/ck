@@ -116,6 +116,10 @@ ___
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `libboost-all-dev`
       - Workflow:
+    * `_libffi7`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `libffi7`
+      - Workflow:
     * `_libgmock-dev`
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `libgmock-dev`
@@ -147,6 +151,10 @@ ___
     * `_ntpdate`
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `ntpdate`
+      - Workflow:
+    * `_numactl`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `numactl`
       - Workflow:
     * `_nvidia-cuda-toolkit`
       - Environment variables:

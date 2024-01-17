@@ -25,13 +25,15 @@
 
 ### About
 
+*Build oneDNN from sources.*
+
 #### Summary
 
-* Category: *Python automation.*
+* Category: *Compiler automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onednn-from.src)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,install,generic,generic-conda-lib,conda-lib,conda-package,generic-conda-package*
+* CM "database" tags to find this script: *install,get,src,from.src,onednn,src-onednn*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -48,9 +50,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,install,generic,generic-conda-lib,conda-lib,conda-package,generic-conda-package[,variations] `
+1. `cm run script --tags=install,get,src,from.src,onednn,src-onednn[,variations] `
 
-2. `cmr "get install generic generic-conda-lib conda-lib conda-package generic-conda-package[ variations]" `
+2. `cmr "install get src from.src onednn src-onednn[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -65,7 +67,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,install,generic,generic-conda-lib,conda-lib,conda-package,generic-conda-package'
+                  'tags':'install,get,src,from.src,onednn,src-onednn'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -82,13 +84,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,install,generic,generic-conda-lib,conda-lib,conda-package,generic-conda-package"```
+```cmr "cm gui" --script="install,get,src,from.src,onednn,src-onednn"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,install,generic,generic-conda-lib,conda-lib,conda-package,generic-conda-package) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=install,get,src,from.src,onednn,src-onednn) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get install generic generic-conda-lib conda-lib conda-package generic-conda-package[ variations]" `
+`cm docker script "install get src from.src onednn src-onednn[ variations]" `
 
 ___
 ### Customization
@@ -100,27 +102,46 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_name.#`
-      - Workflow:
-    * `_package.#`
+    * `_branch.#`
       - Environment variables:
-        - *CM_CONDA_PKG_NAME*: `#`
+        - *CM_GIT_CHECKOUT*: `#`
+      - Workflow:
+    * `_for-intel-mlperf-inference`
+      - Environment variables:
+        - *CM_CONDA_ENV*: `yes`
+        - *CM_FOR_INTEL_MLPERF_INFERENCE*: `yes`
+      - Workflow:
+    * `_sha.#`
+      - Environment variables:
+        - *CM_GIT_CHECKOUT_SHA*: `#`
+      - Workflow:
+    * `_tag.#`
+      - Environment variables:
+        - *CM_GIT_CHECKOUT_TAG*: `#`
       - Workflow:
 
     </details>
 
 
-  * Group "**package-source**"
+  * Group "**repo**"
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_source.#`
+    * `_repo.#`
       - Environment variables:
-        - *CM_CONDA_PKG_SRC*: `#`
+        - *CM_GIT_URL*: `#`
+      - Workflow:
+    * **`_repo.https://github.com/oneapi-src/oneDNN`** (default)
+      - Environment variables:
+        - *CM_GIT_URL*: `https://github.com/oneapi-src/oneDNN`
       - Workflow:
 
     </details>
 
+
+#### Default variations
+
+`_repo.https://github.com/oneapi-src/oneDNN`
 #### Default environment
 
 <details>
@@ -137,34 +158,36 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onednn-from.src/_cm.json)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
        - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
-     * get,conda
-       * CM names: `--adr.['conda']...`
-       - CM script: [get-conda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)
-     * get,conda
-       * CM names: `--adr.['conda']...`
-       - CM script: [get-conda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package/_cm.json)
+     * get,python3
+       * `if (CM_CONDA_ENV  != yes)`
+       * CM names: `--adr.['python', 'python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,git,repo
+       * CM names: `--adr.['onednn-src-repo']...`
+       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onednn-from.src/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onednn-from.src/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package/_cm.json)
+     * [run-intel-mlperf-inference.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onednn-from.src/run-intel-mlperf-inference.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onednn-from.src/_cm.json)
+  1. Run "postrocess" function from customize.py
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onednn-from.src/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "get install generic generic-conda-lib conda-lib conda-package generic-conda-package[,variations]"  -j`
+`cmr "install get src from.src onednn src-onednn[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_PYTHONLIB_*`
+* `CM_ONEDNN_*`
 #### New environment keys auto-detected from customize
 
+* `CM_ONEDNN_INSTALLED_PATH`
 ___
 ### Maintainers
 
