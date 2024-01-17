@@ -106,10 +106,21 @@ deps:
       - retinanet
     tags: get,ml-model,retinanet,_onnx,_fp32
 
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    tags: get,ml-model,retinanet,_onnx,_fp32
 
 
 # Customize this CM script
 variations:
+
+  pytorch:
+    group: backend
+    default: true
+    env:
+      CM_MLPERF_BACKEND:
+        pytorch
 
   onnxruntime:
     group: backend
@@ -117,6 +128,7 @@ variations:
     env:
       CM_MLPERF_BACKEND:
         onnxruntime
+
 
 
   cpu:
@@ -135,17 +147,28 @@ variations:
         gpu
   
 
+
+
+  retinanet:
+    group:
+      models
+    env:
+      CM_MODEL: retinanet
+
   resnet50:
     group:
       models
     env:
       CM_MODEL: resnet50
 
+
+  
   custom:
     group:
       models
     env:
       CM_MODEL: custom
+
 
   huggingface:
     env:
@@ -163,11 +186,3 @@ variations:
   model-stub.#:
     env:
       CM_ML_MODEL_STUB: "#"
-
-  retinanet:
-    group:
-      models
-    env:
-      CM_MODEL: retinanet
-
-

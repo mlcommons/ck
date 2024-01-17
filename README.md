@@ -2,72 +2,64 @@
 [![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE.md)
 
-[![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
-[![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
-
-### News
-
-* The ACM YouTube channel has released the ACM REP'23 keynote about the MLCommons CM automation language and CK playground:
-  [toward a common language to facilitate reproducible research and technology transfer](https://youtu.be/_1f9i_Bzjmg?si=7XoXRtcU0rglRJr0).
-* The MLCommons Task Force on Automation and Reproducibility is resuming [weekly conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit) - 
-  it is open to everyone!
-* [The community](https://access.cknowledge.org/playground/?action=contributors) has successfully validated 
-  the open-source MLCommons [CM automation language](cm/README.md), 
-  [C++ Modular Inference Library](cm-mlops/script/app-mlperf-inference-cpp/README-extra.md) 
-  and [CK playground](https://access.cKnowledge.org)
-  during the 1st mass-scale community submission of 12000+ MLPerf
-  inference benchmarking results (representing more than 90% of all v3.1 submissions)
-  across diverse models, data sets, software and hardware 
-  from different vendors via the [cTuning foundation](https://cTuning.org) - 
-  see the [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
-  for more details and get in touch via our [public Discord server](https://discord.gg/JjWNWXKxwT) 
-  if you want to automate and optimize your future MLPerf submissions!
-
-
 ### About
 
-Collective Knowledge (CK) is an open-source, non-intrusive and technology-agnostic toolset
-to facilitate reproducible research and automate development, benchmarking, optimization, comparison and 
-deployment of Pareto-efficient AI/ML applications and systems across diverse and rapidly evolving models, data sets, 
-software and hardware from different vendors and users.
+MLCommons' [Collective Knowledge (CK)](https://www.youtube.com/watch?v=7zpeIVwICa4) is an open-source community project 
+intended to make AI accessible to everyone by harnessing the growing complexity and cost of development, benchmarking, optimization, deployment, and maintenance of
+AI/ML applications and systems across diverse and rapidly evolving models, datasets, software and hardware from the cloud to the edge.
 
-Collective Knowledge v3 has been developed from scratch by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md), 
-[cTuning foundation](https://cTuning.org), [cKnowledge.org](https://cKnowledge.org) and [the community](CONTRIBUTING.md) 
-and includes the following sub-projects:
+This project is being developed, supported and maintained by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md), 
+[cTuning foundation](https://cTuning.org), [cKnowledge.org](https://cKnowledge.org) and [individual contributors](CONTRIBUTING.md).
+It includes the following sub-projects:
 
-* [Collective Mind automation Language (CM)](cm) - a simple workflow automation meta-framework 
-  based on Python and JSON/YAML meta descriptions to unify, interconnect and improve any existing technology 
-  rather than substituting it. CM helps MLCommons implement modular, portable and technology-agnostic 
-  benchmarks, applications and systems that can automatically
-  plug in and optimize diverse and rapidly evolving AI/ML models, data sets, software and hardware
-  from different vendors and users.
-* [CM scripts](cm-mlops/scripts) - a database of portable, reusable and technology-agnostic automations to modularize benchmarks, software projects and AI/ML Systems.
-* [CM automation for Artifact Evaluation](https://github.com/ctuning/cm-reproduce-research-projects) - common CM interface to access research projects, run experiments and reuse artifacts in a unified way.
-* [Modular Inference Library (MIL)](https://cknowledge.org/mil) - a universal and modular C++ implementation of MLPerf inference benchmarks.
-* [Collective Knowledge Playground](https://access.cKnowledge.org) - an open platform to benchmark and optimize AI and ML Systems via community challenges.
+* [Collective Mind scripting language (CM)](cm) - a light-weight and non-intrusive workflow automation meta-framework 
+  that helps users decompose complex software projects into simple, portable, reusable and extensible automation recipes (CM scripts). 
+  These scripts are connected into portable and technology-agnostic workflows that can run a given application 
+  on any platform with any software and hardware in an automated and unified way using a common and human-readable interface.
+  The goal is to help researchers and developers focus on innovation while automating all their tedious, repetitive and manual tasks 
+  when preparing, bechmarking, reproducing, optimizing and porting AI, ML and other complex projects to continuously evolving models, datasets, software and hardware.
+  *CM is complementary to existing automation tools including Docker, Kubeflow, MLFlow, cmake, spack, etc.*
+* [CM scripts](cm-mlops/scripts) - a collection of portable, reusable, customizable and  technology-agnostic automations
+  that wrap existing MLOps, DevOps, ResearchOps and LLMOps with a human-readable command line, simple Python API and extensible JSON/YAML meta descriptions 
+  to make them run in a more unified and deterministic way on any Operating System (Windows, Ubuntu, MacOS, RedHat ...) with any software and hardware.
+  CM scripts should work in the same way in a native environment or inside containers.
 
-See related [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339), 
-[ACM Tech Talk](https://learning.acm.org/techtalks/reproducibility) 
-and [MLPerf submitters orientation](https://doi.org/10.5281/zenodo.8144274) 
-to learn more about our open-source technology and long-term vision.
+* [CM automation for Artifact Evaluation and reproducibility initiatives at ML and Systems conferences](https://github.com/ctuning/cm-reproduce-research-projects) - 
+  a common CM interface to help the community prepare, run and reproduce experiments 
+  from research projects and reuse their automations and artifacts in a simple and unified way.
+* [Modular Inference Library (MIL)](https://cknowledge.org/mil) - a universal, modular and extensible C++ implementation of MLPerf inference benchmarks.
+* [Collective Knowledge Playground](https://access.cKnowledge.org) - an open platform to benchmark, optimize and compare AI and ML Systems using CM.
 
-Join our [public Discord server](https://discord.gg/JjWNWXKxwT) to learn how to run and extend MLPerf benchmarks, participate in future MLPerf submissions, 
+Join our [public Discord server](https://discord.gg/JjWNWXKxwT) to learn how this technology can help you how to run and extend MLPerf benchmarks, participate in future MLPerf submissions, 
 automate reproducibility initiatives at ACM/IEEE/NeurIPS conferences and co-design efficient AI Systems.
+
+
 
 ### Documentation
 
-* [Table of contents](docs/README.md)
+* [Table of Contents](docs/README.md)
 
-### Upcoming events
+### Motivation
 
-* [CM automation language makes it easier to reproduce experiments from the accepted ACM/IEEE MICRO'23 papers](https://github.com/ctuning/cm-reproduce-research-projects/tree/main/script)
-* [CK/CM authors will give a tutorial about CM automation language and CK playground at IISWC'23](https://iiswc.org/iiswc2023/#/program/)
-* [CM automation language and CK playground will help students run MLPerf inference benchmark at the Student Cluster Competition at SuperComputing'23](https://sc23.supercomputing.org/students/student-cluster-competition)
+* [CK vision (ACM Tech Talk at YouTube)](https://www.youtube.com/watch?v=7zpeIVwICa4) 
+* [CK concepts (Philosophical Transactions of the Royal Society)](https://arxiv.org/abs/2011.01149) 
+* [CM workflow automation introduction (slides from ACM REP'23 keynote)](https://doi.org/10.5281/zenodo.8105339)
+* [MLPerf inference submitter orientation (slides)](https://doi.org/10.5281/zenodo.8144274) 
 
-*More events to come soon!*
+### Tests
+
+[![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
+[![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
+[![Dockerfile update for CM scripts](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml)
+
+[![MLPerf inference resnet50](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-resnet50.yml/badge.svg?branch=master&event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-resnet50.yml)
+[![MLPerf inference retinanet](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-retinanet.yml/badge.svg?branch=master&event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-retinanet.yml)
+[![MLPerf inference bert](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml)
+[![MLPerf inference rnnt](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-rnnt.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-rnnt.yml)
 
 
-### Some practical use cases
+
+### Getting Started
 
 * [CM installation](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 * [All CM tutorials](https://github.com/mlcommons/ck/blob/master/docs/tutorials)
@@ -111,20 +103,21 @@ tags:
 
 Our goal is to let the community start using CM within minutes!
 
-#### Run MLPerf benchmarks out-of-the-box
+### Projects supported by CM
 
-* [CM automation for the new MLPerf submitters](https://doi.org/10.5281/zenodo.8144274)
-* [MLPerf inference automation](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference)
-* [Visualization of MLPerf results](https://access.cknowledge.org/playground/?action=experiments)
+#### Running MLPerf benchmarks out-of-the-box
 
-#### Participate in reproducible AI/ML Systems optimization challenges
+* [CM interface to run MLPerf inference benchmarks](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference)
+* [CK playground to aggregate, visualize and compare MLPerf results](https://access.cknowledge.org/playground/?action=experiments)
+
+#### Supporting reproducible AI/ML Systems optimization challenges
 
 We invite the community to participate in collaborative benchmarking and optimization of AI/ML systems:
 * [Community challenges (reproducibility, extension, benchmarking, optimization)](https://access.cknowledge.org/playground/?action=challenges)
 * [Shared benchmarking results for AI/ML Systems (performance, accuracy, power consumption, costs)](https://access.cknowledge.org/playground/?action=experiments) 
 * [Leaderboard](https://access.cknowledge.org/playground/?action=contributors)
 
-#### Reproduce results from ACM/IEEE/NeurIPS papers
+#### Making it easier to reproducing research results from ACM/IEEE/NeurIPS papers
 
 * [CM automation to reproduce results from ACM/IEEE MICRO'23 papers](https://github.com/ctuning/cm-reproduce-research-projects)
 * [CM automation to support Student Cluster Competition at SuperComputing'23](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md)
@@ -132,22 +125,26 @@ We invite the community to participate in collaborative benchmarking and optimiz
 
 
 
-### Project coordinators
+### Authors and project coordinators
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+* [Grigori Fursin](https://cKnowledge.org/gfursin) (MLCommons.org, cTuning.org, cKnowledge.org)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (MLCommons.org, cTuning.org, cKnowledge.org)
+
+
+
 
 ### Acknowledgments
 
-Collective Knowledge Technology v3 (including Collective Mind automation language and Collective Knowledge Playground)
-was developed from scratch by [Grigori Fursin](https://cKnowledge.org/gfursin) 
-and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) in 2022-2023
-within the [MLCommons Task Force on Automation and Reproducibility](docs/taskforce.md)
-and with many great contributions from [the community](CONTRIBUTING.md).
+The Collective Knowledge Technology v1 and v2 [was originally developed](https://arxiv.org/abs/2011.01149) 
+by [Grigori Fursin](https://cKnowledge.org/gfursin) and the [cTuning foundation](https://cTuning.org)
+with generous sponsorship from [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai)
+and donated to MLCommons in 2022. 
 
-This project is supported by [MLCommons](https://mlcommons.org), 
-[cTuning foundation](https://cTuning.org),
-[cKnowledge.org](https://cKnowledge.org),
-and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
-We thank [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai) for sponsoring initial development.
+The Collective Knowledge Technology v3 including the new [Collective Mind workflow automation language (MLCommons CM)](https://doi.org/10.5281/zenodo.8105339)
+and [Collective Knowledge Playground](https://access.cKnowledge.org)
+was developed by the [MLCommons Task Force on Automation and Reproducibility](docs/taskforce.md)
+led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
+with many great contributions from [the community](CONTRIBUTING.md).
 
+This community project is now officially supported and maintained by [MLCommons.org](https://mlcommons.org), 
+[cTuning.org](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org).

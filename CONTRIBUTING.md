@@ -24,8 +24,8 @@ Thank you for your support and looking forward to collaborating with you!
 
 ## Authors and project coordinators
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin) ([cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org))
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) ([cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org))
+* [Grigori Fursin](https://cKnowledge.org/gfursin) (MLCommons.org, cTuning.org, cKnowledge.org)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (MLCommons.org, cTuning.org, cKnowledge.org)
 
 ## Contributors to the Collective Knowledge Technology v3 (CM automation language and CK playground) in alphabetical order
 
@@ -64,7 +64,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Byoungjun Seo (TTA)
 * Aditya Kumar Shaw (Indian Institute of Science)
 * Ilya Slavutin (Deelvin)
-* David Taufur (MLCommons)
+* David Tafur (MLCommons)
 * Chloe Tessier
 * Gaurav Verma (Stony Brook University)
 * Haoyang Zhang  (UIUC)
