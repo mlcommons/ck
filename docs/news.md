@@ -2,32 +2,46 @@
 
 ## MLCommons CK and CM news
 
+### Upcoming events
+
+* [
+
+
 ### 202311
+
+* [ACM/IEEE MICRO'23](https://ctuning.org/ae/micro2023.html) used CM 
+  to [automate artifact evaluation](https://github.com/ctuning/cm-reproduce-research-projects/tree/main/script) 
+  and make it easier for research to understand, prepare, run and reproduce research projects
+  from published papers.
 
 * The ACM YouTube channel has released the ACM REP'23 keynote about the MLCommons CM automation language and CK playground:
   [toward a common language to facilitate reproducible research and technology transfer](https://youtu.be/_1f9i_Bzjmg?si=7XoXRtcU0rglRJr0).
 
+* [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+  served as MLCommons liasons at the [Student Cluster Competition at SuperComputing'23](https://sc23.supercomputing.org/students/student-cluster-competition)
+  helping the community run, optimize and enhance MLPerf inference benchmarks using the MLCommons CM workflow automation language
+  and [CK playground](https://access.cKnowledge.org).
+
 ### 202310
 
-* The MLCommons Task Force on Automation and Reproducibility is resuming [weekly conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit) - 
-  it is open to everyone!
-
-* We gave an invited talk at [AVCC'23](https://avcc.org/avcc2023) about our CM automation language and how it can help 
+* [Grigori Fursin](https://cKnowledge.org/gfursin) gave an invited talk at [AVCC'23](https://avcc.org/avcc2023) about our MLCommons CM automation language and how it can help 
   to develop modular, portable and technology-agnostic benchmarks.
 
-* We have prepared a tutorial for [IISWC'23](https://iiswc.org/iiswc2023/#/program/) about our CM automation language and how it can provide a common, portable
-  and technology-agnostic interface to run, reproduce and reuse all shared research projects.
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) and [Grigori Fursin](https://cKnowledge.org/gfursin) 
+  gave an [IISWC'23 tutorial](https://iiswc.org/iiswc2023/#/program/) about our CM workflow automation language 
+  and how it can make it easier for researchers to reproduce their projects and validate in the real world
+  across rapidly evolving software and hardware.
 
 ### 202309
 
-*The Collective Knowledge Technology v3 with the open-source [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105338),
-[CK playground](https://access.cknowledge.org) 
-and [C++ Modular Inference Library](https://cknowledge.org/mil)
-helped the community automate > 90% of all [MLPerf inference v3.1 results](https://mlcommons.org/en/news/mlperf-inference-storage-q323/) 
-and cross 10000 submissions in one round for the first time (submitted via [cTuning foundation](https://cTuning.org))!
-Here is the [list of the new CM/CK capabilities](docs/news-mlperf-v3.1.md) available to everyone 
-to prepare and automate their future MLPerf submissions - please check this [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
-about cTuning's community submission and don't hesitate to reach us via [Discord server](https://discord.gg/JjWNWXKxwT) for more info!*
+* The Collective Knowledge Technology v3 with the open-source [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105338),
+  [CK playground](https://access.cknowledge.org) 
+  and [C++ Modular Inference Library](https://cknowledge.org/mil)
+  helped the community automate > 90% of all [MLPerf inference v3.1 results](https://mlcommons.org/en/news/mlperf-inference-storage-q323/) 
+  and cross 10000 submissions in one round for the first time (submitted via [cTuning foundation](https://cTuning.org))!
+  Here is the [list of the new CM/CK capabilities](docs/news-mlperf-v3.1.md) available to everyone 
+  to prepare and automate their future MLPerf submissions - please check this [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
+  about cTuning's community submission and don't hesitate to reach us via [Discord server](https://discord.gg/JjWNWXKxwT) for more info!*
 
 ### 202309
 
@@ -100,10 +114,11 @@ frameworks using our customizable MLCommons CM-MLPerf workflows:
 
 ### 202211
 
-Our new [scriping language (MLCommons CM)](https://github.com/mlcommons/ck/tree/master/cm) 
-was successfully validated at the [Student Cluster Competition at SuperComputing'22](https://studentclustercompetition.us/2022/index.html).
+[Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
+successfully validated the prototype of  their new [workflow automation langugage (MLCommons CM)](https://github.com/mlcommons/ck/tree/master/cm) 
+at the [Student Cluster Competition at SuperComputing'22](https://studentclustercompetition.us/2022/index.html).
 It was used to make it easier to prepare and run the MLPerf inference benchmark just under 1 hour!
-Please test it using [this CM tutorial](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md).
+Please test it using this [CM tutorial](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md).
 
 
 ### 202210
