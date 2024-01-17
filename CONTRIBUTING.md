@@ -64,7 +64,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Byoungjun Seo (TTA)
 * Aditya Kumar Shaw (Indian Institute of Science)
 * Ilya Slavutin (Deelvin)
-* David Taufur (MLCommons)
+* David Tafur (MLCommons)
 * Chloe Tessier
 * Gaurav Verma (Stony Brook University)
 * Haoyang Zhang  (UIUC)
