@@ -51,7 +51,6 @@ automate reproducibility initiatives at ACM/IEEE/NeurIPS conferences and co-desi
 [![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 [![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
 [![Dockerfile update for CM scripts](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml)
-
 [![MLPerf inference resnet50](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-resnet50.yml/badge.svg?branch=master&event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-resnet50.yml)
 [![MLPerf inference retinanet](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-retinanet.yml/badge.svg?branch=master&event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-retinanet.yml)
 [![MLPerf inference bert](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml)
@@ -107,7 +106,8 @@ Our goal is to let the community start using CM within minutes!
 
 #### Running MLPerf benchmarks out-of-the-box
 
-* [CM interface to run MLPerf inference benchmarks](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference)
+* [Unified CM interface and workflow automation to run MLPerf inference benchmarks](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference)
+* CM to run the future automotive benchmark (under preparation)
 * [CK playground to aggregate, visualize and compare MLPerf results](https://access.cknowledge.org/playground/?action=experiments)
 
 #### Supporting reproducible AI/ML Systems optimization challenges
