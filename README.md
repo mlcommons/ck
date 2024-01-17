@@ -33,8 +33,8 @@ automate reproducibility initiatives at ACM/IEEE/NeurIPS conferences and co-desi
 
 ### Motivation
 
-* [CK vision (ACM Tech Talk at YouTube)](www.youtube.com/watch?v=7zpeIVwICa4) 
-* [CK concepts (Philosophical Transactions of the Royal Society)](www.youtube.com/watch?v=7zpeIVwICa4) 
+* [CK vision (ACM Tech Talk at YouTube)](https://www.youtube.com/watch?v=7zpeIVwICa4) 
+* [CK concepts (Philosophical Transactions of the Royal Society)](https://www.youtube.com/watch?v=7zpeIVwICa4) 
 * [CM workflow automation introduction (slides from ACM REP'23 keynote)](https://doi.org/10.5281/zenodo.8105339)
 * [MLPerf inference submitter orientation (slides)](https://doi.org/10.5281/zenodo.8144274) 
 
