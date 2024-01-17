@@ -43,8 +43,8 @@ and add new MLPerf benchmark implementations, models, data sets and hardware bac
 ## Motivation
 
 Please check [MLPerf inference submitter orientation slides](https://doi.org/10.5281/zenodo.8144274)
-and [ACM REP'23 keynote slides](https://doi.org/10.5281/zenodo.8105339) to learn more about the CM 
-MLCommons interface and workflow automation language.
+and [ACM REP'23 keynote slides](https://doi.org/10.5281/zenodo.8105339) to learn more about the 
+MLCommons CM interface and workflow automation language.
 
 ## Install CM 
 
