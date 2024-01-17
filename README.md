@@ -6,7 +6,7 @@
 ### About
 
 [Collective Knowledge (CK)](https://www.youtube.com/watch?v=7zpeIVwICa4) is an open-source community project 
-intended to make AI accessible to everyone by solving the growing complexity and reducing cost of development, benchmarking, optimization, deployment, and maintenance of
+intended to make AI accessible to everyone by solving the growing complexity and reducing cost of prototyping, development, benchmarking, optimization, deployment, and maintenance of
 AI/ML applications and systems across diverse and rapidly evolving models, datasets, software and hardware from the cloud to the edge.
 
 This project is being developed, supported and maintained by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md), 
