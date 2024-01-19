@@ -34,6 +34,8 @@
     "sw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
     "hw_notes_extra": "CM_MLPERF_SUT_HW_NOTES_EXTRA",
     "duplicate": "CM_MLPERF_DUPLICATE_SCENARIO_RESULTS",
+    "dashboard": "CM_MLPERF_DASHBOARD",
+    "dashboard_wb_project": "CM_MLPERF_DASHBOARD_WANDB_PROJECT",
     "division": "CM_MLPERF_SUBMISSION_DIVISION",
     "category": "CM_MLPERF_SUBMISSION_CATEGORY",
     "analyzer_settings_file": "CM_MLPERF_POWER_ANALYZER_SETTINGS_FILE_PATH",
