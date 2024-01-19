@@ -62,39 +62,10 @@ cmr "python app image-classification onnx"
 Feel free to add the following badge to your projects if it can be accessed and managed by the CM interface and automation workflows:
 [![Supported by CM](https://img.shields.io/badge/Supported_by-MLCommons%20CM-blue)](https://github.com/mlcommons/ck).
 
-### Tests
-
-[![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
-[![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
-[![Dockerfile update for CM scripts](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml)
-[![MLPerf inference resnet50](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-resnet50.yml/badge.svg?branch=master&event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-resnet50.yml)
-[![MLPerf inference retinanet](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-retinanet.yml/badge.svg?branch=master&event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-retinanet.yml)
-[![MLPerf inference bert](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml)
-[![MLPerf inference rnnt](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-rnnt.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-rnnt.yml)
-
-
-
-
-### Authors and project coordinators
-
-* [Grigori Fursin](https://cKnowledge.org/gfursin) (MLCommons.org, cTuning.org, cKnowledge.org)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (MLCommons.org, cTuning.org, cKnowledge.org)
-
-
 
 
 ### Acknowledgments
 
-The Collective Knowledge Technology v1 and v2 [was originally developed](https://arxiv.org/abs/2011.01149) 
-by [Grigori Fursin](https://cKnowledge.org/gfursin) and the [cTuning foundation](https://cTuning.org)
-with generous sponsorship from [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai)
-and donated to MLCommons in 2022. 
-
-The Collective Knowledge Technology v3 including the new [Collective Mind workflow automation language (MLCommons CM)](https://doi.org/10.5281/zenodo.8105339)
-and [Collective Knowledge Playground](https://access.cKnowledge.org)
-was developed by the [MLCommons Task Force on Automation and Reproducibility](docs/taskforce.md)
+The MLCommons Collective Mind is being developed by the [MLCommons Task Force on Automation and Reproducibility](docs/taskforce.md)
 led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
 with many great contributions from [the community](CONTRIBUTING.md).
-
-This community project is now officially supported and maintained by [MLCommons.org](https://mlcommons.org), 
-[cTuning.org](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org).
