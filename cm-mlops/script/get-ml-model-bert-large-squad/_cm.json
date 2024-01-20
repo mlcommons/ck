@@ -154,7 +154,7 @@
     "pytorch": {
       "group": "framework",
       "default_variations": {
-        "download-source": "zenodo"
+        "download-source": "armi"
       },
       "env": {
         "CM_ML_MODEL_FRAMEWORK": "pytorch",
