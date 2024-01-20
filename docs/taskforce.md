@@ -16,8 +16,7 @@ across diverse and rapidly evolving models, data sets, software and hardware fro
 
 Since we already participate in many weekly conf-calls to support various MLCommons initiatives, 
 we decided not to have yet another separate conf-call for our TF in 2024.
-
-Instead, we will discuss our progress on MLPerf automation and reproducibility at existing MLCommons conf-calls
+Instead, we discuss our progress on MLPerf automation and reproducibility at existing MLCommons conf-calls
 where CM is used:
 * [MLPerf inference WG](https://mlcommons.org/working-groups/benchmarks/inference): weekly conf-calls on Tuesday at 8:30am PST
 * [MLPerf automotive WG](https://mlcommons.org/working-groups/benchmarks/automotive)
@@ -57,7 +56,7 @@ across continuously changing models, datasets, software and hardware from differ
   (such as adding AMD GPU backend) and CM workflows.
 
 * We gave invited keynote about CM concepts at the 1st ACM Conference on Reproducibility and Replicability: 
-  [Slides](https://doi.org/10.5281/zenodo.8105339), [AMC YouTube channel](https://www.youtube.com/watch?v=_1f9i_Bzjmg)
+  [Slides](https://doi.org/10.5281/zenodo.8105339), [ACM YouTube channel](https://www.youtube.com/watch?v=_1f9i_Bzjmg)
 
 
 ### 2024
