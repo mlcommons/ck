@@ -147,6 +147,10 @@
           "names": [ "conda" ]
         },
         {
+          "names": [
+            "conda-package",
+            "ncurses"
+          ],
           "tags": "get,conda-package,_package.ncurses,_source.conda-forge"
         },
         {
