@@ -192,7 +192,7 @@
         "imagenet-preprocessed",
 	"preprocessed-dataset"
       ]
-    },
+    }
   ],
   "input_mapping": {
     "count": "CM_MLPERF_LOADGEN_QUERY_COUNT",
