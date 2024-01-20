@@ -84,6 +84,7 @@ deps:
   - tags: get,generic-python-lib,_mlperf_logging
     names:
     - mlperf-logging
+  - tags: get,generic-sys-util,_libffi7
 
   - tags: get,conda,_name.bert-pt
   - tags: get,generic,conda-package,_package.python
