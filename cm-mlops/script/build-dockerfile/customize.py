@@ -187,7 +187,7 @@ def preprocess(i):
         else:
             env['CM_DOCKER_RUN_CMD']="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
 
-    fake_run = " --fake_run" + dockerfile_env_input_string
+    fake_run = env.get("CM_DOCKER_FAKE_RUN_OPTION"," --fake_run") + dockerfile_env_input_string
     fake_run = fake_run + " --fake_deps" if env.get('CM_DOCKER_FAKE_DEPS') else fake_run
 
     x = 'RUN ' + env['CM_DOCKER_RUN_CMD']
