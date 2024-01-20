@@ -93,7 +93,7 @@
     },
     "onnx,fp32,armi": {
       "env": {
-        "CM_PACKAGE_URL": "https://armi.in/files/model.onnx1",
+        "CM_PACKAGE_URL": "https://armi.in/files/model.onnx",
         "CM_PACKAGE_URL1": "https://zenodo.org/record/3733910/files/model.onnx"
       }
     },
@@ -172,7 +172,12 @@
     },
     "pytorch,fp32,zenodo": {
       "env": {
-        "CM_ML_MODEL_F1": "90.874",
+        "CM_PACKAGE_URL": "https://zenodo.org/record/3733896/files/model.pytorch"
+      }
+    },
+    "pytorch,fp32,armi": {
+      "env": {
+        "CM_PACKAGE_URL": "https://armi.in/files/fp32/model.pytorch",
         "CM_PACKAGE_URL": "https://zenodo.org/record/3733896/files/model.pytorch"
       }
     },
@@ -184,6 +189,12 @@
     "pytorch,int8,zenodo": {
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/4792496/files/pytorch_model.bin"
+      }
+    },
+    "pytorch,int8,armi": {
+      "env": {
+        "CM_PACKAGE_URL": "https://armi.in/files/int8/pytorch_model.bin",
+        "CM_PACKAGE_URL1": "https://zenodo.org/record/4792496/files/pytorch_model.bin"
       }
     },
     "onnxruntime": {

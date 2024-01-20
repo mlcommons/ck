@@ -163,6 +163,8 @@ def preprocess(i):
             r = cm.access(ii)
             if r['return'] > 0:
                 return r
+            if env.get('CM_MLPERF_SKIP_RUN', '') != '':
+                del(env['CM_MLPERF_SKIP_RUN'])
             if 'CM_MLPERF_RESULTS_DIR' in r['new_env']:
                 env['CM_MLPERF_RESULTS_DIR'] = r['new_env']['CM_MLPERF_RESULTS_DIR']
             if 'CM_MLPERF_BACKEND' in r['new_env']:
@@ -181,6 +183,8 @@ def preprocess(i):
                     copy.deepcopy(add_deps_recursive), 'adr': copy.deepcopy(adr), 'ad': ad, 'v': verbose, 'print_env': print_env, 'print_deps': print_deps})
                 if r['return'] > 0:
                     return r
+                if env.get('CM_MLPERF_SKIP_RUN', '') != '':
+                    del(env['CM_MLPERF_SKIP_RUN'])
 
     return {'return':0}
 
