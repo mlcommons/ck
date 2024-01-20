@@ -60,7 +60,7 @@ def preprocess(i):
     elif env['CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE'] == "run_harness":
         env['MODEL_PATH'] = os.path.dirname(os.path.dirname(env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH']))
         env['DATASET_PATH'] = os.path.dirname(os.path.dirname(env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH']))
-        env['CM_RUN_DIR'] = os.getcwd()
+        env['CM_RUN_DIR'] = i['run_script_input']['path']
         env['CM_RUN_CMD'] = "bash run_harness.sh"
 
     return {'return':0}
