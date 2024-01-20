@@ -213,7 +213,7 @@ variations:
       - tags: get,generic-python-lib,_pycuda
       - tags: get,generic-python-lib,_mlperf_logging
       - tags: get,generic-python-lib,_onnx
-  
+
   nvidia-original:
     default_variations:
       backend: tensorrt
@@ -254,6 +254,9 @@ variations:
             - CM_NVIDIA_HARNESS_GPU_VARIATION
 
   intel:
+    alias: intel-original
+
+  intel-original:
     group:
       implementation
     default_variations:
