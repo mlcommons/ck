@@ -4,108 +4,79 @@
 
 ## Mission
 
-The Task Force on Automation and Reproducibility was established by [MLCommons]( https://mlcommons.org ) and the [cTuning foundation](https://cTuning.org) in 2022
-to develop an open-source and non-intrusive workflow automation technology that can help everyone [co-design, benchmark and optimize applications and computer systems](mlperf/README.md) 
-that can run AI and ML applications in the most efficient way across diverse models, data sets, software and hardware from any vendor 
-using the [MLPerf methodology](https://arxiv.org/abs/1911.02549).
-
-As an outcome of this community effort, we have developed the [MLCommons CM automation language](https://youtu.be/_1f9i_Bzjmg?si=l0Qqon2Rt7pSji36), 
-[MLCommons C++ Modular Inference Library (MIL)](../cm-mlops/script/app-mlperf-inference-cpp/README-extra.md) 
-and the [MLCommons CK playground](https://access.cKnowledge.org).
-This open-source technology was successfully validated during the [1st mass-scale community MLPerf inference submission](https://www.linkedin.com/feed/update/urn:li:activity:7112057645603119104/) 
-of 12000+ benchmarking results (representing > 90% of all v3.1 submissions)
-across diverse models, data sets, software and hardware from different vendors.
-
-We also use CM/CK/MIL to support reproducibility initiatives at [ML and Systems conferences](https://cTuning.org/ae)
-and organize [reproducibility, replicability and optimization challenges](https://access.cknowledge.org/playground/?action=challenges)
-to reproduce results from research papers and MLPerf submissions, 
-improve/optimize them in terms of accuracy, performance, power consumption, size, costs and other metrics, 
-and [validate them in the real-world applications](https://www.youtube.com/watch?v=7zpeIVwICa4).
-
-We continue collaborating with the community to extend the CM automation language, CK playground and MIL
-to automatically generate the most efficient, reproducible and deployable applications from the most suitable 
-combination of software, hardware and models based on their requirements,
-constraints and [MLPerf results](https://access.cknowledge.org/playground/?action=experiments).
-Our ultimate mission is to help all AI developers and users focus on innovation while
-slashing their benchmarking, development, optimization and operational costs.
-
-## Discussions
-
-* Join our [public Discord server](https://discord.gg/JjWNWXKxwT).
-* Check our upcoming [reproducibility, replicability and optimization challenges](https://access.cknowledge.org/playground/?action=challenges).
-* Check our [news](news.md).
-
-## Conf-calls
-
-Since we already participate in many weekly conf-calls to support various MLCommons initiatives, we decided not to have yet another separate conf-call for our TF.
-Instead, we can discuss CM and universal AI/ML Systems benchmarking at existing MLCommons conf-calls:
-* [MLPerf automotive WG](https://mlcommons.org/working-groups/benchmarks/automotive)
-  * Automotive TF weekly conf-calls on Wednesday at 8am PST
-  * Automotive implementation bi-weekly conf-calls on Friday at 9:30am PST
-* [Croissant TF](https://github.com/mlcommons/croissant): weekly at 8am PST
-* [MLPerf inference WG](https://mlcommons.org/working-groups/benchmarks/inference): weekly conf-calls on Tuesday at 8:30am PST
-  * MLPerf network division TF: weekly conf-calls on Monday at 11am PST
-
-You can reach us at [this Discord server](https://discord.gg/JjWNWXKxwT) to arrange a private conf-call if needed.
-
-See the notes from our past [public conf-calls]( https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw ).
+Develop a common methodology and interface to run, reproduce and customize MLPerf and other AI benchmarks in a unified way 
+across diverse and rapidly evolving models, data sets, software and hardware from different vendors.
 
 ## Chairs and Tech Leads
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
-## Development plan
+## Discussions
+
+Since we already participate in many weekly conf-calls to support various MLCommons initiatives, 
+we decided not to have yet another separate conf-call for our TF in 2024.
+
+Instead, we will discuss our progress on MLPerf automation and reproducibility at existing MLCommons conf-calls
+where CM is used:
+* [MLPerf inference WG](https://mlcommons.org/working-groups/benchmarks/inference): weekly conf-calls on Tuesday at 8:30am PST
+* [MLPerf automotive WG](https://mlcommons.org/working-groups/benchmarks/automotive)
+  * Automotive TF weekly conf-calls on Wednesday at 8am PST
+  * Automotive implementation bi-weekly conf-calls on Friday at 9:30am PST
+* [Croissant TF](https://github.com/mlcommons/croissant): weekly at 8am PST
+
+You can particiapte in our discussions via [public Discord server](https://discord.gg/JjWNWXKxwT).
+
+## Status
 
 ### 2023
 
-- [x] DONE: Stable CM automation language (aka CK2) to let the community submit MLPerf inference v3.0 results across any software and hardware stack 
-      (our technology powered 4K+ results (!) across diverse cloud and edge platforms with different versions of PyTorch, ONNX, TFLite, TF, TVM targeting diverse CPUs and GPUs 
-      that will be announced at the beginning of April)!
-- [x] DONE: Prototype an [open-source on-prem CK platform](https://github.com/mlcommons/ck/tree/master/docs#collective-knowledge-playground-ck) 
-      with a public API to automate SW/HW co-design for AI, ML and other emerging workloads based on user requirements and constraints.
-- [x] DONE: [Collaborative CK challenge](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023) 
-      for the community to reproduce, optimize and submit results to MLPerf inference v3.0
-      - 98% of all results were automated by the MLCommons CK technology!
-- [x] [New CK challenge](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.1-2023) 
-      to help MLCommons organizations and the community use our platform to prepare, optimize and compare their MLPerf inference v3.1 submissions on any SW/HW stack
-- [ ] In progress: Enhance the MLCommons CK2/CM automation meta-framework to support our platform across any SW/HW stacks from MLCommons members and the community.
-- [ ] In progress: Enhance the [MLPerf C++ inference template library (MIL)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp) 
-      to run and optimize MLPerf inference across any AI/ML/SW/HW stack.
-- [ ] In progress: Enhance our platform and automation framework to support [reproducibility initiatives and studies](https://cTuning.org/ae) at conferences and journals 
-      across rapidly evolving software, hardware and data (collaboration with the [cTuning foundation](https://cTuning.org), ACM, IEEE and NeurIPS).
-- [ ] In progress: Connect CM and MLCube
+Following our [regular public weekly conf-calls in 2023](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw), 
+[Discord discussions](https://discord.gg/JjWNWXKxwT) and very useful feedback from Google, Nvidia, Qualcomm, Dell, HPE, Red Hat, 
+Neural Magic, Intel, TTA, One Stop Systems and other organizations, we have developed a new version 
+of the [Collective Mind automation framework (CM)](https://github.com/mlcommons/ck) as a very lightweight, 
+non-intrusive and technology-agnostic workflow automation framework that provides a common, simple 
+and human-readable interface to manage, run, reproduce and customize MLPerf benchmarks
+across continuously changing models, datasets, software and hardware from different vendors:
+[github.com/mlcommons/ck/tree/master/docs/mlperf](https://github.com/mlcommons/ck/tree/master/docs/mlperf).
+ 
+#### Outcome
+
+* We have released the new CM version 1.5.3 and successfully validated it with the community during MLPerf inference v3.1 submission 
+  enabling the 1st mass submission of 12K+ performance and power results across 120+ system configurations.
+
+* We continued extending [Modular C++ Inference Library for MLPerf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp) 
+  and validated it in the v3.1 round. We also developed a Python prototype of the reference network implementation
+  with CM interface added to the main inference repository.
+
+* We successfully introduced CM automation at the [ACM/IEEE International Symposium on Microarchitecture (MICRO'23)](https://cTuning.org/ae/micro2023.html)
+  to reproduce results from accepted research papers: [GitHub](https://github.com/ctuning/cm-reproduce-research-projects/tree/main/script)
+  
+* We successfully introduced CM automation at the [Student Cluster Competition at SuperComputing'23](https://github.com/mlcommons/ck/blob/master/docs/tutorials/scc23-mlperf-inference-bert.md)
+  to run MLPerf inference benchmarks across diverse hardware. It resulted in different contributions to improve MLPerf inference benchmarks
+  (such as adding AMD GPU backend) and CM workflows.
+
+* We gave invited keynote about CM concepts at the 1st ACM Conference on Reproducibility and Replicability: 
+  [Slides](https://doi.org/10.5281/zenodo.8105339), [AMC YouTube channel](https://www.youtube.com/watch?v=_1f9i_Bzjmg)
 
 
-### 2022
+### 2024
 
-- [x] DONE: [Prototype of the 2nd version of the MLCommons CK framework to solve the dependency hell and run any application on any hardware/software stack](https://github.com/mlcommons/ck).
-- [x] DONE: [GUI prototype to run MLPerf inference benchmarks on any software and hardware](https://cknowledge.org/mlperf-inference-gui).
-- [x] DONE: [GUI prototype to prepare MLPerf inference submission](https://cknowledge.org/mlperf-inference-submission-gui).
-- [x] DONE: [GUI prototype to visualize AI/ML benchmarking results](https://cKnowledge.org/cm-gui-graph).
+We are requested to focus on the following tasks:
 
-[*Archive of 2022 tasks*](archive/taskforce-2022.md).
-
+1) Continue extending CM interface and workflows to reproduce as many MLPerf inference v3.1 submissions as possible: see [current coverage](https://github.com/mlcommons/ck/issues/1052)
+2) Help all MLperf inference v4.0 submitters automate their submissions and provide a common CM interface to rerun them in a unified way
+3) Apply standard [ACM artifact review and badging methodology](https://www.acm.org/publications/policies/artifact-review-and-badging-current) 
+   with [cTuning extensions to ML and systems conferences](https://cTuning.org/ae) 
+   to MLPerf inference v4.0 submission to make it easier to rerun experiments and reproduce results (see [ACM Tech Talk](https://www.youtube.com/watch?v=7zpeIVwICa4) 
+   and [ACM REP keynote](https://doi.org/10.5281/zenodo.8105339) to learn more about our vision and related experience).
+4) Add CM support for the new automotive benchmark
+5) Extend [CM GUI](https://cknowledge.org/cm-gui/?tags=generic,app,mlperf,inference) to help users generate CM commands to customize and run MLPerf inference benchmarks
+6) Extend [Modular C++ Inference Library for MLPerf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp) to support more models and backends
 
 ## Resources
 
-* Motivation:
-  * [MLPerf Inference Benchmark (ArXiv paper)](https://arxiv.org/abs/1911.02549)
-  * [ACM TechTalk introducing technology-agnostic CK/CM workflow automation framework](https://www.youtube.com/watch?v=7zpeIVwICa4)
-  * [Journal article with CK/CM concepts and our long-term vision](https://arxiv.org/pdf/2011.01149.pdf)
-  * [HPCA'22 presentation "MLPerf design space exploration and production deployment"](https://doi.org/10.5281/zenodo.6475385)
+* [ACM artifact review and badging methodology](https://www.acm.org/publications/policies/artifact-review-and-badging-current) 
+* [Artifact Evaluation at ML and systems conferences](https://cTuning.org/ae)
+* [Terminology (ACM/NISO): Repeatability, Reproducibility and Replicability](artifact-evaluation/faq.md#what-is-the-difference-between-repeatability-reproducibility-and-replicability)
 
-* Tools:
-  * [MLPerf loadgen](https://github.com/mlcommons/inference/tree/master/loadgen)
-  * [MLCommons CM workflow automation meta-framework to modularize ML&AI Systems (Apache 2.0 license)](https://github.com/mlcommons/ck)
-  * [MLPerf universal C++ inference template library](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
-  * [Portable, reusable and customizable CM scripts for technology-agnostic AI/ML/SW/HW co-design  (Apache 2.0 license)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
-
-* Reproducibility and replicability studies:
-  * [Terminology (ACM/NISO): Repeatability, Reproducibility and Replicability](artifact-evaluation/faq.md#what-is-the-difference-between-repeatability-reproducibility-and-replicability)
-  * [Artifact Evaluation at ML and systems conferences](https://cTuning.org/ae)
-
-### Acknowledgments
-
-This task force is supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org),
-[cKnowledge](https://cKnowledge.org) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).

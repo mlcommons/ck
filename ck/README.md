@@ -2,11 +2,10 @@
 <br>
 <br>
 
-**Note that the 1st generation of the CK framework was discontinued in summer 2022 
-  after the [2nd generation of the CK technology (Collective Mind automation language aka CM)](https://github.com/mlcommons/ck/tree/master/cm) 
-  was developed from scratch by [Grigori Fursin](https://cKnowledge.org/gfursin) 
-  in close collaboration with [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
-  within the [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).**
+**Note that this directory is in archive mode since the [Collective Knowledge framework (v1 and v2)](https://arxiv.org/abs/2011.01149) 
+  is now officially discontinued in favour of the new, light-weight, non-intrusive and technology-agnostic 
+  [Collective Mind workflow automation language](https://doi.org/10.5281/zenodo.8105339) being developed, supported 
+  and maintained by the [MLCommons](https://mlcommons.org), [cTuning.org](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org).**
 
 <br>
 <br>
@@ -31,9 +30,10 @@
 
 
 
-* **2022 July 17:** We have pre-released CK2-based MLOps and DevOps automation scripts at https://github.com/mlcommons/ck/tree/master/cm-mlops/script
-
-* **2022 May:** We started developing the 2nd generation of the CK framework (aka CM)
+* **2022 May:** [Grigori Fursin](https://cKnowledge.org/cknowledge) (the author of the CK framework) 
+  started prototyping the new [Collective Mind framework](https://doi.org/10.5281/zenodo.8105339)
+  within the [MLCommons Task Force on Automation and Reproducibility](../../docs/taskforce.md)
+  from scratch based on the feedback from the users and the community.
 
 * **2022 April 3:** We presented the CK concept to bridge the growing gap between ML Systems research and production 
   at the HPCA'22 workshop on [benchmarking deep learning systems](https://sites.google.com/g.harvard.edu/mlperf-bench-hpca22/home).
@@ -108,12 +108,6 @@ Please contact [Grigori Fursin](https://www.linkedin.com/in/grigorifursin) if yo
 * [CK basics]( https://colab.research.google.com/drive/15lQgxuTSkEPqi4plaat1_v2gJcfIrATF?usp=sharing )
 
 ## Releases
-
-### Development version
-
-We are developing the 2nd generation of the CK framework (aka CM) based on your feedback:
-* [CK2(CM) framework](https://github.com/mlcommons/ck/tree/master/cm)
-* [CK2(CM) MLOps and DevOps automation scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops)
 
 ### Stable versions
 
@@ -256,7 +250,7 @@ to make it easier to integrate them with web services and CI platforms as descri
 
 ## CK portal 
 
-We have developed the [cKnowledge.io portal](https://cknow.io) to help the community
+We use the [cKnowledge.io portal](https://cknow.io) to help the community
 organize and find all the CK workflows and components similar to PyPI:
 
 * [Search CK components](https://cknow.io)
@@ -275,31 +269,16 @@ The community provides Docker containers to test CK and components using differe
   https://github.com/mlcommons/ck-mlops/tree/main/docker/test-ck
 
 
-## Contributions
-
-Users can extend the CK functionality via [CK modules](https://github.com/mlcommons/ck/tree/master/ck/repo/module) 
-or external [GitHub reposities](https://cknow.io/repos) in the CK format
-as described [here](https://ck.readthedocs.io/en/latest/src/typical-usage.html).
-
-Please check [this documentation](https://ck.readthedocs.io/en/latest/src/how-to-contribute.html)
-if you want to extend the CK core functionality and [modules](https://github.com/mlcommons/ck/tree/master/ck/repo/module). 
-
-Note, that we plan to [redesign the CK framework](https://github.com/mlcommons/ck/projects/1) 
-to be more pythonic (we wrote the first prototype without OO to be able 
-to port it to bare-metal devices in C but eventually we decided to drop this idea).
-
-Please contact [Grigori Fursin](mailto:grigori@octoml.ai) to join this community effort.
-
 
 
 ## Contacts
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin) - author
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) - maintainer
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) - contributor and maintainer
 
 ## Acknowledgments
 
 We would like to thank all [contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
 and [collaborators](https://cKnowledge.org/partners.html) for their support, fruitful discussions, 
 and useful feedback! See more acknowledgments in the [CK journal article](https://arxiv.org/abs/2011.01149)
-and [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4).
+and [ACM TechTalk'21](https://www.youtube.com/watch?v=7zpeIVwICa4).
