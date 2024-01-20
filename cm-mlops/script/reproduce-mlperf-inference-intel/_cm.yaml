@@ -87,6 +87,7 @@ deps:
 
   - tags: get,conda,_name.bert-pt
   - tags: install,llvm,src,_tag.llvmorg-15.0.7,_runtimes.libcxx:libcxxabi:openmp,_clang,_release,_for-intel-mlperf-inference
+  - tags: get,generic-sys-util,_libffi7
   - tags: get,generic,conda-package,_package.python
     names:
      - conda-package
@@ -168,6 +169,9 @@ post_deps:
       CM_MLPERF_SKIP_RUN:
         - 'yes'
         - yes
+    enable_if_env:
+      CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE:
+        - run_harness
     tags: benchmark-mlperf
 
 
