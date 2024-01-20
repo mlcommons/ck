@@ -89,6 +89,11 @@ deps:
   - tags: get,conda,_name.bert-pt
   - tags: get,generic,conda-package,_package.python
     version: "3.8"
+  - names:
+     - conda-package
+     - ncurses
+    tags: get,generic,conda-package,_package.ncurses,_source.conda-forge
+ 
   - tags: get,generic-sys-util,_numactl
   - tags: get,generic,conda-package,_package.jemalloc,_source.conda-forge
 
