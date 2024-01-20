@@ -1154,6 +1154,12 @@ def dockerfile(i):
         fake_run_deps = i.get('fake_run_deps', docker_settings.get('fake_run_deps', False))
         docker_run_final_cmds = docker_settings.get('docker_run_final_cmds', [])
 
+        if i.get('docker_real_run', False):
+            fake_run_option = " "
+            fake_run_deps = False
+        else:
+            fake_run_option = " --fake_run"
+
         docker_copy_files = i.get('docker_copy_files', docker_settings.get('copy_files', []))
 
         env['CM_DOCKER_PRE_RUN_COMMANDS'] = docker_run_final_cmds
@@ -1186,6 +1192,7 @@ def dockerfile(i):
                             'docker_os': docker_os,
                             'docker_os_version': docker_os_version,
                             'file_path': dockerfile_path,
+                            'fake_run_option': fake_run_option,
                             'comments': comments,
                             'run_cmd': f'{run_cmd} --quiet',
                             'script_tags': f'{tag_string}',
