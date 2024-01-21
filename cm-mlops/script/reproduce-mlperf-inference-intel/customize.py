@@ -64,6 +64,10 @@ def preprocess(i):
         env['CM_RUN_DIR'] = i['run_script_input']['path']
         env['CM_RUN_CMD'] = "bash run_harness.sh " + ("--accuracy" if env['CM_MLPERF_LOADGEN_MODE'] == "accuracy" else "")
 
+        if env.get('CM_MLPERF_LOADGEN_MODE', '') == "compliance":
+         audit_path = env['CM_MLPERF_INFERENCE_AUDIT_PATH']
+         shutil.copy(audit_path, env['CM_RUN_DIR'])
+
     return {'return':0}
 
 def postprocess(i):

@@ -8,7 +8,8 @@
     "CM_ML_MODEL": "BERT",
     "CM_ML_MODEL_DATASET": "squad-1.1",
     "CM_ML_MODEL_MAX_SEQ_LENGTH": "384",
-    "CM_ML_MODEL_NAME": "MLPERF BERT Large on SQuAD v1.1"
+    "CM_ML_MODEL_NAME": "MLPERF BERT Large on SQuAD v1.1",
+    "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>"
   },
   "new_env_keys": [
     "CM_ML_MODEL*"
