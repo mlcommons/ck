@@ -22,7 +22,7 @@ across diverse and continuously changing models, datasets, software and hardware
 while automating all manual, tedious and repetitive tasks (*downloading artifacts,
 installing tools, substituting paths, updating environment variables, preparing run-time
 environments, generating command lines, processing logs and sharing results*)
-via [portable and reusable automation recipes (CM scripts)](cm-mlops/script).
+via [portable and reusable automation recipes (CM scripts)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script).
 
 * [Getting Started Tutorial](docs/getting-started.md)
   * [CM interface for MLPerf benchmarks](docs/mlperf)
