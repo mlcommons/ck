@@ -31,7 +31,8 @@ You can particiapte in our discussions via [public Discord server](https://disco
 ### 2023
 
 Following our [regular public weekly conf-calls in 2023](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw), 
-[Discord discussions](https://discord.gg/JjWNWXKxwT) and very useful feedback from Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, Red Hat,
+[Discord discussions](https://discord.gg/JjWNWXKxwT) and very useful feedback from the research community, 
+Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, Red Hat,
 Intel, TTA, One Stop Systems and other organizations, we have developed a new version 
 of the [Collective Mind automation framework (CM)](https://github.com/mlcommons/ck) as a very lightweight, 
 non-intrusive and technology-agnostic workflow automation framework that provides a common, simple 
@@ -55,7 +56,7 @@ across continuously changing models, datasets, software and hardware from differ
   to run MLPerf inference benchmarks across diverse hardware. It resulted in different contributions to improve MLPerf inference benchmarks
   (such as adding AMD GPU backend) and CM workflows.
 
-* We gave invited keynote about CM concepts at the 1st ACM Conference on Reproducibility and Replicability: 
+* We gave invited keynote about CM at the 1st ACM Conference on Reproducibility and Replicability: 
   [Slides](https://doi.org/10.5281/zenodo.8105339), [ACM YouTube channel](https://www.youtube.com/watch?v=_1f9i_Bzjmg)
 
 
@@ -75,7 +76,7 @@ We are requested to focus on the following tasks:
 
 ## Resources
 
+* [Invited keynote about CM at ACM REP'23](https://doi.org/10.5281/zenodo.8105339)
 * [ACM artifact review and badging methodology](https://www.acm.org/publications/policies/artifact-review-and-badging-current) 
 * [Artifact Evaluation at ML and systems conferences](https://cTuning.org/ae)
 * [Terminology (ACM/NISO): Repeatability, Reproducibility and Replicability](artifact-evaluation/faq.md#what-is-the-difference-between-repeatability-reproducibility-and-replicability)
-
