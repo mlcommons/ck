@@ -116,7 +116,7 @@ ___
       - Workflow:
     * `_onnx,fp32,armi`
       - Environment variables:
-        - *CM_PACKAGE_URL*: `https://armi.in/files/model.onnx1`
+        - *CM_PACKAGE_URL*: `https://armi.in/files/model.onnx`
         - *CM_PACKAGE_URL1*: `https://zenodo.org/record/3733910/files/model.onnx`
       - Workflow:
     * `_onnx,fp32,zenodo`
@@ -141,14 +141,22 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_F1*: `90.874`
       - Workflow:
+    * `_pytorch,fp32,armi`
+      - Environment variables:
+        - *CM_PACKAGE_URL*: `https://zenodo.org/record/3733896/files/model.pytorch`
+      - Workflow:
     * `_pytorch,fp32,zenodo`
       - Environment variables:
-        - *CM_ML_MODEL_F1*: `90.874`
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/3733896/files/model.pytorch`
       - Workflow:
     * `_pytorch,int8`
       - Environment variables:
         - *CM_ML_MODEL_F1*: `90.633`
+      - Workflow:
+    * `_pytorch,int8,armi`
+      - Environment variables:
+        - *CM_PACKAGE_URL*: `https://armi.in/files/int8/pytorch_model.bin`
+        - *CM_PACKAGE_URL1*: `https://zenodo.org/record/4792496/files/pytorch_model.bin`
       - Workflow:
     * `_pytorch,int8,zenodo`
       - Environment variables:

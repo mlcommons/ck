@@ -155,6 +155,7 @@ Default version: `master`
 
 * `master`
 * `r3.0`
+* `r3.1`
 ___
 ### Script workflow, dependencies and native scripts
 
@@ -169,6 +170,9 @@ ___
        * CM names: `--adr.['inference-src', 'submission-checker-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,generic-python-lib,_xlsxwriter
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_package.pyarrow
+       * CM names: `--adr.['pyarrow']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_pandas
        * CM names: `--adr.['pandas']...`

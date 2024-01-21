@@ -121,6 +121,7 @@ ___
              * CM names: `--adr.['conda']...`
              - CM script: [get-conda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)
            * get,conda-package,_package.ncurses,_source.conda-forge
+             * CM names: `--adr.['conda-package', 'ncurses']...`
              - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
            * get,generic,conda-package,_package.ninja
              * CM names: `--adr.['conda-package', 'ninja']...`
