@@ -309,6 +309,7 @@ variations:
       CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE: build_harness
     new_env_keys:
       - CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH
+      - CM_ML_MODEL_*
       - DATA_PATH
 
   build_harness,bert_:
