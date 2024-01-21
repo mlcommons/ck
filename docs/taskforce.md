@@ -4,8 +4,8 @@
 
 ## Mission
 
-Develop a common methodology and interface to run, reproduce and customize MLPerf and other AI benchmarks in a unified way 
-across diverse and rapidly evolving models, data sets, software and hardware from different vendors.
+Develop a common methodology and interface to run, reproduce and customize different implementations of MLPerf benchmarks 
+in a unified way  across diverse and rapidly evolving models, data sets, software and hardware from different vendors.
 
 ## Chairs and Tech Leads
 
@@ -24,7 +24,7 @@ where CM is used:
   * Automotive implementation bi-weekly conf-calls on Friday at 9:30am PST
 * [Croissant TF](https://github.com/mlcommons/croissant): weekly at 8am PST
 
-You can particiapte in our discussions via [public Discord server](https://discord.gg/JjWNWXKxwT).
+You can participate in our discussions via [public Discord server](https://discord.gg/JjWNWXKxwT).
 
 ## Status
 
@@ -65,7 +65,7 @@ across continuously changing models, datasets, software and hardware from differ
 We are requested to focus on the following tasks:
 
 1) Continue extending CM interface and workflows to reproduce as many MLPerf inference v3.1 submissions as possible: see [current coverage](https://github.com/mlcommons/ck/issues/1052)
-2) Help all MLperf inference v4.0 submitters automate their submissions and provide a common CM interface to rerun them in a unified way
+2) Help all MLPerf inference v4.0 submitters automate their submissions and provide a common CM interface to rerun them in a unified way
 3) Apply standard [ACM artifact review and badging methodology](https://www.acm.org/publications/policies/artifact-review-and-badging-current) 
    with [cTuning extensions to ML and systems conferences](https://cTuning.org/ae) 
    to MLPerf inference v4.0 submission to make it easier to rerun experiments and reproduce results (see [ACM Tech Talk](https://www.youtube.com/watch?v=7zpeIVwICa4) 
