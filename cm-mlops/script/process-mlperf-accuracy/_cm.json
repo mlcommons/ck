@@ -169,6 +169,9 @@
           "tags": "get,generic-python-lib,_boto3"
         },
         {
+          "tags": "get,generic-python-lib,_package.transformers"
+        },
+        {
           "skip_if_env": {
             "CM_DATASET_SQUAD_VAL_PATH": []
           },
