@@ -1,6 +1,6 @@
 #!/bin/bash
 
-THREADS_PER_INSTANCE=4
+THREADS_PER_INSTANCE=$(((4 * ${CM_HOST_CPU_THREADS_PER_CORE}) / ${CM_HOST_CPU_SOCKETS}))
 
 export LD_PRELOAD=${CONDA_PREFIX}/lib/libjemalloc.so
 export MALLOC_CONF="oversize_threshold:1,background_thread:true,percpu_arena:percpu,metadata_thp:always,dirty_decay_ms:9000000000,muzzy_decay_ms:9000000000";
@@ -14,7 +14,7 @@ num_instance=$(($number_cores / $THREADS_PER_INSTANCE))
 
 sut_dir=${MODEL_PATH}
 executable=${CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH}
-mode="Offline"
+mode=${CM_MLPERF_LOADGEN_SCENARIO}
 OUTDIR="${CM_MLPERF_OUTPUT_DIR}"
 
 #python ../../user_config.py
