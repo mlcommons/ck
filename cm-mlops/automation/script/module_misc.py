@@ -1241,9 +1241,11 @@ def docker(i):
     """
 
     self_module = i['self_module']
+    noregenerate_docker_file = i.get('docker_noregenerate', False)
 
-    r = utils.call_internal_module(self_module, __file__, 'module_misc', 'dockerfile', i)
-    if r['return']>0: return r
+    if not noregenerate_docker_file:
+        r = utils.call_internal_module(self_module, __file__, 'module_misc', 'dockerfile', i)
+        if r['return']>0: return r
 
     cur_dir = os.getcwd()
 
