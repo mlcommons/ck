@@ -24,6 +24,17 @@ installing tools, substituting paths, updating environment variables, preparing 
 environments, generating command lines, processing logs and sharing results*)
 via [portable and reusable automation recipes (CM scripts)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script).
 
+For example, the following commands should prepare and run image classification 
+with ONNX on any platform with Linux, Windows and MacOS either natively or inside a containter:
+
+```bash
+pip install cmind
+cm pull repo mlcommons@ck
+cm run script "python app image-classification onnx" --input={some image.jpg}
+```
+
+### Documentation
+
 * [Getting Started Tutorial](docs/getting-started.md)
   * [CM interface for MLPerf benchmarks](docs/mlperf)
   * [CM interface for ML and Systems conferences](docs/tutorials/common-interface-to-reproduce-research-projects.md)
