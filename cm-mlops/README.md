@@ -1,31 +1,29 @@
 # CM repository with cross-platform scripts for MLOps and DevOps
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
-[![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck)
-[![CM artifact](https://img.shields.io/badge/Artifact-automated%20and%20reusable-blue)](https://github.com/mlcommons/ck)
+[![Supported by CM](https://img.shields.io/badge/Supported_by-MLCommons%20CM-blue)](https://github.com/mlcommons/ck).
 
-This MLCommons CM repository contains portable scripts
-in the [CM format](https://github.com/mlcommons/ck) to unify and interconnect 
-different MLOps and DevOps tools across continuously changing software, hardware and data
-from different vendors.
-**See the automatically generated catalog [here](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md).**
+This repository contains automation recipes to run native MLOps and DevOps scripts and tools via a simple, common and human-readable
+[CM interface](https://github.com/mlcommons/ck) on any platform with any software stack.
 
-All cross-platform СM scripts have a unified API, human readable CLI and extensible JSON/YAML meta description
-making it possible to reuse them in different projects and chain them together 
-into powerful, efficient and portable automation workflows, applications and web services
-adaptable to continuously changing software and hardware.
+All СM scripts have a simple Python API, extensible JSON/YAML meta description
+and unifed input/output to make them reusable in different projects either individually 
+or by chaining them together into powerful, efficient and portable automation workflows, 
+applications and web services adaptable to continuously changing models, data sets, software and hardware
+(see [CM workflow/pipeline for MLPerf inference](script/app-mlperf-inference/_cm.yaml) as example).
 
-Check the [CM docs](https://github.com/mlcommons/ck/tree/master/docs) to understand
-the CM concept, install the CM tool and reuse portable CM scripts for MLOps and DevOps.
+These automation recipes are being developed and maintained by the [MLCommons Task Force on Automation and Reproducibility](../docs/taskforce.md)
+with [great contributions](../CONTRIBUTING.md) from the community and important feedback from Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, 
+Red Hat, Intel, TTA, One Stop Systems, ACM and other organizations.
 
-Join the [open MLCommons taskforce on automation and reproducibility](../docs/taskforce.md) 
-to learn how to make ML Systems more portable, reproducible and reusable 
-across rapidly evolving SW/HW stacks, and automate their benchmarking, optimization, 
-design space exploration and deployment.
+### Catalog
 
-&copy; 2021-2023 [MLCommons](https://mlcommons.org)
+See the automatically generated catalog [here](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md).
 
-# Core developers and maintainers
+### Copyright
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+2022-2024 [MLCommons](https://mlcommons.org)
+
+### License
+
+[Apache 2.0](LICENSE.md)

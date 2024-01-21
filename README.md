@@ -6,67 +6,67 @@
 [![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 [![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
 [![Dockerfile update for CM scripts](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml)
-[![MLPerf inference resnet50](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-resnet50.yml/badge.svg?branch=master&event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-resnet50.yml)
-[![MLPerf inference retinanet](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-retinanet.yml/badge.svg?branch=master&event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-retinanet.yml)
-[![MLPerf inference bert](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml)
-[![MLPerf inference rnnt](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-rnnt.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-rnnt.yml)
 
+### About
 
-Collective Mind (CM) is a very light-weight, non-intrusive and
-technology-agnostic workflow automation framework with a human-readable
-interface to manage complex AI/ML projects, run experiments and exchange
-knowledge on any platform with any software stack in a unified way.
+Collective Mind (CM) is a lightweight, non-intrusive and technology-agnostic workflow automation framework 
+to run and manage AI/ML benchmarks, applications and research projects in a unified and fully automated way
+on any platform with any software stack using a common, simple and human-readable interface.
 
-For example, the following commands should prepare and run image classification 
-with ONNX on Linux, Windows and MacOS in a native environment:
+CM is being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+based on the feedback from the [research community](https://www.youtube.com/watch?v=7zpeIVwICa4), Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, Red Hat,
+Intel, TTA, One Stop Systems, ACM and [other organizations and individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 
+The goal is to gradually convert all ad-hoc README files, papers, reports, Juputer notebooks and containers 
+into [portable and reusable automation recipes (CM scripts)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script)
+that find and call existing scripts and tools via English-like language based on tags 
+and glue them together via extensible JSON/YAML meta descriptions and simple Python logic.
+
+For example, the following CM commands prepare and run image classification 
+with ONNX on any platform with Linux, Windows and MacOS either natively or inside a containter:
 
 ```bash
 pip install cmind
 cm pull repo mlcommons@ck
-cmr "python app image-classification onnx"
+cm run script "python app image-classification onnx" --input={some image.jpg}
 ```
 
+Such approach requires minimal learning curve and minimal changes to existing projects while helping 
+to dramatically reduce time to understand how to run and customize numerous AI/ML projects 
+across diverse and continuously changing models, datasets, software and hardware from different vendors.
 
-### Some projects modularized and automated by CM
+It also helps to gradually abstract, automate, unify and reuse all manual, tedious and repetitive MLOps and DevOps tasks
+including *downloading artifacts, installing tools, substituting paths, updating environment variables, preparing run-time
+environments, generating command lines, processing logs and sharing results*: see the 
+[catalog of automation recipes shared by MLCommons](docs/list_of_scripts.md).
 
-* [A unified way to run MLPerf inference benchmarks with different models, software and hardware](docs/mlperf/inference). See [current coverage](https://github.com/mlcommons/ck/issues/1052).
-* [A unitied way to run MLPerf training benchmarks](docs/tutorials/reproduce-mlperf-training.md) *(prototyping phase)*
-* [A unified way to run MLPerf tiny benchmarks](docs/tutorials/reproduce-mlperf-tiny.md) *(prototyping phase)*
-* A unified CM to run automotive benchmarks *(prototyping phase)*
-* [An open-source platform to aggregate, visualize and compare MLPerf results](https://access.cknowledge.org/playground/?action=experiments)
-  * [Leaderboard for community contributions](https://access.cknowledge.org/playground/?action=contributors)
-* [Artifact Evaluation and reproducibility initiatives](https://cTuning.org/ae) at ACM/IEEE/NeurIPS conferences:
-  * [A unified way to run experiments and reproduce results from ACM/IEEE MICRO'23 and ASPLOS papers](https://github.com/ctuning/cm-reproduce-research-projects)
-  * [Student Cluster Competition at SuperComputing'23](https://github.com/mlcommons/ck/blob/master/docs/tutorials/scc23-mlperf-inference-bert.md)
-  * [CM automation to reproduce IPOL paper](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/reproduce-ipol-paper-2022-439/README-extra.md)
+Please check this [Getting Started tutorial](docs/getting-started.md) to understand
+how CM works and start using it.
 
-
-### CM documentation
-
-* [CM installation](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-* [CM tutorials](https://github.com/mlcommons/ck/blob/master/docs/tutorials/README.md)
-* [Table of Contents](docs/README.md)
+Note that this project is under heavy developments - feel free to get in touch
+via [public Discord server](https://discord.gg/JjWNWXKxwT) if you have questions, 
+suggestions and feature requests.
 
 
+### Documentation
 
-### Motivation
+* [Getting Started Tutorial](docs/getting-started.md)
+  * [CM interface for MLPerf benchmarks](docs/mlperf)
+  * [CM interface for ML and Systems conferences](docs/tutorials/common-interface-to-reproduce-research-projects.md)
+  * [CM automation recipes for MLOps and DevOps](cm-mlops/script)
+  * [Other CM tutorials](docs/tutorials)
+* [Full documentation](docs/README.md)
+* [CM and CK history](docs/history.md)
 
-* [CK vision (ACM Tech Talk at YouTube)](https://www.youtube.com/watch?v=7zpeIVwICa4) 
-* [CK concepts (Philosophical Transactions of the Royal Society)](https://arxiv.org/abs/2011.01149) 
-* [CM workflow automation introduction (slides from ACM REP'23 keynote)](https://doi.org/10.5281/zenodo.8105339)
-* [MLPerf inference submitter orientation (slides)](https://doi.org/10.5281/zenodo.8144274) 
+### Motivation and concepts
 
+* MLPerf inference submitter orientation: [slides](https://doi.org/10.5281/zenodo.8144274) 
+* ACM REP'23 keynote about CM concepts: [slides](https://doi.org/10.5281/zenodo.8105339)
 
+### Copyright
 
-Feel free to add the following badge to your projects if it can be accessed and managed by the CM interface and automation workflows:
-[![Supported by CM](https://img.shields.io/badge/Supported_by-MLCommons%20CM-blue)](https://github.com/mlcommons/ck).
+2022-2024 [MLCommons](https://mlcommons.org)
 
+### License
 
-
-### Acknowledgments
-
-The MLCommons Collective Mind workflow automation framework was developed by [Grigori Fursin](https://cKnowledge.org/gfursin) 
-and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh). It is maintained and extended 
-by the [MLCommons Task Force on Automation and Reproducibility](docs/taskforce.md)
-with many great contributions from [the community](CONTRIBUTING.md).
+[Apache 2.0](LICENSE.md)

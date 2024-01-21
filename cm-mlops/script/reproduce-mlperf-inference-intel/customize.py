@@ -57,11 +57,16 @@ def preprocess(i):
         i['run_script_input']['script_name'] = "build_harness"
         env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH'] = os.path.join(os.getcwd(), "harness", "build", "bert_inference")
         env['DATA_PATH'] = os.path.join(os.getcwd(), "harness", "bert")
+
     elif env['CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE'] == "run_harness":
         env['MODEL_PATH'] = os.path.dirname(os.path.dirname(env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH']))
         env['DATASET_PATH'] = os.path.dirname(os.path.dirname(env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH']))
         env['CM_RUN_DIR'] = i['run_script_input']['path']
-        env['CM_RUN_CMD'] = "bash run_harness.sh"
+        env['CM_RUN_CMD'] = "bash run_harness.sh " + ("--accuracy" if env['CM_MLPERF_LOADGEN_MODE'] == "accuracy" else "")
+
+        if env.get('CM_MLPERF_LOADGEN_MODE', '') == "compliance":
+         audit_path = env['CM_MLPERF_INFERENCE_AUDIT_PATH']
+         shutil.copy(audit_path, env['CM_RUN_DIR'])
 
     return {'return':0}
 
