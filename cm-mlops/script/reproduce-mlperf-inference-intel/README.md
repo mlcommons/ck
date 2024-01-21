@@ -419,11 +419,20 @@ ___
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,conda,_name.bert-pt
        - CM script: [get-conda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)
+     * install,llvm,src,_tag.llvmorg-15.0.7,_runtimes.libcxx:libcxxabi:openmp,_clang,_release,_for-intel-mlperf-inference
+       - CM script: [install-llvm-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src)
+     * get,generic-sys-util,_libffi7
+       - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
      * get,generic,conda-package,_package.python
+       * CM names: `--adr.['conda-package', 'python']...`
+       - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+     * get,generic,conda-package,_package.ncurses,_source.conda-forge
+       * CM names: `--adr.['conda-package', 'ncurses']...`
        - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
      * get,generic-sys-util,_numactl
        - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
      * get,generic,conda-package,_package.jemalloc,_source.conda-forge
+       * CM names: `--adr.['conda-package', 'jemalloc']...`
        - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
      * get,ml-model,resnet50,_fp32,_onnx,_from-tf
        * `if (CM_MODEL  == resnet50)`
@@ -455,7 +464,7 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel/_cm.yaml)***
      * benchmark-mlperf
-       * `if (CM_MLPERF_SKIP_RUN not in ['yes', True])`
+       * `if (CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE  == run_harness) AND (CM_MLPERF_SKIP_RUN not in ['yes', True])`
        * CM names: `--adr.['runner', 'mlperf-runner']...`
        - CM script: [benchmark-program-mlperf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf)
 </details>

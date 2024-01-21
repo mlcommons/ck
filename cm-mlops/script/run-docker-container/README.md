@@ -109,6 +109,7 @@ ___
 * `--device=value`  &rarr;  `CM_DOCKER_ADD_DEVICE=value`
 * `--docker_os=value`  &rarr;  `CM_DOCKER_OS=value`
 * `--docker_os_version=value`  &rarr;  `CM_DOCKER_OS_VERSION=value`
+* `--fake_run_option=value`  &rarr;  `CM_DOCKER_FAKE_RUN_OPTION=value`
 * `--gh_token=value`  &rarr;  `CM_GH_TOKEN=value`
 * `--image_name=value`  &rarr;  `CM_DOCKER_IMAGE_NAME=value`
 * `--image_repo=value`  &rarr;  `CM_DOCKER_IMAGE_REPO=value`

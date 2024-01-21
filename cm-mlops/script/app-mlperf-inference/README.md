@@ -143,7 +143,8 @@ ___
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['cpp-mlperf-inference', 'mlperf-inference-implementation']...`
              - CM script: [app-mlperf-inference-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
-    * `_intel`
+    * `_intel-original`
+      - Aliases: `_intel`
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * reproduce,mlperf,inference,intel

@@ -630,7 +630,7 @@ ___
        * CM names: `--adr.['ml-engine-onnxruntime', 'onnxruntime']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnxruntime_gpu
-       * `if (CM_MLPERF_BACKEND in ['onnxruntime', 'tvm-onnx'] AND CM_MLPERF_DEVICE  == gpu) AND (CM_MODEL not in ['3d-unet-99', '3d-unet-99.9', 'resnet50'])`
+       * `if (CM_MLPERF_BACKEND in ['onnxruntime', 'tvm-onnx'] AND CM_MLPERF_DEVICE  == gpu) AND (CM_MODEL not in ['3d-unet-99', '3d-unet-99.9'])`
        * CM names: `--adr.['ml-engine-onnxruntime-cuda']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnxruntime
@@ -714,7 +714,7 @@ ___
      * get,ml-model,llama2
        * `if (CM_MODEL  == llama2-70b) AND (CM_MLPERF_CUSTOM_MODEL_PATH  != on)`
        * CM names: `--adr.['ml-model', 'llama2-model']...`
-       - *Warning: no scripts found*
+       - CM script: [get-ml-model-llama2](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2)
      * get,ml-model,medical-imaging,3d-unet
        * `if (CM_MODEL in ['3d-unet-99', '3d-unet-99.9'])`
        * CM names: `--adr.['ml-model', '3d-unet-model']...`

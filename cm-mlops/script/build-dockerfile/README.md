@@ -126,6 +126,7 @@ ___
 * `--docker_os=value`  &rarr;  `CM_DOCKER_OS=value`
 * `--docker_os_version=value`  &rarr;  `CM_DOCKER_OS_VERSION=value`
 * `--fake_docker_deps=value`  &rarr;  `CM_DOCKER_FAKE_DEPS=value`
+* `--fake_run_option=value`  &rarr;  `CM_DOCKER_FAKE_RUN_OPTION=value`
 * `--file_path=value`  &rarr;  `CM_DOCKERFILE_WITH_PATH=value`
 * `--gh_token=value`  &rarr;  `CM_GH_TOKEN=value`
 * `--image_repo=value`  &rarr;  `CM_DOCKER_IMAGE_REPO=value`
