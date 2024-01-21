@@ -1,5 +1,7 @@
 # Collective Knowledge Playground
 
+*Note that this project is under heavy development.*
+
 ### Introduction
 
 The [Collective Knowledge Playground (CK)](https://x.cknowledge.org) is a free, open-source, and technology-agnostic on-prem platform

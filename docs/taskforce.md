@@ -4,8 +4,8 @@
 
 ## Mission
 
-Develop a common methodology and interface to run, reproduce and customize different implementations of MLPerf benchmarks 
-in a unified way  across diverse and rapidly evolving models, data sets, software and hardware from different vendors.
+Develop a common methodology, interface and workflow to run, reproduce, customize and optimize different implementations of MLPerf benchmarks 
+in a unified way across diverse and rapidly evolving models, data sets, software and hardware from different vendors.
 
 ## Chairs and Tech Leads
 
@@ -45,9 +45,9 @@ across continuously changing models, datasets, software and hardware from differ
 * We have released the new CM version 1.5.3 and successfully validated it with the community during MLPerf inference v3.1 submission 
   enabling the 1st mass submission of 12K+ performance and power results across 120+ system configurations.
 
-* We continued extending [Modular C++ Inference Library for MLPerf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp) 
+* We continued extending [Modular C++ Inference Library for MLPerf (MIL)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp) 
   and validated it in the v3.1 round. We also developed a Python prototype of the reference network implementation
-  with CM interface added to the main inference repository.
+  with CM interface for BERT model and added it to the [main inference repository](https://github.com/mlcommons/inference/tree/master/language/bert#loadgen-over-the-network).
 
 * We successfully introduced CM automation at the [ACM/IEEE International Symposium on Microarchitecture (MICRO'23)](https://cTuning.org/ae/micro2023.html)
   to reproduce results from accepted research papers: [GitHub](https://github.com/ctuning/cm-reproduce-research-projects/tree/main/script)
@@ -76,7 +76,8 @@ We are requested to focus on the following tasks:
 
 ## Resources
 
-* [Invited keynote about CM at ACM REP'23](https://doi.org/10.5281/zenodo.8105339)
+* [Invited keynote about CM framework at ACM REP'23](https://doi.org/10.5281/zenodo.8105339)
 * [ACM artifact review and badging methodology](https://www.acm.org/publications/policies/artifact-review-and-badging-current) 
 * [Artifact Evaluation at ML and systems conferences](https://cTuning.org/ae)
 * [Terminology (ACM/NISO): Repeatability, Reproducibility and Replicability](artifact-evaluation/faq.md#what-is-the-difference-between-repeatability-reproducibility-and-replicability)
+* [ACM TechTalk about reproducing 150+ research papers and validating them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4)

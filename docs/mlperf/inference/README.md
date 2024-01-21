@@ -3,50 +3,52 @@
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [Run MLPerf inference benchmarks out-of-the-box](#run-mlperf-inference-benchmarks-out-of-the-box)
-  * [Install CM automation language](#install-cm-automation-language)
-  * [Install repository with CM automations](#install-repository-with-cm-automations)
-  * [Setup virtual environment](#setup-virtual-environment)
-  * [Test Docker](#test-docker)
-  * [Prepare hardware](#prepare-hardware)
-    * [CPU](#cpu)
-    * [CUDA GPU](#cuda-gpu)
-    * [Other backends](#other-backends)
-  * [Run benchmarks and submit results](#run-benchmarks-and-submit-results)
+  * [Development](#development)
+  * [CM interface for MLPerf](#cm-interface-for-mlperf)
+    * [Install CM](#install-cm)
+    * [Install repository with CM automation recipes for MLPerf](#install-repository-with-cm-automation-recipes-for-mlperf)
+    * [Setup virtual environment](#setup-virtual-environment)
+    * [Test Docker](#test-docker)
+    * [Prepare cloud instances](#prepare-cloud-instances)
+    * [Prepare hardware](#prepare-hardware)
+      * [CPUs](#cpus)
+      * [CUDA GPUs](#cuda-gpus)
+      * [Nvidia Jetson AGX Orin](#nvidia-jetson-agx-orin)
+      * [Other backends](#other-backends)
+    * [Run benchmarks and submit results](#run-benchmarks-and-submit-results)
     * [Measure power](#measure-power)
-  * [Debug benchmarks](#debug-benchmarks)
-  * [Update CM language and scripts](#update-cm-language-and-scripts)
-  * [Optimize benchmarks](#optimize-benchmarks)
-  * [Visualize and compare results](#visualize-and-compare-results)
-  * [Extend and customize benchmarks](#extend-and-customize-benchmarks)
-    * [Add new MLPerf benchmark implementation](#add-new-mlperf-benchmark-implementation)
-    * [Add new hardware backend](#add-new-hardware-backend)
-    * [Add new model](#add-new-model)
-    * [Add new data set](#add-new-data-set)
-  * [Participate in reproducibility and optimization challenges](#participate-in-reproducibility-and-optimization-challenges)
+    * [Debug benchmarks](#debug-benchmarks)
+    * [Extend CM interface and workflows](#extend-cm-interface-and-workflows)
+    * [Optimize benchmarks](#optimize-benchmarks)
+    * [Visualize and compare results](#visualize-and-compare-results)
+  * [Questions? Suggestions?](#questions?-suggestions?)
 
 </details>
 
 
-# Run MLPerf inference benchmarks out-of-the-box
-
-This documentation will help you run, reproduce and compare [MLPerf inference benchmarks](https://arxiv.org/abs/1911.02549) 
-out-of-the-box using a [unified CM interface and workflow automation language](https://doi.org/10.5281/zenodo.8105339) 
-being developed and maintained by the [MLCommons Task Force on Automation and Reproducibility](../../taskforce.md).
-
-You can see the current CM coverage to run and reproduce MLPerf inference benchmarks [here](https://github.com/mlcommons/ck/issues/1052).
-
+This document described how to run [MLPerf inference benchmarks](https://arxiv.org/abs/1911.02549) 
+on any platforms in a unified way via [MLCommons CM interface](https://github.com/mlcommons/ck).
+This interface is being developed and maintained by the [MLCommons Task Force on Automation and Reproducibility](../../taskforce.md)
+with [great contributions](CONTRIBUTING.md) from the community and important feedback from Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, 
+Red Hat, Intel, TTA, One Stop Systems, ACM and other organizations.
 Don't hesitate to get in touch with us using this [public Discord server](https://discord.gg/JjWNWXKxwT) 
-to get free help with MLPerf submissions and optimization, ask questions, provide your feedback 
-and add new MLPerf benchmark implementations, models, data sets and hardware backends.
+to get free help with your MLPerf submissions and/or participate in the CM developments.
 
-## Motivation
+## Development
 
-Please check [MLPerf inference submitter orientation slides](https://doi.org/10.5281/zenodo.8144274)
-and [ACM REP'23 keynote slides](https://doi.org/10.5281/zenodo.8105339) to learn more about the 
-MLCommons CM interface and workflow automation language.
+[![MLPerf inference resnet50](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-resnet50.yml/badge.svg?branch=master&event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-resnet50.yml)
+[![MLPerf inference retinanet](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-retinanet.yml/badge.svg?branch=master&event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-retinanet.yml)
+[![MLPerf inference bert](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml)
+[![MLPerf inference rnnt](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-rnnt.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-rnnt.yml)
 
-## Install CM 
+* [Current development status](../../taskforce.md#status).
+* [Current CM coverage to run and reproduce MLPerf inference benchmarks](https://github.com/mlcommons/ck/issues/1052).
+* [Development version of the modular MLPerf C++ inference implementation](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-cpp/README-extra.md).
+* [Development version of the the reference network implementation with CM interface for BERT model](https://github.com/mlcommons/inference/tree/master/language/bert#loadgen-over-the-network).
+
+## CM interface for MLPerf
+
+### Install CM 
 
 Follow [this guide](../../installation.md) to install CM on Linux, Windows or MacOS.
 It is a small Python library with minimal dependencies (Python 3+, Git and wget) and `cm` and `cmr` command line.
@@ -54,7 +56,7 @@ It is a small Python library with minimal dependencies (Python 3+, Git and wget)
 If you encounter problems, please report them at [GitHub](https://github.com/mlcommons/ck/issues).
 
 
-## Install repository with CM automation recipes
+### Install repository with CM automation recipes for MLPerf
 
 Install the MLCommons repository with [portable and reusable automation recipes for MLOps and DevOps (CM scripts)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script).
 These scripts are being developed and shared by the community and MLCommons under Apache 2.0 license 
@@ -91,7 +93,7 @@ You will need to pull above repository with CM automations again to place it in 
 
 
 
-## Setup virtual environment
+### Setup virtual environment
 
 If you plan to use your native environment to run MLPerf benchmarks, we suggest you to set up
 a Python virtual environment via CM to avoid contaminating your existing Python installation:
@@ -114,7 +116,7 @@ export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf2"
 
 
 
-## Test Docker
+### Test Docker
 
 If you have Docker installed on your system, you can test it and run some CM scripts as follows:
 ```bash
@@ -122,7 +124,7 @@ cm docker script --tags=detect,os -j
 ```
 
 
-## Prepare cloud instances
+### Prepare cloud instances
 
 If you want to run MLPerf in multiple cloud instances, please follow these guides to set them up:
 
@@ -130,23 +132,23 @@ If you want to run MLPerf in multiple cloud instances, please follow these guide
 * [GCP](../setup/setup-gcp-instance.md)
 
 
-## Prepare hardware
+### Prepare hardware
 
 Read this section if you want to run MLPerf benchmarks in a native environment, i.e. without containers.
 
-### CPUs
+#### CPUs
 
 If you plan to run MLPerf benchmarks on x64 and/or Arm64 CPUs, no extra setup is necessary.
 
-### CUDA GPUs
+#### CUDA GPUs
 
 If you plan to use CUDA in your native environment, please follow [this guide](../../installation-cuda.md) to set it up on your system.
 
-### Nvidia Jetson AGX Orin
+#### Nvidia Jetson AGX Orin
 
 Follow [this guide](../setup/setup-nvidia-jetson-orin.md).
 
-### Other backends
+#### Other backends
 
 We work with the community to add more hardware backends (Google TPU, Amazon Inferentia, Qualcomm AI100, etc) 
 to MLPerf benchmarks via our [open challenges for AI//ML systems](https://access.cknowledge.org/playground/?action=challenges),
@@ -157,7 +159,7 @@ if you are interested to participate, collaborate and contribute to this communi
 
 
 
-## Run benchmarks and submit results
+### Run benchmarks and submit results
 
 Please check our [MLPerf inference submitter orientation slides (July 2023)](https://doi.org/10.5281/zenodo.8144274)
 explaining why we have developed a common CM interface to run all MLPerf benchmarks.
@@ -211,7 +213,7 @@ on our system.
 
 
 
-## Debug benchmarks
+### Debug benchmarks
 
 
 Since CM language uses native OS scripts with python wrappers, it is relatively straightforward to debug it using your existing tools.
@@ -233,10 +235,10 @@ Please check [this documentation](../../debugging.md) for more details.
 
 
 
-## Update CM language and scripts
+### Extend CM interface and workflows
 
-The concept of CM language is to always keep backward compatibility of the high-level interface 
-while improving and extending low-level scripts, CLI and environment variables.
+The CM concept is to be always keep backward compatibility
+of the human readable interface while improving and extending low-level CM scripts.
 
 You should be able to update CM language and scripts at any time as follows:
 ```bash
@@ -259,7 +261,7 @@ cm rm cache --tags=harness -f
 
 
 
-## Optimize benchmarks
+### Optimize benchmarks
 
 We are developing `CM experiment automation` to run multiple experiments, automatically explore multiple parameters, 
 record results and reproduce them by the workgroup.
@@ -269,7 +271,7 @@ Please check this [documentation](../../../cm-mlops/automation/experiment/README
 *This is ongoing development.*
 
 
-## Visualize and compare results
+### Visualize and compare results
 
 You can pull all past MLPerf results in the CM format, import your current experiments under preparation and visualize results 
 with derived metrics on your system using the Collective Knowledge Playground as follows:
@@ -286,32 +288,8 @@ cmr "gui _graph"
 
 
 
-## Extend and customize benchmarks
-
-TBD. In the meantime, you can get help from the community via our [Discord server](https://discord.gg/JjWNWXKxwT).
-
-### Add new MLPerf benchmark implementation
-
-### Add new hardware backend
-
-### Add new model
-
-### Add new data set
-
-
-## Participate in reproducibility and optimization challenges
-
-Please help this community project by participating in our 
-[reproducibility and optimization challenges for MLPerf](https://access.cknowledge.org/playground/?action=challenges)!
-
 
 ## Questions? Suggestions?
 
 Get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).
-
-### Acknowledgments
-
-The first version of a common CM interface and unified workflow automation for MLPerf inference benchmarks 
-was developed by Arjun Suresh and Grigori Fursin and sponsored by MLCommons.org, cTuning.org and cKnowledge.org
-with great contributions from [the community](../../../CONTRIBUTING.md).
 
