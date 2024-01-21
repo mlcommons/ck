@@ -66,6 +66,7 @@ Feel free to add the following badge to your projects if it can be accessed and 
 
 ### Acknowledgments
 
-The MLCommons Collective Mind is being developed by the [MLCommons Task Force on Automation and Reproducibility](docs/taskforce.md)
-led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
+The MLCommons Collective Mind workflow automation framework was developed by [Grigori Fursin](https://cKnowledge.org/gfursin) 
+and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh). It is maintained and extended 
+by the [MLCommons Task Force on Automation and Reproducibility](docs/taskforce.md)
 with many great contributions from [the community](CONTRIBUTING.md).

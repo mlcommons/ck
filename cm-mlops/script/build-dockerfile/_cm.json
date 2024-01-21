@@ -10,6 +10,7 @@
     "cm_repo": "CM_MLOPS_REPO",
     "docker_os": "CM_DOCKER_OS",
     "docker_os_version": "CM_DOCKER_OS_VERSION",
+    "fake_run_option": "CM_DOCKER_FAKE_RUN_OPTION",
     "file_path": "CM_DOCKERFILE_WITH_PATH",
     "gh_token": "CM_GH_TOKEN",
     "fake_docker_deps": "CM_DOCKER_FAKE_DEPS",

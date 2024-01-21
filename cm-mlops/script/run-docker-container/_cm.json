@@ -14,6 +14,7 @@
     "recreate": "CM_DOCKER_IMAGE_RECREATE",
     "gh_token": "CM_GH_TOKEN",
     "it":"CM_DOCKER_INTERACTIVE",
+    "fake_run_option": "CM_DOCKER_FAKE_RUN_OPTION",
     "detached": "CM_DOCKER_DETACHED_MODE",
     "image_repo": "CM_DOCKER_IMAGE_REPO",
     "image_name": "CM_DOCKER_IMAGE_NAME",
