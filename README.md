@@ -17,14 +17,12 @@ CM is being developed by the [MLCommons Task Force on Automation and Reproducibi
 based on the feedback from the [research community](https://www.youtube.com/watch?v=7zpeIVwICa4), Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, Red Hat,
 Intel, TTA, One Stop Systems, ACM and [other organizations and individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 
-Our goal is to reduce time required to understand how to run, customize and optimize numerous AI/ML projects 
-across diverse and continuously changing models, datasets, software and hardware from different vendors
-while automating all manual, tedious and repetitive tasks (*downloading artifacts,
-installing tools, substituting paths, updating environment variables, preparing run-time
-environments, generating command lines, processing logs and sharing results*)
-via [portable and reusable automation recipes (CM scripts)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script).
+The goal is to gradually convert all ad-hoc README files, papers, reports, Juputer notebooks and containers 
+into [portable and reusable automation recipes (CM scripts)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script)
+that find and call existing scripts and tools via English-like language based on tags 
+and glue them together via extensible JSON/YAML meta descriptions and simple Python logic.
 
-For example, the following commands should prepare and run image classification 
+For example, the following CM commands prepare and run image classification 
 with ONNX on any platform with Linux, Windows and MacOS either natively or inside a containter:
 
 ```bash
@@ -33,12 +31,30 @@ cm pull repo mlcommons@ck
 cm run script "python app image-classification onnx" --input={some image.jpg}
 ```
 
+Such approach requires minimal learning curve and minimal changes to existing projects while helping 
+to dramatically reduce time to understand how to run and customize numerous AI/ML projects 
+across diverse and continuously changing models, datasets, software and hardware from different vendors.
+
+It also helps to gradually abstract, automate, unify and reuse all manual, tedious and repetitive MLOps and DevOps tasks
+including *downloading artifacts, installing tools, substituting paths, updating environment variables, preparing run-time
+environments, generating command lines, processing logs and sharing results*: see the 
+[catalog of automation recipes shared by MLCommons](docs/list_of_scripts.md).
+
+Please check this [Getting Started tutorial](docs/getting-started.md) to understand
+how CM works and start using it.
+
+Note that this project is under heavy developments - feel free to get in touch
+via [public Discord server](https://discord.gg/JjWNWXKxwT) if you have questions, 
+suggestions and feature requests.
+
+
 ### Documentation
 
 * [Getting Started Tutorial](docs/getting-started.md)
   * [CM interface for MLPerf benchmarks](docs/mlperf)
   * [CM interface for ML and Systems conferences](docs/tutorials/common-interface-to-reproduce-research-projects.md)
   * [CM automation recipes for MLOps and DevOps](cm-mlops/script)
+  * [Other CM tutorials](docs/tutorials)
 * [Full documentation](docs/README.md)
 * [CM and CK history](docs/history.md)
 
@@ -54,8 +70,3 @@ cm run script "python app image-classification onnx" --input={some image.jpg}
 ### License
 
 [Apache 2.0](LICENSE.md)
-
-### Public discussions and developments
-
-Follow [official GitHub repository](https://github.com/mlcommons/ck) 
-and join [public Discord server](https://discord.gg/JjWNWXKxwT).
