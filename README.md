@@ -10,17 +10,23 @@
 ### About
 
 Collective Mind (CM) is a lightweight, non-intrusive and technology-agnostic workflow automation framework 
-being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-based on the feedback from the community, Google, Arm, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, Red Hat,
-Intel, TTA, One Stop Systems, ACM and [other organizations and individual contributors](CONTRIBUTING.md).
+to run and manage AI/ML benchmarks, applications and research projects in a unified and fully automated way
+on any platform with any software stack using a common, simple and human-readable interface.
 
-The goal is to provide a common, simple and human-readable interface to manage, run, reproduce 
-and customize diverse AI/ML apps, benchmarks and research projects across continuously changing
-models, datasets, software and hardware from different vendors in a unified and automated way.
+CM is being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+based on the feedback from the [research community](https://www.youtube.com/watch?v=7zpeIVwICa4), Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, Red Hat,
+Intel, TTA, One Stop Systems, ACM and [other organizations and individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
+
+Our goal is to reduce time required to understand how to run, customize and optimize numerous AI/ML projects 
+across diverse and continuously changing models, datasets, software and hardware from different vendors
+while automating all manual, tedious and repetitive tasks (*downloading artifacts,
+installing tools, substituting paths, updating environment variables, preparing run-time
+environments, generating command lines, processing logs and sharing results*)
+via [portable and reusable automation recipes (CM scripts)](cm-mlops/script).
 
 * [Getting Started Tutorial](docs/getting-started.md)
   * [CM interface for MLPerf benchmarks](docs/mlperf)
-  * [CM interface for ML and Systems conferences](https://github.com/ctuning/cm-reproduce-research-projects/tree/main/script)
+  * [CM interface for ML and Systems conferences](docs/tutorials/common-interface-to-reproduce-research-projects.md)
   * [CM automation recipes for MLOps and DevOps](cm-mlops/script)
 * [Full documentation](docs/README.md)
 * [CM and CK history](docs/history.md)
@@ -38,7 +44,7 @@ models, datasets, software and hardware from different vendors in a unified and 
 
 [Apache 2.0](LICENSE.md)
 
-### Public CM discussions and developments
+### Public discussions and developments
 
 Follow [official GitHub repository](https://github.com/mlcommons/ck) 
 and join [public Discord server](https://discord.gg/JjWNWXKxwT).

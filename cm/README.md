@@ -15,8 +15,8 @@
 
 Collective Mind (CM) is a lightweight, non-intrusive and technology-agnostic workflow automation framework 
 being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-based on the feedback from the community, Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, Red Hat,
-Intel, TTA, One Stop Systems, ACM and other organizations.
+based on the feedback from the [research community](https://www.youtube.com/watch?v=7zpeIVwICa4), Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, Red Hat,
+Intel, TTA, One Stop Systems, ACM and [other organizations and individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 
 The goal is to provide a common, simple and human-readable interface to manage, run, reproduce 
 and customize diverse AI/ML apps, benchmarks and research projects across continuously changing
