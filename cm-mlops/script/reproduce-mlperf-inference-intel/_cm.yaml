@@ -265,9 +265,7 @@ variations:
       names:
        - conda-package
        - jemalloc
-    - tags: get,pytorch,from.src,_for-intel-mlperf-inference-v3.1-bert
-    - tags: install,onednn,from.src,_for-intel-mlperf-inference-v3.1-bert
-    - tags: install,transformers,from.src,_for-intel-mlperf-inference-v3.1-bert
+    - tags: install,ipex,from.src,_for-intel-mlperf-inference-v3.1-gptj
   standalone:
     group: network-mode
     default: true
