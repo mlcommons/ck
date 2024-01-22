@@ -164,6 +164,8 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_boto3
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.transformers
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,dataset,squad,language-processing
              * `if (CM_DATASET_SQUAD_VAL_PATH not in [])`
              - CM script: [get-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)
