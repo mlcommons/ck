@@ -88,7 +88,7 @@
           "tags": "_name.bert-pt"
         },
         "pytorch": {
-          "tags": "_for-intel-mlperf-inference"
+          "tags": "_for-intel-mlperf-inference-v3.1-bert"
         }
       },
       "base": [

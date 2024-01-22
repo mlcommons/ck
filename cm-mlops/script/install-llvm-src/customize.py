@@ -21,8 +21,8 @@ def preprocess(i):
         env['CM_REQUIRE_INSTALL'] = 'yes'
         i['run_script_input']['script_name'] = "install-llvm-16-intel-mlperf-inference"
         clang_file_name = "llvm-link"
-        env['USE_LLVM'] = install_prefix
-        env['LLVM_DIR'] = os.path.join(env['USE_LLVM'], "lib", "cmake", "llvm")
+        #env['USE_LLVM'] = install_prefix
+        #env['LLVM_DIR'] = os.path.join(env['USE_LLVM'], "lib", "cmake", "llvm")
     else:
         if env.get('CM_LLVM_ENABLE_RUNTIMES', '') != '':
             enable_runtimes = env['CM_LLVM_ENABLE_RUNTIMES'].replace(":", ";")
