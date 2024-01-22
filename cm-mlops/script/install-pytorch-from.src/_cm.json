@@ -98,7 +98,7 @@
         }
       }
     },
-    "for-intel-mlperf-inference": {
+    "for-intel-mlperf-inference-v3.1-bert": {
       "base": [
         "tag.v1.12.0"
       ],
@@ -134,7 +134,7 @@
           "version": "3.8"
         },
         {
-          "tags": "install,llvm,src,_tag.llvmorg-15.0.7,_runtimes.libcxx:libcxxabi:openmp,_clang,_release,_for-intel-mlperf-inference"
+          "tags": "install,llvm,src,_tag.llvmorg-15.0.7,_runtimes.libcxx:libcxxabi:openmp,_clang,_release,_for-intel-mlperf-inference-v3.1-bert"
         },
         {
           "names": [

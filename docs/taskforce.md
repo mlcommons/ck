@@ -4,8 +4,12 @@
 
 ## Mission
 
-Develop a common methodology, interface and workflow to run, reproduce, customize and optimize different implementations of MLPerf benchmarks 
-in a unified way across diverse and rapidly evolving models, data sets, software and hardware from different vendors.
+* Develop a common interface and workflow to run, reproduce, customize and optimize different implementations of MLPerf benchmarks 
+  in a unified and automated way across diverse models, data sets, software and hardware from different vendors: 
+  <a href="https://github.com/mlcommons/ck">Collective Mind (MLCommons CM)</a>.
+* Gradually add the MLCommons CM interface to [all MLPerf inference submissions](https://github.com/mlcommons/ck/issues/1052) starting from v3.1.
+* Continuously encode MLPerf rules and best practices in the MLCommons CM interface and workflows for MLPerf
+  to reduce the burden for submitters.
 
 ## Chairs and Tech Leads
 

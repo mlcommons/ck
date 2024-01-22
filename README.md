@@ -17,7 +17,7 @@ CM is being developed by the [MLCommons Task Force on Automation and Reproducibi
 based on the feedback from the [research community](https://www.youtube.com/watch?v=7zpeIVwICa4), Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, Red Hat,
 Intel, TTA, One Stop Systems, ACM and [other organizations and individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 
-The goal is to gradually convert all ad-hoc README files, papers, reports, Juputer notebooks and containers 
+The goal is to help the community gradually convert all ad-hoc README files, papers, reports, Juputer notebooks and containers 
 into [portable and reusable automation recipes (CM scripts)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script)
 that find and call existing scripts and tools via English-like language based on tags 
 and glue them together via extensible JSON/YAML meta descriptions and simple Python logic.
@@ -31,7 +31,7 @@ cm pull repo mlcommons@ck
 cm run script "python app image-classification onnx" --input={some image.jpg}
 ```
 
-Such approach requires minimal learning curve and minimal changes to existing projects while helping 
+Such approach requires minimal learning curve and minimal or no changes to existing projects while helping 
 to dramatically reduce time to understand how to run and customize numerous AI/ML projects 
 across diverse and continuously changing models, datasets, software and hardware from different vendors.
 
@@ -43,7 +43,7 @@ environments, generating command lines, processing logs and sharing results*: se
 Please check this [Getting Started tutorial](docs/getting-started.md) to understand
 how CM works and start using it.
 
-Note that this project is under heavy developments - feel free to get in touch
+Note that this project is under heavy development - feel free to get in touch
 via [public Discord server](https://discord.gg/JjWNWXKxwT) if you have questions, 
 suggestions and feature requests.
 
