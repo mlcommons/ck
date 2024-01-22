@@ -48,3 +48,6 @@ variations:
   cuda:
     env:
       USE_CUDA: yes
+
+input_mapping:
+  input: CM_IMAGE

@@ -17,7 +17,7 @@ CM is being developed by the [MLCommons Task Force on Automation and Reproducibi
 based on the feedback from the [research community](https://www.youtube.com/watch?v=7zpeIVwICa4), Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, Red Hat,
 Intel, TTA, One Stop Systems, ACM and [other organizations and individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 
-The goal is to gradually convert all ad-hoc README files, papers, reports, Juputer notebooks and containers 
+The goal is to help the community gradually convert all ad-hoc README files, papers, reports, Juputer notebooks and containers 
 into [portable and reusable automation recipes (CM scripts)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script)
 that find and call existing scripts and tools via English-like language based on tags 
 and glue them together via extensible JSON/YAML meta descriptions and simple Python logic.
