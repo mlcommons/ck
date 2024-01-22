@@ -82,7 +82,7 @@
         "CM_GIT_CHECKOUT": "#"
       }
     },
-    "for-intel-mlperf-inference": {
+    "for-intel-mlperf-inference-v3.1-bert": {
       "adr": {
         "conda-package": {
           "tags": "_name.bert-pt"

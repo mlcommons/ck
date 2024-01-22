@@ -127,7 +127,7 @@
         "CM_GIT_CHECKOUT_TAG": "#"
       }
     },
-    "for-intel-mlperf-inference": {
+    "for-intel-mlperf-inference-v3.1-bert": {
       "base": [
         "tag.llvmorg-15.0.7",
         "clang",
