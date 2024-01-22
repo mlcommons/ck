@@ -31,7 +31,7 @@ cm pull repo mlcommons@ck
 cm run script "python app image-classification onnx" --input={some image.jpg}
 ```
 
-Such approach requires minimal learning curve and minimal changes to existing projects while helping 
+Such approach requires minimal learning curve and minimal or no changes to existing projects while helping 
 to dramatically reduce time to understand how to run and customize numerous AI/ML projects 
 across diverse and continuously changing models, datasets, software and hardware from different vendors.
 
@@ -43,7 +43,7 @@ environments, generating command lines, processing logs and sharing results*: se
 Please check this [Getting Started tutorial](docs/getting-started.md) to understand
 how CM works and start using it.
 
-Note that this project is under heavy developments - feel free to get in touch
+Note that this project is under heavy development - feel free to get in touch
 via [public Discord server](https://discord.gg/JjWNWXKxwT) if you have questions, 
 suggestions and feature requests.
 
