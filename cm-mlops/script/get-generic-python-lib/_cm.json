@@ -17,7 +17,10 @@
         "python",
         "python3"
       ],
-      "tags": "get,python3"
+      "tags": "get,python3",
+      "skip_if_env": {
+        "CM_TMP_USE_CUSTOM_PYTHON": [ "on" ]
+      }
     },
     {
       "names": [
@@ -54,6 +57,22 @@
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "#",
         "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "",
         "CM_GENERIC_PYTHON_PIP_URL": ""
+      }
+    },
+    "url.#": {
+      "env": {
+        "CM_GENERIC_PYTHON_PIP_URL": "#",
+	    "CM_TMP_PYTHON_PACKAGE_FORCE_INSTALL": "yes"
+      }
+    },
+    "custom-python": {
+      "env": {
+        "CM_TMP_USE_CUSTOM_PYTHON": "on"
+      },
+      "ad": {
+        "python-pip": {
+          "tags": "_custom-python"
+        }
       }
     },
     "apache-tvm": {
