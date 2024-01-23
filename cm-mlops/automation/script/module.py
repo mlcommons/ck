@@ -3675,11 +3675,11 @@ def enable_or_skip_script(meta, env):
         if key in env:
             value = str(env[key]).lower()
 
-            if value in ["yes", "on", "true", "1"]:
-                if value in (meta[key] + ["yes", "on", "true", "1"]):
-                    continue
-            elif set(meta[key]) & set(["yes", "on", "true", "1"]):
+            if set(meta[key]) & set(["yes", "on", "true", "1"]):
                 if value not in ["no", "off", "false", "0"]:
+                    continue
+            elif set(meta[key]) & set(["no", "off", "false", "0"]):
+                if value in ["no", "off", "false", "0"]:
                     continue
             elif value in meta[key]:
                 continue

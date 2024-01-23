@@ -27,7 +27,7 @@ POWER=""
 extra_option=" --adr.mlperf-inference-implementation.compressed_dataset=on"
 extra_option=""
 extra_tags=""
-#extra_tags=",_only-fp32"
+extra_tags=",_only-fp32"
 
 
 #Add your run commands here...
