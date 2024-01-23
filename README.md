@@ -33,11 +33,21 @@ cm pull repo mlcommons@ck
 cm run script "python app image-classification onnx"
 
 cmr "download file _wget" --url=https://cKnowledge.org/ai/data/computer_mouse.jpg --verify=no --env.CM_DOWNLOAD_CHECKSUM=45ae5c940233892c2f860efdf0b66e7e
-cmr "python app image-classification onnx" --input=computer_mouse.jpg
+cmr "python app image-classification onnx" --input=computer_mouse.jpg -j
 
 ```
 
 *Note that `cmr` is a shortcut for `cm run script`.*
+
+You can also run all above CM commands via a simple Python API with JSON input/output:
+```python
+import cmind
+
+output=cmind.access({'action':'run', 'automation':'script',
+                     'tags':'python,app,image-classification,onnx',
+                     'input':'computer_mouse.jpg'})
+if output['return']==0: print (output)
+```
 
 Such approach requires minimal learning curve and minimal or no changes to existing projects while helping 
 to dramatically reduce time to understand how to run and customize numerous AI/ML projects 
@@ -51,14 +61,9 @@ environments, generating command lines, processing logs and sharing results*: se
 Please check this [Getting Started tutorial](docs/getting-started.md) to understand
 how CM works and start using it.
 
-Note that this project is under heavy development - feel free to get in touch
-via [public Discord server](https://discord.gg/JjWNWXKxwT) if you have questions, 
-suggestions and feature requests.
-
-
 ### Documentation
 
-* [Getting Started Tutorial](docs/getting-started.md)
+* [Getting Started tutorial](docs/getting-started.md)
   * [CM interface for MLPerf benchmarks](docs/mlperf)
   * [CM interface for ML and Systems conferences](docs/tutorials/common-interface-to-reproduce-research-projects.md)
   * [CM automation recipes for MLOps and DevOps](cm-mlops/script)
@@ -78,3 +83,9 @@ suggestions and feature requests.
 ### License
 
 [Apache 2.0](LICENSE.md)
+
+### Discord server
+
+This project is under heavy development based on user feedback - 
+feel free to get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT) 
+if you have questions, suggestions and feature requests.
