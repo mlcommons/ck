@@ -570,11 +570,7 @@ posthook_deps:
     tags: benchmark-mlperf
     skip_if_env:
       CM_MLPERF_SKIP_RUN:
-      - on
-
-
-
-
+      - "on"
 
 
 
@@ -817,6 +813,7 @@ variations:
       version_max: "1.10.9"
     - tags: get,generic-python-lib,_tokenization
     - tags: get,generic-python-lib,_six
+    - tags: get,generic-python-lib,_package.absl-py
     - tags: get,generic-python-lib,_protobuf
       names:
       - protobuf
