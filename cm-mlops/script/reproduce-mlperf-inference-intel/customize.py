@@ -63,6 +63,7 @@ def preprocess(i):
             env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH'] = os.path.join(os.getcwd(), "harness", "build", "gptj_inference")
             env['DATA_PATH'] = os.path.join(os.getcwd(), "harness", "gptj")
             env['MLPERF_INFERENCE_ROOT'] = env['CM_MLPERF_INFERENCE_SOURCE']
+            env['CHECKPOINT_DIR'] = env['GPTJ_CHECKPOINT_PATH']
 
     elif env['CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE'] == "run_harness":
         env['MODEL_PATH'] = os.path.dirname(os.path.dirname(env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH']))
