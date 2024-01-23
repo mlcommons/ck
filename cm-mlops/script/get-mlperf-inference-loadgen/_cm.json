@@ -128,6 +128,18 @@
         "CM_DOWNLOAD_CHECKSUM": "af3f9525965b2c1acc348fb882a5bfd1",
         "CM_VERIFY_SSL":false
       }
+    },
+    "custom-python": {
+      "ad": {
+        "python3": {
+          "skip_if_env": {
+            "CM_TMP_USE_CUSTOM_PYTHON": [ "on" ]
+          }
+        }
+      },
+      "env": {
+        "CM_TMP_USE_CUSTOM_PYTHON": "on"
+      }
     }
   },
   "versions": {

@@ -54,9 +54,15 @@ def preprocess(i):
     env['CONDA_PREFIX'] = env['CM_CONDA_PREFIX']
 
     if env['CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE'] == "build_harness":
-        i['run_script_input']['script_name'] = "build_harness"
-        env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH'] = os.path.join(os.getcwd(), "harness", "build", "bert_inference")
-        env['DATA_PATH'] = os.path.join(os.getcwd(), "harness", "bert")
+        if "bert" in env['CM_MODEL']:
+            i['run_script_input']['script_name'] = "build_bert_harness"
+            env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH'] = os.path.join(os.getcwd(), "harness", "build", "bert_inference")
+            env['DATA_PATH'] = os.path.join(os.getcwd(), "harness", "bert")
+        elif "gpt" in env['CM_MODEL']:
+            i['run_script_input']['script_name'] = "build_gptj_harness"
+            env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH'] = os.path.join(os.getcwd(), "harness", "build", "gptj_inference")
+            env['DATA_PATH'] = os.path.join(os.getcwd(), "harness", "gptj")
+            env['MLPERF_INFERENCE_ROOT'] = env['CM_MLPERF_INFERENCE_SOURCE']
 
     elif env['CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE'] == "run_harness":
         env['MODEL_PATH'] = os.path.dirname(os.path.dirname(env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH']))
