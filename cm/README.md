@@ -18,7 +18,7 @@ to run and manage AI/ML benchmarks, applications and research projects in a unif
 on any platform with any software stack using a common, simple and human-readable interface.
 
 CM is being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-based on the feedback from the [research community](https://www.youtube.com/watch?v=7zpeIVwICa4), Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, Red Hat,
+based on the feedback from the [research community](https://www.youtube.com/watch?v=7zpeIVwICa4), Google, AMD, Neural Magic, OctoML, Nvidia, Qualcomm, Dell, HPE, Red Hat,
 Intel, TTA, One Stop Systems, ACM and [other organizations and individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 
 Our goal is to reduce time required to understand how to run, customize and optimize numerous AI/ML projects 

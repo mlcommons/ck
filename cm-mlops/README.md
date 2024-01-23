@@ -13,7 +13,7 @@ applications and web services adaptable to continuously changing models, data se
 (see [CM workflow/pipeline for MLPerf inference](script/app-mlperf-inference/_cm.yaml) as example).
 
 These automation recipes are being developed and maintained by the [MLCommons Task Force on Automation and Reproducibility](../docs/taskforce.md)
-with [great contributions](../CONTRIBUTING.md) from the community and important feedback from Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, 
+with [great contributions](../CONTRIBUTING.md) from the community and important feedback from Google, AMD, Neural Magic, OctoML, Nvidia, Qualcomm, Dell, HPE, 
 Red Hat, Intel, TTA, One Stop Systems, ACM and other organizations.
 
 ### Catalog

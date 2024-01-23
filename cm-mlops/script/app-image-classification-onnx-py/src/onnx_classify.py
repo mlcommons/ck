@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
-#
-# NB: onnxruntime needs numpy v 1.16.* (1.15.* and before would crash)
+# Extended by Grigori Fursin to support MLCommons CM workflow automation language
 
 import os
 import onnxruntime as rt
 import numpy as np
+import time
+import json
+
 from PIL import Image
 
 model_path          = os.environ['CK_ENV_ONNX_MODEL_ONNX_FILEPATH']
@@ -121,8 +123,12 @@ print("")
 
 starting_index = 1
 
+start_time = time.time()
+
 for batch_idx in range(batch_count):
-    print("Batch {}/{}:".format(batch_idx+1,batch_count))
+    print ('')
+    print ("Batch {}/{}:".format(batch_idx+1, batch_count))
+
     batch_filenames = [ imagenet_path + '/' + "ILSVRC2012_val_00000{:03d}.JPEG".format(starting_index + batch_idx*batch_size + i) for i in range(batch_size) ]
 
     # Grigori: trick to test models:
@@ -134,11 +140,33 @@ for batch_idx in range(batch_count):
 
     batch_predictions = sess.run([output_layer_name], {input_layer_name: batch_data})[0]
 
+    cm_status = {'classifications':[]}
+    
+    print ('')
+    top_classification = ''
     for in_batch_idx in range(batch_size):
         softmax_vector = batch_predictions[in_batch_idx][bg_class_offset:]    # skipping the background class on the left (if present)
         top5_indices = list(reversed(softmax_vector.argsort()))[:5]
-        print(batch_filenames[in_batch_idx] + ' :')
-        for class_idx in top5_indices:
-            print("\t{}\t{}\t{}".format(class_idx, softmax_vector[class_idx], labels[class_idx]))
-        print("")
 
+        print(' * ' + batch_filenames[in_batch_idx] + ' :')
+
+        for class_idx in top5_indices:
+            if top_classification == '':
+                top_classification = labels[class_idx]
+
+            print("\t{}\t{}\t{}".format(class_idx, softmax_vector[class_idx], labels[class_idx]))
+
+            cm_status['classifications'].append({'class_idx':int(class_idx),
+                                                 'softmax': float(softmax_vector[class_idx]),
+                                                 'label':labels[class_idx]})
+
+    print ('')
+    print ('Top classification: {}'.format(top_classification))
+    cm_status['top_classification'] = top_classification
+
+avg_time = (time.time() - start_time) / batch_count
+cm_status['avg_time'] = avg_time
+
+# Record cm_status to embedded it into CM workflows
+with open('tmp-run-state.json', 'w') as cm_file:
+   cm_file.write(json.dumps({'cm_app_image_classification_onnx_py':cm_status}, sort_keys=True, indent=2))

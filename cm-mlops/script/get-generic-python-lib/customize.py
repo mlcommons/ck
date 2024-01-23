@@ -36,8 +36,10 @@ def preprocess(i):
                'run_script_input':i['run_script_input'],
                'recursion_spaces':recursion_spaces})
 
-    if r['return'] >0:
-        if r['return'] == 16:
+    force_install = env.get('CM_TMP_PYTHON_PACKAGE_FORCE_INSTALL', '') == 'yes'
+
+    if r['return'] >0 or force_install:
+        if r['return'] == 16 or force_install:
             # Clean detected version env if exists otherwise takes detected version
             # for example, when we reinstall generic python lib package
             env_version_key = 'CM_'+env['CM_TMP_PYTHON_PACKAGE_NAME_ENV'].upper()+'_VERSION'

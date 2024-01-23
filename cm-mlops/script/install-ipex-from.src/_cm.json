@@ -1,5 +1,5 @@
 {
-  "alias": "install-transformers-from.src",
+  "alias": "install-ipex-from.src",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
@@ -36,11 +36,11 @@
     },
     {
       "env": {
-        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_TRANSFORMERS_SRC_REPO_PATH"
+        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_IPEX_SRC_REPO_PATH"
       },
-      "extra_cache_tags": "transformers,src,transformers-src,transformers-src-repo",
+      "extra_cache_tags": "ipex,src,ipex-src,ipex-src-repo",
       "names": [
-        "transformers-src-repo"
+        "ipex-src-repo"
       ],
       "tags": "get,git,repo",
       "update_tags_from_env_with_prefix": {
@@ -60,46 +60,46 @@
     }
   ],
   "env": {
-    "CM_GIT_URL": "https://github.com/huggingface/transformers"
   },
-  "name": "Build transformers from sources",
+  "name": "Build IPEX from sources",
   "new_env_keys": [
-    "CM_TRANSFORMERS_*"
+    "CM_IPEX_*"
   ],
   "prehook_deps": [],
   "sort": 1000,
   "tags": [
     "install",
+    "get",
     "src",
     "from.src",
-    "transformers",
-    "src-transformers"
+    "ipex",
+    "src-ipex"
   ],
-  "uid": "88512c48ea5c4186",
+  "uid": "09364fff2bf04516",
   "variations": {
     "branch.#": {
       "env": {
         "CM_GIT_CHECKOUT": "#"
       }
     },
-    "for-intel-mlperf-inference-v3.1-bert": {
+    "for-intel-mlperf-inference-v3.1-gptj": {
       "adr": {
         "conda-package": {
-          "tags": "_name.bert-pt"
+          "tags": "_name.gptj-pt"
         },
         "pytorch": {
-          "tags": "_for-intel-mlperf-inference-v3.1-bert"
+          "tags": "_for-intel-mlperf-inference-v3.1-gptj"
         }
       },
       "base": [
-        "sha.9f4e0c23d68366985f9f584388874477ad6472d8"
+        "branch.v2.1.0.dev+cpu.llm.mlperf"
       ],
       "deps": [
         {
           "names": [
             "conda"
           ],
-          "tags": "get,conda,_name.bert-pt"
+          "tags": "get,conda,_name.gptj-pt"
         },
         {
           "names": [
@@ -107,7 +107,7 @@
             "python3"
           ],
           "tags": "get,generic,conda-package,_package.python",
-          "version": "3.8"
+          "version": "3.9"
         },
         {
           "names": [
@@ -122,6 +122,9 @@
             "setuptools"
           ],
           "tags": "get,generic,conda-package,_package.setuptools,_source.conda-forge"
+        },
+        {
+          "tags": "install,llvm,src,_for-intel-mlperf-inference-v3.1-gptj"
         }
       ],
       "env": {
@@ -134,10 +137,10 @@
       },
       "group": "repo"
     },
-    "repo.https://github.com/pytorch/pytorch": {
+    "repo.https://github.com/intel/intel-extension-for-pytorch": {
       "default": true,
       "env": {
-        "CM_GIT_URL": "https://github.com/huggingface/transformers"
+        "CM_GIT_URL": "https://github.com/intel/intel-extension-for-pytorch"
       },
       "group": "repo"
     },

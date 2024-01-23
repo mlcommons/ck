@@ -51,3 +51,9 @@ variations:
 
 input_mapping:
   input: CM_IMAGE
+
+new_env_keys:
+  - CM_APP_IMAGE_CLASSIFICATION_ONNX_PY*
+
+new_state_keys:
+  - cm_app_image_classification_onnx_py

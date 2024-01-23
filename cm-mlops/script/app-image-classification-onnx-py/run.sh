@@ -32,3 +32,6 @@ test $? -eq 0 || exit 1
 echo ""
 ${CM_PYTHON_BIN} ${CM_TMP_CURRENT_SCRIPT_PATH}/src/onnx_classify.py
 test $? -eq 0 || exit 1
+
+# Just a demo to pass environment variables from native scripts back to CM workflows
+echo "CM_APP_IMAGE_CLASSIFICATION_ONNX_PY=sucess" > tmp-run-env.out

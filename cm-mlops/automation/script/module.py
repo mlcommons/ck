@@ -7,7 +7,8 @@
 # while keeping full backwards compatibility.
 #
 # Join the MLCommons taskforce on automation and reproducibility
-# to discuss further developments: https://cKnowledge.org/mlcommons-taskforce
+# to discuss further developments: 
+# https://github.com/mlcommons/ck/blob/master/docs/taskforce.md
 
 import os
 
@@ -42,7 +43,7 @@ class CAutomation(Automation):
         self.tmp_file_run_env = 'tmp-run-env.out'
         self.tmp_file_ver = 'tmp-ver.out'
 
-        self.__version__ = "1.1.5"
+        self.__version__ = "1.1.6"
 
         self.local_env_keys = ['CM_VERSION',
                                'CM_VERSION_MIN',

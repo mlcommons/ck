@@ -30,6 +30,19 @@
       "env": {
         "CM_CONDA_PREFIX_NAME": "#"
       }
+    },
+    "python-3.8": {
+      "group": "conda-python",
+      "default": true,
+      "env": {
+        "CM_CONDA_PYTHON_VERSION": "3.8"
+      }
+    },
+    "python-3.#": {
+      "group": "conda-python",
+      "env": {
+        "CM_CONDA_PYTHON_VERSION": "3.#"
+      }
     }
   }
 }
