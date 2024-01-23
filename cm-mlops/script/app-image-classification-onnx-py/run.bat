@@ -24,3 +24,6 @@ IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
 echo.
 %CM_PYTHON_BIN_WITH_PATH% %CM_TMP_CURRENT_SCRIPT_PATH%\src\onnx_classify.py
 IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
+
+rem Just a demo to pass environment variables from native scripts back to CM workflows
+echo CM_APP_IMAGE_CLASSIFICATION_ONNX_PY=sucess > tmp-run-env.out
