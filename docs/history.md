@@ -17,7 +17,7 @@ Grigori donated the CK technology to MLCommons in 2022 to benefit everyone and h
 the [MLCommons Task Force on Automation and Reproducibility](taskforce.md) co-led with [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
 
 As an outcome of this fruitful collaboration and thanks to the [community contributions](../CONTRIBUTING.md) 
-and very useful suggestions from Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, Red Hat,
+and very useful suggestions from Google, AMD, Neural Magic, OctoML, Nvidia, Qualcomm, Dell, HPE, Red Hat,
 Intel, TTA, One Stop Systems and other organizations, 
 we have developed a new [Collective Mind workflow automation language (MLCommons CM)](https://doi.org/10.5281/zenodo.8105339)
 from scratch as a very lightweight, non-intrusive and technology-agnostic workflow automation framework that provides a common, simple 

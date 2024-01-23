@@ -14,7 +14,7 @@ to run and manage AI/ML benchmarks, applications and research projects in a unif
 on any platform with any software stack using a common, simple and human-readable interface.
 
 CM is being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-based on the feedback from the [research community](https://www.youtube.com/watch?v=7zpeIVwICa4), Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, Red Hat,
+based on the feedback from the [research community](https://www.youtube.com/watch?v=7zpeIVwICa4), Google, AMD, Neural Magic, OctoML, Nvidia, Qualcomm, Dell, HPE, Red Hat,
 Intel, TTA, One Stop Systems, ACM and [other organizations and individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 
 The goal is to help the community gradually convert all ad-hoc README files, papers, reports, Juputer notebooks and containers 
@@ -27,9 +27,17 @@ with ONNX on any platform with Linux, Windows and MacOS either natively or insid
 
 ```bash
 pip install cmind
+
 cm pull repo mlcommons@ck
-cm run script "python app image-classification onnx" --input={some image.jpg}
+
+cm run script "python app image-classification onnx"
+
+cmr "download file _wget" --url=https://cKnowledge.org/ai/data/computer_mouse.jpg --verify=no --env.CM_DOWNLOAD_CHECKSUM=45ae5c940233892c2f860efdf0b66e7e
+cmr "python app image-classification onnx" --input=computer_mouse.jpg
+
 ```
+
+*Note that `cmr` is a shortcut for `cm run script`.*
 
 Such approach requires minimal learning curve and minimal or no changes to existing projects while helping 
 to dramatically reduce time to understand how to run and customize numerous AI/ML projects 

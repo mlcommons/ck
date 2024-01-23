@@ -36,7 +36,7 @@ You can participate in our discussions via [public Discord server](https://disco
 
 Following our [regular public weekly conf-calls in 2023](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw), 
 [Discord discussions](https://discord.gg/JjWNWXKxwT) and very useful feedback from the research community, 
-Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, Red Hat,
+Google, AMD, Neural Magic, OctoML, Nvidia, Qualcomm, Dell, HPE, Red Hat,
 Intel, TTA, One Stop Systems and other organizations, we have developed a new version 
 of the [Collective Mind automation framework (CM)](https://github.com/mlcommons/ck) as a very lightweight, 
 non-intrusive and technology-agnostic workflow automation framework that provides a common, simple 

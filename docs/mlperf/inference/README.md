@@ -29,7 +29,7 @@
 This document described how to run [MLPerf inference benchmarks](https://arxiv.org/abs/1911.02549) 
 on any platforms in a unified way via [MLCommons CM interface](https://github.com/mlcommons/ck).
 This interface is being developed and maintained by the [MLCommons Task Force on Automation and Reproducibility](../../taskforce.md)
-with [great contributions](CONTRIBUTING.md) from the community and important feedback from Google, AMD, Neural Magic, Nvidia, Qualcomm, Dell, HPE, 
+with [great contributions](CONTRIBUTING.md) from the community and important feedback from Google, AMD, Neural Magic, OctoML, Nvidia, Qualcomm, Dell, HPE, 
 Red Hat, Intel, TTA, One Stop Systems, ACM and other organizations.
 Don't hesitate to get in touch with us using this [public Discord server](https://discord.gg/JjWNWXKxwT) 
 to get free help with your MLPerf submissions and/or participate in the CM developments.
