@@ -142,14 +142,14 @@ post_deps:
     tags: compile,cpp-program
     skip_if_env:
       CM_MLPERF_SKIP_RUN:
-        - yes
+        - "yes"
 
   - names:
     - mlperf-runner
     tags: benchmark-mlperf
     skip_if_env:
       CM_MLPERF_SKIP_RUN:
-        - yes
+        - "yes"
 
 
 # Variations to customize dependencies
