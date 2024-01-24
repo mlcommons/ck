@@ -14,6 +14,12 @@ def preprocess(i):
     if package_name == '':
         return automation._available_variations({'meta':meta})
 
+    if package_name == "onnxruntime_gpu":
+        cuda_version_split = env['CM_CUDA_VERSION'].split(".")
+        if int(cuda_version_split[0]) >= 12:
+            r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'install_onnxruntime_from.src'})
+            if r['return']>0: return r
+
     extra = env.get('CM_GENERIC_PYTHON_PIP_EXTRA','')
     if (pip_version and len(pip_version) > 1 and int(pip_version[0]) >= 23) and ('--break-system-packages' not in extra):
         extra += '  --break-system-packages '
