@@ -32,6 +32,14 @@
       }
     }
   ],
+  "prehook_deps": [
+    {
+      "tags": "install,onnxruntime,from.src,_cuda",
+      "enable_if_env": {
+        "CM_INSTALL_ONNXRUNTIME_GPU_FROM_SRC": [ "yes" ]
+      }
+    }
+  ],
   "extra_cache_tags_from_env": [
     {
       "env": "CM_PYTHON_CACHE_TAGS",
