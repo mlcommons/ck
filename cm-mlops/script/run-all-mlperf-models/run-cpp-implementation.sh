@@ -27,7 +27,7 @@ division="closed"
 # run "$CM_RUN_CMD"
 
 POWER=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4950 "
-
+POWER=""
 #cpp
 run "cm run script --tags=generate-run-cmds,inference,_find-performance \
 --model=resnet50 --implementation=cpp --device=cpu --backend=onnxruntime \
