@@ -171,6 +171,17 @@ def preprocess(i):
                 if env.get('CM_TEST_ONE_RUN', '') == "yes":
                     return {'return':0}
 
+        clean_input = {
+                    'action': 'rm',
+                    'automation': 'cache',
+                    'tags': 'get,preprocessed,dataset,_for.mobilenet',
+                    'quiet': True,
+                    'v': verbose,
+                    'f': 'True'
+                }
+        r = cmind.access(clean_input)
+        if r['return'] > 0:
+            return r
     return {'return':0}
 
 def postprocess(i):
