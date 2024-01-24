@@ -20,9 +20,13 @@ def preprocess(i):
 
     results_dir_split = results_dir.split(":")
     dataset = env['CM_DATASET']
+    regenerate_accuracy_file = env.get('CM_MLPERF_REGENERATE_ACCURACY_FILE', False)
 
     for result_dir in results_dir_split:
 
+        out_file = os.path.join(result_dir, 'accuracy.txt')
+        if os.path.exists(out_file) and os.stat(out_file).st_size != 0 and not regenerate_accuracy_file:
+            continue
         if dataset == "openimages":
             env['DATASET_ANNOTATIONS_FILE_PATH'] = env['CM_DATASET_ANNOTATIONS_FILE_PATH']
             #dataset_dir = os.path.join(env['CM_DATASET_PATH'], "..", "..")
@@ -30,13 +34,13 @@ def preprocess(i):
             CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
                 "accuracy-openimages.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir, \
                     "mlperf_log_accuracy.json") + "' --openimages-dir '" + dataset_dir + "' --verbose > '" + \
-                os.path.join(result_dir, "accuracy.txt") + "'"
+                out_file + "'"
 
         elif dataset == "imagenet":
             CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools",
                 "accuracy-imagenet.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir,
                     "mlperf_log_accuracy.json") + "' --imagenet-val-file '" + os.path.join(env['CM_DATASET_AUX_PATH'],
-                            "val.txt") + "' --dtype " + env.get('CM_ACCURACY_DTYPE', "float32") +  " > '" + os.path.join(result_dir, "accuracy.txt") + "'"
+                            "val.txt") + "' --dtype " + env.get('CM_ACCURACY_DTYPE', "float32") +  " > '" + out_file + "'"
 
         elif dataset == "squad":
             CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_BERT_PATH'],
@@ -45,12 +49,12 @@ def preprocess(i):
                 "' --vocab_file '" + env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH'] + \
                 "' --out_file '" + os.path.join(result_dir, 'predictions.json') + \
                 "' --features_cache_file '" + os.path.join(env['CM_MLPERF_INFERENCE_BERT_PATH'], 'eval_features.pickle') + \
-                "' --output_dtype " + env['CM_ACCURACY_DTYPE'] + env.get('CM_OUTPUT_TRANSPOSED','') + max_examples_string + " > '" + os.path.join(result_dir, "accuracy.txt") + "'"
+                "' --output_dtype " + env['CM_ACCURACY_DTYPE'] + env.get('CM_OUTPUT_TRANSPOSED','') + max_examples_string + " > '" + out_file + "'"
 
         elif dataset == "cnndm":
             CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "gpt-j",
                 "evaluation.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir, "mlperf_log_accuracy.json") + \
-                "' --dataset-file '" + env['CM_DATASET_EVAL_PATH'] + "' > '" + os.path.join(result_dir, "accuracy.txt") + "'"
+                "' --dataset-file '" + env['CM_DATASET_EVAL_PATH'] + "' > '" + out_file + "'"
 
 
         elif dataset == "coco2014":
@@ -58,7 +62,7 @@ def preprocess(i):
             #env['DATASET_ANNOTATIONS_FILE_PATH'] = env['CM_DATASET_ANNOTATIONS_FILE_PATH']
             CMD =  env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "text_to_image", "tools",
                 "accuracy_coco.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir, "mlperf_log_accuracy.json") + \
-                "' --dataset-dir '" + env['CM_DATASET_PATH_ROOT'] + "' > '" + os.path.join(result_dir, "accuracy.txt") + "'"
+                "' --dataset-dir '" + env['CM_DATASET_PATH_ROOT'] + "' > '" + out_file + "'"
 
         elif dataset == "kits19":
             CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_3DUNET_PATH'],
@@ -66,7 +70,7 @@ def preprocess(i):
                 "' --preprocessed_data_dir '" + env['CM_DATASET_PREPROCESSED_PATH'] +\
                 "' --postprocessed_data_dir '" + result_dir +\
                 "' --log_file '" + os.path.join(result_dir, "mlperf_log_accuracy.json") + \
-                "' --output_dtype " + env['CM_ACCURACY_DTYPE'] +" > '" + os.path.join(result_dir, "accuracy.txt") + "'"
+                "' --output_dtype " + env['CM_ACCURACY_DTYPE'] +" > '" + out_file + "'"
 
         elif dataset == "librispeech":
             CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_RNNT_PATH'],
@@ -74,13 +78,13 @@ def preprocess(i):
                 "' --dataset_dir '" + os.path.join(env['CM_DATASET_PREPROCESSED_PATH'], "..") +\
                 "' --manifest '" + env['CM_DATASET_PREPROCESSED_JSON'] +\
                 "' --log_dir '" + result_dir + \
-                "' --output_dtype " + env['CM_ACCURACY_DTYPE'] +" > '" + os.path.join(result_dir, "accuracy.txt") + "'"
+                "' --output_dtype " + env['CM_ACCURACY_DTYPE'] +" > '" + out_file + "'"
 
         elif dataset == "terabyte":
             CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_DLRM_PATH'], "tools",
                 "accuracy-dlrm.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir,
                     "mlperf_log_accuracy.json") + \
-                    "' --dtype " + env.get('CM_ACCURACY_DTYPE', "float32") +  " > '" + os.path.join(result_dir, "accuracy.txt") + "'"
+                    "' --dtype " + env.get('CM_ACCURACY_DTYPE', "float32") +  " > '" + out_file + "'"
 
         else:
             return {'return': 1, 'error': 'Unsupported dataset'}
