@@ -1273,37 +1273,59 @@ def load_python_module(i):
 
     """
 
-    import imp
+#    Outdated in Python 3.12+
+#    import imp
+
+    import importlib
 
     path = i['path']
     name = i['name']
 
-    # Find module
+    full_path = os.path.join(path, name + '.py')
+
+    if not os.path.isfile(full_path):
+        return {'return': 1, 'error': 'can\'t find Python module file {}'.format(full_path)}
+    
+#    # Find module
+#    try:
+#        found_module = imp.find_module(name, [path])
+#    except ImportError as e:  # pragma: no cover
+#        return {'return': 1, 'error': 'can\'t find module code (path={}, name={}, error={})'.format(path,name,format(e))}
+#
+#    full_name = found_module[0]
+#    full_path = found_module[1]
+#
+#    # Generate uid for the run-time extension of the loaded module
+#    # otherwise modules with the same extension (key.py for example)
+#    # will be reloaded ...
+#
+#    r = gen_uid()
+#    if r['return'] > 0: return r
+#
+#    code_uid = 'rt-'+r['uid']
+#
+#    try:
+#        code = imp.load_module(code_uid, full_name, full_path, found_module[2])
+#    except ImportError as e:
+#        return {'return': 2, 'error': 'can\'t find module code (path={}, name={}, error={})'.format(path,name,format(e))}
+#
+#    found_module[0].close()
+
+
+
+    found_spec = importlib.util.spec_from_file_location(name, full_path)
+    if found_spec == None:
+        return {'return': 1, 'error': 'can\'t find Python module file {}'.format(full_path)}
+
     try:
-        found_module = imp.find_module(name, [path])
-    except ImportError as e:  # pragma: no cover
-        return {'return': 1, 'error': 'can\'t find module code (path={}, name={}, error={})'.format(path,name,format(e))}
+        loaded_code = importlib.util.module_from_spec(found_spec)
+        found_spec.loader.exec_module(loaded_code)
+    except Exception as e:  # pragma: no cover
+        return {'return': 1, 'error': 'can\'t load Python module code (path={}, name={}, err={})'.format(path, name, format(e))}
 
-    full_name = found_module[0]
-    full_path = found_module[1]
 
-    # Generate uid for the run-time extension of the loaded module
-    # otherwise modules with the same extension (key.py for example)
-    # will be reloaded ...
-
-    r = gen_uid()
-    if r['return'] > 0: return r
-
-    code_uid = 'rt-'+r['uid']
-
-    try:
-        code = imp.load_module(code_uid, full_name, full_path, found_module[2])
-    except ImportError as e:
-        return {'return': 2, 'error': 'can\'t find module code (path={}, name={}, error={})'.format(path,name,format(e))}
-
-    found_module[0].close()
-
-    return {'return':0, 'code': code, 'path': full_path, 'code_uid':code_uid}
+#    return {'return':0, 'code': code, 'path': full_path, 'code_uid':code_uid}
+    return {'return':0, 'code': loaded_code, 'path': full_path, 'code_uid':''}
 
 ##############################################################################
 def update_dict_if_empty(d, key, value):

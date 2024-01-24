@@ -9,8 +9,9 @@
   to help everyone run, reproduce, customize and optimize different implementations of MLPerf benchmarks 
   in a unified and automated way across diverse models, data sets, software and hardware from different vendors.
 * Gradually add the MLCommons CM interface to [all MLPerf inference submissions](https://github.com/mlcommons/ck/issues/1052) starting from v3.1.
-* Continuously encode MLPerf rules and best practices in the MLCommons CM interface and workflows for MLPerf
-  to reduce the burden for submitters.
+* Continuously encode MLPerf rules and best practices in the [CM automation recipes and workflows for MLPerf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
+  to reduce the burden for submitters to go through numerous README files 
+  and track all the latest changes and updates.
 
 ## Chairs and Tech Leads
 
