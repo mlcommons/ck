@@ -268,6 +268,8 @@ def generate_submission(i):
                     if mode == "accuracy":
                         if os.path.exists(os.path.join(result_mode_path, "accuracy.txt")):
                             files.append("accuracy.txt")
+                        if model == "stable-diffusion-xl" and os.path.exists(os.path.join(result_mode_path, "images")):
+                            shutil.copytree(os.path.join(result_mode_path, "images"), os.path.join(submission_results_path, "images"))
 
                     for f in files:
                         print(' * ' + f)

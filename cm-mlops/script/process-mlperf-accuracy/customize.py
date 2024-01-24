@@ -62,7 +62,7 @@ def preprocess(i):
             #env['DATASET_ANNOTATIONS_FILE_PATH'] = env['CM_DATASET_ANNOTATIONS_FILE_PATH']
             CMD =  env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "text_to_image", "tools",
                 "accuracy_coco.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir, "mlperf_log_accuracy.json") + \
-                "' --dataset-dir '" + env['CM_DATASET_PATH_ROOT'] + "' > '" + out_file + "'"
+                "' --caption-path '" + os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "text_to_image", "coco2014", "captions", "captions_source.tsv") + "' > '" + out_file + "'"
 
         elif dataset == "kits19":
             CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_3DUNET_PATH'],

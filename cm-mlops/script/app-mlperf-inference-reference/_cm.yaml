@@ -379,7 +379,7 @@ deps:
     - sdxl-model
     enable_if_env:
       CM_MODEL:
-      - sdxl
+      - stable-diffusion-xl
     skip_if_env:
       CM_MLPERF_CUSTOM_MODEL_PATH:
       - "on"
@@ -491,7 +491,7 @@ deps:
     - coco2014-preprocessed
     enable_if_env:
       CM_MODEL:
-      - sdxl
+      - stable-diffusion-xl
 
   ## OpenOrca for LLAMA2-70b
   - tags: get,preprocessed,dataset,openorca,_validation
@@ -837,7 +837,7 @@ variations:
   sdxl:
     group: models
     env:
-      CM_MODEL: sdxl
+      CM_MODEL: stable-diffusion-xl
     deps:
       - tags: get,generic-python-lib,_package.diffusers
         names:

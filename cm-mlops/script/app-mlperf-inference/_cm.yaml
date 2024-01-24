@@ -382,7 +382,7 @@ variations:
       model
     env:
       CM_MODEL:
-        sdxl
+        stable-diffusion-xl
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _sdxl
