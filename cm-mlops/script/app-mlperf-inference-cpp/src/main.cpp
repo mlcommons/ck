@@ -148,8 +148,8 @@ int main(int argc, const char *argv[]) {
         test_settings.performance_sample_count_override :
         input_settings.performance_sample_count;
 
-    if (performance_sample_count != 0) {
-      test_settings.performance_sample_count_override = performance_sample_count;
+    if (performance_sample_count != 0) {//Its changed from user.conf
+      //test_settings.performance_sample_count_override = performance_sample_count;
     }
     if (max_sample_count != 0)
         performance_sample_count =
