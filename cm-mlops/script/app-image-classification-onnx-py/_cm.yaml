@@ -57,3 +57,17 @@ new_env_keys:
 
 new_state_keys:
   - cm_app_image_classification_onnx_py
+
+docker:
+  skip_run_cmd: 'no'
+  all_gpus: 'yes'
+  input_paths:
+    - input
+  env_paths:
+    - CM_IMAGE
+  skip_input_for_fake_run:
+    - input
+  skip_env_for_fake_run:
+    - CM_IMAGE
+  pre_run_cmds:
+    - echo \"CM pre run commands\"

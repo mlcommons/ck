@@ -19,7 +19,7 @@ def preprocess(i):
         env['CM_DOCKER_RUN_SCRIPT_TAGS'] = "run,docker,container"
         CM_RUN_CMD="cm version"
     else:
-        CM_RUN_CMD="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
+        CM_RUN_CMD="cm run script --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS'] + ' --quiet'
 
     # Updating Docker info
     update_docker_info(env)
@@ -29,7 +29,9 @@ def preprocess(i):
     docker_image_name = env['CM_DOCKER_IMAGE_NAME']
     docker_image_tag = env['CM_DOCKER_IMAGE_TAG']
 
-    r = cm.access({'action':'search', 'automation':'script', 'tags': env['CM_DOCKER_RUN_SCRIPT_TAGS']})
+    r = cm.access({'action':'search', 
+                   'automation':'script', 
+                   'tags': env['CM_DOCKER_RUN_SCRIPT_TAGS']})
     if len(r['list']) < 1:
         raise Exception('CM script with tags '+ env['CM_DOCKER_RUN_SCRIPT_TAGS'] + ' not found!')
 
@@ -108,9 +110,18 @@ def postprocess(i):
 
     if mount_cmds:
         for mount_cmd in mount_cmds:
-            mount_parts = mount_cmd.split(":")
-            if len(mount_parts) != 2:
-                return {'return': 1, 'error': 'Invalid mount {} specified'.format(mount_parts)}
+
+            # Since windows may have 2 :, we search from the right
+            j = mount_cmd.rfind(':')
+            if j>0:
+                mount_parts = [mount_cmd[:j], mount_cmd[j+1:]]
+            else:
+                return {'return':1, 'error': 'Can\'t find separator : in a mount string: {}'.format(mount_cmd)}
+            
+#            mount_parts = mount_cmd.split(":")
+#            if len(mount_parts) != 2:
+#                return {'return': 1, 'error': 'Invalid mount {} specified'.format(mount_parts)}
+
             host_mount = mount_parts[0]
             if not os.path.exists(host_mount):
                 os.makedirs(host_mount)
@@ -129,7 +140,11 @@ def postprocess(i):
 
     # Currently have problem running Docker in detached mode on Windows:
     detached = env.get('CM_DOCKER_DETACHED_MODE','') == "yes"
-    if detached and os_info['platform'] != 'windows':
+#    if detached and os_info['platform'] != 'windows':
+    if detached:
+        if os_info['platform'] == 'windows':
+            return {'return':1, 'error':'Currently we don\'t support running Docker containers in detached mode on Windows - TBD'}
+
         CONTAINER="docker run -dt "+ run_opts + " --rm " + docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag + " bash"
         CMD = "ID=`" + CONTAINER + "` && docker exec $ID bash -c '" + run_cmd + "' && docker kill $ID >/dev/null"
 
@@ -145,16 +160,19 @@ def postprocess(i):
         print(docker_out)
 
     else:
-
         x = "'"
-        y = '-it'
         if os_info['platform'] == 'windows':
             x = '"'
-            if detached:
-                y = ''
 
-        CONTAINER="docker run {} --entrypoint ".format(y) + x + x + " " + run_opts + " " + docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag
-        CMD =  CONTAINER + " bash -c " + x + run_cmd + " && bash " + x
+        x1 = ''
+        x2 = ''
+        if env.get('CM_DOCKER_INTERACTIVE_MODE', '') == 'yes':
+            x1 = '-it'
+            x2 = " && bash "
+           
+
+        CONTAINER="docker run {} --entrypoint ".format(x1) + x + x + " " + run_opts + " " + docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag
+        CMD =  CONTAINER + " bash -c " + x + run_cmd + x2 + x
 
         print ('')
         print ("Container launch command:")

@@ -9,6 +9,7 @@
     "CM_DOCKER_DETACHED_MODE": "yes"
   },
   "input_mapping": {
+    "interactive": "CM_DOCKER_INTERACTIVE_MODE",
     "base": "CM_DOCKER_IMAGE_BASE",
     "cm_repo": "CM_MLOPS_REPO",
     "recreate": "CM_DOCKER_IMAGE_RECREATE",

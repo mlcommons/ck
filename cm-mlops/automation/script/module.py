@@ -2814,9 +2814,14 @@ class CAutomation(Automation):
                             duplicate = False
 
                             for existing in found_files:
-                                if os.path.samefile(existing, f):
-                                    duplicate = True
-                                    break
+                                try:
+                                    if os.path.samefile(existing, f):
+                                        duplicate = True
+                                        break
+                                except Exception as e:
+                                    # This function fails on Windows sometimes 
+                                    # because some files can't be accessed
+                                    pass
 
                             if not duplicate:
                                 skip = False
