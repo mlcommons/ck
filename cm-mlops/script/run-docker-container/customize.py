@@ -139,7 +139,7 @@ def postprocess(i):
     run_opts += port_map_cmd_string
 
     # Currently have problem running Docker in detached mode on Windows:
-    detached = env.get('CM_DOCKER_DETACHED_MODE','') == "yes"
+    detached = env.get('CM_DOCKER_DETACHED_MODE','') in ['yes', 'True', True]
 #    if detached and os_info['platform'] != 'windows':
     if detached:
         if os_info['platform'] == 'windows':
@@ -166,7 +166,7 @@ def postprocess(i):
 
         x1 = ''
         x2 = ''
-        if env.get('CM_DOCKER_INTERACTIVE_MODE', '') == 'yes':
+        if env.get('CM_DOCKER_INTERACTIVE_MODE', '') in ['yes', 'True', True]:
             x1 = '-it'
             x2 = " && bash "
            
