@@ -121,7 +121,7 @@ deps:
       - retinanet
     names:
       - openimages-preprocessed
-    tags: get,dataset,preprocessed,openimages,_validation,_NCHW,_custom-annotations
+    tags: get,dataset,preprocessed,openimages,_validation,_NCHW
 
   - enable_if_env:
       CM_MODEL:
