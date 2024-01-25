@@ -1194,7 +1194,7 @@ def regenerate_script_cmd(i):
             v = i_run_cmd[k]
             
             if type(v)==dict:
-                run_cmd += ' '+rebuild_flags(v, fake_run, skip_input_for_fake_run, long_key)
+                run_cmd += rebuild_flags(v, fake_run, skip_input_for_fake_run, long_key)
             elif type(v)==list:
                 run_cmd+=' --'+long_key+',='+','.join(v)
             else:

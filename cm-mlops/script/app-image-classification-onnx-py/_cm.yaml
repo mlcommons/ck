@@ -71,5 +71,6 @@ docker:
   skip_input_for_fake_run:
     - input
     - env.CM_IMAGE
+    - j
   pre_run_cmds:
     - echo \"CM pre run commands\"
