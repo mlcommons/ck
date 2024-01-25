@@ -42,7 +42,7 @@ public:
         if (mode_name == "performance")
             mode_name = "PerformanceOnly";
         query_count_override = std::stol(getenv("CM_MLPERF_LOADGEN_QUERY_COUNT", "0"));
-        performance_sample_count = std::stol(getenv("CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT", "1024"));
+        performance_sample_count = std::stol(getenv("CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT", "0"));
         batch_size = std::stol(getenv("CM_MLPERF_LOADGEN_MAX_BATCHSIZE", "32"));
         std::cout << "MLPerf Conf path: " << mlperf_conf_path << std::endl;
         std::cout << "User Conf path: " << user_conf_path << std::endl;
@@ -51,6 +51,7 @@ public:
         std::cout << "Scenario: " << scenario_name << std::endl;
         std::cout << "Mode: " << mode_name << std::endl;
         std::cout << "Batch size: " << batch_size << std::endl;
+        std::cout << "Query count override: " << query_count_override << std::endl;
     }
 
     std::string mlperf_conf_path;
@@ -146,10 +147,13 @@ int main(int argc, const char *argv[]) {
         test_settings.performance_sample_count_override != 0 ?
         test_settings.performance_sample_count_override :
         input_settings.performance_sample_count;
+
+    if (performance_sample_count != 0) {
+      test_settings.performance_sample_count_override = performance_sample_count;
+    }
     if (max_sample_count != 0)
         performance_sample_count =
             std::min(performance_sample_count, max_sample_count);
-
     if (max_sample_count == 0)
       max_sample_count = INT_MAX;
     // build backend

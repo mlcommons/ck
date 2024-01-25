@@ -146,6 +146,9 @@
         },
         {
           "tags": "get,generic-python-lib,_nvidia-pycocotools"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.kiwisolver"
         }
       ],
       "ad": {

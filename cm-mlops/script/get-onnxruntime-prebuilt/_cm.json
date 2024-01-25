@@ -5,7 +5,7 @@
   "category": "AI/ML frameworks",
   "cache": true,
   "clean_files": [],
-  "default_version": "1.16.1",
+  "default_version": "1.16.3",
   "deps": [
     {
       "tags": "detect,os"
