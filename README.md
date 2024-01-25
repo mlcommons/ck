@@ -39,10 +39,12 @@ cm docker script "python app image-classification onnx" --input=computer_mouse.j
 cm docker script "python app image-classification onnx" --input=computer_mouse.jpg -j
 
 cmr "get coco dataset _val _2014"
+cm show cache
 
 cmr "get ml-model huggingface zoo _model-stub.alpindale/Llama-2-13b-ONNX" --model_filename=FP32/LlamaV2_13B_float32.onnx
-
 cm show cache
+
+cmr "get ml-model huggingface zoo _model-stub.alpindale/Llama-2-13b-ONNX" --model_filename=FP32/LlamaV2_13B_float32.onnx --skip_cache
 
 
 ```
