@@ -30,6 +30,9 @@
       "tags": "get,python3"
     },
     {
+      "tags": "detect,os"
+    },
+    {
       "names": [
         "power-src"
       ],
@@ -45,7 +48,10 @@
       "names": [
         "screen"
       ],
-      "tags": "get,generic,sys-util,_screen"
+      "tags": "get,generic,sys-util,_screen",
+      "skip_if_env": {
+        "CM_HOST_OS_TYPE": "windows"
+      }
     }
   ],
   "tags": [

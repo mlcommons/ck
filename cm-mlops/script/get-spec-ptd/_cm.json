@@ -29,6 +29,13 @@
         "python3"
       ],
       "tags": "get,python3"
+    },
+    {
+      "tags": "get,git,repo,_repo.https://github.com/mlcommons/power",
+      "extra_cache_tags": "mlperf,power,spec,ptdaemon,ptd",
+      "env": {
+        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_MLPERF_POWER_SOURCE"
+      }
     }
   ],
   "new_env_keys": [
