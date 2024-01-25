@@ -35,6 +35,10 @@ deps:
   names:
   - ml-model
 
+- tags: get,generic-python-lib,_package.Pillow
+- tags: get,generic-python-lib,_package.numpy
+- tags: get,generic-python-lib,_package.opencv-python
+
 - tags: get,generic-python-lib,_onnxruntime
   skip_if_env:
     USE_CUDA:
@@ -63,9 +67,9 @@ docker:
   all_gpus: 'yes'
   input_paths:
     - input
-    - env.CK_IMAGE
+    - env.CM_IMAGE
   skip_input_for_fake_run:
     - input
-    - env.CK_IMAGE
+    - env.CM_IMAGE
   pre_run_cmds:
     - echo \"CM pre run commands\"
