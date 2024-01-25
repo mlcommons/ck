@@ -1071,20 +1071,24 @@ def process_inputs(i):
         
         if path!='' and (os.path.isfile(path) or os.path.isdir(path)):
             path = os.path.abspath(path)
-            
-            path_orig = path
+
             path_target = path
+            path_orig = path
 
             if os.name == 'nt':
                 from pathlib import PureWindowsPath, PurePosixPath
         
                 x = PureWindowsPath(path_orig)
                 path_target = str(PurePosixPath('/', *x.parts[1:]))
-            
+
             if not path_target.startswith('/'): path_target='/'+path_target
             path_target='/cm-mount'+path_target
 
-            mounts.append(path_orig+':'+path_target)
+            # If file, mount directory
+            if os.path.isfile(path):
+                mounts.append(os.path.dirname(path_orig) + ':' + os.path.dirname(path_target))
+            else:
+                mounts.append(path_orig + ':' + path_target)
 
         return (path_orig, path_target)
             
@@ -1150,8 +1154,10 @@ def regenerate_script_cmd(i):
     x = ''
 
     # Check if there are some tags without variation
+    requested_tags = i_run_cmd.get('tags', [])
+
     tags_without_variation = False
-    for t in tags:
+    for t in requested_tags:
         if not t.startswith('_'):
             tags_without_variation = True
             break
@@ -1296,6 +1302,8 @@ def dockerfile(i):
 
     lst = r['list']
 
+    if len(lst)==0:
+        return {'return':1, 'error':'no scripts were found'}
 
 
 
@@ -1499,6 +1507,9 @@ def docker(i):
     if r['return']>0: return r
 
     lst = r['list']
+
+    if len(lst)==0:
+        return {'return':1, 'error':'no scripts were found'}
 
     env=i.get('env', {})
     env['CM_RUN_STATE_DOCKER'] = True

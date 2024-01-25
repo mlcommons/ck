@@ -800,7 +800,9 @@ class CAutomation(Automation):
         inp = i['input']
         
         artifact = inp.get('artifact','')
-        if ' ' in artifact or ',' in artifact:
+        if artifact == '.':
+            del(inp['artifact'])
+        elif ' ' in artifact: # or ',' in artifact:
             del(inp['artifact'])
             if 'parsed_artifact' in inp: del(inp['parsed_artifact'])
             # Force substitute tags
