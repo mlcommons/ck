@@ -28,6 +28,11 @@
       "version_min": "3.26.0"
     },
     {
+      "tags": "get,gcc",
+      "version_max": "11.9.999",
+      "version_max_usable": "11.0"
+    },
+    {
       "env": {
         "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_ONNXRUNTIME_SRC_REPO_PATH"
       },
@@ -100,7 +105,7 @@
     },
     "tag.#": {
       "ad": {
-        "pytorch-src-repo": {
+        "onnxruntime-src-repo": {
           "tags": "_no-recurse-submodules,_full-history"
         }
       },
