@@ -1432,8 +1432,15 @@ def docker(i):
     import copy
     import re
 
-    detached = i.get('docker_detached', 'no')
+    detached = i.get('docker_detached', '')
+    if detached=='':
+        detached = i.get('docker_dt', '')
+    if detached=='':
+        detached='no'
+
     interactive = i.get('docker_interactive', '')
+    if interactive == '':
+        interactive = i.get('docker_it', '')
 
     # Check simplified CMD: cm docker script "python app image-classification onnx"
     # If artifact has spaces, treat them as tags!
