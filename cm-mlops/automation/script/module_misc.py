@@ -1088,29 +1088,46 @@ def process_inputs(i):
 
         return (path_orig, path_target)
             
+    def get_value_using_key_with_dots(d, k):
+        v = None
+        j = k.find('.')
+        if j>=0:
+            k1 = k[:j]
+            k2 = k[j+1:]
+
+            if k1 in d:
+                v = d[k1]
+
+                if '.' in k2:
+                    v, d, k = get_value_using_key_with_dots(v, k2)
+                else:
+                    d = v
+                    k = k2
+                    if type(v)==dict:
+                        v = v.get(k2)
+                    else:
+                        v = None
+        else:
+            if k == '':
+                v = d
+            else:
+                v = d.get(k)
+
+        return v, d, k
+    
     docker_input_paths = docker_settings.get('input_paths',[])
     if len(i_run_cmd)>0:
         for k in docker_input_paths:
-            if k in i_run_cmd:
-                v=i_run_cmd[k]
+            v2, i_run_cmd2, k2 = get_value_using_key_with_dots(i_run_cmd, k)
+
+            if v2!=None:
+                v=i_run_cmd2[k2]
 
                 path_orig, path_target = update_path_for_docker(v, mounts)
 
                 if path_target!='':
-                    i_run_cmd[k] = path_target
+                    i_run_cmd2[k2] = path_target
     
-    docker_env_paths = docker_settings.get('env_paths',[])
-    i_env = i_run_cmd.get('env',{})
-    if len(i_env)>0:
-        for k in docker_env_paths:
-            if k in i_env:
-                v=i_env[k]
-
-                path_orig, path_target = update_path_for_docker(v, mounts)
-
-                if path_target!='':
-                    i_env[k] = path_target
-
     return {'return':0, 'run_cmd':i_run_cmd}
 
 
@@ -1151,25 +1168,41 @@ def regenerate_script_cmd(i):
 
 
     skip_input_for_fake_run = docker_settings.get('skip_input_for_fake_run', [])
-    skip_env_for_fake_run = docker_settings.get('skip_env_for_fake_run', [])
     
-    for k in i_run_cmd:
 
-        if fake_run and k in skip_input_for_fake_run:
-            continue    
+    def rebuild_flags(i_run_cmd, fake_run, skip_input_for_fake_run, key_prefix):
 
-        v = i_run_cmd[k]
+        run_cmd = ''
 
-        if type(v)==dict:
-            for kk in v:
-                if fake_run and k == 'env' and kk in skip_env_for_fake_run:
-                    continue
-                run_cmd+=' --'+str(k)+'.'+str(kk)+'='+str(v[kk])
-        elif type(v)==list:
-            run_cmd+=' --'+str(k)+',='+','.join(v)
-        else:
-            run_cmd+=' --'+str(k)+'='+str(v)
+        keys = list(i_run_cmd.keys())
+
+        if 'tags' in keys:
+            # Move tags first
+            tags_position = keys.index('tags')
+            del(keys[tags_position])
+            keys = ['tags']+keys
+        
+        for k in keys:
+            # Assemble long key if dictionary
+            long_key = key_prefix
+            if long_key!='': long_key+='.'
+            long_key+=k
+
+            if fake_run and long_key in skip_input_for_fake_run:
+                continue    
+
+            v = i_run_cmd[k]
+            
+            if type(v)==dict:
+                run_cmd += ' '+rebuild_flags(v, fake_run, skip_input_for_fake_run, long_key)
+            elif type(v)==list:
+                run_cmd+=' --'+long_key+',='+','.join(v)
+            else:
+                run_cmd+=' --'+long_key+'='+str(v)
+
+        return run_cmd    
     
+    run_cmd += rebuild_flags(i_run_cmd, fake_run, skip_input_for_fake_run, '')
 
     run_cmd = docker_run_cmd_prefix + ' && ' + run_cmd if docker_run_cmd_prefix!='' else run_cmd
 

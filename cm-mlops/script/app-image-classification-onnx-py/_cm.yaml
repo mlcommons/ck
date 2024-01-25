@@ -63,11 +63,9 @@ docker:
   all_gpus: 'yes'
   input_paths:
     - input
-  env_paths:
-    - CM_IMAGE
+    - env.CK_IMAGE
   skip_input_for_fake_run:
     - input
-  skip_env_for_fake_run:
-    - CM_IMAGE
+    - env.CK_IMAGE
   pre_run_cmds:
     - echo \"CM pre run commands\"
