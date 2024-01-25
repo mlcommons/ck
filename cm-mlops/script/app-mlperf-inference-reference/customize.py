@@ -66,7 +66,10 @@ def preprocess(i):
         env['CM_MLPERF_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "mlperf.conf")
 
 
-    env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
+    if "llama2-70b" in env['CM_MODEL']:
+        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf-conf '" + env['CM_MLPERF_CONF'] + "'"
+    else:
+        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
 
     env['MODEL_DIR'] = env.get('CM_ML_MODEL_PATH')
     if not env['MODEL_DIR']:
@@ -92,7 +95,10 @@ def preprocess(i):
     ml_model_name = env['CM_MODEL']
     if 'CM_MLPERF_USER_CONF' in env:
         user_conf_path = env['CM_MLPERF_USER_CONF']
-        scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"
+        if 'llama2-70b' in env['CM_MODEL']:
+            scenario_extra_options +=  " --user-conf '" + user_conf_path + "'"
+        else:
+            scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"
 
     mode = env['CM_MLPERF_LOADGEN_MODE']
     mode_extra_options = ""
@@ -280,7 +286,6 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
                  scenario_extra_options + mode_extra_options + \
                 " --output-log-dir " + env['CM_MLPERF_OUTPUT_DIR'] + \
                 " --model-path " + env['MODEL_DIR']
-
     elif "3d-unet" in env['CM_MODEL']:
 
         env['RUN_DIR'] = env['CM_MLPERF_INFERENCE_3DUNET_PATH']

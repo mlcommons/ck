@@ -391,7 +391,8 @@ deps:
     - llama2-model
     enable_if_env:
       CM_MODEL:
-      - llama2-70b
+      - llama2-70b-99
+      - llama2-70b-99.9
     skip_if_env:
       CM_MLPERF_CUSTOM_MODEL_PATH:
       - "on"
@@ -499,7 +500,8 @@ deps:
     - openorca-preprocessed
     enable_if_env:
       CM_MODEL:
-      - llama2-70b
+      - llama2-70b-99
+      - llama2-70b-99.9
 
   ## Kits19 for 3d-unet
   - tags: get,dataset,kits19,preprocessed
@@ -862,14 +864,28 @@ variations:
           - scipy
         version: 1.10.1
 
-  llama2-70b:
-    group: models
-    env:
-      CM_MODEL: llama2-70b
+  llama2-70b_:
     deps:
       - tags: get,generic-python-lib,_package.transformers
         names:
           - transformers
+      - tags: get,generic-python-lib,_package.datasets
+        names:
+          - datasets
+
+  llama2-70b-99:
+    group: models
+    env:
+      CM_MODEL: llama2-70b-99
+    base:
+      - llama2-70b_
+
+  llama2-70b-99.9:
+    group: models
+    env:
+      CM_MODEL: llama2-70b-99.9
+    base:
+      - llama2-70b_
 
   3d-unet-99.9:
     group: models

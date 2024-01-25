@@ -396,7 +396,6 @@
       "group": "reproducibility"
     },
     "r3.1": {
-      "default": true,
       "env": {
         "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r3.1_default"
       },
@@ -406,6 +405,7 @@
       "env": {
         "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r4.0_default"
       },
+      "default": true,
       "group": "reproducibility"
     },
     "short": {
