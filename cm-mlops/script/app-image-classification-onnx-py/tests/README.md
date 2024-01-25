@@ -8,4 +8,7 @@ cm docker script "python app image-classification onnx" --docker_cm_repo=ctuning
 
 cmrd "python app image-classification onnx" --docker_cm_repo=ctuning@mlcommons-ck --input=computer_mouse.jpg -j --docker_it
 
+cmrd "python app image-classification onnx" --docker_cm_repo=ctuning@mlcommons-ck --input=computer_mouse.jpg --output=.
+
+
 ```
