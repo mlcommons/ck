@@ -2,11 +2,13 @@
 
 ## Run this benchmark via CM
 
+We use `cm docker` to run the Intel implementation to avoid compilation problems with any host OS dependencies. 
+
 ### Do a test run to detect and record the system performance
 
 ```
-cmr "generate-run-cmds inference _find-performance _all-scenarios" \
---model=bert-99 --implementation=intel-original --device=cuda --backend=pytorch \
+cm docker script --tags=generate-run-cmds,inference,_find-performance \
+--scenario=Offline --model=bert-99 --implementation=intel-original --backend=pytorch \
 --category=datacenter --division=open --quiet
 ```
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
@@ -15,10 +17,9 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
-cmr "generate-run-cmds inference _submission" --model=bert-99 \
---device=cuda --implementation=intel-original --backend=pytorch \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet --scenario=Offline
+cm docker script --tags=generate-run-cmds,inference,_submission,_all-scenarios \
+--model=bert-99 --implementation=intel-original --backend=pytorch \
+--category=datacenter --division=open --quiet
 ```
 
 

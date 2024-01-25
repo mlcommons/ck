@@ -288,6 +288,12 @@ variations:
         - ml-model
         - gptj-model
         - gpt-j-model
+      - tags: get,generic-python-lib,_custom-python,_package.datasets
+        env:
+          CM_PYTHON_BIN_WITH_PATH: "<<<CM_CONDA_BIN_PATH>>>/python3"
+      - tags: get,generic-python-lib,_custom-python,_package.accelerate
+        env:
+          CM_PYTHON_BIN_WITH_PATH: "<<<CM_CONDA_BIN_PATH>>>/python3"
 
   gptj-99:
     group: model
