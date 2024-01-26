@@ -169,8 +169,6 @@ def preprocess(i):
         required_min_queries_offline = {}
         required_min_queries_offline = get_required_min_queries_offline(env['CM_MODEL'], version)
 
-        query_count = max(query_count, required_min_queries_offline)
-
 
         if  mode == "compliance" and scenario == "Server": #Adjust the server_target_qps
             test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
@@ -263,7 +261,9 @@ def preprocess(i):
             if short_ranging:
                 ranging_user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
         elif scenario == "Offline":
-            query_count = str(int(float(conf['target_qps']) * 660))
+            query_count = int(float(conf['target_qps']) * 660)
+            query_count = str(max(query_count, required_min_queries_offline))
+
             #user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
             if short_ranging:
                 ranging_query_count = str(int(float(conf['target_qps']) * 300))
