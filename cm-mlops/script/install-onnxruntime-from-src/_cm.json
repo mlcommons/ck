@@ -12,9 +12,6 @@
       "tags": "detect,cpu"
     },
     {
-      "tags": "fail,_windows"
-    },
-    {
       "names": [
         "python",
         "python3"
