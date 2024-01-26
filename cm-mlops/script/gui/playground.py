@@ -13,7 +13,14 @@ def main():
     st.set_page_config(layout="wide",
                        menu_items={})
 
-    params = st.experimental_get_query_params()
+    compatibility = False
+    try:
+        params = st.query_params
+    except:
+        compatibility = True
+
+    if compatibility:
+        params = st.experimental_get_query_params()
 
     # Set style
     # Green: background:#7fcf6f;

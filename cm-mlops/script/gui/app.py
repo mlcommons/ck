@@ -6,7 +6,16 @@ import cmind
 
 def main():
 
-    query_params = st.experimental_get_query_params()
+    var1 = '^' if os.name == 'nt' else '\\'
+    
+    compatibility = False
+    try:
+        query_params = st.query_params
+    except:
+        compatibility = True
+
+    if compatibility:
+        query_params = st.experimental_get_query_params()
 
     script_path = os.environ.get('CM_GUI_SCRIPT_PATH','')
     script_alias = os.environ.get('CM_GUI_SCRIPT_ALIAS','')
@@ -55,13 +64,9 @@ def main():
         title = meta['gui_title']
 
     # Set title
-    if title=='':
-        if script_alias!='':
-            title = 'GUI for the CM script "{}"'.format(script_alias)
-        else:
-            title = 'GUI for CM'
-
-    st.title(title)
+    st.title('Collective Mind GUI')
+    if script_alias!='':
+        st.markdown('*CM script: "{}"*'.format(script_alias))
 
     # Check if found path and there is meta
     # TBD (Grigori): need to cache it using @st.cache
@@ -218,7 +223,7 @@ def main():
         key2 = key[1:]
 
         if value!='' and (type(value)!=bool or value==True):
-            flags+=' \\\n   --'+key2
+            flags+=' '+var1+'\n   --'+key2
             if type(value)!=bool:
                 x = str(value)
                 if ' ' in x or ':' in x or '/' in x or '\\' in x: 
@@ -228,20 +233,25 @@ def main():
     ########################################################
     # Extra CMD
     st.markdown("""---""")
-    cmd_extension = st.text_input("CM Command Line extension").strip()
+    cmd_extension = st.text_input("Add extra to CM script command line").strip()
 
     # Prepare CLI
-    x = '' if cmd_extension=='' else '\\\n   '+cmd_extension
-    
-    cli = 'cm run script {} {} {} \\\n'.format(tags, flags, x)
+    cli = 'cm run script {} {} '.format(tags, flags,)
 
-    if no_run=='':
-        cli+='   --pause\n'
+    x = '' if cmd_extension=='' else var1+'\n   '+cmd_extension
+    
+    if x!='':
+        cli+=var1+x
+
+    cli+='\n'
+
+#    if no_run=='':
+#        cli+='   --pause\n'
 
     # Print CLI
     st.markdown("""---""")
 
-    x = 'python3 -m pip install cmind -U\n\ncm pull repo mlcommons@ck\n'
+    x = 'pip install cmind -U\n\ncm pull repo mlcommons@ck\n'
 
     # Hack to detect python virtual environment and version
     python_venv_name=st_inputs.get('adr.python.name', '')
@@ -266,13 +276,17 @@ def main():
     if y!='':
         x+=y
 
-    st.text_area('**Install [CM (CK2) framework](https://github.com/mlcommons/ck) with a few dependencies:**', x, height=170)
+    st.text_area('**Install [CM interface](https://github.com/mlcommons/ck) with a few dependencies:**', x, height=170)
 
     cli = st.text_area('**Run CM script:**', cli, height=500)
 
 
     # Add explicit button "Run"
     if no_run=='' and st.button("Run"):
+        cli = cli+var1+'--pause\n'
+
+        cli = cli.replace(var1, ' ').replace('\n',' ')
+
         if os.name == 'nt':
             cmd2 = 'start cmd /c {}'.format(cli)
         else:
@@ -283,13 +297,16 @@ def main():
 
             cmd2 = prefix + 'bash -c "{}"'.format(cli2)
 
-        print ('Running command: {}'.format(cmd2))
+        print ('Running command:')
+        print ('')
+        print ('  {}'.format(cmd2))
+        print ('')
 
         os.system(cmd2)
 
     st.markdown("""---""")
-    st.markdown("*Join the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) and the public [Discord channel](https://discord.gg/JjWNWXKxwT) to participate in collaborative developments, benchmarking and design space exploration of ML Systems!"
-                " Please report issues or suggest features [here](https://github.com/mlcommons/ck/issues).*")
+    st.markdown("*Learn more about CM interface at [GitHub project page](https://github.com/mlcommons/ck)"
+                "and report issues or suggest features [here](https://github.com/mlcommons/ck/issues).*")
 
 if __name__ == "__main__":
     main()

@@ -60,7 +60,14 @@ class OpenBrowserOnClick(mpld3.plugins.PluginBase):
 
 
 def main():
-    params = st.experimental_get_query_params()
+    compatibility = False
+    try:
+        params = st.query_params
+    except:
+        compatibility = True
+
+    if compatibility:
+        params = st.experimental_get_query_params()
 
     # Set title
     st.title('CM experiment visualization')
