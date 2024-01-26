@@ -4,11 +4,33 @@
 This file is generated automatically - don't edit!
 -->
 
-This is an automatically generated list of portable and reusable automation recipes 
-for MLPerf, MLOps and Devops ([CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)) 
-with a [common CM interface](https://github.com/mlcommons/ck) 
-being developed by the [MLCommons Task Force on Automation and Reproducibility](../../../docs/taskforce.md)
-and [individual contributors](../CONTRIBUTING.md)
+This is an automatically generated list of portable and reusable automation recipes (CM scripts)
+with a [human-friendly interface (CM)](https://github.com/mlcommons/ck) 
+to run a growing number of ad-hoc MLPerf, MLOps, and DevOps scripts
+from [MLCommons projects](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
+and [research papers](https://www.youtube.com/watch?v=7zpeIVwICa4) 
+in a unified way on any operating system with any software and hardware
+natively or inside containers.
+
+Click on any automation recipe below to learn how to run and reuse it 
+via CM command line, Python API or GUI.
+
+*CM is a community project being developed and extended by [MLCommons members and individual contributors](../CONTRIBUTING.md) -
+ you can find source code of CM scripts maintained by MLCommons [here](../cm-mlops/script).
+ Please join [Discord server](https://discord.gg/JjWNWXKxwT) to participate in collaborative developments or provide your feedback.*
+
+
+
+# License
+
+[Apache 2.0](LICENSE.md)
+
+
+# Copyright
+
+2022-2024 [MLCommons](https://mlcommons.org)
+
+
 
 
 

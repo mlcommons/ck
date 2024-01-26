@@ -29,7 +29,6 @@ export CALIBRATION_DATA_JSON=${WORKLOAD_DATA}/calibration-data/cnn_dailymail_cal
 export VALIDATION_DATA_JSON=${WORKLOAD_DATA}/validation-data/cnn_dailymail_validation.json
 export INT4_CALIBRATION_DIR=${WORKLOAD_DATA}/quantized-int4-model
 #sudo -E bash run_quantization.sh
-python -m pip install mpi4py
 bash run_quantization.sh
 exit 1
 test $? -eq 0 || exit $?
