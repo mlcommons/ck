@@ -43,6 +43,27 @@ def preprocess(i):
     for model in models:
         env['MODEL'] = model
 
+        if "mobilenets" in model:
+            cmd = 'export extra_option=""'
+            cmds.append(cmd)
+            cmd = 'export extra_tags=""'
+            cmds.append(cmd)
+            assemble_tflite_cmds(cmds)
+            cmd = 'export extra_option=" --adr.mlperf-inference-implementation.compressed_dataset=on"'
+            cmds.append(cmd)
+            assemble_tflite_cmds(cmds)
+
+            if env.get('CM_HOST_CPU_ARCHITECTURE', '') == "aarch64":
+                extra_tags=",_armnn,_use-neon"
+                cmd = f'export extra_tags="{extra_tags}"'
+                cmds.append(cmd)
+                assemble_tflite_cmds(cmds)
+                cmd = 'export extra_option=" --adr.mlperf-inference-implementation.compressed_dataset=on"'
+                cmds.append(cmd)
+                assemble_tflite_cmds(cmds)
+
+            continue
+
         if not input_backends:
             backends = None
             if implementation == "reference":
@@ -99,6 +120,15 @@ def preprocess(i):
 
     
     return {'return':0}
+
+def assemble_tflite_cmds(cmds):
+    cmd = 'run "$tflite_accuracy_cmd"'
+    cmds.append(cmd)
+    cmd = 'run "$tflite_performance_cmd"'
+    cmds.append(cmd)
+    cmd = 'run "$tflite_readme_cmd"'
+    cmds.append(cmd)
+    return
 
 def postprocess(i):
 

@@ -370,7 +370,8 @@
     "uint8": {
       "group": "precision",
       "env": {
-        "CM_MLPERF_MODEL_PRECISION": "uint8"
+        "CM_MLPERF_MODEL_PRECISION": "uint8",
+        "CM_DATASET_COMPRESSED": "on"
       },
       "adr": {
         "ml-model": {
@@ -384,7 +385,8 @@
     "int8": {
       "group": "precision",
       "env": {
-        "CM_MLPERF_MODEL_PRECISION": "int8"
+        "CM_MLPERF_MODEL_PRECISION": "int8",
+        "CM_DATASET_COMPRESSED": "on"
       },
       "adr": {
         "ml-model": {
