@@ -33,7 +33,8 @@ function run_test() {
   test_query_count=$2
   implementation=$3
   device=$4
-  run "$5"
+  model=$5
+  run "$6"
 }
 
 #power=' --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4950 '
@@ -54,7 +55,7 @@ submission_cmd_scenario='cm run script --tags=generate-run-cmds,inference,_submi
 --category=$category --division=$division  --quiet --results_dir=$HOME/results_dir \
 --skip_submission_generation=yes --execution-mode=valid $power'
 
-readme_cmd_single='cm run script --tags=generate-run-cmds,inference,_populate-readme \
+readme_cmd_single='cm run script --tags=generate-run-cmds,inference,_populate-readme --scenario=$scenario \
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
 --category=$category --division=$division  --quiet --results_dir=$HOME/results_dir \
 --skip_submission_generation=yes --execution-mode=valid $power'
