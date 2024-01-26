@@ -69,8 +69,6 @@ new_state_keys:
   - cm_app_image_classification_onnx_py
 
 
-gui_title: "CM GUI for the MLPerf inference benchmark"
-
 input_description:
   input: 
     desc: "Path to JPEG image to classify"

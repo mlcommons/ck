@@ -17,11 +17,11 @@
 
 ### About
 
-Collective Mind (CM) is a human-friendly interface
-to run a growing number of ad-hoc MLPerf, MLOps, and DevOps scripts
-from MLCommons projects and research papers
-in a unified way on any operating system with any software and hardware 
-as [portable, reusable and extensible automation recipes (CM scripts)](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md):
+Collective Mind (CM) is a human-friendly interface to help everyone run, manage and reuse
+a [growing number of ad-hoc MLPerf, MLOps and DevOps scripts](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
+from [MLCommons projects](https://mlcommons.org) and [research papers](https://cTuning.org/ae)
+in a unified way on any operating system with any software and hardware
+either natively or inside containers:
 
 ```bash
 pip install cmind
@@ -34,6 +34,10 @@ cm run script "download file _wget" --url=https://cKnowledge.org/ai/data/compute
 
 cm run script "python app image-classification onnx" --input=computer_mouse.jpg
 cmr "python app image-classification onnx" --input=computer_mouse.jpg
+
+cm show cache
+cm rm cache -f
+
 cmr "python app image-classification onnx _cuda" --input=computer_mouse.jpg
 
 cmr "cm gui" --script="python app image-classification onnx"
