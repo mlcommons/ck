@@ -208,6 +208,10 @@ ___
            * get,ml-model,large-language-model,gptj
              * CM names: `--adr.['ml-model', 'gptj-model', 'gpt-j-model']...`
              - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)
+           * get,generic-python-lib,_custom-python,_package.datasets
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_custom-python,_package.accelerate
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_loadgen-batch-size.#`
       - Environment variables:
         - *CM_MLPERF_LOADGEN_BATCH_SIZE*: `#`

@@ -25,15 +25,15 @@
 
 ### About
 
-*Build pytorch from sources.*
+*Build IPEX from sources.*
 
 #### Summary
 
 * Category: *Compiler automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from.src)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from.src)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *install,get,src,from.src,pytorch,src-pytorch*
+* CM "database" tags to find this script: *install,get,src,from.src,ipex,src-ipex*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -50,9 +50,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=install,get,src,from.src,pytorch,src-pytorch[,variations] `
+1. `cm run script --tags=install,get,src,from.src,ipex,src-ipex[,variations] `
 
-2. `cmr "install get src from.src pytorch src-pytorch[ variations]" `
+2. `cmr "install get src from.src ipex src-ipex[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -67,7 +67,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'install,get,src,from.src,pytorch,src-pytorch'
+                  'tags':'install,get,src,from.src,ipex,src-ipex'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -84,13 +84,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="install,get,src,from.src,pytorch,src-pytorch"```
+```cmr "cm gui" --script="install,get,src,from.src,ipex,src-ipex"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=install,get,src,from.src,pytorch,src-pytorch) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=install,get,src,from.src,ipex,src-ipex) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "install get src from.src pytorch src-pytorch[ variations]" `
+`cm docker script "install get src from.src ipex src-ipex[ variations]" `
 
 ___
 ### Customization
@@ -106,44 +106,16 @@ ___
       - Environment variables:
         - *CM_GIT_CHECKOUT*: `#`
       - Workflow:
-    * `_for-intel-mlperf-inference-v3.1-bert`
+    * `_for-intel-mlperf-inference-v3.1-gptj`
       - Environment variables:
         - *CM_CONDA_ENV*: `yes`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * get,generic-sys-util,_libffi7
-             - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
-           * get,conda,_name.bert-pt
+           * get,conda,_name.gptj-pt
              * CM names: `--adr.['conda']...`
              - CM script: [get-conda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)
-           * get,generic,conda-package,_package.ncurses,_source.conda-forge
-             * CM names: `--adr.['conda-package', 'ncurses']...`
-             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
            * get,generic,conda-package,_package.python
              * CM names: `--adr.['conda-package', 'python3']...`
-             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
-           * install,llvm,src,_tag.llvmorg-15.0.7,_runtimes.libcxx:libcxxabi:openmp,_clang,_release,_for-intel-mlperf-inference-v3.1-bert
-             - CM script: [install-llvm-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src)
-           * get,generic,conda-package,_package.ninja
-             * CM names: `--adr.['conda-package', 'ninja']...`
-             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
-           * get,generic,conda-package,_package.cmake
-             * CM names: `--adr.['conda-package', 'cmake']...`
-             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
-           * get,generic,conda-package,_package.mkl,_source.intel
-             * CM names: `--adr.['conda-package', 'mkl']...`
-             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
-           * get,generic,conda-package,_package.mkl-include,_source.intel
-             * CM names: `--adr.['conda-package', 'mkl-include']...`
-             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
-           * get,generic,conda-package,_package.intel-openmp,_source.intel
-             * CM names: `--adr.['conda-package', 'intel-openmp']...`
-             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
-           * get,generic,conda-package,_package.llvm-openmp,_source.conda-forge
-             * CM names: `--adr.['conda-package', 'llvm-openmp']...`
-             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
-           * get,generic,conda-package,_package.jemalloc,_source.conda-forge
-             * CM names: `--adr.['conda-package', 'jemalloc']...`
              - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
            * get,generic,conda-package,_package.wheel,_source.conda-forge
              * CM names: `--adr.['conda-package', 'wheel']...`
@@ -151,12 +123,8 @@ ___
            * get,generic,conda-package,_package.setuptools,_source.conda-forge
              * CM names: `--adr.['conda-package', 'setuptools']...`
              - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
-           * get,generic,conda-package,_package.future,_source.conda-forge
-             * CM names: `--adr.['conda-package', 'future']...`
-             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
-           * get,generic,conda-package,_package.libstdcxx-ng,_source.conda-forge
-             * CM names: `--adr.['conda-package', 'libstdcxx-ng']...`
-             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+           * install,llvm,src,_for-intel-mlperf-inference-v3.1-gptj
+             - CM script: [install-llvm-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src)
     * `_sha.#`
       - Environment variables:
         - *CM_GIT_CHECKOUT_SHA*: `#`
@@ -177,9 +145,9 @@ ___
       - Environment variables:
         - *CM_GIT_URL*: `#`
       - Workflow:
-    * **`_repo.https://github.com/pytorch/pytorch`** (default)
+    * **`_repo.https://github.com/intel/intel-extension-for-pytorch`** (default)
       - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/pytorch/pytorch`
+        - *CM_GIT_URL*: `https://github.com/intel/intel-extension-for-pytorch`
       - Workflow:
 
     </details>
@@ -187,7 +155,7 @@ ___
 
 #### Default variations
 
-`_repo.https://github.com/pytorch/pytorch`
+`_repo.https://github.com/intel/intel-extension-for-pytorch`
 #### Default environment
 
 <details>
@@ -204,7 +172,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from.src/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from.src/_cm.json)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
@@ -213,24 +181,28 @@ ___
        * `if (CM_CONDA_ENV  != yes)`
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,pytorch,from.src
+       * `if (CM_CONDA_ENV  != yes)`
+       * CM names: `--adr.['pytorch']...`
+       - CM script: [install-pytorch-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from.src)
      * get,git,repo
-       * CM names: `--adr.['pytorch-src-repo']...`
+       * CM names: `--adr.['ipex-src-repo']...`
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from.src/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from.src/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from.src/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from.src/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from.src/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from.src/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from.src/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from.src/_cm.json)
   1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from.src/_cm.json)
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from.src/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "install get src from.src pytorch src-pytorch[,variations]"  -j`
+`cmr "install get src from.src ipex src-ipex[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_PYTORCH_*`
+* `CM_IPEX_*`
 #### New environment keys auto-detected from customize
 
 ___

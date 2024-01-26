@@ -156,6 +156,10 @@ ___
            * get,cuda
              * CM names: `--adr.['cuda']...`
              - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+    * `_custom-python`
+      - Environment variables:
+        - *CM_TMP_USE_CUSTOM_PYTHON*: `on`
+      - Workflow:
     * `_datasets`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `datasets`
@@ -580,6 +584,11 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `unidecode`
       - Workflow:
+    * `_url.#`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PIP_URL*: `#`
+        - *CM_TMP_PYTHON_PACKAGE_FORCE_INSTALL*: `yes`
+      - Workflow:
     * `_wandb`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `wandb`
@@ -621,6 +630,7 @@ ___
      * detect,cpu
        - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,python3
+       * `if (CM_TMP_USE_CUSTOM_PYTHON  != on)`
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,generic-python-lib,_pip
@@ -628,7 +638,10 @@ ___
        * CM names: `--adr.['python-pip', 'pip']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)***
+     * install,onnxruntime,from.src,_cuda
+       * `if (CM_INSTALL_ONNXRUNTIME_GPU_FROM_SRC  == yes)`
+       - CM script: [install-onnxruntime-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from.src)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/run.sh)

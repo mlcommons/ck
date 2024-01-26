@@ -125,6 +125,15 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_package.accelerate
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_llama2-70b_`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_package.transformers
+             * CM names: `--adr.['transformers']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.datasets
+             * CM names: `--adr.['datasets']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
 
     </details>
 
@@ -159,6 +168,8 @@ ___
            * get,generic-python-lib,_tokenization
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_six
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.absl-py
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_protobuf
              * `if (CM_MLPERF_BACKEND in ['tf', 'tflite'])`
@@ -423,14 +434,14 @@ ___
       - Environment variables:
         - *CM_MODEL*: `gptj-99.9`
       - Workflow:
-    * `_llama2-70b`
+    * `_llama2-70b-99`
       - Environment variables:
-        - *CM_MODEL*: `llama2-70b`
+        - *CM_MODEL*: `llama2-70b-99`
       - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * get,generic-python-lib,_package.transformers
-             * CM names: `--adr.['transformers']...`
-             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_llama2-70b-99.9`
+      - Environment variables:
+        - *CM_MODEL*: `llama2-70b-99.9`
+      - Workflow:
     * **`_resnet50`** (default)
       - Environment variables:
         - *CM_MODEL*: `resnet50`
@@ -481,7 +492,7 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_sdxl`
       - Environment variables:
-        - *CM_MODEL*: `sdxl`
+        - *CM_MODEL*: `stable-diffusion-xl`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_package.diffusers
@@ -708,11 +719,11 @@ ___
        * CM names: `--adr.['ml-model', 'bert-model']...`
        - CM script: [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)
      * get,ml-model,stable-diffusion,text-to-image,sdxl
-       * `if (CM_MODEL  == sdxl) AND (CM_MLPERF_CUSTOM_MODEL_PATH  != on)`
+       * `if (CM_MODEL  == stable-diffusion-xl) AND (CM_MLPERF_CUSTOM_MODEL_PATH  != on)`
        * CM names: `--adr.['ml-model', 'sdxl-model']...`
        - CM script: [get-ml-model-stable-diffusion](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion)
      * get,ml-model,llama2
-       * `if (CM_MODEL  == llama2-70b) AND (CM_MLPERF_CUSTOM_MODEL_PATH  != on)`
+       * `if (CM_MODEL in ['llama2-70b-99', 'llama2-70b-99.9']) AND (CM_MLPERF_CUSTOM_MODEL_PATH  != on)`
        * CM names: `--adr.['ml-model', 'llama2-model']...`
        - CM script: [get-ml-model-llama2](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2)
      * get,ml-model,medical-imaging,3d-unet
@@ -754,11 +765,11 @@ ___
        * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
        - CM script: [get-dataset-squad-vocab](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad-vocab)
      * get,dataset,coco2014,_validation
-       * `if (CM_MODEL  == sdxl)`
+       * `if (CM_MODEL  == stable-diffusion-xl)`
        * CM names: `--adr.['coco2014-preprocessed']...`
        - CM script: [get-dataset-coco2014](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco2014)
      * get,preprocessed,dataset,openorca,_validation
-       * `if (CM_MODEL  == llama2-70b)`
+       * `if (CM_MODEL in ['llama2-70b-99', 'llama2-70b-99.9'])`
        * CM names: `--adr.['openorca-preprocessed']...`
        - CM script: [get-preprocessed-dataset-openorca](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openorca)
      * get,dataset,kits19,preprocessed
@@ -796,7 +807,7 @@ ___
   1. ***Run native script if exists***
   1. ***Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)***
      * benchmark-mlperf
-       * `if (CM_MLPERF_SKIP_RUN  != True)`
+       * `if (CM_MLPERF_SKIP_RUN  != on)`
        * CM names: `--adr.['mlperf-runner']...`
        - CM script: [benchmark-program-mlperf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/customize.py)***

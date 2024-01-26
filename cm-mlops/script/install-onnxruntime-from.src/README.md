@@ -25,15 +25,15 @@
 
 ### About
 
-*Build transformers from sources.*
+*Build onnxruntime from sources.*
 
 #### Summary
 
 * Category: *Compiler automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-transformers-from.src)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from.src)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *install,src,from.src,transformers,src-transformers*
+* CM "database" tags to find this script: *install,get,src,from.src,onnxruntime,src-onnxruntime*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -50,9 +50,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=install,src,from.src,transformers,src-transformers[,variations] `
+1. `cm run script --tags=install,get,src,from.src,onnxruntime,src-onnxruntime[,variations] `
 
-2. `cmr "install src from.src transformers src-transformers[ variations]" `
+2. `cmr "install get src from.src onnxruntime src-onnxruntime[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -67,7 +67,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'install,src,from.src,transformers,src-transformers'
+                  'tags':'install,get,src,from.src,onnxruntime,src-onnxruntime'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -84,13 +84,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="install,src,from.src,transformers,src-transformers"```
+```cmr "cm gui" --script="install,get,src,from.src,onnxruntime,src-onnxruntime"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=install,src,from.src,transformers,src-transformers) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=install,get,src,from.src,onnxruntime,src-onnxruntime) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "install src from.src transformers src-transformers[ variations]" `
+`cm docker script "install get src from.src onnxruntime src-onnxruntime[ variations]" `
 
 ___
 ### Customization
@@ -106,23 +106,14 @@ ___
       - Environment variables:
         - *CM_GIT_CHECKOUT*: `#`
       - Workflow:
-    * `_for-intel-mlperf-inference-v3.1-bert`
+    * `_cuda`
       - Environment variables:
-        - *CM_CONDA_ENV*: `yes`
+        - *CM_ONNXRUNTIME_GPU*: `yes`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * get,conda,_name.bert-pt
-             * CM names: `--adr.['conda']...`
-             - CM script: [get-conda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)
-           * get,generic,conda-package,_package.python
-             * CM names: `--adr.['conda-package', 'python3']...`
-             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
-           * get,generic,conda-package,_package.wheel,_source.conda-forge
-             * CM names: `--adr.['conda-package', 'wheel']...`
-             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
-           * get,generic,conda-package,_package.setuptools,_source.conda-forge
-             * CM names: `--adr.['conda-package', 'setuptools']...`
-             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+           * get,cuda,_cudnn
+             * CM names: `--adr.['cuda']...`
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
     * `_sha.#`
       - Environment variables:
         - *CM_GIT_CHECKOUT_SHA*: `#`
@@ -139,13 +130,9 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_repo.#`
+    * **`_repo.https://github.com/Microsoft/onnxruntime`** (default)
       - Environment variables:
-        - *CM_GIT_URL*: `#`
-      - Workflow:
-    * **`_repo.https://github.com/pytorch/pytorch`** (default)
-      - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/huggingface/transformers`
+        - *CM_GIT_URL*: `https://github.com/Microsoft/onnxruntime`
       - Workflow:
 
     </details>
@@ -153,7 +140,7 @@ ___
 
 #### Default variations
 
-`_repo.https://github.com/pytorch/pytorch`
+`_repo.https://github.com/Microsoft/onnxruntime`
 #### Default environment
 
 <details>
@@ -170,7 +157,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-transformers-from.src/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from.src/_cm.json)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
@@ -179,28 +166,26 @@ ___
        * `if (CM_CONDA_ENV  != yes)`
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * get,pytorch,from.src
-       * `if (CM_CONDA_ENV  != yes)`
-       * CM names: `--adr.['pytorch']...`
-       - CM script: [install-pytorch-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from.src)
+     * get,cmake
+       - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
      * get,git,repo
-       * CM names: `--adr.['transformers-src-repo']...`
+       * CM names: `--adr.['onnxruntime-src-repo']...`
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-transformers-from.src/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-transformers-from.src/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from.src/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from.src/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-transformers-from.src/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-transformers-from.src/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from.src/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from.src/_cm.json)
   1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-transformers-from.src/_cm.json)
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from.src/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "install src from.src transformers src-transformers[,variations]"  -j`
+`cmr "install get src from.src onnxruntime src-onnxruntime[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_TRANSFORMERS_*`
+* `CM_ONNXRUNTIME_*`
 #### New environment keys auto-detected from customize
 
 ___

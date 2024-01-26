@@ -104,6 +104,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_custom-python`
+      - Environment variables:
+        - *CM_TMP_USE_CUSTOM_PYTHON*: `on`
+      - Workflow:
     * `_download`
       - Environment variables:
         - *CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD_URL*: `https://www.dropbox.com/scl/fi/36dgoiur26i2tvwgsaatf/loadgen.zip?rlkey=ab68i7uza9anvaw0hk1xvf0qk&dl=0`
@@ -166,9 +170,9 @@ ___
      * get,compiler
        * `if (CM_HOST_OS_TYPE  != windows)`
        * CM names: `--adr.['compiler']...`
+       - CM script: [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)
        - CM script: [get-cl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl)
        - CM script: [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
-       - CM script: [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)
      * get,cl
        * `if (CM_HOST_OS_TYPE  == windows)`
        * CM names: `--adr.['compiler']...`
@@ -177,10 +181,13 @@ ___
        * CM names: `--adr.['cmake']...`
        - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
      * get,generic-python-lib,_package.wheel
+       * CM names: `--adr.['pip-package', 'wheel']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_pip
+       * CM names: `--adr.['pip-package', 'pip']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_package.pybind11
+       * CM names: `--adr.['pip-package', 'pybind11']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen/_cm.json)

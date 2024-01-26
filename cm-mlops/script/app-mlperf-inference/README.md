@@ -360,15 +360,14 @@ ___
       - Environment variables:
         - *CM_MODEL*: `gptj-99.9`
       - Workflow:
-    * `_llama2-70b`
+    * `_llama2-70b-99`
       - Environment variables:
-        - *CM_MODEL*: `llama2-70b`
+        - *CM_MODEL*: `llama2-70b-99`
       - Workflow:
-        1. ***Read "post_deps" on other CM scripts***
-           * run,accuracy,mlperf,_open-orca
-             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION not in ['nvidia-original', 'reference'])`
-             * CM names: `--adr.['mlperf-accuracy-script', 'open-orca-accuracy-script']...`
-             - *Warning: no scripts found*
+    * `_llama2-70b-99.9`
+      - Environment variables:
+        - *CM_MODEL*: `llama2-70b-99.9`
+      - Workflow:
     * `_mobilenet`
       - Environment variables:
         - *CM_MODEL*: `mobilenet`
@@ -413,7 +412,7 @@ ___
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * `_sdxl`
       - Environment variables:
-        - *CM_MODEL*: `sdxl`
+        - *CM_MODEL*: `stable-diffusion-xl`
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
            * run,accuracy,mlperf,_coco2014
@@ -544,6 +543,13 @@ ___
              * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
              * CM names: `--adr.['cnndm-accuracy-script', 'mlperf-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
+    * `_llama2-70b_`
+      - Workflow:
+        1. ***Read "post_deps" on other CM scripts***
+           * run,accuracy,mlperf,_open-orca
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION not in ['nvidia-original', 'reference'])`
+             * CM names: `--adr.['mlperf-accuracy-script', 'open-orca-accuracy-script']...`
+             - *Warning: no scripts found*
 
     </details>
 

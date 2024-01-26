@@ -114,6 +114,7 @@ ___
 * `--image_name=value`  &rarr;  `CM_DOCKER_IMAGE_NAME=value`
 * `--image_repo=value`  &rarr;  `CM_DOCKER_IMAGE_REPO=value`
 * `--image_tag=value`  &rarr;  `CM_DOCKER_IMAGE_TAG=value`
+* `--interactive=value`  &rarr;  `CM_DOCKER_INTERACTIVE_MODE=value`
 * `--it=value`  &rarr;  `CM_DOCKER_INTERACTIVE=value`
 * `--mounts=value`  &rarr;  `CM_DOCKER_VOLUME_MOUNTS=value`
 * `--pass_user_group=value`  &rarr;  `CM_DOCKER_PASS_USER_GROUP=value`

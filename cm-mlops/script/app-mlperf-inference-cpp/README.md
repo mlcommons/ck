@@ -298,11 +298,11 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)***
      * compile,cpp-program
-       * `if (CM_MLPERF_SKIP_RUN  != True)`
+       * `if (CM_MLPERF_SKIP_RUN  != yes)`
        * CM names: `--adr.['compile-program']...`
        - CM script: [compile-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program)
      * benchmark-mlperf
-       * `if (CM_MLPERF_SKIP_RUN  != True)`
+       * `if (CM_MLPERF_SKIP_RUN  != yes)`
        * CM names: `--adr.['mlperf-runner']...`
        - CM script: [benchmark-program-mlperf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf)
 </details>

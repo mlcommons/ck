@@ -233,6 +233,7 @@ ___
 * `CM_CUDA_PATH_INCLUDE`
 * `CM_CUDA_PATH_LIB`
 * `CM_CUDA_VERSION`
+* `CM_CUDA_VERSION_STRING`
 * `CM_NVCC_BIN`
 ___
 ### Maintainers

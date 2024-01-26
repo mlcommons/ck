@@ -110,7 +110,7 @@ ___
       - Environment variables:
         - *CM_LLVM_ENABLE_PROJECTS*: `clang`
       - Workflow:
-    * `_for-intel-mlperf-inference`
+    * `_for-intel-mlperf-inference-v3.1-bert`
       - Environment variables:
         - *CM_LLVM_CONDA_ENV*: `yes`
       - Workflow:
@@ -136,6 +136,49 @@ ___
            * get,generic,conda-package,_package.libstdcxx-ng,_source.conda-forge
              * CM names: `--adr.['conda-package', 'libstdcxx-ng']...`
              - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+    * `_for-intel-mlperf-inference-v3.1-gptj`
+      - Environment variables:
+        - *CM_LLVM_CONDA_ENV*: `yes`
+        - *CM_LLVM_16_INTEL_MLPERF_INFERENCE*: `yes`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,gcc
+             - CM script: [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
+           * get,conda,_name.gptj-pt
+             * CM names: `--adr.['conda']...`
+             - CM script: [get-conda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)
+           * get,generic,conda-package,_package.python
+             * CM names: `--adr.['conda-package', 'python']...`
+             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+           * get,conda-package,_package.ncurses,_source.conda-forge
+             * CM names: `--adr.['conda-package', 'ncurses']...`
+             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+           * get,conda-package,_package.chardet
+             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+           * get,generic,conda-package,_package.libstdcxx-ng,_source.conda-forge
+             * CM names: `--adr.['conda-package', 'libstdcxx-ng']...`
+             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+           * get,generic,conda-package,_package.mkl,_source.intel
+             * CM names: `--adr.['conda-package', 'mkl']...`
+             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+           * get,generic,conda-package,_package.mkl-include,_source.intel
+             * CM names: `--adr.['conda-package', 'mkl-include']...`
+             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+           * get,generic,conda-package,_package.intel-openmp,_source.intel
+             * CM names: `--adr.['conda-package', 'intel-openmp']...`
+             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+           * get,generic,conda-package,_package.gperftools,_source.conda-forge
+             * CM names: `--adr.['conda-package', 'gperftools']...`
+             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+           * get,generic,conda-package,_package.pybind11,_source.conda-forge
+             * CM names: `--adr.['conda-package', 'pybind11']...`
+             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+           * get,generic-python-lib,_custom-python,_package.torch,_url.git+https://github.com/pytorch/pytorch.git@927dc662386af052018212c7d01309a506fc94cd
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_custom-python,_package.setuptools
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_custom-python,_package.neural-compressor,_url.git+https://github.com/intel/neural-compressor.git@a2931eaa4052eec195be3c79a13f7bfa23e54473
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_full-history`
       - Workflow:
     * `_runtimes.#`

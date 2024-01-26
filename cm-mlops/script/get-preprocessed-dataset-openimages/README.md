@@ -139,6 +139,10 @@ ___
       - Environment variables:
         - *CM_PREPROCESSING_BY_NVIDIA*: `yes`
       - Workflow:
+    * `_quant-offset.#`
+      - Workflow:
+    * `_quant-scale.#`
+      - Workflow:
 
     </details>
 

@@ -51,7 +51,7 @@ See extra [notes](README-extra.md) from the authors and contributors.
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference*
+* CM "database" tags to find this script: *run,common,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference*
 * Output cached? *False*
 ___
 ### Reuse this script in your project
@@ -68,9 +68,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference[,variations] [--input_flags]`
+1. `cm run script --tags=run,common,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference[,variations] [--input_flags]`
 
-2. `cmr "run generate-run-cmds run-mlperf vision mlcommons mlperf inference reference[ variations]" [--input_flags]`
+2. `cmr "run common generate-run-cmds run-mlperf vision mlcommons mlperf inference reference[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -87,7 +87,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference'
+                  'tags':'run,common,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -104,13 +104,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference"```
+```cmr "cm gui" --script="run,common,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run,common,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "run generate-run-cmds run-mlperf vision mlcommons mlperf inference reference[ variations]" [--input_flags]`
+`cm docker script "run common generate-run-cmds run-mlperf vision mlcommons mlperf inference reference[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -162,11 +162,11 @@ ___
       - Environment variables:
         - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.0_default`
       - Workflow:
-    * **`_r3.1`** (default)
+    * `_r3.1`
       - Environment variables:
         - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.1_default`
       - Workflow:
-    * `_r4.0`
+    * **`_r4.0`** (default)
       - Environment variables:
         - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r4.0_default`
       - Workflow:
@@ -239,7 +239,7 @@ ___
 
 #### Default variations
 
-`_find-performance,_r3.1,_short`
+`_find-performance,_r4.0,_short`
 
 #### Input description
 
@@ -315,6 +315,7 @@ r=cm.access({... , "adr.compiler.tags":...}
 * `--preprocess_submission=value`  &rarr;  `CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR=value`
 * `--push_to_github=value`  &rarr;  `CM_MLPERF_RESULT_PUSH_TO_GITHUB=value`
 * `--readme=value`  &rarr;  `CM_MLPERF_README=value`
+* `--regenerate_accuracy_file=value`  &rarr;  `CM_MLPERF_REGENERATE_ACCURACY_FILE=value`
 * `--regenerate_files=value`  &rarr;  `CM_REGENERATE_MEASURE_FILES=value`
 * `--rerun=value`  &rarr;  `CM_RERUN=value`
 * `--results_dir=value`  &rarr;  `OUTPUT_BASE_DIR=value`
@@ -389,7 +390,7 @@ ___
 
 ___
 ### Script output
-`cmr "run generate-run-cmds run-mlperf vision mlcommons mlperf inference reference[,variations]" [--input_flags] -j`
+`cmr "run common generate-run-cmds run-mlperf vision mlcommons mlperf inference reference[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
