@@ -9,7 +9,7 @@
 
 ### About
 
-[Collective Mind (CM)](https://github.com/mlcommons/ck) is a human-friendly interface
+Collective Mind (CM) is a human-friendly interface
 to run a growing number of ad-hoc MLPerf, MLOps, and DevOps scripts
 in a unified way on any operating system with any software and hardware 
 as [portable and reusable automation recipes (CM scripts)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script):
