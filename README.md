@@ -63,7 +63,7 @@ for a given script or tool on a given platform, updates all paths and environmen
 runs a given automation either natively or inside automatically-generated containers
 and unifies input and output as a Python dictionary or JSON/YAML file.
 
-Our goal is to make it easier to prototype, build, run, benchmark and optimize complex AI/ML applications
+Our goal is to make it easier to prototype, build, run, benchmark, optimize and manage complex AI/ML applications
 across diverse and rapidly evolving models, data sets, software and hardware simply by chaining these 
 unified CM scripts into [portable, human-readable and reusable workflows](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml).
 
