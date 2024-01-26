@@ -170,9 +170,9 @@ ___
      * get,compiler
        * `if (CM_HOST_OS_TYPE  != windows)`
        * CM names: `--adr.['compiler']...`
-       - CM script: [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)
        - CM script: [get-cl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl)
        - CM script: [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
+       - CM script: [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)
      * get,cl
        * `if (CM_HOST_OS_TYPE  == windows)`
        * CM names: `--adr.['compiler']...`
@@ -209,6 +209,7 @@ ___
 * `+DYLD_FALLBACK_LIBRARY_PATH`
 * `+LD_LIBRARY_PATH`
 * `+PYTHONPATH`
+* `CM_MLPERF_INFERENCE_LOADGEN_VERSION`
 #### New environment keys auto-detected from customize
 
 ___

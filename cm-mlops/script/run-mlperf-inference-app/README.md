@@ -157,18 +157,22 @@ ___
     * `_r2.1`
       - Environment variables:
         - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r2.1_default`
+        - *CM_MLPERF_INFERENCE_VERSION*: `2.1`
       - Workflow:
     * `_r3.0`
       - Environment variables:
         - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.0_default`
+        - *CM_MLPERF_INFERENCE_VERSION*: `3.0`
       - Workflow:
     * `_r3.1`
       - Environment variables:
         - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.1_default`
+        - *CM_MLPERF_INFERENCE_VERSION*: `3.1`
       - Workflow:
     * **`_r4.0`** (default)
       - Environment variables:
         - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r4.0_default`
+        - *CM_MLPERF_INFERENCE_VERSION*: `4.0`
       - Workflow:
 
     </details>
