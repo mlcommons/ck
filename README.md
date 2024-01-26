@@ -7,6 +7,14 @@
 [![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
 [![Dockerfile update for CM scripts](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml)
 
+### License
+
+[Apache 2.0](LICENSE.md)
+
+### Copyright
+
+2022-2024 [MLCommons](https://mlcommons.org)
+
 ### About
 
 Collective Mind (CM) is a human-friendly interface
@@ -107,11 +115,3 @@ or have questions and suggestions.
 * ACM REP'23 keynote about MLCommons CM: [slides](https://doi.org/10.5281/zenodo.8105339)
 * ACM TechTalk'21 about automating research projects: [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4)
 * MLPerf inference submitter orientation: [slides](https://doi.org/10.5281/zenodo.8144274) 
-
-### Copyright
-
-2022-2024 [MLCommons](https://mlcommons.org)
-
-### License
-
-[Apache 2.0](LICENSE.md)
