@@ -7,8 +7,8 @@ was originally developed by [Grigori Fursin](https://cKnowledge.org/gfursin)
 based on his practical experience helping the community set up 
 [reproducibility initiatives at compiler, systems and ML conferences](https://cTuning.org/ae),
 rerun numerous experiments from published papers and validate them in the real world 
-across diverse and continuously changing models, data sets, software and hardware since 2013
-- see the [ACM TechTalk'21](https://www.youtube.com/watch?v=7zpeIVwICa4) for more details.
+across diverse and continuously changing models, data sets, software and hardware since 2013:
+see the [ACM TechTalk'21](https://www.youtube.com/watch?v=7zpeIVwICa4) for more details.
 
 The original development of CK v1 and v2 was sponsorted by [cTuning.org](https://cTuning.org), 
 [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai).

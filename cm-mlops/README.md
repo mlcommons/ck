@@ -20,10 +20,10 @@ Red Hat, Intel, TTA, One Stop Systems, ACM and other organizations.
 
 See the automatically generated catalog [here](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md).
 
-### Copyright
-
-2022-2024 [MLCommons](https://mlcommons.org)
-
 ### License
 
 [Apache 2.0](LICENSE.md)
+
+### Copyright
+
+2022-2024 [MLCommons](https://mlcommons.org)

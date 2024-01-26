@@ -13,7 +13,7 @@ Collective Mind (CM) is a human-friendly interface
 to run a growing number of ad-hoc MLPerf, MLOps, and DevOps scripts
 from MLCommons projects and research papers
 in a unified way on any operating system with any software and hardware 
-as [portable, reusable and extensible automation recipes (CM scripts)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script):
+as [portable, reusable and extensible automation recipes (CM scripts)](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md):
 
 ```bash
 pip install cmind
@@ -61,14 +61,15 @@ Collective Mind is a community project being developed by the [MLCommons Task Fo
 with great help from [MLCommons (70+ AI organizations)](https://mlcommons.org/),
 [research community]( https://www.youtube.com/watch?v=7zpeIVwICa4 )
 and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) -
-we want to have a common, non-intrusive, technology-agnostic, portable and easily-extensible interface 
-that requires minimal learning curve to start automating all manual and repetitive tasks including 
+we want to have a simple, non-intrusive, technology-agnostic, portable and easily-extensible interface 
+to automate all our manual and repetitive tasks including 
 downloading artifacts, installing tools, resolving dependencies, 
-running experiments, processing logs, and reproducing results.
+running experiments, processing logs, and reproducing results
+without thinking where and how they run.
 
 That is why we implemented CM as a [small Python library](https://github.com/mlcommons/ck/tree/master/cm) 
-with minimal dependencies (Python 3.7+, git, wget), simple Python API and human-friendly command line
-that simply searches for CM scripts by tags in all pulled Git repositories, automatically generates command lines 
+with minimal dependencies (Python 3.7+, git, wget), simple Python API, StreamLit GUI and human-friendly command line.
+CM simply searches for CM scripts by tags or Unique IDs in all pulled Git repositories, automatically generates command lines 
 for a given script or tool on a given platform, updates all paths and environment variables, 
 runs a given automation either natively or inside automatically-generated containers
 and unifies input and output as a Python dictionary or JSON/YAML file.
@@ -76,6 +77,13 @@ and unifies input and output as a Python dictionary or JSON/YAML file.
 Our goal is to make it easier to prototype, build, run, benchmark, optimize and manage complex AI/ML applications
 across diverse and rapidly evolving models, data sets, software and hardware simply by chaining these 
 unified CM scripts into [portable, human-readable and reusable workflows](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml).
+
+For example, our [automation recipes](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md) 
+helped [modularize MLPerf inference benchmark](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md) 
+and were successfully validated in the MLPerf inference benchmark v3.1 round
+helping the community automatically submit more >95% of all performance and power results across
+more than 120 system configurations (models, frameworks, hardware) while reducing their development
+and maintainence costs.
 
 Please check this [Getting Started tutorial](docs/getting-started.md) 
 to understand how CM works and start using it.
