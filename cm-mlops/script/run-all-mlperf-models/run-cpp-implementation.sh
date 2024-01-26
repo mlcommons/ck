@@ -28,11 +28,14 @@ division="closed"
 
 POWER=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4950 "
 POWER=""
+
+run "cm run script --tags=set,system,performance,mode"
+
 #cpp
 run "cm run script --tags=generate-run-cmds,inference,_find-performance \
 --model=resnet50 --implementation=cpp --device=cpu --backend=onnxruntime \
 --adr.compiler.tags=gcc \
---category=edge --division=open --scenario=Offline  --quiet --test_query_count=100"
+--category=edge --division=open --scenario=Offline  --quiet --test_query_count=2000 "
 
 run "cm run script --tags=generate-run-cmds,inference,_find-performance \
 --model=retinanet --implementation=cpp --device=cpu --backend=onnxruntime \

@@ -22,6 +22,8 @@ def preprocess(i):
     submission_checker_dir = os.path.join(mlperf_path, "tools", "submission")
     sys.path.append(submission_checker_dir)
 
+    version = env.get('CM_MLPERF_INFERENCE_VERSION', "4.0")
+
     required_files = []
     required_files = get_checker_files()
 
@@ -164,6 +166,12 @@ def preprocess(i):
             metric_value = 1000
 
     elif env['CM_MLPERF_RUN_STYLE'] == "valid":
+        required_min_queries_offline = {}
+        required_min_queries_offline = get_required_min_queries_offline(env['CM_MODEL'], version)
+
+        query_count = max(query_count, required_min_queries_offline)
+
+
         if  mode == "compliance" and scenario == "Server": #Adjust the server_target_qps
             test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
             if test == "TEST01":
@@ -280,10 +288,9 @@ def preprocess(i):
         ranging_user_conf_file.write_text(ranging_user_conf)
 
 
-    if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') == ''  and query_count:
+    if (env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') == '')  and query_count and ((mode != "accuracy") or (env['CM_MLPERF_RUN_STYLE'] != "valid")):
         env['CM_MLPERF_LOADGEN_QUERY_COUNT'] = query_count
 
-    
     if not run_exists or rerun:
 
         print("Output Dir: '" + OUTPUT_DIR + "'")
@@ -388,3 +395,17 @@ def get_checker_files():
     REQUIRED_PERF_POWER_FILES = checker.REQUIRED_PERF_POWER_FILES
     REQUIRED_MEASURE_FILES = checker.REQUIRED_MEASURE_FILES
     return REQUIRED_ACC_FILES, REQUIRED_PERF_FILES, REQUIRED_POWER_FILES, REQUIRED_PERF_POWER_FILES, REQUIRED_MEASURE_FILES
+
+def get_required_min_queries_offline(model, version):
+
+    import submission_checker as checker
+
+    version_split = version.split(".")
+    if int(version[0]) < 4:
+        return 24756
+
+    REQUIRED_MIN_QUERIES = checker.OFFLINE_MIN_SPQ_SINCE_V4
+    mlperf_model = model
+    mlperf_model = mlperf_model.replace("resnet50", "resnet")
+
+    return REQUIRED_MIN_QUERIES[mlperf_model]
