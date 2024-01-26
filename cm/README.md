@@ -11,6 +11,7 @@
 
 [Collective Mind (CM)](https://github.com/mlcommons/ck) is a human-friendly interface
 to run a growing number of ad-hoc MLPerf, MLOps, and DevOps scripts
+from MLCommons projects and research papers
 in a unified way on any operating system with any software and hardware 
 as [portable, reusable and extensible automation recipes (CM scripts)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script):
 
@@ -46,6 +47,15 @@ cmr "reproduce paper micro-2023 victima _run"
 ...
 
 ```
+
+```python
+import cmind
+output=cmind.access({'action':'run', 'automation':'script',
+                     'tags':'python,app,image-classification,onnx',
+                     'input':'computer_mouse.jpg'})
+if output['return']==0: print (output)
+```
+
 
 Collective Mind is a community project being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
 with great help from [MLCommons (70+ AI organizations)](https://mlcommons.org/),
