@@ -9,8 +9,16 @@ def preprocess(i):
     state = i['state']
     pm = env.get('CM_HOST_OS_PACKAGE_MANAGER')
 
+    if os_info['platform'] == 'windows':
+        print ('')
+        print ('WARNING: for now skipping get-generic-sys-util on Windows ...')
+        print ('')
+
+        return {'return':0}
+    
     if not pm:
         return {'return': 1, 'error': 'Package manager not detected for the given OS'}
+
     util = env.get('CM_SYS_UTIL_NAME')
     if not util:
         return {'return': 1, 'error': 'Please select a variation specifying the sys util name'}

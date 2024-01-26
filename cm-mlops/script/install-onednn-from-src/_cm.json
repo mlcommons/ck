@@ -1,5 +1,5 @@
 {
-  "alias": "install-onnxruntime-from.src",
+  "alias": "install-onednn-from-src",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
@@ -24,21 +24,12 @@
       "tags": "get,python3"
     },
     {
-      "tags": "get,cmake",
-      "version_min": "3.26.0"
-    },
-    {
-      "tags": "get,gcc",
-      "version_max": "11.9.999",
-      "version_max_usable": "11.0"
-    },
-    {
       "env": {
-        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_ONNXRUNTIME_SRC_REPO_PATH"
+        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_ONEDNN_SRC_REPO_PATH"
       },
-      "extra_cache_tags": "onnxruntime,src,onnxruntime-src,onnxruntime-src-repo",
+      "extra_cache_tags": "onednn,src,onednn-src,onednn-src-repo",
       "names": [
-        "onnxruntime-src-repo"
+        "onednn-src-repo"
       ],
       "tags": "get,git,repo",
       "update_tags_from_env_with_prefix": {
@@ -58,10 +49,11 @@
     }
   ],
   "env": {
+    "CM_GIT_URL": "https://github.com/oneapi-src/oneDNN"
   },
-  "name": "Build onnxruntime from sources",
+  "name": "Build oneDNN from sources",
   "new_env_keys": [
-    "CM_ONNXRUNTIME_*"
+    "CM_ONEDNN_*"
   ],
   "prehook_deps": [],
   "sort": 1000,
@@ -70,31 +62,43 @@
     "get",
     "src",
     "from.src",
-    "onnxruntime",
-    "src-onnxruntime"
+    "onednn",
+    "src-onednn"
   ],
-  "uid": "9798c7e7a5944cee",
+  "uid": "fe3a652e315f4c8f",
   "variations": {
     "branch.#": {
       "env": {
         "CM_GIT_CHECKOUT": "#"
       }
     },
-    "cuda": {
-      "env": {
-        "CM_ONNXRUNTIME_GPU": "yes"
-      },
-      "deps": [
-        {
-          "names": [ "cuda" ],
-          "tags": "get,cuda,_cudnn"
+    "for-intel-mlperf-inference-v3.1-bert": {
+      "adr": {
+        "conda-package": {
+          "tags": "_name.bert-pt"
+        },
+        "oneddn-src-repo": {
+          "tags": "_norecurse-submodule"
         }
-      ]
+      },
+      "base": [
+        "tag.v2.6"
+      ],
+      "env": {
+        "CM_CONDA_ENV": "yes",
+	"CM_FOR_INTEL_MLPERF_INFERENCE": "yes"
+      }
     },
-    "repo.https://github.com/Microsoft/onnxruntime": {
+    "repo.#": {
+      "env": {
+        "CM_GIT_URL": "#"
+      },
+      "group": "repo"
+    },
+    "repo.https://github.com/oneapi-src/oneDNN": {
       "default": true,
       "env": {
-        "CM_GIT_URL": "https://github.com/Microsoft/onnxruntime"
+        "CM_GIT_URL": "https://github.com/oneapi-src/oneDNN"
       },
       "group": "repo"
     },
@@ -105,7 +109,7 @@
     },
     "tag.#": {
       "ad": {
-        "onnxruntime-src-repo": {
+        "onednn-src-repo": {
           "tags": "_no-recurse-submodules,_full-history"
         }
       },

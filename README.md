@@ -21,7 +21,9 @@ Collective Mind (CM) is a human-friendly interface to help everyone run, manage 
 a [growing number of MLPerf, MLOps and DevOps scripts](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
 from [MLCommons projects](https://mlcommons.org) and [research papers](https://cTuning.org/ae)
 in a unified way on any operating system with any software and hardware
-either natively or inside containers:
+either natively or inside containers.
+
+Here are some most commonly used examples from the community:
 
 ```bash
 pip install cmind
