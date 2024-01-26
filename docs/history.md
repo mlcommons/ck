@@ -1,6 +1,6 @@
 ﻿[ [Back to index](README.md) ]
 
-# Collective Knowledge v1 and v2
+# Collective Knowledge v1 and v2 (CK)
 
 The [open-source Collective Knowledge Technology v1 and v2 (CK)](https://arxiv.org/abs/2011.01149) 
 was originally developed by [Grigori Fursin](https://cKnowledge.org/gfursin) 
@@ -13,7 +13,7 @@ CK development was also sponsorted by the [cTuning foundation](https://cTuning.o
 
 The archive of this discontinued framework is available in the [/ck directory](../ck). 
 
-# MLCommons Collective Mind
+# MLCommons Collective Mind (CM)
 
 Grigori donated the CK technology to [MLCommons](https://mlcommons.org) in 2022 to benefit everyone and help establish
 the [MLCommons Task Force on Automation and Reproducibility](taskforce.md) co-led with [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
