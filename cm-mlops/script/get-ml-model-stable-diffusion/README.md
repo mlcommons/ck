@@ -108,6 +108,8 @@ ___
         - *CM_ML_MODEL_BATCH_SIZE*: `#`
       - Workflow:
     * `_pytorch,fp32`
+      - Environment variables:
+        - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0`
       - Workflow:
 
     </details>

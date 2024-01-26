@@ -156,6 +156,7 @@ Default version: `master`
 * `master`
 * `r3.0`
 * `r3.1`
+* `r4.0`
 ___
 ### Script workflow, dependencies and native scripts
 

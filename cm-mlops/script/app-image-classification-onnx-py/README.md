@@ -12,6 +12,7 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -51,11 +52,13 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=app,image-classification,onnx,python[,variations] `
+1. `cm run script --tags=app,image-classification,onnx,python[,variations] [--input_flags]`
 
-2. `cmr "app image-classification onnx python[ variations]" `
+2. `cmr "app image-classification onnx python[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
+
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### Run this script from Python
 
@@ -91,7 +94,7 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=app,image-classificati
 
 #### Run this script via Docker (beta)
 
-`cm docker script "app image-classification onnx python[ variations]" `
+`cm docker script "app image-classification onnx python[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -109,6 +112,22 @@ ___
       - Workflow:
 
     </details>
+
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--input=value`  &rarr;  `CM_IMAGE=value`
+* `--output=value`  &rarr;  `CM_APP_IMAGE_CLASSIFICATION_ONNX_PY_OUTPUT=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "input":...}
+```
+
+</details>
 
 #### Default environment
 
@@ -147,27 +166,34 @@ ___
      * get,ml-model,resnet50,_onnx,image-classification
        * CM names: `--adr.['ml-model']...`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+     * get,generic-python-lib,_package.Pillow
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_package.numpy
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_package.opencv-python
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnxruntime
        * `if (USE_CUDA  != True)`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnxruntime_gpu
        * `if (USE_CUDA  == True)`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-  1. Run "preprocess" function from customize.py
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml)
-  1. Run "postrocess" function from customize.py
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml)
 </details>
 
 ___
 ### Script output
-`cmr "app image-classification onnx python[,variations]"  -j`
+`cmr "app image-classification onnx python[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
+* `CM_APP_IMAGE_CLASSIFICATION_ONNX_PY*`
 #### New environment keys auto-detected from customize
 
 ___

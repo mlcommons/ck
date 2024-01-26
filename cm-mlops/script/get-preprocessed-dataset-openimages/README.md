@@ -139,6 +139,10 @@ ___
       - Environment variables:
         - *CM_PREPROCESSING_BY_NVIDIA*: `yes`
       - Workflow:
+    * `_quant-offset.#`
+      - Workflow:
+    * `_quant-scale.#`
+      - Workflow:
 
     </details>
 
@@ -244,6 +248,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_npy`
+      - Environment variables:
+        - *CM_DATASET_PREPROCESSED_EXTENSION*: `npy`
+      - Workflow:
     * `_rgb32`
       - Environment variables:
         - *CM_DATASET_PREPROCESSED_EXTENSION*: `rgb32`

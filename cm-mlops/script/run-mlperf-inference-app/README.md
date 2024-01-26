@@ -162,11 +162,11 @@ ___
       - Environment variables:
         - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.0_default`
       - Workflow:
-    * **`_r3.1`** (default)
+    * `_r3.1`
       - Environment variables:
         - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.1_default`
       - Workflow:
-    * `_r4.0`
+    * **`_r4.0`** (default)
       - Environment variables:
         - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r4.0_default`
       - Workflow:
@@ -239,7 +239,7 @@ ___
 
 #### Default variations
 
-`_find-performance,_r3.1,_short`
+`_find-performance,_r4.0,_short`
 
 #### Input description
 
@@ -315,6 +315,7 @@ r=cm.access({... , "adr.compiler.tags":...}
 * `--preprocess_submission=value`  &rarr;  `CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR=value`
 * `--push_to_github=value`  &rarr;  `CM_MLPERF_RESULT_PUSH_TO_GITHUB=value`
 * `--readme=value`  &rarr;  `CM_MLPERF_README=value`
+* `--regenerate_accuracy_file=value`  &rarr;  `CM_MLPERF_REGENERATE_ACCURACY_FILE=value`
 * `--regenerate_files=value`  &rarr;  `CM_REGENERATE_MEASURE_FILES=value`
 * `--rerun=value`  &rarr;  `CM_RERUN=value`
 * `--results_dir=value`  &rarr;  `OUTPUT_BASE_DIR=value`
