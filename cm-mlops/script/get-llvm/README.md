@@ -116,8 +116,8 @@ ___
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm/_cm.json)***
      * install,llvm
        * `if (CM_REQUIRE_INSTALL  == yes)`
-       - CM script: [install-llvm-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt)
        - CM script: [install-llvm-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src)
+       - CM script: [install-llvm-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm/run.sh)

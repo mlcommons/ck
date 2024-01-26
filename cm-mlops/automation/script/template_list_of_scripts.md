@@ -4,11 +4,13 @@
 This file is generated automatically - don't edit!
 -->
 
-This is an automatically generated list of reusable CM scripts being developed
-by the [open taskforce on automation and reproducibility](../../../docs/taskforce.md) 
-to make MLOps and DevOps tools more interoperable, portable, deterministic and reproducible.
-These scripts suppport the community effort to modularize ML Systems and automate their bechmarking, optimization,
-design space exploration and deployment across continuously changing software and hardware. 
+This is an automatically generated list of portable and reusable automation recipes 
+for MLPerf, MLOps and Devops ([CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)) 
+with a [common CM interface](https://github.com/mlcommons/ck) 
+being developed by the [MLCommons Task Force on Automation and Reproducibility](../../../docs/taskforce.md)
+and [individual contributors](../CONTRIBUTING.md)
+
+
 
 # List of CM scripts by categories
 
@@ -23,6 +25,6 @@ design space exploration and deployment across continuously changing software an
 
 {{CM_MAIN}}
 
-# Community
+# Community developments
 
 * [Discord server](https://discord.gg/JjWNWXKxwT)

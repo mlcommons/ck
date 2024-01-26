@@ -6,29 +6,82 @@
 [![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 [![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
 [![Dockerfile update for CM scripts](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml)
-[![MLPerf inference resnet50](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-resnet50.yml/badge.svg?branch=master&event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-resnet50.yml)
-[![MLPerf inference retinanet](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-retinanet.yml/badge.svg?branch=master&event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-retinanet.yml)
-[![MLPerf inference bert](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml)
-[![MLPerf inference rnnt](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-rnnt.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-rnnt.yml)
 
 ### About
 
-Collective Mind (CM) is a lightweight, non-intrusive and technology-agnostic workflow automation framework 
-to run and manage AI/ML benchmarks, applications and research projects in a unified and fully automated way
-on any platform with any software stack using a common, simple and human-readable interface.
+[Collective Mind (CM)](https://github.com/mlcommons/ck) is a human-friendly interface
+to run a growing number of ad-hoc MLPerf, MLOps, and DevOps scripts
+from MLCommons projects and research papers
+in a unified way on any operating system with any software and hardware 
+as [portable, reusable and extensible automation recipes (CM scripts)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script):
 
-CM is being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-based on the feedback from the [research community](https://www.youtube.com/watch?v=7zpeIVwICa4), Google, AMD, Neural Magic, OctoML, Nvidia, Qualcomm, Dell, HPE, Red Hat,
-Intel, TTA, One Stop Systems, ACM and [other organizations and individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
+```bash
+pip install cmind
 
-Our goal is to reduce time required to understand how to run, customize and optimize numerous AI/ML projects 
-across diverse and continuously changing models, datasets, software and hardware from different vendors
-while automating all manual, tedious and repetitive tasks (*downloading artifacts,
-installing tools, substituting paths, updating environment variables, preparing run-time
-environments, generating command lines, processing logs and sharing results*)
-via [portable and reusable automation recipes (CM scripts)](https://github.com/mlcommons/ck/blob/master/cm-mlops/script).
+cm pull repo mlcommons@ck
 
-Go to the [project page](https://github.com/mlcommons/ck) for more details.
+cm run script "python app image-classification onnx"
+
+cm run script "download file _wget" --url=https://cKnowledge.org/ai/data/computer_mouse.jpg --verify=no --env.CM_DOWNLOAD_CHECKSUM=45ae5c940233892c2f860efdf0b66e7e
+
+cm run script "python app image-classification onnx" --input=computer_mouse.jpg
+
+cm docker script "python app image-classification onnx" --input=computer_mouse.jpg
+cm docker script "python app image-classification onnx" --input=computer_mouse.jpg -j -docker_it
+
+cm run script "get generic-python-lib _package.onnxruntime"
+cm run script "get coco dataset _val _2014"
+cm run script "get ml-model stable-diffusion"
+cm run script "get ml-model huggingface zoo _model-stub.alpindale/Llama-2-13b-ONNX" --model_filename=FP32/LlamaV2_13B_float32.onnx --skip_cache
+
+cm show cache
+cm show cache "get ml-model stable-diffusion"
+
+cm run script "run common mlperf inference" --implementation=nvidia --model=bert-99 --category=datacenter --division=closed
+cm find script "run common mlperf inference"
+
+cm pull repo ctuning@cm-reproduce-research-projects
+cmr "reproduce paper micro-2023 victima _install_deps"
+cmr "reproduce paper micro-2023 victima _run" 
+
+...
+
+```
+
+```python
+import cmind
+output=cmind.access({'action':'run', 'automation':'script',
+                     'tags':'python,app,image-classification,onnx',
+                     'input':'computer_mouse.jpg'})
+if output['return']==0: print (output)
+```
+
+
+Collective Mind is a community project being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+with great help from [MLCommons (70+ AI organizations)](https://mlcommons.org/),
+[research community]( https://www.youtube.com/watch?v=7zpeIVwICa4 )
+and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) -
+we want to have a common, non-intrusive, technology-agnostic, portable and easily-extensible interface 
+that requires minimal learning curve to start automating all manual and repetitive tasks including 
+downloading artifacts, installing tools, resolving dependencies, 
+running experiments, processing logs, and reproducing results.
+
+That is why we implemented CM as a [small Python library](https://github.com/mlcommons/ck/tree/master/cm) 
+with minimal dependencies (Python 3.7+, git, wget), simple Python API and human-friendly command line
+that simply searches for CM scripts by tags in all pulled Git repositories, automatically generates command lines 
+for a given script or tool on a given platform, updates all paths and environment variables, 
+runs a given automation either natively or inside automatically-generated containers
+and unifies input and output as a Python dictionary or JSON/YAML file.
+
+Our goal is to make it easier to prototype, build, run, benchmark, optimize and manage complex AI/ML applications
+across diverse and rapidly evolving models, data sets, software and hardware simply by chaining these 
+unified CM scripts into [portable, human-readable and reusable workflows](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml).
+
+Please go to this [GitHub page](https://github.com/mlcommons/ck) 
+to learn more about this community project 
+and join [public Discord server](https://discord.gg/JjWNWXKxwT) 
+to participate in collaborative developments.
+
 
 ### License
 

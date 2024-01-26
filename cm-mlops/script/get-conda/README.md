@@ -107,6 +107,26 @@ ___
 
     </details>
 
+
+  * Group "**conda-python**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_python-3.#`
+      - Environment variables:
+        - *CM_CONDA_PYTHON_VERSION*: `3.#`
+      - Workflow:
+    * **`_python-3.8`** (default)
+      - Environment variables:
+        - *CM_CONDA_PYTHON_VERSION*: `3.8`
+      - Workflow:
+
+    </details>
+
+
+#### Default variations
+
+`_python-3.8`
 #### Default environment
 
 <details>

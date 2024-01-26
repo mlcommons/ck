@@ -1,7 +1,9 @@
-## V1.5.3.1
+## V1.6.0
+   - added support for Python 3.12 (removed "pkg" dependency)
    - added --depth to "cm pull repo" to reduce size of stable repos
    - added possibility to download zip repository in "cm pull repo --url={...}.zip" 
      to download small and stable repositories with CM automation recipes
+   - updated core documentation
 
 ## V1.5.3
    - fixed error when adding artifacts with --common flag

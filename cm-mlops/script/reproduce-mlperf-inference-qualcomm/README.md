@@ -240,6 +240,7 @@ ___
              * `if (CM_MLPERF_SKIP_RUN  != True)`
              - CM script: [get-qaic-platform-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk)
            * get,lib,protobuf,_tag.v3.11.4
+             * `if (CM_MLPERF_SKIP_RUN  != True)`
              - CM script: [get-lib-protobuf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf)
            * set,device,mode,qaic
              * `if (CM_QAIC_VC in on)`

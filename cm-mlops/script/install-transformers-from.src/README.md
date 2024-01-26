@@ -106,7 +106,7 @@ ___
       - Environment variables:
         - *CM_GIT_CHECKOUT*: `#`
       - Workflow:
-    * `_for-intel-mlperf-inference`
+    * `_for-intel-mlperf-inference-v3.1-bert`
       - Environment variables:
         - *CM_CONDA_ENV*: `yes`
       - Workflow:

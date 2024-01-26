@@ -2,32 +2,26 @@
 
 # Collective Knowledge v1 and v2
 
-The open-source Collective Knowledge Technology v1 and v2 was originally developed by [Grigori Fursin](https://cKnowledge.org/gfursin) 
-based on his tedious experience introducing reproducibility initiatives at ML and Systems conferences and helping the community
-reproduce research results from hundreds of published papers and validated them in the real world since 2013.
-You can find more details in the [ACM TechTalk'21](https://www.youtube.com/watch?v=7zpeIVwICa4) and [CK concepts overview](https://arxiv.org/abs/2011.01149).
+The [open-source Collective Knowledge Technology v1 and v2 (CK)](https://arxiv.org/abs/2011.01149) 
+was originally developed by [Grigori Fursin](https://cKnowledge.org/gfursin) 
+based on his practical experience helping the community set up 
+[reproducibility initiatives at compiler, systems and ML conferences](https://cTuning.org/ae),
+rerun numerous experiments from published papers and validate them in the real world 
+across diverse and continuously changing models, data sets, software and hardware since 2013
+- see the [ACM TechTalk'21](https://www.youtube.com/watch?v=7zpeIVwICa4) for more details.
 
-The original development of CK v1 and v2 was sponsorted by [cTuning.org](https://cTuning.org), [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai).
+The original development of CK v1 and v2 was sponsorted by [cTuning.org](https://cTuning.org), 
+[HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai).
 
 The archive of this discontinued framework is available in the [/ck directory](../ck). 
 
 # MLCommons Collective Mind
 
-Grigori donated the CK technology to MLCommons in 2022 to benefit everyone and help establish
+Grigori donated the CK technology to [MLCommons](https://mlcommons.org) in 2022 to benefit everyone and helped establish
 the [MLCommons Task Force on Automation and Reproducibility](taskforce.md) co-led with [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
-
-As an outcome of this fruitful collaboration and thanks to the [community contributions](../CONTRIBUTING.md) 
-and very useful suggestions from Google, AMD, Neural Magic, OctoML, Nvidia, Qualcomm, Dell, HPE, Red Hat,
-Intel, TTA, One Stop Systems and other organizations, 
-we have developed a new [Collective Mind workflow automation language (MLCommons CM)](https://doi.org/10.5281/zenodo.8105339)
-from scratch as a very lightweight, non-intrusive and technology-agnostic workflow automation framework that provides a common, simple 
-and human-readable interface to manage, run, reproduce and customize different implementations of MLPerf benchmarks
-across continuously changing models, datasets, software and hardware from different vendors:
-[github.com/mlcommons/ck/tree/master/docs/mlperf](https://github.com/mlcommons/ck/tree/master/docs/mlperf).
-
-We also help ML and Systems conferences [use CM interface](tutorials/common-interface-to-reproduce-research-projects.md) 
-to automate and simplify [artifact evaluation and reproducibility initiatives](https://cTuning.org/ae).
 
 This community project is now officially supported, developed and maintained by [MLCommons.org](https://mlcommons.org)
 with the help from [cKnowledge.org](https://cKnowledge.org) and [cTuning.org](https://cTuning.org).
 
+Please go to this [GitHub page](https://github.com/mlcommons/ck) to learn more about this project
+and check [the slides from ACM REP'23 keynote about CM](https://doi.org/10.5281/zenodo.8105339).

@@ -14,20 +14,18 @@ Modify the project in your own fork and issue a pull request once you want other
 to take a look at what you have done and discuss the proposed changes. 
 Ensure that cla-bot and other checks pass for your Pull requests.
 
-## Contributing to this project
+## Contributing to MLCommons Collective Mind
 
-Please join our [Discord server](https://discord.gg/JjWNWXKxwT)
-to learn about how to use the CK technology v3 (including the MLCommons CM automation language, CK playground
-and Modular Inference Library) or participate in collaborative developments.
-
+Please check this [Getting Started Guide](docs/getting-started.md) 
+and join our [Discord server](https://discord.gg/JjWNWXKxwT).
 Thank you for your support and looking forward to collaborating with you!
 
 ## Authors and project coordinators
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin) ([cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org))
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) ([cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org))
+* [Grigori Fursin](https://cKnowledge.org/gfursin)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
-## Contributors to the Collective Knowledge Technology v3 (CM automation language and CK playground) in alphabetical order
+## Contributors to Collective Mind in alphabetical order
 
 * Resmi Arjun
 * Ethan Cheng (Nvidia)

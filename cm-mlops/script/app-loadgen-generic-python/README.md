@@ -132,6 +132,10 @@ ___
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `onnxruntime`
       - Workflow:
+    * **`_pytorch`** (default)
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `pytorch`
+      - Workflow:
 
     </details>
 
@@ -174,7 +178,7 @@ ___
 
 #### Default variations
 
-`_cpu,_onnxruntime`
+`_cpu,_onnxruntime,_pytorch`
 
 #### Script flags mapped to environment
 <details>
@@ -248,6 +252,9 @@ ___
      * get,ml-model,resnet50,_onnx
        * `if (CM_MODEL  == resnet50)`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+     * get,ml-model,retinanet,_onnx,_fp32
+       * `if (CM_MODEL  == retinanet)`
+       - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
      * get,ml-model,retinanet,_onnx,_fp32
        * `if (CM_MODEL  == retinanet)`
        - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)

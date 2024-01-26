@@ -230,11 +230,13 @@
     "gpu_name": "CM_NVIDIA_GPU_NAME",
     "hw_name": "CM_HW_NAME",
     "hw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
+    "imagenet_path": "IMAGENET_PATH",
     "implementation": "CM_MLPERF_IMPLEMENTATION",
     "lang": "CM_MLPERF_IMPLEMENTATION",
     "mode": "CM_MLPERF_LOADGEN_MODE",
     "model": "CM_MLPERF_MODEL",
     "multistream_target_latency": "CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY",
+    "network": "CM_NETWORK_LOADGEN",
     "offline_target_qps": "CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS",
     "output_dir": "OUTPUT_BASE_DIR",
     "output_summary": "MLPERF_INFERENCE_SUBMISSION_SUMMARY",
@@ -244,8 +246,8 @@
     "preprocess_submission": "CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR",
     "push_to_github": "CM_MLPERF_RESULT_PUSH_TO_GITHUB",
     "readme": "CM_MLPERF_README",
-    "regenerate_files": "CM_REGENERATE_MEASURE_FILES",
     "regenerate_accuracy_file": "CM_MLPERF_REGENERATE_ACCURACY_FILE",
+    "regenerate_files": "CM_REGENERATE_MEASURE_FILES",
     "rerun": "CM_RERUN",
     "results_dir": "OUTPUT_BASE_DIR",
     "results_git_url": "CM_MLPERF_RESULTS_GIT_REPO_URL",
@@ -258,20 +260,19 @@
     "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
     "submitter": "CM_MLPERF_SUBMITTER",
+    "sut_servers": "CM_NETWORK_LOADGEN_SUT_SERVERS",
     "sw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
     "system_type": "CM_MLPERF_SUBMISSION_SYSTEM_TYPE",
     "target_latency": "CM_MLPERF_LOADGEN_TARGET_LATENCY",
     "target_qps": "CM_MLPERF_LOADGEN_TARGET_QPS",
-    "test_query_count": "CM_TEST_QUERY_COUNT",
-    "network": "CM_NETWORK_LOADGEN",
-    "imagenet_path": "IMAGENET_PATH",
-    "sut_servers": "CM_NETWORK_LOADGEN_SUT_SERVERS"
+    "test_query_count": "CM_TEST_QUERY_COUNT"
   },
   "new_state_keys": [
     "app_mlperf_inference_*"
   ],
   "tags": [
     "run",
+    "common",
     "generate-run-cmds",
     "run-mlperf",
     "vision",
@@ -328,6 +329,12 @@
     },
     "full": {
       "add_deps_recursive": {
+        "coco2014-original": {
+          "tags": "_full"
+        },
+        "coco2014-preprocessed": {
+          "tags": "_full"
+        },
         "imagenet-original": {
           "tags": "_full"
         },
@@ -344,12 +351,6 @@
           "tags": "_full"
         },
         "openorca-preprocessed": {
-          "tags": "_full"
-        },
-        "coco2014-original": {
-          "tags": "_full"
-        },
-        "coco2014-preprocessed": {
           "tags": "_full"
         }
       },
@@ -385,27 +386,31 @@
     },
     "r2.1": {
       "env": {
-        "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r2.1_default"
+        "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r2.1_default",
+        "CM_MLPERF_INFERENCE_VERSION": "2.1"
       },
       "group": "reproducibility"
     },
     "r3.0": {
       "env": {
-        "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r3.0_default"
+        "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r3.0_default",
+        "CM_MLPERF_INFERENCE_VERSION": "3.0"
       },
       "group": "reproducibility"
     },
     "r3.1": {
       "env": {
-        "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r3.1_default"
+        "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r3.1_default",
+        "CM_MLPERF_INFERENCE_VERSION": "3.1"
       },
       "group": "reproducibility"
     },
     "r4.0": {
-      "env": {
-        "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r4.0_default"
-      },
       "default": true,
+      "env": {
+        "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r4.0_default",
+        "CM_MLPERF_INFERENCE_VERSION": "4.0"
+      },
       "group": "reproducibility"
     },
     "short": {
