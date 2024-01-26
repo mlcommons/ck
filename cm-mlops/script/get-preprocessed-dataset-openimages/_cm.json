@@ -280,10 +280,16 @@
         "CM_DATASET_PREPROCESSED_EXTENSION": "rgb32"
       }
     },
+    "npy": {
+      "group": "extension",
+      "env": {
+        "CM_DATASET_PREPROCESSED_EXTENSION": "npy"
+      }
+    },
     "fp32": {
       "group": "dataset-precision",
       "default_variations": {
-        "extension": "rgb32"
+        "extension": "npy"
       },
       "default": true,
       "env": {

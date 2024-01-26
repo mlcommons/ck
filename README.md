@@ -35,6 +35,19 @@ cm run script "python app image-classification onnx"
 cmr "download file _wget" --url=https://cKnowledge.org/ai/data/computer_mouse.jpg --verify=no --env.CM_DOWNLOAD_CHECKSUM=45ae5c940233892c2f860efdf0b66e7e
 cmr "python app image-classification onnx" --input=computer_mouse.jpg -j
 
+cm docker script "python app image-classification onnx" --input=computer_mouse.jpg
+cm docker script "python app image-classification onnx" --input=computer_mouse.jpg -j -docker_it
+
+cmr "get coco dataset _val _2014"
+cmr "get ml-model stable-diffusion"
+cm show cache
+
+cmr "get ml-model huggingface zoo _model-stub.alpindale/Llama-2-13b-ONNX" --model_filename=FP32/LlamaV2_13B_float32.onnx
+cm show cache
+
+cmr "get ml-model huggingface zoo _model-stub.alpindale/Llama-2-13b-ONNX" --model_filename=FP32/LlamaV2_13B_float32.onnx --skip_cache
+
+
 ```
 
 *Note that `cmr` is a shortcut for `cm run script`.*

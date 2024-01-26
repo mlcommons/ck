@@ -780,3 +780,74 @@ class CAutomation(Automation):
         print (s)
 
         return {'return':0, 'secret': s}
+
+    ##############################################################################
+    def detect_tags_in_artifact(self, i):
+        """
+        Detect if there are tags in an artifact name (spaces) and update input
+
+        Args:    
+
+           input (dict) : original input
+
+        Returns:
+           (CM return dict):
+           
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        inp = i['input']
+        
+        artifact = inp.get('artifact','')
+        if artifact == '.':
+            del(inp['artifact'])
+        elif ' ' in artifact: # or ',' in artifact:
+            del(inp['artifact'])
+            if 'parsed_artifact' in inp: del(inp['parsed_artifact'])
+            # Force substitute tags
+            inp['tags']=artifact.replace(' ',',')
+
+        return {'return':0}
+
+    ##############################################################################
+    def prune_input(self, i):
+        """
+        Leave only input keys and remove the rest (to regenerate CM commands)
+
+        Args:    
+
+           input (dict) : original input
+           (extra_keys_starts_with) (list): remove keys that starts 
+                                            with the ones from this list
+        
+        Returns:
+           (CM return dict):
+
+           new_input (dict): pruned input
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        import copy
+        
+        inp = i['input']
+        extra_keys = i.get('extra_keys_starts_with',[])
+        
+        i_run_cmd_arc = copy.deepcopy(inp)
+        for k in inp:
+            remove = False
+            if k in ['action', 'automation', 'cmd', 'out', 'parsed_automation', 'parsed_artifact', 'self_module']:
+                remove = True
+            if not remove:
+                for ek in extra_keys:
+                    if k.startswith(ek):
+                        remove = True
+                        break
+
+            if remove:    
+                del(i_run_cmd_arc[k])
+
+        return {'return':0, 'new_input':i_run_cmd_arc}
+

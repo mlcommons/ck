@@ -136,6 +136,7 @@ def preprocess(i):
 
         print ('=========================================================')
 
+    local_keys = [ 'CM_MLPERF_SKIP_RUN', 'CM_MLPERF_LOADGEN_QUERY_COUNT' ]
     for scenario in env['CM_MLPERF_LOADGEN_SCENARIOS']:
         scenario_tags = tags + ",_"+scenario.lower()
         env['CM_MLPERF_LOADGEN_SCENARIO'] = scenario
@@ -174,6 +175,10 @@ def preprocess(i):
             if 'CM_MLPERF_DEVICE' in r['new_env']:
                 env['CM_MLPERF_DEVICE'] = r['new_env']['CM_MLPERF_DEVICE']
 
+            for key in local_keys:
+                if env.get(key, '') != '':
+                    del(env[key])
+
         if env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes":
             for test in test_list:
                 env['CM_MLPERF_LOADGEN_COMPLIANCE_TEST'] = test
@@ -183,8 +188,10 @@ def preprocess(i):
                     copy.deepcopy(add_deps_recursive), 'adr': copy.deepcopy(adr), 'ad': ad, 'v': verbose, 'print_env': print_env, 'print_deps': print_deps})
                 if r['return'] > 0:
                     return r
-                if env.get('CM_MLPERF_SKIP_RUN', '') != '':
-                    del(env['CM_MLPERF_SKIP_RUN'])
+
+                for key in local_keys:
+                    if env.get(key, '') != '':
+                        del(env[key])
 
     return {'return':0}
 

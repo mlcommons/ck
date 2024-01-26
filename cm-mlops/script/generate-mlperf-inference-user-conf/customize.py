@@ -280,10 +280,9 @@ def preprocess(i):
         ranging_user_conf_file.write_text(ranging_user_conf)
 
 
-    if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') == ''  and query_count:
+    if (env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') == '')  and query_count and ((mode != "accuracy") or (env['CM_MLPERF_RUN_STYLE'] != "valid")):
         env['CM_MLPERF_LOADGEN_QUERY_COUNT'] = query_count
 
-    
     if not run_exists or rerun:
 
         print("Output Dir: '" + OUTPUT_DIR + "'")

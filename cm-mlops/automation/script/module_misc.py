@@ -1050,6 +1050,209 @@ def doc(i):
     return {'return':0}
 
 
+
+############################################################
+def process_inputs(i):
+
+    import copy
+    
+    i_run_cmd_arc = i['run_cmd_arc']
+    docker_settings = i['docker_settings']
+    mounts = i['mounts']
+    
+    # Check if need to update/map/mount inputs and env
+    i_run_cmd = copy.deepcopy(i_run_cmd_arc)
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    def update_path_for_docker(path, mounts):
+
+        path_orig = ''
+        path_target = ''
+        
+        if path!='' and (os.path.isfile(path) or os.path.isdir(path)):
+            path = os.path.abspath(path)
+
+            path_target = path
+            path_orig = path
+
+            if os.name == 'nt':
+                from pathlib import PureWindowsPath, PurePosixPath
+        
+                x = PureWindowsPath(path_orig)
+                path_target = str(PurePosixPath('/', *x.parts[1:]))
+
+            if not path_target.startswith('/'): path_target='/'+path_target
+            path_target='/cm-mount'+path_target
+
+            # If file, mount directory
+            if os.path.isfile(path):
+                mounts.append(os.path.dirname(path_orig) + ':' + os.path.dirname(path_target))
+            else:
+                mounts.append(path_orig + ':' + path_target)
+
+        return (path_orig, path_target)
+            
+    def get_value_using_key_with_dots(d, k):
+        v = None
+        j = k.find('.')
+        if j>=0:
+            k1 = k[:j]
+            k2 = k[j+1:]
+
+            if k1 in d:
+                v = d[k1]
+
+                if '.' in k2:
+                    v, d, k = get_value_using_key_with_dots(v, k2)
+                else:
+                    d = v
+                    k = k2
+                    if type(v)==dict:
+                        v = v.get(k2)
+                    else:
+                        v = None
+        else:
+            if k == '':
+                v = d
+            else:
+                v = d.get(k)
+
+        return v, d, k
+    
+    docker_input_paths = docker_settings.get('input_paths',[])
+    if len(i_run_cmd)>0:
+        for k in docker_input_paths:
+            v2, i_run_cmd2, k2 = get_value_using_key_with_dots(i_run_cmd, k)
+
+            if v2!=None:
+                v=i_run_cmd2[k2]
+
+                path_orig, path_target = update_path_for_docker(v, mounts)
+
+                if path_target!='':
+                    i_run_cmd2[k2] = path_target
+    
+    return {'return':0, 'run_cmd':i_run_cmd}
+
+
+############################################################
+def regenerate_script_cmd(i):
+
+    script_uid = i['script_uid']
+    script_alias = i['script_alias']
+    tags = i['tags']
+    docker_settings = i['docker_settings']
+    fake_run = i.get('fake_run', False)
+
+    i_run_cmd = i['run_cmd']
+
+    docker_run_cmd_prefix = i['docker_run_cmd_prefix']
+
+    # Regenerate command from dictionary input
+    run_cmd = 'cm run script'
+
+    x = ''
+
+    # Check if there are some tags without variation
+    requested_tags = i_run_cmd.get('tags', [])
+
+    tags_without_variation = False
+    for t in requested_tags:
+        if not t.startswith('_'):
+            tags_without_variation = True
+            break
+
+    if not tags_without_variation:
+        # If no tags without variation, add script alias and UID explicitly
+        if script_uid!='': x=script_uid
+        if script_alias!='':
+            if x!='': x=','+x
+            x = script_alias+x
+
+    if x!='':
+        run_cmd += ' ' + x + ' '
+
+
+    skip_input_for_fake_run = docker_settings.get('skip_input_for_fake_run', [])
+    
+
+    def rebuild_flags(i_run_cmd, fake_run, skip_input_for_fake_run, key_prefix):
+
+        run_cmd = ''
+
+        keys = list(i_run_cmd.keys())
+
+        if 'tags' in keys:
+            # Move tags first
+            tags_position = keys.index('tags')
+            del(keys[tags_position])
+            keys = ['tags']+keys
+        
+        for k in keys:
+            # Assemble long key if dictionary
+            long_key = key_prefix
+            if long_key!='': long_key+='.'
+            long_key+=k
+
+            if fake_run and long_key in skip_input_for_fake_run:
+                continue    
+
+            v = i_run_cmd[k]
+            
+            if type(v)==dict:
+                run_cmd += rebuild_flags(v, fake_run, skip_input_for_fake_run, long_key)
+            elif type(v)==list:
+                run_cmd+=' --'+long_key+',='+','.join(v)
+            else:
+                run_cmd+=' --'+long_key+'='+str(v)
+
+        return run_cmd    
+    
+    run_cmd += rebuild_flags(i_run_cmd, fake_run, skip_input_for_fake_run, '')
+
+    run_cmd = docker_run_cmd_prefix + ' && ' + run_cmd if docker_run_cmd_prefix!='' else run_cmd
+
+    return {'return':0, 'run_cmd_string':run_cmd}
+
+
+
+############################################################
+def aux_search(i):
+
+    self_module = i['self_module']
+
+    inp = i['input']
+
+    repos = inp.get('repos','')
+    if repos == '': repos='internal,a4705959af8e447a'
+
+    parsed_artifact = inp.get('parsed_artifact',[])
+
+    if len(parsed_artifact)<1:
+        parsed_artifact = [('',''), ('','')]
+    elif len(parsed_artifact)<2:
+        parsed_artifact.append(('',''))
+    else:
+        repos = parsed_artifact[1][0]
+
+    list_of_repos = repos.split(',') if ',' in repos else [repos]
+
+    ii = utils.sub_input(inp, self_module.cmind.cfg['artifact_keys'] + ['tags'])
+
+    ii['out'] = None
+
+    # Search for automations in repos
+    lst = []
+    for repo in list_of_repos:
+        parsed_artifact[1] = ('',repo) if utils.is_cm_uid(repo) else (repo,'')
+        ii['parsed_artifact'] = parsed_artifact
+        r = self_module.search(ii)
+        if r['return']>0: return r
+        lst += r['list']
+
+    return {'return':0, 'list':lst}
+
+
 ############################################################
 def dockerfile(i):
     """
@@ -1076,61 +1279,67 @@ def dockerfile(i):
 
     """
 
+    import copy
+
+    # Check simplified CMD: cm docker script "python app image-classification onnx"
+    # If artifact has spaces, treat them as tags!
     self_module = i['self_module']
+    self_module.cmind.access({'action':'detect_tags_in_artifact', 'automation':'utils', 'input':i})
+
+    # Prepare "clean" input to replicate command
+    r = self_module.cmind.access({'action':'prune_input', 'automation':'utils', 'input':i, 'extra_keys_starts_with':['docker_']})
+    i_run_cmd_arc = r['new_input']
 
     cur_dir = os.getcwd()
 
     console = i.get('out') == 'con'
+
     cm_repo = i.get('docker_cm_repo', 'mlcommons@ck')
 
-    repos = i.get('repos','')
-    if repos == '': repos='internal,a4705959af8e447a'
+    # Search for script(s)
+    r = aux_search({'self_module': self_module, 'input': i})
+    if r['return']>0: return r
 
-    parsed_artifact = i.get('parsed_artifact',[])
+    lst = r['list']
 
-    if len(parsed_artifact)<1:
-        parsed_artifact = [('',''), ('','')]
-    elif len(parsed_artifact)<2:
-        parsed_artifact.append(('',''))
-    else:
-        repos = parsed_artifact[1][0]
+    if len(lst)==0:
+        return {'return':1, 'error':'no scripts were found'}
 
-    list_of_repos = repos.split(',') if ',' in repos else [repos]
 
-    ii = utils.sub_input(i, self_module.cmind.cfg['artifact_keys'] + ['tags'])
 
-    ii['out'] = None
 
-    # Search for automations in repos
-    lst = []
-    for repo in list_of_repos:
-        parsed_artifact[1] = ('',repo) if utils.is_cm_uid(repo) else (repo,'')
-        ii['parsed_artifact'] = parsed_artifact
-        r = self_module.search(ii)
-        if r['return']>0: return r
-        lst += r['list']
+#    if i.get('cmd'):
+#        run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('--docker_') )
+#    elif i.get('artifact'):
+#        run_cmd = "cm run script "+i['artifact']
+#    elif i.get('tags'):
+#        run_cmd = "cm run script \""+" "+" ".join(i['tags']) + "\""
+#    else:
+#        run_cmd = ""
+#
+#    run_cmd = i.get('docker_run_cmd_prefix') + ' && ' + run_cmd if i.get('docker_run_cmd_prefix') else run_cmd
 
-    if i.get('cmd'):
-        run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('--docker_') )
-    elif i.get('artifact'):
-        run_cmd = "cm run script "+i['artifact']
-    elif i.get('tags'):
-        run_cmd = "cm run script \""+" "+" ".join(i['tags']) + "\""
-    else:
-        run_cmd = ""
 
-    run_cmd = i.get('docker_run_cmd_prefix') + ' && ' + run_cmd if i.get('docker_run_cmd_prefix') else run_cmd
+
+
 
     env=i.get('env', {})
+
     dockerfile_env=i.get('dockerfile_env', {})
     dockerfile_env['CM_RUN_STATE_DOCKER'] = True
 
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
         meta = artifact.meta
+
         script_path = artifact.path
+
         tags = meta.get("tags", [])
         tag_string=",".join(tags)
+
+        script_alias = meta.get('alias', '')
+        script_uid = meta.get('uid', '')
+
 
         docker_settings = meta.get('docker', {})
         if not docker_settings.get('run', True):
@@ -1149,6 +1358,27 @@ def dockerfile(i):
             continue
         '''
 
+        # Check if need to update/map/mount inputs and env
+        r = process_inputs({'run_cmd_arc': i_run_cmd_arc,
+                            'docker_settings': docker_settings,
+                            'mounts':[]})
+        if r['return']>0: return r
+
+        i_run_cmd = r['run_cmd']
+
+        r = regenerate_script_cmd({'script_uid':script_uid,
+                                   'script_alias':script_alias,
+                                   'run_cmd':i_run_cmd,
+                                   'tags':tags,
+                                   'fake_run':True,
+                                   'docker_settings':docker_settings,
+                                   'docker_run_cmd_prefix':i.get('docker_run_cmd_prefix','')})
+        if r['return']>0: return r
+
+        run_cmd  = r['run_cmd_string']
+
+
+        
         docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
         docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
         fake_run_deps = i.get('fake_run_deps', docker_settings.get('fake_run_deps', False))
@@ -1217,7 +1447,7 @@ def dockerfile(i):
 ############################################################
 def docker(i):
     """
-    Add CM automation.
+    CM automation to run CM scripts via Docker
 
     Args:
       (CM input dict):
@@ -1240,7 +1470,28 @@ def docker(i):
 
     """
 
+    import copy
+    import re
+
+    detached = i.get('docker_detached', '')
+    if detached=='':
+        detached = i.get('docker_dt', '')
+    if detached=='':
+        detached='no'
+
+    interactive = i.get('docker_interactive', '')
+    if interactive == '':
+        interactive = i.get('docker_it', '')
+
+    # Check simplified CMD: cm docker script "python app image-classification onnx"
+    # If artifact has spaces, treat them as tags!
     self_module = i['self_module']
+    self_module.cmind.access({'action':'detect_tags_in_artifact', 'automation':'utils', 'input':i})
+
+    # Prepare "clean" input to replicate command
+    r = self_module.cmind.access({'action':'prune_input', 'automation':'utils', 'input':i, 'extra_keys_starts_with':['docker_']})
+    i_run_cmd_arc = r['new_input']
+
     noregenerate_docker_file = i.get('docker_noregenerate', False)
 
     if not noregenerate_docker_file:
@@ -1251,47 +1502,14 @@ def docker(i):
 
     console = i.get('out') == 'con'
 
-    repos = i.get('repos','')
-    if repos == '': repos='internal,a4705959af8e447a'
+    # Search for script(s)
+    r = aux_search({'self_module': self_module, 'input': i})
+    if r['return']>0: return r
 
-    parsed_artifact = i.get('parsed_artifact',[])
+    lst = r['list']
 
-    if len(parsed_artifact)<1:
-        parsed_artifact = [('',''), ('','')]
-    elif len(parsed_artifact)<2:
-        parsed_artifact.append(('',''))
-    else:
-        repos = parsed_artifact[1][0]
-
-    list_of_repos = repos.split(',') if ',' in repos else [repos]
-
-    ii = utils.sub_input(i, self_module.cmind.cfg['artifact_keys'] + ['tags'])
-
-    ii['out'] = None
-
-    image_repo = i.get('image_repo','')
-    if image_repo == '':
-        image_repo = 'cknowledge'
-
-    # Search for automations in repos
-    lst = []
-    for repo in list_of_repos:
-        parsed_artifact[1] = ('',repo) if utils.is_cm_uid(repo) else (repo,'')
-        ii['parsed_artifact'] = parsed_artifact
-        r = self_module.search(ii)
-        if r['return']>0: return r
-        lst += r['list']
-
-    if i.get('cmd'):
-        run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('--docker_') )
-    elif i.get('artifact'):
-        run_cmd = "cm run script "+i['artifact']
-    elif i.get('tags'):
-        run_cmd = "cm run script \""+" "+" ".join(i['tags']) + "\""
-    else:
-        run_cmd = ""
-
-    run_cmd = i.get('docker_run_cmd_prefix') + ' && ' + run_cmd if i.get('docker_run_cmd_prefix') else run_cmd
+    if len(lst)==0:
+        return {'return':1, 'error':'no scripts were found'}
 
     env=i.get('env', {})
     env['CM_RUN_STATE_DOCKER'] = True
@@ -1301,13 +1519,25 @@ def docker(i):
         if 'CM_DOCKER_CACHE' not in env:
             env['CM_DOCKER_CACHE'] = docker_cache
 
+    image_repo = i.get('image_repo','')
+    if image_repo == '':
+        image_repo = 'cknowledge'
+
+    
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
         meta = artifact.meta
+
         script_path = artifact.path
+
         tags = meta.get("tags", [])
-        script_alias = meta.get('alias')
         tag_string=",".join(tags)
+
+        script_alias = meta.get('alias', '')
+        script_uid = meta.get('uid', '')
+
+
+        mounts = copy.deepcopy(i.get('docker_mounts', []))
 
         '''run_config_path = os.path.join(script_path,'run_config.yml')
         if not os.path.exists(run_config_path):
@@ -1327,30 +1557,50 @@ def docker(i):
             continue
         '''
 
+        # Check if need to update/map/mount inputs and env
+        r = process_inputs({'run_cmd_arc': i_run_cmd_arc,
+                            'docker_settings': docker_settings,
+                            'mounts':mounts})
+        if r['return']>0: return r
+
+        i_run_cmd = r['run_cmd']
+
+
         _os = i.get('docker_os', meta.get('docker_os', 'ubuntu'))
         version = i.get('docker_os_version', meta.get('docker_os_version', '22.04'))
 
-        import re
-        mounts = i.get('docker_mounts', [])
         for key in docker_settings.get('mounts', []):
             mounts.append(key)
 
+        # Updating environment variables from CM input based on input_mapping from meta
+        
         input_mapping = meta.get('input_mapping', {})
-
-        docker_input_mapping = docker_settings.get('docker_input_mapping', {})
 
         for c_input in input_mapping:
             if c_input in i:
                 env[input_mapping[c_input]] = i[c_input]
+
+        # Updating environment variables from CM input based on docker_input_mapping from meta
+
+        docker_input_mapping = docker_settings.get('docker_input_mapping', {})
+
         for c_input in docker_input_mapping:
             if c_input in i:
                 env[docker_input_mapping[c_input]] = i[c_input]
 
         for index in range(len(mounts)):
             mount = mounts[index]
-            mount_parts = mount.split(":")
-            if len(mount_parts) != 2:
-                return {'return': 1, 'error': f'Invalid mount specified in docker settings'}
+
+            # Since windows may have 2 :, we search from the right
+            j = mount.rfind(':')
+            if j>0:
+                mount_parts = [mount[:j], mount[j+1:]]
+            else:
+                return {'return':1, 'error': 'Can\'t find separator : in a mount string: {}'.format(mount)}
+
+#            mount_parts = mount.split(":")
+#            if len(mount_parts) != 2:
+#                return {'return': 1, 'error': f'Invalid mount specified in docker settings'}
 
             host_mount = mount_parts[0]
             new_host_mount = host_mount
@@ -1377,16 +1627,14 @@ def docker(i):
                         mounts[index] = None
                         skip = True
                         break
+
             if skip:
                 continue
             mounts[index] = new_host_mount+":"+new_container_mount
 
         mounts = list(filter(lambda item: item is not None, mounts))
 
-        if mounts:
-            mount_string = ",".join(mounts)
-        else:
-            mount_string = ""
+        mount_string = "" if len(mounts)==0 else ",".join(mounts)
 
         cm_repo=i.get('docker_cm_repo', 'mlcommons@ck')
 
@@ -1398,6 +1646,39 @@ def docker(i):
 
         all_gpus = i.get('docker_all_gpus', docker_settings.get('all_gpus'))
 
+
+        
+        
+#        # Regenerate run_cmd
+#        if i.get('cmd'):
+#            run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('--docker_') )
+#        elif i.get('artifact'):
+#            run_cmd = "cm run script "+i['artifact']
+#        elif i.get('tags'):
+#            run_cmd = "cm run script \""+" "+" ".join(i['tags']) + "\""
+#        else:
+#            run_cmd = ""
+
+
+        
+        
+        r = regenerate_script_cmd({'script_uid':script_uid,
+                                   'script_alias':script_alias,
+                                   'tags':tags,
+                                   'run_cmd':i_run_cmd,
+                                   'docker_settings':docker_settings,
+                                   'docker_run_cmd_prefix':i.get('docker_run_cmd_prefix','')})
+        if r['return']>0: return r
+
+        run_cmd  = r['run_cmd_string']
+        
+        print ('')
+        print ('CM command line regenerated to be used inside Docker:')
+        print ('')
+        print (run_cmd)
+        print ('')
+
+
         cm_docker_input = {'action': 'run',
                            'automation': 'script',
                            'tags': 'run,docker,container',
@@ -1406,11 +1687,12 @@ def docker(i):
                            'cm_repo': cm_repo,
                            'env': env,
                            'image_repo': image_repo,
+                           'interactive': interactive,
                            'mounts': mounts,
                            'image_name': 'cm-script-'+script_alias,
 #                            'image_tag': script_alias,
                            'docker_os_version': version,
-                           'detached': 'no',
+                           'detached': detached,
                            'script_tags': f'{tag_string}',
                            'run_cmd': run_cmd if docker_skip_run_cmd not in [ 'yes', True, 'True' ] else 'echo "cm version"',
                            'v': i.get('v', False),
@@ -1428,7 +1710,8 @@ def docker(i):
             cm_docker_input['all_gpus'] = True
 
         print ('')
-        
+
+
         r = self_module.cmind.access(cm_docker_input)
         if r['return'] > 0:
             return r

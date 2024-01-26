@@ -1,3 +1,6 @@
+#!/bin/bash
+
+export PATH=${CM_CONDA_BIN_PATH}:${PATH}
 export ABI=$(python -c "import torch; print(int(torch._C._GLIBCXX_USE_CXX11_ABI))")
 mkdir -p llvm-project && cd llvm-project
 wget -nc https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.6/cmake-16.0.6.src.tar.xz

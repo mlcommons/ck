@@ -12,9 +12,11 @@ tags:
 - onnx
 - python
 
+
 default_env:
   CM_BATCH_COUNT: '1'
   CM_BATCH_SIZE: '1'
+
 
 deps:
 - tags: detect,os
@@ -35,6 +37,10 @@ deps:
   names:
   - ml-model
 
+- tags: get,generic-python-lib,_package.Pillow
+- tags: get,generic-python-lib,_package.numpy
+- tags: get,generic-python-lib,_package.opencv-python
+
 - tags: get,generic-python-lib,_onnxruntime
   skip_if_env:
     USE_CUDA:
@@ -44,16 +50,36 @@ deps:
     USE_CUDA:
     - yes
 
+
 variations:
   cuda:
     env:
       USE_CUDA: yes
 
+
 input_mapping:
   input: CM_IMAGE
+  output: CM_APP_IMAGE_CLASSIFICATION_ONNX_PY_OUTPUT
 
 new_env_keys:
   - CM_APP_IMAGE_CLASSIFICATION_ONNX_PY*
 
+
 new_state_keys:
   - cm_app_image_classification_onnx_py
+
+
+docker:
+  skip_run_cmd: 'no'
+  all_gpus: 'yes'
+  input_paths:
+    - input
+    - env.CM_IMAGE
+    - output
+  skip_input_for_fake_run:
+    - input
+    - env.CM_IMAGE
+    - output
+    - j
+  pre_run_cmds:
+    - echo \"CM pre run commands\"

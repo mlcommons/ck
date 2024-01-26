@@ -38,7 +38,7 @@ def preprocess(i):
             if os_info['platform'] == 'windows':
                 url = '"'+url+'"'
             else:
-                url = url.replace('&','\&')
+                url = url.replace('&','\\&')
 
         extra_download_options = env.get('CM_DOWNLOAD_EXTRA_OPTIONS', '')
 

@@ -8,7 +8,8 @@ from cmind import utils
 
 import sys
 import os
-import imp
+#    Outdated in Python 3.12+
+#import imp
 import importlib
 import pkgutil
 import inspect
@@ -388,30 +389,44 @@ class CM(object):
                     parsed_automation[0] = (automation_meta.get('alias',''),
                                             automation_meta.get('uid',''))
 
-                    # Find Python module for this automation
-                    try:
-                        found_automation = imp.find_module(automation_name, [automation_path])
-                    except ImportError as e:  # pragma: no cover
-                        return {'return': 1, 'error': 'can\'t find Python module code (path={}, name={}, err={})'.format(automation_path, automation_name, format(e))}
+                    # Find Python module for this automation: should also work with 3.12+
+                    automation_full_path = os.path.join(automation_path, automation_name + '.py')
 
-                    automation_handler = found_automation[0]
-                    automation_full_path = found_automation[1]
+                    if not os.path.isfile(automation_full_path):
+                        return {'return': 1, 'error': 'can\'t find Python module file {}'.format(automation_full_path)}
+                    
+#                    Oudated
+#                    try:
+#                        found_automation = imp.find_module(automation_name, [automation_path])
+#                    except ImportError as e:  # pragma: no cover
+#                        return {'return': 1, 'error': 'can\'t find Python module code (path={}, name={}, err={})'.format(automation_path, automation_name, format(e))}
+
+                    found_automation_spec = importlib.util.spec_from_file_location(automation_name, automation_full_path)
+                    if found_automation_spec == None:
+                        return {'return': 1, 'error': 'can\'t find Python module file {}'.format(automation_full_path)}
+
+#                    Outdated
+#                    automation_handler = found_automation[0]
 
                     # Generate uid for the run-time extension of the loaded Python module
                     # otherwise Python modules with the same extension (key.py for example)
                     # will be reloaded ...
 
-                    r = utils.gen_uid()
-                    if r['return'] > 0: return r
-                    automation_run_time_uid = 'rt-'+r['uid']
+#                    r = utils.gen_uid()
+#                    if r['return'] > 0: return r
+#                    automation_run_time_uid = 'rt-'+r['uid']
 
                     try:
-                       loaded_automation = imp.load_module(automation_run_time_uid, automation_handler, automation_full_path, found_automation[2])
-                    except ImportError as e:  # pragma: no cover
+#                       Outdated
+#                       loaded_automation = imp.load_module(automation_run_time_uid, automation_handler, automation_full_path, found_automation[2])
+                       loaded_automation = importlib.util.module_from_spec(found_automation_spec)
+                       found_automation_spec.loader.exec_module(loaded_automation)
+                    except Exception as e:  # pragma: no cover
                         return {'return': 1, 'error': 'can\'t load Python module code (path={}, name={}, err={})'.format(automation_path, automation_name, format(e))}
 
-                    if automation_handler is not None:
-                        automation_handler.close()
+#                    Outdated
+#                    if automation_handler is not None:
+#                        automation_handler.close()
 
                     loaded_automation_class = loaded_automation.CAutomation
 

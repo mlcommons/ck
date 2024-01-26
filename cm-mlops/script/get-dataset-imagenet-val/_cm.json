@@ -109,6 +109,5 @@
     }
   },
   "docker": {
-    "run": false
   }
 }

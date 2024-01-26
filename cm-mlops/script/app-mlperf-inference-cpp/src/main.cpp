@@ -51,6 +51,7 @@ public:
         std::cout << "Scenario: " << scenario_name << std::endl;
         std::cout << "Mode: " << mode_name << std::endl;
         std::cout << "Batch size: " << batch_size << std::endl;
+        std::cout << "Query count override: " << query_count_override << std::endl;
     }
 
     std::string mlperf_conf_path;
@@ -146,10 +147,13 @@ int main(int argc, const char *argv[]) {
         test_settings.performance_sample_count_override != 0 ?
         test_settings.performance_sample_count_override :
         input_settings.performance_sample_count;
+
+    if (performance_sample_count != 0) {//Its changed from user.conf
+      //test_settings.performance_sample_count_override = performance_sample_count;
+    }
     if (max_sample_count != 0)
         performance_sample_count =
             std::min(performance_sample_count, max_sample_count);
-
     if (max_sample_count == 0)
       max_sample_count = INT_MAX;
     // build backend

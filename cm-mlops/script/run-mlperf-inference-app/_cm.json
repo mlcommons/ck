@@ -245,6 +245,7 @@
     "push_to_github": "CM_MLPERF_RESULT_PUSH_TO_GITHUB",
     "readme": "CM_MLPERF_README",
     "regenerate_files": "CM_REGENERATE_MEASURE_FILES",
+    "regenerate_accuracy_file": "CM_MLPERF_REGENERATE_ACCURACY_FILE",
     "rerun": "CM_RERUN",
     "results_dir": "OUTPUT_BASE_DIR",
     "results_git_url": "CM_MLPERF_RESULTS_GIT_REPO_URL",
@@ -395,7 +396,6 @@
       "group": "reproducibility"
     },
     "r3.1": {
-      "default": true,
       "env": {
         "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r3.1_default"
       },
@@ -405,6 +405,7 @@
       "env": {
         "CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS": "r4.0_default"
       },
+      "default": true,
       "group": "reproducibility"
     },
     "short": {

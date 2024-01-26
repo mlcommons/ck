@@ -77,6 +77,7 @@
     },
     "pytorch,fp32": {
       "env": {
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0"
       }
     },
     "uint8": {

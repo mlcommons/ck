@@ -382,7 +382,7 @@ variations:
       model
     env:
       CM_MODEL:
-        sdxl
+        stable-diffusion-xl
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _sdxl
@@ -401,15 +401,7 @@ variations:
       - coco2014-accuracy-script
       tags: run,accuracy,mlperf,_coco2014
 
-  llama2-70b:
-    group:
-      model
-    env:
-      CM_MODEL:
-        llama2-70b
-    add_deps_recursive:
-      mlperf-inference-implementation:
-        tags: _llama2-70b
+  llama2-70b_:
     post_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
@@ -425,6 +417,31 @@ variations:
       - mlperf-accuracy-script
       - open-orca-accuracy-script
       tags: run,accuracy,mlperf,_open-orca
+
+  llama2-70b-99:
+    group:
+      model
+    base:
+    - llama2-70b_
+    env:
+      CM_MODEL:
+        llama2-70b-99
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _llama2-70b-99
+
+  llama2-70b-99.9:
+    group:
+      model
+    base:
+    - llama2-70b_
+    env:
+      CM_MODEL:
+        llama2-70b-99.9
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _llama2-70b-99.9
+
   rnnt:
     group:
       model

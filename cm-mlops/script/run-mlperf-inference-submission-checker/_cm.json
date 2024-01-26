@@ -119,6 +119,13 @@
           "version": "r3.1"
         }
       }
+    },
+    "r4.0": {
+      "adr": {
+        "submission-checker-src": {
+          "version": "r4.0"
+        }
+      }
     }
   }
 }

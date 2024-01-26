@@ -118,6 +118,7 @@ public:
     }
 
     void FinishLoading() {
+        return; //This probably needs a FinishUnLoading counterpart
         // copy first batch to end of memory to form cycle
         for (size_t k = 0; k < batch_size - 1; k++) {
             size_t index_in_memory = k % performance_sample_count;

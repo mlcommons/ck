@@ -163,7 +163,7 @@ def preprocess(i):
     f.write('RUN cm pull repo ' + cm_mlops_repo + EOL)
 
     f.write(EOL+'# Install all system dependencies' + EOL)
-    f.write('RUN cm run script --quiet --tags=get,sys-utils-cm' + EOL)
+    f.write('RUN cm run script --tags=get,sys-utils-cm --quiet' + EOL)
 
     if 'CM_DOCKER_PRE_RUN_COMMANDS' in env:
         for pre_run_cmd in env['CM_DOCKER_PRE_RUN_COMMANDS']:
@@ -185,7 +185,7 @@ def preprocess(i):
             env['CM_DOCKER_RUN_CMD']="cm version"
             skip_extra = True
         else:
-            env['CM_DOCKER_RUN_CMD']="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
+            env['CM_DOCKER_RUN_CMD']="cm run script --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']+ ' --quiet'
 
     fake_run = env.get("CM_DOCKER_FAKE_RUN_OPTION"," --fake_run") + dockerfile_env_input_string
     fake_run = fake_run + " --fake_deps" if env.get('CM_DOCKER_FAKE_DEPS') else fake_run
@@ -193,14 +193,24 @@ def preprocess(i):
     x = 'RUN ' + env['CM_DOCKER_RUN_CMD']
 
     if not skip_extra:
-        x += fake_run + ' --quiet ' + run_cmd_extra
+        x += fake_run
+        if '--quiet' not in x:
+            x+=' --quiet'
+        if run_cmd_extra!='':
+            x+=' '+run_cmd_extra
 
     f.write(x + EOL)
 
     #fake_run to install the dependent scripts and caching them
     if not "run" in env['CM_DOCKER_RUN_CMD'] and env.get('CM_REAL_RUN', None):
         fake_run = dockerfile_env_input_string
-        f.write('RUN ' + env['CM_DOCKER_RUN_CMD'] + fake_run + run_cmd_extra + ' --quiet ' + EOL)
+
+        x = 'RUN ' + env['CM_DOCKER_RUN_CMD'] + fake_run + run_cmd_extra
+        if '--quiet' not in x:
+            x+=' --quiet '
+        x+=EOL
+        
+        f.write(x)
 
     if 'CM_DOCKER_POST_RUN_COMMANDS' in env:
         for post_run_cmd in env['CM_DOCKER_POST_RUN_COMMANDS']:

@@ -210,7 +210,7 @@ class CAutomation(Automation):
         # Check simplified CMD: cm run script "get compiler"
         # If artifact has spaces, treat them as tags!
         artifact = i.get('artifact','')
-        if ' ' in artifact or ',' in artifact:
+        if ' ' in artifact: # or ',' in artifact:
             del(i['artifact'])
             if 'parsed_artifact' in i: del(i['parsed_artifact'])
             # Force substitute tags
@@ -2814,9 +2814,14 @@ class CAutomation(Automation):
                             duplicate = False
 
                             for existing in found_files:
-                                if os.path.samefile(existing, f):
-                                    duplicate = True
-                                    break
+                                try:
+                                    if os.path.samefile(existing, f):
+                                        duplicate = True
+                                        break
+                                except Exception as e:
+                                    # This function fails on Windows sometimes 
+                                    # because some files can't be accessed
+                                    pass
 
                             if not duplicate:
                                 skip = False

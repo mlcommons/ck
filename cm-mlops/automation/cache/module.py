@@ -165,7 +165,7 @@ class CAutomation(Automation):
         # Tags may be a list (if comes internally from CM scripts) or string if comes from CMD
         if type(tags)!=list:
             tags = tags.strip()
-        if ' ' in artifact or ',' in artifact:
+        if ' ' in artifact:# or ',' in artifact:
             del(i['artifact'])
             if 'parsed_artifact' in i: del(i['parsed_artifact'])
 
