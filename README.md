@@ -50,6 +50,8 @@ cmr "get ml-model huggingface zoo _model-stub.alpindale/Llama-2-13b-ONNX" --mode
 cm show cache
 cm show cache "get ml-model stable-diffusion"
 
+cm rm cache -f
+
 cmr "run common mlperf inference" --implementation=nvidia --model=bert-99 --category=datacenter --division=closed
 cm find script "run common mlperf inference"
 
