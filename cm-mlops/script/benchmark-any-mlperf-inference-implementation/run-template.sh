@@ -29,11 +29,11 @@ category=$CATEGORY
 rerun=$RERUN
 
 function run_test() {
-  backend=$1
-  test_query_count=$2
-  implementation=$3
-  device=$4
-  model=$5
+  model=$1
+  backend=$2
+  test_query_count=$3
+  implementation=$4
+  device=$5
   run "$6"
 }
 
