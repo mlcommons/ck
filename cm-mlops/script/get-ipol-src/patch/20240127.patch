@@ -1,6 +1,6 @@
-diff -Naur 439-master\main.py 439-master.new\main.py
---- 439-master\main.py	Sat Jan 27 22:11:55 2024
-+++ 439-master.new\main.py	Sat Jan 27 22:06:51 2024
+diff -Naur 439-master/main.py 439-master.new/main.py
+--- 439-master/main.py	Sat Jan 27 22:11:55 2024
++++ 439-master.new/main.py	Sat Jan 27 22:06:51 2024
 @@ -135,5 +135,5 @@
      args = parser.parse_args()
      #print('before plume detection', os.path.dirname(os.path.realpath('__file__')), file=sys.stderr)
