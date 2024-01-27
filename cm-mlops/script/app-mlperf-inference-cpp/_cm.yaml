@@ -221,6 +221,7 @@ variations:
       CM_MLPERF_LOADGEN_MAX_BATCHSIZE: 8
 
   batch-size.#:
+    group: batch-size
     env:
       CM_MLPERF_LOADGEN_MAX_BATCHSIZE: "#"
 
@@ -242,3 +243,7 @@ variations:
     group: loadgen-scenario
     env:
       CM_MLPERF_LOADGEN_SCENARIO: Server
+
+  multistream,resnet50:
+    env:
+      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: 8

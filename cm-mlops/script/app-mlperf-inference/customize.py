@@ -65,7 +65,7 @@ def postprocess(i):
     model = env['CM_MODEL']
     model_full_name = env.get('CM_ML_MODEL_FULL_NAME', model)
 
-    if mode == "accuracy":
+    if mode == "accuracy" or mode== "compliance" and env['CM_MLPERF_LOADGEN_COMPLIANCE_TEST'] == "TEST01":
       if model == "resnet50":
         accuracy_filename = "accuracy-imagenet.py"
         accuracy_filepath = os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
@@ -90,6 +90,8 @@ def postprocess(i):
         accuracy_log_file_option_name = " --log_file "
         datatype_option = " --output_dtype "+env['CM_SQUAD_ACCURACY_DTYPE']
 
+      else:
+        return {'return': 1, 'error': f'Accuracy paths not done for model {model}'}
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
 
     #if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes" and mode == "performance" and scenario != "Server":
@@ -276,7 +278,7 @@ def postprocess(i):
                 print("\nDeterministic TEST01 failed... Trying with non-determinism.\n")
             # #Normal test failed, trying the check with non-determinism
 
-                CMD = "cd "+ ACCURACY_DIR+" && "+  env['CM_PYTHON_BIN'] + ' ' + accuracy_filepath + accuracy_log_file_option_name + \
+                CMD = "cd "+ ACCURACY_DIR+" && "+  env['CM_PYTHON_BIN_WITH_PATH'] + ' ' + accuracy_filepath + accuracy_log_file_option_name + \
                         os.path.join(TEST01_DIR, "mlperf_log_accuracy_baseline.json") + dataset_args + datatype_option + " > " + \
                         os.path.join(OUTPUT_DIR, "baseline_accuracy.txt")
 
@@ -284,7 +286,7 @@ def postprocess(i):
                 r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'verify_accuracy'})
                 if r['return']>0: return r
 
-                CMD = "cd " + ACCURACY_DIR + " &&  "+env['CM_PYTHON_BIN'] + ' ' + accuracy_filepath + accuracy_log_file_option_name + \
+                CMD = "cd " + ACCURACY_DIR + " &&  "+env['CM_PYTHON_BIN_WITH_PATH'] + ' ' + accuracy_filepath + accuracy_log_file_option_name + \
                         os.path.join(TEST01_DIR, "mlperf_log_accuracy.json") + dataset_args + datatype_option + " > " + \
                         os.path.join(OUTPUT_DIR, "compliance_accuracy.txt")
 

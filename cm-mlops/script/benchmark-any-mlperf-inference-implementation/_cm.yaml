@@ -1,9 +1,11 @@
-alias: run-all-mlperf-models
+alias: benchmark-any-mlperf-inference-implementation
 automation_alias: script
 automation_uid: 5b4e0237da074764
 cache: false
 category: MLPerf benchmark support
-deps: []
+deps:
+  - tags: detect,cpu
+
 docker_input_mapping: {}
 input_description: {}
 input_mapping: {}
@@ -12,12 +14,17 @@ new_state_keys: []
 post_deps: []
 posthook_deps: []
 prehook_deps: []
-tags: [
-  "run",
-  "natively",
-  "all",
-  "mlperf-models"
-]
+tags:
+  - benchmark
+  - run
+  - natively
+  - all
+  - any
+  - mlperf
+  - mlperf-implementation
+  - implementation
+  - mlperf-models
+
 uid: 8d3cd46f54464810
 
 variations:
@@ -83,7 +90,7 @@ variations:
     env:
       IMPLEMENTATION: tflite_cpp
     default_env:
-      MODELS: mobilenet,efficientnet
+      MODELS: mobilenets
       CATEGORY: edge
       DIVISION: open
       BACKENDS: tflite

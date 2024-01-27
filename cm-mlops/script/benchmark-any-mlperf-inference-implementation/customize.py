@@ -16,15 +16,14 @@ def preprocess(i):
 
     models = env['MODELS'].split(",")
 
-    backends = env.get('BACKENDS')
-    if backends:
-        backends = backends.split(",")
+    input_backends = env.get('BACKENDS')
+    if input_backends:
+        input_backends = input_backends.split(",")
 
     devices = env.get('DEVICES')
     if devices:
         devices = devices.split(",")
 
-    print(backends)
     implementation = env['IMPLEMENTATION']
 
     power = env.get('POWER', '')
@@ -37,12 +36,36 @@ def preprocess(i):
     if not devices:
         return {'return': 1, 'error': 'No device specified. Please set one or more (comma separated) of {cpu, qaic, cuda, rocm} for --env.DEVICES=<>'}
 
+    cmds = []
+    run_script_content = '#!/bin/bash\nsource '+ os.path.join(script_path, "run-template.sh")
+    run_file_name = 'tmp-'+implementation+'-run'
+
     for model in models:
         env['MODEL'] = model
-        cmds = []
-        run_script_content = '#!/bin/bash\nsource '+ os.path.join(script_path, "run-template.sh")
 
-        if not backends:
+        if "mobilenets" in model:
+            cmd = 'export extra_option=""'
+            cmds.append(cmd)
+            cmd = 'export extra_tags=""'
+            cmds.append(cmd)
+            assemble_tflite_cmds(cmds)
+            cmd = 'export extra_option=" --adr.mlperf-inference-implementation.compressed_dataset=on"'
+            cmds.append(cmd)
+            assemble_tflite_cmds(cmds)
+
+            if env.get('CM_HOST_CPU_ARCHITECTURE', '') == "aarch64":
+                extra_tags=",_armnn,_use-neon"
+                cmd = f'export extra_tags="{extra_tags}"'
+                cmds.append(cmd)
+                assemble_tflite_cmds(cmds)
+                cmd = 'export extra_option=" --adr.mlperf-inference-implementation.compressed_dataset=on"'
+                cmds.append(cmd)
+                assemble_tflite_cmds(cmds)
+
+            continue
+
+        if not input_backends:
+            backends = None
             if implementation == "reference":
                 if model == "resnet50":
                     backends = "tf,onnxruntime"
@@ -60,7 +83,12 @@ def preprocess(i):
                     backends = "pytorch"
                 elif "llama2-70b" in model:
                     backends = "pytorch"
+            if not backends:
+                return {'return': 1, 'error': f'No backend specified for the model: {model}.'}
             backends = backends.split(",")
+
+        else:
+            backends = input_backends
 
         for backend in backends:
 
@@ -79,22 +107,28 @@ def preprocess(i):
                             test_query_count = 10000
                         else:
                             test_query_count = 1000
-                    cmd = f'run_test "{backend}" "{test_query_count}" "{implementation}" "{device}" "$find_performance_cmd"'
+                    cmd = f'run_test "{model}" "{backend}" "{test_query_count}" "{implementation}" "{device}" "$find_performance_cmd"'
                     cmds.append(cmd)
                     #second argument is unused for submission_cmd
-                cmd = f'run_test "{backend}" "100" "{implementation}" "{device}" "$submission_cmd"'
+                cmd = f'run_test "{model}" "{backend}" "100" "{implementation}" "{device}" "$submission_cmd"'
                 cmds.append(cmd)
-                run_file_name = 'tmp-'+model+'-run'
-                run_script_content += "\n\n" +"\n\n".join(cmds)
-                with open(os.path.join(script_path, run_file_name+".sh"), 'w') as f:
-                    f.write(run_script_content)
-        print(cmds)
 
-
-
+    run_script_content += "\n\n" +"\n\n".join(cmds)
+    with open(os.path.join(script_path, run_file_name+".sh"), 'w') as f:
+        f.write(run_script_content)
+    print(run_script_content)
 
     
     return {'return':0}
+
+def assemble_tflite_cmds(cmds):
+    cmd = 'run "$tflite_accuracy_cmd"'
+    cmds.append(cmd)
+    cmd = 'run "$tflite_performance_cmd"'
+    cmds.append(cmd)
+    cmd = 'run "$tflite_readme_cmd"'
+    cmds.append(cmd)
+    return
 
 def postprocess(i):
 

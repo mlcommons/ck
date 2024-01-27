@@ -22,11 +22,11 @@ function run() {
     exit_if_error
   fi
 }
-division="closed"
-model="bert-99"
-device="cpu"
-category="edge"
-rerun="$rerun"
+division=$DIVISION
+model=$MODEL
+device=$DEVICE
+category=$CATEGORY
+rerun=$RERUN
 
 function run_test() {
   backend=$1
@@ -35,7 +35,9 @@ function run_test() {
   device=$4
   run "$5"
 }
-power=' --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4950 '
+
+#power=' --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4950 '
+power=${POWER_STRING}
 
 #Add your run commands here...
 find_performance_cmd='cm run script --tags=generate-run-cmds,inference,_find-performance \
@@ -61,19 +63,4 @@ readme_cmd='cm run script --tags=generate-run-cmds,inference,_populate-readme,_a
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
 --category=$category --division=$division  --quiet --results_dir=$HOME/results_dir \
 --skip_submission_generation=yes --execution-mode=valid $power'
-
-# run "$CM_RUN_CMD"
-run_test "onnxruntime" "20" "reference" "cpu" "$find_performance_cmd"
-run_test "tf" "20" "reference" "cpu" "$find_performance_cmd"
-run_test "pytorch" "200" "reference" "cpu" "$find_performance_cmd"
-run_test "onnxruntime" "10000" "reference" "cuda" "$find_performance_cmd"
-run_test "tf" "10000" "reference" "cuda" "$find_performance_cmd"
-run_test "pytorch" "10000" "reference" "cuda" "$find_performance_cmd"
-
-run_test "onnxruntime" "100" "reference" "cpu" "$submission_cmd"
-#run_test "tf" "100" "reference" "cpu" "$submission_cmd"
-run_test "pytorch" "100" "reference" "cpu" "$submission_cmd"
-run_test "onnxruntime" "100" "reference" "cuda" "$submission_cmd "
-run_test "tf" "100" "reference" "cuda" "$submission_cmd"
-run_test "pytorch" "100" "reference" "cuda" "$submission_cmd"
 
