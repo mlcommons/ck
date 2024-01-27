@@ -25,6 +25,7 @@ deps:
   - python
   - python3
   tags: get,python3
+
 - tags: get,cuda
   names:
   - cuda
@@ -37,6 +38,7 @@ deps:
   enable_if_env:
     USE_CUDA:
     - yes
+
 - tags: get,dataset,imagenet,image-classification,original
 - tags: get,dataset-aux,imagenet-aux,image-classification
 - tags: get,ml-model,resnet50,_onnx,image-classification
