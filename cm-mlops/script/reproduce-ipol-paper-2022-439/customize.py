@@ -27,4 +27,8 @@ def preprocess(i):
 
 def postprocess(i):
 
+    print ('')
+    print ('Please check "diff.png"')
+    print ('')
+
     return {'return':0}

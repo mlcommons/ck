@@ -54,6 +54,7 @@ cm show cache --tags=ipol,src
 cm run script "download file _wget" --url=https://cKnowledge.org/ai/data/ipol-paper-2024-439-sample-image-1.png --verify=no --env.CM_DOWNLOAD_CHECKSUM=850639287ad23194576582680c2ecfc3
 cm run script "download file _wget" --url=https://cKnowledge.org/ai/data/ipol-paper-2024-439-sample-image-2.png --verify=no --env.CM_DOWNLOAD_CHECKSUM=31364c03d91873ed2d244cce6d664dd0
 cm run script "reproduce ipol 2022-439"
+cm run script "reproduce ipol 2022-439" --adr.torch.version=1.13.1 --adr.torchvision.version=0.14.1
 ```
 
 This script will use 2 sample images from this paper

@@ -22,6 +22,9 @@ deps:
 - tags: get,generic-python-lib,_torch
   names:
   - torch
+- tags: get,generic-python-lib,_torchvision
+  names:
+  - torchvision
 
 tags:
 - app
