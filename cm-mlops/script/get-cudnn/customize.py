@@ -28,6 +28,7 @@ def preprocess(i):
 
        libfilename = extra_pre + 'cudnn.' +extra_ext
        env['CM_CUDNN_VERSION'] = 'vdetected'
+
        if os.path.exists(os.path.join(cuda_path_lib, libfilename)):
            env['CM_CUDA_PATH_LIB_CUDNN'] = env['CM_CUDA_PATH_LIB']
            return {'return': 0}

@@ -23,7 +23,7 @@ from [MLCommons projects](https://mlcommons.org) and [research papers](https://c
 in a unified way on any operating system with any software and hardware
 either natively or inside containers.
 
-Here are some most commonly used examples from the community:
+Here are some most commonly used examples from our users:
 
 ```bash
 pip install cmind
@@ -89,7 +89,7 @@ running experiments, processing logs, and reproducing results
 without thinking where and how they run.
 
 That is why we implemented CM as a [small Python library](https://github.com/mlcommons/ck/tree/master/cm) 
-with minimal dependencies (Python 3.7+, git, wget), simple Python API, StreamLit GUI and human-friendly command line.
+with minimal dependencies (Python 3.7+, git, wget), simple Python API, GUI and human-friendly command line.
 CM simply searches for CM scripts by tags or Unique IDs in all pulled Git repositories, automatically generates command lines 
 for a given script or tool on a given platform, updates all paths and environment variables, 
 runs a given automation either natively or inside automatically-generated containers

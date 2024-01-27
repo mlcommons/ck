@@ -2125,6 +2125,16 @@ class CAutomation(Automation):
         tags_list = utils.convert_tags_to_list(i)
         if 'tags' in i: del(i['tags'])
 
+        if len(tags_list)==0:
+            if console:
+                x=input('Please specify a combination of unique tags separated by comma for this script: ')
+                x = x.strip()
+                if x!='':
+                    tags_list = x.split(',')
+
+        if len(tags_list)==0:
+            return {'return':1, 'error':'you must specify a combination of unique tags separate by comman using "--new_tags"'}
+
         # Add placeholder (use common action)
         ii['out']='con'
         ii['common']=True # Avoid recursion - use internal CM add function to add the script artifact
@@ -2150,18 +2160,19 @@ class CAutomation(Automation):
 
         # Check if preloaded meta exists
         meta = {
-                 'cache':False,
-                 'new_env_keys':[],
-                 'new_state_keys':[],
-                 'input_mapping':{},
-                 'docker_input_mapping':{},
-                 'deps':[],
-                 'prehook_deps':[],
-                 'posthook_deps':[],
-                 'post_deps':[],
-                 'versions':{},
-                 'variations':{},
-                 'input_description':{}
+                 'cache':False
+# 20240127: Grigori commented that because newly created script meta looks ugly
+#                 'new_env_keys':[],
+#                 'new_state_keys':[],
+#                 'input_mapping':{},
+#                 'docker_input_mapping':{},
+#                 'deps':[],
+#                 'prehook_deps':[],
+#                 'posthook_deps':[],
+#                 'post_deps':[],
+#                 'versions':{},
+#                 'variations':{},
+#                 'input_description':{}
                }
 
         fmeta = os.path.join(template_path, self.cmind.cfg['file_cmeta'])
@@ -2200,6 +2211,7 @@ class CAutomation(Automation):
             ii['yaml']=True
 
         ii['automation']='script,5b4e0237da074764'
+
         r_obj=self.cmind.access(ii)
         if r_obj['return']>0: return r_obj
 

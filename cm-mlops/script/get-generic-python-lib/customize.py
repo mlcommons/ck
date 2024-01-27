@@ -15,6 +15,7 @@ def preprocess(i):
         return automation._available_variations({'meta':meta})
 
     if package_name == "onnxruntime_gpu":
+        # https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#requirements
         cuda_version_split = env['CM_CUDA_VERSION'].split(".")
         if int(cuda_version_split[0]) >= 12:
             # env['CM_INSTALL_ONNXRUNTIME_GPU_FROM_SRC'] = "yes"
