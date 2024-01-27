@@ -88,13 +88,13 @@ ${POWER} \
 run "cm run script --tags=generate-run-cmds,inference,_find-performance \
 --model=resnet50 --implementation=cpp --device=cuda --backend=onnxruntime \
 --adr.compiler.tags=gcc \
---execution-mode=valid \
---category=edge --division=open --scenario=Offline  --quiet --test_query_count=100"
+--test_query_count=20000 \
+--category=edge --division=open --scenario=Offline  --quiet"
 
 run "cm run script --tags=generate-run-cmds,inference,_find-performance \
 --model=retinanet --implementation=cpp --device=cuda --backend=onnxruntime \
 --adr.compiler.tags=gcc \
---execution-mode=valid \
+--test_query_count=2000   \
 --category=edge --division=open --scenario=Offline  --quiet"
 
 
@@ -133,6 +133,28 @@ ${POWER} \
 run "cm run script --tags=generate-run-cmds,inference,_submission \
 --model=retinanet --implementation=cpp --device=cuda --backend=onnxruntime \
 --scenario=SingleStream \
+--category=edge --division=$division  --quiet \
+--adr.compiler.tags=gcc \
+--execution-mode=valid \
+--skip_submission_generation=yes \
+${POWER} \
+--results_dir=$HOME/results_dir"
+
+#multistream
+run "cm run script --tags=generate-run-cmds,inference,_submission \
+--scenario=Offline \
+--model=resnet50 --implementation=cpp --device=cuda --backend=onnxruntime \
+--scenario=MultiStream \
+--category=edge --division=$division  --quiet \
+--adr.compiler.tags=gcc \
+--execution-mode=valid \
+--skip_submission_generation=yes \
+${POWER} \
+--results_dir=$HOME/results_dir"
+
+run "cm run script --tags=generate-run-cmds,inference,_submission \
+--model=retinanet --implementation=cpp --device=cuda --backend=onnxruntime \
+--scenario=MultiStream \
 --category=edge --division=$division  --quiet \
 --adr.compiler.tags=gcc \
 --execution-mode=valid \
