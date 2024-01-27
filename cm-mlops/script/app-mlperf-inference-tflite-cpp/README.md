@@ -217,10 +217,12 @@ ___
     * `_int8`
       - Environment variables:
         - *CM_MLPERF_MODEL_PRECISION*: `int8`
+        - *CM_DATASET_COMPRESSED*: `on`
       - Workflow:
     * `_uint8`
       - Environment variables:
         - *CM_MLPERF_MODEL_PRECISION*: `uint8`
+        - *CM_DATASET_COMPRESSED*: `on`
       - Workflow:
 
     </details>
