@@ -17,15 +17,6 @@ cd %CM_IPOL_PATH%
 
 echo Current path in CM cache: %cd%
 
-rem Check default images
-if "%CM_INPUT_1%" == "" (
-  set CM_INPUT_1=%CM_TMP_CURRENT_SCRIPT_PATH%\sample-images\1.png
-)
-
-if "%CM_INPUT_2%" == "" (
-  set CM_INPUT_2=%CM_TMP_CURRENT_SCRIPT_PATH%\sample-images\2.png
-)
-
 echo Running author's code ...
 
 del /F /Q cm.png

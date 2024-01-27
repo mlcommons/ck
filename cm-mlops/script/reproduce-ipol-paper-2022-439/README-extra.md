@@ -49,12 +49,14 @@ cm run script "get ipol src" --year=2022 --number=439
 cm show cache --tags=ipol,src
 ```
 
-4. Run demo (CM will detect or install missing dependencies)
+4. Download sample images and run demo (CM will detect or install missing dependencies)
 ```bash
+cm run script "download file _wget" --url=https://cKnowledge.org/ai/data/ipol-paper-2024-439-sample-image-1.png --verify=no --env.CM_DOWNLOAD_CHECKSUM=850639287ad23194576582680c2ecfc3
+cm run script "download file _wget" --url=https://cKnowledge.org/ai/data/ipol-paper-2024-439-sample-image-2.png --verify=no --env.CM_DOWNLOAD_CHECKSUM=31364c03d91873ed2d244cce6d664dd0
 cm run script "reproduce ipol 2022-439"
 ```
 
-This script will use these [sample images](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-ipol-paper-2022-439/sample-images)
+This script will use 2 sample images from this paper
 and should produce *diff.png* in the current directory.
 
 ## Usage with different images
