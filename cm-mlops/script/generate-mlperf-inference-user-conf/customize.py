@@ -166,8 +166,9 @@ def preprocess(i):
             metric_value = 1000
 
     elif env['CM_MLPERF_RUN_STYLE'] == "valid":
-        required_min_queries_offline = {}
-        required_min_queries_offline = get_required_min_queries_offline(env['CM_MODEL'], version)
+        if scenario == "Offline":
+            required_min_queries_offline = {}
+            required_min_queries_offline = get_required_min_queries_offline(env['CM_MODEL'], version)
 
 
         if  mode == "compliance" and scenario == "Server": #Adjust the server_target_qps

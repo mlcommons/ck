@@ -11,7 +11,10 @@
       "tags": "detect,cpu"
     },
     {
-      "tags": "get,gcc"
+      "tags": "get,compiler",
+      "names": [
+        "compiler"
+      ]
     },
     {
       "tags": "get,cmake"
@@ -47,6 +50,12 @@
     "master": {
       "env": {
         "CM_GIT_CHECKOUT": "master"
+      },
+      "ad": {
+        "compiler": {
+          "tags": "gcc",
+          "version_min": "10.0.0"
+        }
       }
     }
   }
