@@ -131,6 +131,8 @@ variations:
           CM_SKIP_RUN:
             - yes
 
+  mil:
+    alias: cpp
 
   tflite-cpp:
     default_variations:
