@@ -107,7 +107,7 @@ def preprocess(i):
                             test_query_count = 10000
                         else:
                             test_query_count = 1000
-                    cmd = f'run_test "{model} "{backend}" "{test_query_count}" "{implementation}" "{device}" "$find_performance_cmd"'
+                    cmd = f'run_test "{model}" "{backend}" "{test_query_count}" "{implementation}" "{device}" "$find_performance_cmd"'
                     cmds.append(cmd)
                     #second argument is unused for submission_cmd
                 cmd = f'run_test "{model}" "{backend}" "100" "{implementation}" "{device}" "$submission_cmd"'
