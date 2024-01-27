@@ -6,14 +6,6 @@ category: MLPerf benchmark support
 deps:
   - tags: detect,cpu
 
-docker_input_mapping: {}
-input_description: {}
-input_mapping: {}
-new_env_keys: []
-new_state_keys: []
-post_deps: []
-posthook_deps: []
-prehook_deps: []
 tags:
   - benchmark
   - run
@@ -141,5 +133,3 @@ variations:
     env:
       CATEGORY: edge
       DIVISION: closed
-
-versions: {}

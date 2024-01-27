@@ -31,6 +31,12 @@ deps:
   enable_if_env:
     USE_CUDA:
     - yes
+- tags: get,cudnn
+  names:
+  - cudnn
+  enable_if_env:
+    USE_CUDA:
+    - yes
 - tags: get,dataset,imagenet,image-classification,original
 - tags: get,dataset-aux,imagenet-aux,image-classification
 - tags: get,ml-model,resnet50,_onnx,image-classification
@@ -41,6 +47,7 @@ deps:
 - tags: get,generic-python-lib,_package.numpy
 - tags: get,generic-python-lib,_package.opencv-python
 
+# ONNX
 - tags: get,generic-python-lib,_onnxruntime
   skip_if_env:
     USE_CUDA:
@@ -50,12 +57,22 @@ deps:
     USE_CUDA:
     - yes
 
+# PYTORCH
 
 variations:
   cuda:
     env:
       USE_CUDA: yes
 
+  onnx:
+    group: framework
+    env:
+      USE_ONNX: yes
+
+  pytorch:
+    group: framework
+    env:
+      USE_PYTORCH: yes
 
 input_mapping:
   input: CM_IMAGE
