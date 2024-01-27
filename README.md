@@ -23,7 +23,7 @@ from [MLCommons projects](https://mlcommons.org) and [research papers](https://c
 in a unified way on any operating system with any software and hardware
 either natively or inside containers.
 
-Here are some most commonly used examples from our users:
+Here are some most commonly used examples from CM users:
 
 ```bash
 pip install cmind
@@ -46,7 +46,6 @@ cmr "cm gui" --script="python app image-classification onnx"
 
 cm docker script "python app image-classification onnx" --input=computer_mouse.jpg
 cm docker script "python app image-classification onnx" --input=computer_mouse.jpg -j -docker_it
-cm docker script "python app image-classification onnx" --input=computer_mouse.jpg -j -docker_it
 
 cmr "get generic-python-lib _package.onnxruntime"
 cmr "get coco dataset _val _2014"
@@ -58,6 +57,7 @@ cm show cache "get ml-model stable-diffusion"
 
 cm rm cache -f
 
+cmr "install python-venv" --name=mlperf
 cmr "run common mlperf inference" --implementation=nvidia --model=bert-99 --category=datacenter --division=closed
 cm find script "run common mlperf inference"
 
