@@ -5,13 +5,17 @@ cache: false
 category: MLPerf benchmark support
 deps:
   - tags: detect,cpu
-
+default_env:
+  DIVISION: open
+  CATEGORY: edge
 docker_input_mapping: {}
 input_description: {}
 input_mapping:
   models: MODELS
   backends: BACKENDS
   devices: DEVICES
+  division: DIVISION
+  category: CATEGORY
   power_server: POWER_SERVER
   power_server_port: POWER_SERVER_PORT
 new_env_keys: []

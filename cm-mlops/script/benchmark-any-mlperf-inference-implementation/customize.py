@@ -39,6 +39,8 @@ def preprocess(i):
     cmds = []
     run_script_content = '#!/bin/bash\n\n'
     run_script_content += "POWER_STRING=\"" +POWER_STRING +"\"\n"
+    run_script_content += "DIVISION=\"" + env['DIVISION'] +"\"\n"
+    run_script_content += "CATEGORY=\"" + env['CATEGORY'] +"\"\n"
     run_script_content += 'source '+ os.path.join(script_path, "run-template.sh") + "\nPOWER_STRING=\"" +POWER_STRING +"\"\n\n"
 
     run_file_name = 'tmp-'+implementation+'-run'
