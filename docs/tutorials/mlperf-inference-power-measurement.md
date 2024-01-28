@@ -55,11 +55,13 @@ PTDaemon should be automatically installed using the following CM command:
 ```bash
 cm run script --tags=mlperf,power,server --device_type=49 --device_port=/dev/usbtmc0
 ```
-
-`--device_type=49` corresponds to Yokogawa 310E and `ptd -h` should list the device_type for all supported devices. Location of `ptd` can be found using the below command
+* ``--interface_flag="-U" and `--device_port=1` (can change as per the USB slot used for connecting) can be used on Windows for USB connection
+* `--device_type=49` corresponds to Yokogawa 310E and `ptd -h` should list the device_type for all supported devices. Location of `ptd` can be found using the below command
+* `--device_port=20` and `--interface_flag="-g" can be used to connect to GPIB interface (currently supported only on Windows) with serial address set to 20
 ```bash
 cat `cm find cache --tags=get,spec,ptdaemon`/cm-cached-state.json
 ```
+
 
 More configuration options can be found [here](https://github.com/mlcommons/power-dev/tree/master/ptd_client_server).
 
