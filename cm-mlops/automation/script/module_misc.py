@@ -1646,8 +1646,13 @@ def docker(i):
 
         all_gpus = i.get('docker_all_gpus', docker_settings.get('all_gpus'))
 
+        device = i.get('docker_device', docker_settings.get('device'))
 
-        
+        gh_token = i.get('docker_gh_token')
+
+        port_maps = i.get('docker_port_maps, docker_settings.get('port_maps', []))
+
+
         
 #        # Regenerate run_cmd
 #        if i.get('cmd'):
@@ -1678,7 +1683,6 @@ def docker(i):
         print (run_cmd)
         print ('')
 
-
         cm_docker_input = {'action': 'run',
                            'automation': 'script',
                            'tags': 'run,docker,container',
@@ -1708,6 +1712,15 @@ def docker(i):
 
         if all_gpus:
             cm_docker_input['all_gpus'] = True
+
+        if device:
+            cm_docker_input['device'] = device
+
+        if gh_token:
+            cm_docker_input['gh_token'] = gh_token
+
+        if port_maps:
+            cm_docker_input['port_maps'] = port_maps
 
         print ('')
 
