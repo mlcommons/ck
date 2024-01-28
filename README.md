@@ -23,7 +23,10 @@ from [MLCommons projects](https://mlcommons.org) and [research papers](https://c
 in a unified way on any operating system with any software and hardware
 either natively or inside containers.
 
-Here are some most commonly used examples from CM users:
+Here are a few most commonly used examples from the CM users 
+that should run in the same way on Linux, MacOS, Windows and other platforms
+(see [Gettings Started Guide](docs/getting-started.md) to understand 
+how they work and how to reuse them in your projects):
 
 ```bash
 pip install cmind
@@ -31,11 +34,21 @@ pip install cmind
 cm pull repo mlcommons@ck
 
 cm run script "python app image-classification onnx"
+cmr "python app image-classification onnx"
 
-cm run script "download file _wget" --url=https://cKnowledge.org/ai/data/computer_mouse.jpg --verify=no --env.CM_DOWNLOAD_CHECKSUM=45ae5c940233892c2f860efdf0b66e7e
-
-cm run script "python app image-classification onnx" --input=computer_mouse.jpg
+cmr "download file _wget" --url=https://cKnowledge.org/ai/data/computer_mouse.jpg --verify=no --env.CM_DOWNLOAD_CHECKSUM=45ae5c940233892c2f860efdf0b66e7e
 cmr "python app image-classification onnx" --input=computer_mouse.jpg
+
+cmr "get python" --version_min=3.8.0 --name=mlperf-experiments
+cmr "install python-venv" --version_max=3.10.11 --name=mlperf
+
+cmr "get ml-model stable-diffusion"
+cmr "get ml-model huggingface zoo _model-stub.alpindale/Llama-2-13b-ONNX" --model_filename=FP32/LlamaV2_13B_float32.onnx --skip_cache
+cmr "get coco dataset _val _2014"
+
+cmr "get generic-python-lib _package.onnxruntime" --version_min=1.16.0
+cmr "python app image-classification onnx" --input=computer_mouse.jpg
+cmr "python app image-classification onnx" --input=computer_mouse.jpg --adr.onnxruntime.version_min=1.16.0
 
 cm show cache
 cm rm cache -f
@@ -47,17 +60,11 @@ cmr "cm gui" --script="python app image-classification onnx"
 cm docker script "python app image-classification onnx" --input=computer_mouse.jpg
 cm docker script "python app image-classification onnx" --input=computer_mouse.jpg -j -docker_it
 
-cmr "get generic-python-lib _package.onnxruntime"
-cmr "get coco dataset _val _2014"
-cmr "get ml-model stable-diffusion"
-cmr "get ml-model huggingface zoo _model-stub.alpindale/Llama-2-13b-ONNX" --model_filename=FP32/LlamaV2_13B_float32.onnx --skip_cache
-
 cm show cache
 cm show cache "get ml-model stable-diffusion"
 
 cm rm cache -f
 
-cmr "install python-venv" --name=mlperf
 cmr "run common mlperf inference" --implementation=nvidia --model=bert-99 --category=datacenter --division=closed
 cm find script "run common mlperf inference"
 
@@ -78,8 +85,9 @@ if output['return']==0: print (output)
 ```
 
 
-Collective Mind is a community project being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-with great help from [MLCommons (70+ AI organizations)](https://mlcommons.org/),
+Collective Mind is a community project being developed by the 
+[MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+with great help from [MLCommons (70+ AI organizations)](https://mlcommons.org/,
 [research community]( https://www.youtube.com/watch?v=7zpeIVwICa4 )
 and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) -
 we want to have a simple, non-intrusive, technology-agnostic, portable and easily-extensible interface 
@@ -115,7 +123,7 @@ or have questions and suggestions.
 
 ### Documentation
 
-* [Getting Started tutorial](docs/getting-started.md)
+* [Getting Started Guide](docs/getting-started.md)
   * [CM interface for MLPerf benchmarks](docs/mlperf)
   * [CM interface for ML and Systems conferences](docs/tutorials/common-interface-to-reproduce-research-projects.md)
   * [CM automation recipes for MLOps and DevOps](cm-mlops/script)

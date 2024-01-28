@@ -49,36 +49,30 @@ deps:
 - tags: get,generic-python-lib,_package.numpy
 - tags: get,generic-python-lib,_package.opencv-python
 
-# ONNX
+
 - tags: get,generic-python-lib,_onnxruntime
+  names:
+  - onnxruntime
   skip_if_env:
     USE_CUDA:
     - yes
 - tags: get,generic-python-lib,_onnxruntime_gpu
+  names:
+  - onnxruntime
   enable_if_env:
     USE_CUDA:
     - yes
-
-# PYTORCH
 
 variations:
   cuda:
     env:
       USE_CUDA: yes
 
-  onnx:
-    group: framework
-    env:
-      USE_ONNX: yes
-
-  pytorch:
-    group: framework
-    env:
-      USE_PYTORCH: yes
 
 input_mapping:
   input: CM_IMAGE
   output: CM_APP_IMAGE_CLASSIFICATION_ONNX_PY_OUTPUT
+
 
 new_env_keys:
   - CM_APP_IMAGE_CLASSIFICATION_ONNX_PY*
