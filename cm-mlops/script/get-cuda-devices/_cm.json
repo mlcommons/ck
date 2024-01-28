@@ -2,6 +2,8 @@
   "alias": "get-cuda-devices",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "can_force_cache": true,
+  "cache": false,
   "category": "CUDA automation",
   "clean_files": [
     "tmp-run.out"

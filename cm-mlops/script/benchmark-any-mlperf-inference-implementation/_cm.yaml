@@ -6,6 +6,19 @@ category: MLPerf benchmark support
 deps:
   - tags: detect,cpu
 
+docker_input_mapping: {}
+input_description: {}
+input_mapping:
+  models: MODELS
+  backends: BACKENDS
+  devices: DEVICES
+  power_server: POWER_SERVER
+  power_server_port: POWER_SERVER_PORT
+new_env_keys: []
+new_state_keys: []
+post_deps: []
+posthook_deps: []
+prehook_deps: []
 tags:
   - benchmark
   - run
@@ -97,7 +110,7 @@ variations:
     env:
       POWER: yes
     default_env:
-      POWER_SERVER_IP: 192.168.0.15
+      POWER_SERVER: 192.168.0.15
       POWER_SERVER_PORT: 4950
 
 
