@@ -6,8 +6,8 @@
 
 ## Requirements
 
-1. Power analyzer (any one [certified by SPEC PTDaemon](https://www.spec.org/power/docs/SPECpower-Device_List.html)). 
-   Yokogawa is the one which most submitters have submitted with and a new single-channel model like 310E can cost around 3000$.
+1. Power analyzer (anyone [certified by SPEC PTDaemon](https://www.spec.org/power/docs/SPECpower-Device_List.html)). 
+   Yokogawa is the one that most submitters have submitted with and a new single-channel model like 310E can cost around 3000$.
    The [MLCommons taskforce on automation and reproducibility ](../taksforce.md) 
    is also using the [Yokogawa 310E](https://tmi.yokogawa.com/solutions/products/power-analyzers/digital-power-meter-wt300e/) 
    to automate and simplify MLPerf submissions.
@@ -29,7 +29,7 @@ An adapter like [this](https://amzn.to/3Cl2TV5) can help avoid cutting the elect
 
 ![pages (14)](https://user-images.githubusercontent.com/4791823/210117283-82375460-5b3a-4e8a-bd85-9d33675a5843.png).
 
-The director machine runs the `server.py` script and loads a server process which communicates with the SPEC PTDaemon. 
+The director machine runs the `server.py` script and loads a server process that communicates with the SPEC PTDaemon. 
 When a client connects to it (using `client.py`), it in turn connects to the PTDaemon and initiates a measurement run. 
 Once the measurement ends, the power log files are transferred to the client. 
 
@@ -52,12 +52,14 @@ to install the MLCommons CM automation tool.
 
 If you are having GitHub access to [MLCommons power](https://github.com/mlcommons/power) repository,
 PTDaemon should be automatically installed using the following CM command:
+
+PS: The below command will ask for `sudo` permission on Linux and should be run with administrator privilege on Windows (to do NTP time sync).
 ```bash
 cm run script --tags=mlperf,power,server --device_type=49 --device_port=/dev/usbtmc0
 ```
 * ``--interface_flag="-U" and `--device_port=1` (can change as per the USB slot used for connecting) can be used on Windows for USB connection
-* `--device_type=49` corresponds to Yokogawa 310E and `ptd -h` should list the device_type for all supported devices. Location of `ptd` can be found using the below command
-* `--device_port=20` and `--interface_flag="-g" can be used to connect to GPIB interface (currently supported only on Windows) with serial address set to 20
+* `--device_type=49` corresponds to Yokogawa 310E and `ptd -h` should list the device_type for all supported devices. The location of `ptd` can be found using the below command
+* `--device_port=20` and `--interface_flag="-g" can be used to connect to GPIB interface (currently supported only on Windows) with the serial address set to 20
 ```bash
 cat `cm find cache --tags=get,spec,ptdaemon`/cm-cached-state.json
 ```
