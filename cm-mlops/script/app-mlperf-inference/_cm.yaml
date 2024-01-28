@@ -385,6 +385,10 @@ variations:
     env:
       CM_MODEL:
         stable-diffusion-xl
+    default_variations:
+      precision: float16
+      backend: pytorch
+      device: cuda
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _sdxl
