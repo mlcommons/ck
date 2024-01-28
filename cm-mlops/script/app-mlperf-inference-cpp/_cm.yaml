@@ -245,5 +245,13 @@ variations:
       CM_MLPERF_LOADGEN_SCENARIO: Server
 
   multistream,resnet50:
-    env:
-      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: 8
+    default_variations:
+      batch-size: batch-size.8
+
+  offline,resnet50:
+    default_variations:
+      batch-size: batch-size.8
+
+  multistream,retinanet:
+    default_variations:
+      batch-size: batch-size.1
