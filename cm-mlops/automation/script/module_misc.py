@@ -1650,7 +1650,7 @@ def docker(i):
 
         gh_token = i.get('docker_gh_token')
 
-        port_maps = i.get('docker_port_maps, docker_settings.get('port_maps', []))
+        port_maps = i.get('docker_port_maps', docker_settings.get('port_maps', []))
 
 
         
