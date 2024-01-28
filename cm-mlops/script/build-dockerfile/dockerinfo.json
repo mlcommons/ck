@@ -1,6 +1,6 @@
 {
   "python-packages": [
-    "cmind", "requests"
+    "cmind", "requests", "giturlparse"
   ],
   "ARGS": [
     "CM_GH_TOKEN"

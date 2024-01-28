@@ -1384,6 +1384,8 @@ def dockerfile(i):
         fake_run_deps = i.get('fake_run_deps', docker_settings.get('fake_run_deps', False))
         docker_run_final_cmds = docker_settings.get('docker_run_final_cmds', [])
 
+        gh_token = i.get('docker_gh_token')
+
         if i.get('docker_real_run', False):
             fake_run_option = " "
             fake_run_deps = False
@@ -1435,6 +1437,9 @@ def dockerfile(i):
                             'print_deps': True,
                             'real_run': True
                             }
+
+        if gh_token:
+            cm_docker_input['gh_token'] = gh_token
 
         r = self_module.cmind.access(cm_docker_input)
         if r['return'] > 0:
@@ -1651,7 +1656,6 @@ def docker(i):
         gh_token = i.get('docker_gh_token')
 
         port_maps = i.get('docker_port_maps', docker_settings.get('port_maps', []))
-
 
         
 #        # Regenerate run_cmd
