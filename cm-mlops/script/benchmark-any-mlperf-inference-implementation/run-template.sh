@@ -72,13 +72,13 @@ ${extra_option} \
 --results_dir=$results_dir'
 
 tflite_performance_cmd='cm run script --tags=run,mobilenet-models,_tflite,_performance-only$extra_tags \
-${POWER} \
+${POWER_STRING} \
 --adr.compiler.tags=gcc \
 ${extra_option} \
 --results_dir=$results_dir'
 
 tflite_readme_cmd='cm run script --tags=run,mobilenet-models,_tflite,_populate-readme$extra_tags \
-${POWER} \
+${POWER_STRING} \
 --adr.compiler.tags=gcc \
 ${extra_option} \
 --results_dir=$results_dir'
