@@ -66,10 +66,11 @@ More configuration options can be found [here](https://github.com/mlcommons/powe
 ### Running the power server inside a docker container
 
 ```bash
-cm run script --tags=run,docker,container --cm_repo=ctuning@mlcommons-ck --gh_token=<GitHub AUTH_TOKEN> \
---docker_os=ubuntu --docker_os_version=22.04 --device=/dev/usbtmc0 --port_maps,=4950:4950 \
---run_cmd="cm run script --tags=run,mlperf,power,server"
+cm docker script --tags=run,mlperf,power,server --docker_gh_token=<GITHUB AUTH_TOKEN> \
+--docker_os=ubuntu --docker_os_version=22.04 --device=/dev/usbtmc0
 ```
+* Device address may need to be changed depending on the USB port being used
+* The above command uses a host-container port mapping 4950:4950 which can be changed by using `--docker_port_maps,=4950:4950`
 
 ## Running a dummy workload with power (on host machine)
 
@@ -101,5 +102,5 @@ cm run script --tags=run,docker,container --cm_repo=ctuning@mlcommons-ck  \
 
 ## Further questions?
 
-If you have further questions, interested in our development roadmap or need help to automate, optimize and validate your MLPerf submission,
-feel free to get in touch with the [MLCommons taskforce on automation and reproducibility](../taskforce.md).
+If you have further questions, are interested in our development roadmap, or need help to automate, optimize and validate your MLPerf submission,
+feel free to contact the [MLCommons taskforce on automation and reproducibility](../taskforce.md).
