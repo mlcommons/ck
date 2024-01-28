@@ -38,7 +38,6 @@ function run_test() {
 }
 
 #power=' --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4950 '
-power=${POWER_STRING}
 results_dir=$HOME/results_dir
 
 #Add your run commands here...
@@ -49,22 +48,22 @@ find_performance_cmd='cm run script --tags=generate-run-cmds,inference,_find-per
 submission_cmd='cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios \
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
 --category=$category --division=$division  --quiet --results_dir=$results_dir \
---skip_submission_generation=yes --execution-mode=valid $power'
+--skip_submission_generation=yes --execution-mode=valid ${POWER_STRING}'
 
 submission_cmd_scenario='cm run script --tags=generate-run-cmds,inference,_submission  --scenario=$scenario \
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
 --category=$category --division=$division  --quiet --results_dir=$results_dir \
---skip_submission_generation=yes --execution-mode=valid $power'
+--skip_submission_generation=yes --execution-mode=valid ${POWER_STRING}'
 
 readme_cmd_single='cm run script --tags=generate-run-cmds,inference,_populate-readme --scenario=$scenario \
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
 --category=$category --division=$division  --quiet --results_dir=$results_dir \
---skip_submission_generation=yes --execution-mode=valid $power'
+--skip_submission_generation=yes --execution-mode=valid ${POWER_STRING}'
 
 readme_cmd='cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios \
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
 --category=$category --division=$division  --quiet --results_dir=$results_dir \
---skip_submission_generation=yes --execution-mode=valid $power'
+--skip_submission_generation=yes --execution-mode=valid ${POWER_STRING}'
 
 
 tflite_accuracy_cmd='cm run script --tags=run,mobilenet-models,_tflite,_accuracy-only$extra_tags \
