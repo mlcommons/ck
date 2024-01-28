@@ -31,6 +31,8 @@ cmr "python app image-classification onnx"
 cmr "download file _wget" --url=https://cKnowledge.org/ai/data/computer_mouse.jpg --verify=no --env.CM_DOWNLOAD_CHECKSUM=45ae5c940233892c2f860efdf0b66e7e
 cmr "python app image-classification onnx" --input=computer_mouse.jpg
 
+cm find script "python app image-classification onnx"
+
 cmr "get python" --version_min=3.8.0 --name=mlperf-experiments
 cmr "install python-venv" --version_max=3.10.11 --name=mlperf
 
@@ -61,8 +63,6 @@ cm find script "run common mlperf inference"
 cm pull repo ctuning@cm-reproduce-research-projects
 cmr "reproduce paper micro-2023 victima _install_deps"
 cmr "reproduce paper micro-2023 victima _run" 
-
-...
 
 ```
 

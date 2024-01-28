@@ -1824,6 +1824,15 @@ class CAutomation(Automation):
 
         console = i.get('out') == 'con'
 
+        # Check simplified CMD: cm run script "get compiler"
+        # If artifact has spaces, treat them as tags!
+        artifact = i.get('artifact','')
+        if ' ' in artifact: # or ',' in artifact:
+            del(i['artifact'])
+            if 'parsed_artifact' in i: del(i['parsed_artifact'])
+            # Force substitute tags
+            i['tags']=artifact.replace(' ',',')
+        
         ############################################################################################################
         # Process tags to find script(s) and separate variations 
         # (not needed to find scripts)
