@@ -157,12 +157,13 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--cudnn_tar_file=value`  &rarr;  `CM_CUDNN_TAR_FILE_PATH=value`
 * `--cudnn_tar_path=value`  &rarr;  `CM_CUDNN_TAR_FILE_PATH=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "cudnn_tar_path":...}
+r=cm.access({... , "cudnn_tar_file":...}
 ```
 
 </details>

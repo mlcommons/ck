@@ -12,6 +12,7 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -48,11 +49,13 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=benchmark,run,natively,all,any,mlperf,mlperf-implementation,implementation,mlperf-models[,variations] `
+1. `cm run script --tags=benchmark,run,natively,all,any,mlperf,mlperf-implementation,implementation,mlperf-models[,variations] [--input_flags]`
 
-2. `cmr "benchmark run natively all any mlperf mlperf-implementation implementation mlperf-models[ variations]" `
+2. `cmr "benchmark run natively all any mlperf mlperf-implementation implementation mlperf-models[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
+
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### Run this script from Python
 
@@ -88,7 +91,7 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=benchmark,run,natively
 
 #### Run this script via Docker (beta)
 
-`cm docker script "benchmark run natively all any mlperf mlperf-implementation implementation mlperf-models[ variations]" `
+`cm docker script "benchmark run natively all any mlperf mlperf-implementation implementation mlperf-models[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -188,6 +191,27 @@ ___
 #### Default variations
 
 `_performance-only`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--backends=value`  &rarr;  `BACKENDS=value`
+* `--category=value`  &rarr;  `CATEGORY=value`
+* `--devices=value`  &rarr;  `DEVICES=value`
+* `--division=value`  &rarr;  `DIVISION=value`
+* `--models=value`  &rarr;  `MODELS=value`
+* `--power_server=value`  &rarr;  `POWER_SERVER=value`
+* `--power_server_port=value`  &rarr;  `POWER_SERVER_PORT=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "backends":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
@@ -195,6 +219,8 @@ ___
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
+* DIVISION: `open`
+* CATEGORY: `edge`
 
 </details>
 
@@ -218,7 +244,7 @@ ___
 
 ___
 ### Script output
-`cmr "benchmark run natively all any mlperf mlperf-implementation implementation mlperf-models[,variations]"  -j`
+`cmr "benchmark run natively all any mlperf mlperf-implementation implementation mlperf-models[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
