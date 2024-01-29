@@ -73,7 +73,7 @@ variations:
     group: target
     default: yes
     env:
-      USE_CUDA: yes
+      USE_CPU: yes
 
 input_mapping:
   input: CM_IMAGE
