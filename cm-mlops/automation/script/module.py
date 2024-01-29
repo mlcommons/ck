@@ -127,6 +127,7 @@ class CAutomation(Automation):
 
           (save_env) (bool): if True, save env and state to tmp-env.sh/bat and tmp-state.json
           (shell) (bool): if True, save env with cmd/bash and run it
+          (debug) (bool): the same as shell
 
           (recursion) (bool): True if recursive call.
                               Useful when preparing the global bat file or Docker container
@@ -1611,11 +1612,14 @@ class CAutomation(Automation):
         script_path = os.getcwd()
         os.chdir(current_path)
 
-        if not i.get('dirty', False) and not cache:
+        shell = i.get('shell', False)
+        if not shell:
+            shell = i.get('debug', False)
+
+        if not shell and not i.get('dirty', False) and not cache:
             clean_tmp_files(clean_files, recursion_spaces)
 
         # Record new env and new state in the current dir if needed
-        shell = i.get('shell', False)
         if save_env or shell:
             # Check if script_prefix in the state from other components
             where_to_add = len(os_info['start_script'])
@@ -1627,13 +1631,15 @@ class CAutomation(Automation):
                      env_script.insert(where_to_add, x)
 
             if shell:
-                x = 'cmd' if os_info['platform'] == 'windows' else 'bash'
+                x=['cmd', '.', '','.bat'] if os_info['platform'] == 'windows' else ['bash', ' ""', '"','.sh']
 
                 env_script.append('\n')
-                env_script.append('echo "Working path: {}"'.format(script_path))
-                env_script.append('echo "Running debug shell. Type exit to quit ..."\n')
+                env_script.append('echo{}\n'.format(x[1]))
+                env_script.append('echo {}Working path: {}{}'.format(x[2], script_path, x[2]))
+                env_script.append('echo {}Running debug shell. Change and run "tmp-run{}". Type exit to quit ...{}\n'.format(x[2],x[3],x[2]))
+                env_script.append('echo{}\n'.format(x[1]))
                 env_script.append('\n')
-                env_script.append(x)
+                env_script.append(x[0])
 
             env_file = self.tmp_file_env + bat_ext
 
@@ -3955,12 +3961,14 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
         # Check if run bash/cmd before running the command (for debugging)
         if debug_script_tags !='' and all(item in found_script_tags for item in debug_script_tags.split(',')):
-            x = 'cmd' if os_info['platform'] == 'windows' else 'bash'
+            x=['cmd', '.', '','.bat'] if os_info['platform'] == 'windows' else ['bash', ' ""', '"','.sh']
 
             script.append('\n')
-            script.append('echo "Running debug shell. Type exit to quit ..."\n')
+            script.append('echo{}\n'.format(x[1]))
+            script.append('echo {}Running debug shell. Type exit to resume script execution ...{}\n'.format(x[2],x[3],x[2]))
+            script.append('echo{}\n'.format(x[1]))
             script.append('\n')
-            script.append(x)
+            script.append(x[0])
 
         # Append batch file to the tmp script
         script.append('\n')
