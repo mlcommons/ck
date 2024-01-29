@@ -4,7 +4,7 @@
   "category": "Compiler automation",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
-  "default_version": "14.0.0",
+  "default_version": "15.0.6",
   "deps": [
     {
       "tags": "detect,os"
