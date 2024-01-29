@@ -49,7 +49,7 @@ cmr "python app image-classification onnx" --input=computer_mouse.jpg
 cm rm cache -f
 cmr "python app image-classification onnx" --input=computer_mouse.jpg --adr.onnxruntime.version_max=1.16.0
 
-
+cmr "get cuda" --version_min=12.0.0 --version_max=12.3.1
 cmr "python app image-classification onnx _cuda" --input=computer_mouse.jpg
 
 cmr "cm gui" --script="python app image-classification onnx"
@@ -60,9 +60,15 @@ cm docker script "python app image-classification onnx" --input=computer_mouse.j
 cmr "run common mlperf inference" --implementation=nvidia --model=bert-99 --category=datacenter --division=closed
 cm find script "run common mlperf inference"
 
+cmr "install llvm prebuilt" --version=17.0.6
+cmr "app image corner-detection"
+
+cmr "get conda"
+
 cm pull repo ctuning@cm-reproduce-research-projects
 cmr "reproduce paper micro-2023 victima _install_deps"
 cmr "reproduce paper micro-2023 victima _run" 
+
 
 ```
 

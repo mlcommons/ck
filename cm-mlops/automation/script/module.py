@@ -3935,6 +3935,10 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
             print (recursion_spaces + '  - Running native script "{}" from temporal script "{}" in "{}" ...'.format(path_to_run_script, run_script, cur_dir))
             print ('')
 
+        print (recursion_spaces + '    @ cd {}'.format(cur_dir))
+        print (recursion_spaces + '    @ call {} ({})'.format(run_script, path_to_run_script))
+
+
         # Prepare env variables
         import copy
         script = copy.deepcopy(os_info['start_script'])
