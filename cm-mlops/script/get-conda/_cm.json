@@ -29,6 +29,11 @@
     "name.#": {
       "env": {
         "CM_CONDA_PREFIX_NAME": "#"
+      },
+      "adr": {
+        "conda-package": {
+          "tags": "_name.#"
+        }
       }
     },
     "python-3.8": {
