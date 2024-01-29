@@ -53,6 +53,12 @@ def postprocess(i):
     except Exception as e:
         print ('CM warning: {}'.format(e))
 
+    top_classification = data.get('top_classification','')
 
-    
+    if top_classification!='':
+        print ('')
+        x = 'Top classification: {}'.format(top_classification)
+        print ('='*len(x))
+        print (x)
+
     return {'return':0}

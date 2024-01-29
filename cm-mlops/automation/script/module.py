@@ -1097,6 +1097,8 @@ class CAutomation(Automation):
                     if r['return']>0: return r
                     version = r['meta'].get('version')
 
+                    print (recursion_spaces + '     ! load {}'.format(path_to_cached_state_file))
+
 
                     ################################################################################################
                     # IF REUSE FROM CACHE - update env and state from cache!
@@ -3935,8 +3937,8 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
             print (recursion_spaces + '  - Running native script "{}" from temporal script "{}" in "{}" ...'.format(path_to_run_script, run_script, cur_dir))
             print ('')
 
-        print (recursion_spaces + '    @ cd {}'.format(cur_dir))
-        print (recursion_spaces + '    @ call {} ({})'.format(run_script, path_to_run_script))
+        print (recursion_spaces + '       ! cd {}'.format(cur_dir))
+        print (recursion_spaces + '       ! call {} from {}'.format(run_script, path_to_run_script))
 
 
         # Prepare env variables
@@ -4017,6 +4019,11 @@ more portable, interoperable and deterministic. Thank you'''
 
             utils.merge_dicts({'dict1':env, 'dict2':updated_env, 'append_lists':True, 'append_unique':True})
  
+
+    if customize_code is not None:
+        print (recursion_spaces+'       ! call "{}" from {}'.format(postprocess, customize_code.__file__))
+    
+    
     if len(posthook_deps)>0 and (postprocess == "postprocess"):
         r = script_automation._call_run_deps(posthook_deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
             add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, run_state)
