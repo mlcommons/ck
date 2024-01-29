@@ -18,7 +18,11 @@
       "tags": "get,python3"
     },
     {
-      "tags": "print,python-version"
+      "tags": "print,python-version",
+      "skip_if_env": {
+         "CM_SKIP_PRINT":["True"],
+         "CM_SKIP_PRINT2":["True"]
+      }
     }
   ],
   "tags": [

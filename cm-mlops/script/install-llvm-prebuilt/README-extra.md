@@ -13,6 +13,7 @@ This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/scrip
 ## Supported and Tested OS
 1. Ubuntu 18.04, 20.04, 22.04
 2. RHEL 9
+3. Windows 10, 11
 
 # CLI
 
@@ -57,6 +58,19 @@ cm run script "app image corner-detection"
 *Test detection and installation on different platforms*
 
 * Windows, Linux, MacOS
+
+### Ubuntu 22.04
+
+* 17.0.6
+* 17.0.5
+* 17.0.4
+* 17.0.2
+* 16.0.4
+* 16.0.0
+  `sudo apt install libncurses5`
+* 15.0.6
+* 14.0.0
+
 
 ### RHEL 9
 

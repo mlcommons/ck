@@ -61,7 +61,22 @@ def preprocess(i):
               # Treat all Linux flavours as Ubuntu for now ...
 
               if True:
-                  default_os='18.04'
+                  need_version_split = need_version.split('.')
+
+                  default_os = '22.04'
+
+                  if len(need_version_split)>0:
+                      hver = 0
+                      try:
+                          hver = int(need_version_split[0])
+                      except:
+                          pass
+
+                      if hver>0:
+                          if hver<16:
+                              default_os='18.04'
+                          else:
+                              default_os='22.04'
 
                   if need_version == '10.0.1':
                       default_os = '16.04'
@@ -95,7 +110,17 @@ def preprocess(i):
                   elif need_version == '14.0.0':
                       default_os = '18.04'
 
-                  package_name = 'clang+llvm-' + need_version + '-x86_64-linux-gnu-ubuntu-' + default_os + '.tar.xz'
+                  elif need_version == '15.0.6':
+                      default_os = '18.04'
+
+                  elif need_version == '16.0.0':
+                      default_os = '18.04'
+
+                  elif need_version == '16.0.4':
+                      default_os = '22.04'
+
+
+              package_name = 'clang+llvm-' + need_version + '-x86_64-linux-gnu-ubuntu-' + default_os + '.tar.xz'
 
 
     package_url = 'https://github.com/llvm/llvm-project/releases/download/llvmorg-' + need_version + '/' + package_name

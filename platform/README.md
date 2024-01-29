@@ -1,6 +1,7 @@
 # Collective Knowledge Playground
 
-*Note that this project is under heavy development.*
+*Note that this project is under heavy development. 
+ We are preparing a major update based on very useful feedback from our users during MLPerf inference 3.1 community submission!*
 
 ### Introduction
 

@@ -29,11 +29,15 @@
     "name.#": {
       "env": {
         "CM_CONDA_PREFIX_NAME": "#"
+      },
+      "adr": {
+        "conda-package": {
+          "tags": "_name.#"
+        }
       }
     },
     "python-3.8": {
       "group": "conda-python",
-      "default": true,
       "env": {
         "CM_CONDA_PYTHON_VERSION": "3.8"
       }

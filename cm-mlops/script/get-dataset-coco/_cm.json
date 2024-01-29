@@ -17,7 +17,8 @@
   "input_mapping": {
     "from": "CM_FROM",
     "store": "CM_STORE",
-    "to": "CM_TO"
+    "to": "CM_TO",
+    "home": "CM_HOME_DIR"
   },
   "new_env_keys": [
     "CM_DATASET_COCO*",
@@ -36,6 +37,7 @@
         "get-dataset-coco-data",
         "746e5dad5e784ad6"
       ],
+      "skip_if_fake_run": true,
       "skip_if_env": {
         "CM_DATASET_COCO_DETECTED": [
           "yes"
@@ -61,6 +63,7 @@
         "get-dataset-coco-annotations",
         "edb6cd092ff64171"
       ],
+      "skip_if_fake_run": true,
       "skip_if_env": {
         "CM_DATASET_COCO_DETECTED": [
           "yes"
@@ -116,5 +119,19 @@
       },
       "group": "type"
     }
+  },
+  "docker": {
+    "skip_run_cmd":"no",
+    "mount_current_dir":"yes",
+    "input_paths": [
+      "store",
+      "from",
+      "to"
+    ],
+    "skip_input_for_fake_run": [
+      "store",
+      "from",
+      "to"
+    ]
   }
 }

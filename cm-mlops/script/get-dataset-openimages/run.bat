@@ -15,5 +15,8 @@ if not "%CM_DATASET_SIZE%" == "" (
    set MAX_IMAGES=
 )
 
-%CM_PYTHON_BIN% tools\openimages.py %MAX_IMAGES% --dataset-dir=%INSTALL_DIR% --output-labels=openimages-mlperf.json
+%CM_PYTHON_BIN% tools\openimages.py %MAX_IMAGES% --dataset-dir=%INSTALL_DIR% --output-labels=openimages-mlperf.json --classes %CM_DATASET_OPENIMAGES_CLASSES%
 IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
+
+cd %INSTALL_DIR%
+move validation\data\* .

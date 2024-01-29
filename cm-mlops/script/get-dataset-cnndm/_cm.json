@@ -16,16 +16,17 @@
         "python",
         "python3"
       ],
-      "tags": "get,python3"
+      "tags": "get,python3",
+      "version_max": "3.9.999"
     },
     {
-      "force_env_keys": [
-        "CM_GIT_*"
-      ],
       "names": [
         "inference-src"
       ],
-      "tags": "mlperf,inference,source"
+      "tags": "mlperf,inference,source",
+      "skip_if_env": {
+        "CM_CNNDM_INTEL_VARIATION": [ "yes" ]
+      }
     },
     {
       "tags": "get,generic-python-lib,_package.simplejson"
@@ -43,11 +44,6 @@
   "env": {
     "CM_DATASET": "CNNDM"
   },
-  "new_env_keys": [
-    "CM_DATASET_PATH",
-    "CM_DATASET_EVAL_PATH",
-    "CM_CALIBRATION_DATASET_PATH"
-  ],
   "tags": [
     "get",
     "dataset",
@@ -59,17 +55,33 @@
   "uid": "aed298c156e24257",
   "variations": {
     "calibration": {
+      "new_env_keys": [
+        "CM_CALIBRATION_DATASET_PATH",
+        "CM_CALIBRATION_DATASET_CNNDM_PATH"
+      ],
       "env": {
         "CM_DATASET_CALIBRATION": "yes"
       },
       "group": "dataset-type"
     },
     "validation": {
+      "new_env_keys": [
+        "CM_DATASET_PATH",
+        "CM_DATASET_EVAL_PATH",
+        "CM_DATASET_CNNDM_EVAL_PATH"
+      ],
       "default": true,
       "env": {
         "CM_DATASET_CALIBRATION": "no"
       },
       "group": "dataset-type"
+    },
+    "intel": {
+    },
+    "intel,validation": {
+      "env": {
+        "CM_CNNDM_INTEL_VARIATION": "yes"
+      }
     }
   }
 }

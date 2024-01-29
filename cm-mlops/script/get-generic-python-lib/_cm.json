@@ -73,6 +73,16 @@
 	    "CM_TMP_PYTHON_PACKAGE_FORCE_INSTALL": "yes"
       }
     },
+    "conda.#": {
+      "ad": {
+        "python-pip": {
+          "tags": "_conda.#"
+        },
+        "python3": {
+          "tags": "_conda.#"
+        }
+      }
+    },
     "custom-python": {
       "env": {
         "CM_TMP_USE_CUSTOM_PYTHON": "on"

@@ -127,6 +127,7 @@ class CAutomation(Automation):
 
           (save_env) (bool): if True, save env and state to tmp-env.sh/bat and tmp-state.json
           (shell) (bool): if True, save env with cmd/bash and run it
+          (debug) (bool): the same as shell
 
           (recursion) (bool): True if recursive call.
                               Useful when preparing the global bat file or Docker container
@@ -180,7 +181,7 @@ class CAutomation(Automation):
           * state (dict): global state (updated by this script - includes new_state)
 
         """
-
+        
         from cmind import utils
         import copy
         import time
@@ -279,9 +280,14 @@ class CAutomation(Automation):
 
         skip_cache = i.get('skip_cache', False)
         force_cache = i.get('force_cache', False)
+
         fake_run = i.get('fake_run', False)
         fake_run = i.get('fake_run', False) if 'fake_run' in i else i.get('prepare', False)
+        if fake_run: env['CM_TMP_FAKE_RUN']='yes'
+        
         fake_deps = i.get('fake_deps', False)
+        if fake_deps: env['CM_TMP_FAKE_DEPS']='yes'
+
         run_state = i.get('run_state', self.run_state)
         if run_state.get('version_info', '') == '':
             run_state['version_info'] = {}
@@ -289,6 +295,7 @@ class CAutomation(Automation):
             run_state['parent'] = None
         if fake_deps:
             run_state['fake_deps'] = True
+
         print_deps = i.get('print_deps', False)
         print_readme = i.get('print_readme', False)
 
@@ -454,9 +461,10 @@ class CAutomation(Automation):
 
             cm_script_info += '"'
 
-        if verbose:
-            print ('')
+#        if verbose:
+#            print ('')
 
+        print ('')
         print (recursion_spaces + '* ' + cm_script_info)
 
 
@@ -1097,6 +1105,8 @@ class CAutomation(Automation):
                     if r['return']>0: return r
                     version = r['meta'].get('version')
 
+                    print (recursion_spaces + '     ! load {}'.format(path_to_cached_state_file))
+
 
                     ################################################################################################
                     # IF REUSE FROM CACHE - update env and state from cache!
@@ -1521,7 +1531,17 @@ class CAutomation(Automation):
         utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
         utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
 
-        r = detect_state_diff(env, saved_env, new_env_keys_from_meta, new_state_keys_from_meta, state, saved_state)
+        if i.get('force_new_env_keys', []):
+            new_env_keys = i['force_new_env_keys']
+        else:
+            new_env_keys = new_env_keys_from_meta
+
+        if i.get('force_new_state_keys', []):
+            new_state_keys = i['force_new_state_keys']
+        else:
+            new_state_keys = new_state_keys_from_meta
+
+        r = detect_state_diff(env, saved_env, new_env_keys, new_state_keys, state, saved_state)
         if r['return']>0: return r
 
         new_env = r['new_env']
@@ -1609,11 +1629,14 @@ class CAutomation(Automation):
         script_path = os.getcwd()
         os.chdir(current_path)
 
-        if not i.get('dirty', False) and not cache:
+        shell = i.get('shell', False)
+        if not shell:
+            shell = i.get('debug', False)
+
+        if not shell and not i.get('dirty', False) and not cache:
             clean_tmp_files(clean_files, recursion_spaces)
 
         # Record new env and new state in the current dir if needed
-        shell = i.get('shell', False)
         if save_env or shell:
             # Check if script_prefix in the state from other components
             where_to_add = len(os_info['start_script'])
@@ -1625,13 +1648,15 @@ class CAutomation(Automation):
                      env_script.insert(where_to_add, x)
 
             if shell:
-                x = 'cmd' if os_info['platform'] == 'windows' else 'bash'
+                x=['cmd', '.', '','.bat',''] if os_info['platform'] == 'windows' else ['bash', ' ""', '"','.sh','. ./']
 
                 env_script.append('\n')
-                env_script.append('echo "Working path: {}"'.format(script_path))
-                env_script.append('echo "Running debug shell. Type exit to quit ..."\n')
+                env_script.append('echo{}\n'.format(x[1]))
+                env_script.append('echo {}Working path: {}{}'.format(x[2], script_path, x[2]))
+                env_script.append('echo {}Running debug shell. Change and run "tmp-run{}". Type exit to quit ...{}\n'.format(x[2],x[3],x[2]))
+                env_script.append('echo{}\n'.format(x[1]))
                 env_script.append('\n')
-                env_script.append(x)
+                env_script.append(x[0])
 
             env_file = self.tmp_file_env + bat_ext
 
@@ -2154,7 +2179,7 @@ class CAutomation(Automation):
 
         console = i.get('out') == 'con'
 
-        # Try to find experiment artifact by alias and/or tags
+        # Try to find script artifact by alias and/or tags
         ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
 
         parsed_artifact = i.get('parsed_artifact',[])
@@ -2511,6 +2536,9 @@ class CAutomation(Automation):
                 if not d.get('tags'):
                     continue
 
+                if d.get('skip_if_fake_run', False) and env.get('CM_TMP_FAKE_RUN','')=='yes':
+                    continue
+                
                 if "enable_if_env" in d:
                     if not enable_or_skip_script(d["enable_if_env"], env):
                         continue
@@ -3408,7 +3436,7 @@ class CAutomation(Automation):
     ############################################################
     def doc(self, i):
         """
-        Add CM automation.
+        Document CM script.
 
         Args:
           (CM input dict): 
@@ -3433,11 +3461,47 @@ class CAutomation(Automation):
 
         return utils.call_internal_module(self, __file__, 'module_misc', 'doc', i)
 
+    ############################################################
+    def gui(self, i):
+        """
+        Run GUI for CM script.
+
+        Args:
+          (CM input dict):
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+        """
+
+        artifact = i.get('artifact', '')
+        tags = ''
+        if artifact != '':
+            if ' ' in artifact:
+                tags = artifact.replace(' ',',')
+             
+        if tags=='':
+            tags = i.get('tags','')
+
+        if 'tags' in i:
+            del(i['tags'])
+
+        i['action']='run'
+        i['artifact']='gui'
+        i['parsed_artifact']=[('gui','605cac42514a4c69')]
+        i['script']=tags.replace(',',' ')
+
+        return self.cmind.access(i)
+
+
 
     ############################################################
     def dockerfile(self, i):
         """
-        Add CM automation.
+        Generate Dockerfile for CM script.
 
         Args:
           (CM input dict):
@@ -3465,7 +3529,7 @@ class CAutomation(Automation):
     ############################################################
     def docker(self, i):
         """
-        Add CM automation.
+        Run CM script in an automatically-generated container.
 
         Args:
           (CM input dict):
@@ -3935,6 +3999,10 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
             print (recursion_spaces + '  - Running native script "{}" from temporal script "{}" in "{}" ...'.format(path_to_run_script, run_script, cur_dir))
             print ('')
 
+        print (recursion_spaces + '       ! cd {}'.format(cur_dir))
+        print (recursion_spaces + '       ! call {} from {}'.format(run_script, path_to_run_script))
+
+
         # Prepare env variables
         import copy
         script = copy.deepcopy(os_info['start_script'])
@@ -3949,12 +4017,14 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
         # Check if run bash/cmd before running the command (for debugging)
         if debug_script_tags !='' and all(item in found_script_tags for item in debug_script_tags.split(',')):
-            x = 'cmd' if os_info['platform'] == 'windows' else 'bash'
+            x=['cmd', '.', '','.bat'] if os_info['platform'] == 'windows' else ['bash', ' ""', '"','.sh']
 
             script.append('\n')
-            script.append('echo "Running debug shell. Type exit to quit ..."\n')
+            script.append('echo{}\n'.format(x[1]))
+            script.append('echo {}Running debug shell. Type exit to resume script execution ...{}\n'.format(x[2],x[3],x[2]))
+            script.append('echo{}\n'.format(x[1]))
             script.append('\n')
-            script.append(x)
+            script.append(x[0])
 
         # Append batch file to the tmp script
         script.append('\n')
@@ -4013,6 +4083,11 @@ more portable, interoperable and deterministic. Thank you'''
 
             utils.merge_dicts({'dict1':env, 'dict2':updated_env, 'append_lists':True, 'append_unique':True})
  
+
+    if customize_code is not None:
+        print (recursion_spaces+'       ! call "{}" from {}'.format(postprocess, customize_code.__file__))
+    
+    
     if len(posthook_deps)>0 and (postprocess == "postprocess"):
         r = script_automation._call_run_deps(posthook_deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
             add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, run_state)

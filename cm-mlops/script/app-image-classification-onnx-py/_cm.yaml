@@ -65,9 +65,15 @@ deps:
 
 variations:
   cuda:
+    group: target
     env:
       USE_CUDA: yes
 
+  cpu:
+    group: target
+    default: yes
+    env:
+      USE_CPU: yes
 
 input_mapping:
   input: CM_IMAGE

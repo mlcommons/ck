@@ -7,6 +7,9 @@ def preprocess(i):
 
     env = i['env']
 
+    if env.get('CM_PYTHON_CONDA', '') == 'yes':
+        env['CM_PYTHON_BIN_WITH_PATH'] = os.path.join(env['CM_CONDA_BIN_PATH'], "python")
+
     recursion_spaces = i['recursion_spaces']
 
     # we need to understand whether this script is called first and CM_PYTHON_BIN_WITH_PATH is empty

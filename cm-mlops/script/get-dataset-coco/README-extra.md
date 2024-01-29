@@ -92,3 +92,4 @@ It is useful when all files are already downloaded and saved for common use.
 
 ```bash
 cmr "get coco dataset _val _2017" --to=d:\Downloads\COCO-2017-val --store=d:\Downloads
+```

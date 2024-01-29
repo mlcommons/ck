@@ -138,6 +138,8 @@ deps:
   # Install MLPerf inference dependencies
 
   - tags: get,mlperf,inference,results
+    names:
+      inference-results
     version: v3.1
 
 
@@ -253,13 +255,15 @@ variations:
       CM_BENCHMARK: STANDALONE_GPTJ
 
   gptj_,pytorch:
+    adr:
+      conda-package:
+        tags: _name.gptj-pt
     deps:
       - tags: get,conda,_name.gptj-pt
-      - tags: get,generic,conda-package,_package.python
-        names:
-        - conda-package
-        - python
-        version: "3.9"
+      - tags: get,python,_conda.gptj-pt
+        adr:
+          conda-python:
+            version: "3.9"
       - tags: install,llvm,src,_tag.llvmorg-16.0.6,_clang,_release,_for-intel-mlperf-inference-v3.1-gptj
       - names:
         - conda-package
@@ -271,9 +275,9 @@ variations:
         - conda-package
         - jemalloc
       - tags: install,ipex,from.src,_for-intel-mlperf-inference-v3.1-gptj
-      - tags: get,generic-python-lib,_custom-python,_package.transformers
-        env:
-          CM_PYTHON_BIN_WITH_PATH: "<<<CM_CONDA_BIN_PATH>>>/python3"
+      - tags: get,generic-python-lib,_package.transformers
+        names:
+          - pip-package
         version: "4.28.1"
       - tags: get,mlcommons,inference,src
         names:
@@ -288,12 +292,12 @@ variations:
         - ml-model
         - gptj-model
         - gpt-j-model
-      - tags: get,generic-python-lib,_custom-python,_package.datasets
-        env:
-          CM_PYTHON_BIN_WITH_PATH: "<<<CM_CONDA_BIN_PATH>>>/python3"
-      - tags: get,generic-python-lib,_custom-python,_package.accelerate
-        env:
-          CM_PYTHON_BIN_WITH_PATH: "<<<CM_CONDA_BIN_PATH>>>/python3"
+      - tags: get,generic-python-lib,_package.datasets
+        names:
+          - pip-package
+      - tags: get,generic-python-lib,_package.accelerate
+        names:
+          - pip-package
 
   gptj-99:
     group: model

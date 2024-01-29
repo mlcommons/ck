@@ -1051,6 +1051,47 @@ def doc(i):
 
 
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def update_path_for_docker(path, mounts, force_path_target=''):
+
+    path_orig = ''
+    path_target = ''
+    
+    if path!='': # and (os.path.isfile(path) or os.path.isdir(path)):
+        path = os.path.abspath(path)
+
+        path_target = path
+        path_orig = path
+
+        if os.name == 'nt':
+            from pathlib import PureWindowsPath, PurePosixPath
+    
+            x = PureWindowsPath(path_orig)
+            path_target = str(PurePosixPath('/', *x.parts[1:]))
+
+        if not path_target.startswith('/'): path_target='/'+path_target
+
+        path_target='/cm-mount'+path_target if force_path_target=='' else force_path_target
+
+        # If file, mount directory
+        if os.path.isfile(path):
+            x = os.path.dirname(path_orig) + ':' + os.path.dirname(path_target)
+        else:
+            x = path_orig + ':' + path_target
+
+        # CHeck if no duplicates
+        to_add = True
+        for y in mounts:
+            if y.lower()==x.lower():
+                to_add = False
+                break
+
+        if to_add:
+            mounts.append(x)
+
+    
+    return (path_orig, path_target)
+
 ############################################################
 def process_inputs(i):
 
@@ -1063,34 +1104,6 @@ def process_inputs(i):
     # Check if need to update/map/mount inputs and env
     i_run_cmd = copy.deepcopy(i_run_cmd_arc)
 
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    def update_path_for_docker(path, mounts):
-
-        path_orig = ''
-        path_target = ''
-        
-        if path!='' and (os.path.isfile(path) or os.path.isdir(path)):
-            path = os.path.abspath(path)
-
-            path_target = path
-            path_orig = path
-
-            if os.name == 'nt':
-                from pathlib import PureWindowsPath, PurePosixPath
-        
-                x = PureWindowsPath(path_orig)
-                path_target = str(PurePosixPath('/', *x.parts[1:]))
-
-            if not path_target.startswith('/'): path_target='/'+path_target
-            path_target='/cm-mount'+path_target
-
-            # If file, mount directory
-            if os.path.isfile(path):
-                mounts.append(os.path.dirname(path_orig) + ':' + os.path.dirname(path_target))
-            else:
-                mounts.append(path_orig + ':' + path_target)
-
-        return (path_orig, path_target)
             
     def get_value_using_key_with_dots(d, k):
         v = None
@@ -1570,6 +1583,11 @@ def docker(i):
 
         i_run_cmd = r['run_cmd']
 
+        # Check if need to mount home directory
+        current_path_target = '/cm-mount/current'
+        if docker_settings.get('mount_current_dir','')=='yes':
+            update_path_for_docker('.', mounts, force_path_target=current_path_target)
+
 
         _os = i.get('docker_os', meta.get('docker_os', 'ubuntu'))
         version = i.get('docker_os_version', meta.get('docker_os_version', '22.04'))
@@ -1680,7 +1698,10 @@ def docker(i):
         if r['return']>0: return r
 
         run_cmd  = r['run_cmd_string']
-        
+
+        if docker_settings.get('mount_current_dir','')=='yes':
+            run_cmd = 'cd '+current_path_target+' && '+run_cmd
+
         print ('')
         print ('CM command line regenerated to be used inside Docker:')
         print ('')
