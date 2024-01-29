@@ -106,15 +106,29 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_batch-size.#`
-      - Environment variables:
-        - *CM_MLPERF_LOADGEN_MAX_BATCHSIZE*: `#`
+    * `_multistream,resnet50`
+      - Workflow:
+    * `_multistream,retinanet`
+      - Workflow:
+    * `_offline,resnet50`
       - Workflow:
     * `_resnet50,multistream`
       - Workflow:
     * `_resnet50,offline`
       - Workflow:
     * `_resnet50,server`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**batch-size**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_batch-size.#`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_MAX_BATCHSIZE*: `#`
       - Workflow:
 
     </details>

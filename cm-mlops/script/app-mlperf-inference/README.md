@@ -132,6 +132,7 @@ ___
     <summary>Click here to expand this section.</summary>
 
     * `_cpp`
+      - Aliases: `_mil`
       - Environment variables:
         - *CM_MLPERF_CPP*: `yes`
         - *CM_MLPERF_IMPLEMENTATION*: `cpp`
@@ -745,6 +746,7 @@ ___
 #### New environment keys auto-detected from customize
 
 * `CM_MLPERF_ACCURACY_RESULTS_DIR`
+* `CM_MLPERF_LOADGEN_COMPLIANCE_TEST`
 ___
 ### Maintainers
 

@@ -493,6 +493,7 @@ ___
     * `_sdxl`
       - Environment variables:
         - *CM_MODEL*: `stable-diffusion-xl`
+        - *CM_NUM_THREADS*: `1`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_package.diffusers
