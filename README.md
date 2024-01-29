@@ -25,7 +25,7 @@ either natively or inside containers.
 
 Here are a few most commonly used examples from the CM users 
 that should run in the same way on Linux, MacOS, Windows and other platforms
-(see [Gettings Started Guide](docs/getting-started.md) to understand 
+(see [Getting Started Guide](docs/getting-started.md) to understand 
 how they work and how to reuse them in your projects):
 
 ```bash
@@ -62,13 +62,18 @@ cmr "python app image-classification onnx" --input=computer_mouse.jpg --adr.onnx
 cmr "get cuda" --version_min=12.0.0 --version_max=12.3.1
 cmr "python app image-classification onnx _cuda" --input=computer_mouse.jpg
 
-cmr "cm gui" --script="python app image-classification onnx"
+cm gui script "python app image-classification onnx"
 
 cm docker script "python app image-classification onnx" --input=computer_mouse.jpg
 cm docker script "python app image-classification onnx" --input=computer_mouse.jpg -j -docker_it
 
 cmr "run common mlperf inference" --implementation=nvidia --model=bert-99 --category=datacenter --division=closed
 cm find script "run common mlperf inference"
+
+cmr "get generic-python-lib _package.torch" --version=2.1.1
+cmr "get generic-python-lib _package.torchvision" --version=0.16.2
+cmr "python app image-classification torch" --input=computer_mouse.jpg
+
 
 cmr "install llvm prebuilt" --version=17.0.6
 cmr "app image corner-detection"

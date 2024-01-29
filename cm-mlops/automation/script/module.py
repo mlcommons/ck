@@ -2536,6 +2536,9 @@ class CAutomation(Automation):
                 if not d.get('tags'):
                     continue
 
+                if d.get('skip_if_fake_run', False) and env.get('CM_TMP_FAKE_RUN','')=='yes':
+                    continue
+                
                 if "enable_if_env" in d:
                     if not enable_or_skip_script(d["enable_if_env"], env):
                         continue

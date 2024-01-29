@@ -36,6 +36,7 @@
         "get-dataset-coco-data",
         "746e5dad5e784ad6"
       ],
+      "skip_if_fake_run": true,
       "skip_if_env": {
         "CM_DATASET_COCO_DETECTED": [
           "yes"
@@ -61,6 +62,7 @@
         "get-dataset-coco-annotations",
         "edb6cd092ff64171"
       ],
+      "skip_if_fake_run": true,
       "skip_if_env": {
         "CM_DATASET_COCO_DETECTED": [
           "yes"
