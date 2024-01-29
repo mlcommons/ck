@@ -217,6 +217,7 @@ def main():
         tags = '--tags={}'.format(x)
 
     # Check flags
+    flags_dict = {}
     flags = ''
     for key in st_inputs:
         value = st_inputs[key]
@@ -224,19 +225,30 @@ def main():
 
         if value!='' and (type(value)!=bool or value==True):
             flags+=' '+var1+'\n   --'+key2
+
+            z = True
             if type(value)!=bool:
                 x = str(value)
+                z = x
+
                 if ' ' in x or ':' in x or '/' in x or '\\' in x: 
                     x='"'+x+'"'
                 flags+='='+x
+
+            flags_dict[key2]=z
 
     ########################################################
     # Extra CMD
     st.markdown("""---""")
     cmd_extension = st.text_input("Add extra to CM script command line").strip()
 
+    run_via_docker = False
+    if len(meta.get('docker',{}))>0:
+        run_via_docker = st.checkbox('Run via Docker', key='run_via_docker', value=False)
+
     # Prepare CLI
-    cli = 'cm run script {} {} '.format(tags, flags,)
+    action = 'docker' if run_via_docker else 'run'
+    cli = 'cm {} script {} {} '.format(action, tags, flags,)
 
     x = '' if cmd_extension=='' else var1+'\n   '+cmd_extension
     
@@ -248,6 +260,7 @@ def main():
 #    if no_run=='':
 #        cli+='   --pause\n'
 
+    
     # Print CLI
     st.markdown("""---""")
 
@@ -278,7 +291,44 @@ def main():
 
     st.text_area('**Install [CM interface](https://github.com/mlcommons/ck) with a few dependencies:**', x, height=170)
 
-    cli = st.text_area('**Run CM script:**', cli, height=500)
+
+    st.markdown("**Run CM script from Python:**")
+
+    # Python API
+    dd = {
+          'action':action,
+          'automation':'script,5b4e0237da074764',
+          'tags':script_tags
+         }
+
+    x = script_tags
+    if len(selected_variations)>0:
+        for sv in selected_variations:
+            x+=' '+sv
+         
+    dd['tags']=x.replace(' ',',')
+
+    dd.update(flags_dict)
+
+    import json
+    dd_json=json.dumps(dd, indent=2)
+
+    y = 'import cmind\n'
+    y+= 'r = cmind.access('+dd_json+')\n'
+    y+= 'if r[\'return\']>0: print (r)\n'
+
+    x='''
+         ```python
+          {}
+      '''.format(y)
+
+#    st.write(x.replace('\n','<br>\n'), unsafe_allow_html=True)
+
+    st.markdown(x)
+
+    
+    cli = st.text_area('**Run CM script from command line:**', cli, height=500)
+
 
 
     # Add explicit button "Run"

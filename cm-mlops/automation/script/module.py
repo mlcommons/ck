@@ -181,7 +181,7 @@ class CAutomation(Automation):
           * state (dict): global state (updated by this script - includes new_state)
 
         """
-
+        
         from cmind import utils
         import copy
         import time
@@ -455,9 +455,10 @@ class CAutomation(Automation):
 
             cm_script_info += '"'
 
-        if verbose:
-            print ('')
+#        if verbose:
+#            print ('')
 
+        print ('')
         print (recursion_spaces + '* ' + cm_script_info)
 
 
@@ -2162,7 +2163,7 @@ class CAutomation(Automation):
 
         console = i.get('out') == 'con'
 
-        # Try to find experiment artifact by alias and/or tags
+        # Try to find script artifact by alias and/or tags
         ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
 
         parsed_artifact = i.get('parsed_artifact',[])
@@ -3416,7 +3417,7 @@ class CAutomation(Automation):
     ############################################################
     def doc(self, i):
         """
-        Add CM automation.
+        Document CM script.
 
         Args:
           (CM input dict): 
@@ -3441,11 +3442,47 @@ class CAutomation(Automation):
 
         return utils.call_internal_module(self, __file__, 'module_misc', 'doc', i)
 
+    ############################################################
+    def gui(self, i):
+        """
+        Run GUI for CM script.
+
+        Args:
+          (CM input dict):
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+        """
+
+        artifact = i.get('artifact', '')
+        tags = ''
+        if artifact != '':
+            if ' ' in artifact:
+                tags = artifact.replace(' ',',')
+             
+        if tags=='':
+            tags = i.get('tags','')
+
+        if 'tags' in i:
+            del(i['tags'])
+
+        i['action']='run'
+        i['artifact']='gui'
+        i['parsed_artifact']=[('gui','605cac42514a4c69')]
+        i['script']=tags.replace(',',' ')
+
+        return self.cmind.access(i)
+
+
 
     ############################################################
     def dockerfile(self, i):
         """
-        Add CM automation.
+        Generate Dockerfile for CM script.
 
         Args:
           (CM input dict):
@@ -3473,7 +3510,7 @@ class CAutomation(Automation):
     ############################################################
     def docker(self, i):
         """
-        Add CM automation.
+        Run CM script in an automatically-generated container.
 
         Args:
           (CM input dict):
