@@ -116,5 +116,18 @@
       },
       "group": "type"
     }
+  },
+  "docker": {
+    "skip_run_cmd":"yes",
+    "input_paths": [
+      "store",
+      "from",
+      "to"
+    ],
+    "skip_input_for_fake_run": [
+      "store",
+      "from",
+      "to"
+    ]
   }
 }

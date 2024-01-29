@@ -280,9 +280,14 @@ class CAutomation(Automation):
 
         skip_cache = i.get('skip_cache', False)
         force_cache = i.get('force_cache', False)
+
         fake_run = i.get('fake_run', False)
         fake_run = i.get('fake_run', False) if 'fake_run' in i else i.get('prepare', False)
+        if fake_run: env['CM_TMP_FAKE_RUN']='yes'
+        
         fake_deps = i.get('fake_deps', False)
+        if fake_deps: env['CM_TMP_FAKE_DEPS']='yes'
+
         run_state = i.get('run_state', self.run_state)
         if run_state.get('version_info', '') == '':
             run_state['version_info'] = {}
@@ -290,6 +295,7 @@ class CAutomation(Automation):
             run_state['parent'] = None
         if fake_deps:
             run_state['fake_deps'] = True
+
         print_deps = i.get('print_deps', False)
         print_readme = i.get('print_readme', False)
 
