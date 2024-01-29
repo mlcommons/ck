@@ -1631,12 +1631,12 @@ class CAutomation(Automation):
                      env_script.insert(where_to_add, x)
 
             if shell:
-                x=['cmd', '.', '','.bat'] if os_info['platform'] == 'windows' else ['bash', ' ""', '"','.sh']
+                x=['cmd', '.', '','.bat',''] if os_info['platform'] == 'windows' else ['bash', ' ""', '"','.sh','. ./']
 
                 env_script.append('\n')
                 env_script.append('echo{}\n'.format(x[1]))
                 env_script.append('echo {}Working path: {}{}'.format(x[2], script_path, x[2]))
-                env_script.append('echo {}Running debug shell. Change and run "tmp-run{}". Type exit to quit ...{}\n'.format(x[2],x[3],x[2]))
+                env_script.append('echo {}Running debug shell. Change and run "{}tmp-run{}". Type exit to quit ...{}\n'.format(x[4],x[2],x[3],x[2]))
                 env_script.append('echo{}\n'.format(x[1]))
                 env_script.append('\n')
                 env_script.append(x[0])
