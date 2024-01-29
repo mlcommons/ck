@@ -41,6 +41,28 @@
   ],
   "uid": "d0b5dd74373f4a62",
   "variations": {
+    "custom-path.#": {
+      "env": {
+        "CM_PYTHON_BIN_WITH_PATH": "#"
+      }
+    },
+    "conda.#": {
+      "deps": {
+         "tags": "get,generic,conda-package,_name.#,_package.python",
+         "names": [
+           "conda-package",
+           "conda-python"
+         ]
+      },
+      "adr": {
+        "pip-package": {
+          "tags": "_conda.#"
+        }
+      },
+      "env": {
+        "CM_PYTHON_BIN_WITH_PATH": "#/bin/python3"
+      }
+    },
     "lto": {},
     "optimized": {},
     "shared": {},
