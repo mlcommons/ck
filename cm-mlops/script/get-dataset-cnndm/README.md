@@ -96,6 +96,20 @@ ___
 
 #### Variations
 
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_intel`
+      - Workflow:
+    * `_intel,validation`
+      - Environment variables:
+        - *CM_CNNDM_INTEL_VARIATION*: `yes`
+      - Workflow:
+
+    </details>
+
+
   * Group "**dataset-type**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -139,6 +153,7 @@ ___
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * mlperf,inference,source
+       * `if (CM_CNNDM_INTEL_VARIATION  != yes)`
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,generic-python-lib,_package.simplejson
@@ -152,6 +167,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-cnndm/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-cnndm/_cm.json)
   1. ***Run native script if exists***
+     * [run-intel.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-cnndm/run-intel.sh)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-cnndm/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-cnndm/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-cnndm/customize.py)***
@@ -163,14 +179,8 @@ ___
 `cmr "get dataset gpt-j cnndm cnn-dailymail original[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_CALIBRATION_DATASET_PATH`
-* `CM_DATASET_EVAL_PATH`
-* `CM_DATASET_PATH`
 #### New environment keys auto-detected from customize
 
-* `CM_CALIBRATION_DATASET_PATH`
-* `CM_DATASET_EVAL_PATH`
-* `CM_DATASET_PATH`
 ___
 ### Maintainers
 

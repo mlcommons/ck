@@ -168,11 +168,11 @@ ___
              * CM names: `--adr.['conda-package', 'jemalloc']...`
              - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
            * get,pytorch,from.src,_for-intel-mlperf-inference-v3.1-bert
-             - CM script: [install-pytorch-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from.src)
+             - CM script: [install-pytorch-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src)
            * install,onednn,from.src,_for-intel-mlperf-inference-v3.1-bert
-             - CM script: [install-onednn-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onednn-from.src)
+             - CM script: [install-onednn-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onednn-from-src)
            * install,transformers,from.src,_for-intel-mlperf-inference-v3.1-bert
-             - CM script: [install-transformers-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-transformers-from.src)
+             - CM script: [install-transformers-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-transformers-from-src)
     * `_bs.#`
       - Environment variables:
         - *ML_MLPERF_MODEL_BATCH_SIZE*: `#`
@@ -182,9 +182,8 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,conda,_name.gptj-pt
              - CM script: [get-conda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)
-           * get,generic,conda-package,_package.python
-             * CM names: `--adr.['conda-package', 'python']...`
-             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+           * get,python,_conda.gptj-pt
+             - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
            * install,llvm,src,_tag.llvmorg-16.0.6,_clang,_release,_for-intel-mlperf-inference-v3.1-gptj
              - CM script: [install-llvm-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src)
            * get,generic,conda-package,_package.ncurses,_source.conda-forge
@@ -196,8 +195,9 @@ ___
              * CM names: `--adr.['conda-package', 'jemalloc']...`
              - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
            * install,ipex,from.src,_for-intel-mlperf-inference-v3.1-gptj
-             - CM script: [install-ipex-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from.src)
-           * get,generic-python-lib,_custom-python,_package.transformers
+             - CM script: [install-ipex-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from-src)
+           * get,generic-python-lib,_package.transformers
+             * CM names: `--adr.['pip-package']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,mlcommons,inference,src
              * CM names: `--adr.['inference-src']...`
@@ -208,9 +208,11 @@ ___
            * get,ml-model,large-language-model,gptj
              * CM names: `--adr.['ml-model', 'gptj-model', 'gpt-j-model']...`
              - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)
-           * get,generic-python-lib,_custom-python,_package.datasets
+           * get,generic-python-lib,_package.datasets
+             * CM names: `--adr.['pip-package']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-           * get,generic-python-lib,_custom-python,_package.accelerate
+           * get,generic-python-lib,_package.accelerate
+             * CM names: `--adr.['pip-package']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_loadgen-batch-size.#`
       - Environment variables:
@@ -502,11 +504,13 @@ ___
        * CM names: `--adr.['openimages-preprocessed', 'dataset-preprocessed']...`
        - CM script: [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
      * get,mlperf,inference,results
+       * CM names: `--adr.inference-results...`
        - CM script: [get-mlperf-inference-results](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel/_cm.yaml)
   1. ***Run native script if exists***
-     * [run_harness.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel/run_harness.sh)
+     * [run_bert_harness.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel/run_bert_harness.sh)
+     * [run_gptj_harness.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel/run_gptj_harness.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel/_cm.yaml)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel/_cm.yaml)***

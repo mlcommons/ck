@@ -107,7 +107,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 #### Versions
-Default version: `14.0.0`
+Default version: `15.0.6`
 
 ___
 ### Script workflow, dependencies and native scripts

@@ -148,6 +148,8 @@ ___
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `colored`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://pypi.ngc.nvidia.com`
       - Workflow:
+    * `_conda.#`
+      - Workflow:
     * `_cupy`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `cupy`
@@ -641,7 +643,7 @@ ___
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)***
      * install,onnxruntime,from.src,_cuda
        * `if (CM_INSTALL_ONNXRUNTIME_GPU_FROM_SRC  == yes)`
-       - CM script: [install-onnxruntime-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from.src)
+       - CM script: [install-onnxruntime-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from-src)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/run.sh)
