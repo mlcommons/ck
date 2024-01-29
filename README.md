@@ -67,6 +67,8 @@ cm gui script "python app image-classification onnx"
 cm docker script "python app image-classification onnx" --input=computer_mouse.jpg
 cm docker script "python app image-classification onnx" --input=computer_mouse.jpg -j -docker_it
 
+cm docker script "get coco dataset _val _2017" --to=d:\Downloads\COCO-2017-val --store=d:\Downloads --docker_cm_repo=ctuning@mlcommons-ck
+
 cmr "run common mlperf inference" --implementation=nvidia --model=bert-99 --category=datacenter --division=closed
 cm find script "run common mlperf inference"
 
