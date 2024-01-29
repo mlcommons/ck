@@ -38,6 +38,7 @@ cmr "python app image-classification onnx"
 
 cmr "download file _wget" --url=https://cKnowledge.org/ai/data/computer_mouse.jpg --verify=no --env.CM_DOWNLOAD_CHECKSUM=45ae5c940233892c2f860efdf0b66e7e
 cmr "python app image-classification onnx" --input=computer_mouse.jpg
+cmr "python app image-classification onnx" --input=computer_mouse.jpg --debug
 
 cm find script "python app image-classification onnx"
 
@@ -46,7 +47,8 @@ cmr "install python-venv" --version_max=3.10.11 --name=mlperf
 
 cmr "get ml-model stable-diffusion"
 cmr "get ml-model huggingface zoo _model-stub.alpindale/Llama-2-13b-ONNX" --model_filename=FP32/LlamaV2_13B_float32.onnx --skip_cache
-cmr "get coco dataset _val _2014"
+cmr "get dataset coco _val _2014"
+cmr "get dataset openimages" -j
 
 cm show cache
 cm show cache "get ml-model stable-diffusion"
