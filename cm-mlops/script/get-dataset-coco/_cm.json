@@ -120,7 +120,7 @@
     }
   },
   "docker": {
-    "skip_run_cmd":"yes",
+    "skip_run_cmd":"no",
     "input_paths": [
       "store",
       "from",
