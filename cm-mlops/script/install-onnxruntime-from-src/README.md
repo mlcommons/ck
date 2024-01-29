@@ -162,6 +162,8 @@ ___
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
        - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+     * fail,filter,_windows
+       - CM script: [fail](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/fail)
      * get,python3
        * `if (CM_CONDA_ENV  != yes)`
        * CM names: `--adr.['python', 'python3']...`

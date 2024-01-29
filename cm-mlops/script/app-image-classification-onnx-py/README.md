@@ -12,6 +12,7 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Input description](#input-description)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
@@ -114,6 +115,18 @@ ___
     </details>
 
 
+#### Input description
+
+* --**input** Path to JPEG image to classify
+* --**output** Output directory (optional)
+* --**j** Print JSON output
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "input":...}
+```
+
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
@@ -159,6 +172,10 @@ ___
        * `if (USE_CUDA  == True)`
        * CM names: `--adr.['cuda']...`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+     * get,cudnn
+       * `if (USE_CUDA  == True)`
+       * CM names: `--adr.['cudnn']...`
+       - CM script: [get-cudnn](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn)
      * get,dataset,imagenet,image-classification,original
        - CM script: [get-dataset-imagenet-val](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)
      * get,dataset-aux,imagenet-aux,image-classification
@@ -174,9 +191,11 @@ ___
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnxruntime
        * `if (USE_CUDA  != True)`
+       * CM names: `--adr.['onnxruntime']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnxruntime_gpu
        * `if (USE_CUDA  == True)`
+       * CM names: `--adr.['onnxruntime']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml)
