@@ -16,10 +16,12 @@ def preprocess(i):
 
     if package_name == "onnxruntime_gpu":
         # https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#requirements
-        cuda_version_split = env['CM_CUDA_VERSION'].split(".")
-        if int(cuda_version_split[0]) >= 12:
-            # env['CM_INSTALL_ONNXRUNTIME_GPU_FROM_SRC'] = "yes"
-            return {'return': 1, 'error':'at this moment, onnxruntime_gpu needs CUDA < 12'}
+        cuda_version = env.get('CM_CUDA_VERSION','').strip()
+        if cuda_version!='':
+            cuda_version_split = cuda_version.split('.')
+            if int(cuda_version_split[0]) >= 12:
+                # env['CM_INSTALL_ONNXRUNTIME_GPU_FROM_SRC'] = "yes"
+                return {'return': 1, 'error':'at this moment, PIP package "onnxruntime_gpu" needs CUDA < 12'}
 
     extra = env.get('CM_GENERIC_PYTHON_PIP_EXTRA','')
     if (pip_version and len(pip_version) > 1 and int(pip_version[0]) >= 23) and ('--break-system-packages' not in extra):
