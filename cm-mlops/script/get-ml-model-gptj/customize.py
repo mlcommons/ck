@@ -6,10 +6,19 @@ def preprocess(i):
     os_info = i['os_info']
     env = i['env']
 
-    path = env.get('GPTJ_CHECKPOINT_PATH', '').strip()
+    if env.get('CM_GPTJ_INTEL_MODEL', '') == 'yes':
+        harness_root = os.path.join(env['CM_MLPERF_INFERENCE_RESULTS_PATH'], 'closed', 'Intel', 'code', 'gptj-99', 'pytorch-cpu')
+        print(f"Harness Root: {harness_root}")
+        env['CM_HARNESS_CODE_ROOT'] = harness_root
+        if env['CM_ML_MODEL_WEIGHT_DATA_TYPES'] == "int8":
+            env['INT8_MODEL_DIR'] = os.getcwd()
+        else:
+            env['INT4_MODEL_DIR'] = os.getcwd()
+    else:
+        path = env.get('GPTJ_CHECKPOINT_PATH', '').strip()
 
-    if path == '' or not os.path.exists(path):
-        env['CM_TMP_REQUIRE_DOWNLOAD'] = 'yes'
+        if path == '' or not os.path.exists(path):
+            env['CM_TMP_REQUIRE_DOWNLOAD'] = 'yes'
 
     return {'return':0}
 

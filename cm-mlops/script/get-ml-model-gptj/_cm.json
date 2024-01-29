@@ -92,6 +92,13 @@
         }
       }
     },
+    "int4": {
+      "env": {
+        "CM_ML_MODEL_INPUT_DATA_TYPES": "int4",
+        "CM_ML_MODEL_WEIGHT_DATA_TYPES": "int4"
+      },
+      "group": "precision"
+    },
     "uint8": {
       "env": {
         "CM_ML_MODEL_INPUT_DATA_TYPES": "uint8",
@@ -99,6 +106,51 @@
         "CM_ML_MODEL_WEIGHT_DATA_TYPES": "uint8"
       },
       "group": "precision"
+    },
+    "intel": {
+      "group": "model-provider"
+    },
+    "pytorch,intel": {
+      "default_variations": {
+        "precision": "int8"
+      },
+      "deps": [
+        {
+          "tags": "get,mlperf,inference,results",
+          "version": "v3.1"
+        },
+        {
+          "tags": "get,ml-model,gpt-j,_fp32,_pytorch",
+          "env": {
+            "CM_GPTJ_INTEL_MODEL": ""
+          }
+        },
+        {
+          "tags": "get,conda,_name.gptj-pt"
+        },
+        {
+          "names": [
+            "conda-package",
+            "intel-openmp"
+          ],
+          "tags": "get,generic,conda-package,_package.intel-openmp,_source.intel",
+          "version": "2023.1.0"
+        },
+        {
+          "tags": "get,generic,conda-package,_package.jemalloc,_source.conda-forge",
+          "names": [
+            "conda-package",
+            "jemalloc"
+          ]
+        }
+      ],
+      "env": {
+        "CM_GPTJ_INTEL_MODEL": "yes"
+      }
+    },
+    "pytorch,int8,intel": {
+    },
+    "pytorch,int4,intel": {
     }
   }
 }
