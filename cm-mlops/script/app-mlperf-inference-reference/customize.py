@@ -66,10 +66,11 @@ def preprocess(i):
         env['CM_MLPERF_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "mlperf.conf")
 
 
+    x="" if os_info['platform'] == 'windows' else "'"
     if "llama2-70b" in env['CM_MODEL']:
-        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf-conf '" + env['CM_MLPERF_CONF'] + "'"
+        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf-conf " + x+ env['CM_MLPERF_CONF'] + x
     else:
-        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
+        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf "+ x + env['CM_MLPERF_CONF'] + x
 
     env['MODEL_DIR'] = env.get('CM_ML_MODEL_PATH')
     if not env['MODEL_DIR']:
@@ -95,10 +96,11 @@ def preprocess(i):
     ml_model_name = env['CM_MODEL']
     if 'CM_MLPERF_USER_CONF' in env:
         user_conf_path = env['CM_MLPERF_USER_CONF']
+        x="" if os_info['platform'] == 'windows' else "'"
         if 'llama2-70b' in env['CM_MODEL']:
-            scenario_extra_options +=  " --user-conf '" + user_conf_path + "'"
+            scenario_extra_options +=  " --user-conf " + x + user_conf_path + x
         else:
-            scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"
+            scenario_extra_options +=  " --user_conf " + x + user_conf_path + x
 
     mode = env['CM_MLPERF_LOADGEN_MODE']
     mode_extra_options = ""
@@ -139,7 +141,7 @@ def preprocess(i):
         env['CM_MLPERF_OUTPUT_DIR'] = os.getcwd()
 
     mlperf_implementation = env.get('CM_MLPERF_IMPLEMENTATION', 'reference') 
-    cmd, run_dir = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options, mlperf_implementation)
+    cmd, run_dir = get_run_cmd(os_info, env, scenario_extra_options, mode_extra_options, dataset_options, mlperf_implementation)
 
     if env.get('CM_NETWORK_LOADGEN', '') == "lon":
 
@@ -158,15 +160,15 @@ def preprocess(i):
 
     return {'return':0}
 
-def get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options, implementation="reference"):
+def get_run_cmd(os_info, env, scenario_extra_options, mode_extra_options, dataset_options, implementation="reference"):
     if implementation == "reference":
-        return get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, dataset_options)
+        return get_run_cmd_reference(os_info, env, scenario_extra_options, mode_extra_options, dataset_options)
     if implementation == "nvidia":
-        return get_run_cmd_nvidia(env, scenario_extra_options, mode_extra_options, dataset_options)
+        return get_run_cmd_nvidia(os_info, env, scenario_extra_options, mode_extra_options, dataset_options)
     return "", os.getcwd()
 
 
-def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, dataset_options):
+def get_run_cmd_reference(os_info, env, scenario_extra_options, mode_extra_options, dataset_options):
 
     if env['CM_MODEL'] in [ "gptj-99", "gptj-99.9"  ]:
 
@@ -190,9 +192,15 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "vision", "classification_and_detection")
         env['OUTPUT_DIR'] =  env['CM_MLPERF_OUTPUT_DIR']
         if env.get('CM_MLPERF_VISION_DATASET_OPTION','') == '' and env.get('CM_MLPERF_DEVICE') != "tpu":
-            cmd =  "./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
-            env['CM_MODEL'] + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
-            scenario_extra_options + mode_extra_options + dataset_options
+            if os_info['platform'] == 'windows':
+                cmd = "python python/main.py --profile "+env['CM_MODEL']+"-"+env['CM_MLPERF_BACKEND'] + \
+                " --model=" + env['CM_ML_MODEL_FILE_WITH_PATH'] + ' --dataset-path=' + env['CM_DATASET_PREPROCESSED_PATH'] + \
+                " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
+                scenario_extra_options + mode_extra_options + dataset_options
+            else:
+                cmd = "./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
+                env['CM_MODEL'] + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
+                scenario_extra_options + mode_extra_options + dataset_options
             return cmd, env['RUN_DIR']
 
         if env['CM_MLPERF_BACKEND'] == "ncnn":
