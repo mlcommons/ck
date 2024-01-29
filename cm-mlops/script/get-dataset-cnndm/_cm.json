@@ -56,9 +56,8 @@
   "variations": {
     "calibration": {
       "new_env_keys": [
-        "CM_DATASET_PATH",
-        "CM_DATASET_EVAL_PATH",
-        "CM_DATASET_CNNDM_EVAL_PATH"
+        "CM_CALIBRATION_DATASET_PATH",
+        "CM_CALIBRATION_DATASET_CNNDM_PATH"
       ],
       "env": {
         "CM_DATASET_CALIBRATION": "yes"
@@ -67,8 +66,9 @@
     },
     "validation": {
       "new_env_keys": [
-        "CM_CALIBRATION_DATASET_PATH",
-        "CM_CALIBRATION_DATASET_CNNDM_PATH"
+        "CM_DATASET_PATH",
+        "CM_DATASET_EVAL_PATH",
+        "CM_DATASET_CNNDM_EVAL_PATH"
       ],
       "default": true,
       "env": {

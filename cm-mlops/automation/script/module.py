@@ -1525,7 +1525,17 @@ class CAutomation(Automation):
         utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
         utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
 
-        r = detect_state_diff(env, saved_env, new_env_keys_from_meta, new_state_keys_from_meta, state, saved_state)
+        if i.get('force_new_env_keys', []):
+            new_env_keys = i['force_new_env_keys']
+        else:
+            new_env_keys = new_env_keys_from_meta
+
+        if i.get('force_new_state_keys', []):
+            new_state_keys = i['force_new_state_keys']
+        else:
+            new_state_keys = new_state_keys_from_meta
+
+        r = detect_state_diff(env, saved_env, new_env_keys, new_state_keys, state, saved_state)
         if r['return']>0: return r
 
         new_env = r['new_env']

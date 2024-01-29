@@ -53,7 +53,6 @@
       }
     },
     "fp32": {
-      "default": true,
       "env": {
         "CM_ML_MODEL_INPUT_DATA_TYPES": "fp32",
         "CM_ML_MODEL_PRECISION": "fp32",
@@ -107,12 +106,27 @@
       },
       "group": "precision"
     },
+    "mlcommons": {
+      "default_variations": {
+        "precision": "fp32"
+      },
+      "group": "model-provider",
+      "default": true
+    },
     "intel": {
+      "default_variations": {
+        "framework": "pytorch"
+      },
       "group": "model-provider"
     },
     "pytorch,intel": {
       "default_variations": {
         "precision": "int8"
+      },
+      "adr": {
+        "conda-package": {
+          "tags": "_name.gptj-pt"
+        }
       },
       "deps": [
         {
@@ -123,10 +137,16 @@
           "tags": "get,ml-model,gpt-j,_fp32,_pytorch",
           "env": {
             "CM_GPTJ_INTEL_MODEL": ""
-          }
+          },
+          "force_new_env_keys": [
+            "GPTJ_CHECKPOINT_PATH"
+          ]
         },
         {
           "tags": "get,conda,_name.gptj-pt"
+        },
+        {
+          "tags": "get,python,_conda.gptj-pt"
         },
         {
           "names": [
@@ -142,6 +162,12 @@
             "conda-package",
             "jemalloc"
           ]
+        },
+        {
+          "tags": "install,ipex,from.src,_for-intel-mlperf-inference-v3.1-gptj"
+        },
+        {
+          "tags": "get,dataset,cnndm,_calibration"
         }
       ],
       "env": {
