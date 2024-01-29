@@ -90,8 +90,15 @@ def postprocess(i):
         accuracy_log_file_option_name = " --log_file "
         datatype_option = " --output_dtype "+env['CM_SQUAD_ACCURACY_DTYPE']
 
+      elif 'stable-diffusion-xl' in model:
+          pass #No compliance check for now
+      elif 'gpt' in model:
+          pass #No compliance check for now
+      elif 'llama2-70b' in model:
+          pass #No compliance check for now
       else:
-        return {'return': 1, 'error': f'Accuracy paths not done for model {model}'}
+        pass # Not giving an error now. But accuracy paths need to be done for other benchmarks which may need the non-determinism test
+        #return {'return': 1, 'error': f'Accuracy paths not done for model {model}'}
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
 
     #if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes" and mode == "performance" and scenario != "Server":

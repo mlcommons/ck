@@ -13,7 +13,8 @@
     "run": false
   },
   "input_mapping": {
-    "cudnn_tar_path": "CM_CUDNN_TAR_FILE_PATH"
+    "cudnn_tar_path": "CM_CUDNN_TAR_FILE_PATH",
+    "cudnn_tar_file": "CM_CUDNN_TAR_FILE_PATH"
   },
   "new_env_keys": [
     "CUDA_HOME",

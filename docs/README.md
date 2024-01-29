@@ -9,7 +9,7 @@ The goal is to provide a common, simple and human-readable interface to manage, 
 and customize diverse AI/ML apps, benchmarks and research projects across continuously changing
 models, datasets, software and hardware from different vendors in a unified and automated way.
 
-* [Getting Started tutorial](getting-started.md)
+* [Getting Started Guide](getting-started.md)
 * [Introduction](introduction-cm.md)
 * [CM installation and customization](installation.md)
 * [Unified CLI and Python API](interface.md)

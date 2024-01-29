@@ -7,6 +7,8 @@ def preprocess(i):
 
     env = i['env']
 
+    script_path = i['artifact'].path
+
     automation = i['automation']
 
     cm = automation.cmind
@@ -46,5 +48,11 @@ def preprocess(i):
     subdir = ff[0]
 
     env['CM_IPOL_PATH']=os.path.join(path, subdir)
+
+    # Applying patch
+    cmd = 'patch -p0 < {}'.format(os.path.join(script_path, 'patch', '20240127.patch'))
+
+    print ('Patching code: {}'.format(cmd))
+    os.system(cmd)
 
     return {'return':0}

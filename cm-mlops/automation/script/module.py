@@ -1704,6 +1704,14 @@ class CAutomation(Automation):
                 v_static = self._get_name_for_dynamic_variation_tag(v)
                 tmp_variation_tags_static[v_i] = v_static
 
+        combined_variations = [ t for t in variations if ',' in t ]
+        # We support default_variations in the meta of cmbined_variations
+        combined_variations.sort(key=lambda x: x.count(','))
+        ''' By sorting based on the number of variations users can safely override
+            env and state in a larger combined variation
+        '''
+        tmp_combined_variations = {k: False for k in combined_variations}
+
         # Recursively add any base variations specified
         if len(variation_tags) > 0:
             tmp_variations = {k: False for k in variation_tags}
@@ -1748,28 +1756,34 @@ class CAutomation(Automation):
                             tag_to_append = None
 
                     # default_variations dictionary specifies the default_variation for each variation group. A default variation in a group is turned on if no other variation from that group is turned on and it is not excluded using the '-' prefix
-                    if "default_variations" in variations[variation_name]:
-                        default_base_variations = variations[variation_name]["default_variations"]
-                        for default_base_variation in default_base_variations:
-                            tag_to_append = None
+                    r = self._get_variation_tags_from_default_variations(variations[variation_name], variations, variation_groups, tmp_variation_tags_static, excluded_variation_tags)
+                    if r['return'] > 0:
+                        return r
 
-                            if default_base_variation not in variation_groups:
-                                return {'return': 1, 'error': 'Default variation "{}" is not a valid group. Valid groups are "{}" '.format(default_base_variation, variation_groups)}
-
-                            unique_allowed_variations = variation_groups[default_base_variation]['variations']
-                            # add the default only if none of the variations from the current group is selected and it is not being excluded with - prefix
-                            if len(set(unique_allowed_variations) & set(tmp_variation_tags_static)) == 0 and default_base_variations[default_base_variation] not in excluded_variation_tags and default_base_variations[default_base_variation] not in tmp_variation_tags_static:
-                                tag_to_append = default_base_variations[default_base_variation]
-
-                            if tag_to_append:
-                                if tag_to_append not in variations:
-                                    variation_tag_static = self._get_name_for_dynamic_variation_tag(tag_to_append)
-                                    if not variation_tag_static or variation_tag_static not in variations:
-                                        return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
-                                variation_tags.append(tag_to_append)
-                                tmp_variations[tag_to_append] = False
+                    variations_to_add = r['variations_to_add']
+                    for t in variations_to_add:
+                        tmp_variations[t] = False
+                        variation_tags.append(t)
 
                     tmp_variations[variation_name] = True
+
+                    for combined_variation in combined_variations:
+                        if tmp_combined_variations[combined_variation]:
+                            continue
+                        v = combined_variation.split(",")
+                        all_present = set(v).issubset(set(variation_tags))
+                        if all_present:
+                            combined_variation_meta = variations[combined_variation]
+                            tmp_combined_variations[combined_variation] = True
+
+                            r = self._get_variation_tags_from_default_variations(combined_variation_meta, variations, variation_groups, tmp_variation_tags_static, excluded_variation_tags)
+                            if r['return'] > 0:
+                                return r
+
+                            variations_to_add = r['variations_to_add']
+                            for t in variations_to_add:
+                                tmp_variations[t] = False
+                                variation_tags.append(t)
 
                 all_base_processed = True
                 for variation_name in variation_tags:
@@ -1785,6 +1799,31 @@ class CAutomation(Automation):
         return {'return': 0}
 
 
+    def _get_variation_tags_from_default_variations(self, variation_meta, variations, variation_groups, tmp_variation_tags_static, excluded_variation_tags):
+    # default_variations dictionary specifies the default_variation for each variation group. A default variation in a group is turned on if no other variation from that group is turned on and it is not excluded using the '-' prefix
+
+        tmp_variation_tags = []
+        if "default_variations" in variation_meta:
+            default_base_variations = variation_meta["default_variations"]
+            for default_base_variation in default_base_variations:
+                tag_to_append = None
+
+                if default_base_variation not in variation_groups:
+                    return {'return': 1, 'error': 'Default variation "{}" is not a valid group. Valid groups are "{}" '.format(default_base_variation, variation_groups)}
+
+                unique_allowed_variations = variation_groups[default_base_variation]['variations']
+                # add the default only if none of the variations from the current group is selected and it is not being excluded with - prefix
+                if len(set(unique_allowed_variations) & set(tmp_variation_tags_static)) == 0 and default_base_variations[default_base_variation] not in excluded_variation_tags and default_base_variations[default_base_variation] not in tmp_variation_tags_static:
+                    tag_to_append = default_base_variations[default_base_variation]
+
+                if tag_to_append:
+                    if tag_to_append not in variations:
+                        variation_tag_static = self._get_name_for_dynamic_variation_tag(tag_to_append)
+                        if not variation_tag_static or variation_tag_static not in variations:
+                            return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
+                    tmp_variation_tags.append(tag_to_append)
+
+        return {'return': 0, 'variations_to_add': tmp_variation_tags}
 
     ############################################################
     def version(self, i):
@@ -1824,6 +1863,15 @@ class CAutomation(Automation):
 
         console = i.get('out') == 'con'
 
+        # Check simplified CMD: cm run script "get compiler"
+        # If artifact has spaces, treat them as tags!
+        artifact = i.get('artifact','')
+        if ' ' in artifact: # or ',' in artifact:
+            del(i['artifact'])
+            if 'parsed_artifact' in i: del(i['parsed_artifact'])
+            # Force substitute tags
+            i['tags']=artifact.replace(' ',',')
+        
         ############################################################################################################
         # Process tags to find script(s) and separate variations 
         # (not needed to find scripts)
@@ -2125,6 +2173,16 @@ class CAutomation(Automation):
         tags_list = utils.convert_tags_to_list(i)
         if 'tags' in i: del(i['tags'])
 
+        if len(tags_list)==0:
+            if console:
+                x=input('Please specify a combination of unique tags separated by comma for this script: ')
+                x = x.strip()
+                if x!='':
+                    tags_list = x.split(',')
+
+        if len(tags_list)==0:
+            return {'return':1, 'error':'you must specify a combination of unique tags separate by comman using "--new_tags"'}
+
         # Add placeholder (use common action)
         ii['out']='con'
         ii['common']=True # Avoid recursion - use internal CM add function to add the script artifact
@@ -2150,18 +2208,19 @@ class CAutomation(Automation):
 
         # Check if preloaded meta exists
         meta = {
-                 'cache':False,
-                 'new_env_keys':[],
-                 'new_state_keys':[],
-                 'input_mapping':{},
-                 'docker_input_mapping':{},
-                 'deps':[],
-                 'prehook_deps':[],
-                 'posthook_deps':[],
-                 'post_deps':[],
-                 'versions':{},
-                 'variations':{},
-                 'input_description':{}
+                 'cache':False
+# 20240127: Grigori commented that because newly created script meta looks ugly
+#                 'new_env_keys':[],
+#                 'new_state_keys':[],
+#                 'input_mapping':{},
+#                 'docker_input_mapping':{},
+#                 'deps':[],
+#                 'prehook_deps':[],
+#                 'posthook_deps':[],
+#                 'post_deps':[],
+#                 'versions':{},
+#                 'variations':{},
+#                 'input_description':{}
                }
 
         fmeta = os.path.join(template_path, self.cmind.cfg['file_cmeta'])
@@ -2200,6 +2259,7 @@ class CAutomation(Automation):
             ii['yaml']=True
 
         ii['automation']='script,5b4e0237da074764'
+
         r_obj=self.cmind.access(ii)
         if r_obj['return']>0: return r_obj
 

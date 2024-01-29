@@ -29,7 +29,7 @@ def preprocess(i):
     power = env.get('POWER', '')
 
     if str(power).lower() in [ "yes", "true" ]:
-        POWER_STRING = " --power yes --adr.mlperf-power-client.power_server=" + env.get('POWER_SERVER', '192.168.0.15') + " --adr.mlperf-power-client.port=" + env.get('POWER_SERVER_PORT', '4950') + " "
+        POWER_STRING = " --power=yes --adr.mlperf-power-client.power_server=" + env.get('POWER_SERVER', '192.168.0.15') + " --adr.mlperf-power-client.port=" + str(env.get('POWER_SERVER_PORT', '4950')) + " "
     else:
         POWER_STRING = ""
 
@@ -37,7 +37,12 @@ def preprocess(i):
         return {'return': 1, 'error': 'No device specified. Please set one or more (comma separated) of {cpu, qaic, cuda, rocm} for --env.DEVICES=<>'}
 
     cmds = []
-    run_script_content = '#!/bin/bash\nsource '+ os.path.join(script_path, "run-template.sh")
+    run_script_content = '#!/bin/bash\n\n'
+    run_script_content += "POWER_STRING=\"" +POWER_STRING +"\"\n"
+    run_script_content += "DIVISION=\"" + env['DIVISION'] +"\"\n"
+    run_script_content += "CATEGORY=\"" + env['CATEGORY'] +"\"\n"
+    run_script_content += 'source '+ os.path.join(script_path, "run-template.sh") + "\nPOWER_STRING=\"" +POWER_STRING +"\"\n\n"
+
     run_file_name = 'tmp-'+implementation+'-run'
 
     for model in models:
@@ -107,7 +112,7 @@ def preprocess(i):
                             test_query_count = 10000
                         else:
                             test_query_count = 1000
-                    cmd = f'run_test "{model} "{backend}" "{test_query_count}" "{implementation}" "{device}" "$find_performance_cmd"'
+                    cmd = f'run_test "{model}" "{backend}" "{test_query_count}" "{implementation}" "{device}" "$find_performance_cmd"'
                     cmds.append(cmd)
                     #second argument is unused for submission_cmd
                 cmd = f'run_test "{model}" "{backend}" "100" "{implementation}" "{device}" "$submission_cmd"'
@@ -118,6 +123,10 @@ def preprocess(i):
         f.write(run_script_content)
     print(run_script_content)
 
+    run_script_input = i['run_script_input']
+    r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':run_file_name})
+
+    if r['return']>0: return r
     
     return {'return':0}
 

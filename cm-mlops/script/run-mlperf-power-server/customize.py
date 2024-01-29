@@ -20,11 +20,16 @@ def preprocess(i):
         config.write(configfile)
     print({section: dict(config[section]) for section in config.sections()})
 
-    cmd = 'python3 ' + env['CM_MLPERF_POWER_SOURCE'] + '/ptd_client_server/server.py -c power-server.conf'
-    if env.get('CM_MLPERF_POWER_SERVER_USE_SCREEN', 'no') == 'yes':
-        cmd = 'sudo screen -d -m ' + cmd + ' '
+    if env['CM_HOST_OS_TYPE'] == "windows":
+        cmd_prefix = ""
     else:
-        cmd = 'sudo ' + cmd
+        cmd_prefix = "sudo "
+
+    cmd =  env['CM_PYTHON_BIN_WITH_PATH'] + ' ' + os.path.join(env['CM_MLPERF_POWER_SOURCE'], 'ptd_client_server', 'server.py') +' -c power-server.conf'
+    if env.get('CM_MLPERF_POWER_SERVER_USE_SCREEN', 'no') == 'yes':
+        cmd = cmd_prefix + ' screen -d -m ' + cmd + ' '
+    else:
+        cmd = cmd_prefix + cmd
 
     env['RUN_CMD'] = cmd
 

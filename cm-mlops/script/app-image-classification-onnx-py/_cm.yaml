@@ -25,12 +25,20 @@ deps:
   - python
   - python3
   tags: get,python3
+
 - tags: get,cuda
   names:
   - cuda
   enable_if_env:
     USE_CUDA:
     - yes
+- tags: get,cudnn
+  names:
+  - cudnn
+  enable_if_env:
+    USE_CUDA:
+    - yes
+
 - tags: get,dataset,imagenet,image-classification,original
 - tags: get,dataset-aux,imagenet-aux,image-classification
 - tags: get,ml-model,resnet50,_onnx,image-classification
@@ -41,15 +49,19 @@ deps:
 - tags: get,generic-python-lib,_package.numpy
 - tags: get,generic-python-lib,_package.opencv-python
 
+
 - tags: get,generic-python-lib,_onnxruntime
+  names:
+  - onnxruntime
   skip_if_env:
     USE_CUDA:
     - yes
 - tags: get,generic-python-lib,_onnxruntime_gpu
+  names:
+  - onnxruntime
   enable_if_env:
     USE_CUDA:
     - yes
-
 
 variations:
   cuda:
@@ -60,6 +72,7 @@ variations:
 input_mapping:
   input: CM_IMAGE
   output: CM_APP_IMAGE_CLASSIFICATION_ONNX_PY_OUTPUT
+
 
 new_env_keys:
   - CM_APP_IMAGE_CLASSIFICATION_ONNX_PY*

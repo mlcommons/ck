@@ -52,6 +52,15 @@
       "skip_if_env": {
         "CM_HOST_OS_TYPE": "windows"
       }
+    },
+    {
+      "names": [
+        "win32"
+      ],
+      "tags": "get,generic-python-lib,_package.pypiwin32",
+      "enable_if_env": {
+        "CM_HOST_OS_TYPE": "windows"
+      }
     }
   ],
   "tags": [
@@ -63,5 +72,11 @@
     "server",
     "power-server"
   ],
-  "uid": "5bc68aaf389a40bd"
+  "uid": "5bc68aaf389a40bd",
+  "docker": {
+    "device": "/dev/usbtmc0",
+    "port_maps": [
+      "4950:4950"
+    ]
+  }
 }
