@@ -77,6 +77,9 @@ cmr "get generic-python-lib _package.torchvision" --version=0.16.2
 cmr "python app image-classification torch" --input=computer_mouse.jpg
 
 
+cm rm repo mlcommons@ck
+cm pull repo --url=https://zenodo.org/records/10581696/files/cm-mlops-repo-20240129.zip
+
 cmr "install llvm prebuilt" --version=17.0.6
 cmr "app image corner-detection"
 

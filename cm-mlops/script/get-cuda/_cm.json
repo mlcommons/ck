@@ -10,7 +10,6 @@
     "CM_REQUIRE_INSTALL": "no"
   },
   "docker": {
-    "run": false
   },
   "input_mapping": {
     "cudnn_tar_path": "CM_CUDNN_TAR_FILE_PATH",

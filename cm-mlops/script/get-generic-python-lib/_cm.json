@@ -389,8 +389,8 @@
         }
       ],
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "nvidia-dali-cuda110",
-        "CM_GENERIC_PYTHON_PIP_EXTRA": " --upgrade",
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "nvidia-dali-cuda120",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": " --upgrade --default-timeout=900",
         "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://developer.download.nvidia.com/compute/redist"
       },
       "new_env_keys": [

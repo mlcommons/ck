@@ -58,7 +58,7 @@ variations:
   nvidia:
     group: implementation
     env:
-      IMPLEMENTATION: nvidia
+      IMPLEMENTATION: nvidia-original
     default_env:
       MODELS: resnet50,retinanet,bert-99,bert-99.9,3d-unet-99,rnnt,gptj-99,gptj-99.9,dlrmv2-99,dlrmv2-99.9
       BACKENDS: tensorrt

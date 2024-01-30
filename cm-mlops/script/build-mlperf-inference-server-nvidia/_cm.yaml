@@ -197,6 +197,10 @@ versions:
 docker:
   skip_run_cmd: 'no'
   all_gpus: 'yes'
+  docker_os: ubuntu
+  docker_real_run: True
+  docker_os_version: '20.04'
+  base_image: nvcr.io/nvidia/mlperf/mlperf-inference:mlpinf-v3.1-cuda12.2-cudnn8.9-x86_64-ubuntu20.04-public
   docker_input_mapping:
     imagenet_path: IMAGENET_PATH
     results_dir: RESULTS_DIR
@@ -213,6 +217,3 @@ docker:
    - "${{ CM_TENSORRT_TAR_FILE_PATH }}:${{ CM_TENSORRT_TAR_FILE_PATH }}"
    - "${{ CUDA_RUN_FILE_LOCAL_PATH }}:${{ CUDA_RUN_FILE_LOCAL_PATH }}"
    - "${{ MLPERF_SCRATCH_PATH }}:${{ MLPERF_SCRATCH_PATH }}"
-  pre_run_cmds:
-    - cm pull repo mlcommons@ck
-    - cm run script --tags=get,dataset,original,imagenet,_full --imagenet_path=/data/imagenet-val

@@ -250,7 +250,7 @@ variations:
 
   offline,resnet50:
     default_variations:
-      batch-size: batch-size.8
+      batch-size: batch-size.32
 
   multistream,retinanet:
     default_variations:
