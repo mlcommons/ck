@@ -406,6 +406,24 @@ variations:
     env:
       CM_MODEL: dlrm-v2-99.9
 
+  gptj_:
+    deps:
+    - tags: get,generic-python-lib,_torch
+
+  gptj-99:
+    group: model
+    base:
+    - gptj_
+    env:
+      CM_MODEL: gptj-99
+
+  gptj-99.9:
+    group: model
+    base:
+    - gptj_
+    env:
+      CM_MODEL: gptj-99.9
+
   batch_size.#:
     group: batch-size
     env:

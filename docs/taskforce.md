@@ -4,11 +4,11 @@
 
 ## Mission
 
-* Develop [reusable automation recipes and workflows for MLOps and DevOps](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
+* Develop [reusable automation recipes and workflows](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
   with [a common and human-friendly interface (Collective Mind aka CM)](https://github.com/mlcommons/ck) 
-  to help everyone run, reproduce, customize and optimize different implementations of MLPerf benchmarks 
+  to support MLCommons projects and help everyone assemble, run, reproduce, customize and optimize ML(Perf) benchmarks
   in a unified and automated way across diverse models, data sets, software and hardware from different vendors.
-* Gradually add the MLCommons CM interface to [all MLPerf inference submissions](https://github.com/mlcommons/ck/issues/1052) starting from v3.1.
+* Gradually extend a unified MLCommons CM interface to automate [all MLPerf inference submissions](https://github.com/mlcommons/ck/issues/1052) starting from v3.1.
 * Continuously encode MLPerf rules and best practices in the [CM automation recipes and workflows for MLPerf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
   to reduce the burden for submitters to go through numerous README files 
   and track all the latest changes and updates.
