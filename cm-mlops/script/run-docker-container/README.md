@@ -107,6 +107,7 @@ ___
 * `--cm_repo=value`  &rarr;  `CM_MLOPS_REPO=value`
 * `--detached=value`  &rarr;  `CM_DOCKER_DETACHED_MODE=value`
 * `--device=value`  &rarr;  `CM_DOCKER_ADD_DEVICE=value`
+* `--docker_image_base=value`  &rarr;  `CM_DOCKER_IMAGE_BASE=value`
 * `--docker_os=value`  &rarr;  `CM_DOCKER_OS=value`
 * `--docker_os_version=value`  &rarr;  `CM_DOCKER_OS_VERSION=value`
 * `--fake_run_option=value`  &rarr;  `CM_DOCKER_FAKE_RUN_OPTION=value`

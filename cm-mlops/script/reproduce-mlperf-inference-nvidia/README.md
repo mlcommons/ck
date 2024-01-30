@@ -1056,6 +1056,11 @@ ___
       - Environment variables:
         - *CM_MODEL*: `resnet50`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_onnx-graphsurgeon
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.onnx
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_retinanet`
       - Environment variables:
         - *CM_MODEL*: `retinanet`
@@ -1073,6 +1078,10 @@ ___
            * get,generic-python-lib,_numpy
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_pycocotools
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_onnx-graphsurgeon
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.onnx
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_rnnt`
       - Environment variables:
