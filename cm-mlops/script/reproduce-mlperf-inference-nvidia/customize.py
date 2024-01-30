@@ -143,6 +143,23 @@ def preprocess(i):
         model_path = os.path.join(target_model_path_dir, 'retinanet-fpn.onnx')
         model_name = "retinanet"
 
+    elif "gptj" in env['CM_MODEL']:
+        target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'cnndm')
+        if not os.path.exists(target_data_path):
+            cmds.append("make download_data BENCHMARKS='gptj'")
+
+        fp32_model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'gptj', 'bert_large_v1_1.onnx')
+        vocab_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'bert', 'vocab.txt')
+
+        if not os.path.exists(os.path.dirname(fp32_model_path)):
+          cmds.append(f"mkdir -p {os.path.dirname(fp32_model_path)}")
+
+        if not os.path.exists(fp32_model_path):
+            cmds.append(f"ln -sf {env['CM_ML_MODEL_BERT_LARGE_FP32_PATH']} {fp32_model_path}")
+        if not os.path.exists(int8_model_path):
+            cmds.append(f"ln -sf {env['CM_ML_MODEL_BERT_LARGE_INT8_PATH']} {int8_model_path}")
+        model_name = "gptj"
+        model_path = fp32_model_path
     #cmds.append(f"make prebuild")
     if make_command == "download_model":
         if not os.path.exists(model_path):
