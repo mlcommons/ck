@@ -1405,7 +1405,7 @@ def dockerfile(i):
 
         gh_token = i.get('docker_gh_token')
 
-        if i.get('docker_real_run', False):
+        if i.get('docker_real_run', docker_settings.get('docker_real_run',False)):
             fake_run_option = " "
             fake_run_deps = False
         else:
