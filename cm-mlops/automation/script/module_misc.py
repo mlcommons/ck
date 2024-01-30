@@ -1391,9 +1391,15 @@ def dockerfile(i):
         run_cmd  = r['run_cmd_string']
 
 
-        
+        docker_base_image = i.get('docker_base_image', docker_settings.get('base_image'))
         docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
         docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
+        if not docker_base_image:
+            dockerfilename_suffix = docker_os +'_'+docker_os_version
+        else:
+            dockerfilename_suffix = docker_base_image.split("/")
+            dockerfilename_suffix = dockerfilename_suffix[len(dockerfilename_suffix) - 1]
+
         fake_run_deps = i.get('fake_run_deps', docker_settings.get('fake_run_deps', False))
         docker_run_final_cmds = docker_settings.get('docker_run_final_cmds', [])
 
@@ -1409,7 +1415,7 @@ def dockerfile(i):
 
         env['CM_DOCKER_PRE_RUN_COMMANDS'] = docker_run_final_cmds
 
-        dockerfile_path = os.path.join(script_path,'dockerfiles', docker_os +'_'+docker_os_version +'.Dockerfile')
+        dockerfile_path = os.path.join(script_path,'dockerfiles', dockerfilename_suffix +'.Dockerfile')
         if i.get('print_deps'):
             cm_input = {'action': 'run',
                     'automation': 'script',
@@ -1434,6 +1440,7 @@ def dockerfile(i):
                             'automation': 'script',
                             'tags': 'build,dockerfile',
                             'cm_repo': cm_repo,
+                            'docker_base_image': docker_base_image,
                             'docker_os': docker_os,
                             'docker_os_version': docker_os_version,
                             'file_path': dockerfile_path,
@@ -1659,9 +1666,18 @@ def docker(i):
 
         mount_string = "" if len(mounts)==0 else ",".join(mounts)
 
+        docker_base_image = i.get('docker_base_image', docker_settings.get('base_image'))
+        docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
+        docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
+        if not docker_base_image:
+            dockerfilename_suffix = docker_os +'_'+docker_os_version
+        else:
+            dockerfilename_suffix = docker_base_image.split("/")
+            dockerfilename_suffix = dockerfilename_suffix[len(dockerfilename_suffix) - 1]
+
         cm_repo=i.get('docker_cm_repo', 'mlcommons@ck')
 
-        dockerfile_path = os.path.join(script_path,'dockerfiles', _os +'_'+version +'.Dockerfile')
+        dockerfile_path = os.path.join(script_path,'dockerfiles', dockerfilename_suffix +'.Dockerfile')
 
         docker_skip_run_cmd = i.get('docker_skip_run_cmd', docker_settings.get('skip_run_cmd', False)) #skips docker run cmd and gives an interactive shell to the user
 
@@ -1712,7 +1728,9 @@ def docker(i):
                            'automation': 'script',
                            'tags': 'run,docker,container',
                            'recreate': 'yes',
+                           'docker_base_image': docker_base_image,
                            'docker_os': _os,
+                           'docker_os_version': version,
                            'cm_repo': cm_repo,
                            'env': env,
                            'image_repo': image_repo,
@@ -1720,7 +1738,6 @@ def docker(i):
                            'mounts': mounts,
                            'image_name': 'cm-script-'+script_alias,
 #                            'image_tag': script_alias,
-                           'docker_os_version': version,
                            'detached': detached,
                            'script_tags': f'{tag_string}',
                            'run_cmd': run_cmd if docker_skip_run_cmd not in [ 'yes', True, 'True' ] else 'echo "cm version"',
