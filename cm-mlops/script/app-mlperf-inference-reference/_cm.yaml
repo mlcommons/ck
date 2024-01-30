@@ -873,6 +873,15 @@ variations:
       - tags: get,generic-python-lib,_package.datasets
         names:
           - datasets
+      - tags: get,generic-python-lib,_package.sentencepiece
+        names:
+          - sentencepiece
+      - tags: get,generic-python-lib,_package.protobuf
+        names:
+          - protobuf
+      - tags: get,generic-python-lib,_package.accelerate
+        names:
+          - accelerate
 
   llama2-70b-99:
     group: models
