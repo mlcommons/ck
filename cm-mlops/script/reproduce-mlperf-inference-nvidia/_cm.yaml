@@ -299,6 +299,10 @@ variations:
     default: true
     env:
       CM_MODEL: resnet50
+    deps:
+    - tags: get,generic-python-lib,_graphsurgeon
+    - tags: get,generic-python-lib,_package.onnx
+      version: 1.13.1
 
   retinanet:
     group: model
