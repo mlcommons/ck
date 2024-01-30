@@ -259,8 +259,8 @@ ___
              - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
     * `_nvidia-dali`
       - Environment variables:
-        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `nvidia-dali-cuda110`
-        - *CM_GENERIC_PYTHON_PIP_EXTRA*: ` --upgrade`
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `nvidia-dali-cuda120`
+        - *CM_GENERIC_PYTHON_PIP_EXTRA*: ` --upgrade --default-timeout=900`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://developer.download.nvidia.com/compute/redist`
       - Workflow:
         1. ***Read "deps" on other CM scripts***

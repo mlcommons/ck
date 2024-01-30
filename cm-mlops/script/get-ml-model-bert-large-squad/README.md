@@ -126,6 +126,7 @@ ___
     * `_onnx,int8`
       - Environment variables:
         - *CM_ML_MODEL_F1*: `90.067`
+        - *CM_PACKAGE_URL*: `https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx`
       - Workflow:
     * `_onnx,int8,amazon-s3`
       - Environment variables:

@@ -128,7 +128,7 @@ ___
       - Workflow:
     * `_nvidia`
       - Environment variables:
-        - *IMPLEMENTATION*: `nvidia`
+        - *IMPLEMENTATION*: `nvidia-original`
       - Workflow:
     * `_qualcomm`
       - Environment variables:
