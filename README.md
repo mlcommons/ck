@@ -17,16 +17,18 @@
 
 ### About
 
-Collective Mind (CM) is a human-friendly interface to help everyone run, manage and reuse
-a [growing number of MLPerf, MLOps and DevOps scripts](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
-from [MLCommons projects](https://mlcommons.org) and [research papers](https://cTuning.org/ae)
-in a unified way on any operating system with any software and hardware
-either natively or inside containers.
+Collective Mind (CM) is a [collection of portable, reusable and extensible
+automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md) 
+from [MLCommons projects](https://mlcommons.org) and [research papers](https://www.youtube.com/watch?v=7zpeIVwICa4)
+with a human-friendly interface to help everyone assemble, run, benchmark
+and optimize complex AI/ML applications and systems
+in a unified way on any operating system with any software and hardware.
 
 Here are a few most commonly used examples from the CM users 
 that should run in the same way on Linux, MacOS, Windows and other platforms
-(see [Getting Started Guide](docs/getting-started.md) to understand 
-how they work and how to reuse them in your projects):
+with any hardware (see the [Getting Started Guide](docs/getting-started.md) 
+to understand  how they work, how to reuse and extend them for your projects
+and how to share your own ones):
 
 ```bash
 pip install cmind
@@ -100,11 +102,9 @@ output=cmind.access({'action':'run', 'automation':'script',
 if output['return']==0: print (output)
 ```
 
-
 Collective Mind is a community project being developed by the 
 [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-with great help from [MLCommons (70+ AI organizations)](https://mlcommons.org/,
-[research community]( https://www.youtube.com/watch?v=7zpeIVwICa4 )
+with great help from [MLCommons (70+ AI organizations)](https://mlcommons.org),
 and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) -
 we want to have a simple, non-intrusive, technology-agnostic, portable and easily-extensible interface 
 to automate all our manual and repetitive tasks including 
