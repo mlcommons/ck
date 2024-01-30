@@ -137,7 +137,7 @@ deps:
   ########################################################################
   # Install MLPerf inference dependencies
 
-  - tags: get,mlperf,inference,results
+  - tags: get,mlperf,inference,results,_ctuning
     names:
       inference-results
     version: v3.1
