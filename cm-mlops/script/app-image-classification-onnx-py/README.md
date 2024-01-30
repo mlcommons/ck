@@ -103,10 +103,14 @@ ___
 
 #### Variations
 
-  * *No group (any variation can be selected)*
+  * Group "**target**"
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * **`_cpu`** (default)
+      - Environment variables:
+        - *USE_CPU*: `True`
+      - Workflow:
     * `_cuda`
       - Environment variables:
         - *USE_CUDA*: `True`
@@ -114,6 +118,10 @@ ___
 
     </details>
 
+
+#### Default variations
+
+`_cpu`
 
 #### Input description
 

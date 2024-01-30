@@ -116,17 +116,13 @@ ___
       - Environment variables:
         - *CM_CONDA_PYTHON_VERSION*: `3.#`
       - Workflow:
-    * **`_python-3.8`** (default)
+    * `_python-3.8`
       - Environment variables:
         - *CM_CONDA_PYTHON_VERSION*: `3.8`
       - Workflow:
 
     </details>
 
-
-#### Default variations
-
-`_python-3.8`
 #### Default environment
 
 <details>
@@ -149,6 +145,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda/_cm.json)
   1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda/customize.py)***

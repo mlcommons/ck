@@ -103,6 +103,18 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_conda.#`
+      - Environment variables:
+        - *CM_PYTHON_CONDA*: `yes`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic,conda-package,_name.#,_package.python
+             * CM names: `--adr.['conda-package', 'conda-python']...`
+             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+    * `_custom-path.#`
+      - Environment variables:
+        - *CM_PYTHON_BIN_WITH_PATH*: `#`
+      - Workflow:
     * `_lto`
       - Workflow:
     * `_optimized`
@@ -159,6 +171,7 @@ ___
 
 * `CM_PYTHON_BIN`
 * `CM_PYTHON_BIN_PATH`
+* `CM_PYTHON_BIN_WITH_PATH`
 * `CM_PYTHON_CACHE_TAGS`
 * `CM_PYTHON_MAJOR_VERSION`
 * `CM_PYTHON_MINOR_VERSION`
