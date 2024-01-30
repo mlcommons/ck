@@ -109,9 +109,9 @@ def preprocess(i):
                             test_query_count = 100
                     else:
                         if model == "resnet50":
-                            test_query_count = 10000
+                            test_query_count = 40000
                         else:
-                            test_query_count = 1000
+                            test_query_count = 2000
                     cmd = f'run_test "{model}" "{backend}" "{test_query_count}" "{implementation}" "{device}" "$find_performance_cmd"'
                     cmds.append(cmd)
                     #second argument is unused for submission_cmd
