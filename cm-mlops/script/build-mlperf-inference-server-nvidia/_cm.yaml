@@ -136,8 +136,9 @@ post_deps:
       - "no"
       - False
       - "False"
-
-
+    enable_if_env:
+      CM_RUN_STATE_DOCKER:
+      - False
 
 variations:
   # Target devices
