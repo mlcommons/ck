@@ -312,6 +312,9 @@ variations:
     - tags: get,generic-python-lib,_opencv-python
     - tags: get,generic-python-lib,_numpy
     - tags: get,generic-python-lib,_pycocotools
+    - tags: get,generic-python-lib,_graphsurgeon
+    - tags: get,generic-python-lib,_package.onnx
+      version: 1.13.1
 
   bert_:
     deps:
