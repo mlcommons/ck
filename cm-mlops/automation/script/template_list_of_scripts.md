@@ -15,7 +15,12 @@ natively or inside containers.
 Click on any automation recipe below to learn how to run and reuse it 
 via CM command line, Python API or GUI.
 
-*CM is a community project being developed and extended by [MLCommons members and individual contributors](../CONTRIBUTING.md) -
+CM scripts can easily chained together into automation workflows using `deps` and `tags` keys
+while automatically updating all environment variables and paths 
+for a given task and platform [using simple JSON or YAML](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml).
+
+
+*Note that CM is a community project being developed and extended by [MLCommons members and individual contributors](../CONTRIBUTING.md) -
  you can find source code of CM scripts maintained by MLCommons [here](../cm-mlops/script).
  Please join [Discord server](https://discord.gg/JjWNWXKxwT) to participate in collaborative developments or provide your feedback.*
 
