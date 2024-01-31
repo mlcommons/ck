@@ -24,16 +24,33 @@ to help everyone modularize, build, run, benchmark and optimize complex AI/ML ap
 across diverse and continuously changing models, data sets, software and hardware
 from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors.
 
-CM was originally developed based on the feedback from MLCommons engineers and researchers
-to have a simple and technology-agnostic workflow automation 
-to [modularize and run complex MLPerf benchmarks with diverse ML models](docs/mlperf) 
-on any platform with any operating system in a unified and automated way.
+CM was originally designed based on the following feedback and requirements
+from MLCommons engineers and researchers to have a common and technology-agnostic automation 
+that help them simplify and automate development of complex MLPerf benchmarks and AI applications with diverse ML models:
+
+* [CM automations](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md) 
+  should run on any platform with any operating system either natively or inside containers
+  in a unified and automated way;
+* should require minimal learning curve and minimal software dependencies;
+* should be non-intrusive and require minimal or no changes to existing projects;
+* should automate all manual steps to prepare and run AI projects including detection and installation of dependencies, 
+  substituting local paths, updating environment variables and generating command lines
+  for a given platform;
+* should be able to run native user scripts while unifying input/output to reuse all existing work;
+* should avoid using complex Domain Specific Languages (DSL);
+* should use plain Python with simple JSON/YAML configurations for portable automations;
+* should be easily understandable and extensble even by non-specialists;
+* should have a human-friendly command line with a very simple Python API.
 
 However, the community also started using and extending 
 [individual CM automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md) 
-to modularize and run other software projects and reproduce [research papers at Systems and ML conferences]( https://cTuning.org/ae/micro2023.html ).
+to modularize and run other software projects and reproduce [research papers at Systems and ML conferences]( https://cTuning.org/ae/micro2023.html ) -
+please check the [**Getting Started Guide**](docs/getting-started.md) 
+to understand how they work, how to reuse and extend them for your projects,
+and how to share your own automations in your public or private projects.
 
-Just to give you a flavor of the [CM automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md), 
+
+In the meantime, just to give you a flavor of the [CM automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md), 
 here are a few most commonly used automation examples from the CM users 
 that you can try yourself on Linux, MacOS, Windows and other platforms
 with any hardware (you only need to have git, wget and PIP installed 
@@ -129,9 +146,13 @@ if output['return']==0: print (output)
 </details>
 
 
-Please check the [Getting Started Guide](docs/getting-started.md) 
-to understand how they work, how to reuse and extend them for your projects,
-and how to share your own automations in public or private projects.
+<details open>
+<summary><b>Modular containers and GitHub actions with CM commands:</b></summary>
+
+* https://github.com/mlcommons/inference/blob/master/.github/workflows/test-bert.yml
+* https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/dockerfiles/bert-99.9/ubuntu_22.04_python_onnxruntime_cpu.Dockerfile
+
+</details>
 
 
 ### Documentation
