@@ -1,15 +1,20 @@
 alias: benchmark-any-mlperf-inference-implementation
+uid: 8d3cd46f54464810
+
 automation_alias: script
 automation_uid: 5b4e0237da074764
+
 cache: false
+
 category: MLPerf benchmark support
+
 deps:
   - tags: detect,cpu
+
 default_env:
   DIVISION: open
   CATEGORY: edge
-docker_input_mapping: {}
-input_description: {}
+
 input_mapping:
   models: MODELS
   backends: BACKENDS
@@ -18,11 +23,7 @@ input_mapping:
   category: CATEGORY
   power_server: POWER_SERVER
   power_server_port: POWER_SERVER_PORT
-new_env_keys: []
-new_state_keys: []
-post_deps: []
-posthook_deps: []
-prehook_deps: []
+
 tags:
   - benchmark
   - run
@@ -33,8 +34,6 @@ tags:
   - mlperf-implementation
   - implementation
   - mlperf-models
-
-uid: 8d3cd46f54464810
 
 variations:
 

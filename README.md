@@ -20,7 +20,7 @@
 Collective Mind (CM) is a [community project](CONTRIBUTING.md) to develop 
 a [collection of portable, extensible and reusable automation recipes 
 with a human-friendly interface (aka CM scripts)](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md) 
-to help everyone modularize, build, run, benchmark and optimize complex AI/ML applications 
+to make it easier to modularize, build, run, benchmark and optimize complex AI/ML applications 
 across diverse and continuously changing models, data sets, software and hardware
 from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors.
 
@@ -50,7 +50,8 @@ to understand how they work, how to reuse and extend them for your projects,
 and how to share your own automations in your public or private projects.
 
 
-In the meantime, just to give you a flavor of the [CM automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md), 
+Just to give you a flavor of the [CM automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
+that can be chained into more complex automation workflows [using simple JSON or YAML](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml), 
 here are a few most commonly used automation examples from the CM users 
 that you can try yourself on Linux, MacOS, Windows and other platforms
 with any hardware (you only need Python 3.7+, git, wget and PIP installed 
