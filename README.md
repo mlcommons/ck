@@ -33,10 +33,6 @@ However, the community also started using and extending
 [individual CM automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md) 
 to modularize and run other software projects and reproduce [research papers at Systems and ML conferences]( https://cTuning.org/ae/micro2023.html ).
 
-Please check the [Getting Started Guide](docs/getting-started.md) 
-to understand how they work, how to reuse and extend them for your projects,
-and how to share your own automations in public or private projects.
-
 Just to give you a flavor of the [CM automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md), 
 here are a few most commonly used automation examples from the CM users 
 that you can try yourself on Linux, MacOS, Windows and other platforms
@@ -131,6 +127,11 @@ if output['return']==0: print (output)
 </sup>
 
 </details>
+
+
+Please check the [Getting Started Guide](docs/getting-started.md) 
+to understand how they work, how to reuse and extend them for your projects,
+and how to share your own automations in public or private projects.
 
 
 ### Documentation
