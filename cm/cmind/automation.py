@@ -668,8 +668,12 @@ class Automation:
 
         # Output if console
         if console:
-            import json
-            print (json.dumps(meta, indent=2, sort_keys=True))
+            if str(i.get('yaml','')).lower() in ['true','yes']:
+                import yaml
+                print (yaml.dump(meta))
+            else:
+                import json
+                print (json.dumps(meta, indent=2, sort_keys=True))
 
         return {'return':0, 'path':path, 'meta':meta, 'original_meta':original_meta, 'artifact':artifact}
 

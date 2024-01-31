@@ -27,7 +27,7 @@ Thank you for your support and looking forward to collaborating with you!
 * [Grigori Fursin](https://cKnowledge.org/gfursin) (MLCommons.org, cTuning.org, cKnowledge.org)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (MLCommons.org, cTuning.org, cKnowledge.org)
 
-## Contributors to the Collective Knowledge Technology v3 (CM automation language and CK playground) in alphabetical order
+## Contributors to MLCommons' Collective Mind (aka Collective Knowledge v3) in alphabetical order
 
 * Resmi Arjun
 * Ethan Cheng (Nvidia)

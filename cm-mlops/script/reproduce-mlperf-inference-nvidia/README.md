@@ -268,6 +268,11 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_package.fbgemm-gpu
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_gptj_`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_torch
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
 
     </details>
 
@@ -369,6 +374,8 @@ ___
     * `_gpu_memory.24,retinanet,offline,run_harness`
       - Environment variables:
         - *CM_MODEL_BATCH_SIZE*: `2`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `2`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.24,rnnt,offline,run_harness`
@@ -595,6 +602,8 @@ ___
     * `_retinanet,server,run_harness`
       - Environment variables:
         - *CM_MODEL_BATCH_SIZE*: `8`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `2`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_4090,3d-unet_,offline,run_harness`
@@ -635,11 +644,15 @@ ___
     * `_rtx_4090,retinanet,offline,run_harness`
       - Environment variables:
         - *CM_MODEL_BATCH_SIZE*: `2`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `2`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_4090,retinanet,server,run_harness`
       - Environment variables:
         - *CM_MODEL_BATCH_SIZE*: `2`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `2`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_4090,rnnt,offline,run_harness`
@@ -1051,6 +1064,14 @@ ___
     * `_dlrm-v2-99.9`
       - Environment variables:
         - *CM_MODEL*: `dlrm-v2-99.9`
+      - Workflow:
+    * `_gptj-99`
+      - Environment variables:
+        - *CM_MODEL*: `gptj-99`
+      - Workflow:
+    * `_gptj-99.9`
+      - Environment variables:
+        - *CM_MODEL*: `gptj-99.9`
       - Workflow:
     * **`_resnet50`** (default)
       - Environment variables:

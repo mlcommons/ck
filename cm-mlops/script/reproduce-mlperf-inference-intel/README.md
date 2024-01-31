@@ -503,7 +503,7 @@ ___
        * `if (CM_MODEL  == retinanet)`
        * CM names: `--adr.['openimages-preprocessed', 'dataset-preprocessed']...`
        - CM script: [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
-     * get,mlperf,inference,results
+     * get,mlperf,inference,results,_ctuning
        * CM names: `--adr.inference-results...`
        - CM script: [get-mlperf-inference-results](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel/customize.py)***
