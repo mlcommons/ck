@@ -53,7 +53,7 @@ and how to share your own automations in your public or private projects.
 In the meantime, just to give you a flavor of the [CM automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md), 
 here are a few most commonly used automation examples from the CM users 
 that you can try yourself on Linux, MacOS, Windows and other platforms
-with any hardware (you only need to have git, wget and PIP installed 
+with any hardware (you only need Python 3.7+, git, wget and PIP installed 
 on your platform - check the [installation guide](docs/installation.md) for more details):
 
 <details open>
