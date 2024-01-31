@@ -149,8 +149,12 @@ if output['return']==0: print (output)
 <details open>
 <summary><b>Modular containers and GitHub actions with CM commands:</b></summary>
 
+<small>
+
 * https://github.com/mlcommons/inference/blob/master/.github/workflows/test-bert.yml
 * https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/dockerfiles/bert-99.9/ubuntu_22.04_python_onnxruntime_cpu.Dockerfile
+
+</small>
 
 </details>
 
