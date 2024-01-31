@@ -216,6 +216,7 @@ ___
         - *CM_MLPERF_USE_ARMNN_LIBRARY*: `yes`
       - Workflow:
     * `_neon`
+      - Aliases: `_use-neon`
       - Environment variables:
         - *CM_MLPERF_USE_NEON*: `yes`
       - Workflow:
