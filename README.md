@@ -18,25 +18,25 @@
 ### About
 
 Collective Mind (CM) is a [community project](CONTRIBUTING.md) to develop 
-a [collection of portable, extensible and reusable automation recipes 
+a [collection of portable and extensible automation recipes 
 with a human-friendly interface (aka CM scripts)](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md) 
-to make it easier to modularize, build, run, benchmark and optimize complex AI/ML applications 
+that can be reused in different projects to modularize, run, benchmark and optimize complex AI/ML applications 
 across diverse and continuously changing models, data sets, software and hardware
 from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors.
 
 CM was originally designed based on the following feedback and requirements
 from MLCommons engineers and researchers to have a common and technology-agnostic automation 
 that can help them simplify and automate development of complex MLPerf benchmarks and AI applications with diverse ML models
-and make this process more repeatable:
+while making this process more repeatable and deterministic:
 
 * [CM automations](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md) 
   should run on any platform with any operating system either natively or inside containers
   in a unified and automated way;
 * should require minimal learning curve and minimal software dependencies;
 * should be non-intrusive and require minimal or no changes to existing projects;
-* should automate all manual steps to prepare and run AI projects including detection and installation of dependencies, 
-  substituting local paths, updating environment variables and generating command lines
-  for a given platform;
+* should automate all manual steps to prepare and run AI projects including detection or 
+  installation of all dependencies (models, code and data), substituting local paths, 
+  updating environment variables and generating command lines for a given platform;
 * should be able to run native user scripts while unifying input/output to reuse all existing work;
 * should avoid using complex Domain Specific Languages (DSL);
 * should use plain Python with simple JSON/YAML configurations for portable automations;
