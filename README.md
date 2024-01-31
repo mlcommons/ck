@@ -26,7 +26,8 @@ from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors.
 
 CM was originally designed based on the following feedback and requirements
 from MLCommons engineers and researchers to have a common and technology-agnostic automation 
-that help them simplify and automate development of complex MLPerf benchmarks and AI applications with diverse ML models:
+that can help them simplify and automate development of complex MLPerf benchmarks and AI applications with diverse ML models
+and make this process more repeatable:
 
 * [CM automations](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md) 
   should run on any platform with any operating system either natively or inside containers
