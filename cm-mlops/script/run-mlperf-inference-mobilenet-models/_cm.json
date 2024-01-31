@@ -123,6 +123,9 @@
         "CM_MLPERF_USE_NEON": "yes"
       }
     },
+    "use-neon": {
+      "alias": "neon"
+    },
     "opencl": {
       "env": {
         "CM_MLPERF_USE_OPENCL": "yes"

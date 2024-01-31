@@ -878,6 +878,8 @@ variations:
         tags: _batch_size.2
     env:
       CM_MODEL_BATCH_SIZE: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   gpu_memory.80,retinanet,offline,run_harness:
@@ -894,6 +896,8 @@ variations:
         tags: _batch_size.8
     env:
       CM_MODEL_BATCH_SIZE: "8"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   gpu_memory.16,rnnt,offline,run_harness:
@@ -1078,6 +1082,8 @@ variations:
         tags: _batch_size.2
     env:
       CM_MODEL_BATCH_SIZE: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   rtx_4090,retinanet,server,run_harness:
@@ -1086,6 +1092,8 @@ variations:
         tags: _batch_size.2
     env:
       CM_MODEL_BATCH_SIZE: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   rtx_4090,bert_,offline,run_harness:
