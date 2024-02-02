@@ -19,6 +19,7 @@
   "prehook_deps": [
     {
       "env": {
+        "CM_DOWNLOAD_FINAL_ENV_NAME": "GPTJ_CHECKPOINT_PATH",
         "CM_EXTRACT_FINAL_ENV_NAME": "GPTJ_CHECKPOINT_PATH",
         "CM_EXTRACT_TO_FOLDER": "gpt-j"
       },
@@ -87,7 +88,9 @@
         "CM_PACKAGE_URL": "https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download",
         "CM_RCLONE_CONFIG_CMD": "rclone config create mlc-inference s3 provider=LyveCloud access_key_id=0LITLNQMHZALM5AK secret_access_key=YQKYTMBY23TMZHLOYFJKL5CHHS0CWYUC endpoint=s3.us-east-1.lyvecloud.seagate.com",
         "CM_RCLONE_URL": "mlc-inference:mlcommons-inference-wg-s3/gpt-j"
-      },
+      }
+    },
+    "pytorch,fp32,wget": {
       "add_deps_recursive": {
         "dae": {
           "tags": "_extract"
