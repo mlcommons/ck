@@ -11,6 +11,6 @@ if [[ ${CM_MLPERF_DEVICE} == "inferentia" ]]; then
  make prebuild
 fi
 
-make ${CM_MAKE_BUILD_COMMAND}
+SKIP_DRIVER_CHECK=1 make ${CM_MAKE_BUILD_COMMAND}
 
 test $? -eq 0 || exit $?
