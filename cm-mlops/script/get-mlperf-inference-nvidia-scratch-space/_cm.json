@@ -29,8 +29,16 @@
   "uid": "0b2bec8b29fb4ab7",
   "variations": {
     "version.#": {
+      "group": "version",
       "env": {
-	"CM_NVIDIA_SCRATCH_SPACE_VERSION": "#"
+        "CM_NVIDIA_SCRATCH_SPACE_VERSION": "#"
+      }
+    },
+    "version.4_0": {
+      "group": "version",
+      "default": true,
+      "env": {
+        "CM_NVIDIA_SCRATCH_SPACE_VERSION": "4_0"
       }
     }
   },

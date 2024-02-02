@@ -31,8 +31,16 @@
   "uid": "e83fca30851f45ef",
   "variations": {
     "version.#": {
+      "group": "version",
       "env": {
         "CM_INTEL_SCRATCH_SPACE_VERSION": "#"
+      }
+    },
+    "version.4_0": {
+      "group": "version",
+      "default": true,
+      "env": {
+        "CM_INTEL_SCRATCH_SPACE_VERSION": "4_0"
       }
     }
   },
