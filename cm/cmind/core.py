@@ -459,7 +459,7 @@ class CM(object):
         if action in self.cfg['action_substitutions']:
             action = self.cfg['action_substitutions'][action]
 
-        
+
         # Check if common automation and --help
         if (use_common_automation or automation=='') and cm_help:
             return print_action_help(self.common_automation, 
@@ -494,6 +494,7 @@ class CM(object):
         # Finalize automation class initialization
         initialized_automation = loaded_automation_class(self, automation_full_path)
         initialized_automation.meta = automation_meta
+        initialized_automation.full_path = automation_full_path
 
         # Check action in a class when importing
         if use_any_action:
@@ -644,8 +645,15 @@ def print_db_actions(automation, equivalent_actions):
 ############################################################
 def print_action_help(automation, common_automation, print_automation, action, original_action):
 
-     import inspect
-     path_to_automation = inspect.getfile(inspect.getmodule(automation))
+     # 20240202: 
+     # Check if already have full path to automation and if not, try to detect it
+     try:
+         path_to_automation = automation.full_path
+     except:
+         import inspect
+
+         automation_module = inspect.getmodule(automation)
+         path_to_automation = inspect.getfile(automation_module)
 
      print ('')
      print ('Automation:      {}'.format(print_automation))
