@@ -408,7 +408,9 @@ variations:
 
   gptj_:
     deps:
-    - tags: get,generic-python-lib,_torch
+    - tags: install,torch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+    - tags: get,cmake
+      version_min: "3.25.0"
 
   gptj-99:
     group: model
