@@ -82,7 +82,6 @@
     "pytorch,fp32": {
       "env": {
         "CM_DOWNLOAD_EXTRA_OPTIONS": " --output-document checkpoint.zip",
-        "CM_DOWNLOAD_FILENAME": "checkpoint.zip",
         "CM_UNZIP": "yes",
         "CM_DOWNLOAD_CHECKSUM_NOT_USED": "e677e28aaf03da84584bb3073b7ee315",
         "CM_PACKAGE_URL": "https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download",
@@ -189,7 +188,8 @@
         }
       },
       "env": {
-        "CM_DOWNLOAD_URL": "<<<CM_PACKAGE_URL>>>"
+        "CM_DOWNLOAD_URL": "<<<CM_PACKAGE_URL>>>",
+        "CM_DOWNLOAD_FILENAME": "checkpoint.zip"
       }
     },
     "rclone": {
@@ -200,6 +200,7 @@
         }
       },
       "env": {
+        "CM_DOWNLOAD_FILENAME": "checkpoint",
         "CM_DOWNLOAD_URL": "<<<CM_RCLONE_URL>>>"
       }
     },
