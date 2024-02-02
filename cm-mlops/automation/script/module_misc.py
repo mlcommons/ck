@@ -1694,6 +1694,11 @@ def docker(i):
 
         port_maps = i.get('docker_port_maps', docker_settings.get('port_maps', []))
 
+        if detached == '':
+            detached = docker_settings.get('detached', '')
+
+        if interactive == '':
+            interactive = docker_settings.get('interactive', '')
         
 #        # Regenerate run_cmd
 #        if i.get('cmd'):

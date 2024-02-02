@@ -214,7 +214,8 @@ docker:
   skip_run_cmd: 'no'
   all_gpus: 'yes'
   docker_os: ubuntu
-  docker_real_run: True
+  docker_real_run: False
+  interactive: True
   docker_os_version: '20.04'
   base_image: nvcr.io/nvidia/mlperf/mlperf-inference:mlpinf-v3.1-cuda12.2-cudnn8.9-x86_64-ubuntu20.04-public
   docker_input_mapping:
