@@ -101,21 +101,6 @@ deps:
   # Install system dependencies on a given host
   - tags: get,sys-utils-cm
 
-  # Detect CUDA
-  - names:
-    - cuda
-    tags: get,cuda,_cudnn
-
-  # Detect Tensorrt
-  - names:
-    - tensorrt
-    tags: get,tensorrt
-
-  # Build nvidia inference server
-  - names:
-    - nvidia-inference-server
-    tags: build,nvidia,inference,server
-
   # Get Nvidia scratch space where data and models get downloaded
   - tags: get,mlperf,inference,nvidia,scratch,space
     names:
@@ -233,6 +218,30 @@ deps:
     tags: get,dataset,original,openimages,_calibration
 
 
+  ########################################################################
+  # Install openorca dataset
+
+  - enable_if_env:
+      CM_MODEL:
+      - gptj-99
+      - gptj-99.9
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
+      - preprocess_dataset
+    names:
+      - openorca-original
+    tags: get,dataset,original,openorca
+
+  ########################################################################
+  # Install GPTJ-6B model
+  - enable_if_env:
+      CM_MODEL:
+      - gptj-99
+      - gptj-99.9
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
+      - download_model
+    names:
+      - gptj-model
+    tags: get,ml-model,gptj,_pytorch
 
   ########################################################################
   # Install MLPerf inference dependencies
@@ -406,9 +415,24 @@ variations:
     env:
       CM_MODEL: dlrm-v2-99.9
 
-  gptj_:
+  gptj_: {}
+  gptj_,_build:
     deps:
-    - tags: get,generic-python-lib,_torch
+    - tags: install,torch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+    - tags: get,cmake
+      version_min: "3.25.0"
+
+  gptj_,_build_engine:
+    deps:
+    - tags: install,torch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+    - tags: get,cmake
+      version_min: "3.25.0"
+
+  gptj_,_run_harness:
+    deps:
+    - tags: install,torch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+    - tags: get,cmake
+      version_min: "3.25.0"
 
   gptj-99:
     group: model
@@ -477,6 +501,22 @@ variations:
 
        # Detect rapidjson-dev
        - tags: get,generic,sys-util,_rapidjson-dev
+  
+       # Detect CUDA
+       - names:
+         - cuda
+         tags: get,cuda,_cudnn
+
+       # Detect Tensorrt
+       - names:
+         - tensorrt
+         tags: get,tensorrt
+
+       # Build nvidia inference server
+       - names:
+         - nvidia-inference-server
+         tags: build,nvidia,inference,server
+
 
   maxq:
     group: power-mode
@@ -488,11 +528,17 @@ variations:
     env:
       CM_MLPERF_NVIDIA_HARNESS_MAXN: yes
 
+  preprocess-data:
+    alias: preprocess-data
+
   preprocess_data:
     group: run-mode
     env:
       MLPERF_NVIDIA_RUN_COMMAND: preprocess_data
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: preprocess_data
+
+  download-model:
+    alias: download-model
 
   download_model:
     group: run-mode
@@ -531,6 +577,9 @@ variations:
             - dlrm-v2-99
             - dlrm-v2-99.9
 
+  build-engine:
+    alias: build_engine
+
   build_engine:
     group: run-mode
     default_variations:
@@ -539,6 +588,21 @@ variations:
       MLPERF_NVIDIA_RUN_COMMAND: generate_engines
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: generate_engines
     deps:
+      # Detect CUDA
+      - names:
+        - cuda
+        tags: get,cuda,_cudnn
+
+      # Detect Tensorrt
+      - names:
+        - tensorrt
+        tags: get,tensorrt
+
+      # Build nvidia inference server
+      - names:
+        - nvidia-inference-server
+        tags: build,nvidia,inference,server
+
       - tags: reproduce,mlperf,inference,nvidia,harness,_preprocess_data
         inherit_variation_tags: true
         force_cache: true
@@ -608,12 +672,29 @@ variations:
     env:
       CM_MLPERF_LOADGEN_SCENARIO: Server
 
+  run-harness:
+    alis: run_harness
+
   run_harness:
     group: run-mode
     default: true
     default_variations:
       loadgen-scenario: offline
     deps:
+      # Detect CUDA
+      - names:
+        - cuda
+        tags: get,cuda,_cudnn
+
+      # Detect Tensorrt
+      - names:
+        - tensorrt
+        tags: get,tensorrt
+
+      # Build nvidia inference server
+      - names:
+        - nvidia-inference-server
+        tags: build,nvidia,inference,server
       - tags: reproduce,mlperf,inference,nvidia,harness,_build_engine
         inherit_variation_tags: true
         names:

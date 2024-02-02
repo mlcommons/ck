@@ -10,7 +10,7 @@ def preprocess(i):
 
     env = i['env']
 
-    interactive = env.get('CM_DOCKER_INTERACTIVE','')
+    interactive = env.get('CM_DOCKER_INTERACTIVE_MODE','')
 
     if interactive:
         env['CM_DOCKER_DETACHED_MODE']='no'

@@ -17,13 +17,14 @@
 
 ### About
 
-Collective Mind (CM) is a [community project](CONTRIBUTING.md) to develop 
+**Collective Mind (CM)** is a [community project](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) to develop 
 a [collection of portable, extensible, technology-agnostic and ready-to-use automation recipes
 with a human-friendly interface (aka CM scripts)](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
 that automate all the manual steps required to build, run, benchmark and optimize complex ML/AI applications on any platform
 with any software and hardware. 
 
-CM scripts are being developed based on the feedback from [MLCommons engineers and researchers](docs/taskforce.md) 
+CM scripts are being developed based on the feedback from 
+[MLCommons engineers and researchers](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
 to help them assemble, run, benchmark and optimize complex AI/ML applications
 across diverse and continuously changing models, data sets, software and hardware
 from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors.
@@ -31,12 +32,18 @@ They require Python 3.7+ with minimal dependencies and can run natively on Ubunt
 and any other operating system, in a cloud or inside automatically generated containers.
 
 Some key requirements for the CM design are:
-* must be non-intrusive and easy to debug, require zero changes to existing projects and must complement, reuse, wrap and interconnect all existing automation scripts and tools (such as cmake, ML workflows, python poetry and containers) rather than substituting them; 
+* must be non-intrusive and easy to debug, require zero changes to existing projects and must complement, 
+  reuse, wrap and interconnect all existing automation scripts and tools (such as cmake, ML workflows, 
+  python poetry and containers) rather than substituting them; 
 * must have a very simple and human-friendly command line with a Python API and minimal dependencies;
-* must require minimal or zero learning curve by using plain Python, native scripts, environment variables and simple JSON/YAML descriptions instead of inventing new languages;
-* must run in a native environment with Ubuntu, Debian, RHEL, Amazon Linux, MacOS, Windows and any other operating system while automatically generating container snapshots with CM recipes for repeatability and reproducibility;
+* must require minimal or zero learning curve by using plain Python, native scripts, environment variables 
+  and simple JSON/YAML descriptions instead of inventing new languages;
+* must run in a native environment with Ubuntu, Debian, RHEL, Amazon Linux, MacOS, Windows 
+  and any other operating system while automatically generating container snapshots 
+  with CM recipes for repeatability and reproducibility.
 
-Below you can find a few examples of this collaborative engineering effort sponsored by [MLCommons (non-profit organization with 125+ organizations)](https://mlcommons.org) -
+Below you can find a few examples of this collaborative engineering effort sponsored 
+by [MLCommons (non-profit organization with 125+ organizations)](https://mlcommons.org) -
 a few most-commonly used [automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
 that can be chained into more complex automation workflows [using simple JSON or YAML](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml).
 
@@ -167,7 +174,7 @@ to modularize, run and benchmark other software projects and make it
 easier to rerun, reproduce and reuse [research projects from published papers 
 at Systems and ML conferences]( https://cTuning.org/ae/micro2023.html ).
 
-Please check the [**Getting Started Guide**](docs/getting-started.md) 
+Please check the [**Getting Started Guide**](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md) 
 to understand how CM automation recipes work, how to use them to automate your own projects,
 and how to implement and share new automations in your public or private projects.
 
@@ -185,7 +192,7 @@ and how to implement and share new automations in your public or private project
 
 * ACM REP'23 keynote about MLCommons CM: [slides](https://doi.org/10.5281/zenodo.8105339)
 * ACM TechTalk'21 about automating research projects: [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4)
-* MLPerf inference submitter orientation: [v3.1 slides](https://doi.org/10.5281/zenodo.10605079), [v3.0 slides](https://doi.org/10.5281/zenodo.8144274) 
+* MLPerf inference submitter orientation: [v4.0 slides](https://doi.org/10.5281/zenodo.10605079), [v3.1 slides](https://doi.org/10.5281/zenodo.8144274) 
 
 ### Get in touch
 

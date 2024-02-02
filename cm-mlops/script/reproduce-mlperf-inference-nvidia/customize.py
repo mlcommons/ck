@@ -158,10 +158,8 @@ def preprocess(i):
           cmds.append(f"mkdir -p {os.path.dirname(fp32_model_path)}")
 
         if not os.path.exists(fp32_model_path):
-            cmds.append(f"ln -sf {env['GPTJ_CHECKPOINT_DIR']} {fp32_model_path}")
+            cmds.append(f"ln -sf {env['GPTJ_CHECKPOINT_PATH']} {fp32_model_path}")
 
-        if not os.path.exists(fp8_model_path):
-            cmds.append(f"ln -sf {env['CM_ML_MODEL_BERT_LARGE_INT8_PATH']} {fp8_model_path}")
         model_name = "gptj"
         model_path = fp8_model_path
     #cmds.append(f"make prebuild")

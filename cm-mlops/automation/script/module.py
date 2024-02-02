@@ -652,46 +652,7 @@ class CAutomation(Automation):
 
         # Check if has --help
         if i.get('help',False):
-            print ('')
-            print ('Help for this CM script (automation recipe):')
-
-            variations = meta.get('variations',{})
-            if len(variations)>0:
-                print ('')
-                print ('Available variations:')
-                print ('')
-                for v in sorted(variations):
-                    print ('  _'+v)
-
-            input_mapping = meta.get('input_mapping', {})
-            if len(input_mapping)>0:
-                print ('')
-                print ('Available flags mapped to environment variables:')
-                print ('')
-                for k in sorted(input_mapping):
-                    v = input_mapping[k]
-
-                    print ('  --{}  ->  --env.{}'.format(k,v))
-
-            input_description = meta.get('input_description', {})
-            if len(input_description)>0:
-                print ('')
-                print ('Available flags (Python API dict keys):')
-                print ('')
-                for k in sorted(input_description):
-                    v = input_description[k]
-                    n = v.get('desc','')
-
-                    x = '  --'+k
-                    if n!='': x+='  ({})'.format(n)
-
-                    print (x)
-
-
-            print ('')
-            input ('Press Enter to see common flags for all scripts')
-
-            return {'return':0}
+            return utils.call_internal_module(self, __file__, 'module_help', 'print_help', {'meta':meta, 'path':path})
             
         
         deps = meta.get('deps',[])

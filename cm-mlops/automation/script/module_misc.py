@@ -1553,6 +1553,9 @@ def docker(i):
 
         meta = artifact.meta
 
+        if i.get('help',False):
+            return utils.call_internal_module(self_module, __file__, 'module_help', 'print_help', {'meta':meta, 'path':artifact.path})
+
         script_path = artifact.path
 
         tags = meta.get("tags", [])
@@ -1691,6 +1694,11 @@ def docker(i):
 
         port_maps = i.get('docker_port_maps', docker_settings.get('port_maps', []))
 
+        if detached == '':
+            detached = docker_settings.get('detached', '')
+
+        if interactive == '':
+            interactive = docker_settings.get('interactive', '')
         
 #        # Regenerate run_cmd
 #        if i.get('cmd'):

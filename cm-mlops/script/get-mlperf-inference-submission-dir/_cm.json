@@ -1,18 +1,20 @@
 {
-  "alias": "get-mlperf-inference-nvidia-scratch-space",
+  "alias": "get-mlperf-inference-submission-dir",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "category": "MLPerf benchmark support",
   "deps": [],
+  "docker": {
+    "run": false
+  },
   "input_description": {},
   "input_mapping": {
-    "scratch_path": "CM_NVIDIA_MLPERF_SCRATCH_PATH"
+    "results_dir": "CM_MLPERF_SUBMISSION_DIR"
   },
   "new_env_keys": [
-    "CM_NVIDIA_MLPERF_SCRATCH_PATH",
-    "MLPERF_SCRATCH_PATH",
-    "CM_NVIDIA_SCRATCH_SPACE_VERSION"
+    "CM_MLPERF_INFERENCE_SUBMISSION_DIR",
+    "CM_MLPERF_INFERENCE_SUBMISSION_VERSION"
   ],
   "new_state_keys": [],
   "post_deps": [],
@@ -22,28 +24,25 @@
     "get",
     "mlperf",
     "inference",
-    "nvidia",
-    "scratch",
-    "space"
+    "submission",
+    "dir",
+    "directory"
   ],
-  "uid": "0b2bec8b29fb4ab7",
+  "uid": "ddf36a41d6934a7e",
   "variations": {
     "version.#": {
-      "group": "version",
       "env": {
-        "CM_NVIDIA_SCRATCH_SPACE_VERSION": "#"
-      }
+        "CM_MLPERF_INFERENCE_SUBMISSION_VERSION": "#"
+      },
+      "group": "version"
     },
     "version.4_0": {
-      "group": "version",
       "default": true,
       "env": {
-        "CM_NVIDIA_SCRATCH_SPACE_VERSION": "4_0"
-      }
+        "CM_MLPERF_INFERENCE_SUBMISSION_VERSION": "4_0"
+      },
+      "group": "version"
     }
   },
-  "versions": {},
-  "docker": {
-    "run": false
-  }
+  "versions": {}
 }

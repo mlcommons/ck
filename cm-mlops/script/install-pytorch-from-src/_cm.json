@@ -221,7 +221,7 @@
     },
     "for-nvidia-mlperf-inference-v3.1-gptj": {
       "base": [
-        "checkout.b5021ba9",
+        "sha.b5021ba9",
         "cuda"
       ],
       "env": {
@@ -230,14 +230,20 @@
       "deps": [
         {
           "tags": "get,conda,_name.nvidia"
-        }
+        },
+        {
+          "tags": "get,cmake",
+          "version_min": "3.18"
+	}
       ]
     },
     "cuda": {
-      "deps": {
-        "tags": "get,cuda,cudnn",
-        "names": [ "cuda" ]
-      },
+      "deps": [
+        {
+          "tags": "get,cuda,_cudnn",
+          "names": [ "cuda" ]
+        }
+      ],
       "env": {
         "CUDA_HOME": "<<<CM_CUDA_INSTALLED_PATH>>>",
         "CUDNN_LIBRARY_PATH": "<<<CM_CUDA_PATH_LIB_CUDNN>>>",

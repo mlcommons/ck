@@ -1,4 +1,4 @@
-## V1.6.0.1
+## V1.6.1
    - improving --help for common automations and CM scripts (automation recipes)
    - fixing a few minor bugs
 
