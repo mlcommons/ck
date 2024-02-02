@@ -77,7 +77,7 @@ deps:
 
   # Detect CMake
   - tags: get,cmake
-    version_min: "3.18"
+    version_min: "3.25"
 
   # Detect Google Logger
   - tags: get,generic,sys-util,_glog-dev
@@ -106,6 +106,8 @@ deps:
     names:
     - nvidia-inference-common-code
 
+  - tags: get,generic-python-lib,_package.pybind11
+
   # Detect pycuda
   - tags: get,generic-python-lib,_pycuda
     skip_if_env:
@@ -124,6 +126,10 @@ deps:
   - tags: get,mlperf,inference,nvidia,scratch,space
     names:
     - nvidia-scratch-space
+
+  - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+    names:
+    - pytorch
 
 post_deps:
   # Detect nvidia system

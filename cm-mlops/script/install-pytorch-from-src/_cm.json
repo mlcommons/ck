@@ -230,7 +230,11 @@
       "deps": [
         {
           "tags": "get,conda,_name.nvidia"
-        }
+        },
+        {
+          "tags": "get,cmake",
+          "version_min": "3.18"
+	}
       ]
     },
     "cuda": {
