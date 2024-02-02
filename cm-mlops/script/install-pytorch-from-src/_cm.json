@@ -234,10 +234,12 @@
       ]
     },
     "cuda": {
-      "deps": {
-        "tags": "get,cuda,cudnn",
-        "names": [ "cuda" ]
-      },
+      "deps": [
+        {
+          "tags": "get,cuda,cudnn",
+          "names": [ "cuda" ]
+        }
+      ],
       "env": {
         "CUDA_HOME": "<<<CM_CUDA_INSTALLED_PATH>>>",
         "CUDNN_LIBRARY_PATH": "<<<CM_CUDA_PATH_LIB_CUDNN>>>",
