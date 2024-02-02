@@ -116,6 +116,7 @@ def preprocess(i):
     cuda_inc_path = env['CM_CUDA_PATH_INCLUDE']
     cuda_lib_path = env['CM_CUDA_PATH_LIB']
     env['CM_CUDA_PATH_LIB_CUDNN'] = env['CM_CUDA_PATH_LIB']
+    env['CM_CUDA_PATH_INCLUDE_CUDNN'] = env['CM_CUDA_PATH_INCLUDE']
 
     try:
         print("Copying cudnn include files to {}(CUDA_INCLUDE_PATH)".format(cuda_inc_path))

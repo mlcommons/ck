@@ -650,6 +650,50 @@ class CAutomation(Automation):
         meta = script_artifact.meta
         path = script_artifact.path
 
+        # Check if has --help
+        if i.get('help',False):
+            print ('')
+            print ('Help for this CM script (automation recipe):')
+
+            variations = meta.get('variations',{})
+            if len(variations)>0:
+                print ('')
+                print ('Available variations:')
+                print ('')
+                for v in sorted(variations):
+                    print ('  _'+v)
+
+            input_mapping = meta.get('input_mapping', {})
+            if len(input_mapping)>0:
+                print ('')
+                print ('Available flags mapped to environment variables:')
+                print ('')
+                for k in sorted(input_mapping):
+                    v = input_mapping[k]
+
+                    print ('  --{}  ->  --env.{}'.format(k,v))
+
+            input_description = meta.get('input_description', {})
+            if len(input_description)>0:
+                print ('')
+                print ('Available flags (Python API dict keys):')
+                print ('')
+                for k in sorted(input_description):
+                    v = input_description[k]
+                    n = v.get('desc','')
+
+                    x = '  --'+k
+                    if n!='': x+='  ({})'.format(n)
+
+                    print (x)
+
+
+            print ('')
+            input ('Press Enter to see common flags for all scripts')
+
+            return {'return':0}
+            
+        
         deps = meta.get('deps',[])
         post_deps = meta.get('post_deps',[])
         prehook_deps = meta.get('prehook_deps',[])
@@ -3416,6 +3460,7 @@ class CAutomation(Automation):
            * return (int): return code == 0 if no error and >0 if error
            * (error) (str): error string if return>0
         """
+
         deps = i['deps']
         add_deps = i['update_deps']
         update_deps(deps, add_deps, False)
@@ -4102,6 +4147,7 @@ more portable, interoperable and deterministic. Thank you'''
 
     return rr
 
+##############################################################################
 def run_detect_version(customize_code, customize_common_input, recursion_spaces, env, state, const, const_state, meta, verbose=False):
 
     if customize_code is not None and 'detect_version' in dir(customize_code):
@@ -4124,6 +4170,7 @@ def run_detect_version(customize_code, customize_common_input, recursion_spaces,
 
     return {'return': 0}
 
+##############################################################################
 def run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const, const_state, meta, verbose=False, run_script_input=None):
 
     if customize_code is not None and 'postprocess' in dir(customize_code):

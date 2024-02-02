@@ -33,6 +33,7 @@
   "new_env_keys": [
     "CM_CUDNN_*",
     "CM_CUDA_PATH_LIB_CUDNN",
+    "CM_CUDA_PATH_INCLUDE_CUDNN",
     "CM_CUDA_PATH_LIB_CUDNN_EXISTS",
     "+PATH",
     "+C_INCLUDE_PATH",

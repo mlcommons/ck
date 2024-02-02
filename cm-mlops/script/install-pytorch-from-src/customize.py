@@ -10,9 +10,11 @@ def preprocess(i):
 
     env = i['env']
 
-    run_cmd="CC=clang CXX=clang++ USE_CUDA=OFF python -m pip install -e . "
+    if env.get('CM_MLPERF_INFERENCE_INTEL', '') == "yes":
+        i['run_script_input']['script_name'] = "run-intel-mlperf-inference-v3_1"
+        run_cmd="CC=clang CXX=clang++ USE_CUDA=OFF python -m pip install -e . "
 
-    env['CM_RUN_CMD'] = run_cmd
+        env['CM_RUN_CMD'] = run_cmd
 
     automation = i['automation']
 

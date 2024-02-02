@@ -459,7 +459,7 @@ class CM(object):
         if action in self.cfg['action_substitutions']:
             action = self.cfg['action_substitutions'][action]
 
-        
+
         # Check if common automation and --help
         if (use_common_automation or automation=='') and cm_help:
             return print_action_help(self.common_automation, 
@@ -494,6 +494,7 @@ class CM(object):
         # Finalize automation class initialization
         initialized_automation = loaded_automation_class(self, automation_full_path)
         initialized_automation.meta = automation_meta
+        initialized_automation.full_path = automation_full_path
 
         # Check action in a class when importing
         if use_any_action:
@@ -536,13 +537,28 @@ class CM(object):
             return {'return':4, 'error':'action "{}" not found in automation "{}"'.format(action, print_automation)}
 
         # Check if help for a given automation action
+        delayed_help = False
+        delayed_help_api = ''
+        delayed_help_api_prefix = ''
+        delayed_help_api_prefix_0 = ''
+
         if cm_help:
             # Find path to automation
-            return print_action_help(initialized_automation, 
-                                     self.common_automation, 
-                                     print_automation,
-                                     action, 
-                                     original_action)
+            rr = print_action_help(initialized_automation, 
+                                   self.common_automation, 
+                                   print_automation,
+                                   action, 
+                                   original_action)
+
+            if rr['return']>0: return rr
+
+            if not rr.get('delayed_help', False):
+                return rr
+
+            delayed_help = True
+            delayed_help_api = rr['help']
+            delayed_help_api_prefix = rr['help_prefix']
+            delayed_help_api_prefix_0 = rr['help_prefix_0']
 
         # Process artifacts for this automation action
         if len(artifacts)>0:
@@ -577,6 +593,15 @@ class CM(object):
 
             self.index.updated=False
 
+        # If delayed help
+        if delayed_help:
+            print ('')
+            print (delayed_help_api_prefix_0)
+            print ('')
+            print (delayed_help_api_prefix)
+            print ('')
+            print (delayed_help_api)
+        
         return r
 
 ############################################################
@@ -644,35 +669,59 @@ def print_db_actions(automation, equivalent_actions):
 ############################################################
 def print_action_help(automation, common_automation, print_automation, action, original_action):
 
-     import inspect
-     path_to_automation = inspect.getfile(inspect.getmodule(automation))
+     # 20240202: 
+     # Check if already have full path to automation and if not, try to detect it
+     delayed_help = False
+     
+     try:
+         path_to_automation = automation.full_path
+     except:
+         import inspect
 
-     print ('')
-     print ('Automation:      {}'.format(print_automation))
-     print ('Action:          {}'.format(action))
-     print ('')
-     print ('Automation path: {}:'.format(path_to_automation))
-     print ('')
+         automation_module = inspect.getmodule(automation)
+         path_to_automation = inspect.getfile(automation_module)
 
-     print ('API:')
-     print ('')
-
+     try:
+         actions_with_help = automation.meta.get('actions_with_help', [])
+         if action in actions_with_help:
+             delayed_help = True
+     except:
+         pass
+     
+     api_prefix_0 = 'Path to the internal CM automation code: {}'.format(path_to_automation)
+     
      r=utils.find_api(path_to_automation, action)
      if r['return']>0: 
          if r['return']==16:
              # Check in default automation
              path_to_common_automation = inspect.getfile(inspect.getmodule(common_automation))
              if path_to_common_automation == path_to_automation:
+                 print (api_prefix_0)
                  return r
 
              r=utils.find_api(path_to_common_automation, original_action)
-             if r['return']>0: return r
+             if r['return']>0: 
+                 print (api_prefix_0)
+                 return r
 
      api = r['api']
+     api_prefix = 'Python API (add -- to keys if used from the command line):'
 
-     print (api)
+     if not delayed_help:
+         print (api_prefix_0)
+         print ('')
+         print (api_prefix)
+         print ('')
+         print (api)
 
-     return {'return':0, 'help':api}
+     rr = {'return':0, 'help':api}
+
+     if delayed_help:
+         rr['delayed_help'] = True
+         rr['help_prefix'] = api_prefix
+         rr['help_prefix_0'] = api_prefix_0
+
+     return rr
 
 ############################################################
 def access(i):
