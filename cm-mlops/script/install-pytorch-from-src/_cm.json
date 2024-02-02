@@ -221,7 +221,7 @@
     },
     "for-nvidia-mlperf-inference-v3.1-gptj": {
       "base": [
-        "checkout.b5021ba9",
+        "sha.b5021ba9",
         "cuda"
       ],
       "env": {
@@ -236,7 +236,7 @@
     "cuda": {
       "deps": [
         {
-          "tags": "get,cuda,cudnn",
+          "tags": "get,cuda,_cudnn",
           "names": [ "cuda" ]
         }
       ],
