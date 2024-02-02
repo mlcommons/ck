@@ -41,8 +41,7 @@
     },
     {
       "env": {
-        "CM_EXTRACT_FINAL_ENV_NAME": "CM_ML_MODEL_PATH",
-        "CM_EXTRACT_TO_FOLDER": "stable-diffusion-xl-base-1.0"
+        "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_ML_MODEL_PATH"
       },
       "tags": "download-and-extract",
       "update_tags_from_env_with_prefix": {
