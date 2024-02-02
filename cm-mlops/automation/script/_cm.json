@@ -7,7 +7,7 @@
   },
   "desc": "Making native scripts more portable, interoperable and deterministic",
   "developers": "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.org/gfursin)",
-  "actions_with_help":["run"],
+  "actions_with_help":["run", "docker"],
   "sort": 1000,
   "tags": [
     "automation"
