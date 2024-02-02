@@ -1,3 +1,7 @@
+## V1.6.0.1
+   - improving --help for common automations and CM scripts (automation recipes)
+   - fixing a few minor bugs
+
 ## V1.6.0
    - added support for Python 3.12 (removed "pkg" dependency)
    - added --depth to "cm pull repo" to reduce size of stable repos

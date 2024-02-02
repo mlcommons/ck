@@ -22,13 +22,13 @@ a [collection of portable, extensible, technology-agnostic and ready-to-use auto
 with a human-friendly interface (aka CM scripts)](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
 that automate all the manual steps required to build, run, benchmark and optimize complex ML/AI applications on any platform
 with any software and hardware. 
-They require Python 3.7+ with minimal dependencies and can run natively on Ubuntu, MacOS, Windows, RHEL, Debian, Amazon Linux
-and any other operating system, in a cloud or inside automatically generated containers.
 
-CM is being developed based on the feedback from [MLCommons engineers and researchers](docs/taskforce.md) 
-to have a simple automation framework that can help them assemble, run, benchmark and optimize complex AI/ML applications
+CM scripts are being developed based on the feedback from [MLCommons engineers and researchers](docs/taskforce.md) 
+to help them assemble, run, benchmark and optimize complex AI/ML applications
 across diverse and continuously changing models, data sets, software and hardware
 from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors.
+They require Python 3.7+ with minimal dependencies and can run natively on Ubuntu, MacOS, Windows, RHEL, Debian, Amazon Linux
+and any other operating system, in a cloud or inside automatically generated containers.
 
 Some key requirements for the CM design are:
 * must be non-intrusive and easy to debug, require zero changes to existing projects and must complement, reuse, wrap and interconnect all existing automation scripts and tools (such as cmake, ML workflows, python poetry and containers) rather than substituting them; 
