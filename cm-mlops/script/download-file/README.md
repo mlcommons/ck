@@ -133,6 +133,13 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_package.gdown
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_rclone`
+      - Environment variables:
+        - *CM_DOWNLOAD_TOOL*: `rclone`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,rclone
+             - CM script: [get-rclone](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rclone)
     * `_wget`
       - Environment variables:
         - *CM_DOWNLOAD_TOOL*: `wget`

@@ -222,6 +222,8 @@ ___
      * get,nvidia,mlperf,inference,common-code
        * CM names: `--adr.['nvidia-inference-common-code']...`
        - CM script: [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
+     * get,generic-python-lib,_package.pybind11
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_pycuda
        * `if (CM_RUN_STATE_DOCKER not in ['yes', True, 'True'])`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
