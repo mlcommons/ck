@@ -22,7 +22,7 @@
         "CM_EXTRACT_FINAL_ENV_NAME": "GPTJ_CHECKPOINT_PATH",
         "CM_EXTRACT_TO_FOLDER": "gpt-j"
       },
-      "tags": "download-and-extract,_wget",
+      "tags": "download-and-extract",
       "update_tags_from_env_with_prefix": {
         "_url.": [
           "CM_PACKAGE_URL"
@@ -34,7 +34,8 @@
       "force_cache": true,
       "names": [
         "dae"
-      ]
+      ],
+      "extra_cache_tags": "gptj,model"
     }
   ],
   "tags": [
@@ -172,6 +173,15 @@
       ],
       "env": {
         "CM_GPTJ_INTEL_MODEL": "yes"
+      }
+    },
+    "wget": {
+      "group": "download-tool",
+      "default": true,
+      "add_deps_recursive": {
+        "dae": {
+          "tags": "_wget"
+        }
       }
     },
     "pytorch,int8,intel": {

@@ -10,7 +10,8 @@
     "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no"
   },
   "input_mapping": {
-    "checkpoint": "SDXL_CHECKPOINT_PATH"
+    "checkpoint": "SDXL_CHECKPOINT_PATH",
+    "download_path": "CM_DOWNLOAD_PATH"
   },
   "new_env_keys": [
     "CM_ML_MODEL_*",
@@ -21,6 +22,9 @@
       "enable_if_env": {
         "CM_TMP_REQUIRE_DOWNLOAD": [
           "yes"
+        ],
+        "CM_DOWNLOAD_TOOL": [
+          "git"
         ]
       },
       "env": {
@@ -34,6 +38,29 @@
         "hf-zoo"
       ],
       "tags": "get,ml-model,huggingface,zoo,_clone-repo,_model-stub.stabilityai/stable-diffusion-xl-base-1.0"
+    },
+    {
+      "env": {
+        "CM_EXTRACT_FINAL_ENV_NAME": "CM_ML_MODEL_PATH",
+        "CM_EXTRACT_TO_FOLDER": "stable-diffusion-xl-base-1.0"
+      },
+      "tags": "download-and-extract",
+      "update_tags_from_env_with_prefix": {
+        "_url.": [
+          "CM_DOWNLOAD_URL"
+        ]
+      },
+      "enable_if_env": {
+        "CM_TMP_REQUIRE_DOWNLOAD": [ "yes" ],
+        "CM_DOWNLOAD_TOOL": [
+          "rclone"
+        ]
+      },
+      "force_cache": true,
+      "extra_cache_tags": "stable-diffusion,sdxl,model",
+      "names": [
+        "dae"
+      ]
     }
   ],
   "tags": [
@@ -57,6 +84,14 @@
         "CM_ML_MODEL_INPUT_DATA_TYPES": "fp32",
         "CM_ML_MODEL_PRECISION": "fp32",
         "CM_ML_MODEL_WEIGHT_DATA_TYPES": "fp32"
+      },
+      "group": "precision"
+    },
+    "fp16": {
+      "env": {
+        "CM_ML_MODEL_INPUT_DATA_TYPES": "fp16",
+        "CM_ML_MODEL_PRECISION": "fp16",
+        "CM_ML_MODEL_WEIGHT_DATA_TYPES": "fp16"
       },
       "group": "precision"
     },
@@ -87,6 +122,58 @@
         "CM_ML_MODEL_WEIGHT_DATA_TYPES": "uint8"
       },
       "group": "precision"
+    },
+    "huggingface": {
+      "group": "download-source",
+      "default_variations": {
+        "download-tool": "git"
+      }
+    },
+    "mlcommons": {
+      "group": "download-source",
+      "default": true,
+      "default_variations": {
+        "download-tool": "rclone"
+      }
+    },
+    "git": {
+      "group": "download-tool",
+      "env": {
+        "CM_DOWNLOAD_TOOL": "git"
+      }
+    },
+    "wget": {
+      "group": "download-tool",
+      "env": {
+        "CM_DOWNLOAD_TOOL": "wget"
+      },
+      "adr": {
+        "dae": {
+          "tags": "_wget"
+        }
+      }
+    },
+    "rclone": {
+      "group": "download-tool",
+      "env": {
+        "CM_RCLONE_CONFIG": "rclone config create mlc-inference s3 provider=LyveCloud access_key_id=0LITLNQMHZALM5AK secret_access_key=YQKYTMBY23TMZHLOYFJKL5CHHS0CWYUC endpoint=s3.us-east-1.lyvecloud.seagate.com",
+        "CM_DOWNLOAD_TOOL": "rclone"
+      },
+      "adr": {
+        "dae": {
+          "tags": "_rclone"
+        }
+      }
+    },
+    "rclone,fp32": {
+      "env": {
+        "CM_DOWNLOAD_URL": "mlc-inference:mlcommons-inference-wg-s3/stable_diffusion_fp32"
+      }
+    },
+    "rclone,fp16": {
+      "env": {
+        "CM_DOWNLOAD_URL": "mlc-inference:mlcommons-inference-wg-s3/stable_diffusion_fp16"
+      }
     }
   }
 }
