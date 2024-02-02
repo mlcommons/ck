@@ -127,9 +127,6 @@ deps:
     names:
     - nvidia-scratch-space
 
-  - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
-    names:
-    - pytorch
 
 post_deps:
   # Detect nvidia system
@@ -191,15 +188,27 @@ versions:
     add_deps_recursive:
       nvidia-inference-common-code:
         version: r2.1
+      nvidia-scratch-space:
+        tags: version.2_1
 
   r3.0:
     add_deps_recursive:
       nvidia-inference-common-code:
         version: r3.0
+      nvidia-scratch-space:
+        tags: version.3_0
+
   r3.1:
     add_deps_recursive:
       nvidia-inference-common-code:
         version: r3.1
+      nvidia-scratch-space:
+        tags: version.3_1
+    deps:
+      - tags: install,nccl,libs,_cuda
+      - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+        names:
+        - pytorch
 
 docker:
   skip_run_cmd: 'no'
