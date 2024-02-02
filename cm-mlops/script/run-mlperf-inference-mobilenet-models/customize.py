@@ -180,8 +180,8 @@ def preprocess(i):
                     'f': 'True'
                 }
         r = cmind.access(clean_input)
-        if r['return'] > 0:
-            return r
+        #if r['return'] > 0:
+        #    return r
     return {'return':0}
 
 def postprocess(i):
