@@ -51,7 +51,6 @@ to help this community effort!*
 
 #### CM human-friendly command line
 
-<sup>
 
 ```bash
 pip install cmind
@@ -119,12 +118,9 @@ cmr "reproduce paper micro-2023 victima _run"
 
 ```
 
-</sup>
-
 
 #### CM unified Python API
 
-<sup>
 
 ```python
 import cmind
@@ -133,9 +129,6 @@ output=cmind.access({'action':'run', 'automation':'script',
                      'input':'computer_mouse.jpg'})
 if output['return']==0: print (output)
 ```
-</sup>
-
-</details>
 
 
 #### Examples of modular containers and GitHub actions with CM commands
