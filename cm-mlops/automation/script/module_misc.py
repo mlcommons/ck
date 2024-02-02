@@ -1537,7 +1537,7 @@ def docker(i):
         return {'return':1, 'error':'no scripts were found'}
 
     env=i.get('env', {})
-    env['CM_RUN_STATE_DOCKER'] = True
+    env['CM_RUN_STATE_DOCKER'] = False
 
     docker_cache = i.get('docker_cache', "yes")
     if docker_cache in ["no", False, "False" ]:
@@ -1599,8 +1599,16 @@ def docker(i):
             update_path_for_docker('.', mounts, force_path_target=current_path_target)
 
 
-        _os = i.get('docker_os', meta.get('docker_os', 'ubuntu'))
-        version = i.get('docker_os_version', meta.get('docker_os_version', '22.04'))
+        _os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
+        version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
+
+        deps = docker_settings.get('deps', [])
+        if deps:
+            # Todo: Support state, const and add_deps_recursive
+            script_automation = i['self_module']
+            r = script_automation._run_deps(deps, [], env, {}, {}, {}, {}, '',{})
+            if r['return'] > 0:
+                return r
 
         for key in docker_settings.get('mounts', []):
             mounts.append(key)
@@ -1722,6 +1730,7 @@ def docker(i):
         if r['return']>0: return r
 
         run_cmd  = r['run_cmd_string']
+        env['CM_RUN_STATE_DOCKER'] = True
 
         if docker_settings.get('mount_current_dir','')=='yes':
             run_cmd = 'cd '+current_path_target+' && '+run_cmd

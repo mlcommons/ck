@@ -2525,7 +2525,7 @@ class CAutomation(Automation):
     ##############################################################################
     def _run_deps(self, deps, clean_env_keys_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
                     remembered_selections, variation_tags_string='', from_cache=False, debug_script_tags='', 
-                    verbose=False, show_time=False, extra_recursion_spaces='  ', run_state={'deps':[], 'fake_deps':[]}):
+                  verbose=False, show_time=False, extra_recursion_spaces='  ', run_state={'deps':[], 'fake_deps':[], 'parent': None}):
         """
         Runs all the enabled dependencies and pass them env minus local env
         """

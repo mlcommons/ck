@@ -228,6 +228,8 @@ docker:
     tensorrt_tar_file_path: CM_TENSORRT_TAR_FILE_PATH
     cuda_run_file_path: CUDA_RUN_FILE_LOCAL_PATH
     scratch_path: MLPERF_SCRATCH_PATH
+  deps:
+    - tags: get,mlperf,inference,nvidia,scratch,space
   mounts:
    - "${{ IMAGENET_PATH }}:/data/imagenet-val"
    - "${{ RESULTS_DIR }}:/home/cmuser/results_dir"
