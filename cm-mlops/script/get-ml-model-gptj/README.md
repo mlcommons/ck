@@ -114,6 +114,8 @@ ___
         - *CM_UNZIP*: `yes`
         - *CM_DOWNLOAD_CHECKSUM_NOT_USED*: `e677e28aaf03da84584bb3073b7ee315`
         - *CM_PACKAGE_URL*: `https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download`
+        - *CM_RCLONE_CONFIG*: `rclone config create mlc-inference s3 provider=LyveCloud access_key_id=0LITLNQMHZALM5AK secret_access_key=YQKYTMBY23TMZHLOYFJKL5CHHS0CWYUC endpoint=s3.us-east-1.lyvecloud.seagate.com`
+        - *CM_RCLONE_URL*: `mlc-inference:mlcommons-inference-wg-s3/gpt-j`
       - Workflow:
     * `_pytorch,int4,intel`
       - Workflow:
@@ -126,6 +128,7 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,mlperf,inference,results
              - CM script: [get-mlperf-inference-results](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results)
+             - CM script: [get-mlperf-inference-results-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results-dir)
            * get,ml-model,gpt-j,_fp32,_pytorch
              - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)
            * get,conda,_name.gptj-pt
@@ -142,6 +145,22 @@ ___
              - CM script: [install-ipex-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from-src)
            * get,dataset,cnndm,_calibration
              - CM script: [get-dataset-cnndm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-cnndm)
+
+    </details>
+
+
+  * Group "**download-tool**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_rclone`
+      - Environment variables:
+        - *CM_DOWNLOAD_URL*: `<<<CM_RCLONE_URL>>>`
+      - Workflow:
+    * **`_wget`** (default)
+      - Environment variables:
+        - *CM_DOWNLOAD_URL*: `<<<CM_PACKAGE_URL>>>`
+      - Workflow:
 
     </details>
 
@@ -205,7 +224,7 @@ ___
 
 #### Default variations
 
-`_mlcommons,_pytorch`
+`_mlcommons,_pytorch,_wget`
 
 #### Script flags mapped to environment
 <details>
@@ -240,7 +259,7 @@ ___
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj/_cm.json)***
-     * download-and-extract,_wget
+     * download-and-extract
        * `if (CM_TMP_REQUIRE_DOWNLOAD  == yes)`
        * CM names: `--adr.['dae']...`
        - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)

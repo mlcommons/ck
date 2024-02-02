@@ -26,16 +26,13 @@
 
 ### About
 
-
-See extra [notes](README-extra.md) from the authors and contributors.
-
 #### Summary
 
 * Category: *MLPerf benchmark support.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-scratch-space)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,mlperf,inference,nvidia,scratch,space*
+* CM "database" tags to find this script: *get,mlperf,inference,submission,dir,directory*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -52,9 +49,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,mlperf,inference,nvidia,scratch,space[,variations] [--input_flags]`
+1. `cm run script --tags=get,mlperf,inference,submission,dir,directory[,variations] [--input_flags]`
 
-2. `cmr "get mlperf inference nvidia scratch space[ variations]" [--input_flags]`
+2. `cmr "get mlperf inference submission dir directory[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -71,7 +68,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,mlperf,inference,nvidia,scratch,space'
+                  'tags':'get,mlperf,inference,submission,dir,directory'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -88,13 +85,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,mlperf,inference,nvidia,scratch,space"```
+```cmr "cm gui" --script="get,mlperf,inference,submission,dir,directory"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,mlperf,inference,nvidia,scratch,space) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,mlperf,inference,submission,dir,directory) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get mlperf inference nvidia scratch space[ variations]" [--input_flags]`
+`cm docker script "get mlperf inference submission dir directory[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -108,11 +105,11 @@ ___
 
     * `_version.#`
       - Environment variables:
-        - *CM_NVIDIA_SCRATCH_SPACE_VERSION*: `#`
+        - *CM_MLPERF_INFERENCE_SUBMISSION_VERSION*: `#`
       - Workflow:
     * **`_version.4_0`** (default)
       - Environment variables:
-        - *CM_NVIDIA_SCRATCH_SPACE_VERSION*: `4_0`
+        - *CM_MLPERF_INFERENCE_SUBMISSION_VERSION*: `4_0`
       - Workflow:
 
     </details>
@@ -126,12 +123,12 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* `--scratch_path=value`  &rarr;  `CM_NVIDIA_MLPERF_SCRATCH_PATH=value`
+* `--results_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "scratch_path":...}
+r=cm.access({... , "results_dir":...}
 ```
 
 </details>
@@ -152,28 +149,27 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-scratch-space/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-scratch-space/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-scratch-space/_cm.json)
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir/_cm.json)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-scratch-space/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-scratch-space/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-scratch-space/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-scratch-space/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-scratch-space/_cm.json)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "get mlperf inference nvidia scratch space[,variations]" [--input_flags] -j`
+`cmr "get mlperf inference submission dir directory[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
-* `CM_NVIDIA_MLPERF_SCRATCH_PATH`
-* `CM_NVIDIA_SCRATCH_SPACE_VERSION`
-* `MLPERF_SCRATCH_PATH`
+* `CM_MLPERF_INFERENCE_SUBMISSION_DIR`
+* `CM_MLPERF_INFERENCE_SUBMISSION_VERSION`
 #### New environment keys auto-detected from customize
 
-* `CM_NVIDIA_MLPERF_SCRATCH_PATH`
+* `CM_MLPERF_INFERENCE_SUBMISSION_DIR`
 ___
 ### Maintainers
 

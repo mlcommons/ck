@@ -145,13 +145,14 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--download_path=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
 * `--env_key=value`  &rarr;  `CM_MODEL_ZOO_ENV_KEY=value`
 * `--model_filename=value`  &rarr;  `CM_MODEL_ZOO_FILENAME=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "env_key":...}
+r=cm.access({... , "download_path":...}
 ```
 
 </details>
