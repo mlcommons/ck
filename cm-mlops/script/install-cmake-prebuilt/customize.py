@@ -17,6 +17,12 @@ def preprocess(i):
 
     print (recursion_spaces + '    # Requested version: {}'.format(need_version))
 
+    version_split = need_version.split(".")
+    while len(version_split) < 3:
+        version_split.append("0")
+
+    need_version = ".".join(version_split)
+
     host_os_bits = env['CM_HOST_OS_BITS']
 
     if os_info['platform'] != 'windows':
@@ -52,12 +58,6 @@ def preprocess(i):
 
        package_name +=  '.tar.gz'
 
-
-    version_split = need_version.split(".")
-    while len(version_split) < 3:
-        version_split.append("0")
-
-    need_version = ".".join(version_split)
 
     package_url = 'https://github.com/Kitware/CMake/releases/download/v' + need_version + '/' + package_name
 
