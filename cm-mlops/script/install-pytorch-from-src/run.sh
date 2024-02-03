@@ -7,6 +7,8 @@ CUR_DIR=$PWD
 rm -rf pytorch
 cp -r ${CM_PYTORCH_SRC_REPO_PATH} pytorch
 cd pytorch
+git submodule sync
+git submodule update --init --recursive
 rm -rf build
 
 python -m pip install -r requirements.txt
