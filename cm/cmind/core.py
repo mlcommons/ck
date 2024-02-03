@@ -262,7 +262,7 @@ class CM(object):
                 print (self.cfg['info_cli'])
 
                 if cm_help or extra_help:
-                   print_db_actions(self.common_automation, self.cfg['action_substitutions'])
+                   print_db_actions(self.common_automation, self.cfg['action_substitutions'], '')
 
             return {'return':0, 'warning':'no action specified'}
 
@@ -512,7 +512,7 @@ class CM(object):
             print ('')
             print ('Automation python module: {}'.format(automation_full_path))
 
-            r = print_db_actions(self.common_automation, self.cfg['action_substitutions'])
+            r = print_db_actions(self.common_automation, self.cfg['action_substitutions'], automation_meta.get('alias',''))
             if r['return']>0: return r
 
             db_actions = r['db_actions']
@@ -528,7 +528,7 @@ class CM(object):
                 print ('')
 
                 for d in actions:
-                    print ('* '+d)
+                    print ('  * cm  ' + d + '  ' + automation_meta.get('alias',''))
 
             return {'return':0, 'warning':'no automation action'}
 
@@ -626,7 +626,7 @@ def parse_cm_object_and_check_current_dir(cmind, artifact):
     return utils.parse_cm_object(artifact)
 
 ############################################################
-def print_db_actions(automation, equivalent_actions):
+def print_db_actions(automation, equivalent_actions, automation_name):
 
     """
     Internal function: prints CM database actions.
@@ -636,7 +636,7 @@ def print_db_actions(automation, equivalent_actions):
     import types
 
     print ('')
-    print ('Collective database actions:')
+    print ('Common actions to manage CM repositories:')
     print ('')
 
     db_actions=[]
@@ -662,7 +662,9 @@ def print_db_actions(automation, equivalent_actions):
             if se!='':
                 s+=' (' + se + ')'
 
-            print ('  * ' + s)
+            x = '  ' + automation_name if automation_name!='' else ''
+            
+            print ('  * cm  ' + s + x)
 
     return {'return':0, 'db_actions':db_actions}
 

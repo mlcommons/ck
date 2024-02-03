@@ -21,6 +21,7 @@ cm create-toc-from-md utils --input=taskforce.md
 cm create-toc-from-md utils --input=installation.md
 cm create-toc-from-md utils --input=faq.md
 cm create-toc-from-md utils --input=README.md
+cm create-toc-from-md utils --input=getting-started.md
 
 cd mlperf/inference
 

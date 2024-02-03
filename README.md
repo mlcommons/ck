@@ -43,7 +43,7 @@ Some key requirements for the CM design are:
   with CM recipes for repeatability and reproducibility.
 
 Below you can find a few examples of this collaborative engineering effort sponsored 
-by [MLCommons (non-profit organization with 125+ organizations)](https://mlcommons.org) -
+by [MLCommons (non-profit organization with 125+ members)](https://mlcommons.org) -
 a few most-commonly used [automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
 that can be chained into more complex automation workflows [using simple JSON or YAML](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml).
 
