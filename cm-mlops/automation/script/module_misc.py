@@ -1746,7 +1746,7 @@ def docker(i):
                                    'docker_run_cmd_prefix':i.get('docker_run_cmd_prefix','')})
         if r['return']>0: return r
 
-        run_cmd  = r['run_cmd_string'] + ' ' + container_env_string
+        run_cmd  = r['run_cmd_string'] + ' ' + container_env_string + ' --docker_run_deps '
 
         docker_pre_run_cmds = [ pre_run_cmds + ' ' + container_env_string for pre_run_cmds in docker_pre_run_cmds ]
         env['CM_RUN_STATE_DOCKER'] = True
@@ -1781,7 +1781,6 @@ def docker(i):
                            'quiet': True,
                            'pre_run_cmds': docker_pre_run_cmds,
                            'real_run': True,
-                           'docker_run_deps': True,
                            'add_deps_recursive': {
                                'build-docker-image': {
                                    'dockerfile': dockerfile_path

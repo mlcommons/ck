@@ -1314,11 +1314,11 @@ class CAutomation(Automation):
 
             # Run chain of docker dependencies if current run cmd is from inside a docker container
             docker_deps = []
-            if i.get('run_docker_deps'):
-                docker_meta = meta.get(docker)
+            if i.get('docker_run_deps'):
+                docker_meta = meta.get('docker')
                 if docker_meta:
                     docker_deps = docker_meta.get('deps')
-                    docker_deps = [ deps for deps in docker_deps and not deps.get('skip_inside_docker', False) ]
+                    docker_deps = [ dep for dep in docker_deps if not dep.get('skip_inside_docker', False) ]
             if len(docker_deps)>0:
 
                 if verbose:
