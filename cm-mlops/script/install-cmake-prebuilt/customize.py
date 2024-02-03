@@ -53,6 +53,12 @@ def preprocess(i):
        package_name +=  '.tar.gz'
 
 
+    version_split = need_version.split(".")
+    while len(version_split) < 3:
+        version_split.append("0")
+
+    need_version = ".".join(version_split)
+
     package_url = 'https://github.com/Kitware/CMake/releases/download/v' + need_version + '/' + package_name
 
     print (recursion_spaces + '    # Prepared package URL: {}'.format(package_url))
