@@ -2,9 +2,10 @@
   "alias": "get-ml-model-resnet50",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
-  "category": "AI/ML models",
   "cache": true,
+  "category": "AI/ML models",
   "env": {
+    "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH",
     "CM_ML_MODEL": "RESNET50",
     "CM_ML_MODEL_DATASET": "imagenet2012-val",
     "CM_ML_MODEL_IMAGE_HEIGHT": "224",
@@ -12,11 +13,28 @@
     "CM_ML_MODEL_NORMALIZE_DATA": "0",
     "CM_ML_MODEL_RETRAINING": "no",
     "CM_ML_MODEL_SUBTRACT_MEANS": "YES",
-    "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no",
-    "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH"
+    "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no"
   },
   "new_env_keys": [
     "CM_ML_MODEL_*"
+  ],
+  "prehook_deps": [
+    {
+      "env": {
+        "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_FILE>>>"
+      },
+      "extra_cache_tags": "ml-model,resnet50,raw,ml-model-resnet50,_<<<CM_ML_MODEL_FRAMEWORK>>>",
+      "force_cache": true,
+      "names": [
+        "model-downloader"
+      ],
+      "tags": "download-and-extract",
+      "update_tags_from_env_with_prefix": {
+        "_url.": [
+          "CM_PACKAGE_URL"
+        ]
+      }
+    }
   ],
   "tags": [
     "get",
@@ -27,57 +45,123 @@
     "image-classification"
   ],
   "uid": "56203e4e998b4bc0",
-  "prehook_deps": [
-    {
-      "tags": "download-and-extract",
-      "env": {
-        "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_FILE>>>"
-      },
-      "force_cache": true,
-      "extra_cache_tags": "ml-model,resnet50,raw,ml-model-resnet50",
-      "update_tags_from_env_with_prefix": {
-        "_url.": [
-          "CM_PACKAGE_URL"
-        ]
-      },
-      "names": [
-        "model-downloader"
-      ]
-    }
-  ],
   "variations": {
+    "argmax": {
+      "default": true,
+      "env": {
+        "CM_ML_MODEL_OUTPUT_LAYER_ARGMAX": "yes"
+      },
+      "group": "model-output"
+    },
+    "batch_size.#": {
+      "env": {
+        "CM_ML_MODEL_BATCH_SIZE": "#"
+      }
+    },
+    "batch_size.1": {
+      "env": {
+        "CM_ML_MODEL_BATCH_SIZE": "1"
+      }
+    },
+    "fix-input-shape": {
+      "deps": [
+        {
+          "names": [
+            "python",
+            "python3"
+          ],
+          "tags": "get,python3"
+        }
+      ]
+    },
     "fp32": {
-      "group": "precision",
       "default": true,
       "env": {
         "CM_ML_MODEL_INPUT_DATA_TYPES": "fp32",
         "CM_ML_MODEL_PRECISION": "fp32",
         "CM_ML_MODEL_WEIGHT_DATA_TYPES": "fp32"
+      },
+      "group": "precision"
+    },
+    "from-tf": {},
+    "huggingface_default": {
+      "env": {
+        "CM_PACKAGE_URL": "https://huggingface.co/ctuning/mlperf-inference-resnet50-onnx-fp32-imagenet2012-v1.0/resolve/main/resnet50_v1.onnx"
       }
     },
     "int8": {
-      "group": "precision",
       "env": {
         "CM_ML_MODEL_INPUT_DATA_TYPES": "int8",
         "CM_ML_MODEL_PRECISION": "int8",
         "CM_ML_MODEL_WEIGHT_DATA_TYPES": "int8"
+      },
+      "group": "precision"
+    },
+    "ncnn": {
+      "env": {
+        "CM_ML_MODEL_FRAMEWORK": "ncnn"
+      },
+      "group": "framework"
+    },
+    "ncnn,fp32": {
+      "env": {
+        "CM_PACKAGE_URL": "https://zenodo.org/record/8073420/files/resnet50_v1.bin?download=1"
+      },
+      "post_deps": [
+        {
+          "env": {
+            "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_PARAM_FILE>>>"
+          },
+          "extra_cache_tags": "ml-model-params,params,resnet50,ncnn,model-params",
+          "tags": "download-and-extract,_url.https://zenodo.org/record/8073420/files/resnet50_v1.param?download="
+        }
+      ]
+    },
+    "no-argmax": {
+      "env": {
+        "CM_ML_MODEL_OUTPUT_LAYER_ARGMAX": "no"
+      },
+      "group": "model-output"
+    },
+    "onnx": {
+      "default": true,
+      "default_variations": {
+        "opset-version": "opset-11"
+      },
+      "env": {
+        "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
+        "CM_ML_MODEL_FRAMEWORK": "onnx",
+        "CM_ML_MODEL_INPUT_LAYERS": "input_tensor:0",
+        "CM_ML_MODEL_INPUT_LAYER_NAME": "input_tensor:0",
+        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor:0\\\": (BATCH_SIZE, 3, 224, 224)",
+        "CM_ML_MODEL_OUTPUT_LAYERS": "softmax_tensor:0",
+        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "softmax_tensor:0",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>",
+        "CM_ML_MODEL_VER": "1.5"
+      },
+      "group": "framework"
+    },
+    "onnx,from-tf": {
+      "env": {
+        "CM_ML_MODEL_DATA_LAYOUT": "NHWC",
+        "CM_ML_MODEL_FRAMEWORK": "onnx",
+        "CM_ML_MODEL_INPUT_LAYERS": "input_tensor",
+        "CM_ML_MODEL_INPUT_LAYER_NAME": "input_tensor",
+        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor\\\": (BATCH_SIZE, 224, 224, 3)",
+        "CM_ML_MODEL_OUTPUT_LAYERS": "softmax_tensor",
+        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "softmax_tensor",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://zenodo.org/record/2535873/files/resnet50_v1.pb"
       }
     },
-    "opset-11": {
-      "group": "opset-version",
+    "onnx,from-tf,fp32": {
+      "adr": {
+        "model-downloader": {
+          "tags": "_gdown"
+        }
+      },
       "env": {
-        "CM_ML_MODEL_ONNX_OPSET": "11"
-      }
-    },
-    "opset-8": {
-      "group": "opset-version",
-      "env": {
-        "CM_ML_MODEL_ONNX_OPSET": "8"
-      }
-    },
-    "huggingface_default": {
-      "env": {
-        "CM_PACKAGE_URL": "https://huggingface.co/ctuning/mlperf-inference-resnet50-onnx-fp32-imagenet2012-v1.0/resolve/main/resnet50_v1.onnx"
+        "CM_DOWNLOAD_FILENAME": "resnet50_v1_modified.onnx",
+        "CM_PACKAGE_URL": "https://drive.google.com/uc?id=15wZ_8Vt12cb10IEBsln8wksD1zGwlbOM"
       }
     },
     "onnx,opset-11": {
@@ -90,76 +174,38 @@
         "CM_PACKAGE_URL": "https://zenodo.org/record/2592612/files/resnet50_v1.onnx"
       }
     },
-    "onnx": {
-      "group": "framework",
-      "default": true,
-      "default_variations": {
-        "opset-version": "opset-11"
-      },
-      "env": {
-        "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
-        "CM_ML_MODEL_FRAMEWORK": "onnx",
-        "CM_ML_MODEL_INPUT_LAYERS": "input_tensor:0",
-        "CM_ML_MODEL_INPUT_LAYER_NAME": "input_tensor:0",
-        "CM_ML_MODEL_OUTPUT_LAYERS": "softmax_tensor:0",
-        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor:0\\\": (BATCH_SIZE, 3, 224, 224)",
-        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "softmax_tensor:0",
-        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>",
-        "CM_ML_MODEL_VER": "1.5"
-      }
-    },
-    "from-tf": {
-    },
-    "onnx,from-tf": {
-      "env": {
-        "CM_ML_MODEL_DATA_LAYOUT": "NHWC",
-        "CM_ML_MODEL_FRAMEWORK": "onnx",
-        "CM_ML_MODEL_INPUT_LAYERS": "input_tensor",
-        "CM_ML_MODEL_INPUT_LAYER_NAME": "input_tensor",
-        "CM_ML_MODEL_OUTPUT_LAYERS": "softmax_tensor",
-        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor\\\": (BATCH_SIZE, 224, 224, 3)",
-        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "softmax_tensor",
-        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://zenodo.org/record/2535873/files/resnet50_v1.pb"
-      }
-    },
-    "onnx,from-tf,fp32": {
-      "env": {
-        "CM_PACKAGE_URL": "https://drive.google.com/uc?id=15wZ_8Vt12cb10IEBsln8wksD1zGwlbOM",
-        "CM_DOWNLOAD_FILENAME": "resnet50_v1_modified.onnx"
-      },
-      "adr": {
-        "model-downloader": {
-          "tags": "_gdown"
-        }
-      }
-    },
     "onnxruntime": {
       "alias": "onnx"
+    },
+    "opset-11": {
+      "env": {
+        "CM_ML_MODEL_ONNX_OPSET": "11"
+      },
+      "group": "opset-version"
+    },
+    "opset-8": {
+      "env": {
+        "CM_ML_MODEL_ONNX_OPSET": "8"
+      },
+      "group": "opset-version"
+    },
+    "pytorch": {
+      "env": {
+        "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
+        "CM_ML_MODEL_FRAMEWORK": "pytorch",
+        "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "?",
+        "CM_ML_MODEL_INPUT_LAYER_NAME": "input_tensor:0",
+        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor:0\\\": [BATCH_SIZE, 3, 224, 224]",
+        "CM_ML_MODEL_OUTPUT_LAYERS": "output",
+        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "?",
+        "CM_ML_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>"
+      },
+      "group": "framework"
     },
     "pytorch,fp32": {
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth"
       }
-    },
-    "ncnn": {
-      "group": "framework",
-      "env": {
-        "CM_ML_MODEL_FRAMEWORK": "ncnn"
-      }
-    },
-    "ncnn,fp32": {
-      "env": {
-        "CM_PACKAGE_URL": "https://zenodo.org/record/8073420/files/resnet50_v1.bin?download=1"
-      },
-      "post_deps": [
-        {
-          "tags": "download-and-extract,_url.https://zenodo.org/record/8073420/files/resnet50_v1.param?download=",
-          "env": {
-            "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_PARAM_FILE>>>"
-          },
-          "extra_cache_tags": "ml-model-params,params,resnet50,ncnn,model-params"
-        }
-      ]
     },
     "pytorch,int8": {
       "base": [
@@ -170,134 +216,89 @@
         "CM_PACKAGE_URL": "https://zenodo.org/record/4589637/files/resnet50_INT8bit_quantized.pt"
       }
     },
-    "pytorch": {
-      "group": "framework",
-      "env": {
-        "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
-        "CM_ML_MODEL_FRAMEWORK": "pytorch",
-        "CM_ML_MODEL_INPUT_LAYER_NAME": "input_tensor:0",
-        "CM_ML_MODEL_OUTPUT_LAYERS": "output",
-        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "?",
-        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor:0\\\": [BATCH_SIZE, 3, 224, 224]",
-        "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "?",
-        "CM_ML_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>"
-      }
-    },
-    "argmax": {
-      "group": "model-output",
-      "default": true,
-      "env": {
-        "CM_ML_MODEL_OUTPUT_LAYER_ARGMAX": "yes"
-      }
-    },
-    "no-argmax": {
-      "group": "model-output",
-      "env": {
-        "CM_ML_MODEL_OUTPUT_LAYER_ARGMAX": "no"
-      }
-    },
-    "tflite,argmax": {
-      "env": {
-        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor 2\\\": (BATCH_SIZE, 224, 224, 3)",
-        "CM_PACKAGE_URL": "https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz?dl=1",
-        "CM_DAE_EXTRACT_DOWNLOADED": "yes",
-        "CM_ML_MODEL_FILE": "resnet50_v1.tflite",
-        "CM_EXTRACT_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH",
-        "CM_DOWNLOAD_FINAL_ENV_NAME": ""
-      }
-    },
-    "tflite,no-argmax": {
-      "env": {
-        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor 2\\\": (BATCH_SIZE, 224, 224, 3)",
-        "CM_PACKAGE_URL": "https://www.dropbox.com/s/vhuqo0wc39lky0a/resnet50_v1.no-argmax.tflite?dl=1",
-        "CM_ML_MODEL_FILE": "resnet50_v1.no-argmax.tflite"
-      }
-    },
-    "tflite,int8,no-argmax": {
-      "env": {
-        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor 2\\\": (BATCH_SIZE, 224, 224, 3)",
-        "CM_PACKAGE_URL": "https://zenodo.org/record/8234946/files/resnet50_quant_full_mlperf_edgetpu.tflite?download=1",
-        "CM_ML_MODEL_FILE": "resnet50_quant_full_mlperf_edgetpu.tflite",
-        "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH"
-      }
-    },
-    "tflite": {
-      "group": "framework",
-      "env": {
-        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor 2\\\": (BATCH_SIZE, 224, 224, 3)",
-        "CM_ML_MODEL_ACCURACY": "76.456",
-        "CM_ML_MODEL_DATA_LAYOUT": "NHWC",
-        "CM_ML_MODEL_FRAMEWORK": "tflite",
-        "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
-        "CM_ML_MODEL_INPUT_LAYERS": "input_tensor",
-        "CM_ML_MODEL_INPUT_LAYER_NAME": "input_tensor",
-        "CM_ML_MODEL_NORMALIZE_DATA": "0",
-        "CM_ML_MODEL_OUTPUT_LAYERS": "softmax_tensor",
-        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "softmax_tensor",
-        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>",
-        "CM_ML_MODEL_SUBTRACT_MEANS": "YES"
-      }
-    },
-    "tf": {
-      "alias": "tensorflow"
-    },
     "tensorflow": {
-      "group": "framework",
       "env": {
-        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor:0\\\": (BATCH_SIZE, 3, 224, 224)",
         "CM_ML_MODEL_ACCURACY": "76.456",
         "CM_ML_MODEL_DATA_LAYOUT": "NHWC",
         "CM_ML_MODEL_FRAMEWORK": "tensorflow",
         "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
         "CM_ML_MODEL_INPUT_LAYERS": "input_tensor",
         "CM_ML_MODEL_INPUT_LAYER_NAME": "input_tensor",
+        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor:0\\\": (BATCH_SIZE, 3, 224, 224)",
         "CM_ML_MODEL_NORMALIZE_DATA": "0",
         "CM_ML_MODEL_OUTPUT_LAYERS": "softmax_tensor",
         "CM_ML_MODEL_OUTPUT_LAYER_NAME": "softmax_tensor",
         "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>",
         "CM_ML_MODEL_SUBTRACT_MEANS": "YES",
         "CM_PACKAGE_URL": "https://zenodo.org/record/2535873/files/resnet50_v1.pb"
-      }
-    },
-    "fix-input-shape": {
-      "deps": [
-        {
-          "tags": "get,python3",
-          "names": [
-            "python",
-            "python3"
-          ]
-        }
-      ]
+      },
+      "group": "framework"
     },
     "tensorflow,fix-input-shape": {
-      "env": {
-        "CM_ML_MODEL_TF_FIX_INPUT_SHAPE": "yes"
-      },
       "deps": [
         {
-          "tags": "get,generic-python-lib,_package.tensorflow",
-          "names": [ "tensorflow" ]
+          "names": [
+            "tensorflow"
+          ],
+          "tags": "get,generic-python-lib,_package.tensorflow"
         }
-      ]
+      ],
+      "env": {
+        "CM_ML_MODEL_TF_FIX_INPUT_SHAPE": "yes"
+      }
+    },
+    "tf": {
+      "alias": "tensorflow"
+    },
+    "tflite": {
+      "env": {
+        "CM_ML_MODEL_ACCURACY": "76.456",
+        "CM_ML_MODEL_DATA_LAYOUT": "NHWC",
+        "CM_ML_MODEL_FRAMEWORK": "tflite",
+        "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
+        "CM_ML_MODEL_INPUT_LAYERS": "input_tensor",
+        "CM_ML_MODEL_INPUT_LAYER_NAME": "input_tensor",
+        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor 2\\\": (BATCH_SIZE, 224, 224, 3)",
+        "CM_ML_MODEL_NORMALIZE_DATA": "0",
+        "CM_ML_MODEL_OUTPUT_LAYERS": "softmax_tensor",
+        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "softmax_tensor",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>",
+        "CM_ML_MODEL_SUBTRACT_MEANS": "YES"
+      },
+      "group": "framework"
+    },
+    "tflite,argmax": {
+      "env": {
+        "CM_DAE_EXTRACT_DOWNLOADED": "yes",
+        "CM_DOWNLOAD_FINAL_ENV_NAME": "",
+        "CM_EXTRACT_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH",
+        "CM_ML_MODEL_FILE": "resnet50_v1.tflite",
+        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor 2\\\": (BATCH_SIZE, 224, 224, 3)",
+        "CM_PACKAGE_URL": "https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz?dl=1"
+      }
+    },
+    "tflite,int8,no-argmax": {
+      "env": {
+        "CM_DOWNLOAD_FINAL_ENV_NAME": "CM_ML_MODEL_FILE_WITH_PATH",
+        "CM_ML_MODEL_FILE": "resnet50_quant_full_mlperf_edgetpu.tflite",
+        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor 2\\\": (BATCH_SIZE, 224, 224, 3)",
+        "CM_PACKAGE_URL": "https://zenodo.org/record/8234946/files/resnet50_quant_full_mlperf_edgetpu.tflite?download=1"
+      }
+    },
+    "tflite,no-argmax": {
+      "env": {
+        "CM_ML_MODEL_FILE": "resnet50_v1.no-argmax.tflite",
+        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor 2\\\": (BATCH_SIZE, 224, 224, 3)",
+        "CM_PACKAGE_URL": "https://www.dropbox.com/s/vhuqo0wc39lky0a/resnet50_v1.no-argmax.tflite?dl=1"
+      }
     },
     "uint8": {
-      "group": "precision",
       "env": {
         "CM_ML_MODEL_INPUT_DATA_TYPES": "uint8",
         "CM_ML_MODEL_PRECISION": "uint8",
         "CM_ML_MODEL_WEIGHT_DATA_TYPES": "uint8"
-      }
-    },
-    "batch_size.1": {
-      "env": {
-        "CM_ML_MODEL_BATCH_SIZE": "1"
-      }
-    },
-    "batch_size.#": {
-      "env": {
-        "CM_ML_MODEL_BATCH_SIZE": "#"
-      }
+      },
+      "group": "precision"
     }
   }
 }

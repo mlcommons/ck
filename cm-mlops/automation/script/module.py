@@ -368,17 +368,6 @@ class CAutomation(Automation):
             if value != '':
                 env['CM_' + key.upper()] = value
 
-        # Check extra cache tags
-        x = env.get('CM_EXTRA_CACHE_TAGS','').strip()
-        extra_cache_tags = [] if x=='' else x.split(',')
-
-        if i.get('extra_cache_tags','')!='':
-            for x in i['extra_cache_tags'].strip().split(','):
-                if x!='' and x not in extra_cache_tags:
-                    extra_cache_tags.append(x)
-
-        if env.get('CM_NAME','')!='':
-            extra_cache_tags.append('name-'+env['CM_NAME'].strip().lower())
 
 
         ############################################################################################################
@@ -972,6 +961,29 @@ class CAutomation(Automation):
         update_env_with_values(env)
 
 
+
+        ############################################################################################################
+        # Check extra cache tags
+        x = env.get('CM_EXTRA_CACHE_TAGS','').strip()
+        extra_cache_tags = [] if x=='' else x.split(',')
+
+        if i.get('extra_cache_tags','')!='':
+            for x in i['extra_cache_tags'].strip().split(','):
+                if x!='':
+                    if '<<<' in x:
+                        import re
+                        tmp_values = re.findall(r'<<<(.*?)>>>', str(x))
+                        for tmp_value in tmp_values:
+                            xx = str(env.get(tmp_value,''))
+                            x = x.replace("<<<"+tmp_value+">>>", xx)
+                    if x not in extra_cache_tags:
+                        extra_cache_tags.append(x)
+
+        if env.get('CM_NAME','')!='':
+            extra_cache_tags.append('name-'+env['CM_NAME'].strip().lower())
+
+        
+        
         ############################################################################################################
         # Check if need to clean output files
         clean_output_files = meta.get('clean_output_files', [])
@@ -2525,7 +2537,7 @@ class CAutomation(Automation):
     ##############################################################################
     def _run_deps(self, deps, clean_env_keys_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
                     remembered_selections, variation_tags_string='', from_cache=False, debug_script_tags='', 
-                    verbose=False, show_time=False, extra_recursion_spaces='  ', run_state={'deps':[], 'fake_deps':[]}):
+                  verbose=False, show_time=False, extra_recursion_spaces='  ', run_state={'deps':[], 'fake_deps':[], 'parent': None}):
         """
         Runs all the enabled dependencies and pass them env minus local env
         """

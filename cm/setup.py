@@ -77,10 +77,10 @@ setup(
 
     license="Apache 2.0",
 
-    long_description=open(convert_path('./README.md'), encoding="utf-8").read(),
+    long_description=open('README.md', encoding="utf-8").read(),
     long_description_content_type="text/markdown",
 
-    url="https://github.com/mlcommons/ck/tree/master/cm",
+    url="https://github.com/mlcommons/ck",
 
     python_requires="", # do not force for testing
 
@@ -106,5 +106,5 @@ setup(
 
     zip_safe=False,
 
-    keywords="collective mind,cmind,ck2,cdatabase,cmeta,automation,portability,reusability,meta,JSON,YAML,python,api,cli"
+    keywords="collective mind,cmind,ck3,cdatabase,cmeta,automation,portability,reusability,productivity,meta,JSON,YAML,python,api,cli"
 )

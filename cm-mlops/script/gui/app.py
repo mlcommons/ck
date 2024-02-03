@@ -23,35 +23,36 @@ def main():
     no_run = os.environ.get('CM_GUI_NO_RUN', '')
 
     # Check if script tags are specified from CMD
-    script_tags = ''
+    script_tags = os.environ.get('CM_GUI_SCRIPT_TAGS','').strip()
+
     script_tags_from_url = query_params.get('tags',[''])
+    if len(script_tags_from_url)>0:
+        x_script_tags_from_url = script_tags_from_url[0].strip()
+        if x_script_tags_from_url != '':
+            script_tags = x_script_tags_from_url
 
     meta = {}
-    if len(script_tags_from_url)>0:
-        script_tags = script_tags_from_url[0]
 
-        if script_tags !='':
-            # Check type of tags
-            if ' ' in script_tags:
-                script_tags = script_tags.replace(' ',',')
+    if script_tags !='':
+        # Check type of tags
+        if ' ' in script_tags:
+            script_tags = script_tags.replace(' ',',')
 
-            print ('Searching CM scripts using tags "{}"'.format(script_tags))
+        print ('Searching CM scripts using tags "{}"'.format(script_tags))
 
-            r = cmind.access({'action':'find', 
-                              'automation':'script,5b4e0237da074764', 
-                              'tags':script_tags})
-            if r['return']>0: return r
+        r = cmind.access({'action':'find', 
+                          'automation':'script,5b4e0237da074764', 
+                          'tags':script_tags})
+        if r['return']>0: return r
 
-            lst = r['list']
+        lst = r['list']
 
-            if len(lst)==1:
-                script = lst[0]
-                meta = script.meta
-                script_path = script.path
-                script_alias = meta['alias']
+        if len(lst)==1:
+            script = lst[0]
+            meta = script.meta
+            script_alias = meta['alias']
 
-    if script_tags == '':
-        script_tags = os.environ.get('CM_GUI_SCRIPT_TAGS','')
+
 
     # Read meta
     if len(meta)==0 and script_path!='' and os.path.isdir(script_path):
@@ -59,12 +60,15 @@ def main():
         r = cmind.utils.load_yaml_and_json(fn)
         if r['return'] == 0:
             meta = r['meta']
+            script_path = script.path
+            script_alias = meta['alias']
 
     if meta.get('gui_title','')!='':
         title = meta['gui_title']
 
     # Set title
     st.title('Collective Mind GUI')
+
     if script_alias!='':
         st.markdown('*CM script: "{}"*'.format(script_alias))
 

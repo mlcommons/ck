@@ -17,44 +17,35 @@
 
 ### About
 
-**Collective Mind (CM)** is a [community project](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) to develop 
-a [collection of portable, extensible, technology-agnostic and ready-to-use automation recipes
+Collective Mind (CM) is a [community project](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) to develop 
+a [collection of portable, extensible, technology-agnostic and ready-to-use automation recipes for MLOps and DevOps
 with a human-friendly interface (aka CM scripts)](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
-that automate all the manual steps required to build, run, benchmark and optimize complex ML/AI applications on any platform
-with any software and hardware. 
-
-CM scripts are being developed based on the feedback from 
-[MLCommons engineers and researchers](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
-to help them assemble, run, benchmark and optimize complex AI/ML applications
-across diverse and continuously changing models, data sets, software and hardware
-from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors.
+that help to automate all the manual steps required to prepare, build, run, benchmark and optimize complex ML/AI applications 
+on any platform with any software and hardware. 
 They require Python 3.7+ with minimal dependencies and can run natively on Ubuntu, MacOS, Windows, RHEL, Debian, Amazon Linux
 and any other operating system, in a cloud or inside automatically generated containers.
 
-Some key requirements for the CM design are:
-* must be non-intrusive and easy to debug, require zero changes to existing projects and must complement, 
-  reuse, wrap and interconnect all existing automation scripts and tools (such as cmake, ML workflows, 
+CM scripts were originally developed based on the following requirements from the
+[MLCommons engineers and researchers](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
+to help them automatically build, benchmark and optimize complex MLPerf benchmarks
+across diverse and continuously changing models, data sets, software and hardware
+from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors:
+* must work out of the box with the default options and without the need to edit some paths, environment variables and configuration files;
+* must be non-intrusive, easy to debug and must reuse existing 
+  user scripts and automation tools (such as cmake, make, ML workflows, 
   python poetry and containers) rather than substituting them; 
 * must have a very simple and human-friendly command line with a Python API and minimal dependencies;
 * must require minimal or zero learning curve by using plain Python, native scripts, environment variables 
-  and simple JSON/YAML descriptions instead of inventing new languages;
-* must run in a native environment with Ubuntu, Debian, RHEL, Amazon Linux, MacOS, Windows 
-  and any other operating system while automatically generating container snapshots 
-  with CM recipes for repeatability and reproducibility.
+  and simple JSON/YAML descriptions instead of inventing new workflow languages;
+* must have the same interface to run all automations natively, in a cloud or inside containers.
 
-Below you can find a few examples of this collaborative engineering effort sponsored 
-by [MLCommons (non-profit organization with 125+ organizations)](https://mlcommons.org) -
-a few most-commonly used [automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
+Below you can find and try a few examples of the most-commonly used [automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
 that can be chained into more complex automation workflows [using simple JSON or YAML](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml).
 
-You can try them yourself (you only need Python 3.7+, PIP, git and wget installed and optionally Docker if you want to 
-run CM scripts via automatically-generated containers - check the [installation guide](docs/installation.md) for more details).
-
-*Note that the Collective Mind concept is to continue improving portability and functionality 
-of all CM automation recipes across rapidly evolving models, data sets, software and hardware
-based on collaborative testing and feedback - don't hestiate to report encountered issues 
-[here](https://github.com/mlcommons/ck/issues) and/or contact us via [public Discord Server](https://discord.gg/JjWNWXKxwT) 
-to help this community effort!*
+*Note that MLCommons CM is a collaborative engineering effort to gradually improve portability and functionality
+across continuously changing models, data sets, software and hardware based on your feedback -
+please check this [installation guide](installation.md), report  encountered issues [here](https://github.com/mlcommons/ck/issues) 
+and contact us via [public Discord Server](https://discord.gg/JjWNWXKxwT) to help this community effort!*
 
 
 <details open>
@@ -174,13 +165,13 @@ to modularize, run and benchmark other software projects and make it
 easier to rerun, reproduce and reuse [research projects from published papers 
 at Systems and ML conferences]( https://cTuning.org/ae/micro2023.html ).
 
-Please check the [**Getting Started Guide**](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md) 
+Please check the [**Getting Started Guide and FAQ**](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md) 
 to understand how CM automation recipes work, how to use them to automate your own projects,
 and how to implement and share new automations in your public or private projects.
 
 ### Documentation
 
-* [Getting Started Guide](docs/getting-started.md)
+* [Getting Started Guide and FAQ](docs/getting-started.md)
   * [CM interface for MLPerf benchmarks](docs/mlperf)
   * [CM interface for ML and Systems conferences](docs/tutorials/common-interface-to-reproduce-research-projects.md)
   * [CM automation recipes for MLOps and DevOps](cm-mlops/script)
@@ -190,9 +181,9 @@ and how to implement and share new automations in your public or private project
 
 ### Motivation and concepts
 
-* ACM REP'23 keynote about MLCommons CM: [slides](https://doi.org/10.5281/zenodo.8105339)
-* ACM TechTalk'21 about automating research projects: [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4)
-* MLPerf inference submitter orientation: [v4.0 slides](https://doi.org/10.5281/zenodo.10605079), [v3.1 slides](https://doi.org/10.5281/zenodo.8144274) 
+* ACM REP'23 keynote about MLCommons CM: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] [ [YouTube](https://youtu.be/_1f9i_Bzjmg) ]
+* ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
+* MLPerf inference submitter orientation: [ [v4.0 slides](https://doi.org/10.5281/zenodo.10605079) ] [ [v3.1 slides](https://doi.org/10.5281/zenodo.8144274) ]
 
 ### Get in touch
 
@@ -204,5 +195,4 @@ our goal is to help everyone automate all manual and repetitive tasks
 to build, run, benchmark and optimize AI systems including 
 downloading artifacts, installing tools, resolving dependencies, 
 running experiments, processing logs, and reproducing results
-on any software/hardware stack - you can reach us via [public Discord server](https://discord.gg/JjWNWXKxwT)
-to discuss this project.
+on any software/hardware stack - don't hesitate to get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT)!

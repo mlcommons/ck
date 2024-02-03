@@ -1223,9 +1223,26 @@ class Automation:
                 print ('CID = ' + cid)
                 print ('CID1 = ' + cid1)
                 print ('CID2 = ' + full_cid)
+                print ('')
                 print ('Path = ' + path)
 
-        # Attempt to copy to clipboard the last CID
+                p_dirs=[]
+                p_files=[]
+                for p in os.listdir(path):
+                    p_dirs.append(p) if os.path.isdir(os.path.join(path,p)) else p_files.append(p)
+                        
+                if len(p_dirs)>0 or len(p_files)>0:
+                    for x in [('Directories',p_dirs), 
+                              ('Files',p_files)]:
+                        x0 = x[0]
+                        x1 = x[1]
+                        if len(x1)>0:
+                            print ('')
+                            print ('  '+x0+':')
+                            for p in sorted(x1):
+                                print ('    ' + p)
+
+       # Attempt to copy to clipboard the last CID
         if cid1 !='':
             clipboard = full_cid
             if i.get('uid', False): clipboard = cid1
