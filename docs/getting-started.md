@@ -33,7 +33,7 @@
 
 Collective Mind (CM) is a [community project](../CONTRIBUTING.md) to develop 
 a [collection of portable, extensible, technology-agnostic and ready-to-use automation recipes
-with a human-friendly interface (aka CM scripts)](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
+for MLOps and DevOps with a human-friendly interface (aka CM scripts)](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
 that can help to automate all the manual steps required to prepare, build, run, benchmark and optimize complex ML/AI applications 
 on any platform with any software and hardware. 
 They require Python 3.7+ with minimal dependencies and can run natively on Ubuntu, MacOS, Windows, RHEL, Debian, Amazon Linux

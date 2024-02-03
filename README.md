@@ -18,7 +18,7 @@
 ### About
 
 Collective Mind (CM) is a [community project](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) to develop 
-a [collection of portable, extensible, technology-agnostic and ready-to-use automation recipes
+a [collection of portable, extensible, technology-agnostic and ready-to-use automation recipes for MLOps and DevOps
 with a human-friendly interface (aka CM scripts)](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
 that help to automate all the manual steps required to prepare, build, run, benchmark and optimize complex ML/AI applications 
 on any platform with any software and hardware. 
