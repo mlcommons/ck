@@ -9,44 +9,35 @@
 
 ### About
 
-**Collective Mind (CM)** is a [community project](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) to develop 
+Collective Mind (CM) is a [community project](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) to develop 
 a [collection of portable, extensible, technology-agnostic and ready-to-use automation recipes
 with a human-friendly interface (aka CM scripts)](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
-that automate all the manual steps required to build, run, benchmark and optimize complex ML/AI applications on any platform
-with any software and hardware. 
-
-CM scripts are being developed based on the feedback from 
-[MLCommons engineers and researchers](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
-to help them assemble, run, benchmark and optimize complex AI/ML applications
-across diverse and continuously changing models, data sets, software and hardware
-from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors.
+that help to automate all the manual steps required to prepare, build, run, benchmark and optimize complex ML/AI applications 
+on any platform with any software and hardware. 
 They require Python 3.7+ with minimal dependencies and can run natively on Ubuntu, MacOS, Windows, RHEL, Debian, Amazon Linux
 and any other operating system, in a cloud or inside automatically generated containers.
 
-Some key requirements for the CM design are:
-* must be non-intrusive and easy to debug, require zero changes to existing projects and must complement, 
-  reuse, wrap and interconnect all existing automation scripts and tools (such as cmake, ML workflows, 
+CM scripts were originally developed based on the following requirements from the
+[MLCommons engineers and researchers](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
+to help them automatically build, benchmark and optimize complex MLPerf benchmarks
+across diverse and continuously changing models, data sets, software and hardware
+from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors:
+* must work out of the box with the default options and without the need to edit some paths, environment variables and configuration files;
+* must be non-intrusive, easy to debug and must reuse existing 
+  user scripts and automation tools (such as cmake, make, ML workflows, 
   python poetry and containers) rather than substituting them; 
 * must have a very simple and human-friendly command line with a Python API and minimal dependencies;
 * must require minimal or zero learning curve by using plain Python, native scripts, environment variables 
-  and simple JSON/YAML descriptions instead of inventing new languages;
-* must run in a native environment with Ubuntu, Debian, RHEL, Amazon Linux, MacOS, Windows 
-  and any other operating system while automatically generating container snapshots 
-  with CM recipes for repeatability and reproducibility.
+  and simple JSON/YAML descriptions instead of inventing new workflow languages;
+* must have the same interface to run all automations natively, in a cloud or inside containers.
 
-Below you can find a few examples of this collaborative engineering effort sponsored 
-by [MLCommons (non-profit organization with 125+ organizations)](https://mlcommons.org) -
-a few most-commonly used [automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
+Below you can find and try a few examples of the most-commonly used [automation recipes](https://github.com/mlcommons/ck/tree/master/docs/list_of_scripts.md)
 that can be chained into more complex automation workflows [using simple JSON or YAML](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml).
 
-You can try them yourself (you only need Python 3.7+, PIP, git and wget installed and optionally Docker if you want to 
-run CM scripts via automatically-generated containers - check the [installation guide](docs/installation.md) for more details).
-
-*Note that the Collective Mind concept is to continue improving portability and functionality 
-of all CM automation recipes across rapidly evolving models, data sets, software and hardware
-based on collaborative testing and feedback - don't hestiate to report encountered issues 
-[here](https://github.com/mlcommons/ck/issues) and/or contact us via [public Discord Server](https://discord.gg/JjWNWXKxwT) 
-to help this community effort!*
+*Note that MLCommons CM is a collaborative engineering effort to gradually improve portability and functionality
+across continuously changing models, data sets, software and hardware based on your feedback -
+please check this [installation guide](installation.md), report  encountered issues [here](https://github.com/mlcommons/ck/issues) 
+and contact us via [public Discord Server](https://discord.gg/JjWNWXKxwT) to help this community effort!*
 
 
 #### CM human-friendly command line
@@ -81,8 +72,11 @@ cm show cache "get ml-model stable-diffusion"
 cmr "get generic-python-lib _package.onnxruntime" --version_min=1.16.0
 cmr "python app image-classification onnx" --input=computer_mouse.jpg
 
+cmr "python app image-classification onnx" --input=computer_mouse.jpg --debug
+
 cm rm cache -f
 cmr "python app image-classification onnx" --input=computer_mouse.jpg --adr.onnxruntime.version_max=1.16.0
+
 
 cmr "get cuda" --version_min=12.0.0 --version_max=12.3.1
 cmr "python app image-classification onnx _cuda" --input=computer_mouse.jpg
