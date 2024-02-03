@@ -111,6 +111,47 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0`
       - Workflow:
+    * `_rclone,fp16`
+      - Environment variables:
+        - *CM_DOWNLOAD_URL*: `mlc-inference:mlcommons-inference-wg-s3/stable_diffusion_fp16`
+      - Workflow:
+    * `_rclone,fp32`
+      - Environment variables:
+        - *CM_DOWNLOAD_URL*: `mlc-inference:mlcommons-inference-wg-s3/stable_diffusion_fp32`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**download-source**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_huggingface`
+      - Workflow:
+    * **`_mlcommons`** (default)
+      - Workflow:
+
+    </details>
+
+
+  * Group "**download-tool**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_git`
+      - Environment variables:
+        - *CM_DOWNLOAD_TOOL*: `git`
+      - Workflow:
+    * `_rclone`
+      - Environment variables:
+        - *CM_RCLONE_CONFIG*: `rclone config create mlc-inference s3 provider=LyveCloud access_key_id=0LITLNQMHZALM5AK secret_access_key=YQKYTMBY23TMZHLOYFJKL5CHHS0CWYUC endpoint=s3.us-east-1.lyvecloud.seagate.com`
+        - *CM_DOWNLOAD_TOOL*: `rclone`
+      - Workflow:
+    * `_wget`
+      - Environment variables:
+        - *CM_DOWNLOAD_TOOL*: `wget`
+      - Workflow:
 
     </details>
 
@@ -131,6 +172,12 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_fp16`
+      - Environment variables:
+        - *CM_ML_MODEL_INPUT_DATA_TYPES*: `fp16`
+        - *CM_ML_MODEL_PRECISION*: `fp16`
+        - *CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp16`
+      - Workflow:
     * **`_fp32`** (default)
       - Environment variables:
         - *CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
@@ -155,13 +202,14 @@ ___
 
 #### Default variations
 
-`_fp32,_pytorch`
+`_fp32,_mlcommons,_pytorch`
 
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
 
 * `--checkpoint=value`  &rarr;  `SDXL_CHECKPOINT_PATH=value`
+* `--download_path=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -191,9 +239,13 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion/_cm.json)***
      * get,ml-model,huggingface,zoo,_clone-repo,_model-stub.stabilityai/stable-diffusion-xl-base-1.0
-       * `if (CM_TMP_REQUIRE_DOWNLOAD  == yes)`
+       * `if (CM_TMP_REQUIRE_DOWNLOAD  == yes AND CM_DOWNLOAD_TOOL  == git)`
        * CM names: `--adr.['hf-zoo']...`
        - CM script: [get-ml-model-huggingface-zoo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo)
+     * download-and-extract
+       * `if (CM_TMP_REQUIRE_DOWNLOAD  == yes AND CM_DOWNLOAD_TOOL  == rclone)`
+       * CM names: `--adr.['dae']...`
+       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run native script if exists***
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion/customize.py)***
@@ -209,7 +261,6 @@ ___
 * `SDXL_CHECKPOINT_PATH`
 #### New environment keys auto-detected from customize
 
-* `CM_ML_MODEL_PATH`
 ___
 ### Maintainers
 

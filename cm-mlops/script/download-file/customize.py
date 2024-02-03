@@ -65,6 +65,8 @@ def preprocess(i):
                 if j>0:
                     urltail=urltail[:j]
                 env['CM_DOWNLOAD_FILENAME'] = urltail
+            elif env.get('CM_DOWNLOAD_TOOL', '') == "rclone":
+                env['CM_DOWNLOAD_FILENAME'] = urltail
             else:
                 env['CM_DOWNLOAD_FILENAME'] = "index.html"
 
@@ -103,6 +105,11 @@ def preprocess(i):
 
         elif tool == "gdown":
             env['CM_DOWNLOAD_CMD'] = f"gdown {extra_download_options} {url}"
+
+        elif tool == "rclone":
+            if env.get('CM_RCLONE_CONFIG_CMD', '') != '':
+                env['CM_DOWNLOAD_CONFIG_CMD'] = env['CM_RCLONE_CONFIG_CMD']
+            env['CM_DOWNLOAD_CMD'] = f"rclone copy {url} {os.path.join(os.getcwd(), env['CM_DOWNLOAD_FILENAME'])} -P"
 
         filename = env['CM_DOWNLOAD_FILENAME']
         env['CM_DOWNLOAD_DOWNLOADED_FILENAME'] = filename

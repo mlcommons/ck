@@ -270,9 +270,6 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_gptj_`
       - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * get,generic-python-lib,_torch
-             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
 
     </details>
 
@@ -320,6 +317,27 @@ ___
         - *CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE*: `#`
         - *CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX2*: `dla_batch_size.#`
       - Workflow:
+    * `_gptj_,_build`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * install,torch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+             - *Warning: no scripts found*
+           * get,cmake
+             - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
+    * `_gptj_,_build_engine`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * install,torch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+             - *Warning: no scripts found*
+           * get,cmake
+             - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
+    * `_gptj_,_run_harness`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * install,torch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+             - *Warning: no scripts found*
+           * get,cmake
+             - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
     * `_gpu_memory.16,3d-unet_,offline,run_harness`
       - Environment variables:
         - *CM_MODEL_BATCH_SIZE*: `4`
@@ -775,6 +793,8 @@ ___
         - *CM_MODEL_BATCH_SIZE*: `512`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
+    * `_run-harness`
+      - Workflow:
     * `_singlestream,resnet50`
       - Environment variables:
         - *SKIP_POLICIES*: `1`
@@ -1176,12 +1196,31 @@ ___
              - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
            * get,generic,sys-util,_rapidjson-dev
              - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
+           * get,cuda,_cudnn
+             * CM names: `--adr.['cuda']...`
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+           * get,tensorrt
+             * CM names: `--adr.['tensorrt']...`
+             - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
+           * build,nvidia,inference,server
+             * CM names: `--adr.['nvidia-inference-server']...`
+             - CM script: [build-mlperf-inference-server-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-mlperf-inference-server-nvidia)
     * `_build_engine`
+      - Aliases: `_build-engine`
       - Environment variables:
         - *MLPERF_NVIDIA_RUN_COMMAND*: `generate_engines`
         - *CM_MLPERF_NVIDIA_HARNESS_RUN_MODE*: `generate_engines`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
+           * get,cuda,_cudnn
+             * CM names: `--adr.['cuda']...`
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+           * get,tensorrt
+             * CM names: `--adr.['tensorrt']...`
+             - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
+           * build,nvidia,inference,server
+             * CM names: `--adr.['nvidia-inference-server']...`
+             - CM script: [build-mlperf-inference-server-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-mlperf-inference-server-nvidia)
            * reproduce,mlperf,inference,nvidia,harness,_preprocess_data
              * `if (CM_MODEL not in dlrm-v2-99)`
              - CM script: [reproduce-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia)
@@ -1226,6 +1265,15 @@ ___
         - *CM_CALL_MLPERF_RUNNER*: `yes`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
+           * get,cuda,_cudnn
+             * CM names: `--adr.['cuda']...`
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+           * get,tensorrt
+             * CM names: `--adr.['tensorrt']...`
+             - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
+           * build,nvidia,inference,server
+             * CM names: `--adr.['nvidia-inference-server']...`
+             - CM script: [build-mlperf-inference-server-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-mlperf-inference-server-nvidia)
            * reproduce,mlperf,inference,nvidia,harness,_build_engine
              * CM names: `--adr.['build-engine']...`
              - CM script: [reproduce-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia)
@@ -1346,15 +1394,6 @@ ___
        - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,sys-utils-cm
        - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
-     * get,cuda,_cudnn
-       * CM names: `--adr.['cuda']...`
-       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
-     * get,tensorrt
-       * CM names: `--adr.['tensorrt']...`
-       - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
-     * build,nvidia,inference,server
-       * CM names: `--adr.['nvidia-inference-server']...`
-       - CM script: [build-mlperf-inference-server-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-mlperf-inference-server-nvidia)
      * get,mlperf,inference,nvidia,scratch,space
        * CM names: `--adr.['nvidia-scratch-space']...`
        - CM script: [get-mlperf-inference-nvidia-scratch-space](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-scratch-space)
@@ -1405,6 +1444,14 @@ ___
        * `if (CM_MODEL  == retinanet)`
        * CM names: `--adr.['openimages-calibration']...`
        - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
+     * get,dataset,original,openorca
+       * `if (CM_MODEL in ['gptj-99', 'gptj-99.9'] AND CM_MLPERF_NVIDIA_HARNESS_RUN_MODE  == preprocess_dataset)`
+       * CM names: `--adr.['openorca-original']...`
+       - CM script: [get-dataset-openorca](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openorca)
+     * get,ml-model,gptj,_pytorch
+       * `if (CM_MODEL in ['gptj-99', 'gptj-99.9'] AND CM_MLPERF_NVIDIA_HARNESS_RUN_MODE  == download_model)`
+       * CM names: `--adr.['gptj-model']...`
+       - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)

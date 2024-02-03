@@ -63,6 +63,17 @@
       },
       "group": "download-tool"
     },
+    "rclone": {
+      "deps": [
+        {
+          "tags": "get,rclone"
+        }
+      ],
+      "env": {
+        "CM_DOWNLOAD_TOOL": "rclone"
+      },
+      "group": "download-tool"
+    },
     "url.#": {
       "env": {
         "CM_DOWNLOAD_URL": "#"

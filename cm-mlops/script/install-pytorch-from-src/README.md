@@ -106,9 +106,21 @@ ___
       - Environment variables:
         - *CM_GIT_CHECKOUT*: `#`
       - Workflow:
+    * `_cuda`
+      - Environment variables:
+        - *CUDA_HOME*: `<<<CM_CUDA_INSTALLED_PATH>>>`
+        - *CUDNN_LIBRARY_PATH*: `<<<CM_CUDA_PATH_LIB_CUDNN>>>`
+        - *CUDNN_INCLUDE_PATH*: `<<<CM_CUDA_PATH_INCLUDE_CUDNN>>>`
+        - *CUDA_NVCC_EXECUTABLE*: `<<<CM_NVCC_BIN_WITH_PATH>>>`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,cuda,_cudnn
+             * CM names: `--adr.['cuda']...`
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
     * `_for-intel-mlperf-inference-v3.1-bert`
       - Environment variables:
         - *CM_CONDA_ENV*: `yes`
+        - *CM_MLPERF_INFERENCE_INTEL*: `yes`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-sys-util,_libffi7
@@ -157,6 +169,15 @@ ___
            * get,generic,conda-package,_package.libstdcxx-ng,_source.conda-forge
              * CM names: `--adr.['conda-package', 'libstdcxx-ng']...`
              - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+    * `_for-nvidia-mlperf-inference-v3.1-gptj`
+      - Environment variables:
+        - *CM_CONDA_ENV*: `yes`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,conda,_name.nvidia
+             - CM script: [get-conda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)
+           * get,cmake
+             - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
     * `_sha.#`
       - Environment variables:
         - *CM_GIT_CHECKOUT_SHA*: `#`
@@ -219,6 +240,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src/_cm.json)
   1. ***Run native script if exists***
+     * [run-intel-mlperf-inference-v3_1.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src/run-intel-mlperf-inference-v3_1.sh)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src/_cm.json)
   1. Run "postrocess" function from customize.py

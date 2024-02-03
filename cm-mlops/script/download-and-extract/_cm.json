@@ -96,6 +96,14 @@
         "CM_DAE_EXTRACT_DOWNLOADED": "yes"
       }
     },
+    "rclone": {
+      "add_deps_recursive": {
+        "download-script": {
+          "tags": "_rclone"
+        }
+      },
+      "group": "download-tool"
+    },
     "gdown": {
       "add_deps_recursive": {
         "download-script": {
