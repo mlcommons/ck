@@ -233,8 +233,8 @@
         },
         {
           "tags": "get,cmake",
-          "version_min": "3.18"
-	}
+          "version_min": "3.25.0"
+	      }
       ]
     },
     "cuda": {
