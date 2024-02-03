@@ -1469,6 +1469,21 @@ def dockerfile(i):
 
     return {'return':0}
 
+def get_container_path(value):
+    path_split = value.split(os.sep)
+    if len(path_split) == 1:
+        return value
+
+    new_value = ''
+    if "cache" in path_split and "local" in path_split:
+        new_path_split = [ "", "home", "cmuser" ]
+        repo_entry_index = path_split.index("local")
+        new_path_split += path_split[repo_entry_index:]
+        return "/".join(new_path_split)
+
+    return value
+
+
 ############################################################
 def docker(i):
     """
@@ -1629,6 +1644,7 @@ def docker(i):
             if c_input in i:
                 env[docker_input_mapping[c_input]] = i[c_input]
 
+        container_env_string = '' # env keys corresponding to container mounts are explicitly passed to the container run cmd
         for index in range(len(mounts)):
             mount = mounts[index]
 
@@ -1663,7 +1679,8 @@ def docker(i):
             if tmp_values:
                 for tmp_value in tmp_values:
                     if tmp_value in env:
-                        new_container_mount = env[tmp_value]
+                        new_container_mount = get_container_path(env[tmp_value])
+                        container_env_string += "--env.{}={} ".format(tmp_value, new_container_mount)
                     else:# we skip those mounts
                         mounts[index] = None
                         skip = True
@@ -1729,7 +1746,9 @@ def docker(i):
                                    'docker_run_cmd_prefix':i.get('docker_run_cmd_prefix','')})
         if r['return']>0: return r
 
-        run_cmd  = r['run_cmd_string']
+        run_cmd  = r['run_cmd_string'] + ' ' + container_env_string
+
+        docker_pre_run_cmds = [ pre_run_cmds + ' ' + container_env_string for pre_run_cmds in docker_pre_run_cmds ]
         env['CM_RUN_STATE_DOCKER'] = True
 
         if docker_settings.get('mount_current_dir','')=='yes':
@@ -1762,6 +1781,7 @@ def docker(i):
                            'quiet': True,
                            'pre_run_cmds': docker_pre_run_cmds,
                            'real_run': True,
+                           'docker_run_deps': True,
                            'add_deps_recursive': {
                                'build-docker-image': {
                                    'dockerfile': dockerfile_path

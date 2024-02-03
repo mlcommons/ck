@@ -230,8 +230,14 @@ docker:
     scratch_path: MLPERF_SCRATCH_PATH
   deps:
     - tags: get,mlperf,inference,nvidia,scratch,space
+    - tags: get,mlperf,inference,results,dir
+    - tags: get,mlperf,inference,submission,dir
+  pre_run_cmds:
+    - cm pull repo ctuning@mlcommons-ck
   mounts:
    - "${{ IMAGENET_PATH }}:/data/imagenet-val"
+   - "${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}:${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}"
+   - "${{ CM_MLPERF_INFERENCE_SUBMISSION_DIR }}:${{ CM_MLPERF_INFERENCE_SUBMISSION_DIR }}"
    - "${{ RESULTS_DIR }}:/home/cmuser/results_dir"
    - "${{ SUBMISSION_DIR }}:/home/cmuser/submission_dir"
    - "${{ CM_CUDNN_TAR_FILE_PATH }}:${{ CM_CUDNN_TAR_FILE_PATH }}"

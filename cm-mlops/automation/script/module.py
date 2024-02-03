@@ -1312,6 +1312,27 @@ class CAutomation(Automation):
                         if "add_deps_recursive" in versions_meta:
                             self._merge_dicts_with_tags(add_deps_recursive, versions_meta['add_deps_recursive'])
 
+            # Run chain of docker dependencies if current run cmd is from inside a docker container
+            docker_deps = []
+            if i.get('run_docker_deps'):
+                docker_meta = meta.get(docker)
+                if docker_meta:
+                    docker_deps = docker_meta.get('deps')
+                    docker_deps = [ deps for deps in docker_deps and not deps.get('skip_inside_docker', False) ]
+            if len(docker_deps)>0:
+
+                if verbose:
+                    print (recursion_spaces + '  - Checkingdocker run dependencies on other CM scripts:')
+
+                r = self._call_run_deps(docker_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, 
+                        recursion_spaces + extra_recursion_spaces,
+                        remembered_selections, variation_tags_string, False, debug_script_tags, verbose, show_time, extra_recursion_spaces, run_state)
+                if r['return']>0: return r
+
+                if verbose:
+                    print (recursion_spaces + '  - Processing env after docker run dependencies ...')
+
+                update_env_with_values(env)
 
             # Check chain of dependencies on other CM scripts
             if len(deps)>0:
