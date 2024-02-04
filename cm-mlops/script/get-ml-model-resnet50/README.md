@@ -136,15 +136,15 @@ ___
         - *CM_ML_MODEL_FRAMEWORK*: `onnx`
         - *CM_ML_MODEL_INPUT_LAYERS*: `input_tensor`
         - *CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor`
-        - *CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor`
         - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor\": (BATCH_SIZE, 224, 224, 3)`
+        - *CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor`
         - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor`
         - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/2535873/files/resnet50_v1.pb`
       - Workflow:
     * `_onnx,from-tf,fp32`
       - Environment variables:
-        - *CM_PACKAGE_URL*: `https://drive.google.com/uc?id=15wZ_8Vt12cb10IEBsln8wksD1zGwlbOM`
         - *CM_DOWNLOAD_FILENAME*: `resnet50_v1_modified.onnx`
+        - *CM_PACKAGE_URL*: `https://drive.google.com/uc?id=15wZ_8Vt12cb10IEBsln8wksD1zGwlbOM`
       - Workflow:
     * `_onnx,opset-11`
       - Environment variables:
@@ -172,25 +172,25 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_tflite,argmax`
       - Environment variables:
+        - *CM_DAE_EXTRACT_DOWNLOADED*: `yes`
+        - *CM_DOWNLOAD_FINAL_ENV_NAME*: ``
+        - *CM_EXTRACT_FINAL_ENV_NAME*: `CM_ML_MODEL_FILE_WITH_PATH`
+        - *CM_ML_MODEL_FILE*: `resnet50_v1.tflite`
         - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)`
         - *CM_PACKAGE_URL*: `https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz?dl=1`
-        - *CM_DAE_EXTRACT_DOWNLOADED*: `yes`
-        - *CM_ML_MODEL_FILE*: `resnet50_v1.tflite`
-        - *CM_EXTRACT_FINAL_ENV_NAME*: `CM_ML_MODEL_FILE_WITH_PATH`
-        - *CM_DOWNLOAD_FINAL_ENV_NAME*: ``
       - Workflow:
     * `_tflite,int8,no-argmax`
       - Environment variables:
+        - *CM_DOWNLOAD_FINAL_ENV_NAME*: `CM_ML_MODEL_FILE_WITH_PATH`
+        - *CM_ML_MODEL_FILE*: `resnet50_quant_full_mlperf_edgetpu.tflite`
         - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)`
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/8234946/files/resnet50_quant_full_mlperf_edgetpu.tflite?download=1`
-        - *CM_ML_MODEL_FILE*: `resnet50_quant_full_mlperf_edgetpu.tflite`
-        - *CM_DOWNLOAD_FINAL_ENV_NAME*: `CM_ML_MODEL_FILE_WITH_PATH`
       - Workflow:
     * `_tflite,no-argmax`
       - Environment variables:
+        - *CM_ML_MODEL_FILE*: `resnet50_v1.no-argmax.tflite`
         - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)`
         - *CM_PACKAGE_URL*: `https://www.dropbox.com/s/vhuqo0wc39lky0a/resnet50_v1.no-argmax.tflite?dl=1`
-        - *CM_ML_MODEL_FILE*: `resnet50_v1.no-argmax.tflite`
       - Workflow:
 
     </details>
@@ -211,8 +211,8 @@ ___
         - *CM_ML_MODEL_FRAMEWORK*: `onnx`
         - *CM_ML_MODEL_INPUT_LAYERS*: `input_tensor:0`
         - *CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor:0`
-        - *CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor:0`
         - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor:0\": (BATCH_SIZE, 3, 224, 224)`
+        - *CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor:0`
         - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor:0`
         - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
         - *CM_ML_MODEL_VER*: `1.5`
@@ -221,23 +221,23 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
         - *CM_ML_MODEL_FRAMEWORK*: `pytorch`
+        - *CM_ML_MODEL_GIVEN_CHANNEL_MEANS*: `?`
         - *CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor:0`
+        - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor:0\": [BATCH_SIZE, 3, 224, 224]`
         - *CM_ML_MODEL_OUTPUT_LAYERS*: `output`
         - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `?`
-        - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor:0\": [BATCH_SIZE, 3, 224, 224]`
-        - *CM_ML_MODEL_GIVEN_CHANNEL_MEANS*: `?`
         - *CM_ML_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
       - Workflow:
     * `_tensorflow`
       - Aliases: `_tf`
       - Environment variables:
-        - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor:0\": (BATCH_SIZE, 3, 224, 224)`
         - *CM_ML_MODEL_ACCURACY*: `76.456`
         - *CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
         - *CM_ML_MODEL_FRAMEWORK*: `tensorflow`
         - *CM_ML_MODEL_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
         - *CM_ML_MODEL_INPUT_LAYERS*: `input_tensor`
         - *CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor`
+        - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor:0\": (BATCH_SIZE, 3, 224, 224)`
         - *CM_ML_MODEL_NORMALIZE_DATA*: `0`
         - *CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor`
         - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor`
@@ -247,13 +247,13 @@ ___
       - Workflow:
     * `_tflite`
       - Environment variables:
-        - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)`
         - *CM_ML_MODEL_ACCURACY*: `76.456`
         - *CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
         - *CM_ML_MODEL_FRAMEWORK*: `tflite`
         - *CM_ML_MODEL_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
         - *CM_ML_MODEL_INPUT_LAYERS*: `input_tensor`
         - *CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor`
+        - *CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)`
         - *CM_ML_MODEL_NORMALIZE_DATA*: `0`
         - *CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor`
         - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor`

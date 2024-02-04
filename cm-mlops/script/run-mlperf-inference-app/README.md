@@ -28,19 +28,12 @@
 
 ### About
 
-This portable CM (CK2) script provides a unified and portable interface to the MLPerf inference benchmark 
-modularized by other [portable CM scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
-being developed by the open [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+This is a ready-to-use CM automation recipe that provides a unified and portable interface to the MLPerf inference benchmark 
+assembled from other [portable CM scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
+being developed by the open [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).
 
-It is a higher-level wrapper that automatically generates the command line for the [universal MLPerf inference script](../app-mlperf-inference)
+This automation recipe automatically generates the command line for the [universal MLPerf inference script](../app-mlperf-inference)
 to run MLPerf scenarios for a given ML task, model, runtime and device, and prepare and validate submissions.
-
-Check these [tutorials](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md) from the Student Cluster Competition
-at Supercomputing'22 to understand how to use this script to run the MLPerf inference benchmark and automate submissions.
-
-See the development roadmap [here](https://github.com/mlcommons/ck/issues/536).
-
-See extension projects to enable collaborative benchmarking, design space exploration and optimization of ML and AI Systems [here](https://github.com/mlcommons/ck/issues/627).
 
 
 See extra [notes](README-extra.md) from the authors and contributors.
@@ -50,7 +43,7 @@ See extra [notes](README-extra.md) from the authors and contributors.
 * Category: *Modular MLPerf inference benchmark pipeline.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app)*
-* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
 * CM "database" tags to find this script: *run,common,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference*
 * Output cached? *False*
 ___
@@ -156,23 +149,23 @@ ___
 
     * `_r2.1`
       - Environment variables:
-        - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r2.1_default`
         - *CM_MLPERF_INFERENCE_VERSION*: `2.1`
+        - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r2.1_default`
       - Workflow:
     * `_r3.0`
       - Environment variables:
-        - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.0_default`
         - *CM_MLPERF_INFERENCE_VERSION*: `3.0`
+        - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.0_default`
       - Workflow:
     * `_r3.1`
       - Environment variables:
-        - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.1_default`
         - *CM_MLPERF_INFERENCE_VERSION*: `3.1`
+        - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.1_default`
       - Workflow:
     * **`_r4.0`** (default)
       - Environment variables:
-        - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r4.0_default`
         - *CM_MLPERF_INFERENCE_VERSION*: `4.0`
+        - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r4.0_default`
       - Workflow:
 
     </details>
@@ -371,7 +364,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.yaml)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
@@ -385,11 +378,11 @@ ___
      * get,sut,description
        - CM script: [get-mlperf-inference-sut-description](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.yaml)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.yaml)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.yaml)
 </details>
 
 ___

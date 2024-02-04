@@ -145,7 +145,7 @@ ___
       - Workflow:
     * `_rclone`
       - Environment variables:
-        - *CM_RCLONE_CONFIG*: `rclone config create mlc-inference s3 provider=LyveCloud access_key_id=0LITLNQMHZALM5AK secret_access_key=YQKYTMBY23TMZHLOYFJKL5CHHS0CWYUC endpoint=s3.us-east-1.lyvecloud.seagate.com`
+        - *CM_RCLONE_CONFIG_CMD*: `rclone config create mlc-inference s3 provider=LyveCloud access_key_id=0LITLNQMHZALM5AK secret_access_key=YQKYTMBY23TMZHLOYFJKL5CHHS0CWYUC endpoint=s3.us-east-1.lyvecloud.seagate.com`
         - *CM_DOWNLOAD_TOOL*: `rclone`
       - Workflow:
     * `_wget`

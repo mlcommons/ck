@@ -110,12 +110,13 @@ ___
     * `_pytorch,fp32`
       - Environment variables:
         - *CM_DOWNLOAD_EXTRA_OPTIONS*: ` --output-document checkpoint.zip`
-        - *CM_DOWNLOAD_FILENAME*: `checkpoint.zip`
         - *CM_UNZIP*: `yes`
         - *CM_DOWNLOAD_CHECKSUM_NOT_USED*: `e677e28aaf03da84584bb3073b7ee315`
         - *CM_PACKAGE_URL*: `https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download`
-        - *CM_RCLONE_CONFIG*: `rclone config create mlc-inference s3 provider=LyveCloud access_key_id=0LITLNQMHZALM5AK secret_access_key=YQKYTMBY23TMZHLOYFJKL5CHHS0CWYUC endpoint=s3.us-east-1.lyvecloud.seagate.com`
+        - *CM_RCLONE_CONFIG_CMD*: `rclone config create mlc-inference s3 provider=LyveCloud access_key_id=0LITLNQMHZALM5AK secret_access_key=YQKYTMBY23TMZHLOYFJKL5CHHS0CWYUC endpoint=s3.us-east-1.lyvecloud.seagate.com`
         - *CM_RCLONE_URL*: `mlc-inference:mlcommons-inference-wg-s3/gpt-j`
+      - Workflow:
+    * `_pytorch,fp32,wget`
       - Workflow:
     * `_pytorch,int4,intel`
       - Workflow:
@@ -155,11 +156,13 @@ ___
 
     * `_rclone`
       - Environment variables:
+        - *CM_DOWNLOAD_FILENAME*: `checkpoint`
         - *CM_DOWNLOAD_URL*: `<<<CM_RCLONE_URL>>>`
       - Workflow:
     * **`_wget`** (default)
       - Environment variables:
         - *CM_DOWNLOAD_URL*: `<<<CM_PACKAGE_URL>>>`
+        - *CM_DOWNLOAD_FILENAME*: `checkpoint.zip`
       - Workflow:
 
     </details>
