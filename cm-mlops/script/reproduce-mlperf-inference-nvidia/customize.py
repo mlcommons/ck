@@ -366,6 +366,18 @@ def preprocess(i):
         if audio_buffer_num_lines:
             run_config += f" --audio_buffer_num_lines={audio_buffer_num_lines}"
 
+        use_fp8 = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_FP8')
+        if use_fp8:
+            run_config += f" --use_fp8"
+
+        enable_sort = env.get('CM_MLPERF_NVIDIA_HARNESS_ENABLE_SORT')
+        if enable_sort:
+            run_config += f" --enable_sort"
+
+        num_sort_segments = env.get('CM_MLPERF_NVIDIA_HARNESS_NUM_SORT_SEGMENTS')
+        if num_sort_segments:
+            run_config += f" --num_sort_segments={num_sort_segments}"
+
         num_warmups = env.get('CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS')
         if num_warmups:
             run_config += f" --num_warmups={num_warmups}"

@@ -54,7 +54,7 @@ def preprocess(i):
         elif dataset == "cnndm":
             CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "gpt-j",
                 "evaluation.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir, "mlperf_log_accuracy.json") + \
-                "' --dataset-file '" + env['CM_DATASET_EVAL_PATH'] + "' > '" + out_file + "'"
+                "' --dataset-file '" + env['CM_DATASET_EVAL_PATH'] + "'"+ " --dtype " + env.get('CM_ACCURACY_DTYPE', "float32")  +" > '" + out_file + "'"
 
 
         elif dataset == "coco2014":

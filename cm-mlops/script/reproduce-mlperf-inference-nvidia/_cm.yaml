@@ -83,6 +83,9 @@ input_mapping:
   soft_drop: CM_MLPERF_NVIDIA_HARNESS_SOFT_DROP
   use_small_tile_gemm_plugin: CM_MLPERF_NVIDIA_HARNESS_USE_SMALL_TILE_GEMM_PLUGIN
   audio_buffer_num_lines: CM_MLPERF_NVIDIA_HARNESS_AUDIO_BUFFER_NUM_LINES
+  use_fp8: CM_MLPERF_NVIDIA_HARNESS_USE_FP8
+  enable_sort: CM_MLPERF_NVIDIA_HARNESS_ENABLE_SORT
+  num_sort_segments: CM_MLPERF_NVIDIA_HARNESS_NUM_SORT_SEGMENTS
 
 new_state_keys:
   - mlperf-inference-implementation
@@ -241,7 +244,7 @@ deps:
       - download_model
     names:
       - gptj-model
-    tags: get,ml-model,gptj,_pytorch
+    tags: get,ml-model,gptj,_pytorch,_rclone
 
   ########################################################################
   # Install MLPerf inference dependencies
@@ -415,7 +418,10 @@ variations:
     env:
       CM_MODEL: dlrm-v2-99.9
 
-  gptj_: {}
+  gptj_:
+    deps:
+    - tags: get,generic-python-lib,_package.datasets
+    - tags: get,generic-python-lib,_package.simplejson
   gptj_,_build:
     deps:
     - tags: install,torch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
@@ -537,6 +543,11 @@ variations:
       MLPERF_NVIDIA_RUN_COMMAND: preprocess_data
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: preprocess_data
 
+  preprocess_data,gptj_:
+    deps:
+      - tags: get,ml-model,gptj,_pytorch,_rclone
+        names:
+          - gptj-model
   download-model:
     alias: download-model
 
@@ -798,6 +809,60 @@ variations:
         tags: _batch_size.1
     env:
       CM_MODEL_BATCH_SIZE: "1"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gptj_,run_harness:
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_USE_FP8: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_ENABLE_SORT: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_NUM_SORT_SEGMENTS: '2'
+
+  gpu_memory.16,gptj_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.2
+    env:
+      CM_MODEL_BATCH_SIZE: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.24,gptj_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.2
+    env:
+      CM_MODEL_BATCH_SIZE: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.32,gptj_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.3
+    env:
+      CM_MODEL_BATCH_SIZE: "3"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.48,gptj_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.4
+    env:
+      CM_MODEL_BATCH_SIZE: "4"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.40,gptj_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.4
+    env:
+      CM_MODEL_BATCH_SIZE: "4"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  gpu_memory.80,gptj_,offline,run_harness:
+    add_deps_recursive:
+      build-engine:
+        tags: _batch_size.7
+    env:
+      CM_MODEL_BATCH_SIZE: "7"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   gpu_memory.16,bert_,offline,run_harness:

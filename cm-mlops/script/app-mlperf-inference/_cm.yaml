@@ -229,10 +229,13 @@ variations:
         tags: _float16
       librispeech-accuracy-script:
         tags: _int8
+      cnndm-accuracy-script:
+        tags: _int32
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia-original
       CM_SQUAD_ACCURACY_DTYPE: float16
       CM_IMAGENET_ACCURACY_DTYPE: int32
+      CM_CNNDM_ACCURACY_DTYPE: int32
       CM_LIBRISPEECH_ACCURACY_DTYPE: int8
     deps:
       - tags: get,cuda-devices
