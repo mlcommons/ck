@@ -295,4 +295,4 @@ You can see the use of CM in these real-world examples:
 ## Further reading
 
 * [CM specification](specs/README.md)
-* [Article with the concept of a common automation language based on previous version of CM language before MLCommons](https://arxiv.org/abs/2011.01149)
+* [Article with the concept of a common automation language based on previous version of CM language before MLCommons](https://doi.org/10.1098/rsta.2020.0211)

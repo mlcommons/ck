@@ -65,5 +65,5 @@ optimization and deployment across continuously changing software, hardware and 
 We would like to thank [MLCommons](https://mlcommons.org), 
 [OctoML](https://octoml.ai), all [contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
 and [collaborators](https://cKnowledge.org/partners.html) for their support, fruitful discussions, 
-and useful feedback! See more acknowledgments in the [CK journal article](https://arxiv.org/abs/2011.01149)
+and useful feedback! See more acknowledgments in the [CK journal article](https://doi.org/10.1098/rsta.2020.0211)
 and our [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4).

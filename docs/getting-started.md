@@ -628,11 +628,11 @@ and from the [Student Cluster Competition at Supercomputing'23](tutorials/scc23-
 ## How to use CM as a common interface to other projects?
 
 While CM was successfully validated to unify, modularize and automate MLPerf benchmarks,
-it is applicable to any software project. 
+it turned out to be applicable to any software project. 
 
-The community started using CM automation recipes as a common and human-friendly interface 
-to run other software projects and manage experiments across diverse models, data sets, software and hardware
-while making them more modular, portable and reusable.
+The community started using CM as a common and human-friendly interface to run other software projects 
+and manage experiments across diverse models, data sets, software and hardware while making them more modular, 
+portable and reusable.
 
 Please check [other CM tutorials](tutorials), [CM documentation](README.md) and our [ACM REP'23 keynote](https://www.youtube.com/watch?v=7zpeIVwICa4)
 for more details.

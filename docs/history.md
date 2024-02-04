@@ -2,7 +2,7 @@
 
 # Collective Knowledge v1 and v2 (CK)
 
-The [open-source Collective Knowledge Technology v1 and v2 (CK)](https://arxiv.org/abs/2011.01149) 
+The [open-source Collective Knowledge Technology v1 and v2 (CK)](https://doi.org/10.1098/rsta.2020.0211) 
 was originally developed by [Grigori Fursin](https://cKnowledge.org/gfursin) 
 based on his long experience helping the community [reproduce many research projects 
 and validate them in the real world](https://learning.acm.org/techtalks/reproducibility)

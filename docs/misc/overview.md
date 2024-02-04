@@ -5,7 +5,7 @@
 The Collective Knowledge project is motivated by our [tedious experience](https://learning.acm.org/techtalks/reproducibility) 
 reproducing research papers on machine learning and systems and validating them in the real world.
 
-We have developed the [Collective Knowledge concept (CK)](https://arxiv.org/pdf/2011.01149.pdf) 
+We have developed the [Collective Knowledge concept (CK)](https://doi.org/10.1098/rsta.2020.0211) 
 to provide a simple way to unify, manage, connect and reuse any artifacts, scripts, tools and workflows 
 on any platform with any software and hardware stack. 
 

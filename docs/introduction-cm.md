@@ -68,6 +68,6 @@ across continuously changing software, hardware, models, and data.
 ## Presentations
 
 * [CK vision (ACM Tech Talk at YouTube)](https://www.youtube.com/watch?v=7zpeIVwICa4) 
-* [CK concepts (Philosophical Transactions of the Royal Society)](https://arxiv.org/abs/2011.01149) 
+* [CK concepts (Philosophical Transactions of the Royal Society)](https://doi.org/10.1098/rsta.2020.0211) 
 * [CM workflow automation introduction (slides from ACM REP'23 keynote)](https://doi.org/10.5281/zenodo.8105339)
 * [MLPerf inference submitter orientation (slides)](https://doi.org/10.5281/zenodo.8144274) 
