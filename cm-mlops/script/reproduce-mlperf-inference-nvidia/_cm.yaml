@@ -86,6 +86,7 @@ input_mapping:
   use_fp8: CM_MLPERF_NVIDIA_HARNESS_USE_FP8
   enable_sort: CM_MLPERF_NVIDIA_HARNESS_ENABLE_SORT
   num_sort_segments: CM_MLPERF_NVIDIA_HARNESS_NUM_SORT_SEGMENTS
+  skip_postprocess: CM_MLPERF_NVIDIA_HARNESS_SKIP_POSTPROCESS 
 
 new_state_keys:
   - mlperf-inference-implementation
@@ -422,21 +423,16 @@ variations:
     deps:
     - tags: get,generic-python-lib,_package.datasets
     - tags: get,generic-python-lib,_package.simplejson
-  gptj_,_build:
+  
+  gptj_,build:
     deps:
-    - tags: install,torch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+    - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
     - tags: get,cmake
       version_min: "3.25.0"
 
-  gptj_,_build_engine:
+  gptj_,build_engine:
     deps:
-    - tags: install,torch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
-    - tags: get,cmake
-      version_min: "3.25.0"
-
-  gptj_,_run_harness:
-    deps:
-    - tags: install,torch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+    - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
     - tags: get,cmake
       version_min: "3.25.0"
 
@@ -812,10 +808,15 @@ variations:
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
 
   gptj_,run_harness:
+    deps:
+    - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+    - tags: get,cmake
+      version_min: "3.25.0"
     env:
       CM_MLPERF_NVIDIA_HARNESS_USE_FP8: 'True'
       CM_MLPERF_NVIDIA_HARNESS_ENABLE_SORT: 'True'
       CM_MLPERF_NVIDIA_HARNESS_NUM_SORT_SEGMENTS: '2'
+      CM_MLPERF_NVIDIA_HARNESS_SKIP_POSTPROCESS: True
 
   gpu_memory.16,gptj_,offline,run_harness:
     add_deps_recursive:

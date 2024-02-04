@@ -367,11 +367,11 @@ def preprocess(i):
             run_config += f" --audio_buffer_num_lines={audio_buffer_num_lines}"
 
         use_fp8 = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_FP8')
-        if use_fp8:
+        if use_fp8 and use_fp8.lower() not in [ "no", "false" ]:
             run_config += f" --use_fp8"
 
         enable_sort = env.get('CM_MLPERF_NVIDIA_HARNESS_ENABLE_SORT')
-        if enable_sort:
+        if enable_sort and enable_sort.lower() not in [ "no", "false" ]:
             run_config += f" --enable_sort"
 
         num_sort_segments = env.get('CM_MLPERF_NVIDIA_HARNESS_NUM_SORT_SEGMENTS')
@@ -381,6 +381,10 @@ def preprocess(i):
         num_warmups = env.get('CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS')
         if num_warmups:
             run_config += f" --num_warmups={num_warmups}"
+
+        skip_postprocess = env.get('CM_MLPERF_NVIDIA_HARNESS_SKIP_POSTPROCESS')
+        if skip_postprocess and skip_postprocess.lower() not in [ "no", "false" ]:
+            run_config += f" --skip_postprocess"
 
         if test_mode:
             test_mode_string = " --test_mode={}".format(test_mode)
