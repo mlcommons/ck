@@ -1748,7 +1748,6 @@ def docker(i):
 
         run_cmd  = r['run_cmd_string'] + ' ' + container_env_string + ' --docker_run_deps '
 
-        docker_pre_run_cmds = [ pre_run_cmds + ' ' + container_env_string for pre_run_cmds in docker_pre_run_cmds ]
         env['CM_RUN_STATE_DOCKER'] = True
 
         if docker_settings.get('mount_current_dir','')=='yes':
