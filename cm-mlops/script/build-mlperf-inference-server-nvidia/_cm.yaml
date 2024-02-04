@@ -233,7 +233,7 @@ docker:
     - tags: get,mlperf,inference,results,dir
     - tags: get,mlperf,inference,submission,dir
   pre_run_cmds:
-    - cm pull repo ctuning@mlcommons-ck
+    - cd CM/repos/ctuning@mlcommons-ck && git pull
     - sudo apt remove -y cmake
   mounts:
    - "${{ IMAGENET_PATH }}:/data/imagenet-val"
