@@ -1379,13 +1379,15 @@ def dockerfile(i):
 
         i_run_cmd = r['run_cmd']
 
+        docker_run_cmd_prefix = i.get('docker_run_cmd_prefix', docker_settings.get('run_cmd_prefix', ''))
+
         r = regenerate_script_cmd({'script_uid':script_uid,
                                    'script_alias':script_alias,
                                    'run_cmd':i_run_cmd,
                                    'tags':tags,
                                    'fake_run':True,
                                    'docker_settings':docker_settings,
-                                   'docker_run_cmd_prefix':i.get('docker_run_cmd_prefix','')})
+                                   'docker_run_cmd_prefix':docker_run_cmd_prefix})
         if r['return']>0: return r
 
         run_cmd  = r['run_cmd_string']
@@ -1710,6 +1712,8 @@ def docker(i):
         docker_skip_run_cmd = i.get('docker_skip_run_cmd', docker_settings.get('skip_run_cmd', False)) #skips docker run cmd and gives an interactive shell to the user
 
         docker_pre_run_cmds = i.get('docker_pre_run_cmds', []) +  docker_settings.get('pre_run_cmds', [])
+
+        docker_run_cmd_prefix = i.get('docker_run_cmd_prefix', docker_settings.get('run_cmd_prefix', ''))
 
         all_gpus = i.get('docker_all_gpus', docker_settings.get('all_gpus'))
 

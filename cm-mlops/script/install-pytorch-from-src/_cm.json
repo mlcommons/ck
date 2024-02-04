@@ -225,7 +225,7 @@
         "cuda"
       ],
       "env": {
-        "CM_CONDA_ENV": "yes"
+        "CM_CONDA_ENV_TMP": "yes"
       },
       "deps": [
         {
