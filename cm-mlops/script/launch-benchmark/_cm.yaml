@@ -11,5 +11,5 @@ tags:
 category: "Collective benchmarking"
 
 gui:
-  title: "Collective benchmarking"
+  title: "Launch benchmark"
   use_customize_func: "gui"

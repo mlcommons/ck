@@ -1,5 +1,6 @@
 ﻿# Support functions
 
+##########################################################
 def make_url(name, alias='', action='contributors', key='name', md=True):
 
     import urllib
@@ -17,6 +18,7 @@ def make_url(name, alias='', action='contributors', key='name', md=True):
 
     return md
 
+##########################################################
 def convert_date(date):
     # date: format YYYYMMDD to YYYY month day
 
@@ -30,3 +32,23 @@ def convert_date(date):
         return {'return':1, 'error':'date "{}" is not of format YYYYMMDD: {}'.format(date, format(e))}
 
     return {'return':0, 'string':year+' '+month+' '+day}
+
+##########################################################
+def get_params(st):
+    compatibility = False
+
+    try:
+        params2 = st.query_params
+        # Convert to old style
+        params = {}
+        for k in params2:
+            v = params2[k]
+            if type(v)!=list:
+                params[k]=[v]
+    except:
+        compatibility = True
+
+    if compatibility:
+        params = st.experimental_get_query_params()
+
+    return params

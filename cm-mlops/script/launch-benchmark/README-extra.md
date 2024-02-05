@@ -1,3 +1,3 @@
 # CM script
 
-Universal benchmark launcher
+Universal benchmark launcher via Collective Mind

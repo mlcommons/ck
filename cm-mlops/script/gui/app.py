@@ -8,14 +8,7 @@ def main():
 
     var1 = '^' if os.name == 'nt' else '\\'
     
-    compatibility = False
-    try:
-        query_params = st.query_params
-    except:
-        compatibility = True
-
-    if compatibility:
-        query_params = st.experimental_get_query_params()
+    query_params = misc.get_params(st)
 
     script_path = os.environ.get('CM_GUI_SCRIPT_PATH','')
     script_alias = os.environ.get('CM_GUI_SCRIPT_ALIAS','')
@@ -79,7 +72,7 @@ def main():
 
 
     # Set title
-    st.title('Collective Mind')
+    st.title('[Collective Mind](https://github.com/mlcommons/ck)')
 
     if script_alias!='':
         st.markdown('*CM script: "{}"*'.format(script_alias))

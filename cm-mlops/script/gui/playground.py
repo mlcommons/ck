@@ -13,14 +13,7 @@ def main():
     st.set_page_config(layout="wide",
                        menu_items={})
 
-    compatibility = False
-    try:
-        params = st.query_params
-    except:
-        compatibility = True
-
-    if compatibility:
-        params = st.experimental_get_query_params()
+    params = misc.get_params(st)
 
     # Set style
     # Green: background:#7fcf6f;
@@ -56,8 +49,8 @@ def main():
     st.write('''
         <center>
         <h2 style="color:#2f6fb3">Collective Knowledge Playground</h2>
-        <img src="https://cknowledge.org/images/logo-ck-tr.png" width="150">
-        <br>
+        <img src="https://cknowledge.org/images/logo-ck-tr.png" width="150"><br>
+        <small>Collaborative Benchmarking and Optimization of AI Systems and Applications</small><br>
         {}
         <br>
         </center>
@@ -68,6 +61,7 @@ def main():
     # Check action and basic menu
     action = params.get('action',['contributors'])[0].lower()
 
+    style_action_howtorun='font-style:italic;font-weight:bold;color:#ffffff' if action=='howtorun' else ''
     style_action_challenges='font-style:italic;font-weight:bold;color:#ffffff' if action=='challenges' else ''
     style_action_experiments='font-style:italic;font-weight:bold;color:#ffffff' if action=='experiments' else ''
     style_action_contributors='font-style:italic;font-weight:bold;color:#ffffff' if action=='contributors' else ''
@@ -76,6 +70,7 @@ def main():
 
     st.write('''
         <center>
+        <a target="_self" href="?action=howtorun"><button style="{}">How to Run</button></a>
         <a target="_self" href="?action=contributors"><button style="{}">Leaderboard</button></a>
         <a target="_self" href="?action=challenges"><button style="{}">Challenges</button></a>
         <a target="_self" href="?action=experiments"><button style="{}">Experiments and results</button></a>
@@ -85,6 +80,7 @@ def main():
         <a target="_self" href="https://discord.gg/JjWNWXKxwT"><button>Discord</button></a>
         </center>
         '''.format(
+                   style_action_howtorun,
                    style_action_contributors,
                    style_action_challenges,
                    style_action_experiments, 
@@ -100,7 +96,10 @@ def main():
 
     r={'return':0}
 
-    if action == 'challenges':
+    if action == 'howtorun':
+        from playground_howtorun import page
+        r = page(st, params)
+    elif action == 'challenges':
         from playground_challenges import page
         r = page(st, params)
     elif action == 'experiments':
