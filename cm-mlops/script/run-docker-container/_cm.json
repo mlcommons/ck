@@ -33,6 +33,7 @@
     "mounts": "CM_DOCKER_VOLUME_MOUNTS",
     "port_maps": "CM_DOCKER_PORT_MAPS",
     "shm_size": "CM_DOCKER_SHM_SIZE",
+    "extra_run_args": "CM_DOCKER_EXTRA_RUN_ARGS",
     "device": "CM_DOCKER_ADD_DEVICE",
     "cache": "CM_DOCKER_CACHE",
     "all_gpus": "CM_DOCKER_ADD_ALL_GPUS"
