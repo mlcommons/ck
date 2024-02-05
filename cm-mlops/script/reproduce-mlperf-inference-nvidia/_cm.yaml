@@ -235,18 +235,6 @@ deps:
       - openorca-original
     tags: get,dataset,original,openorca
 
-  ########################################################################
-  # Install GPTJ-6B model
-  - enable_if_env:
-      CM_MODEL:
-      - gptj-99
-      - gptj-99.9
-      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
-      - download_model
-      - preprocess_data
-    names:
-      - gptj-model
-    tags: get,ml-model,gptj,_pytorch,_rclone
 
   ########################################################################
   # Install MLPerf inference dependencies
@@ -269,6 +257,18 @@ deps:
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
       - run_harness
 
+prehook_deps:
+  ########################################################################
+  # Install GPTJ-6B model
+  - enable_if_env:
+    CM_REQUIRE_GPTJ_MODEL_DOWNLOAD:
+    - 'yes'
+    CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
+    - download_model
+    - preprocess_data
+    names:
+      - gptj-model
+    tags: get,ml-model,gptj,_pytorch,_rclone
 
 # Post dependencies to run this app including for power measurement
 post_deps:
