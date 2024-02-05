@@ -1,0 +1,27 @@
+alias: optimize-mlperf-inference-v4.0-2024
+uid: e6b8738383eb46d0
+
+automation_alias: challenge
+automation_uid: 3d84abd768f34e08
+
+title: Run and optimize MLPerf inference v4.0 benchmarks (Intel, Nvidia, Qualcomm, Arm64, TPU ...) and submit official results
+
+date_close: '20240225'
+date_open: '20240205'
+
+tags:
+- modularize
+- optimize
+- reproduce
+- replicate
+- automate
+- benchmark
+- mlperf
+- mlperf-inference
+- mlperf-inference-v4.0
+- mlperf-inference-v4.0-2024
+- v4.0
+
+
+experiments:
+- tags: mlperf-inference,v4.0

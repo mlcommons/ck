@@ -6,9 +6,7 @@ using MLPerf loadgen and MLCommons CM automation language.
 See the [Nature 2023 article about MedPerf](https://www.nature.com/articles/s42256-023-00652-2)
 and [ACM REP'23 keynote about CM](https://doi.org/10.5281/zenodo.8105339) to learn more about these projects.
 
-Join our public [Discord server](https://discord.gg/JjWNWXKxwT) and/or
-our [weekly conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit)
-to discuss this challenge with the organizers.
+Join our public [Discord server](https://discord.gg/JjWNWXKxwT) to discuss this challenge with the organizers.
 
 Read [this documentation](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md) 
 to run reference implementations of MLPerf inference benchmarks 
