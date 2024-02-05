@@ -26,6 +26,9 @@
 
 ### About
 
+
+See extra [notes](README-extra.md) from the authors and contributors.
+
 #### Summary
 
 * Category: *CUDA automation.*
@@ -165,11 +168,13 @@ ___
 * `+DYLD_FALLBACK_LIBRARY_PATH`
 * `+LD_LIBRARY_PATH`
 * `+PATH`
+* `CM_CUDA_PATH_INCLUDE_CUDNN`
 * `CM_CUDA_PATH_LIB_CUDNN`
 * `CM_CUDA_PATH_LIB_CUDNN_EXISTS`
 * `CM_CUDNN_*`
 #### New environment keys auto-detected from customize
 
+* `CM_CUDA_PATH_INCLUDE_CUDNN`
 * `CM_CUDA_PATH_LIB_CUDNN`
 * `CM_CUDA_PATH_LIB_CUDNN_EXISTS`
 * `CM_CUDNN_VERSION`

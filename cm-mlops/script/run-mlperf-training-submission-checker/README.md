@@ -166,7 +166,7 @@ ___
        * CM names: `--adr.['inference-src', 'submission-checker-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * install,mlperf,logging,from.src
-       - CM script: [install-mlperf-logging-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from.src)
+       - CM script: [install-mlperf-logging-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from-src)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-training-submission-checker/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-training-submission-checker/_cm.json)
   1. ***Run native script if exists***

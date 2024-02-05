@@ -1035,8 +1035,6 @@ invalid_variation_combinations:
     - gptj
     - tf
 
-gui_title: "CM GUI for the MLPerf inference benchmark"
-
 input_description:
   scenario: 
     desc: "MLPerf inference scenario"
@@ -1096,3 +1094,6 @@ input_description:
     desc: "Generate README with the reproducibility report"
   debug: 
     desc: "Debug MLPerf script"
+
+gui:
+  title: "CM GUI for the MLPerf inference benchmark"

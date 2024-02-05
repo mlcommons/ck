@@ -102,6 +102,32 @@ def docker_script(argv = None):
     return run(['docker', 'script'] + argv)
 
 ############################################################
+def gui_script(argv = None):
+    """
+    Shortcut to "cm gui script ..."
+
+    CM command line format:
+
+    Args:
+        argv (list | string): command line arguments
+
+    Returns: 
+        (CM return dict):
+
+        * return (int): return code == 0 if no error and >0 if error
+        * (error) (str): error string if return>0
+
+        * Output from a CM automation action
+
+    """
+
+    # Access CM
+    if argv is None:
+        argv = sys.argv[1:]
+
+    return run(['gui', 'script'] + argv)
+
+############################################################
 def run_experiment(argv = None):
     """
     Shortcut to "cm run experiment ..."

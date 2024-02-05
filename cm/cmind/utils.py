@@ -1580,7 +1580,8 @@ def call_internal_module(module_self, path_to_current_module, module_name, modul
 
     del(sys.path[0])
 
-    i['self_module'] = module_self
+    if module_self!=None:
+        i['self_module'] = module_self
     
     return getattr(tmp_module, module_func)(i)
 

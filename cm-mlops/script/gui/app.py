@@ -50,6 +50,7 @@ def main():
         if len(lst)==1:
             script = lst[0]
             meta = script.meta
+            script_path = script.path
             script_alias = meta['alias']
 
 
@@ -63,8 +64,18 @@ def main():
             script_path = script.path
             script_alias = meta['alias']
 
-    if meta.get('gui_title','')!='':
-        title = meta['gui_title']
+    gui_meta = meta.get('gui',{})
+
+    gui_func = gui_meta.get('use_customize_func', '')
+    if gui_func!='':
+        ii = {'streamlit_module':st}
+        return cmind.utils.call_internal_module(None, os.path.join(script_path, 'dummy') , 
+                                                'customize', gui_func, ii)
+
+
+    if gui_meta.get('title','')!='':
+        title = gui_meta['title']
+
 
     # Set title
     st.title('Collective Mind GUI')
@@ -136,33 +147,34 @@ def main():
 
         # Prepare variation_groups
 #            st.markdown("""---""")
-        st.subheader('Script variations')
+        if len(variations)>0:
+             st.subheader('Script variations')
 
-        variation_groups_order = meta.get('variation_groups_order',[])
-        for variation in sorted(variation_groups):
-            if variation not in variation_groups_order:
-                variation_groups_order.append(variation)
+             variation_groups_order = meta.get('variation_groups_order',[])
+             for variation in sorted(variation_groups):
+                 if variation not in variation_groups_order:
+                     variation_groups_order.append(variation)
 
-        for group_key in variation_groups_order:
-            group_key_cap = group_key.replace('-',' ').capitalize()
-            if not group_key.startswith('*'):
-                y = ['']
+             for group_key in variation_groups_order:
+                 group_key_cap = group_key.replace('-',' ').capitalize()
+                 if not group_key.startswith('*'):
+                     y = ['']
 
-                index = 0
-                selected_index = 0
-                for variation_key in sorted(variation_groups[group_key]):
-                    index += 1
-                    y.append(variation_key)
-                    if variation_key in default_variations:
-                        selected_index=index
+                     index = 0
+                     selected_index = 0
+                     for variation_key in sorted(variation_groups[group_key]):
+                         index += 1
+                         y.append(variation_key)
+                         if variation_key in default_variations:
+                             selected_index=index
 
-                st_variations['~'+group_key] = st.selectbox(group_key_cap, sorted(y), index=selected_index, key='~'+group_key)
-            elif group_key == '*no-group*':
-                for variation_key in sorted(variation_groups[group_key]):
-                    x = False
-                    if variation_key in default_variations:
-                        x=True
-                    st_variations['#'+variation_key] = st.checkbox(variation_key.capitalize(), key='#'+variation_key, value=x)
+                     st_variations['~'+group_key] = st.selectbox(group_key_cap, sorted(y), index=selected_index, key='~'+group_key)
+                 elif group_key == '*no-group*':
+                     for variation_key in sorted(variation_groups[group_key]):
+                         x = False
+                         if variation_key in default_variations:
+                             x=True
+                         st_variations['#'+variation_key] = st.checkbox(variation_key.capitalize(), key='#'+variation_key, value=x)
 
 
         # Prepare inputs
@@ -293,7 +305,7 @@ def main():
     if y!='':
         x+=y
 
-    st.text_area('**Install [CM interface](https://github.com/mlcommons/ck) with a few dependencies:**', x, height=170)
+    st.text_area('**Install [MLCommons CM](https://github.com/mlcommons/ck/blob/master/docs/installation.md) with a few dependencies:**', x, height=170)
 
 
     st.markdown("**Run CM script from Python:**")

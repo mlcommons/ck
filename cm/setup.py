@@ -101,6 +101,7 @@ setup(
                       "cm = cmind.cli:run",
                       "cmr = cmind.cli:run_script",
                       "cmrd = cmind.cli:docker_script",
+                      "cmg = cmind.cli:gui_script",
                       "cme = cmind.cli:run_experiment"
                  ]},
 
