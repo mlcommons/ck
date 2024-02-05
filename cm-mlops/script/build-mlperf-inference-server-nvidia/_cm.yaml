@@ -203,7 +203,7 @@ versions:
       nvidia-inference-common-code:
         version: r3.1
       nvidia-scratch-space:
-        tags: _version.3_1
+        tags: _version.4_0
     deps:
       - tags: install,nccl,libs,_cuda
       - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
