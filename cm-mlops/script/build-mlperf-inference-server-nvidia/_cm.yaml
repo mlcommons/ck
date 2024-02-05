@@ -214,6 +214,7 @@ docker:
   skip_run_cmd: 'no'
   all_gpus: 'yes'
   shm_size: '32gb'
+  extra_run_args: ' --ulimit memlock=-1'
   docker_os: ubuntu
   docker_real_run: False
   interactive: True

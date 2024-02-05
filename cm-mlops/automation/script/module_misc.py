@@ -1725,6 +1725,8 @@ def docker(i):
 
         shm_size = i.get('docker_shm_size', docker_settings.get('shm_size', ''))
 
+        extra_run_args = i.get('docker_extra_run_args', docker_settings.get('extra_run_args', ''))
+
         if detached == '':
             detached = docker_settings.get('detached', '')
 
@@ -1807,6 +1809,9 @@ def docker(i):
 
         if shm_size != '':
             cm_docker_input['shm_size'] = shm_size
+
+        if extra_run_args != '':
+            cm_docker_input['extra_run_args'] = extra_run_args
 
         print ('')
 
