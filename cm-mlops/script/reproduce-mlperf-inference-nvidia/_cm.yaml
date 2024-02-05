@@ -261,11 +261,11 @@ prehook_deps:
   ########################################################################
   # Install GPTJ-6B model
   - enable_if_env:
-    CM_REQUIRE_GPTJ_MODEL_DOWNLOAD:
-    - 'yes'
-    CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
-    - download_model
-    - preprocess_data
+      CM_REQUIRE_GPTJ_MODEL_DOWNLOAD:
+      - 'yes'
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
+      - download_model
+      - preprocess_data
     names:
       - gptj-model
     tags: get,ml-model,gptj,_pytorch,_rclone
