@@ -213,6 +213,7 @@ versions:
 docker:
   skip_run_cmd: 'no'
   all_gpus: 'yes'
+  shm_size: '32gb'
   docker_os: ubuntu
   docker_real_run: False
   interactive: True

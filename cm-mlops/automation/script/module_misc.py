@@ -1723,6 +1723,8 @@ def docker(i):
 
         port_maps = i.get('docker_port_maps', docker_settings.get('port_maps', []))
 
+        shm_size = i.get('docker_shm_size', docker_settings.get('shm_size', ''))
+
         if detached == '':
             detached = docker_settings.get('detached', '')
 
@@ -1802,6 +1804,9 @@ def docker(i):
 
         if port_maps:
             cm_docker_input['port_maps'] = port_maps
+
+        if shm_size != '':
+            cm_docker_input['shm_size'] = shm_size
 
         print ('')
 
