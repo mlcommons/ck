@@ -24,7 +24,12 @@ def postprocess(i):
 def gui(i):
 
     st = i['streamlit_module']
+    meta = i['meta']
 
-    st.markdown('TEST')
+    st.title('Collective Mind')
+
+    st.markdown('### Launch benchmark')
+
+    st.markdown(str(meta))
 
     return {'return':0}

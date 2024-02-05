@@ -68,7 +68,8 @@ def main():
 
     gui_func = gui_meta.get('use_customize_func', '')
     if gui_func!='':
-        ii = {'streamlit_module':st}
+        ii = {'streamlit_module':st,
+              'meta':meta}
         return cmind.utils.call_internal_module(None, os.path.join(script_path, 'dummy') , 
                                                 'customize', gui_func, ii)
 
@@ -78,7 +79,7 @@ def main():
 
 
     # Set title
-    st.title('Collective Mind GUI')
+    st.title('Collective Mind')
 
     if script_alias!='':
         st.markdown('*CM script: "{}"*'.format(script_alias))
