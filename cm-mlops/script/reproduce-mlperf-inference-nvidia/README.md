@@ -275,12 +275,6 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_package.simplejson
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-    * `_preprocess_data,gptj_`
-      - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * get,ml-model,gptj,_pytorch,_rclone
-             * CM names: `--adr.['gptj-model']...`
-             - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)
 
     </details>
 
@@ -290,43 +284,22 @@ ___
     <summary>Click here to expand this section.</summary>
 
     * `_a100,sxm,3d-unet_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_a100,sxm,bert_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `256`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_a100,sxm,dlrm_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1400`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_a100,sxm,resnet50,offline,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
         - *CM_MLPERF_PERFORMANCE_SAMPLE_COUNT*: `2048`
       - Workflow:
     * `_a100,sxm,retinanet,offline,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `32`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE*: `300000000000`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_a100,sxm,rnnt,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
-      - Workflow:
-    * `_dla_batch_size.#`
-      - Environment variables:
-        - *CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE*: `#`
-        - *CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX2*: `dla_batch_size.#`
       - Workflow:
     * `_gptj_,build`
       - Workflow:
@@ -355,272 +328,128 @@ ___
            * get,cmake
              - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
     * `_gpu_memory.16,3d-unet_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `4`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.16,bert_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `256`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.16,dlrm_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1400`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.16,gptj_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.16,resnet50,offline,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1024`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `4`
       - Workflow:
     * `_gpu_memory.16,retinanet,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.16,rnnt,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1024`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.24,3d-unet_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.24,bert_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `256`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.24,dlrm_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1400`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.24,gptj_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.24,resnet50,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `64`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.24,retinanet,offline,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.24,rnnt,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.32,3d-unet_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.32,bert_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `256`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.32,dlrm_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1400`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.32,gptj_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `3`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.32,resnet50,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.32,retinanet,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `4`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.32,rnnt,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.40,3d-unet_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.40,bert_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `256`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.40,dlrm_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1400`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.40,gptj_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `4`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.40,resnet50,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.40,retinanet,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `4`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.40,rnnt,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.48,3d-unet_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.48,bert_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1024`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.48,dlrm_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1400`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.48,gptj_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `4`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.48,resnet50,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.48,retinanet,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `4`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.48,rnnt,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.80,3d-unet_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.80,bert_,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `64`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.80,dlrm_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1400`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.80,gptj_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `7`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.80,resnet50,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.80,retinanet,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.80,rnnt,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_l4,3d-unet_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_l4,bert_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `16`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_l4,bert_,server,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `16`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
         - *CM_MLPERF_NVIDIA_HARNESS_GRAPHS_MAX_SEQLEN*: `200`
         - *CM_MLPERF_NVIDIA_HARNESS_SERVER_NUM_ISSUE_QUERY_THREADS*: `1`
         - *CM_MLPERF_NVIDIA_HARNESS_SOFT_DROP*: `1.0`
         - *CM_MLPERF_NVIDIA_HARNESS_USE_SMALL_TILE_GEMM_PLUGIN*: `True`
       - Workflow:
     * `_l4,dlrm_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1400`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_l4,resnet50`
       - Workflow:
     * `_l4,resnet50,offline,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `32`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS*: `1`
         - *CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS*: `True`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_l4,resnet50,server,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `16`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `9`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS*: `True`
         - *CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT*: `True`
         - *CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC*: `2000`
         - *CM_MLPERF_NVIDIA_HARNESS_USE_CUDA_THREAD_PER_DEVICE*: `True`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_l4,retinanet,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_l4,retinanet,server,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT*: `True`
@@ -628,14 +457,9 @@ ___
         - *CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE*: `20000000000`
       - Workflow:
     * `_l4,rnnt,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `512`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_l4,rnnt,server,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `512`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
         - *CM_MLPERF_NVIDIA_HARNESS_AUDIO_BATCH_SIZE*: `64`
         - *CM_MLPERF_NVIDIA_HARNESS_AUDIO_BUFFER_NUM_LINES*: `1024`
         - *CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS*: `1024`
@@ -649,195 +473,87 @@ ___
         - *CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS*: `1`
       - Workflow:
     * `_resnet50,multistream,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_resnet50,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `64`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_retinanet,multistream,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_retinanet,server,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_4090,3d-unet_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_4090,3d-unet_,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_4090,bert_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `256`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_4090,bert_,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `256`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_4090,dlrm_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1400`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_4090,resnet50,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `64`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_4090,resnet50,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `32`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_4090,retinanet,offline,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_4090,retinanet,server,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_4090,rnnt,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_4090,rnnt,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_6000_ada,3d-unet_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_6000_ada,3d-unet_,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_6000_ada,bert_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `256`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_6000_ada,bert_,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `256`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_6000_ada,dlrm_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1400`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_6000_ada,resnet50,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `64`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_6000_ada,resnet50,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `32`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_6000_ada,retinanet,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_6000_ada,retinanet,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_6000_ada,rnnt,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `512`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_6000_ada,rnnt,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `512`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_a6000,3d-unet_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_a6000,3d-unet_,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_a6000,bert_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `256`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_a6000,bert_,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `256`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_a6000,dlrm_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1400`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_a6000,resnet50,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `64`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_a6000,resnet50,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `32`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_a6000,retinanet,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_a6000,retinanet,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_a6000,rnnt,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_rtx_a6000,rnnt,server,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `512`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_run-harness`
       - Workflow:
@@ -846,60 +562,37 @@ ___
         - *SKIP_POLICIES*: `1`
       - Workflow:
     * `_singlestream,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_t4,3d-unet_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `8`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_t4,bert_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `256`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_t4,bert_,server,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `4`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
         - *CM_MLPERF_NVIDIA_HARNESS_GRAPHS_MAX_SEQLEN*: `240`
         - *CM_MLPERF_NVIDIA_HARNESS_SERVER_NUM_ISSUE_QUERY_THREADS*: `0`
         - *CM_MLPERF_NVIDIA_HARNESS_USE_SMALL_TILE_GEMM_PLUGIN*: `no`
       - Workflow:
     * `_t4,dlrm_,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `1400`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_t4,resnet50`
       - Workflow:
     * `_t4,resnet50,offline,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `256`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `4`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_t4,resnet50,server,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `26`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `4`
         - *CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT*: `True`
         - *CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC*: `2000`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
         - *CM_MLPERF_NVIDIA_HARNESS_SOFT_DROP*: `0.993`
       - Workflow:
     * `_t4,retinanet,offline,run_harness`
-      - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `4`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_t4,retinanet,server,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT*: `True`
@@ -908,21 +601,17 @@ ___
       - Workflow:
     * `_t4,rnnt,offline,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `4`
         - *CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS*: `True`
         - *CM_MLPERF_NVIDIA_HARNESS_AUDIO_BATCH_SIZE*: `128`
         - *CM_MLPERF_NVIDIA_HARNESS_DISABLE_ENCODER_PLUGIN*: `True`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_t4,rnnt,server,run_harness`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `2048`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS*: `4`
         - *CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS*: `True`
         - *CM_MLPERF_NVIDIA_HARNESS_AUDIO_BATCH_SIZE*: `128`
         - *CM_MLPERF_NVIDIA_HARNESS_DISABLE_ENCODER_PLUGIN*: `True`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
 
     </details>
@@ -1014,6 +703,19 @@ ___
     * `_gpu_memory.80`
       - Environment variables:
         - *CM_NVIDIA_GPU_MEMORY*: `80`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**dla-batch-size**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_dla_batch_size.#`
+      - Environment variables:
+        - *CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE*: `#`
+        - *CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX2*: `dla_batch_size.#`
       - Workflow:
 
     </details>
@@ -1498,10 +1200,6 @@ ___
        * `if (CM_MODEL in ['gptj-99', 'gptj-99.9'] AND CM_MLPERF_NVIDIA_HARNESS_RUN_MODE  == preprocess_dataset)`
        * CM names: `--adr.['openorca-original']...`
        - CM script: [get-dataset-openorca](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openorca)
-     * get,ml-model,gptj,_pytorch,_rclone
-       * `if (CM_MODEL in ['gptj-99', 'gptj-99.9'] AND CM_MLPERF_NVIDIA_HARNESS_RUN_MODE  == download_model)`
-       * CM names: `--adr.['gptj-model']...`
-       - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
@@ -1513,7 +1211,11 @@ ___
        * CM names: `--adr.['user-conf-generator']...`
        - CM script: [generate-mlperf-inference-user-conf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)***
+     * get,ml-model,gptj,_pytorch,_rclone
+       * `if (CM_REQUIRE_GPTJ_MODEL_DOWNLOAD  == yes AND CM_MLPERF_NVIDIA_HARNESS_RUN_MODE in ['download_model', 'preprocess_data'])`
+       * CM names: `--adr.['gptj-model']...`
+       - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)
   1. ***Run native script if exists***
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)
