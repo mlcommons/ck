@@ -248,6 +248,88 @@ versions:
   r2.1: {}
 
 input_description:
+  device:
+    choices:
+    - cpu
+    - cuda
+    default: cpu
+    desc: MLPerf device
+    sort: 100
+  model:
+    choices:
+    - resnet50
+    - retinanet
+    - bert-99
+    - bert-99.9
+    - 3d-unet
+    - rnnt
+    default: resnet50
+    desc: MLPerf model
+    sort: 200
+  precision:
+    choices:
+    - fp32
+    - int8
+    default: ''
+    desc: MLPerf model precision
+  implementation:
+    choices:
+    - reference
+    - cpp
+    - nvidia-original
+    - tflite-cpp
+    default: reference
+    desc: MLPerf implementation
+    sort: 300
+  backend:
+    choices:
+    - onnxruntime
+    - tf
+    - pytorch
+    - deepsparse
+    - tensorrt
+    - tvm-onnx
+    default: onnxruntime
+    desc: MLPerf framework (backend)
+    sort: 400
+  scenario:
+    choices:
+    - Offline
+    - Server
+    - SingleStream
+    - MultiStream
+    default: Offline
+    desc: MLPerf scenario
+    sort: 500
+  mode:
+    choices:
+    - ''
+    - accuracy
+    - performance
+    default: ''
+    desc: MLPerf benchmark mode
+    sort: 600
+  execution_mode:
+    choices:
+    - test
+    - fast
+    - valid
+    default: test
+    desc: MLPerf execution mode
+    sort: 700
+  submitter:
+    default: cTuning
+    desc: Submitter name (without space)
+    sort: 800
+  results_dir:
+    desc: Folder path to store results (defaults to the current working directory)
+    default: ''
+    sort: 900
+  submission_dir:
+    desc: Folder path to store MLPerf submission tree 
+    default: ''
+    sort: 1000
+
   adr.compiler.tags:
     default: gcc
     desc: Compiler for loadgen and any C/C++ part of implementation
@@ -271,16 +353,6 @@ input_description:
   adr.python.version_min:
     default: '3.8'
     desc: Minimal Python version
-  backend:
-    choices:
-    - onnxruntime
-    - tf
-    - pytorch
-    - deepsparse
-    - tensorrt
-    - tvm-onnx
-    default: onnxruntime
-    desc: MLPerf backend
   clean:
     boolean: true
     default: true
@@ -297,81 +369,21 @@ input_description:
   dashboard_wb_user:
     default: cmind
     desc: W&B dashboard user
-  device:
-    choices:
-    - cpu
-    - cuda
-    default: cpu
-    desc: MLPerf device
-  execution_mode:
-    choices:
-    - test
-    - fast
-    - valid
-    default: test
-    desc: Execution mode
   hw_name:
     default: default
     desc: MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware))
-  implementation:
-    choices:
-    - reference
-    - cpp
-    - nvidia-original
-    - tflite-cpp
-    default: reference
-    desc: MLPerf implementation
-  mode:
-    choices:
-    - ''
-    - accuracy
-    - performance
-    default: ''
-    desc: MLPerf mode
-  model:
-    choices:
-    - resnet50
-    - retinanet
-    - bert-99
-    - bert-99.9
-    - 3d-unet
-    - rnnt
-    default: resnet50
-    desc: MLPerf model
   multistream_target_latency:
     desc: Set MultiStream target latency
   offline_target_qps:
     desc: Set LoadGen Offline target QPS
-  precision:
-    choices:
-    - fp32
-    - int8
-    default: ''
-    desc: MLPerf model precision
   quiet:
     boolean: true
     default: false
     desc: Quiet run (select default values for all questions)
-  results_dir:
-    desc: Folder path where run results should be stored (defaults to the current
-      working directory)
-  scenario:
-    choices:
-    - Offline
-    - Server
-    - SingleStream
-    - MultiStream
-    default: Offline
-    desc: MLPerf scenario
   server_target_qps:
     desc: Set Server target QPS
   singlestream_target_latency:
     desc: Set SingleStream target latency
-  submission_dir:
-    desc: Folder path where submission tree (to be submitted) must be stored
-  submitter:
-    default: TheCommunity
-    desc: Submitter name (without space)
   target_latency:
     desc: Set Target latency
   target_qps:

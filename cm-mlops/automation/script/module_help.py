@@ -33,10 +33,20 @@ def print_help(i):
 
     input_description = meta.get('input_description', {})
     if len(input_description)>0:
+        # Check if has important ones (sort)
+        sorted_keys = []
+        all_keys = sorted(list(input_description.keys()))
+
+        for k in sorted(all_keys, key = lambda x: input_description[x].get('sort',0)):
+            v = input_description[k]
+            if v.get('sort',0)>0:
+                sorted_keys.append(k)
+        
+        
         print ('')
         print ('Available flags (Python API dict keys):')
         print ('')
-        for k in sorted(input_description):
+        for k in all_keys:
             v = input_description[k]
             n = v.get('desc','')
 
@@ -44,6 +54,33 @@ def print_help(i):
             if n!='': x+='  ({})'.format(n)
 
             print (x)
+
+        if len(sorted_keys)>0:
+            print ('')
+            print ('Main flags:')
+            print ('')
+            for k in sorted_keys:
+                v = input_description[k]
+                n = v.get('desc','')
+
+                x = '  --'+k
+
+                d = None
+                if 'default' in v:
+                    d = v.get('default','')
+
+                if d!=None:
+                    x+='='+d
+
+                c = v.get('choices',[])
+                if len(c)>0:
+                    x+='   {'+','.join(c)+'}'
+
+                if n!='': x+='   ({})'.format(n)
+
+                print (x)
+
+
 
     print ('')
     input ('Press Enter to see common flags for all scripts')

@@ -23,41 +23,6 @@ def postprocess(i):
 
     return {'return':0}
 
-##################################################################################
-def gui(i):
-
-    st = i['streamlit_module']
-    meta = i['meta']
-    gui_meta = meta['gui']
-
-    title = gui_meta['title']
-
-    # Title
-    st.title('[Collective Mind](https://github.com/mlcommons/ck)')
-
-    st.markdown('### {}'.format(title))
-
-    
-    
-    
-    # Check compute
-    r=load_cfg({'tags':'benchmark,compute'})
-    if r['return']>0: return r            
-
-    selection = r['selection']
-    selection_desc = r['selection_desc']
-
-    # Creating compute selector
-    compute = st.selectbox('Select target hardware:',
-                           range(len(selection_desc)), 
-                           format_func=lambda x: selection_desc[x],
-                           index = 0,
-                           key = 'compute')
-
-    
-    
-    
-    return {'return':0}
 
 ##################################################################################
 def load_cfg(i):
@@ -120,6 +85,8 @@ def load_cfg(i):
                     elif t == 'ai 100': t = 'AI 100'
                     elif t == 'amd': t = 'AMD'
                     elif t == 'x64': t = 'x64'
+                    elif t == 'mlperf': t = 'MLPerf'
+                    elif t == 'mlperf-abtf': t = 'MLPerf - ABTF'
                     else:
                         t = t.capitalize()
                     
@@ -137,9 +104,70 @@ def load_cfg(i):
 
                 metas.append(dd)
 
-    # Prepare selector
-
-
-
-   
     return {'return':0, 'lst':lst, 'all_meta':metas, 'selection':selection, 'selection_desc':selection_desc}
+
+##################################################################################
+def gui(i):
+
+    st = i['streamlit_module']
+    meta = i['meta']
+    gui_meta = meta['gui']
+
+    skip_header = i.get('skip_title', False)
+    
+    if not skip_header:
+        # Title
+        title = gui_meta['title']
+
+        st.title('[Collective Mind](https://github.com/mlcommons/ck)')
+
+        st.markdown('### {}'.format(title))
+
+    
+    
+    
+    ##############################################################
+    # Check compute
+    r=load_cfg({'tags':'benchmark,compute'})
+    if r['return']>0: return r            
+
+    compute_all_meta = r['all_meta']
+    compute_selection = r['selection']
+    compute_selection_desc = r['selection_desc']
+
+    # Creating compute selector
+    compute_id = st.selectbox('Select target hardware:',
+                               range(len(compute_selection_desc)), 
+                               format_func=lambda x: compute_selection_desc[x],
+                               index = 0,
+                               key = 'compute')
+
+    if compute_id==0:
+        return {'return':0}
+
+    st.markdown(str(compute_all_meta[compute_id-1]))
+
+    
+    ##############################################################
+    # Check compute
+    r=load_cfg({'tags':'benchmark,run'})
+    if r['return']>0: return r            
+
+    run_all_meta = r['all_meta']
+    run_selection = r['selection']
+    run_selection_desc = r['selection_desc']
+
+    # Creating compute selector
+    run_id = st.selectbox('Select benchmark:',
+                           range(len(run_selection_desc)), 
+                           format_func=lambda x: run_selection_desc[x],
+                           index = 0,
+                           key = 'run')
+
+    if run_id>0:
+        st.markdown(str(run_all_meta[run_id-1]))
+
+        
+
+    return {'return':0}
+
