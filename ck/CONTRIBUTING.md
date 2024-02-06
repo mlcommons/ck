@@ -69,5 +69,5 @@
 * @filven
 * @ValouBambou
 
-See more acknowledgments at the end of this [article](https://arxiv.org/abs/2011.01149)
+See more acknowledgments at the end of this [article](https://doi.org/10.1098/rsta.2020.0211)
 describing Collective Knowledge v1 concepts.

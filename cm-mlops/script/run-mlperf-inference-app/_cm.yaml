@@ -5,7 +5,9 @@ automation_alias: script
 automation_uid: 5b4e0237da074764
 
 category: Modular MLPerf inference benchmark pipeline
-gui_title: CM GUI to run the MLPerf inference benchmark and prepare submissions
+
+gui:
+  title: CM GUI to run MLPerf inference benchmarks and prepare submissions
 
 clean_output_files:
 - open.tar.gz

@@ -112,6 +112,10 @@ ___
         - *CUDNN_LIBRARY_PATH*: `<<<CM_CUDA_PATH_LIB_CUDNN>>>`
         - *CUDNN_INCLUDE_PATH*: `<<<CM_CUDA_PATH_INCLUDE_CUDNN>>>`
         - *CUDA_NVCC_EXECUTABLE*: `<<<CM_NVCC_BIN_WITH_PATH>>>`
+        - *USE_CUDA*: `1`
+        - *USE_CUDNN*: `1`
+        - *TORCH_CUDA_ARCH_LIST*: `Ampere Ada Hopper`
+        - *TORCH_CXX_FLAGS*: `-D_GLIBCXX_USE_CXX11_ABI=1`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,cuda,_cudnn
@@ -170,12 +174,8 @@ ___
              * CM names: `--adr.['conda-package', 'libstdcxx-ng']...`
              - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
     * `_for-nvidia-mlperf-inference-v3.1-gptj`
-      - Environment variables:
-        - *CM_CONDA_ENV*: `yes`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * get,conda,_name.nvidia
-             - CM script: [get-conda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)
            * get,cmake
              - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
     * `_sha.#`

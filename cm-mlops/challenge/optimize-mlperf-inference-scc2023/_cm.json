@@ -2,7 +2,7 @@
   "alias": "optimize-mlperf-inference-scc2023",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "_date_close": "20231115",
+  "date_close": "20231115",
   "date_open": "20230915",
   "tags": [
     "automate",

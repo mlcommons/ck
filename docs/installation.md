@@ -21,7 +21,7 @@
 
 # CM installation
 
-The CM language requires minimal dependencies to run on any platform: `python 3+, pip, git, wget`.
+MLCommons Collective Mind framework requires minimal dependencies to run on any platform: `python 3+, pip, git, wget`.
 However, most CM automation recipes shared by the community and MLCommons require Python 3.7+ .
 
 ***By default, CM will pull Git repositories and cache installations and downloaded files in your `$HOME/CM` directory (Linux/MacOS). 

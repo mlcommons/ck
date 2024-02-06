@@ -47,6 +47,5 @@
     }
   },
   "docker": {
-    "run": false
   }
 }

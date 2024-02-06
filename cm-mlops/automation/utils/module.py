@@ -851,3 +851,30 @@ class CAutomation(Automation):
 
         return {'return':0, 'new_input':i_run_cmd_arc}
 
+
+    ##############################################################################
+    def uid(self, i):
+        """
+        Generate CM UID.
+
+        Args:
+          (CM input dict): empty dict
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+          * uid (str): CM UID
+        """
+
+        console = i.get('out') == 'con'
+
+        r = utils.gen_uid()
+
+        if console:
+            print (r['uid'])
+
+        return r
+

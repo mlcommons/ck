@@ -19,10 +19,10 @@ CM scripts can easily chained together into automation workflows using `deps` an
 while automatically updating all environment variables and paths 
 for a given task and platform [using simple JSON or YAML](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml).
 
+
 *Note that CM is a community project being developed and extended by [MLCommons members and individual contributors](../CONTRIBUTING.md) -
  you can find source code of CM scripts maintained by MLCommons [here](../cm-mlops/script).
  Please join [Discord server](https://discord.gg/JjWNWXKxwT) to participate in collaborative developments or provide your feedback.*
-
 
 
 # License
@@ -105,7 +105,7 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [get-qaic-software-kit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-software-kit)
 * [get-rocm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rocm)
 * [get-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm)
-* [install-qaic-compute-sdk-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-qaic-compute-sdk-from.src)
+* [install-qaic-compute-sdk-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-qaic-compute-sdk-from-src)
 * [install-rocm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-rocm)
 * [install-tensorflow-for-c](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-for-c)
 * [install-tensorflow-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src)
@@ -179,13 +179,13 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [get-go](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-go)
 * [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm) *(Detect or install LLVM compiler)*
 * [install-gcc-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-gcc-src)
-* [install-ipex-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from.src) *(Build IPEX from sources)*
+* [install-ipex-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from-src) *(Build IPEX from sources)*
 * [install-llvm-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt) *(Install prebuilt LLVM compiler)*
 * [install-llvm-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src) *(Build LLVM compiler from sources (can take >30 min))*
-* [install-onednn-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onednn-from.src) *(Build oneDNN from sources)*
-* [install-onnxruntime-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from.src) *(Build onnxruntime from sources)*
-* [install-pytorch-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from.src) *(Build pytorch from sources)*
-* [install-transformers-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-transformers-from.src) *(Build transformers from sources)*
+* [install-onednn-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onednn-from-src) *(Build oneDNN from sources)*
+* [install-onnxruntime-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from-src) *(Build onnxruntime from sources)*
+* [install-pytorch-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src) *(Build pytorch from sources)*
+* [install-transformers-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-transformers-from-src) *(Build transformers from sources)*
 
 ### Dashboard automation
 
@@ -277,11 +277,14 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [generate-mlperf-tiny-report](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-tiny-report)
 * [generate-mlperf-tiny-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-tiny-submission)
 * [generate-nvidia-engine](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-nvidia-engine)
+* [get-mlperf-inference-intel-scratch-space](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-intel-scratch-space)
 * [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)
 * [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
 * [get-mlperf-inference-nvidia-scratch-space](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-scratch-space)
 * [get-mlperf-inference-results](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results)
+* [get-mlperf-inference-results-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results-dir)
 * [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+* [get-mlperf-inference-submission-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir)
 * [get-mlperf-inference-sut-configs](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs)
 * [get-mlperf-inference-sut-description](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)
 * [get-mlperf-logging](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-logging)
@@ -294,7 +297,7 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [import-mlperf-inference-to-experiment](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment)
 * [import-mlperf-tiny-to-experiment](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-tiny-to-experiment)
 * [import-mlperf-training-to-experiment](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-training-to-experiment)
-* [install-mlperf-logging-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from.src)
+* [install-mlperf-logging-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from-src)
 * [prepare-training-data-bert](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-bert)
 * [prepare-training-data-resnet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-resnet)
 * [preprocess-mlperf-inference-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/preprocess-mlperf-inference-submission)
@@ -426,6 +429,7 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [create-conda-env](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-conda-env)
 * [create-fpgaconvnet-app-tinyml](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-fpgaconvnet-app-tinyml)
 * [create-fpgaconvnet-config-tinyml](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-fpgaconvnet-config-tinyml)
+* [create-patch](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/create-patch)
 * [destroy-terraform](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/destroy-terraform)
 * [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
 * [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
@@ -434,6 +438,7 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
 * [download-torrent](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-torrent)
 * [extract-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/extract-file)
+* [fail](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/fail)
 * [flash-tinyml-binary](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/flash-tinyml-binary)
 * [generate-mlperf-inference-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission)
 * [generate-mlperf-inference-user-conf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf)
@@ -514,11 +519,14 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [get-ml-model-tiny-resnet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-tiny-resnet)
 * [get-ml-model-using-imagenet-from-model-zoo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-using-imagenet-from-model-zoo)
 * [get-mlcommons-croissant](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlcommons-croissant)
+* [get-mlperf-inference-intel-scratch-space](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-intel-scratch-space)
 * [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)
 * [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
 * [get-mlperf-inference-nvidia-scratch-space](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-scratch-space)
 * [get-mlperf-inference-results](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results)
+* [get-mlperf-inference-results-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results-dir)
 * [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+* [get-mlperf-inference-submission-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir)
 * [get-mlperf-inference-sut-configs](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs)
 * [get-mlperf-inference-sut-description](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)
 * [get-mlperf-logging](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-logging)
@@ -569,23 +577,24 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
 * [install-gflags](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-gflags)
 * [install-github-cli](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-github-cli)
-* [install-ipex-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from.src) *(Build IPEX from sources)*
+* [install-ipex-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from-src) *(Build IPEX from sources)*
 * [install-llvm-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt) *(Install prebuilt LLVM compiler)*
 * [install-llvm-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src) *(Build LLVM compiler from sources (can take >30 min))*
-* [install-mlperf-logging-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from.src)
-* [install-onednn-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onednn-from.src) *(Build oneDNN from sources)*
-* [install-onnxruntime-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from.src) *(Build onnxruntime from sources)*
+* [install-mlperf-logging-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from-src)
+* [install-nccl-libs](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-nccl-libs)
+* [install-onednn-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onednn-from-src) *(Build oneDNN from sources)*
+* [install-onnxruntime-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from-src) *(Build onnxruntime from sources)*
 * [install-openssl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-openssl)
 * [install-python-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src)
 * [install-python-venv](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv)
-* [install-pytorch-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from.src) *(Build pytorch from sources)*
-* [install-qaic-compute-sdk-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-qaic-compute-sdk-from.src)
+* [install-pytorch-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src) *(Build pytorch from sources)*
+* [install-qaic-compute-sdk-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-qaic-compute-sdk-from-src)
 * [install-rocm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-rocm)
 * [install-tensorflow-for-c](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-for-c)
 * [install-tensorflow-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src)
 * [install-terraform-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-terraform-from-src)
 * [install-tflite-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tflite-from-src)
-* [install-transformers-from.src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-transformers-from.src) *(Build transformers from sources)*
+* [install-transformers-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-transformers-from-src) *(Build transformers from sources)*
 * [prepare-training-data-bert](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-bert)
 * [prepare-training-data-resnet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-resnet)
 * [preprocess-mlperf-inference-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/preprocess-mlperf-inference-submission)
@@ -634,7 +643,3 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 
 
 
-
-# Community developments
-
-* [Discord server](https://discord.gg/JjWNWXKxwT)

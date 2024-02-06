@@ -2,7 +2,7 @@
 
 ## Project overview
 
-* Philosophical Transactions of the Royal Society: [paper](https://arxiv.org/abs/2011.01149), [shorter pre-print](https://arxiv.org/abs/2006.07161)
+* Philosophical Transactions of the Royal Society: [paper](https://doi.org/10.1098/rsta.2020.0211), [shorter pre-print](https://arxiv.org/abs/2006.07161)
 
 [<img src="https://img.youtube.com/vi/7zpeIVwICa4/0.jpg" width="320">](https://youtu.be/7zpeIVwICa4)
 

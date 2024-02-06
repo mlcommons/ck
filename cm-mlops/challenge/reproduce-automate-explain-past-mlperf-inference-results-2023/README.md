@@ -10,9 +10,7 @@ them by the community.
 A detailed experience report must be provided - if accepted, you will be able to present your findings 
 at the upcoming HiPEAC'23 workshop and our upcoming white paper with MLCommons.
 
-Join our public [Discord server](https://discord.gg/JjWNWXKxwT) and/or
-our [weekly conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit)
-to discuss this challenge with the organizers.
+Join our public [Discord server](https://discord.gg/JjWNWXKxwT) to discuss this challenge with the organizers.
 
 Read [this documentation](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md) 
 to run reference implementations of MLPerf inference benchmarks 
@@ -23,7 +21,7 @@ Check [this ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn
 ### Prizes
 
 * *All contributors will be able to present their findings at the HiPEAC workshop on reproducibility and participate in writing a common white paper about running and comparing MLPerf inference benchmarks.*
-* *All contributors will receive 2 point*
+* *All contributors will receive 2 points*
 * *All contributors will receive an official MLCommons Collective Knowledge contributor award (see [this example](https://ctuning.org/awards/ck-award-202307-zhu.pdf)).*
 
 

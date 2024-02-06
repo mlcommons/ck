@@ -189,21 +189,21 @@ versions:
       nvidia-inference-common-code:
         version: r2.1
       nvidia-scratch-space:
-        tags: version.2_1
+        tags: _version.2_1
 
   r3.0:
     add_deps_recursive:
       nvidia-inference-common-code:
         version: r3.0
       nvidia-scratch-space:
-        tags: version.3_0
+        tags: _version.3_0
 
   r3.1:
     add_deps_recursive:
       nvidia-inference-common-code:
         version: r3.1
       nvidia-scratch-space:
-        tags: version.3_1
+        tags: _version.4_0
     deps:
       - tags: install,nccl,libs,_cuda
       - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
@@ -213,6 +213,8 @@ versions:
 docker:
   skip_run_cmd: 'no'
   all_gpus: 'yes'
+  shm_size: '32gb'
+  extra_run_args: ' --ulimit memlock=-1 --cap-add SYS_ADMIN --cap-add SYS_TIME'
   docker_os: ubuntu
   docker_real_run: False
   interactive: True
@@ -230,8 +232,15 @@ docker:
     scratch_path: MLPERF_SCRATCH_PATH
   deps:
     - tags: get,mlperf,inference,nvidia,scratch,space
+    - tags: get,mlperf,inference,results,dir
+    - tags: get,mlperf,inference,submission,dir
+  pre_run_cmds:
+    - cd CM/repos/ctuning@mlcommons-ck && git pull
+  run_cmd_prefix: sudo apt remove -y cmake && cd CM/repos/ctuning@mlcommons-ck && git pull && cd -
   mounts:
    - "${{ IMAGENET_PATH }}:/data/imagenet-val"
+   - "${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}:${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}"
+   - "${{ CM_MLPERF_INFERENCE_SUBMISSION_DIR }}:${{ CM_MLPERF_INFERENCE_SUBMISSION_DIR }}"
    - "${{ RESULTS_DIR }}:/home/cmuser/results_dir"
    - "${{ SUBMISSION_DIR }}:/home/cmuser/submission_dir"
    - "${{ CM_CUDNN_TAR_FILE_PATH }}:${{ CM_CUDNN_TAR_FILE_PATH }}"

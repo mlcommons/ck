@@ -79,24 +79,30 @@ def postprocess(i):
     port_map_cmds = []
     run_opts = ''
 
-    if 'CM_DOCKER_PRE_RUN_COMMANDS' in env:
+    if env.get('CM_DOCKER_PRE_RUN_COMMANDS', []):
         for pre_run_cmd in env['CM_DOCKER_PRE_RUN_COMMANDS']:
             run_cmds.append(pre_run_cmd)
 
-    if 'CM_DOCKER_VOLUME_MOUNTS' in env:
+    if env.get('CM_DOCKER_VOLUME_MOUNTS', []):
         for mounts in env['CM_DOCKER_VOLUME_MOUNTS']:
             mount_cmds.append(mounts)
 
-    if 'CM_DOCKER_PASS_USER_GROUP' in env:
+    if env.get('CM_DOCKER_PASS_USER_GROUP', '') != '':
         run_opts += " --group-add $(id -g $USER) "
 
-    if 'CM_DOCKER_ADD_DEVICE' in env:
+    if env.get('CM_DOCKER_ADD_DEVICE', '') != '':
         run_opts += " --device="+env['CM_DOCKER_ADD_DEVICE']
 
-    if 'CM_DOCKER_ADD_ALL_GPUS' in env:
+    if env.get('CM_DOCKER_ADD_ALL_GPUS', '') != '':
         run_opts += " --gpus=all"
 
-    if 'CM_DOCKER_PORT_MAPS' in env:
+    if env.get('CM_DOCKER_SHM_SIZE', '') != '':
+        run_opts += " --shm-size={}".format(env['CM_DOCKER_SHM_SIZE'])
+
+    if env.get('CM_DOCKER_EXTRA_RUN_ARGS', '') != '':
+        run_opts += env['CM_DOCKER_EXTRA_RUN_ARGS']
+
+    if env.get('CM_DOCKER_PORT_MAPS', []):
         for ports in env['CM_DOCKER_PORT_MAPS']:
             port_map_cmds.append(ports)
 

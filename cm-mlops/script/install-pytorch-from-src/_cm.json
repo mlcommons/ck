@@ -224,17 +224,11 @@
         "sha.b5021ba9",
         "cuda"
       ],
-      "env": {
-        "CM_CONDA_ENV": "yes"
-      },
       "deps": [
         {
-          "tags": "get,conda,_name.nvidia"
-        },
-        {
           "tags": "get,cmake",
-          "version_min": "3.18"
-	}
+          "version_min": "3.25.0"
+	      }
       ]
     },
     "cuda": {
@@ -248,7 +242,11 @@
         "CUDA_HOME": "<<<CM_CUDA_INSTALLED_PATH>>>",
         "CUDNN_LIBRARY_PATH": "<<<CM_CUDA_PATH_LIB_CUDNN>>>",
         "CUDNN_INCLUDE_PATH": "<<<CM_CUDA_PATH_INCLUDE_CUDNN>>>",
-        "CUDA_NVCC_EXECUTABLE": "<<<CM_NVCC_BIN_WITH_PATH>>>"
+        "CUDA_NVCC_EXECUTABLE": "<<<CM_NVCC_BIN_WITH_PATH>>>",
+        "USE_CUDA": "1",
+        "USE_CUDNN": "1",
+        "TORCH_CUDA_ARCH_LIST": "Ampere Ada Hopper",
+        "TORCH_CXX_FLAGS": "-D_GLIBCXX_USE_CXX11_ABI=1"
       }
     }
   },

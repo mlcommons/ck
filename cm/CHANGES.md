@@ -1,8 +1,9 @@
-## V1.6.1
+## V1.6.2
    - improved --help for common automations and CM scripts (automation recipes)
    - fixed a few minor bugs
    - added support to print directories and files for a given CM entry
      via "cm info {automation} {artifact|--tags}"
+   - fixed "cm pull repo" if repo already exists
 
 ## V1.6.0
    - added support for Python 3.12 (removed "pkg" dependency)

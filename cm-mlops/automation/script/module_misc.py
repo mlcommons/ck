@@ -1379,13 +1379,15 @@ def dockerfile(i):
 
         i_run_cmd = r['run_cmd']
 
+        docker_run_cmd_prefix = i.get('docker_run_cmd_prefix', docker_settings.get('run_cmd_prefix', ''))
+
         r = regenerate_script_cmd({'script_uid':script_uid,
                                    'script_alias':script_alias,
                                    'run_cmd':i_run_cmd,
                                    'tags':tags,
                                    'fake_run':True,
                                    'docker_settings':docker_settings,
-                                   'docker_run_cmd_prefix':i.get('docker_run_cmd_prefix','')})
+                                   'docker_run_cmd_prefix':docker_run_cmd_prefix})
         if r['return']>0: return r
 
         run_cmd  = r['run_cmd_string']
@@ -1468,6 +1470,21 @@ def dockerfile(i):
         print("Dockerfile generated at "+dockerfile_path)
 
     return {'return':0}
+
+def get_container_path(value):
+    path_split = value.split(os.sep)
+    if len(path_split) == 1:
+        return value
+
+    new_value = ''
+    if "cache" in path_split and "local" in path_split:
+        new_path_split = [ "", "home", "cmuser" ]
+        repo_entry_index = path_split.index("local")
+        new_path_split += path_split[repo_entry_index:]
+        return "/".join(new_path_split)
+
+    return value
+
 
 ############################################################
 def docker(i):
@@ -1629,6 +1646,7 @@ def docker(i):
             if c_input in i:
                 env[docker_input_mapping[c_input]] = i[c_input]
 
+        container_env_string = '' # env keys corresponding to container mounts are explicitly passed to the container run cmd
         for index in range(len(mounts)):
             mount = mounts[index]
 
@@ -1663,7 +1681,8 @@ def docker(i):
             if tmp_values:
                 for tmp_value in tmp_values:
                     if tmp_value in env:
-                        new_container_mount = env[tmp_value]
+                        new_container_mount = get_container_path(env[tmp_value])
+                        container_env_string += "--env.{}={} ".format(tmp_value, new_container_mount)
                     else:# we skip those mounts
                         mounts[index] = None
                         skip = True
@@ -1694,6 +1713,8 @@ def docker(i):
 
         docker_pre_run_cmds = i.get('docker_pre_run_cmds', []) +  docker_settings.get('pre_run_cmds', [])
 
+        docker_run_cmd_prefix = i.get('docker_run_cmd_prefix', docker_settings.get('run_cmd_prefix', ''))
+
         all_gpus = i.get('docker_all_gpus', docker_settings.get('all_gpus'))
 
         device = i.get('docker_device', docker_settings.get('device'))
@@ -1701,6 +1722,10 @@ def docker(i):
         gh_token = i.get('docker_gh_token')
 
         port_maps = i.get('docker_port_maps', docker_settings.get('port_maps', []))
+
+        shm_size = i.get('docker_shm_size', docker_settings.get('shm_size', ''))
+
+        extra_run_args = i.get('docker_extra_run_args', docker_settings.get('extra_run_args', ''))
 
         if detached == '':
             detached = docker_settings.get('detached', '')
@@ -1729,7 +1754,8 @@ def docker(i):
                                    'docker_run_cmd_prefix':i.get('docker_run_cmd_prefix','')})
         if r['return']>0: return r
 
-        run_cmd  = r['run_cmd_string']
+        run_cmd  = r['run_cmd_string'] + ' ' + container_env_string + ' --docker_run_deps '
+
         env['CM_RUN_STATE_DOCKER'] = True
 
         if docker_settings.get('mount_current_dir','')=='yes':
@@ -1780,6 +1806,12 @@ def docker(i):
 
         if port_maps:
             cm_docker_input['port_maps'] = port_maps
+
+        if shm_size != '':
+            cm_docker_input['shm_size'] = shm_size
+
+        if extra_run_args != '':
+            cm_docker_input['extra_run_args'] = extra_run_args
 
         print ('')
 

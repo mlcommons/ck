@@ -5,9 +5,7 @@ Add CM interface to run MLPerf inference benchmarks on Intel-based platforms.
 You can start from reproducing any past MLPerf inference submission from Intel and their partners
 and then adding CM automation.
 
-Join our public [Discord server](https://discord.gg/JjWNWXKxwT) and/or
-our [weekly conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit)
-to discuss this challenge with the organizers.
+Join our public [Discord server](https://discord.gg/JjWNWXKxwT) to discuss this challenge with the organizers.
 
 Read [this documentation](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md) 
 to run reference implementations of MLPerf inference benchmarks 

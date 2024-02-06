@@ -2,7 +2,7 @@
 <br>
 <br>
 
-**Note that this directory is in archive mode since the [Collective Knowledge framework (v1 and v2)](https://arxiv.org/abs/2011.01149) 
+**Note that this directory is in archive mode since the [Collective Knowledge framework (v1 and v2)](https://doi.org/10.1098/rsta.2020.0211) 
   is now officially discontinued in favour of the new, light-weight, non-intrusive and technology-agnostic 
   [Collective Mind workflow automation language](https://doi.org/10.5281/zenodo.8105339) being developed, supported 
   and maintained by the [MLCommons](https://mlcommons.org), [cTuning.org](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org).**
@@ -280,5 +280,5 @@ The community provides Docker containers to test CK and components using differe
 
 We would like to thank all [contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
 and [collaborators](https://cKnowledge.org/partners.html) for their support, fruitful discussions, 
-and useful feedback! See more acknowledgments in the [CK journal article](https://arxiv.org/abs/2011.01149)
+and useful feedback! See more acknowledgments in the [CK journal article](https://doi.org/10.1098/rsta.2020.0211)
 and [ACM TechTalk'21](https://www.youtube.com/watch?v=7zpeIVwICa4).

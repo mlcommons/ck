@@ -286,14 +286,6 @@ class Repos:
                 os.chdir(path_to_repo)
 
                 cmd = 'git pull'
-                # Attempt to clone
-                os.chdir(self.full_path_to_repos)
-
-                cmd = 'git clone '+url+' '+alias
-
-                # Check if depth is set
-                if depth!=None and depth!='':
-                    cmd+=' --depth '+str(depth)
             else:
                 # Attempt to clone
                 clone = True

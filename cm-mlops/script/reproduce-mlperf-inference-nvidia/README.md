@@ -270,6 +270,17 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_gptj_`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_package.datasets
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.simplejson
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_preprocess_data,gptj_`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,ml-model,gptj,_pytorch,_rclone
+             * CM names: `--adr.['gptj-model']...`
+             - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)
 
     </details>
 
@@ -317,25 +328,30 @@ ___
         - *CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE*: `#`
         - *CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX2*: `dla_batch_size.#`
       - Workflow:
-    * `_gptj_,_build`
+    * `_gptj_,build`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * install,torch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
-             - *Warning: no scripts found*
+           * install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+             - CM script: [install-pytorch-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src)
            * get,cmake
              - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
-    * `_gptj_,_build_engine`
+    * `_gptj_,build_engine`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * install,torch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
-             - *Warning: no scripts found*
+           * install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+             - CM script: [install-pytorch-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src)
            * get,cmake
              - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
-    * `_gptj_,_run_harness`
+    * `_gptj_,run_harness`
+      - Environment variables:
+        - *CM_MLPERF_NVIDIA_HARNESS_USE_FP8*: `True`
+        - *CM_MLPERF_NVIDIA_HARNESS_ENABLE_SORT*: `True`
+        - *CM_MLPERF_NVIDIA_HARNESS_NUM_SORT_SEGMENTS*: `2`
+        - *CM_MLPERF_NVIDIA_HARNESS_SKIP_POSTPROCESS*: `True`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * install,torch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
-             - *Warning: no scripts found*
+           * install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+             - CM script: [install-pytorch-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src)
            * get,cmake
              - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
     * `_gpu_memory.16,3d-unet_,offline,run_harness`
@@ -351,6 +367,11 @@ ___
     * `_gpu_memory.16,dlrm_,offline,run_harness`
       - Environment variables:
         - *CM_MODEL_BATCH_SIZE*: `1400`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
+      - Workflow:
+    * `_gpu_memory.16,gptj_,offline,run_harness`
+      - Environment variables:
+        - *CM_MODEL_BATCH_SIZE*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.16,resnet50,offline,run_harness`
@@ -382,6 +403,11 @@ ___
     * `_gpu_memory.24,dlrm_,offline,run_harness`
       - Environment variables:
         - *CM_MODEL_BATCH_SIZE*: `1400`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
+      - Workflow:
+    * `_gpu_memory.24,gptj_,offline,run_harness`
+      - Environment variables:
+        - *CM_MODEL_BATCH_SIZE*: `2`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.24,resnet50,offline,run_harness`
@@ -416,6 +442,11 @@ ___
         - *CM_MODEL_BATCH_SIZE*: `1400`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
+    * `_gpu_memory.32,gptj_,offline,run_harness`
+      - Environment variables:
+        - *CM_MODEL_BATCH_SIZE*: `3`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
+      - Workflow:
     * `_gpu_memory.32,resnet50,offline,run_harness`
       - Environment variables:
         - *CM_MODEL_BATCH_SIZE*: `2048`
@@ -444,6 +475,11 @@ ___
     * `_gpu_memory.40,dlrm_,offline,run_harness`
       - Environment variables:
         - *CM_MODEL_BATCH_SIZE*: `1400`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
+      - Workflow:
+    * `_gpu_memory.40,gptj_,offline,run_harness`
+      - Environment variables:
+        - *CM_MODEL_BATCH_SIZE*: `4`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.40,resnet50,offline,run_harness`
@@ -476,6 +512,11 @@ ___
         - *CM_MODEL_BATCH_SIZE*: `1400`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
+    * `_gpu_memory.48,gptj_,offline,run_harness`
+      - Environment variables:
+        - *CM_MODEL_BATCH_SIZE*: `4`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
+      - Workflow:
     * `_gpu_memory.48,resnet50,offline,run_harness`
       - Environment variables:
         - *CM_MODEL_BATCH_SIZE*: `2048`
@@ -504,6 +545,11 @@ ___
     * `_gpu_memory.80,dlrm_,offline,run_harness`
       - Environment variables:
         - *CM_MODEL_BATCH_SIZE*: `1400`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
+      - Workflow:
+    * `_gpu_memory.80,gptj_,offline,run_harness`
+      - Environment variables:
+        - *CM_MODEL_BATCH_SIZE*: `7`
         - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `<<<CM_MODEL_BATCH_SIZE>>>`
       - Workflow:
     * `_gpu_memory.80,resnet50,offline,run_harness`
@@ -1315,6 +1361,7 @@ ___
 * `--dla_batch_size=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE=value`
 * `--dla_copy_streams=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DLA_COPY_STREAMS=value`
 * `--dla_inference_streams=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DLA_INFERENCE_STREAMS=value`
+* `--enable_sort=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_ENABLE_SORT=value`
 * `--end_on_device=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_END_ON_DEVICE=value`
 * `--extra_run_options=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_EXTRA_RUN_OPTIONS=value`
 * `--gpu_batch_size=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE=value`
@@ -1330,6 +1377,7 @@ ___
 * `--mode=value`  &rarr;  `CM_MLPERF_LOADGEN_MODE=value`
 * `--multistream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY=value`
 * `--num_issue_query_threads=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_NUM_ISSUE_QUERY_THREADS=value`
+* `--num_sort_segments=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_NUM_SORT_SEGMENTS=value`
 * `--num_warmups=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS=value`
 * `--offline_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS=value`
 * `--output_dir=value`  &rarr;  `CM_MLPERF_OUTPUT_DIR=value`
@@ -1340,6 +1388,7 @@ ___
 * `--scenario=value`  &rarr;  `CM_MLPERF_LOADGEN_SCENARIO=value`
 * `--server_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_SERVER_TARGET_QPS=value`
 * `--singlestream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY=value`
+* `--skip_postprocess=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_SKIP_POSTPROCESS=value`
 * `--skip_preprocess=value`  &rarr;  `CM_SKIP_PREPROCESS_DATASET=value`
 * `--skip_preprocessing=value`  &rarr;  `CM_SKIP_PREPROCESS_DATASET=value`
 * `--soft_drop=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_SOFT_DROP=value`
@@ -1348,6 +1397,7 @@ ___
 * `--target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_TARGET_QPS=value`
 * `--use_cuda_thread_per_device=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_USE_CUDA_THREAD_PER_DEVICE=value`
 * `--use_deque_limit=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT=value`
+* `--use_fp8=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_USE_FP8=value`
 * `--use_graphs=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS=value`
 * `--use_small_tile_gemm_plugin=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_USE_SMALL_TILE_GEMM_PLUGIN=value`
 * `--use_triton=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_USE_TRITON=value`
@@ -1448,7 +1498,7 @@ ___
        * `if (CM_MODEL in ['gptj-99', 'gptj-99.9'] AND CM_MLPERF_NVIDIA_HARNESS_RUN_MODE  == preprocess_dataset)`
        * CM names: `--adr.['openorca-original']...`
        - CM script: [get-dataset-openorca](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openorca)
-     * get,ml-model,gptj,_pytorch
+     * get,ml-model,gptj,_pytorch,_rclone
        * `if (CM_MODEL in ['gptj-99', 'gptj-99.9'] AND CM_MLPERF_NVIDIA_HARNESS_RUN_MODE  == download_model)`
        * CM names: `--adr.['gptj-model']...`
        - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)

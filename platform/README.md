@@ -43,7 +43,7 @@ led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
 * Join our [public conf-calls](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw).
 * Check our [news](docs/news.md).
 * Check our [presentation](https://doi.org/10.5281/zenodo.7871070) with development plans.
-* Read about our [CK concept (previous version before MLCommons)](https://arxiv.org/abs/2011.01149).
+* Read about our [CK concept (previous version before MLCommons)](https://doi.org/10.1098/rsta.2020.0211).
 
 #### Source code for on-prem use
 

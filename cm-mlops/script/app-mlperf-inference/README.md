@@ -187,6 +187,7 @@ ___
         - *CM_MLPERF_IMPLEMENTATION*: `nvidia-original`
         - *CM_SQUAD_ACCURACY_DTYPE*: `float16`
         - *CM_IMAGENET_ACCURACY_DTYPE*: `int32`
+        - *CM_CNNDM_ACCURACY_DTYPE*: `int32`
         - *CM_LIBRISPEECH_ACCURACY_DTYPE*: `int8`
       - Workflow:
         1. ***Read "deps" on other CM scripts***

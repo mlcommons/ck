@@ -35,7 +35,7 @@ The MLCommons is developing an open-source and technology-neutral
 to modularize ML Systems and automate their benchmarking, optimization 
 and design space exploration across continuously changing software, hardware and data.
 
-CM is the second generation of the [MLCommons CK workflow automation framework](https://arxiv.org/pdf/2011.01149.pdf) 
+CM is the second generation of the [MLCommons CK workflow automation framework](https://doi.org/10.1098/rsta.2020.0211) 
 that was originally developed to make it easier to [reproduce research papers at ML and Systems conferences](https://learning.acm.org/techtalks/reproducibility).
 The goal is to help researchers unify and automate all the steps to prepare and run MLPerf and other benchmarks
 across diverse ML models, datasets, frameworks, compilers and hardware (see [HPCA'22 presentation](https://doi.org/10.5281/zenodo.6475385) about our motivation).

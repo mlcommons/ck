@@ -11,6 +11,7 @@
   * [ Run this script via GUI](#run-this-script-via-gui)
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -47,9 +48,11 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=run,natively,all,mlperf-models `
+1. `cm run script --tags=run,natively,all,mlperf-models[,variations] `
 
-2. `cmr "run natively all mlperf-models" `
+2. `cmr "run natively all mlperf-models[ variations]" `
+
+* `variations` can be seen [here](#variations)
 
 #### Run this script from Python
 
@@ -85,11 +88,106 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run,natively,all,mlper
 
 #### Run this script via Docker (beta)
 
-`cm docker script "run natively all mlperf-models" `
+`cm docker script "run natively all mlperf-models[ variations]" `
 
 ___
 ### Customization
 
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_phoenix,reference`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**implementation**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_deepsparse`
+      - Environment variables:
+        - *DIVISION*: `open`
+        - *IMPLEMENTATION*: `deepsparse`
+      - Workflow:
+    * `_intel`
+      - Environment variables:
+        - *IMPLEMENTATION*: `intel`
+      - Workflow:
+    * `_mil`
+      - Environment variables:
+        - *IMPLEMENTATION*: `mil`
+      - Workflow:
+    * `_nvidia`
+      - Environment variables:
+        - *IMPLEMENTATION*: `nvidia`
+      - Workflow:
+    * `_qualcomm`
+      - Environment variables:
+        - *IMPLEMENTATION*: `qualcomm`
+      - Workflow:
+    * `_reference`
+      - Environment variables:
+        - *IMPLEMENTATION*: `reference`
+      - Workflow:
+    * `_tflite-cpp`
+      - Environment variables:
+        - *IMPLEMENTATION*: `tflite_cpp`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**power**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_performance-only`** (default)
+      - Workflow:
+    * `_power`
+      - Environment variables:
+        - *POWER*: `True`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**sut**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_macbookpro-m1`
+      - Environment variables:
+        - *CATEGORY*: `edge`
+        - *DIVISION*: `closed`
+      - Workflow:
+    * `_orin.32g`
+      - Environment variables:
+        - *CATEGORY*: `edge`
+        - *DIVISION*: `closed`
+      - Workflow:
+    * `_phoenix`
+      - Environment variables:
+        - *CATEGORY*: `edge,datacenter`
+        - *DIVISION*: `closed`
+      - Workflow:
+    * `_sapphire-rapids.24c`
+      - Environment variables:
+        - *CATEGORY*: `edge,datacenter`
+        - *DIVISION*: `closed`
+      - Workflow:
+
+    </details>
+
+
+#### Default variations
+
+`_performance-only`
 #### Default environment
 
 <details>
@@ -128,7 +226,7 @@ ___
 
 ___
 ### Script output
-`cmr "run natively all mlperf-models"  -j`
+`cmr "run natively all mlperf-models[,variations]"  -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize

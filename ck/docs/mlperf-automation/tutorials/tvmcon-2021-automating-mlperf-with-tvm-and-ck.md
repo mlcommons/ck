@@ -38,7 +38,7 @@ hardware.
     * [Apache TVM](https://tvm.apache.org)
     * CK "plug&play" automation framework: [GitHub](https://github.com/ctuning/ck), 
       [Motivation](https://www.youtube.com/watch?v=7zpeIVwICa4), 
-      [ArXiv](https://arxiv.org/abs/2011.01149),
+      [journal paper](https://doi.org/10.1098/rsta.2020.0211),
       [automation actions](https://github.com/mlcommons/ck/tree/master/ck/repo/module),
       [MLOps components](https://github.com/mlcommons/ck-mlops)
     * [ACM REQUEST-ASPLOS'18: the 1st Reproducible Tournament on Pareto-efficient Image Classification](https://cknow.io/c/event/repro-request-asplos2018)

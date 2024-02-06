@@ -125,12 +125,13 @@ def page(st, params):
                 x = '''
                     <center>
                      <h3>Ongoing reproducibility and optimization challenges</h3>
+                     <small>Organized by the <a href="https://github.com/mlcommons/ck/blob/master/docs/taskforce.md">MLCommons Task Force on Automation and Reproducibility</a></small>
 <!--                     <i>
                       Participate in collaborative benchmarking, optimization and co-design of Pareto-efficient AI and ML Systems
                       (latency, throughput, power consumption, accuracy, costs and other metrics):
-                      <br>
-                      <br>
                      </i> -->
+                      <br>
+                      <br>
                     </center>
                     '''
                 st.write(x, unsafe_allow_html = True)
@@ -204,13 +205,13 @@ def page(st, params):
                         awards += '&#127942'
 
 
-                    prize = row.get('prize_short','')
-                    if prize!='':
-                        x += ' &nbsp;&nbsp;Prizes from [MLCommons organizations](https://mlcommons.org), [cTuning foundation](https://cTuning.org) and [cKnowledge.org](https:/cKnowledge.org): **{}**\n'.format(prize)
-                        if awards!='': awards+=' , '
-                        awards += prize
-
-                    xrow.append(awards)
+#                    prize = row.get('prize_short','')
+#                    if prize!='':
+#                        x += ' &nbsp;&nbsp;Prizes from [MLCommons organizations](https://mlcommons.org), [cTuning foundation](https://cTuning.org) and [cKnowledge.org](https:/cKnowledge.org): **{}**\n'.format(prize)
+#                        if awards!='': awards+=' , '
+#                        awards += prize
+#
+#                    xrow.append(awards)
 
 
                     if x!='':    
@@ -227,7 +228,7 @@ def page(st, params):
                 import numpy as np
                 
                 df = pd.DataFrame(data,
-                                  columns=['Challenge', 'Closing&nbsp;date', 'Extension', 'Contributor&nbsp;award and prizes from <a href="https://mlcommons.org">MLCommons&nbsp;organizations</a>, <a href="https://cTuning.org">cTuning foundation</a> and <a href="https://cKnowledge.org">cKnowledge.org</a>'])
+                                  columns=['Challenge', 'Closing&nbsp;date', 'Extension'])
                  
                 df.index+=1
 
