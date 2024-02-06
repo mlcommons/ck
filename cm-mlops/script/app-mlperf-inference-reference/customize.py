@@ -293,6 +293,7 @@ def get_run_cmd_reference(os_info, env, scenario_extra_options, mode_extra_optio
                  env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
                  scenario_extra_options + mode_extra_options + \
                 " --output-log-dir " + env['CM_MLPERF_OUTPUT_DIR'] + \
+                ' --dtype ' + env['CM_MLPERF_MODEL_PRECISION'] + \
                 " --model-path " + env['MODEL_DIR']
     elif "3d-unet" in env['CM_MODEL']:
 
