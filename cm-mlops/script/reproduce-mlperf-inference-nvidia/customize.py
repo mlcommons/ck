@@ -158,7 +158,7 @@ def preprocess(i):
           cmds.append(f"mkdir -p {os.path.dirname(fp8_model_path)}")
 
         if not os.path.exists(fp32_model_path):
-            env['CM_REQUIRE_GPTJ_MODEL_DOWNLOAD'] # download via prehook_deps
+            env['CM_REQUIRE_GPTJ_MODEL_DOWNLOAD'] = 'yes' # download via prehook_deps
             cmds.append(f"cp -r $GPTJ_CHECKPOINT_PATH {fp32_model_path}")
 
         model_name = "gptj"
