@@ -4,6 +4,8 @@ import streamlit as st
 import os
 import cmind
 
+import misc
+
 def main():
 
     var1 = '^' if os.name == 'nt' else '\\'
@@ -176,7 +178,7 @@ def main():
 
         if len(input_desc)>0:
             st.markdown("""---""")
-            st.subheader('Script flags')
+            st.subheader('All script flags')
 
             for key in sorted(input_desc, key = lambda x: input_desc[x].get('sort',0)):
                 value = input_desc[key]
