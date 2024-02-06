@@ -191,26 +191,26 @@ variations:
     env:
       CM_MLPERF_INFERENCE_VERSION: '2.1'
       CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r2.1_default
-    group: reproducibility
+    group: benchmark-version
 
   r3.0:
     env:
       CM_MLPERF_INFERENCE_VERSION: '3.0'
       CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r3.0_default
-    group: reproducibility
+    group: benchmark-version
 
   r3.1:
     env:
       CM_MLPERF_INFERENCE_VERSION: '3.1'
       CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r3.1_default
-    group: reproducibility
+    group: benchmark-version
 
   r4.0:
     default: true
     env:
       CM_MLPERF_INFERENCE_VERSION: '4.0'
       CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r4.0_default
-    group: reproducibility
+    group: benchmark-version
 
   short:
     add_deps_recursive:
@@ -272,6 +272,7 @@ input_description:
     - int8
     default: ''
     desc: MLPerf model precision
+    sort: 250
   implementation:
     choices:
     - reference

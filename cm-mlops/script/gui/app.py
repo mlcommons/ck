@@ -144,7 +144,9 @@ def main():
         # Prepare variation_groups
 #            st.markdown("""---""")
         if len(variations)>0:
-             st.subheader('Script variations')
+             st.subheader('Variations')
+
+             st.markdown('*Variations update multiple flags and environment variables*')
 
              variation_groups_order = meta.get('variation_groups_order',[])
              for variation in sorted(variation_groups):
@@ -177,11 +179,27 @@ def main():
         input_desc=meta.get('input_description',{})
 
         if len(input_desc)>0:
+            
             st.markdown("""---""")
-            st.subheader('All script flags')
 
-            for key in sorted(input_desc, key = lambda x: input_desc[x].get('sort',0)):
+            sort_keys = sorted([k for k in input_desc if input_desc[k].get('sort',0)>0])
+            other_keys = sorted([k for k in input_desc if input_desc[k].get('sort',0)==0])
+
+            all_keys = [] if len(sort_keys)==0 else sort_keys
+            all_keys += other_keys
+
+            if len(sort_keys)>0:
+                st.subheader('Main flags')
+            else:
+                st.subheader('All flags')
+
+            other_flags = False
+            for key in all_keys:
                 value = input_desc[key]
+
+                if len(sort_keys)>0 and value.get('sort',0)==0 and not other_flags:
+                    st.subheader('Other flags')
+                    other_flags = True
 
                 key2 = '@'+key
 
@@ -203,7 +221,6 @@ def main():
                 else:
                     desc = value
                     st_inputs[key2] = st.text_input(desc)
-
 
     # Check tags
     selected_variations=[]
