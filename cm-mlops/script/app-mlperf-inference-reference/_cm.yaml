@@ -882,6 +882,18 @@ variations:
       - tags: get,generic-python-lib,_package.accelerate
         names:
           - accelerate
+      - tags: get,generic-python-lib,_package.absl-py
+        names:
+          - absl-py
+      - tags: get,generic-python-lib,_package.evaluate
+        names:
+          - evaluate
+      - tags: get,generic-python-lib,_package.nltk
+        names:
+          - nltk
+      - tags: get,generic-python-lib,_package.rouge-score
+        names:
+          - rouge-score
 
   llama2-70b-99:
     group: models
