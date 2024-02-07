@@ -90,6 +90,9 @@ def load_cfg(i):
 
                         selection.append(meta)
 
+    # Sort by tags
+    selection = sorted(selection, key = lambda v: ','.join(v.get('tags',[])))
+
     return {'return':0, 'lst':lst, 'selection':selection}
 
 

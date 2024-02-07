@@ -1,0 +1,19 @@
+{
+  "alias": "repro-acm-ieee-micro2023",
+  "automation_alias": "report",
+  "automation_uid": "6462ecdba2054467",
+  "date": "20231113",
+  "redirect": "https://www.linkedin.com/pulse/micro-2023-artifact-evaluation-report-56th-ieeeacm-symposium-fursin-bsgwe",
+  "tags": [
+    "repro",
+    "reproducibility",
+    "artifact-evaluation",
+    "acm",
+    "ieee",
+    "micro",
+    "micro-2023",
+    "2023"
+  ],
+  "title": "Artifact Evaluation and Reproducibility at ACM/IEEE MICRO'23",
+  "uid": "0dd8d20394fd4197"
+}

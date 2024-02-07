@@ -15,3 +15,7 @@ Conference: [ACM/IEEE MICRO 2023](https://www.microarch.org/micro56)
 ## Artifacts with the CM interface
 
 * https://github.com/ctuning/cm-reproduce-research-projects
+
+## Our experience report
+
+* https://www.linkedin.com/pulse/micro-2023-artifact-evaluation-report-56th-ieeeacm-symposium-fursin-bsgwe/
