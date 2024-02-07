@@ -34,7 +34,9 @@ def page(st, params):
     r = cmind.access(ii)
     if r['return']>0: return r
 
-    lst = r['list']
+    lst2 = r['list']
+
+    lst = [v for v in lst2 if not v.meta.get('private', False)]
 
     end_html = ''
 
