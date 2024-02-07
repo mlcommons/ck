@@ -164,7 +164,10 @@ def gui(i):
     if compute_id!=st.session_state['compute_id']:
         st.session_state['compute_id']=compute_id
 
-        st.rerun()
+        try:
+           st.rerun()
+        except:
+           st.experimental_rerun()
 
 
     ##############################################################
