@@ -254,6 +254,8 @@ input_description:
     choices:
     - cpu
     - cuda
+    - rocm
+    - qaic
     default: cpu
     desc: MLPerf device
     sort: 100
@@ -263,23 +265,38 @@ input_description:
     - retinanet
     - bert-99
     - bert-99.9
-    - 3d-unet
+    - 3d-unet-99
+    - 3d-unet-99.9
     - rnnt
+    - dlrm-v2-99
+    - dlrm-v2-99.9
+    - gptj-99
+    - gptj-99.9
+    - sdxl
+    - llama2-70b-99
+    - llama2-70b-99.9
+    - mobilenet
+    - efficientnet
     default: resnet50
     desc: MLPerf model
     sort: 200
   precision:
     choices:
-    - fp32
+    - float32
+    - float16
+    - bfloat16
     - int8
+    - uint8
     default: ''
     desc: MLPerf model precision
     sort: 250
   implementation:
     choices:
     - reference
-    - cpp
+    - mil
     - nvidia-original
+    - intel-original
+    - qualcomm
     - tflite-cpp
     default: reference
     desc: MLPerf implementation
@@ -291,6 +308,7 @@ input_description:
     - pytorch
     - deepsparse
     - tensorrt
+    - glow
     - tvm-onnx
     default: onnxruntime
     desc: MLPerf framework (backend)
@@ -321,7 +339,7 @@ input_description:
     desc: MLPerf execution mode
     sort: 700
   submitter:
-    default: cTuning
+    default: CTuning
     desc: Submitter name (without space)
     sort: 800
   results_dir:
