@@ -158,6 +158,8 @@ def page(st, params):
                 if len(hot)>0:
                     st.markdown('#### Hot challenges')
 
+                    md_tmp = ''
+                    
                     for row in sorted(hot, key=lambda row: (int(row.get('orig_date_close', 9999999999)),
                                                                 row.get('sort', 0),
                                                                 row.get('name', ''),
@@ -169,11 +171,12 @@ def page(st, params):
                          url = url_prefix + '?action=challenges&name={}'.format(row['uid'])
 
 
-                         date_close = row.get('date_close','')
-                         y = 'Closing date: **{}**'.format(date_close)
+                         date_close = row.get('date_close','').strip()
+                         y = ' (Closing date: **{}**)'.format(date_close) if date_close !='' else ''
 
-                         st.markdown('* [{}]({}) ({})\n'.format(x, url, y))
-
+                         md_tmp += '* [{}]({}){}\n'.format(x, url, y)
+                         
+                    st.markdown(md_tmp)
 
                     st.markdown('#### On-going challenges')
 
@@ -423,9 +426,9 @@ def page(st, params):
                     name = e.get('name','')
 
                     if tags!='':
-                        md+='  * '+misc.make_url(tags, action='experiments', key='tags')
+                        md+='  * '+misc.make_url(tags, action='experiments', key='tags')+'\n'
                     elif name!='':
-                       md+='  * '+misc.make_url(name, action='experiments')
+                       md+='  * '+misc.make_url(name, action='experiments')+'\n'
 
                 z+=md+'\n'
 
