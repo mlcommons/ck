@@ -54,29 +54,61 @@ def page(st, params):
             alias = meta['alias']
             uid = meta['uid']
 
-            st.markdown('### {} ({})'.format(alias, uid))
+            use_gui = False
+            x = params.get('gui',[''])
+            if len(x)>0 and (x[0].lower()=='true' or x[0].lower()=='yes'):
+                import script
 
+                script_path = recipe.path
+                script_alias = alias
 
-            # Check original link
-            repo_meta = recipe.repo_meta
+                script_tags = component_tags
+                if component_tags=='':
+                    script_tags = meta.get('tags_help','')
+                    if script_tags !='':
+                        script_tags=script_tags.replace(' ',',')
+                    else:
+                        script_tags = ','.join(meta.get('tags',[]))
 
-            url = repo_meta.get('url','')
-            if url=='' and repo_meta.get('git', False):
-                url = 'https://github.com/'+repo_meta['alias'].replace('@','/')
-
-            if url!='':
-                if not url.endswith('/'): url=url+'/'
-
-                url += 'tree/master/'
-
-                if repo_meta.get('prefix','')!='':
-                    url += repo_meta['prefix']
-
-                if not url.endswith('/'): url=url+'/'
+                ii = {'st': st,
+                      'params': params,
+                      'script_path': script_path, 
+                      'script_alias': script_alias, 
+                      'script_tags': script_tags, 
+                      'script_meta': meta,
+                      'skip_bottom': True}
                 
-                url += 'script/'+alias
+                return script.page(ii)
 
-                st.markdown('View documentation and sources for this Collective Mind automation recipe at [GitHub]({}).'.format(url))
+            else:
+                
+                st.markdown('### {} ({})'.format(alias, uid))
+
+                # Check original link
+                repo_meta = recipe.repo_meta
+
+                url = repo_meta.get('url','')
+                if url=='' and repo_meta.get('git', False):
+                    url = 'https://github.com/'+repo_meta['alias'].replace('@','/')
+
+                if url!='':
+                    if not url.endswith('/'): url=url+'/'
+
+                    url += 'tree/master/'
+
+                    if repo_meta.get('prefix','')!='':
+                        url += repo_meta['prefix']
+
+                    if not url.endswith('/'): url=url+'/'
+                    
+                    url += 'script/'+alias
+
+                    st.markdown('* View documentation and sources for this Collective Mind automation recipe at [GitHub]({}).'.format(url))
+
+                
+                url_gui = url_prefix_component+'&name='+alias+','+uid+'&gui=true'
+
+                st.markdown('* View [CM GUI]({}) to run this script.'.format(url_gui))
         
         else:
             x = '''
