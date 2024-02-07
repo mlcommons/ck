@@ -1,0 +1,6 @@
+uid: 4df38ed8dd804678
+
+name: "LLAMA2 Reference Python Torch Offline"
+
+supported_compute:
+- fe379ecd1e054a00

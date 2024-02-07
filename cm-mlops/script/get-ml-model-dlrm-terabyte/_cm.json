@@ -30,15 +30,17 @@
   ],
   "prehook_deps": [
     {
-      "tags": "download-and-extract,_wget",
+      "tags": "download-and-extract",
       "env": {
-        "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_FILE>>>"
+        "CM_EXTRACT_EXTRACTED_FILENAME": "<<<CM_ML_MODEL_FILE>>>",
+        "CM_DOWNLOAD_DOWNLOADED_FILENAME": "<<<CM_ML_MODEL_FILE>>>"
       },
       "force_cache": true,
       "extra_cache_tags": "ml-model,dlrm,terabyte,raw,ml-model-dlrm",
       "update_tags_from_env_with_prefix": {
         "_url.": [ "CM_PACKAGE_URL" ]
-      }
+      },
+      "names": [ "dae" ]
     }
   ],
   "uid": "8fa7582c603a4db3",
@@ -84,16 +86,45 @@
       }
     },
     "pytorch,fp32,weight_sharded": {
+      "default_variations": {
+        "download-tool": "rclone"
+      },
       "env": {
         "CM_ML_MODEL_ACCURACY": "0.8025",
-        "CM_PACKAGE_URL": "https://cloud.mlcommons.org/index.php/s/XzfSeLgW8FYfR3S/download",
-        "CM_DAE_EXTRACT_DOWNLOADED": "yes",
         "CM_ML_MODEL_DLRM_MAX_INDEX_RANGE": "40000000",
-        "CM_DOWNLOAD_FILENAME": "download",
         "CM_ML_MODEL_FILE": "model_weights",
-        "CM_EXTRACT_UNZIP": "yes",
         "CM_TMP_MODEL_ADDITIONAL_NAME": "",
         "CM_DOWNLOAD_CHECKSUM": ""
+      }
+    },
+    "pytorch,fp32,weight_sharded,rclone": {
+      "env": {
+        "CM_RCLONE_CONFIG_CMD": "rclone config create mlc-inference s3 provider=Cloudflare access_key_id=f65ba5eef400db161ea49967de89f47b secret_access_key=fbea333914c292b854f14d3fe232bad6c5407bf0ab1bebf78833c2b359bdfd2b endpoint=https://c2686074cb2caf5cbaf6d134bdba8b47.r2.cloudflarestorage.com",
+        "CM_PACKAGE_URL": "mlc-inference:mlcommons-inference-wg-public/model_weights"
+      }
+    },
+    "pytorch,fp32,weight_sharded,wget": {
+      "env": {
+        "CM_PACKAGE_URL": "https://cloud.mlcommons.org/index.php/s/XzfSeLgW8FYfR3S/download",
+        "CM_DAE_EXTRACT_DOWNLOADED": "yes",
+        "CM_DOWNLOAD_FILENAME": "download",
+        "CM_EXTRACT_UNZIP": "yes"
+      }
+    },
+    "wget": {
+      "group": "download-tool",
+      "ad": {
+        "dae": {
+          "tags": "_wget"
+        }
+      }
+    },
+    "rclone": {
+      "group": "download-tool",
+      "ad": {
+        "dae": {
+          "tags": "_rclone"
+        }
       }
     },
     "debug": {

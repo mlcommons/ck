@@ -10,6 +10,9 @@ import streamlit as st
 
 announcement = 'Under preparation. Please check the [MLCommons CM automation project](https://github.com/mlcommons/ck) for more details ...'
 
+initialized = False
+external_module_path = ''
+external_module_meta = {}
 
 def main():
     params = misc.get_params(st)
@@ -19,7 +22,6 @@ def main():
 
     st.markdown(announcement)
 
-
     return page(st, params)
 
 
@@ -27,13 +29,32 @@ def main():
 
 def page(st, params, action = ''):
 
+    global initialized, external_module_path, external_module_meta
+
     st.markdown('----')
     st.markdown(announcement)
     
-    url_prefix = st.config.get_option('server.baseUrlPath')+'/'
+    # If not initialized, find code for launch benchmark
+    if not initialized:
+        r = cmind.access({'action':'find',
+                          'automation':'script',
+                          'artifact':'5dc7662804bc4cad'})
+        if r['return']>0: return r
 
-    st.markdown(url_prefix)
+        lst = r['list']
 
+        if len(lst)>0:
+            external_module_path = os.path.join(lst[0].path, 'dummy')
+            external_module_meta = lst[0].meta
 
+        if external_module_path =='':
+            st.markdown('Warning: can\'t find internal module!')
+            return {'return':0}
 
-    return {'return':0}
+        initialized = True
+
+    ii = {'streamlit_module': st,
+          'meta': external_module_meta,
+          'skip_title': True}
+
+    return cmind.utils.call_internal_module(None, external_module_path , 'customize', 'gui', ii)

@@ -1,0 +1,8 @@
+uid: 4df38ed8dd804678
+
+name: "BERT Reference Python ONNX Offline"
+
+supported_compute:
+- cdfd424c32734e38
+- 357a972e79614903
+- fe379ecd1e054a00

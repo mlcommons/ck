@@ -1,0 +1,14 @@
+alias: benchmark-run-mlperf-mobile-latest
+uid: 1edb7903eccd436c
+
+automation_alias: cfg
+automation_uid: 88dce9c160324c5d
+
+tags:
+- benchmark
+- run
+- mlperf
+- mobile
+- latest
+
+name: "MLPerf mobile - latest"

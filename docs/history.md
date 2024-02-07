@@ -4,11 +4,13 @@
 
 The [open-source Collective Knowledge Technology v1 and v2 (CK)](https://doi.org/10.1098/rsta.2020.0211) 
 was originally developed by [Grigori Fursin](https://cKnowledge.org/gfursin) 
-based on his long experience helping the community [reproduce many research projects 
+with great contributions from [the community](../ck/CONTRIBUTING.md). 
+
+CK was based on Grigori's practical experience helping the community [reproduce many research projects 
 and validate them in the real world](https://learning.acm.org/techtalks/reproducibility)
 across diverse and continuously changing models, data sets, software and hardware since 2013.
 
-CK development was also sponsorted by the [cTuning foundation](https://cTuning.org/ae), 
+CK development was also sponsored by the [cTuning foundation](https://cTuning.org/ae), 
 [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai).
 
 The archive of this discontinued framework is available in the [/ck directory](../ck). 
@@ -18,7 +20,8 @@ The archive of this discontinued framework is available in the [/ck directory](.
 Grigori donated the CK technology to [MLCommons](https://mlcommons.org) in 2022 to benefit everyone and help establish
 the [MLCommons Task Force on Automation and Reproducibility](taskforce.md) co-led with [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
 
-This collaborative effort resulted in a new version of CK called Collective Mind (CM)
+This collaborative engineering effort resulted in the new version of CK called Collective Mind (CM)
+with [simple, portable and ready-to-use automation recipes](list_of_scripts.md) for MLOps and DevOps 
 developed by scratch with great help, feedback and contributions 
 from [the community](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 

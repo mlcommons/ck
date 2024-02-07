@@ -9,6 +9,9 @@ def page(st, params):
 
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
 
+    url_components = url_prefix + '?action=components'
+
+
     name = params.get('name',[''])[0].strip()
     tags = params.get('tags',[''])[0].lower()
 
@@ -56,6 +59,8 @@ def page(st, params):
                 name = meta.get('title', meta['alias'])
 
                 row['name']=name
+
+                if meta.get('hot', False): row['hot']=True
 
                 for k in ['date_close_extension', 'points', 'trophies', 'prize', 'prize_short', 'skip', 'sort']:
                     if k in meta:
@@ -120,25 +125,68 @@ def page(st, params):
             
             # Show ongoing if open
             if len(ongoing)>0:
-                ind = 1
 
+                # Check hot
+                hot = []
+                ongoing_without_hot = []
+
+                for row in ongoing:
+                     if row.get('hot', False):
+                         hot.append(row)
+                     else:
+                         ongoing_without_hot.append(row)
+                
+                # Showing
                 x = '''
                     <center>
-                     <h3>Ongoing reproducibility and optimization challenges</h3>
-                     <small>Organized by the <a href="https://github.com/mlcommons/ck/blob/master/docs/taskforce.md">MLCommons Task Force on Automation and Reproducibility</a></small>
+                     <h4>Collaborative benchmarking and optimization of AI applications and systems<br>
+                     (latency, throughput, power consumption, accuracy, costs ...)</h4>
+                     <small>Organized by the <a href="https://github.com/mlcommons/ck/blob/master/docs/taskforce.md">MLCommons Task Force on Automation and Reproducibility</a>
+                     and powered by <a href="{}">Collective Mind automation recipes</a>.</small>
 <!--                     <i>
-                      Participate in collaborative benchmarking, optimization and co-design of Pareto-efficient AI and ML Systems
+                      Participate in collaborative and composable benchmarking, optimization and co-design of Pareto-efficient AI and ML Systems
                       (latency, throughput, power consumption, accuracy, costs and other metrics):
                      </i> -->
                       <br>
                       <br>
                     </center>
-                    '''
+                    '''.format(url_components)
                 st.write(x, unsafe_allow_html = True)
+
+
+                # Check if hot
+                if len(hot)>0:
+                    st.markdown('#### Hot challenges')
+
+                    md_tmp = ''
+                    
+                    for row in sorted(hot, key=lambda row: (int(row.get('orig_date_close', 9999999999)),
+                                                                row.get('sort', 0),
+                                                                row.get('name', ''),
+                                                                row.get('under_preparation', False)
+                                                                )):
+                         x = row['name']
+                         x = x[0].upper() + x[1:]
+
+                         url = url_prefix + '?action=challenges&name={}'.format(row['uid'])
+
+
+                         date_close = row.get('date_close','').strip()
+                         y = ' (Closing date: **{}**)'.format(date_close) if date_close !='' else ''
+
+                         md_tmp += '* [{}]({}){}\n'.format(x, url, y)
+                         
+                    st.markdown(md_tmp)
+
+                    st.markdown('#### On-going challenges')
+
+                
+                # Continue all
+                ind = 1
 
                 data = []
                 
-                for row in sorted(ongoing, key=lambda row: (int(row.get('orig_date_close', 9999999999)),
+                for row in sorted(ongoing_without_hot, key=lambda row: (int(row.get('orig_date_close', 9999999999)),
                                                             row.get('sort', 0),
                                                             row.get('name', ''),
                                                             row.get('under_preparation', False)
@@ -251,12 +299,7 @@ def page(st, params):
         if artifact is None:
 #            st.markdown('#### Past or future challenges:')
 
-            x = '''
-                <center>
-                 <h3>Future or past challenges</h3>
-                </center>
-                '''
-            st.write(x, unsafe_allow_html = True)
+            st.markdown('#### Future or past challenges')
 
 
             for c in challenges:
@@ -383,9 +426,9 @@ def page(st, params):
                     name = e.get('name','')
 
                     if tags!='':
-                        md+='  * '+misc.make_url(tags, action='experiments', key='tags')
+                        md+='  * '+misc.make_url(tags, action='experiments', key='tags')+'\n'
                     elif name!='':
-                       md+='  * '+misc.make_url(name, action='experiments')
+                       md+='  * '+misc.make_url(name, action='experiments')+'\n'
 
                 z+=md+'\n'
 

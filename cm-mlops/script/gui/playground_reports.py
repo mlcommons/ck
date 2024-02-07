@@ -107,7 +107,7 @@ def page(st, params):
 
         md = ''
 
-        for l in sorted(lst, key=lambda x: x.meta.get('date','')):
+        for l in sorted(lst, key=lambda x: x.meta.get('date',''), reverse=True):
 
             meta = l.meta
 

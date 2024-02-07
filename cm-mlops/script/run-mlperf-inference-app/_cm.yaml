@@ -25,6 +25,8 @@ tags:
 - inference
 - reference
 
+tags_help: "run mlperf inference common"
+
 default_env:
   CM_MLPERF_IMPLEMENTATION: reference
   CM_MLPERF_MODEL: resnet50
@@ -191,26 +193,26 @@ variations:
     env:
       CM_MLPERF_INFERENCE_VERSION: '2.1'
       CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r2.1_default
-    group: reproducibility
+    group: benchmark-version
 
   r3.0:
     env:
       CM_MLPERF_INFERENCE_VERSION: '3.0'
       CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r3.0_default
-    group: reproducibility
+    group: benchmark-version
 
   r3.1:
     env:
       CM_MLPERF_INFERENCE_VERSION: '3.1'
       CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r3.1_default
-    group: reproducibility
+    group: benchmark-version
 
   r4.0:
     default: true
     env:
       CM_MLPERF_INFERENCE_VERSION: '4.0'
       CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r4.0_default
-    group: reproducibility
+    group: benchmark-version
 
   short:
     add_deps_recursive:
@@ -248,6 +250,107 @@ versions:
   r2.1: {}
 
 input_description:
+  device:
+    choices:
+    - cpu
+    - cuda
+    - rocm
+    - qaic
+    default: cpu
+    desc: MLPerf device
+    sort: 100
+  model:
+    choices:
+    - resnet50
+    - retinanet
+    - bert-99
+    - bert-99.9
+    - 3d-unet-99
+    - 3d-unet-99.9
+    - rnnt
+    - dlrm-v2-99
+    - dlrm-v2-99.9
+    - gptj-99
+    - gptj-99.9
+    - sdxl
+    - llama2-70b-99
+    - llama2-70b-99.9
+    - mobilenet
+    - efficientnet
+    default: resnet50
+    desc: MLPerf model
+    sort: 200
+  precision:
+    choices:
+    - float32
+    - float16
+    - bfloat16
+    - int8
+    - uint8
+    default: ''
+    desc: MLPerf model precision
+    sort: 250
+  implementation:
+    choices:
+    - reference
+    - mil
+    - nvidia-original
+    - intel-original
+    - qualcomm
+    - tflite-cpp
+    default: reference
+    desc: MLPerf implementation
+    sort: 300
+  backend:
+    choices:
+    - onnxruntime
+    - tf
+    - pytorch
+    - deepsparse
+    - tensorrt
+    - glow
+    - tvm-onnx
+    default: onnxruntime
+    desc: MLPerf framework (backend)
+    sort: 400
+  scenario:
+    choices:
+    - Offline
+    - Server
+    - SingleStream
+    - MultiStream
+    default: Offline
+    desc: MLPerf scenario
+    sort: 500
+  mode:
+    choices:
+    - ''
+    - accuracy
+    - performance
+    default: ''
+    desc: MLPerf benchmark mode
+    sort: 600
+  execution_mode:
+    choices:
+    - test
+    - fast
+    - valid
+    default: test
+    desc: MLPerf execution mode
+    sort: 700
+  submitter:
+    default: CTuning
+    desc: Submitter name (without space)
+    sort: 800
+  results_dir:
+    desc: Folder path to store results (defaults to the current working directory)
+    default: ''
+    sort: 900
+  submission_dir:
+    desc: Folder path to store MLPerf submission tree 
+    default: ''
+    sort: 1000
+
   adr.compiler.tags:
     default: gcc
     desc: Compiler for loadgen and any C/C++ part of implementation
@@ -271,16 +374,6 @@ input_description:
   adr.python.version_min:
     default: '3.8'
     desc: Minimal Python version
-  backend:
-    choices:
-    - onnxruntime
-    - tf
-    - pytorch
-    - deepsparse
-    - tensorrt
-    - tvm-onnx
-    default: onnxruntime
-    desc: MLPerf backend
   clean:
     boolean: true
     default: true
@@ -297,81 +390,21 @@ input_description:
   dashboard_wb_user:
     default: cmind
     desc: W&B dashboard user
-  device:
-    choices:
-    - cpu
-    - cuda
-    default: cpu
-    desc: MLPerf device
-  execution_mode:
-    choices:
-    - test
-    - fast
-    - valid
-    default: test
-    desc: Execution mode
   hw_name:
     default: default
     desc: MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware))
-  implementation:
-    choices:
-    - reference
-    - cpp
-    - nvidia-original
-    - tflite-cpp
-    default: reference
-    desc: MLPerf implementation
-  mode:
-    choices:
-    - ''
-    - accuracy
-    - performance
-    default: ''
-    desc: MLPerf mode
-  model:
-    choices:
-    - resnet50
-    - retinanet
-    - bert-99
-    - bert-99.9
-    - 3d-unet
-    - rnnt
-    default: resnet50
-    desc: MLPerf model
   multistream_target_latency:
     desc: Set MultiStream target latency
   offline_target_qps:
     desc: Set LoadGen Offline target QPS
-  precision:
-    choices:
-    - fp32
-    - int8
-    default: ''
-    desc: MLPerf model precision
   quiet:
     boolean: true
     default: false
     desc: Quiet run (select default values for all questions)
-  results_dir:
-    desc: Folder path where run results should be stored (defaults to the current
-      working directory)
-  scenario:
-    choices:
-    - Offline
-    - Server
-    - SingleStream
-    - MultiStream
-    default: Offline
-    desc: MLPerf scenario
   server_target_qps:
     desc: Set Server target QPS
   singlestream_target_latency:
     desc: Set SingleStream target latency
-  submission_dir:
-    desc: Folder path where submission tree (to be submitted) must be stored
-  submitter:
-    default: TheCommunity
-    desc: Submitter name (without space)
   target_latency:
     desc: Set Target latency
   target_qps:

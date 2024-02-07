@@ -1,0 +1,14 @@
+alias: benchmark-run-mlperf-training-latest
+uid: 30f19848588847e0
+
+automation_alias: cfg
+automation_uid: 88dce9c160324c5d
+
+tags:
+- benchmark
+- run
+- mlperf
+- training
+- latest
+
+name: "MLPerf training - latest"
