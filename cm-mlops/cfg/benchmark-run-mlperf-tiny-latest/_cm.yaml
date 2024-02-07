@@ -1,0 +1,14 @@
+alias: benchmark-run-mlperf-tiny-latest
+uid: 8f2c2dbaf29e4485
+
+automation_alias: cfg
+automation_uid: 88dce9c160324c5d
+
+tags:
+- benchmark
+- run
+- mlperf
+- tiny
+- latest
+
+name: "MLPerf tiny - latest"

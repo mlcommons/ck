@@ -1,0 +1,17 @@
+alias: benchmark-run-mlperf-abtf-dev
+uid: f2ad6b2c6e7b4352
+
+automation_alias: cfg
+automation_uid: 88dce9c160324c5d
+
+tags:
+- benchmark
+- run
+- mlperf
+- abtf
+- dev
+
+name: "MLPerf-ABTF inference - dev"
+
+supported_compute:
+- cdfd424c32734e38

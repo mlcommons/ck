@@ -1,0 +1,19 @@
+alias: benchmark-run-mlperf-inference-v3.1
+uid: 8eb42e27ec984185
+
+automation_alias: cfg
+automation_uid: 88dce9c160324c5d
+
+tags:
+- benchmark
+- run
+- mlperf
+- inference
+- v3.1
+
+name: "MLPerf inference - v3.1"
+
+supported_compute:
+- fe379ecd1e054a00
+- cdfd424c32734e38
+- fe379ecd1e054a00

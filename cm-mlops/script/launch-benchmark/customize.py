@@ -27,13 +27,17 @@ def postprocess(i):
 ##################################################################################
 def load_cfg(i):
 
-    tags = i['tags']
+    tags = i.get('tags','')
+    artifact = i.get('artifact','')
 
     key = i.get('key','')
 
     ii={'action':'find',
-        'automation':'cfg',
-        'tags':tags}
+        'automation':'cfg'}
+    if artifact!='':
+        ii['artifact']=artifact
+    elif tags!='':
+        ii['tags']=tags
 
     r=cmind.access(ii)
     if r['return']>0: return r
@@ -45,7 +49,7 @@ def load_cfg(i):
     prune_list = prune.get('list',[])
     
     # Checking individual files inside CM entry
-    selection = [{'name':''}]
+    selection = []
  
     if i.get('skip_files', False):
         for l in lst:
@@ -88,10 +92,13 @@ def load_cfg(i):
                     if add:
                         meta['full_path']=full_path
 
+                        name = meta.get('name','')
+                        if name=='':
+                            name = ' '.join(meta.get('tags',[]))
+                        name = name.strip()
+                        meta['name'] = name
+                        
                         selection.append(meta)
-
-    # Sort by tags
-    selection = sorted(selection, key = lambda v: ','.join(v.get('tags',[])))
 
     return {'return':0, 'lst':lst, 'selection':selection}
 
@@ -117,11 +124,12 @@ def gui(i):
     if 'compute_id' not in st.session_state: st.session_state['compute_id']=0
     
     ##############################################################
-    # Check first level of benchmarks
+    # Check the first level of benchmarks
     r=load_cfg({'tags':'benchmark,run', 'skip_files':True})
     if r['return']>0: return r            
 
-    bench_selection = r['selection']
+    selection = sorted(r['selection'], key = lambda v: v['name'])
+    bench_selection = [{'name':''}] + selection
 
     # Creating compute selector
     bench_id = st.selectbox('Select benchmark:',
@@ -142,7 +150,9 @@ def gui(i):
                 'prune':{'key':'supported_compute', 'list':bench_supported_compute}})
     if r['return']>0: return r            
 
-    compute_selection = r['selection']
+    selection = sorted(r['selection'], key = lambda v: v['name'])
+    compute_selection = [{'name':''}] + selection
+
 
     # Creating compute selector
     compute_id = st.selectbox('Select target hardware:',
@@ -156,9 +166,50 @@ def gui(i):
 
         st.rerun()
 
-    st.markdown('Bench ID: {}'.format(st.session_state['bench_id']))
-    st.markdown('Compute ID: {}'.format(st.session_state['compute_id']))
+
+    ##############################################################
+    # Check tests
+    ii = {'tags':'benchmark,run'}
+
+    if bench_id>0:
+        bench_uid = bench_selection[bench_id]['uid']
+        ii['artifact']=bench_uid
+
+
+    r=load_cfg(ii)
+    if r['return']>0: return r            
+
+    selection = sorted(r['selection'], key = lambda v: v['name'])
+
+
+    test_selection = [{'name':''}] + selection
     
+    
+    
+    # Creating compute selector
+    test_id = st.selectbox('Select test:',
+                             range(len(test_selection)), 
+                             format_func=lambda x: test_selection[x]['name'],
+                             index = 0,
+                             key = 'test')
+
+    ##############################################################
+    if test_id >0:
+        test_meta = test_selection[test_id]
+
+        test_path = test_meta['full_path']
+
+        test_md = test_meta['full_path'][:-5]+'.md'
+        if os.path.isfile(test_md):
+
+            r = cmind.utils.load_txt(test_md)
+            if r['return']>0: return r
+
+            s = r['string']
+
+            st.markdown('---')
+
+            st.markdown(s)
 
         
 
