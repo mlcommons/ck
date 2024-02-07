@@ -110,6 +110,7 @@ ___
 * `--docker_image_base=value`  &rarr;  `CM_DOCKER_IMAGE_BASE=value`
 * `--docker_os=value`  &rarr;  `CM_DOCKER_OS=value`
 * `--docker_os_version=value`  &rarr;  `CM_DOCKER_OS_VERSION=value`
+* `--extra_run_args=value`  &rarr;  `CM_DOCKER_EXTRA_RUN_ARGS=value`
 * `--fake_run_option=value`  &rarr;  `CM_DOCKER_FAKE_RUN_OPTION=value`
 * `--gh_token=value`  &rarr;  `CM_GH_TOKEN=value`
 * `--image_name=value`  &rarr;  `CM_DOCKER_IMAGE_NAME=value`
@@ -127,6 +128,7 @@ ___
 * `--run_cmd=value`  &rarr;  `CM_DOCKER_RUN_CMD=value`
 * `--run_cmd_extra=value`  &rarr;  `CM_DOCKER_RUN_CMD_EXTRA=value`
 * `--script_tags=value`  &rarr;  `CM_DOCKER_RUN_SCRIPT_TAGS=value`
+* `--shm_size=value`  &rarr;  `CM_DOCKER_SHM_SIZE=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
