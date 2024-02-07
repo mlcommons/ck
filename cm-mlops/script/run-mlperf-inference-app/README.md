@@ -44,7 +44,7 @@ See extra [notes](README-extra.md) from the authors and contributors.
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *run,common,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference*
+* CM "database" tags to find this script: *run,mlperf,inference,common*
 * Output cached? *False*
 ___
 ### Reuse this script in your project
@@ -61,9 +61,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=run,common,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference[,variations] [--input_flags]`
+1. `cm run script --tags=run,mlperf,inference,common[,variations] [--input_flags]`
 
-2. `cmr "run common generate-run-cmds run-mlperf vision mlcommons mlperf inference reference[ variations]" [--input_flags]`
+2. `cmr "run mlperf inference common[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -80,7 +80,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'run,common,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference'
+                  'tags':'run,mlperf,inference,common'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -97,13 +97,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="run,common,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference"```
+```cmr "cm gui" --script="run,mlperf,inference,common"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run,common,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run,mlperf,inference,common) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "run common generate-run-cmds run-mlperf vision mlcommons mlperf inference reference[ variations]" [--input_flags]`
+`cm docker script "run mlperf inference common[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -131,19 +131,7 @@ ___
     </details>
 
 
-  * Group "**mode**"
-    <details>
-    <summary>Click here to expand this section.</summary>
-
-    * `_all-modes`
-      - Environment variables:
-        - *CM_MLPERF_LOADGEN_ALL_MODES*: `yes`
-      - Workflow:
-
-    </details>
-
-
-  * Group "**reproducibility**"
+  * Group "**benchmark-version**"
     <details>
     <summary>Click here to expand this section.</summary>
 
@@ -166,6 +154,18 @@ ___
       - Environment variables:
         - *CM_MLPERF_INFERENCE_VERSION*: `4.0`
         - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r4.0_default`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**mode**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_all-modes`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_ALL_MODES*: `yes`
       - Workflow:
 
     </details>
@@ -240,6 +240,17 @@ ___
 
 #### Input description
 
+* --**device** MLPerf device {cpu,cuda,rocm,qaic} (*cpu*)
+* --**model** MLPerf model {resnet50,retinanet,bert-99,bert-99.9,3d-unet-99,3d-unet-99.9,rnnt,dlrm-v2-99,dlrm-v2-99.9,gptj-99,gptj-99.9,sdxl,llama2-70b-99,llama2-70b-99.9,mobilenet,efficientnet} (*resnet50*)
+* --**precision** MLPerf model precision {float32,float16,bfloat16,int8,uint8}
+* --**implementation** MLPerf implementation {reference,mil,nvidia-original,intel-original,qualcomm,tflite-cpp} (*reference*)
+* --**backend** MLPerf framework (backend) {onnxruntime,tf,pytorch,deepsparse,tensorrt,glow,tvm-onnx} (*onnxruntime*)
+* --**scenario** MLPerf scenario {Offline,Server,SingleStream,MultiStream} (*Offline*)
+* --**mode** MLPerf benchmark mode {,accuracy,performance}
+* --**execution_mode** MLPerf execution mode {test,fast,valid} (*test*)
+* --**submitter** Submitter name (without space) (*CTuning*)
+* --**results_dir** Folder path to store results (defaults to the current working directory)
+* --**submission_dir** Folder path to store MLPerf submission tree
 * --**adr.compiler.tags** Compiler for loadgen and any C/C++ part of implementation (*gcc*)
 * --**adr.inference-src-loadgen.env.CM_GIT_URL** Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)
 * --**adr.inference-src.env.CM_GIT_URL** Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)
@@ -248,34 +259,23 @@ ___
 * --**adr.python.name** Python virtual environment name (optional) (*mlperf*)
 * --**adr.python.version** Force Python version (must have all system deps)
 * --**adr.python.version_min** Minimal Python version (*3.8*)
-* --**backend** MLPerf backend {onnxruntime,tf,pytorch,deepsparse,tensorrt,tvm-onnx} (*onnxruntime*)
 * --**clean** Clean run (*True*)
 * --**compliance** Whether to run compliance tests (applicable only for closed division) {yes,no} (*yes*)
 * --**dashboard_wb_project** W&B dashboard project (*cm-mlperf-dse-testing*)
 * --**dashboard_wb_user** W&B dashboard user (*cmind*)
-* --**device** MLPerf device {cpu,cuda} (*cpu*)
-* --**execution_mode** Execution mode {test,fast,valid} (*test*)
 * --**hw_name** MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware)) (*default*)
-* --**implementation** MLPerf implementation {reference,cpp,nvidia-original,tflite-cpp} (*reference*)
-* --**mode** MLPerf mode {,accuracy,performance}
-* --**model** MLPerf model {resnet50,retinanet,bert-99,bert-99.9,3d-unet,rnnt} (*resnet50*)
 * --**multistream_target_latency** Set MultiStream target latency
 * --**offline_target_qps** Set LoadGen Offline target QPS
-* --**precision** MLPerf model precision {fp32,int8}
 * --**quiet** Quiet run (select default values for all questions) (*False*)
-* --**results_dir** Folder path where run results should be stored (defaults to the current working directory)
-* --**scenario** MLPerf scenario {Offline,Server,SingleStream,MultiStream} (*Offline*)
 * --**server_target_qps** Set Server target QPS
 * --**singlestream_target_latency** Set SingleStream target latency
-* --**submission_dir** Folder path where submission tree (to be submitted) must be stored
-* --**submitter** Submitter name (without space) (*TheCommunity*)
 * --**target_latency** Set Target latency
 * --**target_qps** Set LoadGen target QPS
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "adr.compiler.tags":...}
+r=cm.access({... , "device":...}
 ```
 
 #### Script flags mapped to environment
@@ -387,7 +387,7 @@ ___
 
 ___
 ### Script output
-`cmr "run common generate-run-cmds run-mlperf vision mlcommons mlperf inference reference[,variations]" [--input_flags] -j`
+`cmr "run mlperf inference common[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize

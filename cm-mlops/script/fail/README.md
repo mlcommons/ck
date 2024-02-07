@@ -30,6 +30,7 @@ See extra [notes](README-extra.md) from the authors and contributors.
 
 #### Summary
 
+* Category: *DevOps automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/fail)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*

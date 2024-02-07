@@ -113,11 +113,11 @@ ___
       - Workflow:
     * `_rclone,fp16`
       - Environment variables:
-        - *CM_DOWNLOAD_URL*: `mlc-inference:mlcommons-inference-wg-s3/stable_diffusion_fp16`
+        - *CM_DOWNLOAD_URL*: `mlc-inference:mlcommons-inference-wg-public/stable_diffusion_fp16`
       - Workflow:
     * `_rclone,fp32`
       - Environment variables:
-        - *CM_DOWNLOAD_URL*: `mlc-inference:mlcommons-inference-wg-s3/stable_diffusion_fp32`
+        - *CM_DOWNLOAD_URL*: `mlc-inference:mlcommons-inference-wg-public/stable_diffusion_fp32`
       - Workflow:
 
     </details>
@@ -145,7 +145,7 @@ ___
       - Workflow:
     * `_rclone`
       - Environment variables:
-        - *CM_RCLONE_CONFIG_CMD*: `rclone config create mlc-inference s3 provider=LyveCloud access_key_id=0LITLNQMHZALM5AK secret_access_key=YQKYTMBY23TMZHLOYFJKL5CHHS0CWYUC endpoint=s3.us-east-1.lyvecloud.seagate.com`
+        - *CM_RCLONE_CONFIG_CMD*: `rclone config create mlc-inference s3 provider=Cloudflare access_key_id=f65ba5eef400db161ea49967de89f47b secret_access_key=fbea333914c292b854f14d3fe232bad6c5407bf0ab1bebf78833c2b359bdfd2b endpoint=https://c2686074cb2caf5cbaf6d134bdba8b47.r2.cloudflarestorage.com`
         - *CM_DOWNLOAD_TOOL*: `rclone`
       - Workflow:
     * `_wget`

@@ -139,14 +139,34 @@ ___
     * `_pytorch,fp32,weight_sharded`
       - Environment variables:
         - *CM_ML_MODEL_ACCURACY*: `0.8025`
-        - *CM_PACKAGE_URL*: `https://cloud.mlcommons.org/index.php/s/XzfSeLgW8FYfR3S/download`
-        - *CM_DAE_EXTRACT_DOWNLOADED*: `yes`
         - *CM_ML_MODEL_DLRM_MAX_INDEX_RANGE*: `40000000`
-        - *CM_DOWNLOAD_FILENAME*: `download`
         - *CM_ML_MODEL_FILE*: `model_weights`
-        - *CM_EXTRACT_UNZIP*: `yes`
         - *CM_TMP_MODEL_ADDITIONAL_NAME*: ``
         - *CM_DOWNLOAD_CHECKSUM*: ``
+      - Workflow:
+    * `_pytorch,fp32,weight_sharded,rclone`
+      - Environment variables:
+        - *CM_RCLONE_CONFIG_CMD*: `rclone config create mlc-inference s3 provider=Cloudflare access_key_id=f65ba5eef400db161ea49967de89f47b secret_access_key=fbea333914c292b854f14d3fe232bad6c5407bf0ab1bebf78833c2b359bdfd2b endpoint=https://c2686074cb2caf5cbaf6d134bdba8b47.r2.cloudflarestorage.com`
+        - *CM_PACKAGE_URL*: `mlc-inference:mlcommons-inference-wg-public/model_weights`
+      - Workflow:
+    * `_pytorch,fp32,weight_sharded,wget`
+      - Environment variables:
+        - *CM_PACKAGE_URL*: `https://cloud.mlcommons.org/index.php/s/XzfSeLgW8FYfR3S/download`
+        - *CM_DAE_EXTRACT_DOWNLOADED*: `yes`
+        - *CM_DOWNLOAD_FILENAME*: `download`
+        - *CM_EXTRACT_UNZIP*: `yes`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**download-tool**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_rclone`
+      - Workflow:
+    * `_wget`
       - Workflow:
 
     </details>
@@ -232,7 +252,8 @@ ___
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte/_cm.json)
   1. Run "preprocess" function from customize.py
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte/_cm.json)***
-     * download-and-extract,_wget
+     * download-and-extract
+       * CM names: `--adr.['dae']...`
        - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run native script if exists***
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte/run.sh)

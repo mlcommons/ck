@@ -138,10 +138,8 @@ ___
 `cmr "get rclone[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_RCLONE_*`
 #### New environment keys auto-detected from customize
 
-* `CM_RCLONE_CACHE_TAGS`
 ___
 ### Maintainers
 

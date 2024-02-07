@@ -27,7 +27,7 @@
 
 #### Summary
 
-* Category: *ML/AI datasets.*
+* Category: *AI/ML datasets.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-coco2014)*
 * CM meta description for this script: *[_cm.json](_cm.json)*

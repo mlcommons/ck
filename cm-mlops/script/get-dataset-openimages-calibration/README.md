@@ -27,6 +27,7 @@
 
 #### Summary
 
+* Category: *AI/ML datasets.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-calibration)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
