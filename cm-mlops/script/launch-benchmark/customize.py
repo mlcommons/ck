@@ -30,7 +30,6 @@ def load_cfg(i):
     tags = i['tags']
 
     key = i.get('key','')
-    if key == '': key = 'cfg-'
 
     ii={'action':'find',
         'automation':'cfg',
@@ -41,70 +40,58 @@ def load_cfg(i):
 
     lst = r['list']
 
-    # Checking individual files inside CM entry
-    metas = []
-
-    selection = ['']
-    selection_desc = ['']
+    prune = i.get('prune',{})
+    prune_key = prune.get('key', '')
+    prune_list = prune.get('list',[])
     
-    for l in lst:
-        path = l.path
+    # Checking individual files inside CM entry
+    selection = [{'name':''}]
+ 
+    if i.get('skip_files', False):
+        for l in lst:
+             meta = l.meta
+             full_path = l.path
 
-        files = os.listdir(path)
+             meta['full_path']=full_path
 
-        for f in files:
-            if not f.endswith('.json') and not f.endswith('.yaml'):
-                continue
+             selection.append(meta)
+    else:
+        for l in lst:
+            path = l.path
 
-            if key!='' and not f.startswith(key):
-                continue
+            files = os.listdir(path)
 
-            full_path = os.path.join(path, f)
+            for f in files:
+                if key!='' and not f.startswith(key):
+                    continue
 
-            full_path_without_ext = full_path[:-5]
+                if f.startswith('_') or (not f.endswith('.json') and not f.endswith('.yaml')):
+                    continue
 
-            r = cmind.utils.load_yaml_and_json(full_path_without_ext)
-            if r['return']>0:
-                print ('Warning: problem loading file {}'.format(full_path))
-            else:
-                meta = r['meta']
+                full_path = os.path.join(path, f)
 
-                aux_tags = meta.get('tags',[])
+                full_path_without_ext = full_path[:-5]
 
-                aux_tags_string = ','.join(aux_tags)
+                r = cmind.utils.load_yaml_and_json(full_path_without_ext)
+                if r['return']>0:
+                    print ('Warning: problem loading file {}'.format(full_path))
+                else:
+                    meta = r['meta']
 
-                aux_tags_print = ''
-                for t in aux_tags:
-                    if aux_tags_print!='': 
-                        aux_tags_print+=' • '
+                    uid = meta['uid']
 
-                    # Beautify
-                    if t == 'cpu': t = 'CPU'
-                    elif t == 'gpu': t = 'GPU'
-                    elif t == 'tpu': t = 'TPU'
-                    elif t == 'ai 100': t = 'AI 100'
-                    elif t == 'amd': t = 'AMD'
-                    elif t == 'x64': t = 'x64'
-                    elif t == 'mlperf': t = 'MLPerf'
-                    elif t == 'mlperf-abtf': t = 'MLPerf - ABTF'
-                    else:
-                        t = t.capitalize()
-                    
-                    aux_tags_print += t
+                    # Check pruning
+                    add = True
+                    if prune_key!='' and len(prune_list)>0 and uid not in prune_list:
+                        add = False
 
-                uid = meta['uid']    
+                    if add:
+                        meta['full_path']=full_path
 
-                dd = {'full_path': full_path,
-                      'uid': uid,
-                      'tags': aux_tags_string,
-                      'tags_print': aux_tags_print}
+                        selection.append(meta)
 
-                selection.append(uid)
-                selection_desc.append(aux_tags_print)      
+    return {'return':0, 'lst':lst, 'selection':selection}
 
-                metas.append(dd)
-
-    return {'return':0, 'lst':lst, 'all_meta':metas, 'selection':selection, 'selection_desc':selection_desc}
 
 ##################################################################################
 def gui(i):
@@ -112,7 +99,6 @@ def gui(i):
     st = i['streamlit_module']
     meta = i['meta']
     gui_meta = meta['gui']
-
     skip_header = i.get('skip_title', False)
     
     if not skip_header:
@@ -123,49 +109,53 @@ def gui(i):
 
         st.markdown('### {}'.format(title))
 
-    
-    
+    # Preparing state
+    if 'bench_id' not in st.session_state: st.session_state['bench_id']=0
+    if 'compute_id' not in st.session_state: st.session_state['compute_id']=0
     
     ##############################################################
-    # Check compute
-    r=load_cfg({'tags':'benchmark,compute'})
+    # Check first level of benchmarks
+    r=load_cfg({'tags':'benchmark,run', 'skip_files':True})
     if r['return']>0: return r            
 
-    compute_all_meta = r['all_meta']
+    bench_selection = r['selection']
+
+    # Creating compute selector
+    bench_id = st.selectbox('Select benchmark:',
+                             range(len(bench_selection)), 
+                             format_func=lambda x: bench_selection[x]['name'],
+                             index = 0,
+                             key = 'bench')
+
+    bench_supported_compute = []
+    if bench_id != st.session_state['bench_id']:
+        bench_meta = bench_selection[bench_id]
+        bench_supported_compute = bench_meta.get('supported_compute',[])
+    
+
+    ##############################################################
+    # Check compute
+    r=load_cfg({'tags':'benchmark,compute', 
+                'prune':{'key':'supported_compute', 'list':bench_supported_compute}})
+    if r['return']>0: return r            
+
     compute_selection = r['selection']
-    compute_selection_desc = r['selection_desc']
 
     # Creating compute selector
     compute_id = st.selectbox('Select target hardware:',
-                               range(len(compute_selection_desc)), 
-                               format_func=lambda x: compute_selection_desc[x],
+                               range(len(compute_selection)), 
+                               format_func=lambda x: compute_selection[x]['name'],
                                index = 0,
                                key = 'compute')
 
-    if compute_id==0:
-        return {'return':0}
+    if compute_id!=st.session_state['compute_id']:
+        st.session_state['compute_id']=compute_id
 
-    st.markdown(str(compute_all_meta[compute_id-1]))
+        st.rerun()
 
+    st.markdown('Bench ID: {}'.format(st.session_state['bench_id']))
+    st.markdown('Compute ID: {}'.format(st.session_state['compute_id']))
     
-    ##############################################################
-    # Check compute
-    r=load_cfg({'tags':'benchmark,run'})
-    if r['return']>0: return r            
-
-    run_all_meta = r['all_meta']
-    run_selection = r['selection']
-    run_selection_desc = r['selection_desc']
-
-    # Creating compute selector
-    run_id = st.selectbox('Select benchmark:',
-                           range(len(run_selection_desc)), 
-                           format_func=lambda x: run_selection_desc[x],
-                           index = 0,
-                           key = 'run')
-
-    if run_id>0:
-        st.markdown(str(run_all_meta[run_id-1]))
 
         
 

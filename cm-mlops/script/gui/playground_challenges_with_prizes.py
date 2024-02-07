@@ -126,7 +126,7 @@ def page(st, params):
                     <center>
                      <h3>Ongoing reproducibility and optimization challenges</h3>
 <!--                     <i>
-                      Participate in collaborative benchmarking, optimization and co-design of Pareto-efficient AI and ML Systems
+                      Participate in collaborative and composable benchmarking, optimization and co-design of Pareto-efficient AI and ML Systems
                       (latency, throughput, power consumption, accuracy, costs and other metrics):
                       <br>
                       <br>

@@ -9,6 +9,8 @@ title: Run and optimize MLPerf inference v4.0 benchmarks (Intel, Nvidia, Qualcom
 date_close: '20240225'
 date_open: '20240205'
 
+hot: true
+
 tags:
 - modularize
 - optimize
@@ -21,7 +23,6 @@ tags:
 - mlperf-inference-v4.0
 - mlperf-inference-v4.0-2024
 - v4.0
-
 
 experiments:
 - tags: mlperf-inference,v4.0

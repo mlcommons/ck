@@ -50,7 +50,6 @@ def main():
         <center>
         <h2 style="color:#2f6fb3">Collective Knowledge Playground</h2>
         <img src="https://cknowledge.org/images/logo-ck-tr.png" width="150"><br>
-        <small>Collaborative Benchmarking and Optimization of AI Systems and Applications</small><br>
         {}
         <br>
         </center>
@@ -59,31 +58,35 @@ def main():
     )
 
     # Check action and basic menu
-    action = params.get('action',['contributors'])[0].lower()
+    action = params.get('action',['challenges'])[0].lower()
 
-    style_action_howtorun='font-style:italic;font-weight:bold;color:#ffffff' if action=='howtorun' else ''
     style_action_challenges='font-style:italic;font-weight:bold;color:#ffffff' if action=='challenges' else ''
+    style_action_howtorun='font-style:italic;font-weight:bold;color:#ffffff' if action=='howtorun' else ''
     style_action_experiments='font-style:italic;font-weight:bold;color:#ffffff' if action=='experiments' else ''
     style_action_contributors='font-style:italic;font-weight:bold;color:#ffffff' if action=='contributors' else ''
+    style_action_components='font-style:italic;font-weight:bold;color:#ffffff' if action=='components' else ''
     style_action_reports='font-style:italic;font-weight:bold;color:#ffffff' if action=='reports' else ''
+    style_action_components='font-style:italic;font-weight:bold;color:#ffffff' if action=='components' else ''
     style_action_beta='font-style:italic;font-weight:bold;color:#ffffff' if action=='beta' else ''
 
     st.write('''
         <center>
-        <a target="_self" href="?action=howtorun"><button style="{}">How to Run</button></a>
-        <a target="_self" href="?action=contributors"><button style="{}">Leaderboard</button></a>
         <a target="_self" href="?action=challenges"><button style="{}">Challenges</button></a>
-        <a target="_self" href="?action=experiments"><button style="{}">Experiments and results</button></a>
+        <a target="_self" href="?action=howtorun"><button style="{}">How to Run</button></a>
+        <a target="_self" href="?action=experiments"><button style="{}">Results</button></a>
+        <a target="_self" href="?action=contributors"><button style="{}">Leaderboard</button></a>
+        <a target="_self" href="?action=components"><button style="{}">Automation recipes</button></a>
         <a target="_self" href="?action=reports"><button style="{}">Reports</button></a>
-        <a target="_self" href="?action=beta"><button style="{}">Beta features</button></a>
-        <a target="_self" href="https://github.com/mlcommons/ck"><button>Docs / GitHub</button></a>
+        <a target="_self" href="?action=beta"><button style="{}">Beta</button></a>
         <a target="_self" href="https://discord.gg/JjWNWXKxwT"><button>Discord</button></a>
+        <a target="_self" href="https://github.com/mlcommons/ck"><button>GitHub</button></a>
         </center>
         '''.format(
-                   style_action_howtorun,
-                   style_action_contributors,
                    style_action_challenges,
+                   style_action_howtorun,
                    style_action_experiments, 
+                   style_action_contributors,
+                   style_action_components,
                    style_action_reports,
                    style_action_beta
                    ),
@@ -96,17 +99,20 @@ def main():
 
     r={'return':0}
 
-    if action == 'howtorun':
-        from playground_howtorun import page
-        r = page(st, params)
-    elif action == 'challenges':
+    if action == 'challenges':
         from playground_challenges import page
+        r = page(st, params)
+    elif action == 'howtorun':
+        from playground_howtorun import page
         r = page(st, params)
     elif action == 'experiments':
         from graph import visualize
         r = visualize(st, params, action = 'experiments')
     elif action == 'contributors':
         from playground_contributors import page
+        r = page(st, params)
+    elif action == 'components':
+        from playground_components import page
         r = page(st, params)
     elif action == 'reports':
         from playground_reports import page
@@ -129,10 +135,7 @@ def main():
 
     st.write("""
              <center>
-              Development: 
-              <a href="https://cTuning.org">cTuning.org</a>,
-              <a href="https://cKnowledge.org">cKnowledge.org</a>
-              and <a href="https://github.com/mlcommons/ck/blob/master/docs/taskforce.md">MLCommons</a>.
+              Powered by <a href="https://github.com/mlcommons/ck">MLCommons Collective Mind</a>
              </center>
              """,  
              unsafe_allow_html=True)
