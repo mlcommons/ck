@@ -9,8 +9,8 @@
 
 Whenever a [given CM script]() caches the output, you can find it 
 
-Whenever a [CM script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md) caches its output
-(such as downloaded model or pre-processed data set or built code),
+Whenever a [CM script](https://access.cknowledge.org/playground/?action=components) 
+caches its output (such as downloaded model or pre-processed data set or built code),
 you can find it using the CM "cache" automation as follows:
 
 ```bash
