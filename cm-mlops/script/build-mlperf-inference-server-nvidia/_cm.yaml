@@ -236,8 +236,8 @@ docker:
     - tags: get,mlperf,inference,results,dir
     - tags: get,mlperf,inference,submission,dir
   pre_run_cmds:
-    - cd CM/repos/ctuning@mlcommons-ck && git pull
-  run_cmd_prefix: sudo apt remove -y cmake && cd CM/repos/ctuning@mlcommons-ck && git pull && cd -
+    - cm pull repo ctuning@mlcommons-ck
+  run_cmd_prefix: sudo apt remove -y cmake && cm pull repo ctuning@mlcommons-ck
   mounts:
    - "${{ IMAGENET_PATH }}:/data/imagenet-val"
    - "${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}:${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}"
