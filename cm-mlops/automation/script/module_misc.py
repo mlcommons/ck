@@ -1555,6 +1555,11 @@ def docker(i):
 
     env=i.get('env', {})
     env['CM_RUN_STATE_DOCKER'] = False
+    script_automation = i['self_module']
+    state = i.get('state', {})
+
+    tags_split = i.get('tags', '').split(",")
+    variation_tags = [ t[1:] for t in tags_split if t.startswith("_") ]
 
     docker_cache = i.get('docker_cache', "yes")
     if docker_cache in ["no", False, "False" ]:
@@ -1592,7 +1597,17 @@ def docker(i):
         with open(run_config_path, 'r') as run_config_file:
             run_config = yaml.safe_load(run_config_file)
         '''
+
+        variations = meta.get('variations', {})
         docker_settings = meta.get('docker', {})
+        state['docker'] = docker_settings
+
+        r = script_automation._update_state_from_variations(i, meta, variation_tags, variations, env, state, deps = [], post_deps = [], prehook_deps = [], posthook_deps = [], new_env_keys_from_meta = [], new_state_keys_from_meta = [], add_deps_recursive = {}, run_state = {}, verbose = False)
+        if r['return'] > 0:
+            return r
+
+        docker_settings = state['docker']
+
         if not docker_settings.get('run', True):
             print("docker.run set to False in _cm.json")
             continue
@@ -1622,7 +1637,6 @@ def docker(i):
         deps = docker_settings.get('deps', [])
         if deps:
             # Todo: Support state, const and add_deps_recursive
-            script_automation = i['self_module']
             r = script_automation._run_deps(deps, [], env, {}, {}, {}, {}, '',{})
             if r['return'] > 0:
                 return r
