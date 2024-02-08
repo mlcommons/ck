@@ -9,7 +9,7 @@ def page(st, params):
 
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
 
-    url_components = url_prefix + '?action=components'
+    url_scripts = url_prefix + '?action=scripts'
 
 
     name = params.get('name',[''])[0].strip()
@@ -142,7 +142,7 @@ def page(st, params):
                      <h4>Collaborative benchmarking and optimization of AI applications and systems<br>
                      (latency, throughput, power consumption, accuracy, costs ...)</h4>
                      <small>Organized by the <a href="https://github.com/mlcommons/ck/blob/master/docs/taskforce.md">MLCommons Task Force on Automation and Reproducibility</a>
-                     and powered by <a href="{}">Collective Mind automation recipes</a>.</small>
+                     and powered by <a href="{}">Collective Mind automation recipes (CM scripts)</a>.</small>
 <!--                     <i>
                       Participate in collaborative and composable benchmarking, optimization and co-design of Pareto-efficient AI and ML Systems
                       (latency, throughput, power consumption, accuracy, costs and other metrics):
@@ -150,7 +150,7 @@ def page(st, params):
                       <br>
                       <br>
                     </center>
-                    '''.format(url_components)
+                    '''.format(url_scripts)
                 st.write(x, unsafe_allow_html = True)
 
 

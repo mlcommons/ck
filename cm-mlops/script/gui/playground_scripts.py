@@ -113,7 +113,7 @@ def page(st, params):
         else:
             x = '''
                 <small>
-                 Found {} portable and reusable components (<a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script">GitHub sources</a>):
+                 Found {} portable and reusable automation recipes (CM scripts) (<a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script">GitHub sources</a>):
                 </center>
                 '''.format(len(lst))
             st.write(x, unsafe_allow_html = True)
