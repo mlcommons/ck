@@ -198,7 +198,7 @@ cmr "{}"
                     st.markdown('**Dependencies on other CM scripts:**')
 
                     x=''
-                    for t in all_deps_tags:
+                    for t in sorted(all_deps_tags):
                         # Test that it's not just extending tags:
                         if t.startswith('_') or ',' not in t:
                             continue

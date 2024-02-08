@@ -67,7 +67,8 @@ def get_all_deps_tags(i):
             if type(v) == list:
                 v = ','.join(v)
 
-            all_deps_tags.append(v)
+            if v not in all_deps_tags:
+                all_deps_tags.append(v)
 
         elif type(v) == dict:
            r = get_all_deps_tags({'meta':v, 'all_deps_tags':all_deps_tags})
