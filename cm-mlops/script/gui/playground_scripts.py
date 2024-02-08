@@ -8,7 +8,7 @@ import misc
 def page(st, params):
 
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
-    url_prefix_component = url_prefix + '?action=components'
+    url_prefix_component = url_prefix + '?action=scripts'
 
     component_name = ''
     x = params.get('name',[''])
@@ -19,7 +19,7 @@ def page(st, params):
         x = params.get('tags',[''])
         if len(x)>0 and x[0]!='': component_tags = x[0].strip()
 
-    component_tags = st.text_input('Search open-source [Collective Mind](https://github.com/mlcommons/ck) automation recipes by tags:', value=component_tags, key='component_tags').strip()
+    component_tags = st.text_input('Search open-source [Collective Mind](https://github.com/mlcommons/ck) automation recipes (aka CM scripts) by tags:', value=component_tags, key='component_tags').strip()
 
     # Searching automation recipes
     
@@ -41,7 +41,7 @@ def page(st, params):
     end_html = ''
 
     if len(lst)==0:
-        st.markdown('Automation recipes were not found!')
+        st.markdown('CM scripts (automation recipes) were not found!')
     else:
         artifact = None
 
