@@ -89,6 +89,11 @@ def page(st, params):
                 # Basic run
                 tags = meta['tags_help'] if meta.get('tags_help','')!='' else ' '.join(meta['tags'])
 
+                x1 = misc.make_url(tags.replace(' ',','), key = 'tags', action='scripts', md=False, skip_url_quote=True)
+                x2 = misc.make_url(meta['alias'], action='scripts', md=False)
+                x3 = misc.make_url(meta['uid'], action='scripts', md=False)
+                end_html='<center><small><i>Self links: <a href="{}">tags</a> or <a href="{}">alias</a> or <a href="{}">UID</a></i></small></center>'.format(x1,x2,x3)
+
                 extra_repo = '' if repo_meta['alias']=='mlcommons@ck' else '\ncm pull repo '+repo_meta['alias']
 
 
@@ -171,6 +176,29 @@ cmr "{}"
 
                 if url_customize!='':
                     st.markdown('* See [customization python code]({}) for this automation recipe at GitHub.'.format(url_customize))
+
+                st.markdown('* See [all meta, code and native scripts]({}) for this automation recipe at GitHub.'.format(url))
+
+                # Check dependencies
+                r = misc.get_all_deps_tags({'meta':meta, 'st':st})
+                if r['return']>0: return r
+
+                all_deps_tags = r['all_deps_tags']
+
+                if len(all_deps_tags)>0:
+                    st.markdown('**Dependencies on other CM scripts:**')
+
+                    x=''
+                    for t in all_deps_tags:
+                        # Test that it's not just extending tags:
+                        if t.startswith('_') or ',' not in t:
+                            continue
+
+                        url_deps = url_prefix_script+'&tags='+t
+                        
+                        x+='* [{}]({})\n'.format(t, url_deps)
+                                        
+                    st.markdown(x)
 
 
         else:
