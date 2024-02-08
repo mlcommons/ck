@@ -1318,7 +1318,8 @@ class CAutomation(Automation):
                 docker_meta = meta.get('docker')
                 if docker_meta:
                     docker_deps = docker_meta.get('deps')
-                    docker_deps = [ dep for dep in docker_deps if not dep.get('skip_inside_docker', False) ]
+                    if docker_deps:
+                        docker_deps = [ dep for dep in docker_deps if not dep.get('skip_inside_docker', False) ]
             if len(docker_deps)>0:
 
                 if verbose:
