@@ -19,6 +19,7 @@ tags:
 - common
 - generate-run-cmds
 - run-mlperf
+- run-mlperf-inference
 - vision
 - mlcommons
 - mlperf
