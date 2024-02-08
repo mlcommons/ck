@@ -27,9 +27,13 @@ def page(st, params):
           'automation':'script,5b4e0237da074764'}
 
     if script_tags!='':
-        ii['tags']=script_tags.replace(' ',',')
+        script_tags=script_tags.replace(' ',',')
+        ii['tags']=script_tags
     elif script_name!='':
         ii['artifact']=script_name
+
+    # Check variations for later:
+    variations = [v for v in script_tags.split(',') if v.startswith('_')]
 
     r = cmind.access(ii)
     if r['return']>0: return r
@@ -96,6 +100,11 @@ def page(st, params):
 
                 extra_repo = '' if repo_meta['alias']=='mlcommons@ck' else '\ncm pull repo '+repo_meta['alias']
 
+                xtags = tags
+                if len(variations)>0:
+                   if xtags!='':
+                       xtags+=' '
+                   xtags+=' '.join(variations)
 
                 x = '''
 ```bash
@@ -105,7 +114,7 @@ cm pull repo mlcommons@ck{}
 cm run script "{}"
 cmr "{}"
 ```
-                    '''.format(extra_repo,tags,tags)
+                    '''.format(extra_repo,xtags,xtags)
 
                 st.markdown('Default run on Linux, Windows, MacOS and any other OS (check [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) for more details):\n{}\n'.format(x))
 
