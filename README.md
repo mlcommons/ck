@@ -19,7 +19,7 @@
 
 Collective Mind (CM) is a [community project](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) to develop 
 a [collection of portable, extensible, technology-agnostic and ready-to-use automation recipes for MLOps and DevOps
-with a human-friendly interface (aka CM scripts)](https://access.cknowledge.org/playground/?action=components)
+with a human-friendly interface (aka CM scripts)](https://access.cknowledge.org/playground/?action=scripts)
 that help to automate all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
 on any platform with any software and hardware. 
 They require Python 3.7+ with minimal dependencies and can run natively on Ubuntu, MacOS, Windows, RHEL, Debian, Amazon Linux
@@ -39,7 +39,7 @@ from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors:
   and simple JSON/YAML descriptions instead of inventing new workflow languages;
 * must have the same interface to run all automations natively, in a cloud or inside containers.
 
-Below you can find and try a few examples of the most-commonly used [automation recipes](https://access.cknowledge.org/playground/?action=components)
+Below you can find and try a few examples of the most-commonly used [automation recipes](https://access.cknowledge.org/playground/?action=scripts)
 that can be chained into more complex automation workflows [using simple JSON or YAML](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml).
 
 *Note that MLCommons CM is a collaborative engineering effort to gradually improve portability and functionality
@@ -153,14 +153,14 @@ if output['return']==0: print (output)
 
 </details>
 
-[CM scripts](https://access.cknowledge.org/playground/?action=components) 
+[CM scripts](https://access.cknowledge.org/playground/?action=scripts) 
 were successfully used to [modularize MLPerf inference benchmarks](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md) 
 and help the community automate more than 95% of all performance and power submissions in the v3.1 round
 across more than 120 system configurations (models, frameworks, hardware) 
 while reducing development and maintenance costs.
 
 Besides automating MLCommons projects, the community also started started using 
-and extending [CM scripts](https://access.cknowledge.org/playground/?action=components) 
+and extending [CM scripts](https://access.cknowledge.org/playground/?action=scripts) 
 to modularize, run and benchmark other software projects and make it
 easier to rerun, reproduce and reuse [research projects from published papers 
 at Systems and ML conferences]( https://cTuning.org/ae/micro2023.html ).

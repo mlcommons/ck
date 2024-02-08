@@ -9,7 +9,7 @@
 
 Whenever a [given CM script]() caches the output, you can find it 
 
-Whenever a [CM script](https://access.cknowledge.org/playground/?action=components) 
+Whenever a [CM script](https://access.cknowledge.org/playground/?action=scripts) 
 caches its output (such as downloaded model or pre-processed data set or built code),
 you can find it using the CM "cache" automation as follows:
 

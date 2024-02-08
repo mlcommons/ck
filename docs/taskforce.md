@@ -4,7 +4,7 @@
 
 ## Mission
 
-* Develop [reusable automation recipes and workflows](https://access.cknowledge.org/playground/?action=components) 
+* Develop [reusable automation recipes and workflows](https://access.cknowledge.org/playground/?action=scripts) 
   with [a common and human-friendly interface (Collective Mind aka CM)](https://github.com/mlcommons/ck) 
   to support MLCommons projects and help everyone assemble, run, reproduce, customize and optimize ML(Perf) benchmarks
   in a unified and automated way across diverse models, data sets, software and hardware from different vendors.
