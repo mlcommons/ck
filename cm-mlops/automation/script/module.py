@@ -1317,23 +1317,24 @@ class CAutomation(Automation):
             if i.get('docker_run_deps'):
                 docker_meta = meta.get('docker')
                 if docker_meta:
-                    docker_deps = docker_meta.get('deps')
+                    docker_deps = docker_meta.get('deps', [])
                     if docker_deps:
                         docker_deps = [ dep for dep in docker_deps if not dep.get('skip_inside_docker', False) ]
-            if len(docker_deps)>0:
 
-                if verbose:
-                    print (recursion_spaces + '  - Checkingdocker run dependencies on other CM scripts:')
+                if len(docker_deps)>0:
 
-                r = self._call_run_deps(docker_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, 
+                    if verbose:
+                        print (recursion_spaces + '  - Checking docker run dependencies on other CM scripts:')
+
+                    r = self._call_run_deps(docker_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, 
                         recursion_spaces + extra_recursion_spaces,
                         remembered_selections, variation_tags_string, False, debug_script_tags, verbose, show_time, extra_recursion_spaces, run_state)
-                if r['return']>0: return r
+                    if r['return']>0: return r
 
-                if verbose:
-                    print (recursion_spaces + '  - Processing env after docker run dependencies ...')
+                    if verbose:
+                        print (recursion_spaces + '  - Processing env after docker run dependencies ...')
 
-                update_env_with_values(env)
+                    update_env_with_values(env)
 
             # Check chain of dependencies on other CM scripts
             if len(deps)>0:
