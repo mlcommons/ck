@@ -45,6 +45,7 @@ def detect_version(i):
 
 def postprocess(i):
 
+    os_info = i['os_info']
     env = i['env']
 
     gdrive = env.get('CM_RCLONE_GDRIVE', '')
@@ -76,4 +77,12 @@ def postprocess(i):
 
     env['CM_RCLONE_CACHE_TAGS'] = 'version-'+version
 
+    if os_info['platform'] == 'windows':
+        cur_dir = os.getcwd()
+        path_bin = os.path.join(cur_dir, 'rclone.exe')
+        if os.path.isfile(path_bin):
+            # Was downloaded and extracted by CM
+            env['CM_RCLONE_BIN_WITH_PATH'] = path_bin
+            env['+PATH']=[cur_dir]
+    
     return {'return':0, 'version': version}
