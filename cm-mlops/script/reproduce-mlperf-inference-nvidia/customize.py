@@ -379,8 +379,12 @@ def preprocess(i):
         if num_sort_segments:
             run_config += f" --num_sort_segments={num_sort_segments}"
 
-        num_warmups = env.get('CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS')
-        if num_warmups:
+        embedding_weights_on_gpu_part = env.get('CM_MLPERF_NVIDIA_HARNESS_EMBEDDING_WEIGHTS_ON_GPU_PART', '')
+        if embedding_weights_on_gpu_part != '':
+            run_config += f" --embedding_weights_on_gpu_part={embedding_weights_on_gpu_part}"
+
+        num_warmups = env.get('CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS', '')
+        if num_warmups != '':
             run_config += f" --num_warmups={num_warmups}"
 
         skip_postprocess = env.get('CM_MLPERF_NVIDIA_HARNESS_SKIP_POSTPROCESS')

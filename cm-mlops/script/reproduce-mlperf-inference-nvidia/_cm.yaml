@@ -86,7 +86,8 @@ input_mapping:
   use_fp8: CM_MLPERF_NVIDIA_HARNESS_USE_FP8
   enable_sort: CM_MLPERF_NVIDIA_HARNESS_ENABLE_SORT
   num_sort_segments: CM_MLPERF_NVIDIA_HARNESS_NUM_SORT_SEGMENTS
-  skip_postprocess: CM_MLPERF_NVIDIA_HARNESS_SKIP_POSTPROCESS 
+  skip_postprocess: CM_MLPERF_NVIDIA_HARNESS_SKIP_POSTPROCESS
+  embedding_weights_on_gpu_part: CM_MLPERF_NVIDIA_HARNESS_EMBEDDING_WEIGHTS_ON_GPU_PART
 
 new_state_keys:
   - mlperf-inference-implementation
@@ -1085,6 +1086,8 @@ variations:
   rtx_4090,dlrm_,offline,run_harness:
     default_variations:
       batch-size: batch_size.1400
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_EMBEDDING_WEIGHTS_ON_GPU_PART: "0.30"
 
   a6000:
     group: gpu-name
