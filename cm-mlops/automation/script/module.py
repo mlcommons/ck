@@ -755,6 +755,7 @@ class CAutomation(Automation):
             return r
 
         variation_tags_string = r['variation_tags_string']
+        explicit_variation_tags = r['explicit_variation_tags']
 
         # USE CASE:
         #  HERE we may have versions in script input and env['CM_VERSION_*']
@@ -1771,7 +1772,7 @@ class CAutomation(Automation):
             r = update_adr_from_meta(deps, post_deps, prehook_deps, posthook_deps, add_deps_recursive)
             if r['return']>0: return r
 
-        return {'return': 0, 'variation_tags_string': variation_tags_string}
+        return {'return': 0, 'variation_tags_string': variation_tags_string, 'explicit_variation_tags': explicit_variation_tags}
 
     def _update_variation_tags_from_variations(self, variation_tags, variations, variation_groups, excluded_variation_tags):
 
