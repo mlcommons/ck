@@ -229,6 +229,7 @@ docker:
     cudnn_tar_file_path: CM_CUDNN_TAR_FILE_PATH
     tensorrt_tar_file_path: CM_TENSORRT_TAR_FILE_PATH
     cuda_run_file_path: CUDA_RUN_FILE_LOCAL_PATH
+    dlrm_DATA_path: DLRM_DATA_PATH
     scratch_path: MLPERF_SCRATCH_PATH
   deps:
     - tags: get,mlperf,inference,nvidia,scratch,space
@@ -247,3 +248,4 @@ docker:
    - "${{ CM_TENSORRT_TAR_FILE_PATH }}:${{ CM_TENSORRT_TAR_FILE_PATH }}"
    - "${{ CUDA_RUN_FILE_LOCAL_PATH }}:${{ CUDA_RUN_FILE_LOCAL_PATH }}"
    - "${{ MLPERF_SCRATCH_PATH }}:${{ MLPERF_SCRATCH_PATH }}"
+   - "${{ DLRM_DATA_PATH }}:/home/mlperf_inf_dlrmv2"
