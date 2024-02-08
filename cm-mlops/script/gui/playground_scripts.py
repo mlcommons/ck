@@ -8,28 +8,28 @@ import misc
 def page(st, params):
 
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
-    url_prefix_component = url_prefix + '?action=scripts'
+    url_prefix_script = url_prefix + '?action=scripts'
 
-    component_name = ''
+    script_name = ''
     x = params.get('name',[''])
-    if len(x)>0 and x[0]!='': component_name = x[0].strip()
+    if len(x)>0 and x[0]!='': script_name = x[0].strip()
 
-    component_tags = ''
-    if component_name == '':
+    script_tags = ''
+    if script_name == '':
         x = params.get('tags',[''])
-        if len(x)>0 and x[0]!='': component_tags = x[0].strip()
+        if len(x)>0 and x[0]!='': script_tags = x[0].strip()
 
-    component_tags = st.text_input('Search open-source [Collective Mind](https://github.com/mlcommons/ck) automation recipes (aka CM scripts) by tags:', value=component_tags, key='component_tags').strip()
+    script_tags = st.text_input('Search open-source [Collective Mind](https://github.com/mlcommons/ck) automation recipes (aka CM scripts) by tags:', value=script_tags, key='script_tags').strip()
 
     # Searching automation recipes
     
     ii = {'action':'find',
           'automation':'script,5b4e0237da074764'}
 
-    if component_tags!='':
-        ii['tags']=component_tags.replace(' ',',')
-    elif component_name!='':
-        ii['artifact']=component_name
+    if script_tags!='':
+        ii['tags']=script_tags.replace(' ',',')
+    elif script_name!='':
+        ii['artifact']=script_name
 
     r = cmind.access(ii)
     if r['return']>0: return r
@@ -46,7 +46,7 @@ def page(st, params):
         artifact = None
 
         if len(lst)==1:
-            # Individual component
+            # Individual script
             recipe = lst[0]
 
             meta = recipe.meta
@@ -62,8 +62,8 @@ def page(st, params):
                 script_path = recipe.path
                 script_alias = alias
 
-                script_tags = component_tags
-                if component_tags=='':
+                script_tags = script_tags
+                if script_tags=='':
                     script_tags = meta.get('tags_help','')
                     if script_tags !='':
                         script_tags=script_tags.replace(' ',',')
@@ -82,16 +82,42 @@ def page(st, params):
 
             else:
                 
-                st.markdown('### {} ({})'.format(alias, uid))
+                st.markdown('### CM script "{}" ({})'.format(alias, uid))
 
-                # Check original link
                 repo_meta = recipe.repo_meta
+
+                # Basic run
+                tags = meta['tags_help'] if meta.get('tags_help','')!='' else ' '.join(meta['tags'])
+
+                extra_repo = '' if repo_meta['alias']=='mlcommons@ck' else '\ncm pull repo '+repo_meta['alias']
+
+
+                x = '''
+```bash
+pip install cmind
+cm pull repo mlcommons@ck{}
+
+cm run script "{}"
+cmr "{}"
+```
+                    '''.format(extra_repo,tags,tags)
+
+                st.markdown('Default run on Linux, Windows, MacOS and any other OS (check [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) for more details):\n{}\n'.format(x))
+
+                
+                # Check original link
 
                 url = repo_meta.get('url','')
                 if url=='' and repo_meta.get('git', False):
                     url = 'https://github.com/'+repo_meta['alias'].replace('@','/')
 
+                url_readme = ''
+                url_readme_extra = ''
+                url_meta_description = ''
+                url_customize = ''
+
                 if url!='':
+                    # Recreate GitHub path
                     if not url.endswith('/'): url=url+'/'
 
                     url += 'tree/master/'
@@ -103,13 +129,46 @@ def page(st, params):
                     
                     url += 'script/'+alias
 
-                    st.markdown('* View documentation and sources for this Collective Mind automation recipe at [GitHub]({}).'.format(url))
+                    # Check README.md
+                    x = os.path.join(recipe.path, 'README.md')
+                    if os.path.isfile(x):
+                        url_readme = url+'/README.md'
+
+                    # Check README.extra.md
+                    x = os.path.join(recipe.path, 'README-extra.md')
+                    if os.path.isfile(x):
+                        url_readme_extra = url+'/README-extra.md'
+
+                    # Check customize.py
+                    x = os.path.join(recipe.path, 'customize.py')
+                    if os.path.isfile(x):
+                        url_customize = url+'/customize.py'
+
+                    # Check _cm.yaml or _cm.json
+                    for x in ['_cm.yaml', '_cm.json']:
+                        y = os.path.join(recipe.path, x)
+                        if os.path.isfile(y):
+                            url_meta_description = url+'/'+x
+                    
+
+                    
+
 
                 
-                url_gui = url_prefix_component+'&name='+alias+','+uid+'&gui=true'
+                url_gui = url_prefix_script+'&name='+alias+','+uid+'&gui=true'
 
-                st.markdown('* View [CM GUI]({}) to run this script.'.format(url_gui))
-        
+                st.markdown('* View [auto-generated README on GitHub]({}) and/or [CM GUI]({}) to customize and run this script.'.format(url_readme, url_gui))
+
+                if url_readme_extra!='':
+                    st.markdown('* See [extra README]({}) for this automation recipe at GitHub.'.format(url_readme_extra))
+
+                if url_meta_description!='':
+                    st.markdown('* See [meta description]({}) for this automation recipe at GitHub.'.format(url_meta_description))
+
+                if url_customize!='':
+                    st.markdown('* See [customization python code]({}) for this automation recipe at GitHub.'.format(url_customize))
+
+
         else:
             x = '''
                 <small>
@@ -141,7 +200,7 @@ def page(st, params):
                     alias = meta['alias']
                     uid = meta['uid']
 
-                    url = url_prefix_component+'&name='+alias+','+uid
+                    url = url_prefix_script+'&name='+alias+','+uid
                     
                     md += '* [{}]({})'.format(alias, url)+'\n'
 
