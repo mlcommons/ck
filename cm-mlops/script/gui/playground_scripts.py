@@ -32,7 +32,7 @@ def page(st, params):
         x = params.get('tags',[''])
         if len(x)>0 and x[0]!='': script_tags = x[0].strip()
 
-    script_tags = st.text_input('Search open-source automation recipes (CM scripts) by tags:', value=script_tags, key='script_tags').strip()
+    script_tags = st.text_input('Search open-source automation recipes by tags:', value=script_tags, key='script_tags').strip()
 
     # Searching automation recipes
     
@@ -58,7 +58,7 @@ def page(st, params):
     end_html = ''
 
     if len(lst)==0:
-        st.markdown('CM scripts (automation recipes) were not found!')
+        st.markdown('CM scripts were not found!')
     else:
         artifact = None
 
@@ -231,13 +231,6 @@ cm gui script "{}"
 
 
         else:
-            x = '''
-                <small>
-                 Found {} portable and reusable automation recipes (CM scripts) (<a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script">GitHub sources</a>):
-                </center>
-                '''.format(len(lst))
-            st.write(x, unsafe_allow_html = True)
-            
             categories={}
             
             for l in sorted(lst, key=lambda x: (
@@ -252,7 +245,34 @@ cm gui script "{}"
 
                 categories[category].append(l)
             
-            for category in sorted(categories):
+            if len(categories)>1:
+                category_selection = [''] + sorted(list(categories.keys()), key = lambda v: v.upper())
+
+                # Creating compute selector
+                category_id = st.selectbox('Prune by category:',
+                                           range(len(category_selection)), 
+                                           format_func=lambda x: category_selection[x],
+                                           index = 0,
+                                           key = 'category')
+
+                if category_id>0:
+                    category_key = category_selection[category_id]
+                    categories = {category_key:categories[category_key]}
+
+            # Check number of recipes
+            recipes = 0
+            for category in sorted(categories, key = lambda v: v.upper()):
+                recipes += len(categories[category])
+            
+            x = '''
+                <small>
+                 Found {} automation recipes:
+                </center>
+                '''.format(str(recipes))
+            st.write(x, unsafe_allow_html = True)
+
+            
+            for category in sorted(categories, key = lambda v: v.upper()):
                 md = '### {}'.format(category)+'\n'
                 
                 for recipe in categories[category]:
