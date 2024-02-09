@@ -127,6 +127,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rclone/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rclone/_cm.json)
   1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rclone/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rclone/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rclone/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rclone/customize.py)***
@@ -138,8 +139,14 @@ ___
 `cmr "get rclone[,variations]"  -j`
 #### New environment keys (filter)
 
+* `+PATH`
+* `CM_RCLONE_BIN_WITH_PATH`
+* `CM_RCLONE_CACHE_TAGS`
+* `CM_RCLONE_VERSION`
 #### New environment keys auto-detected from customize
 
+* `CM_RCLONE_BIN_WITH_PATH`
+* `CM_RCLONE_CACHE_TAGS`
 ___
 ### Maintainers
 
