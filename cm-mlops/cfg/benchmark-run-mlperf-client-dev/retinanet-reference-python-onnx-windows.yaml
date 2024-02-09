@@ -1,6 +1,0 @@
-uid: "fe379ecd1e054a00"
-
-name: "RetinaNet Reference Python ONNX Offline (Windows)"
-
-supported_compute:
-- cdfd424c32734e38
