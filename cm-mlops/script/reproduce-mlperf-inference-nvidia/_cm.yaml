@@ -415,6 +415,7 @@ variations:
     - tags: get,generic-python-lib,_package.fbgemm-gpu
       version: 0.3.2
     - tags: get,generic-python-lib,_onnx-graphsurgeon
+    - tags: get,generic-python-lib,_package.scikit-learn
 
   dlrm-v2-99:
     group: model
