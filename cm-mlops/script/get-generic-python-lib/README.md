@@ -34,7 +34,7 @@ See extra [notes](README-extra.md) from the authors and contributors.
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,install,generic,generic-python-lib*
+* CM "database" tags to find this script: *get,generic-python-lib*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -51,9 +51,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,install,generic,generic-python-lib[,variations] `
+1. `cm run script --tags=get,generic-python-lib[,variations] `
 
-2. `cmr "get install generic generic-python-lib[ variations]" `
+2. `cmr "get generic-python-lib[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -68,7 +68,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,install,generic,generic-python-lib'
+                  'tags':'get,generic-python-lib'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -85,13 +85,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,install,generic,generic-python-lib"```
+```cmr "cm gui" --script="get,generic-python-lib"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,install,generic,generic-python-lib) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,generic-python-lib) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get install generic generic-python-lib[ variations]" `
+`cm docker script "get generic-python-lib[ variations]" `
 
 ___
 ### Customization
@@ -654,7 +654,7 @@ ___
 
 ___
 ### Script output
-`cmr "get install generic generic-python-lib[,variations]"  -j`
+`cmr "get generic-python-lib[,variations]"  -j`
 #### New environment keys (filter)
 
 * `CM_PYTHONLIB_*`

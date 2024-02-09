@@ -266,7 +266,11 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_package.torchsnapshot
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.torchrec
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_package.fbgemm-gpu
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_onnx-graphsurgeon
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_gptj_`
       - Workflow:
@@ -492,6 +496,8 @@ ___
     * `_rtx_4090,bert_,server,run_harness`
       - Workflow:
     * `_rtx_4090,dlrm_,offline,run_harness`
+      - Environment variables:
+        - *CM_MLPERF_NVIDIA_HARNESS_EMBEDDING_WEIGHTS_ON_GPU_PART*: `0.30`
       - Workflow:
     * `_rtx_4090,resnet50,offline,run_harness`
       - Workflow:
@@ -970,7 +976,7 @@ ___
              * CM names: `--adr.['nvidia-inference-server']...`
              - CM script: [build-mlperf-inference-server-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-mlperf-inference-server-nvidia)
            * reproduce,mlperf,inference,nvidia,harness,_preprocess_data
-             * `if (CM_MODEL not in dlrm-v2-99)`
+             * `if (CM_MODEL not in ['dlrm-v2-99', 'dlrm-v2-99.9'])`
              - CM script: [reproduce-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia)
            * reproduce,mlperf,inference,nvidia,harness,_download_model
              * `if (CM_MODEL not in ['retinanet_old', 'resnet50', 'bert-99', 'bert-99.9', 'dlrm-v2-99', 'dlrm-v2-99.9'])`
@@ -1026,7 +1032,7 @@ ___
              * CM names: `--adr.['build-engine']...`
              - CM script: [reproduce-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia)
            * reproduce,mlperf,inference,nvidia,harness,_preprocess_data
-             * `if (CM_MODEL not in dlrm-v2-99)`
+             * `if (CM_MODEL not in ['dlrm-v2-99', 'dlrm-v2-99.9'])`
              - CM script: [reproduce-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia)
            * reproduce,mlperf,inference,nvidia,harness,_download_model
              * `if (CM_MODEL not in ['retinanet', 'resnet50', 'bert-99', 'bert-99.9', 'dlrm-v2-99', 'dlrm-v2-99.9'])`
@@ -1063,6 +1069,7 @@ ___
 * `--dla_batch_size=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE=value`
 * `--dla_copy_streams=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DLA_COPY_STREAMS=value`
 * `--dla_inference_streams=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_DLA_INFERENCE_STREAMS=value`
+* `--embedding_weights_on_gpu_part=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_EMBEDDING_WEIGHTS_ON_GPU_PART=value`
 * `--enable_sort=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_ENABLE_SORT=value`
 * `--end_on_device=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_END_ON_DEVICE=value`
 * `--extra_run_options=value`  &rarr;  `CM_MLPERF_NVIDIA_HARNESS_EXTRA_RUN_OPTIONS=value`
@@ -1169,11 +1176,11 @@ ___
        * CM names: `--adr.['librispeech-original']...`
        - CM script: [get-dataset-librispeech](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-librispeech)
      * get,dataset,preprocessed,criteo
-       * `if (CM_MODEL in ['dlrm-v2-99', 'dlrm-v2-99.9'])`
+       * `if (CM_MODEL in ['dlrm-v2-99', 'dlrm-v2-99.9']) AND (DLRM_DATA_PATH  != True)`
        * CM names: `--adr.['criteo-preprocessed']...`
        - CM script: [get-preprocessed-dataset-criteo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo)
      * get,ml-model,dlrm,_pytorch
-       * `if (CM_MODEL in ['dlrm-v2-99', 'dlrm-v2-99.9'])`
+       * `if (CM_MODEL in ['dlrm-v2-99', 'dlrm-v2-99.9']) AND (DLRM_DATA_PATH  != True)`
        * CM names: `--adr.['dlrm-model']...`
        - CM script: [get-ml-model-dlrm-terabyte](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte)
      * get,ml-model,bert,_onnx,_fp32

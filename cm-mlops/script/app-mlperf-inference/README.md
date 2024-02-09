@@ -246,7 +246,7 @@ ___
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `ncnn`
       - Workflow:
-    * **`_onnxruntime`** (default)
+    * `_onnxruntime`
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `onnxruntime`
       - Workflow:
@@ -552,6 +552,16 @@ ___
              * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION not in ['nvidia-original', 'reference'])`
              * CM names: `--adr.['mlperf-accuracy-script', 'open-orca-accuracy-script']...`
              - *Warning: no scripts found*
+    * `_reference,bert_`
+      - Workflow:
+    * `_reference,dlrm-v2_`
+      - Workflow:
+    * `_reference,gptj_`
+      - Workflow:
+    * `_reference,llama2-70b_`
+      - Workflow:
+    * `_reference,sdxl_`
+      - Workflow:
 
     </details>
 
@@ -564,6 +574,10 @@ ___
       - Environment variables:
         - *CM_MLPERF_POWER*: `yes`
         - *CM_SYSTEM_POWER*: `yes`
+      - Workflow:
+    * `_reference,resnet50`
+      - Workflow:
+    * `_reference,retinanet`
       - Workflow:
     * `_rnnt,reference`
       - Environment variables:
@@ -625,7 +639,7 @@ ___
 
 #### Default variations
 
-`_cpu,_float32,_offline,_onnxruntime,_reference,_resnet50,_test`
+`_cpu,_float32,_offline,_reference,_resnet50,_test`
 
 #### Input description
 
