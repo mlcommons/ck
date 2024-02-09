@@ -1709,7 +1709,6 @@ class CAutomation(Automation):
         # Update env and other keys if variations
         if len(variation_tags)>0:
             for variation_tag in variation_tags:
-                print(variation_tag)
                 if variation_tag.startswith('~'):
                     # ignore such tag (needed for caching only to differentiate variations)
                     continue
