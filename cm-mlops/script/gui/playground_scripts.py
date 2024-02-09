@@ -10,6 +10,19 @@ def page(st, params):
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
     url_prefix_script = url_prefix + '?action=scripts'
 
+    # Some info
+    x = '''
+         <i>
+         <small>
+         <a href="https://github.com/mlcommons/ck">Collective Mind</a> is a collection of portable, extensible and ready-to-use automation recipes from <a href="https://mlcommons.org">MLCommons</a> (aka CM scripts) with a human-friendly interface and minimal dependencies to make it easier to compose, benchmark and optimize complex AI, ML and other applications and systems across diverse and continuously changing models, data sets, software and hardware.
+         </small>
+         </i>
+          <br>
+          <br>
+        '''
+    st.write(x, unsafe_allow_html = True)
+
+
     script_name = ''
     x = params.get('name',[''])
     if len(x)>0 and x[0]!='': script_name = x[0].strip()
@@ -19,7 +32,7 @@ def page(st, params):
         x = params.get('tags',[''])
         if len(x)>0 and x[0]!='': script_tags = x[0].strip()
 
-    script_tags = st.text_input('Search open-source [Collective Mind](https://github.com/mlcommons/ck) automation recipes (aka CM scripts) by tags:', value=script_tags, key='script_tags').strip()
+    script_tags = st.text_input('Search open-source automation recipes by tags:', value=script_tags, key='script_tags').strip()
 
     # Searching automation recipes
     
@@ -45,7 +58,7 @@ def page(st, params):
     end_html = ''
 
     if len(lst)==0:
-        st.markdown('CM scripts (automation recipes) were not found!')
+        st.markdown('CM scripts were not found!')
     else:
         artifact = None
 
@@ -112,15 +125,22 @@ pip install cmind
 cm pull repo mlcommons@ck{}
 
 cm run script "{}"
-cmr "{}"
 ```
-                    '''.format(extra_repo,xtags,xtags)
+
+A few other popular commands:
+```bash
+cm run script "{}" --shell
+cm docker script "{}"
+cm gui script "{}"
+```
+                    
+                    '''.format(extra_repo,xtags,xtags,xtags,xtags,xtags)
 
                 st.markdown('Default run on Linux, Windows, MacOS and any other OS (check [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) for more details):\n{}\n'.format(x))
 
                 st.markdown('*The [Collective Mind concept](https://doi.org/10.5281/zenodo.8105339) is to gradually improve portability and reproducibility of common automation recipes based on user feedback'
-                             'while keeping the same human-friendly interface. If you encounter issues, please report them [here](https://github.com/mlcommons/ck/issues) '
-                             'to help this community project!*')
+                             ' while keeping the same human-friendly interface. If you encounter issues, please report them [here](https://github.com/mlcommons/ck/issues) '
+                             ' to help this community project!*')
 
                 
                 # Check original link
@@ -211,13 +231,6 @@ cmr "{}"
 
 
         else:
-            x = '''
-                <small>
-                 Found {} portable and reusable automation recipes (CM scripts) (<a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script">GitHub sources</a>):
-                </center>
-                '''.format(len(lst))
-            st.write(x, unsafe_allow_html = True)
-            
             categories={}
             
             for l in sorted(lst, key=lambda x: (
@@ -232,7 +245,34 @@ cmr "{}"
 
                 categories[category].append(l)
             
-            for category in sorted(categories):
+            if len(categories)>1:
+                category_selection = [''] + sorted(list(categories.keys()), key = lambda v: v.upper())
+
+                # Creating compute selector
+                category_id = st.selectbox('Prune by category:',
+                                           range(len(category_selection)), 
+                                           format_func=lambda x: category_selection[x],
+                                           index = 0,
+                                           key = 'category')
+
+                if category_id>0:
+                    category_key = category_selection[category_id]
+                    categories = {category_key:categories[category_key]}
+
+            # Check number of recipes
+            recipes = 0
+            for category in sorted(categories, key = lambda v: v.upper()):
+                recipes += len(categories[category])
+            
+            x = '''
+                <small>
+                 Found {} automation recipes:
+                </center>
+                '''.format(str(recipes))
+            st.write(x, unsafe_allow_html = True)
+
+            
+            for category in sorted(categories, key = lambda v: v.upper()):
                 md = '### {}'.format(category)+'\n'
                 
                 for recipe in categories[category]:

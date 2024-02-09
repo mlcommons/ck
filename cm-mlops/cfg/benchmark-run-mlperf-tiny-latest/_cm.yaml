@@ -12,3 +12,11 @@ tags:
 - latest
 
 name: "MLPerf tiny - latest"
+
+urls:
+- name: "Official page"
+  url: "https://mlcommons.org/benchmarks/inference-tiny"
+- name: "GitHub dev page"
+  url: "https://github.com/mlcommons/tiny"
+- name: "MLCommons CM automation (under development)"
+  url: "https://github.com/mlcommons/ck/blob/master/docs/tutorials/reproduce-mlperf-tiny.md"

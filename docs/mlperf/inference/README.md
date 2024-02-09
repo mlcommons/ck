@@ -25,6 +25,10 @@
 
 </details>
 
+<br><br><br>
+**This documentation will be refactored soon based on the feedback from MLCommons members - please stay tuned!**
+<br><br><br>
+
 
 This document described how to run [MLPerf inference benchmarks](https://arxiv.org/abs/1911.02549) 
 on any platforms in a unified way via [MLCommons CM interface](https://github.com/mlcommons/ck).
@@ -36,13 +40,7 @@ to get free help with your MLPerf submissions and/or participate in the CM devel
 
 ## Development
 
-[![MLPerf inference resnet50](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-resnet50.yml/badge.svg?branch=master&event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-resnet50.yml)
-[![MLPerf inference retinanet](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-retinanet.yml/badge.svg?branch=master&event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-retinanet.yml)
-[![MLPerf inference bert](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-bert.yml)
-[![MLPerf inference rnnt](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-rnnt.yml/badge.svg?event=pull_request)](https://github.com/mlcommons/ck/actions/workflows/test-mlperf-inference-rnnt.yml)
-
-* [Current development status](../../taskforce.md#status).
-* [Current CM coverage to run and reproduce MLPerf inference benchmarks](https://github.com/mlcommons/ck/issues/1052).
+* [Current CM coverage to run and reproduce MLPerf inference benchmarks]( https://github.com/mlcommons/ck/issues/1052 ).
 * [Development version of the modular MLPerf C++ inference implementation](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-cpp/README-extra.md).
 * [Development version of the the reference network implementation with CM interface for BERT model](https://github.com/mlcommons/inference/tree/master/language/bert#loadgen-over-the-network).
 

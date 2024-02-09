@@ -801,6 +801,8 @@ variations:
       mlperf-inference-implementation:
         tags: _cpu
   cuda:
+    docker:
+      all_gpus: 'yes'
     group:
       device
     env:
@@ -810,6 +812,8 @@ variations:
       mlperf-inference-implementation:
         tags: _cuda
   rocm:
+    docker:
+      all_gpus: 'yes'
     group:
       device
     env:

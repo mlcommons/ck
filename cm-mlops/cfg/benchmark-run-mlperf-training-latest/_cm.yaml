@@ -12,3 +12,11 @@ tags:
 - latest
 
 name: "MLPerf training - latest"
+
+urls:
+- name: "Official page"
+  url: "https://mlcommons.org/benchmarks/training"
+- name: "GitHub dev page"
+  url: "https://github.com/mlcommons/training"
+- name: "MLCommons CM automation (under development)"
+  url: "https://github.com/mlcommons/ck/blob/master/docs/tutorials/reproduce-mlperf-training.md"
