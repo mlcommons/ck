@@ -272,6 +272,8 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_onnx-graphsurgeon
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.scikit-learn
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_gptj_`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
