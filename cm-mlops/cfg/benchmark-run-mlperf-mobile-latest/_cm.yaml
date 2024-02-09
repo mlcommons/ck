@@ -12,3 +12,9 @@ tags:
 - latest
 
 name: "MLPerf mobile - latest"
+
+urls:
+- name: "Official page"
+  url: "https://mlcommons.org/benchmarks/inference-mobile/"
+- name: "GitHub page for mobile app"
+  url: "https://github.com/mlcommons/mobile_app_open"

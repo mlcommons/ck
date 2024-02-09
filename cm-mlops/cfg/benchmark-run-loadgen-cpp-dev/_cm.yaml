@@ -1,0 +1,23 @@
+alias: benchmark-run-loadgen-cpp-dev
+uid: 91449f6899e54278
+
+automation_alias: cfg
+automation_uid: 88dce9c160324c5d
+
+tags:
+- benchmark
+- run
+- mlperf
+- loadgen
+- dev
+
+name: "ML models with LoadGen (C++; Linux/MacOS/Windows) - dev"
+
+supported_compute:
+- fe379ecd1e054a00
+- cdfd424c32734e38
+- fe379ecd1e054a00
+
+urls:
+- name: "GitHub dev page"
+  url: "https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp"

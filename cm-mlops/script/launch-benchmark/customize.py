@@ -139,10 +139,22 @@ def gui(i):
                              key = 'bench')
 
     bench_supported_compute = []
+    bench_meta = {}
     if bench_id != st.session_state['bench_id']:
         bench_meta = bench_selection[bench_id]
         bench_supported_compute = bench_meta.get('supported_compute',[])
-    
+
+    urls = bench_meta.get('urls',[])
+    if len(urls)>0:
+        x = '\n'
+        for u in urls:
+            name = u['name']
+            url = u['url']
+
+            x+=' [ [{}]({}) ] '.format(name, url)
+        x+='\n'
+        st.markdown(x)
+
 
     ##############################################################
     # Check compute

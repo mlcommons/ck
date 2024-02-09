@@ -15,3 +15,9 @@ name: "MLPerf-ABTF inference - dev"
 
 supported_compute:
 - cdfd424c32734e38
+
+urls:
+- name: "Announcement"
+  url: "https://mlcommons.org/2023/05/avcc-and-mlcommons-join-forces-to-develop-an-automotive-industry-standard/"
+- name: "MLCommons CM automation (under development)"
+  url: "https://access.cknowledge.org/playground/?action=scripts"

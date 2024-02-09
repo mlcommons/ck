@@ -17,3 +17,11 @@ supported_compute:
 - fe379ecd1e054a00
 - cdfd424c32734e38
 - fe379ecd1e054a00
+
+urls:
+- name: "Official page"
+  url: "https://mlcommons.org/working-groups/benchmarks/inference"
+- name: "GitHub dev page"
+  url: "https://github.com/mlcommons/inference"
+- name: "MLCommons CM automation (under development)"
+  url: "https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference"
