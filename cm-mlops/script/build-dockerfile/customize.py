@@ -111,6 +111,10 @@ def preprocess(i):
     f.write('RUN '+ get_value(env, config, 'package-manager-get-cmd') + " " + " ".join(get_value(env, config,
         'packages')) + EOL)
 
+    if env['CM_DOCKER_OS'] == "ubuntu":
+        if int(env['CM_DOCKER_OS_VERSION'].split('.')[0]) >= 23:
+            if "--break-system-packages" not in env.get('CM_DOCKER_PIP_INSTALL_EXTRA_FLAGS', ''):
+              env['CM_DOCKER_PIP_INSTALL_EXTRA_FLAGS'] = " --break-system-packages"
     pip_extra_flags = env.get('CM_DOCKER_PIP_INSTALL_EXTRA_FLAGS', '')
 
     f.write(EOL+'# Install python packages' + EOL)
