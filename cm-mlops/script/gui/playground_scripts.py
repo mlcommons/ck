@@ -14,7 +14,7 @@ def page(st, params):
     x = '''
          <i>
          <small>
-         <a href="https://github.com/mlcommons/ck">Collective Mind</a> is a collection of portable, extensible and ready-to-use automation recipes (aka CM scripts) with a human-friendly interface and minimal dependencies to make it easier to compose, benchmark and optimize complex AI, ML and other applications and systems across diverse and continuously changing models, data sets, software and hardware.
+         <a href="https://github.com/mlcommons/ck">Collective Mind</a> is a collection of portable, extensible and ready-to-use automation recipes from <a href="https://mlcommons.org">MLCommons</a> (aka CM scripts) with a human-friendly interface and minimal dependencies to make it easier to compose, benchmark and optimize complex AI, ML and other applications and systems across diverse and continuously changing models, data sets, software and hardware.
          </small>
          </i>
           <br>

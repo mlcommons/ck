@@ -54,6 +54,7 @@ def page(st, params, action = ''):
         initialized = True
 
     ii = {'streamlit_module': st,
+          'params': params,
           'meta': external_module_meta,
           'skip_title': True}
 
