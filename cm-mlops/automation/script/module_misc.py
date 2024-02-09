@@ -1602,7 +1602,7 @@ def docker(i):
         docker_settings = meta.get('docker', {})
         state['docker'] = docker_settings
 
-        r = script_automation._update_state_from_variations(i, meta, variation_tags, variations, env, state, deps = [], post_deps = [], prehook_deps = [], posthook_deps = [], new_env_keys_from_meta = [], new_state_keys_from_meta = [], add_deps_recursive = {}, run_state = {}, verbose = False)
+        r = script_automation._update_state_from_variations(i, meta, variation_tags, variations, env, state, deps = [], post_deps = [], prehook_deps = [], posthook_deps = [], new_env_keys_from_meta = [], new_state_keys_from_meta = [], add_deps_recursive = {}, run_state = {}, recursion_spaces='', verbose = False)
         if r['return'] > 0:
             return r
 
