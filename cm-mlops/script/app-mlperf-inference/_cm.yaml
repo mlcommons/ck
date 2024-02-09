@@ -216,6 +216,34 @@ variations:
       - tags: get,generic-python-lib,_mlperf_logging
       - tags: get,generic-python-lib,_onnx
 
+  reference,gptj_:
+    default_variations:
+      backend: pytorch
+
+  reference,sdxl_:
+    default_variations:
+      backend: pytorch
+
+  reference,dlrm-v2_:
+    default_variations:
+      backend: pytorch
+
+  reference,llama2-70b_:
+    default_variations:
+      backend: pytorch
+
+  reference,resnet50:
+    default_variations:
+      backend: onnxruntime
+
+  reference,retinanet:
+    default_variations:
+      backend: onnxruntime
+
+  reference,bert_:
+    default_variations:
+      backend: onnxruntime
+
   nvidia-original:
     default_variations:
       backend: tensorrt
@@ -652,7 +680,6 @@ variations:
 
   onnxruntime:
     group: backend
-    default: true
     env:
       CM_MLPERF_BACKEND:
         onnxruntime

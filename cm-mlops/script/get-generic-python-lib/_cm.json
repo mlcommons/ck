@@ -5,6 +5,7 @@
   "cache": true,
   "category": "Python automation",
   "clean_files": [],
+  "tags_help":"get generic-python-lib",
   "deps": [
     {
       "tags": "detect,os"

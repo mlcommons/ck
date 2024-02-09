@@ -219,7 +219,7 @@ docker:
   docker_real_run: False
   interactive: True
   docker_os_version: '20.04'
-  base_image: nvcr.io/nvidia/mlperf/mlperf-inference:mlpinf-v3.1-cuda12.2-cudnn8.9-x86_64-ubuntu20.04-public
+  base_image: nvcr.io/nvidia/mlperf/mlperf-inference:mlpinf-v3.1-cuda12.2-cudnn8.9-x86_64-ubuntu20.04-l4-public
   docker_input_mapping:
     imagenet_path: IMAGENET_PATH
     gptj_checkpoint_path: GPTJ_CHECKPOINT_PATH
@@ -229,14 +229,15 @@ docker:
     cudnn_tar_file_path: CM_CUDNN_TAR_FILE_PATH
     tensorrt_tar_file_path: CM_TENSORRT_TAR_FILE_PATH
     cuda_run_file_path: CUDA_RUN_FILE_LOCAL_PATH
+    dlrm_DATA_path: DLRM_DATA_PATH
     scratch_path: MLPERF_SCRATCH_PATH
   deps:
     - tags: get,mlperf,inference,nvidia,scratch,space
     - tags: get,mlperf,inference,results,dir
     - tags: get,mlperf,inference,submission,dir
   pre_run_cmds:
-    - cd CM/repos/ctuning@mlcommons-ck && git pull
-  run_cmd_prefix: sudo apt remove -y cmake && cd CM/repos/ctuning@mlcommons-ck && git pull && cd -
+    - cm pull repo ctuning@mlcommons-ck
+  run_cmd_prefix: sudo apt remove -y cmake && cm pull repo ctuning@mlcommons-ck
   mounts:
    - "${{ IMAGENET_PATH }}:/data/imagenet-val"
    - "${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}:${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}"
@@ -247,3 +248,4 @@ docker:
    - "${{ CM_TENSORRT_TAR_FILE_PATH }}:${{ CM_TENSORRT_TAR_FILE_PATH }}"
    - "${{ CUDA_RUN_FILE_LOCAL_PATH }}:${{ CUDA_RUN_FILE_LOCAL_PATH }}"
    - "${{ MLPERF_SCRATCH_PATH }}:${{ MLPERF_SCRATCH_PATH }}"
+   - "${{ DLRM_DATA_PATH }}:/home/mlperf_inf_dlrmv2"

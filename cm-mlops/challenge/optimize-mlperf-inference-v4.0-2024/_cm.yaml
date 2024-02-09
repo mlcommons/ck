@@ -6,7 +6,7 @@ automation_uid: 3d84abd768f34e08
 
 title: Run and optimize MLPerf inference v4.0 benchmarks (Intel, Nvidia, Qualcomm, Arm64, TPU ...) and submit official results
 
-date_close: '20240225'
+date_close: '20240222'
 date_open: '20240205'
 
 hot: true

@@ -86,7 +86,8 @@ input_mapping:
   use_fp8: CM_MLPERF_NVIDIA_HARNESS_USE_FP8
   enable_sort: CM_MLPERF_NVIDIA_HARNESS_ENABLE_SORT
   num_sort_segments: CM_MLPERF_NVIDIA_HARNESS_NUM_SORT_SEGMENTS
-  skip_postprocess: CM_MLPERF_NVIDIA_HARNESS_SKIP_POSTPROCESS 
+  skip_postprocess: CM_MLPERF_NVIDIA_HARNESS_SKIP_POSTPROCESS
+  embedding_weights_on_gpu_part: CM_MLPERF_NVIDIA_HARNESS_EMBEDDING_WEIGHTS_ON_GPU_PART
 
 new_state_keys:
   - mlperf-inference-implementation
@@ -162,6 +163,9 @@ deps:
       CM_MODEL:
       - dlrm-v2-99
       - dlrm-v2-99.9
+    skip_if_env:
+      DLRM_DATA_PATH:
+      - on
     names:
       - criteo-preprocessed
     tags: get,dataset,preprocessed,criteo
@@ -172,6 +176,9 @@ deps:
       CM_MODEL:
       - dlrm-v2-99
       - dlrm-v2-99.9
+    skip_if_env:
+      DLRM_DATA_PATH:
+      - on
     names:
       - dlrm-model
     tags: get,ml-model,dlrm,_pytorch
@@ -403,8 +410,11 @@ variations:
     deps:
     - tags: get,generic-python-lib,_torch
     - tags: get,generic-python-lib,_package.torchsnapshot
+    - tags: get,generic-python-lib,_package.torchrec
+      version: 0.3.2
     - tags: get,generic-python-lib,_package.fbgemm-gpu
-      version: 0.2.0
+      version: 0.3.2
+    - tags: get,generic-python-lib,_onnx-graphsurgeon
 
   dlrm-v2-99:
     group: model
@@ -626,7 +636,8 @@ variations:
           - build-engine-options
         skip_if_env:
           CM_MODEL:
-            dlrm-v2-99
+            - dlrm-v2-99
+            - dlrm-v2-99.9
 
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
         inherit_variation_tags: true
@@ -729,7 +740,8 @@ variations:
         force_cache: true
         skip_if_env:
           CM_MODEL:
-            dlrm-v2-99
+           - dlrm-v2-99
+           - dlrm-v2-99.9
       - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
         inherit_variation_tags: true
         skip_inherit_variation_groups:
@@ -1074,6 +1086,8 @@ variations:
   rtx_4090,dlrm_,offline,run_harness:
     default_variations:
       batch-size: batch_size.1400
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_EMBEDDING_WEIGHTS_ON_GPU_PART: "0.30"
 
   a6000:
     group: gpu-name

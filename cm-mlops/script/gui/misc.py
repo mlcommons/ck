@@ -1,7 +1,7 @@
 ﻿# Support functions
 
 ##########################################################
-def make_url(name, alias='', action='contributors', key='name', md=True):
+def make_url(name, alias='', action='contributors', key='name', md=True, skip_url_quote=False):
 
     import urllib
 
@@ -9,7 +9,9 @@ def make_url(name, alias='', action='contributors', key='name', md=True):
 
     xaction = 'action={}&'.format(action) if action!='' else ''
 
-    url = '?{}{}={}'.format(xaction, key, urllib.parse.quote_plus(alias))
+    x = urllib.parse.quote_plus(alias) if not skip_url_quote else alias
+
+    url = '?{}{}={}'.format(xaction, key, x)
 
     if md:
         md = '[{}]({})'.format(name, url)
@@ -52,3 +54,30 @@ def get_params(st):
         params = st.experimental_get_query_params()
 
     return params
+
+##########################################################
+def get_all_deps_tags(i):
+    meta = i['meta']
+    all_deps_tags = i.get('all_deps_tags', [])
+
+    for k in meta:
+        v = meta[k]
+
+        if k == 'tags':
+            if type(v) == list:
+                v = ','.join(v)
+
+            if v not in all_deps_tags:
+                all_deps_tags.append(v)
+
+        elif type(v) == dict:
+           r = get_all_deps_tags({'meta':v, 'all_deps_tags':all_deps_tags})
+           all_deps_tags = r['all_deps_tags']
+
+        elif type(v) == list:
+           for vv in v:
+               if type(vv) == dict:
+                   r = get_all_deps_tags({'meta':vv, 'all_deps_tags':all_deps_tags})
+                   all_deps_tags = r['all_deps_tags']
+
+    return {'return':0, 'all_deps_tags':all_deps_tags}

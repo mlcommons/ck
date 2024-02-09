@@ -35,7 +35,7 @@ def main():
 
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
-    # Set title
+    # Set title (check extra user HTML to embed before title if needed)
     extra = os.environ.get('CM_GUI_EXTRA_HTML','')
 
     if extra!='':
@@ -44,12 +44,12 @@ def main():
             v=str(','.join(params[p]))
             if url!='': url+=';'
             url+=p+'='+v
-        extra=extra.replace('{{CM_URL}}', url)
+        extra=extra.replace('{{CM_URL}}', url)+'\n\n'
 
     st.write('''
         <center>
         <h2 style="color:#2f6fb3">Collective Knowledge Playground</h2>
-        <img src="https://cknowledge.org/images/logo-ck-tr.png" width="150"><br>
+        <a href="/"><img src="https://cknowledge.org/images/logo-ck-tr.png" width="150"></a><br>
         {}
         <br>
         </center>
@@ -57,25 +57,34 @@ def main():
         unsafe_allow_html=True
     )
 
+    extra_file = os.environ.get('CM_GUI_EXTRA_HTML_FILE','')
+    if extra_file!='':
+        r = cmind.utils.load_txt(extra_file)
+        if r['return']>0: return r
+
+        s = '\n\n'+r['string']+'\n\n'
+
+        st.write(s, unsafe_allow_html=True)
+    
+
     # Check action and basic menu
     action = params.get('action',['challenges'])[0].lower()
 
     style_action_challenges='font-style:italic;font-weight:bold;color:#ffffff' if action=='challenges' else ''
     style_action_howtorun='font-style:italic;font-weight:bold;color:#ffffff' if action=='howtorun' else ''
+    style_action_scripts='font-style:italic;font-weight:bold;color:#ffffff' if action=='scripts' else ''
     style_action_experiments='font-style:italic;font-weight:bold;color:#ffffff' if action=='experiments' else ''
     style_action_contributors='font-style:italic;font-weight:bold;color:#ffffff' if action=='contributors' else ''
-    style_action_components='font-style:italic;font-weight:bold;color:#ffffff' if action=='components' else ''
     style_action_reports='font-style:italic;font-weight:bold;color:#ffffff' if action=='reports' else ''
-    style_action_components='font-style:italic;font-weight:bold;color:#ffffff' if action=='components' else ''
     style_action_beta='font-style:italic;font-weight:bold;color:#ffffff' if action=='beta' else ''
 
     st.write('''
         <center>
         <a target="_self" href="?action=challenges"><button style="{}">Challenges</button></a>
         <a target="_self" href="?action=howtorun"><button style="{}">How to Run</button></a>
+        <a target="_self" href="?action=scripts"><button style="{}">Automation recipes</button></a>
         <a target="_self" href="?action=experiments"><button style="{}">Results</button></a>
         <a target="_self" href="?action=contributors"><button style="{}">Leaderboard</button></a>
-        <a target="_self" href="?action=components"><button style="{}">Automation recipes</button></a>
         <a target="_self" href="?action=reports"><button style="{}">Reports</button></a>
         <a target="_self" href="?action=beta"><button style="{}">Beta</button></a>
         <a target="_self" href="https://discord.gg/JjWNWXKxwT"><button>Discord</button></a>
@@ -84,9 +93,9 @@ def main():
         '''.format(
                    style_action_challenges,
                    style_action_howtorun,
+                   style_action_scripts,
                    style_action_experiments, 
                    style_action_contributors,
-                   style_action_components,
                    style_action_reports,
                    style_action_beta
                    ),
@@ -111,8 +120,8 @@ def main():
     elif action == 'contributors':
         from playground_contributors import page
         r = page(st, params)
-    elif action == 'components':
-        from playground_components import page
+    elif action == 'scripts' or action == 'recipes' or action == 'automation-recipes' or action == 'components':
+        from playground_scripts import page
         r = page(st, params)
     elif action == 'reports':
         from playground_reports import page

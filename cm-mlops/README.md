@@ -18,7 +18,7 @@ Red Hat, Intel, TTA, One Stop Systems, ACM and other organizations.
 
 ### Catalog
 
-See the automatically generated catalog at [GitHub](https://access.cknowledge.org/playground/?action=components)
+See the automatically generated catalog at [GitHub](https://access.cknowledge.org/playground/?action=scripts)
 or via the [Collective Knowledge playground](https://access.cknowledge.org/playground/?action=components).
 
 ### License

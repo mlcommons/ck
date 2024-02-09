@@ -6,6 +6,10 @@
   "category": "Cloud automation",
   "clean_files": [],
   "new_env_keys": [
+    "CM_RCLONE_CACHE_TAGS",
+    "CM_RCLONE_BIN_WITH_PATH",
+    "CM_RCLONE_VERSION",
+    "+PATH"
   ],
   "tags": [
     "get",

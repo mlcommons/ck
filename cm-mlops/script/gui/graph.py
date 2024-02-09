@@ -413,7 +413,7 @@ def visualize(st, query_params, action = ''):
                 st.markdown(s)
 
 
-        # Create self-link
+        # Create self link
         st.markdown("""---""")
 
         experiment_alias_or_uid = result['experiment_uid']
