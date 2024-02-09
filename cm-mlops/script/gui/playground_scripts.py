@@ -10,6 +10,19 @@ def page(st, params):
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
     url_prefix_script = url_prefix + '?action=scripts'
 
+    # Some info
+    x = '''
+         <i>
+         <small>
+         <a href="https://github.com/mlcommons/ck">Collective Mind</a> is a collection of portable, extensible and ready-to-use automation recipes (aka CM scripts) with a human-friendly interface and minimal dependencies to make it easier to compose, benchmark and optimize complex AI, ML and other applications and systems across diverse and continuously changing models, data sets, software and hardware.
+         </small>
+         </i>
+          <br>
+          <br>
+        '''
+    st.write(x, unsafe_allow_html = True)
+
+
     script_name = ''
     x = params.get('name',[''])
     if len(x)>0 and x[0]!='': script_name = x[0].strip()
@@ -19,7 +32,7 @@ def page(st, params):
         x = params.get('tags',[''])
         if len(x)>0 and x[0]!='': script_tags = x[0].strip()
 
-    script_tags = st.text_input('Search open-source [Collective Mind](https://github.com/mlcommons/ck) automation recipes (aka CM scripts) by tags:', value=script_tags, key='script_tags').strip()
+    script_tags = st.text_input('Search open-source automation recipes (CM scripts) by tags:', value=script_tags, key='script_tags').strip()
 
     # Searching automation recipes
     
@@ -112,15 +125,22 @@ pip install cmind
 cm pull repo mlcommons@ck{}
 
 cm run script "{}"
-cmr "{}"
 ```
-                    '''.format(extra_repo,xtags,xtags)
+
+A few other popular commands:
+```bash
+cm run script "{}" --shell
+cm docker script "{}"
+cm gui script "{}"
+```
+                    
+                    '''.format(extra_repo,xtags,xtags,xtags,xtags,xtags)
 
                 st.markdown('Default run on Linux, Windows, MacOS and any other OS (check [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) for more details):\n{}\n'.format(x))
 
                 st.markdown('*The [Collective Mind concept](https://doi.org/10.5281/zenodo.8105339) is to gradually improve portability and reproducibility of common automation recipes based on user feedback'
-                             'while keeping the same human-friendly interface. If you encounter issues, please report them [here](https://github.com/mlcommons/ck/issues) '
-                             'to help this community project!*')
+                             ' while keeping the same human-friendly interface. If you encounter issues, please report them [here](https://github.com/mlcommons/ck/issues) '
+                             ' to help this community project!*')
 
                 
                 # Check original link

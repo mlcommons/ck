@@ -68,21 +68,21 @@ def main():
     
 
     # Check action and basic menu
-    action = params.get('action',['challenges'])[0].lower()
+    action = params.get('action',['scripts'])[0].lower()
 
-    style_action_challenges='font-style:italic;font-weight:bold;color:#ffffff' if action=='challenges' else ''
-    style_action_howtorun='font-style:italic;font-weight:bold;color:#ffffff' if action=='howtorun' else ''
     style_action_scripts='font-style:italic;font-weight:bold;color:#ffffff' if action=='scripts' else ''
-    style_action_experiments='font-style:italic;font-weight:bold;color:#ffffff' if action=='experiments' else ''
+    style_action_howtorun='font-style:italic;font-weight:bold;color:#ffffff' if action=='howtorun' else ''
+    style_action_challenges='font-style:italic;font-weight:bold;color:#ffffff' if action=='challenges' else ''
     style_action_contributors='font-style:italic;font-weight:bold;color:#ffffff' if action=='contributors' else ''
+    style_action_experiments='font-style:italic;font-weight:bold;color:#ffffff' if action=='experiments' else ''
     style_action_reports='font-style:italic;font-weight:bold;color:#ffffff' if action=='reports' else ''
     style_action_beta='font-style:italic;font-weight:bold;color:#ffffff' if action=='beta' else ''
 
     st.write('''
         <center>
-        <a target="_self" href="?action=challenges"><button style="{}">Challenges</button></a>
-        <a target="_self" href="?action=howtorun"><button style="{}">How to Run</button></a>
         <a target="_self" href="?action=scripts"><button style="{}">Automation recipes</button></a>
+        <a target="_self" href="?action=howtorun"><button style="{}">Modular benchmarks and apps</button></a>
+        <a target="_self" href="?action=challenges"><button style="{}">Challenges</button></a>
         <a target="_self" href="?action=experiments"><button style="{}">Results</button></a>
         <a target="_self" href="?action=contributors"><button style="{}">Leaderboard</button></a>
         <a target="_self" href="?action=reports"><button style="{}">Reports</button></a>
@@ -91,9 +91,9 @@ def main():
         <a target="_self" href="https://github.com/mlcommons/ck"><button>GitHub</button></a>
         </center>
         '''.format(
-                   style_action_challenges,
-                   style_action_howtorun,
                    style_action_scripts,
+                   style_action_howtorun,
+                   style_action_challenges,
                    style_action_experiments, 
                    style_action_contributors,
                    style_action_reports,

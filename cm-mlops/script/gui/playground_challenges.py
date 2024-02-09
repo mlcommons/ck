@@ -136,20 +136,20 @@ def page(st, params):
                      else:
                          ongoing_without_hot.append(row)
                 
-                # Showing
+                # Some info
                 x = '''
-                    <center>
-                     <h4>Collaborative benchmarking and optimization of AI applications and systems<br>
-                     (latency, throughput, power consumption, accuracy, costs ...)</h4>
-                     <small>Organized by the <a href="https://github.com/mlcommons/ck/blob/master/docs/taskforce.md">MLCommons Task Force on Automation and Reproducibility</a>
-                     and powered by <a href="{}">Collective Mind automation recipes (CM scripts)</a>.</small>
-<!--                     <i>
-                      Participate in collaborative and composable benchmarking, optimization and co-design of Pareto-efficient AI and ML Systems
-                      (latency, throughput, power consumption, accuracy, costs and other metrics):
-                     </i> -->
+                     <i>
+                     <small>
+                     Collaborative benchmarking and optimization of AI applications and systems
+                     (latency, throughput, power consumption, accuracy, costs ...) 
+                     is organized by <a href="https://github.com/mlcommons/ck/blob/master/docs/taskforce.md">MLCommons</a>,
+                     <a href="https://cKnowledge.org">cKnowledge</a> 
+                     and the <a href="https://cTuning.org">cTuning foundation</a>
+                     and powered by <a href="{}">Collective Mind automation recipes</a>.
+                     </small>
+                     </i>
                       <br>
                       <br>
-                    </center>
                     '''.format(url_scripts)
                 st.write(x, unsafe_allow_html = True)
 
