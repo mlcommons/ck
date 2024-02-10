@@ -170,7 +170,7 @@ ___
      * get,cmake
        * CM names: `--adr.['cmake']...`
        - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
-     * get,llvm
+     * get,llvm,_from-src
        * CM names: `--adr.['llvm']...`
        - CM script: [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)
      * get,generic,sys-util,_libudev-dev
@@ -181,6 +181,11 @@ ___
        - CM script: [get-google-test](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-test)
      * get,generic-sys-util,_ninja-build
        - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
+     * get,generic-sys-util,_rsync
+       - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
+     * download-and-extract,_extract,_url.https://codelinaro.jfrog.io/artifactory/codelinaro-toolchain-for-hexagon/v15.0.5/clang+llvm-15.0.5-cross-hexagon-unknown-linux-musl.tar.xz
+       * CM names: `--adr.['dae']...`
+       - CM script: [download-and-extract](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-and-extract)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-qaic-compute-sdk-from-src/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-qaic-compute-sdk-from-src/_cm.json)
   1. ***Run native script if exists***
