@@ -13,7 +13,10 @@ else
     export PATH=${CM_CONDA_BIN_PATH}:$PATH
 fi
 
-rm -rf build
+if [[ ${CM_CLEAN_BUILD} ]]; then
+  rm -rf build
+fi
+
 mkdir -p build
 
 # If install exist, then configure was done 

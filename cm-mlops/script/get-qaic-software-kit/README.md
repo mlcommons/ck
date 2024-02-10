@@ -11,6 +11,7 @@
   * [ Run this script via GUI](#run-this-script-via-gui)
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -47,9 +48,11 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,qaic,software,kit,qaic-software-kit `
+1. `cm run script --tags=get,qaic,software,kit,qaic-software-kit[,variations] `
 
-2. `cmr "get qaic software kit qaic-software-kit" `
+2. `cmr "get qaic software kit qaic-software-kit[ variations]" `
+
+* `variations` can be seen [here](#variations)
 
 #### Run this script from Python
 
@@ -85,11 +88,45 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,qaic,software,kit,
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get qaic software kit qaic-software-kit" `
+`cm docker script "get qaic software kit qaic-software-kit[ variations]" `
 
 ___
 ### Customization
 
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_branch.#`
+      - Environment variables:
+        - *CM_GIT_CHECKOUT*: `#`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**repo-source**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_repo.#`
+      - Environment variables:
+        - *CM_GIT_URL*: `#`
+      - Workflow:
+    * **`_repo.quic`** (default)
+      - Environment variables:
+        - *CM_GIT_URL*: `https://github.com/quic/software-kit-for-qualcomm-cloud-ai-100`
+      - Workflow:
+
+    </details>
+
+
+#### Default variations
+
+`_repo.quic`
 #### Default environment
 
 <details>
@@ -107,23 +144,23 @@ ___
 <summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-software-kit/_cm.json)***
-     * get,git,repo,_repo.https://github.com/quic/software-kit-for-qualcomm-cloud-ai-100
+     * get,git,repo
        * CM names: `--adr.['qaic-software-git-repo']...`
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
-     * get,cmake
-       * CM names: `--adr.['cmake']...`
-       - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
-     * get,compiler
-       * CM names: `--adr.['compiler']...`
-       - CM script: [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)
-       - CM script: [get-cl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl)
-       - CM script: [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
      * get,generic,sys-util,_libudev-dev
        - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
      * get,generic,sys-util,_libpci-dev
        - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
      * get,google,test
        - CM script: [get-google-test](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-test)
+     * get,cmake
+       * CM names: `--adr.['cmake']...`
+       - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
+     * get,compiler
+       * CM names: `--adr.['compiler']...`
+       - CM script: [get-cl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl)
+       - CM script: [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
+       - CM script: [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-software-kit/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-software-kit/_cm.json)
   1. ***Run native script if exists***
@@ -135,7 +172,7 @@ ___
 
 ___
 ### Script output
-`cmr "get qaic software kit qaic-software-kit"  -j`
+`cmr "get qaic software kit qaic-software-kit[,variations]"  -j`
 #### New environment keys (filter)
 
 * `+PATH`
