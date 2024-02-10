@@ -295,9 +295,11 @@ variations:
       - tags: get,generic-python-lib,_package.datasets
         names:
           - pip-package
+          - datasets
       - tags: get,generic-python-lib,_package.accelerate
         names:
           - pip-package
+          - accelerate
 
   gptj-99:
     group: model
