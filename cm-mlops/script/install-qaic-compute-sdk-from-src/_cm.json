@@ -27,8 +27,7 @@
       "names": [
         "llvm"
       ],
-      "tags": "get,llvm,_from-src",
-      "version": "12.0.1"
+      "tags": "get,llvm,_from-src"
     },
     {
       "tags": "get,generic,sys-util,_libudev-dev"
