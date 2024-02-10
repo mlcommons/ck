@@ -38,6 +38,9 @@
     },
     {
       "tags": "get,google,test"
+    },
+    {
+      "tags": "get,generic-sys-util,_ninja-build"
     }
   ],
   "input_description": {},
