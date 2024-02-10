@@ -31,7 +31,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-qaic-compute-sdk-from-src)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,qaic,software,compute,compute-sdk,qaic-compute-sdk,sdk*
+* CM "database" tags to find this script: *get,qaic,from.src,software,compute,compute-sdk,qaic-compute-sdk,sdk*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -48,9 +48,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,qaic,software,compute,compute-sdk,qaic-compute-sdk,sdk[,variations] `
+1. `cm run script --tags=get,qaic,from.src,software,compute,compute-sdk,qaic-compute-sdk,sdk[,variations] `
 
-2. `cmr "get qaic software compute compute-sdk qaic-compute-sdk sdk[ variations]" `
+2. `cmr "get qaic from.src software compute compute-sdk qaic-compute-sdk sdk[ variations]" `
 
 * `variations` can be seen [here](#variations)
 
@@ -65,7 +65,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,qaic,software,compute,compute-sdk,qaic-compute-sdk,sdk'
+                  'tags':'get,qaic,from.src,software,compute,compute-sdk,qaic-compute-sdk,sdk'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -82,19 +82,31 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,qaic,software,compute,compute-sdk,qaic-compute-sdk,sdk"```
+```cmr "cm gui" --script="get,qaic,from.src,software,compute,compute-sdk,qaic-compute-sdk,sdk"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,qaic,software,compute,compute-sdk,qaic-compute-sdk,sdk) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,qaic,from.src,software,compute,compute-sdk,qaic-compute-sdk,sdk) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get qaic software compute compute-sdk qaic-compute-sdk sdk[ variations]" `
+`cm docker script "get qaic from.src software compute compute-sdk qaic-compute-sdk sdk[ variations]" `
 
 ___
 ### Customization
 
 
 #### Variations
+
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_branch.#`
+      - Environment variables:
+        - *CM_GIT_CHECKOUT*: `#`
+      - Workflow:
+
+    </details>
+
 
   * Group "**installation-mode**"
     <details>
@@ -116,9 +128,25 @@ ___
     </details>
 
 
+  * Group "**repo-source**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_repo.#`
+      - Environment variables:
+        - *CM_GIT_URL*: `#`
+      - Workflow:
+    * **`_repo.quic`** (default)
+      - Environment variables:
+        - *CM_GIT_URL*: `https://github.com/quic/software-kit-for-qualcomm-cloud-ai-100-cc`
+      - Workflow:
+
+    </details>
+
+
 #### Default variations
 
-`_release`
+`_release,_repo.quic`
 #### Default environment
 
 <details>
@@ -151,6 +179,8 @@ ___
        - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
      * get,google,test
        - CM script: [get-google-test](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-test)
+     * get,generic-sys-util,_ninja-build
+       - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-qaic-compute-sdk-from-src/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-qaic-compute-sdk-from-src/_cm.json)
   1. ***Run native script if exists***
@@ -162,7 +192,7 @@ ___
 
 ___
 ### Script output
-`cmr "get qaic software compute compute-sdk qaic-compute-sdk sdk[,variations]"  -j`
+`cmr "get qaic from.src software compute compute-sdk qaic-compute-sdk sdk[,variations]"  -j`
 #### New environment keys (filter)
 
 * `+PATH`
