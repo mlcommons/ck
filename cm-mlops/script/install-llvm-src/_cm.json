@@ -29,6 +29,7 @@
         "_repo.": [ "CM_GIT_URL" ],
         "_branch.": [ "CM_GIT_CHECKOUT" ],
         "_tag.": [ "CM_GIT_CHECKOUT_TAG" ],
+        "_tag.llvmorg-": [ "CM_VERSION" ],
         "_sha.": [ "CM_GIT_CHECKOUT_SHA" ]
       },
       "force_env_keys": [
@@ -49,7 +50,9 @@
   "name": "Build LLVM compiler from sources (can take >30 min)",
   "new_env_keys": [
     "CM_LLVM_*",
-    "CM_GET_DEPENDENT_CACHED_PATH"
+    "CM_GET_DEPENDENT_CACHED_PATH",
+    "+PATH",
+    "+C_INCLUDE_PATH"
   ],
   "prehook_deps": [
   ],
@@ -100,6 +103,8 @@
       }
     },
     "clang": {
+      "group": "clang",
+      "default": true,
       "env": {
         "CM_LLVM_ENABLE_PROJECTS": "clang"
       }
@@ -197,6 +202,9 @@
         }
       },
       "deps": [
+        {
+          "tags": "get,generic-sys-util,_g++-12"
+        },
         {
           "tags": "get,gcc",
           "version_min": "12.3"

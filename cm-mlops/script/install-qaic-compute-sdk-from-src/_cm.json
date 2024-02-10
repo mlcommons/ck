@@ -27,8 +27,7 @@
       "names": [
         "llvm"
       ],
-      "tags": "get,llvm",
-      "version": "10.0.1"
+      "tags": "get,llvm,_from-src"
     },
     {
       "tags": "get,generic,sys-util,_libudev-dev"
@@ -41,6 +40,18 @@
     },
     {
       "tags": "get,generic-sys-util,_ninja-build"
+    },
+    {
+      "tags": "get,generic-sys-util,_rsync"
+    },
+    {
+      "env": {
+        "CM_EXTRACT_FINAL_ENV_NAME": "CM_HEXAGON_TOOLS_INSTALLED_DIR"
+      },
+      "tags": "download-and-extract,_extract,_url.https://codelinaro.jfrog.io/artifactory/codelinaro-toolchain-for-hexagon/v15.0.5/clang+llvm-15.0.5-cross-hexagon-unknown-linux-musl.tar.xz",
+      "names": [ "dae" ],
+      "extra_cache_tags": "hexagon-compiler",
+      "force_cache": true
     }
   ],
   "input_description": {},

@@ -1,0 +1,22 @@
+alias: get-dlrm-data-mlperf-inference
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+tags:
+- get
+- dlrm
+- data
+- mlperf
+- inference
+uid: 34bdfcd9c8364935
+new_env_keys:
+  - CM_DLRM_DATA_PATH
+input_mapping:
+  dlrm_data_path: CM_DLRM_DATA_PATH
+variations:
+  nvidia:
+    env:
+      CM_DLRM_DATA_VARIATION: nvidia
+  intel:
+    env:
+      CM_DLRM_DATA_VARIATION: intel
