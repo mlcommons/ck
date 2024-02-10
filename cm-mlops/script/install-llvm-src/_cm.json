@@ -296,7 +296,9 @@
       ],
       "env": {
         "CM_LLVM_CONDA_ENV": "yes",
-        "CM_LLVM_16_INTEL_MLPERF_INFERENCE": "yes"
+        "CM_LLVM_16_INTEL_MLPERF_INFERENCE": "yes",
+        "USE_CUDA": "0",
+        "CUDA_VISIBLE_DEVICES": ""
       }
     }
   },
