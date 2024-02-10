@@ -1,0 +1,43 @@
+name: Test QAIC Software kit Compilation
+
+on:
+  schedule:
+    - cron: "1 1 * * 1"
+
+jobs:
+  build_ubuntu_20_04:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [ "gcc", "llvm" ]
+        llvm-version: [ "12.0.1", "13.0.1", "14.0.0", "15.0.6" ]
+        exclude:
+          - llvm-version: "12.0.1"
+          - llvm-version: "13.0.1"
+          - llvm-version: "14.0.0"
+            compiler: "gcc"
+          - llvm-version: "15.0.6"
+            compiler: "gcc"
+        include:
+          - llvm-version: " "
+            compiler: "gcc"
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python3 -m pip install cmind
+        cm pull repo mlcommons@ck
+        cm run script --tags=get,sys-utils-cm --quiet
+  
+    - name: Test Software Kit for compilation on Ubuntu 20.04
+      env:
+          PULL_REPO: ${{ github.event.pull_request.head.repo.html_url }}
+      run: |
+        cm run script --tags=get,qaic,software,kit --adr.compiler.tags=${{ matrix.compiler }} --adr.compiler.version=${{ matrix.llvm-version }} --quiet
+        cm run script --tags=get,qaic,software,kit --adr.compiler.tags=${{ matrix.compiler }} --adr.compiler.version=${{ matrix.llvm-version }} --quiet
