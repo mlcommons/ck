@@ -245,6 +245,10 @@ variations:
       backend: onnxruntime
 
   nvidia-original:
+    docker:
+      extra_run_args: ' --runtime=nvidia --ulimit memlock=-1 --cap-add SYS_ADMIN --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
+      base_image: nvcr.io/nvidia/mlperf/mlperf-inference:mlpinf-v3.1-cuda12.2-cudnn8.9-x86_64-ubuntu20.04-l4-public
+      docker:os_version: "20.04"
     default_variations:
       backend: tensorrt
       device: cuda
@@ -1128,3 +1132,19 @@ input_description:
 
 gui:
   title: "CM GUI for the MLPerf inference benchmark"
+
+docker:
+  skip_run_cmd: 'no'
+  shm_size: '32gb'
+  extra_run_args: ' --ulimit memlock=-1 --cap-add SYS_ADMIN --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
+  docker_os: ubuntu
+  docker_real_run: False
+  interactive: True
+  docker_os_version: '22.04'
+  docker_input_mapping:
+    imagenet_path: IMAGENET_PATH
+    gptj_checkpoint_path: GPTJ_CHECKPOINT_PATH
+    criteo_preprocessed_path: CRITEO_PREPROCESSED_PATH
+    results_dir: RESULTS_DIR
+    submission_dir: SUBMISSION_DIR
+    dlrm_data_path: DLRM_DATA_PATH

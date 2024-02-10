@@ -38,6 +38,8 @@ default_env:
 
 env:
   CM_CALL_MLPERF_RUNNER: 'no'
+  CUDA_VISIBLE_DEVICES: ''
+  USE_CUDA: '0'
 
 # Map script inputs to environment variables
 input_mapping:
