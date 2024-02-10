@@ -9,7 +9,8 @@
       "tags": "get,git,repo,_repo.https://github.com/quic/software-kit-for-qualcomm-cloud-ai-100",
       "names": [
         "qaic-software-git-repo"
-      ]
+      ],
+      "extra_cache_tags": "qaic-software-git-repo,qaic-software,qaic,software,kit"
     },
     {
       "tags": "get,generic,sys-util,_libudev-dev"
