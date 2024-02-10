@@ -23,11 +23,14 @@ def preprocess(i):
     if env.get('CM_LLVM_CLANG_VERSION', '') != '':
         clang_version_split = env['CM_LLVM_CLANG_VERSION'].split(".")
         clang_major_version = int(clang_version_split[0])
+
         if clang_major_version >= 17:
             env['+ CFLAGS'].append("-Wno-error=c2x-extensions")
+
         if clang_major_version >= 16:
             env['+ CFLAGS'].append("-Wno-error=unused-but-set-variable")
             env['+ CXXFLAGS'].append("-Wno-error=unused-but-set-variable")
+
         if clang_major_version >= 13:
             env['+ CFLAGS'].append("-Wno-error=unused-const-variable")
             env['+ CFLAGS'].append("-Wno-error=unused-but-set-variable")
@@ -39,6 +42,9 @@ def preprocess(i):
             env['+ CXXFLAGS'].append("-Wno-error=unused-result")
             env['+ CXXFLAGS'].append("-Wno-error=string-concatenation")
             env['+ CXXFLAGS'].append("-Wno-error=infinite-recursion")
+
+        if clang_major_version == 12:
+            env['+ CXXFLAGS'].append("-Wno-error=unknown-warning-option")
 
     return {'return':0}
 
