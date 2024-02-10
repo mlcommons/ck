@@ -46,7 +46,21 @@ def preprocess(i):
 
     env['CM_LLVM_INSTALLED_PATH'] = install_prefix
     env['CM_LLVM_CLANG_BIN_WITH_PATH'] = os.path.join(env['CM_LLVM_INSTALLED_PATH'], "bin", clang_file_name)
-    env['CM_GET_DEPENDENT_CACHED_PATH'] = env['CM_LLVM_CLANG_BIN_WITH_PATH']
 
     #env['+PATH'] = []
+    return {'return':0}
+
+def postprocess(i):
+
+    env = i['env']
+
+    env['CM_GET_DEPENDENT_CACHED_PATH'] = env['CM_LLVM_CLANG_BIN_WITH_PATH']
+
+    # We don't need to check default paths here because we force install to cache
+    env['+PATH'] = [env['CM_LLVM_INSTALLED_PATH']]
+
+    path_include = os.path.join(os.getcwd(), 'include')
+    if os.path.isdir(path_include):
+        env['+C_INCLUDE_PATH'] = [ path_include ]
+
     return {'return':0}

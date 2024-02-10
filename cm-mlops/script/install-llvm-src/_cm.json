@@ -100,6 +100,8 @@
       }
     },
     "clang": {
+      "group": "clang",
+      "default": true,
       "env": {
         "CM_LLVM_ENABLE_PROJECTS": "clang"
       }
