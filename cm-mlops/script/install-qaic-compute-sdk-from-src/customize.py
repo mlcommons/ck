@@ -13,6 +13,15 @@ def preprocess(i):
 
     env['CM_QAIC_COMPUTE_SDK_PATH'] = env['CM_GIT_CHECKOUT_PATH']
 
+    '''
+    if env.get('+PATH', []) == []:
+        env['+PATH'] = []
+    env['+PATH'].append(env['CM_LLVM_INSTALLED_PATH'])
+
+    if env.get('+LD_LIBRARY_PATH', []) == []:
+        env['+LD_LIBRARY_PATH'] = []
+    env['+LD_LIBRARY_PATH'].append(os.path.join(env['CM_LLVM_INSTALLED_PATH'], "..", "lib"))
+    '''
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
     return {'return':0}

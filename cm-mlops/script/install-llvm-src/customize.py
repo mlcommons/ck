@@ -11,6 +11,7 @@ def preprocess(i):
     env = i['env']
 
     clang_file_name = "clang"
+    extra_cmake_options = ''
 
     install_prefix = os.path.join(os.getcwd(), "install")
     if env.get('CM_LLVM_CONDA_ENV', '') == "yes":

@@ -48,5 +48,21 @@
     "cpp-compiler",
     "get-llvm"
   ],
-  "uid": "99832a103ed04eb8"
+  "uid": "99832a103ed04eb8",
+  "variations": {
+    "from-prebuilt": {
+      "ad": {
+        "llvm-install": {
+          "tags": "prebuilt"
+        }
+      }
+    },
+    "from-src": {
+      "ad": {
+        "llvm-install": {
+          "tags": "src,_clang"
+        }
+      }
+    }
+  }
 }
