@@ -13,7 +13,7 @@ else
     export PATH=${CM_CONDA_BIN_PATH}:$PATH
 fi
 
-if [[ ${CM_CLEAN_BUILD} ]]; then
+if [[ ${CM_CLEAN_BUILD} == "yes" ]]; then
   rm -rf build
 fi
 
