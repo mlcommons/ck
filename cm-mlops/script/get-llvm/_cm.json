@@ -35,7 +35,8 @@
         ]
       },
       "reuse_version": true,
-      "tags": "install,llvm"
+      "tags": "install,llvm",
+      "names": "llvm-install"
     }
   ],
   "sort": 100,

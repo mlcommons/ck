@@ -9,7 +9,12 @@
       "names": [
         "qaic-software-git-repo"
       ],
-      "tags": "get,git,repo,_repo.https://github.com/quic/software-kit-for-qualcomm-cloud-ai-100-cc"
+       "update_tags_from_env_with_prefix": {
+        "_repo.": [ "CM_GIT_URL" ],
+        "_branch.": [ "CM_GIT_CHECKOUT" ]
+      },
+      "tags": "get,git,repo,_repo.https://github.com/quic/software-kit-for-qualcomm-cloud-ai-100-cc",
+      "extra_cache_tags": "compute-sdk,qaic,from.src"
     },
     {
       "names": [
@@ -33,6 +38,9 @@
     },
     {
       "tags": "get,google,test"
+    },
+    {
+      "tags": "get,generic-sys-util,_ninja-build"
     }
   ],
   "input_description": {},
@@ -48,6 +56,7 @@
   "tags": [
     "get",
     "qaic",
+    "from.src",
     "software",
     "compute",
     "compute-sdk",
@@ -74,6 +83,24 @@
         "CM_QAIC_COMPUTE_SDK_INSTALL_MODE": "release-assert"
       },
       "group": "installation-mode"
+    },
+    "repo.quic": {
+      "group": "repo-source",
+      "default": true,
+      "env": {
+        "CM_GIT_URL": "https://github.com/quic/software-kit-for-qualcomm-cloud-ai-100-cc"
+      }
+    },
+    "repo.#": {
+      "group": "repo-source",
+      "env": {
+        "CM_GIT_URL": "#"
+      }
+    },
+    "branch.#": {
+      "env": {
+        "CM_GIT_CHECKOUT": "#"
+      }
     }
   },
   "versions": {}

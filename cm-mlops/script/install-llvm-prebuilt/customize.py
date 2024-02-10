@@ -96,8 +96,8 @@ def preprocess(i):
 
                   elif need_version == '12.0.1':
                       default_os = '16.04'
-                      if host_os_version.startswith('18') or host_os_version.startswith('20'):
-                         default_os = '18.04'
+                      #if host_os_version.startswith('18') or host_os_version.startswith('20'):
+                      #   default_os = '18.04'
 
                   elif need_version == '13.0.0':
                       default_os = '16.04'

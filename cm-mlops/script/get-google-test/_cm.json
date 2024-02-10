@@ -6,14 +6,20 @@
   "category": "Detection or installation of tools and artifacts",
   "deps": [
     {
-      "tags": "get,cmake"
+      "tags": "get,cmake",
+      "names": [
+        "cmake"
+      ]
     },
     {
-      "tags": "get,gcc"
+      "tags": "get,compiler",
+      "names": [
+        "compiler"
+      ]
     }
   ],
   "input_description": {},
-  "default_version": "1.13.0",
+  "default_version": "1.14.0",
   "input_mapping": {},
   "new_env_keys": [
     "CM_GOOGLE_TEST_SRC_PATH",
@@ -29,7 +35,8 @@
       "force_env_keys": [
         "CM_GIT_*"
       ],
-      "tags": "get,git,repo,_repo.https://github.com/google/googletest.git"
+      "tags": "get,git,repo,_repo.https://github.com/google/googletest.git",
+      "extra_cache_tags": "google-test,gtest"
     }
   ],
   "tags": [
@@ -41,6 +48,5 @@
     "google"
   ],
   "uid": "02945138a5614253",
-  "variations": {},
   "versions": {}
 }

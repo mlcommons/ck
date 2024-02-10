@@ -55,7 +55,7 @@ def preprocess(i):
     RUN_CMD = ""
     state['RUN'] = {}
     test_list = ["TEST01", "TEST04", "TEST05"]
-    if env['CM_MODEL'] in ["rnnt", "bert-99", "bert-99.9", "dlrm-99", "dlrm-99.9", "3d-unet-99", "3d-unet-99.9"]:
+    if env['CM_MODEL'] in ["rnnt", "bert-99", "bert-99.9", "dlrm-v2-99", "dlrm-v2-99.9", "3d-unet-99", "3d-unet-99.9"]:
         test_list.remove("TEST04")
     if "gpt-" in env['CM_MODEL']:
         test_list.remove("TEST05")
@@ -93,7 +93,7 @@ def preprocess(i):
     if 'bert' in ml_model_name:
         ml_model_name = "bert"
     if 'dlrm' in ml_model_name:
-        ml_model_name = "dlrm"
+        ml_model_name = "dlrm-v2"
     if '3d-unet' in ml_model_name:
         ml_model_name = "3d-unet"
     if 'gptj' in ml_model_name:
