@@ -203,6 +203,9 @@
       },
       "deps": [
         {
+          "tags": "get,generic-sys-util,_g++-12"
+        },
+        {
           "tags": "get,gcc",
           "version_min": "12.3"
         },
