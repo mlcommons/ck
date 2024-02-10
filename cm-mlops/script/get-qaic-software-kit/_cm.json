@@ -12,6 +12,15 @@
       ]
     },
     {
+      "tags": "get,generic,sys-util,_libudev-dev"
+    },
+    {
+      "tags": "get,generic,sys-util,_libpci-dev"
+    },
+    {
+      "tags": "get,google,test"
+    },
+    {
       "tags": "get,cmake",
       "version_min": "3.24.0",
       "names": [
@@ -23,15 +32,6 @@
       "names": [
         "compiler"
       ]
-    },
-    {
-      "tags": "get,generic,sys-util,_libudev-dev"
-    },
-    {
-      "tags": "get,generic,sys-util,_libpci-dev"
-    },
-    {
-      "tags": "get,google,test"
     }
   ],
   "input_description": {},
