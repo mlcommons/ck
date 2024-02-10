@@ -11,6 +11,7 @@
   * [ Run this script via GUI](#run-this-script-via-gui)
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -52,9 +53,11 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,llvm,compiler,c-compiler,cpp-compiler,get-llvm `
+1. `cm run script --tags=get,llvm,compiler,c-compiler,cpp-compiler,get-llvm[,variations] `
 
-2. `cmr "get llvm compiler c-compiler cpp-compiler get-llvm" `
+2. `cmr "get llvm compiler c-compiler cpp-compiler get-llvm[ variations]" `
+
+* `variations` can be seen [here](#variations)
 
 #### Run this script from Python
 
@@ -90,10 +93,24 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,llvm,compiler,c-co
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get llvm compiler c-compiler cpp-compiler get-llvm" `
+`cm docker script "get llvm compiler c-compiler cpp-compiler get-llvm[ variations]" `
 
 ___
 ### Customization
+
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_from-prebuilt`
+      - Workflow:
+    * `_from-src`
+      - Workflow:
+
+    </details>
 
 #### Default environment
 
@@ -131,7 +148,7 @@ ___
 
 ___
 ### Script output
-`cmr "get llvm compiler c-compiler cpp-compiler get-llvm"  -j`
+`cmr "get llvm compiler c-compiler cpp-compiler get-llvm[,variations]"  -j`
 #### New environment keys (filter)
 
 * `+ CFLAGS`

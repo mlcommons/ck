@@ -100,6 +100,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_g++-12`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `g++12`
+      - Workflow:
     * `_gflags-dev`
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `gflags-dev`
