@@ -34,10 +34,10 @@ def postprocess(i):
     if '+PATH' not in env:
       env['+PATH'] = []
 
-    env['CM_QAIC_COMPUTE_SDK_INSTALL_PATH'] = os.path.join(env['CM_QAIC_COMPUTE_SDK_PATH'], "install", "qaic-compute-"+env['CM_QAIC_COMPUTE_SDK_INSTALL_MODE'])
+    env['CM_QAIC_COMPUTE_SDK_INSTALL_PATH'] = os.path.join(os.getcwd(), "src", "install", "qaic-compute-"+env['CM_QAIC_COMPUTE_SDK_INSTALL_MODE'])
 
     env['QAIC_COMPUTE_INSTALL_DIR'] = env['CM_QAIC_COMPUTE_SDK_INSTALL_PATH']
 
     env['+PATH'].append(os.path.join(env['CM_QAIC_COMPUTE_SDK_INSTALL_PATH'], "exec"))
 
-    return {'return':1}
+    return {'return':0}

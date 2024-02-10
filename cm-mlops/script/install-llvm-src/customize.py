@@ -14,6 +14,7 @@ def preprocess(i):
     extra_cmake_options = ''
 
     install_prefix = os.path.join(os.getcwd(), "install")
+
     if env.get('CM_LLVM_CONDA_ENV', '') == "yes":
         install_prefix = env['CM_CONDA_PREFIX']
         extra_cmake_options = f"-DCMAKE_SHARED_LINKER_FLAGS=-L{install_prefix} -Wl,-rpath,{install_prefix}"
@@ -57,11 +58,12 @@ def postprocess(i):
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] = env['CM_LLVM_CLANG_BIN_WITH_PATH']
 
-    # We don't need to check default paths here because we force install to cache
-    env['+PATH'] = [env['CM_LLVM_INSTALLED_PATH']]
+    if env.get('CM_LLVM_CONDA_ENV', '') != "yes":
+        # We don't need to check default paths here because we force install to cache
+        env['+PATH'] = [ os.path.join(env['CM_LLVM_INSTALLED_PATH'], "bin") ]
 
-    path_include = os.path.join(os.getcwd(), 'include')
-    if os.path.isdir(path_include):
-        env['+C_INCLUDE_PATH'] = [ path_include ]
+        path_include = os.path.join(env['CM_LLVM_INSTALLED_PATH'], 'include')
+        if os.path.isdir(path_include):
+            env['+C_INCLUDE_PATH'] = [ path_include ]
 
     return {'return':0}
