@@ -1,0 +1,26 @@
+alias: benchmark-run-mlperf-inference-scc23
+uid: 9133e5b1dddc4e4a
+
+automation_alias: cfg
+automation_uid: 88dce9c160324c5d
+
+tags:
+- benchmark
+- run
+- mlperf
+- inference
+- v3.1
+
+name: "MLPerf inference - Student Cluster Competition 2023"
+
+supported_compute:
+- fe379ecd1e054a00
+- cdfd424c32734e38
+- fe379ecd1e054a00
+- d2ae645066664463
+
+urls:
+- name: "Official page"
+  url: "https://sc23.supercomputing.org/students/student-cluster-competition/"
+- name: "Tutorial to run MLPerf inference benchmark "
+  url: "https://github.com/mlcommons/ck/blob/master/docs/tutorials/scc23-mlperf-inference-bert.md"

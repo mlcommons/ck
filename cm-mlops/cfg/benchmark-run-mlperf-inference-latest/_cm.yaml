@@ -16,6 +16,7 @@ name: "MLPerf inference - latest"
 supported_compute:
 - 357a972e79614903
 - cdfd424c32734e38
+- d2ae645066664463
 
 urls:
 - name: "Official page"

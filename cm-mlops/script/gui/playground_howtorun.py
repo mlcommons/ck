@@ -8,7 +8,7 @@ import streamlit.components.v1 as components
 
 import streamlit as st
 
-announcement = 'Under development - please follow the [MLCommons Collective Mind automation project](https://github.com/mlcommons/ck) and stay tuned for more details ...'
+announcement = 'Under development - please get in touch via [Discord](https://discord.gg/JjWNWXKxwT) for more details ...'
 
 initialized = False
 external_module_path = ''

@@ -2,6 +2,4 @@ uid: db45dcd686854602
 
 name: "Any model - offline"
 
-supported_compute:
-- cdfd424c32734e38
-- 357a972e79614903
+compute_uid: cdfd424c32734e38

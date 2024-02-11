@@ -1,6 +1,16 @@
+_base: "base/_demo.yaml"
+
 uid: 53e4028a3b31400d
 
-name: "GPT-J Reference Python Torch Offline"
+name: " BERT Reference Python ONNX Offline"
 
-supported_compute:
-- fe379ecd1e054a00
+compute_uid: cdfd424c32734e38
+
+tags: ",offline"
+
+input:
+  model: gptj
+  implementation: reference
+  framework: torch
+
+  

@@ -1,0 +1,10 @@
+uid: c6ae695138e74a29
+
+name: "BERT QAIC Offline"
+
+compute_uid: cdfd424c32734e38
+
+input:
+  model: bert
+  implementation: qaic
+  framework: qaic
