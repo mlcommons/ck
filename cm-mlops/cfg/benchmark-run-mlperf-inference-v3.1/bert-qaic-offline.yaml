@@ -8,3 +8,7 @@ input:
   model: bert
   implementation: qaic
   framework: qaic
+
+functional: true
+
+notes: "<a href=\"https://google.com\">Notes</a>"

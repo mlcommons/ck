@@ -25,3 +25,11 @@ urls:
   url: "https://github.com/mlcommons/inference"
 - name: "MLCommons CM automation (under development)"
   url: "https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference"
+
+dimensions:
+- - input.model
+  - "MLPerf model"
+- - input.implementation
+  - "MLPerf implementation"
+- - input.framework
+  - "MLPerf framework"

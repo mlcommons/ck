@@ -13,4 +13,5 @@ input:
   implementation: reference
   framework: torch
 
+reproduced: true
   

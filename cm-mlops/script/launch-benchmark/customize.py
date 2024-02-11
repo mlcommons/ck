@@ -225,6 +225,32 @@ def process_base(meta, full_path):
 
     return {'return':0, 'meta':meta}
 
+
+
+
+##################################################################################
+def get_with_complex_key(meta, key):
+
+    j = key.find('.')
+    
+    if j<0:
+        return meta.get(key)
+
+    key0 = key[:j]
+
+    if key0 not in meta:
+        return None
+
+    return get_with_complex_key(meta[key0], key[j+1:])
+
+##################################################################################
+def get_with_complex_key_safe(meta, key):
+    v = get_with_complex_key(meta, key)
+
+    if v == None: v=''
+
+    return v
+
 ##################################################################################
 def prepare_table(i):
 
@@ -237,30 +263,111 @@ def prepare_table(i):
     html = ''
 
     all_data = []
-    keys = [
-            ('x1', 'Var1', 400, 'leftAligned'),
-            ('x2', 'Var2', 80,'rightAligned'),
-            ('x3', 'Var3', 80, ''),
-           ]
+
+#    dimensions = [('input.model', 'MLPerf model'),
+#                  ('input.implementation', 'MLPerf implementation'),
+#                  ('input.framework', 'MLPerf framework')]
+
+    dimensions = i.get('dimensions', [])
+
+    dimension_values = {}
+    dimension_keys = []
+                  
+    if len(dimensions) == 0:
+        keys = [('test', 'CM test', 400, 'leftAligned')]
+    else:
+        keys = [('test', 'CM test', 50, 'leftAligned')]
+
+        for k in dimensions:
+            key = k[0]
+
+            keys.append((k[0], k[1], 100, 'leftAligned'))
+
+            dimension_values[key] = []
+            dimension_keys.append(key)
+
+#        # assemble all values
+#        for s in selection:
+#            for k in dimensions:
+#                key = k[0]
+#
+#                value = get_with_complex_key(selection, key)
+#
+#                if value!=None and value!='' and value not in dimension_values[key]:
+#                    dimension_values.append(value)
+                    
+        # If dimensions, sort by dimensions
+        for d in list(reversed(dimension_keys)):
+            selection = sorted(selection, key = lambda x: get_with_complex_key_safe(selection, d))
+
+
+
+    keys += [
+             ('functional', '<a href="https://github.com/mlcommons/ck/blob/master/docs/artifact-evaluation/submission.md">Functional</a>', 80, ''),
+             ('reproduced', '<a href="https://github.com/mlcommons/ck/blob/master/docs/artifact-evaluation/submission.md">Reproduced</a>', 80, ''),
+             ('notes', 'Notes', 200, 'lefAligned'),
+            ]
+
+    j = 0
+
+    badges_url={'functional':'https://cTuning.org/images/artifacts_evaluated_functional_v1_1_small.png',
+                'reproduced':'https://cTuning.org/images/results_reproduced_v1_1_small.png'}
+
+
+    
+    
+    
 
     for s in selection:
         row = {}
 
+        j += 1
+
         uid = s['uid']
-        
-        row['x1']=uid
-        row['x2']=s['name']
 
         url = misc.make_url(uid, key='uid', action='howtorun', md=False)
+
+        name = s.get('name','')
+        if name == '': name = uid
+
+
+        if len(dimensions) == 0:
+            row['test'] = '<a href="{}" target="_blank">{}</a>'.format(url, name)
+        else:
+            row['test'] = '<a href="{}" target="_blank">View</a>'.format(url)
+            for k in dimensions:
+                kk = k[0]
+
+                v = get_with_complex_key_safe(s, kk)
+
+                row[kk] = str(v)
+
+
+
+
+        # Check ACM/IEEE functional badge
+        x = ''
+        if s.get('functional', False):
+            x = '<center><a href="{}" target="_blank"><img src="{}" height="32"></a></center>'.format(url, badges_url['functional'])
+        row['functional'] = x
+
+        # Check ACM/IEEE reproduced badge
+        x = ''
+        if s.get('reproduced', False):
+            x = '<center><a href="{}" target="_blank"><img src="{}" height="32"></a></center>'.format(url, badges_url['reproduced'])
+        row['reproduced'] = x
         
-        row['x3']='<a href="{}" target="_blank">See test</a>'.format(url)
+        # Check misc notes
+        row['notes']=s.get('notes','')
         
+        # Finish row
         all_data.append(row)
 
 
     # Visualize table
     pd_keys = [v[0] for v in keys]
     pd_key_names = [v[1] for v in keys]
+
     pd_all_data = []
     for row in sorted(all_data, key=lambda row: (row.get('x1',0))):
         pd_row=[]
@@ -272,9 +379,7 @@ def prepare_table(i):
 
     df.index+=1
 
-    html=df.to_html(escape=False, justify='left')
-
-    return {'return':0, 'html':html}
+    return {'return':0, 'df':df}
 
 
 
@@ -532,17 +637,31 @@ def gui(i):
             else:
                 #########################################################################
                 # View many (table)
-                st.markdown('---')
+                ii = {'selection':selection,
+                      'misc_module':misc}
+                
+                # Check if dimensions in the bench
+                dimensions = bench_meta.get('dimensions', [])
+                if len(dimensions)>0:
+                     viewer_selection = ['benchmark specific', 'universal']
+                     
+                     viewer = st.selectbox('Viewer:', viewer_selection, key = 'viewer')
 
-                r = prepare_table({'selection':selection,
-                                   'misc_module':misc})
+                     if viewer == 'benchmark specific':
+                         ii['dimensions'] = dimensions
+                
+                else:
+                     st.markdown('---')
+
+                r = prepare_table(ii)
                 if r['return']>0: return r
 
-                html=r['html']
+                df = r['df']
 
+                html=df.to_html(escape=False, justify='left')
                 st.write(html, unsafe_allow_html = True)
             
-
+#                st.dataframe(df, unsafe_allow_html = True)
 
 
 

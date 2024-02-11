@@ -9,3 +9,5 @@ input:
   implementation: reference
   framework: onnx
 
+functional: false
+
