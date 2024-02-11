@@ -56,6 +56,7 @@ def page(st, params, action = ''):
     ii = {'streamlit_module': st,
           'params': params,
           'meta': external_module_meta,
-          'skip_title': True}
+          'skip_title': True,
+          'misc_module': misc}
 
     return cmind.utils.call_internal_module(None, external_module_path , 'customize', 'gui', ii)

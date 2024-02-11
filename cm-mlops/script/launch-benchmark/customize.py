@@ -226,14 +226,73 @@ def process_base(meta, full_path):
     return {'return':0, 'meta':meta}
 
 ##################################################################################
+def prepare_table(i):
+
+    import pandas as pd
+    import numpy as np
+
+    selection = i['selection']
+    misc = i['misc_module']
+
+    html = ''
+
+    all_data = []
+    keys = [
+            ('x1', 'Var1', 400, 'leftAligned'),
+            ('x2', 'Var2', 80,'rightAligned'),
+            ('x3', 'Var3', 80, ''),
+           ]
+
+    for s in selection:
+        row = {}
+
+        uid = s['uid']
+        
+        row['x1']=uid
+        row['x2']=s['name']
+
+        url = misc.make_url(uid, key='uid', action='howtorun', md=False)
+        
+        row['x3']='<a href="{}" target="_blank">See test</a>'.format(url)
+        
+        all_data.append(row)
+
+
+    # Visualize table
+    pd_keys = [v[0] for v in keys]
+    pd_key_names = [v[1] for v in keys]
+    pd_all_data = []
+    for row in sorted(all_data, key=lambda row: (row.get('x1',0))):
+        pd_row=[]
+        for k in pd_keys:
+            pd_row.append(row.get(k))
+        pd_all_data.append(pd_row)
+
+    df = pd.DataFrame(pd_all_data, columns = pd_key_names)
+
+    df.index+=1
+
+    html=df.to_html(escape=False, justify='left')
+
+    return {'return':0, 'html':html}
+
+
+
+
+
+
+##################################################################################
 def gui(i):
 
     params = i['params']
     st = i['streamlit_module']
+    misc = i['misc_module']
     meta = i['meta']
     gui_meta = meta['gui']
     skip_header = i.get('skip_title', False)
-    
+
+    end_html = ''
+
     if not skip_header:
         # Title
         title = gui_meta['title']
@@ -282,7 +341,7 @@ def gui(i):
     bench_id = 0
 
 
-
+    ###########################################################################################################
     if uid != '':
         if len(lst)==0:
             st.markdown('CM test with UID "{}" not found!'.format(uid))
@@ -302,8 +361,22 @@ def gui(i):
         selection = sorted(lst, key = lambda v: v['name'])
         bench_selection = [{'name':''}] + selection
 
-        bench_id_index = 0 if bench_uid == '' else 1
+        if bench_uid !='':
+            bench_id_index = 1
+        else:
+            # Check if want to force some benchmark by default
+            # 27c06c35bceb4059 == MLPerf inference v4.0
 
+            bench_id_index = 0
+
+            j=0
+            for b in bench_selection:
+                if b.get('uid','')=='27c06c35bceb4059':
+                    bench_id_index=j
+                    break
+                j+=1
+
+        
         bench_id = st.selectbox('Select benchmark:',
                                  range(len(bench_selection)), 
                                  format_func=lambda x: bench_selection[x]['name'],
@@ -329,6 +402,7 @@ def gui(i):
 
                 st.markdown(x)
     
+    ###########################################################################################################
     if True==True:
         ##############################################################
         # Check compute
@@ -377,6 +451,7 @@ def gui(i):
             if c.get('uid','')!='':
                 compute_meta[c['uid']]=c
 
+    ###########################################################################################################
     if uid == '':
 
         ##############################################################
@@ -459,8 +534,13 @@ def gui(i):
                 # View many (table)
                 st.markdown('---')
 
-                for s in selection:
-                    st.markdown('* '+str(s))
+                r = prepare_table({'selection':selection,
+                                   'misc_module':misc})
+                if r['return']>0: return r
+
+                html=r['html']
+
+                st.write(html, unsafe_allow_html = True)
             
 
 
@@ -486,8 +566,9 @@ def gui(i):
         if uid == '':
             st.markdown('---')
 
-        st.markdown(str(test_meta))
+            uid = test_meta['uid']
         
+        # First, check if there is a README
         test_path = test_meta['full_path']
 
         test_md = test_meta['full_path'][:-5]+'.md'
@@ -498,15 +579,28 @@ def gui(i):
 
             s = r['string']
 
-            st.markdown('---')
-
             st.markdown(s)
 
+        # Next print some info (for now JSON)
+        import json
+        x = """
+---
+**CM test dictionary:**
+```json
+{}
+```
+            """.format(json.dumps(test_meta, indent=2))
+        st.markdown(x)
         
 
 
 
+        
+        
+        # Create self link
+        # This misc module is in CM "gui" script
+        x1 = misc.make_url(uid, key='uid', action='howtorun', md=False)
+        end_html='<center><small><i><a href="{}">Self link</a></i></small></center>'.format(x1)
 
-
-    return {'return':0}
+    return {'return':0, 'end_html': end_html}
 
