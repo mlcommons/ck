@@ -106,10 +106,6 @@ ___
       - Environment variables:
         - *CM_GIT_CHECKOUT*: `#`
       - Workflow:
-    * `_clang`
-      - Environment variables:
-        - *CM_LLVM_ENABLE_PROJECTS*: `clang`
-      - Workflow:
     * `_for-intel-mlperf-inference-v3.1-bert`
       - Environment variables:
         - *CM_LLVM_CONDA_ENV*: `yes`
@@ -142,6 +138,8 @@ ___
         - *CM_LLVM_16_INTEL_MLPERF_INFERENCE*: `yes`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
+           * get,generic-sys-util,_g++-12
+             - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
            * get,gcc
              - CM script: [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
            * get,conda,_name.gptj-pt
@@ -213,6 +211,18 @@ ___
     </details>
 
 
+  * Group "**clang**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_clang`** (default)
+      - Environment variables:
+        - *CM_LLVM_ENABLE_PROJECTS*: `clang`
+      - Workflow:
+
+    </details>
+
+
   * Group "**repo**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -227,7 +237,7 @@ ___
 
 #### Default variations
 
-`_release`
+`_clang,_release`
 #### Default environment
 
 <details>
@@ -263,7 +273,7 @@ ___
   1. ***Run native script if exists***
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src/_cm.json)
-  1. Run "postrocess" function from customize.py
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src/_cm.json)***
      * get,llvm
        * `if (CM_REQUIRE_INSTALL  != yes)`
@@ -275,6 +285,8 @@ ___
 `cmr "install src llvm from.src src-llvm[,variations]"  -j`
 #### New environment keys (filter)
 
+* `+C_INCLUDE_PATH`
+* `+PATH`
 * `CM_GET_DEPENDENT_CACHED_PATH`
 * `CM_LLVM_*`
 #### New environment keys auto-detected from customize
