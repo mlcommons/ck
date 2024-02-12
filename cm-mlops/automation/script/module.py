@@ -30,7 +30,7 @@ class CAutomation(Automation):
         self.run_state['deps'] = []
         self.run_state['fake_deps'] = False
         self.run_state['parent'] = None
-        self.run_state['version_info'] = {}
+        self.run_state['version_info'] = []
 
         self.file_with_cached_state = 'cm-cached-state.json'
 
@@ -289,8 +289,8 @@ class CAutomation(Automation):
         if fake_deps: env['CM_TMP_FAKE_DEPS']='yes'
 
         run_state = i.get('run_state', self.run_state)
-        if run_state.get('version_info', '') == '':
-            run_state['version_info'] = {}
+        if not run_state.get('version_info', []):
+            run_state['version_info'] = []
         if run_state.get('parent', '') == '':
             run_state['parent'] = None
         if fake_deps:
@@ -643,7 +643,7 @@ class CAutomation(Automation):
         if i.get('help',False):
             return utils.call_internal_module(self, __file__, 'module_help', 'print_help', {'meta':meta, 'path':path})
             
-        
+        run_state['script_uid'] = meta['uid']
         deps = meta.get('deps',[])
         post_deps = meta.get('post_deps',[])
         prehook_deps = meta.get('prehook_deps',[])
@@ -1582,22 +1582,27 @@ class CAutomation(Automation):
 
         if not version and detected_version:
           version = detected_version
+
         if version:
             script_uid = script_artifact.meta.get('uid')
             script_alias = script_artifact.meta.get('alias')
             script_tags = script_artifact.meta.get('tags')
-            tags = i.get('tags')
-            run_state['version_info'][script_uid] = {}
-            run_state['version_info'][script_uid]['alias'] = script_alias
-            run_state['version_info'][script_uid]['script_tags'] = script_tags
-            run_state['version_info'][script_uid]['variation_tags'] = variation_tags
-            run_state['version_info'][script_uid]['version'] = version
+            version_info = {}
+            version_info_tags = ",".join(script_tags + variation_tags)
+            version_info[version_info_tags] = {}
+            version_info[version_info_tags]['script_uid'] = script_uid
+            version_info[version_info_tags]['script_alias'] = script_alias
+            version_info[version_info_tags]['version'] = version
+            version_info[version_info_tags]['parent'] = run_state['parent']
 
+            run_state['version_info'].append(version_info)
             script_versions = detected_versions.get(meta['uid'], [])
             if not script_versions:
                 detected_versions[meta['uid']] = [ version ]
             else:
                 script_versions.append(version)
+        else:
+            pass # these scripts don't have versions. Should we use cm mlops version here?
 
         ############################# RETURN
         elapsed_time = time.time() - start_time
@@ -1618,9 +1623,9 @@ class CAutomation(Automation):
                 f.write(readme)
 
         if i.get('dump_version_info'):
-            import json
-            with open('version_info.json', 'w') as f:
-                f.write(json.dumps(run_state['version_info'], indent=2))
+            r = self._dump_version_info_for_script()
+            if r['return'] > 0:
+                return r
 
         rr = {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state, 'deps': run_state['deps']}
         
@@ -1635,6 +1640,12 @@ class CAutomation(Automation):
             input ('Press Enter to continue ...')
 
         return rr
+
+    def _dump_version_info_for_script(self, output_dir = os.getcwd()):
+        import json
+        with open(os.path.join(output_dir, 'version_info.json'), 'w') as f:
+            f.write(json.dumps(self.run_state['version_info'], indent=2))
+        return {'return': 0}
 
     def _update_state_from_variations(self, i, meta, variation_tags, variations, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, add_deps_recursive, run_state, recursion_spaces, verbose):
 
@@ -2691,7 +2702,7 @@ class CAutomation(Automation):
                     tmp_run_state_deps = copy.deepcopy(run_state['deps'])
                     run_state['deps'] = []
                     tmp_parent = run_state['parent']
-                    run_state['parent'] = self.meta['uid']
+                    run_state['parent'] = run_state['script_uid']
 
                     # Run collective script via CM API:
                     # Not very efficient but allows logging - can be optimized later
@@ -3979,6 +3990,8 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     verbose = i.get('verbose', False)
     if not verbose: verbose = i.get('v', False)
 
+    show_time = i.get('time', False)
+
     recursion = i.get('recursion', False)
     found_script_tags = i.get('found_script_tags', [])
     debug_script_tags = i.get('debug_script_tags', '')
@@ -4148,10 +4161,9 @@ more portable, interoperable and deterministic. Thank you'''
     if customize_code is not None:
         print (recursion_spaces+'       ! call "{}" from {}'.format(postprocess, customize_code.__file__))
     
-    
     if len(posthook_deps)>0 and (postprocess == "postprocess"):
         r = script_automation._call_run_deps(posthook_deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
-            add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, run_state)
+            add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, ' ', run_state)
         if r['return']>0: return r
 
     if (postprocess == "postprocess") and customize_code is not None and 'postprocess' in dir(customize_code):

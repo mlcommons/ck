@@ -320,4 +320,8 @@ def postprocess(i):
     if accuracy_result_dir != '':
         env['CM_MLPERF_ACCURACY_RESULTS_DIR'] = accuracy_result_dir
 
+    if state.get('mlperf-inference-implementation') and state['mlperf-inference-implementation'].get('version_info'):
+        with open(os.path.join(output_dir, "version_info.json"), "w") as f:
+            f.write(json.dumps(state['mlperf-inference-implementation']['version_info'], indent=2))
+
     return {'return':0}
