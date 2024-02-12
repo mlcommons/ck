@@ -45,6 +45,7 @@ input_mapping:
   device: CM_MLPERF_DEVICE
   division: CM_MLPERF_SUBMISSION_DIVISION
   dump_version_info: CM_DUMP_VERSION_INFO
+  save_console_log: CM_SAVE_CONSOLE_LOG
   execution_mode: CM_MLPERF_EXECUTION_MODE
   find_performance: CM_MLPERF_FIND_PERFORMANCE_MODE
   gpu_name: CM_NVIDIA_GPU_NAME
