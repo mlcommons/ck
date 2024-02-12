@@ -361,11 +361,11 @@ def get_run_cmd_reference(os_info, env, scenario_extra_options, mode_extra_optio
 def postprocess(i):
 
     env = i['env']
+    state = i['state']
 
     if env.get('CM_MLPERF_README', "") == "yes":
         import cmind as cm
         inp = i['input']
-        state = i['state']
         script_tags = inp['tags']
         script_adr = inp.get('add_deps_recursive', inp.get('adr', {}))
 
@@ -385,5 +385,15 @@ def postprocess(i):
 
         state['mlperf-inference-implementation'] = {}
         state['mlperf-inference-implementation']['print_deps'] = r['new_state']['print_deps']
+
+    if env.get('CM_DUMP_VERSION_INFO', True):
+        if not state.get('mlperf-inference-implementation', {}):
+            state['mlperf-inference-implementation'] = {}
+        run_state = i['run_script_input']['run_state']
+        state['mlperf-inference-implementation'][run_state['script_uid']] = {}
+        version_info = {}
+        version_info[run_state['script_uid']] = run_state['version_info']
+
+        state['mlperf-inference-implementation']['version_info'] = version_info
 
     return {'return':0}

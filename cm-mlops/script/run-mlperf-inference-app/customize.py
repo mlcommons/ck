@@ -19,6 +19,7 @@ def preprocess(i):
     if env.get('CM_RUN_DOCKER_CONTAINER', '') == "yes": 
         return {'return':0}
 
+    dump_version_info = env.get('CM_DUMP_VERSION_INFO', True)
     system_meta = state['CM_SUT_META']
     env['CM_SUT_META_EXISTS'] = "yes"
 
@@ -161,7 +162,7 @@ def preprocess(i):
             print(f"\nRunning loadgen scenario: {scenario} and mode: {mode}")
             ii = {'action':'run', 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
-                copy.deepcopy(add_deps_recursive), 'ad': ad, 'adr': copy.deepcopy(adr), 'v': verbose, 'print_env': print_env, 'print_deps': print_deps}
+                copy.deepcopy(add_deps_recursive), 'ad': ad, 'adr': copy.deepcopy(adr), 'v': verbose, 'print_env': print_env, 'print_deps': print_deps, 'dump_version_info': dump_version_info}
             r = cm.access(ii)
             if r['return'] > 0:
                 return r
@@ -186,7 +187,7 @@ def preprocess(i):
                 env['CM_MLPERF_LOADGEN_MODE'] = "compliance"
                 r = cm.access({'action':'run', 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
                     'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
-                    copy.deepcopy(add_deps_recursive), 'adr': copy.deepcopy(adr), 'ad': ad, 'v': verbose, 'print_env': print_env, 'print_deps': print_deps})
+                    copy.deepcopy(add_deps_recursive), 'adr': copy.deepcopy(adr), 'ad': ad, 'v': verbose, 'print_env': print_env, 'print_deps': print_deps, 'dump_version_info': dump_version_info})
                 if r['return'] > 0:
                     return r
 

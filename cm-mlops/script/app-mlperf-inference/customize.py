@@ -365,4 +365,32 @@ def postprocess(i):
     if accuracy_result_dir != '':
         env['CM_MLPERF_ACCURACY_RESULTS_DIR'] = accuracy_result_dir
 
+    if state.get('mlperf-inference-implementation') and state['mlperf-inference-implementation'].get('version_info'):
+        with open(os.path.join(output_dir, "version_info.json"), "w") as f:
+            f.write(json.dumps(state['mlperf-inference-implementation']['version_info'], indent=2))
+
+    if env.get('CM_DUMP_SYSTEM_INFO', True):
+        dump_script_output("detect,os", env, state, 'new_env', os.path.join(output_dir, "os_info.json"))
+        dump_script_output("detect,cpu", env, state, 'new_env', os.path.join(output_dir, "cpu_info.json"))
+        dump_script_output("dump,pip,freeze", env, state, 'new_state', os.path.join(output_dir, "pip_freeze.json"))
+
     return {'return':0}
+
+def dump_script_output(script_tags, env, state, output_key, dump_file):
+
+    cm_input = {'action': 'run',
+                'automation': 'script',
+                'tags': script_tags,
+                'env': env,
+                'state': state,
+                'quiet': True,
+                'silent': True,
+                }
+    r = cm.access(cm_input)
+    if r['return'] > 0:
+        return r
+    with open(dump_file, "w") as f:
+        f.write(json.dumps(r[output_key], indent=2))
+
+    return {'return': 0}
+

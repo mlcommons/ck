@@ -216,6 +216,7 @@ def preprocess(i):
         env['CM_MLPERF_INFERENCE_AUDIT_PATH'] = audit_full_path
 
     env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
+    env['CM_LOGS_DIR'] = OUTPUT_DIR
     env['CM_MLPERF_LOADGEN_LOGS_DIR'] = OUTPUT_DIR
 
     run_exists = run_files_exist(log_mode, OUTPUT_DIR, required_files, env)
