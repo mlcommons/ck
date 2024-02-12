@@ -195,7 +195,9 @@ def get_run_cmd_reference(os_info, env, scenario_extra_options, mode_extra_optio
             if os_info['platform'] == 'windows':
                 cmd = "python python/main.py --profile "+env['CM_MODEL']+"-"+env['CM_MLPERF_BACKEND'] + \
                 " --model=" + env['CM_ML_MODEL_FILE_WITH_PATH'] + ' --dataset-path=' + env['CM_DATASET_PREPROCESSED_PATH'] + \
-                " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
+                " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + \
+                " --output " + env['OUTPUT_DIR'] + " " + \
+                env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
                 scenario_extra_options + mode_extra_options + dataset_options
             else:
                 cmd = "./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \

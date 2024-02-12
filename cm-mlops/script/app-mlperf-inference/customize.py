@@ -1,10 +1,13 @@
 from cmind import utils
+
 import os
 import json
 import shutil
 import subprocess
 import copy
 import cmind as cm
+import platform
+import sys
 
 def preprocess(i):
 
@@ -27,6 +30,9 @@ def preprocess(i):
 
 def postprocess(i):
 
+    os_info = i['os_info']
+
+    xsep = '^' if os_info['platform'] == 'windows' else '\\'
 
     env = i['env']
     inp = i['input']
@@ -193,14 +199,21 @@ def postprocess(i):
 
         if "cmd" in inp:
             cmd = "cm run script \\\n\t"+" \\\n\t".join(inp['cmd'])
+            xcmd = "cm run script "+xsep+"\n\t" + (" "+xsep+"\n\t").join(inp['cmd'])
         else:
             cmd = ""
+            xcmd = ""
 
-        readme_init = "This experiment is generated using [MLCommons CM](https://github.com/mlcommons/ck)\n"
-        readme_body = "## CM Run Command\n```\n" + cmd + "\n```"
+        readme_init = "This experiment is generated using the [MLCommons Collective Mind automation framework (CM)](https://github.com/mlcommons/ck).\n\n"
+
+        readme_body = "## Host platform\n\n* OS version: {}\n* CPU version: {}\n* Python version: {}\n* MLCommons CM version: {}\n\n".format(platform.platform(), 
+            platform.processor(), sys.version, cm.__version__)
+
+        readme_body += "## CM Run Command\n\nSee [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md).\n\n"+ \
+            "```bash\npip install cmind\n\ncm pull repo mlcommons@ck\n\n{}\n```".format(xcmd)
 
         if env.get('CM_MLPERF_README', '') == "yes":
-            readme_body += "\n## Dependent CM scripts \n"
+            readme_body += "\n## Dependent CM scripts\n\n"
 
             script_tags = inp['tags']
             script_adr = inp.get('adr', {})

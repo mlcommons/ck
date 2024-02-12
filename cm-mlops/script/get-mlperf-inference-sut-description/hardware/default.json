@@ -20,7 +20,7 @@
   "number_of_nodes": "1",
   "status": "available",
   "submitter": "cTuning",
-  "sw_notes": "Powered by MLCommons CM (CK2)",
+  "sw_notes": "Automated by MLCommons CM",
   "system_type": "edge",
   "system_type_detail": "edge server"
 }

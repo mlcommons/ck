@@ -2,6 +2,7 @@ from cmind import utils
 import os
 import json
 import shutil
+import cmind
 
 def preprocess(i):
     return {'return': 0}
@@ -79,7 +80,7 @@ def generate_submission(i):
     print('* MLPerf inference submitter: {}'.format(submitter))
 
     if 'Collective' not in system_meta.get('sw_notes'):
-        system_meta['sw_notes'] =  "Powered by MLCommons Collective Mind framework (CK2). " + system_meta['sw_notes']
+        system_meta['sw_notes'] =  "Automated by MLCommons CM v{}. ".format(cmind.__version__) + system_meta['sw_notes']
 
     if env.get('CM_MLPERF_SUT_SW_NOTES_EXTRA','') != '':
         sw_notes = f"{system_meta['sw_notes']} {env['CM_MLPERF_SUT_SW_NOTES_EXTRA']}"
