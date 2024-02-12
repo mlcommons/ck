@@ -255,7 +255,7 @@ def postprocess(i):
         if repo_hash!='': x+=' --checkout='+str(repo_hash)
         
         readme_body += "## CM Run Command\n\nSee [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md).\n\n"+ \
-            "```bash\npip install cmind\n\ncm pull repo {}\n\n{}\n```".format(x, xcmd)
+            "```bash\npip install cmind\n\ncm rm cache -f\n\ncm pull repo {}\n\n{}\n```".format(x, xcmd)
 
         if env.get('CM_MLPERF_README', '') == "yes":
             readme_body += "\n## Dependent CM scripts\n\n"
