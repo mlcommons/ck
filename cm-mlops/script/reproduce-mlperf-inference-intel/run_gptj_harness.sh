@@ -1,7 +1,7 @@
 #!/bin/bash
 export PATH=${CM_CONDA_BIN_PATH}:$PATH
 
-export KMP_BLOCKTIME=4
+export KMP_BLOCKTIME=10
 export KMP_AFFINITY=granularity=fine,compact,1,0
 export LD_PRELOAD=${LD_PRELOAD}:${CONDA_PREFIX}/lib/libiomp5.so
 export LD_PRELOAD=${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
