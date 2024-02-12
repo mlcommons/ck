@@ -227,14 +227,12 @@ def postprocess(i):
                 # Check Grigori's dev
                 if repo_name == 'ck': repo_name = 'ctuning@mlcommons-ck'
 
-                cur_dir_tmp=os.getcwd()
-
-                os.chdir(repo_path)
-
-                x = subprocess.run('git rev-parse HEAD', capture_output=True, text=True)
-                repo_hash = x.stdout.strip()                
-
-                os.chdir(cur_dir_tmp)
+                r = cm.access({'action':'system',
+                               'automation':'utils',
+                               'path':repo_path,
+                               'cmd':'git rev-parse HEAD'})
+                if r['return'] == 0 and r['ret'] == 0:
+                    repo_hash = r['stdout']
 
         # Prepare README
         if "cmd" in inp:

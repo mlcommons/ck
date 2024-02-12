@@ -878,3 +878,69 @@ class CAutomation(Automation):
 
         return r
 
+
+    ##############################################################################
+    def system(self, i):
+        """
+        Run system command and redirect output to strng.
+
+        Args:
+          (CM input dict): 
+
+          * cmd (str): command line
+          * (path) (str): go to this directory and return back to current
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+          * ret (int): return code
+          * std (str): stdout + stderr
+          * stdout (str): stdout
+          * stderr (str): stderr
+        """
+
+        cmd = i['cmd']
+
+        if cmd == '':
+            return {'return':1, 'error': 'cmd is empty'}
+
+        path = i.get('path','')
+        if path!='' and os.path.isdir(path):
+            cur_dir = os.getcwd()
+            os.chdir(path)    
+
+        r = utils.gen_tmp_file({})
+        if r['return'] > 0: return r
+        fn1 = r['file_name']
+
+        r = utils.gen_tmp_file({})
+        if r['return'] > 0: return r
+        fn2 = r['file_name']
+
+        cmd += ' > '+fn1 + ' 2> '+fn2
+        rx = os.system(cmd)
+
+        std = ''
+        stdout = ''
+        stderr = ''
+            
+        if os.path.isfile(fn1):
+            r = utils.load_txt(file_name = fn1, remove_after_read = True)
+            if r['return'] == 0: stdout = r['string'].strip()
+
+        if os.path.isfile(fn2):
+            r = utils.load_txt(file_name = fn2, remove_after_read = True)
+            if r['return'] == 0: stderr = r['string'].strip()
+
+        std = stdout
+        if stderr!='':
+            if std!='': std+='\n'
+            std+=stderr
+
+        if path!='' and os.path.isdir(path):
+            os.chdir(cur_dir)
+
+        return {'return':0, 'ret':rx, 'stdout':stdout, 'stderr':stderr, 'std':std}
