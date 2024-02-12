@@ -1,6 +1,6 @@
 [ [Back to CM documentation](../README.md) ]
 
-# How to run and customize MLPerf benchmarks?
+# Run and customize MLPerf benchmarks using the MLCommons CM automation framework
 
 This documentation explains how to run, customize and extend MLPerf benchmarks 
 in a unified way across diverse models, data sets, software and hardware from different vendors 

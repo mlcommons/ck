@@ -197,6 +197,46 @@ def postprocess(i):
             shutil.copy(env['CM_MLPERF_USER_CONF'], 'user.conf')
 
 
+        # Record basic host info
+        host_info = {
+          "os_version":platform.platform(),
+          "cpu_version":platform.processor(), 
+          "python_version":sys.version,
+          "cm_version":cm.__version__
+        }
+
+        x = ''
+        if env.get('CM_HOST_OS_FLAVOR','')!='': x+=env['CM_HOST_OS_FLAVOR']
+        if env.get('CM_HOST_OS_VERSION','')!='': x+=' '+env['CM_HOST_OS_VERSION']
+        if x!='': host_info['os_version_sys'] = x
+
+        if env.get('CM_HOST_SYSTEM_NAME','')!='': host_info['system_name']=env['CM_HOST_SYSTEM_NAME']
+
+        with open ("cm-host-info.json", "w") as fp:
+            fp.write(json.dumps(host_info, indent=2)+'\n')
+            
+        # Check CM automation repository
+        repo_name = 'mlcommons@ck'
+        repo_hash = ''
+        r = cm.access({'action':'find', 'automation':'repo', 'artifact':'mlcommons@ck,a4705959af8e447a'})
+        if r['return']==0 and len(r['list'])==1:
+            repo_path = r['list'][0].path
+            if os.path.isdir(repo_path):
+                repo_name = os.path.basename(repo_path)
+
+                # Check Grigori's dev
+                if repo_name == 'ck': repo_name = 'ctuning@mlcommons-ck'
+
+                cur_dir_tmp=os.getcwd()
+
+                os.chdir(repo_path)
+
+                x = subprocess.run('git rev-parse HEAD', capture_output=True, text=True)
+                repo_hash = x.stdout.strip()                
+
+                os.chdir(cur_dir_tmp)
+
+        # Prepare README
         if "cmd" in inp:
             cmd = "cm run script \\\n\t"+" \\\n\t".join(inp['cmd'])
             xcmd = "cm run script "+xsep+"\n\t" + (" "+xsep+"\n\t").join(inp['cmd'])
@@ -206,11 +246,16 @@ def postprocess(i):
 
         readme_init = "This experiment is generated using the [MLCommons Collective Mind automation framework (CM)](https://github.com/mlcommons/ck).\n\n"
 
+        readme_init+= "*Check [CM MLPerf docs](https://github.com/mlcommons/ck/tree/master/docs/mlperf) for more details.*\n\n"
+
         readme_body = "## Host platform\n\n* OS version: {}\n* CPU version: {}\n* Python version: {}\n* MLCommons CM version: {}\n\n".format(platform.platform(), 
             platform.processor(), sys.version, cm.__version__)
 
+        x = repo_name
+        if repo_hash!='': x+=' --checkout='+str(repo_hash)
+        
         readme_body += "## CM Run Command\n\nSee [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md).\n\n"+ \
-            "```bash\npip install cmind\n\ncm pull repo mlcommons@ck\n\n{}\n```".format(xcmd)
+            "```bash\npip install cmind\n\ncm pull repo {}\n\n{}\n```".format(x, xcmd)
 
         if env.get('CM_MLPERF_README', '') == "yes":
             readme_body += "\n## Dependent CM scripts\n\n"
