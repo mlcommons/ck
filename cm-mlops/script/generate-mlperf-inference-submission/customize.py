@@ -272,6 +272,16 @@ def generate_submission(i):
                         if model == "stable-diffusion-xl" and os.path.exists(os.path.join(result_mode_path, "images")):
                             shutil.copytree(os.path.join(result_mode_path, "images"), os.path.join(submission_results_path, "images"))
 
+                    elif mode == "performance":
+                        if os.path.exists(os.path.join(result_mode_path, "version_info.json")):
+                            files.append("version_info.json")
+                        if os.path.exists(os.path.join(result_mode_path, "os_info.json")):
+                            files.append("os_info.json")
+                        if os.path.exists(os.path.join(result_mode_path, "cpu_info.json")):
+                            files.append("cpu_info.json")
+                        if os.path.exists(os.path.join(result_mode_path, "pip_freeze.json")):
+                            files.append("pip_freeze.json")
+
                     for f in files:
                         print(' * ' + f)
                         p_target = os.path.join(submission_results_path, f)
