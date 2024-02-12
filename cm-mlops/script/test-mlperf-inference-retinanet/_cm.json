@@ -1,0 +1,49 @@
+{
+  "alias": "test-mlperf-inference-retinanet",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "category": "CM interface prototyping",
+  "deps": [
+    {
+      "tags": "get,sys-utils-cm"
+    },
+    {
+      "names": [
+        "python",
+        "python3"
+      ],
+      "tags": "get,python3"
+    },
+    {
+      "tags": "get,generic-python-lib,_requests"
+    },
+    {
+      "names": [
+        "loadgen", "mlperf-inference-loadgen"
+      ],
+      "tags": "get,loadgen"
+    },
+    {
+      "force_env_keys": [
+        "CM_GIT_*"
+      ],
+      "names": [
+        "inference-src"
+      ],
+      "tags": "mlperf,inference,source"
+    },
+    {
+      "tags": "get,dataset,open-images,original"
+    },
+    {
+      "tags": "get,raw,ml-model,retinanet"
+    }
+  ],
+  "tags": [
+    "test",
+    "mlperf-inference-win",
+    "retinanet",
+    "windows"
+  ],
+  "uid": "1cedbc3b642a403a"
+}
