@@ -889,6 +889,8 @@ class CAutomation(Automation):
 
           * cmd (str): command line
           * (path) (str): go to this directory and return back to current
+          * (stdout) (str): stdout file
+          * (stderr) (str): stderr file
 
         Returns:
           (CM return dict):
@@ -912,13 +914,23 @@ class CAutomation(Automation):
             cur_dir = os.getcwd()
             os.chdir(path)    
 
-        r = utils.gen_tmp_file({})
-        if r['return'] > 0: return r
-        fn1 = r['file_name']
+        if i.get('stdout','')!='':
+            fn1=i['stdout']
+            fn1_delete = False
+        else:
+            r = utils.gen_tmp_file({})
+            if r['return'] > 0: return r
+            fn1 = r['file_name']
+            fn1_delete = True
 
-        r = utils.gen_tmp_file({})
-        if r['return'] > 0: return r
-        fn2 = r['file_name']
+        if i.get('stderr','')!='':
+            fn2=i['stderr']
+            fn2_delete = False
+        else:
+            r = utils.gen_tmp_file({})
+            if r['return'] > 0: return r
+            fn2 = r['file_name']
+            fn2_delete = True
 
         cmd += ' > '+fn1 + ' 2> '+fn2
         rx = os.system(cmd)
@@ -928,11 +940,11 @@ class CAutomation(Automation):
         stderr = ''
             
         if os.path.isfile(fn1):
-            r = utils.load_txt(file_name = fn1, remove_after_read = True)
+            r = utils.load_txt(file_name = fn1, remove_after_read = fn1_delete)
             if r['return'] == 0: stdout = r['string'].strip()
 
         if os.path.isfile(fn2):
-            r = utils.load_txt(file_name = fn2, remove_after_read = True)
+            r = utils.load_txt(file_name = fn2, remove_after_read = fn2_delete)
             if r['return'] == 0: stderr = r['string'].strip()
 
         std = stdout
