@@ -265,22 +265,15 @@ def generate_submission(i):
                             elif f == "README.md":
                                 readme = True
                                 shutil.copy(os.path.join(result_mode_path, f), os.path.join(submission_measurement_path, f))
+                            elif f in [ "version_info.json", "os_info.json", "cpu_info.json", "pip_freeze.json" ] and mode == "performance":
+                                shutil.copy(os.path.join(result_mode_path, f), os.path.join(submission_measurement_path, f))
+
 
                     if mode == "accuracy":
                         if os.path.exists(os.path.join(result_mode_path, "accuracy.txt")):
                             files.append("accuracy.txt")
                         if model == "stable-diffusion-xl" and os.path.exists(os.path.join(result_mode_path, "images")):
                             shutil.copytree(os.path.join(result_mode_path, "images"), os.path.join(submission_results_path, "images"))
-
-                    elif mode == "performance":
-                        if os.path.exists(os.path.join(result_mode_path, "version_info.json")):
-                            files.append("version_info.json")
-                        if os.path.exists(os.path.join(result_mode_path, "os_info.json")):
-                            files.append("os_info.json")
-                        if os.path.exists(os.path.join(result_mode_path, "cpu_info.json")):
-                            files.append("cpu_info.json")
-                        if os.path.exists(os.path.join(result_mode_path, "pip_freeze.json")):
-                            files.append("pip_freeze.json")
 
                     for f in files:
                         print(' * ' + f)
