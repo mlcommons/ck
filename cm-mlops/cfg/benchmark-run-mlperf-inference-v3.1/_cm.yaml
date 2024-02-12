@@ -34,3 +34,5 @@ dimensions:
   - "MLPerf implementation"
 - - input.framework
   - "MLPerf framework"
+- - compute_meta.name
+  - "Compute"
