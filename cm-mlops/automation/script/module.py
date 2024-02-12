@@ -1617,6 +1617,11 @@ class CAutomation(Automation):
             with open('readme.md', 'w') as f:
                 f.write(readme)
 
+        if i.get('dump_version_info'):
+            import json
+            with open('version_info.json', 'w') as f:
+                f.write(json.dumps(run_state['version_info'], indent=2))
+
         rr = {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state, 'deps': run_state['deps']}
         
         if i.get('json', False) or i.get('j', False):
