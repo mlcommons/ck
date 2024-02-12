@@ -18,5 +18,7 @@ if not "%CM_DATASET_SIZE%" == "" (
 %CM_PYTHON_BIN% tools\openimages.py %MAX_IMAGES% --dataset-dir=%INSTALL_DIR% --output-labels=openimages-mlperf.json --classes %CM_DATASET_OPENIMAGES_CLASSES%
 IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
 
+rem Next is a hack to support MLPerf inference on Windows
 cd %INSTALL_DIR%
-move validation\data\* .
+if not exist validation\data\annotations mkdir validation\data\annotations
+copy annotations\* validation\data\annotations
