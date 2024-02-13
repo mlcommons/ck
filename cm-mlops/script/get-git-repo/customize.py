@@ -59,6 +59,11 @@ def postprocess(i):
 
     env['CM_GET_DEPENDENT_CACHED_PATH'] = git_checkout_path
 
+    if os.path.exists("tmp-cm-git-hash.out"):
+        with open("tmp-cm-git-hash.out", "r") as f:
+            git_hash = f.readline().strip()
+            env['CM_GIT_REPO_CURRENT_HASH'] = git_hash
+
     return {'return':0}
 
 def get_env_key(env):
