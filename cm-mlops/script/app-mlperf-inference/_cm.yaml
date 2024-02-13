@@ -551,6 +551,9 @@ variations:
         - all
         CM_MLPERF_ACCURACY_RESULTS_DIR:
         - 'on'
+      skip_if_env:
+        CM_MLPERF_IMPLEMENTATION:
+        - intel-original
       names:
       - cnndm-accuracy-script
       - mlperf-accuracy-script
