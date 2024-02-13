@@ -62,7 +62,8 @@
         }
       },
       "env": {
-        "CM_PYTHON_CONDA": "yes"
+        "CM_PYTHON_CONDA": "yes",
+        "CM_PYTHON_INSTALL_CACHE_TAGS": "_conda.#"
       }
     },
     "lto": {},
