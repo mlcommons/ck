@@ -50,6 +50,7 @@ input_mapping:
 # Env keys which are exposed to higher level scripts
 new_env_keys:
   - CM_MLPERF_*
+  - CM_LOGS_DIR
   - CM_HW_*
   - CM_SUT_*
   - CM_MAX_EXAMPLES
@@ -72,7 +73,11 @@ deps:
     - python
     - python3
 
-
+  - tags: get,mlperf,results,dir
+    names:
+      - get-mlperf-results-dir
+    skip_if_env:
+      OUTPUT_BASE_DIR: [ on ]
 
   ########################################################################
   # Install MLPerf inference dependencies

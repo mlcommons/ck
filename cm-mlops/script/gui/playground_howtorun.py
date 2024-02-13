@@ -8,7 +8,7 @@ import streamlit.components.v1 as components
 
 import streamlit as st
 
-announcement = 'Under development - please follow the [MLCommons Collective Mind automation project](https://github.com/mlcommons/ck) and stay tuned for more details ...'
+announcement = 'Under development - please get in touch via [Discord](https://discord.gg/JjWNWXKxwT) for more details ...'
 
 initialized = False
 external_module_path = ''
@@ -56,6 +56,7 @@ def page(st, params, action = ''):
     ii = {'streamlit_module': st,
           'params': params,
           'meta': external_module_meta,
-          'skip_title': True}
+          'skip_title': True,
+          'misc_module': misc}
 
     return cmind.utils.call_internal_module(None, external_module_path , 'customize', 'gui', ii)

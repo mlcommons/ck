@@ -1,14 +1,18 @@
 from cmind import utils
+
 import os
 import json
 import shutil
 import subprocess
 import copy
 import cmind as cm
+import platform
+import sys
 
 def preprocess(i):
 
     env = i['env']
+    state = i['state']
 
     if env.get('CM_MLPERF_IMPLEMENTATION', '') == 'nvidia-original':
         if env.get('CM_NVIDIA_GPU_NAME', '') in [ "rtx_4090", "a100", "t4", "l4", "orin", "custom" ]:
@@ -21,12 +25,20 @@ def preprocess(i):
             env['CM_NVIDIA_HARNESS_GPU_VARIATION'] = ''
 
     if 'cmd' in i['input']:
-        i['state']['mlperf_inference_run_cmd'] = "cm run script " + " ".join(i['input']['cmd'])
+        state['mlperf_inference_run_cmd'] = "cm run script " + " ".join(i['input']['cmd'])
+
+    state['mlperf-inference-implementation'] = {}
+
+    run_state = i['run_script_input']['run_state']
+    state['mlperf-inference-implementation']['script_id'] = run_state['script_id']+":"+",".join(run_state['script_variation_tags'])
 
     return {'return':0}
 
 def postprocess(i):
 
+    os_info = i['os_info']
+
+    xsep = '^' if os_info['platform'] == 'windows' else '\\'
 
     env = i['env']
     inp = i['input']
@@ -191,16 +203,124 @@ def postprocess(i):
             shutil.copy(env['CM_MLPERF_USER_CONF'], 'user.conf')
 
 
+        # Record basic host info
+        host_info = {
+          "os_version":platform.platform(),
+          "cpu_version":platform.processor(), 
+          "python_version":sys.version,
+          "cm_version":cm.__version__
+        }
+
+        x = ''
+        if env.get('CM_HOST_OS_FLAVOR','')!='': x+=env['CM_HOST_OS_FLAVOR']
+        if env.get('CM_HOST_OS_VERSION','')!='': x+=' '+env['CM_HOST_OS_VERSION']
+        if x!='': host_info['os_version_sys'] = x
+
+        if env.get('CM_HOST_SYSTEM_NAME','')!='': host_info['system_name']=env['CM_HOST_SYSTEM_NAME']
+
+        # Check CM automation repository
+        repo_name = 'mlcommons@ck'
+        repo_hash = ''
+        r = cm.access({'action':'find', 'automation':'repo', 'artifact':'mlcommons@ck,a4705959af8e447a'})
+        if r['return']==0 and len(r['list'])==1:
+            repo_path = r['list'][0].path
+            if os.path.isdir(repo_path):
+                repo_name = os.path.basename(repo_path)
+
+                # Check Grigori's dev
+                if repo_name == 'ck': repo_name = 'ctuning@mlcommons-ck'
+
+                r = cm.access({'action':'system',
+                               'automation':'utils',
+                               'path':repo_path,
+                               'cmd':'git rev-parse HEAD'})
+                if r['return'] == 0 and r['ret'] == 0:
+                    repo_hash = r['stdout']
+
+                    host_info['cm_repo_name'] = repo_name
+                    host_info['cm_repo_git_hash'] = repo_hash
+
+        # Check a few important MLCommons repos
+        xhashes = []
+        md_xhashes = ''
+
+        for x in [('get,git,inference', ['inference']),
+                  ('get,git,mlperf,power', ['power-dev'])]:
+            xtags = x[0]
+            xdirs = x[1]
+
+            rx = cm.access({'action':'find', 'automation':'cache', 'tags':xtags})
+            if rx['return']>0: return rx
+            for cache in rx['list']:
+                xurl = ''
+                xhash = ''
+
+                for xd in xdirs:
+                    xpath = os.path.join(cache.path, xd)
+                    print (xpath)
+                    if os.path.isdir(xpath):
+                        r = cm.access({'action':'system', 'automation':'utils', 'path':xpath, 'cmd':'git rev-parse HEAD'})
+                        if r['return'] == 0 and r['ret'] == 0:
+                            xhash = r['stdout']
+                        
+                        r = cm.access({'action':'system', 'automation':'utils', 'path':xpath, 'cmd':'git config --get remote.origin.url'})
+                        if r['return'] == 0 and r['ret'] == 0:
+                            xurl = r['stdout']
+            
+                    if xurl!='' and xhash!='':
+                        break
+
+                if xurl!='' and xhash!='':
+                    # Check if doesn't exist
+                    found = False
+
+                    for xh in xhashes:
+                        if xh['mlcommons_git_url'] == xurl and xh['mlcommons_git_hash'] == xhash:
+                            found = True
+                            break
+
+                    if not found:
+                        xhashes.append({'mlcommons_git_url': xurl,
+                                        'mlcommons_git_hash': xhash,
+                                        'cm_cache_tags':cache.meta['tags']})
+
+                        md_xhashes +='* MLCommons Git {} ({})\n'.format(xurl, xhash)
+
+        if len(xhashes)>0:
+            host_info['mlcommons_repos'] = xhashes
+
+        with open ("cm-host-info.json", "w") as fp:
+            fp.write(json.dumps(host_info, indent=2)+'\n')
+        
+        # Prepare README
         if "cmd" in inp:
             cmd = "cm run script \\\n\t"+" \\\n\t".join(inp['cmd'])
+            xcmd = "cm run script "+xsep+"\n\t" + (" "+xsep+"\n\t").join(inp['cmd'])
         else:
             cmd = ""
+            xcmd = ""
 
-        readme_init = "This experiment is generated using [MLCommons CM](https://github.com/mlcommons/ck)\n"
-        readme_body = "## CM Run Command\n```\n" + cmd + "\n```"
+        readme_init = "This experiment is generated using the [MLCommons Collective Mind automation framework (CM)](https://github.com/mlcommons/ck).\n\n"
 
+        readme_init+= "*Check [CM MLPerf docs](https://github.com/mlcommons/ck/tree/master/docs/mlperf) for more details.*\n\n"
+
+        readme_body = "## Host platform\n\n* OS version: {}\n* CPU version: {}\n* Python version: {}\n* MLCommons CM version: {}\n{}\n\n".format(platform.platform(), 
+            platform.processor(), sys.version, cm.__version__, md_xhashes)
+
+        x = repo_name
+        if repo_hash!='': x+=' --checkout='+str(repo_hash)
+        
+        readme_body += "## CM Run Command\n\nSee [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md).\n\n"+ \
+            "```bash\npip install cmind\n\ncm rm cache -f\n\ncm pull repo {}\n\n{}\n```".format(x, xcmd)
+
+        readme_body += "\n*Note that if you want to use the [latest automation recipes](https://access.cknowledge.org/playground/?action=scripts) for MLPerf (CM scripts),\n"+ \
+                       " you should simply reload {} without checkout and clean CM cache as follows:*\n\n".format(repo_name) + \
+                       "```bash\ncm rm repo {}\ncm pull repo {}\ncm rm cache -f\n\n```".format(repo_name, repo_name)
+        
+        extra_readme_init = ''
+        extra_readme_body = ''
         if env.get('CM_MLPERF_README', '') == "yes":
-            readme_body += "\n## Dependent CM scripts \n"
+            extra_readme_body += "\n## Dependent CM scripts\n\n"
 
             script_tags = inp['tags']
             script_adr = inp.get('adr', {})
@@ -222,23 +342,26 @@ def postprocess(i):
             print_deps = r['new_state']['print_deps']
             count = 1
             for dep in print_deps:
-                readme_body += "\n\n" + str(count) +".  `" +dep+ "`\n"
+                extra_readme_body += "\n\n" + str(count) +".  `" +dep+ "`\n"
                 count = count+1
 
             if state.get('mlperf-inference-implementation') and state['mlperf-inference-implementation'].get('print_deps'):
 
-                readme_body += "\n## Dependent CM scripts for the MLPerf Inference Implementation\n"
+                extra_readme_body += "\n## Dependent CM scripts for the MLPerf Inference Implementation\n"
 
                 print_deps = state['mlperf-inference-implementation']['print_deps']
                 count = 1
                 for dep in print_deps:
-                    readme_body += "\n\n" + str(count) +". `" +dep+"`\n"
+                    extra_readme_body += "\n\n" + str(count) +". `" +dep+"`\n"
                     count = count+1
 
         readme = readme_init + readme_body
+        extra_readme = extra_readme_init + extra_readme_body
 
         with open ("README.md", "w") as fp:
             fp.write(readme)
+        with open ("README-extra.md", "w") as fp:
+            fp.write(extra_readme)
 
     elif mode == "compliance":
 
@@ -307,4 +430,32 @@ def postprocess(i):
     if accuracy_result_dir != '':
         env['CM_MLPERF_ACCURACY_RESULTS_DIR'] = accuracy_result_dir
 
+    if state.get('mlperf-inference-implementation') and state['mlperf-inference-implementation'].get('version_info'):
+        with open(os.path.join(output_dir, "cm-version-info.json"), "w") as f:
+            f.write(json.dumps(state['mlperf-inference-implementation']['version_info'], indent=2))
+
+    if env.get('CM_DUMP_SYSTEM_INFO', True):
+        dump_script_output("detect,os", env, state, 'new_env', os.path.join(output_dir, "os_info.json"))
+        dump_script_output("detect,cpu", env, state, 'new_env', os.path.join(output_dir, "cpu_info.json"))
+        dump_script_output("dump,pip,freeze", env, state, 'new_state', os.path.join(output_dir, "pip_freeze.json"))
+
     return {'return':0}
+
+def dump_script_output(script_tags, env, state, output_key, dump_file):
+
+    cm_input = {'action': 'run',
+                'automation': 'script',
+                'tags': script_tags,
+                'env': env,
+                'state': state,
+                'quiet': True,
+                'silent': True,
+                }
+    r = cm.access(cm_input)
+    if r['return'] > 0:
+        return r
+    with open(dump_file, "w") as f:
+        f.write(json.dumps(r[output_key], indent=2))
+
+    return {'return': 0}
+

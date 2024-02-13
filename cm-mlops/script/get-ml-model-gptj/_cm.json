@@ -181,7 +181,6 @@
     },
     "wget": {
       "group": "download-tool",
-      "default": true,
       "add_deps_recursive": {
         "dae": {
           "tags": "_wget"
@@ -194,6 +193,7 @@
     },
     "rclone": {
       "group": "download-tool",
+      "default": true,
       "add_deps_recursive": {
         "dae": {
           "tags": "_rclone"

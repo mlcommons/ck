@@ -38,6 +38,8 @@ default_env:
 
 env:
   CM_CALL_MLPERF_RUNNER: 'no'
+  CUDA_VISIBLE_DEVICES: ''
+  USE_CUDA: '0'
 
 # Map script inputs to environment variables
 input_mapping:
@@ -158,6 +160,9 @@ post_deps:
         - run_harness
     tags: benchmark-mlperf
 
+  - tags: save,mlperf,inference,state
+    names:
+      - save-mlperf-inference-state
 
 # Variations to customize dependencies
 variations:
@@ -295,9 +300,11 @@ variations:
       - tags: get,generic-python-lib,_package.datasets
         names:
           - pip-package
+          - datasets
       - tags: get,generic-python-lib,_package.accelerate
         names:
           - pip-package
+          - accelerate
 
   gptj-99:
     group: model

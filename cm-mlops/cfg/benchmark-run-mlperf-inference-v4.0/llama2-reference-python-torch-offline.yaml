@@ -1,6 +1,9 @@
+_base: "benchmark-run-mlperf-inference-v3.1,8eb42e27ec984185:base/_demo.yaml"
+
 uid: 4df38ed8dd804678
 
-name: "LLAMA2 Reference Python Torch Offline"
+name: " Offline"
 
-supported_compute:
-- fe379ecd1e054a00
+compute_uid: fe379ecd1e054a00
+
+tags: ",llama2,offline"

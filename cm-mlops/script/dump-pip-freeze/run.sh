@@ -25,8 +25,4 @@ function run() {
 
 #Add your run commands here...
 # run "$CM_RUN_CMD"
-
-scratch_path=${CM_NVIDIA_MLPERF_SCRATCH_PATH}
-mkdir -p ${scratch_path}/data
-mkdir -p ${scratch_path}/preprocessed_data
-mkdir -p ${scratch_path}/models
+run "${CM_PYTHON_BIN_WITH_PATH} ${CM_TMP_CURRENT_SCRIPT_PATH}/dump.py"

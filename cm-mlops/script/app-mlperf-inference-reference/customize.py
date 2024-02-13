@@ -195,7 +195,9 @@ def get_run_cmd_reference(os_info, env, scenario_extra_options, mode_extra_optio
             if os_info['platform'] == 'windows':
                 cmd = "python python/main.py --profile "+env['CM_MODEL']+"-"+env['CM_MLPERF_BACKEND'] + \
                 " --model=" + env['CM_ML_MODEL_FILE_WITH_PATH'] + ' --dataset-path=' + env['CM_DATASET_PREPROCESSED_PATH'] + \
-                " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
+                " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + \
+                " --output " + env['OUTPUT_DIR'] + " " + \
+                env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
                 scenario_extra_options + mode_extra_options + dataset_options
             else:
                 cmd = "./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
@@ -359,29 +361,8 @@ def get_run_cmd_reference(os_info, env, scenario_extra_options, mode_extra_optio
 def postprocess(i):
 
     env = i['env']
+    state = i['state']
 
-    if env.get('CM_MLPERF_README', "") == "yes":
-        import cmind as cm
-        inp = i['input']
-        state = i['state']
-        script_tags = inp['tags']
-        script_adr = inp.get('add_deps_recursive', inp.get('adr', {}))
-
-        cm_input = {'action': 'run',
-                'automation': 'script',
-                'tags': script_tags,
-                'adr': script_adr,
-                'env': env,
-                'print_deps': True,
-                'quiet': True,
-                'silent': True,
-                'fake_run': True
-                }
-        r = cm.access(cm_input)
-        if r['return'] > 0:
-            return r
-
-        state['mlperf-inference-implementation'] = {}
-        state['mlperf-inference-implementation']['print_deps'] = r['new_state']['print_deps']
+    inp = i['input']
 
     return {'return':0}

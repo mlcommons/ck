@@ -79,6 +79,9 @@ def postprocess(i):
 
     state['CM_MLPERF_INFERENCE_MODELS'] = valid_models
 
+    if env.get('CM_GIT_REPO_CURRENT_HASH', '') != '':
+        env['CM_VERSION'] += "-git-"+env['CM_GIT_REPO_CURRENT_HASH']
+
     return {'return':0}
 
 

@@ -44,6 +44,8 @@ input_mapping:
   debug: CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM
   device: CM_MLPERF_DEVICE
   division: CM_MLPERF_SUBMISSION_DIVISION
+  dump_version_info: CM_DUMP_VERSION_INFO
+  save_console_log: CM_SAVE_CONSOLE_LOG
   execution_mode: CM_MLPERF_EXECUTION_MODE
   find_performance: CM_MLPERF_FIND_PERFORMANCE_MODE
   gpu_name: CM_NVIDIA_GPU_NAME
@@ -100,6 +102,12 @@ deps:
   - inference-src
   tags: get,mlcommons,inference,src
 - tags: get,sut,description
+
+- tags: get,mlperf,inference,results,dir
+  names:
+    - get-mlperf-inference-results-dir
+  skip_if_env:
+    OUTPUT_BASE_DIR: [ on ]
 
 docker:
   fake_run_deps: true

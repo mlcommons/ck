@@ -261,6 +261,9 @@ post_deps:
         - yes
     tags: benchmark-mlperf
 
+  - tags: save,mlperf,inference,state
+    names:
+      - save-mlperf-inference-state
 
 # Variations to customize dependencies
 variations:

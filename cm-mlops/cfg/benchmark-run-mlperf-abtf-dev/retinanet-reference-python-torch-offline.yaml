@@ -2,5 +2,4 @@ uid: "fe379ecd1e054a00"
 
 name: "RetinaNet Reference Python Torch Offline"
 
-supported_compute:
-- cdfd424c32734e38
+compute_uid: cdfd424c32734e38

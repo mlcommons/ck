@@ -35,8 +35,8 @@ def preprocess(i):
         env['CM_MLPERF_LOADGEN_MODE'] = "accuracy"
 
 
-    if 'OUTPUT_BASE_DIR' not in env:
-        env['OUTPUT_BASE_DIR'] = os.getcwd()
+    if env.get('OUTPUT_BASE_DIR', '') == '':
+        env['OUTPUT_BASE_DIR'] = env.get('CM_MLPERF_INFERENCE_RESULTS_DIR', os.getcwd())
 
     if 'CM_NUM_THREADS' not in env:
         if 'CM_MINIMIZE_THREADS' in env:
@@ -216,6 +216,7 @@ def preprocess(i):
         env['CM_MLPERF_INFERENCE_AUDIT_PATH'] = audit_full_path
 
     env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
+    env['CM_LOGS_DIR'] = OUTPUT_DIR
     env['CM_MLPERF_LOADGEN_LOGS_DIR'] = OUTPUT_DIR
 
     run_exists = run_files_exist(log_mode, OUTPUT_DIR, required_files, env)

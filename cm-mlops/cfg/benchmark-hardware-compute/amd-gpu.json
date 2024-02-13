@@ -1,4 +1,5 @@
 {
   "uid": "d8f06040f7294319",
-  "name": "AMD GPU"
+  "name": "AMD GPU",
+  "tags": "gpu,amd"
 }

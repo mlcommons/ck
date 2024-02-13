@@ -2,7 +2,12 @@ uid: 9eee8cb06621413a
 
 name: "BERT Reference Python ONNX Offline"
 
-supported_compute:
-- cdfd424c32734e38
-- 357a972e79614903
-- fe379ecd1e054a00
+compute_uid: cdfd424c32734e38
+
+input:
+  model: bert
+  implementation: reference
+  framework: onnx
+
+functional: false
+

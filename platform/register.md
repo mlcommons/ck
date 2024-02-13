@@ -1,8 +1,10 @@
-﻿# Register for Collective Knowledge challenges
+﻿# Register for benchmarking and optimization challenges
 
 Please join the [public Discord server](https://discord.gg/JjWNWXKxwT) 
-from the [MLCommons Task Force on Automation and Reproducibility](../docs/taskforce.md) 
-and send your name, organization and URL to @gfursin and @arjunsuresh 
-(task force co-chairs and organizers of open challenges).
+to tell the [MLCommons Task Force on Automation and Reproducibility](../docs/taskforce.md) 
+about your interest to participate in our benchmarking and optimization challenges.
 
-In the future, we plan to add a registration GUI to our [MLCommons Collective Knowledge playground](https://access.cKnowledge.org).
+*We plan to add a registration GUI to the [MLCommons Collective Knowledge playground](https://access.cKnowledge.org) 
+ in the future - please stay tuned for more details!*
+
+

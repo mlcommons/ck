@@ -21,6 +21,9 @@ mkdir -p ${WORKLOAD_DATA}/model
 
 export INT8_MODEL_DIR=${WORKLOAD_DATA}/gpt-j-int8-model
 export INT4_MODEL_DIR=${WORKLOAD_DATA}/gpt-j-int4-model
+if [[ -f ${INT8_MODEL_DIR}/best_model.pt ]]; then
+  exit 0
+fi
 python download-calibration-dataset.py --calibration-list-file calibration-list.txt --output-dir ${WORKLOAD_DATA}/calibration-data
 
 python download-dataset.py --split validation --output-dir ${WORKLOAD_DATA}/validation-data
@@ -30,5 +33,4 @@ export VALIDATION_DATA_JSON=${WORKLOAD_DATA}/validation-data/cnn_dailymail_valid
 export INT4_CALIBRATION_DIR=${WORKLOAD_DATA}/quantized-int4-model
 #sudo -E bash run_quantization.sh
 bash run_quantization.sh
-exit 1
 test $? -eq 0 || exit $?

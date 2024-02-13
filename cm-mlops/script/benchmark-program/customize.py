@@ -34,11 +34,16 @@ def preprocess(i):
             if env.get('CM_RUN_DIR','') == '':
                 env['CM_RUN_DIR'] = os.getcwd()
 
+
             env['CM_RUN_CMD'] = CM_RUN_PREFIX + ' ' + os.path.join(env['CM_RUN_DIR'],env['CM_BIN_NAME']) + ' ' + env['CM_RUN_SUFFIX']
 
     x = env.get('CM_RUN_PREFIX0','')
     if x!='':
         env['CM_RUN_CMD'] = x + ' ' + env.get('CM_RUN_CMD','')
+
+    if env.get('CM_HOST_OS_TYPE', '') != 'windows' and str(env.get('CM_SAVE_CONSOLE_LOG', True)).lower() not in  [ "no", "false", "0"]:
+        logs_dir = env.get('CM_LOGS_DIR', env['CM_RUN_DIR'])
+        env['CM_RUN_CMD'] += " 2>&1 | tee " + os.path.join(logs_dir, "console.out")
 
     # Print info
     print ('***************************************************************************')

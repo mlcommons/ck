@@ -1,4 +1,5 @@
 {
   "uid":"357a972e79614903",
-  "name": "Generic CPU - Arm64"
+  "name": "Generic CPU - Arm64",
+  "tags": "cpu,arm64,generic"
 }

@@ -1,6 +1,7 @@
 import os
 import sys
 import os.path
+
 mlperf_src_path = os.environ['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH']
 python_path = os.path.join(mlperf_src_path, "python")
 sys.path.insert(0, python_path)

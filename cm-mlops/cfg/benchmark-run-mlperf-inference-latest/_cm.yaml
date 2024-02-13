@@ -16,6 +16,7 @@ name: "MLPerf inference - latest"
 supported_compute:
 - 357a972e79614903
 - cdfd424c32734e38
+- d2ae645066664463
 
 urls:
 - name: "Official page"
@@ -24,3 +25,11 @@ urls:
   url: "https://github.com/mlcommons/inference"
 - name: "MLCommons CM automation (under development)"
   url: "https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference"
+
+dimensions:
+- - input.model
+  - "MLPerf model"
+- - input.implementation
+  - "MLPerf implementation"
+- - input.framework
+  - "MLPerf framework"

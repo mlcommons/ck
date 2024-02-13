@@ -92,28 +92,6 @@ def preprocess(i):
 def postprocess(i):
 
     env = i['env']
-    if env.get('CM_MLPERF_README', '') == "yes":
-        import cmind as cm
-        inp = i['input']
-        state = i['state']
-        script_tags = inp['tags']
-        script_adr = inp.get('add_deps_recursive', inp.get('adr', {}))
-
-        cm_input = {'action': 'run',
-                'automation': 'script',
-                'tags': script_tags,
-                'adr': script_adr,
-                'print_deps': True,
-                'env': env,
-                'quiet': True,
-                'silent': True,
-                'fake_run': True
-                }
-        r = cm.access(cm_input)
-        if r['return'] > 0:
-            return r
-
-        state['mlperf-inference-implementation'] = {}
-        state['mlperf-inference-implementation']['print_deps'] = r['new_state']['print_deps']
+    state = i['state']
 
     return {'return':0}
