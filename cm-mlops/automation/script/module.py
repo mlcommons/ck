@@ -643,7 +643,9 @@ class CAutomation(Automation):
         if i.get('help',False):
             return utils.call_internal_module(self, __file__, 'module_help', 'print_help', {'meta':meta, 'path':path})
             
-        run_state['script_uid'] = meta['uid']
+        run_state['script_id'] = meta['alias'] + "," + meta['uid']
+        run_state['script_variation_tags'] = variation_tags
+
         deps = meta.get('deps',[])
         post_deps = meta.get('post_deps',[])
         prehook_deps = meta.get('prehook_deps',[])
@@ -1594,7 +1596,6 @@ class CAutomation(Automation):
             version_info[version_info_tags]['script_alias'] = script_alias
             version_info[version_info_tags]['version'] = version
             version_info[version_info_tags]['parent'] = run_state['parent']
-
             run_state['version_info'].append(version_info)
             script_versions = detected_versions.get(meta['uid'], [])
             if not script_versions:
@@ -2702,7 +2703,9 @@ class CAutomation(Automation):
                     tmp_run_state_deps = copy.deepcopy(run_state['deps'])
                     run_state['deps'] = []
                     tmp_parent = run_state['parent']
-                    run_state['parent'] = run_state['script_uid']
+                    run_state['parent'] = run_state['script_id']+":"+",".join(run_state['script_variation_tags'])
+                    tmp_script_id = run_state['script_id']
+                    tmp_script_variation_tags = run_state['script_variation_tags']
 
                     # Run collective script via CM API:
                     # Not very efficient but allows logging - can be optimized later
@@ -2738,11 +2741,12 @@ class CAutomation(Automation):
 
                     run_state['deps'] = tmp_run_state_deps
                     run_state['parent'] = tmp_parent
+                    run_state['script_id'] = tmp_script_id
+                    run_state['script_variation_tags'] = tmp_script_variation_tags
 
                     # Restore local env
                     env.update(tmp_env)
                     update_env_with_values(env)
-
 
         return {'return': 0}
 

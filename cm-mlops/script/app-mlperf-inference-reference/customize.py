@@ -390,9 +390,8 @@ def postprocess(i):
         if not state.get('mlperf-inference-implementation', {}):
             state['mlperf-inference-implementation'] = {}
         run_state = i['run_script_input']['run_state']
-        state['mlperf-inference-implementation'][run_state['script_uid']] = {}
         version_info = {}
-        version_info[run_state['script_uid']] = run_state['version_info']
+        version_info[run_state['script_id']+":"+",".join(run_state['script_variation_tags'])] = run_state['version_info']
 
         state['mlperf-inference-implementation']['version_info'] = version_info
 

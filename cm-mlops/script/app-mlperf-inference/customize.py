@@ -255,8 +255,10 @@ def postprocess(i):
         readme_body += "## CM Run Command\n\nSee [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md).\n\n"+ \
             "```bash\npip install cmind\n\ncm rm cache -f\n\ncm pull repo {}\n\n{}\n```".format(x, xcmd)
 
+        extra_readme_init = ''
+        extra_readme_body = ''
         if env.get('CM_MLPERF_README', '') == "yes":
-            readme_body += "\n## Dependent CM scripts\n\n"
+            extra_readme_body += "\n## Dependent CM scripts\n\n"
 
             script_tags = inp['tags']
             script_adr = inp.get('adr', {})
@@ -278,23 +280,26 @@ def postprocess(i):
             print_deps = r['new_state']['print_deps']
             count = 1
             for dep in print_deps:
-                readme_body += "\n\n" + str(count) +".  `" +dep+ "`\n"
+                extra_readme_body += "\n\n" + str(count) +".  `" +dep+ "`\n"
                 count = count+1
 
             if state.get('mlperf-inference-implementation') and state['mlperf-inference-implementation'].get('print_deps'):
 
-                readme_body += "\n## Dependent CM scripts for the MLPerf Inference Implementation\n"
+                extra_readme_body += "\n## Dependent CM scripts for the MLPerf Inference Implementation\n"
 
                 print_deps = state['mlperf-inference-implementation']['print_deps']
                 count = 1
                 for dep in print_deps:
-                    readme_body += "\n\n" + str(count) +". `" +dep+"`\n"
+                    extra_readme_body += "\n\n" + str(count) +". `" +dep+"`\n"
                     count = count+1
 
         readme = readme_init + readme_body
+        extra_readme = extra_readme_init + extra_readme_body
 
         with open ("README.md", "w") as fp:
             fp.write(readme)
+        with open ("README-extra.md", "w") as fp:
+            fp.write(extra_readme)
 
     elif mode == "compliance":
 
@@ -364,7 +369,7 @@ def postprocess(i):
         env['CM_MLPERF_ACCURACY_RESULTS_DIR'] = accuracy_result_dir
 
     if state.get('mlperf-inference-implementation') and state['mlperf-inference-implementation'].get('version_info'):
-        with open(os.path.join(output_dir, "version_info.json"), "w") as f:
+        with open(os.path.join(output_dir, "cm_version_info.json"), "w") as f:
             f.write(json.dumps(state['mlperf-inference-implementation']['version_info'], indent=2))
 
     if env.get('CM_DUMP_SYSTEM_INFO', True):
