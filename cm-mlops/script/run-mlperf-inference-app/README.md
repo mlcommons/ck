@@ -291,6 +291,7 @@ r=cm.access({... , "device":...}
 * `--debug=value`  &rarr;  `CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM=value`
 * `--device=value`  &rarr;  `CM_MLPERF_DEVICE=value`
 * `--division=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIVISION=value`
+* `--dump_version_info=value`  &rarr;  `CM_DUMP_VERSION_INFO=value`
 * `--execution_mode=value`  &rarr;  `CM_MLPERF_EXECUTION_MODE=value`
 * `--find_performance=value`  &rarr;  `CM_MLPERF_FIND_PERFORMANCE_MODE=value`
 * `--gpu_name=value`  &rarr;  `CM_NVIDIA_GPU_NAME=value`
@@ -319,6 +320,7 @@ r=cm.access({... , "device":...}
 * `--results_git_url=value`  &rarr;  `CM_MLPERF_RESULTS_GIT_REPO_URL=value`
 * `--run_checker=value`  &rarr;  `CM_RUN_SUBMISSION_CHECKER=value`
 * `--run_style=value`  &rarr;  `CM_MLPERF_EXECUTION_MODE=value`
+* `--save_console_log=value`  &rarr;  `CM_SAVE_CONSOLE_LOG=value`
 * `--scenario=value`  &rarr;  `CM_MLPERF_LOADGEN_SCENARIO=value`
 * `--server_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_SERVER_TARGET_QPS=value`
 * `--singlestream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY=value`
@@ -377,6 +379,10 @@ ___
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,sut,description
        - CM script: [get-mlperf-inference-sut-description](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)
+     * get,mlperf,inference,results,dir
+       * `if (OUTPUT_BASE_DIR  != True)`
+       * CM names: `--adr.['get-mlperf-inference-results-dir']...`
+       - CM script: [get-mlperf-inference-results-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results-dir)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.yaml)
   1. ***Run native script if exists***

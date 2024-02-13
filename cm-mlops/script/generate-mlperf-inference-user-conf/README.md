@@ -155,6 +155,10 @@ ___
      * get,python
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,mlperf,results,dir
+       * `if (OUTPUT_BASE_DIR  != True)`
+       * CM names: `--adr.['get-mlperf-results-dir']...`
+       - CM script: [get-mlperf-inference-results-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results-dir)
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
@@ -174,11 +178,13 @@ ___
 #### New environment keys (filter)
 
 * `CM_HW_*`
+* `CM_LOGS_DIR`
 * `CM_MAX_EXAMPLES`
 * `CM_MLPERF_*`
 * `CM_SUT_*`
 #### New environment keys auto-detected from customize
 
+* `CM_LOGS_DIR`
 * `CM_MAX_EXAMPLES`
 * `CM_MLPERF_CONF`
 * `CM_MLPERF_INFERENCE_AUDIT_PATH`
