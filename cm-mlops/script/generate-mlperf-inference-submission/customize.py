@@ -45,8 +45,8 @@ def generate_submission(i):
     print('* MLPerf inference results dir: {}'.format(results_dir))
     results = [f for f in os.listdir(results_dir) if not os.path.isfile(os.path.join(results_dir, f))]
 
-    system_meta = state['CM_SUT_META']
-
+    system_meta_default = state['CM_SUT_META']
+    system_meta = {}
     if 'CM_MLPERF_SUBMISSION_SYSTEM_TYPE' in env:
         system_meta['system_type'] = env['CM_MLPERF_SUBMISSION_SYSTEM_TYPE']
 
@@ -62,7 +62,7 @@ def generate_submission(i):
         division = env['CM_MLPERF_SUBMISSION_DIVISION']
         system_meta['division'] = division
     else:
-        division = system_meta['division']
+        division = system_meta_default['division']
 
     if division not in ['open','closed']:
         return {'return':1, 'error':'"division" must be "open" or "closed"'}
@@ -79,13 +79,13 @@ def generate_submission(i):
         submitter = env['CM_MLPERF_SUBMITTER']
         system_meta['submitter'] = submitter
     else:
-        submitter = system_meta['submitter']
+        submitter = system_meta_default['submitter']
         env['CM_MLPERF_SUBMITTER'] = submitter
 
     print('* MLPerf inference submitter: {}'.format(submitter))
 
-    if 'Collective' not in system_meta.get('sw_notes'):
-        system_meta['sw_notes'] =  "Automated by MLCommons CM v{}. ".format(cmind.__version__) + system_meta['sw_notes']
+    if 'Collective' not in system_meta_default.get('sw_notes'):
+        system_meta['sw_notes'] =  "Automated by MLCommons CM v{}. ".format(cmind.__version__) + system_meta_default['sw_notes']
 
     if env.get('CM_MLPERF_SUT_SW_NOTES_EXTRA','') != '':
         sw_notes = f"{system_meta['sw_notes']} {env['CM_MLPERF_SUT_SW_NOTES_EXTRA']}"
@@ -124,7 +124,7 @@ def generate_submission(i):
             new_res = system + "-" + "-".join(parts[1:])
 
             # Override framework and framework versions from the folder name
-            system_meta['framework'] = framework + " " + framework_version
+            system_meta_default['framework'] = framework + " " + framework_version
         result_path = os.path.join(results_dir, res)
         platform_prefix = inp.get('platform_prefix', '')
         if platform_prefix:
@@ -140,9 +140,6 @@ def generate_submission(i):
         if not os.path.isdir(submission_system_path):
             os.makedirs(submission_system_path)
         system_file = os.path.join(submission_system_path, sub_res+".json")
-
-        with open(system_file, "w") as fp:
-            json.dump(system_meta, fp, indent=2)
 
         models = [f for f in os.listdir(result_path) if not os.path.isfile(os.path.join(result_path, f))]
         for model in models:
@@ -224,6 +221,15 @@ def generate_submission(i):
                         result_mode_path=os.path.join(result_mode_path, 'run_1')
                         submission_results_path=os.path.join(submission_mode_path, 'run_1')
 
+                        if os.path.exists(os.path.join(result_mode_path, "system_meta.json")):
+                            with open(os.path.join(result_mode_path, "system_meta.json"), "r") as f:
+                                saved_system_meta = json.load(f)
+                                for key in list(saved_system_meta):
+                                    if saved_system_meta[key].strip() == '':
+                                        del(saved_system_meta[key])
+                                system_meta = {**saved_system_meta, **system_meta} #override the saved meta with the user inputs
+                                system_meta = {**system_meta_default, **system_meta} #add any missing fields from the defaults
+
                     if not os.path.isdir(submission_results_path):
                         os.makedirs(submission_results_path)
 
@@ -290,9 +296,12 @@ def generate_submission(i):
                         f.write("TBD") #create an empty README
                 else:
                     readme_suffix = ""
-                    result_string = get_result_string(env['CM_MLPERF_LAST_RELEASE'], model, scenario, result_scenario_path, power_run)
+                    result_string = get_result_string(env['CM_MLPERF_LAST_RELEASE'], model, scenario, result_scenario_path, power_run, sub_res)
                     with open(readme_file, mode='a') as f:
                         f.write(result_string)
+
+        with open(system_file, "w") as fp:
+            json.dump(system_meta, fp, indent=2)
 
 
     return {'return':0}
@@ -363,11 +372,13 @@ def get_accuracy_metric(config, model, path):
             is_valid &= acc_limit_check
 
 
-    return acc_results, acc_targets, acc_limits, up_patterns
+    return acc_results, acc_targets, acc_limits
 
 
-def get_result_string(version, model, scenario, result_path, has_power):
+def get_result_string(version, model, scenario, result_path, has_power, sub_res):
     import submission_checker as checker
+    from log_parser import MLPerfLog
+
     config = checker.Config(
         version,
         None,
@@ -379,7 +390,17 @@ def get_result_string(version, model, scenario, result_path, has_power):
     accuracy_path = os.path.join(result_path, "accuracy")
     scenario = checker.SCENARIO_MAPPING[scenario]
 
+    fname = os.path.join(performance_path, "mlperf_log_detail.txt")
+    mlperf_log = MLPerfLog(fname)
+    effective_scenario = mlperf_log["effective_scenario"]
+
     performance_result = checker.get_performance_metric(config, mlperf_model, performance_path, scenario, None, None, has_power)
+
+    inferred = False
+
+    if scenario != effective_scenario:
+        inferred, inferred_result = checker.get_inferred_result(scenario, effective_scenario, performance_result, mlperf_log, config, False)
+
     if has_power:
         is_valid, power_metric, scenario, avg_power_efficiency = checker.get_power_metric(config, scenario, performance_path, True, performance_result)
         if "stream" in scenario.lower():
@@ -388,22 +409,27 @@ def get_result_string(version, model, scenario, result_path, has_power):
             power_metric_unit = "Watts"
         power_result_string = f"`Power consumed`: `{round(power_metric, 5)} {power_metric_unit}`, `Power efficiency`: `{round(avg_power_efficiency * 1000, 5)} samples per Joule`"
 
-    acc_results, acc_targets, acc_limits, up_patterns = get_accuracy_metric(config, mlperf_model, accuracy_path)
+    acc_results, acc_targets, acc_limits = get_accuracy_metric(config, mlperf_model, accuracy_path)
 
-    result_field = checker.RESULT_FIELD[scenario]
+    result_field = checker.RESULT_FIELD[effective_scenario]
 
     performance_result_string = f"`{result_field}`: `{performance_result}`\n"
+    if inferred:
+        inferred_result_field = checker.RESULT_FIELD[scenario]
+        performance_result_string += f"Inferred result: `{inferred_result_field}`: `{inferred_result}`  \n"
+
     accuracy_result_string = ''
     for i, acc in enumerate(acc_results):
         accuracy_result_string += f"`{acc}`: `{round(float(acc_results[acc]), 5)}`"
-        if not up_patterns:
+        if not acc_limits:
             accuracy_result_string += f", Required accuracy for closed division `>= {round(acc_targets[i], 5)}`"
         else:
             accuracy_result_string += f", Required accuracy for closed division `>= {round(acc_targets[i], 5)}` and `<= {round(acc_limits[i], 5)}`"
         accuracy_result_string += "\n"
 
-    result_string = "\n\n## Results \n"
-    result_string += "### Accuracy Results \n" + accuracy_result_string
+    result_string = f"\n\n## Results\n"
+    result_string += f"\nPlatform: {sub_res}\n"
+    result_string += "\n### Accuracy Results \n" + accuracy_result_string
     result_string += "\n### Performance Results \n" + performance_result_string
     if has_power:
         result_string += "\n### Power Results \n" + power_result_string

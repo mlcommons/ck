@@ -98,6 +98,9 @@ deps:
     names:
     - inference-src
 
+posthook_deps:
+  - tags: get,mlperf,sut,description #populate system meta information like framework
+
 # Order of variations for documentation
 variation_groups_order:
   - implementation
@@ -122,7 +125,7 @@ variations:
       CM_MLPERF_IMPLEMENTATION: cpp
       CM_IMAGENET_ACCURACY_DTYPE: float32
       CM_OPENIMAGES_ACCURACY_DTYPE: float32
-    posthook_deps:
+    prehook_deps:
       - names:
          - cpp-mlperf-inference
          - mlperf-inference-implementation
@@ -148,7 +151,7 @@ variations:
       CM_MLPERF_CPP: 'yes'
       CM_MLPERF_IMPLEMENTATION: tflite-cpp
       CM_IMAGENET_ACCURACY_DTYPE: float32
-    posthook_deps:
+    prehook_deps:
       - names:
          - tflite-cpp-mlperf-inference
          - mlperf-inference-implementation
@@ -176,7 +179,7 @@ variations:
       CM_IMAGENET_ACCURACY_DTYPE: float32
       CM_OPENIMAGES_ACCURACY_DTYPE: float32
       CM_LIBRISPEECH_ACCURACY_DTYPE: float32
-    posthook_deps:
+    prehook_deps:
       - names:
          - python-reference-mlperf-inference
          - mlperf-inference-implementation
@@ -275,7 +278,7 @@ variations:
           CM_CUDA_DEVICE_PROP_GLOBAL_MEMORY:
             - "yes"
             - "on"
-    posthook_deps:
+    prehook_deps:
       - names:
          - nvidia-original-mlperf-inference
          - nvidia-harness
@@ -299,7 +302,7 @@ variations:
     default_variations:
       device: cpu
       backend: pytorch
-    posthook_deps:
+    prehook_deps:
       - names:
          - intel
          - intel-harness
@@ -315,7 +318,7 @@ variations:
     default_variations:
       device: qaic
       backend: glow
-    posthook_deps:
+    prehook_deps:
       - names:
          - kilt
          - kilt-harness
