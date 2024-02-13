@@ -3,6 +3,7 @@ import os
 import json
 import shutil
 import cmind
+import sys
 
 def preprocess(i):
     return {'return': 0}
@@ -15,12 +16,16 @@ def generate_submission(i):
     state = i['state']
     inp=i['input']
 
-    if 'CM_MLPERF_RESULTS_DIR' not in env:
+    if env.get('CM_MLPERF_RESULTS_DIR', '') == '':
         return {"return": 1, "error": "Please set --results_dir to the folder containing MLPerf inference results"}
+
+    mlperf_path = env['CM_MLPERF_INFERENCE_SOURCE']
+    submission_checker_dir = os.path.join(mlperf_path, "tools", "submission")
+    sys.path.append(submission_checker_dir)
 
     results_dir = env['CM_MLPERF_RESULTS_DIR']
 
-    if 'CM_MLPERF_SUBMISSION_DIR' not in env:
+    if env.get('CM_MLPERF_SUBMISSION_DIR', '') == '':
         from pathlib import Path
         user_home = str(Path.home())
         env['CM_MLPERF_SUBMISSION_DIR'] = os.path.join(user_home, "mlperf_submission")
@@ -372,26 +377,36 @@ def get_result_string(version, model, scenario, result_path, has_power):
     mlperf_model = config.get_mlperf_model(model)
     performance_path = os.path.join(result_path, "performance", "run_1")
     accuracy_path = os.path.join(result_path, "accuracy")
+    scenario = checker.SCENARIO_MAPPING[scenario]
+
     performance_result = checker.get_performance_metric(config, mlperf_model, performance_path, scenario, None, None, has_power)
     if has_power:
         is_valid, power_metric, scenario, avg_power_efficiency = checker.get_power_metric(config, scenario, performance_path, True, performance_result)
-        power_result_string = power_metric
+        if "stream" in scenario.lower():
+            power_metric_unit = "milliJoules"
+        else:
+            power_metric_unit = "Watts"
+        power_result_string = f"`Power consumed`: `{round(power_metric, 5)} {power_metric_unit}`, `Power efficiency`: `{round(avg_power_efficiency * 1000, 5)} samples per Joule`"
+
     acc_results, acc_targets, acc_limits, up_patterns = get_accuracy_metric(config, mlperf_model, accuracy_path)
 
-    result_field = checker.RESULT_FIELD[checker.SCENARIO_MAPPING[scenario]]
+    result_field = checker.RESULT_FIELD[scenario]
 
-    performance_result_string = f"{result_field}: {performance_result}\n"
+    performance_result_string = f"`{result_field}`: `{performance_result}`\n"
     accuracy_result_string = ''
     for i, acc in enumerate(acc_results):
-        accuracy_result_string += f"{acc}: {acc_results[acc]}"
+        accuracy_result_string += f"`{acc}`: `{round(float(acc_results[acc]), 5)}`"
         if not up_patterns:
-            accuracy_result_string += f", Required accuracy for closed division >= {round(acc_targets[i], 5)}"
+            accuracy_result_string += f", Required accuracy for closed division `>= {round(acc_targets[i], 5)}`"
+        else:
+            accuracy_result_string += f", Required accuracy for closed division `>= {round(acc_targets[i], 5)}` and `<= {round(acc_limits[i], 5)}`"
+        accuracy_result_string += "\n"
 
     result_string = "\n\n## Results \n"
     result_string += "### Accuracy Results \n" + accuracy_result_string
-    result_string += "\n\n### Performance Results \n" + performance_result_string
+    result_string += "\n### Performance Results \n" + performance_result_string
     if has_power:
-        result_string += "\n\n### Power Results \n" + power_result_string
+        result_string += "\n### Power Results \n" + power_result_string
 
     return result_string
  
