@@ -207,6 +207,15 @@ def postprocess(i):
             shutil.copy(env['CM_MLPERF_USER_CONF'], 'user.conf')
 
         result = get_result_from_log(env['CM_MLPERF_LAST_RELEASE'], model, scenario, output_dir, mode)
+        if not state.get('CM_MLPERF_RESULTS'):
+            state['CM_MLPERF_RESULTS'] = {}
+        if not state['CM_MLPERF_RESULTS'].get(state['CM_SUT_CONFIG_NAME']):
+            state['CM_MLPERF_RESULTS'][state['CM_SUT_CONFIG_NAME']] = {}
+        if not state['CM_MLPERF_RESULTS'][state['CM_SUT_CONFIG_NAME']].get(model):
+            state['CM_MLPERF_RESULTS'][state['CM_SUT_CONFIG_NAME']][model] = {}
+        if not state['CM_MLPERF_RESULTS'][state['CM_SUT_CONFIG_NAME']][model].get(scenario):
+            state['CM_MLPERF_RESULTS'][state['CM_SUT_CONFIG_NAME']][model][scenario] = {}
+        state['CM_MLPERF_RESULTS'][state['CM_SUT_CONFIG_NAME']][model][scenario][mode] = result
 
         # Record basic host info
         host_info = {

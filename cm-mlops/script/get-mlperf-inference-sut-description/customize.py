@@ -7,8 +7,6 @@ def preprocess(i):
     env = i['env']
     state = i['state']
 
-    print("In sut description")
-    print(env)
     submitter = env.get('CM_MLPERF_SUBMITTER', 'CTuning')
 
     auto_detected_hw_name = False
@@ -52,7 +50,6 @@ def preprocess(i):
         state['CM_HW_META'] = json.load(open(hw_path))
         state['CM_SUT_META'] = state['CM_HW_META']
         state['CM_SUT_META']['framework'] = backend_desc
-        print(state)
         os_name = env.get('CM_HOST_OS_FLAVOR', '').capitalize()
         os_version = env.get('CM_HOST_OS_VERSION', '')
         if os_name and os_version:

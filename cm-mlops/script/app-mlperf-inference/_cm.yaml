@@ -73,6 +73,7 @@ new_env_keys:
 
 new_state_keys:
   - app_mlperf_inference_*
+  - CM_MLPERF_RESULTS
 
 # Dependencies on other CM scripts
 deps:
