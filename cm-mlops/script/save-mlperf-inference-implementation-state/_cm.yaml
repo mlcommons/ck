@@ -1,0 +1,13 @@
+alias: save-mlperf-inference-implementation-state
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+new_state_keys:
+  - mlperf-inference-implementation
+tags:
+- save
+- mlperf
+- inference
+- implementation
+- state
+uid: b14b813229c444f8

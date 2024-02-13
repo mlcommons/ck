@@ -103,6 +103,12 @@ deps:
   tags: get,mlcommons,inference,src
 - tags: get,sut,description
 
+- tags: get,mlperf,inference,results,dir
+  names:
+    - get-mlperf-inference-results-dir
+  skip_if_env:
+    OUTPUT_BASE_DIR: [ on ]
+
 docker:
   fake_run_deps: true
   mounts:

@@ -73,7 +73,11 @@ deps:
     - python
     - python3
 
-
+  - tags: get,mlperf,results,dir
+    names:
+      - get-mlperf-results-dir
+    skip_if_env:
+      OUTPUT_BASE_DIR: [ on ]
 
   ########################################################################
   # Install MLPerf inference dependencies

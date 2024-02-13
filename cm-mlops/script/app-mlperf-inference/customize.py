@@ -12,6 +12,7 @@ import sys
 def preprocess(i):
 
     env = i['env']
+    state = i['state']
 
     if env.get('CM_MLPERF_IMPLEMENTATION', '') == 'nvidia-original':
         if env.get('CM_NVIDIA_GPU_NAME', '') in [ "rtx_4090", "a100", "t4", "l4", "orin", "custom" ]:
@@ -24,7 +25,12 @@ def preprocess(i):
             env['CM_NVIDIA_HARNESS_GPU_VARIATION'] = ''
 
     if 'cmd' in i['input']:
-        i['state']['mlperf_inference_run_cmd'] = "cm run script " + " ".join(i['input']['cmd'])
+        state['mlperf_inference_run_cmd'] = "cm run script " + " ".join(i['input']['cmd'])
+
+    state['mlperf-inference-implementation'] = {}
+
+    run_state = i['run_script_input']['run_state']
+    state['mlperf-inference-implementation']['script_id'] = run_state['script_id']+":"+",".join(run_state['script_variation_tags'])
 
     return {'return':0}
 

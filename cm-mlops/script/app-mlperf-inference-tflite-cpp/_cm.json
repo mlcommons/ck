@@ -252,6 +252,12 @@
           "yes"
         ]
       }
+    },
+    {
+      "tags": "save,mlperf,inference,state",
+      "names": [
+        "save-mlperf-inference-state"
+      ]
     }
   ],
   "tags": [

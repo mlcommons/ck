@@ -1316,6 +1316,8 @@ class CAutomation(Automation):
                 utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
                 utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
 
+                run_script_input['run_state'] = run_state
+
                 ii = copy.deepcopy(customize_common_input)
                 ii['env'] = env
                 ii['state'] = state

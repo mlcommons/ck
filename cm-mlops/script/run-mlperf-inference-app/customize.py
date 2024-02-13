@@ -92,9 +92,8 @@ def preprocess(i):
     else:
         env['CM_MLPERF_LOADGEN_MODES'] = [ env['CM_MLPERF_LOADGEN_MODE'] ]
 
-
-    if 'OUTPUT_BASE_DIR' not in env:
-        env['OUTPUT_BASE_DIR'] = os.getcwd()
+    if env.get('OUTPUT_BASE_DIR', '') == '':
+        env['OUTPUT_BASE_DIR'] = env.get('CM_MLPERF_INFERENCE_RESULTS_DIR', os.getcwd())
 
     test_list = ["TEST01",  "TEST05"]
     if env['CM_MODEL']  in ["resnet50"]:
@@ -139,6 +138,7 @@ def preprocess(i):
         print ('=========================================================')
 
     local_keys = [ 'CM_MLPERF_SKIP_RUN', 'CM_MLPERF_LOADGEN_QUERY_COUNT' ]
+
     for scenario in env['CM_MLPERF_LOADGEN_SCENARIOS']:
         scenario_tags = tags + ",_"+scenario.lower()
         env['CM_MLPERF_LOADGEN_SCENARIO'] = scenario
