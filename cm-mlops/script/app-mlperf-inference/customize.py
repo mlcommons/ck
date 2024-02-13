@@ -73,7 +73,6 @@ def postprocess(i):
         if os.path.exists(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "run_1", "spl.txt")):
             shutil.copyfile(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "run_1", "spl.txt"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "spl.txt"))
 
-    accuracy_result_dir = ''
     model = env['CM_MODEL']
     model_full_name = env.get('CM_ML_MODEL_FULL_NAME', model)
 
@@ -186,9 +185,6 @@ def postprocess(i):
         if env.get("CM_MLPERF_PRINT_SUMMARY", "").lower() not in [ "no", "0", "false"]:
             print("\n")
             print(mlperf_log_summary)
-
-        if mode == "accuracy":
-            accuracy_result_dir = output_dir
 
         with open ("measurements.json", "w") as fp:
             json.dump(measurements, fp, indent=2)
@@ -441,8 +437,6 @@ def postprocess(i):
     else:
         print(test)
 
-    if accuracy_result_dir != '':
-        env['CM_MLPERF_ACCURACY_RESULTS_DIR'] = accuracy_result_dir
 
     if state.get('mlperf-inference-implementation') and state['mlperf-inference-implementation'].get('version_info'):
         with open(os.path.join(output_dir, "cm-version-info.json"), "w") as f:
