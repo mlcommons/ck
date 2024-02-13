@@ -125,6 +125,7 @@ ___
       - Environment variables:
         - *CM_CONDA_ENV*: `yes`
         - *CM_MLPERF_INFERENCE_INTEL*: `yes`
+        - *USE_CUDA*: `0`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-sys-util,_libffi7

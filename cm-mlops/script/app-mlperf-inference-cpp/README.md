@@ -319,6 +319,9 @@ ___
        * `if (CM_MLPERF_SKIP_RUN  != yes)`
        * CM names: `--adr.['mlperf-runner']...`
        - CM script: [benchmark-program-mlperf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf)
+     * save,mlperf,inference,state
+       * CM names: `--adr.['save-mlperf-inference-state']...`
+       - CM script: [save-mlperf-inference-implementation-state](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/save-mlperf-inference-implementation-state)
 </details>
 
 ___

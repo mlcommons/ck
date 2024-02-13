@@ -154,12 +154,12 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_rclone`
+    * **`_rclone`** (default)
       - Environment variables:
         - *CM_DOWNLOAD_FILENAME*: `checkpoint`
         - *CM_DOWNLOAD_URL*: `<<<CM_RCLONE_URL>>>`
       - Workflow:
-    * **`_wget`** (default)
+    * `_wget`
       - Environment variables:
         - *CM_DOWNLOAD_URL*: `<<<CM_PACKAGE_URL>>>`
         - *CM_DOWNLOAD_FILENAME*: `checkpoint.zip`
@@ -227,7 +227,7 @@ ___
 
 #### Default variations
 
-`_mlcommons,_pytorch,_wget`
+`_mlcommons,_pytorch,_rclone`
 
 #### Script flags mapped to environment
 <details>

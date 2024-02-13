@@ -136,6 +136,8 @@ ___
       - Environment variables:
         - *CM_LLVM_CONDA_ENV*: `yes`
         - *CM_LLVM_16_INTEL_MLPERF_INFERENCE*: `yes`
+        - *USE_CUDA*: `0`
+        - *CUDA_VISIBLE_DEVICES*: ``
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-sys-util,_g++-12

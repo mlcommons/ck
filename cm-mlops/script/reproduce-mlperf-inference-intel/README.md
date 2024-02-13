@@ -209,10 +209,10 @@ ___
              * CM names: `--adr.['ml-model', 'gptj-model', 'gpt-j-model']...`
              - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)
            * get,generic-python-lib,_package.datasets
-             * CM names: `--adr.['pip-package']...`
+             * CM names: `--adr.['pip-package', 'datasets']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_package.accelerate
-             * CM names: `--adr.['pip-package']...`
+             * CM names: `--adr.['pip-package', 'accelerate']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_loadgen-batch-size.#`
       - Environment variables:
@@ -518,6 +518,9 @@ ___
        * `if (CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE  == run_harness) AND (CM_MLPERF_SKIP_RUN not in ['yes', True])`
        * CM names: `--adr.['runner', 'mlperf-runner']...`
        - CM script: [benchmark-program-mlperf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf)
+     * save,mlperf,inference,state
+       * CM names: `--adr.['save-mlperf-inference-state']...`
+       - CM script: [save-mlperf-inference-implementation-state](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/save-mlperf-inference-implementation-state)
 </details>
 
 ___
