@@ -882,7 +882,7 @@ class CAutomation(Automation):
     ##############################################################################
     def system(self, i):
         """
-        Run system command and redirect output to strng.
+        Run system command and redirect output to string.
 
         Args:
           (CM input dict): 

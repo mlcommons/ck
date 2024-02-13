@@ -262,7 +262,7 @@ def generate_submission(i):
                                 files.append(f)
                             elif f == "spl.txt":
                                 files.append(f)
-                            elif f in [ "README.md", "README-extra.md", "cm_version_info.json", "os_info.json", "cpu_info.json", "pip_freeze.json" ] and mode == "performance":
+                            elif f in [ "README.md", "README-extra.md", "cm-version-info.json", "os_info.json", "cpu_info.json", "pip_freeze.json" ] and mode == "performance":
                                 shutil.copy(os.path.join(result_mode_path, f), os.path.join(submission_measurement_path, f))
                             elif f in [ "console.out" ]:
                                 shutil.copy(os.path.join(result_mode_path, f), os.path.join(submission_measurement_path, mode+"_"+f))
