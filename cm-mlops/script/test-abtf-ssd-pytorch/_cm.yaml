@@ -65,43 +65,21 @@ variations:
         cuda
 
 input_description:
-  modelpath: 
-    desc: Full path to a model
-  ep: 
-    desc: ONNX Execution provider
-  scenario: 
-    desc: MLPerf LoadGen scenario
-  samples: 
-    desc: Number of samples
-    default: 2
-  runner: 
-    desc: MLPerf runner
-  execmode: 
-    desc: MLPerf exec mode
-  output_dir: 
-    desc: MLPerf output directory
-  concurrency: 
-    desc: MLPerf concurrency
-  intraop: 
-    desc: MLPerf intra op threads
-  interop: 
-    desc: MLPerf inter op threads
+  input: 
+    desc: input image (png)
+  output: 
+    desc: output image (png)
+  export_model: 
+    desc: ONNX model name to be exported from PyTorch
 
 docker:
   skip_run_cmd: 'no'
   all_gpus: 'yes'
   input_paths:
-    - modelpath
-    - env.CM_ML_MODEL_FILE_WITH_PATH
-    - output_dir
+    - input
+    - output
+    - export_model
   skip_input_for_fake_run:
-    - modelpath
-    - env.CM_ML_MODEL_FILE_WITH_PATH
-    - output_dir
-    - scenario
-    - runner
-    - concurrency
-    - intraop
-    - interop
-    - execmode
-    - samples
+    - input
+    - output
+    - export_model
