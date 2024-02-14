@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import cmind as cm
 import copy
+os.system("pip install tabulate")
 from tabulate import tabulate
 import mlperf_utils
 
@@ -191,7 +192,7 @@ def preprocess(i):
 
     if state.get("CM_MLPERF_RESULTS"):
         #print(state["CM_MLPERF_RESULTS"])
-        for sut in state["CM_MLPERF_RESULTS"]:
+        for sut in state["CM_MLPERF_RESULTS"]:#only one sut will be there
             result_table, headers = mlperf_utils.get_result_table(state["CM_MLPERF_RESULTS"][sut])
             print(tabulate(result_table, headers = headers, tablefmt="pretty"))
 

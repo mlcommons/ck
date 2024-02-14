@@ -4,8 +4,8 @@ import json
 import shutil
 import cmind
 import sys
+os.system("pip install tabulate")
 from tabulate import tabulate
-print(sys.path)
 import mlperf_utils
 
 def preprocess(i):
