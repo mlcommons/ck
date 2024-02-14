@@ -161,7 +161,8 @@
           "names": [
             "cuda"
           ],
-          "tags": "get,cuda"
+          "tags": "get,cuda",
+          "version": "12.1.1"
         },
         {
           "names": [
