@@ -19,7 +19,12 @@ def get_result_from_log(version, model, scenario, result_path, mode):
     if mode == "performance":
         has_power = os.path.exists(os.path.join(result_path, "power"))
         result_ = checker.get_performance_metric(config, mlperf_model, result_path, scenario, None, None, has_power)
-        result = str(round(result_, 3))
+        if "stream" in scenario.lower():
+            result = result_ / 1000000 #convert to milliseconds
+        else:
+            result = result_
+        result = str(round(result, 3))
+
         if has_power:
             is_valid, power_metric, scenario, avg_power_efficiency = checker.get_power_metric(config, scenario, result_path, True, result_)
             result += f",{power_metric},{avg_power_efficiency}"
@@ -200,20 +205,19 @@ def get_result_table(results):
             else:
                 row.append("-")
 
-            if not results[model][scenario].get('performance'):
-                continue
+            if results[model][scenario].get('performance'):
             
-            if "stream" in scenario.lower():
-                if float(results[model][scenario]['performance']) == 0:
+                if "stream" in scenario.lower():
+                    if float(results[model][scenario]['performance']) == 0:
+                        row.append("-")
+                    elif scenario.lower() == "singlestream":
+                        row.append(str(round(1000/float(results[model][scenario]['performance']), 3)))
+                    elif scenario.lower() == "multistream":
+                        row.append(str(round(8000/float(results[model][scenario]['performance']), 3)))
+                    row.append(results[model][scenario]['performance'])
+                else:
+                    row.append(results[model][scenario]['performance'])
                     row.append("-")
-                elif scenario.lower() == "singlestream":
-                    row.append(str(round(1000/float(results[model][scenario]['performance']), 3)))
-                elif scenario.lower() == "multistream":
-                    row.append(str(round(8000/float(results[model][scenario]['performance']), 3)))
-                row.append(results[model][scenario]['performance'])
-            else:
-                row.append(results[model][scenario]['performance'])
-                row.append("-")
 
             #if results[model][scenario].get('power','') != '':
             #    row.append(results[model][scenario]['power'])

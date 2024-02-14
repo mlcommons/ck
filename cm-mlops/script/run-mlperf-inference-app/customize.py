@@ -129,6 +129,10 @@ def preprocess(i):
     for key in adr_from_meta:
         add_deps_recursive[key] = adr_from_meta[key]
 
+    if env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE', '') != '':
+        add_deps_recursive['mlperf-inference-implementation'] = {}
+        add_deps_recursive['mlperf-inference-implementation']['tags'] = "_batch_size."+env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
+
     if clean and 'OUTPUT_BASE_DIR' in env:
         path_to_clean = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
 
@@ -190,8 +194,9 @@ def preprocess(i):
                         del(env[key])
 
     if state.get("cm-mlperf-inference-results"):
-        #print(state["CM_MLPERF_RESULTS"])
+        #print(state["cm-mlperf-inference-results"])
         for sut in state["cm-mlperf-inference-results"]:#only one sut will be there
+            print(sut)
             result_table, headers = mlperf_utils.get_result_table(state["cm-mlperf-inference-results"][sut])
             print(tabulate(result_table, headers = headers, tablefmt="pretty"))
 

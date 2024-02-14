@@ -28,9 +28,13 @@ def preprocess(i):
         if os.path.exists(out_file) and os.stat(out_file).st_size != 0 and not regenerate_accuracy_file:
             continue
         if dataset == "openimages":
-            env['DATASET_ANNOTATIONS_FILE_PATH'] = env['CM_DATASET_ANNOTATIONS_FILE_PATH']
-            #dataset_dir = os.path.join(env['CM_DATASET_PATH'], "..", "..")
-            dataset_dir = os.getcwd() # not used, just to keep the script happy
+            if env.get('CM_DATASET_PATH_ROOT', '') != '':
+                dataset_dir = env['CM_DATASET_PATH_ROOT']
+                if 'DATASET_ANNOTATIONS_FILE_PATH' in env:
+                    del(env['DATASET_ANNOTATIONS_FILE_PATH'])
+            else:
+                env['DATASET_ANNOTATIONS_FILE_PATH'] = env['CM_DATASET_ANNOTATIONS_FILE_PATH']
+                dataset_dir = os.getcwd() # not used, just to keep the script happy
             CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
                 "accuracy-openimages.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir, \
                     "mlperf_log_accuracy.json") + "' --openimages-dir '" + dataset_dir + "' --verbose > '" + \
