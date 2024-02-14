@@ -18,6 +18,11 @@ if [ ! -f "patchfile-20231129.patch" ] ; then
   cp ${CM_TMP_CURRENT_SCRIPT_PATH}/patches/patchfile-20231129.patch .
   patch -s -p0 < patchfile-20231129.patch
   test $? -eq 0 || exit $?
+
+  cp ${CM_TMP_CURRENT_SCRIPT_PATH}/patches/patchfile-202400214-export-to-onnx.patch .
+  patch -s < patchfile-202400214-export-to-onnx.patch
+  test $? -eq 0 || exit $?
+
 fi
 cd ${CUR_DIR}
 
