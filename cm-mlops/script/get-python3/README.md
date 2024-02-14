@@ -106,6 +106,7 @@ ___
     * `_conda.#`
       - Environment variables:
         - *CM_PYTHON_CONDA*: `yes`
+        - *CM_PYTHON_INSTALL_CACHE_TAGS*: `_conda.#`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic,conda-package,_name.#,_package.python
