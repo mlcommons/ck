@@ -18,10 +18,12 @@ def get_result_from_log(version, model, scenario, result_path, mode):
     result = ''
     if mode == "performance":
         has_power = os.path.exists(os.path.join(result_path, "power"))
-        result = str(checker.get_performance_metric(config, mlperf_model, result_path, scenario, None, None, has_power))
+        result_ = checker.get_performance_metric(config, mlperf_model, result_path, scenario, None, None, has_power)
+        result = str(round(result_, 3)
         if has_power:
-            is_valid, power_metric, scenario, avg_power_efficiency = checker.get_power_metric(config, scenario, result_path, True, result)
-            result += f",{power_metric},{avg_power_efficiency*1000} "
+            is_valid, power_metric, scenario, avg_power_efficiency = checker.get_power_metric(config, scenario, result_path, True, result_)
+            result += f",{power_metric},{avg_power_efficiency}"
+
 
     elif mode == "accuracy" and os.path.exists(os.path.join(result_path, 'accuracy.txt')):
 
@@ -32,9 +34,10 @@ def get_result_from_log(version, model, scenario, result_path, mode):
                 result = str(round(float(acc_results[acc]), 5))
         else:
             result = '('
+            result_list = []
             for i, acc in enumerate(acc_results):
-                result += str(round(float(acc_results[acc]), 5))
-            result += ")"
+                result_list.append(str(round(float(acc_results[acc]), 5)))
+            result += ", ".join(result_list) + ")"
 
     return result
 
@@ -129,7 +132,7 @@ def get_result_string(version, model, scenario, result_path, has_power, sub_res)
         performance_result_ = performance_result / 1000000 #convert to milliseconds
     else:
         performance_result_ = performance_result
-    result['performance'] = performance_result_
+    result['performance'] = round(performance_result_, 3)
 
     if scenario != effective_scenario:
         inferred, inferred_result = checker.get_inferred_result(scenario, effective_scenario, performance_result, mlperf_log, config, False)
@@ -170,7 +173,7 @@ def get_result_string(version, model, scenario, result_path, has_power, sub_res)
     if len(accuracy_results) == 1:
         accuracy_result = accuracy_results[0]
     else:
-        accuracy_result = "(" + ",".join(accuracy_results)+")"
+        accuracy_result = "(" + ", ".join(accuracy_results)+")"
     result['accuracy'] = accuracy_result
 
     result_string = f"\n\n## Results\n"
@@ -217,4 +220,5 @@ def get_result_table(results):
             if results[model][scenario].get('power_efficiency','') != '':
                 row.append(results[model][scenario]['power_efficiency'])
             table.append(row)
+
     return table, headers
