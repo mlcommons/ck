@@ -168,14 +168,6 @@ def preprocess(i):
                 return r
             if env.get('CM_MLPERF_SKIP_RUN', '') != '':
                 del(env['CM_MLPERF_SKIP_RUN'])
-            if 'CM_MLPERF_RESULTS_DIR' in r['new_env']:
-                env['CM_MLPERF_RESULTS_DIR'] = r['new_env']['CM_MLPERF_RESULTS_DIR']
-            if 'CM_MLPERF_BACKEND' in r['new_env']:
-                env['CM_MLPERF_BACKEND'] = r['new_env']['CM_MLPERF_BACKEND']
-            if 'CM_MLPERF_BACKEND_VERSION' in r['new_env']:
-                env['CM_MLPERF_BACKEND_VERSION'] = r['new_env']['CM_MLPERF_BACKEND_VERSION']
-            if 'CM_MLPERF_DEVICE' in r['new_env']:
-                env['CM_MLPERF_DEVICE'] = r['new_env']['CM_MLPERF_DEVICE']
 
             for key in local_keys:
                 if env.get(key, '') != '':
@@ -194,6 +186,9 @@ def preprocess(i):
                 for key in local_keys:
                     if env.get(key, '') != '':
                         del(env[key])
+
+    if state.get("CM_MLPERF_RESULTS"):
+        print(state["CM_MLPERF_RESULTS"])
 
     return {'return':0}
 

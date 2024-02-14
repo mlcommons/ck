@@ -219,6 +219,12 @@ def preprocess(i):
     env['CM_LOGS_DIR'] = OUTPUT_DIR
     env['CM_MLPERF_LOADGEN_LOGS_DIR'] = OUTPUT_DIR
 
+    if mode == "accuracy":
+        output_dir = env['CM_MLPERF_OUTPUT_DIR']
+        env['CM_MLPERF_ACCURACY_RESULTS_DIR'] = output_dir
+    else:
+        env['CM_MLPERF_ACCURACY_RESULTS_DIR'] = ''
+
     run_exists = run_files_exist(log_mode, OUTPUT_DIR, required_files, env)
 
     if 'CM_MLPERF_POWER' in env and env.get('CM_MLPERF_SHORT_RANGING_RUN', '') != 'no' and env['CM_MLPERF_RUN_STYLE'] == "valid" and mode == "performance":

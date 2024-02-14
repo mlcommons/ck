@@ -73,6 +73,7 @@ new_env_keys:
 
 new_state_keys:
   - app_mlperf_inference_*
+  - CM_MLPERF_RESULTS
 
 # Dependencies on other CM scripts
 deps:
@@ -98,6 +99,9 @@ deps:
     names:
     - inference-src
 
+posthook_deps:
+  - tags: get,mlperf,sut,description #populate system meta information like framework
+
 # Order of variations for documentation
 variation_groups_order:
   - implementation
@@ -122,7 +126,7 @@ variations:
       CM_MLPERF_IMPLEMENTATION: cpp
       CM_IMAGENET_ACCURACY_DTYPE: float32
       CM_OPENIMAGES_ACCURACY_DTYPE: float32
-    posthook_deps:
+    prehook_deps:
       - names:
          - cpp-mlperf-inference
          - mlperf-inference-implementation
@@ -148,7 +152,7 @@ variations:
       CM_MLPERF_CPP: 'yes'
       CM_MLPERF_IMPLEMENTATION: tflite-cpp
       CM_IMAGENET_ACCURACY_DTYPE: float32
-    posthook_deps:
+    prehook_deps:
       - names:
          - tflite-cpp-mlperf-inference
          - mlperf-inference-implementation
@@ -176,7 +180,7 @@ variations:
       CM_IMAGENET_ACCURACY_DTYPE: float32
       CM_OPENIMAGES_ACCURACY_DTYPE: float32
       CM_LIBRISPEECH_ACCURACY_DTYPE: float32
-    posthook_deps:
+    prehook_deps:
       - names:
          - python-reference-mlperf-inference
          - mlperf-inference-implementation
@@ -275,7 +279,7 @@ variations:
           CM_CUDA_DEVICE_PROP_GLOBAL_MEMORY:
             - "yes"
             - "on"
-    posthook_deps:
+    prehook_deps:
       - names:
          - nvidia-original-mlperf-inference
          - nvidia-harness
@@ -299,7 +303,7 @@ variations:
     default_variations:
       device: cpu
       backend: pytorch
-    posthook_deps:
+    prehook_deps:
       - names:
          - intel
          - intel-harness
@@ -315,7 +319,7 @@ variations:
     default_variations:
       device: qaic
       backend: glow
-    posthook_deps:
+    prehook_deps:
       - names:
          - kilt
          - kilt-harness
@@ -338,7 +342,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _resnet50
-    post_deps:
+    posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
         - accuracy
@@ -359,7 +363,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _retinanet
-    post_deps:
+    posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
         - accuracy
@@ -399,7 +403,7 @@ variations:
         tags: _3d-unet-99.9
 
   3d-unet_:
-    post_deps:
+    posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
         - accuracy
@@ -427,7 +431,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _sdxl
-    post_deps:
+    posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
         - accuracy
@@ -443,7 +447,7 @@ variations:
       tags: run,accuracy,mlperf,_coco2014
 
   llama2-70b_:
-    post_deps:
+    posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
         - accuracy
@@ -492,7 +496,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _rnnt
-    post_deps:
+    posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
         - accuracy
@@ -540,13 +544,16 @@ variations:
     alias: gptj_
 
   gptj_:
-    post_deps:
+    posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
         - accuracy
         - all
         CM_MLPERF_ACCURACY_RESULTS_DIR:
         - 'on'
+      skip_if_env:
+        CM_MLPERF_IMPLEMENTATION:
+        - intel-original
       names:
       - cnndm-accuracy-script
       - mlperf-accuracy-script
@@ -560,7 +567,7 @@ variations:
     - skip_if_env:
         CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH: "on"
       tags: get,dataset-aux,squad-vocab
-    post_deps:
+    posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
         - accuracy
@@ -600,7 +607,7 @@ variations:
         tags: _bert-99.9
 
   dlrm_:
-    post_deps:
+    posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
         - accuracy
@@ -647,7 +654,7 @@ variations:
         tags: _mobilenet
     deps:
     - tags: get,dataset-aux,imagenet-aux
-    post_deps:
+    posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
         - accuracy
@@ -670,7 +677,7 @@ variations:
         tags: _efficientnet
     deps:
     - tags: get,dataset-aux,imagenet-aux
-    post_deps:
+    posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
         - accuracy
