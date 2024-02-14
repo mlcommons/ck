@@ -129,6 +129,7 @@ cm run script "{}"
 
 A few other popular commands:
 ```bash
+cmr "{}" --help
 cmr "{}" --shell
 cm run script "{}" --shell
 cm docker script "{}"
