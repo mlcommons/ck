@@ -136,7 +136,7 @@ cm docker script "{}"
 cm gui script "{}"
 ```
                     
-                    '''.format(extra_repo,extags,xtags,xtags,xtags,xtags,xtags)
+                    '''.format(extra_repo,xtags,xtags,xtags,xtags,xtags,xtags)
 
                 st.markdown('Default run on Linux, Windows, MacOS and any other OS (check [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) for more details):\n{}\n'.format(x))
 
