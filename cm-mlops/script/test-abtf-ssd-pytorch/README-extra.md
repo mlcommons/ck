@@ -5,7 +5,7 @@ Install CM automation language using this [guide](https://github.com/mlcommons/c
 Pull main repository with CM DevOps and MLOps automations
 
 ```bash
-cm pull repo mlcommons@ck
+cm pull repo ctuning@mlcommons-ck
 cm pull repo mlcommons@abtf-ssd-pytorch --branch=cm-automation
 ```
 
@@ -21,9 +21,14 @@ Install python virtual environment to avoid messing up your original Python:
 cmr "install python-venv" --name=abtf
 ```
 
+Download road.jpg to your current directory:
+```bash
+cmr "download file _wget" --url=https://cKnowledge.org/ai/data/road.jpg --verify=no --md5sum=470ba3b9a2f9ae21ed7a03e2680108a5
+```
+
 Test pre-trained model (add road.jpg or any other file to your current directory):
 ```bash
-cmr "test abtf ssd-pytorch" --adr.python.name=abtf --input=road.jpg --output=road_ssd.jpg
+cmr "test abtf ssd-pytorch" --adr.ml-model.tags=_e65 --adr.python.name=abtf --input=road.jpg --output=road_ssd.jpg
 ```
 
 # Misc CM commands

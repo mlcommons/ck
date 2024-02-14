@@ -18,7 +18,8 @@
     "local_path": "CM_DOWNLOAD_LOCAL_FILE_PATH",
     "store": "CM_DOWNLOAD_PATH",
     "url": "CM_DOWNLOAD_URL",
-    "verify": "CM_VERIFY_SSL"
+    "verify": "CM_VERIFY_SSL",
+    "md5sum": "CM_DOWNLOAD_CHECKSUM"
   },
   "new_env_keys": [
     "CM_DOWNLOAD_DOWNLOADED_PATH",
