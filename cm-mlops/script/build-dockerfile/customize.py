@@ -164,7 +164,12 @@ def preprocess(i):
     if workdir:
         f.write('WORKDIR ' + workdir + EOL)
     f.write(EOL+'# Download CM repo for scripts' + EOL)
-    f.write('RUN cm pull repo ' + cm_mlops_repo + EOL)
+
+    # Add possibility to force rebuild with some extra flag for the repository
+    x = env.get('CM_DOCKER_ADD_FLAG_TO_CM_MLOPS_REPO','')
+    if x!='': x=' '+x
+
+    f.write('RUN cm pull repo ' + cm_mlops_repo + x + EOL)
 
     f.write(EOL+'# Install all system dependencies' + EOL)
     f.write('RUN cm run script --tags=get,sys-utils-cm --quiet' + EOL)
