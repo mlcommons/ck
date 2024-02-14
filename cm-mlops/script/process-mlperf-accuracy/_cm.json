@@ -15,7 +15,8 @@
     },
     {
       "names": [
-        "inference-src"
+        "inference-src",
+        "accuracy-check-src"
       ],
       "tags": "get,mlcommons,inference,src"
     }
@@ -161,17 +162,9 @@
           }
         },
         {
-          "tags": "get,generic-python-lib,_nvidia-pycocotools"
-        },
-        {
           "tags": "get,generic-python-lib,_package.kiwisolver"
         }
       ],
-      "ad": {
-        "inference-src": {
-          "tags": "_openimages-nvidia-pycocotools"
-        }
-      },
       "env": {
         "CM_DATASET": "openimages"
       },
@@ -247,6 +240,41 @@
         "CM_DATASET": "coco2014"
       },
       "group": "dataset"
+    },
+    "nvidia-pycocotools": {
+      "group": "coco-evaluation-tool"
+    },
+    "default-pycocotools": {
+      "group": "coco-evaluation-tool",
+      "default": true
+    },
+    "nvidia-pycotools,openimages": {
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_nvidia-pycocotools"
+        },
+        {
+          "names": [
+            "for-pycocotools",
+            "accuracy-check-src"
+          ],
+          "tags": "get,mlcommons,mlperf,inference,src,_openimages-nvidia-pycocotools"
+        }
+      ]
+    },
+    "default-pycocotools,openimages": {
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_pycocotools"
+        },
+        {
+          "names": [
+            "for-pycocotools",
+            "accuracy-check-src"
+          ],
+          "tags": "get,mlcommons,mlperf,inference,src,-_openimages-nvidia-pycocotools"
+        }
+      ]
     }
   }
 }
