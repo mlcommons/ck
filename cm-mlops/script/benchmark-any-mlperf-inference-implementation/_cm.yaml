@@ -133,6 +133,72 @@ variations:
     default_env:
       DEVICES: cpu,cuda
 
+  phoenix,nvidia:
+    default_env:
+      EXTRA_ARGS: " --gpu_name=rtx_4090"
+    state:
+      resnet50:
+        cuda:
+          tensorrt:
+            offline_target_qps: 45000
+      retinanet:
+        cuda:
+          tensorrt:
+            offline_target_qps: 700
+      bert-99:
+        cuda:
+          tensorrt:
+            offline_target_qps: 4000
+      bert-99.9:
+        cuda:
+          tensorrt:
+            offline_target_qps: 2000
+      3d-unet-99.9:
+        cuda:
+          tensorrt:
+            offline_target_qps: 1
+      rnnt:
+        cuda:
+          tensorrt:
+            offline_target_qps: 15000
+      gptj-99:
+        cuda:
+          tensorrt:
+            offline_target_qps: 4.5
+
+  spr,nvidia:
+    default_env:
+      EXTRA_ARGS: " --gpu_name=rtx_4090"
+    state:
+      resnet50:
+        cuda:
+          tensorrt:
+            offline_target_qps: 90000
+      retinanet:
+        cuda:
+          tensorrt:
+            offline_target_qps: 1400
+      bert-99:
+        cuda:
+          tensorrt:
+            offline_target_qps: 8000
+      bert-99.9:
+        cuda:
+          tensorrt:
+            offline_target_qps: 4000
+      3d-unet-99.9:
+        cuda:
+          tensorrt:
+            offline_target_qps: 2
+      rnnt:
+        cuda:
+          tensorrt:
+            offline_target_qps: 30000
+      gptj-99:
+        cuda:
+          tensorrt:
+            offline_target_qps: 9
+
   orin.32g:
     group: sut
     env:
