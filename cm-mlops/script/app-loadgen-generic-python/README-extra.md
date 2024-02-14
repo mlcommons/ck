@@ -265,7 +265,14 @@ Available flags mapped to environment variables:
 ## Running this app via Docker
 
 ```bash
-cm docker script "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-stub.steerapi/Llama-2-7b-chat-hf-onnx-awq-w8" --adr.hf-downloader.model_filename=onnx/decoder_model_merged_quantized.onnx,onnx/decoder_model_merged_quantized.onnx_data --samples=2
+cm docker script "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-stub.steerapi/Llama-2-7b-chat-hf-onnx-awq-w8" --adr.hf-downloader.model_filename=onnx/decoder_model_merged_quantized.onnx,onnx/decoder_model_merged_quantized.onnx_data --samples=2 --output_dir=. --docker_cm_repo=ctuning@mlcommons-ck
+```
+
+## Tuning CPU performance via CM experiment
+
+```bash
+cm run experiment --tags=loadgen,python,llama2 -- cmr script "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-stub.steerapi/Llama-2-7b-chat-hf-onnx-awq-w8" --adr.hf-downloader.model_filename=onnx/decoder_model_merged_quantized.onnx,onnx/decoder_model_merged_quantized.onnx_data --samples=2 --intraop={{CM_OPT_INTRAOP{[1,2,4]}}} --interop={{CM_OPT_INTEROP{[1,2,4]}}} --quiet
+cm run experiment --tags=loadgen,python,llama2 -- cmr "python app loadgen-generic _onnxruntime" --modelpath={PATH TO ONNX MODEL} --samples=2 --intraop={{CM_OPT_INTRAOP{[1,2,4]}}} --interop={{CM_OPT_INTEROP{[1,2,4]}}} --quiet
 ```
 
 
