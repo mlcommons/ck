@@ -5,6 +5,8 @@ import shutil
 import subprocess
 import cmind as cm
 import copy
+from tabulate import tabulate
+import mlperf_utils
 
 summary_ext = ['.csv', '.json', '.xlsx']
 
@@ -187,8 +189,11 @@ def preprocess(i):
                     if env.get(key, '') != '':
                         del(env[key])
 
-    if state.get("CM_MLPERF_RESULTS"):
-        print(state["CM_MLPERF_RESULTS"])
+    if state.get("cm-mlperf-inference-results"):
+        #print(state["CM_MLPERF_RESULTS"])
+        for sut in state["cm-mlperf-inference-results"]:#only one sut will be there
+            result_table, headers = mlperf_utils.get_result_table(state["cm-mlperf-inference-results"][sut])
+            print(tabulate(result_table, headers = headers, tablefmt="pretty"))
 
     return {'return':0}
 

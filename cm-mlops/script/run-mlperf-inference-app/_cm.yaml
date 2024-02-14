@@ -90,6 +90,7 @@ input_mapping:
 
 new_state_keys:
 - app_mlperf_inference_*
+- cm-mlperf-inference-results*
 
 deps:
 - tags: detect,os
@@ -108,6 +109,8 @@ deps:
     - get-mlperf-inference-results-dir
   skip_if_env:
     OUTPUT_BASE_DIR: [ on ]
+- tags: install,pip-package,for-cmind-python,_package.tabulate
+- tags: get,mlperf,inference,utils
 
 docker:
   fake_run_deps: true

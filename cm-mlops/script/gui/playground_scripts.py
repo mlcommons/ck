@@ -121,7 +121,7 @@ def page(st, params):
 
                 x = '''
 ```bash
-pip install cmind
+pip install cmind -U
 cm pull repo mlcommons@ck{}
 
 cm run script "{}"
@@ -129,12 +129,14 @@ cm run script "{}"
 
 A few other popular commands:
 ```bash
+cmr "{}" --help
+cmr "{}" --shell
 cm run script "{}" --shell
 cm docker script "{}"
 cm gui script "{}"
 ```
                     
-                    '''.format(extra_repo,xtags,xtags,xtags,xtags,xtags)
+                    '''.format(extra_repo,extags,xtags,xtags,xtags,xtags,xtags)
 
                 st.markdown('Default run on Linux, Windows, MacOS and any other OS (check [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) for more details):\n{}\n'.format(x))
 

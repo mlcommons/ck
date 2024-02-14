@@ -16,12 +16,14 @@ def preprocess(i):
 
     if package_name == "onnxruntime_gpu":
         # https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#requirements
+        # 20240214: ONNXRuntime 1.17.0 now support CUDA 12 so we remove next check
+        # TBD: if we have explicit version for ONNX < 17.0.0 and CUDA is >= 12, we should add a check to fail ...
         cuda_version = env.get('CM_CUDA_VERSION','').strip()
-        if cuda_version!='':
-            cuda_version_split = cuda_version.split('.')
-            if int(cuda_version_split[0]) >= 12:
-                # env['CM_INSTALL_ONNXRUNTIME_GPU_FROM_SRC'] = "yes"
-                return {'return': 1, 'error':'at this moment, PIP package "onnxruntime_gpu" needs CUDA < 12'}
+#        if cuda_version!='':
+#            cuda_version_split = cuda_version.split('.')
+#            if int(cuda_version_split[0]) >= 12:
+#                # env['CM_INSTALL_ONNXRUNTIME_GPU_FROM_SRC'] = "yes"
+#                return {'return': 1, 'error':'at this moment, PIP package "onnxruntime_gpu" needs CUDA < 12'}
 
     extra = env.get('CM_GENERIC_PYTHON_PIP_EXTRA','')
     if (pip_version and len(pip_version) > 1 and int(pip_version[0]) >= 23) and ('--break-system-packages' not in extra):

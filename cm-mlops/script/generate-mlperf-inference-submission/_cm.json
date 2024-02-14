@@ -20,6 +20,12 @@
     },
     {
       "tags": "get,sut,system-description"
+    },
+    {
+      "tags": "install,pip-package,for-cmind-python,_package.tabulate"
+    },
+    {
+      "tags": "get,mlperf,inference,utils"
     }
   ],
   "input_mapping": {

@@ -19,7 +19,9 @@
   "input_mapping": {
     "download_path": "CM_DOWNLOAD_PATH",
     "model_filename": "CM_MODEL_ZOO_FILENAME",
-    "env_key": "CM_MODEL_ZOO_ENV_KEY"
+    "env_key": "CM_MODEL_ZOO_ENV_KEY",
+    "subfolder": "CM_HF_SUBFOLDER",
+    "full_subfolder": "CM_HF_FULL_SUBFOLDER"
   },
   "env": {},
   "new_env_keys": [

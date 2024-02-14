@@ -52,10 +52,12 @@ class ORTModelFactory(ModelFactory):
         self.session_options.inter_op_num_threads = inter_op_threads
 
     def create(self) -> Model:
-        model = onnx.load(self.model_path)
+        print ('Loading model: {}'.format(self.model_path))
+#        model = onnx.load(self.model_path)
         session_eps = [self.execution_provider]
         session = ort.InferenceSession(
-            model.SerializeToString(), self.session_options, providers=session_eps
+#            model.SerializeToString(), self.session_options, providers=session_eps
+            self.model_path, self.session_options, providers=session_eps
         )
         return ORTModel(session)
 
