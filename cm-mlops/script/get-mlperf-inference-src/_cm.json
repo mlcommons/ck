@@ -23,6 +23,7 @@
       "update_tags_from_env_with_prefix": {
         "_repo.": [ "CM_GIT_URL" ],
         "_branch.": [ "CM_GIT_CHECKOUT" ],
+        "_sha.": [ "CM_GIT_SHA" ],
         "_submodules.": [ "CM_GIT_SUBMODULES" ]
       },
       "force_env_keys": [
@@ -154,6 +155,12 @@
     "branch.#": {
       "env": {
         "CM_GIT_CHECKOUT": "#"
+      }
+    },
+    "sha.#": {
+      "group": "checkout",
+      "env": {
+        "CM_GIT_SHA": "#"
       }
     },
     "submodules.#": {
