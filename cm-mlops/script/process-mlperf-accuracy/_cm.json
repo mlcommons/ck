@@ -248,7 +248,7 @@
       "group": "coco-evaluation-tool",
       "default": true
     },
-    "nvidia-pycotools,openimages": {
+    "nvidia-pycocotools,openimages": {
       "deps": [
         {
           "tags": "get,generic-python-lib,_nvidia-pycocotools"
