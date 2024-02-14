@@ -16,6 +16,9 @@ tags:
   - loadgen-generic
   - python
 
+tags_help: "python app generic loadgen"
+
+
 # Default environment
 default_env:
   CM_MLPERF_EXECUTION_MODE: parallel
@@ -189,3 +192,26 @@ variations:
   model-stub.#:
     env:
       CM_ML_MODEL_STUB: "#"
+
+input_description:
+  modelpath: 
+    desc: Full path to a model
+  ep: 
+    desc: ONNX Execution provider
+  scenario: 
+    desc: MLPerf LoadGen scenario
+  samples: 
+    desc: Number of samples
+    default: 2
+  runner: 
+    desc: MLPerf runner
+  execmode: 
+    desc: MLPerf exec mode
+  output_dir: 
+    desc: MLPerf output directory
+  concurrency: 
+    desc: MLPerf concurrency
+  intraop: 
+    desc: MLPerf intra op threads
+  interop: 
+    desc: MLPerf inter op threads
