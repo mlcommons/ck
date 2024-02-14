@@ -4,7 +4,6 @@ import json
 import shutil
 import cmind
 import sys
-os.system("pip install tabulate")
 from tabulate import tabulate
 import mlperf_utils
 

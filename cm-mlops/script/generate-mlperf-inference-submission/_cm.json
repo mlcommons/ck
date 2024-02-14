@@ -22,7 +22,7 @@
       "tags": "get,sut,system-description"
     },
     {
-      "tags": "get,generic-python-lib,_package.tabulate"
+      "tags": "install,pip-package,for-cmind-python,_package.tabulate"
     },
     {
       "tags": "get,mlperf,inference,utils"
