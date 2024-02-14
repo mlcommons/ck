@@ -144,7 +144,7 @@ variations:
       retinanet:
         cuda:
           tensorrt:
-            offline_target_qps: 700
+            offline_target_qps: 850
       bert-99:
         cuda:
           tensorrt:
@@ -177,7 +177,7 @@ variations:
       retinanet:
         cuda:
           tensorrt:
-            offline_target_qps: 1400
+            offline_target_qps: 1700
       bert-99:
         cuda:
           tensorrt:
