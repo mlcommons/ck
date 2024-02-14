@@ -38,7 +38,7 @@ cmr "test abtf ssd-pytorch" --adr.ml-model.tags=_e65 --adr.python.name=abtf --in
 
 Test ONNX model with LoadGen (performance):
 ```bash
-cm run script "python app loadgen-generic _onnxruntime" --adr.python.name=abtf --modelpath=abtf.onnx --samples=10
+cm run script "python app loadgen-generic _onnxruntime" --adr.python.name=abtf --modelpath=abtf.onnx --samples=10 --quiet
 ```
 
 # Misc CM commands
