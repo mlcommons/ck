@@ -4,6 +4,7 @@ import json
 import shutil
 import cmind
 import sys
+from tabulate import tabulate
 
 def preprocess(i):
     return {'return': 0}
@@ -142,7 +143,11 @@ def generate_submission(i):
         system_file = os.path.join(submission_system_path, sub_res+".json")
 
         models = [f for f in os.listdir(result_path) if not os.path.isfile(os.path.join(result_path, f))]
+
+        results = {}
+
         for model in models:
+            results[model] = {}
             result_model_path = os.path.join(result_path, model)
             submission_model_path = os.path.join(submission_path, model)
             measurement_model_path = os.path.join(measurement_path, model)
@@ -158,6 +163,7 @@ def generate_submission(i):
 
             print('* MLPerf inference model: {}'.format(model))
             for scenario in scenarios:
+                results[model][scenario] = {}
                 result_scenario_path = os.path.join(result_model_path, scenario)
                 submission_scenario_path = os.path.join(submission_model_path, scenario)
                 measurement_scenario_path = os.path.join(measurement_model_path, scenario)
@@ -228,7 +234,7 @@ def generate_submission(i):
                                     if saved_system_meta[key].strip() == '':
                                         del(saved_system_meta[key])
                                 system_meta = {**saved_system_meta, **system_meta} #override the saved meta with the user inputs
-                                system_meta = {**system_meta_default, **system_meta} #add any missing fields from the defaults
+                        system_meta = {**system_meta_default, **system_meta} #add any missing fields from the defaults
 
                     if not os.path.isdir(submission_results_path):
                         os.makedirs(submission_results_path)
@@ -290,18 +296,50 @@ def generate_submission(i):
                         p_target = os.path.join(submission_results_path, f)
                         shutil.copy(os.path.join(result_mode_path, f), p_target)
 
+
                 readme_file = os.path.join(submission_measurement_path, "README.md")
                 if not os.path.exists(readme_file):
                     with open(readme_file, mode='w') as f:
                         f.write("TBD") #create an empty README
                 else:
                     readme_suffix = ""
-                    result_string = get_result_string(env['CM_MLPERF_LAST_RELEASE'], model, scenario, result_scenario_path, power_run, sub_res)
+                    result_string, result = get_result_string(env['CM_MLPERF_LAST_RELEASE'], model, scenario, result_scenario_path, power_run, sub_res)
+
+                    for key in result:
+                        results[model][scenario][key] = result[key]
                     with open(readme_file, mode='a') as f:
                         f.write(result_string)
 
         with open(system_file, "w") as fp:
             json.dump(system_meta, fp, indent=2)
+        headers = ["Model", "Scenario", "Accuracy", "QPS", "Latency (in ms)", "Power Efficiency (in samples/J)"]
+        table = []
+        for model in results:
+            for scenario in results[model]:
+                row = []
+                row.append(model)
+                row.append(scenario)
+                row.append(results[model][scenario]['accuracy'])
+                if "stream" in scenario.lower():
+                    if scenario.lower() == "singlestream":
+                        row.append(str(round(1000/float(results[model][scenario]['performance']), 3)))
+                    elif scenario.lower() == "multistream":
+                        row.append(str(round(8000/float(results[model][scenario]['performance']), 3)))
+                    row.append(results[model][scenario]['performance'])
+                else:
+                    row.append(results[model][scenario]['performance'])
+                    row.append("-")
+
+                #if results[model][scenario].get('power','') != '':
+                #    row.append(results[model][scenario]['power'])
+                if results[model][scenario].get('power_efficiency','') != '':
+                    row.append(results[model][scenario]['power_efficiency'])
+                table.append(row)
+
+        print(tabulate(table, headers = headers, tablefmt="pretty"))
+        sut_readme_file = os.path.join(measurement_path, "README.md")
+        with open(sut_readme_file, mode='w') as f:
+            f.write(tabulate(table, headers = headers, tablefmt="github"))
 
 
     return {'return':0}
@@ -393,10 +431,16 @@ def get_result_string(version, model, scenario, result_path, has_power, sub_res)
     fname = os.path.join(performance_path, "mlperf_log_detail.txt")
     mlperf_log = MLPerfLog(fname)
     effective_scenario = mlperf_log["effective_scenario"]
+    inferred = False
+    result = {}
+
 
     performance_result = checker.get_performance_metric(config, mlperf_model, performance_path, scenario, None, None, has_power)
-
-    inferred = False
+    if "stream" in scenario.lower():
+        performance_result_ = performance_result / 1000000 #convert to milliseconds
+    else:
+        performance_result_ = performance_result
+    result['performance'] = performance_result_
 
     if scenario != effective_scenario:
         inferred, inferred_result = checker.get_inferred_result(scenario, effective_scenario, performance_result, mlperf_log, config, False)
@@ -407,7 +451,12 @@ def get_result_string(version, model, scenario, result_path, has_power, sub_res)
             power_metric_unit = "milliJoules"
         else:
             power_metric_unit = "Watts"
-        power_result_string = f"`Power consumed`: `{round(power_metric, 5)} {power_metric_unit}`, `Power efficiency`: `{round(avg_power_efficiency * 1000, 5)} samples per Joule`"
+        power_result_string = f"`Power consumed`: `{round(power_metric, 3)} {power_metric_unit}`, `Power efficiency`: `{round(avg_power_efficiency * 1000, 3)} samples per Joule`"
+
+        power_result = round(power_metric, 3)
+        power_efficiency_result = round(avg_power_efficiency, 3)
+        result['power'] = power_result
+        result['power_efficiency'] = power_efficiency_result
 
     acc_results, acc_targets, acc_limits = get_accuracy_metric(config, mlperf_model, accuracy_path)
 
@@ -419,13 +468,21 @@ def get_result_string(version, model, scenario, result_path, has_power, sub_res)
         performance_result_string += f"Inferred result: `{inferred_result_field}`: `{inferred_result}`  \n"
 
     accuracy_result_string = ''
+    accuracy_results = []
     for i, acc in enumerate(acc_results):
+        accuracy_results.append(str(round(float(acc_results[acc]), 5)))
         accuracy_result_string += f"`{acc}`: `{round(float(acc_results[acc]), 5)}`"
         if not acc_limits:
             accuracy_result_string += f", Required accuracy for closed division `>= {round(acc_targets[i], 5)}`"
         else:
             accuracy_result_string += f", Required accuracy for closed division `>= {round(acc_targets[i], 5)}` and `<= {round(acc_limits[i], 5)}`"
         accuracy_result_string += "\n"
+
+    if len(accuracy_results) == 1:
+        accuracy_result = accuracy_results[0]
+    else:
+        accuracy_result = "(" + ",".join(accuracy_results)+")"
+    result['accuracy'] = accuracy_result
 
     result_string = f"\n\n## Results\n"
     result_string += f"\nPlatform: {sub_res}\n"
@@ -434,7 +491,8 @@ def get_result_string(version, model, scenario, result_path, has_power, sub_res)
     if has_power:
         result_string += "\n### Power Results \n" + power_result_string
 
-    return result_string
+
+    return result_string, result
  
 def postprocess(i):
 

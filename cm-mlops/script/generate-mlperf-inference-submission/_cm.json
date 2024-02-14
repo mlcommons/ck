@@ -20,6 +20,9 @@
     },
     {
       "tags": "get,sut,system-description"
+    },
+    {
+      "tags": "get,generic-python-lib,_package.tabulate"
     }
   ],
   "input_mapping": {
