@@ -5,7 +5,6 @@ import shutil
 import subprocess
 import cmind as cm
 import copy
-os.system("pip install tabulate")
 from tabulate import tabulate
 import mlperf_utils
 
