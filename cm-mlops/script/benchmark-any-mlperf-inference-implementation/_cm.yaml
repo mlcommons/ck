@@ -23,6 +23,7 @@ input_mapping:
   category: CATEGORY
   power_server: POWER_SERVER
   power_server_port: POWER_SERVER_PORT
+  extra_args: EXTRA_ARGS
 
 tags:
   - benchmark
