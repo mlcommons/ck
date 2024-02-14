@@ -198,14 +198,28 @@ You can also specify any custom onnx model file as follows:
 cm run script "python app loadgen-generic _onnxruntime" --modelpath=<CUSTOM_MODEL_FILE_PATH>
 ```
 
-
 ### Benchmark Hugging Face model
 
 ```bash
-cm run script "python app loadgen-generic _onnxruntime _custom _huggingface _model-stub.alpindale/Llama-2-13b-ONNX" --adr.hf-downloader.model_filename=FP32/LlamaV2_13B_float32.onnx
+cmr "python app loadgen-generic _onnxruntime _custom _huggingface _model-stub.ctuning/mlperf-inference-bert-onnx-fp32-squad-v1.1" --adr.hf-downloader.model_filename=model.onnx
 ```
 
+*See more examples to download Hugging Face models via CM [here](../get-ml-model-huggingface-zoo/README-extra.md).*
 
+### Benchmark using ONNX CUDA
+
+```bash
+cm rm cache -f
+cmr "python app loadgen-generic _onnxruntime _cuda _retinanet" --quiet
+cmr "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-stub.ctuning/mlperf-inference-bert-onnx-fp32-squad-v1.1" --adr.hf-downloader.model_filename=model.onnx
+```
+
+TBD: some cases that are not yet fully supported:
+```bash
+cmr "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-stub.microsoft/Mistral-7B-v0.1-onnx" --adr.hf-downloader.model_filename=Mistral-7B-v0.1.onnx,Mistral-7B-v0.1.onnx.data
+cmr "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-stub.alpindale/Llama-2-13b-ONNX" --adr.hf-downloader.model_filename=--model_filename=FP32/LlamaV2_13B_float32.onnx --adr.hf-downloader.full_subfolder=FP32
+cmr "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-stub.Intel/gpt-j-6B-int8-static" --adr.hf-downloader.model_filename=model.onnx --adr.hf-downloader.full_subfolder=.
+```
 
 ### Other variations and flags:
 
