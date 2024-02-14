@@ -108,10 +108,6 @@ ___
       - Environment variables:
         - *CM_SUBMODULE_3D_UNET*: `yes`
       - Workflow:
-    * `_branch.#`
-      - Environment variables:
-        - *CM_GIT_CHECKOUT*: `#`
-      - Workflow:
     * `_deeplearningexamples`
       - Environment variables:
         - *CM_SUBMODULE_DEEPLEARNINGEXAMPLES*: `yes`
@@ -166,6 +162,22 @@ ___
     </details>
 
 
+  * Group "**checkout**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_branch.#`
+      - Environment variables:
+        - *CM_GIT_CHECKOUT*: `#`
+      - Workflow:
+    * `_sha.#`
+      - Environment variables:
+        - *CM_GIT_SHA*: `#`
+      - Workflow:
+
+    </details>
+
+
   * Group "**git-history**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -196,7 +208,6 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_GIT_PATCH: `no`
 * CM_GIT_URL: `https://github.com/mlcommons/inference.git`
 * CM_GIT_RECURSE_SUBMODULES: ``
-* CM_GIT_CHECKOUT: `master`
 * CM_GIT_CHECKOUT_FOLDER: `inference`
 
 </details>

@@ -158,6 +158,10 @@ ___
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,sut,system-description
        - CM script: [get-mlperf-inference-sut-description](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)
+     * install,pip-package,for-cmind-python,_package.tabulate
+       - CM script: [install-pip-package-for-cmind-python](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pip-package-for-cmind-python)
+     * get,mlperf,inference,utils
+       - CM script: [get-mlperf-inference-utils](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-utils)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/_cm.json)
   1. ***Run native script if exists***

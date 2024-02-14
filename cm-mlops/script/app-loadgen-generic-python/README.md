@@ -12,6 +12,7 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Input description](#input-description)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
@@ -35,7 +36,7 @@ See extra [notes](README-extra.md) from the authors and contributors.
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *app,loadgen,generic,loadgen-generic,python*
+* CM "database" tags to find this script: *python,app,generic,loadgen*
 * Output cached? *False*
 ___
 ### Reuse this script in your project
@@ -52,9 +53,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=app,loadgen,generic,loadgen-generic,python[,variations] [--input_flags]`
+1. `cm run script --tags=python,app,generic,loadgen[,variations] [--input_flags]`
 
-2. `cmr "app loadgen generic loadgen-generic python[ variations]" [--input_flags]`
+2. `cmr "python app generic loadgen[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -71,7 +72,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'app,loadgen,generic,loadgen-generic,python'
+                  'tags':'python,app,generic,loadgen'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -88,13 +89,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="app,loadgen,generic,loadgen-generic,python"```
+```cmr "cm gui" --script="python,app,generic,loadgen"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=app,loadgen,generic,loadgen-generic,python) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=python,app,generic,loadgen) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "app loadgen generic loadgen-generic python[ variations]" [--input_flags]`
+`cm docker script "python app generic loadgen[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -132,7 +133,7 @@ ___
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `onnxruntime`
       - Workflow:
-    * **`_pytorch`** (default)
+    * `_pytorch`
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `pytorch`
       - Workflow:
@@ -147,10 +148,12 @@ ___
     * **`_cpu`** (default)
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `cpu`
+        - *CM_MLPERF_EXECUTION_PROVIDER*: `CPUExecutionProvider`
       - Workflow:
     * `_cuda`
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `gpu`
+        - *CM_MLPERF_EXECUTION_PROVIDER*: `CUDAExecutionProvider`
       - Workflow:
 
     </details>
@@ -178,7 +181,26 @@ ___
 
 #### Default variations
 
-`_cpu,_onnxruntime,_pytorch`
+`_cpu,_onnxruntime`
+
+#### Input description
+
+* --**modelpath** Full path to a model
+* --**ep** ONNX Execution provider
+* --**scenario** MLPerf LoadGen scenario
+* --**samples** Number of samples (*2*)
+* --**runner** MLPerf runner
+* --**execmode** MLPerf exec mode
+* --**output_dir** MLPerf output directory
+* --**concurrency** MLPerf concurrency
+* --**intraop** MLPerf intra op threads
+* --**interop** MLPerf inter op threads
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "modelpath":...}
+```
 
 #### Script flags mapped to environment
 <details>
@@ -270,7 +292,7 @@ ___
 
 ___
 ### Script output
-`cmr "app loadgen generic loadgen-generic python[,variations]" [--input_flags] -j`
+`cmr "python app generic loadgen[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 * `CM_MLPERF_*`
