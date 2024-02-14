@@ -1525,6 +1525,9 @@ def docker(i):
     if interactive == '':
         interactive = i.get('docker_it', '')
 
+    verbose = i.get('v', False)
+    show_time = i.get('show_time', False)
+
     # Check simplified CMD: cm docker script "python app image-classification onnx"
     # If artifact has spaces, treat them as tags!
     self_module = i['self_module']
@@ -1637,7 +1640,10 @@ def docker(i):
         deps = docker_settings.get('deps', [])
         if deps:
             # Todo: Support state, const and add_deps_recursive
-            r = script_automation._run_deps(deps, [], env, {}, {}, {}, {}, '',{})
+            run_state = {'deps':[], 'fake_deps':[], 'parent': None}
+            run_state['script_id'] = script_alias + "," + script_uid
+            run_state['script_variation_tags'] = variation_tags
+            r = script_automation._run_deps(deps, [], env, {}, {}, {}, {}, '', {}, '', False, '', verbose, show_time, ' ', run_state)
             if r['return'] > 0:
                 return r
 
