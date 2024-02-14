@@ -870,6 +870,11 @@ variations:
       CM_OUTPUT_FOLDER_NAME: test_results
       CM_MLPERF_RUN_STYLE: test
 
+  valid,retinanet:
+    adr:
+      openimages-accuracy-script:
+        tags: _nvidia-pycocotools
+
   valid:
     group: execution-mode
     env:
