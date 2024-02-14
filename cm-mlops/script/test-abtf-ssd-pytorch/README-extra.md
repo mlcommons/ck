@@ -6,6 +6,7 @@ Pull main repository with CM DevOps and MLOps automations
 
 ```bash
 cm pull repo mlcommons@ck
+cm pull repo mlcommons@abtf-ssd-pytorch --branch=cm-automation
 ```
 
 Clean CM cache if needed:

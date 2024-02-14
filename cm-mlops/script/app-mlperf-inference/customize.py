@@ -206,7 +206,7 @@ def postprocess(i):
         result = mlperf_utils.get_result_from_log(env['CM_MLPERF_LAST_RELEASE'], model, scenario, output_dir, mode)
         power = None
         power_efficiency = None
-        if mode == performance:
+        if mode == "performance":
             result_split = result.split(",")
             if len(result_split) > 2: #power results are there
                 power = result_split[1]
