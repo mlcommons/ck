@@ -321,7 +321,7 @@ def postprocess(i):
         if repo_hash!='': x+=' --checkout='+str(repo_hash)
         
         readme_body += "## CM Run Command\n\nSee [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md).\n\n"+ \
-            "```bash\npip install cmind\n\ncm rm cache -f\n\ncm pull repo {}\n\n{}\n```".format(x, xcmd)
+            "```bash\npip install -U cmind\n\ncm rm cache -f\n\ncm pull repo {}\n\n{}\n```".format(x, xcmd)
 
         readme_body += "\n*Note that if you want to use the [latest automation recipes](https://access.cknowledge.org/playground/?action=scripts) for MLPerf (CM scripts),\n"+ \
                        " you should simply reload {} without checkout and clean CM cache as follows:*\n\n".format(repo_name) + \

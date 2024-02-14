@@ -121,7 +121,7 @@ def page(st, params):
 
                 x = '''
 ```bash
-pip install cmind
+pip install cmind -U
 cm pull repo mlcommons@ck{}
 
 cm run script "{}"
