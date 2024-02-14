@@ -140,7 +140,11 @@ def preprocess(i):
         target_model_path_dir = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'retinanet-resnext50-32x4d')
         if not os.path.exists(target_model_path_dir):
             cmds.append(f"mkdir -p {target_model_path_dir}")
-        model_path = os.path.join(target_model_path_dir, 'retinanet-fpn.onnx')
+        model_path = os.path.join(target_model_path_dir, 'retinanet-fpn-torch2.1-postprocessed.onnx')
+        alt_model_path = os.path.join(target_model_path_dir, 'retinanet-fpn-torch2.2-postprocessed.onnx')
+        if not os.path.exists(model_path) and os.path.exists(alt_model_path):
+            cmds.append(f"ln -sf {model_path} {alt_model_path}")
+
         model_name = "retinanet"
 
     elif "gptj" in env['CM_MODEL']:
