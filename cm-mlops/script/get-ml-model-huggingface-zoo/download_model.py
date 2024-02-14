@@ -4,6 +4,8 @@ import os
 model_stub = os.environ.get('CM_MODEL_ZOO_STUB', '')
 model_task = os.environ.get('CM_MODEL_TASK', '')
 
+revision = os.environ.get('CM_HF_REVISION','')
+
 if model_task == "prune":
     print("Downloading model: " + model_stub)
 
@@ -68,12 +70,14 @@ else:
                  hf_hub_download(repo_id=model_stub,
                             filename=model_filename,
                             force_filename=model_filename,
+                            revision=revision,
                             cache_dir=os.getcwd())
             else:
                  hf_hub_download(repo_id=model_stub,
                             subfolder=subfolder,
                             filename=model_filename,
                             force_filename=model_filename,
+                            revision=revision,
                             cache_dir=os.getcwd())
         
 
