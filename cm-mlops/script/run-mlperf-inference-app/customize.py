@@ -40,7 +40,7 @@ def preprocess(i):
             if os.path.isfile(z):
                 os.remove(z)
 
-    if str(env.get('CM_MLPERF_USE_DOCKER', '')).lower() not in [ "0", "false", "no"]:
+    if str(env.get('CM_MLPERF_USE_DOCKER', '')).lower() in [ "1", "true", "yes"]:
         action = "docker"
     else:
         action = "run"
