@@ -27,6 +27,7 @@ new_env_keys:
 default_env:
   CM_MAKE_BUILD_COMMAND: build
   CM_MAKE_CLEAN: "no"
+  CM_CUSTOM_SYSTEM_NVIDIA: "yes"
 
 input_mapping:
   custom_system: CM_CUSTOM_SYSTEM_NVIDIA
