@@ -264,6 +264,7 @@ deps:
       CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
       - run_harness
 
+  - tags: get,generic-python-lib,_package.nvmitten,_path./opt/nvmitten-0.1.3-cp38-cp38-linux_x86_64.whl
 prehook_deps:
   ########################################################################
   # Install GPTJ-6B model
