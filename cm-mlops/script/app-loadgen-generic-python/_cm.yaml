@@ -227,3 +227,10 @@ docker:
     - modelpath
     - env.CM_ML_MODEL_FILE_WITH_PATH
     - output_dir
+    - scenario
+    - runner
+    - concurrency
+    - intraop
+    - interop
+    - execmode
+    - samples

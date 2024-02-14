@@ -9,6 +9,7 @@ category: Tests
 input_mapping:
   input: CM_INPUT_IMAGE
   output: CM_OUTPUT_IMAGE
+  export_model: CM_ABTF_EXPORT_MODEL_TO_ONNX
 
 deps:
 
@@ -21,6 +22,7 @@ deps:
 
 - tags: get,generic-python-lib,_numpy
 - tags: get,generic-python-lib,_package.Pillow
+- tags: get,generic-python-lib,_onnx
 - tags: get,generic-python-lib,_torch
   names:
   - torch
