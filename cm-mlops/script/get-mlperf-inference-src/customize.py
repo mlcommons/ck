@@ -14,6 +14,7 @@ def preprocess(i):
 
     script_path = i['run_script_input']['path']
 
+
     if 'CM_GIT_DEPTH' not in env:
         env['CM_GIT_DEPTH'] = ''
 
@@ -92,6 +93,7 @@ def get_valid_models(mlperf_version, mlperf_path):
     submission_checker_dir = os.path.join(mlperf_path, "tools", "submission")
 
     sys.path.append(submission_checker_dir)
+
     if not os.path.exists(os.path.join(submission_checker_dir, "submission_checker.py")):
         shutil.copy(os.path.join(submission_checker_dir,"submission-checker.py"), os.path.join(submission_checker_dir,
         "submission_checker.py"))

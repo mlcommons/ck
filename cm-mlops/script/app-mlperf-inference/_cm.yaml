@@ -99,6 +99,8 @@ deps:
     names:
     - inference-src
 
+  - tags: get,mlperf,inference,utils
+
 posthook_deps:
   - tags: get,mlperf,sut,description #populate system meta information like framework
 

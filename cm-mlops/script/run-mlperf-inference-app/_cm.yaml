@@ -108,6 +108,8 @@ deps:
     - get-mlperf-inference-results-dir
   skip_if_env:
     OUTPUT_BASE_DIR: [ on ]
+- tags: get,generic-python-lib,_package.tabulate
+- tags: get,mlperf,inference,utils
 
 docker:
   fake_run_deps: true

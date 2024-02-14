@@ -23,6 +23,9 @@
     },
     {
       "tags": "get,generic-python-lib,_package.tabulate"
+    },
+    {
+      "tags": "get,mlperf,inference,utils"
     }
   ],
   "input_mapping": {

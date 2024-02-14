@@ -5,6 +5,8 @@ import shutil
 import cmind
 import sys
 from tabulate import tabulate
+print(sys.path)
+import mlperf_utils
 
 def preprocess(i):
     return {'return': 0}
@@ -303,7 +305,7 @@ def generate_submission(i):
                         f.write("TBD") #create an empty README
                 else:
                     readme_suffix = ""
-                    result_string, result = get_result_string(env['CM_MLPERF_LAST_RELEASE'], model, scenario, result_scenario_path, power_run, sub_res)
+                    result_string, result = mlperf_utils.get_result_string(env['CM_MLPERF_LAST_RELEASE'], model, scenario, result_scenario_path, power_run, sub_res)
 
                     for key in result:
                         results[model][scenario][key] = result[key]
@@ -312,188 +314,17 @@ def generate_submission(i):
 
         with open(system_file, "w") as fp:
             json.dump(system_meta, fp, indent=2)
-        headers = ["Model", "Scenario", "Accuracy", "QPS", "Latency (in ms)", "Power Efficiency (in samples/J)"]
-        table = []
-        for model in results:
-            for scenario in results[model]:
-                row = []
-                row.append(model)
-                row.append(scenario)
-                row.append(results[model][scenario]['accuracy'])
-                if "stream" in scenario.lower():
-                    if scenario.lower() == "singlestream":
-                        row.append(str(round(1000/float(results[model][scenario]['performance']), 3)))
-                    elif scenario.lower() == "multistream":
-                        row.append(str(round(8000/float(results[model][scenario]['performance']), 3)))
-                    row.append(results[model][scenario]['performance'])
-                else:
-                    row.append(results[model][scenario]['performance'])
-                    row.append("-")
 
-                #if results[model][scenario].get('power','') != '':
-                #    row.append(results[model][scenario]['power'])
-                if results[model][scenario].get('power_efficiency','') != '':
-                    row.append(results[model][scenario]['power_efficiency'])
-                table.append(row)
+        result_table, headers = mlperf_utils.get_result_table(results)
 
-        print(tabulate(table, headers = headers, tablefmt="pretty"))
+        print(tabulate(result_table, headers = headers, tablefmt="pretty"))
         sut_readme_file = os.path.join(measurement_path, "README.md")
         with open(sut_readme_file, mode='w') as f:
-            f.write(tabulate(table, headers = headers, tablefmt="github"))
+            f.write(tabulate(result_table, headers = headers, tablefmt="github"))
 
 
     return {'return':0}
 
-
-def get_accuracy_metric(config, model, path):
-
-    import submission_checker as checker
-    import re
-    is_valid = False
-    all_accuracy_valid = True
-    acc = None
-    result_acc = None
-    target = config.get_accuracy_target(model)
-    acc_upper_limit = config.get_accuracy_upper_limit(model)
-    patterns = []
-    acc_targets = []
-    acc_limits = []
-    up_patterns = []
-    acc_types = []
-
-    if acc_upper_limit is not None:
-        acc_limit_check = True
-        for i in range(0, len(acc_upper_limit), 2):
-            acc_type, acc_target = acc_upper_limit[i:i+2]
-            acc_limits.append(acc_target)
-            up_patterns.append(checker.ACC_PATTERN[acc_type])
-
-    for i in range(0, len(target), 2):
-        acc_type, acc_target = target[i:i+2]
-        acc_types.append(acc_type)
-        patterns.append(checker.ACC_PATTERN[acc_type])
-        acc_targets.append(acc_target)
-
-    acc_seen = [False for _ in acc_targets]
-    acc_results = {}
-    with open(os.path.join(path, "accuracy.txt"), "r", encoding="utf-8") as f:
-        for line in f:
-            for i, (pattern, acc_target, acc_type) in enumerate(zip(patterns, acc_targets, acc_types)):
-                m = re.match(pattern, line)
-                if m:
-                    acc = m.group(1)
-
-                    acc_results[acc_type] = acc
-
-                if acc is not None and float(acc) >= acc_target:
-                    all_accuracy_valid &= True
-                    acc_seen[i] = True
-                elif acc is not None:
-                    all_accuracy_valid = False
-                    #log.warning("%s accuracy not met: expected=%f, found=%s", path, acc_target, acc)
-                if i == 0 and acc:
-                    result_acc = acc
-                acc = None
-            if acc_upper_limit is not None:
-                for i, (pattern, acc_limit) in enumerate(zip(up_patterns, acc_limits)):
-                    m = re.match(pattern, line)
-                    if m:
-                        acc = m.group(1)
-                    if acc is not None and acc_upper_limit is not None and float(acc) > acc_limit:
-                        acc_limit_check = False
-                        #log.warning("%s accuracy not met: upper limit=%f, found=%s", path, acc_limit, acc)
-                    acc = None
-            if all(acc_seen):
-                break;
-        is_valid = all_accuracy_valid & all(acc_seen)
-        if acc_upper_limit is not None:
-            is_valid &= acc_limit_check
-
-
-    return acc_results, acc_targets, acc_limits
-
-
-def get_result_string(version, model, scenario, result_path, has_power, sub_res):
-    import submission_checker as checker
-    from log_parser import MLPerfLog
-
-    config = checker.Config(
-        version,
-        None,
-        ignore_uncommited=False,
-        skip_power_check=False,
-    )
-    mlperf_model = config.get_mlperf_model(model)
-    performance_path = os.path.join(result_path, "performance", "run_1")
-    accuracy_path = os.path.join(result_path, "accuracy")
-    scenario = checker.SCENARIO_MAPPING[scenario]
-
-    fname = os.path.join(performance_path, "mlperf_log_detail.txt")
-    mlperf_log = MLPerfLog(fname)
-    effective_scenario = mlperf_log["effective_scenario"]
-    inferred = False
-    result = {}
-
-
-    performance_result = checker.get_performance_metric(config, mlperf_model, performance_path, scenario, None, None, has_power)
-    if "stream" in scenario.lower():
-        performance_result_ = performance_result / 1000000 #convert to milliseconds
-    else:
-        performance_result_ = performance_result
-    result['performance'] = performance_result_
-
-    if scenario != effective_scenario:
-        inferred, inferred_result = checker.get_inferred_result(scenario, effective_scenario, performance_result, mlperf_log, config, False)
-
-    if has_power:
-        is_valid, power_metric, scenario, avg_power_efficiency = checker.get_power_metric(config, scenario, performance_path, True, performance_result)
-        if "stream" in scenario.lower():
-            power_metric_unit = "milliJoules"
-        else:
-            power_metric_unit = "Watts"
-        power_result_string = f"`Power consumed`: `{round(power_metric, 3)} {power_metric_unit}`, `Power efficiency`: `{round(avg_power_efficiency * 1000, 3)} samples per Joule`"
-
-        power_result = round(power_metric, 3)
-        power_efficiency_result = round(avg_power_efficiency, 3)
-        result['power'] = power_result
-        result['power_efficiency'] = power_efficiency_result
-
-    acc_results, acc_targets, acc_limits = get_accuracy_metric(config, mlperf_model, accuracy_path)
-
-    result_field = checker.RESULT_FIELD[effective_scenario]
-
-    performance_result_string = f"`{result_field}`: `{performance_result}`\n"
-    if inferred:
-        inferred_result_field = checker.RESULT_FIELD[scenario]
-        performance_result_string += f"Inferred result: `{inferred_result_field}`: `{inferred_result}`  \n"
-
-    accuracy_result_string = ''
-    accuracy_results = []
-    for i, acc in enumerate(acc_results):
-        accuracy_results.append(str(round(float(acc_results[acc]), 5)))
-        accuracy_result_string += f"`{acc}`: `{round(float(acc_results[acc]), 5)}`"
-        if not acc_limits:
-            accuracy_result_string += f", Required accuracy for closed division `>= {round(acc_targets[i], 5)}`"
-        else:
-            accuracy_result_string += f", Required accuracy for closed division `>= {round(acc_targets[i], 5)}` and `<= {round(acc_limits[i], 5)}`"
-        accuracy_result_string += "\n"
-
-    if len(accuracy_results) == 1:
-        accuracy_result = accuracy_results[0]
-    else:
-        accuracy_result = "(" + ",".join(accuracy_results)+")"
-    result['accuracy'] = accuracy_result
-
-    result_string = f"\n\n## Results\n"
-    result_string += f"\nPlatform: {sub_res}\n"
-    result_string += "\n### Accuracy Results \n" + accuracy_result_string
-    result_string += "\n### Performance Results \n" + performance_result_string
-    if has_power:
-        result_string += "\n### Power Results \n" + power_result_string
-
-
-    return result_string, result
- 
 def postprocess(i):
 
     r = generate_submission(i)
