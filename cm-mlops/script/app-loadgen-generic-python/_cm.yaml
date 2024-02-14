@@ -138,13 +138,17 @@ variations:
     env:
       CM_MLPERF_DEVICE:
         cpu
+      CM_MLPERF_EXECUTION_PROVIDER:
+        CPUExecutionProvider
+
   cuda:
     group:
       device
     env:
       CM_MLPERF_DEVICE:
         gpu
-  
+      CM_MLPERF_EXECUTION_PROVIDER:
+        CUDAExecutionProvider
 
 
 
