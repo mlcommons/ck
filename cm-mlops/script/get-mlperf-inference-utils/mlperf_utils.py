@@ -19,7 +19,7 @@ def get_result_from_log(version, model, scenario, result_path, mode):
     if mode == "performance":
         has_power = os.path.exists(os.path.join(result_path, "power"))
         result_ = checker.get_performance_metric(config, mlperf_model, result_path, scenario, None, None, has_power)
-        result = str(round(result_, 3)
+        result = str(round(result_, 3))
         if has_power:
             is_valid, power_metric, scenario, avg_power_efficiency = checker.get_power_metric(config, scenario, result_path, True, result_)
             result += f",{power_metric},{avg_power_efficiency}"

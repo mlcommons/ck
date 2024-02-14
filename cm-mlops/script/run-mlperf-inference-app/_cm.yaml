@@ -90,6 +90,7 @@ input_mapping:
 
 new_state_keys:
 - app_mlperf_inference_*
+- cm-mlperf-inference-results*
 
 deps:
 - tags: detect,os

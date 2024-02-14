@@ -206,25 +206,25 @@ def postprocess(i):
         result = mlperf_utils.get_result_from_log(env['CM_MLPERF_LAST_RELEASE'], model, scenario, output_dir, mode)
         power = None
         power_efficiency = None
-        if mode == performance:
+        if mode == "performance":
             result_split = result.split(",")
             if len(result_split) > 2: #power results are there
                 power = result_split[1]
                 power_efficiency = result_split[2]
 
-        if not state.get('CM_MLPERF_RESULTS'):
-            state['CM_MLPERF_RESULTS'] = {}
-        if not state['CM_MLPERF_RESULTS'].get(state['CM_SUT_CONFIG_NAME']):
-            state['CM_MLPERF_RESULTS'][state['CM_SUT_CONFIG_NAME']] = {}
-        if not state['CM_MLPERF_RESULTS'][state['CM_SUT_CONFIG_NAME']].get(model):
-            state['CM_MLPERF_RESULTS'][state['CM_SUT_CONFIG_NAME']][model] = {}
-        if not state['CM_MLPERF_RESULTS'][state['CM_SUT_CONFIG_NAME']][model].get(scenario):
-            state['CM_MLPERF_RESULTS'][state['CM_SUT_CONFIG_NAME']][model][scenario] = {}
-        state['CM_MLPERF_RESULTS'][state['CM_SUT_CONFIG_NAME']][model][scenario][mode] = result
+        if not state.get('cm-mlperf-inference-results'):
+            state['cm-mlperf-inference-results'] = {}
+        if not state['cm-mlperf-inference-results'].get(state['CM_SUT_CONFIG_NAME']):
+            state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']] = {}
+        if not state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']].get(model):
+            state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model] = {}
+        if not state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model].get(scenario):
+            state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario] = {}
+        state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario][mode] = result
         if power:
-            state['CM_MLPERF_RESULTS'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power'] = power
+            state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power'] = power
         if power_efficiency:
-            state['CM_MLPERF_RESULTS'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power_efficiency'] = power_efficiency
+            state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power_efficiency'] = power_efficiency
 
 
         # Record basic host info

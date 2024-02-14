@@ -189,10 +189,10 @@ def preprocess(i):
                     if env.get(key, '') != '':
                         del(env[key])
 
-    if state.get("CM_MLPERF_RESULTS"):
+    if state.get("cm-mlperf-inference-results"):
         #print(state["CM_MLPERF_RESULTS"])
-        for sut in state["CM_MLPERF_RESULTS"]:#only one sut will be there
-            result_table, headers = mlperf_utils.get_result_table(state["CM_MLPERF_RESULTS"][sut])
+        for sut in state["cm-mlperf-inference-results"]:#only one sut will be there
+            result_table, headers = mlperf_utils.get_result_table(state["cm-mlperf-inference-results"][sut])
             print(tabulate(result_table, headers = headers, tablefmt="pretty"))
 
     return {'return':0}
