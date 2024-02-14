@@ -1037,6 +1037,11 @@
       "new_env_keys": [
         "CM_TORNADO_VERSION"
       ]
+    },
+    "path.#": {
+      "env": {
+        "CM_GENERIC_PYTHON_PIP_URL": "#"
+      }
     }
   }
 }

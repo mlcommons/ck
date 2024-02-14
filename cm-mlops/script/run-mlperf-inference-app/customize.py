@@ -40,6 +40,11 @@ def preprocess(i):
             if os.path.isfile(z):
                 os.remove(z)
 
+    if str(env.get('CM_MLPERF_USE_DOCKER', '')).lower() not in [ "0", "false", "no"]:
+        action = "docker"
+    else:
+        action = "run"
+
     if env.get('CM_MLPERF_SUBMISSION_SYSTEM_TYPE', '') != '':
         system_type = env['CM_MLPERF_SUBMISSION_SYSTEM_TYPE']
         system_meta['system_type'] = system_type
@@ -166,7 +171,7 @@ def preprocess(i):
             env['CM_MLPERF_LOADGEN_MODE'] = mode
 
             print(f"\nRunning loadgen scenario: {scenario} and mode: {mode}")
-            ii = {'action':'run', 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
+            ii = {'action':action, 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
                 copy.deepcopy(add_deps_recursive), 'ad': ad, 'adr': copy.deepcopy(adr), 'v': verbose, 'print_env': print_env, 'print_deps': print_deps, 'dump_version_info': dump_version_info}
             r = cm.access(ii)
@@ -183,7 +188,7 @@ def preprocess(i):
             for test in test_list:
                 env['CM_MLPERF_LOADGEN_COMPLIANCE_TEST'] = test
                 env['CM_MLPERF_LOADGEN_MODE'] = "compliance"
-                r = cm.access({'action':'run', 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
+                r = cm.access({'action':action, 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
                     'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
                     copy.deepcopy(add_deps_recursive), 'adr': copy.deepcopy(adr), 'ad': ad, 'v': verbose, 'print_env': print_env, 'print_deps': print_deps, 'dump_version_info': dump_version_info})
                 if r['return'] > 0:
