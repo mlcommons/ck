@@ -201,7 +201,9 @@ def get_result_table(results):
                 continue
             
             if "stream" in scenario.lower():
-                if scenario.lower() == "singlestream":
+                if float(results[model][scenario]['performance']) == 0:
+                    row.append("-")
+                elif scenario.lower() == "singlestream":
                     row.append(str(round(1000/float(results[model][scenario]['performance']), 3)))
                 elif scenario.lower() == "multistream":
                     row.append(str(round(8000/float(results[model][scenario]['performance']), 3)))
