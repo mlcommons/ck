@@ -97,8 +97,9 @@ docker:
   skip_run_cmd: 'no'
   all_gpus: 'yes'
   input_paths:
-    - text
     - output
+  add_quotes_to_keys:
+    - text
   skip_input_for_fake_run:
     - text
     - output
