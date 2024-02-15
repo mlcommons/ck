@@ -6,11 +6,9 @@ You should use the master branch of MLCommons inference repo for the submission 
 
 ```bash
 cmr "generate inference submission" \
---results_dir=$HOME/results_dir/valid_results \
---submission_dir=$HOME/inference_submission_tree \
 --clean \
 --preprocess_submission=yes \
---adr.compiler.tags=gcc --adr.inference-src.version=master \
+--adr.compiler.tags=gcc \
 --run-checker \
 --submitter=CTuning \
 --tar=yes \
