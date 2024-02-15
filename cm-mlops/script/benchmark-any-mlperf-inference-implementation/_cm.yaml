@@ -117,11 +117,38 @@ variations:
       POWER_SERVER: 192.168.0.15
       POWER_SERVER_PORT: 4950
 
-
+  phoenix,power:
+    default_env:
+      POWER_SERVER: 192.168.0.15
+      POWER_SERVER_PORT: 4950
+  rb6,power:
+    default_env:
+      POWER_SERVER: 192.168.0.15
+      POWER_SERVER_PORT: 4950
+  orin,power:
+    default_env:
+      POWER_SERVER: 192.168.0.15
+      POWER_SERVER_PORT: 4950
+  rpi4,power:
+    default_env:
+      POWER_SERVER: 192.168.0.15
+      POWER_SERVER_PORT: 4950
+  mini,power:
+    default_env:
+      POWER_SERVER: 192.168.0.15
+      POWER_SERVER_PORT: 4950
+  rb6:
+    group: sut
+  orin:
+    group: sut
+  rpi4:
+    group: sut
+  mini:
+    group: sut
   phoenix:
     group: sut
     env:
-      CATEGORY: edge,datacenter
+      CATEGORY: edge
       DIVISION: closed
     state:
       resnet50:
