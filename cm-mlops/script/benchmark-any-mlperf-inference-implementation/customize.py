@@ -116,13 +116,12 @@ def preprocess(i):
                     cmds.append(cmd)
                     #second argument is unused for submission_cmd
                 cmd = f'run_test "{model}" "{backend}" "100" "{implementation}" "{device}" "$submission_cmd"'
-                cmds.append(cmd)
 
                 singlestream_target_latency = (((state.get(model, {})).get(device, {})).get(backend, {})).get('singlestream_target_latency')
                 if singlestream_target_latency:
-                    env['EXTRA_ARGS'] += f" --singlestream_target_latency={singlestream_target_latency}"
+                    cmd += f" --singlestream_target_latency={singlestream_target_latency}"
 
-    print(f"EXTRA_ARGS={env['EXTRA_ARGS']}")
+                cmds.append(cmd)
 
     run_script_content += "\n\n" +"\n\n".join(cmds)
     with open(os.path.join(script_path, run_file_name+".sh"), 'w') as f:

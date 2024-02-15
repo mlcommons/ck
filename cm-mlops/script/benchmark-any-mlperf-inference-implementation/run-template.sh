@@ -45,6 +45,10 @@ find_performance_cmd='cm run script --tags=generate-run-cmds,inference,_find-per
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
 --category=edge --division=open --scenario=Offline  --quiet --test_query_count=$test_query_count $rerun ${EXTRA_ARGS}'
 
+find_ss_performance_cmd='cm run script --tags=generate-run-cmds,inference,_find-performance \
+--model=$model --implementation=$implementation --device=$device --backend=$backend \
+--category=edge --division=open --scenario=SingleStream  --quiet --test_query_count=$test_query_count $rerun ${EXTRA_ARGS}'
+
 submission_cmd='cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios \
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
 --category=$category --division=$division  --quiet  \
