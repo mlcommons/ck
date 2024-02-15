@@ -1213,7 +1213,7 @@ def regenerate_script_cmd(i):
 
             v = i_run_cmd[k]
             
-            q = '"' if long_key in add_quotes_to_keys else ''
+            q = '\\"' if long_key in add_quotes_to_keys else ''
             
             if type(v)==dict:
                 run_cmd += rebuild_flags(v, fake_run, skip_input_for_fake_run, add_quotes_to_keys, long_key)

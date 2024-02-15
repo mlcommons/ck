@@ -12,7 +12,7 @@ cm run script "python app stable-diffusion onnx" --adr.python.name=sd-test --tex
 cm rm cache -f
 cm run script "python app stable-diffusion onnx _cuda" --adr.python.name=sd-test --text="crazy programmer"
 
-cm docker script "python app stable-diffusion onnx" --text="crazy programmer" --output=. --docker_cm_repo=ctuning@mlcommons-ck --env.CM_DOCKER_ADD_FLAG_TO_CM_MLOPS_REPO=xyz2
+cm docker script "python app stable-diffusion onnx" --text="crazy programmer" --output=. --docker_cm_repo=ctuning@mlcommons-ck --env.CM_DOCKER_ADD_FLAG_TO_CM_MLOPS_REPO=xyz4
 
 ```
 
