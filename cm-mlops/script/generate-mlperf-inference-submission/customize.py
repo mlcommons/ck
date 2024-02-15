@@ -18,28 +18,29 @@ def generate_submission(i):
     state = i['state']
     inp=i['input']
 
-    if env.get('CM_MLPERF_RESULTS_DIR', '') == '':
-        return {"return": 1, "error": "Please set --results_dir to the folder containing MLPerf inference results"}
+    if env.get('CM_MLPERF_INFERENCE_RESULTS_DIR_', '') == '':
+        env['CM_MLPERF_INFERENCE_RESULTS_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_RESULTS_DIR'], "valid_results")
 
     mlperf_path = env['CM_MLPERF_INFERENCE_SOURCE']
     submission_checker_dir = os.path.join(mlperf_path, "tools", "submission")
     sys.path.append(submission_checker_dir)
 
-    results_dir = env['CM_MLPERF_RESULTS_DIR']
+    results_dir = env['CM_MLPERF_INFERENCE_RESULTS_DIR']
 
-    if env.get('CM_MLPERF_SUBMISSION_DIR', '') == '':
+    if env.get('CM_MLPERF_INFERENCE_SUBMISSION_DIR', '') == '':
         from pathlib import Path
         user_home = str(Path.home())
-        env['CM_MLPERF_SUBMISSION_DIR'] = os.path.join(user_home, "mlperf_submission")
+        env['CM_MLPERF_INFERENCE_SUBMISSION_DIR'] = os.path.join(user_home, "mlperf_submission")
+
+    submission_dir = env.get('CM_MLPERF_INFERENCE_SUBMISSION_DIR', '')
 
     if env.get('CM_MLPERF_CLEAN_SUBMISSION_DIR','')!='':
         print ('=================================================')
-        print ('Cleaning {} ...'.format(env['CM_MLPERF_SUBMISSION_DIR']))
-        if os.path.exists(env['CM_MLPERF_SUBMISSION_DIR']):
-            shutil.rmtree(env['CM_MLPERF_SUBMISSION_DIR'])
+        print ('Cleaning {} ...'.format(env['CM_MLPERF_INFERENCE_SUBMISSION_DIR']))
+        if os.path.exists(env['CM_MLPERF_INFERENCE_SUBMISSION_DIR']):
+            shutil.rmtree(env['CM_MLPERF_INFERENCE_SUBMISSION_DIR'])
         print ('=================================================')
 
-    submission_dir = env['CM_MLPERF_SUBMISSION_DIR']
     if not os.path.isdir(submission_dir):
         os.makedirs(submission_dir)
 
@@ -127,6 +128,9 @@ def generate_submission(i):
 
             # Override framework and framework versions from the folder name
             system_meta_default['framework'] = framework + " " + framework_version
+        else:
+            print(parts)
+            return {'return': 1}
         result_path = os.path.join(results_dir, res)
         platform_prefix = inp.get('platform_prefix', '')
         if platform_prefix:

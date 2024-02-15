@@ -2,7 +2,8 @@
 
 `dl2q.24xlarge` instance is available in `us-west-2d` and it has 96 vCPUs and 768 GB of memory. 
 
-[Deep Learning Base Qualcomm AMI (Amazon Linux 2) 20231213, ami-08cae482e3b14c9b8](https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#LaunchInstances:ami=ami-08cae482e3b14c9b8) image from the Community AMIs is the recommended OS image as it comes with the QIAC SDKs (both Apps and Platform) preinstalled.
+[Deep Learning Base Qualcomm AMI (Amazon Linux 2) 20240110, ami-0799a42a111b1b87a](https://us-west-2.console.aws.amazon.com/ec2/home?region=us-west-2#LaunchInstances:ami=ami-0799a42a111b1b87a)
+image from the Community AMIs is the recommended OS image as it comes with the QIAC SDKs (both Apps and Platform) preinstalled.
 
 * Recommended to take 300 GB root disk
 

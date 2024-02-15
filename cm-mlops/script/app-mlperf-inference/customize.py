@@ -459,6 +459,7 @@ def postprocess(i):
     if env.get('CM_DUMP_SYSTEM_INFO', True):
         dump_script_output("detect,os", env, state, 'new_env', os.path.join(output_dir, "os_info.json"))
         dump_script_output("detect,cpu", env, state, 'new_env', os.path.join(output_dir, "cpu_info.json"))
+        env['CM_DUMP_RAW_PIP_FREEZE_FILE_PATH'] = os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "pip_freeze.raw")
         dump_script_output("dump,pip,freeze", env, state, 'new_state', os.path.join(output_dir, "pip_freeze.json"))
 
     return {'return':0}
