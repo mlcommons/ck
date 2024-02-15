@@ -438,6 +438,8 @@ variations:
     deps:
     - tags: get,generic-python-lib,_package.datasets
     - tags: get,generic-python-lib,_package.simplejson
+    env:
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download"
   
   gptj_,build:
     deps:
