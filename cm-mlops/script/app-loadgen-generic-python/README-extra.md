@@ -221,12 +221,9 @@ cmr "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-s
 cmr "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-stub.Intel/gpt-j-6B-int8-static" --adr.hf-downloader.model_filename=model.onnx --adr.hf-downloader.full_subfolder=. --samples=2
 ```
 
-
-cmr "python app loadgen-generic _onnxruntime _custom _huggingface _model-stub.runwayml/stable-diffusion-v1-5" --adr.hf-downloader.model_filename=onnx/unet/model.onnx,onnx/unet/weights.pb --samples=2
-
-
-TBD: some cases that are not yet fully supported (data types, etc):
+TBD: some cases that are not yet fully supported (data types, input mismatch, etc):
 ```bash
+cmr "python app loadgen-generic _onnxruntime _custom _huggingface _model-stub.runwayml/stable-diffusion-v1-5" --adr.hf-downloader.revision=onnx --adr.hf-downloader.model_filename=unet/model.onnx,unet/weights.pb --samples=2
 cmr "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-stub.microsoft/Mistral-7B-v0.1-onnx" --adr.hf-downloader.model_filename=Mistral-7B-v0.1.onnx,Mistral-7B-v0.1.onnx.data  --samples=2
 cmr "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-stub.alpindale/Llama-2-7b-ONNX" --adr.hf-downloader.model_filename=FP16/LlamaV2_7B_float16.onnx --adr.hf-downloader.full_subfolder=FP16 --samples=2
 ```
