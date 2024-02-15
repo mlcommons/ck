@@ -20,7 +20,7 @@ def get_result_from_log(version, model, scenario, result_path, mode):
     if mode == "performance":
         has_power = os.path.exists(os.path.join(result_path, "power"))
         result_ = checker.get_performance_metric(config, mlperf_model, result_path, scenario, None, None, has_power)
-        mlperf_log = MLPerfLog(os.path.join(result_path, mlperf_log_detail.txt))
+        mlperf_log = MLPerfLog(os.path.join(result_path, "mlperf_log_detail.txt"))
         if (
             "result_validity" not in mlperf_log.get_keys()
             or mlperf_log["result_validity"] != "VALID"
