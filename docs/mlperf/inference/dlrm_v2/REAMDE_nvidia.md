@@ -16,6 +16,8 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 --category=datacenter --division=open --quiet
 ```
 * Use `--division=closed` to run all scenarios for the closed division.
+* Use `--model=dlrm-v2-99.9` to run the high-accuracy model
+* Use `--rerun` to force a rerun even when result files (from a previous run) exist
 
 ### Do full accuracy and performance runs for all the scenarios
 
@@ -29,6 +31,8 @@ cmr "generate-run-cmds inference _submission _all-scenarios" --model=dlrm-v2-99 
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs
 * Use `--division=closed` to run all scenarios for the closed division.
 * `--offline_target_qps` and `--server_target_qps` can be used to override the determined performance numbers
+* Use `--model=dlrm-v2-99.9` to run the high-accuracy model
+* Use `--rerun` to force a rerun even when result files (from a previous run) exist
 
 
 ### Generate and upload MLPerf submission
