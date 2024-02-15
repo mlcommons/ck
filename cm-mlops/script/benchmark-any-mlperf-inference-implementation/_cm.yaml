@@ -178,7 +178,7 @@ variations:
       3d-unet-99.9:
         cuda:
           tensorrt:
-            offline_target_qps: 1
+            offline_target_qps: 4
       rnnt:
         cuda:
           tensorrt:
@@ -188,7 +188,7 @@ variations:
           tensorrt:
             offline_target_qps: 4.5
 
-  spr,nvidia:
+  sapphire-rapids.24c,nvidia:
     default_env:
       EXTRA_ARGS: " --gpu_name=rtx_4090"
     state:
@@ -211,7 +211,13 @@ variations:
       3d-unet-99.9:
         cuda:
           tensorrt:
-            offline_target_qps: 2
+            offline_target_qps: 8
+            singlestream_target_latency: 400
+      3d-unet-99.9:
+        cuda:
+          tensorrt:
+            offline_target_qps: 8
+            singlestream_target_latency: 400
       rnnt:
         cuda:
           tensorrt:
@@ -230,7 +236,7 @@ variations:
   sapphire-rapids.24c:
     group: sut
     env:
-      CATEGORY: edge,datacenter
+      CATEGORY: edge
       DIVISION: closed
 
   macbookpro-m1:

@@ -100,7 +100,7 @@ def preprocess(i):
             for device in devices:
                 offline_target_qps = (((state.get(model, {})).get(device, {})).get(backend, {})).get('offline_target_qps')
                 if offline_target_qps:
-                    pass
+                    env['EXTRA_ARGS'] += f" --offline_target_qps={offline_target_qps}"
                 else: #try to do a test run with reasonable number of samples to get and record the actual system performance
                     if device == "cpu":
                         if model == "resnet50":
@@ -117,6 +117,12 @@ def preprocess(i):
                     #second argument is unused for submission_cmd
                 cmd = f'run_test "{model}" "{backend}" "100" "{implementation}" "{device}" "$submission_cmd"'
                 cmds.append(cmd)
+
+                singlestream_target_latency = (((state.get(model, {})).get(device, {})).get(backend, {})).get('singlestream_target_latency')
+                if singlestream_target_latency:
+                    env['EXTRA_ARGS'] += f" --singlestream_target_latency={singlestream_target_latency}"
+
+    print(f"EXTRA_ARGS={env['EXTRA_ARGS']}")
 
     run_script_content += "\n\n" +"\n\n".join(cmds)
     with open(os.path.join(script_path, run_file_name+".sh"), 'w') as f:
