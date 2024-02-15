@@ -1,10 +1,5 @@
 [ [Back to the common setup](README.md) ]
 
-## Build Nvidia Docker Container (from 3.1 Inference round)
-
-```
-cm docker script --tags=build,nvidia,inference,server
-```
 
 ## Run this benchmark via CM
 
@@ -12,7 +7,7 @@ cm docker script --tags=build,nvidia,inference,server
 
 ```
 cmr "generate-run-cmds inference _find-performance _all-scenarios" \
---model=bert-99 --implementation=nvidia-original --device=cuda --backend=tensorrt \
+--model=bert-99 --implementation=qualcomm --device=qaic --backend=glow \
 --category=edge --division=open --quiet
 ```
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
@@ -24,15 +19,13 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 
 ```
 cmr "generate-run-cmds inference _submission _all-scenarios" --model=bert-99 \
---device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
+--device=qaic --implementation=qualcomm --backend=qaic \
+--execution-mode=valid --category=edge --division=open --quiet
 ```
 
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs
 * Use `--division=closed` to run all scenarios for the closed division including the compliance tests
 * `--offline_target_qps`, `--server_target_qps`, and `--singlestream_target_latency` can be used to override the determined performance numbers
-
 
 ### Generate and upload MLPerf submission
 
