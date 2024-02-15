@@ -48,7 +48,7 @@
   ],
   "input_mapping": {
     "device": "CM_MLPERF_DEVICE",
-    "results_dir": "CM_MLPERF_INFERENCE_RESULTS_DIR",
+    "results_dir": "CM_MLPERF_INFERENCE_RESULTS_DIR_",
     "run_checker": "CM_RUN_SUBMISSION_CHECKER",
     "run_style": "CM_MLPERF_RUN_STYLE",
     "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY",
