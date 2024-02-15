@@ -39,8 +39,7 @@
       },
       "names": [
         "imagenet-cal",
-        "preprocessed-dataset",
-        "dataset-preprocessed"
+        "preprocessed-calibration-dataset"
       ],
       "tags": "get,dataset,imagenet,preprocessed,_calibration,_for.resnet50,_float32,_rgb32"
     },
@@ -170,7 +169,8 @@
         "seq-length": "seq.384"
       },
       "env": {
-        "CM_QAIC_MODEL_NAME": "bert-large"
+        "CM_QAIC_MODEL_NAME": "bert-large",
+        "CM_CREATE_INPUT_BATCH": "no"
       },
       "adr": {
         "model-src": {
