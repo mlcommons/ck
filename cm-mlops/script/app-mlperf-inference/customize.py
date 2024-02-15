@@ -222,6 +222,7 @@ def postprocess(i):
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario] = {}
         state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario][mode] = result
         state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario][mode+'_valid'] = valid[mode]
+
         if power:
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power'] = power
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power_valid'] = valid['power']
