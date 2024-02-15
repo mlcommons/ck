@@ -6,9 +6,17 @@ automation_uid: 5b4e0237da074764
 
 category: Tests
 
+tags:
+- test
+- abtf
+- ssd
+- pytorch
+- ssd-pytorch
+
 input_mapping:
   input: CM_INPUT_IMAGE
   output: CM_OUTPUT_IMAGE
+  export_model: CM_ABTF_EXPORT_MODEL_TO_ONNX
 
 deps:
 
@@ -21,6 +29,7 @@ deps:
 
 - tags: get,generic-python-lib,_numpy
 - tags: get,generic-python-lib,_package.Pillow
+- tags: get,generic-python-lib,_onnx
 - tags: get,generic-python-lib,_torch
   names:
   - torch
@@ -38,12 +47,6 @@ deps:
   extra_cache_tags: abtf,ssd,pytorch
 
 
-tags:
-- test
-- abtf
-- ssd
-- pytorch
-- ssd-pytorch
 
 variations:
   cpu:
@@ -60,3 +63,23 @@ variations:
     env:
       CM_DEVICE:
         cuda
+
+input_description:
+  input: 
+    desc: input image (png)
+  output: 
+    desc: output image (png)
+  export_model: 
+    desc: ONNX model name to be exported from PyTorch
+
+docker:
+  skip_run_cmd: 'no'
+  all_gpus: 'yes'
+  input_paths:
+    - input
+    - output
+    - export_model
+  skip_input_for_fake_run:
+    - input
+    - output
+    - export_model

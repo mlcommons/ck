@@ -18,6 +18,10 @@ if not exist patchfile-20231129.patch (
   copy %CM_TMP_CURRENT_SCRIPT_PATH%\patches\patchfile-20231129.patch .
   patch -s -p0 < patchfile-20231129.patch
   IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
+
+  copy %CM_TMP_CURRENT_SCRIPT_PATH%\patches\patchfile-202400214-export-to-onnx.patch .
+  patch -s < patchfile-202400214-export-to-onnx.patch
+  IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
 )
 cd %CUR_DIR%
 

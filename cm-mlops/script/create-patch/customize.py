@@ -13,7 +13,6 @@ def preprocess(i):
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
-
     new_dir = env.get('CM_CREATE_PATCH_NEW', '')
     if new_dir == '':
         return {'return':1, 'error':'specify NEW directory using --new'}

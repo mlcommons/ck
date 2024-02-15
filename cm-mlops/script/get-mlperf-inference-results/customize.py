@@ -38,6 +38,9 @@ def postprocess(i):
     env = i['env']
     state = i['state']
 
+    if env.get('CM_GIT_REPO_CURRENT_HASH', '') != '':
+        env['CM_VERSION'] += "-git-"+env['CM_GIT_REPO_CURRENT_HASH']
+
 #    env['CM_MLPERF_INFERENCE_RESULTS_PATH'] = os.path.join(os.getcwd(), "inference_results_"+env['CM_MLPERF_INFERENCE_RESULTS_VERSION_NAME'])
 
     return {'return':0}

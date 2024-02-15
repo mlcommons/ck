@@ -34,6 +34,10 @@ def preprocess(i):
     if 'CM_MLPERF_LOADGEN_SAMPLES' in env:
         run_opts +=" --samples "+env['CM_MLPERF_LOADGEN_SAMPLES']
 
+    if env.get('CM_MLPERF_OUTPUT_DIR','')!='':
+        run_opts +=" --output "+env['CM_MLPERF_OUTPUT_DIR']
+
+    
     env['CM_RUN_OPTS'] = run_opts
 
     print ('')

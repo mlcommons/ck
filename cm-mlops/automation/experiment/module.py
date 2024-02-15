@@ -362,6 +362,9 @@ class CAutomation(Automation):
 
             ii['command'] = cmd_step
                        
+            print ('Generated CMD: {}'.format(cmd_step))
+            print ('')
+            
             # Prepare experiment step input
             experiment_step_input_file = os.path.join(experiment_path3, self.CM_INPUT_FILE)
 

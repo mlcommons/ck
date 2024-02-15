@@ -30,6 +30,7 @@ default_env:
 
 env:
   CM_MLPERF_PRINT_SUMMARY: "no"
+  CM_MLPERF_MODEL_EQUAL_ISSUE_MODE: 'no'
 
 # Map script inputs to environment variables
 input_mapping:
@@ -195,32 +196,7 @@ variations:
     alias: reference
   
   nvidia:
-    default_variations:
-      backend: tensorrt
-      device: cuda
-    group:
-      implementation
-    add_deps_recursive:
-      imagenet-accuracy-script:
-        tags: _int32
-      squad-accuracy-script:
-        tags: _float16
-      python:
-        version-min: 3.8.0
-    env:
-      CM_MLPERF_IMPLEMENTATION: nvidia
-      CM_SQUAD_ACCURACY_DTYPE: float16
-      CM_IMAGENET_ACCURACY_DTYPE: int32
-    deps:
-      ## Nvidia common code
-      - tags: get,mlperf,inference,nvidia,common-code
-      - tags: get,mlperf,training,src
-      - tags: get,generic-python-lib,_nvidia-pyindex
-      - tags: get,generic-python-lib,_nvidia-tensorrt
-      - tags: get,generic-python-lib,_numpy
-      - tags: get,generic-python-lib,_pycuda
-      - tags: get,generic-python-lib,_mlperf_logging
-      - tags: get,generic-python-lib,_onnx
+    alias: nvidia-original
 
   reference,gptj_:
     default_variations:
@@ -372,9 +348,6 @@ variations:
         - all
         CM_MLPERF_ACCURACY_RESULTS_DIR:
         - 'on'
-      skip_if_env:
-        CM_MLPERF_IMPLEMENTATION:
-        - nvidia-original
       names:
       - mlperf-accuracy-script
       - openimages-accuracy-script
@@ -405,6 +378,8 @@ variations:
         tags: _3d-unet-99.9
 
   3d-unet_:
+    env:
+      CM_MLPERF_MODEL_EQUAL_ISSUE_MODE: 'yes'
     posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
@@ -449,6 +424,8 @@ variations:
       tags: run,accuracy,mlperf,_coco2014
 
   llama2-70b_:
+    env:
+      CM_MLPERF_MODEL_EQUAL_ISSUE_MODE: 'yes'
     posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
@@ -546,6 +523,8 @@ variations:
     alias: gptj_
 
   gptj_:
+    env:
+      CM_MLPERF_MODEL_EQUAL_ISSUE_MODE: 'yes'
     posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
@@ -869,6 +848,11 @@ variations:
     env:
       CM_OUTPUT_FOLDER_NAME: test_results
       CM_MLPERF_RUN_STYLE: test
+
+  valid,retinanet:
+    adr:
+      openimages-accuracy-script:
+        tags: _nvidia-pycocotools
 
   valid:
     group: execution-mode

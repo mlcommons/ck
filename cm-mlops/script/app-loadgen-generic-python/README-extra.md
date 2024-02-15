@@ -221,6 +221,10 @@ cmr "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-s
 cmr "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-stub.Intel/gpt-j-6B-int8-static" --adr.hf-downloader.model_filename=model.onnx --adr.hf-downloader.full_subfolder=. --samples=2
 ```
 
+
+cmr "python app loadgen-generic _onnxruntime _custom _huggingface _model-stub.runwayml/stable-diffusion-v1-5" --adr.hf-downloader.model_filename=onnx/unet/model.onnx,onnx/unet/weights.pb --samples=2
+
+
 TBD: some cases that are not yet fully supported (data types, etc):
 ```bash
 cmr "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-stub.microsoft/Mistral-7B-v0.1-onnx" --adr.hf-downloader.model_filename=Mistral-7B-v0.1.onnx,Mistral-7B-v0.1.onnx.data  --samples=2
@@ -260,6 +264,19 @@ Available flags mapped to environment variables:
   --samples  ->  --env.CM_MLPERF_LOADGEN_SAMPLES
   --scenario  ->  --env.CM_MLPERF_LOADGEN_SCENARIO
 
+```
+
+## Running this app via Docker
+
+```bash
+cm docker script "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-stub.steerapi/Llama-2-7b-chat-hf-onnx-awq-w8" --adr.hf-downloader.model_filename=onnx/decoder_model_merged_quantized.onnx,onnx/decoder_model_merged_quantized.onnx_data --samples=2 --output_dir=. --docker_cm_repo=ctuning@mlcommons-ck
+```
+
+## Tuning CPU performance via CM experiment
+
+```bash
+cm run experiment --tags=loadgen,python,llama2 -- cmr script "python app loadgen-generic _onnxruntime _cuda _custom _huggingface _model-stub.steerapi/Llama-2-7b-chat-hf-onnx-awq-w8" --adr.hf-downloader.model_filename=onnx/decoder_model_merged_quantized.onnx,onnx/decoder_model_merged_quantized.onnx_data --samples=2 --intraop={{CM_OPT_INTRAOP{[1,2,4]}}} --interop={{CM_OPT_INTEROP{[1,2,4]}}} --quiet
+cm run experiment --tags=loadgen,python,llama2 -- cmr "python app loadgen-generic _onnxruntime" --modelpath={PATH TO ONNX MODEL} --samples=2 --intraop={{CM_OPT_INTRAOP{[1,2,4]}}} --interop={{CM_OPT_INTEROP{[1,2,4]}}} --quiet
 ```
 
 

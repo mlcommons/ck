@@ -40,6 +40,11 @@ def preprocess(i):
             if os.path.isfile(z):
                 os.remove(z)
 
+    if str(env.get('CM_MLPERF_USE_DOCKER', '')).lower() in [ "1", "true", "yes"]:
+        action = "docker"
+    else:
+        action = "run"
+
     if env.get('CM_MLPERF_SUBMISSION_SYSTEM_TYPE', '') != '':
         system_type = env['CM_MLPERF_SUBMISSION_SYSTEM_TYPE']
         system_meta['system_type'] = system_type
@@ -129,6 +134,10 @@ def preprocess(i):
     for key in adr_from_meta:
         add_deps_recursive[key] = adr_from_meta[key]
 
+    if env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE', '') != '':
+        add_deps_recursive['mlperf-inference-implementation'] = {}
+        add_deps_recursive['mlperf-inference-implementation']['tags'] = "_batch_size."+env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
+
     if clean and 'OUTPUT_BASE_DIR' in env:
         path_to_clean = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
 
@@ -162,7 +171,7 @@ def preprocess(i):
             env['CM_MLPERF_LOADGEN_MODE'] = mode
 
             print(f"\nRunning loadgen scenario: {scenario} and mode: {mode}")
-            ii = {'action':'run', 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
+            ii = {'action':action, 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
                 copy.deepcopy(add_deps_recursive), 'ad': ad, 'adr': copy.deepcopy(adr), 'v': verbose, 'print_env': print_env, 'print_deps': print_deps, 'dump_version_info': dump_version_info}
             r = cm.access(ii)
@@ -179,7 +188,7 @@ def preprocess(i):
             for test in test_list:
                 env['CM_MLPERF_LOADGEN_COMPLIANCE_TEST'] = test
                 env['CM_MLPERF_LOADGEN_MODE'] = "compliance"
-                r = cm.access({'action':'run', 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
+                r = cm.access({'action':action, 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
                     'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
                     copy.deepcopy(add_deps_recursive), 'adr': copy.deepcopy(adr), 'ad': ad, 'v': verbose, 'print_env': print_env, 'print_deps': print_deps, 'dump_version_info': dump_version_info})
                 if r['return'] > 0:
@@ -190,8 +199,9 @@ def preprocess(i):
                         del(env[key])
 
     if state.get("cm-mlperf-inference-results"):
-        #print(state["CM_MLPERF_RESULTS"])
+        #print(state["cm-mlperf-inference-results"])
         for sut in state["cm-mlperf-inference-results"]:#only one sut will be there
+            print(sut)
             result_table, headers = mlperf_utils.get_result_table(state["cm-mlperf-inference-results"][sut])
             print(tabulate(result_table, headers = headers, tablefmt="pretty"))
 
