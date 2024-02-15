@@ -18,19 +18,19 @@ def generate_submission(i):
     state = i['state']
     inp=i['input']
 
-    if env.get('CM_MLPERF_RESULTS_DIR', '') == '':
+    if env.get('CM_MLPERF_INFERENCE_RESULTS_DIR', '') == '':
         return {"return": 1, "error": "Please set --results_dir to the folder containing MLPerf inference results"}
 
     mlperf_path = env['CM_MLPERF_INFERENCE_SOURCE']
     submission_checker_dir = os.path.join(mlperf_path, "tools", "submission")
     sys.path.append(submission_checker_dir)
 
-    results_dir = env['CM_MLPERF_RESULTS_DIR']
+    results_dir = env['CM_MLPERF_INFERENCE_RESULTS_DIR']
 
-    if env.get('CM_MLPERF_SUBMISSION_DIR', '') == '':
+    if env.get('CM_MLPERF_INFERENCE_SUBMISSION_DIR', '') == '':
         from pathlib import Path
         user_home = str(Path.home())
-        env['CM_MLPERF_SUBMISSION_DIR'] = os.path.join(user_home, "mlperf_submission")
+        env['CM_MLPERF_INFERENCE_SUBMISSION_DIR'] = os.path.join(user_home, "mlperf_submission")
 
     if env.get('CM_MLPERF_CLEAN_SUBMISSION_DIR','')!='':
         print ('=================================================')
@@ -39,7 +39,7 @@ def generate_submission(i):
             shutil.rmtree(env['CM_MLPERF_SUBMISSION_DIR'])
         print ('=================================================')
 
-    submission_dir = env['CM_MLPERF_SUBMISSION_DIR']
+    submission_dir = env['CM_MLPERF_INFERENCE_SUBMISSION_DIR']
     if not os.path.isdir(submission_dir):
         os.makedirs(submission_dir)
 
