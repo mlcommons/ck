@@ -30,6 +30,7 @@ default_env:
 
 env:
   CM_MLPERF_PRINT_SUMMARY: "no"
+  CM_MLPERF_MODEL_EQUAL_ISSUE_MODE: 'no'
 
 # Map script inputs to environment variables
 input_mapping:
@@ -377,6 +378,8 @@ variations:
         tags: _3d-unet-99.9
 
   3d-unet_:
+    env:
+      CM_MLPERF_MODEL_EQUAL_ISSUE_MODE: 'yes'
     posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
@@ -421,6 +424,8 @@ variations:
       tags: run,accuracy,mlperf,_coco2014
 
   llama2-70b_:
+    env:
+      CM_MLPERF_MODEL_EQUAL_ISSUE_MODE: 'yes'
     posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
@@ -518,6 +523,8 @@ variations:
     alias: gptj_
 
   gptj_:
+    env:
+      CM_MLPERF_MODEL_EQUAL_ISSUE_MODE: 'yes'
     posthook_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:

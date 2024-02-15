@@ -140,7 +140,16 @@ def preprocess(i):
                     print("In find performance mode: using 0.5ms as target_latency")
                 else:
                     print("No target_latency specified. Using 0.5ms as target_latency")
-                conf[metric] = 0.5
+                if env.get('CM_MLPERF_USE_MAX_DURATION', 'yes').lower() in [ "no", "false", "0" ] or env.get('CM_MLPERF_MODEL_EQUAL_ISSUE_MODE', 'no').lower() in [ "yes", "1", "true" ]:
+                    # Total number of queries needed is a multiple of dataset size. So we dont use max_duration and so we need to be careful with the input latency
+                    if '3d-unet' in env['CM_MODEL']:
+                        conf[metric] = 400
+                    elif 'gptj' in env['CM_MODEL']:
+                        conf[metric] = 1000
+                    else:
+                        conf[metric] = 100
+                else:
+                    conf[metric] = 0.5
             metric_value = conf[metric]
             #else:
             #    return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
@@ -254,7 +263,7 @@ def preprocess(i):
 
     else:
         if scenario == "MultiStream" or scenario == "SingleStream":
-            if env.get('CM_MLPERF_USE_MAX_DURATION', 'yes').lower() not in [ "no", "false" ]:
+            if env.get('CM_MLPERF_USE_MAX_DURATION', 'yes').lower() not in [ "no", "false", "0" ] and env.get('CM_MLPERF_MODEL_EQUAL_ISSUE_MODE', 'no').lower() not in [ "yes", "1", "true" ]:
                 user_conf += ml_model_name + "." + scenario + ".max_duration = 660000 \n"
             elif env.get('CM_MLPERF_INFERENCE_MIN_DURATION','') != '':
                 user_conf += ml_model_name + "." + scenario + ".min_duration = " + env['CM_MLPERF_INFERENCE_MIN_DURATION'] +" \n"
