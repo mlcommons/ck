@@ -29,25 +29,15 @@ cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic
 
 ### Full valid run
 ```
-cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic \
+cm run script --tags=generate-run-cmds,inference,_submission --device=qaic \
 --backend=glow --scenario=Offline --implementation=kilt --model=bert-99 --precision=uint8 \
 --adr.mlperf-inference-implementation.tags=_loadgen-batch-size.4096,_dl2q.24xlarge \
 --rerun --quiet --execution-mode=valid
 ```
 
 The expected performance is ~5700 QPS
-* Use `--scenario=Server --server_target_qps=5200` to run the server scenario
-
-### Accuracy run
-```
-cm run script --tags=generate-run-cmds,inference,_accuracy-only --device=qaic \
---backend=glow --scenario=Offline --implementation=kilt --model=bert-99 --precision=uint8 \
---adr.mlperf-inference-implementation.tags=_loadgen-batch-size.4096,_dl2q.24xlarge \
---rerun --quiet --execution-mode=valid
-```
-
 The expected accuracy is ~90
-
+* Use `--scenario=Server --server_target_qps=5200` to run the server scenario
 
 
 ## ResNet50
@@ -70,26 +60,15 @@ cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic
 ### Full valid run
 
 ```
-cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic --backend=glow \
+cm run script --tags=generate-run-cmds,inference,_submission --device=qaic --backend=glow \
 --scenario=Offline  --implementation=kilt --model=resnet50 \
 --precision=uint8 --rerun --adr.compiler.tags=gcc \
 --adr.mlperf-inference-implementation.tags=_bs.8,_dl2q.24xlarge --execution-mode=valid --quiet
 ```
 Expected performance is ~157500
-* Use `--scenario=Server --server_target_qps=152000` to run the server scenario
-
-### Accuracy run
-
-```
-cm run script --tags=generate-run-cmds,inference,_accuracy-only --device=qaic --backend=glow \
---scenario=Offline  --implementation=kilt --model=resnet50 \
---precision=uint8 --rerun --adr.compiler.tags=gcc \
---adr.mlperf-inference-implementation.tags=_bs.8,_dl2q.24xlarge --execution-mode=valid --quiet
-```
-
 Expected accuracy is 75.936%
 
-
+* Use `--scenario=Server --server_target_qps=152000` to run the server scenario
 
 
 ## RetinaNet
@@ -106,22 +85,13 @@ cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic
 ### Full valid run
 
 ```
-cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic --backend=glow \
+cm run script --tags=generate-run-cmds,inference,_submission --device=qaic --backend=glow \
 --scenario=Offline  --implementation=kilt --model=retinanet \
 --precision=uint8 --rerun --adr.compiler.tags=gcc --adr.dataset-preprocessed.tags=_custom-annotations\
 --adr.mlperf-inference-implementation.tags=_bs.1,_dl2q.24xlarge --execution-mode=valid --quiet
 ```
 Expected performance is ~2200
-* Use `--scenario=Server --server_target_qps=2050` to run the server scenario
-
-### Accuracy run
-
-```
-cm run script --tags=generate-run-cmds,inference,_accuracy-only --device=qaic --backend=glow \
---scenario=Offline  --implementation=kilt --model=retinanet \
---precision=uint8 --rerun --adr.compiler.tags=gcc --adr.dataset-preprocessed.tags=_custom-annotations \
---adr.mlperf-inference-implementation.tags=_bs.1,_dl2q.24xlarge --execution-mode=valid --quiet
-```
-
 The expected accuracy is 37.234
+
+* Use `--scenario=Server --server_target_qps=2050` to run the server scenario
 
