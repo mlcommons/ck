@@ -114,29 +114,24 @@ variations:
     env:
       POWER: yes
     default_env:
-      POWER_SERVER: 192.168.0.15
+      POWER_SERVER: 192.168.1.166
       POWER_SERVER_PORT: 4950
 
   phoenix,power:
     default_env:
-      POWER_SERVER: 192.168.0.15
-      POWER_SERVER_PORT: 4950
+      POWER_SERVER: 192.168.1.79
   rb6,power:
     default_env:
-      POWER_SERVER: 192.168.0.15
-      POWER_SERVER_PORT: 4950
+      POWER_SERVER: 192.168.1.166
   orin,power:
     default_env:
-      POWER_SERVER: 192.168.0.15
-      POWER_SERVER_PORT: 4950
+      POWER_SERVER: 192.168.1.166
   rpi4,power:
     default_env:
-      POWER_SERVER: 192.168.0.15
-      POWER_SERVER_PORT: 4950
+      POWER_SERVER: 192.168.1.166
   mini,power:
     default_env:
-      POWER_SERVER: 192.168.0.15
-      POWER_SERVER_PORT: 4950
+      POWER_SERVER: 192.168.1.166
   rb6:
     group: sut
   orin:
