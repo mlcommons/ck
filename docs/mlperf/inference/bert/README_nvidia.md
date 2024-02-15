@@ -2,7 +2,8 @@
 
 ## Build Nvidia Docker Container (from 3.1 Inference round)
 
-```cm docker script --tags=build,nvidia,inference,server
+```
+cm docker script --tags=build,nvidia,inference,server
 ```
 
 ## Run this benchmark via CM
