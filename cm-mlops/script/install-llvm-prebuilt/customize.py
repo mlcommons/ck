@@ -119,6 +119,20 @@ def preprocess(i):
                   elif need_version == '16.0.4':
                       default_os = '22.04'
 
+                  elif need_version == '17.0.2':
+                      default_os = '22.04'
+
+                  elif need_version == '17.0.2':
+                      default_os = '22.04'
+
+                  elif need_version == '17.0.4':
+                      default_os = '22.04'
+
+                  elif need_version == '17.0.5':
+                      default_os = '22.04'
+
+                  elif need_version == '17.0.6':
+                      default_os = '22.04'
 
               package_name = 'clang+llvm-' + need_version + '-x86_64-linux-gnu-ubuntu-' + default_os + '.tar.xz'
 
