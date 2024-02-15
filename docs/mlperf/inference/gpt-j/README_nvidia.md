@@ -31,14 +31,6 @@ cmr "generate-run-cmds inference _submission _all-scenarios" --model=gptj-99 \
 * Use `--division=closed` to run all scenarios for the closed division. No compliance runs are there for gptj. 
 * `--offline_target_qps`, `--server_target_qps`, and `--singlestream_target_latency` can be used to override the determined performance numbers
 
-### Populate the README files describing your submission
-
-```
-cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
---model=resnet50 --device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
-```
 
 ### Generate and upload MLPerf submission
 
