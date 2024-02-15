@@ -87,7 +87,7 @@ cm run script --tags=generate-run-cmds,inference,_performance-only --device=qaic
 ```
 cm run script --tags=generate-run-cmds,inference,_submission --device=qaic --backend=glow \
 --scenario=Offline  --implementation=kilt --model=retinanet \
---precision=uint8 --rerun --adr.compiler.tags=gcc --adr.dataset-preprocessed.tags=_custom-annotations\
+--precision=uint8 --rerun --adr.compiler.tags=gcc --adr.dataset-preprocessed.tags=_custom-annotations \
 --adr.mlperf-inference-implementation.tags=_bs.1,_dl2q.24xlarge --execution-mode=valid --quiet
 ```
 Expected performance is ~2200
