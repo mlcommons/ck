@@ -5,12 +5,17 @@ import os
 def preprocess(i):
 
     os_info = i['os_info']
+
+    xsep = ';' if os_info['platform'] == 'windows' else ':'
+    
     env = i['env']
     results_dir = env.get("CM_MLPERF_ACCURACY_RESULTS_DIR", "")
 
     if results_dir == "":
         print("Please set CM_MLPERF_ACCURACY_RESULTS_DIR")
         return {'return':-1}
+
+    # In fact, we expect only 1 command line here
     run_cmds = []
 
     if env.get('CM_MAX_EXAMPLES', '') != '' and env.get('CM_MLPERF_RUN_STYLE', '') != 'valid':
@@ -18,15 +23,17 @@ def preprocess(i):
     else:
         max_examples_string = ""
 
-    results_dir_split = results_dir.split(":")
+    results_dir_split = results_dir.split(xsep)
     dataset = env['CM_DATASET']
     regenerate_accuracy_file = env.get('CM_MLPERF_REGENERATE_ACCURACY_FILE', False)
 
     for result_dir in results_dir_split:
 
         out_file = os.path.join(result_dir, 'accuracy.txt')
+
         if os.path.exists(out_file) and os.stat(out_file).st_size != 0 and not regenerate_accuracy_file:
             continue
+
         if dataset == "openimages":
             if env.get('CM_DATASET_PATH_ROOT', '') != '':
                 dataset_dir = env['CM_DATASET_PATH_ROOT']
@@ -35,9 +42,9 @@ def preprocess(i):
             else:
                 env['DATASET_ANNOTATIONS_FILE_PATH'] = env['CM_DATASET_ANNOTATIONS_FILE_PATH']
                 dataset_dir = os.getcwd() # not used, just to keep the script happy
-            CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
-                "accuracy-openimages.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir, \
-                    "mlperf_log_accuracy.json") + "' --openimages-dir '" + dataset_dir + "' --verbose > '" + \
+            CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " "+"'" + os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
+                "accuracy-openimages.py") + "'"+" --mlperf-accuracy-file "+"'" + os.path.join(result_dir, \
+                    "mlperf_log_accuracy.json") + "'"+" --openimages-dir "+"'" + dataset_dir + "'"+" --verbose > "+"'" + \
                 out_file + "'"
 
         elif dataset == "imagenet":
@@ -97,7 +104,12 @@ def preprocess(i):
         if not os.path.exists(outfile) or os.stat(outfile).st_size == 0 or env.get("CM_REGENERATE_MEASURE_FILES", False):
             run_cmds.append(CMD)
 
-    env['CM_RUN_CMDS'] = "??".join(run_cmds)
+
+    if os_info['platform'] == 'windows':
+        env['CM_RUN_CMDS'] = ('\n'.join(run_cmds)).replace("'", '"').replace('>','^>')
+    else:
+        env['CM_RUN_CMDS'] = "??".join(run_cmds)
+
     return {'return':0}
 
 def postprocess(i):
@@ -106,8 +118,11 @@ def postprocess(i):
     env = i['env']
     state = i['state']
 
+    xsep = ';' if os_info['platform'] == 'windows' else ':'
+
     results_dir = env.get("CM_MLPERF_ACCURACY_RESULTS_DIR", "")
-    results_dir_split = results_dir.split(":")
+    
+    results_dir_split = results_dir.split(xsep)
 
     for result_dir in results_dir_split:
         accuracy_file = os.path.join(result_dir, "accuracy.txt")
@@ -116,6 +131,7 @@ def postprocess(i):
             print ('')
             print ('Accuracy file: {}'.format(accuracy_file))
             print ('')
+
             x = ''
             with open(accuracy_file, "r") as fp:
                 x=fp.read()
