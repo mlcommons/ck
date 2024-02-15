@@ -30,3 +30,5 @@ print ('Generating imaged based on "{}"'.format(text))
 image = pipeline(text).images[0]
 
 image.save(f)
+
+print ('Image recorded to "{}"'.format(f))
