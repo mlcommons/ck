@@ -96,6 +96,42 @@ ___
 
 #### Variations
 
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_default-pycocotools,openimages`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_pycocotools
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,mlcommons,mlperf,inference,src,-_openimages-nvidia-pycocotools
+             * CM names: `--adr.['for-pycocotools', 'accuracy-check-src']...`
+             - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+    * `_nvidia-pycocotools,openimages`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_nvidia-pycocotools
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,mlcommons,mlperf,inference,src,_openimages-nvidia-pycocotools
+             * CM names: `--adr.['for-pycocotools', 'accuracy-check-src']...`
+             - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+
+    </details>
+
+
+  * Group "**coco-evaluation-tool**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_default-pycocotools`** (default)
+      - Workflow:
+    * `_nvidia-pycocotools`
+      - Workflow:
+
+    </details>
+
+
   * Group "**dataset**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -154,9 +190,12 @@ ___
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,dataset-aux,openimages,annotations
+             * `if (CM_MLPERF_RUN_STYLE  == valid)`
              - CM script: [get-dataset-openimages-annotations](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-annotations)
-           * get,generic-python-lib,_nvidia-pycocotools
-             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,dataset,openimages,original
+             * `if (CM_MLPERF_RUN_STYLE  != valid)`
+             * CM names: `--adr.['openimages-original']...`
+             - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
            * get,generic-python-lib,_package.kiwisolver
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_squad`
@@ -231,7 +270,7 @@ ___
 
 #### Default variations
 
-`_float32,_imagenet`
+`_default-pycocotools,_float32,_imagenet`
 #### Default environment
 
 <details>
@@ -253,7 +292,7 @@ ___
        * CM names: `--adr.['python3', 'python']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,mlcommons,inference,src
-       * CM names: `--adr.['inference-src']...`
+       * CM names: `--adr.['inference-src', 'accuracy-check-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy/_cm.json)

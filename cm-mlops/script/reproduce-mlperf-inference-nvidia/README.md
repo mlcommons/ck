@@ -1219,6 +1219,8 @@ ___
        * `if (CM_MLPERF_NVIDIA_HARNESS_RUN_MODE  == run_harness)`
        * CM names: `--adr.['user-conf-generator']...`
        - CM script: [generate-mlperf-inference-user-conf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf)
+     * get,generic-python-lib,_package.nvmitten,_path./opt/nvmitten-0.1.3-cp38-cp38-linux_x86_64.whl
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)***
      * get,ml-model,gptj,_pytorch,_rclone

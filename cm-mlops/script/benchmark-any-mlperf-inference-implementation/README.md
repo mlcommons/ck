@@ -103,7 +103,11 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_phoenix,nvidia`
+      - Workflow:
     * `_phoenix,reference`
+      - Workflow:
+    * `_spr,nvidia`
       - Workflow:
 
     </details>
@@ -200,6 +204,7 @@ ___
 * `--category=value`  &rarr;  `CATEGORY=value`
 * `--devices=value`  &rarr;  `DEVICES=value`
 * `--division=value`  &rarr;  `DIVISION=value`
+* `--extra_args=value`  &rarr;  `EXTRA_ARGS=value`
 * `--models=value`  &rarr;  `MODELS=value`
 * `--power_server=value`  &rarr;  `POWER_SERVER=value`
 * `--power_server_port=value`  &rarr;  `POWER_SERVER_PORT=value`

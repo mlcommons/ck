@@ -149,6 +149,7 @@ ___
 * `--env_key=value`  &rarr;  `CM_MODEL_ZOO_ENV_KEY=value`
 * `--full_subfolder=value`  &rarr;  `CM_HF_FULL_SUBFOLDER=value`
 * `--model_filename=value`  &rarr;  `CM_MODEL_ZOO_FILENAME=value`
+* `--revision=value`  &rarr;  `CM_HF_REVISION=value`
 * `--subfolder=value`  &rarr;  `CM_HF_SUBFOLDER=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**

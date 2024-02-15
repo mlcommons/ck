@@ -168,6 +168,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 * CM_MAKE_BUILD_COMMAND: `build`
 * CM_MAKE_CLEAN: `no`
+* CM_CUSTOM_SYSTEM_NVIDIA: `yes`
 
 </details>
 

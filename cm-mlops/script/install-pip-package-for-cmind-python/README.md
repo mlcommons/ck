@@ -31,7 +31,7 @@
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pip-package-for-cmind-python)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
 * CM "database" tags to find this script: *install,pip,package,pip-package,for-cmind-python,for.cmind-python*
-* Output cached? *False*
+* Output cached? *True*
 ___
 ### Reuse this script in your project
 

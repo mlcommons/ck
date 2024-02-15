@@ -159,30 +159,8 @@ ___
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['kilt', 'kilt-harness', 'mlperf-inference-implementation']...`
              - CM script: [reproduce-mlperf-inference-qualcomm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm)
-    * `_nvidia`
-      - Environment variables:
-        - *CM_MLPERF_IMPLEMENTATION*: `nvidia`
-        - *CM_SQUAD_ACCURACY_DTYPE*: `float16`
-        - *CM_IMAGENET_ACCURACY_DTYPE*: `int32`
-      - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * get,mlperf,inference,nvidia,common-code
-             - CM script: [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
-           * get,mlperf,training,src
-             - CM script: [get-mlperf-training-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src)
-           * get,generic-python-lib,_nvidia-pyindex
-             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-           * get,generic-python-lib,_nvidia-tensorrt
-             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-           * get,generic-python-lib,_numpy
-             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-           * get,generic-python-lib,_pycuda
-             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-           * get,generic-python-lib,_mlperf_logging
-             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-           * get,generic-python-lib,_onnx
-             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_nvidia-original`
+      - Aliases: `_nvidia`
       - Environment variables:
         - *CM_MLPERF_IMPLEMENTATION*: `nvidia-original`
         - *CM_SQUAD_ACCURACY_DTYPE*: `float16`
@@ -400,7 +378,7 @@ ___
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * run,accuracy,mlperf,_openimages
-             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia-original)`
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
              * CM names: `--adr.['mlperf-accuracy-script', 'openimages-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * `_rnnt`
@@ -510,6 +488,8 @@ ___
     <summary>Click here to expand this section.</summary>
 
     * `_3d-unet_`
+      - Environment variables:
+        - *CM_MLPERF_MODEL_EQUAL_ISSUE_MODE*: `yes`
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * run,accuracy,mlperf,_kits19,_int8
@@ -539,6 +519,8 @@ ___
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * `_gptj_`
       - Aliases: `_gptj`
+      - Environment variables:
+        - *CM_MLPERF_MODEL_EQUAL_ISSUE_MODE*: `yes`
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * run,accuracy,mlperf,_cnndm
@@ -546,6 +528,8 @@ ___
              * CM names: `--adr.['cnndm-accuracy-script', 'mlperf-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * `_llama2-70b_`
+      - Environment variables:
+        - *CM_MLPERF_MODEL_EQUAL_ISSUE_MODE*: `yes`
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * run,accuracy,mlperf,_open-orca
@@ -582,6 +566,8 @@ ___
     * `_rnnt,reference`
       - Environment variables:
         - *CM_MLPERF_PRINT_SUMMARY*: `no`
+      - Workflow:
+    * `_valid,retinanet`
       - Workflow:
 
     </details>

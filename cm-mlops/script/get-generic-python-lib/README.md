@@ -330,6 +330,10 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `pandas`
       - Workflow:
+    * `_path.#`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PIP_URL*: `#`
+      - Workflow:
     * `_pillow`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `Pillow`

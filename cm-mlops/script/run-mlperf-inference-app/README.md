@@ -283,6 +283,7 @@ r=cm.access({... , "device":...}
 <summary>Click here to expand this section.</summary>
 
 * `--backend=value`  &rarr;  `CM_MLPERF_BACKEND=value`
+* `--batch_size=value`  &rarr;  `CM_MLPERF_LOADGEN_MAX_BATCHSIZE=value`
 * `--category=value`  &rarr;  `CM_MLPERF_SUBMISSION_SYSTEM_TYPE=value`
 * `--clean=value`  &rarr;  `CM_MLPERF_CLEAN_ALL=value`
 * `--compliance=value`  &rarr;  `CM_MLPERF_LOADGEN_COMPLIANCE=value`
@@ -291,6 +292,7 @@ r=cm.access({... , "device":...}
 * `--debug=value`  &rarr;  `CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM=value`
 * `--device=value`  &rarr;  `CM_MLPERF_DEVICE=value`
 * `--division=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIVISION=value`
+* `--docker=value`  &rarr;  `CM_MLPERF_USE_DOCKER=value`
 * `--dump_version_info=value`  &rarr;  `CM_DUMP_VERSION_INFO=value`
 * `--execution_mode=value`  &rarr;  `CM_MLPERF_EXECUTION_MODE=value`
 * `--find_performance=value`  &rarr;  `CM_MLPERF_FIND_PERFORMANCE_MODE=value`
@@ -334,6 +336,7 @@ r=cm.access({... , "device":...}
 * `--target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_TARGET_LATENCY=value`
 * `--target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_TARGET_QPS=value`
 * `--test_query_count=value`  &rarr;  `CM_TEST_QUERY_COUNT=value`
+* `--threads=value`  &rarr;  `CM_NUM_THREADS=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
