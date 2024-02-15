@@ -47,7 +47,7 @@ input_mapping:
   docker: CM_MLPERF_USE_DOCKER
   dump_version_info: CM_DUMP_VERSION_INFO
   save_console_log: CM_SAVE_CONSOLE_LOG
-  execution_mode: CM_MLPERF_EXECUTION_MODE
+  execution_mode: CM_MLPERF_RUN_STYLE
   find_performance: CM_MLPERF_FIND_PERFORMANCE_MODE
   gpu_name: CM_NVIDIA_GPU_NAME
   hw_name: CM_HW_NAME
@@ -74,7 +74,7 @@ input_mapping:
   results_dir: OUTPUT_BASE_DIR
   results_git_url: CM_MLPERF_RESULTS_GIT_REPO_URL
   run_checker: CM_RUN_SUBMISSION_CHECKER
-  run_style: CM_MLPERF_EXECUTION_MODE
+  run_style: CM_MLPERF_RUN_STYLE
   scenario: CM_MLPERF_LOADGEN_SCENARIO
   server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
   singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY

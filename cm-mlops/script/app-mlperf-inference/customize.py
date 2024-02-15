@@ -203,7 +203,7 @@ def postprocess(i):
         if os.path.exists(env['CM_MLPERF_USER_CONF']):
             shutil.copy(env['CM_MLPERF_USER_CONF'], 'user.conf')
 
-        result = mlperf_utils.get_result_from_log(env['CM_MLPERF_LAST_RELEASE'], model, scenario, output_dir, mode)
+        result, valid = mlperf_utils.get_result_from_log(env['CM_MLPERF_LAST_RELEASE'], model, scenario, output_dir, mode)
         power = None
         power_efficiency = None
         if mode == "performance":
@@ -221,8 +221,11 @@ def postprocess(i):
         if not state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model].get(scenario):
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario] = {}
         state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario][mode] = result
+        state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario][mode+'_valid'] = valid[mode]
+
         if power:
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power'] = power
+            state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power_valid'] = valid['power']
         if power_efficiency:
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power_efficiency'] = power_efficiency
 
@@ -281,7 +284,6 @@ def postprocess(i):
 
                 for xd in xdirs:
                     xpath = os.path.join(cache.path, xd)
-                    print (xpath)
                     if os.path.isdir(xpath):
                         r = cm.access({'action':'system', 'automation':'utils', 'path':xpath, 'cmd':'git rev-parse HEAD'})
                         if r['return'] == 0 and r['ret'] == 0:

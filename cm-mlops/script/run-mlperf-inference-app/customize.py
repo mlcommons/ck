@@ -113,7 +113,7 @@ def preprocess(i):
     variation_model= ",_" + env["CM_MLPERF_MODEL"]
     variation_backend= ",_" + env["CM_MLPERF_BACKEND"] if env.get("CM_MLPERF_BACKEND","") != "" else ""
     variation_device= ",_" + env["CM_MLPERF_DEVICE"] if env.get("CM_MLPERF_DEVICE","") != "" else ""
-    variation_run_style= ",_" + env.get("CM_MLPERF_EXECUTION_MODE", "test")
+    variation_run_style= ",_" + env.get("CM_MLPERF_RUN_STYLE", "test")
     variation_reproducibility= ",_" + env["CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS"]
 
     if env.get("CM_MLPERF_MODEL_PRECISION", '') != '':
@@ -148,7 +148,7 @@ def preprocess(i):
 
         print ('=========================================================')
 
-    local_keys = [ 'CM_MLPERF_SKIP_RUN', 'CM_MLPERF_LOADGEN_QUERY_COUNT' ]
+    #local_keys = [ 'CM_MLPERF_SKIP_RUN', 'CM_MLPERF_LOADGEN_QUERY_COUNT', 'CM_MLPERF_LOADGEN_TARGET_QPS', 'CM_MLPERF_LOADGEN_TARGET_LATENCY' ]
 
     for scenario in env['CM_MLPERF_LOADGEN_SCENARIOS']:
         scenario_tags = tags + ",_"+scenario.lower()
@@ -172,31 +172,21 @@ def preprocess(i):
 
             print(f"\nRunning loadgen scenario: {scenario} and mode: {mode}")
             ii = {'action':action, 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
-                'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
+                'env': copy.deepcopy(env), 'input': inp, 'state': copy.deepcopy(state), 'add_deps': copy.deepcopy(add_deps), 'add_deps_recursive':
                 copy.deepcopy(add_deps_recursive), 'ad': ad, 'adr': copy.deepcopy(adr), 'v': verbose, 'print_env': print_env, 'print_deps': print_deps, 'dump_version_info': dump_version_info}
             r = cm.access(ii)
             if r['return'] > 0:
                 return r
-            if env.get('CM_MLPERF_SKIP_RUN', '') != '':
-                del(env['CM_MLPERF_SKIP_RUN'])
-
-            for key in local_keys:
-                if env.get(key, '') != '':
-                    del(env[key])
 
         if env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes":
             for test in test_list:
                 env['CM_MLPERF_LOADGEN_COMPLIANCE_TEST'] = test
                 env['CM_MLPERF_LOADGEN_MODE'] = "compliance"
                 r = cm.access({'action':action, 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
-                    'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
+                    'env': copy.deepcopy(env), 'input': inp, 'state': copy.deepcopy(state), 'add_deps': copy.deepcopy(add_deps), 'add_deps_recursive':
                     copy.deepcopy(add_deps_recursive), 'adr': copy.deepcopy(adr), 'ad': ad, 'v': verbose, 'print_env': print_env, 'print_deps': print_deps, 'dump_version_info': dump_version_info})
                 if r['return'] > 0:
                     return r
-
-                for key in local_keys:
-                    if env.get(key, '') != '':
-                        del(env[key])
 
     if state.get("cm-mlperf-inference-results"):
         #print(state["cm-mlperf-inference-results"])

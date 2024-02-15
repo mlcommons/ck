@@ -109,13 +109,16 @@ def preprocess(i):
         value = env.get('CM_MLPERF_LOADGEN_TARGET_QPS')
     elif scenario in [ 'SingleStream', 'MultiStream' ]:
         metric = "target_latency"
-        tolerance = 0.4 #much lower because we have max_duration
         value = env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY')
         if value:
             if scenario == "SingleStream" and (1000/float(value) * 660 < 100):
                 env['CM_MLPERF_USE_MAX_DURATION'] = 'no'
             elif scenario == "MultiStream" and (1000/float(value) * 660 < 662):
                 env['CM_MLPERF_USE_MAX_DURATION'] = 'no'
+        if env.get('CM_MLPERF_MODEL_EQUAL_ISSUE_MODE', 'no').lower() not in [ "yes", "1", "true" ] and env.get('CM_MLPERF_USE_MAX_DURATION', "yes").lower() not in [ "no", "false", "0"]:
+            tolerance = 0.4 #much lower because we have max_duration
+        else:
+            tolerance = 0.9
     else:
         return {'return': 1, 'error': 'Invalid scenario: {}'.format(scenario)}
 
@@ -346,18 +349,18 @@ def run_files_exist(mode, OUTPUT_DIR, run_files, env):
 
     required_files = run_files[file_loc[mode]]
     if mode == "performance_power":
-        for file in run_files[2]:
-            file_path = os.path.join(os.path.dirname(OUTPUT_DIR), "power", file)
+        for file_ in run_files[2]:
+            file_path = os.path.join(os.path.dirname(OUTPUT_DIR), "power", file_)
             if (not os.path.exists(file_path) or os.stat(file_path).st_size == 0):
                 return False
         required_files += run_files[1] #We need performance files too in the run directory
 
-    for file in required_files:
-        file_path = os.path.join(OUTPUT_DIR, file)
-        if (not os.path.exists(file_path) or os.stat(file_path).st_size == 0)  and file != "accuracy.txt":
+    for file_ in required_files:
+        file_path = os.path.join(OUTPUT_DIR, file_)
+        if (not os.path.exists(file_path) or os.stat(file_path).st_size == 0)  and file_ != "accuracy.txt":
             return False
 
-        if file ==  "mlperf_log_detail.txt" and "performance" in mode:
+        if file_ ==  "mlperf_log_detail.txt" and "performance" in mode:
             mlperf_log = MLPerfLog(file_path)
             if (
                 "result_validity" not in mlperf_log.get_keys()
