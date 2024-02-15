@@ -159,6 +159,7 @@ ___
 * `--download_path=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
 * `--from=value`  &rarr;  `CM_DOWNLOAD_LOCAL_FILE_PATH=value`
 * `--local_path=value`  &rarr;  `CM_DOWNLOAD_LOCAL_FILE_PATH=value`
+* `--md5sum=value`  &rarr;  `CM_DOWNLOAD_CHECKSUM=value`
 * `--store=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
 * `--url=value`  &rarr;  `CM_DOWNLOAD_URL=value`
 * `--verify=value`  &rarr;  `CM_VERIFY_SSL=value`

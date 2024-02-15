@@ -12,6 +12,7 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Input description](#input-description)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
@@ -122,17 +123,30 @@ ___
 
 `_cpu`
 
+#### Input description
+
+* --**input** input image (png)
+* --**output** output image (png)
+* --**export_model** ONNX model name to be exported from PyTorch
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "input":...}
+```
+
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--export_model=value`  &rarr;  `CM_ABTF_EXPORT_MODEL_TO_ONNX=value`
 * `--input=value`  &rarr;  `CM_INPUT_IMAGE=value`
 * `--output=value`  &rarr;  `CM_OUTPUT_IMAGE=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "input":...}
+r=cm.access({... , "export_model":...}
 ```
 
 </details>
@@ -162,6 +176,8 @@ ___
      * get,generic-python-lib,_numpy
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_package.Pillow
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_onnx
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torch
        * CM names: `--adr.['torch']...`
