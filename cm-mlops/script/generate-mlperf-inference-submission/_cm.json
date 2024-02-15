@@ -26,6 +26,24 @@
     },
     {
       "tags": "get,mlperf,inference,utils"
+    },
+    {
+      "tags": "get,mlperf,results,dir",
+      "names": [
+        "get-mlperf-results-dir"
+      ],
+      "skip_if_env": {
+        "CM_MLPER_RESULTS_DIR": [ "on" ]
+      }
+    },
+    {
+      "tags": "get,mlperf,submission,dir",
+      "names": [
+        "get-mlperf-submission-dir"
+      ],
+      "skip_if_env": {
+        "CM_MLPERF_SUBMISSION_DIR": [ "on" ]
+      }
     }
   ],
   "input_mapping": {

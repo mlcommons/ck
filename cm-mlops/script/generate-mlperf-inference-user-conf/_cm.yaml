@@ -77,7 +77,8 @@ deps:
     names:
       - get-mlperf-results-dir
     skip_if_env:
-      OUTPUT_BASE_DIR: [ on ]
+      OUTPUT_BASE_DIR:
+        - "on"
 
   ########################################################################
   # Install MLPerf inference dependencies
