@@ -214,7 +214,7 @@ def get_result_table(results):
             row.append(scenario)
             if results[model][scenario].get('accuracy'):
                 val = str(results[model][scenario]['accuracy'])
-                if not results[model][scenario]['accuracy']['valid']:
+                if not results[model][scenario]['accuracy_valid']:
                     val = "X "+val
                     row.append(val)
             else:
@@ -227,21 +227,21 @@ def get_result_table(results):
                         row.append("-")
                     elif scenario.lower() == "singlestream":
                         val_qps = str(round(1000/float(results[model][scenario]['performance']), 3))
-                        if not results[model][scenario]['performance']['valid']:
+                        if not results[model][scenario]['performance_valid']:
                             val_qps = "X "+val_qps
                             row.appenx(val_qps)
                     elif scenario.lower() == "multistream":
                         val_qps = str(round(8000/float(results[model][scenario]['performance']), 3))
-                        if not results[model][scenario]['performance']['valid']:
+                        if not results[model][scenario]['performance_valid']:
                             val_qps = "X "+val_qps
                             row.appenx(val_qps)
                     val = str(results[model][scenario]['performance'])
-                    if not results[model][scenario]['performance']['valid']:
+                    if not results[model][scenario]['performance_valid']:
                         val = "X "+val
                     row.append(val)
                 else:
                     val = str(results[model][scenario]['performance'])
-                    if not results[model][scenario]['performance']['valid']:
+                    if not results[model][scenario]['performance_valid']:
                         val = "X "+val
                     row.append(val)
                     row.append("-")
@@ -250,7 +250,7 @@ def get_result_table(results):
             #    row.append(results[model][scenario]['power'])
             if results[model][scenario].get('power_efficiency','') != '':
                 val = str(results[model][scenario]['power_efficiency'])
-                if not results[model][scenario]['power']['valid']:
+                if not results[model][scenario]['power_valid']:
                     val = "X "+val
                 row.append(val)
             table.append(row)

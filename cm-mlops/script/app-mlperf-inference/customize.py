@@ -221,10 +221,10 @@ def postprocess(i):
         if not state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model].get(scenario):
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario] = {}
         state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario][mode] = result
-        state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario][mode]['valid'] = valid[mode]
+        state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario][mode+'_valid'] = valid[mode]
         if power:
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power'] = power
-            state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power']['valid'] = valid['power']
+            state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power_valid'] = valid['power']
         if power_efficiency:
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power_efficiency'] = power_efficiency
 
