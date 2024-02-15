@@ -16,9 +16,19 @@ def get_result_from_log(version, model, scenario, result_path, mode):
     #scenario = checker.SCENARIO_MAPPING[scenario]
 
     result = ''
+    valid = {}
     if mode == "performance":
         has_power = os.path.exists(os.path.join(result_path, "power"))
         result_ = checker.get_performance_metric(config, mlperf_model, result_path, scenario, None, None, has_power)
+        mlperf_log = MLPerfLog(result_path)
+        if (
+            "result_validity" not in mlperf_log.get_keys()
+            or mlperf_log["result_validity"] != "VALID"
+        ):
+            valid['performance'] = False
+        else:
+            valid['performance'] = True
+
         if "stream" in scenario.lower():
             result = result_ / 1000000 #convert to milliseconds
         else:
@@ -26,13 +36,15 @@ def get_result_from_log(version, model, scenario, result_path, mode):
         result = str(round(result, 3))
 
         if has_power:
-            is_valid, power_metric, scenario, avg_power_efficiency = checker.get_power_metric(config, scenario, result_path, True, result_)
+            power_valid, power_metric, scenario, avg_power_efficiency = checker.get_power_metric(config, scenario, result_path, True, result_)
             result += f",{power_metric},{avg_power_efficiency}"
+            valid['power'] = power_valid
 
 
     elif mode == "accuracy" and os.path.exists(os.path.join(result_path, 'accuracy.txt')):
 
-        acc_results, acc_targets, acc_limits = get_accuracy_metric(config, mlperf_model, result_path)
+        acc_valid, acc_results, acc_targets, acc_limits = get_accuracy_metric(config, mlperf_model, result_path)
+        valid['accuracy'] = acc_valid
 
         if len(acc_results) == 1:
             for acc in acc_results:
@@ -44,7 +56,7 @@ def get_result_from_log(version, model, scenario, result_path, mode):
                 result_list.append(str(round(float(acc_results[acc]), 5)))
             result += ", ".join(result_list) + ")"
 
-    return result
+    return result, valid
 
 def get_accuracy_metric(config, model, path):
 
@@ -110,7 +122,7 @@ def get_accuracy_metric(config, model, path):
             is_valid &= acc_limit_check
 
 
-    return acc_results, acc_targets, acc_limits
+    return is_valid, acc_results, acc_targets, acc_limits
 
 def get_result_string(version, model, scenario, result_path, has_power, sub_res):
 
@@ -155,7 +167,7 @@ def get_result_string(version, model, scenario, result_path, has_power, sub_res)
         result['power'] = power_result
         result['power_efficiency'] = power_efficiency_result
 
-    acc_results, acc_targets, acc_limits = get_accuracy_metric(config, mlperf_model, accuracy_path)
+    acc_valid, acc_results, acc_targets, acc_limits = get_accuracy_metric(config, mlperf_model, accuracy_path)
 
     result_field = checker.RESULT_FIELD[effective_scenario]
 
@@ -201,7 +213,10 @@ def get_result_table(results):
             row.append(model)
             row.append(scenario)
             if results[model][scenario].get('accuracy'):
-                row.append(results[model][scenario]['accuracy'])
+                val = str(results[model][scenario]['accuracy'])
+                if not results[model][scenario]['accuracy']['valid']:
+                    val = "X "+val
+                    row.append(val)
             else:
                 row.append("-")
 
@@ -211,18 +226,33 @@ def get_result_table(results):
                     if float(results[model][scenario]['performance']) == 0:
                         row.append("-")
                     elif scenario.lower() == "singlestream":
-                        row.append(str(round(1000/float(results[model][scenario]['performance']), 3)))
+                        val_qps = str(round(1000/float(results[model][scenario]['performance']), 3))
+                        if not results[model][scenario]['performance']['valid']:
+                            val_qps = "X "+val_qps
+                            row.appenx(val_qps)
                     elif scenario.lower() == "multistream":
-                        row.append(str(round(8000/float(results[model][scenario]['performance']), 3)))
-                    row.append(results[model][scenario]['performance'])
+                        val_qps = str(round(8000/float(results[model][scenario]['performance']), 3))
+                        if not results[model][scenario]['performance']['valid']:
+                            val_qps = "X "+val_qps
+                            row.appenx(val_qps)
+                    val = str(results[model][scenario]['performance'])
+                    if not results[model][scenario]['performance']['valid']:
+                        val = "X "+val
+                    row.append(val)
                 else:
-                    row.append(results[model][scenario]['performance'])
+                    val = str(results[model][scenario]['performance'])
+                    if not results[model][scenario]['performance']['valid']:
+                        val = "X "+val
+                    row.append(val)
                     row.append("-")
 
             #if results[model][scenario].get('power','') != '':
             #    row.append(results[model][scenario]['power'])
             if results[model][scenario].get('power_efficiency','') != '':
-                row.append(results[model][scenario]['power_efficiency'])
+                val = str(results[model][scenario]['power_efficiency'])
+                if not results[model][scenario]['power']['valid']:
+                    val = "X "+val
+                row.append(val)
             table.append(row)
 
     return table, headers
