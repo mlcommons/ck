@@ -635,6 +635,7 @@ variations:
           - device-memory
           - gpu-name
           - batch-size
+          - num_gpus
           - triton
           - build-engine-options
         skip_if_env:
@@ -650,6 +651,7 @@ variations:
           - loadgen-scenario
           - device-memory
           - gpu-name
+          - num_gpus
           - batch-size
           - triton
           - power-mode
@@ -673,6 +675,7 @@ variations:
           - loadgen-scenario
           - device-memory
           - device-type
+          - num_gpus
           - power-mode
           - gpu-name
           - triton
@@ -726,6 +729,7 @@ variations:
         skip_inherit_variation_groups:
           - run-mode
           - gpu_name
+          - num_gpus
           - device-memory
         force_cache: true
 
@@ -734,6 +738,7 @@ variations:
         skip_inherit_variation_groups:
           - run-mode
           - loadgen-scenario
+          - num_gpus
           - device-memory
           - power-mode
           - gpu_name
@@ -752,6 +757,7 @@ variations:
           - loadgen-scenario
           - device-memory
           - gpu_name
+          - num_gpus
           - power-mode
           - batch-size
           - build-engine-options
