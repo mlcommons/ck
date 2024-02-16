@@ -164,6 +164,39 @@ def page(st, params, action = ''):
                 urls.append({'name': 'Universal CM GUI to run this benchmark',
                              'url': url_script})
 
+                # Check if has README extra
+                script_path = lst[0].path
+
+                script_path_readme_extra = os.path.join(script_path, 'README-extra.md')
+
+                if os.path.isfile(script_path_readme_extra):
+                    repo_meta = lst[0].repo_meta
+                    
+                    alias = lst[0].meta['alias']
+
+                    url = repo_meta.get('url','')
+                    if url=='' and repo_meta.get('git', False):
+                        url = 'https://github.com/'+repo_meta['alias'].replace('@','/')
+
+                    if url!='':
+                        # Recreate GitHub path
+                        if not url.endswith('/'): url=url+'/'
+
+                        url += 'tree/master/'
+
+                        if repo_meta.get('prefix','')!='':
+                            url += repo_meta['prefix']
+
+                        if not url.endswith('/'): url=url+'/'
+                        
+                        url += 'script/'+alias
+
+                        # Check README.extra.md
+                        url_readme_extra = url+'/README-extra.md'
+
+                        urls.append({'name': 'Notes about how to run this script',
+                                     'url': url_readme_extra})
+
         
         # Check URLS
         if len(urls)>0:

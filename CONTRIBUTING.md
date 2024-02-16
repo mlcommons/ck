@@ -32,6 +32,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Resmi Arjun
 * Ethan Cheng (Nvidia)
 * Jiahao Chen (MIT)
+* Ramesh N Chukka (Intel)
 * Ray DeMoss (One Stop Systems)
 * Ryan T DeRue (Purdue University)
 * Himanshu Dutta (Indian Institute of Technology)
@@ -41,18 +42,22 @@ Thank you for your support and looking forward to collaborating with you!
 * Jose Armando Hernandez (Paris Saclay University)
 * Mehrdad Hessar (OctoML)
 * Miro Hodak (AMD)
+* Tom Jablin (Google)
 * Nino Jacob
 * David Kanter (MLCommons)
 * Jason Knight (OctoML)
 * Ilya Kozulin (Deelvin)
 * @makaveli10 (Collabora)
+* Steve Leak(NERSC) 
 * Amija Maji (Purdue University)
 * Peter Mattson (Google, MLCommons)
 * Kasper Mecklenburg (Arm)
+* Pablo Gonzalez Mesa
 * Thierry Moreau (OctoML)
 * Sachin Mudaliyar
 * Stanley Mwangi (Microsoft)
 * Ashwin Nanjappa (Nvidia)
+* Hai Ah Nam (NERSC)
 * Nandeeka Nayak (UIUC)
 * Datta Nimmaturi (Nutanix)
 * Lakshman Patel
