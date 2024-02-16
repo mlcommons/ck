@@ -142,7 +142,7 @@ def preprocess(i):
                 if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
                     print("In find performance mode: using 0.5ms as target_latency")
                 else:
-                    print("No target_latency specified. Using 0.5ms as target_latency")
+                    print("No target_latency specified. Using default")
                 if env.get('CM_MLPERF_USE_MAX_DURATION', 'yes').lower() in [ "no", "false", "0" ] or env.get('CM_MLPERF_MODEL_EQUAL_ISSUE_MODE', 'no').lower() in [ "yes", "1", "true" ]:
                     # Total number of queries needed is a multiple of dataset size. So we dont use max_duration and so we need to be careful with the input latency
                     if '3d-unet' in env['CM_MODEL']:
