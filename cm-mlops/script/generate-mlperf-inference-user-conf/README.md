@@ -156,7 +156,7 @@ ___
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,mlperf,results,dir
-       * `if (OUTPUT_BASE_DIR  != True)`
+       * `if (OUTPUT_BASE_DIR  != on)`
        * CM names: `--adr.['get-mlperf-results-dir']...`
        - CM script: [get-mlperf-inference-results-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results-dir)
      * get,mlcommons,inference,src
@@ -186,6 +186,7 @@ ___
 
 * `CM_LOGS_DIR`
 * `CM_MAX_EXAMPLES`
+* `CM_MLPERF_ACCURACY_RESULTS_DIR`
 * `CM_MLPERF_CONF`
 * `CM_MLPERF_INFERENCE_AUDIT_PATH`
 * `CM_MLPERF_INFERENCE_MIN_DURATION`

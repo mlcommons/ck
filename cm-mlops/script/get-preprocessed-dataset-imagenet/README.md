@@ -424,7 +424,7 @@ ___
        * `if (CM_DATASET_TYPE  == validation) AND (CM_IMAGENET_PREPROCESSED_PATH  != on)`
        - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
      * get,dataset,imagenet,calibration
-       * `if (CM_DATASET_TYPE in calibration) AND (CM_IMAGENET_PREPROCESSED_PATH  != on)`
+       * `if (CM_DATASET_TYPE  == calibration)`
        - CM script: [get-dataset-imagenet-calibration](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-calibration)
      * get,generic-python-lib,_package.opencv-python-headless
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)

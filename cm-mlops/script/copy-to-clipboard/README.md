@@ -11,6 +11,7 @@
   * [ Run this script via GUI](#run-this-script-via-gui)
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -24,16 +25,13 @@
 
 ### About
 
-
-See extra [notes](README-extra.md) from the authors and contributors.
-
 #### Summary
 
-* Category: *Modular application pipeline.*
+* Category: *DevOps automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection)*
-* CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *app,image,corner-detection*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/copy-to-clipboard)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
+* CM "database" tags to find this script: *copy,to,clipboard,copy-to-clipboard*
 * Output cached? *False*
 ___
 ### Reuse this script in your project
@@ -50,9 +48,11 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=app,image,corner-detection `
+1. `cm run script --tags=copy,to,clipboard,copy-to-clipboard [--input_flags]`
 
-2. `cmr "app image corner-detection" `
+2. `cmr "copy to clipboard copy-to-clipboard" [--input_flags]`
+
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### Run this script from Python
 
@@ -65,7 +65,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'app,image,corner-detection'
+                  'tags':'copy,to,clipboard,copy-to-clipboard'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -82,16 +82,34 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="app,image,corner-detection"```
+```cmr "cm gui" --script="copy,to,clipboard,copy-to-clipboard"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=app,image,corner-detection) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=copy,to,clipboard,copy-to-clipboard) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "app image corner-detection" `
+`cm docker script "copy to clipboard copy-to-clipboard" [--input_flags]`
 
 ___
 ### Customization
+
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--add_quotes=value`  &rarr;  `CM_COPY_TO_CLIPBOARD_TEXT_ADD_QUOTES=value`
+* `--q=value`  &rarr;  `CM_COPY_TO_CLIPBOARD_TEXT_ADD_QUOTES=value`
+* `--t=value`  &rarr;  `CM_COPY_TO_CLIPBOARD_TEXT=value`
+* `--text=value`  &rarr;  `CM_COPY_TO_CLIPBOARD_TEXT=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "add_quotes":...}
+```
+
+</details>
 
 #### Default environment
 
@@ -109,29 +127,25 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection/_cm.json)***
-     * detect,os
-       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-     * detect,cpu
-       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/copy-to-clipboard/_cm.yaml)***
+     * get,python3
+       * CM names: `--adr.['python', 'python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,generic-python-lib,_package.pyperclip
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+  1. Run "preprocess" function from customize.py
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/copy-to-clipboard/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection/run.sh)
-  1. ***Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection/_cm.json)***
-     * compile,cpp-program
-       * `if (CM_SKIP_COMPILE  != on)`
-       - CM script: [compile-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program)
-     * benchmark-program
-       * `if (CM_SKIP_RUN  != on)`
-       - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection/_cm.json)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/copy-to-clipboard/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/copy-to-clipboard/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/copy-to-clipboard/_cm.yaml)
+  1. Run "postrocess" function from customize.py
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/copy-to-clipboard/_cm.yaml)
 </details>
 
 ___
 ### Script output
-`cmr "app image corner-detection"  -j`
+`cmr "copy to clipboard copy-to-clipboard" [--input_flags] -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize

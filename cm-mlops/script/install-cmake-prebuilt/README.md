@@ -102,7 +102,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 #### Versions
-Default version: `3.21.1`
+Default version: `3.28.3`
 
 ___
 ### Script workflow, dependencies and native scripts

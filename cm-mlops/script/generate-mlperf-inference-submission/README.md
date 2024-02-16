@@ -115,11 +115,11 @@ ___
 * `--power_settings_file=value`  &rarr;  `CM_MLPERF_POWER_SETTINGS_FILE_PATH=value`
 * `--preprocess=value`  &rarr;  `CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR=value`
 * `--preprocess_submission=value`  &rarr;  `CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR=value`
-* `--results_dir=value`  &rarr;  `CM_MLPERF_RESULTS_DIR=value`
+* `--results_dir=value`  &rarr;  `CM_MLPERF_INFERENCE_RESULTS_DIR_=value`
 * `--run_checker=value`  &rarr;  `CM_RUN_SUBMISSION_CHECKER=value`
 * `--run_style=value`  &rarr;  `CM_MLPERF_RUN_STYLE=value`
 * `--skip_truncation=value`  &rarr;  `CM_SKIP_TRUNCATE_ACCURACY=value`
-* `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
+* `--submission_dir=value`  &rarr;  `CM_MLPERF_INFERENCE_SUBMISSION_DIR=value`
 * `--submitter=value`  &rarr;  `CM_MLPERF_SUBMITTER=value`
 * `--sw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_SW_NOTES_EXTRA=value`
 * `--tar=value`  &rarr;  `CM_TAR_SUBMISSION_DIR=value`
@@ -162,6 +162,14 @@ ___
        - CM script: [install-pip-package-for-cmind-python](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pip-package-for-cmind-python)
      * get,mlperf,inference,utils
        - CM script: [get-mlperf-inference-utils](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-utils)
+     * get,mlperf,results,dir
+       * `if (CM_MLPER_RESULTS_DIR  != on)`
+       * CM names: `--adr.['get-mlperf-results-dir']...`
+       - CM script: [get-mlperf-inference-results-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results-dir)
+     * get,mlperf,submission,dir
+       * `if (CM_MLPERF_SUBMISSION_DIR  != on)`
+       * CM names: `--adr.['get-mlperf-submission-dir']...`
+       - CM script: [get-mlperf-inference-submission-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/_cm.json)
   1. ***Run native script if exists***
