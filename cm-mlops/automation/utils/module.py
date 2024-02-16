@@ -956,3 +956,22 @@ class CAutomation(Automation):
             os.chdir(cur_dir)
 
         return {'return':0, 'ret':rx, 'stdout':stdout, 'stderr':stderr, 'std':std}
+
+    ############################################################
+    def load_cfg(self, i):
+        """
+        Load configuration artifacts and files
+
+        Args:
+          (CM input dict):
+
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+        """
+
+        return utils.call_internal_module(self, __file__, 'module_cfg', 'load_cfg', i)
