@@ -189,7 +189,7 @@ def preprocess(i):
                     return r
 
     if state.get("cm-mlperf-inference-results"):
-        #print(state["cm-mlperf-inference-results"])
+        # print(state["cm-mlperf-inference-results"])
         for sut in state["cm-mlperf-inference-results"]:#only one sut will be there
             print(sut)
             result_table, headers = mlperf_utils.get_result_table(state["cm-mlperf-inference-results"][sut])
