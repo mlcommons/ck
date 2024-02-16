@@ -294,7 +294,7 @@ r=cm.access({... , "device":...}
 * `--division=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIVISION=value`
 * `--docker=value`  &rarr;  `CM_MLPERF_USE_DOCKER=value`
 * `--dump_version_info=value`  &rarr;  `CM_DUMP_VERSION_INFO=value`
-* `--execution_mode=value`  &rarr;  `CM_MLPERF_EXECUTION_MODE=value`
+* `--execution_mode=value`  &rarr;  `CM_MLPERF_RUN_STYLE=value`
 * `--find_performance=value`  &rarr;  `CM_MLPERF_FIND_PERFORMANCE_MODE=value`
 * `--gpu_name=value`  &rarr;  `CM_NVIDIA_GPU_NAME=value`
 * `--hw_name=value`  &rarr;  `CM_HW_NAME=value`
@@ -321,7 +321,7 @@ r=cm.access({... , "device":...}
 * `--results_dir=value`  &rarr;  `OUTPUT_BASE_DIR=value`
 * `--results_git_url=value`  &rarr;  `CM_MLPERF_RESULTS_GIT_REPO_URL=value`
 * `--run_checker=value`  &rarr;  `CM_RUN_SUBMISSION_CHECKER=value`
-* `--run_style=value`  &rarr;  `CM_MLPERF_EXECUTION_MODE=value`
+* `--run_style=value`  &rarr;  `CM_MLPERF_RUN_STYLE=value`
 * `--save_console_log=value`  &rarr;  `CM_SAVE_CONSOLE_LOG=value`
 * `--scenario=value`  &rarr;  `CM_MLPERF_LOADGEN_SCENARIO=value`
 * `--server_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_SERVER_TARGET_QPS=value`

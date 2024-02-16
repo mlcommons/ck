@@ -275,6 +275,8 @@ ___
            * get,generic-python-lib,_package.scikit-learn
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_gptj_`
+      - Environment variables:
+        - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_package.datasets

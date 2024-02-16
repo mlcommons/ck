@@ -101,8 +101,8 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* `--input=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
-* `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
+* `--input=value`  &rarr;  `CM_MLPERF_INFERENCE_SUBMISSION_DIR=value`
+* `--submission_dir=value`  &rarr;  `CM_MLPERF_INFERENCE_SUBMISSION_DIR=value`
 * `--submitter=value`  &rarr;  `CM_MLPERF_SUBMITTER=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**

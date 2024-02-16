@@ -252,6 +252,10 @@ ___
       - Environment variables:
         - *CM_DATASET_PREPROCESSED_EXTENSION*: `npy`
       - Workflow:
+    * `_raw`
+      - Environment variables:
+        - *CM_DATASET_PREPROCESSED_EXTENSION*: `raw`
+      - Workflow:
     * `_rgb32`
       - Environment variables:
         - *CM_DATASET_PREPROCESSED_EXTENSION*: `rgb32`
@@ -298,6 +302,13 @@ ___
       - Environment variables:
         - *CM_DATASET_REFERENCE_PREPROCESSOR*: `0`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_torch
+             * CM names: `--adr.['torch', 'pytorch']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_torchvision
+             * CM names: `--adr.['torchvision']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
         1. ***Read "prehook_deps" on other CM scripts***
            * get,generic,image-preprocessor
              - CM script: [get-preprocesser-script-generic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocesser-script-generic)
@@ -373,9 +384,13 @@ ___
      * get,generic-python-lib,_numpy
        * CM names: `--adr.['numpy']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_numpy
+       * CM names: `--adr.['numpy']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/_cm.json)
   1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/customize.py)***

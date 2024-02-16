@@ -103,11 +103,21 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_mini,power`
+      - Workflow:
+    * `_orin,power`
+      - Workflow:
     * `_phoenix,nvidia`
+      - Workflow:
+    * `_phoenix,power`
       - Workflow:
     * `_phoenix,reference`
       - Workflow:
-    * `_spr,nvidia`
+    * `_rb6,power`
+      - Workflow:
+    * `_rpi4,power`
+      - Workflow:
+    * `_sapphire-rapids.24c,nvidia`
       - Workflow:
 
     </details>
@@ -173,6 +183,10 @@ ___
         - *CATEGORY*: `edge`
         - *DIVISION*: `closed`
       - Workflow:
+    * `_mini`
+      - Workflow:
+    * `_orin`
+      - Workflow:
     * `_orin.32g`
       - Environment variables:
         - *CATEGORY*: `edge`
@@ -180,12 +194,16 @@ ___
       - Workflow:
     * `_phoenix`
       - Environment variables:
-        - *CATEGORY*: `edge,datacenter`
+        - *CATEGORY*: `edge`
         - *DIVISION*: `closed`
+      - Workflow:
+    * `_rb6`
+      - Workflow:
+    * `_rpi4`
       - Workflow:
     * `_sapphire-rapids.24c`
       - Environment variables:
-        - *CATEGORY*: `edge,datacenter`
+        - *CATEGORY*: `edge`
         - *DIVISION*: `closed`
       - Workflow:
 
