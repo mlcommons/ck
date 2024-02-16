@@ -686,6 +686,7 @@ variations:
     group: loadgen-scenario
     env:
       CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+      CUDA_VISIBLE_DEVICES_NOT_USED: "0"
   multistream:
     group: loadgen-scenario
     env:

@@ -41,6 +41,7 @@ def preprocess(i):
     run_script_content += "POWER_STRING=\"" +POWER_STRING +"\"\n"
     run_script_content += "DIVISION=\"" + env['DIVISION'] +"\"\n"
     run_script_content += "CATEGORY=\"" + env['CATEGORY'] +"\"\n"
+    run_script_content += "EXTRA_ARGS=\"" + env.get('EXTRA_ARGS', '') +"\"\n"
     run_script_content += 'source '+ os.path.join(script_path, "run-template.sh") + "\nPOWER_STRING=\"" +POWER_STRING +"\"\n\n"
 
     run_file_name = 'tmp-'+implementation+'-run'
@@ -125,8 +126,6 @@ def preprocess(i):
                 cmds.append(cmd)
 
     run_script_content += "\n\n" +"\n\n".join(cmds)
-    if env.get('EXTRA_ARGS', '')!= '':
-        print(f"EXTRA_ARGS = {env['EXTRA_ARGS']}")
 
     with open(os.path.join(script_path, run_file_name+".sh"), 'w') as f:
         f.write(run_script_content)
