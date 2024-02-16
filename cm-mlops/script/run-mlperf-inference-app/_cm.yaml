@@ -409,7 +409,7 @@ input_description:
     desc: Set LoadGen Offline target QPS
   quiet:
     boolean: true
-    default: false
+    default: true
     desc: Quiet run (select default values for all questions)
   server_target_qps:
     desc: Set Server target QPS
