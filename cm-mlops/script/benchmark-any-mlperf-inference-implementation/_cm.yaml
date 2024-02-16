@@ -226,6 +226,18 @@ variations:
         cuda:
           tensorrt:
             offline_target_qps: 9
+      gptj-99.9:
+        cuda:
+          tensorrt:
+            offline_target_qps: 9
+      dlrm-v2-99:
+        cuda:
+          tensorrt:
+            offline_target_qps: 1500
+      dlrm-v2-99.9:
+        cuda:
+          tensorrt:
+            offline_target_qps: 1500
 
   orin.32g:
     group: sut
