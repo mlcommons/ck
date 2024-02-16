@@ -15,3 +15,7 @@ cmr "get ml-model huggingface zoo _model-stub.Intel/gpt-j-6B-int8-static" --mode
 ```bash
 cmr "get ml-model huggingface zoo _model-stub.runwayml/stable-diffusion-v1-5" --revision=onnx --model_filename=unet/model.onnx,unet/weights.pb
 ```
+
+```bash
+cmr "get ml-model huggingface zoo _model-stub.ctuning/mlperf-inference-bert-onnx-fp32-squad-v1.1" --model_filename=model.onnx
+```

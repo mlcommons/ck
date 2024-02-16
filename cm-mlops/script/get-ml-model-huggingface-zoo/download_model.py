@@ -46,7 +46,8 @@ else:
             def list_hf_files(path):
                 all_files = []
                 
-                files=fs.ls(path, revision=revision) #, detail=False)            
+                xrevision = None if revision == '' else revision
+                files=fs.ls(path, revision=xrevision) #, detail=False)            
 
                 for f in files:
                     fname = f['name']
@@ -66,7 +67,6 @@ else:
             print ('Found {} files'.format(len(files)))
             
             for f in files:
-                print (f)
 
                 remove = len(model_stub)+1
 
@@ -89,19 +89,16 @@ else:
             if extra_dir!='' and not os.path.exists(extra_dir):
                 os.makedirs(extra_dir)
 
-            if subfolder == '':
-                 hf_hub_download(repo_id=model_stub,
-                            filename=model_filename,
-                            force_filename=model_filename,
-                            revision=revision,
-                            cache_dir=os.getcwd())
-            else:
-                 hf_hub_download(repo_id=model_stub,
-                            subfolder=subfolder,
-                            filename=model_filename,
-                            force_filename=model_filename,
-                            revision=revision,
-                            cache_dir=os.getcwd())
+            
+            xrevision = None if revision == '' else revision
+            xsubfolder = None if subfolder == '' else subfolder
+
+            hf_hub_download(repo_id=model_stub,
+                       subfolder=xsubfolder,
+                       filename=model_filename,
+                       force_filename=model_filename,
+                       revision=xrevision,
+                       cache_dir=os.getcwd())
         
 
         print ('')
