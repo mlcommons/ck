@@ -224,15 +224,18 @@ def page(st, params, action = ''):
             import sys
             import importlib
 
-            sys.path.insert(0, os.path.abspath(script_obj.path))
+            full_module_path = os.path.join(script_obj.path, 'customize.py')
 
             tmp_module = None
             try:
-               tmp_module=importlib.import_module('customize')
+                found_automation_spec = importlib.util.spec_from_file_location('customize', full_module_path)
+                if found_automation_spec != None:
+                    tmp_module = importlib.util.module_from_spec(found_automation_spec)
+                    found_automation_spec.loader.exec_module(tmp_module)
+#               tmp_module=importlib.import_module('customize')
             except Exception as e:
+               st.markdown(str(format(e)))
                pass
-
-            del(sys.path[0])
 
             if tmp_module!=None:
                 if hasattr(tmp_module, 'gui'):
