@@ -909,6 +909,17 @@ variations:
     default_variations:
       batch-size: batch_size.2048
 
+  num_gpus.#:
+    group: num_gpus
+    env:
+      CM_NVIDIA_NUM_GPUS: "#"
+
+  num_gpus.1:
+    group: num_gpus
+    default: true
+    env:
+      CM_NVIDIA_NUM_GPUS: "1"
+
   resnet50,server,run_harness:
     default_variations:
       batch-size: batch_size.64
@@ -916,6 +927,10 @@ variations:
   resnet50,multistream,run_harness:
     default_variations:
       batch-size: batch_size.8
+
+  resnet50,multistream,run_harness,num_gpus.2:
+    default_variations:
+      batch-size: batch_size.4
 
   retinanet,multistream,run_harness:
     default_variations:

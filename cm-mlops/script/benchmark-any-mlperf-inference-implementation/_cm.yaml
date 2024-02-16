@@ -190,7 +190,7 @@ variations:
 
   sapphire-rapids.24c,nvidia:
     default_env:
-      EXTRA_ARGS: " --gpu_name=rtx_4090"
+      EXTRA_ARGS: " --gpu_name=rtx_4090 --adr.mlperf-inference-implementation.tags=_num_gpus.2"
     state:
       resnet50:
         cuda:
