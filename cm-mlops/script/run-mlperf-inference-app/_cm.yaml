@@ -354,7 +354,7 @@ input_description:
     desc: MLPerf execution mode
     sort: 700
   submitter:
-    default: cTuning
+    default: CTuning
     desc: Submitter name (without space)
     sort: 800
   results_dir:
@@ -387,6 +387,21 @@ input_description:
   adr.python.version_min:
     default: '3.8'
     desc: Minimal Python version
+  power:
+    choices:
+    - 'yes'
+    - 'no'
+    default: 'no'
+    desc: Measure power
+    sort: 5000
+  adr.mlperf-power-client.power_server:
+    default: '192.168.0.15'
+    desc: MLPerf Power server IP address
+    sort: 5005
+  adr.mlperf-power-client.port: 
+    default: 4950
+    desc: MLPerf Power client port
+    sort: 5010
   clean:
     boolean: true
     default: true
