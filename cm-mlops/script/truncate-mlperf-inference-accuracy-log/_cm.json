@@ -21,8 +21,8 @@
     }
   ],
   "input_mapping": {
-    "input": "CM_MLPERF_SUBMISSION_DIR",
-    "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
+    "input": "CM_MLPERF_INFERENCE_SUBMISSION_DIR",
+    "submission_dir": "CM_MLPERF_INFERENCE_SUBMISSION_DIR",
     "submitter": "CM_MLPERF_SUBMITTER"
   },
   "tags": [

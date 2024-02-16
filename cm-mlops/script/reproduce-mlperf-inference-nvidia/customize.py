@@ -143,7 +143,7 @@ def preprocess(i):
         model_path = os.path.join(target_model_path_dir, 'retinanet-fpn-torch2.1-postprocessed.onnx')
         alt_model_path = os.path.join(target_model_path_dir, 'retinanet-fpn-torch2.2-postprocessed.onnx')
         if not os.path.exists(model_path) and os.path.exists(alt_model_path):
-            cmds.append(f"ln -sf {model_path} {alt_model_path}")
+            cmds.append(f"ln -s {alt_model_path} {model_path}")
 
         model_name = "retinanet"
 

@@ -89,9 +89,6 @@ input_mapping:
   skip_postprocess: CM_MLPERF_NVIDIA_HARNESS_SKIP_POSTPROCESS
   embedding_weights_on_gpu_part: CM_MLPERF_NVIDIA_HARNESS_EMBEDDING_WEIGHTS_ON_GPU_PART
 
-new_state_keys:
-  - mlperf-inference-implementation
-  - CM_SUT_*
 
 # Dependencies on other CM scripts
 
@@ -438,6 +435,8 @@ variations:
     deps:
     - tags: get,generic-python-lib,_package.datasets
     - tags: get,generic-python-lib,_package.simplejson
+    env:
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download"
   
   gptj_,build:
     deps:
@@ -775,6 +774,9 @@ variations:
       - CM_ML_MODEL_*
       - CM_HW_NAME
       - CM_MAX_EXAMPLES
+    new_state_keys:
+      - mlperf-inference-implementation
+      - CM_SUT_*
 
   build_engine_options.#:
     group: build-engine-options

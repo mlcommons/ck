@@ -11,6 +11,9 @@ def preprocess(i):
 
     automation = i['automation']
 
+    if env.get('CM_DUMP_RAW_PIP_FREEZE_FILE_PATH', '') == '':
+        env['CM_DUMP_RAW_PIP_FREEZE_FILE_PATH'] = os.path.join(os.getcwd(), "tmp-pip-freeze")
+
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
     return {'return':0}
@@ -25,18 +28,19 @@ def postprocess(i):
     automation = i['automation']
     
     pip_freeze = {}
-    if not os.path.isfile('tmp-pip-freeze'):
+    pip_freeze_file = env['CM_DUMP_RAW_PIP_FREEZE_FILE_PATH']
+    if not os.path.isfile(pip_freeze_file):
         # If was not created, sometimes issues on Windows
         # There is another workaround
         if os_info['platform'] == 'windows':
             r = automation.cmind.access({'action':'system',
                            'automation':'utils',
                            'cmd':'py -m pip freeze',
-                           'stdout':'tmp-pip-freeze'})
+                           'stdout':pip_freeze_file})
             # skip output
             
-    if os.path.isfile('tmp-pip-freeze'):
-        with open("tmp-pip-freeze", "r") as f:
+    if os.path.isfile(pip_freeze_file):
+        with open(pip_freeze_file, "r") as f:
             for line in f.readlines():
                 if "==" in line:
                     split = line.split("==")

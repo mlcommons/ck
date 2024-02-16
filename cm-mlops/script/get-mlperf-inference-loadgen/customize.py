@@ -21,11 +21,11 @@ def postprocess(i):
         env[key] = []
 
     # On Windows installs directly into Python distro for simplicity
-    if os_info['platform'] != 'windows':
-        env['+C_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))
-        env['+CPLUS_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))
-        env['+LD_LIBRARY_PATH'].append(os.path.join(os.getcwd(), 'install', 'lib'))
-        env['+DYLD_FALLBACK_LIBRARY_PATH'].append(os.path.join(os.getcwd(), 'install', 'lib'))
-        env['+PYTHONPATH'].append(os.path.join(os.getcwd(), 'install', 'python'))
+#    if os_info['platform'] != 'windows':
+    env['+C_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))
+    env['+CPLUS_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))
+    env['+LD_LIBRARY_PATH'].append(os.path.join(os.getcwd(), 'install', 'lib'))
+    env['+DYLD_FALLBACK_LIBRARY_PATH'].append(os.path.join(os.getcwd(), 'install', 'lib'))
+    env['+PYTHONPATH'].append(os.path.join(os.getcwd(), 'install', 'python'))
 
     return {'return':0}

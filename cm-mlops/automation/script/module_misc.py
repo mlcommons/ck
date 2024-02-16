@@ -1187,9 +1187,10 @@ def regenerate_script_cmd(i):
 
 
     skip_input_for_fake_run = docker_settings.get('skip_input_for_fake_run', [])
+    add_quotes_to_keys = docker_settings.get('add_quotes_to_keys', [])
     
 
-    def rebuild_flags(i_run_cmd, fake_run, skip_input_for_fake_run, key_prefix):
+    def rebuild_flags(i_run_cmd, fake_run, skip_input_for_fake_run, add_quotes_to_keys, key_prefix):
 
         run_cmd = ''
 
@@ -1212,16 +1213,22 @@ def regenerate_script_cmd(i):
 
             v = i_run_cmd[k]
             
+            q = '\\"' if long_key in add_quotes_to_keys else ''
+            
             if type(v)==dict:
-                run_cmd += rebuild_flags(v, fake_run, skip_input_for_fake_run, long_key)
+                run_cmd += rebuild_flags(v, fake_run, skip_input_for_fake_run, add_quotes_to_keys, long_key)
             elif type(v)==list:
-                run_cmd+=' --'+long_key+',='+','.join(v)
+                x = ''
+                for vv in v:
+                    if x != '': x+=','
+                    x+=q+str(vv)+q
+                run_cmd+=' --'+long_key+',=' + x
             else:
-                run_cmd+=' --'+long_key+'='+str(v)
+                run_cmd+=' --'+long_key+'='+q+str(v)+q
 
         return run_cmd    
     
-    run_cmd += rebuild_flags(i_run_cmd, fake_run, skip_input_for_fake_run, '')
+    run_cmd += rebuild_flags(i_run_cmd, fake_run, skip_input_for_fake_run, add_quotes_to_keys, '')
 
     run_cmd = docker_run_cmd_prefix + ' && ' + run_cmd if docker_run_cmd_prefix!='' else run_cmd
 

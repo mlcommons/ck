@@ -6,9 +6,16 @@ def preprocess(i):
 
     os_info = i['os_info']
 
-#    if os_info['platform'] == 'windows':
-#        return {'return':1, 'error': 'Windows is not supported in this script yet'}
+    automation = i['automation']
 
+    meta = i['meta']
+
+#    if os_info['platform'] == 'windows':
+#        # Currently support only LLVM on Windows
+#        print ('# Forcing LLVM on Windows')        
+#        r = automation.update_deps({'deps':meta['post_deps'], 'update_deps':{'compile-program': {'adr':{'compiler':{'tags':'llvm'}}}}})
+#        if r['return']>0: return r
+    
     env = i['env']
 
     if env.get('CM_MLPERF_SKIP_RUN', '') == "yes":

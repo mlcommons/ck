@@ -26,15 +26,33 @@
     },
     {
       "tags": "get,mlperf,inference,utils"
+    },
+    {
+      "tags": "get,mlperf,results,dir",
+      "names": [
+        "get-mlperf-results-dir"
+      ],
+      "skip_if_env": {
+        "CM_MLPER_RESULTS_DIR": [ "on" ]
+      }
+    },
+    {
+      "tags": "get,mlperf,submission,dir",
+      "names": [
+        "get-mlperf-submission-dir"
+      ],
+      "skip_if_env": {
+        "CM_MLPERF_SUBMISSION_DIR": [ "on" ]
+      }
     }
   ],
   "input_mapping": {
     "device": "CM_MLPERF_DEVICE",
-    "results_dir": "CM_MLPERF_RESULTS_DIR",
+    "results_dir": "CM_MLPERF_INFERENCE_RESULTS_DIR_",
     "run_checker": "CM_RUN_SUBMISSION_CHECKER",
     "run_style": "CM_MLPERF_RUN_STYLE",
     "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY",
-    "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
+    "submission_dir": "CM_MLPERF_INFERENCE_SUBMISSION_DIR",
     "clean": "CM_MLPERF_CLEAN_SUBMISSION_DIR",
     "hw_name": "CM_HW_NAME",
     "sw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",

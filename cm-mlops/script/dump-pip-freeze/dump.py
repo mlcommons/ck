@@ -1,8 +1,10 @@
 import os
 from pip._internal.operations import freeze
 
-if os.path.isfile('tmp-pip-freeze'):
-    os.remove('tmp-pip-freeze')
+pip_freeze_out = os.environ.get('CM_DUMP_RAW_PIP_FREEZE_FILE_PATH', 'tmp-pip-freeze')
+
+if os.path.isfile(pip_freeze_out):
+    os.remove(pip_freeze_out)
 
 pkgs = freeze.freeze()
 
@@ -15,5 +17,5 @@ except:
     pass
 
 if len(x)>0:
-    with open('tmp-pip-freeze', "w") as f:
+    with open(pip_freeze_out, "w") as f:
         f.write(x)

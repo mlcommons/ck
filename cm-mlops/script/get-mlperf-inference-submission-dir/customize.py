@@ -14,7 +14,9 @@ def preprocess(i):
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
     if env.get('CM_MLPERF_INFERENCE_SUBMISSION_DIR','') == '':
-        env['CM_MLPERF_INFERENCE_SUBMISSION_DIR'] = os.getcwd()
+        if not os.path.exists("mlperf-inference-submission"):
+            os.mkdir("mlperf-inference-submission")
+        env['CM_MLPERF_INFERENCE_SUBMISSION_DIR'] = os.path.join(os.getcwd(), "mlperf-inference-submission")
 
     return {'return':0}
 

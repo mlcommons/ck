@@ -8,11 +8,11 @@ def preprocess(i):
 
     os_info = i['os_info']
     env = i['env']
-    submission_dir = env.get("CM_MLPERF_SUBMISSION_DIR", "")
+    submission_dir = env.get("CM_MLPERF_INFERENCE_SUBMISSION_DIR", "")
 
     if submission_dir == "":
-        print("Please set CM_MLPERF_SUBMISSION_DIR")
-        return {'return': 1, 'error':'CM_MLPERF_SUBMISSION_DIR is not specified'}
+        print("Please set CM_MLPERF_INFERENCE_SUBMISSION_DIR")
+        return {'return': 1, 'error':'CM_MLPERF_INFERENCE_SUBMISSION_DIR is not specified'}
 
     submitter = env.get("CM_MLPERF_SUBMITTER", "cTuning")
     submission_processed = submission_dir + "_processed"
@@ -31,7 +31,7 @@ def preprocess(i):
 def postprocess(i):
 
     env = i['env']
-    submission_dir = env["CM_MLPERF_SUBMISSION_DIR"]
+    submission_dir = env["CM_MLPERF_INFERENCE_SUBMISSION_DIR"]
     import datetime
     submission_backup = submission_dir+"_backup_"+'{date:%Y-%m-%d_%H:%M:%S}'.format( date=datetime.datetime.now() )
 

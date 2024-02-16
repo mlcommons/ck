@@ -10,6 +10,10 @@ def preprocess(i):
     automation = i['automation']
     cm = automation.cmind
 
+    if env.get('CM_HOST_OS_FLAVOR', '') == 'amzn':
+        env['CM_PACKAGE_TOOL'] = "yum"
+        i['run_script_input']['script_name'] = "run-rhel"
+
     # Test (not needed - will be removed)
     if env.get('CM_SKIP_SYS_UTILS','').lower() in [True, 'yes', 'on']:
         return {'return':0, 'skip':True}

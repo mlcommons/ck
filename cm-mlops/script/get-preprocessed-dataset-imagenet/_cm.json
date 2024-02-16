@@ -35,11 +35,8 @@
     },
     {
       "tags": "get,dataset,imagenet,calibration",
-      "skip_if_env": {
-        "CM_IMAGENET_PREPROCESSED_PATH": [ "on" ]
-      },
       "enable_if_env": {
-        "CM_DATASET_TYPE": "calibration"
+        "CM_DATASET_TYPE": [ "calibration" ]
       }
     },
     {

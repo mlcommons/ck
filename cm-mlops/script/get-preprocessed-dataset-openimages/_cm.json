@@ -42,6 +42,10 @@
     {
       "names": [ "numpy" ],
       "tags": "get,generic-python-lib,_numpy"
+    },
+    {
+      "names": [ "numpy" ],
+      "tags": "get,generic-python-lib,_numpy"
     }
   ],
   "default_env": {
@@ -72,6 +76,20 @@
   "variations": {
     "generic-preprocessor": {
       "group": "preprocessing-source",
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_torch",
+          "names": [
+            "torch", "pytorch"
+          ]
+        },
+        {
+          "tags": "get,generic-python-lib,_torchvision",
+          "names": [
+            "torchvision"
+          ]
+        }
+      ],
       "prehook_deps": [
         {
           "tags": "get,generic,image-preprocessor"
@@ -286,10 +304,16 @@
         "CM_DATASET_PREPROCESSED_EXTENSION": "npy"
       }
     },
+    "raw": {
+      "group": "extension",
+      "env": {
+        "CM_DATASET_PREPROCESSED_EXTENSION": "raw"
+      }
+    },
     "fp32": {
       "group": "dataset-precision",
       "default_variations": {
-        "extension": "npy"
+        "extension": "raw"
       },
       "default": true,
       "env": {

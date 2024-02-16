@@ -19,18 +19,18 @@ if model_task == "prune":
         f.write(f"CM_ML_MODEL_FILE_WITH_PATH={os.path.join(os.getcwd(),'')}")
 
 else:
-        model_filename = os.environ.get('CM_MODEL_ZOO_FILENAME', '')
-        if model_filename == '': 
-            model_filename = 'model.onnx'
-
         subfolder = os.environ.get('CM_HF_SUBFOLDER', '')
+        full_subfolder = os.environ.get('CM_HF_FULL_SUBFOLDER', '')
+
+        model_filename = os.environ.get('CM_MODEL_ZOO_FILENAME', '')
+        if model_filename == '':
+            model_filename = 'model.onnx'
 
         model_filenames = model_filename.split(',') if ',' in model_filename else [model_filename]
 
         # First must be model
         base_model_filename = model_filenames[0]
 
-        full_subfolder = os.environ.get('CM_HF_FULL_SUBFOLDER', '')
         files = []
         if full_subfolder!='':
 
@@ -43,17 +43,40 @@ else:
             print ('')
             print ('Listing files in {} ...'.format(path))
 
-            files=fs.ls(path, detail=False)            
+            def list_hf_files(path):
+                all_files = []
+                
+                xrevision = None if revision == '' else revision
+                files=fs.ls(path, revision=xrevision) #, detail=False)            
+
+                for f in files:
+                    fname = f['name']
+                    fdir = f['type'] == 'directory'
+
+                    if fdir:
+                        all_files += list_hf_files(fname)
+                    else:
+                        all_files.append(fname)
+
+                return all_files
+                        
+            
+            files=list_hf_files(path)
 
             print ('')
             print ('Found {} files'.format(len(files)))
             
             for f in files:
-                ff = f[len(model_stub)+1:]
+
+                remove = len(model_stub)+1
+
+                if revision!='':
+                    remove+=len(revision)+1
+
+                ff = f[remove:]
 
                 if ff not in model_filenames:
                     model_filenames.append(ff)
-
 
 
         print ('')
@@ -66,19 +89,16 @@ else:
             if extra_dir!='' and not os.path.exists(extra_dir):
                 os.makedirs(extra_dir)
 
-            if subfolder == '':
-                 hf_hub_download(repo_id=model_stub,
-                            filename=model_filename,
-                            force_filename=model_filename,
-                            revision=revision,
-                            cache_dir=os.getcwd())
-            else:
-                 hf_hub_download(repo_id=model_stub,
-                            subfolder=subfolder,
-                            filename=model_filename,
-                            force_filename=model_filename,
-                            revision=revision,
-                            cache_dir=os.getcwd())
+            
+            xrevision = None if revision == '' else revision
+            xsubfolder = None if subfolder == '' else subfolder
+
+            hf_hub_download(repo_id=model_stub,
+                       subfolder=xsubfolder,
+                       filename=model_filename,
+                       force_filename=model_filename,
+                       revision=xrevision,
+                       cache_dir=os.getcwd())
         
 
         print ('')

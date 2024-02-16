@@ -11,6 +11,10 @@ if [[ "$CM_QUIET" != "yes" ]]; then
  if [[ "$DUMMY" == "skip" ]]; then exit 0; fi
 fi
 
+if [[ "$CM_HOST_OS_FLAVOR" == "amzn" ]]; then
+  ${CM_SUDO} yum groupinstall "Development Tools"
+fi
+
 CM_PACKAGE_TOOL=${CM_PACKAGE_TOOL:-dnf}
 
 ${CM_SUDO} ${CM_PACKAGE_TOOL} update && \

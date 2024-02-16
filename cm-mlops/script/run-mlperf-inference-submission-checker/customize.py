@@ -7,7 +7,7 @@ def preprocess(i):
 
     os_info = i['os_info']
     env = i['env']
-    submission_dir = env.get("CM_MLPERF_SUBMISSION_DIR", "")
+    submission_dir = env.get("CM_MLPERF_INFERENCE_SUBMISSION_DIR", "")
 
     version = env.get('CM_MLPERF_SUBMISSION_CHECKER_VERSION','')
     
@@ -68,8 +68,8 @@ def preprocess(i):
 def postprocess(i):
 
     env = i['env']
-    if env.get('CM_TAR_SUBMISSION_DIR'):
-        env['CM_TAR_INPUT_DIR'] = env.get('CM_MLPERF_SUBMISSION_DIR', '$HOME')
+    if env.get('CM_TAR_SUBMISSION_DIR',''):
+        env['CM_TAR_INPUT_DIR'] = env['CM_MLPERF_INFERENCE_SUBMISSION_DIR']
 
     x=env.get('MLPERF_INFERENCE_SUBMISSION_TAR_FILE','')
     if x!='':

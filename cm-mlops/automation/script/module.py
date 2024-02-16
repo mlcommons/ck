@@ -4133,12 +4133,14 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
                            print (r['string'])
                            print ("")
 
-            note = '''^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            note = '''
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Note that it may be a portability issue of a third-party tool or a native script 
-wrapped and unified by this portable CM script. In such case, please report this issue 
-with a full log at "https://github.com/mlcommons/ck". The CM concept is to collaboratively 
-fix such issues inside portable CM scripts to make existing tools and native scripts
-more portable, interoperable and deterministic. Thank you'''
+wrapped and unified by this automation recipe (CM script). In such case, 
+please report this issue with a full log at "https://github.com/mlcommons/ck". 
+The CM concept is to collaboratively fix such issues inside portable CM scripts 
+to make existing tools and native scripts more portable, interoperable 
+and deterministic. Thank you!'''
 
             return {'return':2, 'error':'Portable CM script failed (name = {}, return code = {})\n\n{}'.format(meta['alias'], rc, note)}
 
