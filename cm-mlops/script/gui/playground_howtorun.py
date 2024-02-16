@@ -86,7 +86,6 @@ def page(st, params, action = ''):
 
     compute_meta = r['meta']
 #    st.markdown(compute_meta)
-        
 
     ############################################################################################
     # Select benchmark
@@ -105,14 +104,68 @@ def page(st, params, action = ''):
     r = cmind.access(ii)
     if r['return']>0: return r
 
-    r = make_selection(st, r['selection'], 'benchmark', 'benchmark', bench_uid)
+    # Prune by supported compute
+    selection = r['selection']
+    pruned_selection = []
+
+    if len(compute_meta)==0 or compute_meta.get('tags','')=='':
+        pruned_selection = selection
+    else:
+        xtags = set(compute_meta['tags'].split(','))
+
+#        st.markdown(str(xtags))
+        
+        for s in selection:
+            add = True
+
+            supported_compute = s.get('supported_compute',[])
+            if len(supported_compute)>0:
+                add = False
+
+                for c in supported_compute:
+                    cc = set(c.split(','))
+                    if cc.issubset(xtags):
+                        add = True
+                        break
+            
+            if add:
+                pruned_selection.append(s)
+
+    r = make_selection(st, pruned_selection, 'benchmark', 'benchmark', bench_uid)
     if r['return']>0: return r
 
     bench_meta = r['meta']
 #    st.markdown(bench_meta)
 
     if len(bench_meta)>0:
+        ############################################################################################
+        # Check common CM interface
+
+        st.markdown('---')
+
         urls = bench_meta.get('urls',[])
+
+        script_name = bench_meta.get('script_name','')
+        if script_name!='':
+            ii = {'action':'find',
+                  'automation':'script',
+                  'artifact':script_name}
+            r = cmind.access(ii)
+            if r['return']>0: return r
+
+            lst = r['list']
+
+            if len(lst)>0:
+
+
+                url_script = misc.make_url(script_name, key='name', action='scripts', md=False)
+                url_script += '&gui=true'
+                
+                urls.append({'name': 'Universal CM GUI to run this benchmark',
+                             'url': url_script})
+
+        
+        # Check URLS
         if len(urls)>0:
             x = '\n'
             for u in urls:
@@ -123,7 +176,6 @@ def page(st, params, action = ''):
             x+='\n'
 
             st.markdown(x)
-
 
 
 

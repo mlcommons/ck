@@ -7,3 +7,7 @@ name: "ML models with LoadGen (C++; Linux/MacOS/Windows) - dev"
 urls:
 - name: "GitHub dev page"
   url: "https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp"
+
+supported_compute:
+- cpu,x64
+- gpu,nvidia
