@@ -41,7 +41,7 @@ def preprocess(i):
     if x!='':
         env['CM_RUN_CMD'] = x + ' ' + env.get('CM_RUN_CMD','')
 
-    if os_info['platform'] == 'windows' and str(env.get('CM_SAVE_CONSOLE_LOG', True)).lower() not in  [ "no", "false", "0"]:
+    if os_info['platform'] != 'windows' and str(env.get('CM_SAVE_CONSOLE_LOG', True)).lower() not in  [ "no", "false", "0"]:
         logs_dir = env.get('CM_LOGS_DIR', env['CM_RUN_DIR'])
         env['CM_RUN_CMD'] += " 2>&1 | tee " + os.path.join(logs_dir, "console.out")
 
