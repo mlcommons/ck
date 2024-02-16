@@ -172,7 +172,7 @@ def preprocess(i):
 
             print(f"\nRunning loadgen scenario: {scenario} and mode: {mode}")
             ii = {'action':action, 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
-                'env': copy.deepcopy(env), 'input': inp, 'state': copy.deepcopy(state), 'add_deps': copy.deepcopy(add_deps), 'add_deps_recursive':
+                'env': copy.deepcopy(env), 'input': inp, 'state': state, 'add_deps': copy.deepcopy(add_deps), 'add_deps_recursive':
                 copy.deepcopy(add_deps_recursive), 'ad': ad, 'adr': copy.deepcopy(adr), 'v': verbose, 'print_env': print_env, 'print_deps': print_deps, 'dump_version_info': dump_version_info}
             r = cm.access(ii)
             if r['return'] > 0:
