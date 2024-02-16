@@ -266,7 +266,7 @@ Available flags mapped to environment variables:
 ## Running this app via Docker
 
 ```bash
-cm docker script "python app loadgen-generic _onnxruntime _custom _huggingface _model-stub.ctuning/mlperf-inference-bert-onnx-fp32-squad-v1.1" --adr.hf-downloader.model_filename=model.onnx  --samples=2 --output_dir=. --docker_cm_repo=ctuning@mlcommons-ck
+cm docker script "python app loadgen-generic _onnxruntime _custom _huggingface _model-stub.ctuning/mlperf-inference-bert-onnx-fp32-squad-v1.1" --adr.hf-downloader.model_filename=model.onnx  --samples=2 --output_dir=new_results --docker_cm_repo=ctuning@mlcommons-ck
 ```
 
 ## Tuning CPU performance via CM experiment
