@@ -6,10 +6,10 @@ import subprocess
 import cmind as cm
 import copy
 from tabulate import tabulate
-import mlperf_utils
 
 summary_ext = ['.csv', '.json', '.xlsx']
 
+##################################################################################
 def preprocess(i):
 
     os_info = i['os_info']
@@ -191,6 +191,10 @@ def preprocess(i):
     if state.get("cm-mlperf-inference-results"):
         # print(state["cm-mlperf-inference-results"])
         for sut in state["cm-mlperf-inference-results"]:#only one sut will be there
+            # Grigori: that may not work properly since customize may have another Python than MLPerf
+            # (for example, if we use virtual env)
+            import mlperf_utils
+
             print(sut)
             result_table, headers = mlperf_utils.get_result_table(state["cm-mlperf-inference-results"][sut])
             print(tabulate(result_table, headers = headers, tablefmt="pretty"))
@@ -226,6 +230,23 @@ def get_valid_scenarios(model, category, mlperf_version, mlperf_path):
 
     return valid_scenarios
 
+##################################################################################
 def postprocess(i):
 
     return {'return':0}
+
+
+##################################################################################
+def gui(i):
+
+    params = i['params']
+    st = i['streamlit_module']
+    meta = i['meta']
+
+    end_html = ''
+
+    st.markdown('Custom GUI')
+
+
+    
+    return {'return':0, 'end_html':end_html}

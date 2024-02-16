@@ -141,11 +141,12 @@ def page(st, params, action = ''):
         ############################################################################################
         # Check common CM interface
 
-        st.markdown('---')
+#        st.markdown('---')
 
         urls = bench_meta.get('urls',[])
 
         script_name = bench_meta.get('script_name','')
+        script_obj = None
         if script_name!='':
             ii = {'action':'find',
                   'automation':'script',
@@ -157,6 +158,7 @@ def page(st, params, action = ''):
 
             if len(lst)>0:
 
+                script_obj = lst[0]
 
                 url_script = misc.make_url(script_name, key='name', action='scripts', md=False)
                 url_script += '&gui=true'
@@ -165,14 +167,14 @@ def page(st, params, action = ''):
                              'url': url_script})
 
                 # Check if has README extra
-                script_path = lst[0].path
+                script_path = script_obj.path
 
                 script_path_readme_extra = os.path.join(script_path, 'README-extra.md')
 
                 if os.path.isfile(script_path_readme_extra):
-                    repo_meta = lst[0].repo_meta
+                    repo_meta = script_obj.repo_meta
                     
-                    alias = lst[0].meta['alias']
+                    alias = script_obj.meta['alias']
 
                     url = repo_meta.get('url','')
                     if url=='' and repo_meta.get('git', False):
@@ -210,6 +212,37 @@ def page(st, params, action = ''):
 
             st.markdown(x)
 
+        ############################################################################################
+        # Check if has customization
+        if script_obj!=None:
+            ii = {'streamlit_module': st,
+                  'params': params,
+                  'meta': script_obj.meta,
+                  'skip_title': True,
+                  'misc_module': misc}
 
+            import sys
+            import importlib
+
+            sys.path.insert(0, os.path.abspath(script_obj.path))
+
+            tmp_module = None
+            try:
+               tmp_module=importlib.import_module('customize')
+            except Exception as e:
+               pass
+
+            del(sys.path[0])
+
+            if tmp_module!=None:
+                if hasattr(tmp_module, 'gui'):
+                    try:
+                        func = getattr(tmp_module, 'gui')
+                    except Exception as e:
+                        return {'return':1, 'error':format(e)}
+
+                    st.markdown('---')
+                    
+                    return func(ii)
 
     return {'return':0, 'end_html':end_html}
