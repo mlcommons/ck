@@ -8,10 +8,12 @@ category: "Modular AI/ML application pipeline"
 
 tags:
 - app
+- modular
 - image-classification
 - onnx
 - python
 
+tags_help: "modular python app image-classification onnx"
 
 default_env:
   CM_BATCH_COUNT: '1'

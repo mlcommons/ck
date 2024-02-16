@@ -90,7 +90,7 @@ def main():
         <a target="_self" href="?action=contributors"><button style="{}">Leaderboard</button></a>
         <a target="_self" href="?action=reports"><button style="{}">Reports</button></a>
         <a target="_self" href="?action=beta"><button style="{}">Beta</button></a>
-        <a target="_self" href="?action=apps"><button style="{}">Optimized apps</button></a><br>
+        <a target="_self" href="?action=scripts&tags=modular,app"><button style="{}">Modular apps</button></a><br>
         <a target="_self" href="https://discord.gg/JjWNWXKxwT"><button>Discord</button></a>
         <a target="_self" href="https://github.com/mlcommons/ck"><button>GitHub</button></a>
         </center>
@@ -100,10 +100,10 @@ def main():
                    style_action_challenges,
                    style_action_experiments, 
                    style_action_reproduce,
-                   style_action_apps,
                    style_action_contributors,
                    style_action_reports,
-                   style_action_beta
+                   style_action_beta,
+                   style_action_apps
                    ),
         unsafe_allow_html=True
     )
