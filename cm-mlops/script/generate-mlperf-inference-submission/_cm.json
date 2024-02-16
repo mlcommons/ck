@@ -71,7 +71,8 @@
     "tar": "CM_TAR_SUBMISSION_DIR"
   },
   "default_env": {
-    "CM_RUN_MLPERF_ACCURACY": "on"
+    "CM_RUN_MLPERF_ACCURACY": "on",
+    "CM_MLPERF_RUN_STYLE": "valid"
   },
   "post_deps": [
     {
