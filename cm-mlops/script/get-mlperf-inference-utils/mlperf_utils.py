@@ -229,12 +229,12 @@ def get_result_table(results):
                         val_qps = str(round(1000/float(results[model][scenario]['performance']), 3))
                         if not results[model][scenario].get('performance_valid', True): # we explicitly mark invalid results
                             val_qps = "X "+val_qps
-                        row.appenx(val_qps)
+                        row.append(val_qps)
                     elif scenario.lower() == "multistream":
                         val_qps = str(round(8000/float(results[model][scenario]['performance']), 3))
                         if not results[model][scenario].get('performance_valid', True):
                             val_qps = "X "+val_qps
-                        row.appenx(val_qps)
+                        row.append(val_qps)
                     val = str(results[model][scenario]['performance'])
                     if not results[model][scenario].get('performance_valid', True):
                         val = "X "+val
