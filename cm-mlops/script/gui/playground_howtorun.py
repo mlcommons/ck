@@ -36,7 +36,7 @@ def make_selection(st, selection, param_key, text, x_uid):
 
          if x_uid != '':
              x_meta = selection[0]
-             st.markdown('Selected {}: {}'.format(text, x_meta['name']))
+             st.markdown('**Selected {}:** {}'.format(text, x_meta['name']))
          else:
              x_selection = [{'name':''}]
              x_selection += selection
@@ -238,7 +238,6 @@ def page(st, params, action = ''):
                     found_automation_spec.loader.exec_module(tmp_module)
 #               tmp_module=importlib.import_module('customize')
             except Exception as e:
-               st.markdown(str(format(e)))
                pass
 
             if tmp_module!=None:
@@ -248,12 +247,8 @@ def page(st, params, action = ''):
                     except Exception as e:
                         return {'return':1, 'error':format(e)}
 
-                    st.markdown('---')
-                    
                     r = func(ii)
                     if r['return'] > 0 : return r
-
-                    st.markdown(r)
 
         ############################################################################################
         # Show official GUI
@@ -272,6 +267,18 @@ def page(st, params, action = ''):
                   'script_meta': script_meta,
                   'skip_bottom': True}
             
-            return script.page(ii)
+            rr = script.page(ii)
+            if rr['return']>0: return rr
+
+            end_html += '\n'+rr.get('end_html','')
+
+        ############################################################################################
+        self_url = misc.make_url(bench_meta['uid'], action='howtorun', key='bench_uid', md=False)
+
+        if len(compute_meta)>0:
+            self_url += '&compute_uid='+compute_meta['uid']
+
+        end_html='<center><small><i><a href="{}">Self link</a></i></small></center>'.format(self_url)
+
 
     return {'return':0, 'end_html':end_html}
