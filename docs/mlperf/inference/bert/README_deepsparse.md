@@ -5,7 +5,6 @@
 ```
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --adr.python.version_min=3.8 \
-   --adr.compiler.tags=gcc \
    --implementation=reference \
    --model=bert-99 \
    --precision=int8 \
@@ -26,7 +25,6 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --adr.python.name=mlperf \
    --adr.python.version_min=3.8 \
-   --adr.compiler.tags=gcc \
    --implementation=reference \
    --model=bert-99 \
    --precision=int8 \
@@ -47,7 +45,6 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
 ```
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --adr.python.version_min=3.8 \
-   --adr.compiler.tags=gcc \
    --implementation=reference \
    --compliance=no \
    --model=bert-99 \
@@ -71,7 +68,6 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
 ```
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
    --adr.python.version_min=3.8 \
-   --adr.compiler.tags=gcc \
    --implementation=reference \
    --model=resnet50 \
    --precision=int8 \

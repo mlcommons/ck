@@ -240,17 +240,32 @@ def postprocess(i):
 def gui(i):
 
     params = i['params']
-    st = i['streamlit_module']
+    st = i['st']
 
     script_meta = i['meta']
+
+    misc = i['misc_module']
+
+    st_inputs_custom = {}
 
     compute_meta = i.get('compute_meta',{})
     bench_meta = i.get('bench_meta',{})
 
     end_html = ''
 
+    inp = script_meta['input_description']
+
     # Here we can update params
-   
+    st.markdown('---')
+    st.markdown('**How would you like to run the MLPerf inference benchmark?**')
+
+    
+    mlperf_inference_device = compute_meta.get('mlperf_inference_device', None)
+    if mlperf_inference_device == None:
+        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_device', 'value':inp['device']})
+        mlperf_inference_device = r.get('value2')
+    script_meta['input_description']['device']['force'] = mlperf_inference_device
+
    
 #    params['@adr.mlperf-power-client.port']=['']
 #    script_meta['input_description']['device']['choices']=['rocm','qaic']

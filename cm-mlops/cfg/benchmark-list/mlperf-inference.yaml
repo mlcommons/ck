@@ -18,5 +18,6 @@ supported_compute:
 - cpu,x64
 - cpu,arm64
 - gpu,nvidia
+- gpu,amd
 - accelerator,acc,qualcomm,ai,100,ai-100
 - tpu,google

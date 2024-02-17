@@ -191,45 +191,14 @@ def page(i):
                     st.subheader('Other flags')
                     other_flags = True
 
-                key2 = '@'+key
-
-                if type(value) == dict:
-                    desc = value['desc']
-
-                    choices = value.get('choices', [])
-                    boolean = value.get('boolean', False)
-                    default = value.get('default', '')
-
-                    if boolean:
-                        v = default
-                        x = params.get(key2, None)
-                        if x!=None and len(x)>0 and x[0]!=None:
-                            if x[0].lower()=='true':
-                                v = True
-                            elif x[0].lower()=='false':
-                                v = False
-                        st_inputs[key2] = st.checkbox(desc, value=v, key=key2)
-                    elif len(choices)>0:
-                        x = params.get(key2, None)
-                        if x!=None and len(x)>0 and x[0]!=None:
-                            x = x[0]
-                            if x in choices:
-                                selected_index = choices.index(x) if x in choices else 0
-                            else:
-                                selected_index = choices.index(default) if default!='' else 0
-                        else:
-                            selected_index = choices.index(default) if default!='' else 0
-                        st_inputs[key2] = st.selectbox(desc, choices, index=selected_index, key=key2)
-                    else:
-                        v = default
-                        x = params.get(key2, None)
-                        if x!=None and len(x)>0 and x[0]!=None:
-                            v = x[0]
-                        st_inputs[key2] = st.text_input(desc, value=v, key=key2)
-
-                else:
-                    desc = value
-                    st_inputs[key2] = st.text_input(desc)
+                ii={'key':key,
+                    'value':value,
+                    'params':params,
+                    'st':st,
+                    'st_inputs':st_inputs}
+                
+                r2 = misc.make_selector(ii)
+                if r2['return']>0: return r2
 
     # Check tags
     selected_variations=[]

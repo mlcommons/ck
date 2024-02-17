@@ -3,3 +3,5 @@ uid: fe379ecd1e054a00
 tags: gpu,nvidia,jetson,orin
 
 name: "Nvidia GPU - Jetson Orin"
+
+mlperf_inference_device: cuda

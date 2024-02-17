@@ -218,7 +218,7 @@ def page(st, params, action = ''):
         ############################################################################################
         # Check if has customization
         if script_obj!=None:
-            ii = {'streamlit_module': st,
+            ii = {'st': st,
                   'params': params,
                   'meta': script_obj.meta,
                   'misc_module': misc,
@@ -238,6 +238,7 @@ def page(st, params, action = ''):
                     found_automation_spec.loader.exec_module(tmp_module)
 #               tmp_module=importlib.import_module('customize')
             except Exception as e:
+               st.markdown('WARNING: {}'.format(e))
                pass
 
             if tmp_module!=None:

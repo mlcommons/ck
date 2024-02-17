@@ -302,7 +302,6 @@ cm run script "app mlperf inference generic _python _bert-99 _onnxruntime _cpu _
      --rerun \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
      --adr.mlperf-implementation.version=custom \
-     --adr.compiler.tags=gcc \
      --quiet
 ```
 
@@ -316,7 +315,6 @@ cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu _test" \
      --rerun \
      --adr.mlperf-implementation.tags=_repo.https://github.com/ctuning/inference,_branch.scc23 \
      --adr.mlperf-implementation.version=custom \
-     --adr.compiler.tags=gcc \
      --quiet
 ```
 
@@ -334,8 +332,6 @@ You will see a long output that should contain the following line with accuracy:
   if you want to improve it. We use the [cTuning fork](https://github.com/ctuning/inference) 
   to keep a stable version of the official MLPerf inference repository.
 
-
-If you remove flag `--adr.compiler.tags=gcc`, CM will attempt to download and install LLVM as a default dependency for MLPerf loadgen.
 
 You can add `-v` flag to debug any CM script.
 
