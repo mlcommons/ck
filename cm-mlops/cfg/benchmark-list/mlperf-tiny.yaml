@@ -11,3 +11,6 @@ urls:
   url: "https://github.com/mlcommons/tiny"
 - name: "MLCommons CM automation (under development)"
   url: "https://github.com/mlcommons/ck/blob/master/docs/tutorials/reproduce-mlperf-tiny.md"
+
+supported_compute:
+- stm32

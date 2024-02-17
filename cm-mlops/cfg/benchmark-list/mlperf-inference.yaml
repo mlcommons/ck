@@ -13,3 +13,10 @@ urls:
   url: "https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference"
 
 script_name: run-mlperf-inference-app,4a5d5b13fd7e4ac8
+
+supported_compute:
+- cpu,x64
+- cpu,arm64
+- gpu,nvidia
+- accelerator,acc,qualcomm,ai,100,ai-100
+- tpu,google

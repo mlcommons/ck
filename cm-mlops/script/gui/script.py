@@ -134,7 +134,7 @@ def page(i):
                      key2 = '~~'+group_key
 
                      x = params.get(key2, None)
-                     if x!=None and len(x)>0 and x[0]!='':
+                     if x!=None and len(x)>0 and x[0]!=None:
                          x = x[0]
                          if x in y:
                              selected_index = y.index(x) if x in y else 0
@@ -150,7 +150,7 @@ def page(i):
                          key2 = '~'+variation_key
 
                          x = params.get(key2, None)
-                         if x!=None and len(x)>0 and x[0]!='':
+                         if x!=None and len(x)>0 and x[0]!=None:
                              if x[0].lower()=='true':
                                  v = True
                              elif x[0].lower()=='false':
@@ -203,7 +203,7 @@ def page(i):
                     if boolean:
                         v = default
                         x = params.get(key2, None)
-                        if x!=None and len(x)>0 and x[0]!='':
+                        if x!=None and len(x)>0 and x[0]!=None:
                             if x[0].lower()=='true':
                                 v = True
                             elif x[0].lower()=='false':
@@ -211,7 +211,7 @@ def page(i):
                         st_inputs[key2] = st.checkbox(desc, value=v, key=key2)
                     elif len(choices)>0:
                         x = params.get(key2, None)
-                        if x!=None and len(x)>0 and x[0]!='':
+                        if x!=None and len(x)>0 and x[0]!=None:
                             x = x[0]
                             if x in choices:
                                 selected_index = choices.index(x) if x in choices else 0
@@ -223,7 +223,7 @@ def page(i):
                     else:
                         v = default
                         x = params.get(key2, None)
-                        if x!=None and len(x)>0 and x[0]!='':
+                        if x!=None and len(x)>0 and x[0]!=None:
                             v = x[0]
                         st_inputs[key2] = st.text_input(desc, value=v, key=key2)
 
@@ -363,6 +363,7 @@ def page(i):
     x='''
          ```python
           {}
+         ```
       '''.format(y)
 
 #    st.write(x.replace('\n','<br>\n'), unsafe_allow_html=True)

@@ -145,6 +145,7 @@ def page(st, params, action = ''):
 
         urls = bench_meta.get('urls',[])
 
+        script_path = ''
         script_name = bench_meta.get('script_name','')
         script_obj = None
         if script_name!='':
@@ -160,6 +161,11 @@ def page(st, params, action = ''):
 
                 script_obj = lst[0]
 
+                script_meta = script_obj.meta
+                script_path = script_obj.path
+
+                script_alias = script_meta['alias']
+
                 url_script = misc.make_url(script_name, key='name', action='scripts', md=False)
                 url_script += '&gui=true'
                 
@@ -167,15 +173,12 @@ def page(st, params, action = ''):
                              'url': url_script})
 
                 # Check if has README extra
-                script_path = script_obj.path
 
                 script_path_readme_extra = os.path.join(script_path, 'README-extra.md')
 
                 if os.path.isfile(script_path_readme_extra):
                     repo_meta = script_obj.repo_meta
                     
-                    alias = script_obj.meta['alias']
-
                     url = repo_meta.get('url','')
                     if url=='' and repo_meta.get('git', False):
                         url = 'https://github.com/'+repo_meta['alias'].replace('@','/')
@@ -191,7 +194,7 @@ def page(st, params, action = ''):
 
                         if not url.endswith('/'): url=url+'/'
                         
-                        url += 'script/'+alias
+                        url += 'script/'+script_alias
 
                         # Check README.extra.md
                         url_readme_extra = url+'/README-extra.md'
@@ -218,8 +221,9 @@ def page(st, params, action = ''):
             ii = {'streamlit_module': st,
                   'params': params,
                   'meta': script_obj.meta,
-                  'skip_title': True,
-                  'misc_module': misc}
+                  'misc_module': misc,
+                  'compute_meta':compute_meta,
+                  'bench_meta':bench_meta}
 
             import sys
             import importlib
@@ -246,6 +250,35 @@ def page(st, params, action = ''):
 
                     st.markdown('---')
                     
-                    return func(ii)
+                    r = func(ii)
+                    if r['return'] > 0 : return r
+
+                    st.markdown(r)
+
+                    # Here we can update params
+                    
+                    
+#                    params['@adr.mlperf-power-client.port']=['']
+
+
+
+        ############################################################################################
+        # Show official GUI
+        if script_path!='':
+            import script
+
+            script_tags = script_meta.get('tags_help','')
+            if script_tags =='':
+                script_tags = ','.join(meta.get('tags',[]))
+
+            ii = {'st': st,
+                  'params': params,
+                  'script_path': script_path, 
+                  'script_alias': script_alias, 
+                  'script_tags': script_tags, 
+                  'script_meta': script_meta,
+                  'skip_bottom': True}
+            
+            return script.page(ii)
 
     return {'return':0, 'end_html':end_html}

@@ -79,7 +79,7 @@ def page(st, params):
                 script_path = recipe.path
                 script_alias = alias
 
-                script_tags = script_tags
+#                script_tags = script_tags
                 if script_tags=='':
                     script_tags = meta.get('tags_help','')
                     if script_tags !='':

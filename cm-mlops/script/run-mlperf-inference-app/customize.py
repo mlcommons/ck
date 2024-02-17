@@ -243,10 +243,13 @@ def gui(i):
     st = i['streamlit_module']
     meta = i['meta']
 
+    compute_meta = i.get('compute_meta',{})
+    bench_meta = i.get('bench_meta',{})
+
     end_html = ''
 
-    st.markdown('Custom GUI')
-
-
+#    st.markdown(str(compute_meta))
+#    st.markdown('---')
+#    st.markdown(str(bench_meta))
     
     return {'return':0, 'end_html':end_html}

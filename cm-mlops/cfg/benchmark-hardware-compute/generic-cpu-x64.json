@@ -1,5 +1,5 @@
 {
   "uid": "cdfd424c32734e38",
-  "name": "Generic CPU - x64",
-  "tags": "cpu,x64,generic"
+  "name": "Generic - x64 (Intel/AMD)",
+  "tags": "cpu,x64,generic,intel,amd"
 }
