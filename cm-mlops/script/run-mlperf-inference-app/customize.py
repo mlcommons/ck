@@ -266,7 +266,15 @@ def gui(i):
         mlperf_inference_device = r.get('value2')
     script_meta['input_description']['device']['force'] = mlperf_inference_device
 
-   
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_division', 'value':inp['division']})
+    mlperf_inference_division = r.get('value2')
+    script_meta['input_description']['division']['force'] = mlperf_inference_division
+
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_category', 'value':inp['category']})
+    mlperf_inference_category = r.get('value2')
+    script_meta['input_description']['category']['force'] = mlperf_inference_category
+    
+
 #    params['@adr.mlperf-power-client.port']=['']
 #    script_meta['input_description']['device']['choices']=['rocm','qaic']
 #    script_meta['input_description']['device']['default']='qaic'

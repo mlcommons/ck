@@ -265,6 +265,21 @@ versions:
   r2.1: {}
 
 input_description:
+  division:
+    choices:
+    - 'open'
+    - 'close'
+    default: 'open'
+    desc: MLPerf division
+    sort: 50
+  category:
+    choices:
+    - 'edge'
+    - 'server'
+    - 'network'
+    default: 'edge'
+    desc: MLPerf category
+    sort: 60
   device:
     choices:
     - cpu
