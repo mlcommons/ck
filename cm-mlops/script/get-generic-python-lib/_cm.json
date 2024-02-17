@@ -151,6 +151,16 @@
     "nvidia-apex": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "apex",
+        "CM_GENERIC_PYTHON_PACKAGE_VARIANT": "nvidia-apex",
+        "CM_GENERIC_PYTHON_PIP_URL": "git+https://github.com/nvidia/apex@0da3ffb92ee6fbe5336602f0e3989db1cd16f880"
+      },
+      "new_env_keys": [
+        "CM_NVIDIA_APEX_VERSION"
+      ]
+    },
+    "nvidia-apex-from-src": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apex",
         "CM_GENERIC_PYTHON_PACKAGE_VARIANT": "nvidia-apex"
       },
       "new_env_keys": [
@@ -161,8 +171,7 @@
           "names": [
             "cuda"
           ],
-          "tags": "get,cuda",
-          "version": "12.1.1"
+          "tags": "get,cuda"
         },
         {
           "names": [
@@ -174,7 +183,8 @@
           "tags": "get,git,repo,_repo.https://github.com/NVIDIA/apex,_tag.23.05",
           "env": {
             "CM_GIT_CHECKOUT_FOLDER": "apex"
-          }
+          },
+	  "extra_cache_tags": "nvidia-apex"
         }
       ]
     },

@@ -8,11 +8,14 @@ category: "Modular AI/ML application pipeline"
 
 tags:
 - app
+- modular
 - stable
 - diffusion
 - stable-diffusion
 - onnx
 - python
+
+tags_help: "modular python app stable-diffusion onnx"
 
 
 deps:

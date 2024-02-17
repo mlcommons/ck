@@ -140,6 +140,7 @@ r=cm.access({... , "analyzer_settings_file":...}
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 * CM_RUN_MLPERF_ACCURACY: `on`
+* CM_MLPERF_RUN_STYLE: `valid`
 
 </details>
 

@@ -236,7 +236,9 @@ def generate_submission(i):
                             with open(os.path.join(result_mode_path, "system_meta.json"), "r") as f:
                                 saved_system_meta = json.load(f)
                                 for key in list(saved_system_meta):
-                                    if saved_system_meta[key].strip() == '':
+                                    print (saved_system_meta)
+                                    print (saved_system_meta[key])
+                                    if saved_system_meta[key]==None or str(saved_system_meta[key]).strip() == '':
                                         del(saved_system_meta[key])
                                 system_meta = {**saved_system_meta, **system_meta} #override the saved meta with the user inputs
                         system_meta = {**system_meta_default, **system_meta} #add any missing fields from the defaults

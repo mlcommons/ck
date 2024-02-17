@@ -1,0 +1,15 @@
+﻿uid: 39877bb63fb54725
+
+tags: benchmark,run,mlperf,inference,mlperf-inference
+
+name: "MLPerf inference"
+
+urls:
+- name: "Official page"
+  url: "https://mlcommons.org/benchmarks/inference"
+- name: "GitHub dev page"
+  url: "https://github.com/mlcommons/inference"
+- name: "MLCommons CM automation (under development)"
+  url: "https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference"
+
+script_name: run-mlperf-inference-app,4a5d5b13fd7e4ac8

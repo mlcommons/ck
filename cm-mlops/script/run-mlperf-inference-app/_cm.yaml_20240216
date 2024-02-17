@@ -26,7 +26,7 @@ tags:
 - inference
 - reference
 
-tags_help: "run-mlperf-inference"
+tags_help: "run mlperf inference common"
 
 default_env:
   CM_MLPERF_IMPLEMENTATION: reference
@@ -149,7 +149,7 @@ variations:
       CM_MLPERF_LOADGEN_COMPLIANCE: 'yes'
 
   dashboard:
-    default_gui: false
+    default_gui: true
     env:
       CM_MLPERF_DASHBOARD: 'on'
 
@@ -292,7 +292,7 @@ input_description:
     - llama2-70b-99.9
     - mobilenet
     - efficientnet
-    default: retinanet
+    default: resnet50
     desc: MLPerf model
     sort: 200
   precision:
@@ -367,6 +367,7 @@ input_description:
     sort: 1000
 
   adr.compiler.tags:
+    default: gcc
     desc: Compiler for loadgen and any C/C++ part of implementation
   adr.inference-src-loadgen.env.CM_GIT_URL:
     default: ''
@@ -381,27 +382,13 @@ input_description:
   adr.mlperf-inference-implementation.num_threads:
     desc: Number of threads (reference&C++ implementation only)
   adr.python.name:
+    default: mlperf
     desc: Python virtual environment name (optional)
   adr.python.version:
     desc: Force Python version (must have all system deps)
   adr.python.version_min:
     default: '3.8'
     desc: Minimal Python version
-  power:
-    choices:
-    - 'yes'
-    - 'no'
-    default: 'no'
-    desc: Measure power
-    sort: 5000
-  adr.mlperf-power-client.power_server:
-    default: '192.168.0.15'
-    desc: MLPerf Power server IP address
-    sort: 5005
-  adr.mlperf-power-client.port: 
-    default: 4950
-    desc: MLPerf Power client port
-    sort: 5010
   clean:
     boolean: true
     default: true
@@ -410,13 +397,16 @@ input_description:
     choices:
     - 'yes'
     - 'no'
-    default: 'no'
+    default: 'yes'
     desc: Whether to run compliance tests (applicable only for closed division)
   dashboard_wb_project:
+    default: cm-mlperf-dse-testing
     desc: W&B dashboard project
   dashboard_wb_user:
+    default: cmind
     desc: W&B dashboard user
   hw_name:
+    default: default
     desc: MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware))
   multistream_target_latency:
     desc: Set MultiStream target latency
@@ -424,7 +414,7 @@ input_description:
     desc: Set LoadGen Offline target QPS
   quiet:
     boolean: true
-    default: true
+    default: false
     desc: Quiet run (select default values for all questions)
   server_target_qps:
     desc: Set Server target QPS
@@ -434,8 +424,4 @@ input_description:
     desc: Set Target latency
   target_qps:
     desc: Set LoadGen target QPS
-  j:
-    desc: Print results dictionary to console in the end
-    boolean: true
-    default: true
-    
+

@@ -540,7 +540,7 @@ def gui(i):
         compute_id_index = 0 if compute_uid == '' else 1
         
         if uid == '':
-            compute_id = st.selectbox('Select target hardware:',
+            compute_id = st.selectbox('Select target hardware to benchmark:',
                                        range(len(compute_selection)), 
                                        format_func=lambda x: compute_selection[x]['name'],
                                        index = compute_id_index,

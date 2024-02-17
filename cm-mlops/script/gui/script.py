@@ -304,15 +304,15 @@ def page(i):
     # Print CLI
     st.markdown("""---""")
 
-    x = 'pip install cmind -U\n\ncm pull repo mlcommons@ck\n'
+    x = 'pip install cmind -U\n\ncm pull repo mlcommons@ck\ncm rm cache -f\n'
 
     # Hack to detect python virtual environment and version
-    python_venv_name=st_inputs.get('adr.python.name', '')
-    python_ver=st_inputs.get('adr.python.version', '')
-    python_ver_min=st_inputs.get('adr.python.version_min', '')
+    python_venv_name=st_inputs.get('@adr.python.name', '')
+    python_ver=st_inputs.get('@adr.python.version', '')
+    python_ver_min=st_inputs.get('@adr.python.version_min', '')
 
     y = ''
-    if python_venv_name!='' or python_ver!='':
+    if python_venv_name!='' or python_ver!='' or python_ver_min!='':
         y = '\ncm run script "get sys-utils-cm"\n'
 
         if python_venv_name!='':
@@ -329,7 +329,7 @@ def page(i):
     if y!='':
         x+=y
 
-    st.text_area('**Install [MLCommons CM](https://github.com/mlcommons/ck/blob/master/docs/installation.md) with a few dependencies:**', x, height=170)
+    st.text_area('**Install [MLCommons CM](https://github.com/mlcommons/ck/blob/master/docs/installation.md) with a few dependencies and clean CM cache (optional):**', x, height=200)
 
 
     st.markdown("**Run CM script from Python:**")
