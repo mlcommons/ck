@@ -241,12 +241,20 @@ def gui(i):
 
     params = i['params']
     st = i['streamlit_module']
-    meta = i['meta']
+
+    script_meta = i['meta']
 
     compute_meta = i.get('compute_meta',{})
     bench_meta = i.get('bench_meta',{})
 
     end_html = ''
+
+    # Here we can update params
+   
+   
+#    params['@adr.mlperf-power-client.port']=['']
+#    script_meta['input_description']['device']['choices']=['rocm','qaic']
+#    script_meta['input_description']['device']['default']='qaic'
 
 #    st.markdown(str(compute_meta))
 #    st.markdown('---')

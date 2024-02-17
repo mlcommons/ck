@@ -255,13 +255,6 @@ def page(st, params, action = ''):
 
                     st.markdown(r)
 
-                    # Here we can update params
-                    
-                    
-#                    params['@adr.mlperf-power-client.port']=['']
-
-
-
         ############################################################################################
         # Show official GUI
         if script_path!='':

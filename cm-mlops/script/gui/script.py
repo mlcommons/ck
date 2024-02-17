@@ -332,7 +332,13 @@ def page(i):
     if y!='':
         x+=y
 
-    st.text_area('**Install [MLCommons CM](https://github.com/mlcommons/ck/blob/master/docs/installation.md) with a few dependencies and clean CM cache (optional):**', x, height=200)
+
+    st.markdown("**Install [MLCommons CM](https://github.com/mlcommons/ck/blob/master/docs/installation.md) with a few dependencies and clean CM cache (optional):**")
+    
+    st.markdown('```bash\n{}\n```\n'.format(x))
+
+   
+#    st.text_area('**Install [MLCommons CM](https://github.com/mlcommons/ck/blob/master/docs/installation.md) with a few dependencies and clean CM cache (optional):**', x, height=200)
 
 
     st.markdown("**Run CM script from Python:**")
@@ -361,9 +367,8 @@ def page(i):
     y+= 'if r[\'return\']>0: print (r)\n'
 
     x='''
-         ```python
+```python
           {}
-         ```
       '''.format(y)
 
 #    st.write(x.replace('\n','<br>\n'), unsafe_allow_html=True)
@@ -376,7 +381,7 @@ def page(i):
 
 
     # Add explicit button "Run"
-    if no_run=='' and st.button("Run"):
+    if no_run=='' and st.button("Run in the new terminal"):
         cli = cli+var1+'--pause\n'
 
         cli = cli.replace(var1, ' ').replace('\n',' ')
