@@ -258,7 +258,7 @@ def page(st, params, action = ''):
 
             script_tags = script_meta.get('tags_help','')
             if script_tags =='':
-                script_tags = ','.join(meta.get('tags',[]))
+                script_tags = ','.join(script_meta.get('tags',[]))
 
             ii = {'st': st,
                   'params': params,
