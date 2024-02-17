@@ -1089,6 +1089,14 @@ variations:
     default_variations:
       batch-size: batch_size.2048
 
+  rtx_4090,gptj_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.7
+
+  rtx_4090,gptj_,server,run_harness:
+    default_variations:
+      batch-size: batch_size.7
+
   rtx_4090,dlrm_,offline,run_harness:
     default_variations:
       batch-size: batch_size.1400
