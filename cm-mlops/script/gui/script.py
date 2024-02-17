@@ -16,8 +16,6 @@ def page(i):
     meta = i['script_meta']
     skip_bottom = i.get('skip_bottom', False)
 
-    var1 = '^' if os.name == 'nt' else '\\'
-
     no_run = os.environ.get('CM_GUI_NO_RUN', '')
 
     gui_meta = meta.get('gui',{})
@@ -40,6 +38,11 @@ def page(i):
 
     if script_alias!='':
         st.markdown('*[Collective Mind](https://github.com/mlcommons/ck) script: "{}"*'.format(script_alias))
+
+    host_os_index = 0 if os.name != 'nt' else 1
+    host_os_selection = ['Linux/MacOS', 'Windows']
+    host_os = st.selectbox('Select host OS where you will run CM:', host_os_selection, index=host_os_index, key='host_os')
+    var1 = '^' if host_os == 'Windows' else '\\'
 
     # Check if found path and there is meta
     # TBD (Grigori): need to cache it using @st.cache

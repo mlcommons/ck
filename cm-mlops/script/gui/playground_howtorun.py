@@ -196,7 +196,7 @@ def page(st, params, action = ''):
                         # Check README.extra.md
                         url_readme_extra = url+'/README-extra.md'
 
-                        urls.append({'name': 'Notes about how to run this script',
+                        urls.append({'name': 'Notes about how to run this benchmark from the command line',
                                      'url': url_readme_extra})
 
         
@@ -207,7 +207,7 @@ def page(st, params, action = ''):
                 name = u['name']
                 url = u['url']
 
-                x+=' [ [{}]({}) ] '.format(name, url)
+                x+='* [{}]({})\n'.format(name, url)
             x+='\n'
 
             st.markdown(x)
