@@ -311,10 +311,24 @@ def gui(i):
     precision = r.get('value2')
     script_meta['input_description']['precision']['force'] = precision
 
-    choices = ['Offline', 'Server', 'SingleStream', 'MultiStream', 'ALL']
+
+    #############################################################################
+    # Prepare scenario
+
+    xall = 'All applicable'
+    choices = ['Offline', 'Server', 'SingleStream', 'MultiStream', xall]
     desc = {'choices':choices, 'default':choices[0], 'desc':'Which scenario(s)?'}
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_scenario', 'desc':desc})
     scenario = r.get('value2')
+
+
+    if scenario == xall:
+        params['~all-scenarios']=['true']
+        script_meta['input_description']['scenario']['force']=''
+    else:
+        script_meta['input_description']['scenario']['force']=scenario
+
+
 
     #############################################################################
     # Prepare submission
