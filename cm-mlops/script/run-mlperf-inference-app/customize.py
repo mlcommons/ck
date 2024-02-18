@@ -329,7 +329,11 @@ def gui(i):
         script_meta['input_description']['submitter']['force']=submitter
         params['~~submission-generation']=['submission']
 
-        st.markdown('*Use the following command to find local directory with the submission tree and results:*\n```bash\ncm find cache --tags=submission,dir\n```\n')
+        x = '*Use the following command to find local directory with the submission tree and results:*\n```bash\ncm find cache --tags=submission,dir\n```\n'
+
+        x += '*You will also find results in `mlperf-inference-submission.tar.gz` file that you can submit to MLPerf!*'
+
+        st.markdown(x)
     
     else:
         script_meta['input_description']['submitter']['force']=''
