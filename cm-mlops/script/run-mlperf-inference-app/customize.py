@@ -310,6 +310,10 @@ def gui(i):
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_measure', 'value':desc})
     measure = r.get('value2')
 
+    desc = {'boolean':True, 'default':False, 'desc':'Measure power?'}
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power', 'value':desc})
+    power = r.get('value2')
+
     choices = ['Offline', 'Server', 'SingleStream', 'MultiStream', 'ALL']
     desc = {'choices':choices, 'default':choices[0], 'desc':'Which scenario(s)?'}
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_scenario', 'value':desc})
