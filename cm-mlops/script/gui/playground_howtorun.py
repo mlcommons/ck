@@ -163,6 +163,7 @@ def page(st, params, action = ''):
 
                 script_meta = script_obj.meta
                 script_path = script_obj.path
+                script_repo_meta = script_obj.repo_meta
 
                 script_alias = script_meta['alias']
 
@@ -266,6 +267,7 @@ def page(st, params, action = ''):
                   'script_alias': script_alias, 
                   'script_tags': script_tags, 
                   'script_meta': script_meta,
+                  'script_repo_meta': script_repo_meta,
                   'skip_bottom': True}
             
             rr = script.page(ii)

@@ -260,20 +260,62 @@ def gui(i):
     st.markdown('**How would you like to run the MLPerf inference benchmark?**')
 
     
-    mlperf_inference_device = compute_meta.get('mlperf_inference_device', None)
-    if mlperf_inference_device == None:
+    device = compute_meta.get('mlperf_inference_device', None)
+    if device == None:
         r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_device', 'value':inp['device']})
-        mlperf_inference_device = r.get('value2')
-    script_meta['input_description']['device']['force'] = mlperf_inference_device
+        device = r.get('value2')
+    script_meta['input_description']['device']['force'] = device
+
 
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_division', 'value':inp['division']})
-    mlperf_inference_division = r.get('value2')
-    script_meta['input_description']['division']['force'] = mlperf_inference_division
+    division = r.get('value2')
+    script_meta['input_description']['division']['force'] = division
+
 
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_category', 'value':inp['category']})
-    mlperf_inference_category = r.get('value2')
-    script_meta['input_description']['category']['force'] = mlperf_inference_category
+    category = r.get('value2')
+    script_meta['input_description']['category']['force'] = category
     
+
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_implementation', 'value':inp['implementation']})
+    implementation = r.get('value2')
+    script_meta['input_description']['implementation']['force'] = implementation
+
+
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_backend', 'value':inp['backend']})
+    backend = r.get('value2')
+    script_meta['input_description']['backend']['force'] = backend
+
+
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_model', 'value':inp['model']})
+    model = r.get('value2')
+    script_meta['input_description']['model']['force'] = model
+
+
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_precision', 'value':inp['precision']})
+    precision = r.get('value2')
+    script_meta['input_description']['model']['precision'] = precision
+
+
+
+    
+    
+    choices = ['Short run', 'Full run for submission']
+    desc = {'choices':choices, 'default':choices[0], 'desc':'Short/test run or full submission run?'}
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_how', 'value':desc})
+    how = r.get('value2')
+
+    choices = ['Performance Only', 'Accuracy Only', 'Performance and Accuracy']
+    desc = {'choices': choices, 'default':choices[0], 'desc':'What to measure?'}
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_measure', 'value':desc})
+    measure = r.get('value2')
+
+    choices = ['Offline', 'Server', 'SingleStream', 'MultiStream', 'ALL']
+    desc = {'choices':choices, 'default':choices[0], 'desc':'Which scenario(s)?'}
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_scenario', 'value':desc})
+    scenario = r.get('value2')
+
+
 
 #    params['@adr.mlperf-power-client.port']=['']
 #    script_meta['input_description']['device']['choices']=['rocm','qaic']

@@ -13,8 +13,10 @@ def page(i):
     script_path = i['script_path']
     script_alias = i['script_alias']
     script_tags = i['script_tags']
-    meta = i['script_meta']
     skip_bottom = i.get('skip_bottom', False)
+
+    meta = i['script_meta']
+    repo_meta = i.get('script_repo_meta', None)
 
     no_run = os.environ.get('CM_GUI_NO_RUN', '')
 
@@ -36,8 +38,29 @@ def page(i):
     # Set title
 #    st.title('[Collective Mind](https://github.com/mlcommons/ck)')
 
+    url_script = 'https://github.com/mlcommons/ck'
+    if repo_meta != None and script_alias!='':
+        url = repo_meta.get('url','')
+        if url=='' and repo_meta.get('git', False):
+            url = 'https://github.com/'+repo_meta['alias'].replace('@','/')
+
+        if url!='':
+            # Recreate GitHub path
+            if not url.endswith('/'): url=url+'/'
+
+            url += 'tree/master/'
+
+            if repo_meta.get('prefix','')!='':
+                url += repo_meta['prefix']
+
+            if not url.endswith('/'): url=url+'/'
+            
+            url += 'script/'+script_alias
+
+            url_script = url
+
     if script_alias!='':
-        st.markdown('*[Collective Mind](https://github.com/mlcommons/ck) script: "{}"*'.format(script_alias))
+        st.markdown('**Prepare input for the CM script "[{}]({})":**'.format(script_alias, url_script))
 
     host_os_index = 0 if os.name != 'nt' else 1
     host_os_selection = ['Linux/MacOS', 'Windows']

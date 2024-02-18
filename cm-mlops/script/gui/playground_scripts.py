@@ -93,8 +93,9 @@ def page(st, params):
                       'script_alias': script_alias, 
                       'script_tags': script_tags, 
                       'script_meta': meta,
+                      'script_repo_meta': recipe.repo_meta,
                       'skip_bottom': True}
-                
+
                 return script.page(ii)
 
             else:

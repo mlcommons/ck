@@ -268,14 +268,14 @@ input_description:
   division:
     choices:
     - 'open'
-    - 'close'
+    - 'closed'
     default: 'open'
     desc: MLPerf division
     sort: 50
   category:
     choices:
     - 'edge'
-    - 'server'
+    - 'datacenter'
     - 'network'
     default: 'edge'
     desc: MLPerf category
