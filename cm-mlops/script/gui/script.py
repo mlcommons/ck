@@ -347,6 +347,8 @@ def page(i):
          
     dd['tags']=x.replace(' ',',')
 
+    dd['out']='con'
+    
     dd.update(flags_dict)
 
     import json
