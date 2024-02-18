@@ -394,7 +394,7 @@ input_description:
   adr.mlperf-inference-implementation.max_batchsize:
     desc: Maximum batchsize to be used
   adr.mlperf-inference-implementation.num_threads:
-    desc: Number of threads (reference&C++ implementation only)
+    desc: Number of threads (reference & C++ implementation only)
   adr.python.name:
     desc: Python virtual environment name (optional)
   adr.python.version:
@@ -419,7 +419,7 @@ input_description:
     sort: 5010
   clean:
     boolean: true
-    default: true
+    default: false
     desc: Clean run
   compliance:
     choices:
@@ -429,8 +429,10 @@ input_description:
     desc: Whether to run compliance tests (applicable only for closed division)
   dashboard_wb_project:
     desc: W&B dashboard project
+    default: cm-mlperf-dse-testing
   dashboard_wb_user:
     desc: W&B dashboard user
+    default: cmind
   hw_name:
     desc: MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware))
   multistream_target_latency:
@@ -450,7 +452,7 @@ input_description:
   target_qps:
     desc: Set LoadGen target QPS
   j:
-    desc: Print results dictionary to console in the end
+    desc: Print results dictionary to console at the end of the run
     boolean: true
     default: true
     
