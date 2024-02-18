@@ -60,7 +60,7 @@ def page(i):
             url_script = url
 
     if script_alias!='':
-        st.markdown('**Prepare input for the CM script "[{}]({})":**'.format(script_alias, url_script))
+        st.markdown('**Customize input for the CM script "[{}]({})":**'.format(script_alias, url_script))
 
     host_os_index = 0 if os.name != 'nt' else 1
     host_os_selection = ['Linux/MacOS', 'Windows']
@@ -215,7 +215,7 @@ def page(i):
                     other_flags = True
 
                 ii={'key':key,
-                    'value':value,
+                    'desc':value,
                     'params':params,
                     'st':st,
                     'st_inputs':st_inputs}

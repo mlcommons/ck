@@ -12,3 +12,5 @@ supported_compute:
 - cpu,x64
 - cpu,arm64
 - gpu,nvidia
+
+script_name: app-loadgen-generic-python,d3d949cc361747a6

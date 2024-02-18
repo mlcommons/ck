@@ -246,10 +246,12 @@ def gui(i):
 
     misc = i['misc_module']
 
-    st_inputs_custom = {}
-
     compute_meta = i.get('compute_meta',{})
     bench_meta = i.get('bench_meta',{})
+
+    st_inputs_custom = {}
+    
+    bench_input = bench_meta.get('bench_input', {})
 
     end_html = ''
 
@@ -260,64 +262,79 @@ def gui(i):
     st.markdown('**How would you like to run the MLPerf inference benchmark?**')
 
     
-    device = compute_meta.get('mlperf_inference_device', None)
-    if device == None:
-        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_device', 'value':inp['device']})
-        device = r.get('value2')
+    v = compute_meta.get('mlperf_inference_device')
+    if v!=None and v!='': 
+        script_meta['input_description']['device']['force'] = v
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_device', 'desc':inp['device']})
+    device = r.get('value2')
     script_meta['input_description']['device']['force'] = device
 
 
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_division', 'value':inp['division']})
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_division', 'desc':inp['division']})
     division = r.get('value2')
     script_meta['input_description']['division']['force'] = division
 
 
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_category', 'value':inp['category']})
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_category', 'desc':inp['category']})
     category = r.get('value2')
     script_meta['input_description']['category']['force'] = category
     
 
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_implementation', 'value':inp['implementation']})
+    #############################################################################
+    # Implementation
+    v = bench_input.get('mlperf_inference_implementation')
+    if v!=None and v!='': 
+        script_meta['input_description']['implementation']['force'] = v
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_implementation', 'desc':inp['implementation']})
     implementation = r.get('value2')
     script_meta['input_description']['implementation']['force'] = implementation
 
+    if implementation == 'mil':
+#        script_meta['input_description']['backend']['choices'] = ['onnxruntime']
+        script_meta['input_description']['backend']['force'] = 'onnxruntime'
+        
 
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_backend', 'value':inp['backend']})
+    #############################################################################
+    # Backend
+
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_backend', 'desc':inp['backend']})
     backend = r.get('value2')
     script_meta['input_description']['backend']['force'] = backend
 
 
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_model', 'value':inp['model']})
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_model', 'desc':inp['model']})
     model = r.get('value2')
     script_meta['input_description']['model']['force'] = model
 
 
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_precision', 'value':inp['precision']})
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_precision', 'desc':inp['precision']})
     precision = r.get('value2')
     script_meta['input_description']['model']['precision'] = precision
 
-
+    choices = ['Offline', 'Server', 'SingleStream', 'MultiStream', 'ALL']
+    desc = {'choices':choices, 'default':choices[0], 'desc':'Which scenario(s)?'}
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_scenario', 'desc':desc})
+    scenario = r.get('value2')
 
     
-    
-    choices = ['Short run', 'Full run for submission']
-    desc = {'choices':choices, 'default':choices[0], 'desc':'Short/test run or full submission run?'}
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_how', 'value':desc})
+    desc = {'boolean':True, 'default':False, 'desc':'Prepare submission?'}
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_submission', 'desc':desc})
+    submission = r.get('value2')
+
+    choices = ['Short run', 'Full run']
+    desc = {'choices':choices, 'default':choices[0], 'desc':'Short (test) or full run?'}
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_how', 'desc':desc})
     how = r.get('value2')
 
     choices = ['Performance Only', 'Accuracy Only', 'Performance and Accuracy']
     desc = {'choices': choices, 'default':choices[0], 'desc':'What to measure?'}
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_measure', 'value':desc})
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_measure', 'desc':desc})
     measure = r.get('value2')
 
     desc = {'boolean':True, 'default':False, 'desc':'Measure power?'}
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power', 'value':desc})
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power', 'desc':desc})
     power = r.get('value2')
 
-    choices = ['Offline', 'Server', 'SingleStream', 'MultiStream', 'ALL']
-    desc = {'choices':choices, 'default':choices[0], 'desc':'Which scenario(s)?'}
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_scenario', 'value':desc})
-    scenario = r.get('value2')
 
 
 

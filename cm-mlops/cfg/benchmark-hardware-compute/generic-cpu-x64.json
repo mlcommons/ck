@@ -1,6 +1,0 @@
-{
-  "uid": "cdfd424c32734e38",
-  "name": "Generic - x64 (Intel/AMD)",
-  "tags": "cpu,x64,generic,intel,amd",
-  "mlperf_inference_device": "cpu"
-}

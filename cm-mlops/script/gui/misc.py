@@ -86,7 +86,7 @@ def get_all_deps_tags(i):
 def make_selector(i):
 
     key = i['key']
-    value = i['value']
+    value = i['desc']
 
     params = i['params']
 
