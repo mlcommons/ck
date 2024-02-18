@@ -328,6 +328,9 @@ def gui(i):
         submitter = r.get('value2')
         script_meta['input_description']['submitter']['force']=submitter
         params['~~submission-generation']=['submission']
+
+        st.markdown('*Use the following command to find local directory with the submission tree and results:*\n```bash\ncm find cache --tags=submission,dir\n```\n')
+    
     else:
         script_meta['input_description']['submitter']['force']=''
         params['~submission']=['false']

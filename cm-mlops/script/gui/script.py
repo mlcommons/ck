@@ -132,9 +132,7 @@ def page(i):
         # Prepare variation_groups
 #            st.markdown("""---""")
         if len(variations)>0:
-             st.subheader('Variations')
-
-             st.markdown('*Variations update multiple flags and environment variables*')
+             st.markdown('**Select variations to update multiple flags and environment variables:**')
 
              variation_groups_order = meta.get('variation_groups_order',[])
              for variation in sorted(variation_groups):
@@ -202,9 +200,9 @@ def page(i):
             all_keys += other_keys
 
             if len(sort_keys)>0:
-                st.subheader('Main flags')
+                st.markdown('**Select main flags:**')
             else:
-                st.subheader('All flags')
+                st.markdown('**Select all flags:**')
 
             other_flags = False
             for key in all_keys:
@@ -299,7 +297,7 @@ def page(i):
     # Print CLI
     st.markdown("""---""")
 
-    x = 'pip install cmind -U\n\ncm pull repo mlcommons@ck\ncm rm cache -f\n'
+    x = 'pip install cmind -U\n\ncm pull repo mlcommons@ck\n\ncm rm cache -f\n'
 
     # Hack to detect python virtual environment and version
     python_venv_name=st_inputs.get('@adr.python.name', '')
@@ -307,7 +305,7 @@ def page(i):
     python_ver_min=st_inputs.get('@adr.python.version_min', '')
 
     y = ''
-    if python_venv_name!='' or python_ver!='' or python_ver_min!='':
+    if python_venv_name!='':# or python_ver!='' or python_ver_min!='':
         y = '\ncm run script "get sys-utils-cm"\n'
 
         if python_venv_name!='':
