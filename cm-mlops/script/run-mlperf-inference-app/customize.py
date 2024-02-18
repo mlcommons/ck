@@ -282,16 +282,31 @@ def gui(i):
 
     #############################################################################
     # Implementation
+    x = 'implementation'
     v = bench_input.get('mlperf_inference_implementation')
     if v!=None and v!='': 
-        script_meta['input_description']['implementation']['force'] = v
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_implementation', 'desc':inp['implementation']})
+        script_meta['input_description'][x]['force'] = v
+    else:
+        if device == 'cuda':
+            inp[x]['choices']=['nvidia-original','reference','mil']
+            inp[x]['default']='nvidia-original'
+            inp['backend']['choices']=['tensorrt','onnxruntime','pytorch']
+            inp['backend']['default']='tensorrt'
+
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_implementation', 'desc':inp[x]})
     implementation = r.get('value2')
-    script_meta['input_description']['implementation']['force'] = implementation
+    script_meta['input_description'][x]['force'] = implementation
 
     if implementation == 'mil':
 #        script_meta['input_description']['backend']['choices'] = ['onnxruntime']
         script_meta['input_description']['backend']['force'] = 'onnxruntime'
+    elif implementation == 'reference':
+        if device == 'cuda':
+            script_meta['input_description']['backend']['force'] = 'onnxruntime'
+    elif implementation == 'nvidia-original':
+        script_meta['input_description']['backend']['force'] = 'tensorrt'
+
+        
         
 
     #############################################################################

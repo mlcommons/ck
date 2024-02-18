@@ -7,11 +7,19 @@ def make_url(name, alias='', action='contributors', key='name', md=True, skip_ur
 
     if alias == '': alias = name
 
-    xaction = 'action={}&'.format(action) if action!='' else ''
-
     x = urllib.parse.quote_plus(alias) if not skip_url_quote else alias
 
-    url = '?{}{}={}'.format(xaction, key, x)
+    xaction = ''
+    if action != '':
+        xaction = 'action={}'.format(action)
+        if key!='':
+            xaction+='&'
+
+
+    url = '?{}'.format(xaction)
+
+    if key!='':
+        url+='{}={}'.format(key,x)
 
     if md:
         md = '[{}]({})'.format(name, url)

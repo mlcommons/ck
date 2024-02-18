@@ -18,7 +18,7 @@ def main():
     params = misc.get_params(st)
 
     # Set title
-    st.title('How to run benchmarks')
+    st.title('Reproducibility studies')
 
     st.markdown(announcement)
 
@@ -31,8 +31,29 @@ def page(st, params, action = ''):
 
     global initialized, external_module_path, external_module_meta
 
-    st.markdown('----')
-    st.markdown(announcement)
+#    st.markdown('----')
+
+    url_benchmarks = misc.make_url('', key='', action='howtorun', md=False)
+    url_challenges = misc.make_url('', key='', action='challenges', md=False)
+
+    # Some info
+    x = '''
+         <i>
+         <small>
+         This interface will help you find the <a href="{}">modular benchmarks' settings</a> 
+         that <a href="{}">the community</a> have managed to successfully validate 
+         across different models, data sets, software and hardware 
+         based on the <a href="https://cTuning.org/ae">ACM/cTuning reproducibility methodology and badges</a> -
+         please get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a> for more details.
+         </small>
+         </i>
+          <br>
+          <br>
+        '''.format(url_benchmarks, url_challenges)
+
+    st.write(x, unsafe_allow_html = True)
+    
+#    st.markdown(announcement)
     
     # If not initialized, find code for launch benchmark
     if not initialized:

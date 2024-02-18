@@ -60,8 +60,28 @@ def page(st, params, action = ''):
     end_html = ''
     
     # Announcement
-    st.markdown('----')
-    st.markdown(announcement)
+#    st.markdown('----')
+
+    url_script = misc.make_url('', key='', action='scripts', md=False)
+
+    # Some info
+    x = '''
+         <i>
+         <small>
+         This interface will help you generate a command line or Python API 
+         to run modular benchmarks composed from 
+         <a href="{}">automation recipes (CM scripts)</a>
+         across different models, data sets, software and hardware -
+         please get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a> for more details.
+         </small>
+         </i>
+          <br>
+          <br>
+        '''.format(url_script)
+
+    st.write(x, unsafe_allow_html = True)
+    
+#    st.markdown(announcement)
     
 
     ############################################################################################

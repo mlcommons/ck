@@ -209,7 +209,7 @@ def page(i):
                 value = input_desc[key]
 
                 if len(sort_keys)>0 and value.get('sort',0)==0 and not other_flags:
-                    st.subheader('Other flags')
+                    st.markdown('**Select other flags:**')
                     other_flags = True
 
                 ii={'key':key,
@@ -249,6 +249,7 @@ def page(i):
 
         tags = '--tags={}'.format(x)
 
+    
     # Check flags
     flags_dict = {}
     flags = ''
@@ -281,7 +282,7 @@ def page(i):
 
     # Prepare CLI
     action = 'docker' if run_via_docker else 'run'
-    cli = 'cm {} script {} {} '.format(action, tags, flags,)
+    cli = 'cm {} script {} {} '.format(action, tags, flags)
 
     x = '' if cmd_extension=='' else var1+'\n   '+cmd_extension
     

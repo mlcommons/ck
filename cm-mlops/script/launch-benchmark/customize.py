@@ -406,6 +406,10 @@ def gui(i):
 
         st.markdown('### {}'.format(title))
 
+
+    
+    
+    
     # Check if test uid is specified
     uid = ''
     x = params.get('uid',[''])
@@ -419,6 +423,9 @@ def gui(i):
     x = params.get('compute_uid',[''])
     if len(x)>0 and x[0]!='': compute_uid = x[0].strip()
         
+
+    
+    
     ##############################################################
     # Check the first level of benchmarks
     ii = {'tags':'benchmark,run', 'skip_files':True, 'prune':{}}

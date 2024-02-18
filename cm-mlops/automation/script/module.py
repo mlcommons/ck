@@ -1613,9 +1613,6 @@ class CAutomation(Automation):
         if verbose and cached_uid!='':
             print (recursion_spaces+'  - cache UID: {}'.format(cached_uid))
 
-        if verbose or show_time:
-            print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
-
         if print_deps:
             print_deps_data = self._print_deps(run_state['deps'])
             new_state['print_deps'] = print_deps_data
@@ -1632,12 +1629,27 @@ class CAutomation(Automation):
 
         rr = {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state, 'deps': run_state['deps']}
         
+        # Print output as json to console
         if i.get('json', False) or i.get('j', False):
             import json
 
             print ('')
             print (json.dumps(rr, indent=2))
 
+        # Check if save json to file
+        jf = i.get('json_file', '')
+        if jf == '':
+            jf = i.get('jf', '')
+        if jf !='':
+            import json
+
+            with open(jf, 'w', encoding='utf-8') as f:
+                json.dump(rr, f, ensure_ascii=False, indent=2)
+
+        if verbose or show_time:
+            print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
+
+        # Check if pause (useful if running a given script in a new terminal that may close automatically)
         if i.get('pause', False):
             print ('')
             input ('Press Enter to continue ...')
