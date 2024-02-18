@@ -179,3 +179,27 @@ def make_selection(st, selection, param_key, text, x_uid):
                  x_meta = x_selection[x_id]
 
     return {'return':0, 'meta':x_meta}
+
+##################################################################################
+def get_with_complex_key_safe(meta, key):
+    v = get_with_complex_key(meta, key)
+
+    if v == None: v=''
+
+    return v
+
+##################################################################################
+def get_with_complex_key(meta, key):
+
+    j = key.find('.')
+    
+    if j<0:
+        return meta.get(key)
+
+    key0 = key[:j]
+
+    if key0 not in meta:
+        return None
+
+    return get_with_complex_key(meta[key0], key[j+1:])
+

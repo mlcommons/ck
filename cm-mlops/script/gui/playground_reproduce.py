@@ -200,8 +200,14 @@ def page(st, params, action = ''):
                 if x!='':
                     st.write(x, unsafe_allow_html = True)
 
+                # Check benchmark
+                bench_uid = s.get('bench_uid','')
+                if bench_uid != '':
+                    url_bench = url_benchmarks + '&bench_uid='+bench_uid
+                    st.markdown('[Link to benchmark GUI]({})'.format(url_bench))
                 
-                test_md = full_path[:-5]+'.md'
+                # Check notes
+                test_md = full_path[:-10]+'.md'
                 if os.path.isfile(test_md):
 
                     r = cmind.utils.load_txt(test_md)
@@ -209,8 +215,9 @@ def page(st, params, action = ''):
 
                     x = r['string']
 
-                    st.markdown('**Notes:**')
-                    st.markdown(x)
+                    if x!='':
+                        st.markdown('**Notes:**')
+                        st.markdown(x)
 
                 st.markdown('**Test meta (will be converted into table in the future):**')
 
@@ -225,23 +232,134 @@ def page(st, params, action = ''):
             else:
                 ###################################################################
                 # Show tables
+                import pandas as pd
+                import numpy as np
+
+                html = ''
+
+                all_data = []
                 
+
+                # TBD: should be taken from a given benchmark
+                dimensions = []
+
+                if len(bench_meta)>0:
+                    dimensions = bench_meta.get('view_dimensions', [])
+
+                dimension_values = {}
+                dimension_keys = []
+                              
+                if len(dimensions) == 0:
+                    keys = [('test', 'CM test', 400, 'leftAligned')]
+                else:
+                    keys = [('test', 'CM test', 50, 'leftAligned')]
+
+                    for k in dimensions:
+                        key = k[0]
+
+                        keys.append((k[0], k[1], 100, 'leftAligned'))
+
+                        dimension_values[key] = []
+                        dimension_keys.append(key)
+
+                    # If dimensions, sort by dimensions
+                    for d in list(reversed(dimension_keys)):
+                        selection = sorted(selection, key = lambda x: misc.get_with_complex_key_safe(selection, d))
+
+                keys += [
+                         ('functional', '<a href="https://github.com/mlcommons/ck/blob/master/docs/artifact-evaluation/submission.md">Functional</a>', 80, ''),
+                         ('reproduced', '<a href="https://github.com/mlcommons/ck/blob/master/docs/artifact-evaluation/submission.md">Reproduced</a>', 80, ''),
+                         ('support_docker', '<a href="https://github.com/mlcommons/ck/blob/master/docs/artifact-evaluation/submission.md">Support Docker</a>', 80, ''),
+                         ('notes', 'Notes', 200, 'lefAligned'),
+                        ]
+
+                j = 0
+
+
                 for s in selection:
-                    st.markdown('* {}'.format(s['full_path']))
+
+                    row = {}
+                    
+                    full_path = s['full_path']
+                    test_uid = s['uid']
+
+                    uid = s['uid']
+
+                    url_test = misc.make_url(uid, key='test_uid', action='reproduce', md=False)
+                    
+                    bench_meta = s['main_meta']
+
+                    inp = {}
+                    input_file = full_path[:-10]+'-input'
+                    r = cmind.utils.load_yaml_and_json(input_file)
+                    if r['return']==0:
+                        inp = r['meta']
+
+                    out = {}
+                    output_file = full_path[:-10]+'-output'
+                    r = cmind.utils.load_yaml_and_json(output_file)
+                    if r['return']==0:
+                        out = r['meta']
+
+                    row_meta = {'dict': s,
+                                'input': inp,
+                                'output': out}
+
+                    if len(dimensions) == 0:
+                        row['test'] = '<a href="{}" target="_blank">{}</a>'.format(url_test, uid)
+                    else:
+                        row['test'] = '<a href="{}" target="_blank">View</a>'.format(url_test)
+                        for k in dimensions:
+                            kk = k[0]
+
+                            v = misc.get_with_complex_key_safe(row_meta, kk)
+
+                            row[kk] = str(v)
 
 
+                    # Check ACM/IEEE functional badge
+                    url = ''
+                    
+                    x = ''
+                    if s.get('functional', False):
+                        x = '<center><a href="{}" target="_blank"><img src="{}" height="32"></a></center>'.format(url, badges['functional']['url'])
+                    row['functional'] = x
 
+                    # Check ACM/IEEE reproduced badge
+                    x = ''
+                    if s.get('reproduced', False):
+                        x = '<center><a href="{}" target="_blank"><img src="{}" height="32"></a></center>'.format(url, badges['reproduced']['url'])
+                    row['reproduced'] = x
 
+                    # Check Docker
+                    x = ''
+                    if s.get('support_docker', False):
+                        x = '<center><a href="{}" target="_blank"><img src="{}" height="32"></a></center>'.format(url, badges['support_docker']['url'])
+                    row['support_docker'] = x
+                    
+                    # Check misc notes
+                    row['notes']=s.get('notes','')
+                    
+                    # Finish row
+                    all_data.append(row)
 
+                # Visualize table
+                pd_keys = [v[0] for v in keys]
+                pd_key_names = [v[1] for v in keys]
 
+                pd_all_data = []
+                for row in sorted(all_data, key=lambda row: (row.get('x1',0))):
+                    pd_row=[]
+                    for k in pd_keys:
+                        pd_row.append(row.get(k))
+                    pd_all_data.append(pd_row)
 
+                df = pd.DataFrame(pd_all_data, columns = pd_key_names)
 
+                df.index+=1
 
-
-
-
-
-
+                html=df.to_html(escape=False, justify='left')
+                st.write(html, unsafe_allow_html = True)
 
 
 

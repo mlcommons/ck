@@ -18,3 +18,21 @@ supported_compute:
 - fe379ecd1e054a00
 
 bench_uid: 39877bb63fb54725
+
+view_dimensions:
+- - input.device
+  - "MLPerf device"
+- - input.implementation
+  - "MLPerf implementation"
+- - input.backend
+  - "MLPerf backend"
+- - input.model
+  - "MLPerf model"
+- - input.scenario
+  - "MLPerf scenario"
+- - input.host_os
+  - "Host OS"
+- - output.state.cm-mlperf-inference-results-last.performance
+  - "Got performance"
+- - output.state.cm-mlperf-inference-results-last.accuracy
+  - "Got accuracy"

@@ -1,0 +1,146 @@
+{
+  "return": 0,
+  "env": {},
+  "new_env": {},
+  "state": {
+    "app_mlperf_inference_log_summary": {
+      "sut name": "PySUT",
+      "scenario": "Offline",
+      "mode": "PerformanceOnly",
+      "samples per second": "0.808629",
+      "result is": "VALID",
+      "min duration satisfied": "Yes",
+      "min queries satisfied": "Yes",
+      "early stopping satisfied": "Yes",
+      "min latency (ns)": "963485100",
+      "max latency (ns)": "12366604800",
+      "mean latency (ns)": "5961694610",
+      "50.00 percentile latency (ns)": "6164791100",
+      "90.00 percentile latency (ns)": "12366604800",
+      "95.00 percentile latency (ns)": "12366604800",
+      "97.00 percentile latency (ns)": "12366604800",
+      "99.00 percentile latency (ns)": "12366604800",
+      "99.90 percentile latency (ns)": "12366604800",
+      "samples_per_query": "10",
+      "target_qps": "1",
+      "target_latency (ns)": "0",
+      "max_async_queries": "1",
+      "min_duration (ms)": "0",
+      "max_duration (ms)": "0",
+      "min_query_count": "1",
+      "max_query_count": "10",
+      "qsl_rng_seed": "13281865557512327830",
+      "sample_index_rng_seed": "198141574272810017",
+      "schedule_rng_seed": "7575108116881280410",
+      "accuracy_log_rng_seed": "0",
+      "accuracy_log_probability": "0",
+      "accuracy_log_sampling_target": "0",
+      "print_timestamps": "0",
+      "performance_issue_unique": "0",
+      "performance_issue_same": "0",
+      "performance_issue_same_index": "0",
+      "performance_sample_count": "64"
+    },
+    "app_mlperf_inference_measurements": {
+      "starting_weights_filename": "resnext50_32x4d_fpn.onnx",
+      "retraining": "no",
+      "input_data_types": "fp32",
+      "weight_data_types": "fp32",
+      "weight_transformations": "no"
+    },
+    "cm-mlperf-inference-results": {
+      "FGG_LENOVO_P14S-reference-cpu-onnxruntime-v1.16.0-default_config": {
+        "retinanet": {
+          "Offline": {
+            "performance": "0.809",
+            "performance_valid": true,
+            "accuracy": "49.593",
+            "accuracy_valid": true
+          }
+        }
+      }
+    },
+    "cm-mlperf-inference-results-last": {
+      "performance": "0.809",
+      "performance_valid": true,
+      "accuracy": "49.593",
+      "accuracy_valid": true
+    }
+  },
+  "new_state": {
+    "app_mlperf_inference_log_summary": {
+      "sut name": "PySUT",
+      "scenario": "Offline",
+      "mode": "PerformanceOnly",
+      "samples per second": "0.808629",
+      "result is": "VALID",
+      "min duration satisfied": "Yes",
+      "min queries satisfied": "Yes",
+      "early stopping satisfied": "Yes",
+      "min latency (ns)": "963485100",
+      "max latency (ns)": "12366604800",
+      "mean latency (ns)": "5961694610",
+      "50.00 percentile latency (ns)": "6164791100",
+      "90.00 percentile latency (ns)": "12366604800",
+      "95.00 percentile latency (ns)": "12366604800",
+      "97.00 percentile latency (ns)": "12366604800",
+      "99.00 percentile latency (ns)": "12366604800",
+      "99.90 percentile latency (ns)": "12366604800",
+      "samples_per_query": "10",
+      "target_qps": "1",
+      "target_latency (ns)": "0",
+      "max_async_queries": "1",
+      "min_duration (ms)": "0",
+      "max_duration (ms)": "0",
+      "min_query_count": "1",
+      "max_query_count": "10",
+      "qsl_rng_seed": "13281865557512327830",
+      "sample_index_rng_seed": "198141574272810017",
+      "schedule_rng_seed": "7575108116881280410",
+      "accuracy_log_rng_seed": "0",
+      "accuracy_log_probability": "0",
+      "accuracy_log_sampling_target": "0",
+      "print_timestamps": "0",
+      "performance_issue_unique": "0",
+      "performance_issue_same": "0",
+      "performance_issue_same_index": "0",
+      "performance_sample_count": "64"
+    },
+    "app_mlperf_inference_measurements": {
+      "starting_weights_filename": "resnext50_32x4d_fpn.onnx",
+      "retraining": "no",
+      "input_data_types": "fp32",
+      "weight_data_types": "fp32",
+      "weight_transformations": "no"
+    },
+    "cm-mlperf-inference-results": {
+      "FGG_LENOVO_P14S-reference-cpu-onnxruntime-v1.16.0-default_config": {
+        "retinanet": {
+          "Offline": {
+            "performance": "0.809",
+            "performance_valid": true,
+            "accuracy": "49.593",
+            "accuracy_valid": true
+          }
+        }
+      }
+    },
+    "cm-mlperf-inference-results-last": {
+      "performance": "0.809",
+      "performance_valid": true,
+      "accuracy": "49.593",
+      "accuracy_valid": true
+    }
+  },
+  "deps": [
+    "detect,os",
+    "detect,cpu",
+    "get,python3",
+    "get,mlcommons,inference,src",
+    "get,sut,description",
+    "get,mlperf,inference,results,dir",
+    "install,pip-package,for-cmind-python,_package.tabulate",
+    "get,mlperf,inference,utils",
+    "generate,mlperf,inference,submission"
+  ]
+}

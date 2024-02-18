@@ -65,7 +65,12 @@ def page(i):
     host_os_index = 0 if os.name != 'nt' else 1
     host_os_selection = ['Linux/MacOS', 'Windows']
     host_os = st.selectbox('Select host OS where you will run CM:', host_os_selection, index=host_os_index, key='host_os')
-    var1 = '^' if host_os == 'Windows' else '\\'
+    if host_os == 'Windows':
+        var1 = '^'
+        host_os_flag = 'windows'
+    else:
+        var1 = '\\'
+        host_os_flag = 'linux'
 
     # Check if found path and there is meta
     # TBD (Grigori): need to cache it using @st.cache
@@ -249,7 +254,10 @@ def page(i):
 
         tags = '--tags={}'.format(x)
 
-    
+
+    # Add some internal info to the input
+    st_inputs['@host_os'] = host_os_flag
+
     # Check flags
     flags_dict = {}
     flags = ''
