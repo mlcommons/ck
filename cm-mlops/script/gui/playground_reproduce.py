@@ -8,11 +8,9 @@ import streamlit.components.v1 as components
 
 import streamlit as st
 
-announcement = 'Under development - please get in touch via [Discord](https://discord.gg/JjWNWXKxwT) for more details ...'
+import json
 
-initialized = False
-external_module_path = ''
-external_module_meta = {}
+announcement = 'Under development - please get in touch via [Discord](https://discord.gg/JjWNWXKxwT) for more details ...'
 
 badges={
         'functional':{'url':'https://cTuning.org/images/artifacts_evaluated_functional_v1_1_small.png'},
@@ -35,8 +33,6 @@ def main():
 
 
 def page(st, params, action = ''):
-
-    global initialized, external_module_path, external_module_meta
 
     end_html = ''
 
@@ -219,10 +215,49 @@ def page(st, params, action = ''):
                         st.markdown('**Notes:**')
                         st.markdown(x)
 
-                st.markdown('**Test meta (will be converted into table in the future):**')
+                inp = {}
+                input_file = full_path[:-10]+'-input'
+                r = cmind.utils.load_yaml_and_json(input_file)
+                if r['return']==0:
+                    inp = r['meta']
 
-                import json
+                out = {}
+                output_file = full_path[:-10]+'-output'
+                r = cmind.utils.load_yaml_and_json(output_file)
+                if r['return']==0:
+                    out = r['meta']
+
+                cmd = inp.get('cmd',[])
+                if len(cmd)>0:
+                   xcmd = ' \\\n   '.join(cmd)
+
+                   st.markdown("""
+**CM command line:**
+```bash
+cm run script {}
+```
+                               """.format(xcmd))
+
+                
                 st.markdown("""
+**CM input dictionary:**
+```json
+{}
+```
+                           """.format(json.dumps(inp, indent=2)))
+
+
+                st.markdown("""
+**CM input dictionary:**
+```json
+{}
+```
+                               """.format(json.dumps(out, indent=2)))
+
+                               
+                st.markdown("""
+
+**Test meta:**
 ```json
 {}
 ```
@@ -377,34 +412,3 @@ def page(st, params, action = ''):
 
     
     return {'return': 0, 'end_html': end_html}
-
-
-
-    
-
-#    # If not initialized, find code for launch benchmark
-#    if not initialized:
-#        r = cmind.access({'action':'find',
-#                          'automation':'script',
-#                          'artifact':'5dc7662804bc4cad'})
-#        if r['return']>0: return r
-#
-#        lst = r['list']
-#
-#        if len(lst)>0:
-#            external_module_path = os.path.join(lst[0].path, 'dummy')
-#            external_module_meta = lst[0].meta
-#
-#        if external_module_path =='':
-#            st.markdown('Warning: can\'t find internal module!')
-#            return {'return':0}
-#
-#        initialized = True
-#
-#    ii = {'streamlit_module': st,
-#          'params': params,
-#          'meta': external_module_meta,
-#          'skip_title': True,
-#          'misc_module': misc}
-#
-#    return cmind.utils.call_internal_module(None, external_module_path , 'customize', 'gui', ii)
