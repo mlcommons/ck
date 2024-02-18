@@ -1,0 +1,6 @@
+{
+  "uid": "ee8c568e0ac44f2b",
+  "name": "Intel - x64",
+  "tags": "cpu,x64,generic,intel",
+  "mlperf_inference_device": "cpu"
+}

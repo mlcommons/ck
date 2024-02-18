@@ -26,7 +26,7 @@ tags:
 - inference
 - reference
 
-tags_help: "run mlperf inference common"
+tags_help: "run-mlperf-inference"
 
 default_env:
   CM_MLPERF_IMPLEMENTATION: reference
@@ -149,7 +149,7 @@ variations:
       CM_MLPERF_LOADGEN_COMPLIANCE: 'yes'
 
   dashboard:
-    default_gui: true
+    default_gui: false
     env:
       CM_MLPERF_DASHBOARD: 'on'
 
@@ -265,6 +265,21 @@ versions:
   r2.1: {}
 
 input_description:
+  division:
+    choices:
+    - 'open'
+    - 'closed'
+    default: 'open'
+    desc: MLPerf division
+    sort: 50
+  category:
+    choices:
+    - 'edge'
+    - 'datacenter'
+    - 'network'
+    default: 'edge'
+    desc: MLPerf category
+    sort: 60
   device:
     choices:
     - cpu
@@ -292,7 +307,7 @@ input_description:
     - llama2-70b-99.9
     - mobilenet
     - efficientnet
-    default: resnet50
+    default: retinanet
     desc: MLPerf model
     sort: 200
   precision:
@@ -367,7 +382,6 @@ input_description:
     sort: 1000
 
   adr.compiler.tags:
-    default: gcc
     desc: Compiler for loadgen and any C/C++ part of implementation
   adr.inference-src-loadgen.env.CM_GIT_URL:
     default: ''
@@ -380,15 +394,29 @@ input_description:
   adr.mlperf-inference-implementation.max_batchsize:
     desc: Maximum batchsize to be used
   adr.mlperf-inference-implementation.num_threads:
-    desc: Number of threads (reference&C++ implementation only)
+    desc: Number of threads (reference & C++ implementation only)
   adr.python.name:
-    default: mlperf
     desc: Python virtual environment name (optional)
   adr.python.version:
     desc: Force Python version (must have all system deps)
   adr.python.version_min:
     default: '3.8'
     desc: Minimal Python version
+  power:
+    choices:
+    - 'yes'
+    - 'no'
+    default: 'no'
+    desc: Measure power
+    sort: 5000
+  adr.mlperf-power-client.power_server:
+    default: '192.168.0.15'
+    desc: MLPerf Power server IP address
+    sort: 5005
+  adr.mlperf-power-client.port: 
+    default: 4950
+    desc: MLPerf Power client port
+    sort: 5010
   clean:
     boolean: true
     default: true
@@ -397,16 +425,15 @@ input_description:
     choices:
     - 'yes'
     - 'no'
-    default: 'yes'
+    default: 'no'
     desc: Whether to run compliance tests (applicable only for closed division)
   dashboard_wb_project:
-    default: cm-mlperf-dse-testing
     desc: W&B dashboard project
+    default: cm-mlperf-dse-testing
   dashboard_wb_user:
-    default: cmind
     desc: W&B dashboard user
+    default: cmind
   hw_name:
-    default: default
     desc: MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware))
   multistream_target_latency:
     desc: Set MultiStream target latency
@@ -414,7 +441,7 @@ input_description:
     desc: Set LoadGen Offline target QPS
   quiet:
     boolean: true
-    default: false
+    default: true
     desc: Quiet run (select default values for all questions)
   server_target_qps:
     desc: Set Server target QPS
@@ -424,4 +451,15 @@ input_description:
     desc: Set Target latency
   target_qps:
     desc: Set LoadGen target QPS
-
+  j:
+    desc: Print results dictionary to console at the end of the run
+    boolean: true
+    default: true
+  jf:
+    desc: Record results dictionary to file at the end of the run
+    default: mlperf-inference-results
+  time:
+    desc: Print script execution time at the end of the run
+    boolean: true
+    default: true
+    

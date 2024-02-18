@@ -13,10 +13,10 @@ def page(i):
     script_path = i['script_path']
     script_alias = i['script_alias']
     script_tags = i['script_tags']
-    meta = i['script_meta']
     skip_bottom = i.get('skip_bottom', False)
 
-    var1 = '^' if os.name == 'nt' else '\\'
+    meta = i['script_meta']
+    repo_meta = i.get('script_repo_meta', None)
 
     no_run = os.environ.get('CM_GUI_NO_RUN', '')
 
@@ -38,8 +38,39 @@ def page(i):
     # Set title
 #    st.title('[Collective Mind](https://github.com/mlcommons/ck)')
 
+    url_script = 'https://github.com/mlcommons/ck'
+    if repo_meta != None and script_alias!='':
+        url = repo_meta.get('url','')
+        if url=='' and repo_meta.get('git', False):
+            url = 'https://github.com/'+repo_meta['alias'].replace('@','/')
+
+        if url!='':
+            # Recreate GitHub path
+            if not url.endswith('/'): url=url+'/'
+
+            url += 'tree/master/'
+
+            if repo_meta.get('prefix','')!='':
+                url += repo_meta['prefix']
+
+            if not url.endswith('/'): url=url+'/'
+            
+            url += 'script/'+script_alias
+
+            url_script = url
+
     if script_alias!='':
-        st.markdown('*[Collective Mind](https://github.com/mlcommons/ck) script: "{}"*'.format(script_alias))
+        st.markdown('**Customize input for the CM script "[{}]({})":**'.format(script_alias, url_script))
+
+    host_os_index = 0 if os.name != 'nt' else 1
+    host_os_selection = ['Linux/MacOS', 'Windows']
+    host_os = st.selectbox('Select host OS where you will run CM:', host_os_selection, index=host_os_index, key='host_os')
+    if host_os == 'Windows':
+        var1 = '^'
+        host_os_flag = 'windows'
+    else:
+        var1 = '\\'
+        host_os_flag = 'linux'
 
     # Check if found path and there is meta
     # TBD (Grigori): need to cache it using @st.cache
@@ -106,9 +137,7 @@ def page(i):
         # Prepare variation_groups
 #            st.markdown("""---""")
         if len(variations)>0:
-             st.subheader('Variations')
-
-             st.markdown('*Variations update multiple flags and environment variables*')
+             st.markdown('**Select variations to update multiple flags and environment variables:**')
 
              variation_groups_order = meta.get('variation_groups_order',[])
              for variation in sorted(variation_groups):
@@ -131,7 +160,7 @@ def page(i):
                      key2 = '~~'+group_key
 
                      x = params.get(key2, None)
-                     if x!=None and len(x)>0 and x[0]!='':
+                     if x!=None and len(x)>0 and x[0]!=None:
                          x = x[0]
                          if x in y:
                              selected_index = y.index(x) if x in y else 0
@@ -147,7 +176,7 @@ def page(i):
                          key2 = '~'+variation_key
 
                          x = params.get(key2, None)
-                         if x!=None and len(x)>0 and x[0]!='':
+                         if x!=None and len(x)>0 and x[0]!=None:
                              if x[0].lower()=='true':
                                  v = True
                              elif x[0].lower()=='false':
@@ -176,57 +205,26 @@ def page(i):
             all_keys += other_keys
 
             if len(sort_keys)>0:
-                st.subheader('Main flags')
+                st.markdown('**Select main flags:**')
             else:
-                st.subheader('All flags')
+                st.markdown('**Select all flags:**')
 
             other_flags = False
             for key in all_keys:
                 value = input_desc[key]
 
                 if len(sort_keys)>0 and value.get('sort',0)==0 and not other_flags:
-                    st.subheader('Other flags')
+                    st.markdown('**Select other flags:**')
                     other_flags = True
 
-                key2 = '@'+key
-
-                if type(value) == dict:
-                    desc = value['desc']
-
-                    choices = value.get('choices', [])
-                    boolean = value.get('boolean', False)
-                    default = value.get('default', '')
-
-                    if boolean:
-                        v = default
-                        x = params.get(key2, None)
-                        if x!=None and len(x)>0 and x[0]!='':
-                            if x[0].lower()=='true':
-                                v = True
-                            elif x[0].lower()=='false':
-                                v = False
-                        st_inputs[key2] = st.checkbox(desc, value=v, key=key2)
-                    elif len(choices)>0:
-                        x = params.get(key2, None)
-                        if x!=None and len(x)>0 and x[0]!='':
-                            x = x[0]
-                            if x in choices:
-                                selected_index = choices.index(x) if x in choices else 0
-                            else:
-                                selected_index = choices.index(default) if default!='' else 0
-                        else:
-                            selected_index = choices.index(default) if default!='' else 0
-                        st_inputs[key2] = st.selectbox(desc, choices, index=selected_index, key=key2)
-                    else:
-                        v = default
-                        x = params.get(key2, None)
-                        if x!=None and len(x)>0 and x[0]!='':
-                            v = x[0]
-                        st_inputs[key2] = st.text_input(desc, value=v, key=key2)
-
-                else:
-                    desc = value
-                    st_inputs[key2] = st.text_input(desc)
+                ii={'key':key,
+                    'desc':value,
+                    'params':params,
+                    'st':st,
+                    'st_inputs':st_inputs}
+                
+                r2 = misc.make_selector(ii)
+                if r2['return']>0: return r2
 
     # Check tags
     selected_variations=[]
@@ -255,6 +253,10 @@ def page(i):
             x+=','+','.join(selected_variations)
 
         tags = '--tags={}'.format(x)
+
+
+    # Add some internal info to the input
+    st_inputs['@host_os'] = host_os_flag
 
     # Check flags
     flags_dict = {}
@@ -288,7 +290,7 @@ def page(i):
 
     # Prepare CLI
     action = 'docker' if run_via_docker else 'run'
-    cli = 'cm {} script {} {} '.format(action, tags, flags,)
+    cli = 'cm {} script {} {} '.format(action, tags, flags)
 
     x = '' if cmd_extension=='' else var1+'\n   '+cmd_extension
     
@@ -304,15 +306,15 @@ def page(i):
     # Print CLI
     st.markdown("""---""")
 
-    x = 'pip install cmind -U\n\ncm pull repo mlcommons@ck\n'
+    x = 'pip install cmind -U\n\ncm pull repo mlcommons@ck\n\ncm rm cache -f\n'
 
     # Hack to detect python virtual environment and version
-    python_venv_name=st_inputs.get('adr.python.name', '')
-    python_ver=st_inputs.get('adr.python.version', '')
-    python_ver_min=st_inputs.get('adr.python.version_min', '')
+    python_venv_name=st_inputs.get('@adr.python.name', '')
+    python_ver=st_inputs.get('@adr.python.version', '')
+    python_ver_min=st_inputs.get('@adr.python.version_min', '')
 
     y = ''
-    if python_venv_name!='' or python_ver!='':
+    if python_venv_name!='':# or python_ver!='' or python_ver_min!='':
         y = '\ncm run script "get sys-utils-cm"\n'
 
         if python_venv_name!='':
@@ -329,7 +331,13 @@ def page(i):
     if y!='':
         x+=y
 
-    st.text_area('**Install [MLCommons CM](https://github.com/mlcommons/ck/blob/master/docs/installation.md) with a few dependencies:**', x, height=170)
+
+    st.markdown("**Install [MLCommons CM](https://github.com/mlcommons/ck/blob/master/docs/installation.md) with a few dependencies and clean CM cache (optional):**")
+    
+    st.markdown('```bash\n{}\n```\n'.format(x))
+
+   
+#    st.text_area('**Install [MLCommons CM](https://github.com/mlcommons/ck/blob/master/docs/installation.md) with a few dependencies and clean CM cache (optional):**', x, height=200)
 
 
     st.markdown("**Run CM script from Python:**")
@@ -348,6 +356,8 @@ def page(i):
          
     dd['tags']=x.replace(' ',',')
 
+    dd['out']='con'
+    
     dd.update(flags_dict)
 
     import json
@@ -358,7 +368,7 @@ def page(i):
     y+= 'if r[\'return\']>0: print (r)\n'
 
     x='''
-         ```python
+```python
           {}
       '''.format(y)
 
@@ -372,7 +382,7 @@ def page(i):
 
 
     # Add explicit button "Run"
-    if no_run=='' and st.button("Run"):
+    if no_run=='' and st.button("Run in the new terminal"):
         cli = cli+var1+'--pause\n'
 
         cli = cli.replace(var1, ' ').replace('\n',' ')

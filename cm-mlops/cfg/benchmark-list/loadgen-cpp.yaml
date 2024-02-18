@@ -1,0 +1,19 @@
+﻿uid: f594dc94b2714713
+
+tags: benchmark,run,loadgen,cpp
+
+name: "ML models with LoadGen (C++; Linux/MacOS/Windows) - dev"
+
+urls:
+- name: "GitHub dev page"
+  url: "https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp"
+
+supported_compute:
+- cpu,x64
+- gpu,nvidia
+
+script_name: run-mlperf-inference-app,4a5d5b13fd7e4ac8
+
+bench_input:
+  mlperf_inference_implementation: mil
+  

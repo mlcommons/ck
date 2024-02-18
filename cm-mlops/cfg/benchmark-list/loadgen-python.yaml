@@ -1,0 +1,16 @@
+﻿uid: 0d6b54eb27d1454e
+
+tags: benchmark,run,loadgen,python
+
+name: "ML models with LoadGen (Python; Linux/MacOS/Windows) - dev"
+
+urls:
+- name: "GitHub dev page"
+  url: "https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python"
+
+supported_compute:
+- cpu,x64
+- cpu,arm64
+- gpu,nvidia
+
+script_name: app-loadgen-generic-python,d3d949cc361747a6

@@ -10,7 +10,10 @@ def preprocess(i):
 
     meta = i['meta']
 
-#    if os_info['platform'] == 'windows':
+    if os_info['platform'] == 'windows':
+        print ('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print ('WARNING: this script was not thoroughly tested on Windows and compilation may fail - please help us test and improve it!')
+        print ('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 #        # Currently support only LLVM on Windows
 #        print ('# Forcing LLVM on Windows')        
 #        r = automation.update_deps({'deps':meta['post_deps'], 'update_deps':{'compile-program': {'adr':{'compiler':{'tags':'llvm'}}}}})

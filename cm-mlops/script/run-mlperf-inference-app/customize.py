@@ -6,10 +6,10 @@ import subprocess
 import cmind as cm
 import copy
 from tabulate import tabulate
-import mlperf_utils
 
 summary_ext = ['.csv', '.json', '.xlsx']
 
+##################################################################################
 def preprocess(i):
 
     os_info = i['os_info']
@@ -189,8 +189,12 @@ def preprocess(i):
                     return r
 
     if state.get("cm-mlperf-inference-results"):
-        #print(state["cm-mlperf-inference-results"])
+        # print(state["cm-mlperf-inference-results"])
         for sut in state["cm-mlperf-inference-results"]:#only one sut will be there
+            # Grigori: that may not work properly since customize may have another Python than MLPerf
+            # (for example, if we use virtual env)
+            import mlperf_utils
+
             print(sut)
             result_table, headers = mlperf_utils.get_result_table(state["cm-mlperf-inference-results"][sut])
             print(tabulate(result_table, headers = headers, tablefmt="pretty"))
@@ -226,6 +230,239 @@ def get_valid_scenarios(model, category, mlperf_version, mlperf_path):
 
     return valid_scenarios
 
+##################################################################################
 def postprocess(i):
 
     return {'return':0}
+
+
+##################################################################################
+def gui(i):
+
+    params = i['params']
+    st = i['st']
+
+    script_meta = i['meta']
+
+    misc = i['misc_module']
+
+    compute_meta = i.get('compute_meta',{})
+    bench_meta = i.get('bench_meta',{})
+
+    st_inputs_custom = {}
+    
+    bench_input = bench_meta.get('bench_input', {})
+
+    end_html = ''
+
+    inp = script_meta['input_description']
+
+    # Here we can update params
+    st.markdown('---')
+    st.markdown('**How would you like to run the MLPerf inference benchmark?**')
+
+    
+    v = compute_meta.get('mlperf_inference_device')
+    if v!=None and v!='': 
+        script_meta['input_description']['device']['force'] = v
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_device', 'desc':inp['device']})
+    device = r.get('value2')
+    script_meta['input_description']['device']['force'] = device
+
+
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_division', 'desc':inp['division']})
+    division = r.get('value2')
+    script_meta['input_description']['division']['force'] = division
+
+
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_category', 'desc':inp['category']})
+    category = r.get('value2')
+    script_meta['input_description']['category']['force'] = category
+    
+
+    #############################################################################
+    # Implementation
+    x = 'implementation'
+    v = bench_input.get('mlperf_inference_implementation')
+    if v!=None and v!='': 
+        script_meta['input_description'][x]['force'] = v
+    else:
+        if device == 'cuda':
+            inp[x]['choices']=['nvidia-original','reference','mil']
+            inp[x]['default']='nvidia-original'
+            inp['backend']['choices']=['tensorrt','onnxruntime','pytorch']
+            inp['backend']['default']='tensorrt'
+
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_implementation', 'desc':inp[x]})
+    implementation = r.get('value2')
+    script_meta['input_description'][x]['force'] = implementation
+
+    if implementation == 'mil':
+#        script_meta['input_description']['backend']['choices'] = ['onnxruntime']
+        script_meta['input_description']['backend']['force'] = 'onnxruntime'
+    elif implementation == 'reference':
+        if device == 'cuda':
+            script_meta['input_description']['backend']['force'] = 'onnxruntime'
+    elif implementation == 'nvidia-original':
+        script_meta['input_description']['backend']['force'] = 'tensorrt'
+
+        
+        
+
+    #############################################################################
+    # Backend
+
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_backend', 'desc':inp['backend']})
+    backend = r.get('value2')
+    script_meta['input_description']['backend']['force'] = backend
+
+
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_model', 'desc':inp['model']})
+    model = r.get('value2')
+    script_meta['input_description']['model']['force'] = model
+
+
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_precision', 'desc':inp['precision']})
+    precision = r.get('value2')
+    script_meta['input_description']['precision']['force'] = precision
+
+
+    #############################################################################
+    # Prepare scenario
+
+    xall = 'All applicable'
+    choices = ['Offline', 'Server', 'SingleStream', 'MultiStream', xall]
+    desc = {'choices':choices, 'default':choices[0], 'desc':'Which scenario(s)?'}
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_scenario', 'desc':desc})
+    scenario = r.get('value2')
+
+
+    if scenario == xall:
+        params['~all-scenarios']=['true']
+        script_meta['input_description']['scenario']['force']=''
+    else:
+        script_meta['input_description']['scenario']['force']=scenario
+
+
+
+    #############################################################################
+    # Prepare submission
+
+    desc = {'boolean':True, 'default':False, 'desc':'Prepare submission?'}
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_submission', 'desc':desc})
+    submission = r.get('value2')
+
+    if submission:
+        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_submitter', 'desc':inp['submitter']})
+        submitter = r.get('value2')
+        script_meta['input_description']['submitter']['force']=submitter
+        params['~~submission-generation']=['submission']
+
+        x = '*Use the following command to find local directory with the submission tree and results:*\n```bash\ncm find cache --tags=submission,dir\n```\n'
+
+        x += '*You will also find results in `mlperf-inference-submission.tar.gz` file that you can submit to MLPerf!*'
+
+        st.markdown(x)
+    
+    else:
+        script_meta['input_description']['submitter']['force']=''
+        params['~submission']=['false']
+
+        choices = ['Performance', 'Accuracy', 'Find Performance from a short run']
+        desc = {'choices': choices, 'default':choices[0], 'desc':'What to measure?'}
+        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_measure', 'desc':desc})
+        measure = r.get('value2')
+
+        x = ''
+        if measure == 'Performance': 
+            x = 'performance-only'
+        elif measure == 'Accuracy': 
+            x = 'accuracy-only'
+        elif measure == 'Find Performance from a short run': 
+            x = 'find-performance'
+        
+        params['~~submission-generation']=[x]
+
+        
+    #############################################################################
+    # Short or full run
+
+    x = ['Full run', 'Short run']
+    if submission:
+        choices = [x[0], x[1]]
+    else:
+        choices = [x[1], x[0]]
+
+    desc = {'choices':choices, 'default':choices[0], 'desc':'Short (test) or full (valid) run?'}
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_how', 'desc':desc})
+    how = r.get('value2')
+
+    if how == x[0]:
+        params['~~submission-generation-style']=['full']
+        script_meta['input_description']['execution_mode']['force'] = 'valid'
+    else:
+        params['~~submission-generation-style']=['short']
+        script_meta['input_description']['execution_mode']['force'] = 'test'
+
+
+    y = 'compliance'
+    if division=='closed':
+        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_compliance', 'desc':inp[y]})
+        script_meta['input_description'][y]['force'] = r.get('value2')
+    else:
+        script_meta['input_description'][y]['force'] = 'no'
+
+
+    #############################################################################
+    # Power
+
+    desc = {'boolean':True, 'default':False, 'desc':'Measure power?'}
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power', 'desc':desc})
+    power = r.get('value2', False)
+
+    if power:
+        script_meta['input_description']['power']['force'] = 'yes'
+
+        y = 'adr.mlperf-power-client.power_server'
+        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power_server', 'desc':inp[y]})
+        script_meta['input_description'][y]['force'] = r.get('value2')
+
+        y = 'adr.mlperf-power-client.port'
+        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power_port', 'desc':inp[y]})
+        script_meta['input_description'][y]['force'] = r.get('value2')
+
+    else:
+        script_meta['input_description']['power']['force'] = 'no'
+        script_meta['input_description']['adr.mlperf-power-client.power_server']['force']=''
+        script_meta['input_description']['adr.mlperf-power-client.port']['force']=''
+
+
+    #############################################################################
+    # Dashboard
+
+    desc = {'boolean':True, 'default':False, 'desc':'Output results to W&B dashboard?'}
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_dashboard', 'desc':desc})
+    dashboard = r.get('value2', False)
+
+    if dashboard:
+        params['~dashboard']=['true']
+
+        y = 'dashboard_wb_project'
+        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power_wb_project', 'desc':inp[y]})
+        script_meta['input_description'][y]['force'] = r.get('value2')
+
+        y = 'dashboard_wb_user'
+        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power_wb_user', 'desc':inp[y]})
+        script_meta['input_description'][y]['force'] = r.get('value2')
+
+    else:
+        params['~dashboard']=['false']
+        script_meta['input_description']['dashboard_wb_project']['force']=''
+        script_meta['input_description']['dashboard_wb_user']['force']=''
+
+
+#    params['@adr.mlperf-power-client.port']=['']
+#    script_meta['input_description']['device']['choices']=['rocm','qaic']
+#    script_meta['input_description']['device']['default']='qaic'
+    
+    return {'return':0, 'end_html':end_html}

@@ -14,25 +14,25 @@ tags:
 name: "MLPerf inference - v3.1"
 
 supported_compute:
+- ee8c568e0ac44f2b
 - fe379ecd1e054a00
-- cdfd424c32734e38
-- fe379ecd1e054a00
-- d2ae645066664463
 
-urls:
-- name: "Official page"
-  url: "https://mlcommons.org/working-groups/benchmarks/inference"
-- name: "GitHub dev page"
-  url: "https://github.com/mlcommons/inference"
-- name: "MLCommons CM automation (under development)"
-  url: "https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference"
+bench_uid: 39877bb63fb54725
 
-dimensions:
-- - input.model
-  - "MLPerf model"
+view_dimensions:
+- - input.device
+  - "MLPerf device"
 - - input.implementation
   - "MLPerf implementation"
-- - input.framework
-  - "MLPerf framework"
-- - compute_meta.name
-  - "Compute"
+- - input.backend
+  - "MLPerf backend"
+- - input.model
+  - "MLPerf model"
+- - input.scenario
+  - "MLPerf scenario"
+- - input.host_os
+  - "Host OS"
+- - output.state.cm-mlperf-inference-results-last.performance
+  - "Got performance"
+- - output.state.cm-mlperf-inference-results-last.accuracy
+  - "Got accuracy"

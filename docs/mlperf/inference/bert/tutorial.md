@@ -173,16 +173,12 @@ cm run script "get mlperf inference src"
 
 ## Compile MLPerf loadgen
 
-You need to compile loadgen from the above inference sources while forcing compiler dependency to GCC:
+You need to compile loadgen from the above inference sources:
 
 
 ```bash
-cm run script "get mlperf loadgen" --adr.compiler.tags=gcc
+cm run script "get mlperf loadgen"
 ```
-
-The `--adr` flag stands for "Add to all Dependencies Recursively" and will find all sub-dependencies on other CM scripts 
-in the CM loadgen script with the "compiler" name and will append "gcc" tag 
-to enforce detection and usage of GCC to build loadgen.
 
 # CM automation for the MLPerf benchmark
 

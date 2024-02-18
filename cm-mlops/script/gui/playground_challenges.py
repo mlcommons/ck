@@ -10,6 +10,7 @@ def page(st, params):
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
 
     url_scripts = url_prefix + '?action=scripts'
+    url_contributors = url_prefix + '?action=contributors'
 
 
     name = params.get('name',[''])[0].strip()
@@ -146,11 +147,12 @@ def page(st, params):
                      <a href="https://cKnowledge.org">cKnowledge</a> 
                      and the <a href="https://cTuning.org">cTuning foundation</a>
                      and powered by <a href="{}">Collective Mind automation recipes</a>.
+                     We deeply thank all our <a href="{}">participants and contributors</a>!
                      </small>
                      </i>
                       <br>
                       <br>
-                    '''.format(url_scripts)
+                    '''.format(url_scripts, url_contributors)
                 st.write(x, unsafe_allow_html = True)
 
 

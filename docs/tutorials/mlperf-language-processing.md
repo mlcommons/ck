@@ -6,7 +6,7 @@
 ```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter=name \
 --lang=reference --model=bert-99 --backend=deepsparse --device=cpu --scenario=Offline  --quantized 
---results_dir=/home/cmuser/tmp2  --submission_dir=/home/cmuser/submission --clean --adr.compiler.tags=gcc
+--results_dir=/home/cmuser/tmp2  --submission_dir=/home/cmuser/submission --clean
 ```
 ### Customizations
 1. `_short` -> `_valid`: For full submission run

@@ -8,7 +8,6 @@ You should use the master branch of MLCommons inference repo for the submission 
 cmr "generate inference submission" \
 --clean \
 --preprocess_submission=yes \
---adr.compiler.tags=gcc \
 --run-checker \
 --submitter=CTuning \
 --tar=yes \

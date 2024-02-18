@@ -470,9 +470,6 @@ variations:
       CM_MODEL_BATCH_SIZE: "#"
       CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "#"
       #CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "gpu_batch_size.#"
-    adr:
-      build-engine:
-        tags: _batch_size.#
 
   dla_batch_size.#:
     group: dla-batch-size
@@ -635,6 +632,7 @@ variations:
           - device-memory
           - gpu-name
           - batch-size
+          - num-gpus
           - triton
           - build-engine-options
         skip_if_env:
@@ -650,6 +648,7 @@ variations:
           - loadgen-scenario
           - device-memory
           - gpu-name
+          - num-gpus
           - batch-size
           - triton
           - power-mode
@@ -673,6 +672,7 @@ variations:
           - loadgen-scenario
           - device-memory
           - device-type
+          - num-gpus
           - power-mode
           - gpu-name
           - triton
@@ -683,6 +683,7 @@ variations:
     group: loadgen-scenario
     env:
       CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+      CUDA_VISIBLE_DEVICES_NOT_USED: "0"
   multistream:
     group: loadgen-scenario
     env:
@@ -725,7 +726,8 @@ variations:
           - build-engine
         skip_inherit_variation_groups:
           - run-mode
-          - gpu_name
+          - gpu-name
+          - num-gpus
           - device-memory
         force_cache: true
 
@@ -734,9 +736,10 @@ variations:
         skip_inherit_variation_groups:
           - run-mode
           - loadgen-scenario
+          - num-gpus
           - device-memory
           - power-mode
-          - gpu_name
+          - gpu-name
           - batch-size
           - triton
           - build-engine-options
@@ -751,7 +754,8 @@ variations:
           - run-mode
           - loadgen-scenario
           - device-memory
-          - gpu_name
+          - gpu-name
+          - num-gpus
           - power-mode
           - batch-size
           - build-engine-options
@@ -909,13 +913,28 @@ variations:
     default_variations:
       batch-size: batch_size.2048
 
+  num-gpus.#:
+    group: num-gpus
+    env:
+      CM_NVIDIA_NUM_GPUS: "#"
+
+  num-gpus.1:
+    group: num-gpus
+    default: true
+    env:
+      CM_NVIDIA_NUM_GPUS: "1"
+
   resnet50,server,run_harness:
     default_variations:
       batch-size: batch_size.64
 
-  resnet50,multistream,run_harness:
+  resnet50,multistream,run_harness,num-gpus.1:
     default_variations:
       batch-size: batch_size.8
+
+  resnet50,multistream,run_harness,num-gpus.2:
+    default_variations:
+      batch-size: batch_size.4
 
   retinanet,multistream,run_harness:
     default_variations:
@@ -1088,6 +1107,14 @@ variations:
   rtx_4090,rnnt,server,run_harness:
     default_variations:
       batch-size: batch_size.2048
+
+  rtx_4090,gptj_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.7
+
+  rtx_4090,gptj_,server,run_harness:
+    default_variations:
+      batch-size: batch_size.7
 
   rtx_4090,dlrm_,offline,run_harness:
     default_variations:

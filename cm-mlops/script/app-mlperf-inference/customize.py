@@ -214,20 +214,29 @@ def postprocess(i):
 
         if not state.get('cm-mlperf-inference-results'):
             state['cm-mlperf-inference-results'] = {}
+        if not state.get('cm-mlperf-inference-results-last'):
+            state['cm-mlperf-inference-results-last'] = {}
         if not state['cm-mlperf-inference-results'].get(state['CM_SUT_CONFIG_NAME']):
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']] = {}
         if not state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']].get(model):
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model] = {}
         if not state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model].get(scenario):
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario] = {}
+
         state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario][mode] = result
         state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario][mode+'_valid'] = valid[mode]
+
+        state['cm-mlperf-inference-results-last'][mode] = result
+        state['cm-mlperf-inference-results-last'][mode+'_valid'] = valid[mode]
 
         if power:
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power'] = power
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power_valid'] = valid['power']
+            state['cm-mlperf-inference-results-last']['power'] = power
+            state['cm-mlperf-inference-results-last']['power_valid'] = valid['power']
         if power_efficiency:
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power_efficiency'] = power_efficiency
+            state['cm-mlperf-inference-results-last']['power_efficiency'] = power_efficiency
 
 
         # Record basic host info

@@ -6,6 +6,7 @@ import shutil
 def preprocess(i):
     env = i['env']
     state = i['state']
+    os_info = i['os_info']
 
     submitter = env.get('CM_MLPERF_SUBMITTER', 'CTuning')
 
@@ -68,7 +69,15 @@ def preprocess(i):
         compiler = env.get('CM_COMPILER_FAMILY', '')
         compiler_version = env.get('CM_COMPILER_VERSION', '')
         state['CM_SUT_META']['submitter'] = submitter
+
+        # If Windows and os_name_string is empty, rebuild it:
+
+        if os_name_string=='' and os_info['platform'] == 'windows':
+            import platform
+            os_name_string = str(platform.platform())
+        
         state['CM_SUT_META']['operating_system'] = os_name_string
+        
         state['CM_SUT_META']['other_software_stack'] = "Python: " + python_version + ", " + compiler + "-" + compiler_version
 
         if state['CM_SUT_META'].get('system_name','') == '':
@@ -91,12 +100,20 @@ def preprocess(i):
 
         if state['CM_SUT_META'].get('host_processor_core_count', '') == '':
             physical_cores_per_node = env.get('CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET')
+
+            if physical_cores_per_node == None or physical_cores_per_node == '':
+                if os_info['platform'] == 'windows':
+                    physical_cores_per_node = '1'
+            
             state['CM_SUT_META']['host_processor_core_count'] = physical_cores_per_node
 
         if state['CM_SUT_META'].get('host_processor_model_name', '') == '':
             state['CM_SUT_META']['host_processor_model_name'] = env.get('CM_HOST_CPU_MODEL_NAME', 'undefined')
         if state['CM_SUT_META'].get('host_processors_per_node', '') == '':
-            state['CM_SUT_META']['host_processors_per_node'] = env.get('CM_HOST_CPU_SOCKETS', '')
+            x = env.get('CM_HOST_CPU_SOCKETS', '')
+            if x == '' and os_info['platform'] == 'windows':
+                x = '1'
+            state['CM_SUT_META']['host_processors_per_node'] = x
 
         if state['CM_SUT_META'].get('host_processor_caches', '') == '':
             state['CM_SUT_META']['host_processor_caches'] = "L1d cache: " + env.get('CM_HOST_CPU_L1D_CACHE_SIZE', ' ') + \

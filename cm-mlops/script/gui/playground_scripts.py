@@ -14,7 +14,10 @@ def page(st, params):
     x = '''
          <i>
          <small>
-         <a href="https://github.com/mlcommons/ck">Collective Mind</a> is a collection of portable, extensible and ready-to-use automation recipes from <a href="https://mlcommons.org">MLCommons</a> (aka CM scripts) with a human-friendly interface and minimal dependencies to make it easier to compose, benchmark and optimize complex AI, ML and other applications and systems across diverse and continuously changing models, data sets, software and hardware.
+         <a href="https://github.com/mlcommons/ck">Collective Mind</a> is a collection of portable, extensible and ready-to-use 
+         automation recipes from <a href="https://mlcommons.org">MLCommons</a> (aka CM scripts) with a human-friendly interface 
+         and minimal dependencies to make it easier to compose, benchmark and optimize complex AI, ML and other applications 
+         and systems across diverse and continuously changing models, data sets, software and hardware.
          </small>
          </i>
           <br>
@@ -79,7 +82,7 @@ def page(st, params):
                 script_path = recipe.path
                 script_alias = alias
 
-                script_tags = script_tags
+#                script_tags = script_tags
                 if script_tags=='':
                     script_tags = meta.get('tags_help','')
                     if script_tags !='':
@@ -93,8 +96,9 @@ def page(st, params):
                       'script_alias': script_alias, 
                       'script_tags': script_tags, 
                       'script_meta': meta,
+                      'script_repo_meta': recipe.repo_meta,
                       'skip_bottom': True}
-                
+
                 return script.page(ii)
 
             else:
@@ -138,12 +142,8 @@ cm gui script "{}"
                     
                     '''.format(extra_repo,xtags,xtags,xtags,xtags,xtags,xtags)
 
-                st.markdown('Default run on Linux, Windows, MacOS and any other OS (check [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) for more details):\n{}\n'.format(x))
 
-                st.markdown('*The [Collective Mind concept](https://doi.org/10.5281/zenodo.8105339) is to gradually improve portability and reproducibility of common automation recipes based on user feedback'
-                             ' while keeping the same human-friendly interface. If you encounter issues, please report them [here](https://github.com/mlcommons/ck/issues) '
-                             ' to help this community project!*')
-
+                
                 
                 # Check original link
 
@@ -190,14 +190,21 @@ cm gui script "{}"
                         if os.path.isfile(y):
                             url_meta_description = url+'/'+x
                     
-
-                    
-
+                url_gui = url_prefix_script+'&name='+alias+','+uid+'&gui=true'
+                
+                
+                st.markdown('***Check the [universal CM GUI]({}) to run this script (experimental).***'.format(url_gui))
 
                 
-                url_gui = url_prefix_script+'&name='+alias+','+uid+'&gui=true'
+                st.markdown('Default run on Linux, Windows, MacOS and any other OS (check [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) for more details):\n{}\n'.format(x))
 
-                st.markdown('* View [auto-generated README on GitHub]({}) and/or [CM GUI]({}) to customize and run this script.'.format(url_readme, url_gui))
+                st.markdown('*The [Collective Mind concept](https://doi.org/10.5281/zenodo.8105339) is to gradually improve portability and reproducibility of common automation recipes based on user feedback'
+                             ' while keeping the same human-friendly interface. If you encounter issues, please report them [here](https://github.com/mlcommons/ck/issues) '
+                             ' to help this community project!*')
+
+                
+
+                st.markdown('* View [auto-generated README on GitHub]({}).'.format(url_readme))
 
                 if url_readme_extra!='':
                     st.markdown('* See [extra README]({}) for this automation recipe at GitHub.'.format(url_readme_extra))
