@@ -419,7 +419,7 @@ input_description:
     sort: 5010
   clean:
     boolean: true
-    default: false
+    default: true
     desc: Clean run
   compliance:
     choices:
@@ -457,7 +457,7 @@ input_description:
     default: true
   jf:
     desc: Record results dictionary to file at the end of the run
-    default: output.json
+    default: mlperf-inference-results
   time:
     desc: Print script execution time at the end of the run
     boolean: true

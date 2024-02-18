@@ -11,7 +11,8 @@ def load_cfg(i):
     tags = i.get('tags','')
     artifact = i.get('artifact','')
 
-    key = i.get('key','')
+    key = i.get('key', '')
+    key_end = i.get('key_end', [])
 
     ii={'action':'find',
         'automation':'cfg'}
@@ -28,6 +29,8 @@ def load_cfg(i):
     prune = i.get('prune',{})
     prune_key = prune.get('key', '')
     prune_key_uid = prune.get('key_uid', '')
+    prune_meta_key = prune.get('meta_key', '')
+    prune_meta_key_uid = prune.get('meta_key_uid', '')
     prune_uid = prune.get('uid', '')
     prune_list = prune.get('list',[])
     
@@ -54,6 +57,16 @@ def load_cfg(i):
             path = l.path
 
             main_meta = l.meta
+
+            skip = False
+            
+            if prune_meta_key!='' and prune_meta_key_uid!='':
+                if prune_meta_key_uid not in main_meta.get(prune_meta_key, []):
+                    skip = True
+            
+            if skip:
+                continue
+            
             all_tags = main_meta.get('tags',[])
 
             files = os.listdir(path)
@@ -64,6 +77,15 @@ def load_cfg(i):
 
                 if f.startswith('_') or (not f.endswith('.json') and not f.endswith('.yaml')):
                     continue
+
+                if len(key_end)>0:
+                    skip = True
+                    for ke in key_end:
+                        if f.endswith(ke):
+                            skip = False
+                            break
+                    if skip:
+                        continue
 
                 full_path = os.path.join(path, f)
 

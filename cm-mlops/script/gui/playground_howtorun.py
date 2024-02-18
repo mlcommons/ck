@@ -10,10 +10,6 @@ import streamlit as st
 
 announcement = 'Under development - please get in touch via [Discord](https://discord.gg/JjWNWXKxwT) for more details ...'
 
-initialized = False
-external_module_path = ''
-external_module_meta = {}
-
 def main():
     params = misc.get_params(st)
 
@@ -27,35 +23,7 @@ def main():
 
 
 
-def make_selection(st, selection, param_key, text, x_uid):
-
-    x_meta = {}
-    
-    if len(selection)>0:
-         selection = sorted(selection, key = lambda v: v['name'])
-
-         if x_uid != '':
-             x_meta = selection[0]
-             st.markdown('**Selected {}:** {}'.format(text, x_meta['name']))
-         else:
-             x_selection = [{'name':''}]
-             x_selection += selection
-             
-             x_id = st.selectbox('Select {}:'.format(text),
-                                 range(len(x_selection)), 
-                                 format_func=lambda x: x_selection[x]['name'],
-                                 index = 0,
-                                 key = param_key)
-
-             if x_id>0:
-                 x_meta = x_selection[x_id]
-
-    return {'return':0, 'meta':x_meta}
-
-
 def page(st, params, action = ''):
-
-    global initialized, external_module_path, external_module_meta
 
     end_html = ''
     
@@ -101,7 +69,7 @@ def page(st, params, action = ''):
     r = cmind.access(ii)
     if r['return']>0: return r
 
-    r = make_selection(st, r['selection'], 'compute', 'target hardware', compute_uid)
+    r = misc.make_selection(st, r['selection'], 'compute', 'target hardware', compute_uid)
     if r['return']>0: return r
 
     compute_meta = r['meta']
@@ -151,7 +119,7 @@ def page(st, params, action = ''):
             if add:
                 pruned_selection.append(s)
 
-    r = make_selection(st, pruned_selection, 'benchmark', 'benchmark', bench_uid)
+    r = misc.make_selection(st, pruned_selection, 'benchmark', 'benchmark', bench_uid)
     if r['return']>0: return r
 
     bench_meta = r['meta']

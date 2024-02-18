@@ -186,6 +186,13 @@ class CAutomation(Automation):
         import copy
         import time
 
+        # Check if save input/output to file
+        jf = i.get('json_file', '')
+        if jf == '':
+            jf = i.get('jf', '')
+        if jf !='':
+            i_original = copy.deepcopy(i)
+        
         recursion = i.get('recursion', False)
 
         # If first script run, check if can write to current directory
@@ -1637,14 +1644,16 @@ class CAutomation(Automation):
             print (json.dumps(rr, indent=2))
 
         # Check if save json to file
-        jf = i.get('json_file', '')
-        if jf == '':
-            jf = i.get('jf', '')
         if jf !='':
             import json
 
-            with open(jf, 'w', encoding='utf-8') as f:
-                json.dump(rr, f, ensure_ascii=False, indent=2)
+            try:
+                with open(jf+'-output.json', 'w', encoding='utf-8') as f:
+                    json.dump(rr, f, ensure_ascii=False, indent=2)
+                with open(jf+'-input.json', 'w', encoding='utf-8') as f:
+                    json.dump(i_original, f, ensure_ascii=False, indent=2)
+            except:
+                pass
 
         if verbose or show_time:
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))

@@ -14,23 +14,7 @@ tags:
 name: "MLPerf inference - v3.1"
 
 supported_compute:
+- ee8c568e0ac44f2b
 - fe379ecd1e054a00
-- cdfd424c32734e38
-- fe379ecd1e054a00
-- d2ae645066664463
 
-urls:
-- name: "Official page"
-  url: "https://mlcommons.org/working-groups/benchmarks/inference"
-- name: "GitHub dev page"
-  url: "https://github.com/mlcommons/inference"
-
-dimensions:
-- - input.model
-  - "MLPerf model"
-- - input.implementation
-  - "MLPerf implementation"
-- - input.framework
-  - "MLPerf framework"
-- - compute_meta.name
-  - "Compute"
+bench_uid: 39877bb63fb54725

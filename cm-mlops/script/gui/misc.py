@@ -153,3 +153,29 @@ def make_selector(i):
         st_inputs[key2] = value2
 
     return {'return':0, 'key2': key2, 'value2': value2}
+
+##########################################################
+def make_selection(st, selection, param_key, text, x_uid):
+
+    x_meta = {}
+    
+    if len(selection)>0:
+         selection = sorted(selection, key = lambda v: v['name'])
+
+         if x_uid != '':
+             x_meta = selection[0]
+             st.markdown('**Selected {}:** {}'.format(text, x_meta['name']))
+         else:
+             x_selection = [{'name':''}]
+             x_selection += selection
+             
+             x_id = st.selectbox('Select {}:'.format(text),
+                                 range(len(x_selection)), 
+                                 format_func=lambda x: x_selection[x]['name'],
+                                 index = 0,
+                                 key = param_key)
+
+             if x_id>0:
+                 x_meta = x_selection[x_id]
+
+    return {'return':0, 'meta':x_meta}
