@@ -73,8 +73,8 @@ You can follow [this tutorial](https://github.com/mlcommons/ck/blob/master/docs/
 to set up your power analyzer and connect it with your host platform.
 
 *Note that the [cTuning foundation](https://www.linkedin.com/company/ctuning-foundation)
- has several power analyzer and can help you test your MLPerf benchmark implementations
- on our system.*
+ and [cKnowledge.org](https://cKnowledge.org) have several power analyzers and can help 
+ you test your MLPerf benchmark implementations.*
 
 
 ## How to submit results?
