@@ -272,8 +272,8 @@ def gui(i):
     if device == 'cpu':
         inp['implementation']['choices']=['reference', 'intel-original','mil', 'tflite-cpp']
         inp['implementation']['default']='reference'
-        inp['backend']['choices']=['deepsparse','pytorch','tf','glow','tvm-onnx']
-        inp['backend']['default']='deepsparse'
+        inp['backend']['choices']=['onnxruntime','deepsparse','pytorch','tf','glow','tvm-onnx']
+        inp['backend']['default']='onnxruntime'
     elif device == 'rocm':
         inp['implementation']['force']='reference'
         inp['backend']['force']='onnxruntime'
@@ -362,7 +362,10 @@ cmr "benchmark any _phoenix"
 
     notes = ''
     if model == 'retinanet':
-        notes = 'Note: this model requires ~200GB of free disk space for preprocessed dataset!'
+        x = '50'
+        if implementation == 'reference':
+            x= '200'
+        notes = 'Note: this model requires ~{}GB of free disk space for preprocessed dataset!'.format(x)
     if notes!='':
         st.markdown('*:red['+notes+']*')
 
