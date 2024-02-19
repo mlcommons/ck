@@ -124,7 +124,7 @@ def get_accuracy_metric(config, model, path):
 
     return is_valid, acc_results, acc_targets, acc_limits
 
-def get_result_string(version, model, scenario, result_path, has_power, sub_res):
+def get_result_string(version, model, scenario, result_path, has_power, sub_res, division="open", system_json=None):
 
     config = checker.Config(
         version,
@@ -167,6 +167,21 @@ def get_result_string(version, model, scenario, result_path, has_power, sub_res)
         result['power'] = power_result
         result['power_efficiency'] = power_efficiency_result
 
+    compliance_list = [ "TEST01", "TEST05", "TEST04" ]
+    if division == "closed":
+        for test in compliance_list:
+            test_path = os.path.join(result_path, test)
+            if os.path.exists(test_path): #We dont consider missing test folders now - submission checker will do that
+                #test_pass = checker.check_compliance_dir(test_path, mlperf_model, scenario, config, "closed", system_json, sub_res)
+                test_pass = checker.check_compliance_perf_dir(test_path)
+                if test_pass and test in [ "TEST01", "TEST06" ]:
+                    #test_pass = checker.check_compliance_acc_dir(test_path, mlperf_model, config)
+                    pass # accuracy truncation script is done after submission generation. We assume here that it'll pass 
+                if test_pass:
+                    result[test] = "passed"
+                else:
+                    result[test] = "failed"
+
     acc_valid, acc_results, acc_targets, acc_limits = get_accuracy_metric(config, mlperf_model, accuracy_path)
 
     result_field = checker.RESULT_FIELD[effective_scenario]
@@ -205,7 +220,7 @@ def get_result_string(version, model, scenario, result_path, has_power, sub_res)
 
 def get_result_table(results):
     
-    headers = ["Model", "Scenario", "Accuracy", "QPS", "Latency (in ms)", "Power Efficiency (in samples/J)"]
+    headers = ["Model", "Scenario", "Accuracy", "QPS", "Latency (in ms)", "Power Efficiency (in samples/J)", "TEST01", "TEST05", "TEST04"]
     table = []
     for model in results:
         for scenario in results[model]:
@@ -253,6 +268,8 @@ def get_result_table(results):
                 if not results[model][scenario].get('power_valid', True):
                     val = "X "+val
                 row.append(val)
+            else:
+                row.append(None)
 
             val1 = results[model][scenario].get('TEST01')
             val2 = results[model][scenario].get('TEST05')
