@@ -39,7 +39,7 @@ The following guides explain how to run different implementations of this benchm
 ### A few example scripts
 
 * [Run custom ONNX models with MLPerf reference implementation](run_custom_onnx_models.sh)
-* [Run multiple DeepSparse models](run_sparse_models.sh)
+* [Run multiple DeepSparse Zoo models via MLPerf](run_sparse_models.sh)
 
 ### Questions? Suggestions?
 
