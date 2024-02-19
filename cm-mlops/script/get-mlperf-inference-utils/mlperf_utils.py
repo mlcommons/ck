@@ -253,6 +253,31 @@ def get_result_table(results):
                 if not results[model][scenario].get('power_valid', True):
                     val = "X "+val
                 row.append(val)
+
+            val1 = results[model][scenario].get('TEST01')
+            val2 = results[model][scenario].get('TEST05')
+            val3 = results[model][scenario].get('TEST04')
+            if val1:
+                row.append(val1)
+                if val2:
+                    row.append(val2)
+                    if val3:
+                        row.append(val3)
+                elif val3:
+                    row.append("missing")
+                    row.append(val3)
+
+            else:
+                if val2:
+                    row.append("missing")
+                    row.append(val2)
+                    if val3:
+                        row.append(val3)
+                elif val3:
+                    row.append("missing")
+                    row.append("missing")
+                    row.append(val3)
+
             table.append(row)
 
     return table, headers

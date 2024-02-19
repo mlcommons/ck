@@ -407,7 +407,7 @@ def postprocess(i):
         OUTPUT_DIR = os.path.dirname(COMPLIANCE_DIR)
 
         SCRIPT_PATH = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", test, "run_verification.py")
-        cmd = env['CM_PYTHON_BIN'] + " " + SCRIPT_PATH + " -r " + RESULT_DIR + " -c " + COMPLIANCE_DIR + " -o "+ OUTPUT_DIR
+        cmd = env['CM_PYTHON_BIN_WITH_PATH'] + " " + SCRIPT_PATH + " -r " + RESULT_DIR + " -c " + COMPLIANCE_DIR + " -o "+ OUTPUT_DIR
         print(cmd)
         os.system(cmd)
 
@@ -458,6 +458,9 @@ def postprocess(i):
                 env['CMD'] = CMD
                 r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'verify_accuracy'})
                 if r['return']>0: return r
+        import submission_checker as checker
+        is_valid = checker.check_compliance_perf_dir(COMPLIANCE_DIR)
+        state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario][test] = "passed" if is_valid else "failed"
 
     else:
         print(test)
