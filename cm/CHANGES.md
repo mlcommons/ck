@@ -1,3 +1,11 @@
+## V2.0.0
+   - a major update with the new CM automation recipes 
+     and GUI to compose modular AI systems and optimize 
+     them across diverse models, datasets, software and hardware:
+     * https://access.cknowledge.org/playground/?action=scripts
+     * https://access.cknowledge.org/playground/?action=howtorun
+     * https://access.cknowledge.org/playground/?action=reproduce
+
 ## V1.6.2
    - improved --help for common automations and CM scripts (automation recipes)
    - fixed a few minor bugs
