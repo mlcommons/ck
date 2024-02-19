@@ -1,2 +1,4 @@
 cmind>=1.6.0
 pyyaml
+requests
+setuptools
