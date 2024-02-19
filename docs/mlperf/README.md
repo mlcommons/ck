@@ -2,7 +2,7 @@
 
 # Run and customize MLPerf benchmarks using the MLCommons CM automation framework
 
-This documentation explains how to run, customize and extend MLPerf benchmarks 
+This documentation explains how to compose, run, customize and extend MLPerf benchmarks 
 in a unified way across diverse models, data sets, software and hardware from different vendors 
 using [MLCommons Collective Mind automation recipes](https://access.cknowledge.org/playground/?action=scripts):
 

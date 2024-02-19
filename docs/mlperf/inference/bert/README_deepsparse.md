@@ -1,3 +1,4 @@
+[ [Back to index](README.md) ]
 
 # BERT-Large
 
@@ -90,3 +91,8 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
 ### Generate and upload MLPerf submission
 
 Follow [this guide](../Submission.md) to generate the submission tree and upload your results.
+
+### Questions? Suggestions?
+
+Check the [MLCommons Task Force on Automation and Reproducibility](../../../taskforce.md) 
+and get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).

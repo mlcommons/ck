@@ -415,7 +415,7 @@ input_description:
     sort: 5005
   adr.mlperf-power-client.port: 
     default: 4950
-    desc: MLPerf Power client port
+    desc: MLPerf Power server port
     sort: 5010
   clean:
     boolean: true

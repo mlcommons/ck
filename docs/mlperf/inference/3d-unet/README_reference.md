@@ -1,7 +1,10 @@
-[ [Back to the common setup](README.md) ]
-
+[ [Back to index](README.md) ]
 
 ## Run this benchmark via CM
+
+*Note: from Feb 2024, we suggest you to use [this GUI](https://access.cknowledge.org/playground/?action=howtorun&bench_uid=39877bb63fb54725)
+ to configure MLPerf inference benchmark, generate CM commands to run it across different implementations, models, data sets, software
+ and hardware, and prepare your submissions.*
 
 
 ### Do a test run to detect and record the system performance
@@ -51,11 +54,7 @@ cmr "generate inference submission" --results_dir=$HOME/inference_3.1_results/va
 --hw_notes_extra="Result taken by NAME" --quiet
 ```
 
-
-### Run individual scenarios for testing and optimization
-
-TBD
-
 ### Questions? Suggestions?
 
-Don't hesitate to get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).
+Check the [MLCommons Task Force on Automation and Reproducibility](../../../taskforce.md) 
+and get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).

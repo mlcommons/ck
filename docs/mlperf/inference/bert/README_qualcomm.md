@@ -1,4 +1,4 @@
-[ [Back to the common setup](README.md) ]
+[ [Back to index](README.md) ]
 
 
 ## Run this benchmark via CM
@@ -31,16 +31,7 @@ cmr "generate-run-cmds inference _submission _all-scenarios" --model=bert-99 \
 
 Follow [this guide](../Submission.md) to generate the submission tree and upload your results.
 
-### Run individual scenarios for testing and optimization
-
-TBD
-
 ### Questions? Suggestions?
 
-Don't hesitate to get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).
-
-### Acknowledgments
-
-* CM automation for Nvidia's MLPerf inference implementation was developed by Arjun Suresh and Grigori Fursin.
-* Nvidia's MLPerf inference implementation was developed by Zhihan Jiang, Ethan Cheng, Yiheng Zhang and Jinho Suh.
-
+Check the [MLCommons Task Force on Automation and Reproducibility](../../../taskforce.md) 
+and get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).

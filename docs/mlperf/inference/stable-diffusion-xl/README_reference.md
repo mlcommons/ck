@@ -1,4 +1,4 @@
-[ [Back to the common setup](README.md) ]
+[ [Back to index](README.md) ]
 
 
 ## Run this benchmark via CM
@@ -34,10 +34,7 @@ cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --mo
 Follow [this guide](../Submission.md) to generate the submission tree and upload your results.
 
 
-### Run individual scenarios for testing and optimization
-
-TBD
-
 ### Questions? Suggestions?
 
-Don't hesitate to get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).
+Check the [MLCommons Task Force on Automation and Reproducibility](../../../taskforce.md) 
+and get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).

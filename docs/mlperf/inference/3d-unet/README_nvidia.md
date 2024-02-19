@@ -1,10 +1,15 @@
-[ [Back to the common setup](README.md) ]
+[ [Back to index](README.md) ]
 
 ## Prepare Nvidia software
 
 You need to install TensorRT and set up the configuration files as detailed [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/README-about.md).
 
 ## Run this benchmark via CM
+
+*Note: from Feb 2024, we suggest you to use [this GUI](https://access.cknowledge.org/playground/?action=howtorun&bench_uid=39877bb63fb54725)
+ to configure MLPerf inference benchmark, generate CM commands to run it across different implementations, models, data sets, software
+ and hardware, and prepare your submissions.*
+
 
 ### Do a test run to detect and record the system performance
 
@@ -43,14 +48,10 @@ cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
 
 Follow [this guide](../Submission.md) to generate the submission tree and upload your results.
 
-
-### Run individual scenarios for testing and optimization
-
-TBD
-
 ### Questions? Suggestions?
 
-Don't hesitate to get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).
+Check the [MLCommons Task Force on Automation and Reproducibility](../../../taskforce.md) 
+and get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).
 
 ### Acknowledgments
 
