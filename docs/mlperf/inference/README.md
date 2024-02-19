@@ -18,8 +18,10 @@ CM makes it possible to compose modular benchmarks from [portable and reusable a
 with a common interface and a [human-friendly GUI](https://access.cknowledge.org/playground/?action=howtorun&bench_uid=39877bb63fb54725).
 Such benchmarks attempt to automatically adapt to any software and hardware natively or inside a container with any Operating System.
 
-CM automation for MLPerf benchmarks is being developed by the [MLCommons Task Force on Automation and Reproducibility](../../taskforce.md) -
-don't hesitate to get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT) to get free help to run MLPerf benchmarks and submit valid results.
+CM automation for MLPerf benchmarks is being developed by the [MLCommons Task Force on Automation and Reproducibility](../../taskforce.md) 
+based on the feedback from MLCommons organizations while automating >90% of all performance and power submissions in the v3.1 round.
+
+Don't hesitate to get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT) to get free help to run MLPerf benchmarks and submit valid results.
 
 
 **Table of Contents:**
