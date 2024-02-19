@@ -1,6 +1,8 @@
 [ [Back to MLPerf inference benchmarks index](../README.md) ]
 
-## MLPerf inference: object detection with RetinaNet
+# MLPerf inference benchmark
+
+## Object detection with RetinaNet
 
 ### Notes
 
@@ -8,16 +10,15 @@ In the edge category, RetinaNet has Offline, SingleStream and MultiStream scenar
 
 Please check [MLPerf inference GitHub](https://github.com/mlcommons/inference) for more details.
 
-### Install CM
+### Run using the [MLCommons CM framework](https://github.com/mlcommons/ck)
 
-Please follow this [guide](../README.md#install-cm-automation-language) 
-to install the [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105339),
-pull the repository with the CM automation recipes for MLPerf and 
-set up virtual environment to run MLPerf benchmarks.
+*From Feb 2024, we suggest you to use [this GUI](https://access.cknowledge.org/playground/?action=howtorun&bench_uid=39877bb63fb54725)
+ to configure MLPerf inference benchmark, generate CM commands to run it across different implementations, models, data sets, software
+ and hardware, and prepare your submissions.*
 
-### Run MLPerf via CM
+### A few ready-to-use CM commands
 
 The following guides explain how to run different implementations of this benchmark via CM:
 
 * [MLCommons Reference implementation in Python](README_reference.md)
-* [NVIDIA implementation](README_nvidia.md)
+* [NVIDIA optimized implementation (GPU)](README_nvidia.md)

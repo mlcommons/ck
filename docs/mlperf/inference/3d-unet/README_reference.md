@@ -50,12 +50,3 @@ cmr "generate inference submission" --results_dir=$HOME/inference_3.1_results/va
 --run-checker --submitter=cTuning --adr.inference-src.version=master \
 --hw_notes_extra="Result taken by NAME" --quiet
 ```
-
-
-### Run individual scenarios for testing and optimization
-
-TBD
-
-### Questions? Suggestions?
-
-Don't hesitate to get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).

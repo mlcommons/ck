@@ -1,5 +1,9 @@
 [ [Back to index](../README.md) ]
 
+*Note: from Feb 2024, we suggest you to use [this GUI](https://access.cknowledge.org/playground/?action=howtorun&bench_uid=39877bb63fb54725)
+ to configure MLPerf inference benchmark, generate CM commands to run it across different implementations, models, data sets, software
+ and hardware, and prepare your submissions.*
+
 # Tutorial: modularizing and automating MLPerf Inference Language Processing model bert
 
 
