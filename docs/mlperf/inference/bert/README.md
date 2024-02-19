@@ -22,6 +22,8 @@ Please check [MLPerf inference GitHub](https://github.com/mlcommons/inference) f
 
 ### A few ready-to-use CM commands
 
+Install MLCommons CM automation framework with automation recipes for MLPerf as described [here](../../../installation.md).
+
 The following guides explain how to run different implementations of this benchmark via CM:
 
 * [MLCommons reference implementation in Python (CPU & GPU)](README_reference.md)
@@ -38,3 +40,8 @@ The following guides explain how to run different implementations of this benchm
 
 * [Run custom ONNX models with MLPerf reference implementation](run_custom_onnx_models.sh)
 * [Run multiple DeepSparse models](run_sparse_models.sh)
+
+### Questions? Suggestions?
+
+Check the [MLCommons Task Force on Automation and Reproducibility](../../../taskforce.md) 
+and get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).

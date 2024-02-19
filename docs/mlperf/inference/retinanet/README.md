@@ -18,7 +18,14 @@ Please check [MLPerf inference GitHub](https://github.com/mlcommons/inference) f
 
 ### A few ready-to-use CM commands
 
+Install MLCommons CM automation framework with automation recipes for MLPerf as described [here](../../../installation.md).
+
 The following guides explain how to run different implementations of this benchmark via CM:
 
 * [MLCommons Reference implementation in Python](README_reference.md)
 * [NVIDIA optimized implementation (GPU)](README_nvidia.md)
+
+### Questions? Suggestions?
+
+Check the [MLCommons Task Force on Automation and Reproducibility](../../../taskforce.md) 
+and get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).

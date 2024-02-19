@@ -1,4 +1,4 @@
-[ [Back to index](../README.md) ]
+[ [Back to index](README.md) ]
 
 *Note: from Feb 2024, we suggest you to use [this GUI](https://access.cknowledge.org/playground/?action=howtorun&bench_uid=39877bb63fb54725)
  to configure MLPerf inference benchmark, generate CM commands to run it across different implementations, models, data sets, software
@@ -501,3 +501,8 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  
    --env.CM_MLPERF_NEURALMAGIC_MODEL_ZOO_STUB=zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni \
    --clean 
 ```
+
+## Questions? Suggestions?
+
+Check the [MLCommons Task Force on Automation and Reproducibility](../../../taskforce.md) 
+and get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).

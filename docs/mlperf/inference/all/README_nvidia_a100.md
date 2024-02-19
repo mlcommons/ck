@@ -1,5 +1,10 @@
 [ [Back to MLPerf inference benchmarks index](../README.md) ]
 
+*Note: from Feb 2024, we suggest you to use [this GUI](https://access.cknowledge.org/playground/?action=howtorun&bench_uid=39877bb63fb54725)
+ to configure MLPerf inference benchmark, generate CM commands to run it across different implementations, models, data sets, software
+ and hardware, and prepare your submissions.*
+
+
 # MLPerf inference benchmark
 
 CM run commands to run MLPerf inference with main models 
@@ -144,3 +149,8 @@ cmr "generate-run-cmds inference _submission _all-scenarios"  \
 ```
 
 Once all 5 model results are done, please follow [Submission](../Submission.md) to generate the required submission. 
+
+### Questions? Suggestions?
+
+Check the [MLCommons Task Force on Automation and Reproducibility](../../../taskforce.md) 
+and get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).

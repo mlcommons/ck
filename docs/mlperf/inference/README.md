@@ -289,5 +289,6 @@ cmr "gui _graph"
 
 ## Questions? Suggestions?
 
-Get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).
+Check the [MLCommons Task Force on Automation and Reproducibility](../../../taskforce.md) 
+and get in touch via [public Discord server](https://discord.gg/JjWNWXKxwT).
 
