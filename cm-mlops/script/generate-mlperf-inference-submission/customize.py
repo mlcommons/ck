@@ -236,8 +236,6 @@ def generate_submission(i):
                             with open(os.path.join(result_mode_path, "system_meta.json"), "r") as f:
                                 saved_system_meta = json.load(f)
                                 for key in list(saved_system_meta):
-                                    print (saved_system_meta)
-                                    print (saved_system_meta[key])
                                     if saved_system_meta[key]==None or str(saved_system_meta[key]).strip() == '':
                                         del(saved_system_meta[key])
                                 system_meta = {**saved_system_meta, **system_meta} #override the saved meta with the user inputs
@@ -310,7 +308,7 @@ def generate_submission(i):
                         f.write("TBD") #create an empty README
                 else:
                     readme_suffix = ""
-                    result_string, result = mlperf_utils.get_result_string(env['CM_MLPERF_LAST_RELEASE'], model, scenario, result_scenario_path, power_run, sub_res)
+                    result_string, result = mlperf_utils.get_result_string(env['CM_MLPERF_LAST_RELEASE'], model, scenario, result_scenario_path, power_run, sub_res, division, system_file)
 
                     for key in result:
                         results[model][scenario][key] = result[key]

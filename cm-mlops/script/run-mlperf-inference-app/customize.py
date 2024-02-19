@@ -189,7 +189,7 @@ def preprocess(i):
                     return r
 
     if state.get("cm-mlperf-inference-results"):
-        # print(state["cm-mlperf-inference-results"])
+        #print(state["cm-mlperf-inference-results"])
         for sut in state["cm-mlperf-inference-results"]:#only one sut will be there
             # Grigori: that may not work properly since customize may have another Python than MLPerf
             # (for example, if we use virtual env)
