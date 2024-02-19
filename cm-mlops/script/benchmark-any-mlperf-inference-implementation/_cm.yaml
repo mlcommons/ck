@@ -256,3 +256,30 @@ variations:
     env:
       CATEGORY: edge
       DIVISION: closed
+
+  aws-dl2q.24xlarge:
+    group: sut
+    default_env:
+      EXTRA_ARGS: "  --adr.mlperf-inference-implementation.tags=_dl2q.24xlarge"
+      CATEGORY: datacenter
+      DIVISION: closed
+    default_variations:
+      implementation: qualcomm
+
+  aws-dl2q.24xlarge,qualcomm:
+    state:
+      resnet50:
+        qaic:
+          glow:
+            offline_target_qps: 153000
+            server_target_qps: 149000
+      retinanet:
+        qaic:
+          glow:
+            offline_target_qps: 2500
+            server_target_qps: 2200
+      bert-99.9:
+        qaic:
+          glow:
+            offline_target_qps: 350
+            server_target_qps: 300

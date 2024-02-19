@@ -138,8 +138,12 @@ def preprocess(i):
         add_deps_recursive['mlperf-inference-implementation'] = {}
         add_deps_recursive['mlperf-inference-implementation']['tags'] = "_batch_size."+env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
-    if clean and 'OUTPUT_BASE_DIR' in env:
-        path_to_clean = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
+    if env.get('CM_OUTPUT_FOLDER_NAME', '') == '':
+        env['CM_OUTPUT_FOLDER_NAME'] =  env['CM_MLPERF_RUN_STYLE'] + "_results"
+
+    output_dir = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
+    if clean:
+        path_to_clean = output_dir
 
         print ('=========================================================')
         print ('Cleaning results in {}'.format(path_to_clean))
@@ -198,6 +202,8 @@ def preprocess(i):
             print(sut)
             result_table, headers = mlperf_utils.get_result_table(state["cm-mlperf-inference-results"][sut])
             print(tabulate(result_table, headers = headers, tablefmt="pretty"))
+
+            print(f"\nThe MLPerf inference results are stored at {output_dir}\n")
 
     return {'return':0}
 
