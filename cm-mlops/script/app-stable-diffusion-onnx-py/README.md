@@ -36,7 +36,7 @@ See extra [notes](README-extra.md) from the authors and contributors.
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-stable-diffusion-onnx-py)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *app,stable,diffusion,stable-diffusion,onnx,python*
+* CM "database" tags to find this script: *modular,python,app,stable-diffusion,onnx*
 * Output cached? *False*
 ___
 ### Reuse this script in your project
@@ -53,9 +53,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=app,stable,diffusion,stable-diffusion,onnx,python[,variations] [--input_flags]`
+1. `cm run script --tags=modular,python,app,stable-diffusion,onnx[,variations] [--input_flags]`
 
-2. `cmr "app stable diffusion stable-diffusion onnx python[ variations]" [--input_flags]`
+2. `cmr "modular python app stable-diffusion onnx[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -72,7 +72,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'app,stable,diffusion,stable-diffusion,onnx,python'
+                  'tags':'modular,python,app,stable-diffusion,onnx'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -89,13 +89,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="app,stable,diffusion,stable-diffusion,onnx,python"```
+```cmr "cm gui" --script="modular,python,app,stable-diffusion,onnx"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=app,stable,diffusion,stable-diffusion,onnx,python) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=modular,python,app,stable-diffusion,onnx) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "app stable diffusion stable-diffusion onnx python[ variations]" [--input_flags]`
+`cm docker script "modular python app stable-diffusion onnx[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -208,7 +208,7 @@ ___
 
 ___
 ### Script output
-`cmr "app stable diffusion stable-diffusion onnx python[,variations]" [--input_flags] -j`
+`cmr "modular python app stable-diffusion onnx[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize

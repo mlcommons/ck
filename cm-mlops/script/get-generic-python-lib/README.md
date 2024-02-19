@@ -247,6 +247,12 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `apex`
         - *CM_GENERIC_PYTHON_PACKAGE_VARIANT*: `nvidia-apex`
+        - *CM_GENERIC_PYTHON_PIP_URL*: `git+https://github.com/nvidia/apex@0da3ffb92ee6fbe5336602f0e3989db1cd16f880`
+      - Workflow:
+    * `_nvidia-apex-from-src`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `apex`
+        - *CM_GENERIC_PYTHON_PACKAGE_VARIANT*: `nvidia-apex`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,cuda

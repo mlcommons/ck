@@ -480,7 +480,9 @@ ___
       - Environment variables:
         - *CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS*: `1`
       - Workflow:
-    * `_resnet50,multistream,run_harness`
+    * `_resnet50,multistream,run_harness,num-gpus.1`
+      - Workflow:
+    * `_resnet50,multistream,run_harness,num-gpus.2`
       - Workflow:
     * `_resnet50,server,run_harness`
       - Workflow:
@@ -502,6 +504,10 @@ ___
     * `_rtx_4090,dlrm_,offline,run_harness`
       - Environment variables:
         - *CM_MLPERF_NVIDIA_HARNESS_EMBEDDING_WEIGHTS_ON_GPU_PART*: `0.30`
+      - Workflow:
+    * `_rtx_4090,gptj_,offline,run_harness`
+      - Workflow:
+    * `_rtx_4090,gptj_,server,run_harness`
       - Workflow:
     * `_rtx_4090,resnet50,offline,run_harness`
       - Workflow:
@@ -806,6 +812,7 @@ ___
     * `_singlestream`
       - Environment variables:
         - *CM_MLPERF_LOADGEN_SCENARIO*: `SingleStream`
+        - *CUDA_VISIBLE_DEVICES_NOT_USED*: `0`
       - Workflow:
 
     </details>
@@ -908,6 +915,22 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-sys-util,_sox
              - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
+
+    </details>
+
+
+  * Group "**num-gpus**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_num-gpus.#`
+      - Environment variables:
+        - *CM_NVIDIA_NUM_GPUS*: `#`
+      - Workflow:
+    * **`_num-gpus.1`** (default)
+      - Environment variables:
+        - *CM_NVIDIA_NUM_GPUS*: `1`
+      - Workflow:
 
     </details>
 
@@ -1060,7 +1083,7 @@ ___
 
 #### Default variations
 
-`_cuda,_resnet50,_run_harness,_tensorrt`
+`_cuda,_num-gpus.1,_resnet50,_run_harness,_tensorrt`
 
 #### Script flags mapped to environment
 <details>
