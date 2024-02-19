@@ -28,13 +28,6 @@
 
 ### About
 
-This is a ready-to-use CM automation recipe that provides a unified and portable interface to the MLPerf inference benchmark 
-assembled from other [portable CM scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
-being developed by the open [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).
-
-This automation recipe automatically generates the command line for the [universal MLPerf inference script](../app-mlperf-inference)
-to run MLPerf scenarios for a given ML task, model, runtime and device, and prepare and validate submissions.
-
 
 See extra [notes](README-extra.md) from the authors and contributors.
 
@@ -44,7 +37,7 @@ See extra [notes](README-extra.md) from the authors and contributors.
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *run,mlperf,inference,common*
+* CM "database" tags to find this script: *run-mlperf-inference*
 * Output cached? *False*
 ___
 ### Reuse this script in your project
@@ -61,9 +54,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=run,mlperf,inference,common[,variations] [--input_flags]`
+1. `cm run script --tags=run-mlperf-inference[,variations] [--input_flags]`
 
-2. `cmr "run mlperf inference common[ variations]" [--input_flags]`
+2. `cmr "run-mlperf-inference[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -80,7 +73,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'run,mlperf,inference,common'
+                  'tags':'run-mlperf-inference'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -97,13 +90,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="run,mlperf,inference,common"```
+```cmr "cm gui" --script="run-mlperf-inference"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run,mlperf,inference,common) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run-mlperf-inference) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "run mlperf inference common[ variations]" [--input_flags]`
+`cm docker script "run-mlperf-inference[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -240,8 +233,10 @@ ___
 
 #### Input description
 
+* --**division** MLPerf division {open,closed} (*open*)
+* --**category** MLPerf category {edge,datacenter,network} (*edge*)
 * --**device** MLPerf device {cpu,cuda,rocm,qaic} (*cpu*)
-* --**model** MLPerf model {resnet50,retinanet,bert-99,bert-99.9,3d-unet-99,3d-unet-99.9,rnnt,dlrm-v2-99,dlrm-v2-99.9,gptj-99,gptj-99.9,sdxl,llama2-70b-99,llama2-70b-99.9,mobilenet,efficientnet} (*resnet50*)
+* --**model** MLPerf model {resnet50,retinanet,bert-99,bert-99.9,3d-unet-99,3d-unet-99.9,rnnt,dlrm-v2-99,dlrm-v2-99.9,gptj-99,gptj-99.9,sdxl,llama2-70b-99,llama2-70b-99.9,mobilenet,efficientnet} (*retinanet*)
 * --**precision** MLPerf model precision {float32,float16,bfloat16,int8,uint8}
 * --**implementation** MLPerf implementation {reference,mil,nvidia-original,intel-original,qualcomm,tflite-cpp} (*reference*)
 * --**backend** MLPerf framework (backend) {onnxruntime,tf,pytorch,deepsparse,tensorrt,glow,tvm-onnx} (*onnxruntime*)
@@ -251,31 +246,37 @@ ___
 * --**submitter** Submitter name (without space) (*CTuning*)
 * --**results_dir** Folder path to store results (defaults to the current working directory)
 * --**submission_dir** Folder path to store MLPerf submission tree
-* --**adr.compiler.tags** Compiler for loadgen and any C/C++ part of implementation (*gcc*)
+* --**adr.compiler.tags** Compiler for loadgen and any C/C++ part of implementation
 * --**adr.inference-src-loadgen.env.CM_GIT_URL** Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)
 * --**adr.inference-src.env.CM_GIT_URL** Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)
 * --**adr.mlperf-inference-implementation.max_batchsize** Maximum batchsize to be used
-* --**adr.mlperf-inference-implementation.num_threads** Number of threads (reference&C++ implementation only)
-* --**adr.python.name** Python virtual environment name (optional) (*mlperf*)
+* --**adr.mlperf-inference-implementation.num_threads** Number of threads (reference & C++ implementation only)
+* --**adr.python.name** Python virtual environment name (optional)
 * --**adr.python.version** Force Python version (must have all system deps)
 * --**adr.python.version_min** Minimal Python version (*3.8*)
+* --**power** Measure power {yes,no} (*no*)
+* --**adr.mlperf-power-client.power_server** MLPerf Power server IP address (*192.168.0.15*)
+* --**adr.mlperf-power-client.port** MLPerf Power client port (*4950*)
 * --**clean** Clean run (*True*)
-* --**compliance** Whether to run compliance tests (applicable only for closed division) {yes,no} (*yes*)
+* --**compliance** Whether to run compliance tests (applicable only for closed division) {yes,no} (*no*)
 * --**dashboard_wb_project** W&B dashboard project (*cm-mlperf-dse-testing*)
 * --**dashboard_wb_user** W&B dashboard user (*cmind*)
-* --**hw_name** MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware)) (*default*)
+* --**hw_name** MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware))
 * --**multistream_target_latency** Set MultiStream target latency
 * --**offline_target_qps** Set LoadGen Offline target QPS
-* --**quiet** Quiet run (select default values for all questions) (*False*)
+* --**quiet** Quiet run (select default values for all questions) (*True*)
 * --**server_target_qps** Set Server target QPS
 * --**singlestream_target_latency** Set SingleStream target latency
 * --**target_latency** Set Target latency
 * --**target_qps** Set LoadGen target QPS
+* --**j** Print results dictionary to console at the end of the run (*True*)
+* --**jf** Record results dictionary to file at the end of the run (*mlperf-inference-results*)
+* --**time** Print script execution time at the end of the run (*True*)
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "device":...}
+r=cm.access({... , "division":...}
 ```
 
 #### Script flags mapped to environment
@@ -400,7 +401,7 @@ ___
 
 ___
 ### Script output
-`cmr "run mlperf inference common[,variations]" [--input_flags] -j`
+`cmr "run-mlperf-inference[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
