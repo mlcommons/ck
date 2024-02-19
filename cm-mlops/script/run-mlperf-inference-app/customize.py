@@ -297,6 +297,7 @@ def gui(i):
     implementation = r.get('value2')
     script_meta['input_description'][x]['force'] = implementation
 
+    notes = ''
     if implementation == 'mil':
 #        script_meta['input_description']['backend']['choices'] = ['onnxruntime']
         script_meta['input_description']['backend']['force'] = 'onnxruntime'
@@ -305,8 +306,12 @@ def gui(i):
             script_meta['input_description']['backend']['force'] = 'onnxruntime'
     elif implementation == 'nvidia-original':
         script_meta['input_description']['backend']['force'] = 'tensorrt'
-
-        
+        notes = 'Note: Nvidia implementation require extra CM command to build and run Docker container - you will run CM commands to run MLPerf benchmarks there!'
+    elif implementation == 'intel-original':
+        script_meta['input_description']['backend']['force'] = 'pytorch'
+        notes = 'Note: Intel implementation require extra CM command to build and run Docker container - you will run CM commands to run MLPerf benchmarks there!'
+    if notes!='':
+        st.markdown('*:red['+notes+']*')
         
 
     #############################################################################
@@ -320,6 +325,12 @@ def gui(i):
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_model', 'desc':inp['model']})
     model = r.get('value2')
     script_meta['input_description']['model']['force'] = model
+
+    notes = ''
+    if model == 'retinanet':
+        notes = 'Note: this model will require ~200GB of free disk space for preprocessed dataset!'
+    if notes!='':
+        st.markdown('*:red['+notes+']*')
 
 
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_precision', 'desc':inp['precision']})
