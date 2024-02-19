@@ -224,10 +224,11 @@ cm pull repo --url={URL of the fork of github.com/mlcommons/ck}
 ```
 
 If you want to use stable CM snapshots of reusable automation recipes (CM scripts), 
-you can download a stable repository from Zenodo:
+you can download a stable repository from Zenodo (~5MB):
 ```bash
 cm rm repo mlcommons@ck --all
-cm pull repo --url=https://zenodo.org/records/10576423/files/cm-mlops-repo.zip
+cm pull repo --url=https://zenodo.org/records/10679842/files/cm-mlops-repo-20240219.zip
+
 ```
 
 If you use CM scripts with Python outside containers, we suggest you to set up CM Python virtual

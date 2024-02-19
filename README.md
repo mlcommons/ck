@@ -184,7 +184,7 @@ and how to implement and share new automations in your public or private project
 
 * ACM REP'23 keynote about MLCommons CM: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] [ [YouTube](https://youtu.be/_1f9i_Bzjmg) ]
 * ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
-* MLPerf inference submitter orientation: [ [v4.0 slides](https://doi.org/10.5281/zenodo.10605079) ] [ [v3.1 slides](https://doi.org/10.5281/zenodo.8144274) ]
+* MLPerf inference submitter orientation: [ [v4.0 slides]( https://doi.org/10.5281/zenodo.10605079 ) ] [ [v3.1 slides](https://doi.org/10.5281/zenodo.8144274) ]
 
 ### Get in touch
 
