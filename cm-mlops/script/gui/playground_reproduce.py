@@ -15,7 +15,8 @@ announcement = 'Under development - please get in touch via [Discord](https://di
 badges={
         'functional':{'url':'https://cTuning.org/images/artifacts_evaluated_functional_v1_1_small.png'},
         'reproduced':{'url':'https://cTuning.org/images/results_reproduced_v1_1_small.png'},
-        'support_docker':{'url':'https://cTuning.org/images/docker_logo2_small.png'}
+        'support_docker':{'url':'https://cTuning.org/images/docker_logo2_small.png'},
+        'support_cm':{'url':'https://cTuning.org/images/logo-ck-single-tr4.png'}
        }
 
 
@@ -190,7 +191,7 @@ def page(st, params, action = ''):
                 x = ''
 
                 for b in badges:
-                    if s.get(b, False):
+                    if s.get(b, False) or b=='support_cm':
                         x += '<a href="http://cTuning.org/ae" target="_blank"><img src="{}" height="64"></a>\n'.format(badges[b]['url'])
 
                 if x!='':
@@ -304,7 +305,8 @@ cm run script {}
                 keys += [
                          ('functional', '<a href="https://github.com/mlcommons/ck/blob/master/docs/artifact-evaluation/submission.md">Functional</a>', 80, ''),
                          ('reproduced', '<a href="https://github.com/mlcommons/ck/blob/master/docs/artifact-evaluation/submission.md">Reproduced</a>', 80, ''),
-                         ('support_docker', '<a href="https://github.com/mlcommons/ck/blob/master/docs/artifact-evaluation/submission.md">Support Docker</a>', 80, ''),
+                         ('support_docker', 'Support Docker', 80, ''),
+                         ('support_cm', '<a href="https://github.com/mlcommons/ck">Has unified CM interface</a>', 80, ''),
                          ('notes', 'Notes', 200, 'lefAligned'),
                         ]
 
@@ -371,6 +373,13 @@ cm run script {}
                     if s.get('support_docker', False):
                         x = '<center><a href="{}" target="_blank"><img src="{}" height="32"></a></center>'.format(url, badges['support_docker']['url'])
                     row['support_docker'] = x
+
+                    x = ''
+                    bench_uid = s.get('bench_uid','')
+                    if bench_uid != '':
+                        url_bench = url_benchmarks + '&bench_uid='+bench_uid
+                        x = '<center><a href="{}" target="_blank"><img src="{}" height="32"></a></center>'.format(url_bench, badges['support_cm']['url'])
+                    row['support_cm'] = x
                     
                     # Check misc notes
                     row['notes']=s.get('notes','')
