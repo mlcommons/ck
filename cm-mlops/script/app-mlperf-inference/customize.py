@@ -203,14 +203,14 @@ def postprocess(i):
         if os.path.exists(env['CM_MLPERF_USER_CONF']):
             shutil.copy(env['CM_MLPERF_USER_CONF'], 'user.conf')
 
-        result, valid = mlperf_utils.get_result_from_log(env['CM_MLPERF_LAST_RELEASE'], model, scenario, output_dir, mode)
+        result, valid, power_result = mlperf_utils.get_result_from_log(env['CM_MLPERF_LAST_RELEASE'], model, scenario, output_dir, mode)
         power = None
         power_efficiency = None
-        if mode == "performance":
-            result_split = result.split(",")
-            if len(result_split) > 2: #power results are there
-                power = result_split[1]
-                power_efficiency = result_split[2]
+        if power_result:
+            power_result_split = power_result.split(",")
+            if len(power_result_split) == 2: #power and power efficiency
+                power = power_result_split[0]
+                power_efficiency = power_result_split[1]
 
         if not state.get('cm-mlperf-inference-results'):
             state['cm-mlperf-inference-results'] = {}
@@ -237,7 +237,6 @@ def postprocess(i):
         if power_efficiency:
             state['cm-mlperf-inference-results'][state['CM_SUT_CONFIG_NAME']][model][scenario]['power_efficiency'] = power_efficiency
             state['cm-mlperf-inference-results-last']['power_efficiency'] = power_efficiency
-
 
         # Record basic host info
         host_info = {

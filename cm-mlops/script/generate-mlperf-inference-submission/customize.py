@@ -20,6 +20,8 @@ def generate_submission(i):
 
     if env.get('CM_MLPERF_INFERENCE_RESULTS_DIR_', '') == '':
         env['CM_MLPERF_INFERENCE_RESULTS_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_RESULTS_DIR'], f"{env['CM_MLPERF_RUN_STYLE']}_results")
+    else:
+        env['CM_MLPERF_INFERENCE_RESULTS_DIR'] = env['CM_MLPERF_INFERENCE_RESULTS_DIR_']
 
     mlperf_path = env['CM_MLPERF_INFERENCE_SOURCE']
     submission_checker_dir = os.path.join(mlperf_path, "tools", "submission")

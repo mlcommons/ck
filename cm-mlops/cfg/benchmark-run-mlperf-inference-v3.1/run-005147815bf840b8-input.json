@@ -1,0 +1,54 @@
+{
+  "action": "run",
+  "automation": "script",
+  "tags": "run-mlperf-inference,_r4.0,_performance-only,_short",
+  "division": "open",
+  "category": "datacenter",
+  "device": "qaic",
+  "model": "bert-99.9",
+  "precision": "float16",
+  "implementation": "qualcomm",
+  "backend": "glow",
+  "scenario": "Offline",
+  "execution_mode": "test",
+  "power": "no",
+  "adr": {
+    "python": {
+      "version_min": "3.8"
+    }
+  },
+  "clean": true,
+  "compliance": "no",
+  "j": true,
+  "jf": "run-0eeb9799b12b488f",
+  "quiet": true,
+  "time": true,
+  "host_os": "linux",
+  "cmd": [
+    "--tags=run-mlperf-inference,_r4.0,_performance-only,_short",
+    "--division=open",
+    "--category=datacenter",
+    "--device=qaic",
+    "--model=bert-99.9",
+    "--precision=float16",
+    "--implementation=qualcomm",
+    "--backend=glow",
+    "--scenario=Offline",
+    "--execution_mode=test",
+    "--power=no",
+    "--adr.python.version_min=3.8",
+    "--clean",
+    "--compliance=no",
+    "--j",
+    "--quiet",
+    "--time",
+    "--host_os=linux"
+  ],
+  "out": "con",
+  "parsed_automation": [
+    [
+      "script",
+      "5b4e0237da074764"
+    ]
+  ]
+}

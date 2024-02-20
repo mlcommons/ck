@@ -1,0 +1,27 @@
+alias: compose-high-performance-and-cost-efficient-ai-systems-based-on-mlperf-4.0-2024
+uid: 7c983102d89e4869
+
+automation_alias: challenge
+automation_uid: 3d84abd768f34e08
+
+title: "Compose high-performance and cost-efficint AI systems using MLCommons' Collective Mind and MLPerf inference v4.0"
+
+date_open: '20240301'
+
+hot: true
+
+tags:
+- compose
+- ai
+- systems
+- mlperf-inference-v4.0
+- cm
+- mlcommons-cm
+- mlperf
+- v4.0
+- performance
+- energy
+- cost
+
+experiments:
+- tags: mlperf-inference,v4.0

@@ -1,0 +1,53 @@
+{
+  "action": "run",
+  "automation": "script",
+  "tags": "run-mlperf-inference,_r4.0,_performance-only,_short",
+  "division": "open",
+  "category": "edge",
+  "device": "cpu",
+  "model": "retinanet",
+  "precision": "float32",
+  "implementation": "mil",
+  "backend": "onnxruntime",
+  "scenario": "Offline",
+  "execution_mode": "test",
+  "power": "no",
+  "adr": {
+    "python": {
+      "version_min": "3.8"
+    }
+  },
+  "clean": true,
+  "compliance": "no",
+  "j": true,
+  "jf": "run-d8c0f02f52bf49ae",
+  "time": true,
+  "host_os": "linux",
+  "cmd": [
+    "--tags=run-mlperf-inference,_r4.0,_performance-only,_short",
+    "--division=open",
+    "--category=edge",
+    "--device=cpu",
+    "--model=retinanet",
+    "--precision=float32",
+    "--implementation=mil",
+    "--backend=onnxruntime",
+    "--scenario=Offline",
+    "--execution_mode=test",
+    "--power=no",
+    "--adr.python.version_min=3.8",
+    "--clean",
+    "--compliance=no",
+    "--j",
+    "--jf=run-d8c0f02f52bf49ae",
+    "--time",
+    "--host_os=linux"
+  ],
+  "out": "con",
+  "parsed_automation": [
+    [
+      "script",
+      "5b4e0237da074764"
+    ]
+  ]
+}

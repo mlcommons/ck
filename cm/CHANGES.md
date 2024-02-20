@@ -1,3 +1,6 @@
+## V2.0.0.1
+   - added setuptools as dependency to detect package versions
+
 ## V2.0.0
    - a major update with the new CM automation recipes 
      and GUI to compose modular AI systems and optimize 

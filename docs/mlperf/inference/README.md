@@ -73,8 +73,8 @@ You can follow [this tutorial](https://github.com/mlcommons/ck/blob/master/docs/
 to set up your power analyzer and connect it with your host platform.
 
 *Note that the [cTuning foundation](https://www.linkedin.com/company/ctuning-foundation)
- has several power analyzer and can help you test your MLPerf benchmark implementations
- on our system.*
+ and [cKnowledge.org](https://cKnowledge.org) have several power analyzers and can help 
+ you test your MLPerf benchmark implementations.*
 
 
 ## How to submit results?
@@ -257,8 +257,9 @@ You can see example of this visualization GUI [online](https://access.cknowledge
 
 ## Acknowledgments
 
-[Collective Mind](https://doi.org/10.5281/zenodo.8105339) is an open community project to modularize AI benchmarks 
-and provide a common interface to run them across diverse models, data sets, software and hardware - 
+[Collective Mind](https://doi.org/10.5281/zenodo.8105339) is an open community project 
+led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
+to modularize AI benchmarks and provide a common interface to run them across diverse models, data sets, software and hardware - 
 we would like to thank all our [great contributors](../../../CONTRIBUTING.md) for their feedback, support and extensions!
 
 ## Questions? Suggestions?

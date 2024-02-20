@@ -28,11 +28,18 @@ view_dimensions:
   - "MLPerf backend"
 - - input.model
   - "MLPerf model"
+- - input.precision
+  - "Model precision"
 - - input.scenario
   - "MLPerf scenario"
 - - input.host_os
   - "Host OS"
 - - output.state.cm-mlperf-inference-results-last.performance
   - "Got performance"
+  - "tick"
 - - output.state.cm-mlperf-inference-results-last.accuracy
   - "Got accuracy"
+  - "tick"
+- - output.state.cm-mlperf-inference-results-last.power
+  - "Got energy"
+  - "tick"

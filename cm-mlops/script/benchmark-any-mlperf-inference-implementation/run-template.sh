@@ -34,6 +34,8 @@ function run_test() {
   test_query_count=$3
   implementation=$4
   device=$5
+  EXTRA_RUN_ARGS=$7
+  echo "model=$model, backend=$2, test_query_count=$3, implementation=$4, device=$5, EXTRA_RUN_ARGS=$7"
   run "$6"
 }
 
@@ -47,27 +49,27 @@ find_performance_cmd='cm run script --tags=generate-run-cmds,inference,_find-per
 
 find_ss_performance_cmd='cm run script --tags=generate-run-cmds,inference,_find-performance \
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
---category=edge --division=open --scenario=SingleStream  --quiet --test_query_count=$test_query_count $rerun ${EXTRA_ARGS}'
+--category=edge --division=open --scenario=SingleStream  --quiet --test_query_count=$test_query_count $rerun ${EXTRA_RUN_ARGS}  ${EXTRA_ARGS}'
 
 submission_cmd='cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios \
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
 --category=$category --division=$division  --quiet  \
---skip_submission_generation=yes --execution-mode=valid ${POWER_STRING} ${EXTRA_ARGS}'
+--skip_submission_generation=yes --execution-mode=valid ${POWER_STRING} ${EXTRA_RUN_ARGS} ${EXTRA_ARGS}'
 
 submission_cmd_scenario='cm run script --tags=generate-run-cmds,inference,_submission  --scenario=$scenario \
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
 --category=$category --division=$division  --quiet  \
---skip_submission_generation=yes --execution-mode=valid ${POWER_STRING} ${EXTRA_ARGS}'
+--skip_submission_generation=yes --execution-mode=valid ${POWER_STRING} ${EXTRA_RUN_ARGS} ${EXTRA_ARGS}'
 
 readme_cmd_single='cm run script --tags=generate-run-cmds,inference,_populate-readme --scenario=$scenario \
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
 --category=$category --division=$division  --quiet  \
---skip_submission_generation=yes --execution-mode=valid ${POWER_STRING} ${EXTRA_ARGS}'
+--skip_submission_generation=yes --execution-mode=valid ${POWER_STRING} ${EXTRA_RUN_ARGS} ${EXTRA_ARGS}'
 
 readme_cmd='cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios \
 --model=$model --implementation=$implementation --device=$device --backend=$backend \
 --category=$category --division=$division  --quiet  \
---skip_submission_generation=yes --execution-mode=valid ${POWER_STRING} ${EXTRA_ARGS}'
+--skip_submission_generation=yes --execution-mode=valid ${POWER_STRING} ${EXTRA_RUN_ARGS} ${EXTRA_ARGS}'
 
 
 tflite_accuracy_cmd='cm run script --tags=run,mobilenet-models,_tflite,_accuracy-only$extra_tags \

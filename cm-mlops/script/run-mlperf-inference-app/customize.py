@@ -138,8 +138,12 @@ def preprocess(i):
         add_deps_recursive['mlperf-inference-implementation'] = {}
         add_deps_recursive['mlperf-inference-implementation']['tags'] = "_batch_size."+env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
-    if clean and 'OUTPUT_BASE_DIR' in env:
-        path_to_clean = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
+    if env.get('CM_OUTPUT_FOLDER_NAME', '') == '':
+        env['CM_OUTPUT_FOLDER_NAME'] =  env['CM_MLPERF_RUN_STYLE'] + "_results"
+
+    output_dir = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
+    if clean:
+        path_to_clean = output_dir
 
         print ('=========================================================')
         print ('Cleaning results in {}'.format(path_to_clean))
@@ -199,6 +203,8 @@ def preprocess(i):
             result_table, headers = mlperf_utils.get_result_table(state["cm-mlperf-inference-results"][sut])
             print(tabulate(result_table, headers = headers, tablefmt="pretty"))
 
+            print(f"\nThe MLPerf inference results are stored at {output_dir}\n")
+
     return {'return':0}
 
 
@@ -249,6 +255,9 @@ def gui(i):
     compute_meta = i.get('compute_meta',{})
     bench_meta = i.get('bench_meta',{})
 
+    compute_uid = compute_meta.get('uid','')
+    bench_uid = bench_meta.get('uid','')
+
     st_inputs_custom = {}
     
     bench_input = bench_meta.get('bench_input', {})
@@ -264,67 +273,163 @@ def gui(i):
     
     v = compute_meta.get('mlperf_inference_device')
     if v!=None and v!='': 
-        script_meta['input_description']['device']['force'] = v
+        inp['device']['force'] = v
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_device', 'desc':inp['device']})
     device = r.get('value2')
-    script_meta['input_description']['device']['force'] = device
+    inp['device']['force'] = device
+
+    if device == 'cpu':
+        inp['implementation']['choices']=['reference', 'intel-original','mil', 'tflite-cpp']
+        inp['implementation']['default']='reference'
+        inp['backend']['choices']=['onnxruntime','deepsparse','pytorch','tf','tvm-onnx']
+        inp['backend']['default']='onnxruntime'
+    elif device == 'rocm':
+        inp['implementation']['force']='reference'
+        inp['backend']['force']='onnxruntime'
+    elif device == 'qaic':
+        inp['implementation']['force']='qualcomm'
+        inp['backend']['force']='glow'
+       
 
 
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_division', 'desc':inp['division']})
     division = r.get('value2')
-    script_meta['input_description']['division']['force'] = division
+    inp['division']['force'] = division
 
 
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_category', 'desc':inp['category']})
     category = r.get('value2')
-    script_meta['input_description']['category']['force'] = category
+    inp['category']['force'] = category
+
     
+
 
     #############################################################################
     # Implementation
-    x = 'implementation'
     v = bench_input.get('mlperf_inference_implementation')
     if v!=None and v!='': 
-        script_meta['input_description'][x]['force'] = v
+        inp['implementation']['force'] = v
     else:
         if device == 'cuda':
-            inp[x]['choices']=['nvidia-original','reference','mil']
-            inp[x]['default']='nvidia-original'
+            inp['implementation']['choices']=['nvidia-original','reference','mil']
+            inp['implementation']['default']='nvidia-original'
             inp['backend']['choices']=['tensorrt','onnxruntime','pytorch']
             inp['backend']['default']='tensorrt'
 
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_implementation', 'desc':inp[x]})
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_implementation', 'desc':inp['implementation']})
     implementation = r.get('value2')
-    script_meta['input_description'][x]['force'] = implementation
+    inp['implementation']['force'] = implementation
 
     if implementation == 'mil':
-#        script_meta['input_description']['backend']['choices'] = ['onnxruntime']
-        script_meta['input_description']['backend']['force'] = 'onnxruntime'
+#        inp['backend']['choices'] = ['onnxruntime']
+        inp['precision']['force']='float32'
+        inp['backend']['force'] = 'onnxruntime'
+        inp['model']['choices'] = ['resnet50', 'retinanet']
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)]*')
     elif implementation == 'reference':
+        inp['precision']['default']='float32'
         if device == 'cuda':
-            script_meta['input_description']['backend']['force'] = 'onnxruntime'
-    elif implementation == 'nvidia-original':
-        script_meta['input_description']['backend']['force'] = 'tensorrt'
+            inp['backend']['choices']=['onnxruntime','pytorch','tf']
+            inp['backend']['default'] = 'onnxruntime'
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference)]*')
+    elif implementation == 'tflite-cpp':
+        inp['precision']['force']='float32'
+        inp['model']['force']='resnet50'
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp)]*')
 
-        
-        
+    elif implementation == 'nvidia-original':
+        inp['backend']['force'] = 'tensorrt'
+        st.markdown("""
+---
+:red[Note: Nvidia implementation require extra CM command to build and run Docker container:]
+```bash
+cm docker script --tags=build,nvidia,inference,server
+```
+:red[You can then copy/paste CM commands generated by this GUI to run MLPerf benchmarks.]
+
+:red[You can also benchmark all models in one go using this command:]
+```bash
+cmr "benchmark any _phoenix"
+```
+
+:red[Container will require around 60GB of free disk space.]
+:red[Docker cache and running all models (without DLRM) will require ~600 GB free disk space.]
+
+:red[Check these [notes](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/bert/README_nvidia.md) for more details.]]
+
+---
+""")
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia)]*')
+    elif implementation == 'intel-original':
+        inp['model']['choices'] = ['bert-99', 'bert-99.9', 'gptj-99']
+        inp['model']['default'] = 'bert-99'
+        inp['precision']['force'] = 'uint8'
+        inp['category']['force'] = 'datacenter'
+        inp['backend']['force'] = 'pytorch'
+#        st.markdown('*:red[Note: Intel implementation require extra CM command to build and run Docker container - you will run CM commands to run MLPerf benchmarks there!]*')
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel)]*')
+    elif implementation == 'qualcomm':
+        inp['model']['choices'] = ['resnet-50', 'retinanet', 'bert-99', 'bert-99.9']
+        inp['model']['default'] = 'bert-99.9'
+        inp['precision']['default'] = 'float16'
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm)]*')
+
 
     #############################################################################
     # Backend
 
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_backend', 'desc':inp['backend']})
     backend = r.get('value2')
-    script_meta['input_description']['backend']['force'] = backend
+    inp['backend']['force'] = backend
+
+
+    if backend == 'deepsparse':
+        inp['model']['choices'] = ['resnet50', 'retinanet', 'bert-99', 'bert-99.9']
+        inp['model']['default'] = 'bert-99'
+        inp['precision']['default'] = 'int8'
+
 
 
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_model', 'desc':inp['model']})
     model = r.get('value2')
-    script_meta['input_description']['model']['force'] = model
+    inp['model']['force'] = model
+
+    if model == 'resnet50':
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/resnet50)]\n')
+
+    elif model == 'retinanet':
+        x = '50'
+        if implementation == 'reference':
+            x= '200'
+        st.markdown(':red[This model requires ~{}GB of free disk space for preprocessed dataset in a full/submission run!]\n'.format(x))
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/retinanet)]\n')
+
+    elif model.startswith('bert-'):
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/bert)]\n')
+
+    elif model.startswith('3d-unet-'):
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/3d-unet)]\n')
+
+    elif model == 'rnnt':
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/rnnt)]\n')
+    
+    elif model.startswith('dlrm-v2-'):
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/dlrm_v2)]\n')
+    
+    elif model.startswith('gptj-'):
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/gpt-j)]\n')
+    
+    elif model == 'sdxl':
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/stable-diffusion-xl)]\n')
+    
+    elif model.startswith('llama2-'):
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/llama2-70b)]\n')
+
 
 
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_precision', 'desc':inp['precision']})
     precision = r.get('value2')
-    script_meta['input_description']['precision']['force'] = precision
+    inp['precision']['force'] = precision
 
 
     #############################################################################
@@ -339,9 +444,9 @@ def gui(i):
 
     if scenario == xall:
         params['~all-scenarios']=['true']
-        script_meta['input_description']['scenario']['force']=''
+        inp['scenario']['force']=''
     else:
-        script_meta['input_description']['scenario']['force']=scenario
+        inp['scenario']['force']=scenario
 
 
 
@@ -355,7 +460,7 @@ def gui(i):
     if submission:
         r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_submitter', 'desc':inp['submitter']})
         submitter = r.get('value2')
-        script_meta['input_description']['submitter']['force']=submitter
+        inp['submitter']['force']=submitter
         params['~~submission-generation']=['submission']
 
         x = '*Use the following command to find local directory with the submission tree and results:*\n```bash\ncm find cache --tags=submission,dir\n```\n'
@@ -365,7 +470,7 @@ def gui(i):
         st.markdown(x)
     
     else:
-        script_meta['input_description']['submitter']['force']=''
+        inp['submitter']['force']=''
         params['~submission']=['false']
 
         choices = ['Performance', 'Accuracy', 'Find Performance from a short run']
@@ -399,18 +504,18 @@ def gui(i):
 
     if how == x[0]:
         params['~~submission-generation-style']=['full']
-        script_meta['input_description']['execution_mode']['force'] = 'valid'
+        inp['execution_mode']['force'] = 'valid'
     else:
         params['~~submission-generation-style']=['short']
-        script_meta['input_description']['execution_mode']['force'] = 'test'
+        inp['execution_mode']['force'] = 'test'
 
 
     y = 'compliance'
     if division=='closed':
         r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_compliance', 'desc':inp[y]})
-        script_meta['input_description'][y]['force'] = r.get('value2')
+        inp[y]['force'] = r.get('value2')
     else:
-        script_meta['input_description'][y]['force'] = 'no'
+        inp[y]['force'] = 'no'
 
 
     #############################################################################
@@ -421,20 +526,20 @@ def gui(i):
     power = r.get('value2', False)
 
     if power:
-        script_meta['input_description']['power']['force'] = 'yes'
+        inp['power']['force'] = 'yes'
 
         y = 'adr.mlperf-power-client.power_server'
         r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power_server', 'desc':inp[y]})
-        script_meta['input_description'][y]['force'] = r.get('value2')
+        inp[y]['force'] = r.get('value2')
 
         y = 'adr.mlperf-power-client.port'
         r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power_port', 'desc':inp[y]})
-        script_meta['input_description'][y]['force'] = r.get('value2')
+        inp[y]['force'] = r.get('value2')
 
     else:
-        script_meta['input_description']['power']['force'] = 'no'
-        script_meta['input_description']['adr.mlperf-power-client.power_server']['force']=''
-        script_meta['input_description']['adr.mlperf-power-client.port']['force']=''
+        inp['power']['force'] = 'no'
+        inp['adr.mlperf-power-client.power_server']['force']=''
+        inp['adr.mlperf-power-client.port']['force']=''
 
 
     #############################################################################
@@ -449,20 +554,60 @@ def gui(i):
 
         y = 'dashboard_wb_project'
         r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power_wb_project', 'desc':inp[y]})
-        script_meta['input_description'][y]['force'] = r.get('value2')
+        inp[y]['force'] = r.get('value2')
 
         y = 'dashboard_wb_user'
         r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power_wb_user', 'desc':inp[y]})
-        script_meta['input_description'][y]['force'] = r.get('value2')
+        inp[y]['force'] = r.get('value2')
 
     else:
         params['~dashboard']=['false']
-        script_meta['input_description']['dashboard_wb_project']['force']=''
-        script_meta['input_description']['dashboard_wb_user']['force']=''
+        inp['dashboard_wb_project']['force']=''
+        inp['dashboard_wb_user']['force']=''
 
+
+    # Create output for tests 
+    # Get UID
+    r = utils.gen_uid()
+    if r['return']>0: return r
+
+    test_uid = r['uid']
+
+    r = utils.get_current_date_time({})
+    if r['return']>0: return r
+
+    datetime = r['iso_datetime']
+
+    test_file = 'run-'+test_uid
+
+    inp['jf']['default'] = test_file
+
+    test_meta = {
+      "uid": test_uid,
+      "compute_uid": compute_uid,
+      "bench_uid": bench_uid,
+      "date_time": datetime,
+      "functional": False,
+      "reproduced": False,
+      "support_docker": False
+    }
+
+    x = """
+---
+**[Reproducibility meta](https://access.cknowledge.org/playground/?action=reproduce):**
+
+*{}*
+
+
+```json
+{}
+```    
+        """.format(test_file+'-meta.json', json.dumps(test_meta, indent=2))
+
+    st.markdown(x)
 
 #    params['@adr.mlperf-power-client.port']=['']
-#    script_meta['input_description']['device']['choices']=['rocm','qaic']
-#    script_meta['input_description']['device']['default']='qaic'
+#    inp['device']['choices']=['rocm','qaic']
+#    inp['device']['default']='qaic'
     
     return {'return':0, 'end_html':end_html}

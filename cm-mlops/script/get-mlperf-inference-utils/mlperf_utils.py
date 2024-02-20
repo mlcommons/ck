@@ -16,9 +16,10 @@ def get_result_from_log(version, model, scenario, result_path, mode):
     #scenario = checker.SCENARIO_MAPPING[scenario]
 
     result = ''
+    power_result = None
     valid = {}
     if mode == "performance":
-        has_power = os.path.exists(os.path.join(result_path, "power"))
+        has_power = os.path.exists(os.path.join(result_path, "..", "power"))
         result_ = checker.get_performance_metric(config, mlperf_model, result_path, scenario, None, None, has_power)
         mlperf_log = MLPerfLog(os.path.join(result_path, "mlperf_log_detail.txt"))
         if (
@@ -37,7 +38,7 @@ def get_result_from_log(version, model, scenario, result_path, mode):
 
         if has_power:
             power_valid, power_metric, scenario, avg_power_efficiency = checker.get_power_metric(config, scenario, result_path, True, result_)
-            result += f",{power_metric},{avg_power_efficiency}"
+            power_result = f"{round(power_metric,3)},{round(avg_power_efficiency,3)}"
             valid['power'] = power_valid
 
 
@@ -56,7 +57,7 @@ def get_result_from_log(version, model, scenario, result_path, mode):
                 result_list.append(str(round(float(acc_results[acc]), 5)))
             result += ", ".join(result_list) + ")"
 
-    return result, valid
+    return result, valid, power_result
 
 def get_accuracy_metric(config, model, path):
 

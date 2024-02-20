@@ -19,6 +19,15 @@
         "submission-checker-src"
       ],
       "tags": "get,mlcommons,inference,src"
+    },
+    {
+      "tags": "get,mlperf,submission,dir",
+      "names": [
+        "get-mlperf-submission-dir"
+      ],
+      "skip_if_env": {
+        "CM_MLPERF_INFERENCE_SUBMISSION_DIR": [ "on" ]
+      }
     }
   ],
   "input_mapping": {

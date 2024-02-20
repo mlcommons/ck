@@ -145,11 +145,11 @@ def preprocess(i):
                 if adr:
                     utils.merge_dicts({'dict1':cm_input['adr'], 'dict2':adr, 'append_lists':True, 'append_unique':True})
 
-                if env.get('CM_MLPERF_RESULTS_DIR', '') != '':
-                    cm_input['results_dir'] = env['CM_MLPERF_RESULTS_DIR']
+                if env.get('CM_MLPERF_INFERENCE_RESULTS_DIR', '') != '':
+                    cm_input['results_dir'] = env['CM_MLPERF_INFERENCE_RESULTS_DIR']
 
-                if env.get('CM_MLPERF_SUBMISSION_DIR', '') != '':
-                    cm_input['submission_dir'] = env['CM_MLPERF_SUBMISSION_DIR']
+                if env.get('CM_MLPERF_INFERENCE_SUBMISSION_DIR', '') != '':
+                    cm_input['submission_dir'] = env['CM_MLPERF_INFERENCE_SUBMISSION_DIR']
 
                 if env.get('CM_MLPERF_ACCURACY_MODE','') == "yes":
                     cm_input['mode'] = 'accuracy'

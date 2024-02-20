@@ -196,10 +196,12 @@ variations:
         cuda:
           tensorrt:
             offline_target_qps: 90000
+            server_target_qps: 75000
       retinanet:
         cuda:
           tensorrt:
             offline_target_qps: 1700
+            server_target_qps: 1600
       bert-99:
         cuda:
           tensorrt:
@@ -208,6 +210,7 @@ variations:
         cuda:
           tensorrt:
             offline_target_qps: 4000
+            server_target_qps: 3300
       3d-unet-99.9:
         cuda:
           tensorrt:
@@ -222,22 +225,27 @@ variations:
         cuda:
           tensorrt:
             offline_target_qps: 30000
+            server_target_qps: 28200
       gptj-99:
         cuda:
           tensorrt:
             offline_target_qps: 9
+            server_target_qps: 8.2
       gptj-99.9:
         cuda:
           tensorrt:
             offline_target_qps: 9
+            server_target_qps: 8.2
       dlrm-v2-99:
         cuda:
           tensorrt:
             offline_target_qps: 1500
+            offline_target_qps: 1200
       dlrm-v2-99.9:
         cuda:
           tensorrt:
             offline_target_qps: 1500
+            offline_target_qps: 1200
 
   orin.32g:
     group: sut
@@ -256,3 +264,30 @@ variations:
     env:
       CATEGORY: edge
       DIVISION: closed
+
+  aws-dl2q.24xlarge:
+    group: sut
+    default_env:
+      EXTRA_ARGS: "  --adr.mlperf-inference-implementation.tags=_dl2q.24xlarge"
+      CATEGORY: datacenter
+      DIVISION: closed
+    default_variations:
+      implementation: qualcomm
+
+  aws-dl2q.24xlarge,qualcomm:
+    state:
+      resnet50:
+        qaic:
+          glow:
+            offline_target_qps: 153000
+            server_target_qps: 149000
+      retinanet:
+        qaic:
+          glow:
+            offline_target_qps: 2500
+            server_target_qps: 2200
+      bert-99.9:
+        qaic:
+          glow:
+            offline_target_qps: 350
+            server_target_qps: 300

@@ -203,10 +203,10 @@ def preprocess(i):
     if 'CM_MLPERF_POWER' in env and mode == "performance":
         log_mode = "performance_power"
 
-    env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
+    env['CM_MLPERF_INFERENCE_FINAL_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
 
     sut_name = env.get('CM_SUT_NAME', env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'])
-    OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], sut_name, \
+    OUTPUT_DIR =  os.path.join(env['CM_MLPERF_INFERENCE_FINAL_RESULTS_DIR'], sut_name, \
             model_full_name, scenario.lower(), mode)
 
     if 'CM_MLPERF_POWER' in env and mode == "performance":
@@ -226,6 +226,10 @@ def preprocess(i):
 
         audit_full_path = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", audit_path, "audit.config")
         env['CM_MLPERF_INFERENCE_AUDIT_PATH'] = audit_full_path
+        #copy the audit conf to the run directory incase the implementation is not supporting the audit-conf path
+        if not os.path.exists(OUTPUT_DIR):
+            os.makedirs(OUTPUT_DIR)
+        shutil.copyfile(audit_full_path, os.path.join(OUTPUT_DIR, "audit.config"))
 
     env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
     env['CM_LOGS_DIR'] = OUTPUT_DIR
@@ -318,7 +322,8 @@ def preprocess(i):
         if env.get('CM_MLPERF_POWER','') == "yes" and os.path.exists(env.get('CM_MLPERF_POWER_LOG_DIR', '')):
             shutil.rmtree(env['CM_MLPERF_POWER_LOG_DIR'])
     else:
-        print("Run files exist, skipping run...\n")
+        if not env.get('CM_MLPERF_COMPLIANCE_RUN_POSTPONED', False):
+            print("Run files exist, skipping run...\n")
         env['CM_MLPERF_SKIP_RUN'] = "yes"
 
     if not run_exists or rerun or not measure_files_exist(OUTPUT_DIR, \
@@ -373,6 +378,16 @@ def run_files_exist(mode, OUTPUT_DIR, run_files, env):
         RESULT_DIR = os.path.split(OUTPUT_DIR)[0]
         COMPLIANCE_DIR = OUTPUT_DIR
         OUTPUT_DIR = os.path.dirname(COMPLIANCE_DIR)
+
+        #If reference test result is invalid, don't do compliance run
+        file_path = os.path.join(RESULT_DIR, "performance", "run_1", "mlperf_log_detail.txt")
+        mlperf_log = MLPerfLog(file_path)
+        if (
+            "result_validity" not in mlperf_log.get_keys()
+            or mlperf_log["result_validity"] != "VALID"
+        ):
+            env['CM_MLPERF_COMPLIANCE_RUN_POSTPONED'] = True
+            return True
 
         test = env['CM_MLPERF_LOADGEN_COMPLIANCE_TEST']
 

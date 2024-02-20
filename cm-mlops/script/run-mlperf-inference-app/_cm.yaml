@@ -32,7 +32,6 @@ default_env:
   CM_MLPERF_IMPLEMENTATION: reference
   CM_MLPERF_MODEL: resnet50
   CM_MLPERF_RUN_STYLE: test
-  CM_OUTPUT_FOLDER_NAME: test_results
 
 input_mapping:
   backend: CM_MLPERF_BACKEND
@@ -80,7 +79,7 @@ input_mapping:
   singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
   skip_submission_generation: CM_MLPERF_SKIP_SUBMISSION_GENERATION
   skip_truncation: CM_SKIP_TRUNCATE_ACCURACY
-  submission_dir: CM_MLPERF_SUBMISSION_DIR
+  submission_dir: CM_MLPERF_INFERENCE_SUBMISSION_DIR
   submitter: CM_MLPERF_SUBMITTER
   sut_servers: CM_NETWORK_LOADGEN_SUT_SERVERS
   sw_notes_extra: CM_MLPERF_SUT_SW_NOTES_EXTRA
