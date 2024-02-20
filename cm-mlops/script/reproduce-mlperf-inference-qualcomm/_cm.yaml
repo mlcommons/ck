@@ -384,6 +384,8 @@ variations:
 
   retinanet:
     group: model
+    base:
+      - bs.1
     env:
       CM_MODEL: retinanet
       CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth"
@@ -670,3 +672,39 @@ variations:
       batch-size: bs.1
     env:
       qaic_activation_count: "16"
+  
+  rb6:
+    group: sut
+    base:
+      - nsp.9
+    env:
+      CM_QAIC_DEVICES: "0"
+      qaic_queue_length: 6
+
+  rb6,singlestream:
+    env:
+      qaic_activation_count: "1"
+
+  rb6,resnet50,offline:
+    default_variations:
+      batch-size: bs.8
+    env:
+      qaic_activation_count: "3"
+
+  rb6,resnet50,multistream:
+    default_variations:
+      batch-size: bs.8
+    env:
+      qaic_activation_count: "3"
+
+  rb6,bert-99,offline:
+    env:
+      qaic_activation_count: "9"
+
+  rb6,retinanet,offline:
+    env:
+      qaic_activation_count: "9"
+ 
+  rb6,retinanet,multistream:
+    env:
+      qaic_activation_count: "8"
