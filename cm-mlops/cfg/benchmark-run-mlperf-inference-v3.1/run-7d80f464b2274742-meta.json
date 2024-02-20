@@ -4,7 +4,7 @@
   "bench_uid": "39877bb63fb54725",
   "date_time": "2024-02-20T16:04:27.903539",
   "notes":"ONNX 1.15.0 worked; ONNX 1.17.0 did not work",
-  "functional": false,
-  "reproduced": false,
+  "functional": true,
+  "reproduced": true,
   "support_docker": false
 }
