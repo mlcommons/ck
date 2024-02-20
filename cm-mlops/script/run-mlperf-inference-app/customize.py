@@ -383,6 +383,7 @@ cmr "benchmark any _phoenix"
     if backend == 'deepsparse':
         inp['model']['choices'] = ['resnet50', 'retinanet', 'bert-99', 'bert-99.9']
         inp['model']['default'] = 'bert-99'
+        inp['precision']['default'] = 'int8'
 
 
 

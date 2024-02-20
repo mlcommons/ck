@@ -51,8 +51,15 @@ def preprocess(i):
             env['CM_EXTRACT_TOOL_OPTIONS'] = ' --skip-old-files -xvzf '
             env['CM_EXTRACT_TOOL'] = 'tar '
     elif filename.endswith(".tar.xz"):
-        env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvJf'
-        env['CM_EXTRACT_TOOL'] = 'tar '
+        if windows:
+            x = '"' if ' ' in filename else ''
+            env['CM_EXTRACT_CMD0'] = 'xz -d ' + x + filename + x
+            filename = filename[:-3] # leave only .tar
+            env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvf'
+            env['CM_EXTRACT_TOOL'] = 'tar '
+        else:
+            env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvJf'
+            env['CM_EXTRACT_TOOL'] = 'tar '
     elif filename.endswith(".tar"):
         env['CM_EXTRACT_TOOL_OPTIONS'] = ' -xvf'
         env['CM_EXTRACT_TOOL'] = 'tar '
