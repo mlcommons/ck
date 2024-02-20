@@ -255,6 +255,9 @@ def gui(i):
     compute_meta = i.get('compute_meta',{})
     bench_meta = i.get('bench_meta',{})
 
+    compute_uid = compute_meta.get('uid','')
+    bench_uid = bench_meta.get('uid','')
+
     st_inputs_custom = {}
     
     bench_input = bench_meta.get('bench_input', {})
@@ -562,6 +565,46 @@ cmr "benchmark any _phoenix"
         inp['dashboard_wb_project']['force']=''
         inp['dashboard_wb_user']['force']=''
 
+
+    # Create output for tests 
+    # Get UID
+    r = utils.gen_uid()
+    if r['return']>0: return r
+
+    test_uid = r['uid']
+
+    r = utils.get_current_date_time({})
+    if r['return']>0: return r
+
+    datetime = r['iso_datetime']
+
+    test_file = 'run-'+test_uid
+
+    inp['jf']['default'] = test_file
+
+    test_meta = {
+      "uid": test_uid,
+      "compute_uid": compute_uid,
+      "bench_uid": bench_uid,
+      "date_time": datetime,
+      "functional": False,
+      "reproduced": False,
+      "support_docker": False
+    }
+
+    x = """
+---
+**[Reproducibility meta](https://access.cknowledge.org/playground/?action=reproduce):**
+
+*{}*
+
+
+```json
+{}
+```    
+        """.format(test_file+'-meta.json', json.dumps(test_meta, indent=2))
+
+    st.markdown(x)
 
 #    params['@adr.mlperf-power-client.port']=['']
 #    inp['device']['choices']=['rocm','qaic']
