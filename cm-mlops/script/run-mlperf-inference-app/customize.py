@@ -312,11 +312,17 @@ def gui(i):
     notes = ''
     if implementation == 'mil':
 #        inp['backend']['choices'] = ['onnxruntime']
+        inp['precision']['force']='float32'
         inp['backend']['force'] = 'onnxruntime'
+        inp['model']['choices'] = ['resnet50', 'retinanet']
     elif implementation == 'reference':
+        inp['precision']['force']='float32'
         if device == 'cuda':
             inp['backend']['choices']=['onnxruntime','pytorch','tf']
             inp['backend']['default'] = 'onnxruntime'
+    elif implementation == 'tflite-cpp':
+        inp['precision']['force']='float32'
+        inp['model']['force']='resnet50'
 
     elif implementation == 'nvidia-original':
         inp['backend']['force'] = 'tensorrt'
@@ -341,6 +347,9 @@ cmr "benchmark any _phoenix"
 ---
 """)
     elif implementation == 'intel-original':
+        inp['model']['choices'] = ['bert-99', 'bert-99.9', 'gptj-99', 'gptj-99.9']
+        inp['model']['default'] = 'bert-99'
+        inp['precision']['force'] = 'int8'
         inp['backend']['force'] = 'pytorch'
         notes = 'Note: Intel implementation require extra CM command to build and run Docker container - you will run CM commands to run MLPerf benchmarks there!'
 
@@ -356,6 +365,12 @@ cmr "benchmark any _phoenix"
     inp['backend']['force'] = backend
 
 
+    if backend == 'deepsparse':
+        inp['model']['choices'] = ['resnet50', 'retinanet', 'bert-99', 'bert-99.9']
+        inp['model']['default'] = 'bert-99'
+
+
+
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_model', 'desc':inp['model']})
     model = r.get('value2')
     inp['model']['force'] = model
@@ -365,7 +380,7 @@ cmr "benchmark any _phoenix"
         x = '50'
         if implementation == 'reference':
             x= '200'
-        notes = 'Note: this model requires ~{}GB of free disk space for preprocessed dataset!'.format(x)
+        notes = 'Note: this model requires ~{}GB of free disk space for preprocessed dataset in a full/submission run!'.format(x)
     if notes!='':
         st.markdown('*:red['+notes+']*')
 

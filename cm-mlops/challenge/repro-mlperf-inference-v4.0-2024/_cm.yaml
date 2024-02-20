@@ -1,13 +1,12 @@
-alias: optimize-mlperf-inference-v4.0-2024
+alias: repro-mlperf-inference-v4.0-2024
 uid: e6b8738383eb46d0
 
 automation_alias: challenge
 automation_uid: 3d84abd768f34e08
 
-title: Run and optimize MLPerf inference v4.0 benchmarks (Intel, Nvidia, Qualcomm, Arm64, TPU ...) and submit official results
+title: Reproduce MLPerf inference benchmark results v4.0 from different vendors (Intel, Nvidia, Qualcomm, Google, NeuralMagic, ...)
 
-date_close: '20240222'
-date_open: '20240205'
+date_open: '20240301'
 
 hot: true
 

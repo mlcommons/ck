@@ -34,5 +34,10 @@ view_dimensions:
   - "Host OS"
 - - output.state.cm-mlperf-inference-results-last.performance
   - "Got performance"
+  - "tick"
 - - output.state.cm-mlperf-inference-results-last.accuracy
   - "Got accuracy"
+  - "tick"
+- - output.state.cm-mlperf-inference-results-last.power
+  - "Got energy"
+  - "tick"

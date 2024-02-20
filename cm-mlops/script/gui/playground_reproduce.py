@@ -51,8 +51,10 @@ def page(st, params, action = ''):
          This interface will help you find the <a href="{}">modular benchmarks' settings</a> 
          that <a href="{}">the community</a> have managed to successfully validate 
          across different models, data sets, software and hardware 
-         based on the <a href="https://cTuning.org/ae">ACM/cTuning reproducibility methodology and badges</a> -
-         please get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a> for more details.
+         based on the <a href="https://cTuning.org/ae">ACM/cTuning reproducibility methodology and badges</a>.
+         Note that this is a collaborative engineering effort - please report issues and suggestions 
+         <a href="https://github.com/mlcommons/ck/issues">here</a>
+         and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a> for more details.
          </small>
          </i>
           <br>
@@ -351,6 +353,10 @@ cm run script {}
 
                             v = misc.get_with_complex_key_safe(row_meta, kk)
 
+                            if len(k)>2 and k[2]=='tick':
+                                if v!=None and v!='':
+                                    v = '✅'
+                            
                             row[kk] = str(v)
 
 
