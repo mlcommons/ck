@@ -1,0 +1,11 @@
+{
+  "return": 0,
+  "env": {},
+  "new_env": {},
+  "state": {
+    "cm-mlperf-inference-results-last": {
+      "performance": "tested-will-be-added-in-v4.0",
+      "performance_valid": true
+    }
+  }
+}

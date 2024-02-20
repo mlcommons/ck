@@ -1,0 +1,9 @@
+{
+  "uid": "800fe1b33ca443da",
+  "compute_uid": "d2ae645066664463",
+  "bench_uid": "39877bb63fb54725",
+  "date_time": "2024-02-20T15:25:03.786139",
+  "functional": true,
+  "reproduced": true,
+  "support_docker": true
+}

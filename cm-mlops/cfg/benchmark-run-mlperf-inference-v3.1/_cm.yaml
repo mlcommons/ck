@@ -28,6 +28,8 @@ view_dimensions:
   - "MLPerf backend"
 - - input.model
   - "MLPerf model"
+- - input.precision
+  - "Model precision"
 - - input.scenario
   - "MLPerf scenario"
 - - input.host_os

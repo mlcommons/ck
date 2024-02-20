@@ -327,7 +327,7 @@ def gui(i):
         inp['model']['choices'] = ['resnet50', 'retinanet']
         st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)]*')
     elif implementation == 'reference':
-        inp['precision']['force']='float32'
+        inp['precision']['default']='float32'
         if device == 'cuda':
             inp['backend']['choices']=['onnxruntime','pytorch','tf']
             inp['backend']['default'] = 'onnxruntime'
