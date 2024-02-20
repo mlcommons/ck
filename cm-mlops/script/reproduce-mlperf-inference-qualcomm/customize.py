@@ -173,6 +173,8 @@ def preprocess(i):
         kilt_loadgen_mode = 'PerformanceOnly'
     elif loadgen_mode == 'accuracy':
         kilt_loadgen_mode = 'AccuracyOnly'
+    elif loadgen_mode == 'compliance':
+        kilt_loadgen_mode = 'PerformanceOnly'
     else:
         return {'return':1, 'error': 'Unknown loadgen mode'}
     env['loadgen_mode'] = kilt_loadgen_mode

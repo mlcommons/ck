@@ -291,6 +291,9 @@ variations:
           CM_SKIP_RUN:
             - yes
 
+  qualcomm:
+    alias: kilt
+
   kilt:
     group:
       implementation
@@ -306,6 +309,26 @@ variations:
         skip_if_env:
           CM_SKIP_RUN:
             - yes
+
+  kilt,qualcomm,resnet50:
+    default_variations:
+      precision: uint8
+
+  kilt,qualcomm,retinanet:
+    default_variations:
+      precision: uint8
+
+  kilt,qualcomm,resnet50:
+    default_variations:
+      precision: uint8
+
+  kilt,qualcomm,bert-99:
+    default_variations:
+      precision: uint8
+
+  kilt,qualcomm,bert-99.9:
+    default_variations:
+      precision: fp16
 
   resnet50:
     group:

@@ -331,6 +331,7 @@ variations:
       CM_MLPERF_BACKEND_LIB_NAMESPEC: QAic
 
   bs.#:
+    group: batch-size
     env:
       kilt_model_batch_size: "#"
     adr:
@@ -494,9 +495,10 @@ variations:
 
   singlestream:
     group: loadgen-scenario
+    default_variations:
+      batch-size: bs.1
     env:
       CM_MLPERF_LOADGEN_SCENARIO: SingleStream
-      kilt_model_batch_size: 1
     adr:
       qaic-model-compiler:
         tags: _singlestream
@@ -563,6 +565,8 @@ variations:
       qaic_activation_count: "1"
 
   dl2q.24xlarge,resnet50,offline:
+    default_variations:
+      batch-size: bs.8
     env:
       qaic_activation_count: "3"
 
@@ -575,6 +579,8 @@ variations:
       qaic_activation_count: "14"
 
   dl2q.24xlarge,resnet50,server:
+    default_variations:
+      batch-size: bs.8
     env:
       qaic_activation_count: "3"
 
@@ -583,5 +589,7 @@ variations:
       qaic_activation_count: "14"
 
   dl2q.24xlarge,retinanet,server:
+    default_variations:
+      batch-size: bs.1
     env:
       qaic_activation_count: "14"
