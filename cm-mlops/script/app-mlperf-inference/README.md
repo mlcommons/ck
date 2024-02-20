@@ -153,6 +153,7 @@ ___
              * CM names: `--adr.['intel', 'intel-harness', 'mlperf-inference-implementation']...`
              - CM script: [reproduce-mlperf-inference-intel](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel)
     * `_kilt`
+      - Aliases: `_qualcomm`
       - Workflow:
         1. ***Read "prehook_deps" on other CM scripts***
            * reproduce,mlperf,inference,kilt
@@ -554,6 +555,14 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_kilt,qualcomm,bert-99`
+      - Workflow:
+    * `_kilt,qualcomm,bert-99.9`
+      - Workflow:
+    * `_kilt,qualcomm,resnet50`
+      - Workflow:
+    * `_kilt,qualcomm,retinanet`
+      - Workflow:
     * `_power`
       - Environment variables:
         - *CM_MLPERF_POWER*: `yes`

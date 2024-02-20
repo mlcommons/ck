@@ -164,11 +164,11 @@ ___
      * get,mlperf,inference,utils
        - CM script: [get-mlperf-inference-utils](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-utils)
      * get,mlperf,results,dir
-       * `if (CM_MLPER_RESULTS_DIR  != on)`
+       * `if (CM_MLPERF_INFERENCE_RESULTS_DIR_  != on)`
        * CM names: `--adr.['get-mlperf-results-dir']...`
        - CM script: [get-mlperf-inference-results-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results-dir)
      * get,mlperf,submission,dir
-       * `if (CM_MLPERF_SUBMISSION_DIR  != on)`
+       * `if (CM_MLPERF_INFERENCE_SUBMISSION_DIR  != on)`
        * CM names: `--adr.['get-mlperf-submission-dir']...`
        - CM script: [get-mlperf-inference-submission-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/customize.py)***

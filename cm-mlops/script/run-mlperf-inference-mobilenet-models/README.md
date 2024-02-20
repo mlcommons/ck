@@ -338,9 +338,9 @@ ___
 * `--imagenet_path=value`  &rarr;  `IMAGENET_PATH=value`
 * `--no-rerun=value`  &rarr;  `CM_MLPERF_NO_RERUN=value`
 * `--power=value`  &rarr;  `CM_MLPERF_POWER=value`
-* `--results_dir=value`  &rarr;  `CM_MLPERF_RESULTS_DIR=value`
+* `--results_dir=value`  &rarr;  `CM_MLPERF_INFERENCE_RESULTS_DIR=value`
 * `--submission=value`  &rarr;  `CM_MLPERF_SUBMISSION_MODE=value`
-* `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
+* `--submission_dir=value`  &rarr;  `CM_MLPERF_INFERENCE_SUBMISSION_DIR=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 

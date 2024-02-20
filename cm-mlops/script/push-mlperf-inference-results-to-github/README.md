@@ -101,7 +101,7 @@ ___
 * `--commit_message=value`  &rarr;  `CM_MLPERF_RESULTS_REPO_COMMIT_MESSAGE=value`
 * `--repo_branch=value`  &rarr;  `CM_GIT_BRANCH=value`
 * `--repo_url=value`  &rarr;  `CM_MLPERF_RESULTS_GIT_REPO_URL=value`
-* `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
+* `--submission_dir=value`  &rarr;  `CM_MLPERF_INFERENCE_SUBMISSION_DIR=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -118,7 +118,7 @@ r=cm.access({... , "commit_message":...}
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_MLPERF_RESULTS_GIT_REPO_URL: `https://github.com/ctuning/mlperf_inference_submissions_v3.0`
+* CM_MLPERF_RESULTS_GIT_REPO_URL: `https://github.com/ctuning/mlperf_inference_submissions_v4.0`
 
 </details>
 
@@ -134,6 +134,10 @@ ___
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,generic-sys-util,_rsync
        - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
+     * get,mlperf,submission,dir
+       * `if (CM_MLPERF_INFERENCE_SUBMISSION_DIR  != on)`
+       * CM names: `--adr.['get-mlperf-submission-dir']...`
+       - CM script: [get-mlperf-inference-submission-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/push-mlperf-inference-results-to-github/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/push-mlperf-inference-results-to-github/_cm.json)***
      * get,git,repo
