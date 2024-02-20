@@ -10,7 +10,7 @@
   },
   "input_description": {},
   "input_mapping": {
-    "results_dir": "CM_MLPERF_SUBMISSION_DIR"
+    "submission_dir": "CM_MLPERF_INFERENCE_SUBMISSION_DIR"
   },
   "new_env_keys": [
     "CM_MLPERF_INFERENCE_SUBMISSION_DIR",

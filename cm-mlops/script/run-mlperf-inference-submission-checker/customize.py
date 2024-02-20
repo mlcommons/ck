@@ -12,7 +12,7 @@ def preprocess(i):
     version = env.get('CM_MLPERF_SUBMISSION_CHECKER_VERSION','')
     
     if submission_dir == "":
-        return {'return': 1, 'error': 'Please set CM_MLPERF_SUBMISSION_DIR'}
+        return {'return': 1, 'error': 'Please set --env.CM_MLPERF_INFERENCE_SUBMISSION_DIR'}
 
     submitter = env.get("CM_MLPERF_SUBMITTER", "") #"default")
     if ' ' in submitter:

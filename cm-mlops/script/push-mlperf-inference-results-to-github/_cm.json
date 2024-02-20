@@ -20,7 +20,7 @@
         "get-mlperf-submission-dir"
       ],
       "skip_if_env": {
-        "CM_MLPERF_SUBMISSION_DIR": [ "on" ]
+        "CM_MLPERF_INFERENCE_SUBMISSION_DIR": [ "on" ]
       }
     }
   ],
