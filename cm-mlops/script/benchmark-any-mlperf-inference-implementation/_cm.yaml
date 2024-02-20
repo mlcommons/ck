@@ -196,10 +196,12 @@ variations:
         cuda:
           tensorrt:
             offline_target_qps: 90000
+            server_target_qps: 75000
       retinanet:
         cuda:
           tensorrt:
             offline_target_qps: 1700
+            server_target_qps: 1600
       bert-99:
         cuda:
           tensorrt:
@@ -208,6 +210,7 @@ variations:
         cuda:
           tensorrt:
             offline_target_qps: 4000
+            server_target_qps: 3300
       3d-unet-99.9:
         cuda:
           tensorrt:
@@ -222,10 +225,12 @@ variations:
         cuda:
           tensorrt:
             offline_target_qps: 30000
+            server_target_qps: 28200
       gptj-99:
         cuda:
           tensorrt:
             offline_target_qps: 9
+            server_target_qps: 8.2
       gptj-99.9:
         cuda:
           tensorrt:
