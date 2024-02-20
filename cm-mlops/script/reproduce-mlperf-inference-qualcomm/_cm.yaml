@@ -213,7 +213,7 @@ deps:
       - openimages-preprocessed
       - dataset-preprocessed
     tags: get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_custom-annotations
-    update_tags_from_env_with_prefix:
+    update_tags_from_env_with_prefix1: #disabling now to prevent unnecessary preprocessing
       _quant-scale.:
         - CM_QAIC_MODEL_RETINANET_IMAGE_OFFSET
       _quant-offset.:
