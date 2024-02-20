@@ -315,20 +315,22 @@ def gui(i):
     implementation = r.get('value2')
     inp['implementation']['force'] = implementation
 
-    notes = ''
     if implementation == 'mil':
 #        inp['backend']['choices'] = ['onnxruntime']
         inp['precision']['force']='float32'
         inp['backend']['force'] = 'onnxruntime'
         inp['model']['choices'] = ['resnet50', 'retinanet']
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)]*')
     elif implementation == 'reference':
         inp['precision']['force']='float32'
         if device == 'cuda':
             inp['backend']['choices']=['onnxruntime','pytorch','tf']
             inp['backend']['default'] = 'onnxruntime'
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference)]*')
     elif implementation == 'tflite-cpp':
         inp['precision']['force']='float32'
         inp['model']['force']='resnet50'
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp)]*')
 
     elif implementation == 'nvidia-original':
         inp['backend']['force'] = 'tensorrt'
@@ -352,16 +354,20 @@ cmr "benchmark any _phoenix"
 
 ---
 """)
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia)]*')
     elif implementation == 'intel-original':
         inp['model']['choices'] = ['bert-99', 'bert-99.9', 'gptj-99', 'gptj-99.9']
         inp['model']['default'] = 'bert-99'
         inp['precision']['force'] = 'int8'
         inp['backend']['force'] = 'pytorch'
-        notes = 'Note: Intel implementation require extra CM command to build and run Docker container - you will run CM commands to run MLPerf benchmarks there!'
+        st.markdown('*:red[Note: Intel implementation require extra CM command to build and run Docker container - you will run CM commands to run MLPerf benchmarks there!]*')
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel)]*')
+    elif implementation == 'qualcomm':
+        inp['model']['choices'] = ['resnet-50', 'retinanet', 'bert-99', 'bert-99.9']
+        inp['model']['default'] = 'bert-99'
+        inp['precision']['force'] = 'int8'
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm)]*')
 
-    if notes!='':
-        st.markdown('*:red['+notes+']*')
-        
 
     #############################################################################
     # Backend
@@ -381,14 +387,37 @@ cmr "benchmark any _phoenix"
     model = r.get('value2')
     inp['model']['force'] = model
 
-    notes = ''
-    if model == 'retinanet':
+    if model == 'resnet50':
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/resnet50)]\n')
+
+    elif model == 'retinanet':
         x = '50'
         if implementation == 'reference':
             x= '200'
-        notes = 'Note: this model requires ~{}GB of free disk space for preprocessed dataset in a full/submission run!'.format(x)
-    if notes!='':
-        st.markdown('*:red['+notes+']*')
+        st.markdown(':red[This model requires ~{}GB of free disk space for preprocessed dataset in a full/submission run!]\n'.format(x))
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/retinanet)]\n')
+
+    elif model.startswith('bert-'):
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/bert)]\n')
+
+    elif model.startswith('3d-unet-'):
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/3d-unet)]\n')
+
+    elif model == 'rnnt':
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/rnnt)]\n')
+    
+    elif model.startswith('dlrm-v2-'):
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/dlrm_v2)]\n')
+    
+    elif model.startswith('gptj-'):
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/gpt-j)]\n')
+    
+    elif model == 'sdxl':
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/stable-diffusion-xl)]\n')
+    
+    elif model.startswith('llama2-'):
+        st.markdown(':red[See [extra online notes](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/llama2-70b)]\n')
+
 
 
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_precision', 'desc':inp['precision']})
