@@ -278,14 +278,14 @@ def gui(i):
     if device == 'cpu':
         inp['implementation']['choices']=['reference', 'intel-original','mil', 'tflite-cpp']
         inp['implementation']['default']='reference'
-        inp['backend']['choices']=['onnxruntime','deepsparse','pytorch','tf','glow','tvm-onnx']
+        inp['backend']['choices']=['onnxruntime','deepsparse','pytorch','tf','tvm-onnx']
         inp['backend']['default']='onnxruntime'
     elif device == 'rocm':
         inp['implementation']['force']='reference'
         inp['backend']['force']='onnxruntime'
     elif device == 'qaic':
         inp['implementation']['force']='qualcomm'
-        inp['backend']['force']='onnxruntime'
+        inp['backend']['force']='glow'
        
 
 
@@ -297,7 +297,9 @@ def gui(i):
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_category', 'desc':inp['category']})
     category = r.get('value2')
     inp['category']['force'] = category
+
     
+
 
     #############################################################################
     # Implementation
@@ -356,16 +358,17 @@ cmr "benchmark any _phoenix"
 """)
         st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia)]*')
     elif implementation == 'intel-original':
-        inp['model']['choices'] = ['bert-99', 'bert-99.9', 'gptj-99', 'gptj-99.9']
+        inp['model']['choices'] = ['bert-99', 'bert-99.9', 'gptj-99']
         inp['model']['default'] = 'bert-99'
         inp['precision']['force'] = 'int8'
+        inp['category']['force'] = 'datacenter'
         inp['backend']['force'] = 'pytorch'
         st.markdown('*:red[Note: Intel implementation require extra CM command to build and run Docker container - you will run CM commands to run MLPerf benchmarks there!]*')
         st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel)]*')
     elif implementation == 'qualcomm':
         inp['model']['choices'] = ['resnet-50', 'retinanet', 'bert-99', 'bert-99.9']
-        inp['model']['default'] = 'bert-99'
-        inp['precision']['force'] = 'int8'
+        inp['model']['default'] = 'bert-99.9'
+        inp['precision']['default'] = 'float16'
         st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm)]*')
 
 
