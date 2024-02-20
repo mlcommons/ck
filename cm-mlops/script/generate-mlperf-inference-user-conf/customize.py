@@ -226,6 +226,10 @@ def preprocess(i):
 
         audit_full_path = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", audit_path, "audit.config")
         env['CM_MLPERF_INFERENCE_AUDIT_PATH'] = audit_full_path
+        #copy the audit conf to the run directory incase the implementation is not supporting the audit-conf path
+        if not os.path.exists(OUTPUT_DIR):
+            os.makedirs(OUTPUT_DIR)
+        shutil.copyfile(audit_full_path, os.path.join(OUTPUT_DIR, "audit.config"))
 
     env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
     env['CM_LOGS_DIR'] = OUTPUT_DIR

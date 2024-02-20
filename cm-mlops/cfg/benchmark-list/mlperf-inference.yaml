@@ -11,7 +11,7 @@ urls:
   url: "https://github.com/mlcommons/inference"
 - name: "ArXiv paper"
   url: "https://arxiv.org/abs/1911.02549"
-- name: "MLCommons CM automation (under development)"
+- name: "MLCommons CM automation for MLPerf inference"
   url: "https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference"
 
 script_name: run-mlperf-inference-app,4a5d5b13fd7e4ac8

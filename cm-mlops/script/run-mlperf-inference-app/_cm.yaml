@@ -32,7 +32,6 @@ default_env:
   CM_MLPERF_IMPLEMENTATION: reference
   CM_MLPERF_MODEL: resnet50
   CM_MLPERF_RUN_STYLE: test
-  CM_OUTPUT_FOLDER_NAME: test_results
 
 input_mapping:
   backend: CM_MLPERF_BACKEND

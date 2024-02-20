@@ -103,6 +103,10 @@ def preprocess(i):
                 offline_target_qps = (((state.get(model, {})).get(device, {})).get(backend, {})).get('offline_target_qps')
                 if offline_target_qps:
                     add_to_run_cmd += f" --offline_target_qps={offline_target_qps}"
+                server_target_qps = (((state.get(model, {})).get(device, {})).get(backend, {})).get('server_target_qps')
+                if server_target_qps:
+                    add_to_run_cmd += f" --server_target_qps={server_target_qps}"
+
                 else: #try to do a test run with reasonable number of samples to get and record the actual system performance
                     if device == "cpu":
                         if model == "resnet50":
@@ -117,7 +121,7 @@ def preprocess(i):
                     cmd = f'run_test "{model}" "{backend}" "{test_query_count}" "{implementation}" "{device}" "$find_performance_cmd"'
                     cmds.append(cmd)
                     #second argument is unused for submission_cmd
-                cmd = f'run_test "{model}" "{backend}" "100" "{implementation}" "{device}" "$submission_cmd" {add_to_run_cmd}'
+                cmd = f'run_test "{model}" "{backend}" "100" "{implementation}" "{device}" "$submission_cmd" "{add_to_run_cmd}"'
 
                 singlestream_target_latency = (((state.get(model, {})).get(device, {})).get(backend, {})).get('singlestream_target_latency')
                 if singlestream_target_latency:

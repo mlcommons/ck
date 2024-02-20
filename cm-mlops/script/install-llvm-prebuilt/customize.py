@@ -27,9 +27,26 @@ def preprocess(i):
     # First check if it is forced by external environment
     package_name = env.get('CM_LLVM_PACKAGE','').strip()
     if package_name == '':
+        need_version_split = need_version.split('.')
+
         # If package_name if not forced, attempt to synthesize it based on OS and arch
         if os_info['platform'] == 'darwin':
-            package_name = 'clang+llvm-' + need_version + '-x86_64-apple-darwin.tar.xz'
+            force_arch = env.get('CM_LLVM_PACKAGE_FORCE_ARCH','') # To allow x86_64 if needed
+            if force_arch == '': force_arch = 'arm64'
+            force_darwin_version = env.get('CM_LLVM_PACKAGE_FORCE_DARWIN_VERSION','')
+            if force_darwin_version == '':
+                if len(need_version_split)>0:
+                    hver = 0
+                    try:
+                        hver = int(need_version_split[0])
+                    except:
+                        pass
+
+                    if hver>0 and hver<16:
+                        force_darwin_version = '21.0'
+                    else:
+                        force_darwin_version = '22.0'
+            package_name = 'clang+llvm-' + need_version + '-'+force_arch+'-apple-darwin'+force_darwin_version+'.tar.xz'
 
         elif os_info['platform'] == 'windows':
             package_name = 'LLVM-' + need_version + '-win' + host_os_bits + '.exe'
@@ -61,8 +78,6 @@ def preprocess(i):
               # Treat all Linux flavours as Ubuntu for now ...
 
               if True:
-                  need_version_split = need_version.split('.')
-
                   default_os = '22.04'
 
                   if len(need_version_split)>0:
