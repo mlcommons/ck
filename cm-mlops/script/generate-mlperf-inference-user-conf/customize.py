@@ -322,7 +322,8 @@ def preprocess(i):
         if env.get('CM_MLPERF_POWER','') == "yes" and os.path.exists(env.get('CM_MLPERF_POWER_LOG_DIR', '')):
             shutil.rmtree(env['CM_MLPERF_POWER_LOG_DIR'])
     else:
-        print("Run files exist, skipping run...\n")
+        if not env.get('CM_MLPERF_COMPLIANCE_RUN_POSTPONED', False):
+            print("Run files exist, skipping run...\n")
         env['CM_MLPERF_SKIP_RUN'] = "yes"
 
     if not run_exists or rerun or not measure_files_exist(OUTPUT_DIR, \
@@ -377,6 +378,16 @@ def run_files_exist(mode, OUTPUT_DIR, run_files, env):
         RESULT_DIR = os.path.split(OUTPUT_DIR)[0]
         COMPLIANCE_DIR = OUTPUT_DIR
         OUTPUT_DIR = os.path.dirname(COMPLIANCE_DIR)
+
+        #If reference test result is invalid, don't do compliance run
+        file_path = os.path.join(RESULT_DIR, "performance", "run_1", "mlperf_log_detail.txt")
+        mlperf_log = MLPerfLog(file_path)
+        if (
+            "result_validity" not in mlperf_log.get_keys()
+            or mlperf_log["result_validity"] != "VALID"
+        ):
+            env['CM_MLPERF_COMPLIANCE_RUN_POSTPONED'] = True
+            return True
 
         test = env['CM_MLPERF_LOADGEN_COMPLIANCE_TEST']
 
