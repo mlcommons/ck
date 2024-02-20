@@ -235,14 +235,17 @@ variations:
         cuda:
           tensorrt:
             offline_target_qps: 9
+            server_target_qps: 8.2
       dlrm-v2-99:
         cuda:
           tensorrt:
             offline_target_qps: 1500
+            offline_target_qps: 1200
       dlrm-v2-99.9:
         cuda:
           tensorrt:
             offline_target_qps: 1500
+            offline_target_qps: 1200
 
   orin.32g:
     group: sut
