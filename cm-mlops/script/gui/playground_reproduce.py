@@ -388,7 +388,7 @@ cm run script {}
                     row['support_cm'] = x
                     
                     # Check misc notes
-                    row['notes']=s.get('notes','')
+                    row['notes']='<small>'+s.get('notes','')+'</small>'
                     
                     # Finish row
                     all_data.append(row)
