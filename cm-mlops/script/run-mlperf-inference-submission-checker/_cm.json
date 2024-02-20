@@ -33,6 +33,15 @@
       "names": [ "pandas" ],
       "tags": "get,generic-python-lib,_pandas",
       "version_min": "1.0.0"
+    },
+    {
+      "tags": "get,mlperf,submission,dir",
+      "names": [
+        "get-mlperf-submission-dir"
+      ],
+      "skip_if_env": {
+        "CM_MLPERF_INFERENCE_SUBMISSION_DIR": [ "on" ]
+      }
     }
   ],
   "post_deps": [

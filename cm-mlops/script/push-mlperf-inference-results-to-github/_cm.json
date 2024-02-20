@@ -13,6 +13,15 @@
     },
     {
       "tags": "get,generic-sys-util,_rsync"
+    },
+    {
+      "tags": "get,mlperf,submission,dir",
+      "names": [
+        "get-mlperf-submission-dir"
+      ],
+      "skip_if_env": {
+        "CM_MLPERF_SUBMISSION_DIR": [ "on" ]
+      }
     }
   ],
   "prehook_deps": [
@@ -22,11 +31,11 @@
     }
   ],
   "default_env": {
-    "CM_MLPERF_RESULTS_GIT_REPO_URL": "https://github.com/ctuning/mlperf_inference_submissions_v3.0"
+    "CM_MLPERF_RESULTS_GIT_REPO_URL": "https://github.com/ctuning/mlperf_inference_submissions_v4.0"
   },
   "input_mapping": {
     "repo_url": "CM_MLPERF_RESULTS_GIT_REPO_URL",
-    "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
+    "submission_dir": "CM_MLPERF_INFERENCE_SUBMISSION_DIR",
     "repo_branch": "CM_GIT_BRANCH",
     "commit_message": "CM_MLPERF_RESULTS_REPO_COMMIT_MESSAGE"
   },

@@ -33,7 +33,7 @@
         "get-mlperf-results-dir"
       ],
       "skip_if_env": {
-        "CM_MLPER_RESULTS_DIR": [ "on" ]
+        "CM_MLPERF_INFERENCE_RESULTS_DIR_": [ "on" ]
       }
     },
     {
@@ -42,7 +42,7 @@
         "get-mlperf-submission-dir"
       ],
       "skip_if_env": {
-        "CM_MLPERF_SUBMISSION_DIR": [ "on" ]
+        "CM_MLPERF_INFERENCE_SUBMISSION_DIR": [ "on" ]
       }
     }
   ],

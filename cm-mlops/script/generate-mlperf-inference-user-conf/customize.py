@@ -203,10 +203,10 @@ def preprocess(i):
     if 'CM_MLPERF_POWER' in env and mode == "performance":
         log_mode = "performance_power"
 
-    env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
+    env['CM_MLPERF_INFERENCE_FINAL_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
 
     sut_name = env.get('CM_SUT_NAME', env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'])
-    OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], sut_name, \
+    OUTPUT_DIR =  os.path.join(env['CM_MLPERF_INFERENCE_FINAL_RESULTS_DIR'], sut_name, \
             model_full_name, scenario.lower(), mode)
 
     if 'CM_MLPERF_POWER' in env and mode == "performance":
