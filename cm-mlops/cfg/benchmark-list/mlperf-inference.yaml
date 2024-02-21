@@ -16,6 +16,8 @@ urls:
 
 script_name: run-mlperf-inference-app,4a5d5b13fd7e4ac8
 
+skip_extra_urls: true
+
 supported_compute:
 - cpu,x64
 - cpu,arm64

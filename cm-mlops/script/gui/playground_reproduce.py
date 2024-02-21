@@ -52,7 +52,8 @@ def page(st, params, action = ''):
          that <a href="{}">the community</a> have managed to successfully validate 
          across different models, data sets, software and hardware 
          based on the <a href="https://cTuning.org/ae">ACM/cTuning reproducibility methodology and badges</a>.
-         Note that this is a collaborative engineering effort - please report issues and suggestions 
+         Note that this is a <a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">collaborative engineering effort</a> 
+         - please report issues and suggestions 
          <a href="https://github.com/mlcommons/ck/issues">here</a>
          and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a> for more details.
          </small>
