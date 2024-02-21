@@ -291,7 +291,7 @@ variations:
         skip_if_env:
           CM_MLPERF_SKIP_RUN:
             - yes
-      - tags: get,lib,protobuf,_tag.v3.11.4
+      - tags: get,lib,protobuf,_tag.v3.21.2
         skip_if_env:
           CM_MLPERF_SKIP_RUN:
             - yes
@@ -570,7 +570,7 @@ variations:
     env:
       qaic_activation_count: "3"
 
-  dl2q.24xlarge,bert-99,offline:
+  dl2q.24xlarge,bert-99.9,offline:
     env:
       qaic_activation_count: "14"
 
@@ -584,7 +584,7 @@ variations:
     env:
       qaic_activation_count: "3"
 
-  dl2q.24xlarge,bert-99,server:
+  dl2q.24xlarge,bert-99.9,server:
     env:
       qaic_activation_count: "14"
 
@@ -593,3 +593,50 @@ variations:
       batch-size: bs.1
     env:
       qaic_activation_count: "14"
+
+  num-devices.4:
+    env:
+      CM_QAIC_DEVICES: "0,1,2,3"
+
+  pro:
+    base:
+      - nsp.16
+
+  pro,num-devices.4:
+    env:
+      qaic_queue_length: 4
+
+  pro,num-devices.4,singlestream:
+    env:
+      CM_QAIC_DEVICES: 0
+      qaic_activation_count: "1"
+
+  pro,num-devices.4,resnet50,offline:
+    default_variations:
+      batch-size: bs.8
+    env:
+      qaic_activation_count: "4"
+
+  pro,num-devices.4,bert-99.9,offline:
+    env:
+      qaic_activation_count: "16"
+
+  pro,num-devices.4,retinanet,offline:
+    env:
+      qaic_activation_count: "16"
+
+  pro,num-devices.4,resnet50,server:
+    default_variations:
+      batch-size: bs.8
+    env:
+      qaic_activation_count: "4"
+
+  pro,num-devices.4,bert-99.9,server:
+    env:
+      qaic_activation_count: "16"
+
+  dl2q.24xlarge,retinanet,server:
+    default_variations:
+      batch-size: bs.1
+    env:
+      qaic_activation_count: "16"
