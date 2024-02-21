@@ -158,41 +158,42 @@ def page(st, params, action = ''):
 
                 script_alias = script_meta['alias']
 
-                url_script = misc.make_url(script_name, key='name', action='scripts', md=False)
-                url_script += '&gui=true'
-                
-                urls.append({'name': 'Universal CM GUI to run this benchmark',
-                             'url': url_script})
-
-                # Check if has README extra
-
-                script_path_readme_extra = os.path.join(script_path, 'README-extra.md')
-
-                if os.path.isfile(script_path_readme_extra):
-                    repo_meta = script_obj.repo_meta
+                if not bench_meta.get('skip_extra_urls', False):
+                    url_script = misc.make_url(script_name, key='name', action='scripts', md=False)
+                    url_script += '&gui=true'
                     
-                    url = repo_meta.get('url','')
-                    if url=='' and repo_meta.get('git', False):
-                        url = 'https://github.com/'+repo_meta['alias'].replace('@','/')
+                    urls.append({'name': 'Universal CM GUI to run this benchmark',
+                                 'url': url_script})
 
-                    if url!='':
-                        # Recreate GitHub path
-                        if not url.endswith('/'): url=url+'/'
+                    # Check if has README extra
 
-                        url += 'tree/master/'
+                    script_path_readme_extra = os.path.join(script_path, 'README-extra.md')
 
-                        if repo_meta.get('prefix','')!='':
-                            url += repo_meta['prefix']
-
-                        if not url.endswith('/'): url=url+'/'
+                    if os.path.isfile(script_path_readme_extra):
+                        repo_meta = script_obj.repo_meta
                         
-                        url += 'script/'+script_alias
+                        url = repo_meta.get('url','')
+                        if url=='' and repo_meta.get('git', False):
+                            url = 'https://github.com/'+repo_meta['alias'].replace('@','/')
 
-                        # Check README.extra.md
-                        url_readme_extra = url+'/README-extra.md'
+                        if url!='':
+                            # Recreate GitHub path
+                            if not url.endswith('/'): url=url+'/'
 
-                        urls.append({'name': 'Notes about how to run this benchmark from the command line',
-                                     'url': url_readme_extra})
+                            url += 'tree/master/'
+
+                            if repo_meta.get('prefix','')!='':
+                                url += repo_meta['prefix']
+
+                            if not url.endswith('/'): url=url+'/'
+                            
+                            url += 'script/'+script_alias
+
+                            # Check README.extra.md
+                            url_readme_extra = url+'/README-extra.md'
+
+                            urls.append({'name': 'Notes about how to run this benchmark from the command line',
+                                         'url': url_readme_extra})
 
         
         # Check URLS
