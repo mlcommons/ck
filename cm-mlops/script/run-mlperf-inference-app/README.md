@@ -256,7 +256,7 @@ ___
 * --**adr.python.version_min** Minimal Python version (*3.8*)
 * --**power** Measure power {yes,no} (*no*)
 * --**adr.mlperf-power-client.power_server** MLPerf Power server IP address (*192.168.0.15*)
-* --**adr.mlperf-power-client.port** MLPerf Power client port (*4950*)
+* --**adr.mlperf-power-client.port** MLPerf Power server port (*4950*)
 * --**clean** Clean run (*True*)
 * --**compliance** Whether to run compliance tests (applicable only for closed division) {yes,no} (*no*)
 * --**dashboard_wb_project** W&B dashboard project (*cm-mlperf-dse-testing*)
@@ -329,7 +329,7 @@ r=cm.access({... , "division":...}
 * `--singlestream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY=value`
 * `--skip_submission_generation=value`  &rarr;  `CM_MLPERF_SKIP_SUBMISSION_GENERATION=value`
 * `--skip_truncation=value`  &rarr;  `CM_SKIP_TRUNCATE_ACCURACY=value`
-* `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
+* `--submission_dir=value`  &rarr;  `CM_MLPERF_INFERENCE_SUBMISSION_DIR=value`
 * `--submitter=value`  &rarr;  `CM_MLPERF_SUBMITTER=value`
 * `--sut_servers=value`  &rarr;  `CM_NETWORK_LOADGEN_SUT_SERVERS=value`
 * `--sw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_SW_NOTES_EXTRA=value`
@@ -357,7 +357,6 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_MLPERF_IMPLEMENTATION: `reference`
 * CM_MLPERF_MODEL: `resnet50`
 * CM_MLPERF_RUN_STYLE: `test`
-* CM_OUTPUT_FOLDER_NAME: `test_results`
 
 </details>
 

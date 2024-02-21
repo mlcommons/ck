@@ -132,6 +132,10 @@ ___
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src', 'submission-checker-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+     * get,mlperf,submission,dir
+       * `if (CM_MLPERF_INFERENCE_SUBMISSION_DIR  != on)`
+       * CM names: `--adr.['get-mlperf-submission-dir']...`
+       - CM script: [get-mlperf-inference-submission-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/preprocess-mlperf-inference-submission/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/preprocess-mlperf-inference-submission/_cm.json)
   1. ***Run native script if exists***

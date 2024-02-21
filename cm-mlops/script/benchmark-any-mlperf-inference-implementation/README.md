@@ -103,6 +103,8 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_aws-dl2q.24xlarge,qualcomm`
+      - Workflow:
     * `_mini,power`
       - Workflow:
     * `_orin,power`
@@ -178,6 +180,8 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_aws-dl2q.24xlarge`
+      - Workflow:
     * `_macbookpro-m1`
       - Environment variables:
         - *CATEGORY*: `edge`

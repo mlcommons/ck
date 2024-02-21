@@ -178,6 +178,10 @@ ___
      * get,generic-python-lib,_pandas
        * CM names: `--adr.['pandas']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,mlperf,submission,dir
+       * `if (CM_MLPERF_INFERENCE_SUBMISSION_DIR  != on)`
+       * CM names: `--adr.['get-mlperf-submission-dir']...`
+       - CM script: [get-mlperf-inference-submission-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-submission-dir)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/_cm.json)
   1. ***Run native script if exists***

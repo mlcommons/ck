@@ -161,10 +161,6 @@ ___
       - Environment variables:
         - *kilt_model_batch_size*: `1`
       - Workflow:
-    * `_bs.#`
-      - Environment variables:
-        - *kilt_model_batch_size*: `#`
-      - Workflow:
     * `_dl2q.24xlarge,bert-99,offline`
       - Environment variables:
         - *qaic_activation_count*: `14`
@@ -209,6 +205,18 @@ ___
         - *kilt_device_qaic_skip_stage*: `convert`
         - *kilt_input_format*: `UINT8,1,3,800,800`
         - *kilt_output_format*: `INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,4,1000:INT8,14,1000:INT8,1,4,1000:INT8,1,4,1000:INT8,1,4,1000`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**batch-size**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_bs.#`
+      - Environment variables:
+        - *kilt_model_batch_size*: `#`
       - Workflow:
 
     </details>
@@ -297,7 +305,6 @@ ___
     * `_singlestream`
       - Environment variables:
         - *CM_MLPERF_LOADGEN_SCENARIO*: `SingleStream`
-        - *kilt_model_batch_size*: `1`
       - Workflow:
 
     </details>
