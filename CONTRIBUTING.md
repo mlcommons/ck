@@ -39,10 +39,12 @@ Thank you for your support and looking forward to collaborating with you!
 * Justin Faust (One Stop Systems)
 * Diane Feddema (Red Hat)
 * Leonid Fursin (United Silicon Carbide)
+* Anirban Ghosh (Nvidia)
 * Michael Goin (Neural Magic)
 * Jose Armando Hernandez (Paris Saclay University)
 * Mehrdad Hessar (OctoML)
 * Miro Hodak (AMD)
+* Sachin Idgunji (Nvidia)
 * Tom Jablin (Google)
 * Nino Jacob
 * David Kanter (MLCommons)
@@ -62,6 +64,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Nandeeka Nayak (UIUC)
 * Datta Nimmaturi (Nutanix)
 * Lakshman Patel
+* Arun Tejusve Raghunath Rajan (Cruise)
 * Vijay Janapa Reddi (Harvard University)
 * Andrew Reusch (OctoML)
 * Anandhu S (Kerala Technical University)

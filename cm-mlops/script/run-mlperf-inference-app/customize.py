@@ -355,7 +355,7 @@ cmr "benchmark any _phoenix"
 :red[Container will require around 60GB of free disk space.]
 :red[Docker cache and running all models (without DLRM) will require ~600 GB free disk space.]
 
-:red[Check these [notes](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/bert/README_nvidia.md) for more details.]]
+:red[Check these [notes](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/bert/README_nvidia.md) for more details.]
 
 ---
 """)
@@ -432,36 +432,25 @@ cmr "benchmark any _phoenix"
     inp['precision']['force'] = precision
 
 
-    #############################################################################
-    # Prepare scenario
 
-    xall = 'All applicable'
-    choices = ['Offline', 'Server', 'SingleStream', 'MultiStream', xall]
-    desc = {'choices':choices, 'default':choices[0], 'desc':'Which scenario(s)?'}
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_scenario', 'desc':desc})
-    scenario = r.get('value2')
-
-
-    if scenario == xall:
-        params['~all-scenarios']=['true']
-        inp['scenario']['force']=''
-    else:
-        inp['scenario']['force']=scenario
-
-
-
+    
+    
     #############################################################################
     # Prepare submission
+    st.markdown('---')
 
-    desc = {'boolean':True, 'default':False, 'desc':'Prepare submission?'}
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_submission', 'desc':desc})
-    submission = r.get('value2')
-
+    submission = st.toggle('Would you like to prepare official submission?', value = False)
     if submission:
+        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_hw_name', 'desc':inp['hw_name']})
+        inp['hw_name']['force']=r.get('value2')
+
         r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_submitter', 'desc':inp['submitter']})
         submitter = r.get('value2')
         inp['submitter']['force']=submitter
+
         params['~~submission-generation']=['submission']
+        params['~all-scenarios']=['true']
+        inp['scenario']['force']=''
 
         x = '*Use the following command to find local directory with the submission tree and results:*\n```bash\ncm find cache --tags=submission,dir\n```\n'
 
@@ -473,7 +462,7 @@ cmr "benchmark any _phoenix"
         inp['submitter']['force']=''
         params['~submission']=['false']
 
-        choices = ['Performance', 'Accuracy', 'Find Performance from a short run']
+        choices = ['Performance', 'Accuracy', 'Find Performance from a short run', 'Performance and Accuracy']
         desc = {'choices': choices, 'default':choices[0], 'desc':'What to measure?'}
         r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_measure', 'desc':desc})
         measure = r.get('value2')
@@ -485,8 +474,29 @@ cmr "benchmark any _phoenix"
             x = 'accuracy-only'
         elif measure == 'Find Performance from a short run': 
             x = 'find-performance'
+        elif measure == 'Performance and Accuracy': 
+            x = ''
         
         params['~~submission-generation']=[x]
+
+    
+        #############################################################################
+        # Prepare scenario
+
+        xall = 'All applicable'
+        choices = ['Offline', 'Server', 'SingleStream', 'MultiStream', xall]
+        desc = {'choices':choices, 'default':choices[0], 'desc':'Which scenario(s)?'}
+        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_scenario', 'desc':desc})
+        scenario = r.get('value2')
+
+
+        if scenario == xall:
+            params['~all-scenarios']=['true']
+            inp['scenario']['force']=''
+        else:
+            inp['scenario']['force']=scenario
+
+
 
         
     #############################################################################

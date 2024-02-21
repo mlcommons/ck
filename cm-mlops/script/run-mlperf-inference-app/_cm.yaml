@@ -433,7 +433,7 @@ input_description:
     desc: W&B dashboard user
     default: cmind
   hw_name:
-    desc: MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware))
+    desc: MLPerf hardware name (for example "gcp.c3_standard_8", "nvidia_orin", "lenovo_p14s_gen_4_windows_11", "macbook_pro_m1_2", "thundercomm_rb6" ...)
   multistream_target_latency:
     desc: Set MultiStream target latency
   offline_target_qps:
