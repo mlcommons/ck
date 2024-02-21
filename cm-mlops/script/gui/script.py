@@ -429,7 +429,7 @@ def page(i):
     x = '''
          <i>
          <center>
-         We would like to thank the community and <a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">all Collective Mind contributors</a> 
+         We would like to thank <a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">all Collective Mind users and contributors</a> 
          for supporting this collaborative engineering effort -<br> 
          please don't hesitate report issues or suggest features at <a href="https://github.com/mlcommons/ck/issues">CM GitHub</a>!
          </center>
