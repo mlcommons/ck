@@ -257,7 +257,7 @@ ___
 * --**power** Measure power {yes,no} (*no*)
 * --**adr.mlperf-power-client.power_server** MLPerf Power server IP address (*192.168.0.15*)
 * --**adr.mlperf-power-client.port** MLPerf Power server port (*4950*)
-* --**clean** Clean run (*True*)
+* --**clean** Clean run (*False*)
 * --**compliance** Whether to run compliance tests (applicable only for closed division) {yes,no} (*no*)
 * --**dashboard_wb_project** W&B dashboard project (*cm-mlperf-dse-testing*)
 * --**dashboard_wb_user** W&B dashboard user (*cmind*)
