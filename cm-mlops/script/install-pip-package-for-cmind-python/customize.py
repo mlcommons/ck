@@ -4,7 +4,7 @@ import subprocess
 import sys
 
 def install(package):
-    additional_install_options = ""
+    additional_install_options = []
     r = subprocess.run([sys.executable, "-m", "pip", "--version"], check=True, capture_output=True)
     r = r.stdout.decode("utf-8")
     if "pip" in r:
@@ -13,8 +13,10 @@ def install(package):
             return {'return': 1, 'error': 'Pip version detection failed'}
         pip_version = out_split[1].split(".")
         if pip_version and len(pip_version) > 1 and int(pip_version[0]) >= 23:
-            additional_install_options += " --break-system-packages"
-    r = subprocess.run([sys.executable, "-m", "pip", "install", additional_install_options, package], check=True)
+            additional_install_options.append("--break-system-packages")
+    run_cmd = [sys.executable, "-m", "pip", "install", package]
+    run_cmd += additional_install_options
+    r = subprocess.run(run_cmd, check=True)
  
     return {'return':0}
 
