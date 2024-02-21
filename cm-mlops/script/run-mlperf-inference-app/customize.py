@@ -297,6 +297,16 @@ def gui(i):
     inp['division']['force'] = division
 
 
+    y = 'compliance'
+    if division=='closed':
+        inp[y]['default'] = 'yes'
+        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_compliance', 'desc':inp[y]})
+        inp[y]['force'] = r.get('value2')
+    else:
+        inp[y]['force'] = 'no'
+
+
+
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_category', 'desc':inp['category']})
     category = r.get('value2')
     inp['category']['force'] = category
@@ -452,11 +462,15 @@ cmr "benchmark any _phoenix"
         params['~all-scenarios']=['true']
         inp['scenario']['force']=''
 
-        x = '*Use the following command to find local directory with the submission tree and results:*\n```bash\ncm find cache --tags=submission,dir\n```\n'
+        x  = '*:red[Use the following command to find local directory with the submission tree and results:]*\n```bash\ncm find cache --tags=submission,dir\n```\n'
 
-        x += '*You will also find results in `mlperf-inference-submission.tar.gz` file that you can submit to MLPerf!*'
+        x += '*:red[You will also find results in `mlperf-inference-submission.tar.gz` file that you can submit to MLPerf!]*\n\n'
+
+        x += '*:red[Note that if some results are INVALID due to too short run, you can rerun the same CM command and it should increase the length of the benchmark until you get valid result!]*\n'
 
         st.markdown(x)
+    
+        st.markdown('---')
     
     else:
         inp['submitter']['force']=''
@@ -520,20 +534,15 @@ cmr "benchmark any _phoenix"
         inp['execution_mode']['force'] = 'test'
 
 
-    y = 'compliance'
-    if division=='closed':
-        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_compliance', 'desc':inp[y]})
-        inp[y]['force'] = r.get('value2')
-    else:
-        inp[y]['force'] = 'no'
-
 
     #############################################################################
     # Power
 
-    desc = {'boolean':True, 'default':False, 'desc':'Measure power?'}
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power', 'desc':desc})
-    power = r.get('value2', False)
+#    desc = {'boolean':True, 'default':False, 'desc':'Measure power?'}
+#    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power', 'desc':desc})
+#    power = r.get('value2', False)
+
+    power = st.toggle('Measure power consumption?', value = False)
 
     if power:
         inp['power']['force'] = 'yes'
@@ -546,6 +555,8 @@ cmr "benchmark any _phoenix"
         r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_power_port', 'desc':inp[y]})
         inp[y]['force'] = r.get('value2')
 
+        st.markdown('*:red[See [online notes](https://github.com/mlcommons/ck/blob/master/docs/tutorials/mlperf-inference-power-measurement.md)] to setup power meter and server.*')
+
     else:
         inp['power']['force'] = 'no'
         inp['adr.mlperf-power-client.power_server']['force']=''
@@ -555,10 +566,12 @@ cmr "benchmark any _phoenix"
     #############################################################################
     # Dashboard
 
-    desc = {'boolean':True, 'default':False, 'desc':'Output results to W&B dashboard?'}
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_dashboard', 'desc':desc})
-    dashboard = r.get('value2', False)
+#    desc = {'boolean':True, 'default':False, 'desc':'Output results to W&B dashboard?'}
+#    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_dashboard', 'desc':desc})
+#    dashboard = r.get('value2', False)
 
+    dashboard = st.toggle('Output results to W&B dashboard?', value = False)
+    
     if dashboard:
         params['~dashboard']=['true']
 
