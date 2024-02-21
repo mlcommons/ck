@@ -301,10 +301,14 @@ def gui(i):
     if division=='closed':
         inp[y]['default'] = 'yes'
         r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_compliance', 'desc':inp[y]})
-        inp[y]['force'] = r.get('value2')
+        compliance = r.get('value2')
+        inp[y]['force'] = compliance
+
+        if compliance == 'yes':
+            st.markdown('*:red[See [online table with required compliance tests](https://github.com/mlcommons/policies/blob/master/submission_rules.adoc#5132-inference)].*')
+        
     else:
         inp[y]['force'] = 'no'
-
 
 
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_category', 'desc':inp['category']})
