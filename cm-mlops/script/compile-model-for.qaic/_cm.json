@@ -204,7 +204,7 @@
     },
     "resnet50,multistream": {
       "env": {
-        "CM_QAIC_MODEL_COMPILER_ARGS": "-sdp-cluster-sizes=4,4 -mos=1,4"
+        "CM_QAIC_MODEL_COMPILER_ARGS": ""
       }
     },
     "resnet50,server": {
