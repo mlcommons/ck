@@ -1,6 +1,6 @@
 [ [Back to index](../README.md) ]
 
-# Tutorial: Automating Power Measurements for MLPerf inference using MLCommons CM (CK2)
+# Tutorial: Automating Power Measurements for MLPerf inference using MLCommons CM
 
 *Prepared by the [MLCommons taskforce on automation and reproducibility](../taksforce.md) and [OctoML](https://octoml.ai)*.
 
@@ -45,7 +45,7 @@ Using the 'auto' mode in a testing run is not allowed as it can mess up the meas
 
 ## Install CM
 
-Please follow these [instructions](https://github.com/octoml/ck/blob/master/docs/installation.md)
+Please follow these [instructions](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 to install the MLCommons CM automation tool.
 
 ## Start Power Server (Power analyzer should be connected to this computer and PTDaemon runs here)
@@ -103,6 +103,10 @@ cm run script --tags=run,docker,container --cm_repo=ctuning@mlcommons-ck  \
 --run_cmd="cm run script --tags=app,mlperf,inference,_reference,_power,_resnet50,_onnxruntime,_cpu --mode=performance --power_server=<POWER_SERVER_IP>"
 ```
 
+
+### Using CM GUI to run MLPerf inference benchmarks and measure power
+
+[Link](https://access.cknowledge.org/playground/?action=howtorun&bench_uid=39877bb63fb54725)
 
 ## Further questions?
 
