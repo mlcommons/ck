@@ -59,19 +59,14 @@ def page(i):
 
             url_script = url
 
+    hide = params.get('hide_script_customization', False)
+    
     if script_alias!='':
-        st.markdown('**Customize input for the CM script "[{}]({})":**'.format(script_alias, url_script))
+        show_customize = st.toggle('**Customize input for the CM script "[{}]({})"**'.format(script_alias, url_script), value = not hide)
+        hide = not show_customize
 
-    host_os_index = 0 if os.name != 'nt' else 1
-    host_os_selection = ['Linux/MacOS', 'Windows']
-    host_os = st.selectbox('Select host OS where you will run CM:', host_os_selection, index=host_os_index, key='host_os')
-    if host_os == 'Windows':
-        var1 = '^'
-        host_os_flag = 'windows'
-    else:
-        var1 = '\\'
-        host_os_flag = 'linux'
 
+    
     # Check if found path and there is meta
     # TBD (Grigori): need to cache it using @st.cache
     variation_groups = {}
@@ -135,9 +130,9 @@ def page(i):
             variation_groups[group].append(variation_key)
 
         # Prepare variation_groups
-#            st.markdown("""---""")
         if len(variations)>0:
-             st.markdown('**Select variations to update multiple flags and environment variables:**')
+             if not hide:
+                 st.markdown('**Select variations to update multiple flags and environment variables:**')
 
              variation_groups_order = meta.get('variation_groups_order',[])
              for variation in sorted(variation_groups):
@@ -165,7 +160,10 @@ def page(i):
                          if x in y:
                              selected_index = y.index(x) if x in y else 0
                      
-                     st_variations[key2] = st.selectbox(group_key_cap, sorted(y), index=selected_index, key=key2)
+                     if hide:
+                         st_variations[key2] = sorted(y)[selected_index]
+                     else:
+                         st_variations[key2] = st.selectbox(group_key_cap, sorted(y), index=selected_index, key=key2)
 
                  elif group_key == '*no-group*':
                      for variation_key in sorted(variation_groups[group_key]):
@@ -182,7 +180,10 @@ def page(i):
                              elif x[0].lower()=='false':
                                  v = False
                          
-                         st_variations[key2] = st.checkbox(variation_key.capitalize(), key=key2, value=v)
+                         if hide:
+                             st_variations[key2] = v
+                         else:
+                             st_variations[key2] = st.checkbox(variation_key.capitalize(), key=key2, value=v)
 
 
         # Prepare inputs
@@ -204,24 +205,27 @@ def page(i):
             all_keys = [] if len(sort_keys)==0 else sort_keys
             all_keys += other_keys
 
-            if len(sort_keys)>0:
-                st.markdown('**Select main flags:**')
-            else:
-                st.markdown('**Select all flags:**')
+            if not hide:
+                if len(sort_keys)>0:
+                    st.markdown('**Select main flags:**')
+                else:
+                    st.markdown('**Select all flags:**')
 
             other_flags = False
             for key in all_keys:
                 value = input_desc[key]
 
                 if len(sort_keys)>0 and value.get('sort',0)==0 and not other_flags:
-                    st.markdown('**Select other flags:**')
+                    if not hide:
+                        st.markdown('**Select other flags:**')
                     other_flags = True
 
                 ii={'key':key,
                     'desc':value,
                     'params':params,
                     'st':st,
-                    'st_inputs':st_inputs}
+                    'st_inputs':st_inputs,
+                    'hide':hide}
                 
                 r2 = misc.make_selector(ii)
                 if r2['return']>0: return r2
@@ -255,6 +259,27 @@ def page(i):
         tags = '--tags={}'.format(x)
 
 
+
+    
+    
+    ############################################################################
+    st.markdown("""---""")
+    st.markdown('**Run this CM script (Linux/MacOS/Windows):**')
+
+
+
+    
+    host_os_windows = False if os.name != 'nt' else True
+    host_os_use_windows = st.toggle('Use Windows command line to run this script', value = host_os_windows)
+    if host_os_use_windows:
+        var1 = '^'
+        host_os_flag = 'windows'
+        st.markdown('*Check how to install [a few dependencies](https://github.com/mlcommons/ck/blob/master/docs/installation.md#windows) on Windows.*')
+    else:
+        var1 = '\\'
+        host_os_flag = 'linux'
+
+        
     # Add some internal info to the input
     st_inputs['@host_os'] = host_os_flag
 
@@ -279,135 +304,137 @@ def page(i):
 
             flags_dict[key2]=z
 
-    ########################################################
-    # Extra CMD
-    st.markdown("""---""")
-    cmd_extension = st.text_input("Add extra to CM script command line").strip()
+    
+    
+    show_cm_install = st.toggle('Install MLCommons Collective Mind', value=False)
 
+    if show_cm_install:
+
+        use_dev_repo = st.toggle('Use the [latest automation recipes](https://access.cknowledge.org/playground/?action=scripts)', value=True)
+        cm_repo = 'ctuning@mlcommons-ck' if use_dev_repo else 'mlcommons@ck'
+
+        clean_cm_cache = st.toggle('Clean CM cache', value=True)
+        cm_clean_cache = 'cm rm cache -f\n' if clean_cm_cache else ''
+
+        x = 'pip install cmind -U\n\ncm pull repo {}\n\n{}'.format(cm_repo, cm_clean_cache)
+
+        # Hack to detect python virtual environment and version
+        python_venv_name=st_inputs.get('@adr.python.name', '')
+        python_ver=st_inputs.get('@adr.python.version', '')
+        python_ver_min=st_inputs.get('@adr.python.version_min', '')
+
+        y = ''
+        if python_venv_name!='':# or python_ver!='' or python_ver_min!='':
+            y = '\ncm run script "get sys-utils-cm"\n'
+
+            if python_venv_name!='':
+                y+='cm run script "install python-venv" --name='+str(python_venv_name)
+            else:
+                y+='cm run script "get python"'
+
+            if python_ver!='':
+                y+=' --version='+str(python_ver)
+
+            if python_ver_min!='':
+                y+=' --version_min='+str(python_ver_min)
+
+        if y!='':
+            x+=y
+
+
+        st.markdown('```bash\n{}\n```\n'.format(x))
+
+        st.markdown('Check [full installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) with dependencies for Linux, Windows, MacOS, RHEL, etc')
+
+
+    ############################################################################
     run_via_docker = False
     if len(meta.get('docker',{}))>0:
-        run_via_docker = st.checkbox('Run via Docker', key='run_via_docker', value=False)
+        run_via_docker = st.toggle('Use Docker', key='run_via_docker', value=False)
 
-    # Prepare CLI
     action = 'docker' if run_via_docker else 'run'
-    cli = 'cm {} script {} {} '.format(action, tags, flags)
+    cli = 'cm {} script {} {}\n'.format(action, tags, flags)
 
-    x = '' if cmd_extension=='' else var1+'\n   '+cmd_extension
-    
-    if x!='':
-        cli+=var1+x
+    ############################################################################
+    show_python_api = st.toggle('Run via Python API', value=False)
 
-    cli+='\n'
-
-#    if no_run=='':
-#        cli+='   --pause\n'
-
-    
-    # Print CLI
-    st.markdown("""---""")
-
-    x = 'pip install cmind -U\n\ncm pull repo mlcommons@ck\n\ncm rm cache -f\n'
-
-    # Hack to detect python virtual environment and version
-    python_venv_name=st_inputs.get('@adr.python.name', '')
-    python_ver=st_inputs.get('@adr.python.version', '')
-    python_ver_min=st_inputs.get('@adr.python.version_min', '')
-
-    y = ''
-    if python_venv_name!='':# or python_ver!='' or python_ver_min!='':
-        y = '\ncm run script "get sys-utils-cm"\n'
-
-        if python_venv_name!='':
-            y+='cm run script "install python-venv" --name='+str(python_venv_name)
-        else:
-            y+='cm run script "get python"'
-
-        if python_ver!='':
-            y+=' --version='+str(python_ver)
-
-        if python_ver_min!='':
-            y+=' --version_min='+str(python_ver_min)
-
-    if y!='':
-        x+=y
-
-
-    st.markdown("**Install [MLCommons CM](https://github.com/mlcommons/ck/blob/master/docs/installation.md) with a few dependencies and clean CM cache (optional):**")
-    
-    st.markdown('```bash\n{}\n```\n'.format(x))
-
-   
-#    st.text_area('**Install [MLCommons CM](https://github.com/mlcommons/ck/blob/master/docs/installation.md) with a few dependencies and clean CM cache (optional):**', x, height=200)
-
-
-    st.markdown("**Run CM script from Python:**")
-
-    # Python API
-    dd = {
-          'action':action,
-          'automation':'script,5b4e0237da074764',
-          'tags':script_tags
-         }
-
-    x = script_tags
-    if len(selected_variations)>0:
-        for sv in selected_variations:
-            x+=' '+sv
+    if show_python_api:
          
-    dd['tags']=x.replace(' ',',')
+         # Python API
+         dd = {
+               'action':action,
+               'automation':'script,5b4e0237da074764',
+               'tags':script_tags
+              }
 
-    dd['out']='con'
+         x = script_tags
+         if len(selected_variations)>0:
+             for sv in selected_variations:
+                 x+=' '+sv
+              
+         dd['tags']=x.replace(' ',',')
+
+         dd['out']='con'
+         
+         dd.update(flags_dict)
+
+         import json
+         dd_json=json.dumps(dd, indent=2)
+
+         y = 'import cmind\n'
+         y+= 'r = cmind.access('+dd_json+')\n'
+         y+= 'if r[\'return\']>0: print (r)\n'
+
+         x='''
+     ```python
+               {}
+           '''.format(y)
+
+     #    st.write(x.replace('\n','<br>\n'), unsafe_allow_html=True)
+
+         st.markdown(x)
+
     
-    dd.update(flags_dict)
-
-    import json
-    dd_json=json.dumps(dd, indent=2)
-
-    y = 'import cmind\n'
-    y+= 'r = cmind.access('+dd_json+')\n'
-    y+= 'if r[\'return\']>0: print (r)\n'
-
-    x='''
-```python
-          {}
-      '''.format(y)
-
-#    st.write(x.replace('\n','<br>\n'), unsafe_allow_html=True)
-
-    st.markdown(x)
-
     
-    cli = st.text_area('**Run CM script from command line:**', cli, height=500)
+    ############################################################################
+    show_cli = st.toggle('Run from the command line', value = True)
 
+    if show_cli:
+        # Add explicit button "Run"
+        cli = st.text_area('', cli, height=500)
+        
+        if no_run=='' and st.button("Run in the new terminal"):
+            cli = cli+var1+'--pause\n'
 
+            cli = cli.replace(var1, ' ').replace('\n',' ')
 
-    # Add explicit button "Run"
-    if no_run=='' and st.button("Run in the new terminal"):
-        cli = cli+var1+'--pause\n'
+            if os.name == 'nt':
+                cmd2 = 'start cmd /c {}'.format(cli)
+            else:
+                cli2 = cli.replace('"', '\\"')
 
-        cli = cli.replace(var1, ' ').replace('\n',' ')
+                prefix = os.environ.get('CM_GUI_SCRIPT_PREFIX_LINUX','')
+                if prefix!='': prefix+=' '
 
-        if os.name == 'nt':
-            cmd2 = 'start cmd /c {}'.format(cli)
-        else:
-            cli2 = cli.replace('"', '\\"')
+                cmd2 = prefix + 'bash -c "{}"'.format(cli2)
 
-            prefix = os.environ.get('CM_GUI_SCRIPT_PREFIX_LINUX','')
-            if prefix!='': prefix+=' '
+            print ('Running command:')
+            print ('')
+            print ('  {}'.format(cmd2))
+            print ('')
 
-            cmd2 = prefix + 'bash -c "{}"'.format(cli2)
+            os.system(cmd2)
 
-        print ('Running command:')
-        print ('')
-        print ('  {}'.format(cmd2))
-        print ('')
-
-        os.system(cmd2)
-
-    if not skip_bottom:
-        st.markdown("""---""")
-        st.markdown("*Learn more about the MLCommons CM interface at [GitHub](https://github.com/mlcommons/ck)"
-                    " and report issues or suggest features [here](https://github.com/mlcommons/ck/issues).*")
+    # Some info
+    x = '''
+         <i>
+         <center>
+         We would like to thank the community and <a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">all Collective Mind contributors</a> 
+         for supporting this collaborative engineering effort -<br> 
+         please don't hesitate report issues or suggest features at <a href="https://github.com/mlcommons/ck/issues">CM GitHub</a>!
+         </center>
+        '''
+    st.write(x, unsafe_allow_html = True)
 
     return {'return':0}
 

@@ -101,6 +101,8 @@ def make_selector(i):
     st = i['st']
     st_inputs = i['st_inputs']
 
+    hide = i.get('hide', False)
+
     key2 = '@'+key
 
     value2 = None
@@ -115,7 +117,8 @@ def make_selector(i):
 
         if force != None:
             value2 = force
-            st.markdown('**{}:** {}'.format(desc, str(force)))
+            if not hide:
+                st.markdown('**{}:** {}'.format(desc, str(force)))
         
         else:
             if boolean:
@@ -126,7 +129,10 @@ def make_selector(i):
                         v = True
                     elif x[0].lower()=='false':
                         v = False
-                value2 = st.checkbox(desc, value=v, key=key2)
+                if hide:
+                    value2 = v
+                else:
+                    value2 = st.checkbox(desc, value=v, key=key2)
             elif len(choices)>0:
                 x = params.get(key2, None)
                 if x!=None and len(x)>0 and x[0]!=None:
@@ -137,19 +143,28 @@ def make_selector(i):
                         selected_index = choices.index(default) if default!='' else 0
                 else:
                     selected_index = choices.index(default) if default!='' else 0
-                value2 = st.selectbox(desc, choices, index=selected_index, key=key2)
+                if hide:
+                    value2 = choices[selected_index]
+                else:
+                    value2 = st.selectbox(desc, choices, index=selected_index, key=key2)
             else:
                 v = default
                 x = params.get(key2, None)
                 if x!=None and len(x)>0 and x[0]!=None:
                     v = x[0]
-                value2 = st.text_input(desc, value=v, key=key2)
+                if hide:
+                    value2 = v
+                else:
+                    value2 = st.text_input(desc, value=v, key=key2)
 
         st_inputs[key2] = value2
 
     else:
         desc = value
-        value2 = st.text_input(desc)
+        if hide:
+            value2 = desc
+        else:
+            value2 = st.text_input(desc)
         st_inputs[key2] = value2
 
     return {'return':0, 'key2': key2, 'value2': value2}

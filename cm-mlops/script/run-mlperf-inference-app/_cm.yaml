@@ -418,7 +418,7 @@ input_description:
     sort: 5010
   clean:
     boolean: true
-    default: true
+    default: false
     desc: Clean run
   compliance:
     choices:
