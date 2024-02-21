@@ -14,7 +14,7 @@ def install(package):
         pip_version = out_split[1].split(".")
         if pip_version and len(pip_version) > 1 and int(pip_version[0]) >= 23:
             additional_install_options += " --break-system-packages"
-    r = subprocess.run([sys.executable, "-m", "pip", "install", package, additional_install_options], check=True)
+    r = subprocess.run([sys.executable, "-m", "pip", "install", additional_install_options, package], check=True)
  
     return {'return':0}
 
