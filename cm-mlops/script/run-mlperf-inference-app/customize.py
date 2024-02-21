@@ -566,33 +566,37 @@ cmr "benchmark any _phoenix"
         inp['dashboard_wb_user']['force']=''
 
 
-    # Create output for tests 
-    # Get UID
-    r = utils.gen_uid()
-    if r['return']>0: return r
+    run_test = st.toggle('Record test for [reproducibility](https://access.cknowledge.org/playground/?action=reproduce)', value = False)
+    
+    if run_test:
+        # Create output for tests 
+        # Get UID
+        r = utils.gen_uid()
+        if r['return']>0: return r
 
-    test_uid = r['uid']
+        test_uid = r['uid']
 
-    r = utils.get_current_date_time({})
-    if r['return']>0: return r
+        r = utils.get_current_date_time({})
+        if r['return']>0: return r
 
-    datetime = r['iso_datetime']
+        datetime = r['iso_datetime']
 
-    test_file = 'run-'+test_uid
+        test_file = 'run-'+test_uid
 
-    inp['jf']['default'] = test_file
+        inp['jf']['default'] = test_file
 
-    test_meta = {
-      "uid": test_uid,
-      "compute_uid": compute_uid,
-      "bench_uid": bench_uid,
-      "date_time": datetime,
-      "functional": False,
-      "reproduced": False,
-      "support_docker": False
-    }
+        test_meta = {
+          "uid": test_uid,
+          "compute_uid": compute_uid,
+          "bench_uid": bench_uid,
+          "date_time": datetime,
+          "functional": False,
+          "reproduced": False,
+          "support_docker": False
+        }
 
-    x = """
+        
+        x = """
 ---
 **[Reproducibility meta](https://access.cknowledge.org/playground/?action=reproduce):**
 
@@ -602,12 +606,12 @@ cmr "benchmark any _phoenix"
 ```json
 {}
 ```    
-        """.format(test_file+'-meta.json', json.dumps(test_meta, indent=2))
+            """.format(test_file+'-meta.json', json.dumps(test_meta, indent=2))
 
-    st.markdown(x)
+        
+        st.markdown(x)
 
-#    params['@adr.mlperf-power-client.port']=['']
-#    inp['device']['choices']=['rocm','qaic']
-#    inp['device']['default']='qaic'
-    
+    # Hide customization by default
+    params['hide_script_customization'] = True
+
     return {'return':0, 'end_html':end_html}

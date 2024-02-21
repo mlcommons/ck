@@ -37,11 +37,11 @@ zoo_stub_list=( \
 rerun=""
 power=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --env.CM_MLPERF_SKIP_POWER_CHECKS=yes"
 power=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15"
-power1=""
-max_batchsize=384
+power=""
+max_batchsize=128
 max_batchsize=1
-scenario="Offline"
 scenario="SingleStream"
+scenario="Offline"
 
 if [[ $scenario == "Offline" ]]; then
 for stub in ${zoo_stub_list[@]}; do
