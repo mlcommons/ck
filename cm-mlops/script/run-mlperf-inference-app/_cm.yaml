@@ -306,7 +306,7 @@ input_description:
     - llama2-70b-99.9
     - mobilenet
     - efficientnet
-    default: retinanet
+    default: resnet50
     desc: MLPerf model
     sort: 200
   precision:

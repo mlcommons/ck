@@ -383,7 +383,7 @@ cmr "benchmark any _phoenix"
 #        st.markdown('*:red[Note: Intel implementation require extra CM command to build and run Docker container - you will run CM commands to run MLPerf benchmarks there!]*')
         st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel)]*')
     elif implementation == 'qualcomm':
-        inp['model']['choices'] = ['resnet-50', 'retinanet', 'bert-99', 'bert-99.9']
+        inp['model']['choices'] = ['resnet50', 'retinanet', 'bert-99', 'bert-99.9']
         inp['model']['default'] = 'bert-99.9'
         inp['precision']['default'] = 'float16'
         st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm)]*')
