@@ -25,17 +25,17 @@ function run() {
 
 #Add your run commands here...
 # run "$CM_RUN_CMD"
+IFS="," read -r -a devices <<< "$CM_QAIC_DEVICES"
 
-set IFS=','
 if [[ -n ${CM_QAIC_VC} ]]; then
-  for device in ${CM_QAIC_DEVICES}
+  for device in ${devices[@]}
   do
-     run "$sudo {CM_QAIC_TOOLS_PATH}/qaic-diag -d $device 0x4B 0x66 0x05 0x1 ${CM_QAIC_VC}"
+     run "sudo ${CM_QAIC_TOOLS_PATH}/qaic-diag -d $device -m 0x4B 0x66 0x05 0x1 ${CM_QAIC_VC_HEX}"
   done
 fi
 
 if [[ ${CM_QAIC_ECC} == "yes" ]]; then
-  for device in ${CM_QAIC_DEVICES}
+  for device in ${devices}
   do
      run "sudo ${CM_QAIC_TOOLS_PATH}/qaic-monitor-json -i request_$device.json"
      run "rm request_$device.json"

@@ -27,6 +27,8 @@ def preprocess(i):
             with open("request_"+device+".json", "w") as f:
                 f.write(json.dumps(ecc_template))
 
+    if env.get('CM_QAIC_VC', '') != '':
+        env['CM_QAIC_VC_HEX'] = hex(int(env['CM_QAIC_VC']))
 
     return {'return':0}
 

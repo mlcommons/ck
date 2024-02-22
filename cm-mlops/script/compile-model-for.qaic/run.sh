@@ -24,5 +24,5 @@ function run() {
 }
 
 #Add your run commands here...
-#run "rm -rf elfs" 
+run "rm -rf elfs" 
 run "$CM_RUN_CMD"

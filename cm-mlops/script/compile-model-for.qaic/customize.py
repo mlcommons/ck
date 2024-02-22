@@ -22,6 +22,8 @@ def preprocess(i):
     
         print("Compiling from "+ os.getcwd())
 
+        env['CM_QAIC_MODEL_FINAL_COMPILATION_CMD'] = cmd
+
         env['CM_RUN_CMD'] = cmd
     else:
         import shutil
