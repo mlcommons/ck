@@ -12,9 +12,14 @@ def preprocess(i):
     env['CM_CXX_SOURCE_FILES'] = "main.cpp"
     env['CM_SOURCE_FOLDER_PATH'] = os.path.join(script_path, "src")
 
+    env['CM_LINKER_LANG'] = 'CXX'
+
     if 'CM_RUN_DIR' not in env:
         env['CM_RUN_DIR'] = os.path.join(script_path, "output")
-    
+
+    if not os.path.isdir(env['CM_RUN_DIR']):
+        os.makedirs(env['CM_RUN_DIR'])
+
     if os_info['platform'] == 'windows':
         env['CM_BIN_NAME']='test-ort.exe'
     else:
