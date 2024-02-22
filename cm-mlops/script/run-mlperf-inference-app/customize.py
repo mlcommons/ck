@@ -465,6 +465,7 @@ cmr "benchmark any _phoenix"
         params['~~submission-generation']=['submission']
         params['~all-scenarios']=['true']
         inp['scenario']['force']=''
+        inp['clean']['default']=False
 
         x  = '*:red[Use the following command to find local directory with the submission tree and results:]*\n```bash\ncm find cache --tags=submission,dir\n```\n'
 
@@ -478,6 +479,7 @@ cmr "benchmark any _phoenix"
     
     else:
         inp['submitter']['force']=''
+        inp['clean']['default']=True
         params['~submission']=['false']
 
         choices = ['Performance', 'Accuracy', 'Find Performance from a short run', 'Performance and Accuracy']
