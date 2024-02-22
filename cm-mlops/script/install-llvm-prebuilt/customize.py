@@ -196,11 +196,13 @@ def postprocess(i):
         if os_info['platform'] == 'darwin':
            if '+C_INCLUDE_PATH' not in env:
                env['+C_INCLUDE_PATH'] = []
-           env['+C_INCLUDE_PATH'].append(cur_dir_include)
+           if cur_dir_include not in env['+C_INCLUDE_PATH']:
+               env['+C_INCLUDE_PATH'].append(cur_dir_include)
 
            if '+CPLUS_INCLUDE_PATH' not in env:
                env['+CPLUS_INCLUDE_PATH'] = []
-           env['+CPLUS_INCLUDE_PATH'].append(cur_dir_include)
+           if cur_dir_include not in env['+CPLUS_INCLUDE_PATH']:
+               env['+CPLUS_INCLUDE_PATH'].append(cur_dir_include)
 
     
     return {'return':0, 'version': version}

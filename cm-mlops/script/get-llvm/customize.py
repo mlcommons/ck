@@ -71,11 +71,13 @@ def postprocess(i):
     env['CM_C_COMPILER_WITH_PATH']=found_file_path
     env['CM_C_COMPILER_FLAG_OUTPUT']='-o '
     env['CM_C_COMPILER_FLAG_VERSION']='--version'
+    env['CM_C_COMPILER_FLAG_INCLUDE']='-I'
 
     env['CM_CXX_COMPILER_BIN']=file_name_cpp
     env['CM_CXX_COMPILER_WITH_PATH']=os.path.join(found_path, file_name_cpp)
     env['CM_CXX_COMPILER_FLAG_OUTPUT']='-o '
     env['CM_CXX_COMPILER_FLAG_VERSION']='--version'
+    env['CM_CXX_COMPILER_FLAG_INCLUDE']='-I'
 
     env['CM_COMPILER_FLAGS_FAST'] = "-O4"
     env['CM_LINKER_FLAGS_FAST'] = "-O4" # "-flto" - this flag is not always available (requires LLVMgold.so)
