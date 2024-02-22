@@ -4,7 +4,7 @@ import subprocess
 
 def preprocess(i):
     os_info = i['os_info']
-    
+
     env = i['env']
     env['+ CFLAGS'] = []
     env['+ CXXFLAGS'] = []
@@ -17,14 +17,14 @@ def preprocess(i):
 
     if env.get("CM_FAST_COMPILATION") in [ "yes", "on", "1" ]:
         DEFAULT_COMPILER_FLAGS = env.get("CM_COMPILER_FLAGS_FAST", "-O3")
-        DEFAULT_LINKER_FLAGS = env.get("CM_LINKER_FLAGS_FAST", "-O3 -flto")
+        DEFAULT_LINKER_FLAGS = env.get("CM_LINKER_FLAGS_FAST", "-O3") # -flto") - this flag is not always available
     elif env.get("CM_DEBUG_COMPILATION") in ["yes", "on", "1" ]:
         DEFAULT_COMPILER_FLAGS = env.get("CM_COMPILER_FLAGS_DEBUG", "-O0")
         DEFAULT_LINKER_FLAGS = env.get("CM_LINKER_FLAGS_DEBUG", "-O0")
     else:
         DEFAULT_COMPILER_FLAGS = env.get("CM_COMPILER_FLAGS_DEFAULT", "-O2")
         DEFAULT_LINKER_FLAGS = env.get("CM_LINKER_FLAGS_DEFAULT", "-O2")
-    
+
     env['+ CFLAGS'] += DEFAULT_COMPILER_FLAGS.split(" ")
     env['+ CXXFLAGS'] += DEFAULT_COMPILER_FLAGS.split(" ")
     env['+ FFLAGS'] += DEFAULT_COMPILER_FLAGS.split(" ")

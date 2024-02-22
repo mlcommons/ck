@@ -77,8 +77,8 @@ def postprocess(i):
     env['CM_CXX_COMPILER_FLAG_OUTPUT']='-o '
     env['CM_CXX_COMPILER_FLAG_VERSION']='--version'
 
-    env['CM_COMPILER_FLAGS_FAST'] = "-O3"
-    env['CM_LINKER_FLAGS_FAST'] = "-O3 -flto"
+    env['CM_COMPILER_FLAGS_FAST'] = "-O4"
+    env['CM_LINKER_FLAGS_FAST'] = "-O4" # "-flto" - this flag is not always available (requires LLVMgold.so)
     env['CM_COMPILER_FLAGS_DEBUG'] = "-O0"
     env['CM_LINKER_FLAGS_DEBUG'] = "-O0"
     env['CM_COMPILER_FLAGS_DEFAULT'] = "-O2"
