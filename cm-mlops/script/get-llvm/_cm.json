@@ -20,7 +20,9 @@
     "+ FFLAGS",
     "+ LDFLAGS",
     "+CM_HOST_OS_DEFAULT_INCLUDE_PATH",
-    "+PATH"
+    "+PATH",
+    "+C_INCLUDE_PATH",
+    "+CPLUS_INCLUDE_PATH"
   ],
   "post_deps": [
     {
