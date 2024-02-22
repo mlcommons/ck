@@ -189,20 +189,20 @@ def postprocess(i):
     version = env['CM_VERSION']
     os_info = i['os_info']
 
-    cur_dir = os.getcwd()
-    cur_dir_include = os.path.join(cur_dir, 'include')
+#    cur_dir = os.getcwd()
+#    cur_dir_include = os.path.join(cur_dir, 'include')
 
-    if os.path.isdir(cur_dir_include):
-        if os_info['platform'] == 'darwin':
-           if '+C_INCLUDE_PATH' not in env:
-               env['+C_INCLUDE_PATH'] = []
-           if cur_dir_include not in env['+C_INCLUDE_PATH']:
-               env['+C_INCLUDE_PATH'].append(cur_dir_include)
-
-           if '+CPLUS_INCLUDE_PATH' not in env:
-               env['+CPLUS_INCLUDE_PATH'] = []
-           if cur_dir_include not in env['+CPLUS_INCLUDE_PATH']:
-               env['+CPLUS_INCLUDE_PATH'].append(cur_dir_include)
+#    if os.path.isdir(cur_dir_include):
+#        if os_info['platform'] == 'darwin':
+#           if '+C_INCLUDE_PATH' not in env:
+#               env['+C_INCLUDE_PATH'] = []
+#           if cur_dir_include not in env['+C_INCLUDE_PATH']:
+#               env['+C_INCLUDE_PATH'].append(cur_dir_include)
+#
+#           if '+CPLUS_INCLUDE_PATH' not in env:
+#               env['+CPLUS_INCLUDE_PATH'] = []
+#           if cur_dir_include not in env['+CPLUS_INCLUDE_PATH']:
+#               env['+CPLUS_INCLUDE_PATH'].append(cur_dir_include)
 
     
     return {'return':0, 'version': version}
