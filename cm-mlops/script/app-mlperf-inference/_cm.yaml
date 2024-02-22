@@ -328,7 +328,7 @@ variations:
 
   kilt,qualcomm,bert-99.9:
     default_variations:
-      precision: fp16
+      precision: float16
 
   resnet50:
     group:

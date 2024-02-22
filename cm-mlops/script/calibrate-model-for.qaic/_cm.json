@@ -74,7 +74,6 @@
   "variations": {
     "bs.1": {
       "group": "batch-size",
-      "default": true,
       "env": {
         "CM_QAIC_MODEL_BATCH_SIZE": "1",
         "CM_CREATE_INPUT_BATCH": "yes"

@@ -372,6 +372,16 @@ variations:
           CM_MLPERF_SKIP_RUN:
             - yes
 
+  bert-99.9,qaic:
+    deps:
+      - tags: compile,qaic,model,_bert-99.9
+        names:
+          - qaic-model-compiler
+          - bert-99.9-compiler
+        skip_if_env:
+          CM_MLPERF_SKIP_RUN:
+            - yes
+
   retinanet:
     group: model
     env:
@@ -530,6 +540,8 @@ variations:
     adr:
       dataset-preprocessed:
         tags: _uint8,_rgb8
+  fp16:
+    group: precision
   fp32:
     group: precision
     adr:
@@ -543,6 +555,10 @@ variations:
     adr:
       qaic-model-compiler:
         tags: _nsp.14
+
+  nsp.16:
+    base:
+      - pro
 
   nsp.#:
     group: nsp
@@ -594,21 +610,17 @@ variations:
     env:
       qaic_activation_count: "14"
 
+  pro:
+    env:
+      qaic_queue_length: 10
+
   num-devices.4:
     env:
       CM_QAIC_DEVICES: "0,1,2,3"
 
-  pro:
-    base:
-      - nsp.16
-
-  pro,num-devices.4:
-    env:
-      qaic_queue_length: 4
-
   pro,num-devices.4,singlestream:
     env:
-      CM_QAIC_DEVICES: 0
+      CM_QAIC_DEVICES: "0"
       qaic_activation_count: "1"
 
   pro,num-devices.4,resnet50,offline:
@@ -616,14 +628,32 @@ variations:
       batch-size: bs.8
     env:
       qaic_activation_count: "4"
+    deps:
+      - tags: set,device,qaic,_vc.16
+
+  pro,num-devices.4,bert-99,offline:
+    base:
+      - loadgen-batch-size.4096
+    env:
+      qaic_activation_count: "16"
+    deps:
+      - tags: set,device,qaic,_vc.15
 
   pro,num-devices.4,bert-99.9,offline:
+    base:
+      - loadgen-batch-size.4096
     env:
-      qaic_activation_count: "16"
+      qaic_activation_count: "8"
+    deps:
+      - tags: set,device,qaic,_vc.17
 
   pro,num-devices.4,retinanet,offline:
+    default_variations:
+      batch-size: bs.1
     env:
       qaic_activation_count: "16"
+    deps:
+      - tags: set,device,qaic,_vc.17
 
   pro,num-devices.4,resnet50,server:
     default_variations:
@@ -635,7 +665,7 @@ variations:
     env:
       qaic_activation_count: "16"
 
-  dl2q.24xlarge,retinanet,server:
+  pro,num-devices.4,retinanet,server:
     default_variations:
       batch-size: bs.1
     env:
