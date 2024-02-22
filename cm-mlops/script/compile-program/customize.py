@@ -16,7 +16,8 @@ def preprocess(i):
     env['CM_F_INCLUDE_PATH'] = " -I".join([" "] + env.get('+F_INCLUDE_PATH', []) + CPATH)
 
     # If windows, need to extend it more ...
-    if os_info['platform'] == 'windows':
+    if os_info['platform'] == 'windows' and env.get('CM_COMPILER_FAMILY','')!='LLVM':
+        print ("WARNING: compile-program script should be extended to support flags for non-LLVM compilers on Windows")
         return {'return':0}
 
     LDFLAGS = env.get('+ LDFLAGS', [])
