@@ -187,5 +187,15 @@ def postprocess(i):
 
     env = i['env']
     version = env['CM_VERSION']
+    os_info = i['os_info']
 
+    cur_dir = os.getcwd()
+    cur_dir_include = os.path.join(cur_dir, 'include')
+
+    if os.path.isdir(cur_dir_include):
+        if os_info['platform'] == 'darwin':
+           env['+C_INCLUDE_PATH'].append(cur_dir_include)
+           env['+CPLUS_INCLUDE_PATH'].append(cur_dir_include)
+
+    
     return {'return':0, 'version': version}
