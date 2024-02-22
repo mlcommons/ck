@@ -30,17 +30,6 @@ def preprocess(i):
     env['+ FFLAGS'] += DEFAULT_COMPILER_FLAGS.split(" ")
     env['+ LDFLAGS'] += DEFAULT_LINKER_FLAGS.split(" ")
 
-    if env.get('C_INCLUDE_PATH','')!='' and env.get('CM_C_COMPILER_FLAG_INCLUDE,'')!='':
-        for x in env['C_INCLUDE_PATH'].split(' '):
-            if x !='':
-                env['+ CFLAGS'].append(env['C_INCLUDE_PATH']+x)
-
-    if env.get('CPLUS_INCLUDE_PATH','')!='' and env.get('CM_CXX_COMPILER_FLAG_INCLUDE,'')!='':
-        for x in env['CPLUS_INCLUDE_PATH'].split(' '):
-            if x !='':
-                env['+ CXXFLAGS'].append(env['C_INCLUDE_PATH']+x)
-
-
     env['+ CFLAGS'] = list(set(env['+ CFLAGS']))
     env['+ CXXFLAGS'] = list(set(env['+ CXXFLAGS']))
     env['+ FFLAGS'] = list(set(env['+ FFLAGS']))
