@@ -40,8 +40,8 @@ power=" --power=yes --adr.mlperf-power-client.power_server=192.168.0.15"
 power=""
 max_batchsize=128
 max_batchsize=1
-scenario="SingleStream"
 scenario="Offline"
+scenario="SingleStream"
 
 if [[ $scenario == "Offline" ]]; then
 for stub in ${zoo_stub_list[@]}; do
