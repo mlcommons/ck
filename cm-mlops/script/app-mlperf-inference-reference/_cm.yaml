@@ -563,7 +563,7 @@ prehook_deps:
     - remote-run-cmds
     tags: remote,run,cmds
     enable_if_env:
-      CM_SSH_RUN_COMMANDS:
+      CM_ASSH_RUN_COMMANDS:
       - "on"
 
 posthook_deps: 

@@ -45,6 +45,8 @@ def postprocess(i):
 
     env = i['env']
 
+    hostos=env['CM_HOST_OS_TYPE']
+
     install_folder = env['CM_TMP_INSTALL_FOLDER']
 
     for key in ['+C_INCLUDE_PATH', '+CPLUS_INCLUDE_PATH', '+LD_LIBRARY_PATH', '+DYLD_FALLBACK_LIBRARY_PATH']:
@@ -52,12 +54,21 @@ def postprocess(i):
 #        if key not in env:
         env[key] = []
 
-    env['+C_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', install_folder, 'include'))
-    env['+CPLUS_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', install_folder, 'include'))
+    include_path = os.path.join(os.getcwd(), 'install', install_folder, 'include')
+
+    env['+C_INCLUDE_PATH'].append(include_path)
+    env['+CPLUS_INCLUDE_PATH'].append(include_path)
 
     lib_path = os.path.join(os.getcwd(), 'install', install_folder, 'lib')
 
     env['+LD_LIBRARY_PATH'].append(lib_path)
     env['+DYLD_FALLBACK_LIBRARY_PATH'].append(lib_path)
+
+    if hostos =='windows': 
+        # For dynamic libraries
+        env['+PATH'] = [lib_path]
+
+    env['CM_ONNXRUNTIME_LIB_PATH'] = lib_path
+    env['CM_ONNXRUNTIME_INCLUDE_PATH'] = include_path
 
     return {'return':0}

@@ -15,6 +15,8 @@ def page(i):
     script_tags = i['script_tags']
     skip_bottom = i.get('skip_bottom', False)
 
+    extra = i.get('extra', {})
+
     meta = i['script_meta']
     repo_meta = i.get('script_repo_meta', None)
 
@@ -268,9 +270,22 @@ def page(i):
 
 
 
+    x = ''
+
+    extra_notes_online = extra.get('extra_notes_online', '')
+    if extra_notes_online != '': x+=' [ '+extra_notes_online+' ] '
+
+    extra_faq_online = extra.get('extra_faq_online', '')
+    if extra_faq_online != '': x+=' [ '+extra_faq_online+' ] '
     
+    if x !='':
+        st.markdown('*'+x.strip()+'*')
+
+
+    
+
     host_os_windows = False if os.name != 'nt' else True
-    host_os_use_windows = st.toggle('Use Windows command line to run this script', value = host_os_windows)
+    host_os_use_windows = st.toggle('Run on Windows?', value = host_os_windows)
     if host_os_use_windows:
         var1 = '^'
         host_os_flag = 'windows'
@@ -281,7 +296,7 @@ def page(i):
 
         
     # Add some internal info to the input
-    st_inputs['@host_os'] = host_os_flag
+#    st_inputs['@host_os'] = host_os_flag
 
     # Check flags
     flags_dict = {}
@@ -356,6 +371,17 @@ def page(i):
     cli = 'cm {} script {} {}\n'.format(action, tags, flags)
 
     ############################################################################
+    
+    extra_setup = extra.get('extra_setup','')
+    if extra_setup!='':    
+        show_extra_setup_notes = st.toggle('Show extra setup notes?', value = True)
+
+        if show_extra_setup_notes:
+            st.markdown('---')
+            st.markdown(extra_setup)
+            st.markdown('---')
+
+    
     show_python_api = st.toggle('Run via Python API', value=False)
 
     if show_python_api:
@@ -383,7 +409,7 @@ def page(i):
 
          y = 'import cmind\n'
          y+= 'r = cmind.access('+dd_json+')\n'
-         y+= 'if r[\'return\']>0: print (r)\n'
+         y+= 'if r[\'return\']>0: print (r[\'error\'])\n'
 
          x='''
      ```python

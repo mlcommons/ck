@@ -291,3 +291,27 @@ variations:
           glow:
             offline_target_qps: 350
             server_target_qps: 300
+  rb6:
+    group: sut
+    default_env:
+      CATEGORY: edge
+      DIVISION: closed
+    default_variations:
+      implementation: qualcomm
+
+  rb6,qualcomm:
+    default_env:
+      EXTRA_ARGS: " --adr.mlperf-inference-implementation.tags=_rb6 --env.CM_MLPERF_SHORT_RANGING_RUN=no"
+    state:
+      resnet50:
+        qaic:
+          glow:
+            offline_target_qps: 6800
+      retinanet:
+        qaic:
+          glow:
+            offline_target_qps: 125
+      bert-99:
+        qaic:
+          glow:
+            offline_target_qps: 255

@@ -1,0 +1,102 @@
+# Identification of this CM script
+alias: test-onnxruntime-cpp
+uid: c7cb91ff52fc4798
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Testing libraries and tools"
+
+tags:
+  - test
+  - onnxruntime
+  - cpp
+
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+ 
+  # Install ML engines via CM
+  - enable_if_env:
+      CM_BACKEND:
+      - onnxruntime
+      CM_DEVICE:
+      - cpu
+    tags: get,lib,onnxruntime,lang-cpp,_cpu
+
+  - enable_if_env:
+      CM_BACKEND:
+      - onnxruntime
+      CM_DEVICE:
+      - gpu
+    tags: get,lib,onnxruntime,lang-cpp,_cuda
+
+
+  ########################################################################
+  # Install ResNet50 model (ONNX) and ImageNet
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    names:
+      - imagenet-preprocessed
+    tags: get,dataset,preprocessed,imagenet,_NCHW
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    tags: get,ml-model,raw,resnet50,_onnx
+
+
+# Post dependencies to compile and run this app
+post_deps:
+
+  - names:
+    - compile-program
+    tags: compile,cpp-program
+    skip_if_env:
+      CM_SKIP_COMPILE:
+      - on
+
+  - names:
+    - benchmark-program
+    tags: benchmark-program
+    skip_if_env:
+      CM_SKIP_RUN:
+      - on
+
+# Variations to customize dependencies
+variations:
+  # Target devices
+  cpu:
+    group: device
+    default: true
+    env:
+      CM_DEVICE: cpu
+
+  cuda:
+    group: device
+    env:
+      CM_DEVICE: gpu
+
+  # ML engine
+  onnxruntime:
+    group: framework
+    default: true
+    env:
+      CM_BACKEND: onnxruntime
+
+  # Reference MLPerf models
+  resnet50:
+    group: model
+    default: true
+    env:
+      CM_MODEL: resnet50

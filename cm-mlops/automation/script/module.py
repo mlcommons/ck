@@ -1940,7 +1940,7 @@ class CAutomation(Automation):
                     if tag_to_append not in variations:
                         variation_tag_static = self._get_name_for_dynamic_variation_tag(tag_to_append)
                         if not variation_tag_static or variation_tag_static not in variations:
-                            return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
+                            return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_meta)}
                     tmp_variation_tags.append(tag_to_append)
 
         return {'return': 0, 'variations_to_add': tmp_variation_tags}

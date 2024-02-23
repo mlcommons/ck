@@ -5,7 +5,7 @@
   "cache": true,
   "category": "AI/ML optimization",
   "new_env_keys": [
-    "CM_QAIC_*",
+    "CM_QAIC_MODEL*",
     "CM_ML_MODEL_FILE_WITH_PATH"
   ],
   "input_mapping": {
@@ -204,7 +204,8 @@
     },
     "resnet50,multistream": {
       "env": {
-        "CM_QAIC_MODEL_COMPILER_ARGS": ""
+        "CM_QAIC_MODEL_COMPILER_ARGS": "",
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4 -mos=1 -ols=1"
       }
     },
     "resnet50,server": {
@@ -214,13 +215,13 @@
     "bert-99": {
       "adr": {
         "model-src": {
-          "tags": "bert-large,_onnx"
+          "tags": "bert-large,_onnx,_packed"
         }
       },
       "env": {
         "CM_COMPILE_BERT": "on",
         "CM_QAIC_MODEL_TO_CONVERT": "calibrate_bert_mlperf",
-        "CM_QAIC_MODEL_COMPILER_PARAMS_BASE": "-aic-hw -aic-hw-version=2.0 -execute-nodes-in-fp16=Mul,Sqrt,Div,Add,ReduceMean,Softmax,Sub,Gather,Erf,Pow,Concat,Tile,LayerNormalization -quantization-schema=symmetric_with_uint8 -quantization-precision=Int8 -quantization-precision-bias=Int32 -vvv -compile-only -onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,384 -multicast-weights -combine-inputs=false -combine-outputs=false",
+        "CM_QAIC_MODEL_COMPILER_PARAMS_BASE": "-aic-hw -aic-hw-version=2.0 -execute-nodes-in-fp16=Add,Div,Erf,Softmax -quantization-schema=symmetric_with_uint8 -quantization-precision=Int8 -quantization-precision-bias=Int32 -vvv -compile-only -onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,384 -multicast-weights -combine-inputs=false -combine-outputs=false",
         "CM_QAIC_MODEL_COMPILER_ARGS": ""
       },
       "deps": [
@@ -236,7 +237,12 @@
     "bert-99,offline": {
       "env": {
         "CM_QAIC_MODEL_COMPILER_ARGS": "-allocator-dealloc-delay=2 -size-split-granularity=1536 -vtcm-working-set-limit-ratio=1",
-        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=1 -mos=1 -ols=3"
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=1 -mos=1 -ols=2"
+      }
+    },
+    "bert-99,offline,nsp.16": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=1 -mos=1 -ols=2"
       }
     },
     "bert-99,offline,nsp.14": {
@@ -264,6 +270,47 @@
     "bert-99,singlestream,nsp.14": {
       "env": {
         "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=8 -mos=8 -ols=1"
+      }
+    },
+    "bert-99.9": {
+      "base": [
+        "no-quantized"
+      ],
+      "adr": {
+        "model-src": {
+          "tags": "bert-large,_onnx,_packed"
+        }
+      },
+      "env": {
+        "CM_COMPILE_BERT": "on",
+        "CM_QAIC_MODEL_TO_CONVERT": "bert_mlperf",
+        "CM_QAIC_MODEL_COMPILER_PARAMS_BASE": "-aic-hw -aic-hw-version=2.0 -convert-to-fp16 -vvv -compile-only -onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,384 -combine-inputs=false -combine-outputs=false",
+        "CM_QAIC_MODEL_COMPILER_ARGS": ""
+      }
+    },
+    "bert-99.9,offline": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=2 -mos=1 -ols=2"
+      }
+    },
+    "bert-99.9,offline,nsp.16": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=2 -mos=1 -ols=2"
+      }
+    },
+    "bert-99.9,offline,nsp.14": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=2 -mos=1 -ols=2"
+      }
+    },
+    "bert-99.9,server": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4"
+      }
+    },
+    "bert-99.9,server,nsp.14": {
+      "env": {
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4"
       }
     },
     "tf": {

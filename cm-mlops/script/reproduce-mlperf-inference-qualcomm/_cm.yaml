@@ -36,7 +36,7 @@ default_env:
   CM_KILT_REPO_URL: https://github.com/GATEOverflow/kilt-mlperf
   CM_QAIC_DEVICES: "0"
   kilt_max_wait_abs: 10000
-  verbosity: 1
+  verbosity: 0
   loadgen_trigger_cold_run: 0
 
 env:
@@ -213,7 +213,7 @@ deps:
       - openimages-preprocessed
       - dataset-preprocessed
     tags: get,dataset,preprocessed,openimages,_for.retinanet.onnx,_NCHW,_validation,_custom-annotations
-    update_tags_from_env_with_prefix:
+    update_tags_from_env_with_prefix1: #disabling now to prevent unnecessary preprocessing
       _quant-scale.:
         - CM_QAIC_MODEL_RETINANET_IMAGE_OFFSET
       _quant-offset.:
@@ -338,6 +338,11 @@ variations:
       qaic-model-compiler:
         tags: "_bs.#"
 
+  bs.0:
+    group: batch-size
+    env:
+      kilt_model_batch_size: "1"
+  
   # Reference MLPerf models
   resnet50:
     group: model
@@ -372,8 +377,20 @@ variations:
           CM_MLPERF_SKIP_RUN:
             - yes
 
+  bert-99.9,qaic:
+    deps:
+      - tags: compile,qaic,model,_bert-99.9
+        names:
+          - qaic-model-compiler
+          - bert-99.9-compiler
+        skip_if_env:
+          CM_MLPERF_SKIP_RUN:
+            - yes
+
   retinanet:
     group: model
+    base:
+      - bs.1
     env:
       CM_MODEL: retinanet
       CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth"
@@ -423,7 +440,10 @@ variations:
       loadgen_dataset_size: 10833
 
   bert_,qaic:
+    default_variations:
+      batch-size: bs.0
     env:
+      kilt_model_batch_size: 1
       kilt_input_format: "UINT32,1,384:UINT32,1,8:UINT32,1,384:UINT32,1,384"
       kilt_input_formata: "UINT32,1,384:UINT32,1,384:UINT32,1,384"
       kilt_output_formatia: "UINT8,1,384:UINT8,1,384"
@@ -456,6 +476,7 @@ variations:
   bert_,singlestream:
     env:
       kilt_model_batch_size: 1
+
   bert-99:
     group: model
     base:
@@ -474,12 +495,20 @@ variations:
       CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3733910/files/model.onnx"
 
   loadgen-batch-size.#:
+    group: loadgen-batch-size
     env:
       CM_MLPERF_LOADGEN_BATCH_SIZE: "#"
 
+  bert-99,offline:
+    default_variations:
+      loadgen-batch-size: loadgen-batch-size.4096
+   
+  bert-99.9,offline:
+    default_variations:
+      loadgen-batch-size: loadgen-batch-size.4096
+ 
   activation-count.#:
     env:
-      CM_MODEL_BATCH_SIZE: "#"
       CM_MLPERF_QAIC_ACTIVATION_COUNT: "#"
       #CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "activation_count.#"
 
@@ -495,13 +524,18 @@ variations:
 
   singlestream:
     group: loadgen-scenario
-    default_variations:
-      batch-size: bs.1
     env:
       CM_MLPERF_LOADGEN_SCENARIO: SingleStream
     adr:
       qaic-model-compiler:
         tags: _singlestream
+  singlestream,resnet50:
+    default_variations:
+      batch-size: bs.1
+
+  singlestream,retinanet:
+    default_variations:
+      batch-size: bs.1
 
   multistream:
     group: loadgen-scenario
@@ -530,6 +564,8 @@ variations:
     adr:
       dataset-preprocessed:
         tags: _uint8,_rgb8
+  fp16:
+    group: precision
   fp32:
     group: precision
     adr:
@@ -543,6 +579,10 @@ variations:
     adr:
       qaic-model-compiler:
         tags: _nsp.14
+
+  nsp.16:
+    base:
+      - pro
 
   nsp.#:
     group: nsp
@@ -570,7 +610,7 @@ variations:
     env:
       qaic_activation_count: "3"
 
-  dl2q.24xlarge,bert-99,offline:
+  dl2q.24xlarge,bert-99.9,offline:
     env:
       qaic_activation_count: "14"
 
@@ -584,7 +624,7 @@ variations:
     env:
       qaic_activation_count: "3"
 
-  dl2q.24xlarge,bert-99,server:
+  dl2q.24xlarge,bert-99.9,server:
     env:
       qaic_activation_count: "14"
 
@@ -593,3 +633,96 @@ variations:
       batch-size: bs.1
     env:
       qaic_activation_count: "14"
+
+  pro:
+    env:
+      qaic_queue_length: 10
+
+  num-devices.4:
+    env:
+      CM_QAIC_DEVICES: "0,1,2,3"
+
+  pro,num-devices.4,singlestream:
+    env:
+      CM_QAIC_DEVICES: "0"
+      qaic_activation_count: "1"
+
+  pro,num-devices.4,resnet50,offline:
+    default_variations:
+      batch-size: bs.8
+    env:
+      qaic_activation_count: "4"
+    deps:
+      - tags: set,device,qaic,_vc.16
+
+  pro,num-devices.4,bert-99,offline:
+    env:
+      qaic_activation_count: "16"
+    deps:
+      - tags: set,device,qaic,_vc.15
+
+  pro,num-devices.4,bert-99.9,offline:
+    env:
+      qaic_activation_count: "8"
+    deps:
+      - tags: set,device,qaic,_vc.17
+
+  pro,num-devices.4,retinanet,offline:
+    default_variations:
+      batch-size: bs.1
+    env:
+      qaic_activation_count: "16"
+    deps:
+      - tags: set,device,qaic,_vc.17
+
+  pro,num-devices.4,resnet50,server:
+    default_variations:
+      batch-size: bs.8
+    env:
+      qaic_activation_count: "4"
+
+  pro,num-devices.4,bert-99.9,server:
+    env:
+      qaic_activation_count: "16"
+
+  pro,num-devices.4,retinanet,server:
+    default_variations:
+      batch-size: bs.1
+    env:
+      qaic_activation_count: "16"
+  
+  rb6:
+    group: sut
+    base:
+      - nsp.9
+    env:
+      CM_QAIC_DEVICES: "0"
+      qaic_queue_length: 6
+
+  rb6,singlestream:
+    env:
+      qaic_activation_count: "1"
+
+  rb6,resnet50,offline:
+    default_variations:
+      batch-size: bs.8
+    env:
+      qaic_activation_count: "2"
+
+  rb6,resnet50,multistream:
+    default_variations:
+      batch-size: bs.4
+    env:
+      qaic_activation_count: "2"
+
+  rb6,bert-99,offline:
+    env:
+      qaic_activation_count: "9"
+
+  rb6,retinanet,offline:
+    env:
+      qaic_activation_count: "9"
+ 
+  rb6,retinanet,multistream:
+    env:
+      qaic_activation_count: "8"

@@ -12,6 +12,9 @@
     }
   ],
   "new_env_keys": [
+    "CM_ONNXRUNTIME_LIB_PATH",
+    "CM_ONNXRUNTIME_INCLUDE_PATH",
+    "+PATH",
     "+C_INCLUDE_PATH",
     "+CPLUS_INCLUDE_PATH",
     "+LD_LIBRARY_PATH",

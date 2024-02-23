@@ -206,7 +206,9 @@ def postprocess(i):
     if '+ LDFLAGS' not in env:
         env['+ LDFLAGS'] = []
     if 'CM_CUDA_PATH_LIB' in env and not cuda_system_path_install:
-        env['+ LDFLAGS'].append("-L"+env['CM_CUDA_PATH_LIB'])
+        x = env['CM_CUDA_PATH_LIB']
+        if ' ' in x: x='"'+x+'"'
+        env['+ LDFLAGS'].append("-L"+x)
 
     env['CM_CUDA_VERSION_STRING'] = "cu"+env['CM_CUDA_VERSION'].replace(".", "")
 

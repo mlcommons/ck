@@ -139,6 +139,7 @@ def page(st, params, action = ''):
         script_path = ''
         script_name = bench_meta.get('script_name','')
         script_obj = None
+        script_url = ''
         if script_name!='':
             ii = {'action':'find',
                   'automation':'script',
@@ -158,6 +159,27 @@ def page(st, params, action = ''):
 
                 script_alias = script_meta['alias']
 
+                repo_meta = script_obj.repo_meta
+                
+                url = repo_meta.get('url','')
+                if url=='' and repo_meta.get('git', False):
+                    url = 'https://github.com/'+repo_meta['alias'].replace('@','/')
+
+                if url!='':
+                    # Recreate GitHub path
+                    if not url.endswith('/'): url=url+'/'
+
+                    url += 'tree/master/'
+
+                    if repo_meta.get('prefix','')!='':
+                        url += repo_meta['prefix']
+
+                    if not url.endswith('/'): url=url+'/'
+                    
+                    url += 'script/'+script_alias
+
+                    script_url = url
+
                 if not bench_meta.get('skip_extra_urls', False):
                     url_script = misc.make_url(script_name, key='name', action='scripts', md=False)
                     url_script += '&gui=true'
@@ -165,35 +187,15 @@ def page(st, params, action = ''):
                     urls.append({'name': 'Universal CM GUI to run this benchmark',
                                  'url': url_script})
 
-                    # Check if has README extra
-
+                    # Check if extra README
                     script_path_readme_extra = os.path.join(script_path, 'README-extra.md')
 
                     if os.path.isfile(script_path_readme_extra):
-                        repo_meta = script_obj.repo_meta
-                        
-                        url = repo_meta.get('url','')
-                        if url=='' and repo_meta.get('git', False):
-                            url = 'https://github.com/'+repo_meta['alias'].replace('@','/')
+                        # Check README.extra.md
+                        url_readme_extra = url+'/README-extra.md'
 
-                        if url!='':
-                            # Recreate GitHub path
-                            if not url.endswith('/'): url=url+'/'
-
-                            url += 'tree/master/'
-
-                            if repo_meta.get('prefix','')!='':
-                                url += repo_meta['prefix']
-
-                            if not url.endswith('/'): url=url+'/'
-                            
-                            url += 'script/'+script_alias
-
-                            # Check README.extra.md
-                            url_readme_extra = url+'/README-extra.md'
-
-                            urls.append({'name': 'Notes about how to run this benchmark from the command line',
-                                         'url': url_readme_extra})
+                        urls.append({'name': 'Notes about how to run this benchmark from the command line',
+                                     'url': url_readme_extra})
 
         
         # Check URLS
@@ -210,13 +212,17 @@ def page(st, params, action = ''):
 
         ############################################################################################
         # Check if has customization
+        extra = {}
+        
         if script_obj!=None:
             ii = {'st': st,
                   'params': params,
                   'meta': script_obj.meta,
                   'misc_module': misc,
                   'compute_meta':compute_meta,
-                  'bench_meta':bench_meta}
+                  'bench_meta':bench_meta,
+                  'script_path':script_path,
+                  'script_url':script_url}
 
             import sys
             import importlib
@@ -244,6 +250,8 @@ def page(st, params, action = ''):
                     r = func(ii)
                     if r['return'] > 0 : return r
 
+                    extra = r.get('extra',{})
+
         ############################################################################################
         # Show official GUI
         if script_path!='':
@@ -260,7 +268,8 @@ def page(st, params, action = ''):
                   'script_tags': script_tags, 
                   'script_meta': script_meta,
                   'script_repo_meta': script_repo_meta,
-                  'skip_bottom': True}
+                  'skip_bottom': True,
+                  'extra': extra}
             
             rr = script.page(ii)
             if rr['return']>0: return rr
