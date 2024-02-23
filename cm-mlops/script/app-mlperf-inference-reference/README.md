@@ -823,7 +823,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)***
      * remote,run,cmds
-       * `if (CM_SSH_RUN_COMMANDS  == on)`
+       * `if (CM_ASSH_RUN_COMMANDS  == on)`
        * CM names: `--adr.['remote-run-cmds']...`
        - CM script: [remote-run-commands](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands)
   1. ***Run native script if exists***

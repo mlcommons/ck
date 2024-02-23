@@ -117,6 +117,8 @@ ___
       - Workflow:
     * `_rb6,power`
       - Workflow:
+    * `_rb6,qualcomm`
+      - Workflow:
     * `_rpi4,power`
       - Workflow:
     * `_sapphire-rapids.24c,nvidia`

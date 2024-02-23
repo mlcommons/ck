@@ -107,7 +107,7 @@ ___
       - Environment variables:
         - *CM_COMPILE_BERT*: `on`
         - *CM_QAIC_MODEL_TO_CONVERT*: `calibrate_bert_mlperf`
-        - *CM_QAIC_MODEL_COMPILER_PARAMS_BASE*: `-aic-hw -aic-hw-version=2.0 -execute-nodes-in-fp16=Mul,Sqrt,Div,Add,ReduceMean,Softmax,Sub,Gather,Erf,Pow,Concat,Tile,LayerNormalization -quantization-schema=symmetric_with_uint8 -quantization-precision=Int8 -quantization-precision-bias=Int32 -vvv -compile-only -onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,384 -multicast-weights -combine-inputs=false -combine-outputs=false`
+        - *CM_QAIC_MODEL_COMPILER_PARAMS_BASE*: `-aic-hw -aic-hw-version=2.0 -execute-nodes-in-fp16=Add,Div,Erf,Softmax -quantization-schema=symmetric_with_uint8 -quantization-precision=Int8 -quantization-precision-bias=Int32 -vvv -compile-only -onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,384 -multicast-weights -combine-inputs=false -combine-outputs=false`
         - *CM_QAIC_MODEL_COMPILER_ARGS*: ``
       - Workflow:
         1. ***Read "deps" on other CM scripts***
@@ -117,11 +117,15 @@ ___
     * `_bert-99,offline`
       - Environment variables:
         - *CM_QAIC_MODEL_COMPILER_ARGS*: `-allocator-dealloc-delay=2 -size-split-granularity=1536 -vtcm-working-set-limit-ratio=1`
-        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=1 -mos=1 -ols=3`
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=1 -mos=1 -ols=2`
       - Workflow:
     * `_bert-99,offline,nsp.14`
       - Environment variables:
         - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=1 -mos=1 -ols=3`
+      - Workflow:
+    * `_bert-99,offline,nsp.16`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=1 -mos=1 -ols=2`
       - Workflow:
     * `_bert-99,server`
       - Environment variables:
@@ -141,6 +145,33 @@ ___
       - Environment variables:
         - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=8 -mos=8 -ols=1`
       - Workflow:
+    * `_bert-99.9`
+      - Environment variables:
+        - *CM_COMPILE_BERT*: `on`
+        - *CM_QAIC_MODEL_TO_CONVERT*: `bert_mlperf`
+        - *CM_QAIC_MODEL_COMPILER_PARAMS_BASE*: `-aic-hw -aic-hw-version=2.0 -convert-to-fp16 -vvv -compile-only -onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,384 -combine-inputs=false -combine-outputs=false`
+        - *CM_QAIC_MODEL_COMPILER_ARGS*: ``
+      - Workflow:
+    * `_bert-99.9,offline`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=2 -mos=1 -ols=2`
+      - Workflow:
+    * `_bert-99.9,offline,nsp.14`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=2 -mos=1 -ols=2`
+      - Workflow:
+    * `_bert-99.9,offline,nsp.16`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=2 -mos=1 -ols=2`
+      - Workflow:
+    * `_bert-99.9,server`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4`
+      - Workflow:
+    * `_bert-99.9,server,nsp.14`
+      - Environment variables:
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4`
+      - Workflow:
     * `_resnet50`
       - Environment variables:
         - *CM_COMPILE_RESNET*: `on`
@@ -150,6 +181,7 @@ ___
     * `_resnet50,multistream`
       - Environment variables:
         - *CM_QAIC_MODEL_COMPILER_ARGS*: ``
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4 -mos=1 -ols=1`
       - Workflow:
     * `_resnet50,multistream,nsp.14`
       - Environment variables:
@@ -404,11 +436,12 @@ ___
 #### New environment keys (filter)
 
 * `CM_ML_MODEL_FILE_WITH_PATH`
-* `CM_QAIC_*`
+* `CM_QAIC_MODEL*`
 #### New environment keys auto-detected from customize
 
 * `CM_ML_MODEL_FILE_WITH_PATH`
 * `CM_QAIC_MODEL_COMPILED_BINARY_WITH_PATH`
+* `CM_QAIC_MODEL_FINAL_COMPILATION_CMD`
 ___
 ### Maintainers
 

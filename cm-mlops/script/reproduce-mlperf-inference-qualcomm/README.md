@@ -132,8 +132,9 @@ ___
 
     * `_activation-count.#`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `#`
         - *CM_MLPERF_QAIC_ACTIVATION_COUNT*: `#`
+      - Workflow:
+    * `_bert-99,offline`
       - Workflow:
     * `_bert-99,qaic`
       - Workflow:
@@ -141,6 +142,15 @@ ___
            * compile,qaic,model,_bert-99,_pc.99.9980
              * `if (CM_MLPERF_SKIP_RUN  != True)`
              * CM names: `--adr.['qaic-model-compiler', 'bert-99-compiler']...`
+             - CM script: [compile-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic)
+    * `_bert-99.9,offline`
+      - Workflow:
+    * `_bert-99.9,qaic`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * compile,qaic,model,_bert-99.9
+             * `if (CM_MLPERF_SKIP_RUN  != True)`
+             * CM names: `--adr.['qaic-model-compiler', 'bert-99.9-compiler']...`
              - CM script: [compile-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-model-for.qaic)
     * `_bert_,network-client`
       - Environment variables:
@@ -152,6 +162,7 @@ ___
       - Workflow:
     * `_bert_,qaic`
       - Environment variables:
+        - *kilt_model_batch_size*: `1`
         - *kilt_input_format*: `UINT32,1,384:UINT32,1,8:UINT32,1,384:UINT32,1,384`
         - *kilt_input_formata*: `UINT32,1,384:UINT32,1,384:UINT32,1,384`
         - *kilt_output_formatia*: `UINT8,1,384:UINT8,1,384`
@@ -161,11 +172,11 @@ ___
       - Environment variables:
         - *kilt_model_batch_size*: `1`
       - Workflow:
-    * `_dl2q.24xlarge,bert-99,offline`
+    * `_dl2q.24xlarge,bert-99.9,offline`
       - Environment variables:
         - *qaic_activation_count*: `14`
       - Workflow:
-    * `_dl2q.24xlarge,bert-99,server`
+    * `_dl2q.24xlarge,bert-99.9,server`
       - Environment variables:
         - *qaic_activation_count*: `14`
       - Workflow:
@@ -190,9 +201,84 @@ ___
         - *CM_QAIC_DEVICES*: `0`
         - *qaic_activation_count*: `1`
       - Workflow:
-    * `_loadgen-batch-size.#`
+    * `_nsp.16`
+      - Workflow:
+    * `_num-devices.4`
       - Environment variables:
-        - *CM_MLPERF_LOADGEN_BATCH_SIZE*: `#`
+        - *CM_QAIC_DEVICES*: `0,1,2,3`
+      - Workflow:
+    * `_pro`
+      - Environment variables:
+        - *qaic_queue_length*: `10`
+      - Workflow:
+    * `_pro,num-devices.4,bert-99,offline`
+      - Environment variables:
+        - *qaic_activation_count*: `16`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * set,device,qaic,_vc.15
+             - CM script: [set-device-settings-qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic)
+    * `_pro,num-devices.4,bert-99.9,offline`
+      - Environment variables:
+        - *qaic_activation_count*: `8`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * set,device,qaic,_vc.17
+             - CM script: [set-device-settings-qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic)
+    * `_pro,num-devices.4,bert-99.9,server`
+      - Environment variables:
+        - *qaic_activation_count*: `16`
+      - Workflow:
+    * `_pro,num-devices.4,resnet50,offline`
+      - Environment variables:
+        - *qaic_activation_count*: `4`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * set,device,qaic,_vc.16
+             - CM script: [set-device-settings-qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic)
+    * `_pro,num-devices.4,resnet50,server`
+      - Environment variables:
+        - *qaic_activation_count*: `4`
+      - Workflow:
+    * `_pro,num-devices.4,retinanet,offline`
+      - Environment variables:
+        - *qaic_activation_count*: `16`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * set,device,qaic,_vc.17
+             - CM script: [set-device-settings-qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic)
+    * `_pro,num-devices.4,retinanet,server`
+      - Environment variables:
+        - *qaic_activation_count*: `16`
+      - Workflow:
+    * `_pro,num-devices.4,singlestream`
+      - Environment variables:
+        - *CM_QAIC_DEVICES*: `0`
+        - *qaic_activation_count*: `1`
+      - Workflow:
+    * `_rb6,bert-99,offline`
+      - Environment variables:
+        - *qaic_activation_count*: `9`
+      - Workflow:
+    * `_rb6,resnet50,multistream`
+      - Environment variables:
+        - *qaic_activation_count*: `2`
+      - Workflow:
+    * `_rb6,resnet50,offline`
+      - Environment variables:
+        - *qaic_activation_count*: `2`
+      - Workflow:
+    * `_rb6,retinanet,multistream`
+      - Environment variables:
+        - *qaic_activation_count*: `8`
+      - Workflow:
+    * `_rb6,retinanet,offline`
+      - Environment variables:
+        - *qaic_activation_count*: `9`
+      - Workflow:
+    * `_rb6,singlestream`
+      - Environment variables:
+        - *qaic_activation_count*: `1`
       - Workflow:
     * `_resnet50,uint8`
       - Environment variables:
@@ -206,6 +292,10 @@ ___
         - *kilt_input_format*: `UINT8,1,3,800,800`
         - *kilt_output_format*: `INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,4,1000:INT8,14,1000:INT8,1,4,1000:INT8,1,4,1000:INT8,1,4,1000`
       - Workflow:
+    * `_singlestream,resnet50`
+      - Workflow:
+    * `_singlestream,retinanet`
+      - Workflow:
 
     </details>
 
@@ -217,6 +307,10 @@ ___
     * `_bs.#`
       - Environment variables:
         - *kilt_model_batch_size*: `#`
+      - Workflow:
+    * `_bs.0`
+      - Environment variables:
+        - *kilt_model_batch_size*: `1`
       - Workflow:
 
     </details>
@@ -281,6 +375,18 @@ ___
         - *CM_MLPERF_BACKEND*: `tensorrt`
         - *device*: `tensorrt`
         - *CM_MLPERF_BACKEND_NAME*: `TensorRT`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**loadgen-batch-size**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_loadgen-batch-size.#`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_BATCH_SIZE*: `#`
       - Workflow:
 
     </details>
@@ -406,6 +512,8 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_fp16`
+      - Workflow:
     * `_fp32`
       - Environment variables:
         - *CM_IMAGENET_ACCURACY_DTYPE*: `float32`
@@ -444,6 +552,11 @@ ___
       - Environment variables:
         - *CM_QAIC_DEVICES*: `0,1,2,3,4,5,6,7`
         - *qaic_queue_length*: `4`
+      - Workflow:
+    * `_rb6`
+      - Environment variables:
+        - *CM_QAIC_DEVICES*: `0`
+        - *qaic_queue_length*: `6`
       - Workflow:
 
     </details>
@@ -503,7 +616,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_KILT_REPO_URL: `https://github.com/GATEOverflow/kilt-mlperf`
 * CM_QAIC_DEVICES: `0`
 * kilt_max_wait_abs: `10000`
-* verbosity: `1`
+* verbosity: `0`
 * loadgen_trigger_cold_run: `0`
 
 </details>

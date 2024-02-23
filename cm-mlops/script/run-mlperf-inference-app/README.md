@@ -236,7 +236,7 @@ ___
 * --**division** MLPerf division {open,closed} (*open*)
 * --**category** MLPerf category {edge,datacenter,network} (*edge*)
 * --**device** MLPerf device {cpu,cuda,rocm,qaic} (*cpu*)
-* --**model** MLPerf model {resnet50,retinanet,bert-99,bert-99.9,3d-unet-99,3d-unet-99.9,rnnt,dlrm-v2-99,dlrm-v2-99.9,gptj-99,gptj-99.9,sdxl,llama2-70b-99,llama2-70b-99.9,mobilenet,efficientnet} (*retinanet*)
+* --**model** MLPerf model {resnet50,retinanet,bert-99,bert-99.9,3d-unet-99,3d-unet-99.9,rnnt,dlrm-v2-99,dlrm-v2-99.9,gptj-99,gptj-99.9,sdxl,llama2-70b-99,llama2-70b-99.9,mobilenet,efficientnet} (*resnet50*)
 * --**precision** MLPerf model precision {float32,float16,bfloat16,int8,uint8}
 * --**implementation** MLPerf implementation {reference,mil,nvidia-original,intel-original,qualcomm,tflite-cpp} (*reference*)
 * --**backend** MLPerf framework (backend) {onnxruntime,tf,pytorch,deepsparse,tensorrt,glow,tvm-onnx} (*onnxruntime*)
@@ -261,7 +261,7 @@ ___
 * --**compliance** Whether to run compliance tests (applicable only for closed division) {yes,no} (*no*)
 * --**dashboard_wb_project** W&B dashboard project (*cm-mlperf-dse-testing*)
 * --**dashboard_wb_user** W&B dashboard user (*cmind*)
-* --**hw_name** MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware))
+* --**hw_name** MLPerf hardware name (for example "gcp.c3_standard_8", "nvidia_orin", "lenovo_p14s_gen_4_windows_11", "macbook_pro_m1_2", "thundercomm_rb6" ...)
 * --**multistream_target_latency** Set MultiStream target latency
 * --**offline_target_qps** Set LoadGen Offline target QPS
 * --**quiet** Quiet run (select default values for all questions) (*True*)
@@ -311,6 +311,7 @@ r=cm.access({... , "division":...}
 * `--output_dir=value`  &rarr;  `OUTPUT_BASE_DIR=value`
 * `--output_summary=value`  &rarr;  `MLPERF_INFERENCE_SUBMISSION_SUMMARY=value`
 * `--output_tar=value`  &rarr;  `MLPERF_INFERENCE_SUBMISSION_TAR_FILE=value`
+* `--performance_sample_count=value`  &rarr;  `CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT=value`
 * `--power=value`  &rarr;  `CM_SYSTEM_POWER=value`
 * `--precision=value`  &rarr;  `CM_MLPERF_MODEL_PRECISION=value`
 * `--preprocess_submission=value`  &rarr;  `CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR=value`
