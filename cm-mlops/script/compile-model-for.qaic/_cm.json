@@ -204,7 +204,8 @@
     },
     "resnet50,multistream": {
       "env": {
-        "CM_QAIC_MODEL_COMPILER_ARGS": ""
+        "CM_QAIC_MODEL_COMPILER_ARGS": "",
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4 -mos=1 -ols=1"
       }
     },
     "resnet50,server": {
@@ -235,8 +236,8 @@
     },
     "bert-99,offline": {
       "env": {
-        "CM_QAIC_MODEL_COMPILER_ARGS": "-allocator-dealloc-delay=3 -size-split-granularity=1536 -vtcm-working-set-limit-ratio=1",
-        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=1 -mos=1 -ols=3"
+        "CM_QAIC_MODEL_COMPILER_ARGS": "-allocator-dealloc-delay=2 -size-split-granularity=1536 -vtcm-working-set-limit-ratio=1",
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=1 -mos=1 -ols=2"
       }
     },
     "bert-99,offline,nsp.16": {
