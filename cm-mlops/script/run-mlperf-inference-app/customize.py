@@ -284,9 +284,6 @@ def gui(i):
     script_path = i['script_path']
     script_url = i.get('script_url','')
 
-    print ('xyz')
-    print (script_url)
-
     compute_meta = i.get('compute_meta',{})
     bench_meta = i.get('bench_meta',{})
 

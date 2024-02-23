@@ -1,4 +1,4 @@
-## V2.0.0.1
+## V2.0.1
    - added setuptools as dependency to detect package versions
 
 ## V2.0.0
