@@ -21,6 +21,9 @@
       "tags": "get,mlcommons,inference,src"
     }
   ],
+  "input_mapping": {
+    "result_dir": "CM_MLPERF_ACCURACY_RESULTS_DIR"
+  },
   "new_state_keys": [
     "app_mlperf_inference_accuracy*"
   ],
@@ -30,6 +33,7 @@
     "mlcommons",
     "accuracy",
     "mlc",
+    "process",
     "process-accuracy"
   ],
   "uid": "6e809013816b42ea",
