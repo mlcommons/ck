@@ -48,14 +48,14 @@ def page(st, params, action = ''):
     x = '''
          <i>
          <small>
-         This interface will help you find the <a href="{}">modular benchmarks' settings</a> 
-         that <a href="{}">the community</a> have managed to successfully validate 
+         [Under development] This interface is intended to keep track of <a href="{}">modular benchmarks' settings</a> 
+         that <a href="{}">the community</a> has successfully validated
          across different models, data sets, software and hardware 
          based on the <a href="https://cTuning.org/ae">ACM/cTuning reproducibility methodology and badges</a>.
          Note that this is a <a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">collaborative engineering effort</a> 
-         - please report issues and suggestions 
+         - please report encountered issues and provide feedback
          <a href="https://github.com/mlcommons/ck/issues">here</a>
-         and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a> for more details.
+         and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a>!
          </small>
          </i>
           <br>

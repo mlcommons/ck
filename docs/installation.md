@@ -18,8 +18,13 @@
 </details>
 
 
+***Check our new [online installation GUI](https://access.cknowledge.org/playground/?action=install)***.
+
 
 # CM installation
+
+
+
 
 MLCommons Collective Mind framework requires minimal dependencies to run on any platform: `python 3+, pip, git, wget`.
 However, most CM automation recipes shared by the community and MLCommons require Python 3.7+ .

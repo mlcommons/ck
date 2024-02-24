@@ -16,6 +16,9 @@ def page(st, params, extra):
         st.markdown('**Install MLCommons Collective Mind automation framework:**')
     
 
+
+    md = ''
+    
     ###################################################################
     # Select OS
     choices = [('Ubuntu, Debian and similar Linux', 'linux'),
@@ -31,9 +34,11 @@ def page(st, params, extra):
 
     host_os_index = choices[host_os][1]
 
+
     cur_script_file = __file__
     cur_script_path = os.path.dirname(cur_script_file)
 
+    
     notes = os.path.join(cur_script_path, 'install', host_os_index+'.md')
 
     if os.path.isfile(notes):
@@ -41,10 +46,10 @@ def page(st, params, extra):
         if r['return']>0: return r
         s = r['string']
         if s != '':
-            show = st.toggle('Show notes about system dependencies?', value = True)
+            show = st.toggle('Show system dependencies?', value = True)
             if show:
-                st.markdown(s)
-                st.markdown('---')
+                md += s
+
 
     need_user = ''
     python = 'python3'
@@ -52,6 +57,7 @@ def page(st, params, extra):
         need_user = ' --user'
     elif host_os_index == 'windows':
         python = 'python'
+    
     
     ###################################################################
     # Select repository
@@ -86,14 +92,23 @@ def page(st, params, extra):
 
     x += cm_clean_cache
 
-    # Hack to detect python virtual environment and version
-    python_venv_name=params.get('@adr.python.name', '')
-    python_ver=params.get('@adr.python.version', '')
-    python_ver_min=params.get('@adr.python.version_min', '')
 
+
+    python_venv_name=params.get('@adr.python.name', '')
+    python_ver_min=params.get('@adr.python.version_min', '')
+    python_ver=params.get('@adr.python.version', '')
+
+    if python_venv_name == '':
+         use_python_venv = st.toggle('Use Python Virtual Environment for CM scripts?', value = False)
+         if use_python_venv:
+             python_venv_name = st.text_input('Enter some CM python venv name for your project:', value = "mlperf-v4.0")
+
+             if python_ver_min == '':
+                 python_ver_min = st.text_input('[Optional] Specify min version such as 3.8:')
+         
     y = ''
     if python_venv_name!='':# or python_ver!='' or python_ver_min!='':
-        y = '\ncm run script "get sys-utils-cm"\n'
+        y = 'cm run script "get sys-utils-cm"\n'
 
         if python_venv_name!='':
             y+='cm run script "install python-venv" --name='+str(python_venv_name)
@@ -110,10 +125,11 @@ def page(st, params, extra):
         x+=y
 
 
-    st.markdown('```bash\n{}\n```\n'.format(x))
+    md += '```bash\n{}\n```\n'.format(x)
 
     st.markdown('---')
-    st.markdown('Check [CM installation guide at GitHub](https://github.com/mlcommons/ck/blob/master/docs/installation.md).')
+    st.markdown(md)
+    st.markdown('*Check [more CM installation notes at GitHub](https://github.com/mlcommons/ck/blob/master/docs/installation.md)*.')
 
 
 

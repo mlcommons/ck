@@ -38,12 +38,12 @@ def page(st, params, action = ''):
          <small>
          This interface will help you generate a command line or Python API 
          to run modular benchmarks composed from 
-         <a href="{}">automation recipes (CM scripts)</a>
-         across different models, data sets, software and hardware.
+         <a href="{}">automation recipes (CM scripts)</a>.
          Note that this is a <a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">collaborative engineering effort</a> 
-         - please report issues and suggestions 
+         to make sure that they work across all possible versions and configurations of models, data sets, software and hardware
+         - please report encountered issues and provide feedback
          <a href="https://github.com/mlcommons/ck/issues">here</a>
-         and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a> for more details.
+         and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a>!
          </small>
          </i>
           <br>

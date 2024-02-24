@@ -19,9 +19,10 @@ def page(st, params):
          and minimal dependencies to make it easier to compose, benchmark and optimize complex AI, ML and other applications 
          and systems across diverse and continuously changing models, data sets, software and hardware.
          Note that this is a <a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">collaborative engineering effort</a> 
-         - please report issues and suggestions 
+         to make sure that they work across all possible versions and configurations 
+         - please report encountered issues and provide feedback
          <a href="https://github.com/mlcommons/ck/issues">here</a>
-         and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a> for more details.
+         and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a>!
          </small>
          </i>
           <br>
