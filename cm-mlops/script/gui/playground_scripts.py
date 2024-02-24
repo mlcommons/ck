@@ -37,10 +37,9 @@ def page(st, params):
         x = '''
              <i>
              <small>
-             <a href="https://github.com/mlcommons/ck">Collective Mind</a> is a collection of portable, extensible and ready-to-use 
-             automation recipes from <a href="https://mlcommons.org">MLCommons</a> (aka CM scripts) with a human-friendly interface 
-             and minimal dependencies to make it easier to compose, benchmark and optimize complex AI, ML and other applications 
-             and systems across diverse and continuously changing models, data sets, software and hardware.
+             <a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script">Collective Mind</a> is a collection of open-source, portable, extensible and ready-to-use 
+             automation scripts with a human-friendly interface and minimal dependencies to make it easier to compose, benchmark and optimize 
+             complex AI, ML and other applications and systems across diverse and continuously changing models, data sets, software and hardware.
              Note that this is a <a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">collaborative engineering effort</a> 
              to make sure that they work across all possible versions and configurations 
              - please report encountered issues and provide feedback
@@ -212,7 +211,7 @@ cm gui script "{}"
                     
                 url_gui = url_prefix_script+'&name='+alias+','+uid+'&gui=true'
                 
-                z  = '* ***Check [source code]({}) at GitHub.***\n'.format(url)
+                z  = '* ***Check [open source code (Apache 2.0 license)]({}) at GitHub.***\n'.format(url)
                 z += '* ***Check [detailed auto-generated README on GitHub]({}).***\n'.format(url_readme)
                 z += '* ***Check [experimental GUI]({}) to run this script.***\n'.format(url_gui)
                 z += '---\n'
