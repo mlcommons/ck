@@ -141,6 +141,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)
   1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/customize.py)***
@@ -156,8 +157,13 @@ ___
 * `+C_INCLUDE_PATH`
 * `+DYLD_FALLBACK_LIBRARY_PATH`
 * `+LD_LIBRARY_PATH`
+* `+PATH`
+* `CM_ONNXRUNTIME_INCLUDE_PATH`
+* `CM_ONNXRUNTIME_LIB_PATH`
 #### New environment keys auto-detected from customize
 
+* `CM_ONNXRUNTIME_INCLUDE_PATH`
+* `CM_ONNXRUNTIME_LIB_PATH`
 ___
 ### Maintainers
 

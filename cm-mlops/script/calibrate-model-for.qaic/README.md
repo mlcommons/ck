@@ -132,7 +132,7 @@ ___
         - *CM_QAIC_MODEL_BATCH_SIZE*: `#`
         - *CM_CREATE_INPUT_BATCH*: `yes`
       - Workflow:
-    * **`_bs.1`** (default)
+    * `_bs.1`
       - Environment variables:
         - *CM_QAIC_MODEL_BATCH_SIZE*: `1`
         - *CM_CREATE_INPUT_BATCH*: `yes`
@@ -220,10 +220,6 @@ ___
 
     </details>
 
-
-#### Default variations
-
-`_bs.1`
 #### Default environment
 
 <details>

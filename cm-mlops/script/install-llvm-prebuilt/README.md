@@ -136,9 +136,11 @@ ___
 `cmr "install prebuilt llvm prebuilt-llvm install-prebuilt-llvm"  -j`
 #### New environment keys (filter)
 
+* `+CPLUS_INCLUDE_PATH`
 * `+C_INCLUDE_PATH`
 * `+LD_LIBRARY_PATH`
 * `+PATH`
+* `CM_COMPILER_NAME`
 * `CM_LLVM_*`
 #### New environment keys auto-detected from customize
 
