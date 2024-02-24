@@ -10,27 +10,6 @@ def page(st, params):
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
     url_prefix_script = url_prefix + '?action=scripts'
 
-    # Some info
-    x = '''
-         <i>
-         <small>
-         <a href="https://github.com/mlcommons/ck">Collective Mind</a> is a collection of portable, extensible and ready-to-use 
-         automation recipes from <a href="https://mlcommons.org">MLCommons</a> (aka CM scripts) with a human-friendly interface 
-         and minimal dependencies to make it easier to compose, benchmark and optimize complex AI, ML and other applications 
-         and systems across diverse and continuously changing models, data sets, software and hardware.
-         Note that this is a <a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">collaborative engineering effort</a> 
-         to make sure that they work across all possible versions and configurations 
-         - please report encountered issues and provide feedback
-         <a href="https://github.com/mlcommons/ck/issues">here</a>
-         and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a>!
-         </small>
-         </i>
-          <br>
-          <br>
-        '''
-    st.write(x, unsafe_allow_html = True)
-
-
     script_name = ''
     x = params.get('name',[''])
     if len(x)>0 and x[0]!='': script_name = x[0].strip()
@@ -39,6 +18,42 @@ def page(st, params):
     if script_name == '':
         x = params.get('tags',[''])
         if len(x)>0 and x[0]!='': script_tags = x[0].strip()
+
+
+    if script_tags == 'modular,app':
+        x = '''
+             <i>
+             <small>
+             This is a new project to automatically compose AI applications that can run across diverse models, data sets, software and hardware
+             - please check our presentation at the <a href="https://sites.google.com/g.harvard.edu/mlperf-bench-hpca24/home">MLPerf-Bench workshop @ HPCA'24</a>
+             and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a>!
+             </small>
+             </i>
+              <br>
+              <br>
+            '''
+
+    else:
+        x = '''
+             <i>
+             <small>
+             <a href="https://github.com/mlcommons/ck">Collective Mind</a> is a collection of portable, extensible and ready-to-use 
+             automation recipes from <a href="https://mlcommons.org">MLCommons</a> (aka CM scripts) with a human-friendly interface 
+             and minimal dependencies to make it easier to compose, benchmark and optimize complex AI, ML and other applications 
+             and systems across diverse and continuously changing models, data sets, software and hardware.
+             Note that this is a <a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">collaborative engineering effort</a> 
+             to make sure that they work across all possible versions and configurations 
+             - please report encountered issues and provide feedback
+             <a href="https://github.com/mlcommons/ck/issues">here</a>
+             and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a>!
+             </small>
+             </i>
+              <br>
+              <br>
+            '''
+
+    st.write(x, unsafe_allow_html = True)
+
 
     script_tags = st.text_input('Search open-source automation recipes by tags:', value=script_tags, key='script_tags').strip()
 
