@@ -13,7 +13,7 @@ def page(st, params, extra):
 
     if not extra.get('skip_header',False):
         st.markdown('---')
-        st.markdown('**Install MLCommons Collective Mind automation framework:**')
+        st.markdown('**Install [MLCommons Collective Mind automation framework](https://github.com/mlcommons/ck):**')
     
 
 
