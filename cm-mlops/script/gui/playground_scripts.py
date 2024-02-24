@@ -175,41 +175,42 @@ cm gui script "{}"
                     url += 'script/'+alias
 
                     # Check README.md
-                    x = os.path.join(recipe.path, 'README.md')
-                    if os.path.isfile(x):
+                    z = os.path.join(recipe.path, 'README.md')
+                    if os.path.isfile(z):
                         url_readme = url+'/README.md'
 
                     # Check README.extra.md
-                    x = os.path.join(recipe.path, 'README-extra.md')
-                    if os.path.isfile(x):
+                    z = os.path.join(recipe.path, 'README-extra.md')
+                    if os.path.isfile(z):
                         url_readme_extra = url+'/README-extra.md'
 
                     # Check customize.py
-                    x = os.path.join(recipe.path, 'customize.py')
-                    if os.path.isfile(x):
+                    z = os.path.join(recipe.path, 'customize.py')
+                    if os.path.isfile(z):
                         url_customize = url+'/customize.py'
 
                     # Check _cm.yaml or _cm.json
-                    for x in ['_cm.yaml', '_cm.json']:
-                        y = os.path.join(recipe.path, x)
+                    for z in ['_cm.yaml', '_cm.json']:
+                        y = os.path.join(recipe.path, z)
                         if os.path.isfile(y):
-                            url_meta_description = url+'/'+x
+                            url_meta_description = url+'/'+z
                     
                 url_gui = url_prefix_script+'&name='+alias+','+uid+'&gui=true'
                 
+                z  = '* ***Check [source code]({}) at GitHub.***\n'.format(url)
+                z += '* ***Check [detailed auto-generated README on GitHub]({}).***\n'.format(url_readme)
+                z += '* ***Check [experimental GUI]({}) to run this script.***\n'.format(url_gui)
+                z += '---\n'
                 
-                st.markdown('***Check the [universal CM GUI]({}) to run this script (experimental).***'.format(url_gui))
-
+                st.markdown(z)
                 
-                st.markdown('Default run on Linux, Windows, MacOS and any other OS (check [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) for more details):\n{}\n'.format(x))
+                st.markdown('Default run on Linux, Windows, MacOS and any other OS (check [CM installation guide]({}) for more details):\n{}\n'.format(url_prefix + '?action=install', x))
 
                 st.markdown('*The [Collective Mind concept](https://doi.org/10.5281/zenodo.8105339) is to gradually improve portability and reproducibility of common automation recipes based on user feedback'
                              ' while keeping the same human-friendly interface. If you encounter issues, please report them [here](https://github.com/mlcommons/ck/issues) '
                              ' to help this community project!*')
 
                 
-
-                st.markdown('* View [auto-generated README on GitHub]({}).'.format(url_readme))
 
                 if url_readme_extra!='':
                     st.markdown('* See [extra README]({}) for this automation recipe at GitHub.'.format(url_readme_extra))
@@ -219,8 +220,6 @@ cm gui script "{}"
 
                 if url_customize!='':
                     st.markdown('* See [customization python code]({}) for this automation recipe at GitHub.'.format(url_customize))
-
-                st.markdown('* See [all meta, code and native scripts]({}) for this automation recipe at GitHub.'.format(url))
 
                 # Check dependencies
                 r = misc.get_all_deps_tags({'meta':meta, 'st':st})
