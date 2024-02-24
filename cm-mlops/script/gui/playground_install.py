@@ -11,7 +11,7 @@ def page(st, params, extra):
     
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
 
-    if not extra.get('skip_header',False):
+    if not extra.get('skip_header', False):
         st.markdown('---')
         st.markdown('**Install [MLCommons Collective Mind automation framework](https://github.com/mlcommons/ck):**')
     
@@ -26,11 +26,16 @@ def page(st, params, extra):
                ('MacOS', 'macos'),
                ('Windows', 'windows')]
 
+    host_os_selection = 0
+
+    if extra.get('run_on_windows', False):
+        host_os_selection = 3
+
     host_os = st.selectbox('Select your host OS:', 
                            range(len(choices)),
                            format_func = lambda x: choices[x][0], 
-                           index=0, 
-                           key='select_host_os')
+                           index = host_os_selection, 
+                           key = 'install_select_host_os')
 
     host_os_index = choices[host_os][1]
 
@@ -86,7 +91,7 @@ def page(st, params, extra):
     x =  '{} -m pip install cmind -U{}\n\n'.format(python, need_user)
     x += 'cm pull repo {}\n\n'.format(cm_repo)
     
-    clean_cm_cache = st.toggle('Clean CM cache', value=True)
+    clean_cm_cache = st.toggle('Clean CM cache', value=True, key = 'install_clean_cm_cache')
 
     cm_clean_cache = 'cm rm cache -f\n\n' if clean_cm_cache else ''
 

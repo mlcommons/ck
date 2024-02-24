@@ -325,41 +325,15 @@ def page(i):
 
     if show_cm_install:
 
-        use_dev_repo = st.toggle('Use the [latest automation recipes](https://access.cknowledge.org/playground/?action=scripts)', value=True)
-        cm_repo = 'ctuning@mlcommons-ck' if use_dev_repo else 'mlcommons@ck'
+        import playground_install
+        extra = {'skip_header': True,
+                 'run_on_windows': host_os_use_windows}
+        r = playground_install.page(st, params, extra)
+        if r['return']>0: return r
 
-        clean_cm_cache = st.toggle('Clean CM cache', value=True)
-        cm_clean_cache = 'cm rm cache -f\n' if clean_cm_cache else ''
+        
+        st.markdown('---')
 
-        x = 'pip install cmind -U\n\ncm pull repo {}\n\n{}'.format(cm_repo, cm_clean_cache)
-
-        # Hack to detect python virtual environment and version
-        python_venv_name=st_inputs.get('@adr.python.name', '')
-        python_ver=st_inputs.get('@adr.python.version', '')
-        python_ver_min=st_inputs.get('@adr.python.version_min', '')
-
-        y = ''
-        if python_venv_name!='':# or python_ver!='' or python_ver_min!='':
-            y = '\ncm run script "get sys-utils-cm"\n'
-
-            if python_venv_name!='':
-                y+='cm run script "install python-venv" --name='+str(python_venv_name)
-            else:
-                y+='cm run script "get python"'
-
-            if python_ver!='':
-                y+=' --version='+str(python_ver)
-
-            if python_ver_min!='':
-                y+=' --version_min='+str(python_ver_min)
-
-        if y!='':
-            x+=y
-
-
-        st.markdown('```bash\n{}\n```\n'.format(x))
-
-        st.markdown('Check [full installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) with dependencies for Linux, Windows, MacOS, RHEL, etc')
 
 
     ############################################################################
