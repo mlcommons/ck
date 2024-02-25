@@ -138,6 +138,7 @@ def page(st, params, action = ''):
 
         script_path = ''
         script_name = bench_meta.get('script_name','')
+        script_meta = {}
         script_obj = None
         script_url = ''
         if script_name!='':
@@ -214,6 +215,10 @@ def page(st, params, action = ''):
         # Check if has customization
         extra = {}
         
+        script_tags = script_meta.get('tags_help','')
+        if script_tags =='':
+            script_tags = ','.join(script_meta.get('tags',[]))
+        
         if script_obj!=None:
             ii = {'st': st,
                   'params': params,
@@ -222,6 +227,7 @@ def page(st, params, action = ''):
                   'compute_meta':compute_meta,
                   'bench_meta':bench_meta,
                   'script_path':script_path,
+                  'script_tags':script_tags,
                   'script_url':script_url}
 
             import sys
@@ -256,10 +262,6 @@ def page(st, params, action = ''):
         # Show official GUI
         if script_path!='':
             import script
-
-            script_tags = script_meta.get('tags_help','')
-            if script_tags =='':
-                script_tags = ','.join(script_meta.get('tags',[]))
 
             ii = {'st': st,
                   'params': params,

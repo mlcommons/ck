@@ -283,6 +283,7 @@ def gui(i):
 
     script_path = i['script_path']
     script_url = i.get('script_url','')
+    script_tags = i.get('script_tags', '')
 
     compute_meta = i.get('compute_meta',{})
     bench_meta = i.get('bench_meta',{})
@@ -633,14 +634,23 @@ def gui(i):
              'extra_faq_online':url_faq_implementation,
              'extra_setup':x}
 
+    #############################################################################
     value_reproduce = inp.get('repro',{}).get('force', False)
-    reproduce = st.toggle('Dump extra files for reproducibility', value = value_reproduce)
-    
-    if reproduce:
+    reproduce = st.toggle('Record extra info for reproducibility?', value = value_reproduce)
+
+    explore = st.toggle('Explore/tune benchmark (batch size, threads, etc)?', value = False)
+
+    if reproduce or explore:
         inp['repro']['force'] = True
+        extra['use_experiment'] = True
         extra['add_to_st_inputs'] = {
           "@repro_extra.run-mlperf-inference-app.bench_uid": bench_uid,
-          "@repro_extra.run-mlperf-inference-app.compute_uid": compute_uid
+          "@repro_extra.run-mlperf-inference-app.compute_uid": compute_uid,
+          '@results_dir':'{{CM_EXPERIMENT_PATH3}}',
+          '@submission_dir':'{{CM_EXPERIMENT_PATH3}}'
         }
 
+    if explore:
+        extra['add_to_st_inputs']['@batch_size']='{{CM_EXPLORE_BATCH_SIZE{[1,2,4,8]}}}'
+     
     return {'return':0, 'end_html':end_html, 'extra':extra}

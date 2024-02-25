@@ -287,6 +287,15 @@ You can find example of using CM scripts with CM experiments in [this directory]
 cm run experiment --tags=test @test3_input.yaml -- cm run script "print hello-world native" --env.CM_ENV_TEST1={{VAR1}} --const.CM_ENV_TEST2={{VAR2}}
 ```
 
+You can use the following environment variables to pass the current path, 
+different paths to experiment entries and the number of experiment to your CM script:
+* {{CD}}
+* {{CM_EXPERIMENT_STEP}}
+* {{CM_EXPERIMENT_PATH}}
+* {{CM_EXPERIMENT_PATH2}}
+* {{CM_EXPERIMENT_PATH3}}
+
+
 Feel free to check [this tutorial](../../../docs/tutorials/common-interface-to-reproduce-research-projects.md)
 to add CM scripts for your own applications, tools and native scripts.
 
