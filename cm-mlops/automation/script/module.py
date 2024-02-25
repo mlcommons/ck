@@ -164,6 +164,13 @@ class CAutomation(Automation):
 
           (pause) (bool): if True, pause at the end of the main script (Press Enter to continue)
 
+          (repro) (bool): if True, dump cm-run-script-input.json, cm-run_script_output.json, 
+                          cm-run-script-state.json, cm-run-script-info.json
+                          to improve the reproducibility of results
+
+          (repro_prefix) (str): if !='', use it to record above files {repro-prefix)-input.json ...                
+          (repro_dir) (str): if !='', use this directory to dump info
+
           ...
 
         Returns:
@@ -195,12 +202,22 @@ class CAutomation(Automation):
         import time
 
         # Check if save input/output to file
-        jf = i.get('json_file', '')
-        if jf == '':
-            jf = i.get('jf', '')
-        if jf !='':
-            i_original = copy.deepcopy(i)
-        
+        repro = i.get('repro', False)
+        repro_prefix = ''
+
+        if repro:
+            repro_prefix = i.get('repro_prefix', '')
+            if repro_prefix == '': repro_prefix = 'cm-run-script'
+
+            repro_dir = i.get('repro_dir', '')
+            if repro_dir == '': repro_dir = os.getcwd()
+
+            repro_prefix = os.path.join (repro_dir, repro_prefix)
+
+        if repro_prefix!='':
+            dump_repro_start(repro_prefix, i)
+            
+       
         recursion = i.get('recursion', False)
 
         # If first script run, check if can write to current directory
@@ -1278,7 +1295,8 @@ class CAutomation(Automation):
                    'self': self
             }
 
-            if ignore_script_error: run_script_input['ignore_script_error']=True
+            if repro_prefix != '': run_script_input['repro_prefix'] = repro_prefix
+            if ignore_script_error: run_script_input['ignore_script_error'] = True
 
             if os.path.isfile(path_to_customize_py):
                 r=utils.load_python_module({'path':path, 'name':'customize'})
@@ -1651,18 +1669,13 @@ class CAutomation(Automation):
             print ('')
             print (json.dumps(rr, indent=2))
 
+
+        
         # Check if save json to file
-        if jf !='':
-            import json
+        if repro_prefix !='':
+            dump_repro(repro_prefix, rr, run_state)
 
-            try:
-                with open(jf+'-output.json', 'w', encoding='utf-8') as f:
-                    json.dump(rr, f, ensure_ascii=False, indent=2)
-                with open(jf+'-input.json', 'w', encoding='utf-8') as f:
-                    json.dump(i_original, f, ensure_ascii=False, indent=2)
-            except:
-                pass
-
+        
         if verbose or show_time:
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
 
@@ -1673,12 +1686,14 @@ class CAutomation(Automation):
 
         return rr
 
+    ######################################################################################
     def _dump_version_info_for_script(self, output_dir = os.getcwd()):
         import json
         with open(os.path.join(output_dir, 'version_info.json'), 'w') as f:
             f.write(json.dumps(self.run_state['version_info'], indent=2))
         return {'return': 0}
 
+    ######################################################################################
     def _update_state_from_variations(self, i, meta, variation_tags, variations, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, add_deps_recursive, run_state, recursion_spaces, verbose):
 
         # Save current explicit variations
@@ -1821,6 +1836,7 @@ class CAutomation(Automation):
 
         return {'return': 0, 'variation_tags_string': variation_tags_string, 'explicit_variation_tags': explicit_variation_tags}
 
+    ######################################################################################
     def _update_variation_tags_from_variations(self, variation_tags, variations, variation_groups, excluded_variation_tags):
 
         import copy
@@ -1926,7 +1942,7 @@ class CAutomation(Automation):
                     break
         return {'return': 0}
 
-
+    ######################################################################################
     def _get_variation_tags_from_default_variations(self, variation_meta, variations, variation_groups, tmp_variation_tags_static, excluded_variation_tags):
     # default_variations dictionary specifies the default_variation for each variation group. A default variation in a group is turned on if no other variation from that group is turned on and it is not excluded using the '-' prefix
 
@@ -4050,6 +4066,8 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     found_cached = i.get('found_cached', False)
     script_automation = i['self']
 
+    repro_prefix = i.get('repro_prefix', '')
+
     # Prepare script name
     check_if_run_script_exists = False
     script_name = i.get('script_name','').strip()
@@ -4171,7 +4189,12 @@ The CM concept is to collaboratively fix such issues inside portable CM scripts
 to make existing tools and native scripts more portable, interoperable 
 and deterministic. Thank you'''
 
-            return {'return':2, 'error':'Portable CM script failed (name = {}, return code = {})\n\n{}'.format(meta['alias'], rc, note)}
+            rr = {'return':2, 'error':'Portable CM script failed (name = {}, return code = {})\n\n{}'.format(meta['alias'], rc, note)}
+
+            if repro_prefix != '':
+                dump_repro(repro_prefix, rr, run_state)
+            
+            return rr
 
         # Load updated state if exists
         if tmp_file_run_state != '' and os.path.isfile(tmp_file_run_state):
@@ -4773,6 +4796,66 @@ def can_write_to_current_directory():
     os.remove(tmp_file_name)
 
     return True
+
+######################################################################################
+def dump_repro_start(repro_prefix, ii):
+    import json
+
+    try:
+        with open(repro_prefix+'-input.json', 'w', encoding='utf-8') as f:
+            json.dump(ii, f, ensure_ascii=False, indent=2)
+    except:
+        pass
+
+    # Get some info
+    info = {}
+
+    
+    try:
+        import platform
+        import sys
+
+        info['host_os_name'] = os.name
+        info['host_system'] = platform.system()
+        info['host_os_release'] = platform.release()
+        info['host_machine'] = platform.machine()
+        info['host_architecture'] = platform.architecture()
+        info['host_python_version'] = platform.python_version()
+        info['host_sys_version'] = sys.version
+
+        with open(repro_prefix+'-info.json', 'w', encoding='utf-8') as f:
+            json.dump(info, f, ensure_ascii=False, indent=2)
+    except:
+        pass
+
+    for f in ['-output.json', '-run-state.json']:
+        ff = repro_prefix+f
+        if os.path.isfile(ff):
+            try:
+                os.remove(ff)
+            except:
+                pass
+
+    return {'return': 0}
+
+######################################################################################
+def dump_repro(repro_prefix, rr, run_state):
+    import json
+
+    try:
+        with open(repro_prefix+'-output.json', 'w', encoding='utf-8') as f:
+            json.dump(rr, f, ensure_ascii=False, indent=2)
+    except:
+        pass
+
+    try:
+        with open(repro_prefix+'-run-state.json', 'w', encoding='utf-8') as f:
+            json.dump(run_state, f, ensure_ascii=False, indent=2)
+    except:
+        pass
+
+    return {'return': 0}
+
 
 ##############################################################################
 # Demo to show how to use CM components independently if needed

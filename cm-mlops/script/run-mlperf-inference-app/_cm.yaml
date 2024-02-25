@@ -455,9 +455,10 @@ input_description:
     desc: Print results dictionary to console at the end of the run
     boolean: true
     default: true
-  jf:
-    desc: Record results dictionary to file at the end of the run
-    default: mlperf-inference-results
+  repro:
+    desc: Record input/output/state/info files to make it easier to reproduce results
+    boolean: true
+    default: true
   time:
     desc: Print script execution time at the end of the run
     boolean: true
