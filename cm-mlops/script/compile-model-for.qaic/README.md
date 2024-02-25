@@ -166,11 +166,11 @@ ___
       - Workflow:
     * `_bert-99.9,server`
       - Environment variables:
-        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4`
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=2`
       - Workflow:
     * `_bert-99.9,server,nsp.14`
       - Environment variables:
-        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=4`
+        - *CM_QAIC_MODEL_COMPILER_ARGS_SUT*: `-aic-num-cores=2`
       - Workflow:
     * `_resnet50`
       - Environment variables:

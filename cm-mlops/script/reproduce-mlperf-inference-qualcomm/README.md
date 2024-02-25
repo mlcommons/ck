@@ -172,13 +172,21 @@ ___
       - Environment variables:
         - *kilt_model_batch_size*: `1`
       - Workflow:
-    * `_dl2q.24xlarge,bert-99.9,offline`
+    * `_dl2q.24xlarge,bert-99,offline`
       - Environment variables:
         - *qaic_activation_count*: `14`
       - Workflow:
+    * `_dl2q.24xlarge,bert-99.9,offline`
+      - Environment variables:
+        - *qaic_activation_count*: `7`
+      - Workflow:
     * `_dl2q.24xlarge,bert-99.9,server`
       - Environment variables:
-        - *qaic_activation_count*: `14`
+        - *qaic_activation_count*: `7`
+      - Workflow:
+    * `_dl2q.24xlarge,resnet50,multistream`
+      - Environment variables:
+        - *qaic_activation_count*: `1`
       - Workflow:
     * `_dl2q.24xlarge,resnet50,offline`
       - Environment variables:
@@ -424,12 +432,12 @@ ___
       - Environment variables:
         - *CM_MODEL*: `bert-99`
         - *CM_SQUAD_ACCURACY_DTYPE*: `float32`
-        - *CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx`
+        - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx`
       - Workflow:
     * `_bert-99.9`
       - Environment variables:
         - *CM_MODEL*: `bert-99.9`
-        - *CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/3733910/files/model.onnx`
+        - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/3733910/files/model.onnx`
       - Workflow:
     * **`_resnet50`** (default)
       - Environment variables:
