@@ -61,6 +61,11 @@ def preprocess(i):
 
             skip_submission_checker = env.get('CM_SKIP_SUBMISSION_CHECKER','') in ['yes','True']
 
+            print ('')
+            print ('Processing results in path: {}'.format(path))
+            print ('Version: {}'.format(version))
+            print ('')
+
             if skip_submission_checker:
                 if not os.path.isfile(file_summary):
                     return {'return':1, 'error':'{} not found'.format(file_summary)}
@@ -72,7 +77,8 @@ def preprocess(i):
 
                 ii = {'action':'run',
                       'automation':'script',
-                      'tags':'run,submission,checker',
+                      'tags':'run,mlperf,inference,submission,checker',
+                      'extra_args':' --skip-extra-files-in-root-check',
                       'submission_dir':path}
 
                 if version!='':

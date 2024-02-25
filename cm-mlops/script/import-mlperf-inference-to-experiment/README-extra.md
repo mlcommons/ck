@@ -40,7 +40,7 @@ Use the following CM command if you want to analyze private MLPerf results under
 (you need to be a submitter or collaborate with cTuning.org and cKnowledge.org to have an access to such repository):
 
 ```bash
-cm run script "get git repo _repo.https://github.com/mlcommons/submissions_inference_v3.1" --env.CM_GIT_CHECKOUT=main --extra_cache_tags=mlperf-inference-results,version-3.1-work
+cm run script "get git repo _repo.https://github.com/mlcommons/submissions_inference_v4.0" --env.CM_GIT_CHECKOUT=main --extra_cache_tags=mlperf-inference-results,version-4.0-private
 ```
 
 Convert raw MLPerf results into CM experiment entries (it can take 5..15 minutes to run submission checker with raw MLPerf results before converting them to the fast CM format):
