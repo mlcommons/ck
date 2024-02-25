@@ -458,7 +458,7 @@ input_description:
   repro:
     desc: Record input/output/state/info files to make it easier to reproduce results
     boolean: true
-    default: true
+    default: false
   time:
     desc: Print script execution time at the end of the run
     boolean: true

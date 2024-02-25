@@ -4823,6 +4823,14 @@ def dump_repro_start(repro_prefix, ii):
         info['host_python_version'] = platform.python_version()
         info['host_sys_version'] = sys.version
 
+        r = utils.gen_uid()
+        if r['return']==0:
+            info['run_uid'] = r['uid']
+
+        r = utils.get_current_date_time({})
+        if r['return']==0: 
+            info['run_iso_datetime'] = r['iso_datetime']
+
         with open(repro_prefix+'-info.json', 'w', encoding='utf-8') as f:
             json.dump(info, f, ensure_ascii=False, indent=2)
     except:

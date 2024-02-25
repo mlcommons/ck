@@ -301,6 +301,11 @@ def page(i):
     # Check flags
     flags_dict = {}
     flags = ''
+
+    add_to_st_inputs = extra.get('add_to_st_inputs',{})
+    if len(add_to_st_inputs)>0:
+        st_inputs.update(add_to_st_inputs)
+    
     for key in st_inputs:
         value = st_inputs[key]
         key2 = key[1:]
