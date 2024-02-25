@@ -27,7 +27,8 @@ model2task = {
    "dlrm-99.9":"recommendation",
    "dlrm-v2-99.9":"recommendation",
    "3d-unet-99":"image-segmentation",
-   "3d-unet-99.9":"image-segmentation"
+   "3d-unet-99.9":"image-segmentation",
+   "stable-diffusion-xl":"text-to-image"
 }
 
 def preprocess(i):
@@ -89,6 +90,13 @@ def preprocess(i):
                 # Ignore if script fails for now (when some results are wrong)
                 if r['return']>0 and r['return']!=2:
                     return r
+
+                if r['return']>0:
+                    print ('')
+                    print ('WARNING: script returned non-zero value - possible issue - please check!')
+                    print ('')
+                    input ('Press Enter to continue')
+                    print ('')
 
             r = convert_summary_csv_to_experiment(path, version, env)
             if r['return']>0: return r
