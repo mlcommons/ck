@@ -37,7 +37,8 @@ that can be chained into more complex automation workflows [using simple JSON or
 
 *Note that MLCommons CM is a collaborative engineering effort to gradually improve portability and functionality
 across continuously changing models, data sets, software and hardware based on your feedback -
-please check this [installation guide](installation.md), report  encountered issues [here](https://github.com/mlcommons/ck/issues) 
+please check this [installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md), 
+report  encountered issues [here](https://github.com/mlcommons/ck/issues) 
 and contact us via [public Discord Server](https://discord.gg/JjWNWXKxwT) to help this community effort!*
 
 

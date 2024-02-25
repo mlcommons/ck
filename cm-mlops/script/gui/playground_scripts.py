@@ -10,26 +10,6 @@ def page(st, params):
     url_prefix = st.config.get_option('server.baseUrlPath')+'/'
     url_prefix_script = url_prefix + '?action=scripts'
 
-    # Some info
-    x = '''
-         <i>
-         <small>
-         <a href="https://github.com/mlcommons/ck">Collective Mind</a> is a collection of portable, extensible and ready-to-use 
-         automation recipes from <a href="https://mlcommons.org">MLCommons</a> (aka CM scripts) with a human-friendly interface 
-         and minimal dependencies to make it easier to compose, benchmark and optimize complex AI, ML and other applications 
-         and systems across diverse and continuously changing models, data sets, software and hardware.
-         Note that this is a <a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">collaborative engineering effort</a> 
-         - please report issues and suggestions 
-         <a href="https://github.com/mlcommons/ck/issues">here</a>
-         and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a> for more details.
-         </small>
-         </i>
-          <br>
-          <br>
-        '''
-    st.write(x, unsafe_allow_html = True)
-
-
     script_name = ''
     x = params.get('name',[''])
     if len(x)>0 and x[0]!='': script_name = x[0].strip()
@@ -38,6 +18,41 @@ def page(st, params):
     if script_name == '':
         x = params.get('tags',[''])
         if len(x)>0 and x[0]!='': script_tags = x[0].strip()
+
+
+    if script_tags == 'modular,app':
+        x = '''
+             <i>
+             <small>
+             This is a new project to automatically compose AI applications that can run across diverse models, data sets, software and hardware
+             - please check our presentation at the <a href="https://sites.google.com/g.harvard.edu/mlperf-bench-hpca24/home">MLPerf-Bench workshop @ HPCA'24</a>
+             and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a>!
+             </small>
+             </i>
+              <br>
+              <br>
+            '''
+
+    else:
+        x = '''
+             <i>
+             <small>
+             <a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script">Collective Mind</a> is a collection of open-source, portable, extensible and ready-to-use 
+             automation scripts with a human-friendly interface and minimal dependencies to make it easier to compose, benchmark and optimize 
+             complex AI, ML and other applications and systems across diverse and continuously changing models, data sets, software and hardware.
+             Note that this is a <a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">collaborative engineering effort</a> 
+             to make sure that they work across all possible versions and configurations 
+             - please report encountered issues and provide feedback
+             <a href="https://github.com/mlcommons/ck/issues">here</a>
+             and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a>!
+             </small>
+             </i>
+              <br>
+              <br>
+            '''
+
+    st.write(x, unsafe_allow_html = True)
+
 
     script_tags = st.text_input('Search open-source automation recipes by tags:', value=script_tags, key='script_tags').strip()
 
@@ -174,41 +189,42 @@ cm gui script "{}"
                     url += 'script/'+alias
 
                     # Check README.md
-                    x = os.path.join(recipe.path, 'README.md')
-                    if os.path.isfile(x):
+                    z = os.path.join(recipe.path, 'README.md')
+                    if os.path.isfile(z):
                         url_readme = url+'/README.md'
 
                     # Check README.extra.md
-                    x = os.path.join(recipe.path, 'README-extra.md')
-                    if os.path.isfile(x):
+                    z = os.path.join(recipe.path, 'README-extra.md')
+                    if os.path.isfile(z):
                         url_readme_extra = url+'/README-extra.md'
 
                     # Check customize.py
-                    x = os.path.join(recipe.path, 'customize.py')
-                    if os.path.isfile(x):
+                    z = os.path.join(recipe.path, 'customize.py')
+                    if os.path.isfile(z):
                         url_customize = url+'/customize.py'
 
                     # Check _cm.yaml or _cm.json
-                    for x in ['_cm.yaml', '_cm.json']:
-                        y = os.path.join(recipe.path, x)
+                    for z in ['_cm.yaml', '_cm.json']:
+                        y = os.path.join(recipe.path, z)
                         if os.path.isfile(y):
-                            url_meta_description = url+'/'+x
+                            url_meta_description = url+'/'+z
                     
                 url_gui = url_prefix_script+'&name='+alias+','+uid+'&gui=true'
                 
+                z  = '* ***Check [open source code (Apache 2.0 license)]({}) at GitHub.***\n'.format(url)
+                z += '* ***Check [detailed auto-generated README on GitHub]({}).***\n'.format(url_readme)
+                z += '* ***Check [experimental GUI]({}) to run this script.***\n'.format(url_gui)
+                z += '---\n'
                 
-                st.markdown('***Check the [universal CM GUI]({}) to run this script (experimental).***'.format(url_gui))
-
+                st.markdown(z)
                 
-                st.markdown('Default run on Linux, Windows, MacOS and any other OS (check [CM installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) for more details):\n{}\n'.format(x))
+                st.markdown('Default run on Linux, Windows, MacOS and any other OS (check [CM installation guide]({}) for more details):\n{}\n'.format(url_prefix + '?action=install', x))
 
                 st.markdown('*The [Collective Mind concept](https://doi.org/10.5281/zenodo.8105339) is to gradually improve portability and reproducibility of common automation recipes based on user feedback'
                              ' while keeping the same human-friendly interface. If you encounter issues, please report them [here](https://github.com/mlcommons/ck/issues) '
                              ' to help this community project!*')
 
                 
-
-                st.markdown('* View [auto-generated README on GitHub]({}).'.format(url_readme))
 
                 if url_readme_extra!='':
                     st.markdown('* See [extra README]({}) for this automation recipe at GitHub.'.format(url_readme_extra))
@@ -218,8 +234,6 @@ cm gui script "{}"
 
                 if url_customize!='':
                     st.markdown('* See [customization python code]({}) for this automation recipe at GitHub.'.format(url_customize))
-
-                st.markdown('* See [all meta, code and native scripts]({}) for this automation recipe at GitHub.'.format(url))
 
                 # Check dependencies
                 r = misc.get_all_deps_tags({'meta':meta, 'st':st})

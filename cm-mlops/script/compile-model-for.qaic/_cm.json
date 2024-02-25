@@ -305,12 +305,12 @@
     },
     "bert-99.9,server": {
       "env": {
-        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4"
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=2"
       }
     },
     "bert-99.9,server,nsp.14": {
       "env": {
-        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=4"
+        "CM_QAIC_MODEL_COMPILER_ARGS_SUT": "-aic-num-cores=2"
       }
     },
     "tf": {

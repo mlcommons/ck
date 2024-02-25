@@ -79,6 +79,7 @@ def main():
     style_action_apps='font-style:italic;font-weight:bold;color:#ffffff' if action=='apps' else ''
     style_action_reports='font-style:italic;font-weight:bold;color:#ffffff' if action=='reports' else ''
     style_action_beta='font-style:italic;font-weight:bold;color:#ffffff' if action=='beta' else ''
+    style_action_install='font-style:italic;font-weight:bold;color:#ffffff' if action=='install' else ''
 
     st.write('''
         <center>
@@ -93,6 +94,7 @@ def main():
         <a target="_self" href="?action=scripts&tags=modular,app"><button style="{}">Modular apps</button></a><br>
         <a target="_self" href="https://discord.gg/JjWNWXKxwT"><button>Discord</button></a>
         <a target="_self" href="https://github.com/mlcommons/ck"><button>GitHub</button></a>
+        <a target="_self" href="?action=install"><button style="{}">Install</button></a>
         </center>
         '''.format(
                    style_action_scripts,
@@ -103,7 +105,8 @@ def main():
                    style_action_contributors,
                    style_action_reports,
                    style_action_beta,
-                   style_action_apps
+                   style_action_apps,
+                   style_action_install
                    ),
         unsafe_allow_html=True
     )
@@ -141,6 +144,9 @@ def main():
     elif action == 'beta':
         from playground_beta import page
         r = page(st, params)
+    elif action == 'install' or action == 'setup':
+        from playground_install import page
+        r = page(st, params, {})
 
     if r['return']>0:
         st.markdown('**CM error:** {} . Please report [here](https://github.com/mlcommons/ck/issues)'.format(r['error']))

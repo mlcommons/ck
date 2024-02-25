@@ -48,14 +48,16 @@ def page(st, params, action = ''):
     x = '''
          <i>
          <small>
-         This interface will help you find the <a href="{}">modular benchmarks' settings</a> 
-         that <a href="{}">the community</a> have managed to successfully validate 
+         [Under development] This is a new project to reproduce <a href="{}">modular benchmarks</a> 
          across different models, data sets, software and hardware 
-         based on the <a href="https://cTuning.org/ae">ACM/cTuning reproducibility methodology and badges</a>.
+         via <a href="{}">open challenges</a>
+         based on the <a href="https://cTuning.org/ae">ACM/cTuning reproducibility methodology and badges</a>
+         and <a href="https://sites.google.com/g.harvard.edu/mlperf-bench-hpca24/home">automatically compose 
+         High-Performance and Cost-Efficient AI Systems with MLCommons' Collective Mind and MLPerf</a>.
          Note that this is a <a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">collaborative engineering effort</a> 
-         - please report issues and suggestions 
+         - please report encountered issues and provide feedback
          <a href="https://github.com/mlcommons/ck/issues">here</a>
-         and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a> for more details.
+         and get in touch via <a href="https://discord.gg/JjWNWXKxwT">Discord</a>!
          </small>
          </i>
           <br>

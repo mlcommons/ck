@@ -31,7 +31,7 @@ def preprocess(i):
 
         out_file = os.path.join(result_dir, 'accuracy.txt')
 
-        if os.path.exists(out_file) and os.stat(out_file).st_size != 0 and not regenerate_accuracy_file:
+        if os.path.exists(out_file) and (os.stat(out_file).st_size != 0) and not regenerate_accuracy_file:
             continue
 
         if dataset == "openimages":
@@ -101,7 +101,7 @@ def preprocess(i):
             return {'return': 1, 'error': 'Unsupported dataset'}
 
         outfile = os.path.join(result_dir, "accuracy.txt")
-        if not os.path.exists(outfile) or os.stat(outfile).st_size == 0 or env.get("CM_REGENERATE_MEASURE_FILES", False):
+        if not os.path.exists(outfile) or (os.stat(outfile).st_size == 0) or env.get("CM_REGENERATE_MEASURE_FILES", False):
             run_cmds.append(CMD)
 
 

@@ -484,7 +484,7 @@ variations:
     env:
       CM_MODEL: bert-99
       CM_SQUAD_ACCURACY_DTYPE: float32
-      CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx"
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx"
 
   bert-99.9:
     group: model
@@ -492,7 +492,7 @@ variations:
     - bert_
     env:
       CM_MODEL: bert-99.9
-      CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3733910/files/model.onnx"
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3733910/files/model.onnx"
 
   loadgen-batch-size.#:
     group: loadgen-batch-size
@@ -612,6 +612,10 @@ variations:
 
   dl2q.24xlarge,bert-99.9,offline:
     env:
+      qaic_activation_count: "7"
+
+  dl2q.24xlarge,bert-99,offline:
+    env:
       qaic_activation_count: "14"
 
   dl2q.24xlarge,retinanet,offline:
@@ -626,13 +630,19 @@ variations:
 
   dl2q.24xlarge,bert-99.9,server:
     env:
-      qaic_activation_count: "14"
+      qaic_activation_count: "7"
 
   dl2q.24xlarge,retinanet,server:
     default_variations:
       batch-size: bs.1
     env:
       qaic_activation_count: "14"
+
+  dl2q.24xlarge,resnet50,multistream:
+    default_variations:
+      batch-size: bs.1
+    env:
+      qaic_activation_count: "1"
 
   pro:
     env:

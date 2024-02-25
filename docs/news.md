@@ -2,6 +2,11 @@
 
 ## MLCommons CK and CM news
 
+### 202403
+* [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+  will present a new project to "Automatically Compose High-Performance and Cost-Efficient AI Systems with MLCommons' Collective Mind and MLPerf"
+  at the [MLPerf-Bench workshop @ HPCA'24](https://sites.google.com/g.harvard.edu/mlperf-bench-hpca24/home).
+
 ### 202401
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
