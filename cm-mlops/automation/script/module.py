@@ -181,7 +181,15 @@ class CAutomation(Automation):
           * state (dict): global state (updated by this script - includes new_state)
 
         """
-        
+
+        r = self._run(i)
+
+        return r
+
+
+    ############################################################
+    def _run(self, i):
+
         from cmind import utils
         import copy
         import time
