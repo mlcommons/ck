@@ -639,8 +639,8 @@ def gui(i):
     if reproduce:
         inp['repro']['force'] = True
         extra['add_to_st_inputs'] = {
-          "@repro_extra.bench_uid": bench_uid,
-          "@repro_extra.compute_uid": compute_uid
+          "@repro_extra.run-mlperf-inference-app.bench_uid": bench_uid,
+          "@repro_extra.run-mlperf-inference-app.compute_uid": compute_uid
         }
 
     return {'return':0, 'end_html':end_html, 'extra':extra}
