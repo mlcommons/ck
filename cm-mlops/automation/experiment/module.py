@@ -362,7 +362,9 @@ class CAutomation(Automation):
 
             ii['command'] = cmd_step
                        
-            print ('Generated CMD: {}'.format(cmd_step))
+            print ('Generated CMD:')
+            print ('')
+            print (cmd_step)
             print ('')
             
             # Prepare experiment step input

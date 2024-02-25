@@ -1674,7 +1674,6 @@ class CAutomation(Automation):
         # Check if save json to file
         if repro_prefix !='':
             dump_repro(repro_prefix, rr, run_state)
-
         
         if verbose or show_time:
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
@@ -2210,7 +2209,7 @@ class CAutomation(Automation):
         # Create temporary script name
         script_name = i.get('script_name','')
         if script_name=='': 
-            script_name='tmp-run.'
+            script_name='tmp-native-run.'
 
             if os.name == 'nt':
                 script_name+='bat'
