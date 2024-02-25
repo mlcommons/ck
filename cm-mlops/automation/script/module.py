@@ -4800,6 +4800,15 @@ def can_write_to_current_directory():
 def dump_repro_start(repro_prefix, ii):
     import json
 
+    # Clean reproducibility and experiment files
+    for f in ['cm-output.json', 'version_info.json', '-input.json', '-info.json', '-output.json', '-run-state.json']:
+        ff = repro_prefix+f if f.startswith('-') else f
+        if os.path.isfile(ff):
+            try:
+                os.remove(ff)
+            except:
+                pass
+
     try:
         with open(repro_prefix+'-input.json', 'w', encoding='utf-8') as f:
             json.dump(ii, f, ensure_ascii=False, indent=2)
@@ -4809,7 +4818,6 @@ def dump_repro_start(repro_prefix, ii):
     # Get some info
     info = {}
 
-    
     try:
         import platform
         import sys
@@ -4835,19 +4843,27 @@ def dump_repro_start(repro_prefix, ii):
     except:
         pass
 
-    for f in ['-output.json', '-run-state.json']:
-        ff = repro_prefix+f
-        if os.path.isfile(ff):
-            try:
-                os.remove(ff)
-            except:
-                pass
+
+    # For experiment
+    cm_output = {}
+
+    cm_output['tmp_test_value']=10.0
+
+    cm_output['info']=info
+    cm_output['input']=ii
+
+    try:
+        with open('cm-output.json', 'w', encoding='utf-8') as f:
+            json.dump(cm_output, f, ensure_ascii=False, indent=2)
+    except:
+        pass
 
     return {'return': 0}
 
 ######################################################################################
 def dump_repro(repro_prefix, rr, run_state):
     import json
+    import copy
 
     try:
         with open(repro_prefix+'-output.json', 'w', encoding='utf-8') as f:
@@ -4860,6 +4876,56 @@ def dump_repro(repro_prefix, rr, run_state):
             json.dump(run_state, f, ensure_ascii=False, indent=2)
     except:
         pass
+
+    # For experiment
+    cm_output = {}
+
+    # Attempt to read
+    try:
+        r =  utils.load_json('cm-output.json')
+        if r['return']==0:
+            cm_output = r['meta']
+    except:
+        pass
+
+    cm_output['output'] = rr
+    cm_output['state'] = copy.deepcopy(run_state)
+
+    # Try to load version_info.json
+    version_info = {}
+
+    version_info_orig = {}
+
+    if 'version_info' in cm_output['state']:
+        version_info_orig = cm_output['state']['version_info']
+        del(cm_output['state']['version_info'])
+
+    try:
+        r =  utils.load_json('version_info.json')
+        if r['return']==0:
+            version_info_orig += r['meta']
+
+            for v in version_info_orig:
+                for key in v:
+                    dep = v[key]
+                    version_info[key] = dep
+
+    except:
+        pass
+
+    if len(version_info)>0:
+        cm_output['version_info'] = version_info
+
+    if rr['return'] == 0:
+        cm_output['acm_ctuning_repro_badge_available'] = True
+        cm_output['acm_ctuning_repro_badge_functional'] = True
+
+    try:
+        with open('cm-output.json', 'w', encoding='utf-8') as f:
+            json.dump(cm_output, f, ensure_ascii=False, indent=2, sort_keys=True)
+    except:
+        pass
+
 
     return {'return': 0}
 

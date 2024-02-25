@@ -53,6 +53,12 @@ If you already generated `summary.csv` in your current directory, you can skip s
 cm run script "import mlperf inference to-experiment _skip_checker"
 ```
 
+Import to a specific repo:
+
+```bash
+cm run script "import mlperf inference to-experiment" --target_repo=mlcommons@ck_mlperf_results
+```
+
 Visualize results on your local machine via CK playground GUI:
 ```bash
 cm run script "gui _playground"

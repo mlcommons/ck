@@ -390,6 +390,13 @@ class CAutomation(Automation):
 
                 result = r['meta']
 
+                #Try to flatten
+                try:
+                    flatten_result = flatten_dict(result)
+                    result = flatten_result
+                except:
+                    pass
+            
             # Add extra info
             result['uid'] = uid
             result['iso_datetime'] = current_datetime
@@ -407,7 +414,6 @@ class CAutomation(Automation):
 
             r = utils.save_json(file_name=experiment_result_file, meta = all_results)
             if r['return']>0: return r
-
 
         
         rr = {'return':0,
@@ -783,3 +789,16 @@ class CAutomation(Automation):
                         break
 
         return rr
+
+############################################################################
+def flatten_dict(d, flat_dict = {}, prefix = ''):
+
+    for k in d:
+        v = d[k]
+
+        if type(v) is dict:
+           flatten_dict(v, flat_dict, prefix+k+'.')
+        else:
+           flat_dict[prefix+k] = v    
+
+    return flat_dict

@@ -158,7 +158,7 @@ def convert_summary_csv_to_experiment(path, version, env):
 
                 accuracy = result.get('Accuracy', 0.0)
 #
-                print (accuracy, type(accuracy))
+#                print (accuracy, type(accuracy))
                 if accuracy!=None and accuracy!='None' and accuracy>0:
                     result['Accuracy_div_100'] = float('{:.5f}'.format(result['Accuracy']/100))
 
