@@ -12,6 +12,7 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -31,7 +32,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *run,mlperf,mlcommons,accuracy,mlc,process-accuracy*
+* CM "database" tags to find this script: *run,mlperf,mlcommons,accuracy,mlc,process,process-accuracy*
 * Output cached? *False*
 ___
 ### Reuse this script in your project
@@ -48,11 +49,13 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=run,mlperf,mlcommons,accuracy,mlc,process-accuracy[,variations] `
+1. `cm run script --tags=run,mlperf,mlcommons,accuracy,mlc,process,process-accuracy[,variations] [--input_flags]`
 
-2. `cmr "run mlperf mlcommons accuracy mlc process-accuracy[ variations]" `
+2. `cmr "run mlperf mlcommons accuracy mlc process process-accuracy[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
+
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### Run this script from Python
 
@@ -65,7 +68,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'run,mlperf,mlcommons,accuracy,mlc,process-accuracy'
+                  'tags':'run,mlperf,mlcommons,accuracy,mlc,process,process-accuracy'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -82,13 +85,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="run,mlperf,mlcommons,accuracy,mlc,process-accuracy"```
+```cmr "cm gui" --script="run,mlperf,mlcommons,accuracy,mlc,process,process-accuracy"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run,mlperf,mlcommons,accuracy,mlc,process-accuracy) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run,mlperf,mlcommons,accuracy,mlc,process,process-accuracy) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "run mlperf mlcommons accuracy mlc process-accuracy[ variations]" `
+`cm docker script "run mlperf mlcommons accuracy mlc process process-accuracy[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -271,6 +274,21 @@ ___
 #### Default variations
 
 `_default-pycocotools,_float32,_imagenet`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--result_dir=value`  &rarr;  `CM_MLPERF_ACCURACY_RESULTS_DIR=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "result_dir":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
@@ -297,6 +315,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy/_cm.json)
   1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy/customize.py)***
@@ -305,7 +324,7 @@ ___
 
 ___
 ### Script output
-`cmr "run mlperf mlcommons accuracy mlc process-accuracy[,variations]"  -j`
+`cmr "run mlperf mlcommons accuracy mlc process process-accuracy[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
