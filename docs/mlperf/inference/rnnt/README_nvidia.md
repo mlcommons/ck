@@ -1,9 +1,10 @@
 [ [Back to index](README.md) ]
 
-## Prepare Nvidia software
+## Build Nvidia Docker Container (from 3.1 Inference round)
 
-You need to install TensorRT and set up the configuration files as detailed [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/README-about.md).
-
+```
+cm docker script --tags=build,nvidia,inference,server
+```
 
 ## Run this benchmark via CM
 
