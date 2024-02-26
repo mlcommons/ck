@@ -38,9 +38,6 @@ cmr "generate-run-cmds inference _submission _all-scenarios" --model=resnet50 \
 
 Follow [this guide](../Submission.md) to generate the submission tree and upload your results.
 
-### Run individual scenarios for testing and optimization
-
-TBD
 
 ### Questions? Suggestions?
 
