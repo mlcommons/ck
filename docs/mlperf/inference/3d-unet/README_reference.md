@@ -32,6 +32,10 @@ cmr "generate-run-cmds inference _submission _all-scenarios" --model=3d-unet-99.
 * Use `--division=closed` to run all scenarios for the closed division including the compliance tests
 * `--offline_target_qps`, and `--singlestream_target_latency` can be used to override the determined performance numbers
 
+### Generate and upload MLPerf submission
+
+Follow [this guide](../Submission.md) to generate the submission tree and upload your results.
+
 
 ### Questions? Suggestions?
 
