@@ -581,8 +581,12 @@ variations:
         tags: _nsp.14
 
   nsp.16:
+    group: nsp
     base:
       - pro
+    adr:
+      qaic-model-compiler:
+        tags: _nsp.14
 
   nsp.#:
     group: nsp
@@ -666,16 +670,36 @@ variations:
       - tags: set,device,qaic,_vc.16
 
   pro,num-devices.4,bert-99,offline:
+    default_variations:
+      loadgen-batch-size: loadgen-batch-size.4096
     env:
       qaic_activation_count: "16"
     deps:
       - tags: set,device,qaic,_vc.15
 
   pro,num-devices.4,bert-99.9,offline:
+    default_variations:
+      loadgen-batch-size: loadgen-batch-size.4096
     env:
       qaic_activation_count: "8"
     deps:
-      - tags: set,device,qaic,_vc.17
+      - tags: set,device,qaic,_vc.13
+
+  pro,num-devices.4,bert-99,server:
+    default_variations:
+      loadgen-batch-size: loadgen-batch-size.1024
+    env:
+      qaic_activation_count: "16"
+    deps:
+      - tags: set,device,qaic,_vc.13
+
+  pro,num-devices.4,bert-99.9,server:
+    default_variations:
+      loadgen-batch-size: loadgen-batch-size.1024
+    env:
+      qaic_activation_count: "8"
+    deps:
+      - tags: set,device,qaic,_vc.13
 
   pro,num-devices.4,retinanet,offline:
     default_variations:
@@ -690,10 +714,6 @@ variations:
       batch-size: bs.8
     env:
       qaic_activation_count: "4"
-
-  pro,num-devices.4,bert-99.9,server:
-    env:
-      qaic_activation_count: "16"
 
   pro,num-devices.4,retinanet,server:
     default_variations:
