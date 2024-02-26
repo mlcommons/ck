@@ -42,10 +42,9 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --model=resnet50 \
+cm run script --tags=run-mlperf,inference,_submission,_all-scenarios --model=resnet50 \
 --device=cpu --implementation=tflite-cpp --backend=tflite \
---execution-mode=valid --results_dir=$HOME/inference_3.1_results \
---category=edge --division=open --quiet --skip_submission_generation=yes
+--execution-mode=valid --category=edge --division=open --quiet
 ```
 
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs
