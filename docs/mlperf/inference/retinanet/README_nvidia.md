@@ -23,22 +23,13 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 ```
 cmr "generate-run-cmds inference _submission _all-scenarios" --model=retinanet \
 --device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
+--execution-mode=valid --category=edge --division=open --quiet
 ```
 
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs
 * Use `--division=closed` to run all scenarios for the closed division including the compliance tests
 * `--offline_target_qps`, `--server_target_qps`, `--singlestream_target_latency` and `multistream_target_latency` can be used to override the determined performance numbers
 
-### Populate the README files describing your submission
-
-```
-cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
---model=retinanet --device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
-```
 
 ### Generate and upload MLPerf submission
 
