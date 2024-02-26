@@ -14,28 +14,21 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
 * Use `--category=datacenter` to run datacenter scenarios
 * Use `--backend=tf`, `--backend=ncnn` or `--backend=tvm-onnx` to use tensorflow, ncnn and tvm-onnx backends respectively
+* Remove `_all-scenarios` and use `--scenario=Offline` to run the `Offline` scenario and similarly for `Server`, `SingleStream` and `MultiStream` scenarios.
+
 
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
 cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --model=resnet50 \
---device=cpu --implementation=reference --backend=onnxruntime \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet --skip_submission_generation=yes
+--device=cpu --implementation=reference --backend=onnxruntime --execution-mode=valid \
+--category=edge --division=open --quiet
 ```
 
 * Use `--power=yes --adr.mlperf-power-client.power_server=192.168.0.15 --adr.mlperf-power-client.port=4950` for measuring power. Please adjust the server IP (where MLPerf power server is installed) and Port (default is 4950). `power=yes` is ignored for accuracy and compliance runs
 * Use `--division=closed` to run all scenarios for the closed division including the compliance tests
 * `--offline_target_qps`, `--server_target_qps`, `--singlestream_target_latency` and `multistream_target_latency` can be used to override the determined performance numbers
 
-### Populate the README files describing your submission
-
-```
-cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios \
---model=resnet50 --device=cpu --implementation=reference --backend=onnxruntime \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
-```
 
 ### Generate and upload MLPerf submission
 

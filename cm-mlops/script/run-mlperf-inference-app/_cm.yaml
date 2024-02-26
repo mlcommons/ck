@@ -182,6 +182,7 @@ variations:
         tags: _full
     env:
       CM_MLPERF_SUBMISSION_GENERATION_STYLE: full
+      CM_MLPERF_SKIP_SUBMISSION_GENERATION: 'yes'
     group: submission-generation-style
 
   performance-only:
@@ -254,10 +255,12 @@ variations:
     post_deps:
     - names:
       - submission-generator
-      skip_if_env:
+      enable_if_env:
         CM_MLPERF_SKIP_SUBMISSION_GENERATION:
-        - 'yes'
-        - 'True'
+        - 'no'
+        - 'false'
+        - 'False'
+        - '0'
       tags: generate,mlperf,inference,submission
 
 versions:

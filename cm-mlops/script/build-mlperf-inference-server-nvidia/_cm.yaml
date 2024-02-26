@@ -140,9 +140,6 @@ post_deps:
       - "no"
       - False
       - "False"
-    enable_if_env:
-      CM_RUN_STATE_DOCKER:
-      - False
 
 variations:
   # Target devices
@@ -236,9 +233,10 @@ docker:
     - tags: get,mlperf,inference,nvidia,scratch,space
     - tags: get,mlperf,inference,results,dir
     - tags: get,mlperf,inference,submission,dir
+    - tags: get,nvidia-docker
   pre_run_cmds:
-    - cm pull repo ctuning@mlcommons-ck
-  run_cmd_prefix: sudo apt remove -y cmake && cm pull repo ctuning@mlcommons-ck
+    - cm pull repo mlcommons@ck
+  run_cmd_prefix: sudo apt remove -y cmake && cm pull repo mlcommons@ck
   mounts:
    - "${{ IMAGENET_PATH }}:/data/imagenet-val"
    - "${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}:${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}"

@@ -1,9 +1,10 @@
 [ [Back to index](README.md) ]
 
-## Prepare Nvidia software
+## Build Nvidia Docker Container (from 3.1 Inference round)
 
-You need to install TensorRT and set up the configuration files as detailed [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/README-about.md).
-
+```
+cm docker script --tags=build,nvidia,inference,server
+```
 ## Run this benchmark via CM
 
 *Note: from Feb 2024, we suggest you to use [this GUI](https://access.cknowledge.org/playground/?action=howtorun&bench_uid=39877bb63fb54725)
@@ -27,22 +28,13 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 ```
 cmr "generate-run-cmds inference _submission _all-scenarios" --model=3d-unet-99 \
 --device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
+--execution-mode=valid --category=edge --division=open --quiet
 ```
 
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs
 * Use `--division=closed` to run all scenarios for the closed division including the compliance tests
-* `--offline_target_qps`, `--server_target_qps`, and `--singlestream_target_latency` can be used to override the determined performance numbers
+* `--offline_target_qps`, and `--singlestream_target_latency` can be used to override the determined performance numbers
 
-### Populate the README files describing your submission
-
-```
-cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
---model=3d-unet-99 --device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
-```
 
 ### Generate and upload MLPerf submission
 

@@ -459,11 +459,10 @@ variations:
       skip_if_env:
         CM_MLPERF_IMPLEMENTATION:
         - nvidia-original
-        - reference
       names:
       - mlperf-accuracy-script
       - open-orca-accuracy-script
-      tags: run,accuracy,mlperf,_open-orca
+      tags: run,accuracy,mlperf,_open-orca,_int32
 
   llama2-70b-99:
     group:

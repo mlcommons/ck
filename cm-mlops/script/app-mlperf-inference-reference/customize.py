@@ -54,8 +54,11 @@ def preprocess(i):
         else:
             env['CM_NUM_THREADS'] = env.get('CM_HOST_CPU_TOTAL_CORES', '1')
 
-    if env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE','') != '' and not env.get('CM_MLPERF_MODEL_SKIP_BATCHING', False) :
-        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
+    if env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE','') != '' and not env.get('CM_MLPERF_MODEL_SKIP_BATCHING', False):
+        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + str(env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE'])
+
+    if env.get('CM_MLPERF_LOADGEN_BATCH_SIZE','') != '':
+        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --batch-size " + str(env['CM_MLPERF_LOADGEN_BATCH_SIZE'])
 
     if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') != '' and not env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', False) and (env['CM_MLPERF_LOADGEN_MODE'] == 'accuracy' or 'gptj' in env['CM_MODEL']) and env.get('CM_MLPERF_RUN_STYLE','') != "valid":
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_MLPERF_LOADGEN_QUERY_COUNT']
@@ -297,6 +300,7 @@ def get_run_cmd_reference(os_info, env, scenario_extra_options, mode_extra_optio
                 " --output-log-dir " + env['CM_MLPERF_OUTPUT_DIR'] + \
                 ' --dtype ' + env['CM_MLPERF_MODEL_PRECISION'] + \
                 " --model-path " + env['MODEL_DIR']
+        cmd = cmd.replace("--count", "--total-sample-count")
     elif "3d-unet" in env['CM_MODEL']:
 
         env['RUN_DIR'] = env['CM_MLPERF_INFERENCE_3DUNET_PATH']
