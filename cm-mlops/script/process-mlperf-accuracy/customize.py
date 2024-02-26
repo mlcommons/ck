@@ -67,6 +67,11 @@ def preprocess(i):
                 "evaluation.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir, "mlperf_log_accuracy.json") + \
                 "' --dataset-file '" + env['CM_DATASET_EVAL_PATH'] + "'"+ " --dtype " + env.get('CM_ACCURACY_DTYPE', "float32")  +" > '" + out_file + "'"
 
+        elif dataset == "openorca":
+            CMD = env['CM_PYTHON_BIN_WITH_PATH'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "llama2-70b",
+                "evaluate-accuracy.py") + "' --checkpoint-path '" + env['CM_ML_MODEL_LLAMA2_FILE_WITH_PATH'] + "' --mlperf-accuracy-file '" + os.path.join(result_dir, "mlperf_log_accuracy.json") + \
+                "' --dataset-file '" + env['CM_DATASET_PREPROCESSED_PATH'] + "'"+ " --dtype " + env.get('CM_ACCURACY_DTYPE', "int32")  +" > '" + out_file + "'"
+
 
         elif dataset == "coco2014":
             env['+PYTHONPATH'] = [ os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "text_to_image", "tools") ]

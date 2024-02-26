@@ -905,6 +905,10 @@ variations:
     base:
       - llama2-70b_
 
+  llama2-70b_,cuda:
+    default_env:
+      CM_MLPERF_LOADGEN_BATCH_SIZE: 8
+
   llama2-70b-99.9:
     group: models
     env:
@@ -1113,6 +1117,7 @@ variations:
     alias: int8
 
   batch_size.#:
+    group: batch-size
     env:
       CM_MLPERF_LOADGEN_MAX_BATCHSIZE: "#"
     add_deps_recursive:

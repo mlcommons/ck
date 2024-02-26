@@ -23,8 +23,6 @@
         ]
       },
       "env": {
-        "CM_GIT_CHECKOUT_FOLDER": "Llama-2-70b-chat-hf",
-        "CM_MODEL_ZOO_ENV_KEY": "LLAMA2"
       },
       "force_env_keys": [
         "CM_GIT_CHECKOUT_FOLDER"
@@ -32,7 +30,7 @@
       "names": [
         "hf-zoo"
       ],
-      "tags": "get,ml-model,huggingface,zoo,_clone-repo,_model-stub.meta-llama/Llama-2-70b-chat-hf"
+      "tags": "get,ml-model,huggingface,zoo,_clone-repo"
     }
   ],
   "tags": [
@@ -46,6 +44,42 @@
   ],
   "uid": "5db97be9f61244c6",
   "variations": {
+    "meta-llama/Llama-2-70b-chat-hf": {
+      "group": "huggingface-stub",
+      "default": true,
+      "env": {
+        "CM_GIT_CHECKOUT_FOLDER": "Llama-2-70b-chat-hf",
+        "CM_MODEL_ZOO_ENV_KEY": "LLAMA2"
+      },
+      "adr": {
+        "hf-zoo": {
+          "tags": "_model-stub.meta-llama/Llama-2-70b-chat-hf"
+        }
+      }
+    },
+    "meta-llama/Llama-2-7b-chat-hf": {
+      "group": "huggingface-stub",
+      "env": {
+        "CM_GIT_CHECKOUT_FOLDER": "Llama-2-7b-chat-hf",
+        "CM_MODEL_ZOO_ENV_KEY": "LLAMA2"
+      },
+      "adr": {
+        "hf-zoo": {
+          "tags": "_model-stub.meta-llama/Llama-2-7b-chat-hf"
+        }
+      }
+    },
+    "stub.#": {
+      "group": "huggingface-stub",
+      "env": {
+        "CM_MODEL_ZOO_ENV_KEY": "LLAMA2"
+      },
+      "adr": {
+        "hf-zoo": {
+          "tags": "_model-stub.#"
+        }
+      }
+    },
     "batch_size.#": {
       "env": {
         "CM_ML_MODEL_BATCH_SIZE": "#"

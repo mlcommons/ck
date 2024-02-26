@@ -230,6 +230,26 @@
       },
       "group": "dataset"
     },
+    "open-orca": {
+      "deps": [
+        {
+          "names": [
+            "openorca-dataset"
+          ],
+          "tags": "get,dataset,openorca,preprocessed"
+        },
+        {
+          "names": [
+            "llama2-model"
+          ],
+          "tags": "get,ml-model,llama2,_meta-llama/Llama-2-7b-chat-hf"
+        }
+      ],
+      "env": {
+        "CM_DATASET": "openorca"
+      },
+      "group": "dataset"
+    },
     "coco2014": {
       "deps": [
         {
