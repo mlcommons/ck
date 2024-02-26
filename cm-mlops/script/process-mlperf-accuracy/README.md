@@ -187,6 +187,17 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,dataset,preprocessed,speech-recognition,librispeech
              - CM script: [get-preprocessed-dataset-librispeech](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-librispeech)
+    * `_open-orca`
+      - Environment variables:
+        - *CM_DATASET*: `openorca`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,dataset,openorca,preprocessed
+             * CM names: `--adr.['openorca-dataset']...`
+             - CM script: [get-preprocessed-dataset-openorca](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openorca)
+           * get,ml-model,llama2,_meta-llama/Llama-2-7b-chat-hf
+             * CM names: `--adr.['llama2-model']...`
+             - CM script: [get-ml-model-llama2](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2)
     * `_openimages`
       - Environment variables:
         - *CM_DATASET*: `openimages`

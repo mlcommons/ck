@@ -171,10 +171,6 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_package.nibabel
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-    * `_batch_size.#`
-      - Environment variables:
-        - *CM_MLPERF_LOADGEN_MAX_BATCHSIZE*: `#`
-      - Workflow:
     * `_beam_size.#`
       - Environment variables:
         - *GPTJ_BEAM_SIZE*: `#`
@@ -232,6 +228,8 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_package.torchsnapshot
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_llama2-70b_,cuda`
+      - Workflow:
     * `_multistream`
       - Environment variables:
         - *CM_MLPERF_LOADGEN_SCENARIO*: `MultiStream`
@@ -275,6 +273,18 @@ ___
         - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_TENSORFLOW_ROCM_VERSION>>>`
       - Workflow:
     * `_tpu,tflite`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**batch-size**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_batch_size.#`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_MAX_BATCHSIZE*: `#`
       - Workflow:
 
     </details>

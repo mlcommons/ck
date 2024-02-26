@@ -243,7 +243,7 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-mlperf-inference-server-nvidia/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-mlperf-inference-server-nvidia/_cm.yaml)***
      * add,custom,system,nvidia
-       * `if (CM_RUN_STATE_DOCKER  == False) AND (CM_CUSTOM_SYSTEM_NVIDIA not in ['no', False, 'False'])`
+       * `if (CM_CUSTOM_SYSTEM_NVIDIA not in ['no', False, 'False'])`
        * CM names: `--adr.['custom-system-nvidia', 'nvidia-inference-common-code']...`
        - CM script: [add-custom-nvidia-system](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/add-custom-nvidia-system)
 </details>
