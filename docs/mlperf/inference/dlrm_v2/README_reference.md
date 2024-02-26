@@ -14,18 +14,18 @@ cm run script --tags=get,preprocessed,dataset,criteo --dir=<path_to_multihot_pre
 
 ```
 cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
---model=dlrm-99 --implementation=reference --device=cuda --backend=pytorch \
+--model=dlrm-v2-99 --implementation=reference --device=cuda --backend=pytorch \
 --category=datacenter --division=open --quiet 
 ```
 * GPU needs a minimum of 92 GB memory for fp32 model. 
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
-* Use `--model=dlrm_v2-99.9` to run the high accuracy constraint gptj-99.9 model.
+* Use `--model=dlrm-v2-99.9` to run the high accuracy constraint dlrm-v2-99.9 model.
 
 
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --model=dlrm-99 \
+cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --model=dlrm-v2-99 \
 --device=cuda --implementation=reference --backend=pytorch --execution-mode=valid \
 --category=datacenter --division=open --quiet
 ```
