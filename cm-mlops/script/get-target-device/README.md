@@ -25,6 +25,9 @@
 
 ### About
 
+
+See extra [notes](README-extra.md) from the authors and contributors.
+
 #### Summary
 
 * Category: *Hardware automation.*

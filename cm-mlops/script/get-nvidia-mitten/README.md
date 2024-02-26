@@ -12,6 +12,7 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Default environment](#default-environment)
+* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -24,14 +25,17 @@
 
 ### About
 
+
+See extra [notes](README-extra.md) from the authors and contributors.
+
 #### Summary
 
-* Category: *Compiler automation.*
+* Category: *MLPerf benchmark support.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-mitten)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,compiler-flags*
-* Output cached? *False*
+* CM "database" tags to find this script: *get,nvidia,mitten,nvidia-mitten*
+* Output cached? *True*
 ___
 ### Reuse this script in your project
 
@@ -47,9 +51,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,compiler-flags `
+1. `cm run script --tags=get,nvidia,mitten,nvidia-mitten `
 
-2. `cmr "get compiler-flags" `
+2. `cmr "get nvidia mitten nvidia-mitten" `
 
 #### Run this script from Python
 
@@ -62,7 +66,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,compiler-flags'
+                  'tags':'get,nvidia,mitten,nvidia-mitten'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -79,13 +83,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,compiler-flags"```
+```cmr "cm gui" --script="get,nvidia,mitten,nvidia-mitten"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,compiler-flags) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,nvidia,mitten,nvidia-mitten) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get compiler-flags" `
+`cm docker script "get nvidia mitten nvidia-mitten" `
 
 ___
 ### Customization
@@ -100,39 +104,40 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 </details>
 
+#### Versions
+Default version: `master`
+
 ___
 ### Script workflow, dependencies and native scripts
 
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags/_cm.json)***
-     * detect,cpu
-       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
-     * get,compiler
-       * `if (CM_C_COMPILER_BIN  != on)`
-       * CM names: `--adr.['compiler']...`
-       - CM script: [get-cl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl)
-       - CM script: [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
-       - CM script: [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-mitten/_cm.json)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+     * get,python3
+       * CM names: `--adr.['python3', 'python']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,git,_repo.https://github.com/NVIDIA/mitten
+       * CM names: `--adr.['nvidia-mitten-git-src']...`
+       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-mitten/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-mitten/_cm.json)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags/_cm.json)
-  1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags/_cm.json)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-mitten/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-mitten/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-mitten/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-mitten/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-nvidia-mitten/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "get compiler-flags"  -j`
+`cmr "get nvidia mitten nvidia-mitten"  -j`
 #### New environment keys (filter)
 
-* `+ CFLAGS`
-* `+ CXXFLAGS`
-* `+ FFLAGS`
-* `+ LDFLAGS`
-* `+CM_HOST_OS_DEFAULT_INCLUDE_PATH`
+* `CM_NVIDIA_MITTEN*`
 #### New environment keys auto-detected from customize
 
 ___

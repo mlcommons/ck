@@ -27,7 +27,8 @@ model2task = {
    "dlrm-99.9":"recommendation",
    "dlrm-v2-99.9":"recommendation",
    "3d-unet-99":"image-segmentation",
-   "3d-unet-99.9":"image-segmentation"
+   "3d-unet-99.9":"image-segmentation",
+   "stable-diffusion-xl":"text-to-image"
 }
 
 def preprocess(i):
@@ -61,6 +62,11 @@ def preprocess(i):
 
             skip_submission_checker = env.get('CM_SKIP_SUBMISSION_CHECKER','') in ['yes','True']
 
+            print ('')
+            print ('Processing results in path: {}'.format(path))
+            print ('Version: {}'.format(version))
+            print ('')
+
             if skip_submission_checker:
                 if not os.path.isfile(file_summary):
                     return {'return':1, 'error':'{} not found'.format(file_summary)}
@@ -72,7 +78,8 @@ def preprocess(i):
 
                 ii = {'action':'run',
                       'automation':'script',
-                      'tags':'run,submission,checker',
+                      'tags':'run,mlperf,inference,submission,checker',
+                      'extra_args':' --skip-extra-files-in-root-check',
                       'submission_dir':path}
 
                 if version!='':
@@ -83,6 +90,13 @@ def preprocess(i):
                 # Ignore if script fails for now (when some results are wrong)
                 if r['return']>0 and r['return']!=2:
                     return r
+
+                if r['return']>0:
+                    print ('')
+                    print ('WARNING: script returned non-zero value - possible issue - please check!')
+                    print ('')
+                    input ('Press Enter to continue')
+                    print ('')
 
             r = convert_summary_csv_to_experiment(path, version, env)
             if r['return']>0: return r
@@ -144,7 +158,7 @@ def convert_summary_csv_to_experiment(path, version, env):
 
                 accuracy = result.get('Accuracy', 0.0)
 #
-                print (accuracy, type(accuracy))
+#                print (accuracy, type(accuracy))
                 if accuracy!=None and accuracy!='None' and accuracy>0:
                     result['Accuracy_div_100'] = float('{:.5f}'.format(result['Accuracy']/100))
 

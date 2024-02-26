@@ -21,6 +21,15 @@ from mpld3 import utils
 
 security = ['os.', 'streamlit.', 'matplotlib.', 'numpy.', 'pandas.', 'mpld3.']
 
+
+repro_badges={
+        'acm_ctuning_repro_badge_functional':{'img':'https://cTuning.org/images/artifacts_evaluated_functional_v1_1_small.png'},
+        'acm_ctuning_repro_badge_reproduce':{'img':'https://cTuning.org/images/results_reproduced_v1_1_small.png'},
+        'acm_ctuning_repro_badge_support_docker':{'img':'https://cTuning.org/images/docker_logo2_small.png'},
+        'acm_ctuning_repro_badge_cm_interface':{'img':'https://cTuning.org/images/logo-ck-single-tr4.png'}
+       }
+
+
 class OpenBrowserOnClick(mpld3.plugins.PluginBase):
 
     JAVASCRIPT="""
@@ -344,7 +353,7 @@ def visualize(st, query_params, action = ''):
             continue
 
         data = []
-        for k in sorted(keys, key=lambda s: s):
+        for k in sorted(keys, key=lambda s: s.lower()):
             data.append(result.get(k))
 
         all_data.append(data)
@@ -366,8 +375,9 @@ def visualize(st, query_params, action = ''):
         st.markdown('---')
         st.markdown('# Result summary')
 
-        
+
         data = all_data[0]
+
 
         result = {}
 
@@ -376,6 +386,20 @@ def visualize(st, query_params, action = ''):
             result[k] = data[j]
             j+=1
 
+
+        # Check badges
+        x = ''
+
+        for k in repro_badges:
+            if result.get(k, False):
+                img = repro_badges[k]['img']
+
+                x += '<a href="http://cTuning.org/ae" target="_blank"><img src="{}" height="64"></a>\n'.format(img)
+
+        if x!='':
+            st.write('<center>\n'+x+'\n</center>\n', unsafe_allow_html = True)
+        
+        
         x = ''
         for k in sorted(keys, key=lambda x: x.lower()):
             x+='* **{}**: {}\n'.format(k,str(result[k]))

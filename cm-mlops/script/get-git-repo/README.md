@@ -250,6 +250,7 @@ ___
 #### New environment keys auto-detected from customize
 
 * `CM_GIT_CHECKOUT_PATH`
+* `CM_GIT_REPO_CURRENT_HASH`
 ___
 ### Maintainers
 

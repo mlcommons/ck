@@ -270,6 +270,7 @@ def page(i):
 
 
 
+
     x = ''
 
     extra_notes_online = extra.get('extra_notes_online', '')
@@ -301,6 +302,11 @@ def page(i):
     # Check flags
     flags_dict = {}
     flags = ''
+
+    add_to_st_inputs = extra.get('add_to_st_inputs',{})
+    if len(add_to_st_inputs)>0:
+        st_inputs.update(add_to_st_inputs)
+    
     for key in st_inputs:
         value = st_inputs[key]
         key2 = key[1:]
@@ -344,6 +350,17 @@ def page(i):
     action = 'docker' if run_via_docker else 'run'
     cli = 'cm {} script {} {}\n'.format(action, tags, flags)
 
+
+    ############################################################################
+    use_experiment_from_extra = extra.get('use_experiment', False)
+    
+    use_experiment = st.toggle('Use CM experiment for reproducibility', key='use_cm_experiment', value=use_experiment_from_extra)
+
+    extra_cm_prefix = ''
+    if use_experiment:
+        cli = 'cm run experiment --tags={} -- {}\n '.format("repro,"+script_tags, var1) + cli
+
+
     ############################################################################
     
     extra_setup = extra.get('extra_setup','')
@@ -358,28 +375,49 @@ def page(i):
     
     show_python_api = st.toggle('Run via Python API', value=False)
 
+    # Python API
     if show_python_api:
          
-         # Python API
-         dd = {
-               'action':action,
-               'automation':'script,5b4e0237da074764',
-               'tags':script_tags
-              }
-
-         x = script_tags
+         final_script_tags = script_tags
          if len(selected_variations)>0:
              for sv in selected_variations:
-                 x+=' '+sv
-              
-         dd['tags']=x.replace(' ',',')
+                 final_script_tags += ' '+sv
+         final_script_tags = final_script_tags.replace(' ',',')
+                 
+         if use_experiment:
+             dd = {
+                   'action': 'run',
+                   'automation': 'experiment,a0a2d123ef064bcb',
+                   'tags': script_tags,
+                   'out': 'con'
+                  }
 
-         dd['out']='con'
-         
-         dd.update(flags_dict)
+             unparsed_cmd = ['cm',
+                             'run',
+                             'script,5b4e0237da074764',
+                             '--tags='+final_script_tags]
+
+             for flag in flags_dict:
+                 value = flags_dict[flag]
+                 unparsed_cmd.append('--' + flag + '=' + str(value))
+
+             dd['unparsed_cmd'] = unparsed_cmd
+
+         else:
+             dd = {
+                   'action':action,
+                   'automation':'script,5b4e0237da074764',
+                  }
+                  
+             dd['tags']=final_script_tags
+
+             dd['out']='con'
+             
+             dd.update(flags_dict)
 
          import json
          dd_json=json.dumps(dd, indent=2)
+         dd_json=dd_json.replace(': true', ': True').replace(': false', ': False')
 
          y = 'import cmind\n'
          y+= 'r = cmind.access('+dd_json+')\n'
@@ -401,7 +439,7 @@ def page(i):
 
     if show_cli:
         # Add explicit button "Run"
-        cli = st.text_area('', cli, height=500)
+        cli = st.text_area('', cli, height=600)
         
         if no_run=='' and st.button("Run in the new terminal"):
             cli = cli+var1+'--pause\n'

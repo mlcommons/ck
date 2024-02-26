@@ -105,15 +105,29 @@ ___
 
     * `_e01`
       - Environment variables:
-        - *CM_ML_MODEL_URL*: `https://www.dropbox.com/scl/fi/7nqt5z8gplgeaveo933eo/SSD_e1.pth?rlkey=7lyb4qs2hzg491bfprwcuvx54&dl=0`
-        - *CM_ML_MODEL_FILENAME*: `SSD_e1.pth`
         - *CM_ML_MODEL_CHECKSUM*: `31d177228308bbe43917c912b01c2d67`
+        - *CM_ML_MODEL_FILENAME*: `SSD_e1.pth`
+        - *CM_ML_MODEL_URL*: `https://www.dropbox.com/scl/fi/7nqt5z8gplgeaveo933eo/SSD_e1.pth?rlkey=7lyb4qs2hzg491bfprwcuvx54&dl=0`
+        - *CM_ML_MODEL*: `abtf-ssd-pytorch`
+        - *CM_ML_MODEL_DATASET*: `coco`
+        - *CM_ML_MODEL_IMAGE_HEIGHT*: `300`
+        - *CM_ML_MODEL_IMAGE_WIDTH*: `300`
       - Workflow:
     * **`_e65`** (default)
       - Environment variables:
-        - *CM_ML_MODEL_URL*: `https://www.dropbox.com/scl/fi/wkegl2qxvm8cefbqq00o3/SSD_e65.pth?rlkey=ez26jafjdcly665npl6pdqxl8&dl=0`
-        - *CM_ML_MODEL_FILENAME*: `SSD_e65.pth`
         - *CM_ML_MODEL_CHECKSUM*: `f769eb0321ac7fc1c16f982db6131d2f`
+        - *CM_ML_MODEL_FILENAME*: `SSD_e65.pth`
+        - *CM_ML_MODEL_URL*: `https://www.dropbox.com/scl/fi/wkegl2qxvm8cefbqq00o3/SSD_e65.pth?rlkey=ez26jafjdcly665npl6pdqxl8&dl=0`
+        - *CM_ML_MODEL*: `abtf-ssd-pytorch`
+        - *CM_ML_MODEL_DATASET*: `coco`
+        - *CM_ML_MODEL_IMAGE_HEIGHT*: `300`
+        - *CM_ML_MODEL_IMAGE_WIDTH*: `300`
+      - Workflow:
+    * `_local.#`
+      - Environment variables:
+        - *CM_ML_MODEL_FILENAME*: `#`
+        - *CM_ML_MODEL_LOCAL*: `yes`
+        - *CM_SKIP_DOWNLOAD*: `yes`
       - Workflow:
 
     </details>
@@ -142,6 +156,7 @@ ___
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * download,file,_wget
+       * `if (CM_SKIP_DOWNLOAD  != yes)`
        * CM names: `--adr.['get-ml-model']...`
        - CM script: [download-file](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/download-file)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-abtf-ssd-pytorch/customize.py)***
@@ -161,6 +176,7 @@ ___
 #### New environment keys auto-detected from customize
 
 * `CM_ML_MODEL_FILE`
+* `CM_ML_MODEL_FILE_WITH_PATH`
 ___
 ### Maintainers
 

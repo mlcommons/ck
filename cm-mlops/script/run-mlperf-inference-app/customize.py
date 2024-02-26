@@ -283,6 +283,7 @@ def gui(i):
 
     script_path = i['script_path']
     script_url = i.get('script_url','')
+    script_tags = i.get('script_tags', '')
 
     compute_meta = i.get('compute_meta',{})
     bench_meta = i.get('bench_meta',{})
@@ -481,16 +482,17 @@ def gui(i):
     submission = st.toggle('Would you like to prepare official submission?', value = False)
     if submission:
         r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_hw_name', 'desc':inp['hw_name']})
-        inp['hw_name']['force']=r.get('value2')
+        inp['hw_name']['force'] = r.get('value2')
 
         r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_submitter', 'desc':inp['submitter']})
         submitter = r.get('value2')
-        inp['submitter']['force']=submitter
+        inp['submitter']['force'] = submitter
 
-        params['~~submission-generation']=['submission']
-        params['~all-scenarios']=['true']
-        inp['scenario']['force']=''
-        inp['clean']['default']=False
+        params['~~submission-generation'] = ['submission']
+        params['~all-scenarios'] = ['true']
+        inp['scenario']['force'] = ''
+        inp['clean']['default'] = False
+        inp['repro']['force'] = True
 
         x  = '*:red[Use the following command to find local directory with the submission tree and results:]*\n```bash\ncm find cache --tags=submission,dir\n```\n'
 
@@ -620,51 +622,6 @@ def gui(i):
         inp['dashboard_wb_user']['force']=''
 
 
-    run_test = st.toggle('Record test for [reproducibility](https://access.cknowledge.org/playground/?action=reproduce)', value = False)
-    
-    if run_test:
-        # Create output for tests 
-        # Get UID
-        r = utils.gen_uid()
-        if r['return']>0: return r
-
-        test_uid = r['uid']
-
-        r = utils.get_current_date_time({})
-        if r['return']>0: return r
-
-        datetime = r['iso_datetime']
-
-        test_file = 'run-'+test_uid
-
-        inp['jf']['default'] = test_file
-
-        test_meta = {
-          "uid": test_uid,
-          "compute_uid": compute_uid,
-          "bench_uid": bench_uid,
-          "date_time": datetime,
-          "functional": False,
-          "reproduced": False,
-          "support_docker": False
-        }
-
-        
-        x = """
----
-**[Reproducibility meta](https://access.cknowledge.org/playground/?action=reproduce):**
-
-*{}*
-
-
-```json
-{}
-```    
-            """.format(test_file+'-meta.json', json.dumps(test_meta, indent=2))
-
-        
-        st.markdown(x)
-
     # Hide customization by default
     params['hide_script_customization'] = True
 
@@ -677,4 +634,23 @@ def gui(i):
              'extra_faq_online':url_faq_implementation,
              'extra_setup':x}
 
+    #############################################################################
+    value_reproduce = inp.get('repro',{}).get('force', False)
+    reproduce = st.toggle('Record extra info for reproducibility?', value = value_reproduce)
+
+    explore = st.toggle('Explore/tune benchmark (batch size, threads, etc)?', value = False)
+
+    if reproduce or explore:
+        inp['repro']['force'] = True
+        extra['use_experiment'] = True
+        extra['add_to_st_inputs'] = {
+          "@repro_extra.run-mlperf-inference-app.bench_uid": bench_uid,
+          "@repro_extra.run-mlperf-inference-app.compute_uid": compute_uid,
+          '@results_dir':'{{CM_EXPERIMENT_PATH3}}',
+          '@submission_dir':'{{CM_EXPERIMENT_PATH3}}'
+        }
+
+    if explore:
+        extra['add_to_st_inputs']['@batch_size']='{{CM_EXPLORE_BATCH_SIZE{[1,2,4,8]}}}'
+     
     return {'return':0, 'end_html':end_html, 'extra':extra}

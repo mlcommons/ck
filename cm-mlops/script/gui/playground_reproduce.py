@@ -66,6 +66,10 @@ def page(st, params, action = ''):
 
     st.write(x, unsafe_allow_html = True)
     
+
+    return {'return':0}
+
+
 #    st.markdown(announcement)
 
     # Check if test is selected
