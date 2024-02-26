@@ -1,9 +1,10 @@
 [ [Back to index](README.md) ]
 
-## Prepare Nvidia software
+## Build Nvidia Docker Container (from 3.1 Inference round)
 
-You need to install TensorRT and set up the configuration files as detailed [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/README-about.md).
-
+```
+cm docker script --tags=build,nvidia,inference,server
+```
 
 ## Run this benchmark via CM
 
@@ -17,13 +18,13 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 ```
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
 * Use `--category=datacenter` to run datacenter scenarios
+* Remove `_all-scenarios` and use `--scenario=Offline` to run the `Offline` scenario and similarly for `Server`, `SingleStream` and `MultiStream` scenarios.
 
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
 cmr "generate-run-cmds inference _submission _all-scenarios" --model=resnet50 \
---device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/results_dir \
+--device=cuda --implementation=nvidia-original --backend=tensorrt --execution-mode=valid \
 --category=edge --division=open --quiet --skip_submission_generation=yes
 ```
 
@@ -31,14 +32,7 @@ cmr "generate-run-cmds inference _submission _all-scenarios" --model=resnet50 \
 * Use `--division=closed` to run all scenarios for the closed division including the compliance tests
 * `--offline_target_qps`, `--server_target_qps`, `--singlestream_target_latency` and `multistream_target_latency` can be used to override the determined performance numbers
 
-### Populate the README files describing your submission
 
-```
-cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
---model=resnet50 --device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
-```
 
 ### Generate and upload MLPerf submission
 
