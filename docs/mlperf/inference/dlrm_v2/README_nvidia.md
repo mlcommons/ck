@@ -3,7 +3,7 @@
 ## Build Nvidia Docker Container (from 3.1 Inference round)
 
 ```
-cm docker script --tags=build,nvidia,inference,server
+cm docker script --tags=build,nvidia,inference,server --dlrm_data_path=<Path to dlrm data>
 ```
 ## Run this benchmark via CM
 
