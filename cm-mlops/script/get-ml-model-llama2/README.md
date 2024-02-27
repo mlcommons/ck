@@ -125,6 +125,28 @@ ___
     </details>
 
 
+  * Group "**huggingface-stub**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_meta-llama/Llama-2-70b-chat-hf`** (default)
+      - Environment variables:
+        - *CM_GIT_CHECKOUT_FOLDER*: `Llama-2-70b-chat-hf`
+        - *CM_MODEL_ZOO_ENV_KEY*: `LLAMA2`
+      - Workflow:
+    * `_meta-llama/Llama-2-7b-chat-hf`
+      - Environment variables:
+        - *CM_GIT_CHECKOUT_FOLDER*: `Llama-2-7b-chat-hf`
+        - *CM_MODEL_ZOO_ENV_KEY*: `LLAMA2`
+      - Workflow:
+    * `_stub.#`
+      - Environment variables:
+        - *CM_MODEL_ZOO_ENV_KEY*: `LLAMA2`
+      - Workflow:
+
+    </details>
+
+
   * Group "**precision**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -153,7 +175,7 @@ ___
 
 #### Default variations
 
-`_fp32,_pytorch`
+`_fp32,_meta-llama/Llama-2-70b-chat-hf,_pytorch`
 
 #### Script flags mapped to environment
 <details>
@@ -188,7 +210,7 @@ ___
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2/_cm.json)***
-     * get,ml-model,huggingface,zoo,_clone-repo,_model-stub.meta-llama/Llama-2-70b-chat-hf
+     * get,ml-model,huggingface,zoo,_clone-repo
        * `if (CM_TMP_REQUIRE_DOWNLOAD  == yes)`
        * CM names: `--adr.['hf-zoo']...`
        - CM script: [get-ml-model-huggingface-zoo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo)

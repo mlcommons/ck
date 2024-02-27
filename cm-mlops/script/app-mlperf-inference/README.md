@@ -533,10 +533,10 @@ ___
         - *CM_MLPERF_MODEL_EQUAL_ISSUE_MODE*: `yes`
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
-           * run,accuracy,mlperf,_open-orca
-             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION not in ['nvidia-original', 'reference'])`
+           * run,accuracy,mlperf,_open-orca,_int32
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia-original)`
              * CM names: `--adr.['mlperf-accuracy-script', 'open-orca-accuracy-script']...`
-             - *Warning: no scripts found*
+             - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * `_reference,bert_`
       - Workflow:
     * `_reference,dlrm-v2_`

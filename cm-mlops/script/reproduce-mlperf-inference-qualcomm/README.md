@@ -209,8 +209,6 @@ ___
         - *CM_QAIC_DEVICES*: `0`
         - *qaic_activation_count*: `1`
       - Workflow:
-    * `_nsp.16`
-      - Workflow:
     * `_num-devices.4`
       - Environment variables:
         - *CM_QAIC_DEVICES*: `0,1,2,3`
@@ -226,17 +224,27 @@ ___
         1. ***Read "deps" on other CM scripts***
            * set,device,qaic,_vc.15
              - CM script: [set-device-settings-qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic)
+    * `_pro,num-devices.4,bert-99,server`
+      - Environment variables:
+        - *qaic_activation_count*: `16`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * set,device,qaic,_vc.13
+             - CM script: [set-device-settings-qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic)
     * `_pro,num-devices.4,bert-99.9,offline`
       - Environment variables:
         - *qaic_activation_count*: `8`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * set,device,qaic,_vc.17
+           * set,device,qaic,_vc.13
              - CM script: [set-device-settings-qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic)
     * `_pro,num-devices.4,bert-99.9,server`
       - Environment variables:
-        - *qaic_activation_count*: `16`
+        - *qaic_activation_count*: `8`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * set,device,qaic,_vc.13
+             - CM script: [set-device-settings-qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic)
     * `_pro,num-devices.4,resnet50,offline`
       - Environment variables:
         - *qaic_activation_count*: `4`
@@ -495,6 +503,8 @@ ___
     * `_nsp.#`
       - Workflow:
     * `_nsp.14`
+      - Workflow:
+    * `_nsp.16`
       - Workflow:
 
     </details>

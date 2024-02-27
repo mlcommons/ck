@@ -204,7 +204,7 @@ ___
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
            * generate,mlperf,inference,submission
-             * `if (CM_MLPERF_SKIP_SUBMISSION_GENERATION not in ['yes', 'True'])`
+             * `if (CM_MLPERF_SKIP_SUBMISSION_GENERATION in ['no', 'false', 'False', '0'])`
              * CM names: `--adr.['submission-generator']...`
              - CM script: [generate-mlperf-inference-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission)
 
@@ -218,6 +218,7 @@ ___
     * `_full`
       - Environment variables:
         - *CM_MLPERF_SUBMISSION_GENERATION_STYLE*: `full`
+        - *CM_MLPERF_SKIP_SUBMISSION_GENERATION*: `yes`
       - Workflow:
     * **`_short`** (default)
       - Environment variables:
