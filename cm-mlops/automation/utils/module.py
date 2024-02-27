@@ -166,6 +166,7 @@ class CAutomation(Automation):
            (path) (str): path to record file (or current if empty)
            (chunk_size) (int): chunck size in bytes (65536 by default)
            (text) (str): print text before downloaded status ("Downloaded: " by default)
+           (verify) (bool): verify SSL certificate if True (False by default)
 
         Returns:
            (CM return dict):
@@ -211,8 +212,9 @@ class CAutomation(Automation):
 
         text = i.get('text','Downloaded: ')
 
+        verify = i.get('verify', False)
+
         try:
-            verify = i.get('verify', True)
             with requests.get(url, stream=True, allow_redirects=True, verify=verify) as download:
                 download.raise_for_status()
 
