@@ -6,7 +6,7 @@
 ### Do a test run to detect and record the system performance
 
 ```
-cmr "generate-run-cmds inference _find-performance _all-scenarios" \
+cmr "run-mlperf inference _find-performance _all-scenarios" \
 --model=bert-99 --implementation=qualcomm --device=qaic --backend=glow \
 --category=edge --division=open --quiet
 ```
@@ -18,7 +18,7 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
-cmr "generate-run-cmds inference _submission _all-scenarios" --model=bert-99 \
+cmr "run-mlperf inference _submission _all-scenarios" --model=bert-99 \
 --device=qaic --implementation=qualcomm --backend=qaic \
 --execution-mode=valid --category=edge --division=open --quiet
 ```

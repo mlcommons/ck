@@ -11,7 +11,7 @@ cm docker script --tags=build,nvidia,inference,server --dlrm_data_path=<Path to 
 ### Do a test run to detect and record the system performance
 
 ```
-cmr "generate-run-cmds inference _find-performance _all-scenarios" \
+cmr "run-mlperf inference _find-performance _all-scenarios" \
 --model=dlrm-v2-99 --implementation=nvidia-original --device=cuda --backend=tensorrt \
 --category=datacenter --division=open --quiet
 ```
@@ -22,7 +22,7 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
-cmr "generate-run-cmds inference _submission _all-scenarios" --model=dlrm-v2-99 \
+cmr "run-mlperf inference _submission _all-scenarios" --model=dlrm-v2-99 \
 --device=cuda --implementation=nvidia-original --backend=tensorrt \
 --execution-mode=valid \
 --category=datacenter --division=open --quiet --skip_submission_generation=yes

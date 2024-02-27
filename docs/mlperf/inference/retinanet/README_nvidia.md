@@ -12,7 +12,7 @@ cm docker script --tags=build,nvidia,inference,server
 ### Do a test run to detect and record the system performance
 
 ```
-cmr "generate-run-cmds inference _find-performance _all-scenarios" \
+cmr "run-mlperf inference _find-performance _all-scenarios" \
 --model=retinanet --implementation=nvidia-original --device=cuda --backend=tensorrt \
 --category=edge --division=open --quiet
 ```
@@ -22,7 +22,7 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
-cmr "generate-run-cmds inference _submission _all-scenarios" --model=retinanet \
+cmr "run-mlperf inference _submission _all-scenarios" --model=retinanet \
 --device=cuda --implementation=nvidia-original --backend=tensorrt \
 --execution-mode=valid --category=edge --division=open --quiet
 ```

@@ -6,7 +6,7 @@
 ### Do a test run to detect and record the system performance
 
 ```
-cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
+cm run script --tags=run-mlperf,inference,_find-performance,_all-scenarios \
 --model=bert-99 --implementation=reference --device=cpu --backend=onnxruntime \
 --category=edge --division=open --quiet --rerun
 ```
@@ -20,7 +20,7 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --model=bert-99 \
+cm run script --tags=run-mlperf,inference,_submission,_all-scenarios --model=bert-99 \
 --device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --results_dir=$HOME/results_dir \
 --category=edge --division=open --quiet
@@ -34,7 +34,7 @@ cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --mo
 ### Populate the README files describing your submission
 
 ```
-cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
+cmr "run-mlperf inference _populate-readme _all-scenarios" \
 --model=bert-99 --device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --results_dir=$HOME/results_dir \
 --category=edge --division=open --quiet

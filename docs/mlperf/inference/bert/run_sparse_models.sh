@@ -13,7 +13,7 @@ zoo_stub_list=( \
 #"zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/pruned85_quant-none" \
 
 for stub in ${zoo_stub_list[@]}; do
-cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_find-performance  \
+cmd="cm run script --tags=run,mlperf,inference,run-mlperf,_find-performance  \
    --adr.python.version_min=3.8 \
    --adr.compiler.tags=gcc \
    --implementation=reference \
@@ -30,7 +30,7 @@ cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_find-performan
   echo ${cmd}
   eval ${cmd}
 
- cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
+ cmd="cm run script --tags=run,mlperf,inference,run-mlperf,_submission  \
    --adr.python.version_min=3.8 \
    --adr.compiler.tags=gcc \
    --implementation=reference \

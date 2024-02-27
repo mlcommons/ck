@@ -10,7 +10,7 @@ If you want to try an individual model run, you can proceed as follows:
 
 ### Run Command
 ```
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  \
+cm run script --tags=run,mlperf,inference,run-mlperf,_submission,_short  \
    --adr.python.version_min=3.8 \
    --implementation=tflite-cpp \
    --model=efficientnet \
@@ -30,7 +30,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  
 ### Do a test run to detect and record the system performance
 
 ```
-cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
+cm run script --tags=run-mlperf,inference,_find-performance,_all-scenarios \
 --model=resnet50 --implementation=tflite-cpp --device=cpu --backend=tflite \
 --category=edge --division=open --quiet
 ```

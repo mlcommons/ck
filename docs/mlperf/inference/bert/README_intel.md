@@ -7,7 +7,7 @@ We use `cm docker` to run the Intel implementation to avoid compilation problems
 ### Do a test run to detect and record the system performance
 
 ```
-cm docker script --tags=generate-run-cmds,inference,_find-performance \
+cm docker script --tags=run-mlperf,inference,_find-performance \
 --scenario=Offline --model=bert-99 --implementation=intel-original --backend=pytorch \
 --category=datacenter --division=open --quiet
 ```
@@ -17,7 +17,7 @@ cm docker script --tags=generate-run-cmds,inference,_find-performance \
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
-cm docker script --tags=generate-run-cmds,inference,_submission,_all-scenarios \
+cm docker script --tags=run-mlperf,inference,_submission,_all-scenarios \
 --model=bert-99 --implementation=intel-original --backend=pytorch \
 --category=datacenter --division=open --quiet
 ```

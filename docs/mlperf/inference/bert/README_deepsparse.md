@@ -4,7 +4,7 @@
 
 ## BERT-99%: oBERT-Large Offline - DeepSparse
 ```
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
+cm run script --tags=run,mlperf,inference,run-mlperf,_submission  \
    --adr.python.version_min=3.8 \
    --implementation=reference \
    --model=bert-99 \
@@ -23,7 +23,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
 ## BERT-99%: MobileBERT Offline
 
 ```
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
+cm run script --tags=run,mlperf,inference,run-mlperf,_submission  \
    --adr.python.name=mlperf \
    --adr.python.version_min=3.8 \
    --implementation=reference \
@@ -44,7 +44,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
 ## BERT-99.9%: MobileBERT Offline - DeepSparse
 
 ```
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
+cm run script --tags=run,mlperf,inference,run-mlperf,_submission  \
    --adr.python.version_min=3.8 \
    --implementation=reference \
    --compliance=no \
@@ -67,7 +67,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
 ## ResNet50 Offline - DeepSparse
 
 ```
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
+cm run script --tags=run,mlperf,inference,run-mlperf,_submission  \
    --adr.python.version_min=3.8 \
    --implementation=reference \
    --model=resnet50 \
