@@ -166,7 +166,8 @@ class CAutomation(Automation):
            (path) (str): path to record file (or current if empty)
            (chunk_size) (int): chunck size in bytes (65536 by default)
            (text) (str): print text before downloaded status ("Downloaded: " by default)
-           (verify) (bool): verify SSL certificate if True (False by default)
+           (verify) (bool): verify SSL certificate if True (True by default)
+                            can be switched by global env CM_UTILS_DOWNLOAD_VERIFY_SSL = no
 
         Returns:
            (CM return dict):
@@ -212,7 +213,10 @@ class CAutomation(Automation):
 
         text = i.get('text','Downloaded: ')
 
-        verify = i.get('verify', False)
+        if 'CM_UTILS_DOWNLOAD_VERIFY_SSL' in os.environ:
+            verify = os.environ['CM_UTILS_DOWNLOAD_VERIFY_SSL'] == 'yes'
+        else:
+            verify = i.get('verify', True)
 
         try:
             with requests.get(url, stream=True, allow_redirects=True, verify=verify) as download:
