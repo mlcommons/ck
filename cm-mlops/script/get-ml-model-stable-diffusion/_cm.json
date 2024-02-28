@@ -11,7 +11,8 @@
   },
   "input_mapping": {
     "checkpoint": "SDXL_CHECKPOINT_PATH",
-    "download_path": "CM_DOWNLOAD_PATH"
+    "download_path": "CM_DOWNLOAD_PATH",
+    "to": "CM_DOWNLOAD_PATH"
   },
   "new_env_keys": [
     "CM_ML_MODEL_*",

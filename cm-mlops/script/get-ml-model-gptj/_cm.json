@@ -10,7 +10,9 @@
     "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no"
   },
   "input_mapping": {
-    "checkpoint": "GPTJ_CHECKPOINT_PATH"
+    "checkpoint": "GPTJ_CHECKPOINT_PATH",
+    "download_path": "CM_DOWNLOAD_PATH",
+    "to": "CM_DOWNLOAD_PATH"
   },
   "new_env_keys": [
     "CM_ML_MODEL_*",
