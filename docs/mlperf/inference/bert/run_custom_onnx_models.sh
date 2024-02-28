@@ -4,7 +4,7 @@ onnx_file_path=XX
 custom_model_name=YY
 precision=int8
 
-cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_find-performance  \
+cmd="cm run script --tags=run,mlperf,inference,run-mlperf,_find-performance  \
    --adr.python.version_min=3.8 \
    --adr.compiler.tags=gcc \
    --implementation=reference \
@@ -22,7 +22,7 @@ cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_find-performan
   echo ${cmd}
   eval ${cmd}
 
- cmd="cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission  \
+ cmd="cm run script --tags=run,mlperf,inference,run-mlperf,_submission  \
    --adr.python.version_min=3.8 \
    --adr.compiler.tags=gcc \
    --implementation=reference \

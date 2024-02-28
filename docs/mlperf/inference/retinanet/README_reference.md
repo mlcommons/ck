@@ -7,7 +7,7 @@
 ### Do a test run to detect and record the system performance
 
 ```
-cmr "generate-run-cmds inference _find-performance _all-scenarios" \
+cmr "run-mlperf inference _find-performance _all-scenarios" \
 --model=retinanet --implementation=reference --device=cpu --backend=onnxruntime \
 --category=edge --division=open --quiet
 ```
@@ -19,7 +19,7 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
-cmr "generate-run-cmds inference _submission _all-scenarios" --model=retinanet \
+cmr "run-mlperf inference _submission _all-scenarios" --model=retinanet \
 --device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --results_dir=$HOME/results_dir \
 --category=edge --division=open --quiet
@@ -32,7 +32,7 @@ cmr "generate-run-cmds inference _submission _all-scenarios" --model=retinanet \
 ### Populate the README files
 
 ```
-cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
+cmr "run-mlperf inference _populate-readme _all-scenarios" \
 --model=retinanet --device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --results_dir=$HOME/results_dir \
 --category=edge --division=open --quiet

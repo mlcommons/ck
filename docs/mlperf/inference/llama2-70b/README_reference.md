@@ -7,7 +7,7 @@
 ### Do a test run to detect and record the system performance
 
 ```
-cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
+cm run script --tags=run-mlperf,inference,_find-performance,_all-scenarios \
 --model=llama2-70b-99 --implementation=reference --device=cuda --backend=pytorch \
 --category=datacenter --division=open --precision=bfloat16--quiet 
 ```
@@ -20,7 +20,7 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --model=llama2-70b-99 \
+cm run script --tags=run-mlperf,inference,_submission,_all-scenarios --model=llama2-70b-99 \
 --device=cuda --implementation=reference --backend=pytorch --precision=bfloat16 \
 --execution-mode=valid --category=datacenter --division=open --quiet
 ```

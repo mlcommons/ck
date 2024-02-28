@@ -10,7 +10,7 @@
 ### Do a test run to detect and record the system performance
 
 ```
-cmr "generate-run-cmds inference _find-performance _all-scenarios" \
+cmr "run-mlperf inference _find-performance _all-scenarios" \
 --model=3d-unet-99.9 --implementation=reference --device=cpu --backend=onnxruntime \
 --category=edge --division=open --quiet
 ```
@@ -23,7 +23,7 @@ cmr "generate-run-cmds inference _find-performance _all-scenarios" \
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
-cmr "generate-run-cmds inference _submission _all-scenarios" --model=3d-unet-99.9 \
+cmr "run-mlperf inference _submission _all-scenarios" --model=3d-unet-99.9 \
 --device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --category=edge --division=open --quiet
 ```

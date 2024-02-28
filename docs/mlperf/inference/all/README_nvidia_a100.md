@@ -14,7 +14,7 @@ on Nvidia A100, SXM Edge system using Nvidia implementation.
 
 ### Quick performance test
 ```
-cmr "generate-run-cmds inference _performance-only"  \
+cmr "run-mlperf inference _performance-only"  \
 --model=bert-99 --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --scenario=Offline --execution-mode=fast \
@@ -27,7 +27,7 @@ cmr "generate-run-cmds inference _performance-only"  \
 This will do performance+accuracy+compliance for singlestream+offline scenarios. Please change the `target_qps` to the actual output value from the previous command.
 
 ```
-cmr "generate-run-cmds inference _submission _all-scenarios"  \
+cmr "run-mlperf inference _submission _all-scenarios"  \
 --model=bert-99 --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --execution-mode=valid \
@@ -46,7 +46,7 @@ cmr "get dataset original imagenet _full" --input="<Path to imagenet dir contain
 ```
 
 ```
-cmr "generate-run-cmds inference _performance-only"  \
+cmr "run-mlperf inference _performance-only"  \
 --model=resnet50 --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --scenario=Offline --execution-mode=fast \
@@ -59,7 +59,7 @@ cmr "generate-run-cmds inference _performance-only"  \
 This will do performance+accuracy+compliance for singlestream+offline scenarios. Please change the `target_qps` to the actual output value from the previous command.
 
 ```
-cmr "generate-run-cmds inference _submission _all-scenarios"  \
+cmr "run-mlperf inference _submission _all-scenarios"  \
 --model=resnet50 --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --execution-mode=valid \
@@ -72,7 +72,7 @@ cmr "generate-run-cmds inference _submission _all-scenarios"  \
 
 ### Quick performance test
 ```
-cmr "generate-run-cmds inference _performance-only"  \
+cmr "run-mlperf inference _performance-only"  \
 --model=retinanet --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --scenario=Offline --execution-mode=fast \
@@ -85,7 +85,7 @@ cmr "generate-run-cmds inference _performance-only"  \
 This will do performance+accuracy+compliance for singlestream+offline scenarios. Please change the `target_qps` to the actual output value from the previous command.
 
 ```
-cmr "generate-run-cmds inference _submission _all-scenarios"  \
+cmr "run-mlperf inference _submission _all-scenarios"  \
 --model=retinanet --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --execution-mode=valid \
@@ -99,7 +99,7 @@ cmr "generate-run-cmds inference _submission _all-scenarios"  \
 
 ### Quick performance test
 ```
-cmr "generate-run-cmds inference _performance-only"  \
+cmr "run-mlperf inference _performance-only"  \
 --model=rnnt --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --scenario=Offline --execution-mode=fast \
@@ -112,7 +112,7 @@ cmr "generate-run-cmds inference _performance-only"  \
 This will do performance+accuracy+compliance for singlestream+offline scenarios. Please change the `target_qps` to the actual output value from the previous command.
 
 ```
-cmr "generate-run-cmds inference _submission _all-scenarios"  \
+cmr "run-mlperf inference _submission _all-scenarios"  \
 --model=rnnt --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --execution-mode=valid \
@@ -126,7 +126,7 @@ cmr "generate-run-cmds inference _submission _all-scenarios"  \
 
 ### Quick performance test
 ```
-cmr "generate-run-cmds inference _performance-only"  \
+cmr "run-mlperf inference _performance-only"  \
 --model=3d-unet-99 --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --scenario=Offline --execution-mode=fast \
@@ -139,7 +139,7 @@ cmr "generate-run-cmds inference _performance-only"  \
 This will do performance+accuracy+compliance for singlestream+offline scenarios. Please change the `target_qps` to the actual output value from the previous command.
 
 ```
-cmr "generate-run-cmds inference _submission _all-scenarios"  \
+cmr "run-mlperf inference _submission _all-scenarios"  \
 --model=3d-unet-99 --implementation=nvidia-original \
 --device=cuda --backend=tensorrt --category=edge \
 --division=open --quiet --execution-mode=valid \

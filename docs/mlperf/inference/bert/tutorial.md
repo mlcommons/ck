@@ -386,7 +386,7 @@ with all required MLPerf logs and stats.
 You can run this script as follows:
 
 ```bash
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
+cm run script --tags=run,mlperf,inference,run-mlperf,_submission,_short \
       --submitter="Community" \
       --hw_name=default \
       --implementation=reference \
@@ -476,7 +476,7 @@ in the above script.
 
 ### int8
 ```
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  \
+cm run script --tags=run,mlperf,inference,run-mlperf,_submission,_short  \
    --implementation=reference \
    --model=bert-99 \
    --backend=deepsparse \
@@ -489,7 +489,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  
 ```
 ### fp32
 ```
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short  \
+cm run script --tags=run,mlperf,inference,run-mlperf,_submission,_short  \
    --adr.python.version_min=3.8 \
    --implementation=reference \
    --model=bert-99 \

@@ -13,7 +13,7 @@ cm run script --tags=get,preprocessed,dataset,criteo --dir=<path_to_multihot_pre
 ### Do a test run to detect and record the system performance
 
 ```
-cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
+cm run script --tags=run-mlperf,inference,_find-performance,_all-scenarios \
 --model=dlrm-v2-99 --implementation=reference --device=cuda --backend=pytorch \
 --category=datacenter --division=open --quiet 
 ```
@@ -25,7 +25,7 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --model=dlrm-v2-99 \
+cm run script --tags=run-mlperf,inference,_submission,_all-scenarios --model=dlrm-v2-99 \
 --device=cuda --implementation=reference --backend=pytorch --execution-mode=valid \
 --category=datacenter --division=open --quiet
 ```

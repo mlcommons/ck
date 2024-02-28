@@ -7,7 +7,7 @@
 ### Do a test run to detect and record the system performance
 
 ```
-cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
+cm run script --tags=run-mlperf,inference,_find-performance,_all-scenarios \
 --model=gpt-j-99 --implementation=reference --device=cuda --backend=pytorch \
 --category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=4
 ```
@@ -22,7 +22,7 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenario
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --model=gpt-j-99 \
+cm run script --tags=run-mlperf,inference,_submission,_all-scenarios --model=gpt-j-99 \
 --device=cuda --implementation=reference --backend=pytorch \
 --execution-mode=valid --results_dir=$HOME/results_dir \
 --category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=4
@@ -35,7 +35,7 @@ cm run script --tags=generate-run-cmds,inference,_submission,_all-scenarios --mo
 ### Populate the README files describing your submission
 
 ```
-cmr "generate-run-cmds inference _populate-readme _all-scenarios" \
+cmr "run-mlperf inference _populate-readme _all-scenarios" \
 --model=gpt-j-99 --device=cpu --implementation=reference --backend=pytorch \
 --execution-mode=valid --results_dir=$HOME/results_dir \
 --category=edge --division=open --quiet --precision=bfloat16 --env.GPTJ_BEAM_SIZE=4

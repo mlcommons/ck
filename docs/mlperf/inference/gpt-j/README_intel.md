@@ -2,23 +2,24 @@
 
 ## Run this benchmark via CM
 
-We use `cm docker` to run the Intel implementation to avoid compilation problems with any host OS dependencies. 
+You can use `cm docker` instead of `cm run` to run the Intel implementation inside a docker container. But for `gptj` we have found an issue of the code getting hanged when run on a 24 core machine but only when inside a docker container. 
 
 ### Do a test run to detect and record the system performance
 
 ```
-cm docker script --tags=run-mlperf,inference,_find-performance \
---scenario=Offline --model=bert-99 --implementation=intel-original --backend=pytorch \
+cm run script --tags=run-mlperf,inference,_find-performance \
+--scenario=Offline --model=gptj-99 --implementation=intel-original --backend=pytorch \
 --category=datacenter --division=open --quiet
 ```
 * Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
+* Intel implementation currently supports only datacenter scenarios
 
 
 ### Do full accuracy and performance runs for all the scenarios
 
 ```
 cm docker script --tags=run-mlperf,inference,_submission,_all-scenarios \
---model=bert-99 --implementation=intel-original --backend=pytorch \
+--model=gptj-99 --implementation=intel-original --backend=pytorch \
 --category=datacenter --division=open --quiet
 ```
 
