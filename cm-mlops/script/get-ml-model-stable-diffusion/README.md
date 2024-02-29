@@ -210,6 +210,7 @@ ___
 
 * `--checkpoint=value`  &rarr;  `SDXL_CHECKPOINT_PATH=value`
 * `--download_path=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
+* `--to=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 

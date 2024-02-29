@@ -224,6 +224,8 @@ ___
 <summary>Click here to expand this section.</summary>
 
 * `--dir=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
+* `--download_path=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
+* `--to=value`  &rarr;  `CM_DOWNLOAD_PATH=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 

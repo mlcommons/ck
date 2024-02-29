@@ -98,6 +98,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* `--branch=value`  &rarr;  `CM_GIT_BRANCH=value`
 * `--commit_message=value`  &rarr;  `CM_MLPERF_RESULTS_REPO_COMMIT_MESSAGE=value`
 * `--repo_branch=value`  &rarr;  `CM_GIT_BRANCH=value`
 * `--repo_url=value`  &rarr;  `CM_MLPERF_RESULTS_GIT_REPO_URL=value`
@@ -106,7 +107,7 @@ ___
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "commit_message":...}
+r=cm.access({... , "branch":...}
 ```
 
 </details>
