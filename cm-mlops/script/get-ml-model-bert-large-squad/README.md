@@ -141,10 +141,12 @@ ___
     * `_pytorch,fp32`
       - Environment variables:
         - *CM_ML_MODEL_F1*: `90.874`
+        - *CM_DOWNLOAD_CHECKSUM*: `00fbcbfaebfa20d87ac9885120a6e9b4`
       - Workflow:
     * `_pytorch,fp32,armi`
       - Environment variables:
-        - *CM_PACKAGE_URL*: `https://zenodo.org/record/3733896/files/model.pytorch`
+        - *CM_PACKAGE_URL*: `https://armi.in/files/fp32/model.pytorch`
+        - *CM_PACKAGE_URL1*: `https://zenodo.org/record/3733896/files/model.pytorch`
       - Workflow:
     * `_pytorch,fp32,zenodo`
       - Environment variables:
