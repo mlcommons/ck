@@ -23,7 +23,7 @@ def postprocess(i):
 
     env = i['env']
 
-    path = env['CM_GIT_REPO_CM_AXS_PATH_CHECKOUT_PATH']
+    path = env['CM_AXS_PATH']
     env['+PATH'] = [ path ]
 
     if os_info['platform'] == 'windows':

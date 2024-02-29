@@ -13,6 +13,7 @@ tags:
 category: Detection or installation of tools and artifacts
 
 new_env_keys:
+  - CM_AXS_PATH
   - "+PATH"
 
 deps:
@@ -31,4 +32,4 @@ deps:
     - axs-repo
     extra_cache_tags: git-axs
     env:
-      CM_GIT_ENV_KEY: 'CM_AXS_PATH'
+      CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_AXS_PATH
