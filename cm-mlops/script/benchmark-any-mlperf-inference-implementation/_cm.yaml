@@ -30,6 +30,7 @@ tags:
   - run
   - natively
   - all
+  - inference
   - any
   - mlperf
   - mlperf-implementation
