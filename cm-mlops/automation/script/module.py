@@ -1683,6 +1683,17 @@ class CAutomation(Automation):
             print ('')
             input ('Press Enter to continue ...')
 
+        # Check if need to print some final info such as path to model, etc
+        print_env_at_the_end = meta.get('print_env_at_the_end',{})
+        if len(print_env_at_the_end)>0:
+            print ('')
+            for p in print_env_at_the_end:
+                t = print_env_at_the_end[p]
+
+                v = new_env.get(p, None)
+
+                print ('{}: {}'.format(t, str(v)))
+        
         return rr
 
     ######################################################################################

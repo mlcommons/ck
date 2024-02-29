@@ -33,3 +33,6 @@ deps:
     extra_cache_tags: git-axs
     env:
       CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_AXS_PATH
+
+print_env_at_the_end:
+  CM_AXS_PATH: "Path to the tool"
