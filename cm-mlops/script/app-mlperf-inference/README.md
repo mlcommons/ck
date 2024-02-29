@@ -388,7 +388,7 @@ ___
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * run,accuracy,mlperf,_librispeech
-             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION not in ['nvidia-original', 'reference'])`
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia-original)`
              * CM names: `--adr.['mlperf-accuracy-script', 'librispeech-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * `_sdxl`
