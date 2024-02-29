@@ -206,6 +206,9 @@ class CAutomation(Automation):
         if os.path.isfile(path_to_file):
             os.remove(path_to_file)
 
+        print ('Downloading to {}'.format(path_to_file))
+        print ('')
+
         # Download
         size = -1
         downloaded = 0

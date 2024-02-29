@@ -1710,6 +1710,11 @@ class CAutomation(Automation):
         import copy
         explicit_variation_tags=copy.deepcopy(variation_tags)
 
+        # Calculate space
+        required_disk_space = {}
+        
+        # Check if warning
+        warnings = []
 
         # variation_tags get appended by any aliases
         r = self._get_variations_with_aliases(variation_tags, variations)
@@ -1785,6 +1790,7 @@ class CAutomation(Automation):
                 if variation_tag.startswith('~'):
                     # ignore such tag (needed for caching only to differentiate variations)
                     continue
+
                 if variation_tag.startswith('-'):
                     # ignore such tag (needed for caching only to eliminate variations)
                     continue
@@ -1803,13 +1809,18 @@ class CAutomation(Automation):
                 if variation_tag_dynamic_suffix:
                     self._update_variation_meta_with_dynamic_suffix(variation_meta, variation_tag_dynamic_suffix)
 
-
-
                 r = update_state_from_meta(variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
                 if r['return']>0: return r
 
                 if variation_meta.get('script_name', '')!='':
                     meta['script_name'] = variation_meta['script_name']
+
+                if variation_meta.get('required_disk_space', 0) > 0 and variation_tag not in required_disk_space:
+                    required_disk_space[variation_tag] = variation_meta['required_disk_space']
+                
+                if variation_meta.get('warning', '') != '':
+                    x = variation_meta['warning']
+                    if x not in warnings: warnings.append()
 
                 adr=get_adr(variation_meta)
                 if adr:
@@ -1839,11 +1850,30 @@ class CAutomation(Automation):
                         if combined_variation_meta.get('script_name', '')!='':
                             meta['script_name'] = combined_variation_meta['script_name']
 
+                        if combined_variation_meta.get('required_disk_space', 0) > 0 and combined_variation not in required_disk_space:
+                            required_disk_space[combined_variation] = combined_variation_meta['required_disk_space']
+
+                        if combined_variation_meta.get('warning', '') != '':
+                            x = combined_variation_meta['warning']
+                            if x not in warnings: warnings.append(x)
 
             #Processing them again using updated deps for add_deps_recursive
             r = update_adr_from_meta(deps, post_deps, prehook_deps, posthook_deps, add_deps_recursive)
             if r['return']>0: return r
 
+        if len(required_disk_space)>0:
+            required_disk_space_sum_mb = sum(list(required_disk_space.values()))
+
+            warnings.append('Required disk space: {} MB'.format(required_disk_space_sum_mb))
+
+        if len(warnings)>0:
+            print ('=================================================')
+            print ('WARNINGS:')
+            print ('')
+            for w in warnings:
+                print ('  '+w)
+            print ('=================================================')
+            
         return {'return': 0, 'variation_tags_string': variation_tags_string, 'explicit_variation_tags': explicit_variation_tags}
 
     ######################################################################################
