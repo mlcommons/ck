@@ -230,5 +230,9 @@
         "CM_GIT_CHECKOUT": "pybind_update"
       }
     }
+  },
+  "print_env_at_the_end" : {
+    "CM_MLPERF_INFERENCE_SOURCE": "Path to MLPerf inference benchmark sources",
+    "CM_MLPERF_INFERENCE_CONF_PATH": "Path to the MLPerf inference benchmark configuration file"
   }
 }

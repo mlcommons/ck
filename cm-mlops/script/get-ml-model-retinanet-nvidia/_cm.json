@@ -77,5 +77,8 @@
         "CM_NVIDIA_EFFICIENT_NMS": "yes"
       }
     }
+  },
+  "print_env_at_the_end" : {
+    "CM_NVIDIA_RETINANET_EFFICIENT_NMS_CONCAT_MODEL_WITH_PATH": "Path to the ML model"
   }
 }
