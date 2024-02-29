@@ -4,6 +4,7 @@ if [[ -n ${CM_DOWNLOAD_CONFIG_CMD} ]]; then
   echo ""
   echo "${CM_DOWNLOAD_CONFIG_CMD}"
   eval "${CM_DOWNLOAD_CONFIG_CMD}"
+  test $? -eq 0 || exit $?
 fi
 
 if [ -e ${CM_DOWNLOAD_DOWNLOADED_PATH} ]; then

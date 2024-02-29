@@ -5,6 +5,14 @@ rem If MD5 is wrong, download again!
 rem Next line allows ERRORLEVEL inside if statements!
 setlocal enabledelayedexpansion
 
+if NOT "%CM_DOWNLOAD_CONFIG_CMD%" == "" (
+  echo.
+  echo %CM_DOWNLOAD_CONFIG_CMD%
+  echo.
+  %CM_DOWNLOAD_CONFIG_CMD%
+  IF !ERRORLEVEL! NEQ 0 EXIT !ERRORLEVEL!
+)
+
 set require_download=1
 if exist "%CM_DOWNLOAD_DOWNLOADED_PATH%" (
     set require_download=0
