@@ -169,7 +169,8 @@
     },
     "pytorch,fp32": {
       "env": {
-        "CM_ML_MODEL_F1": "90.874"
+        "CM_ML_MODEL_F1": "90.874",
+        "CM_DOWNLOAD_CHECKSUM": "00fbcbfaebfa20d87ac9885120a6e9b4"
       }
     },
     "pytorch,fp32,zenodo": {
