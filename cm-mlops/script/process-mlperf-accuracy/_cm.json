@@ -242,7 +242,7 @@
           "names": [
             "llama2-model"
           ],
-          "tags": "get,ml-model,llama2,_meta-llama/Llama-2-7b-chat-hf"
+          "tags": "get,ml-model,llama2"
         }
       ],
       "env": {
