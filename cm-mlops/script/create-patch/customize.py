@@ -21,7 +21,7 @@ def preprocess(i):
 
     old_dir = env.get('CM_CREATE_PATCH_OLD', '')
     if old_dir == '':
-        return {'return':1, 'error':'specify OLD directory using --new'}
+        return {'return':1, 'error':'specify OLD directory using --old'}
     if not os.path.isdir(old_dir):
         return {'return':1, 'error':'OLD directory doesn\'t exist {}'.format(old_dir)}
 
