@@ -107,6 +107,7 @@ ___
     * `_tflite,int8`
       - Environment variables:
         - *CM_PACKAGE_URL*: `https://github.com/mlcommons/tiny/raw/master/benchmark/training/image_classification/trained_models/pretrainedResnet_quant.tflite`
+        - *CM_DOWNLOAD_CHECKSUM*: `2d6dd48722471313e4c4528249205ae3`
       - Workflow:
 
     </details>
