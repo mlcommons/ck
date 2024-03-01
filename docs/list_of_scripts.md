@@ -216,7 +216,6 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [get-google-test](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-test)
 * [get-java](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-java)
 * [get-javac](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-javac)
-* [get-kilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-kilt)
 * [get-lib-armnn](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-armnn)
 * [get-lib-dnnl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-dnnl)
 * [get-lib-protobuf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf)

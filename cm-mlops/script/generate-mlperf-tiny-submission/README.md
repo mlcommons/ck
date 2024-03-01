@@ -222,7 +222,6 @@ ___
        - CM script: [get-ipol-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ipol-src)
        - CM script: [get-java](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-java)
        - CM script: [get-javac](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-javac)
-       - CM script: [get-kilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-kilt)
        - CM script: [get-lib-armnn](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-armnn)
        - CM script: [get-lib-dnnl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-dnnl)
        - CM script: [get-lib-protobuf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-protobuf)
