@@ -195,7 +195,7 @@ ___
            * get,dataset,openorca,preprocessed
              * CM names: `--adr.['openorca-dataset']...`
              - CM script: [get-preprocessed-dataset-openorca](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openorca)
-           * get,ml-model,llama2,_meta-llama/Llama-2-7b-chat-hf
+           * get,ml-model,llama2
              * CM names: `--adr.['llama2-model']...`
              - CM script: [get-ml-model-llama2](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-llama2)
     * `_openimages`

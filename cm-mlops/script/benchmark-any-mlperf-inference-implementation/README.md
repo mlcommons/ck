@@ -32,7 +32,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-any-mlperf-inference-implementation)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *benchmark,run,natively,all,any,mlperf,mlperf-implementation,implementation,mlperf-models*
+* CM "database" tags to find this script: *benchmark,run,natively,all,inference,any,mlperf,mlperf-implementation,implementation,mlperf-models*
 * Output cached? *False*
 ___
 ### Reuse this script in your project
@@ -49,9 +49,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=benchmark,run,natively,all,any,mlperf,mlperf-implementation,implementation,mlperf-models[,variations] [--input_flags]`
+1. `cm run script --tags=benchmark,run,natively,all,inference,any,mlperf,mlperf-implementation,implementation,mlperf-models[,variations] [--input_flags]`
 
-2. `cmr "benchmark run natively all any mlperf mlperf-implementation implementation mlperf-models[ variations]" [--input_flags]`
+2. `cmr "benchmark run natively all inference any mlperf mlperf-implementation implementation mlperf-models[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -68,7 +68,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'benchmark,run,natively,all,any,mlperf,mlperf-implementation,implementation,mlperf-models'
+                  'tags':'benchmark,run,natively,all,inference,any,mlperf,mlperf-implementation,implementation,mlperf-models'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -85,13 +85,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="benchmark,run,natively,all,any,mlperf,mlperf-implementation,implementation,mlperf-models"```
+```cmr "cm gui" --script="benchmark,run,natively,all,inference,any,mlperf,mlperf-implementation,implementation,mlperf-models"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=benchmark,run,natively,all,any,mlperf,mlperf-implementation,implementation,mlperf-models) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=benchmark,run,natively,all,inference,any,mlperf,mlperf-implementation,implementation,mlperf-models) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "benchmark run natively all any mlperf mlperf-implementation implementation mlperf-models[ variations]" [--input_flags]`
+`cm docker script "benchmark run natively all inference any mlperf mlperf-implementation implementation mlperf-models[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -273,7 +273,7 @@ ___
 
 ___
 ### Script output
-`cmr "benchmark run natively all any mlperf mlperf-implementation implementation mlperf-models[,variations]" [--input_flags] -j`
+`cmr "benchmark run natively all inference any mlperf mlperf-implementation implementation mlperf-models[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
