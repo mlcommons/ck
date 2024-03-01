@@ -7,7 +7,7 @@
   "deps": [
     {
       "env": {
-        "CM_GIT_URL":"https://github.com/ctuning/kilt-mlperf",
+        "CM_GIT_URL":"https://github.com/krai/kilt-mlperf",
         "CM_GIT_CHECKOUT_PATH_ENV_NAME":"CM_KILT_SRC_PATH"
       },
       "update_tags_from_env_with_prefix": {
@@ -17,7 +17,7 @@
         "CM_GIT_CHECKOUT"
       ],
       "extra_cache_tags": "lib,kilt",
-      "tags": "get,git,_repo.https://github.com/ctuning/kilt-mlperf"
+      "tags": "get,git,repo"
     }
   ],
   "new_env_keys": [
