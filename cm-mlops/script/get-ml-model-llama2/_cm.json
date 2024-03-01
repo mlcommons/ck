@@ -120,5 +120,8 @@
       },
       "group": "precision"
     }
+  },
+  "print_env_at_the_end" : {
+    "LLAMA2_CHECKPOINT_PATH": "LLAMA2 checkpoint path"
   }
 }

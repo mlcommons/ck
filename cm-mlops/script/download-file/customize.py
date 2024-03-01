@@ -34,6 +34,9 @@ def preprocess(i):
         if url=='':
             return {'return':1, 'error': 'please specify URL using --url={URL} or --env.CM_DOWNLOAD_URL={URL}'}
 
+        print ('')
+        print ('Downloading from {}'.format(url))
+        
         if '&' in url and tool != "cmutil":
             if os_info['platform'] == 'windows':
                 url = '"'+url+'"'

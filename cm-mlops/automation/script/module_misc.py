@@ -1709,7 +1709,7 @@ def docker(i):
                 for tmp_value in tmp_values:
                     if tmp_value in env:
                         new_container_mount = get_container_path(env[tmp_value])
-                        container_env_string += "--env.{}={} ".format(tmp_value, new_container_mount)
+                        container_env_string += " --env.{}={} ".format(tmp_value, new_container_mount)
                     else:# we skip those mounts
                         mounts[index] = None
                         skip = True
@@ -1722,6 +1722,16 @@ def docker(i):
         mounts = list(filter(lambda item: item is not None, mounts))
 
         mount_string = "" if len(mounts)==0 else ",".join(mounts)
+
+        #check for proxy settings and pass onto the docker
+        proxy_keys = [ "ftp_proxy", "FTP_PROXY", "http_proxy", "HTTP_PROXY", "https_proxy", "HTTPS_PROXY", "no_proxy", "NO_PROXY", "socks_proxy", "SOCKS_PROXY" ]
+        if env.get('+ CM_DOCKER_BUILD_ARGS', []) == []:
+            env['+ CM_DOCKER_BUILD_ARGS'] = []
+        for key in proxy_keys:
+            if os.environ.get(key, '') != '':
+                value = os.environ[key]
+                container_env_string += " --env.{}={} ".format(key, value)
+                env['+ CM_DOCKER_BUILD_ARGS'].append("{}={}".format(key, value))
 
         docker_base_image = i.get('docker_base_image', docker_settings.get('base_image'))
         docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))

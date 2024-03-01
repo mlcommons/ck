@@ -33,5 +33,8 @@
     "cmake",
     "get-cmake"
   ],
+  "print_env_at_the_end" : {
+    "CM_CMAKE_BIN_WITH_PATH": "Path to the tool"
+  },
   "uid": "52bf974d791b4fc8"
 }

@@ -67,5 +67,8 @@
       "group": "download-src",
       "default": true
     }
+  },
+  "print_env_at_the_end" : {
+    "CM_ML_MODEL_FILE_WITH_PATH": "Path to the ML model"
   }
 }

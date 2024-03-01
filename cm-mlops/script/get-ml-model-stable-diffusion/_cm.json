@@ -175,5 +175,8 @@
         "CM_DOWNLOAD_URL": "mlc-inference:mlcommons-inference-wg-public/stable_diffusion_fp16"
       }
     }
+  },
+  "print_env_at_the_end" : {
+    "SDXL_CHECKPOINT_PATH": "Stable diffusion checkpoint path"
   }
 }

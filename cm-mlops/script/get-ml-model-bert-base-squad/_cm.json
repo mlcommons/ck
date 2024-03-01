@@ -85,5 +85,8 @@
       },
       "group": "precision"
     }
+  },
+  "print_env_at_the_end" : {
+    "CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": "Path to the BERT vocab file"
   }
 }

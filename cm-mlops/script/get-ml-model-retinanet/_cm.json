@@ -76,14 +76,18 @@
     "onnx,fp32": {
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/6617879/files/resnext50_32x4d_fpn.onnx",
+        "CM_DOWNLOAD_CHECKSUM": "4544f4e56e0a4684215831cc937ea45c",
         "CM_ML_MODEL_ACCURACY": "0.3757"
-      }
+      },
+      "required_disk_space": 150,
+      "warning":"This model is downloaded from Zenodo.org"
     },
     "pytorch,fp32": {
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth",
         "CM_ML_MODEL_ACCURACY": "0.3755"
       }
+
     },
     "weights": {
       "env": {
@@ -164,5 +168,9 @@
         }
       ]
     }
+  },
+  "print_env_at_the_end" : {
+    "CM_ML_MODEL_FILE_WITH_PATH": "Path to the ML model",
+    "CM_ML_MODEL_ACCURACY": "Model accuracy"
   }
 }
