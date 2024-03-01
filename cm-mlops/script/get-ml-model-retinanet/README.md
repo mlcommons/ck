@@ -112,6 +112,7 @@ ___
     * `_onnx,fp32`
       - Environment variables:
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/6617879/files/resnext50_32x4d_fpn.onnx`
+        - *CM_DOWNLOAD_CHECKSUM*: `4544f4e56e0a4684215831cc937ea45c`
         - *CM_ML_MODEL_ACCURACY*: `0.3757`
       - Workflow:
     * `_onnx,no-nms`
