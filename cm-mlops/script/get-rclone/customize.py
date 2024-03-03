@@ -16,6 +16,12 @@ def preprocess(i):
     run_script_input = i['run_script_input']
     automation = i['automation']
 
+    need_version = env.get('CM_VERSION','')
+
+    host_os_machine = ''
+    if os_info['platform'] != 'windows':
+        host_os_machine = env['CM_HOST_OS_MACHINE'] # ABI
+
     r = automation.detect_version_using_script({
                'env': env,
                'run_script_input': run_script_input,
@@ -23,7 +29,35 @@ def preprocess(i):
 
     if r['return'] >0:
         if r['return'] == 16:
-            r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'install'})
+            install_script = 'install'
+            if os_info['platform'] != 'windows' and env.get('CM_RCLONE_SYSTEM','')=='yes':
+                install_script += '-system'
+            else:
+                if os_info['platform'] != 'windows':
+                    x1 = 'arm64' if host_os_machine.startswith('arm') or host_os_machine.startswith('aarch') else 'amd64'
+
+                    filebase = 'rclone-v{}-{}-{}'
+                    urlbase = 'https://downloads.rclone.org/v{}/{}'
+
+                    if os_info['platform'] == 'darwin':
+                        filename = filebase.format(need_version, 'osx', x1)
+                    elif os_info['platform'] == 'linux':
+                        filename = filebase.format(need_version, 'linux', x1)
+
+                    env['CM_RCLONE_URL'] = urlbase.format(need_version, filename+'.zip')
+                    env['CM_RCLONE_ARCHIVE'] = filename
+                    env['CM_RCLONE_ARCHIVE_WITH_EXT'] = filename+'.zip'
+
+                    print(recursion_spaces + 'Downloading {}'.format(env['CM_RCLONE_URL']))
+
+                cur_dir = os.getcwd()
+                path_bin = os.path.join(cur_dir, file_name)
+                env['CM_RCLONE_BIN_WITH_PATH'] = path_bin
+                env['+PATH']=[cur_dir]
+
+            r = automation.run_native_script({'run_script_input':run_script_input, 
+                                              'env':env, 
+                                              'script_name':install_script})
             if r['return']>0: return r
         else:
             return r
@@ -77,9 +111,11 @@ def postprocess(i):
 
     env['CM_RCLONE_CACHE_TAGS'] = 'version-'+version
 
-    if os_info['platform'] == 'windows':
+    file_name = 'rclone.exe' if os_info['platform'] == 'windows' else 'rclone'
+
+    if os_info['platform'] == 'windows' or env.get('CM_RCLONE_SYSTEM','')!='yes':
         cur_dir = os.getcwd()
-        path_bin = os.path.join(cur_dir, 'rclone.exe')
+        path_bin = os.path.join(cur_dir, file_name)
         if os.path.isfile(path_bin):
             # Was downloaded and extracted by CM
             env['CM_RCLONE_BIN_WITH_PATH'] = path_bin
