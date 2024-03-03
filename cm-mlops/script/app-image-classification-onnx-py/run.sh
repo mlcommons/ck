@@ -23,7 +23,7 @@ export CK_BATCH_COUNT=${CM_BATCH_COUNT}
 
 if [[ "${CM_INPUT}" != "" ]]; then export CM_IMAGE=${CM_INPUT}; fi
 
-PIP_EXTRA=`${CM_PYTHON_BIN} -c "import pkg_resources; print(' --break-system-packages ' if int(pkg_resources.get_distribution('pip').version.split('.')[0]) >= 23 else '')"`
+PIP_EXTRA=`${CM_PYTHON_BIN} -c "import importlib.metadata; print(' --break-system-packages ' if int(importlib.metadata.version('pip').split('.')[0]) >= 23 else '')"`
 
 echo ""
 ${CM_PYTHON_BIN} -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt ${PIP_EXTRA}
