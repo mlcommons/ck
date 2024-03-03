@@ -88,6 +88,12 @@
         "pip-package", "pybind11"
       ],
       "tags": "get,generic-python-lib,_package.pybind11"
+    },
+    {
+      "names": [
+        "pip-package", "setuputils"
+      ],
+      "tags": "get,generic-python-lib,_package.setuptools"
     }
   ],
   "default_env": {

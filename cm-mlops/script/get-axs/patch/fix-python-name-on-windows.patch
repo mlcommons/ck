@@ -1,7 +1,0 @@
-diff -Naur repo\axs.bat repo.new\axs.bat
---- repo\axs.bat	Thu Feb 29 20:26:24 2024
-+++ repo.new\axs.bat	Thu Feb 29 20:25:30 2024
-@@ -1,2 +1,2 @@
- @set PATH_TO_THIS_DIR=%~dp0
--@python3 %PATH_TO_THIS_DIR%axs %*
-+@python %PATH_TO_THIS_DIR%axs %*
