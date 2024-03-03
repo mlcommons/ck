@@ -4167,7 +4167,7 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
             print ('')
 
         print (recursion_spaces + '       ! cd {}'.format(cur_dir))
-        print (recursion_spaces + '       ! call {} from {}'.format(run_script, path_to_run_script))
+        print (recursion_spaces + '       ! call {} from {}'.format(path_to_run_script, run_script))
 
 
         # Prepare env variables
@@ -4258,7 +4258,7 @@ and deterministic. Thank you'''
             utils.merge_dicts({'dict1':env, 'dict2':updated_env, 'append_lists':True, 'append_unique':True})
  
 
-    if customize_code is not None:
+    if postprocess != '' and customize_code is not None:
         print (recursion_spaces+'       ! call "{}" from {}'.format(postprocess, customize_code.__file__))
     
     if len(posthook_deps)>0 and (postprocess == "postprocess"):
