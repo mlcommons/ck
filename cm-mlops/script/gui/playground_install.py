@@ -88,7 +88,7 @@ def page(st, params, extra):
     else:
         cm_repo = 'mlcommons@ck'
     
-    x =  '{} -m pip install cmind -U{}\n\n'.format(python, need_user)
+    x =  '{} -m pip install cmind -U {}\n\n'.format(python, need_user)
     x += 'cm pull repo {}\n\n'.format(cm_repo)
     
     clean_cm_cache = st.toggle('Clean CM cache', value=True, key = 'install_clean_cm_cache')
