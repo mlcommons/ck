@@ -207,7 +207,7 @@
         },
         {
           "tags": "get,gcc",
-          "version_min": "12.3"
+          "version_min": "12.1"
         },
         {
           "tags": "get,conda,_name.gptj-pt",
