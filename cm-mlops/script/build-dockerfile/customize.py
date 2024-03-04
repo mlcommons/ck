@@ -10,6 +10,7 @@ def preprocess(i):
 
     if env["CM_DOCKER_OS"] not in [ "ubuntu", "rhel", "arch" ]:
         return {'return': 1, 'error': "Currently only ubuntu, rhel and arch are supported in CM docker"}
+
     path = i['run_script_input']['path']
 
     with open(os.path.join(path, "dockerinfo.json")) as f:
@@ -47,12 +48,8 @@ def preprocess(i):
         env["CM_DOCKER_OS_VERSION"] = "20.04"
 
     docker_image_base = get_value(env, config, 'FROM', 'CM_DOCKER_IMAGE_BASE')
-
     if not docker_image_base:
-        if env["CM_DOCKER_OS"] == "ubuntu":
-            docker_image_base = env["CM_DOCKER_OS"]+":"+env["CM_DOCKER_OS_VERSION"]
-        else:
-            return {'return': 1, 'error': "Version "+env["CM_DOCKER_OS_VERSION"]+" is not supported yet"}
+        return {'return': 1, 'error': f"Version \"{env['CM_DOCKER_OS_VERSION']}\" is not supported yet for \"{env['CM_DOCKER_OS']}\" "}
 
     if "CM_MLOPS_REPO" in env:
         cm_mlops_repo = env["CM_MLOPS_REPO"]
@@ -243,19 +240,17 @@ def get_value(env, config, key, env_key = None):
     if not env_key:
         env_key = key
 
-    if env_key in env:
+    if env.get(env_key, None) != None:
         return env[env_key]
 
     docker_os = env['CM_DOCKER_OS']
     docker_os_version = env['CM_DOCKER_OS_VERSION']
 
-    version_meta = config['distros'][docker_os]['versions'].get(docker_os_version, {})
-
+    version_meta = config['distros'][docker_os]['versions'].get(docker_os_version, '')
     if key in version_meta:
         return version_meta[key]
 
     distro_meta = config['distros'][docker_os]
-
     if key in distro_meta:
         return distro_meta[key]
 

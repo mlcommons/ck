@@ -788,6 +788,8 @@ class CAutomation(Automation):
         if r['return'] > 0:
             return r
 
+        warnings = r.get('warnings', [])
+
         variation_tags_string = r['variation_tags_string']
         explicit_variation_tags = r['explicit_variation_tags']
 
@@ -1175,6 +1177,14 @@ class CAutomation(Automation):
 
         ################################ 
         if not found_cached:
+            if len(warnings)>0:
+                print ('=================================================')
+                print ('WARNINGS:')
+                print ('')
+                for w in warnings:
+                    print ('  '+w)
+                print ('=================================================')
+
             # Update default version meta if version is not set
             if version == '':
                 default_version = meta.get('default_version', '')
@@ -1674,7 +1684,7 @@ class CAutomation(Automation):
         # Check if save json to file
         if repro_prefix !='':
             dump_repro(repro_prefix, rr, run_state)
-        
+
         if verbose or show_time:
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
 
@@ -1693,7 +1703,7 @@ class CAutomation(Automation):
                 v = new_env.get(p, None)
 
                 print ('{}: {}'.format(t, str(v)))
-        
+
         return rr
 
     ######################################################################################
@@ -1712,7 +1722,7 @@ class CAutomation(Automation):
 
         # Calculate space
         required_disk_space = {}
-        
+
         # Check if warning
         warnings = []
 
@@ -1739,7 +1749,6 @@ class CAutomation(Automation):
 
         if default_variation and default_variation not in variations:
             return {'return': 1, 'error': 'Default variation "{}" is not in the list of variations: "{}" '.format(default_variation, variations.keys())}
-
 
         if len(variation_tags) == 0:
             if default_variation != '' and default_variation not in excluded_variation_tags:
@@ -1817,7 +1826,7 @@ class CAutomation(Automation):
 
                 if variation_meta.get('required_disk_space', 0) > 0 and variation_tag not in required_disk_space:
                     required_disk_space[variation_tag] = variation_meta['required_disk_space']
-                
+
                 if variation_meta.get('warning', '') != '':
                     x = variation_meta['warning']
                     if x not in warnings: warnings.append()
@@ -1866,15 +1875,7 @@ class CAutomation(Automation):
 
             warnings.append('Required disk space: {} MB'.format(required_disk_space_sum_mb))
 
-        if len(warnings)>0:
-            print ('=================================================')
-            print ('WARNINGS:')
-            print ('')
-            for w in warnings:
-                print ('  '+w)
-            print ('=================================================')
-            
-        return {'return': 0, 'variation_tags_string': variation_tags_string, 'explicit_variation_tags': explicit_variation_tags}
+        return {'return': 0, 'variation_tags_string': variation_tags_string, 'explicit_variation_tags': explicit_variation_tags, 'warnings':warnings}
 
     ######################################################################################
     def _update_variation_tags_from_variations(self, variation_tags, variations, variation_groups, excluded_variation_tags):

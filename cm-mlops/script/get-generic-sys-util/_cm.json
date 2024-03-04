@@ -14,6 +14,7 @@
     "CM_SUDO": "sudo"
   },
   "new_env_keys": [
+    "+PATH"
   ],
   "tags": [
     "get",
@@ -296,7 +297,8 @@
       },
       "state": {
         "g++12": {
-          "apt": "g++-12"
+          "apt": "g++-12",
+          "dnf": "gcc-toolset-12-gcc-c++"
         }
       }
     }

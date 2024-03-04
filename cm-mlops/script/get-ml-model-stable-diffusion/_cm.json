@@ -110,10 +110,14 @@
       },
       "group": "framework"
     },
+    "pytorch,fp16": {
+      "required_disk_space": 6500
+    },
     "pytorch,fp32": {
       "env": {
         "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0"
-      }
+      },
+      "required_disk_space": 13000
     },
     "uint8": {
       "env": {

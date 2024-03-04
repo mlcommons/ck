@@ -42,4 +42,7 @@ def preprocess(i):
     env['CM_SYS_UTIL_INSTALL_CMD'] = sudo + ' ' +install_cmd + ' ' + package_name
 
 
+    if env.get('CM_HOST_OS_FLAVOR', '') == 'rhel':
+        if env['CM_SYS_UTIL_NAME'] == "g++12":
+            env['+PATH'] = "/opt/rh/gcc-toolset-12/root/usr/bin"
     return {'return':0}

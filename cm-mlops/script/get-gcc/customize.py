@@ -8,8 +8,15 @@ def preprocess(i):
     env = i['env']
 
     recursion_spaces = i['recursion_spaces']
-
     file_name_c = 'gcc.exe' if os_info['platform'] == 'windows' else 'gcc'
+
+    if env.get('CM_HOST_OS_FLAVOR', '') == 'rhel':
+        if "12" in env.get('CM_VERSION', '') or "12" in env.get('CM_VERSION_MIN', ''):
+            if env.get('CM_TMP_PATH', '') == '':
+                env['CM_TMP_PATH'] = ''
+            env['CM_TMP_PATH'] += "/opt/rh/gcc-toolset-12/root/usr/bin"
+            env['CM_TMP_PATH_IGNORE_NON_EXISTANT'] = 'yes'
+
     if 'CM_GCC_BIN_WITH_PATH' not in env:
         r = i['automation'].find_artifact({'file_name': file_name_c,
                                            'env': env,
