@@ -194,7 +194,12 @@ def update_docker_info(env):
     docker_image_repo = env.get('CM_DOCKER_IMAGE_REPO', 'cknowledge')
     env['CM_DOCKER_IMAGE_REPO'] = docker_image_repo
 
-    docker_image_base = env.get('CM_DOCKER_IMAGE_BASE', 'ubuntu:22.04')
+    docker_image_base = env.get('CM_DOCKER_IMAGE_BASE')
+    if not docker_image_base:
+        if env.get("CM_DOCKER_OS", '') != '':
+            docker_image_base = env["CM_DOCKER_OS"]+":"+env["CM_DOCKER_OS_VERSION"]
+        else:
+            docker_image_base = "ubuntu:22.04"
     env['CM_DOCKER_IMAGE_BASE'] = docker_image_base
 
     docker_image_name = env.get('CM_DOCKER_IMAGE_NAME', 'cm-script-'+env['CM_DOCKER_RUN_SCRIPT_TAGS'].replace(',', '-').replace('_',''))
