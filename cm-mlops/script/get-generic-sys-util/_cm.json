@@ -288,8 +288,8 @@
       "state": {
         "numactl": {
           "apt": "numactl",
-          "dnf": "numactl-libs",
-          "yum": "numactl"
+          "dnf": "numactl-devel",
+          "yum": "numactl-devel"
         }
       }
     },
