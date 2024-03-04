@@ -226,6 +226,7 @@ ___
 `cmr "get sys-util generic generic-sys-util[,variations]"  -j`
 #### New environment keys (filter)
 
+* `+PATH`
 #### New environment keys auto-detected from customize
 
 ___

@@ -13,6 +13,7 @@
 * [Customization](#customization)
   * [ Variations](#variations)
   * [ Default environment](#default-environment)
+* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -27,7 +28,7 @@
 
 #### Summary
 
-* Category: *Cloud automation.*
+* Category: *Detection or installation of tools and artifacts.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rclone)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
@@ -104,6 +105,10 @@ ___
       - Environment variables:
         - *CM_RCLONE_GDRIVE*: `yes`
       - Workflow:
+    * `_system`
+      - Environment variables:
+        - *CM_RCLONE_SYSTEM*: `yes`
+      - Workflow:
 
     </details>
 
@@ -117,13 +122,18 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 </details>
 
+#### Versions
+Default version: `1.65.2`
+
 ___
 ### Script workflow, dependencies and native scripts
 
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rclone/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rclone/_cm.json)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rclone/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-rclone/_cm.json)
   1. ***Run native script if exists***
