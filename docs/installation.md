@@ -126,8 +126,16 @@ python3 -m pip install cmind
 
 ## Windows
 
-* Configure Windows 10+ to support long paths as described 
-  [here](https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=registry#enable-long-paths-in-windows-10-version-1607-and-later).
+* Configure Windows 10+ to [support long paths](https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=registry#enable-long-paths-in-windows-10-version-1607-and-later) from command line as admin:
+  <small>
+  <small>
+  <small>
+  ```bash
+  reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem" /v LongPathsEnabled /t REG_DWORD /d 1 /f
+  ```
+  </small>
+  </small>
+  </small>
 * Download and install Git from [git-for-windows.github.io](https://git-for-windows.github.io).
   * Configure Git to accept long file names: `git config --system core.longpaths true`
 * Download and install Python 3+ from [www.python.org/downloads/windows](https://www.python.org/downloads/windows).

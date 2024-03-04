@@ -30,7 +30,7 @@ Thank you for your support and looking forward to collaborating with you!
 ## Contributors to MLCommons' Collective Mind (aka Collective Knowledge v3) in alphabetical order
 
 * Resmi Arjun
-* Ethan Cheng (Nvidia)
+* Alice Cheng (Nvidia)
 * Jiahao Chen (MIT)
 * Ramesh N Chukka (Intel)
 * Ray DeMoss (One Stop Systems)
@@ -74,6 +74,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Byoungjun Seo (TTA)
 * Aditya Kumar Shaw (Indian Institute of Science)
 * Ilya Slavutin (Deelvin)
+* Jinho Suh (Nvidia)
 * David Tafur (MLCommons)
 * Chloe Tessier
 * Gaurav Verma (Stony Brook University)
