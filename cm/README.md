@@ -64,6 +64,7 @@ cmr "get python" --version_min=3.8.0 --name=mlperf-experiments
 cmr "install python-venv" --version_max=3.10.11 --name=mlperf
 
 cmr "get ml-model stable-diffusion"
+cmr "get ml-model sdxl _fp16 _rclone"
 cmr "get ml-model huggingface zoo _model-stub.alpindale/Llama-2-13b-ONNX" --model_filename=FP32/LlamaV2_13B_float32.onnx --skip_cache
 cmr "get dataset coco _val _2014"
 cmr "get dataset openimages" -j
