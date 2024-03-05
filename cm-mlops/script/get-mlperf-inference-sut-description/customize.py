@@ -32,8 +32,8 @@ def preprocess(i):
             backend_desc += ' v' + backend_version
 
     sut = hw_name + sut_suffix
-    path = i['run_script_input']['path']
-    sut_path = os.path.join(path, "suts", sut + ".json")
+    script_path = i['run_script_input']['path']
+    sut_path = os.path.join(os.getcwd(), "suts", sut + ".json")
     if os.path.exists(sut_path) and env.get('CM_SUT_DESC_CACHE', '') == "yes":
         print(f"Reusing SUT description file {sut}")
         state['CM_SUT_META'] = json.load(open(sut_path))
@@ -42,9 +42,9 @@ def preprocess(i):
             os.makedirs(os.path.dirname(sut_path))
 
         print("Generating SUT description file for " + sut)
-        hw_path = os.path.join(path, "hardware", hw_name + ".json")
+        hw_path = os.path.join(os.getcwd(), "hardware", hw_name + ".json")
         if not os.path.exists(hw_path):
-            default_hw_path = os.path.join(path, "hardware", "default.json")
+            default_hw_path = os.path.join(script_path, "hardware", "default.json")
             print("HW description file for " + hw_name + " not found. Copying from default!!!")
             shutil.copy(default_hw_path, hw_path)
 
