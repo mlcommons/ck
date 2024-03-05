@@ -41,8 +41,13 @@ def preprocess(i):
         sudo = env.get('CM_SUDO', '')
     env['CM_SYS_UTIL_INSTALL_CMD'] = sudo + ' ' +install_cmd + ' ' + package_name
 
+    env['+PATH'] = []
 
     if env.get('CM_HOST_OS_FLAVOR', '') == 'rhel':
         if env['CM_SYS_UTIL_NAME'] == "g++12":
-            env['+PATH'] = "/opt/rh/gcc-toolset-12/root/usr/bin"
+            env['+PATH'] = [ "/opt/rh/gcc-toolset-12/root/usr/bin" ]
+
+        if env['CM_SYS_UTIL_NAME'] == "numactl" and env['CM_HOST_OS_VERSION'] in [ "9.1", "9.2", "9.3" ]:
+            env['CM_SYS_UTIL_INSTALL_CMD'] = ''
+
     return {'return':0}

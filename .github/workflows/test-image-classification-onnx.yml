@@ -1,13 +1,13 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: MLPerf inference bert
+name: image classification with ONNX
 
 on:
   pull_request:
     branches: [ "master", "dev" ]
     paths:
-      - '.github/workflows/test-mlperf-inference-bert.yml'
+      - '.github/workflows/test-image-classification-onnx.yml'
       - 'cm-mlops/**'
       - '!cm-mlops/**.md'
 
@@ -18,14 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ "3.9" ]
-        backend: [ "deepsparse", "tf", "onnxruntime", "pytorch" ]
-        precision: [ "int8", "fp32" ]
-        exclude:
-          - backend: tf
-          - backend: pytorch
-          - backend: onnxruntime
-          - precision: fp32
+        python-version: [ "3.12", "3.9"]
 
     steps:
     - uses: actions/checkout@v3
@@ -38,6 +31,6 @@ jobs:
         python3 -m pip install cmind
         cm pull repo --url=${{ github.event.pull_request.head.repo.html_url }} --checkout=${{ github.event.pull_request.head.ref }}
         cm run script --quiet --tags=get,sys-utils-cm
-    - name: Test MLPerf Inference Bert
+    - name: Test image classification with ONNX
       run: |
-        cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="cTuning" --model=bert-99 --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=5 --precision=${{ matrix.precision }} --target_qps=1 -v --quiet
+        cmr "python app image-classification onnx" --quiet

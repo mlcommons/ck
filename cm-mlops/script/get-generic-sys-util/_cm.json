@@ -287,9 +287,20 @@
       },
       "state": {
         "numactl": {
-          "apt": "numactl"
+          "apt": "numactl",
+          "dnf": "numactl-devel",
+          "yum": "numactl-devel"
         }
-      }
+      },
+      "deps": [
+        {
+	  "tags": "install,numactl,from.src",
+	  "enable_if_env": {
+            "CM_HOST_OS_FLAVOR": [ "rhel" ],
+	    "CM_HOST_OS_VERSION": [ "9.1", "9.2", "9.3" ]
+	  }
+	}
+      ]
     },
     "g++-12": {
       "env": {

@@ -788,7 +788,9 @@ class CAutomation(Automation):
         if r['return'] > 0:
             return r
 
-        warnings = r.get('warnings', [])
+        warnings = meta.get('warnings', [])
+        if len(r.get('warnings', [])) >0:
+            warnings += r['warnings']
 
         variation_tags_string = r['variation_tags_string']
         explicit_variation_tags = r['explicit_variation_tags']
@@ -867,7 +869,8 @@ class CAutomation(Automation):
         if r['return']>0: return r
 
 
-        update_env_with_values(env)
+        r = update_env_with_values(env)
+        if r['return']>0: return r 
 
 
 
@@ -1006,7 +1009,8 @@ class CAutomation(Automation):
                         if verbose:
                             print (recursion_spaces + '  - Processing env after dependencies ...')
 
-                        update_env_with_values(env)
+                        r = update_env_with_values(env)
+                        if r['return']>0: return r 
 
 
                     # Check chain of prehook dependencies on other CM scripts. (No execution of customize.py for cached scripts)
@@ -1251,7 +1255,8 @@ class CAutomation(Automation):
                     if verbose:
                         print (recursion_spaces + '  - Processing env after docker run dependencies ...')
 
-                    update_env_with_values(env)
+                    r = update_env_with_values(env)
+                    if r['return']>0: return r 
 
             # Check chain of dependencies on other CM scripts
             if len(deps)>0:
@@ -1266,7 +1271,8 @@ class CAutomation(Automation):
                 if verbose:
                     print (recursion_spaces + '  - Processing env after dependencies ...')
 
-                update_env_with_values(env)
+                r = update_env_with_values(env)
+                if r['return']>0: return r 
 
             # Clean some output files
             clean_tmp_files(clean_files, recursion_spaces)
@@ -2822,7 +2828,8 @@ class CAutomation(Automation):
 
                     utils.merge_dicts({'dict1':ii, 'dict2':d, 'append_lists':True, 'append_unique':True})
 
-                    update_env_with_values(ii['env']) #to update env local to a dependency
+                    r = update_env_with_values(ii['env']) #to update env local to a dependency
+                    if r['return']>0: return r 
 
                     r = self.cmind.access(ii)
                     if r['return']>0: return r
@@ -2834,7 +2841,8 @@ class CAutomation(Automation):
 
                     # Restore local env
                     env.update(tmp_env)
-                    update_env_with_values(env)
+                    r = update_env_with_values(env)
+                    if r['return']>0: return r 
 
         return {'return': 0}
 
@@ -3988,6 +3996,9 @@ def update_env_with_values(env, fail_on_not_found=False):
     """
     import re
     for key in env:
+        if key.startswith("+") and type(env[key]) != list:
+            return {'return': 1, 'error': 'List value expected for {} in env'.format(key)}
+
         value = env[key]
 
         # Check cases such as --env.CM_SKIP_COMPILE
@@ -4017,7 +4028,7 @@ def update_env_with_values(env, fail_on_not_found=False):
 
         env[key] = value
 
-    return
+    return {'return': 0}
 
 
 ##############################################################################

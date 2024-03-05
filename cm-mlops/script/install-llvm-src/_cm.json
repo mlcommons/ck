@@ -278,7 +278,7 @@
            "tags": "get,generic-python-lib,_custom-python,_package.torch,_url.git+https://github.com/pytorch/pytorch.git@927dc662386af052018212c7d01309a506fc94cd",
            "env": {
              "CM_PYTHON_BIN_WITH_PATH": "<<<CM_CONDA_BIN_PATH>>>/python3",
-             "+ CXXFLAGS": [ "-Wno-nonnull" ]
+             "+ CXXFLAGS": [ "-Wno-nonnull", "-Wno-maybe-uninitialized", "-Wno-uninitialized", "-Wno-free-nonheap-object" ]
            }
         },
         {

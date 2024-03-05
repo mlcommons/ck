@@ -1,0 +1,94 @@
+{
+  "alias": "install-numactl-from-src",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "Detection or installation of tools and artifacts",
+  "deps": [
+    {
+      "tags": "detect,os"
+    },
+    {
+      "tags": "detect,cpu"
+    },
+    {
+      "env": {
+        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_NUMACTL_SRC_REPO_PATH"
+      },
+      "extra_cache_tags": "numactl,src,numactl-src,numactl-src-repo",
+      "names": [
+        "numactl-src-repo"
+      ],
+      "tags": "get,git,repo",
+      "update_tags_from_env_with_prefix": {
+        "_branch.": [
+          "CM_GIT_CHECKOUT"
+        ],
+        "_repo.": [
+          "CM_GIT_URL"
+        ],
+        "_sha.": [
+          "CM_GIT_CHECKOUT_SHA"
+        ],
+        "_tag.": [
+          "CM_GIT_CHECKOUT_TAG"
+        ]
+      }
+    }
+  ],
+  "env": {
+    "CM_GIT_URL": "https://github.com/numactl/numactl"
+  },
+  "name": "Build numactl from sources",
+  "new_env_keys": [
+    "CM_NUMACTL_*",
+    "+PATH"
+  ],
+  "sort": 1000,
+  "tags": [
+    "install",
+    "src",
+    "from.src",
+    "numactl",
+    "src-numactl"
+  ],
+  "uid": "4f355ae8ca1948b2",
+  "variations": {
+    "branch.#": {
+      "env": {
+        "CM_GIT_CHECKOUT": "#"
+      }
+    },
+    "repo.#": {
+      "env": {
+        "CM_GIT_URL": "#"
+      },
+      "group": "repo"
+    },
+    "repo.https://github.com/numactl/numactl": {
+      "default": true,
+      "env": {
+        "CM_GIT_URL": "https://github.com/numactl/numactl"
+      },
+      "group": "repo"
+    },
+    "sha.#": {
+      "env": {
+        "CM_GIT_CHECKOUT_SHA": "#"
+      }
+    },
+    "tag.#": {
+      "ad": {
+        "pytorch-src-repo": {
+          "tags": "_no-recurse-submodules,_full-history"
+        }
+      },
+      "env": {
+        "CM_GIT_CHECKOUT_TAG": "#"
+      }
+    }
+  },
+  "warnings": [
+    "This CM script will need sudo to install numactl!"
+  ]
+}

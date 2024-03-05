@@ -1,4 +1,5 @@
-cmind >= 1.4.0
+cmind>=2.0.1
+pyyaml
 requests
 setuptools
-
+giturlparse

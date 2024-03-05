@@ -31,5 +31,8 @@
         "CM_PYTHON_PIP_USER": "--user"
       }
     }
-  }
+  },
+  "warnings": [
+    "This CM script will install extra OS system utils required for CM automation workflows using sudo!"
+  ]
 }
