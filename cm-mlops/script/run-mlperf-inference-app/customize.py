@@ -239,6 +239,19 @@ def get_valid_scenarios(model, category, mlperf_version, mlperf_path):
 ##################################################################################
 def postprocess(i):
 
+    env = i['env']
+    state = i['state']
+
+    if env.get('CM_MLPERF_IMPLEMENTATION', '') == 'reference':
+        x1 = env.get('CM_MLPERF_INFERENCE_SOURCE','')
+        x2 = env.get('CM_MLPERF_INFERENCE_CONF_PATH','')
+
+        if x1 != '' and x2 != '':
+            print ('')
+            print ('Path to the MLPerf inference benchmark reference sources: {}'.format(x1))
+            print ('Path to the MLPerf inference reference configuration file: {}'.format(x2))
+            print ('')
+
     return {'return':0}
 
 ##################################################################################
