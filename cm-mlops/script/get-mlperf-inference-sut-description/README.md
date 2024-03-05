@@ -32,7 +32,7 @@
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,mlperf,sut,description,system-under-test,system-description*
-* Output cached? *False*
+* Output cached? *True*
 ___
 ### Reuse this script in your project
 
