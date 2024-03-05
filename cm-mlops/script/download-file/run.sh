@@ -1,8 +1,5 @@
 #!/bin/bash
 
-if [[ ${CM_DOWNLOAD_TOOL} == "cmutil" ]]; then
-  exit 0
-fi
 
 if [[ -n ${CM_DOWNLOAD_CONFIG_CMD} ]]; then
   echo ""
@@ -12,7 +9,12 @@ if [[ -n ${CM_DOWNLOAD_CONFIG_CMD} ]]; then
 fi
 
 require_download=1
+
 if [[ "${CM_DOWNLOAD_LOCAL_FILE_PATH}" != "" ]]; then
+  require_download=0
+fi
+
+if [[ ${CM_DOWNLOAD_TOOL} == "cmutil" ]]; then
   require_download=0
 fi
 
