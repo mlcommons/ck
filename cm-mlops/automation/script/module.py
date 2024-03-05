@@ -788,7 +788,9 @@ class CAutomation(Automation):
         if r['return'] > 0:
             return r
 
-        warnings = r.get('warnings', [])
+        warnings = meta.get('warnings', [])
+        if len(r.get('warnings', [])) >0:
+            warnings += r['warnings']
 
         variation_tags_string = r['variation_tags_string']
         explicit_variation_tags = r['explicit_variation_tags']
