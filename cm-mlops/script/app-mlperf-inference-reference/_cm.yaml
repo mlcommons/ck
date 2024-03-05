@@ -111,6 +111,7 @@ deps:
       - onnxruntime
       - tf
       - tflite
+      - pytorch
 
   # Detect TensorRT if required
   - tags: get,nvidia,tensorrt
@@ -835,6 +836,9 @@ variations:
       names:
       - ml-engine-pytorch
       - pytorch
+      skip_if_env:
+        CM_MLPERF_DEVICE:
+          - gpu
     add_deps_recursive:
       inference-src:
         tags: _deeplearningexamples
