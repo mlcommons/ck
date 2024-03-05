@@ -7,8 +7,7 @@
   "env": {
     "CM_ML_MODEL": "GPTJ",
     "CM_ML_MODEL_DATASET": "cnndm",
-    "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no",
-    "require_download": 1
+    "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no"
   },
   "input_mapping": {
     "checkpoint": "GPTJ_CHECKPOINT_PATH",
