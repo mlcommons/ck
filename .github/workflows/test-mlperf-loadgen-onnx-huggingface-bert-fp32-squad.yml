@@ -33,4 +33,4 @@ jobs:
         cm run script --quiet --tags=get,sys-utils-cm
     - name: Test MLPerf Inference Bert
       run: |
-        cmr "python app loadgen-generic _onnxruntime _custom _huggingface _model-stub.ctuning/mlperf-inference-bert-onnx-fp32-squad-v1.1" --adr.hf-downloader.model_filename=model.onnx
+        cmr "python app loadgen-generic _onnxruntime _custom _huggingface _model-stub.ctuning/mlperf-inference-bert-onnx-fp32-squad-v1.1" --adr.hf-downloader.model_filename=model.onnx --quiet
