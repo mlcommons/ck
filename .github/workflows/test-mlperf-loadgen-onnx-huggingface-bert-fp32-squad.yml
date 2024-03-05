@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ "3.11", "3.9" ]
+        python-version: [ "3.12", "3.9" ]
 
     steps:
     - uses: actions/checkout@v3
@@ -31,6 +31,6 @@ jobs:
         python3 -m pip install cmind
         cm pull repo --url=${{ github.event.pull_request.head.repo.html_url }} --checkout=${{ github.event.pull_request.head.ref }}
         cm run script --quiet --tags=get,sys-utils-cm
-    - name: Test MLPerf Inference Bert
+    - name: Test MLPerf loadgen with HuggingFace bert onnx fp32 squad model
       run: |
         cmr "python app loadgen-generic _onnxruntime _custom _huggingface _model-stub.ctuning/mlperf-inference-bert-onnx-fp32-squad-v1.1" --adr.hf-downloader.model_filename=model.onnx --quiet
