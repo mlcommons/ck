@@ -43,6 +43,8 @@ def preprocess(i):
 
         print("Generating SUT description file for " + sut)
         hw_path = os.path.join(os.getcwd(), "hardware", hw_name + ".json")
+        if not os.path.exists(os.path.dirname(hw_path)):
+            os.makedirs(os.path.dirname(hw_path))
         if not os.path.exists(hw_path):
             default_hw_path = os.path.join(script_path, "hardware", "default.json")
             print("HW description file for " + hw_name + " not found. Copying from default!!!")
