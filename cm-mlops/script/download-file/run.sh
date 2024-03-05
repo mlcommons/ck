@@ -8,6 +8,10 @@ if [[ -n ${CM_DOWNLOAD_CONFIG_CMD} ]]; then
 fi
 
 require_download=1
+if [[ "${CM_DOWNLOAD_LOCAL_FILE_PATH}" != "" ]]; then
+  require_download=0
+fi
+
 if [ -e ${CM_DOWNLOAD_DOWNLOADED_PATH} ]; then
   if [[ "${CM_DOWNLOAD_CHECKSUM_CMD}" != "" ]]; then
     echo ""
