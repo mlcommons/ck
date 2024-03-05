@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ ${CM_DOWNLOAD_TOOL} == "cmutil" ]]; then
+  exit 0
+fi
+
 if [[ -n ${CM_DOWNLOAD_CONFIG_CMD} ]]; then
   echo ""
   echo "${CM_DOWNLOAD_CONFIG_CMD}"
