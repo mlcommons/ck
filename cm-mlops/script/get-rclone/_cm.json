@@ -30,7 +30,10 @@
     "system": {
       "env": {
         "CM_RCLONE_SYSTEM": "yes"
-      }
+      },
+      "warnings": [
+        "This CM script will install rclone using sudo/brew!"
+      ]
     }
   }
 }
