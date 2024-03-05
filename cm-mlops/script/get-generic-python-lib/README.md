@@ -505,7 +505,7 @@ ___
     * `_torch_cuda`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
-        - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/<<<CM_CUDA_VERSION_STRING>>>`
+        - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL1*: `https://download.pytorch.org/whl/<<<CM_CUDA_VERSION_STRING>>>`
         - *CM_TORCH_VERSION_EXTRA*: `CUDA`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
@@ -545,7 +545,7 @@ ___
     * `_torchaudio_cuda`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchaudio`
-        - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/<<<CM_CUDA_VERSION_STRING>>>`
+        - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL1*: `https://download.pytorch.org/whl/<<<CM_CUDA_VERSION_STRING>>>`
         - *CM_TORCHAUDIO_VERSION_EXTRA*: `CUDA`
       - Workflow:
         1. ***Read "deps" on other CM scripts***

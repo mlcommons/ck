@@ -12,7 +12,6 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Variations](#variations)
-  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -26,16 +25,15 @@
 
 ### About
 
-
-See extra [notes](README-extra.md) from the authors and contributors.
+*Build numactl from sources.*
 
 #### Summary
 
-* Category: *MLPerf benchmark support.*
+* Category: *Detection or installation of tools and artifacts.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-numactl-from-src)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,mlperf,inference,sut,configs,sut-configs*
+* CM "database" tags to find this script: *install,src,from.src,numactl,src-numactl*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -52,13 +50,11 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,mlperf,inference,sut,configs,sut-configs[,variations] [--input_flags]`
+1. `cm run script --tags=install,src,from.src,numactl,src-numactl[,variations] `
 
-2. `cmr "get mlperf inference sut configs sut-configs[ variations]" [--input_flags]`
+2. `cmr "install src from.src numactl src-numactl[ variations]" `
 
 * `variations` can be seen [here](#variations)
-
-* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### Run this script from Python
 
@@ -71,7 +67,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,mlperf,inference,sut,configs,sut-configs'
+                  'tags':'install,src,from.src,numactl,src-numactl'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -88,13 +84,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,mlperf,inference,sut,configs,sut-configs"```
+```cmr "cm gui" --script="install,src,from.src,numactl,src-numactl"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,mlperf,inference,sut,configs,sut-configs) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=install,src,from.src,numactl,src-numactl) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get mlperf inference sut configs sut-configs[ variations]" [--input_flags]`
+`cm docker script "install src from.src numactl src-numactl[ variations]" `
 
 ___
 ### Customization
@@ -106,35 +102,41 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_octoml`
+    * `_branch.#`
       - Environment variables:
-        - *CM_SUT_USE_EXTERNAL_CONFIG_REPO*: `yes`
-        - *CM_GIT_CHECKOUT_FOLDER*: `configs`
-        - *CM_GIT_URL*: `https://github.com/arjunsuresh/mlperf-inference-configs`
+        - *CM_GIT_CHECKOUT*: `#`
       - Workflow:
-        1. ***Read "prehook_deps" on other CM scripts***
-           * get,git,repo,_repo.mlperf_inference_configs_octoml
-             - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+    * `_sha.#`
+      - Environment variables:
+        - *CM_GIT_CHECKOUT_SHA*: `#`
+      - Workflow:
+    * `_tag.#`
+      - Environment variables:
+        - *CM_GIT_CHECKOUT_TAG*: `#`
+      - Workflow:
 
     </details>
 
 
-#### Script flags mapped to environment
-<details>
-<summary>Click here to expand this section.</summary>
+  * Group "**repo**"
+    <details>
+    <summary>Click here to expand this section.</summary>
 
-* `--configs_git_url=value`  &rarr;  `CM_GIT_URL=value`
-* `--repo_path=value`  &rarr;  `CM_SUT_CONFIGS_PATH=value`
-* `--run_config=value`  &rarr;  `CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX=value`
+    * `_repo.#`
+      - Environment variables:
+        - *CM_GIT_URL*: `#`
+      - Workflow:
+    * **`_repo.https://github.com/numactl/numactl`** (default)
+      - Environment variables:
+        - *CM_GIT_URL*: `https://github.com/numactl/numactl`
+      - Workflow:
 
-**Above CLI flags can be used in the Python CM API as follows:**
+    </details>
 
-```python
-r=cm.access({... , "configs_git_url":...}
-```
 
-</details>
+#### Default variations
 
+`_repo.https://github.com/numactl/numactl`
 #### Default environment
 
 <details>
@@ -142,8 +144,6 @@ r=cm.access({... , "configs_git_url":...}
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_SUT_CONFIGS_PATH: ``
-* CM_GIT_URL: ``
 
 </details>
 
@@ -153,26 +153,32 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs/_cm.json)
-  1. Run "preprocess" function from customize.py
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-numactl-from-src/_cm.json)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+     * detect,cpu
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+     * get,git,repo
+       * CM names: `--adr.['numactl-src-repo']...`
+       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-numactl-from-src/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-numactl-from-src/_cm.json)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-numactl-from-src/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-numactl-from-src/_cm.json)
+  1. Run "postrocess" function from customize.py
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-numactl-from-src/_cm.json)
 </details>
 
 ___
 ### Script output
-`cmr "get mlperf inference sut configs sut-configs[,variations]" [--input_flags] -j`
+`cmr "install src from.src numactl src-numactl[,variations]"  -j`
 #### New environment keys (filter)
 
-* `CM_HW_*`
-* `CM_SUT_*`
+* `+PATH`
+* `CM_NUMACTL_*`
 #### New environment keys auto-detected from customize
 
-* `CM_HW_NAME`
-* `CM_SUT_NAME`
 ___
 ### Maintainers
 

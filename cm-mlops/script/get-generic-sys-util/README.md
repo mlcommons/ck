@@ -160,6 +160,10 @@ ___
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `numactl`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * install,numactl,from.src
+             * `if (CM_HOST_OS_FLAVOR  == rhel AND CM_HOST_OS_VERSION in ['9.1', '9.2', '9.3'])`
+             - CM script: [install-numactl-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-numactl-from-src)
     * `_nvidia-cuda-toolkit`
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `nvidia-cuda-toolkit`
