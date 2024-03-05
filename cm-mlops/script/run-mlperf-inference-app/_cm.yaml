@@ -457,7 +457,7 @@ input_description:
   j:
     desc: Print results dictionary to console at the end of the run
     boolean: true
-    default: true
+    default: false
   repro:
     desc: Record input/output/state/info files to make it easier to reproduce results
     boolean: true
