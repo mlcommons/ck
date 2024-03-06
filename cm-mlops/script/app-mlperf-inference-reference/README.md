@@ -196,6 +196,7 @@ ___
              * `if (CM_MLPERF_BACKEND  == pytorch)`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_torch
+             * `if (CM_MLPERF_DEVICE  != gpu)`
              * CM names: `--adr.['ml-engine-pytorch', 'pytorch']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_dlrm`
@@ -663,7 +664,7 @@ ___
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,cuda,_cudnn
-       * `if (CM_MLPERF_DEVICE  == gpu AND CM_MLPERF_BACKEND in ['onnxruntime', 'tf', 'tflite'])`
+       * `if (CM_MLPERF_DEVICE  == gpu AND CM_MLPERF_BACKEND in ['onnxruntime', 'tf', 'tflite', 'pytorch'])`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,nvidia,tensorrt
        * `if (CM_MLPERF_BACKEND  == tensorrt)`

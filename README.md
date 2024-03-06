@@ -22,7 +22,7 @@ on any platform with any software and hardware: see [online catalog](https://acc
 and [source code](https://github.com/mlcommons/ck/blob/master/cm-mlops/script).
 
 CM scripts require Python 3.7+ with minimal dependencies and are 
-[continuously extended by the community, MLCommons and the cTuning foundation](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)
+[continuously extended by the community and MLCommons members](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)
 to run natively on Ubuntu, MacOS, Windows, RHEL, Debian, Amazon Linux
 and any other operating system, in a cloud or inside automatically generated containers
 while keeping backward compatibility - please don't hesitate 
