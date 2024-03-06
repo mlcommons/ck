@@ -242,7 +242,7 @@ If you want to use stable CM snapshots of reusable automation recipes (CM script
 you can download a stable repository from Zenodo (~5MB):
 ```bash
 cm rm repo mlcommons@ck --all
-cm pull repo --url=https://zenodo.org/records/10679842/files/cm-mlops-repo-20240219.zip
+cm pull repo --url=https://zenodo.org/records/10787459/files/cm-mlops-repo-20240306.zip
 
 ```
 

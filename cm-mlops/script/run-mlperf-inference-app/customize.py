@@ -535,7 +535,7 @@ def gui(i):
         elif measure == 'Find Performance from a short run': 
             x = 'find-performance'
         elif measure == 'Performance and Accuracy': 
-            x = ''
+            x = 'submission'
         
         params['~~submission-generation']=[x]
 

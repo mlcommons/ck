@@ -16,18 +16,23 @@
 
 ### About
 
-Collective Mind (CM) is a [collection of portable, extensible, technology-agnostic and ready-to-use automation recipes
-with a human-friendly interface (aka CM scripts)](https://access.cknowledge.org/playground/?action=scripts)
-to automate all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
-on any platform with any software and hardware. 
-They require Python 3.7+ with minimal dependencies and can run natively on Ubuntu, MacOS, Windows, RHEL, Debian, Amazon Linux
-and any other operating system, in a cloud or inside automatically generated containers.
-Furthermore, CM scripts are [continuously extended by the community](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)
-to encode new knowledge and best practices about AI systems while keeping backward compatibility!
+Collective Mind (CM) is a collection of portable, extensible, technology-agnostic and ready-to-use automation recipes
+with a human-friendly interface (aka CM scripts) to unify and automate all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
+on any platform with any software and hardware: see [online catalog](https://access.cknowledge.org/playground/?action=scripts) 
+and [source code](https://github.com/mlcommons/ck/blob/master/cm-mlops/script).
+
+CM scripts require Python 3.7+ with minimal dependencies and are 
+[continuously extended by the community and MLCommons members](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)
+to run natively on Ubuntu, MacOS, Windows, RHEL, Debian, Amazon Linux
+and any other operating system, in a cloud or inside automatically generated containers
+while keeping backward compatibility - please don't hesitate 
+to  report encountered issues [here](https://github.com/mlcommons/ck/issues) 
+and contact us via [public Discord Server](https://discord.gg/JjWNWXKxwT) 
+to help this collaborative engineering effort!
 
 CM scripts were originally developed based on the following requirements from the
-[MLCommons engineers and researchers](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
-to help them automatically build, benchmark and optimize complex MLPerf benchmarks
+[MLCommons members](https://mlcommons.org) 
+to help them automatically compose and optimize complex MLPerf benchmarks, applications and systems
 across diverse and continuously changing models, data sets, software and hardware
 from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors:
 * must work out of the box with the default options and without the need to edit some paths, environment variables and configuration files;
@@ -39,24 +44,113 @@ from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors:
   and simple JSON/YAML descriptions instead of inventing new workflow languages;
 * must have the same interface to run all automations natively, in a cloud or inside containers.
 
-Below you can find and try a few examples of the most-commonly used [automation recipes](https://access.cknowledge.org/playground/?action=scripts)
-that can be chained into more complex automation workflows [using simple JSON or YAML](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml).
+[CM scripts](https://access.cknowledge.org/playground/?action=scripts) 
+were successfully validated by MLCommons to [modularize MLPerf inference benchmarks](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md) 
+and help the community automate more than 95% of all performance and power submissions in the v3.1 round
+across more than 120 system configurations (models, frameworks, hardware) 
+while reducing development and maintenance costs.
 
-*Note that MLCommons CM is a collaborative engineering effort to gradually improve portability and functionality
-across continuously changing models, data sets, software and hardware based on your feedback -
-please check this [installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md), 
-report  encountered issues [here](https://github.com/mlcommons/ck/issues) 
-and contact us via [public Discord Server](https://discord.gg/JjWNWXKxwT) to help this community effort!*
-
-
-<details open>
-<summary><b>CM human-friendly command line:</b></summary>
-
-
-<sup>
+For example, you should be able to run the MLPerf inference benchmark on Linux, Windows and MacOS
+using a few CM commands:
 
 ```bash
-pip install cmind
+
+pip install cmind -U
+
+cm pull repo mlcommons@ck
+
+cm rm cache -f
+
+cm run script "get mlcommons inference src"
+
+cm run script "get generic-python-lib _onnxruntime" --version=1.17.1
+
+cm run script "get ml-model image-classification resnet50 raw _fp32 _onnx"
+
+cm run script "get dataset image-classification imagenet preprocessed _NCHW"
+
+cm show cache
+
+cm run script "run-mlperf-inference _r4.0 _performance-only _short" \
+   --device=cpu \
+   --model=resnet50 \
+   --precision=float32 \
+   --implementation=reference \
+   --backend=onnxruntime \
+   --scenario=Offline \
+   --clean \
+   --quiet \
+   --time
+
+cm run script "run-mlperf-inference _r4.0 _accuracy-only _short" \
+   --device=cpu \
+   --model=resnet50 \
+   --precision=float32 \
+   --implementation=reference \
+   --backend=onnxruntime \
+   --scenario=Offline \
+   --clean \
+   --quiet \
+   --time
+
+cm run script "run-mlperf-inference _r4.0 _submission _short" \
+   --device=cpu \
+   --model=resnet50 \
+   --precision=float32 \
+   --implementation=reference \
+   --backend=onnxruntime \
+   --scenario=Offline \
+   --clean \
+   --quiet \
+   --time
+
+...
+
++----------+----------+----------+--------+-----------------+---------------------------------+
+|  Model   | Scenario | Accuracy |  QPS   | Latency (in ms) | Power Efficiency (in samples/J) |
++----------+----------+----------+--------+-----------------+---------------------------------+
+| resnet50 | Offline  |   80.0   | 27.371 |        -        |                                 |
++----------+----------+----------+--------+-----------------+---------------------------------+
+
+The MLPerf inference results are stored at /home/gfursin/CM/repos/local/cache/a504fb143e97452f/test_results
+
+Path to the MLPerf inference benchmark reference sources: /home/gfursin/CM/repos/local/cache/8061c243b8b54a3b/inference
+Path to the MLPerf inference reference configuration file: /home/gfursin/CM/repos/local/cache/8061c243b8b54a3b/inference/mlperf.conf
+
+```
+
+You can also run the same commands using a unified CM Python API:
+
+```python
+import cmind
+output=cmind.access({
+   'action':'run', 'automation':'script',
+   'tags':'run-mlperf-inference,_r4.0,_performance-only,_short',
+   'device':'cpu',
+   'model':'resnet50',
+   'precision':'float32',
+   'implementation':'reference',
+   'backend':'onnxruntime',
+   'scenario':'Offline',
+   'clean':True,
+   'quiet':True,
+   'time':True,
+   'out':'con'
+})
+if output['return']==0: print (output)
+```
+
+We suggest you to use this [online CM interface](https://access.cknowledge.org/playground/?action=howtorun)
+to generate CM commands that will prepare and run MLPerf benchmarks and AI applications across different platforms.
+
+
+<details close>
+<summary><b>Click to see more examples of CM scripts and workflows to download Stable Diffusion, GPT-J and LLAMA2 models, process datasets, install tools and compose AI applications</b></summary>
+
+
+
+```bash
+pip install cmind -U
 
 cm pull repo mlcommons@ck
 
@@ -107,7 +201,7 @@ cmr "python app image-classification torch" --input=computer_mouse.jpg
 
 
 cm rm repo mlcommons@ck
-cm pull repo --url=https://zenodo.org/records/10581696/files/cm-mlops-repo-20240129.zip
+cm pull repo --url=https://zenodo.org/records/10787459/files/cm-mlops-repo-20240306.zip
 
 cmr "install llvm prebuilt" --version=17.0.6
 cmr "app image corner-detection"
@@ -123,76 +217,40 @@ cmr "reproduce paper micro-2023 victima _run"
 
 ```
 
-</sup>
-
-</details>
-
-<details open>
-<summary><b>CM unified Python API:</b></summary>
-
-<sup>
-
-```python
-import cmind
-output=cmind.access({'action':'run', 'automation':'script',
-                     'tags':'python,app,image-classification,onnx',
-                     'input':'computer_mouse.jpg'})
-if output['return']==0: print (output)
-```
-</sup>
 
 </details>
 
 
-<details open>
-<summary><b>Examples of modular containers and GitHub actions with CM commands:</b></summary>
+<details close>
+<summary><b>Click to see a few examples of modular containers and GitHub actions with CM commands:</b></summary>
 
-<small>
-
-* https://github.com/mlcommons/inference/blob/master/.github/workflows/test-bert.yml
-* https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/dockerfiles/bert-99.9/ubuntu_22.04_python_onnxruntime_cpu.Dockerfile
-
-</small>
-
+* [GitHub action with CM commands to test MLPerf inference benchmark](https://github.com/mlcommons/inference/blob/master/.github/workflows/test-bert.yml)
+* [Dockerfile to run MLPerf inference benchmark via CM](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/dockerfiles/bert-99.9/ubuntu_22.04_python_onnxruntime_cpu.Dockerfile)
+    
 </details>
 
-[CM scripts](https://access.cknowledge.org/playground/?action=scripts) 
-were successfully used to [modularize MLPerf inference benchmarks](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md) 
-and help the community automate more than 95% of all performance and power submissions in the v3.1 round
-across more than 120 system configurations (models, frameworks, hardware) 
-while reducing development and maintenance costs.
 
-Besides automating MLCommons projects, the community also started started using 
-and extending [CM scripts](https://access.cknowledge.org/playground/?action=scripts) 
-to modularize, run and benchmark other software projects and make it
-easier to rerun, reproduce and reuse [research projects from published papers 
-at Systems and ML conferences]( https://cTuning.org/ae/micro2023.html ).
-
-Please check the [**Getting Started Guide and FAQ**](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md) 
-to understand how CM automation recipes work, how to use them to automate your own projects,
-and how to implement and share new automations in your public or private projects.
-
-### Documentation
+### CM documentation
 
 * [Getting Started Guide and FAQ](docs/getting-started.md)
-  * [CM interface for MLPerf benchmarks](docs/mlperf)
-  * [CM interface for ML and Systems conferences](docs/tutorials/common-interface-to-reproduce-research-projects.md)
+  * [Common CM interface to run MLPerf inference benchmarks](docs/mlperf/inference)
+  * [Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23](docs/tutorials/common-interface-to-reproduce-research-projects.md)
   * [CM automation recipes for MLOps and DevOps](cm-mlops/script)
   * [Other CM tutorials](docs/tutorials)
 * [Full documentation](docs/README.md)
 * [CM and CK history](docs/history.md)
 
-### Motivation and concepts
+### CM presentations
 
+* MLPerf-Bench @ HPCA'23 *"Automatically Composing High-Performance and Cost-effective AI Systems with MLCommons' CM and MLPerf"*: [ [slides](https://doi.org/10.5281/zenodo.10786893) ]
 * ACM REP'23 keynote about MLCommons CM: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] [ [YouTube](https://youtu.be/_1f9i_Bzjmg) ]
 * ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
 * MLPerf inference submitter orientation: [ [v4.0 slides]( https://doi.org/10.5281/zenodo.10605079 ) ] [ [v3.1 slides](https://doi.org/10.5281/zenodo.8144274) ]
 
 ### Get in touch
 
-Collective Mind is a community project being developed by the 
-[MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-with great help from [MLCommons members](https://mlcommons.org)
+Collective Mind is being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+as a collaborative effort with great help from [MLCommons members](https://mlcommons.org)
 and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) -
 our goal is to help everyone automate all manual and repetitive tasks 
 to build, run, benchmark and optimize AI systems including 
