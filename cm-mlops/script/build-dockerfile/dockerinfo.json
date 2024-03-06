@@ -13,6 +13,7 @@
   "RUN_CMDS": [
     "ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ >/etc/timezone"
   ],
+  "PYTHON": "python3",
   "USERID": "",
   "USER": "cmuser",
   "GROUPID": "",
@@ -51,11 +52,12 @@
         "8": {
           "FROM": "registry.access.redhat.com/ubi8",
           "packages": [
-            "python3", "python3-pip", "git", "wget", "sudo", "binutils"
+            "python39", "python39-pip", "git", "wget", "sudo", "binutils"
           ],
           "python-packages": [
-            "importlib-metadata", "cmind", "requests", "giturlparse", "tabulate"
-          ]
+            "cmind", "requests", "giturlparse", "tabulate"
+          ],
+          "PYTHON": "python3.9"
         }
       }
     },
