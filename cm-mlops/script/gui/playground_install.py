@@ -84,7 +84,7 @@ def page(st, params, extra):
     if repo_index == 'ctuning':
         cm_repo = 'ctuning@mlcommons-ck'
     elif repo_index == 'zenodo':
-        cm_repo = '--url=https://zenodo.org/records/10679842/files/cm-mlops-repo-20240219.zip'
+        cm_repo = '--url=https://zenodo.org/records/10787459/files/cm-mlops-repo-20240306.zip'
     else:
         cm_repo = 'mlcommons@ck'
     
