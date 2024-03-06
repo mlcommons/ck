@@ -114,8 +114,6 @@ def preprocess(i):
               env['CM_DOCKER_PIP_INSTALL_EXTRA_FLAGS'] = " --break-system-packages"
     pip_extra_flags = env.get('CM_DOCKER_PIP_INSTALL_EXTRA_FLAGS', '')
 
-    f.write(EOL+'# Install python packages' + EOL)
-    f.write('RUN python3 -m pip install ' + " ".join(get_value(env, config, 'python-packages')) + ' ' + pip_extra_flags + ' ' + EOL)
 
     f.write(EOL+'# Setup docker environment' + EOL)
 
@@ -160,6 +158,10 @@ def preprocess(i):
     workdir = get_value(env, config, 'WORKDIR', 'CM_DOCKER_WORKDIR')
     if workdir:
         f.write('WORKDIR ' + workdir + EOL)
+
+    f.write(EOL+'# Install python packages' + EOL)
+    f.write('RUN python3 -m pip install --user ' + " ".join(get_value(env, config, 'python-packages')) + ' ' + pip_extra_flags + ' ' + EOL)
+
     f.write(EOL+'# Download CM repo for scripts' + EOL)
 
     # Add possibility to force rebuild with some extra flag for the repository

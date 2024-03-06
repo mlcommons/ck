@@ -47,6 +47,15 @@
       ],
       "versions": {
         "9": {
+        },
+        "8": {
+          "FROM": "registry.access.redhat.com/ubi8",
+          "packages": [
+            "python3", "python3-pip", "git", "wget", "sudo", "binutils"
+          ],
+          "python-packages": [
+            "importlib-metadata", "cmind", "requests", "giturlparse", "tabulate"
+          ]
         }
       }
     },
