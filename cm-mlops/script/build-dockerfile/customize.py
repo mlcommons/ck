@@ -160,7 +160,8 @@ def preprocess(i):
         f.write('WORKDIR ' + workdir + EOL)
 
     f.write(EOL+'# Install python packages' + EOL)
-    f.write('RUN python3 -m pip install --user ' + " ".join(get_value(env, config, 'python-packages')) + ' ' + pip_extra_flags + ' ' + EOL)
+    python = get_value(env, config, 'PYTHON', 'CM_DOCKERFILE_PYTHON')
+    f.write('RUN {} -m pip install --user '.format(python) + " ".join(get_value(env, config, 'python-packages')) + ' ' + pip_extra_flags + ' ' + EOL)
 
     f.write(EOL+'# Download CM repo for scripts' + EOL)
 
