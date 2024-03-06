@@ -270,7 +270,7 @@ ___
 * --**singlestream_target_latency** Set SingleStream target latency
 * --**target_latency** Set Target latency
 * --**target_qps** Set LoadGen target QPS
-* --**j** Print results dictionary to console at the end of the run (*True*)
+* --**j** Print results dictionary to console at the end of the run (*False*)
 * --**repro** Record input/output/state/info files to make it easier to reproduce results (*False*)
 * --**time** Print script execution time at the end of the run (*True*)
 

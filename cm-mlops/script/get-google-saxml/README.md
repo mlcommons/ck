@@ -12,6 +12,7 @@
   * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
 * [Customization](#customization)
   * [ Default environment](#default-environment)
+* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -26,11 +27,11 @@
 
 #### Summary
 
-* Category: *AI/ML datasets.*
+* Category: *AI/ML frameworks.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-croissant)*
-* CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,mlcommons,croissant*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-saxml)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
+* CM "database" tags to find this script: *get,google,saxml*
 * Output cached? *True*
 ___
 ### Reuse this script in your project
@@ -47,9 +48,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=get,mlcommons,croissant `
+1. `cm run script --tags=get,google,saxml `
 
-2. `cmr "get mlcommons croissant" `
+2. `cmr "get google saxml" `
 
 #### Run this script from Python
 
@@ -62,7 +63,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,mlcommons,croissant'
+                  'tags':'get,google,saxml'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -79,13 +80,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="get,mlcommons,croissant"```
+```cmr "cm gui" --script="get,google,saxml"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,mlcommons,croissant) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,google,saxml) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get mlcommons croissant" `
+`cm docker script "get google saxml" `
 
 ___
 ### Customization
@@ -100,36 +101,43 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 </details>
 
+#### Versions
+Default version: `master`
+
 ___
 ### Script workflow, dependencies and native scripts
 
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-croissant/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-saxml/_cm.yaml)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,python3
        * CM names: `--adr.['python3', 'python']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * git,repo,_repo.https://github.com/mlcommons/croissant
-       * CM names: `--adr.['git-mlcommons-croissant']...`
+     * get,git,_repo.https://github.com/google/saxml
+       * CM names: `--adr.['google-saxml-git-src']...`
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-croissant/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-croissant/_cm.json)
+     * get,bazel
+       * CM names: `--adr.['bazel']...`
+       - CM script: [get-bazel](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bazel)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-saxml/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-saxml/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-croissant/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-croissant/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-croissant/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-croissant/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-croissant/_cm.json)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-saxml/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-saxml/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-saxml/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-saxml/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-saxml/_cm.yaml)
 </details>
 
 ___
 ### Script output
-`cmr "get mlcommons croissant"  -j`
+`cmr "get google saxml"  -j`
 #### New environment keys (filter)
 
+* `CM_GOOGLE_SAXML*`
 #### New environment keys auto-detected from customize
 
 ___

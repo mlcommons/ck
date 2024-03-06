@@ -102,7 +102,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 #### Versions
-Default version: `5.3.0`
+Default version: `7.0.2`
 
 ___
 ### Script workflow, dependencies and native scripts
@@ -117,6 +117,7 @@ ___
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel/_cm.json)
   1. ***Run native script if exists***
      * [run-aarch64.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel/run-aarch64.sh)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel/_cm.json)
   1. Run "postrocess" function from customize.py
@@ -135,6 +136,8 @@ ___
 #### New environment keys auto-detected from customize
 
 * `CM_BAZEL_BIN_WITH_PATH`
+* `CM_BAZEL_DOWNLOAD_FILE`
+* `CM_BAZEL_DOWNLOAD_URL`
 * `CM_BAZEL_INSTALLED_PATH`
 ___
 ### Maintainers
