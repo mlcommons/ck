@@ -118,10 +118,18 @@ deps:
 docker:
   fake_run_deps: true
   mounts:
-  - ${{ GPTJ_CHECKPOINT_PATH }}:${{ GPTJ_CHECKPOINT_PATH }}
   - ${{ INSTALL_DATA_PATH }}:/install_data
   - ${{ DATA_PATH }}:/data
+  - ${{ CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH }}:${{ CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH }}
   run: true
+  docker_input_mapping:
+    imagenet_path: IMAGENET_PATH
+    gptj_checkpoint_path: GPTJ_CHECKPOINT_PATH
+    criteo_preprocessed_path: CRITEO_PREPROCESSED_PATH
+    results_dir: RESULTS_DIR
+    submission_dir: SUBMISSION_DIR
+    dlrm_data_path: DLRM_DATA_PATH
+    intel_gptj_int8_model_path: CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH
 
 variations:
 
