@@ -22,6 +22,8 @@ model2task = {
    "bert-99.9":"language-processing",
    "gptj-99":"language-processing",
    "gptj-99.9":"language-processing",
+   "llama2-70b-99":"language-processing",
+   "llama2-70b-99.9":"language-processing",
    "dlrm-99":"recommendation",
    "dlrm-v2-99":"recommendation",
    "dlrm-99.9":"recommendation",
