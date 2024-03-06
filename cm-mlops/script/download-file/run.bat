@@ -14,8 +14,17 @@ if NOT "%CM_DOWNLOAD_CONFIG_CMD%" == "" (
 )
 
 set require_download=1
+
+if not "%CM_DOWNLOAD_LOCAL_FILE_PATH%" == "" (
+  set require_download=0
+)
+
+if ("%CM_DOWNLOAD_TOOL%" == "cmutil" (
+  set require_download=0
+)
+
+
 if exist "%CM_DOWNLOAD_DOWNLOADED_PATH%" (
-    set require_download=0
     if "%CM_DOWNLOAD_CHECKSUM_CMD_USED%" == "YES" (
         echo.
         echo %CM_DOWNLOAD_CHECKSUM_CMD%
@@ -23,7 +32,8 @@ if exist "%CM_DOWNLOAD_DOWNLOADED_PATH%" (
         IF !ERRORLEVEL! NEQ 0 (
            if NOT "%CM_DOWNLOAD_LOCAL_FILE_PATH%" == "" exit 1
            if "%CM_DOWNLOAD_CMD_USED%" == "NO" exit 1
-           set require_download=1
+        ) else (
+           set require_download=0
         )
     )
 )
