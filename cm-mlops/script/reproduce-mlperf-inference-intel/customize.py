@@ -68,7 +68,7 @@ def preprocess(i):
             env['INT8_MODEL_DIR'] = os.path.dirname(final_model_path)
             if not os.path.exists(env['INT8_MODEL_DIR']):
                 os.makedirs(env['INT8_MODEL_DIR'])
-            env['CM_ML_MODEL_PATH'] = final_model_path
+            env['CM_ML_MODEL_PATH'] = env['INT8_MODEL_DIR']
             if env.get('CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH', '') != '':
                 shutil.copy(env['CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH'], env['INT8_MODEL_DIR'])
 
