@@ -15,14 +15,22 @@ cm run script --tags=run-mlperf,inference,_find-performance \
 * Intel implementation currently supports only datacenter scenarios
 
 
-### Do full accuracy and performance runs for all the scenarios
+### Do full accuracy and performance runs for all the Offline scenario
 
 ```
-cm docker script --tags=run-mlperf,inference,_submission,_all-scenarios \
---model=gptj-99 --implementation=intel-original --backend=pytorch \
---category=datacenter --division=open --quiet
+cm run script --tags=run-mlperf,inference,_submission \
+--scenario=Offline --model=gptj-99 --implementation=intel-original --backend=pytorch \
+--category=datacenter --division=open --execution-mode=valid --quiet
 ```
 
+### Do full accuracy and performance runs for all the Server scenario
+
+```
+cm run script --tags=run-mlperf,inference,_submission \
+--scenario=Server --model=gptj-99 --implementation=intel-original --backend=pytorch \
+--category=datacenter --division=open --execution-mode=valid --server_target_qps=0.3 --quiet
+```
+* `--server_target_qps` can be adjusted to the maximum as per the given system (which produces a valid result)
 
 ### Generate and upload MLPerf submission
 
