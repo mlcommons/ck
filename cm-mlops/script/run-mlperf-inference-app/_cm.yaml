@@ -125,7 +125,7 @@ docker:
   shm_size: '32gb'
   extra_run_args: ' --ulimit memlock=-1 --cap-add SYS_ADMIN --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
   docker_os: ubuntu
-  docker_real_run: true
+  docker_real_run: false
   run: true
   docker_input_mapping:
     imagenet_path: IMAGENET_PATH
