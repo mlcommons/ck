@@ -239,7 +239,7 @@ ___
 * --**device** MLPerf device {cpu,cuda,rocm,qaic} (*cpu*)
 * --**model** MLPerf model {resnet50,retinanet,bert-99,bert-99.9,3d-unet-99,3d-unet-99.9,rnnt,dlrm-v2-99,dlrm-v2-99.9,gptj-99,gptj-99.9,sdxl,llama2-70b-99,llama2-70b-99.9,mobilenet,efficientnet} (*resnet50*)
 * --**precision** MLPerf model precision {float32,float16,bfloat16,int8,uint8}
-* --**implementation** MLPerf implementation {reference,mil,nvidia-original,intel-original,qualcomm,tflite-cpp} (*reference*)
+* --**implementation** MLPerf implementation {mlcommons-python,mlcommons-cpp,nvidia,intel,qualcomm,ctuning-cpp-tflite} (*reference*)
 * --**backend** MLPerf framework (backend) {onnxruntime,tf,pytorch,deepsparse,tensorrt,glow,tvm-onnx} (*onnxruntime*)
 * --**scenario** MLPerf scenario {Offline,Server,SingleStream,MultiStream} (*Offline*)
 * --**mode** MLPerf benchmark mode {,accuracy,performance}

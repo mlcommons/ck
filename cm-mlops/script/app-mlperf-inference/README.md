@@ -132,10 +132,10 @@ ___
     <summary>Click here to expand this section.</summary>
 
     * `_cpp`
-      - Aliases: `_mil`
+      - Aliases: `_mil,_mlcommons-cpp`
       - Environment variables:
         - *CM_MLPERF_CPP*: `yes`
-        - *CM_MLPERF_IMPLEMENTATION*: `cpp`
+        - *CM_MLPERF_IMPLEMENTATION*: `mlcommons_cpp`
         - *CM_IMAGENET_ACCURACY_DTYPE*: `float32`
         - *CM_OPENIMAGES_ACCURACY_DTYPE*: `float32`
       - Workflow:
@@ -143,27 +143,31 @@ ___
            * app,mlperf,cpp,inference
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['cpp-mlperf-inference', 'mlperf-inference-implementation']...`
-             - CM script: [app-mlperf-inference-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
+             - CM script: [app-mlperf-inference-mlcommons-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-cpp)
     * `_intel-original`
       - Aliases: `_intel`
+      - Environment variables:
+        - *CM_MLPERF_IMPLEMENTATION*: `intel`
       - Workflow:
         1. ***Read "prehook_deps" on other CM scripts***
            * reproduce,mlperf,inference,intel
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['intel', 'intel-harness', 'mlperf-inference-implementation']...`
-             - CM script: [reproduce-mlperf-inference-intel](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel)
+             - CM script: [app-mlperf-inference-intel](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-intel)
     * `_kilt`
       - Aliases: `_qualcomm`
+      - Environment variables:
+        - *CM_MLPERF_IMPLEMENTATION*: `qualcomm`
       - Workflow:
         1. ***Read "prehook_deps" on other CM scripts***
            * reproduce,mlperf,inference,kilt
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['kilt', 'kilt-harness', 'mlperf-inference-implementation']...`
-             - CM script: [reproduce-mlperf-inference-qualcomm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm)
+             - CM script: [app-mlperf-inference-qualcomm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-qualcomm)
     * `_nvidia-original`
       - Aliases: `_nvidia`
       - Environment variables:
-        - *CM_MLPERF_IMPLEMENTATION*: `nvidia-original`
+        - *CM_MLPERF_IMPLEMENTATION*: `nvidia`
         - *CM_SQUAD_ACCURACY_DTYPE*: `float16`
         - *CM_IMAGENET_ACCURACY_DTYPE*: `int32`
         - *CM_CNNDM_ACCURACY_DTYPE*: `int32`
@@ -177,12 +181,12 @@ ___
            * reproduce,mlperf,nvidia,inference
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['nvidia-original-mlperf-inference', 'nvidia-harness', 'mlperf-inference-implementation']...`
-             - CM script: [reproduce-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia)
+             - CM script: [app-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia)
     * **`_reference`** (default)
-      - Aliases: `_python`
+      - Aliases: `_mlcommons-python,_python`
       - Environment variables:
         - *CM_MLPERF_PYTHON*: `yes`
-        - *CM_MLPERF_IMPLEMENTATION*: `reference`
+        - *CM_MLPERF_IMPLEMENTATION*: `mlcommons_python`
         - *CM_SQUAD_ACCURACY_DTYPE*: `float32`
         - *CM_IMAGENET_ACCURACY_DTYPE*: `float32`
         - *CM_OPENIMAGES_ACCURACY_DTYPE*: `float32`
@@ -192,19 +196,20 @@ ___
            * app,mlperf,reference,inference
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['python-reference-mlperf-inference', 'mlperf-inference-implementation']...`
-             - CM script: [app-mlperf-inference-reference](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference)
+             - CM script: [app-mlperf-inference-mlcommons-python](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-python)
     * `_tflite-cpp`
+      - Aliases: `_ctuning-cpp-tflite`
       - Environment variables:
         - *CM_MLPERF_TFLITE_CPP*: `yes`
         - *CM_MLPERF_CPP*: `yes`
-        - *CM_MLPERF_IMPLEMENTATION*: `tflite-cpp`
+        - *CM_MLPERF_IMPLEMENTATION*: `ctuning_cpp_tflite`
         - *CM_IMAGENET_ACCURACY_DTYPE*: `float32`
       - Workflow:
         1. ***Read "prehook_deps" on other CM scripts***
            * app,mlperf,tflite-cpp,inference
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['tflite-cpp-mlperf-inference', 'mlperf-inference-implementation']...`
-             - CM script: [app-mlperf-inference-tflite-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp)
+             - CM script: [app-mlperf-inference-ctuning-cpp-tflite](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-ctuning-cpp-tflite)
 
     </details>
 
@@ -388,7 +393,7 @@ ___
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * run,accuracy,mlperf,_librispeech
-             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia-original)`
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia)`
              * CM names: `--adr.['mlperf-accuracy-script', 'librispeech-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * `_sdxl`
@@ -397,7 +402,7 @@ ___
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * run,accuracy,mlperf,_coco2014
-             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia-original)`
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia)`
              * CM names: `--adr.['mlperf-accuracy-script', 'coco2014-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
 
@@ -494,7 +499,7 @@ ___
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * run,accuracy,mlperf,_kits19,_int8
-             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia-original)`
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia)`
              * CM names: `--adr.['mlperf-accuracy-script', '3d-unet-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * `_bert_`
@@ -525,7 +530,7 @@ ___
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * run,accuracy,mlperf,_cnndm
-             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != intel-original)`
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != intel)`
              * CM names: `--adr.['cnndm-accuracy-script', 'mlperf-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * `_llama2-70b_`
@@ -534,7 +539,7 @@ ___
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * run,accuracy,mlperf,_open-orca,_int32
-             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia-original)`
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != nvidia)`
              * CM names: `--adr.['mlperf-accuracy-script', 'open-orca-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * `_reference,bert_`
