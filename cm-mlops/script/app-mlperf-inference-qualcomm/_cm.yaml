@@ -1,5 +1,5 @@
 # Identification of this CM script
-alias: reproduce-mlperf-inference-qualcomm
+alias: app-mlperf-inference-qualcomm
 uid: eef1aca5d7c0470e
 cache: false
 can_force_cache: true

@@ -339,12 +339,12 @@ input_description:
     sort: 250
   implementation:
     choices:
-    - reference
-    - mil
-    - nvidia-original
-    - intel-original
+    - mlcommons-python
+    - mlcommons-cpp
+    - nvidia
+    - intel
     - qualcomm
-    - tflite-cpp
+    - ctuning-cpp-tflite
     default: reference
     desc: MLPerf implementation
     sort: 300

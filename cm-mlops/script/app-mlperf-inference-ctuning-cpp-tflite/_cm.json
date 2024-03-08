@@ -1,0 +1,427 @@
+{
+  "alias": "app-mlperf-inference-ctuning-cpp-tflite",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "category": "Modular MLPerf inference benchmark pipeline",
+  "default_env": {
+    "CM_DATASET_COMPRESSED": "off",
+    "CM_DATASET_INPUT_SQUARE_SIDE": "224",
+    "CM_FAST_COMPILATION": "yes",
+    "CM_LOADGEN_BUFFER_SIZE": "1024",
+    "CM_MLPERF_LOADGEN_MODE": "accuracy",
+    "CM_MLPERF_LOADGEN_SCENARIO": "SingleStream",
+    "CM_MLPERF_LOADGEN_TRIGGER_COLD_RUN": "0",
+    "CM_MLPERF_OUTPUT_DIR": ".",
+    "CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX": "tflite_cpp",
+    "CM_MLPERF_TFLITE_USE_NEON": "0",
+    "CM_MLPERF_TFLITE_USE_OPENCL": "0",
+    "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
+    "CM_ML_MODEL_NORMALIZE_DATA": "0",
+    "CM_ML_MODEL_SUBTRACT_MEANS": "1",
+    "CM_VERBOSE": "0"
+  },
+  "deps": [
+    {
+      "tags": "detect,os"
+    },
+    {
+      "tags": "detect,cpu"
+    },
+    {
+      "tags": "get,sys-utils-cm"
+    },
+    {
+      "enable_if_env": {
+        "CM_MLPERF_DEVICE": [
+          "gpu"
+        ]
+      },
+      "tags": "get,cuda"
+    },
+    {
+      "names": [
+        "loadgen"
+      ],
+      "tags": "get,loadgen"
+    },
+    {
+      "names": [
+        "inference-src"
+      ],
+      "tags": "get,mlcommons,inference,src"
+    },
+    {
+      "enable_if_env": {
+        "CM_MLPERF_BACKEND": [
+          "tflite",
+          "armnn_tflite"
+        ],
+        "CM_MODEL": [
+          "mobilenet"
+        ]
+      },
+      "names": [
+        "ml-model",
+        "tflite-model",
+        "mobilenet-model"
+      ],
+      "tags": "get,ml-model,mobilenet,raw,_tflite"
+    },
+    {
+      "enable_if_env": {
+        "CM_MLPERF_BACKEND": [
+          "tflite",
+          "armnn_tflite"
+        ],
+        "CM_MODEL": [
+          "resnet50"
+        ]
+      },
+      "names": [
+        "ml-model",
+        "tflite-model",
+        "resnet50-model"
+      ],
+      "tags": "get,ml-model,resnet50,raw,_tflite,_no-argmax"
+    },
+    {
+      "enable_if_env": {
+        "CM_MLPERF_BACKEND": [
+          "tf"
+        ],
+        "CM_MODEL": [
+          "resnet50"
+        ]
+      },
+      "names": [
+        "ml-model",
+        "tflite-model",
+        "resnet50-model"
+      ],
+      "tags": "get,ml-model,resnet50,raw,_tf"
+    },
+    {
+      "enable_if_env": {
+        "CM_MLPERF_BACKEND": [
+          "tflite",
+          "armnn_tflite"
+        ],
+        "CM_MODEL": [
+          "efficientnet"
+        ]
+      },
+      "names": [
+        "ml-model",
+        "tflite-model",
+        "efficientnet-model"
+      ],
+      "tags": "get,ml-model,efficientnet,raw,_tflite"
+    },
+    {
+      "tags": "get,tensorflow,lib,_tflite"
+    },
+    {
+      "enable_if_env": {
+        "CM_MLPERF_TFLITE_USE_ARMNN": [
+          "yes"
+        ]
+      },
+      "names": [
+        "armnn",
+        "lib-armnn"
+      ],
+      "tags": "get,lib,armnn"
+    }
+  ],
+  "input_mapping": {
+    "compressed_dataset": "CM_DATASET_COMPRESSED",
+    "count": "CM_MLPERF_LOADGEN_QUERY_COUNT",
+    "mlperf_conf": "CM_MLPERF_CONF",
+    "mode": "CM_MLPERF_LOADGEN_MODE",
+    "output_dir": "CM_MLPERF_OUTPUT_DIR",
+    "performance_sample_count": "CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT",
+    "scenario": "CM_MLPERF_LOADGEN_SCENARIO",
+    "user_conf": "CM_MLPERF_USER_CONF",
+    "verbose": "CM_VERBOSE"
+  },
+  "new_env_keys": [
+    "CM_MLPERF_*",
+    "CM_ML_MODEL_*",
+    "CM_HW_NAME"
+  ],
+  "new_state_keys": [
+    "CM_SUT_*"
+  ],
+  "post_deps": [
+    {
+      "names": [
+        "compiler-program"
+      ],
+      "skip_if_env": {
+        "CM_MLPERF_SKIP_RUN": [
+          "yes"
+        ]
+      },
+      "tags": "compile,program"
+    },
+    {
+      "names": [
+        "mlperf-runner"
+      ],
+      "skip_if_env": {
+        "CM_MLPERF_SKIP_RUN": [
+          "yes"
+        ]
+      },
+      "tags": "benchmark-mlperf"
+    },
+    {
+      "names": [
+        "save-mlperf-inference-state"
+      ],
+      "tags": "save,mlperf,inference,state"
+    }
+  ],
+  "prehook_deps": [
+    {
+      "names": [
+        "user-conf-generator"
+      ],
+      "tags": "generate,user-conf,mlperf,inference"
+    },
+    {
+      "enable_if_env": {
+        "CM_MLPERF_SKIP_RUN": [
+          "no"
+        ],
+        "CM_MODEL": [
+          "resnet50"
+        ]
+      },
+      "names": [
+        "imagenet-preprocessed",
+        "preprocessed-dataset"
+      ],
+      "skip_if_env": {
+        "CM_DATASET_COMPRESSED": [
+          "on"
+        ]
+      },
+      "tags": "get,dataset,preprocessed,imagenet,_for.resnet50,_rgb32,_NHWC",
+      "update_tags_from_env": [
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
+      ]
+    },
+    {
+      "enable_if_env": {
+        "CM_MLPERF_SKIP_RUN": [
+          "no"
+        ],
+        "CM_MODEL": [
+          "mobilenet",
+          "efficientnet"
+        ]
+      },
+      "names": [
+        "imagenet-preprocessed",
+        "preprocessed-dataset"
+      ],
+      "skip_if_env": {
+        "CM_DATASET_COMPRESSED": [
+          "on"
+        ]
+      },
+      "tags": "get,dataset,preprocessed,imagenet,_for.mobilenet,_rgb32,_NHWC",
+      "update_tags_from_env": [
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
+      ]
+    },
+    {
+      "enable_if_env": {
+        "CM_DATASET_COMPRESSED": [
+          "on"
+        ],
+        "CM_MLPERF_SKIP_RUN": [
+          "no"
+        ],
+        "CM_MODEL": [
+          "mobilenet",
+          "efficientnet"
+        ]
+      },
+      "names": [
+        "imagenet-preprocessed",
+        "preprocessed-dataset"
+      ],
+      "tags": "get,dataset,preprocessed,imagenet,_for.mobilenet,_rgb8,_NHWC",
+      "update_tags_from_env": [
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
+      ]
+    },
+    {
+      "enable_if_env": {
+        "CM_DATASET_COMPRESSED": [
+          "on"
+        ],
+        "CM_MLPERF_SKIP_RUN": [
+          "no"
+        ],
+        "CM_MODEL": [
+          "resnet50"
+        ]
+      },
+      "names": [
+        "imagenet-preprocessed",
+        "preprocessed-dataset"
+      ],
+      "tags": "get,dataset,preprocessed,imagenet,_for.resnet50,_rgb8,_NHWC",
+      "update_tags_from_env": [
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
+      ]
+    }
+  ],
+  "tags": [
+    "app",
+    "mlcommons",
+    "mlperf",
+    "inference",
+    "tflite-cpp"
+  ],
+  "tags_help": "app mlperf inference tflite-cpp",
+  "uid": "415904407cca404a",
+  "variations": {
+    "armnn": {
+      "default_variations": {
+        "optimization-target": "use-neon"
+      },
+      "env": {
+        "CM_MLPERF_TFLITE_USE_ARMNN": "yes",
+        "CM_TMP_LINK_LIBS": "tensorflowlite,armnn"
+      }
+    },
+    "armnn,tflite": {
+      "env": {
+        "CM_MLPERF_BACKEND": "armnn_tflite",
+        "CM_MLPERF_BACKEND_VERSION": "<<<CM_LIB_ARMNN_VERSION>>>",
+        "CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX": "tflite_armnn_cpp",
+        "CM_TMP_LINK_LIBS": "tensorflowlite,armnn,armnnTfLiteParser",
+        "CM_TMP_SRC_FOLDER": "armnn"
+      }
+    },
+    "cpu": {
+      "default": true,
+      "env": {
+        "CM_MLPERF_DEVICE": "cpu"
+      },
+      "group": "device"
+    },
+    "efficientnet": {
+      "env": {
+        "CM_MODEL": "efficientnet"
+      },
+      "group": "model"
+    },
+    "fp32": {
+      "adr": {
+        "ml-model": {
+          "tags": "_fp32"
+        },
+        "preprocessed-dataset": {
+          "tags": "_float32"
+        }
+      },
+      "default": true,
+      "env": {
+        "CM_MLPERF_MODEL_PRECISION": "float32"
+      },
+      "group": "precision"
+    },
+    "gpu": {
+      "env": {
+        "CM_MLPERF_DEVICE": "gpu",
+        "CM_MLPERF_DEVICE_LIB_NAMESPEC": "cudart"
+      },
+      "group": "device"
+    },
+    "int8": {
+      "adr": {
+        "ml-model": {
+          "tags": "_int8"
+        },
+        "preprocessed-dataset": {
+          "tags": "_int8"
+        }
+      },
+      "env": {
+        "CM_DATASET_COMPRESSED": "on",
+        "CM_MLPERF_MODEL_PRECISION": "int8"
+      },
+      "group": "precision"
+    },
+    "mobilenet": {
+      "env": {
+        "CM_MODEL": "mobilenet"
+      },
+      "group": "model"
+    },
+    "resnet50": {
+      "default": true,
+      "env": {
+        "CM_MODEL": "resnet50"
+      },
+      "group": "model"
+    },
+    "singlestream": {
+      "default": true,
+      "env": {
+        "CM_MLPERF_LOADGEN_SCENARIO": "SingleStream"
+      },
+      "group": "loadgen-scenario"
+    },
+    "tf": {
+      "env": {
+        "CM_MLPERF_BACKEND": "tf"
+      },
+      "group": "backend"
+    },
+    "tflite": {
+      "default": true,
+      "env": {
+        "CM_MLPERF_BACKEND": "tflite",
+        "CM_MLPERF_BACKEND_VERSION": "master",
+        "CM_TMP_LINK_LIBS": "tensorflowlite",
+        "CM_TMP_SRC_FOLDER": "src"
+      },
+      "group": "backend"
+    },
+    "uint8": {
+      "adr": {
+        "ml-model": {
+          "tags": "_uint8"
+        },
+        "preprocessed-dataset": {
+          "tags": "_int8"
+        }
+      },
+      "env": {
+        "CM_DATASET_COMPRESSED": "on",
+        "CM_MLPERF_MODEL_PRECISION": "uint8"
+      },
+      "group": "precision"
+    },
+    "use-neon": {
+      "env": {
+        "CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1": "using_neon",
+        "CM_MLPERF_TFLITE_USE_NEON": "1"
+      },
+      "group": "optimization-target"
+    },
+    "use-opencl": {
+      "env": {
+        "CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1": "using_opencl",
+        "CM_MLPERF_TFLITE_USE_OPENCL": "1"
+      },
+      "group": "optimization-target"
+    }
+  }
+}

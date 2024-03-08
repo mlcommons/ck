@@ -38,6 +38,7 @@ def get_run_cmd(model, i):
         outdir = env['CM_MLPERF_OUTPUT_DIR']
         mlperf_conf_path = env['CM_MLPERF_CONF']
         user_conf_path = env['CM_MLPERF_USER_CONF']
+        api_server = env.get('CM_MLPERF_INFERENCE_API_SERVER', 'localhost')
         model_path = env['GPTJ_CHECKPOINT_PATH']
         dataset_path = env['CM_DATASET_CNNDM_EVAL_PATH']
         precision = env['CM_MLPERF_MODEL_PRECISION']
@@ -46,9 +47,9 @@ def get_run_cmd(model, i):
         else:
             accuracy_string = ""
 
-        run_cmd = f"python3 -u main.py --scenario {scenario} --model-path {model_path} --mlperf-conf {mlperf_conf_path} {accuracy_string} --user-conf {user_conf_path} --dataset-path {dataset_path} --output-log-dir {outdir} --dtype {precision} --device {device} "
+        run_cmd = f"python3 -u main.py --scenario {scenario} --model-path {model_path} --api-server {api_server} --api-model-name gpt-j-cnn --mlperf-conf {mlperf_conf_path} {accuracy_string} --vllm --user-conf {user_conf_path} --dataset-path {dataset_path} --output-log-dir {outdir} --dtype float32 --device {device} "
         
-        run_dir = os.path.join(env['CM_MLPERF_INFERENCE_IMPLEMENTATION_REPO'], "open", "Submitter", "code", "gptj-99")
+        run_dir = os.path.join(env['CM_MLPERF_INFERENCE_IMPLEMENTATION_REPO'], "open", "RedHat", "code", "gptj-99")
 
         return {'return': 0, 'run_cmd': run_cmd, 'run_dir': run_dir}
 

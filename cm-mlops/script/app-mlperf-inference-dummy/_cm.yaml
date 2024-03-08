@@ -1,6 +1,6 @@
 # Identification of this CM script
-alias: reproduce-mlperf-inference-dummy
-uid: 7dde40c221e144fb
+alias: app-mlperf-inference-dummy
+uid: 5b71627383a94576
 cache: false
 
 automation_alias: script
@@ -16,10 +16,10 @@ tags:
   - mlperf
   - inference
   - harness
-  - dummy-harness
-  - dummy
-  - dummy-harness
-  - dummy
+  - redhat-harness
+  - redhat
+  - openshift-harness
+  - openshift
 
 # Default environment
 default_env:
@@ -27,7 +27,7 @@ default_env:
   CM_MLPERF_LOADGEN_MODE: performance
   CM_SKIP_PREPROCESS_DATASET: 'no'
   CM_SKIP_MODEL_DOWNLOAD: 'no'
-  CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: dummy
+  CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: redhat_openshift
   CM_MLPERF_SKIP_RUN: 'no'
 
 env:
@@ -283,15 +283,8 @@ variations:
 
   uint8:
     group: precision
-    env:
-      CM_MLPERF_MODEL_PRECISION: uint8
   fp16:
     group: precision
-    env:
-      CM_MLPERF_MODEL_PRECISION: float16
   fp32:
     group: precision
-    default: true
-    env:
-      CM_MLPERF_MODEL_PRECISION: float32
 
