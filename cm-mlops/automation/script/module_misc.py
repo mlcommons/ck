@@ -1724,7 +1724,7 @@ def docker(i):
         mount_string = "" if len(mounts)==0 else ",".join(mounts)
 
         #check for proxy settings and pass onto the docker
-        proxy_keys = [ "ftp_proxy", "FTP_PROXY", "http_proxy", "HTTP_PROXY", "https_proxy", "HTTPS_PROXY", "no_proxy", "NO_PROXY", "socks_proxy", "SOCKS_PROXY" ]
+        proxy_keys = [ "ftp_proxy", "FTP_PROXY", "http_proxy", "HTTP_PROXY", "https_proxy", "HTTPS_PROXY", "no_proxy", "NO_PROXY", "socks_proxy", "SOCKS_PROXY", "GH_TOKEN" ]
         if env.get('+ CM_DOCKER_BUILD_ARGS', []) == []:
             env['+ CM_DOCKER_BUILD_ARGS'] = []
         for key in proxy_keys:

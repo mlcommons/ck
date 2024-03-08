@@ -170,7 +170,7 @@ def make_selector(i):
     return {'return':0, 'key2': key2, 'value2': value2}
 
 ##########################################################
-def make_selection(st, selection, param_key, text, x_uid):
+def make_selection(st, selection, param_key, text, x_uid, force_index=0):
 
     x_meta = {}
     
@@ -187,7 +187,7 @@ def make_selection(st, selection, param_key, text, x_uid):
              x_id = st.selectbox('Select {}:'.format(text),
                                  range(len(x_selection)), 
                                  format_func=lambda x: x_selection[x]['name'],
-                                 index = 0,
+                                 index = force_index,
                                  key = param_key)
 
              if x_id>0:

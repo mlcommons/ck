@@ -67,7 +67,9 @@ class CAutomation(Automation):
                                              'skip_compile', 
                                              'skip_run',
                                              'accept_license',
-                                             'skip_system_deps']
+                                             'skip_system_deps',
+                                             'git_ssh',
+                                             'gh_token']
 
 
 
@@ -388,6 +390,12 @@ class CAutomation(Automation):
         if len(env_from_os_info)>0:
             env.update(env_from_os_info)
 
+        #take some env from the user environment
+        keys = [ "GH_TOKEN", "ftp_proxy", "FTP_PROXY", "http_proxy", "HTTP_PROXY", "https_proxy", "HTTPS_PROXY", "no_proxy", "NO_PROXY", "socks_proxy", "SOCKS_PROXY" ]
+        for key in keys:
+            if os.environ.get(key, '') != '' and env.get(key, '') == '':
+                env[key] = os.environ[key]
+
         # Check path/input/output in input and pass to env
         for key in self.input_flags_converted_to_tmp_env:
             value = i.get(key, '').strip()
@@ -399,7 +407,6 @@ class CAutomation(Automation):
             if type(value)==str: value=value.strip()
             if value != '':
                 env['CM_' + key.upper()] = value
-
 
 
         ############################################################################################################
