@@ -66,9 +66,11 @@ def preprocess(i):
             env['MLPERF_INFERENCE_ROOT'] = env['CM_MLPERF_INFERENCE_SOURCE']
             final_model_path = os.path.join(harness_root, "data", "gpt-j-int8-model", "best_model.pt")
             env['INT8_MODEL_DIR'] = os.path.dirname(final_model_path)
-            env['CM_ML_MODEL_PATH'] = final_model_path
+            if not os.path.exists(env['INT8_MODEL_DIR']):
+                os.makedirs(env['INT8_MODEL_DIR'])
+            env['CM_ML_MODEL_PATH'] = env['INT8_MODEL_DIR']
             if env.get('CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH', '') != '':
-                shutil.copy(env['CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH'], final_model_path)
+                shutil.copy(env['CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH'], env['INT8_MODEL_DIR'])
 
     elif env['CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE'] == "run_harness":
         if env.get('CM_MLPERF_LOADGEN_MODE', '') == "compliance":

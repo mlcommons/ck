@@ -762,10 +762,10 @@ class CAutomation(Automation):
             update_env_from_input_mapping(env, i, input_mapping)
             update_env_from_input_mapping(const, i, input_mapping)
 
-
-        if docker_input_mapping:
-            update_env_from_input_mapping(env, i, docker_input_mapping)
-            update_env_from_input_mapping(const, i, docker_input_mapping)
+        # This mapping is done in module_misc
+        #if docker_input_mapping:
+        #    update_env_from_input_mapping(env, i, docker_input_mapping)
+        #    update_env_from_input_mapping(const, i, docker_input_mapping)
 
 
 
@@ -4626,12 +4626,13 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
 
     # Possibly restrict this to within docker environment
     new_docker_settings = meta.get('docker')
-    docker_input_mapping = {}
     if new_docker_settings:
-        docker_input_mapping = new_docker_settings.get('docker_input_mapping', {})
-        if docker_input_mapping:
-            update_env_from_input_mapping(env, i['input'], docker_input_mapping)
         docker_settings = state.get('docker_settings', {})
+        #docker_input_mapping = docker_settings.get('docker_input_mapping', {})
+        #new_docker_input_mapping = new_docker_settings.get('docker_input_mapping', {})
+        #if new_docker_input_mapping:
+        #    #    update_env_from_input_mapping(env, i['input'], docker_input_mapping)
+        #    utils.merge_dicts({'dict1':docker_input_mapping, 'dict2':new_docker_input_mapping, 'append_lists':True, 'append_unique':True})
         utils.merge_dicts({'dict1':docker_settings, 'dict2':new_docker_settings, 'append_lists':True, 'append_unique':True})
         state['docker'] = docker_settings
 

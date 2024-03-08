@@ -116,12 +116,18 @@ deps:
 - tags: get,mlperf,inference,utils
 
 docker:
-  fake_run_deps: true
   mounts:
   - ${{ INSTALL_DATA_PATH }}:/install_data
   - ${{ DATA_PATH }}:/data
   - ${{ CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH }}:${{ CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH }}
+  - ${{ GPTJ_CHECKPOINT_PATH }}:${{ GPTJ_CHECKPOINT_PATH }}
+  skip_run_cmd: 'no'
+  shm_size: '32gb'
+  extra_run_args: ' --ulimit memlock=-1 --cap-add SYS_ADMIN --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
+  docker_os: ubuntu
+  docker_real_run: false
   run: true
+  interactive: true
   docker_input_mapping:
     imagenet_path: IMAGENET_PATH
     gptj_checkpoint_path: GPTJ_CHECKPOINT_PATH
