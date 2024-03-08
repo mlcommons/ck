@@ -16,10 +16,8 @@ tags:
   - mlperf
   - inference
   - harness
-  - redhat-harness
-  - redhat
-  - openshift-harness
-  - openshift
+  - dummy-harness
+  - dummy
 
 # Default environment
 default_env:
@@ -27,7 +25,7 @@ default_env:
   CM_MLPERF_LOADGEN_MODE: performance
   CM_SKIP_PREPROCESS_DATASET: 'no'
   CM_SKIP_MODEL_DOWNLOAD: 'no'
-  CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: redhat_openshift
+  CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: dummy_harness
   CM_MLPERF_SKIP_RUN: 'no'
 
 env:
@@ -110,6 +108,7 @@ deps:
   - tags: get,git,repo
     names:
       inference-results
+      inference-code
     updats_tags_from_env_with_prefix:
       _repo.: CM_MLPERF_INFERENCE_RESULTS_REPO
     env:

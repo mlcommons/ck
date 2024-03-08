@@ -48,8 +48,8 @@ def get_run_cmd(model, i):
             accuracy_string = ""
 
         run_cmd = f"python3 -u main.py --scenario {scenario} --model-path {model_path} --api-server {api_server} --api-model-name gpt-j-cnn --mlperf-conf {mlperf_conf_path} {accuracy_string} --vllm --user-conf {user_conf_path} --dataset-path {dataset_path} --output-log-dir {outdir} --dtype float32 --device {device} "
-        
-        run_dir = os.path.join(env['CM_MLPERF_INFERENCE_IMPLEMENTATION_REPO'], "open", "RedHat", "code", "gptj-99")
+        submitter = "CTuning"
+        run_dir = os.path.join(env['CM_MLPERF_INFERENCE_IMPLEMENTATION_REPO'], "open", submitter, "code", "gptj-99")
 
         return {'return': 0, 'run_cmd': run_cmd, 'run_dir': run_dir}
 
