@@ -239,7 +239,7 @@ def get_valid_scenarios(model, category, mlperf_version, mlperf_path):
 ##################################################################################
 def postprocess(i):
 
-    env = i['env']                      c
+    env = i['env']
     state = i['state']
 
     if env.get('CM_MLPERF_IMPLEMENTATION', '') == 'reference':
@@ -276,6 +276,7 @@ def get_url(url, path, path2, name, text):
     fn = os.path.join(path, path2, name_md)
 
     urlx = ''
+    url_online = ''
     if os.path.isfile(fn):
         if not url.endswith('/'): url+='/'
         urlx = url + path2 + '/' + name_md
