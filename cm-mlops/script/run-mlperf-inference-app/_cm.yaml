@@ -345,7 +345,7 @@ input_description:
     - intel
     - qualcomm
     - ctuning-cpp-tflite
-    default: reference
+    default: mlcommons-python
     desc: MLPerf implementation
     sort: 300
   backend:

@@ -239,7 +239,7 @@ def get_valid_scenarios(model, category, mlperf_version, mlperf_path):
 ##################################################################################
 def postprocess(i):
 
-    env = i['env']
+    env = i['env']                      c
     state = i['state']
 
     if env.get('CM_MLPERF_IMPLEMENTATION', '') == 'reference':
@@ -325,17 +325,16 @@ def gui(i):
     inp['device']['force'] = device
 
     if device == 'cpu':
-        inp['implementation']['choices']=['reference', 'intel-original','mil', 'tflite-cpp']
-        inp['implementation']['default']='reference'
+        inp['implementation']['choices']=['mlcommons-python', 'mlcommons-cpp', 'intel', 'ctuning-cpp-tflite']
+        inp['implementation']['default']='mlcommons-python'
         inp['backend']['choices']=['onnxruntime','deepsparse','pytorch','tf','tvm-onnx']
         inp['backend']['default']='onnxruntime'
     elif device == 'rocm':
-        inp['implementation']['force']='reference'
+        inp['implementation']['force']='mlcommons-python'
         inp['backend']['force']='onnxruntime'
     elif device == 'qaic':
         inp['implementation']['force']='qualcomm'
         inp['backend']['force']='glow'
-       
 
 
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_division', 'desc':inp['division']})
@@ -371,7 +370,7 @@ def gui(i):
         inp['implementation']['force'] = v
     else:
         if device == 'cuda':
-            inp['implementation']['choices']=['nvidia-original','reference','mil']
+            inp['implementation']['choices']=['nvidia','mlcommons-python','mlcommons-cpp']
             inp['implementation']['default']='nvidia-original'
             inp['backend']['choices']=['tensorrt','onnxruntime','pytorch']
             inp['backend']['default']='tensorrt'
@@ -388,29 +387,27 @@ def gui(i):
     r = get_url(script_url, script_path, 'faq', implementation, 'FAQ online')
     if r['return'] == 0: url_faq_implementation = r['url_online']
 
-    if implementation == 'mil':
+    if implementation == 'mlcommons-cpp':
 #        inp['backend']['choices'] = ['onnxruntime']
         inp['precision']['force']='float32'
         inp['backend']['force'] = 'onnxruntime'
         inp['model']['choices'] = ['resnet50', 'retinanet']
-        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)]*')
-    elif implementation == 'reference':
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-cpp)]*')
+    elif implementation == 'mlcommons-python':
         inp['precision']['default']='float32'
         if device == 'cuda':
             inp['backend']['choices']=['onnxruntime','pytorch','tf']
             inp['backend']['default'] = 'onnxruntime'
-        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference).]*')
-    elif implementation == 'tflite-cpp':
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-python)]*')
+    elif implementation == 'ctuning-cpp-tflite':
         inp['precision']['force']='float32'
         inp['model']['force']='resnet50'
-        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp)]*')
+        st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-ctuning-cpp-tflite)]*')
 
-    elif implementation == 'nvidia-original':
+    elif implementation == 'nvidia':
         inp['backend']['force'] = 'tensorrt'
-        st.markdown("""
-""")
         st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia)]*')
-    elif implementation == 'intel-original':
+    elif implementation == 'intel':
         inp['model']['choices'] = ['bert-99', 'bert-99.9', 'gptj-99']
         inp['model']['default'] = 'bert-99'
         inp['precision']['force'] = 'uint8'
@@ -451,7 +448,7 @@ def gui(i):
 
     if model == 'retinanet':
         x = '50'
-        if implementation == 'reference':
+        if implementation == 'mlcommons-python':
             x= '200'
         st.markdown(':red[This model requires ~{}GB of free disk space for preprocessed dataset in a full/submission run!]\n'.format(x))
 
