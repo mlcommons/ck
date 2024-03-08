@@ -4,8 +4,11 @@ from cmind import utils
 # Pring help about script
 def print_help(i):
 
-    meta = i['meta']
-    path = i['path']
+    meta = i.get('meta', '')
+    path = i.get('path', '')
+
+    if len(meta)==0 and path=='':
+        return {'return':0}
 
     print ('')
     print ('Help for this CM script ({},{}):'.format(meta.get('alias',''), meta.get('uid','')))

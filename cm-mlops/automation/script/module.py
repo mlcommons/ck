@@ -431,6 +431,11 @@ class CAutomation(Automation):
         ii['tags'] = tags_string
         ii['out'] = None
 
+
+        # if cm run script without tags/artifact and with --help
+        if len(ii.get('parsed_artifact',[]))==0 and ii.get('tags','')=='' and i.get('help',False):
+            return utils.call_internal_module(self, __file__, 'module_help', 'print_help', {'meta':{}, 'path':''})
+
         r = self.search(ii)
         if r['return']>0: return r
 
