@@ -127,6 +127,7 @@ docker:
   docker_os: ubuntu
   docker_real_run: false
   run: true
+  interactive: true
   docker_input_mapping:
     imagenet_path: IMAGENET_PATH
     gptj_checkpoint_path: GPTJ_CHECKPOINT_PATH
