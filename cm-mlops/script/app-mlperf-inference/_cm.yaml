@@ -126,7 +126,7 @@ variations:
         tags: _int64
     env:
       CM_MLPERF_CPP: 'yes'
-      CM_MLPERF_IMPLEMENTATION: cpp
+      CM_MLPERF_IMPLEMENTATION: mlcommons_cpp
       CM_IMAGENET_ACCURACY_DTYPE: float32
       CM_OPENIMAGES_ACCURACY_DTYPE: float32
     prehook_deps:
@@ -141,6 +141,12 @@ variations:
   mil:
     alias: cpp
 
+  mlcommons-cpp:
+    alias: cpp
+
+  ctuning-cpp-tflite:
+    alias: tflite-cpp
+
   tflite-cpp:
     default_variations:
       backend: tflite
@@ -153,7 +159,7 @@ variations:
     env:
       CM_MLPERF_TFLITE_CPP: 'yes'
       CM_MLPERF_CPP: 'yes'
-      CM_MLPERF_IMPLEMENTATION: tflite-cpp
+      CM_MLPERF_IMPLEMENTATION: ctuning_cpp_tflite
       CM_IMAGENET_ACCURACY_DTYPE: float32
     prehook_deps:
       - names:
@@ -178,7 +184,7 @@ variations:
         tags: _int32
     env:
       CM_MLPERF_PYTHON: 'yes'
-      CM_MLPERF_IMPLEMENTATION: reference
+      CM_MLPERF_IMPLEMENTATION: mlcommons_python
       CM_SQUAD_ACCURACY_DTYPE: float32
       CM_IMAGENET_ACCURACY_DTYPE: float32
       CM_OPENIMAGES_ACCURACY_DTYPE: float32
@@ -197,6 +203,9 @@ variations:
   
   nvidia:
     alias: nvidia-original
+
+  mlcommons-python:
+    alias: reference
 
   reference,gptj_:
     default_variations:
@@ -246,7 +255,7 @@ variations:
       cnndm-accuracy-script:
         tags: _int32
     env:
-      CM_MLPERF_IMPLEMENTATION: nvidia-original
+      CM_MLPERF_IMPLEMENTATION: nvidia
       CM_SQUAD_ACCURACY_DTYPE: float16
       CM_IMAGENET_ACCURACY_DTYPE: int32
       CM_CNNDM_ACCURACY_DTYPE: int32
@@ -270,7 +279,7 @@ variations:
           "_gpu_memory." :
             - CM_NVIDIA_GPU_MEMORY
         update_tags_from_env:
-            - CM_NVIDIA_HARNESS_GPU_VARIATION
+          - CM_NVIDIA_HARNESS_GPU_VARIATION
 
   intel:
     alias: intel-original
@@ -290,6 +299,8 @@ variations:
         skip_if_env:
           CM_SKIP_RUN:
             - yes
+    env:
+      CM_MLPERF_IMPLEMENTATION: intel
 
   qualcomm:
     alias: kilt
@@ -309,6 +320,8 @@ variations:
         skip_if_env:
           CM_SKIP_RUN:
             - yes
+    env:
+      CM_MLPERF_IMPLEMENTATION: qualcomm
 
   kilt,qualcomm,resnet50:
     default_variations:
@@ -412,7 +425,7 @@ variations:
         - 'on'
       skip_if_env:
         CM_MLPERF_IMPLEMENTATION:
-        - nvidia-original
+        - nvidia
       names:
       - mlperf-accuracy-script
       - 3d-unet-accuracy-script
@@ -440,7 +453,7 @@ variations:
         - 'on'
       skip_if_env:
         CM_MLPERF_IMPLEMENTATION:
-        - nvidia-original
+        - nvidia
       names:
       - mlperf-accuracy-script
       - coco2014-accuracy-script
@@ -458,7 +471,7 @@ variations:
         - 'on'
       skip_if_env:
         CM_MLPERF_IMPLEMENTATION:
-        - nvidia-original
+        - nvidia
       names:
       - mlperf-accuracy-script
       - open-orca-accuracy-script
@@ -506,7 +519,7 @@ variations:
         - 'on'
       skip_if_env:
         CM_MLPERF_IMPLEMENTATION:
-        - nvidia-original
+        - nvidia
       names:
       - mlperf-accuracy-script
       - librispeech-accuracy-script
@@ -555,7 +568,7 @@ variations:
         - 'on'
       skip_if_env:
         CM_MLPERF_IMPLEMENTATION:
-        - intel-original
+        - intel
       names:
       - cnndm-accuracy-script
       - mlperf-accuracy-script
