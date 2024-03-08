@@ -1,5 +1,5 @@
 # Identification of this CM script
-alias: reproduce-mlperf-inference-intel
+alias: app-mlperf-inference-intel
 uid: c05a90433bb04cc1
 cache: false
 can_force_cache: true

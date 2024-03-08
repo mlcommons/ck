@@ -1,5 +1,5 @@
 # Identification of this CM script
-alias: reproduce-mlperf-inference-nvidia
+alias: app-mlperf-inference-nvidia
 uid: bc3b17fb430f4732
 cache: false
 can_force_cache: true
