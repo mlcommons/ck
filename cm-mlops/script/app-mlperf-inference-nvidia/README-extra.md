@@ -1,2 +1,0 @@
-# About
-Nvidia C++ implementation
