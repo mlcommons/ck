@@ -122,7 +122,16 @@ def page(st, params, action = ''):
             if add:
                 pruned_selection.append(s)
 
-    r = misc.make_selection(st, pruned_selection, 'benchmark', 'benchmark', bench_uid)
+    # Make default selection of MLPerf inference
+    if bench_uid == '':
+        force_bench_index = 0
+        j = 0
+        for q in pruned_selection:
+            j += 1
+            if q['uid'] == '39877bb63fb54725':
+                force_bench_index = j
+    
+    r = misc.make_selection(st, pruned_selection, 'benchmark', 'benchmark', bench_uid, force_index = force_bench_index)
     if r['return']>0: return r
 
     bench_meta = r['meta']
