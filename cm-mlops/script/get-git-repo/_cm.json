@@ -117,5 +117,8 @@
         }
       ]
     }
+  },
+  "print_env_at_the_end" : {
+    "CM_GIT_CHECKOUT_PATH": "CM cache path to the Git repo"
   }
 }

@@ -42,27 +42,43 @@ deps:
   - ml-model
 
 - tags: get,git,repo,_repo.https://github.com/mlcommons/abtf-ssd-pytorch
+  names:
+  - abtf-ssd-pytorch-git-repo
   env:
     CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_ABTF_SSD_PYTORCH
+    CM_GIT_BRANCH: <<<CM_ABTF_SSD_PYTORCH_BRANCH>>>
   extra_cache_tags: abtf,ssd,pytorch
 
 
 
 variations:
   cpu:
-    group:
-      device
-    default:
-      True
+    group: device
+    default: True
     env:
-      CM_DEVICE:
-        cpu
+      CM_DEVICE: cpu
+
   cuda:
     group:
       device
     env:
-      CM_DEVICE:
-        cuda
+      CM_DEVICE: cuda
+
+
+  coco:
+    group: dataset
+    default: True
+    env: 
+      CM_ABTF_DATASET: coco
+      CM_ABTF_SSD_PYTORCH_BRANCH: main
+
+  cognata:
+    group: dataset
+    script_name: run-cognata
+    env: 
+      CM_ABTF_DATASET: Cognata
+      CM_ABTF_SSD_PYTORCH_BRANCH: cognata
+      CM_ABTF_ML_MODEL_CONFIG: baseline_8MP
 
 input_description:
   input: 
