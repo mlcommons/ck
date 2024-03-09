@@ -32,7 +32,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-dummy)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *reproduce,mlcommons,mlperf,inference,harness,redhat-harness,redhat,openshift-harness,openshift*
+* CM "database" tags to find this script: *reproduce,mlcommons,mlperf,inference,harness,dummy-harness,dummy*
 * Output cached? *False*
 ___
 ### Reuse this script in your project
@@ -49,9 +49,9 @@ ___
 
 #### Run this script from command line
 
-1. `cm run script --tags=reproduce,mlcommons,mlperf,inference,harness,redhat-harness,redhat,openshift-harness,openshift[,variations] [--input_flags]`
+1. `cm run script --tags=reproduce,mlcommons,mlperf,inference,harness,dummy-harness,dummy[,variations] [--input_flags]`
 
-2. `cmr "reproduce mlcommons mlperf inference harness redhat-harness redhat openshift-harness openshift[ variations]" [--input_flags]`
+2. `cmr "reproduce mlcommons mlperf inference harness dummy-harness dummy[ variations]" [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -68,7 +68,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'reproduce,mlcommons,mlperf,inference,harness,redhat-harness,redhat,openshift-harness,openshift'
+                  'tags':'reproduce,mlcommons,mlperf,inference,harness,dummy-harness,dummy'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -85,13 +85,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="reproduce,mlcommons,mlperf,inference,harness,redhat-harness,redhat,openshift-harness,openshift"```
+```cmr "cm gui" --script="reproduce,mlcommons,mlperf,inference,harness,dummy-harness,dummy"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=reproduce,mlcommons,mlperf,inference,harness,redhat-harness,redhat,openshift-harness,openshift) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=reproduce,mlcommons,mlperf,inference,harness,dummy-harness,dummy) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "reproduce mlcommons mlperf inference harness redhat-harness redhat openshift-harness openshift[ variations]" [--input_flags]`
+`cm docker script "reproduce mlcommons mlperf inference harness dummy-harness dummy[ variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -306,7 +306,7 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * CM_MLPERF_LOADGEN_MODE: `performance`
 * CM_SKIP_PREPROCESS_DATASET: `no`
 * CM_SKIP_MODEL_DOWNLOAD: `no`
-* CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: `redhat_openshift`
+* CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: `dummy_harness`
 * CM_MLPERF_SKIP_RUN: `no`
 
 </details>
@@ -337,7 +337,7 @@ ___
        * CM names: `--adr.['mlperf-logging']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,git,repo
-       * CM names: `--adr.inference-results...`
+       * CM names: `--adr.inference-results inference-code...`
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-dummy/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-dummy/_cm.yaml)
@@ -357,7 +357,7 @@ ___
 
 ___
 ### Script output
-`cmr "reproduce mlcommons mlperf inference harness redhat-harness redhat openshift-harness openshift[,variations]" [--input_flags] -j`
+`cmr "reproduce mlcommons mlperf inference harness dummy-harness dummy[,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 * `CM_DATASET_*`

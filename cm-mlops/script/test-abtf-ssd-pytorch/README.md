@@ -27,9 +27,6 @@
 
 ### About
 
-
-See extra [notes](README-extra.md) from the authors and contributors.
-
 #### Summary
 
 * Category: *Tests.*
@@ -103,6 +100,25 @@ ___
 
 #### Variations
 
+  * Group "**dataset**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_coco`** (default)
+      - Environment variables:
+        - *CM_ABTF_DATASET*: `coco`
+        - *CM_ABTF_SSD_PYTORCH_BRANCH*: `main`
+      - Workflow:
+    * `_cognata`
+      - Environment variables:
+        - *CM_ABTF_DATASET*: `Cognata`
+        - *CM_ABTF_SSD_PYTORCH_BRANCH*: `cognata`
+        - *CM_ABTF_ML_MODEL_CONFIG*: `baseline_8MP`
+      - Workflow:
+
+    </details>
+
+
   * Group "**device**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -121,7 +137,7 @@ ___
 
 #### Default variations
 
-`_cpu`
+`_coco,_cpu`
 
 #### Input description
 
@@ -190,12 +206,15 @@ ___
        * CM names: `--adr.['ml-model']...`
        - CM script: [get-ml-model-abtf-ssd-pytorch](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-abtf-ssd-pytorch)
      * get,git,repo,_repo.https://github.com/mlcommons/abtf-ssd-pytorch
+       * CM names: `--adr.['abtf-ssd-pytorch-git-repo']...`
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-abtf-ssd-pytorch/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-abtf-ssd-pytorch/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-abtf-ssd-pytorch/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-abtf-ssd-pytorch/run.sh)
+     * [run-coco.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-abtf-ssd-pytorch/run-coco.bat)
+     * [run-coco.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-abtf-ssd-pytorch/run-coco.sh)
+     * [run-cognata.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-abtf-ssd-pytorch/run-cognata.bat)
+     * [run-cognata.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-abtf-ssd-pytorch/run-cognata.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-abtf-ssd-pytorch/_cm.yaml)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-abtf-ssd-pytorch/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-abtf-ssd-pytorch/_cm.yaml)
