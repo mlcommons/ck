@@ -208,6 +208,10 @@ versions:
         names:
         - pytorch
         - torch
+      - tags: install,torchvision,from.src,_for-nvidia-mlperf-inference-v3.1
+        names:
+        - pytorchvision
+        - torchvision
 
 docker:
   skip_run_cmd: 'no'
