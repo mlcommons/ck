@@ -235,8 +235,6 @@ docker:
     - tags: get,mlperf,inference,results,dir
     - tags: get,mlperf,inference,submission,dir
     - tags: get,nvidia-docker
-  pre_run_cmds:
-    - cm pull repo
   run_cmd_prefix: sudo apt remove -y cmake
   mounts:
    - "${{ IMAGENET_PATH }}:/data/imagenet-val"
