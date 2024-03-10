@@ -1,4 +1,4 @@
-## V2.0.1.1
+## V2.0.2
    - added support to update all CM Git repos in one go: "cm pull repo"
    - added support to show extra info about CM Git repos: "cm show repo"
    - added explicit support for Private Access Token (PAT) when pulling private CM repos:
