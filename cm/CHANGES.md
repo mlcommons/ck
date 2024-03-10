@@ -1,3 +1,9 @@
+## V2.0.1.1
+   - added support to update all CM Git repos in one go: "cm pull repo"
+   - added support to show extra info about CM Git repos: "cm show repo"
+   - added explicit support for Private Access Token (PAT) when pulling private CM repos:
+       cm pull repo ctuning@mlcommons-ck-reproduce-inference-v4.0 --pat={GITHUB PAT}
+
 ## V2.0.1
    - added setuptools as dependency to detect package versions
 

@@ -233,7 +233,7 @@ class Repos:
         return {'return':0}
 
     ############################################################
-    def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = '', depth = None):
+    def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = '', depth = None, path_to_repo = None):
         """
         Clone or pull CM repository
 
@@ -246,6 +246,7 @@ class Repos:
             (console) (bool): if True, print some info to console
             (desc) (str): optional repository description
             (prefix) (str): sub-directory to be used inside this CM repository to store artifacts
+            (path_to_repo) (str): force path to repo (useful to pull imported repos with non-standard path)
 
         Returns: 
             (CM return dict):
@@ -258,7 +259,8 @@ class Repos:
         """
 
         # Prepare path
-        path_to_repo = os.path.join(self.full_path_to_repos, alias)
+        if path_to_repo == None:
+            path_to_repo = os.path.join(self.full_path_to_repos, alias)
 
         if console:
             print ('Local path: '+path_to_repo)
