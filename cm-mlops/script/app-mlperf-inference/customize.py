@@ -15,7 +15,7 @@ def preprocess(i):
     env = i['env']
     state = i['state']
 
-    if env.get('CM_MLPERF_IMPLEMENTATION', '') == 'nvidia-original':
+    if env.get('CM_MLPERF_IMPLEMENTATION', '') == 'nvidia':
         if env.get('CM_NVIDIA_GPU_NAME', '') in [ "rtx_4090", "a100", "t4", "l4", "orin", "custom" ]:
             env['CM_NVIDIA_HARNESS_GPU_VARIATION'] = "_" + env['CM_NVIDIA_GPU_NAME']
             env['CM_NVIDIA_GPU_MEMORY'] = ''
