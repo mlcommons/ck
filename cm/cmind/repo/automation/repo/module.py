@@ -115,9 +115,12 @@ class CAutomation(Automation):
              if console:
                  print (self.cmind.cfg['line'])
                  print ('Alias:    {}'.format(alias))
-                 print ('URL:      {}'.format(url))
-                 print ('Branch:   {}'.format(branch))
-                 print ('Checkout: {}'.format(checkout))
+                 if url!='':
+                     print ('URL:      {}'.format(url))
+                 if branch!='':
+                     print ('Branch:   {}'.format(branch))
+                 if checkout!='':
+                     print ('Checkout: {}'.format(checkout))
                  if depth!='' and depth!=None:
                      print ('Depth:    {}'.format(str(depth)))
                  print ('')
