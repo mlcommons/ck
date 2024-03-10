@@ -5,6 +5,7 @@
        cm pull repo ctuning@mlcommons-ck-reproduce-inference-v4.0 --pat={GITHUB PAT}
    - added support to remove CM repositories via "cm rm repo" even if read only
        (required for Windows)
+   - added support to self-fix CM repo list if repository was manually deleted
 
 
 ## V2.0.1

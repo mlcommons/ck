@@ -116,6 +116,7 @@ class Repos:
             self.paths.insert(0, path_local_repo)
 
         # Check that repository exists and load meta description
+        checked_self_paths = []
         for path_to_repo in self.paths:
             # First try concatenated path and then full path (if imported)
             found = False
@@ -143,9 +144,21 @@ class Repos:
                     break
 
             # Repo path exists but repo itself doesn't exist - fail
-            if not found:
-                return {'return':1, 'error': 'repository path {} not found (check file {})'.format(path_to_repo, full_path_to_repo_paths)}
+            if found:
+                checked_self_paths.append(path_to_repo)
+            else:
+                print ('WARNING: repository path {} not found (check file {})'.format(path_to_repo, full_path_to_repo_paths))
 
+        # Save with correct paths
+        if len(checked_self_paths)!=len(self.paths):
+            self.paths = checked_self_paths
+            
+            print ('WARNING: fixed repo list file {}'.format(full_path_to_repo_paths))
+
+            r = utils.save_json(full_path_to_repo_paths, meta = self.paths)
+            if r['return']>0: return r
+
+        
         return {'return':0}
 
     ############################################################
