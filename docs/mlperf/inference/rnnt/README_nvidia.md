@@ -24,22 +24,12 @@ cmr "run-mlperf inference _find-performance _all-scenarios" \
 ```
 cmr "run-mlperf inference _submission _all-scenarios" --model=rnnt \
 --device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
+--execution-mode=valid --category=edge --division=open --quiet
 ```
 
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs
 * Use `--division=closed` to run all scenarios for the closed division including the compliance tests
 * `--offline_target_qps`, `--server_target_qps`, and `--singlestream_target_latency` can be used to override the determined performance numbers
-
-### Populate the README files describing your submission
-
-```
-cmr "run-mlperf inference _populate-readme _all-scenarios" \
---model=rnnt --device=cuda --implementation=nvidia-original --backend=tensorrt \
---execution-mode=valid --results_dir=$HOME/results_dir \
---category=edge --division=open --quiet
-```
 
 ### Generate and upload MLPerf submission
 
