@@ -204,9 +204,10 @@ versions:
         tags: _version.4_0
     deps:
       - tags: install,nccl,libs,_cuda
-      - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+      - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1
         names:
         - pytorch
+        - torch
 
 docker:
   skip_run_cmd: 'no'
