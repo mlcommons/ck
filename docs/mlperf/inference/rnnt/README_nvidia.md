@@ -12,7 +12,7 @@ cm docker script --tags=build,nvidia,inference,server
 ### Do a test run to detect and record the system performance
 
 ```
-cmr "run-mlperf inference _find-performance _all-scenarios" \
+cmr "run-mlperf inference _find-performance" --scenario=Offline \
 --model=rnnt --implementation=nvidia-original --device=cuda --backend=tensorrt \
 --category=edge --division=open --quiet
 ```
