@@ -130,8 +130,15 @@ def preprocess(i):
         add_deps_recursive[key] = adr_from_meta[key]
 
     if env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE', '') != '':
-        add_deps_recursive['mlperf-inference-implementation'] = {}
+        if not add_deps_recursive.get('mlperf-inference-implementation', {}):
+            add_deps_recursive['mlperf-inference-implementation'] = {}
         add_deps_recursive['mlperf-inference-implementation']['tags'] = "_batch_size."+env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
+
+    if env.get('CM_NETWORK_LOADGEN', '') != '':
+        if not add_deps_recursive.get('mlperf-inference-implementation', {}):
+            add_deps_recursive['mlperf-inference-implementation'] = {}
+        network_variation_tag = f"_network-{env['CM_NETWORK_LOADGEN']}"
+        add_deps_recursive['mlperf-inference-implementation']['tags'] = network_variation_tag
 
     if env.get('CM_OUTPUT_FOLDER_NAME', '') == '':
         env['CM_OUTPUT_FOLDER_NAME'] =  env['CM_MLPERF_RUN_STYLE'] + "_results"
