@@ -883,7 +883,7 @@
         }
       ],
       "default_env": {
-        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torch"
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS1": "torch"
       },
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
