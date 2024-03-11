@@ -175,6 +175,9 @@ def preprocess(i):
             return {'return':0}
 
     elif make_command == "preprocess_data":
+        if env['CM_MODEL'] == "rnnt":
+            cmds.append(f"rm -rf {os.path.join(env['MLPERF_SCRATCH_PATH'], 'preprocessed_data', 'rnnt_dev_clean_500_raw')}")
+            cmds.append(f"rm -rf {os.path.join(env['MLPERF_SCRATCH_PATH'], 'preprocessed_data', 'rnnt_train_clean_512_wav')}")
         cmds.append(f"make preprocess_data BENCHMARKS='{model_name}'")
 
     else:

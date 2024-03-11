@@ -101,14 +101,10 @@
       ],
       "deps": [
         {
-          "tags": "get,conda,_name.nvidia"
-        },
-        {
           "tags": "install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1"
-        }
+	}
       ],
       "env": {
-        "CM_CONDA_ENV": "yes"
       }
     },
     "repo.#": {

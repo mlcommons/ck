@@ -178,7 +178,7 @@ ___
              * `if (CM_CUDA_DEVICE_PROP_GLOBAL_MEMORY not in ['yes', 'on'])`
              - CM script: [get-cuda-devices](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-devices)
         1. ***Read "prehook_deps" on other CM scripts***
-           * reproduce,mlperf,nvidia,inference
+           * reproduce,mlperf,nvidia,inference,_run_harness
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['nvidia-original-mlperf-inference', 'nvidia-harness', 'mlperf-inference-implementation']...`
              - CM script: [app-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia)

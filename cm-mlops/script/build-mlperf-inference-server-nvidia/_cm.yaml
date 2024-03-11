@@ -208,6 +208,10 @@ versions:
         names:
         - pytorch
         - torch
+      - tags: install,torchvision,from.src,_for-nvidia-mlperf-inference-v3.1
+        names:
+        - pytorchvision
+        - torchvision
 
 docker:
   skip_run_cmd: 'no'
@@ -236,8 +240,8 @@ docker:
     - tags: get,mlperf,inference,submission,dir
     - tags: get,nvidia-docker
   pre_run_cmds:
-    - cm pull repo mlcommons@ck
-  run_cmd_prefix: sudo apt remove -y cmake && cm pull repo mlcommons@ck
+    - cm pull repo
+  run_cmd_prefix: sudo apt remove -y cmake
   mounts:
    - "${{ IMAGENET_PATH }}:/data/imagenet-val"
    - "${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}:${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}"

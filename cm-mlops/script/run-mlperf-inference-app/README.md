@@ -239,7 +239,7 @@ ___
 * --**device** MLPerf device {cpu,cuda,rocm,qaic} (*cpu*)
 * --**model** MLPerf model {resnet50,retinanet,bert-99,bert-99.9,3d-unet-99,3d-unet-99.9,rnnt,dlrm-v2-99,dlrm-v2-99.9,gptj-99,gptj-99.9,sdxl,llama2-70b-99,llama2-70b-99.9,mobilenet,efficientnet} (*resnet50*)
 * --**precision** MLPerf model precision {float32,float16,bfloat16,int8,uint8}
-* --**implementation** MLPerf implementation {mlcommons-python,mlcommons-cpp,nvidia,intel,qualcomm,ctuning-cpp-tflite} (*reference*)
+* --**implementation** MLPerf implementation {mlcommons-python,mlcommons-cpp,nvidia,intel,qualcomm,ctuning-cpp-tflite} (*mlcommons-python*)
 * --**backend** MLPerf framework (backend) {onnxruntime,tf,pytorch,deepsparse,tensorrt,glow,tvm-onnx} (*onnxruntime*)
 * --**scenario** MLPerf scenario {Offline,Server,SingleStream,MultiStream} (*Offline*)
 * --**mode** MLPerf benchmark mode {,accuracy,performance}
@@ -373,10 +373,13 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.yaml)***
      * detect,os
+       * `if (CM_MLPERF_USE_DOCKER  != True)`
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
+       * `if (CM_MLPERF_USE_DOCKER  != True)`
        - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,python3
+       * `if (CM_MLPERF_USE_DOCKER  != True)`
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,mlcommons,inference,src
@@ -385,7 +388,7 @@ ___
      * get,sut,description
        - CM script: [get-mlperf-inference-sut-description](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)
      * get,mlperf,inference,results,dir
-       * `if (OUTPUT_BASE_DIR  != True)`
+       * `if (CM_MLPERF_USE_DOCKER  == False) AND (OUTPUT_BASE_DIR  != True)`
        * CM names: `--adr.['get-mlperf-inference-results-dir']...`
        - CM script: [get-mlperf-inference-results-dir](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results-dir)
      * install,pip-package,for-cmind-python,_package.tabulate

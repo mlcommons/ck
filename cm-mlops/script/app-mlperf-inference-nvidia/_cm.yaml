@@ -440,13 +440,13 @@ variations:
   
   gptj_,build:
     deps:
-    - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+    - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1
     - tags: get,cmake
       version_min: "3.25.0"
 
   gptj_,build_engine:
     deps:
-    - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+    - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1
     - tags: get,cmake
       version_min: "3.25.0"
 
@@ -830,7 +830,7 @@ variations:
 
   gptj_,run_harness:
     deps:
-    - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+    - tags: install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1
     - tags: get,cmake
       version_min: "3.25.0"
     env:

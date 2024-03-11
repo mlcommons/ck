@@ -280,7 +280,7 @@ variations:
          - nvidia-original-mlperf-inference
          - nvidia-harness
          - mlperf-inference-implementation
-        tags: reproduce,mlperf,nvidia,inference
+        tags: reproduce,mlperf,nvidia,inference,_run_harness
         skip_if_env:
           CM_SKIP_RUN:
             - yes

@@ -113,6 +113,7 @@ def postprocess(i):
             run_cmds.append(post_run_cmd)
 
     run_cmd = " && ".join(run_cmds)
+    run_cmd = run_cmd.replace("--docker_run_deps", "")
 
     if mount_cmds:
         for mount_cmd in mount_cmds:
