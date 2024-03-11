@@ -174,7 +174,7 @@ ___
            * get,generic,conda-package,_package.libstdcxx-ng,_source.conda-forge
              * CM names: `--adr.['conda-package', 'libstdcxx-ng']...`
              - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
-    * `_for-nvidia-mlperf-inference-v3.1-gptj`
+    * `_for-nvidia-mlperf-inference-v3.1`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,cmake

@@ -312,14 +312,14 @@ ___
     * `_gptj_,build`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+           * install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1
              - CM script: [install-pytorch-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src)
            * get,cmake
              - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
     * `_gptj_,build_engine`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
+           * install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1
              - CM script: [install-pytorch-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src)
            * get,cmake
              - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
@@ -332,7 +332,7 @@ ___
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
-             - CM script: [install-pytorch-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src)
+             - *Warning: no scripts found*
            * get,cmake
              - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
     * `_gpu_memory.16,3d-unet_,offline,run_harness`
