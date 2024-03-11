@@ -1,0 +1,140 @@
+{
+  "alias": "install-torchvision-from-src",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "Compiler automation",
+  "deps": [
+    {
+      "tags": "detect,os"
+    },
+    {
+      "tags": "detect,cpu"
+    },
+    {
+      "names": [
+        "python",
+        "python3"
+      ],
+      "skip_if_env": {
+        "CM_CONDA_ENV": [
+          "yes"
+        ]
+      },
+      "tags": "get,python3"
+    },
+    {
+      "env": {
+        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_PYTORCH_VISION_SRC_REPO_PATH"
+      },
+      "extra_cache_tags": "pytorchvision,torchvision,torchvision-src,src,pytorchvision-src,pytorchvision-src-repo",
+      "names": [
+        "pytorchision-src-repo",
+        "torchision-src-repo"
+      ],
+      "tags": "get,git,repo",
+      "update_tags_from_env_with_prefix": {
+        "_branch.": [
+          "CM_GIT_CHECKOUT"
+        ],
+        "_repo.": [
+          "CM_GIT_URL"
+        ],
+        "_sha.": [
+          "CM_GIT_CHECKOUT_SHA"
+        ],
+        "_tag.": [
+          "CM_GIT_CHECKOUT_TAG"
+        ]
+      }
+    }
+  ],
+  "env": {
+    "CM_GIT_URL": "https://github.com/pytorch/vision"
+  },
+  "name": "Build pytorchvision from sources",
+  "new_env_keys": [
+    "CM_PYTORCHVISION_*"
+  ],
+  "prehook_deps": [],
+  "sort": 1000,
+  "tags": [
+    "install",
+    "get",
+    "src",
+    "from.src",
+    "pytorchvision",
+    "torchvision",
+    "src-pytorchvision"
+  ],
+  "uid": "68b855780d474546",
+  "variations": {
+    "branch.#": {
+      "env": {
+        "CM_GIT_CHECKOUT": "#"
+      }
+    },
+    "cuda": {
+      "deps": [
+        {
+          "names": [
+            "cuda"
+          ],
+          "tags": "get,cuda,_cudnn"
+        }
+      ],
+      "env": {
+        "CUDA_HOME": "<<<CM_CUDA_INSTALLED_PATH>>>",
+        "CUDA_NVCC_EXECUTABLE": "<<<CM_NVCC_BIN_WITH_PATH>>>",
+        "CUDNN_INCLUDE_PATH": "<<<CM_CUDA_PATH_INCLUDE_CUDNN>>>",
+        "CUDNN_LIBRARY_PATH": "<<<CM_CUDA_PATH_LIB_CUDNN>>>",
+        "USE_CUDA": "1",
+        "USE_CUDNN": "1",
+        "TORCH_CUDA_ARCH_LIST": "Ampere Ada Hopper",
+        "TORCH_CXX_FLAGS": "-D_GLIBCXX_USE_CXX11_ABI=1"
+      }
+    },
+    "for-nvidia-mlperf-inference-v3.1": {
+      "base": [
+        "sha.657027f3",
+        "cuda"
+      ],
+      "deps": [
+        {
+          "tags": "install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1"
+	}
+      ],
+      "env": {
+      }
+    },
+    "repo.#": {
+      "env": {
+        "CM_GIT_URL": "#"
+      },
+      "group": "repo"
+    },
+    "repo.https://github.com/pytorch/vision": {
+      "default": true,
+      "env": {
+        "CM_GIT_URL": "https://github.com/pytorch/vision"
+      },
+      "group": "repo"
+    },
+    "sha.#": {
+      "env": {
+        "CM_GIT_CHECKOUT_SHA": "#"
+      }
+    },
+    "tag.#": {
+      "ad": {
+        "pytorch-src-repo": {
+          "tags": "_no-recurse-submodules,_full-history"
+        }
+      },
+      "env": {
+        "CM_GIT_CHECKOUT_TAG": "#"
+      }
+    }
+  },
+  "versions": {}
+}

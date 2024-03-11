@@ -24,6 +24,7 @@ class CAutomation(Automation):
 
           (artifact) (str): repository name (alias)
           (url) (str): URL of a repository
+          (pat) (str): Personal Access Token (if supported and url=='')
           (branch) (str): Git branch
           (checkout) (str): Git checkout
           (depth) (int): Git depth
@@ -45,6 +46,7 @@ class CAutomation(Automation):
         url = i.get('url','')
         desc = i.get('desc','')
         prefix = i.get('prefix','')
+        pat = i.get('pat','')
 
         if url == '':
             if alias != '':
@@ -54,6 +56,9 @@ class CAutomation(Automation):
                     alias = self.cmind.cfg['repo_url_org'] + '@' + alias
 
                 url += alias.replace('@','/')
+
+                if pat != '' and url.startswith('https://'):
+                    url = url[:8]+pat+'@'+url[8:]
         else:
            if alias == '':
                # Get alias from URL
@@ -74,37 +79,90 @@ class CAutomation(Automation):
                            alias = alias[j1+1:].replace('/','@')
 
         if url == '':
-            return {'return':1, 'error':'TBD: no URL - need to update all Git repos'}
+            pull_repos = []
+            
+            for repo in sorted(self.cmind.repos.lst, key = lambda x: x.meta.get('alias','')):
+                meta = repo.meta
 
-        # Branch and checkout
-        branch = i.get('branch','')
-        checkout = i.get('checkout','')
-        depth = i.get('depth','')
+                if meta.get('git', False):
+                    # Note that internal repo alias may not be the same as the real pulled alias since it can be a fork
+                    # Pick it up from the path
 
-        if console:
-            print (self.cmind.cfg['line'])
-            print ('Alias:    {}'.format(alias))
-            print ('URL:      {}'.format(url))
-            print ('Branch:   {}'.format(branch))
-            print ('Checkout: {}'.format(checkout))
-            if depth!='' and depth!=None:
-                print ('Depth:    {}'.format(str(depth)))
-            print ('')
+                    repo_path = repo.path
+                    
+                    pull_repos.append({'alias': os.path.basename(repo_path),
+                                       'path_to_repo': repo_path})
+        else:
+            pull_repos = [{'alias':alias,
+                           'url':url,
+                           'branch': i.get('branch', ''),
+                           'checkout': i.get('checkout', ''),
+                           'depth': i.get('depth', '')}]
 
-        # Prepare path to repo
-        repos = self.cmind.repos
 
-        r = repos.pull(alias = alias, url = url, branch = branch, checkout = checkout, console = console, desc=desc, prefix=prefix, depth=depth)
-        if r['return']>0: return r
+        # Go through repositories and pull
+        repo_meta = {}
+        repo_metas = {}
 
-        repo_meta = r['meta']
+        for repo in pull_repos:
+             alias = repo['alias']
+             url = repo.get('url', '')
+             branch = repo.get('branch','')
+             checkout = repo.get('checkout','')
+             depth = repo.get('depth','')
+             path_to_repo = repo.get('path_to_repo', None)
 
-        if self.cmind.use_index:
+             if console:
+                 print (self.cmind.cfg['line'])
+                 print ('Alias:    {}'.format(alias))
+                 if url!='':
+                     print ('URL:      {}'.format(url))
+                 if branch!='':
+                     print ('Branch:   {}'.format(branch))
+                 if checkout!='':
+                     print ('Checkout: {}'.format(checkout))
+                 if depth!='' and depth!=None:
+                     print ('Depth:    {}'.format(str(depth)))
+                 print ('')
+
+             # Prepare path to repo
+             repos = self.cmind.repos
+             
+             r = repos.pull(alias = alias, url = url, branch = branch, checkout = checkout, console = console, 
+                            desc=desc, prefix=prefix, depth=depth, path_to_repo=path_to_repo)
+             if r['return']>0: return r
+
+             repo_meta = r['meta']
+
+             repo_metas[alias] = repo_meta
+             
+        if len(pull_repos)>0 and self.cmind.use_index:
+            if console:
+                print (self.cmind.cfg['line'])
+
             ii = {'out':'con'} if console else {}
             rx = self.reindex(ii)
 
-        return {'return':0, 'meta':repo_meta}
+        return {'return':0, 'meta':repo_meta, 'metas': repo_metas}
 
+    ############################################################
+    def show(self, i):
+        """
+        Show verbose info about registered CM repos.
+
+        Args:
+            See "search" action
+
+        Returns: 
+            See "search" action
+        """
+
+        i['verbose'] = True
+
+        return self.search(i)
+
+
+    
     ############################################################
     def search(self, i):
         """
@@ -178,14 +236,62 @@ class CAutomation(Automation):
                 if min_out:
                     print (path)
                 else:
-                    if i.get('verbose',False):
+                    if i.get('verbose', False):
 
                        uid = meta['uid']
-                       desc = meta.get('desc','')
-                       git = meta.get('git',False)
+                       desc = meta.get('desc', '')
+                       git = meta.get('git', False)
+                       prefix = meta.get('prefix', '')
 
+                       local_alias = os.path.basename(path)
 
-                       print ('{},{} "{}" {}'.format(alias, uid, desc, path))
+                       if alias == 'local' or alias == 'internal' or local_alias == 'ck':
+                           local_alias = ''
+                       
+                       print (self.cmind.cfg['line'])
+                       print ('Path:               {}'.format(path))
+                       if prefix != '':
+                           print ('  CM sub-directory: {}'.format(prefix))
+
+                       if alias != local_alias:
+                           if local_alias!='':
+                               print ('  Alias:            {}'.format(local_alias))
+                               print ('  Original alias:   {}'.format(alias))
+                           else:
+                               print ('  Alias:            {}'.format(alias))
+                       else:
+                           print ('  Alias:            {}'.format(alias))
+
+                       print ('  UID:              {}'.format(uid))
+                       if desc != '':
+                           print ('Description:        {}'.format(desc))
+                       print ('Git:                {}'.format(str(git)))
+
+                       if git:
+                           url = ''
+                           branch = ''
+                           checkout = ''
+
+                           r = self.cmind.access({'action':'system', 'automation':'utils', 'path':path, 'cmd':'git config --get remote.origin.url'})
+                           if r['return'] == 0 and r['ret'] == 0:
+                               url = r['stdout']
+
+                           r = self.cmind.access({'action':'system', 'automation':'utils', 'path':path, 'cmd':'git rev-parse --abbrev-ref HEAD'})
+                           if r['return'] == 0 and r['ret'] == 0:
+                               branch = r['stdout']
+                               
+                           r = self.cmind.access({'action':'system', 'automation':'utils', 'path':path, 'cmd':'git rev-parse HEAD'})
+                           if r['return'] == 0 and r['ret'] == 0:
+                               checkout = r['stdout']
+                           
+                           
+                           if url!='':
+                               print ('  URL:              {}'.format(url))
+                           if branch!='':
+                               print ('  Branch:           {}'.format(branch))
+                           if checkout!='':
+                               print ('  Checkout:         {}'.format(checkout))
+
                     else:
                        print ('{},{} = {}'.format(alias, uid, path))
 

@@ -116,6 +116,7 @@ class Repos:
             self.paths.insert(0, path_local_repo)
 
         # Check that repository exists and load meta description
+        checked_self_paths = []
         for path_to_repo in self.paths:
             # First try concatenated path and then full path (if imported)
             found = False
@@ -143,9 +144,21 @@ class Repos:
                     break
 
             # Repo path exists but repo itself doesn't exist - fail
-            if not found:
-                return {'return':1, 'error': 'repository path {} not found (check file {})'.format(path_to_repo, full_path_to_repo_paths)}
+            if found:
+                checked_self_paths.append(path_to_repo)
+            else:
+                print ('WARNING: repository path {} not found (check file {})'.format(path_to_repo, full_path_to_repo_paths))
 
+        # Save with correct paths
+        if len(checked_self_paths)!=len(self.paths):
+            self.paths = checked_self_paths
+            
+            print ('WARNING: fixed repo list file {}'.format(full_path_to_repo_paths))
+
+            r = utils.save_json(full_path_to_repo_paths, meta = self.paths)
+            if r['return']>0: return r
+
+        
         return {'return':0}
 
     ############################################################
@@ -233,7 +246,7 @@ class Repos:
         return {'return':0}
 
     ############################################################
-    def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = '', depth = None):
+    def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = '', depth = None, path_to_repo = None):
         """
         Clone or pull CM repository
 
@@ -246,6 +259,7 @@ class Repos:
             (console) (bool): if True, print some info to console
             (desc) (str): optional repository description
             (prefix) (str): sub-directory to be used inside this CM repository to store artifacts
+            (path_to_repo) (str): force path to repo (useful to pull imported repos with non-standard path)
 
         Returns: 
             (CM return dict):
@@ -258,7 +272,8 @@ class Repos:
         """
 
         # Prepare path
-        path_to_repo = os.path.join(self.full_path_to_repos, alias)
+        if path_to_repo == None:
+            path_to_repo = os.path.join(self.full_path_to_repos, alias)
 
         if console:
             print ('Local path: '+path_to_repo)
@@ -610,9 +625,27 @@ class Repos:
                 if console:
                     print ('  Deleting repository content ...')
 
-                shutil.rmtree(path_to_repo)
+                shutil.rmtree(path_to_repo, onerror=rm_read_only)
             else:
                 if console:
                     print ('  CM repository was unregistered from CM but its content was not deleted ...')
 
         return {'return':0}
+
+##############################################################################
+def rm_read_only(f, p, e):
+    """
+    Internal aux function to remove files and dirs even if read only
+    particularly on Windows
+    """
+
+    import os
+    import stat
+    import errno
+
+    ex = e[1]
+
+    os.chmod(p, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
+    f(p)
+
+    return

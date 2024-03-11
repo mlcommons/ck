@@ -220,7 +220,7 @@
         }
       ]
     },
-    "for-nvidia-mlperf-inference-v3.1-gptj": {
+    "for-nvidia-mlperf-inference-v3.1": {
       "base": [
         "sha.b5021ba9",
         "cuda"

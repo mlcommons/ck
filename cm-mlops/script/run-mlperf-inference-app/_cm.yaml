@@ -97,11 +97,17 @@ new_state_keys:
 
 deps:
 - tags: detect,os
+  skip_if_env:
+    CM_MLPERF_USE_DOCKER: [ on ]
 - tags: detect,cpu
+  skip_if_env:
+    CM_MLPERF_USE_DOCKER: [ on ]
 - names:
   - python
   - python3
   tags: get,python3
+  skip_if_env:
+    CM_MLPERF_USE_DOCKER: [ on ]
 - names:
   - inference-src
   tags: get,mlcommons,inference,src
@@ -110,6 +116,8 @@ deps:
 - tags: get,mlperf,inference,results,dir
   names:
     - get-mlperf-inference-results-dir
+  enable_if_env:
+    CM_MLPERF_USE_DOCKER: [ off ]
   skip_if_env:
     OUTPUT_BASE_DIR: [ on ]
 - tags: install,pip-package,for-cmind-python,_package.tabulate

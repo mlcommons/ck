@@ -40,11 +40,6 @@ def preprocess(i):
             if os.path.isfile(z):
                 os.remove(z)
 
-    if str(env.get('CM_MLPERF_USE_DOCKER', '')).lower() in [ "1", "true", "yes"]:
-        action = "docker"
-    else:
-        action = "run"
-
     if env.get('CM_MLPERF_SUBMISSION_SYSTEM_TYPE', '') != '':
         system_type = env['CM_MLPERF_SUBMISSION_SYSTEM_TYPE']
         system_meta['system_type'] = system_type
@@ -152,6 +147,18 @@ def preprocess(i):
 
         print ('=========================================================')
 
+    if str(env.get('CM_MLPERF_USE_DOCKER', '')).lower() in [ "1", "true", "yes"]:
+        action = "docker"
+        del(env['OUTPUT_BASE_DIR'])
+        state = {}
+        docker_extra_input = {}
+        for k in inp:
+            if k.startswith("docker_"):
+                docker_extra_input[k] = inp[k]
+        inp = {}
+    else:
+        action = "run"
+
     #local_keys = [ 'CM_MLPERF_SKIP_RUN', 'CM_MLPERF_LOADGEN_QUERY_COUNT', 'CM_MLPERF_LOADGEN_TARGET_QPS', 'CM_MLPERF_LOADGEN_TARGET_LATENCY' ]
 
     for scenario in env['CM_MLPERF_LOADGEN_SCENARIOS']:
@@ -178,6 +185,9 @@ def preprocess(i):
             ii = {'action':action, 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
                 'env': copy.deepcopy(env), 'input': inp, 'state': state, 'add_deps': copy.deepcopy(add_deps), 'add_deps_recursive':
                 copy.deepcopy(add_deps_recursive), 'ad': ad, 'adr': copy.deepcopy(adr), 'v': verbose, 'print_env': print_env, 'print_deps': print_deps, 'dump_version_info': dump_version_info}
+            if action == "docker":
+                for k in docker_extra_input:
+                    ii[k] = docker_extra_input[k]
             r = cm.access(ii)
             if r['return'] > 0:
                 return r
@@ -186,9 +196,13 @@ def preprocess(i):
             for test in test_list:
                 env['CM_MLPERF_LOADGEN_COMPLIANCE_TEST'] = test
                 env['CM_MLPERF_LOADGEN_MODE'] = "compliance"
-                r = cm.access({'action':action, 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
+                ii = {'action':action, 'automation':'script', 'tags': scenario_tags, 'quiet': 'true',
                     'env': copy.deepcopy(env), 'input': inp, 'state': state, 'add_deps': copy.deepcopy(add_deps), 'add_deps_recursive':
-                    copy.deepcopy(add_deps_recursive), 'adr': copy.deepcopy(adr), 'ad': ad, 'v': verbose, 'print_env': print_env, 'print_deps': print_deps, 'dump_version_info': dump_version_info})
+                    copy.deepcopy(add_deps_recursive), 'adr': copy.deepcopy(adr), 'ad': ad, 'v': verbose, 'print_env': print_env, 'print_deps': print_deps, 'dump_version_info': dump_version_info}
+                if action == "docker":
+                    for k in docker_extra_input:
+                        ii[k] = docker_extra_input[k]
+                r = cm.access(ii)
                 if r['return'] > 0:
                     return r
 
