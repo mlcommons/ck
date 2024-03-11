@@ -386,7 +386,7 @@ def gui(i):
     else:
         if device == 'cuda':
             inp['implementation']['choices']=['nvidia','mlcommons-python','mlcommons-cpp']
-            inp['implementation']['default']='nvidia-original'
+            inp['implementation']['default']='nvidia'
             inp['backend']['choices']=['tensorrt','onnxruntime','pytorch']
             inp['backend']['default']='tensorrt'
 
