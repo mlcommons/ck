@@ -320,6 +320,9 @@ variations:
     default: true
     env:
       CM_MODEL: resnet50
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
     deps:
     - tags: get,generic-python-lib,_onnx-graphsurgeon
     - tags: get,generic-python-lib,_package.onnx
@@ -330,6 +333,9 @@ variations:
     env:
       CM_MODEL: retinanet
       CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth"
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
     deps:
     - tags: get,generic-python-lib,_Pillow
     - tags: get,generic-python-lib,_torch
@@ -354,6 +360,9 @@ variations:
     env:
       CM_MODEL: bert-99
       CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx"
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
 
   bert-99.9:
     group: model
@@ -362,6 +371,9 @@ variations:
     env:
       CM_MODEL: bert-99.9
       CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3733910/files/model.onnx"
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp16
 
   3d-unet_:
     deps:
@@ -377,6 +389,9 @@ variations:
     env:
       CM_MODEL: 3d-unet-99
       CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/5597155/files/3dunet_kits19_128x128x128.onnx"
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
 
   3d-unet-99.9:
     group: model
@@ -385,12 +400,18 @@ variations:
     env:
       CM_MODEL: 3d-unet-99.9
       CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/5597155/files/3dunet_kits19_128x128x128.onnx"
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
 
   rnnt:
     group: model
     env:
       CM_MODEL: rnnt
       CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3662521/files/DistributedDataParallel_1576581068.9962234-epoch-100.pt"
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp16
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp16
     deps:
     - tags: get,generic-python-lib,_toml
     - tags: get,generic-python-lib,_torchvision
@@ -423,6 +444,9 @@ variations:
     - dlrm_
     env:
       CM_MODEL: dlrm-v2-99
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp16
 
   dlrm-v2-99.9:
     group: model
@@ -430,6 +454,9 @@ variations:
     - dlrm_
     env:
       CM_MODEL: dlrm-v2-99.9
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp16
 
   gptj_:
     deps:
@@ -456,6 +483,9 @@ variations:
     - gptj_
     env:
       CM_MODEL: gptj-99
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp16
 
   gptj-99.9:
     group: model
@@ -463,6 +493,9 @@ variations:
     - gptj_
     env:
       CM_MODEL: gptj-99.9
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp16
 
   batch_size.#:
     group: batch-size
