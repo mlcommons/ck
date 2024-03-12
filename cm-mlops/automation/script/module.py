@@ -4639,7 +4639,7 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
     # Possibly restrict this to within docker environment
     new_docker_settings = meta.get('docker')
     if new_docker_settings:
-        docker_settings = state.get('docker_settings', {})
+        docker_settings = state.get('docker', {})
         #docker_input_mapping = docker_settings.get('docker_input_mapping', {})
         #new_docker_input_mapping = new_docker_settings.get('docker_input_mapping', {})
         #if new_docker_input_mapping:

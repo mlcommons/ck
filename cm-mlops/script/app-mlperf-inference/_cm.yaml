@@ -296,6 +296,23 @@ variations:
   intel-original:
     group:
       implementation
+    docker:
+      interactive: True
+      extra_run_args: ' --privileged'
+      mounts:
+      - "${{ CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH }}:${{ CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH }}"
+      - "${{ GPTJ_CHECKPOINT_PATH }}:${{ GPTJ_CHECKPOINT_PATH }}"
+      skip_run_cmd: 'no'
+      shm_size: '32gb'
+      docker_os: ubuntu
+      docker_real_run: true
+      run: true
+      docker_input_mapping:
+        imagenet_path: IMAGENET_PATH
+        gptj_checkpoint_path: GPTJ_CHECKPOINT_PATH
+        criteo_preprocessed_path: CRITEO_PREPROCESSED_PATH
+        dlrm_data_path: DLRM_DATA_PATH
+        intel_gptj_int8_model_path: CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH
     default_variations:
       device: cpu
       backend: pytorch
@@ -310,8 +327,6 @@ variations:
             - yes
     env:
       CM_MLPERF_IMPLEMENTATION: intel
-    docker:
-      interactive: True
 
   qualcomm:
     alias: kilt
