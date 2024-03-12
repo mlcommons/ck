@@ -123,10 +123,10 @@ def page(st, params, action = ''):
                 pruned_selection.append(s)
 
     # Make default selection of MLPerf inference
+    force_bench_index = 0
     if bench_uid == '':
-        force_bench_index = 0
         j = 0
-        for q in pruned_selection:
+        for q in sorted(pruned_selection, key = lambda v: v['name']):
             j += 1
             if q['uid'] == '39877bb63fb54725':
                 force_bench_index = j

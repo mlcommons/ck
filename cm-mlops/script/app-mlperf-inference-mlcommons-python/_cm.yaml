@@ -1132,6 +1132,18 @@ variations:
         tags:
           _batch_size.#
 
+  network-sut:
+    group: network
+    env:
+      CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: network_sut
+      CM_NETWORK_LOADGEN: sut
+
+  network-lon:
+    group: network
+    env:
+      CM_NETWORK_LOADGEN: lon
+      CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: network_loadgen
+
   beam_size.#:
     env:
       GPTJ_BEAM_SIZE: "#"

@@ -207,6 +207,9 @@ variations:
       - tags: compile,intel,model,_bert-99
         names:
           - bert-99-compiler
+    env:
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int8
 
   retinanet:
     group: model
@@ -313,6 +316,8 @@ variations:
     env:
       CM_MODEL: gptj-99
       CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3733910/files/model.onnx"
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int8
 
   gptj-99.9:
     group: model
