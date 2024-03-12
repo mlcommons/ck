@@ -328,6 +328,15 @@ variations:
     env:
       CM_MLPERF_IMPLEMENTATION: intel
 
+  intel-original,gptj_:
+    docker:
+      deps:
+      - tags: get,ml-model,gptj
+
+  intel-original,gptj_,build-harness:
+    docker:
+      run: false
+
   qualcomm:
     alias: kilt
 
