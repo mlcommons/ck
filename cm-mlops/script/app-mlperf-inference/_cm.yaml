@@ -1201,6 +1201,8 @@ docker:
   deps:
     - tags: get,mlperf,inference,results,dir
     - tags: get,mlperf,inference,submission,dir
+  pre_run_cmds:
+    - cm pull repo
   mounts:
    - "${{ IMAGENET_PATH }}:/data/imagenet-val"
    - "${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}:${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}"
