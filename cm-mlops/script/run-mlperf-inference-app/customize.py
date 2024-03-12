@@ -654,6 +654,8 @@ def gui(i):
         inp['dashboard_wb_user']['force']=''
 
 
+
+    
     # Hide customization by default
     params['hide_script_customization'] = True
 
@@ -684,5 +686,11 @@ def gui(i):
 
     if explore:
         extra['add_to_st_inputs']['@batch_size']='{{CM_EXPLORE_BATCH_SIZE{[1,2,4,8]}}}'
-     
+
+    #############################################################################
+    debug = st.toggle('Debug and run MLPerf benchmark natively from command line after CM auto-generates CMD?', value=False)
+    if debug:
+        inp['debug']['force'] = True
+      
+
     return {'return':0, 'end_html':end_html, 'extra':extra}

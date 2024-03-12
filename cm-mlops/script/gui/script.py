@@ -313,9 +313,9 @@ def page(i):
 
 
     ############################################################################
-    debug = st.toggle('Debug CM script (run and modify final auto-generated script without CM) ?', value=False)
-    if debug:
-        st_inputs['~debug'] = True
+    shell = st.toggle('Open shell after executing CM script?', value=False)
+    if shell:
+        st_inputs['~shell'] = True
 
     ############################################################################
     flags_dict = {}

@@ -1,7 +1,7 @@
 @echo off
 
 if "%CM_RUN_DIR%" == "" (
-  echo "CM_RUN_DIR is not set"
+  echo CM_RUN_DIR is not set
   exit 1
 )
 
@@ -27,10 +27,12 @@ if "%CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM%" == "True" (
   exit 0
 )
 
-# Check CM_RUN_CMD0
+rem Check CM_RUN_CMD0
 if not "%CM_RUN_CMD0%" == "" (
+  echo.
   %CM_RUN_CMD0%
 ) else (
+  echo.
   %CM_RUN_CMD%
 )
 

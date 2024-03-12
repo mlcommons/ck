@@ -1630,7 +1630,12 @@ class CAutomation(Automation):
                 env_script.append('\n')
                 env_script.append('echo{}\n'.format(x[1]))
                 env_script.append('echo {}Working path: {}{}'.format(x[2], script_path, x[2]))
-                env_script.append('echo {}Running debug shell. Change and run "tmp-run{}". Type exit to quit ...{}\n'.format(x[2],x[3],x[2]))
+                xtmp_run_file = ''
+                tmp_run_file = 'tmp-run{}'.format(x[3])
+                if os.path.isfile(tmp_run_file):
+                    xtmp_run_file = 'Change and run "{}". '.format(tmp_run_file)
+                
+                env_script.append('echo {}Running debug shell. {}Type exit to quit ...{}\n'.format(x[2], xtmp_run_file, x[2]))
                 env_script.append('echo{}\n'.format(x[1]))
                 env_script.append('\n')
                 env_script.append(x[0])
