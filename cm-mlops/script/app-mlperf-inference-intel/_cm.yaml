@@ -262,6 +262,10 @@ variations:
     env:
       CM_BENCHMARK: STANDALONE_GPTJ
 
+  gptj_,build-harness:
+    docker:
+      run: false
+
   gptj_,pytorch:
     adr:
       conda-package:
