@@ -75,6 +75,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Aditya Kumar Shaw (Indian Institute of Science)
 * Ilya Slavutin (Deelvin)
 * Jinho Suh (Nvidia)
+* Badhri Narayanan Suresh (Intel)
 * David Tafur (MLCommons)
 * Chloe Tessier
 * Gaurav Verma (Stony Brook University)
