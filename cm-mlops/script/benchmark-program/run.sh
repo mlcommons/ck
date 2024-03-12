@@ -9,9 +9,6 @@ if [ -z ${CM_RUN_DIR} ]; then
   exit 1
 fi
 
-echo "xyz=${PWD}"
-echo "xyz2=${CM_RUN_DIR}"
-
 cd ${CM_RUN_DIR}
 
 if [[ "${CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM}" == "True" ]]; then
