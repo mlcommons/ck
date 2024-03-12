@@ -129,7 +129,6 @@ class CAutomation(Automation):
 
           (save_env) (bool): if True, save env and state to tmp-env.sh/bat and tmp-state.json
           (shell) (bool): if True, save env with cmd/bash and run it
-          (debug) (bool): the same as shell
 
           (recursion) (bool): True if recursive call.
                               Useful when preparing the global bat file or Docker container
@@ -1608,8 +1607,8 @@ class CAutomation(Automation):
         os.chdir(current_path)
 
         shell = i.get('shell', False)
-        if not shell:
-            shell = i.get('debug', False)
+#        if not shell:
+#            shell = i.get('debug', False)
 
         if not shell and not i.get('dirty', False) and not cache:
             clean_tmp_files(clean_files, recursion_spaces)
