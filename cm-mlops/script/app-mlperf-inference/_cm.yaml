@@ -305,7 +305,7 @@ variations:
       skip_run_cmd: 'no'
       shm_size: '32gb'
       docker_os: ubuntu
-      docker_real_run: true
+      docker_real_run: false
       run: true
       docker_input_mapping:
         imagenet_path: IMAGENET_PATH
