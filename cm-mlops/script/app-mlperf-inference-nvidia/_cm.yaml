@@ -1459,3 +1459,6 @@ variations:
   a100,sxm,dlrm_,offline,run_harness:
     default_variations:
       batch-size: batch_size.1400
+
+docker:
+  docker_real_run: False
