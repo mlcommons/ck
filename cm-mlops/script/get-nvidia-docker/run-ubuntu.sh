@@ -1,4 +1,5 @@
 #!/bin/bash
+
 if [[ ! -f /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg ]]; then
   cmd="curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg"
   echo "$cmd"
