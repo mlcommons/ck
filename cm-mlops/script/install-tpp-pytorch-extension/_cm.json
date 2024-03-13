@@ -1,0 +1,163 @@
+{
+  "alias": "install-tpp-pytorch-extension",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "Compiler automation",
+  "deps": [
+    {
+      "tags": "detect,os"
+    },
+    {
+      "tags": "detect,cpu"
+    },
+    {
+      "names": [
+        "python",
+        "python3"
+      ],
+      "skip_if_env": {
+        "CM_CONDA_ENV": [
+          "yes"
+        ]
+      },
+      "tags": "get,python3"
+    },
+    {
+      "names": [
+        "pytorch"
+      ],
+      "skip_if_env": {
+        "CM_CONDA_ENV": [
+          "yes"
+        ]
+      },
+      "tags": "get,pytorch,from.src"
+    },
+    {
+      "env": {
+        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_TPP_PEX_SRC_REPO_PATH"
+      },
+      "extra_cache_tags": "tpp,tpp-pex,src,tpp-pex-src,tpp-pex-src-repo",
+      "names": [
+        "tpp-pex-src-repo"
+      ],
+      "tags": "get,git,repo",
+      "update_tags_from_env_with_prefix": {
+        "_branch.": [
+          "CM_GIT_CHECKOUT"
+        ],
+        "_repo.": [
+          "CM_GIT_URL"
+        ],
+        "_sha.": [
+          "CM_GIT_CHECKOUT_SHA"
+        ],
+        "_tag.": [
+          "CM_GIT_CHECKOUT_TAG"
+        ]
+      }
+    }
+  ],
+  "env": {},
+  "name": "Build TPP-PEX from sources",
+  "new_env_keys": [
+    "CM_TPP_PEX_*"
+  ],
+  "prehook_deps": [],
+  "sort": 1000,
+  "tags": [
+    "install",
+    "get",
+    "src",
+    "from.src",
+    "tpp-pex",
+    "src-tpp-pex"
+  ],
+  "uid": "1701d2f5f4e84d42",
+  "variations": {
+    "branch.#": {
+      "env": {
+        "CM_GIT_CHECKOUT": "#"
+      }
+    },
+    "for-intel-mlperf-inference-v3.1-gptj": {
+      "adr": {
+        "conda-package": {
+          "tags": "_name.gptj-pt"
+        },
+        "pytorch": {
+          "tags": "_for-intel-mlperf-inference-v3.1-gptj"
+        }
+      },
+      "base": [
+        "branch.mlperf_infer_31"
+      ],
+      "deps": [
+        {
+          "names": [
+            "conda"
+          ],
+          "tags": "get,conda,_name.gptj-pt"
+        },
+        {
+          "names": [
+            "conda-package",
+            "python3"
+          ],
+          "tags": "get,generic,conda-package,_package.python",
+          "version": "3.9"
+        },
+        {
+          "names": [
+            "conda-package",
+            "wheel"
+          ],
+          "tags": "get,generic,conda-package,_package.wheel,_source.conda-forge"
+        },
+        {
+          "names": [
+            "conda-package",
+            "setuptools"
+          ],
+          "tags": "get,generic,conda-package,_package.setuptools,_source.conda-forge"
+        },
+        {
+          "tags": "install,llvm,src,_for-intel-mlperf-inference-v3.1-gptj"
+        }
+      ],
+      "env": {
+        "CM_CONDA_ENV": "yes"
+      }
+    },
+    "repo.#": {
+      "env": {
+        "CM_GIT_URL": "#"
+      },
+      "group": "repo"
+    },
+    "repo.https://github.com/libxsmm/tpp-pytorch-extension": {
+      "default": true,
+      "env": {
+        "CM_GIT_URL": "https://github.com/libxsmm/tpp-pytorch-extension"
+      },
+      "group": "repo"
+    },
+    "sha.#": {
+      "env": {
+        "CM_GIT_CHECKOUT_SHA": "#"
+      }
+    },
+    "tag.#": {
+      "ad": {
+        "pytorch-src-repo": {
+          "tags": "_no-recurse-submodules,_full-history"
+        }
+      },
+      "env": {
+        "CM_GIT_CHECKOUT_TAG": "#"
+      }
+    }
+  },
+  "versions": {}
+}
