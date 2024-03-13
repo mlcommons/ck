@@ -287,6 +287,17 @@ variations:
         - conda-package
         - jemalloc
       - tags: install,ipex,from.src,_for-intel-mlperf-inference-v3.1-gptj
+      - tags: get,generic,conda-package,_package.ninja
+        names:
+        - conda-package
+        - ninja
+        enable_if_env:
+          INTEL_GPTJ_INT4:
+            - 'yes'
+      - tags: install,tpp-pex,from.src,_for-intel-mlperf-inference-v3.1-gptj
+        enable_if_env:
+          INTEL_GPTJ_INT4:
+            - 'yes'
       - tags: get,generic-python-lib,_package.transformers
         names:
           - pip-package
@@ -469,11 +480,19 @@ variations:
     env:
       CM_MLPERF_LOADGEN_SCENARIO: Server
 
+  int4:
+    group: precision
+
   uint8:
     group: precision
     adr:
       dataset-preprocessed:
         tags: _uint8,_rgb8
+
+  int4,gptj_:
+    env:
+      INTEL_GPTJ_INT4: 'yes'
+
   fp32:
     group: precision
     adr:

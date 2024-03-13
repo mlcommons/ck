@@ -976,6 +976,14 @@ variations:
       python-reference-mlperf-inference:
         tags: _bfloat16
 
+  int4:
+    group: precision
+    env:
+      CM_MLPERF_QUANTIZATION: on
+      CM_MLPERF_MODEL_PRECISION: int4
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _int4
   int8:
     group: precision
     env:
