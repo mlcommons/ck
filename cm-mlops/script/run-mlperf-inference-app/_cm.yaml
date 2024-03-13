@@ -488,4 +488,8 @@ input_description:
     desc: Print script execution time at the end of the run
     boolean: true
     default: true
+  debug:
+    desc: Debug this script
+    boolean: true
+    default: false
     

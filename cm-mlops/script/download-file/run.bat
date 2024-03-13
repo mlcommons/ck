@@ -19,7 +19,7 @@ if not "%CM_DOWNLOAD_LOCAL_FILE_PATH%" == "" (
   set require_download=0
 )
 
-if ("%CM_DOWNLOAD_TOOL%" == "cmutil" (
+if "%CM_DOWNLOAD_TOOL%" == "cmutil" (
   set require_download=0
 )
 

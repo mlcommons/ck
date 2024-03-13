@@ -1344,9 +1344,14 @@ def dockerfile(i):
 
 
     env=i.get('env', {})
+    state = i.get('state', {})
+    script_automation = i['self_module']
 
     dockerfile_env=i.get('dockerfile_env', {})
     dockerfile_env['CM_RUN_STATE_DOCKER'] = True
+
+    tags_split = i.get('tags', '').split(",")
+    variation_tags = [ t[1:] for t in tags_split if t.startswith("_") ]
 
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
@@ -1361,7 +1366,16 @@ def dockerfile(i):
         script_uid = meta.get('uid', '')
 
 
+        variations = meta.get('variations', {})
         docker_settings = meta.get('docker', {})
+        state['docker'] = docker_settings
+
+        r = script_automation._update_state_from_variations(i, meta, variation_tags, variations, env, state, deps = [], post_deps = [], prehook_deps = [], posthook_deps = [], new_env_keys_from_meta = [], new_state_keys_from_meta = [], add_deps_recursive = {}, run_state = {}, recursion_spaces='', verbose = False)
+        if r['return'] > 0:
+            return r
+
+        docker_settings = state['docker']
+
         if not docker_settings.get('run', True):
             print("docker.run set to False in _cm.json")
             continue
@@ -1403,6 +1417,7 @@ def dockerfile(i):
         docker_base_image = i.get('docker_base_image', docker_settings.get('base_image'))
         docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
         docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
+
         if not docker_base_image:
             dockerfilename_suffix = docker_os +'_'+docker_os_version
         else:
@@ -1425,6 +1440,7 @@ def dockerfile(i):
         env['CM_DOCKER_PRE_RUN_COMMANDS'] = docker_run_final_cmds
 
         dockerfile_path = os.path.join(script_path,'dockerfiles', dockerfilename_suffix +'.Dockerfile')
+
         if i.get('print_deps'):
             cm_input = {'action': 'run',
                     'automation': 'script',

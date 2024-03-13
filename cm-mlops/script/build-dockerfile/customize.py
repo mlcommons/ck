@@ -210,7 +210,7 @@ def preprocess(i):
     f.write(x + EOL)
 
     #fake_run to install the dependent scripts and caching them
-    if not "run" in env['CM_DOCKER_RUN_CMD'] and env.get('CM_REAL_RUN', None):
+    if not "run" in env['CM_DOCKER_RUN_CMD'] and str(env.get('CM_REAL_RUN', False)).lower() in ["false", "0", "no"]:
         fake_run = dockerfile_env_input_string
 
         x = 'RUN ' + env['CM_DOCKER_RUN_CMD'] + fake_run + run_cmd_extra
@@ -235,7 +235,7 @@ def preprocess(i):
     f.close()
 
     f = open(env['CM_DOCKERFILE_WITH_PATH'], "r")
-    # print(f.read())
+    #print(f.read())
 
     return {'return':0}
 

@@ -287,3 +287,5 @@ variations:
   fp32:
     group: precision
 
+docker:
+  docker_real_run: False

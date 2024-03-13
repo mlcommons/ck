@@ -263,12 +263,15 @@ def page(i):
 
 
     
+    # Add extras to inputs
+    add_to_st_inputs = extra.get('add_to_st_inputs',{})
+    if len(add_to_st_inputs)>0:
+        st_inputs.update(add_to_st_inputs)
+
     
     ############################################################################
     st.markdown("""---""")
     st.markdown('**Run this CM script (Linux/MacOS/Windows):**')
-
-
 
 
     x = ''
@@ -283,30 +286,41 @@ def page(i):
         st.markdown('*'+x.strip()+'*')
 
 
-    
 
     host_os_windows = False if os.name != 'nt' else True
     host_os_use_windows = st.toggle('Run on Windows?', value = host_os_windows)
     if host_os_use_windows:
         var1 = '^'
         host_os_flag = 'windows'
-        st.markdown('*Check how to install [a few dependencies](https://github.com/mlcommons/ck/blob/master/docs/installation.md#windows) on Windows.*')
+#        st.markdown('*Check how to install [a few dependencies](https://github.com/mlcommons/ck/blob/master/docs/installation.md#windows) on Windows.*')
     else:
         var1 = '\\'
         host_os_flag = 'linux'
 
         
-    # Add some internal info to the input
-#    st_inputs['@host_os'] = host_os_flag
+    show_cm_install = st.toggle('Install MLCommons Collective Mind', value=False)
 
-    # Check flags
+    if show_cm_install:
+
+        import playground_install
+        extra = {'skip_header': True,
+                 'run_on_windows': host_os_use_windows}
+        r = playground_install.page(st, params, extra)
+        if r['return']>0: return r
+
+        
+        st.markdown('---')
+
+
+    ############################################################################
+    shell = st.toggle('Open shell after executing CM script?', value=False)
+    if shell:
+        st_inputs['~shell'] = True
+
+    ############################################################################
     flags_dict = {}
     flags = ''
 
-    add_to_st_inputs = extra.get('add_to_st_inputs',{})
-    if len(add_to_st_inputs)>0:
-        st_inputs.update(add_to_st_inputs)
-    
     for key in st_inputs:
         value = st_inputs[key]
         key2 = key[1:]
@@ -325,23 +339,11 @@ def page(i):
 
             flags_dict[key2]=z
 
+
+ 
     
     
-    show_cm_install = st.toggle('Install MLCommons Collective Mind', value=False)
-
-    if show_cm_install:
-
-        import playground_install
-        extra = {'skip_header': True,
-                 'run_on_windows': host_os_use_windows}
-        r = playground_install.page(st, params, extra)
-        if r['return']>0: return r
-
-        
-        st.markdown('---')
-
-
-
+    
     ############################################################################
     run_via_docker = False
     if len(meta.get('docker',{}))>0:
@@ -359,7 +361,6 @@ def page(i):
     extra_cm_prefix = ''
     if use_experiment:
         cli = 'cm run experiment --tags={} -- {}\n '.format("repro,"+script_tags, var1) + cli
-
 
     ############################################################################
     

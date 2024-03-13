@@ -129,7 +129,6 @@ class CAutomation(Automation):
 
           (save_env) (bool): if True, save env and state to tmp-env.sh/bat and tmp-state.json
           (shell) (bool): if True, save env with cmd/bash and run it
-          (debug) (bool): the same as shell
 
           (recursion) (bool): True if recursive call.
                               Useful when preparing the global bat file or Docker container
@@ -706,12 +705,6 @@ class CAutomation(Automation):
 
         found_script_tags = meta.get('tags',[])
 
-        if env.get('CM_RUN_STATE_DOCKER', False) in ['True', True, 'yes']:
-            if meta.get('docker'):
-                if meta['docker'].get('run', True) == False:
-                    print (recursion_spaces+'  - Skipping script::{} run as we are inside docker'.format(found_script_artifact))
-                    return {'return': 0}
-
         if i.get('debug_script', False):
             debug_script_tags=','.join(found_script_tags)
 
@@ -884,6 +877,16 @@ class CAutomation(Automation):
         r = update_env_with_values(env)
         if r['return']>0: return r 
 
+        if str(env.get('CM_RUN_STATE_DOCKER', False)).lower() in ['true', '1', 'yes']:
+            if state.get('docker'):
+                if str(state['docker'].get('run', True)).lower() in ['false', '0', 'no']:
+                    print (recursion_spaces+'  - Skipping script::{} run as we are inside docker'.format(found_script_artifact))
+                    return {'return': 0}
+                elif str(state['docker'].get('docker_real_run', True)).lower() in ['false', '0', 'no']:
+                    print (recursion_spaces+'  - Doing fake run for script::{} as we are inside docker'.format(found_script_artifact))
+                    fake_run = True
+                    env['CM_TMP_FAKE_RUN']='yes'
+
 
 
         ############################################################################################################
@@ -923,7 +926,7 @@ class CAutomation(Automation):
         ############################################################################################################
         # Check if the output of a selected script should be cached
         cache = False if i.get('skip_cache', False) else meta.get('cache', False)
-        cache = False if i.get('fake_run', False) else cache
+        cache = False if fake_run else cache
         cache = cache or (i.get('force_cache', False) and meta.get('can_force_cache', False))
 
         cached_uid = ''
@@ -1608,8 +1611,8 @@ class CAutomation(Automation):
         os.chdir(current_path)
 
         shell = i.get('shell', False)
-        if not shell:
-            shell = i.get('debug', False)
+#        if not shell:
+#            shell = i.get('debug', False)
 
         if not shell and not i.get('dirty', False) and not cache:
             clean_tmp_files(clean_files, recursion_spaces)
@@ -1631,7 +1634,12 @@ class CAutomation(Automation):
                 env_script.append('\n')
                 env_script.append('echo{}\n'.format(x[1]))
                 env_script.append('echo {}Working path: {}{}'.format(x[2], script_path, x[2]))
-                env_script.append('echo {}Running debug shell. Change and run "tmp-run{}". Type exit to quit ...{}\n'.format(x[2],x[3],x[2]))
+                xtmp_run_file = ''
+                tmp_run_file = 'tmp-run{}'.format(x[3])
+                if os.path.isfile(tmp_run_file):
+                    xtmp_run_file = 'Change and run "{}". '.format(tmp_run_file)
+                
+                env_script.append('echo {}Running debug shell. {}Type exit to quit ...{}\n'.format(x[2], xtmp_run_file, x[2]))
                 env_script.append('echo{}\n'.format(x[1]))
                 env_script.append('\n')
                 env_script.append(x[0])
@@ -4639,7 +4647,7 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
     # Possibly restrict this to within docker environment
     new_docker_settings = meta.get('docker')
     if new_docker_settings:
-        docker_settings = state.get('docker_settings', {})
+        docker_settings = state.get('docker', {})
         #docker_input_mapping = docker_settings.get('docker_input_mapping', {})
         #new_docker_input_mapping = new_docker_settings.get('docker_input_mapping', {})
         #if new_docker_input_mapping:

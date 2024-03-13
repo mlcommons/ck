@@ -770,3 +770,6 @@ variations:
   rb6,retinanet,multistream:
     env:
       qaic_activation_count: "8"
+
+docker:
+  docker_real_run: False

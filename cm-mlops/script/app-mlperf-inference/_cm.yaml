@@ -296,6 +296,23 @@ variations:
   intel-original:
     group:
       implementation
+    docker:
+      interactive: True
+      extra_run_args: ' --privileged'
+      mounts:
+      - "${{ CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH }}:${{ CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH }}"
+      - "${{ GPTJ_CHECKPOINT_PATH }}:${{ GPTJ_CHECKPOINT_PATH }}"
+      skip_run_cmd: 'no'
+      shm_size: '32gb'
+      docker_os: ubuntu
+      docker_real_run: false
+      run: true
+      docker_input_mapping:
+        imagenet_path: IMAGENET_PATH
+        gptj_checkpoint_path: GPTJ_CHECKPOINT_PATH
+        criteo_preprocessed_path: CRITEO_PREPROCESSED_PATH
+        dlrm_data_path: DLRM_DATA_PATH
+        intel_gptj_int8_model_path: CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH
     default_variations:
       device: cpu
       backend: pytorch
@@ -310,8 +327,15 @@ variations:
             - yes
     env:
       CM_MLPERF_IMPLEMENTATION: intel
+
+  intel-original,gptj_:
     docker:
-      interactive: True
+      deps:
+      - tags: get,ml-model,gptj
+
+  intel-original,gptj_,build-harness:
+    docker:
+      run: false
 
   qualcomm:
     alias: kilt
@@ -380,6 +404,12 @@ variations:
       - mlperf-accuracy-script
       - imagenet-accuracy-script
       tags: run,accuracy,mlperf,_imagenet
+    docker:
+      deps:
+      - tags: get,dataset,imagenet,original
+        names:
+          - imagenet-original
+          - dataset-original
 
   retinanet:
     group:
@@ -946,6 +976,14 @@ variations:
       python-reference-mlperf-inference:
         tags: _bfloat16
 
+  int4:
+    group: precision
+    env:
+      CM_MLPERF_QUANTIZATION: on
+      CM_MLPERF_MODEL_PRECISION: int4
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _int4
   int8:
     group: precision
     env:
@@ -1177,12 +1215,12 @@ docker:
   deps:
     - tags: get,mlperf,inference,results,dir
     - tags: get,mlperf,inference,submission,dir
+  pre_run_cmds:
+    - cm pull repo
   mounts:
-   - "${{ IMAGENET_PATH }}:/data/imagenet-val"
+   - "${{ CM_DATASET_IMAGENET_PATH }}:${{ CM_DATASET_IMAGENET_PATH }}"
    - "${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}:${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}"
    - "${{ CM_MLPERF_INFERENCE_SUBMISSION_DIR }}:${{ CM_MLPERF_INFERENCE_SUBMISSION_DIR }}"
-   - "${{ RESULTS_DIR }}:/home/cmuser/results_dir"
-   - "${{ SUBMISSION_DIR }}:/home/cmuser/submission_dir"
    - "${{ DLRM_DATA_PATH }}:/home/mlperf_inf_dlrmv2"
   skip_run_cmd: 'no'
   shm_size: '32gb'
