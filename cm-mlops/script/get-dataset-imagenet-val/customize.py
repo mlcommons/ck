@@ -14,7 +14,7 @@ def preprocess(i):
 
     full = env.get('CM_IMAGENET_FULL', '').strip() == 'yes'
 
-    path = env.get('CM_INPUT', env.get('IMAGENET_PATH', '')).strip()
+    path = env.get('CM_INPUT', env.get('IMAGENET_PATH', env.get('CM_DATASET_IMAGENET_PATH', '')).strip()
 
     if path == '':
         if full:

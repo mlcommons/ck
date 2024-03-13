@@ -404,6 +404,12 @@ variations:
       - mlperf-accuracy-script
       - imagenet-accuracy-script
       tags: run,accuracy,mlperf,_imagenet
+    docker:
+      deps:
+      - tags: get,dataset,imagenet,original
+        names:
+          - imagenet-original
+          - dataset-original
 
   retinanet:
     group:
@@ -1204,11 +1210,9 @@ docker:
   pre_run_cmds:
     - cm pull repo
   mounts:
-   - "${{ IMAGENET_PATH }}:/data/imagenet-val"
+   - "${{ CM_DATASET_IMAGENET_PATH }}:${{ CM_DATASET_IMAGENET_PATH }}"
    - "${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}:${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}"
    - "${{ CM_MLPERF_INFERENCE_SUBMISSION_DIR }}:${{ CM_MLPERF_INFERENCE_SUBMISSION_DIR }}"
-   - "${{ RESULTS_DIR }}:/home/cmuser/results_dir"
-   - "${{ SUBMISSION_DIR }}:/home/cmuser/submission_dir"
    - "${{ DLRM_DATA_PATH }}:/home/mlperf_inf_dlrmv2"
   skip_run_cmd: 'no'
   shm_size: '32gb'
