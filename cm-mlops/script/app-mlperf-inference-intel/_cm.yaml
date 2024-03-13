@@ -534,3 +534,5 @@ variations:
     env:
       CM_IMAGENET_ACCURACY_DTYPE: float32
 
+docker:
+  docker_real_run: False

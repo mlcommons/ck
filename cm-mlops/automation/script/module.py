@@ -882,6 +882,10 @@ class CAutomation(Automation):
                 if str(state['docker'].get('run', True)).lower() in ['false', '0', 'no']:
                     print (recursion_spaces+'  - Skipping script::{} run as we are inside docker'.format(found_script_artifact))
                     return {'return': 0}
+                elif str(state['docker'].get('docker_real_run', True)).lower() in ['false', '0', 'no']:
+                    print (recursion_spaces+'  - Doing fake run for script::{} as we are inside docker'.format(found_script_artifact))
+                    fake_run = True
+                    env['CM_TMP_FAKE_RUN']='yes'
 
 
 
@@ -922,7 +926,7 @@ class CAutomation(Automation):
         ############################################################################################################
         # Check if the output of a selected script should be cached
         cache = False if i.get('skip_cache', False) else meta.get('cache', False)
-        cache = False if i.get('fake_run', False) else cache
+        cache = False if fake_run else cache
         cache = cache or (i.get('force_cache', False) and meta.get('can_force_cache', False))
 
         cached_uid = ''
