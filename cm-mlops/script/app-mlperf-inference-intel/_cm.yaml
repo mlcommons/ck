@@ -266,6 +266,17 @@ variations:
     docker:
       run: false
 
+  int4,gptj_,build-harness:
+    deps:
+      - tags: reproduce,mlperf,inference,intel,harness,_calibration
+        inherit_variation_tags: true
+        names:
+          - calibration
+        skip_inherit_variation_groups:
+          - run-mode
+          - device-info
+        force_cache: true
+
   gptj_,pytorch:
     adr:
       conda-package:
@@ -287,6 +298,17 @@ variations:
         - conda-package
         - jemalloc
       - tags: install,ipex,from.src,_for-intel-mlperf-inference-v3.1-gptj
+      - tags: get,generic,conda-package,_package.ninja
+        names:
+        - conda-package
+        - ninja
+        enable_if_env:
+          INTEL_GPTJ_INT4:
+            - 'yes'
+      - tags: install,tpp-pex,from.src,_for-intel-mlperf-inference-v3.1-gptj
+        enable_if_env:
+          INTEL_GPTJ_INT4:
+            - 'yes'
       - tags: get,generic-python-lib,_package.transformers
         names:
           - pip-package
@@ -312,6 +334,14 @@ variations:
         names:
           - pip-package
           - accelerate
+      - tags: get,generic-python-lib,_custom-python,_package.torch,_url.git+https://github.com/pytorch/pytorch.git@927dc662386af052018212c7d01309a506fc94cd
+        env:
+          CM_PYTHON_BIN_WITH_PATH: "<<<CM_CONDA_BIN_PATH>>>/python3"
+          "+ CXXFLAGS":
+            - "-Wno-nonnull"
+            - "-Wno-maybe-uninitialized"
+            - "-Wno-uninitialized"
+            - "-Wno-free-nonheap-object"
 
   gptj-99:
     group: model
@@ -389,6 +419,20 @@ variations:
       - CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH
       - CM_ML_MODEL_*
       - DATA_PATH
+
+  calibration:
+    group: run-mode
+    env:
+      CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE: calibration
+    new_env_keys:
+      - CM_ML_MODEL_*
+
+  calibration,gptj_:
+    deps:
+      - tags: get,generic-python-lib,_package.texttable1
+        names:
+          - pip-package
+          - texttable
 
   build-harness,bert_:
     deps:
@@ -469,11 +513,19 @@ variations:
     env:
       CM_MLPERF_LOADGEN_SCENARIO: Server
 
+  int4:
+    group: precision
+
   uint8:
     group: precision
     adr:
       dataset-preprocessed:
         tags: _uint8,_rgb8
+
+  int4,gptj_:
+    env:
+      INTEL_GPTJ_INT4: 'yes'
+
   fp32:
     group: precision
     adr:
@@ -482,3 +534,5 @@ variations:
     env:
       CM_IMAGENET_ACCURACY_DTYPE: float32
 
+docker:
+  docker_real_run: False

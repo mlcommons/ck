@@ -328,6 +328,15 @@ variations:
     env:
       CM_MLPERF_IMPLEMENTATION: intel
 
+  intel-original,gptj_:
+    docker:
+      deps:
+      - tags: get,ml-model,gptj
+
+  intel-original,gptj_,build-harness:
+    docker:
+      run: false
+
   qualcomm:
     alias: kilt
 
@@ -395,6 +404,12 @@ variations:
       - mlperf-accuracy-script
       - imagenet-accuracy-script
       tags: run,accuracy,mlperf,_imagenet
+    docker:
+      deps:
+      - tags: get,dataset,imagenet,original
+        names:
+          - imagenet-original
+          - dataset-original
 
   retinanet:
     group:
@@ -961,6 +976,14 @@ variations:
       python-reference-mlperf-inference:
         tags: _bfloat16
 
+  int4:
+    group: precision
+    env:
+      CM_MLPERF_QUANTIZATION: on
+      CM_MLPERF_MODEL_PRECISION: int4
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _int4
   int8:
     group: precision
     env:
@@ -1192,12 +1215,12 @@ docker:
   deps:
     - tags: get,mlperf,inference,results,dir
     - tags: get,mlperf,inference,submission,dir
+  pre_run_cmds:
+    - cm pull repo
   mounts:
-   - "${{ IMAGENET_PATH }}:/data/imagenet-val"
+   - "${{ CM_DATASET_IMAGENET_PATH }}:${{ CM_DATASET_IMAGENET_PATH }}"
    - "${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}:${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}"
    - "${{ CM_MLPERF_INFERENCE_SUBMISSION_DIR }}:${{ CM_MLPERF_INFERENCE_SUBMISSION_DIR }}"
-   - "${{ RESULTS_DIR }}:/home/cmuser/results_dir"
-   - "${{ SUBMISSION_DIR }}:/home/cmuser/submission_dir"
    - "${{ DLRM_DATA_PATH }}:/home/mlperf_inf_dlrmv2"
   skip_run_cmd: 'no'
   shm_size: '32gb'

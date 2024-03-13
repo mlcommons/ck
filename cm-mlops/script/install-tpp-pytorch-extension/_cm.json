@@ -1,5 +1,5 @@
 {
-  "alias": "install-ipex-from-src",
+  "alias": "install-tpp-pytorch-extension",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
@@ -36,11 +36,11 @@
     },
     {
       "env": {
-        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_IPEX_SRC_REPO_PATH"
+        "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_TPP_PEX_SRC_REPO_PATH"
       },
-      "extra_cache_tags": "ipex,src,ipex-src,ipex-src-repo",
+      "extra_cache_tags": "tpp,tpp-pex,src,tpp-pex-src,tpp-pex-src-repo",
       "names": [
-        "ipex-src-repo"
+        "tpp-pex-src-repo"
       ],
       "tags": "get,git,repo",
       "update_tags_from_env_with_prefix": {
@@ -59,11 +59,10 @@
       }
     }
   ],
-  "env": {
-  },
-  "name": "Build IPEX from sources",
+  "env": {},
+  "name": "Build TPP-PEX from sources",
   "new_env_keys": [
-    "CM_IPEX_*"
+    "CM_TPP_PEX_*"
   ],
   "prehook_deps": [],
   "sort": 1000,
@@ -72,10 +71,10 @@
     "get",
     "src",
     "from.src",
-    "ipex",
-    "src-ipex"
+    "tpp-pex",
+    "src-tpp-pex"
   ],
-  "uid": "09364fff2bf04516",
+  "uid": "1701d2f5f4e84d42",
   "variations": {
     "branch.#": {
       "env": {
@@ -92,7 +91,7 @@
         }
       },
       "base": [
-        "branch.v2.1.0.dev+cpu.llm.mlperf"
+        "branch.mlperf_infer_31"
       ],
       "deps": [
         {
@@ -137,10 +136,10 @@
       },
       "group": "repo"
     },
-    "repo.https://github.com/intel/intel-extension-for-pytorch": {
+    "repo.https://github.com/libxsmm/tpp-pytorch-extension": {
       "default": true,
       "env": {
-        "CM_GIT_URL": "https://github.com/intel/intel-extension-for-pytorch"
+        "CM_GIT_URL": "https://github.com/libxsmm/tpp-pytorch-extension"
       },
       "group": "repo"
     },
@@ -151,7 +150,7 @@
     },
     "tag.#": {
       "ad": {
-        "ipex-src-repo": {
+        "pytorch-src-repo": {
           "tags": "_no-recurse-submodules,_full-history"
         }
       },
