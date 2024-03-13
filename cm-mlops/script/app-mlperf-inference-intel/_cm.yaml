@@ -429,7 +429,7 @@ variations:
 
   calibration,gptj_:
     deps:
-      - tags: get,generic-python-lib,_package.texttable1
+      - tags: get,generic-python-lib,_package.texttable
         names:
           - pip-package
           - texttable
