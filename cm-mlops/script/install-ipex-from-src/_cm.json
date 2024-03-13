@@ -151,7 +151,7 @@
     },
     "tag.#": {
       "ad": {
-        "pytorch-src-repo": {
+        "ipex-src-repo": {
           "tags": "_no-recurse-submodules,_full-history"
         }
       },
