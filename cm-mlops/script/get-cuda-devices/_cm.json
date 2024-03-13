@@ -29,5 +29,8 @@
     "get",
     "cuda-devices"
   ],
+  "docker": {
+    "run": false
+  },
   "uid": "7a3ede4d3558427a"
 }
