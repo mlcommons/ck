@@ -273,6 +273,7 @@ ___
 * --**j** Print results dictionary to console at the end of the run (*False*)
 * --**repro** Record input/output/state/info files to make it easier to reproduce results (*False*)
 * --**time** Print script execution time at the end of the run (*True*)
+* --**debug** Debug this script (*False*)
 
 **Above CLI flags can be used in the Python CM API as follows:**
 

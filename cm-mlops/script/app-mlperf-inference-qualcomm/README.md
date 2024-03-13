@@ -137,6 +137,10 @@ ___
     * `_bert-99,offline`
       - Workflow:
     * `_bert-99,qaic`
+      - Environment variables:
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `https://github.com/mlcommons/inference_results_v3.1/blob/main/closed/Qualcomm/calibration.md`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `int32`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `int8,fp16`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * compile,qaic,model,_bert-99,_pc.99.9980
@@ -146,6 +150,10 @@ ___
     * `_bert-99.9,offline`
       - Workflow:
     * `_bert-99.9,qaic`
+      - Environment variables:
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `https://github.com/mlcommons/inference_results_v3.1/blob/main/closed/Qualcomm/calibration.md`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `int32`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `fp16`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * compile,qaic,model,_bert-99.9
@@ -301,12 +309,18 @@ ___
         - *kilt_input_format*: `UINT8,-1,224,224,3`
         - *kilt_device_qaic_skip_stage*: `convert`
         - *CM_IMAGENET_ACCURACY_DTYPE*: `int8`
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `https://github.com/mlcommons/inference_results_v3.1/blob/main/closed/Qualcomm/calibration.md`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `int8`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `int8`
       - Workflow:
     * `_retinanet,qaic,uint8`
       - Environment variables:
         - *kilt_device_qaic_skip_stage*: `convert`
         - *kilt_input_format*: `UINT8,1,3,800,800`
         - *kilt_output_format*: `INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,1000:INT8,1,4,1000:INT8,14,1000:INT8,1,4,1000:INT8,1,4,1000:INT8,1,4,1000`
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `https://github.com/mlcommons/inference_results_v3.1/blob/main/closed/Qualcomm/calibration.md`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `int8`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `int8`
       - Workflow:
     * `_singlestream,resnet50`
       - Workflow:
