@@ -429,6 +429,11 @@ ___
         - *CM_MLPERF_QUANTIZATION*: `False`
         - *CM_MLPERF_MODEL_PRECISION*: `float32`
       - Workflow:
+    * `_int4`
+      - Environment variables:
+        - *CM_MLPERF_QUANTIZATION*: `True`
+        - *CM_MLPERF_MODEL_PRECISION*: `int4`
+      - Workflow:
     * `_int8`
       - Aliases: `_quantized`
       - Environment variables:
@@ -533,6 +538,8 @@ ___
              * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on) AND (CM_MLPERF_IMPLEMENTATION  != intel)`
              * CM names: `--adr.['cnndm-accuracy-script', 'mlperf-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
+    * `_intel-original,gptj_`
+      - Workflow:
     * `_llama2-70b_`
       - Environment variables:
         - *CM_MLPERF_MODEL_EQUAL_ISSUE_MODE*: `yes`
@@ -560,6 +567,8 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_intel-original,gptj_,build-harness`
+      - Workflow:
     * `_kilt,qualcomm,bert-99`
       - Workflow:
     * `_kilt,qualcomm,bert-99.9`

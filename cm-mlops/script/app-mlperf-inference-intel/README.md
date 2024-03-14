@@ -123,9 +123,19 @@ ___
              - CM script: [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)
            * get,generic-python-lib,_package.tokenization
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_calibration,gptj_`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_package.texttable
+             * CM names: `--adr.['pip-package', 'texttable']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_gptj_`
       - Environment variables:
         - *CM_BENCHMARK*: `STANDALONE_GPTJ`
+      - Workflow:
+    * `_int4,gptj_`
+      - Environment variables:
+        - *INTEL_GPTJ_INT4*: `yes`
       - Workflow:
 
     </details>
@@ -177,6 +187,8 @@ ___
       - Environment variables:
         - *ML_MLPERF_MODEL_BATCH_SIZE*: `#`
       - Workflow:
+    * `_gptj_,build-harness`
+      - Workflow:
     * `_gptj_,pytorch`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
@@ -196,6 +208,13 @@ ___
              - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
            * install,ipex,from.src,_for-intel-mlperf-inference-v3.1-gptj
              - CM script: [install-ipex-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from-src)
+           * get,generic,conda-package,_package.ninja
+             * `if (INTEL_GPTJ_INT4  == yes)`
+             * CM names: `--adr.['conda-package', 'ninja']...`
+             - CM script: [install-generic-conda-package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-conda-package)
+           * install,tpp-pex,from.src,_for-intel-mlperf-inference-v3.1-gptj
+             * `if (INTEL_GPTJ_INT4  == yes)`
+             - CM script: [install-tpp-pytorch-extension](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tpp-pytorch-extension)
            * get,generic-python-lib,_package.transformers
              * CM names: `--adr.['pip-package']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
@@ -214,6 +233,14 @@ ___
            * get,generic-python-lib,_package.accelerate
              * CM names: `--adr.['pip-package', 'accelerate']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_custom-python,_package.torch,_url.git+https://github.com/pytorch/pytorch.git@927dc662386af052018212c7d01309a506fc94cd
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_int4,gptj_,build-harness`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * reproduce,mlperf,inference,intel,harness,_calibration
+             * CM names: `--adr.['calibration']...`
+             - CM script: [app-mlperf-inference-intel](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-intel)
     * `_loadgen-batch-size.#`
       - Environment variables:
         - *CM_MLPERF_LOADGEN_BATCH_SIZE*: `#`
@@ -294,6 +321,8 @@ ___
       - Environment variables:
         - *CM_MODEL*: `gptj-99`
         - *CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/3733910/files/model.onnx`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `int8`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `int8`
       - Workflow:
     * `_gptj-99.9`
       - Environment variables:
@@ -380,6 +409,8 @@ ___
       - Environment variables:
         - *CM_IMAGENET_ACCURACY_DTYPE*: `float32`
       - Workflow:
+    * `_int4`
+      - Workflow:
     * `_uint8`
       - Workflow:
 
@@ -393,6 +424,10 @@ ___
     * `_build-harness`
       - Environment variables:
         - *CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE*: `build_harness`
+      - Workflow:
+    * `_calibration`
+      - Environment variables:
+        - *CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE*: `calibration`
       - Workflow:
     * **`_run-harness`** (default)
       - Environment variables:

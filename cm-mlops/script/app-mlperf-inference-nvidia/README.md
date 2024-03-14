@@ -331,8 +331,8 @@ ___
         - *CM_MLPERF_NVIDIA_HARNESS_SKIP_POSTPROCESS*: `True`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1-gptj
-             - *Warning: no scripts found*
+           * install,pytorch,from.src,_for-nvidia-mlperf-inference-v3.1
+             - CM script: [install-pytorch-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pytorch-from-src)
            * get,cmake
              - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
     * `_gpu_memory.16,3d-unet_,offline,run_harness`
@@ -826,41 +826,68 @@ ___
       - Environment variables:
         - *CM_MODEL*: `3d-unet-99`
         - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/5597155/files/3dunet_kits19_128x128x128.onnx`
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `quantization, affine fusion`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `int8`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `int8`
       - Workflow:
     * `_3d-unet-99.9`
       - Environment variables:
         - *CM_MODEL*: `3d-unet-99.9`
         - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/5597155/files/3dunet_kits19_128x128x128.onnx`
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `quantization, affine fusion`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `int8`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `int8`
       - Workflow:
     * `_bert-99`
       - Environment variables:
         - *CM_MODEL*: `bert-99`
         - *CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx`
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `quantization, affine fusion`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `int32`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `int8`
       - Workflow:
     * `_bert-99.9`
       - Environment variables:
         - *CM_MODEL*: `bert-99.9`
         - *CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/3733910/files/model.onnx`
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `quantization, affine fusion`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `int32`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `fp16`
       - Workflow:
     * `_dlrm-v2-99`
       - Environment variables:
         - *CM_MODEL*: `dlrm-v2-99`
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `affine fusion`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `fp32`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `fp16`
       - Workflow:
     * `_dlrm-v2-99.9`
       - Environment variables:
         - *CM_MODEL*: `dlrm-v2-99.9`
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `affine fusion`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `fp32`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `fp16`
       - Workflow:
     * `_gptj-99`
       - Environment variables:
         - *CM_MODEL*: `gptj-99`
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `quantization, affine fusion`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `int32`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `fp16`
       - Workflow:
     * `_gptj-99.9`
       - Environment variables:
         - *CM_MODEL*: `gptj-99.9`
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `quantization, affine fusion`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `int32`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `fp16`
       - Workflow:
     * **`_resnet50`** (default)
       - Environment variables:
         - *CM_MODEL*: `resnet50`
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `quantization, affine fusion`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `int8`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `int8`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_onnx-graphsurgeon
@@ -871,6 +898,9 @@ ___
       - Environment variables:
         - *CM_MODEL*: `retinanet`
         - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth`
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `quantization, affine fusion`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `int8`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `int8`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_Pillow
@@ -893,6 +923,9 @@ ___
       - Environment variables:
         - *CM_MODEL*: `rnnt`
         - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `https://zenodo.org/record/3662521/files/DistributedDataParallel_1576581068.9962234-epoch-100.pt`
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `quantization, affine fusion`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `fp16`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `fp16`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_toml
