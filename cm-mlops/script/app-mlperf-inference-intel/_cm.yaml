@@ -429,15 +429,7 @@ variations:
       - INT4_CALIBRATION_DIR
 
   calibration,gptj_:
-    deps:
-      - tags: get,generic-python-lib,_package.texttable
-        names:
-          - pip-package
-          - texttable
-      - tags: get,generic-python-lib,_package.transformers
-        names:
-          - pip-package
-        version: "4.21.2"
+    deps: []
 
   build-harness,bert_:
     deps:
