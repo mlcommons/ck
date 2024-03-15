@@ -113,8 +113,12 @@ def preprocess(i):
             if env.get('INTEL_GPTJ_INT4', '') == 'yes':
                 model_precision = "int4"
                 env['INT4_MODEL_DIR'] = env['CM_ML_MODEL_PATH']
+                env['QUANTIZED_MODEL'] = os.path.join(env['INT4_MODEL_DIR'], "best_int4_model.pt")
+                env['PRECISION'] = "int4_bf16_mixed"
             else:
                 env['INT8_MODEL_DIR'] = env['CM_ML_MODEL_PATH']
+                env['QUANTIZED_MODEL'] = os.path.join(env["INT8_MODEL_DIR"], "best_model.pt")
+                env['PRECISION'] = "int8"
             env['CM_RUN_DIR'] = i['run_script_input']['path']
             env['CM_RUN_CMD'] = "bash run_gptj_harness.sh "
 

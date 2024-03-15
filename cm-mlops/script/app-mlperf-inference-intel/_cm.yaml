@@ -275,7 +275,13 @@ variations:
         skip_inherit_variation_groups:
           - run-mode
           - device-info
+          - sut
+          - loadgen-batchsize
         force_cache: true
+      - tags: get,generic-python-lib,_package.optimum
+        names:
+          - pip-package
+          - optimum
 
   gptj_,pytorch:
     adr:
@@ -312,6 +318,7 @@ variations:
       - tags: get,generic-python-lib,_package.transformers
         names:
           - pip-package
+          - transformers
         version: "4.28.1"
       - tags: get,mlcommons,inference,src
         names:
@@ -402,14 +409,11 @@ variations:
       CM_MODEL: bert-99.9
       CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3733910/files/model.onnx"
 
-  loadgen-batch-size.#:
+  batch_size.#:
+    group: loadgen-batchsize
     env:
       CM_MLPERF_LOADGEN_BATCH_SIZE: "#"
 
-  activation-count.#:
-    env:
-      CM_MODEL_BATCH_SIZE: "#"
-      #CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "activation_count.#"
 
   build-harness:
     group: run-mode
@@ -455,6 +459,8 @@ variations:
         skip_inherit_variation_groups:
           - run-mode
           - device-info
+          - sut
+          - loadgen-batchsize
         force_cache: true
   
       # Download MLPerf inference source
@@ -523,6 +529,10 @@ variations:
     env:
       INTEL_GPTJ_INT4: 'yes'
 
+  int8,gptj_:
+    env:
+      INTEL_GPTJ_INT4: 'no'
+
   fp32:
     group: precision
     adr:
@@ -530,6 +540,61 @@ variations:
         tags: _float32,_rgb32
     env:
       CM_IMAGENET_ACCURACY_DTYPE: float32
+
+  sapphire-rapids.112c:
+    group: sut
+    env:
+      WARMUP: " --warmup"
+
+  sapphire-rapids.24c:
+    group: sut
+
+  sapphire-rapids.24c,gptj-99,offline,int8:
+    env:
+      KMP_BLOCKTIME: 10
+      WORKERS_PER_PROC: 1
+    default_env:
+      CM_MLPERF_LOADGEN_BATCH_SIZE: 8
+
+  sapphire-rapids.24c,gptj-99,offline,int4:
+    env:
+      KMP_BLOCKTIME: 10
+      WORKERS_PER_PROC: 1
+    default_env:
+      CM_MLPERF_LOADGEN_BATCH_SIZE: 8
+
+  sapphire-rapids.112c,gptj-99,offline,int8:
+    env:
+      KMP_BLOCKTIME: 1
+      WORKERS_PER_PROC: 2
+    default_env:
+      CM_MLPERF_LOADGEN_BATCH_SIZE: 14
+
+  sapphire-rapids.112c,gptj-99,offline,int4:
+    env:
+      NUM_PROC: 4
+      KMP_BLOCKTIME: 1
+      WORKERS_PER_PROC: 3
+    default_env:
+      CM_MLPERF_LOADGEN_BATCH_SIZE: 8
+
+  sapphire-rapids.112c,gptj-99,server,int8:
+    env:
+      KMP_BLOCKTIME: 1
+      WORKERS_PER_PROC: 2
+    default_env:
+      CM_MLPERF_LOADGEN_BATCH_SIZE: 1
+
+  sapphire-rapids.112c,gptj-99,server,int4:
+    env:
+      KMP_BLOCKTIME: 1
+      WORKERS_PER_PROC: 4
+    default_env:
+      CM_MLPERF_LOADGEN_BATCH_SIZE: 1
+
+  sapphire-rapids.24c,bert-99:
+    env:
+      WORKERS_PER_PROC: 1
 
 docker:
   docker_real_run: False
