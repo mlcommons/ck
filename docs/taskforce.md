@@ -12,6 +12,7 @@
 * Continuously encode MLPerf rules and best practices in the [CM automation recipes and workflows for MLPerf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
   to reduce the burden for submitters to go through numerous README files 
   and track all the latest changes and updates.
+* [Automatically compose high-performance and cost-efficient AI applications and systems using MLPerf and CM](https://doi.org/10.5281/zenodo.10786893).
 
 ## Chairs and Tech Leads
 

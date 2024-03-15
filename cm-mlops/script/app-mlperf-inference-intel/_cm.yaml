@@ -426,13 +426,10 @@ variations:
       CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE: calibration
     new_env_keys:
       - CM_ML_MODEL_*
+      - INT4_CALIBRATION_DIR
 
   calibration,gptj_:
-    deps:
-      - tags: get,generic-python-lib,_package.texttable
-        names:
-          - pip-package
-          - texttable
+    deps: []
 
   build-harness,bert_:
     deps:

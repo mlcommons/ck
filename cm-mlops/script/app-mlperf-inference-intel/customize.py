@@ -63,10 +63,7 @@ def preprocess(i):
             i['run_script_input']['script_name'] = "calibrate_gptj_int4_model"
             calibration_path = os.path.join(calibration_root, "INT4")
             env['CM_MLPERF_INFERENCE_INTEL_CALIBRATION_PATH'] = calibration_path
-            '''env['CALIBRATION_DATA_JSON'] =
-            env['CHECKPOINT_DIR'] =
-            env['QUANTIZED_MODEL_DIR'] =
-            '''
+            env['INT4_CALIBRATION_DIR'] = os.path.join(calibration_path, "data", "quantized-int4-model")
 
 
     elif env['CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE'] == "build_harness":
@@ -80,13 +77,22 @@ def preprocess(i):
             env['CM_MLPERF_INFERENCE_INTEL_HARNESS_PATH'] = os.path.join(os.getcwd(), "harness", "build", "gptj_inference")
             env['DATA_PATH'] = os.path.join(os.getcwd(), "harness", "gptj")
             env['MLPERF_INFERENCE_ROOT'] = env['CM_MLPERF_INFERENCE_SOURCE']
-            final_model_path = os.path.join(harness_root, "data", "gpt-j-int8-model", "best_model.pt")
-            env['INT8_MODEL_DIR'] = os.path.dirname(final_model_path)
-            if not os.path.exists(env['INT8_MODEL_DIR']):
-                os.makedirs(env['INT8_MODEL_DIR'])
-            env['CM_ML_MODEL_PATH'] = env['INT8_MODEL_DIR']
-            if env.get('CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH', '') != '':
-                shutil.copy(env['CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH'], env['INT8_MODEL_DIR'])
+            if env.get('INTEL_GPTJ_INT4', '') == 'yes':
+                model_precision = "int4"
+                env['RUN_QUANTIZATION_CMD'] = "bash run_quantization_int4.sh"
+            else:
+                model_precision = "int8"
+                env['RUN_QUANTIZATION_CMD'] = "bash run_quantization.sh"
+            final_model_path = os.path.join(harness_root, "data", f"gpt-j-{model_precision}-model", "best_model.pt")
+            model_dir_name = f"{model_precision.upper()}_MODEL_DIR"
+            env[model_dir_name] = os.path.dirname(final_model_path)
+            if not os.path.exists(env[model_dir_name]):
+                os.makedirs(env[model_dir_name])
+            env['CM_ML_MODEL_PATH'] = env[model_dir_name]
+            if env.get('CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH', '') != '' and env.get('INT8_MODEL_DIR', '') != '':
+                shutil.copy(env['CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH'], env[model_dir_name])
+            if env.get('CM_MLPERF_INFERENCE_INTEL_GPTJ_INT4_MODEL_PATH', '') != '' and env.get('INT4_MODEL_DIR', '') != '':
+                shutil.copy(env['CM_MLPERF_INFERENCE_INTEL_GPTJ_INT4_MODEL_PATH'], env[model_dir_name])
 
     elif env['CM_LOCAL_MLPERF_INFERENCE_INTEL_RUN_MODE'] == "run_harness":
         print(f"Harness Root: {harness_root}")
@@ -104,7 +110,11 @@ def preprocess(i):
                 env['LOADGEN_MODE'] = 'Accuracy'
             else:
                 env['LOADGEN_MODE'] = 'Performance'
-            env['INT8_MODEL_DIR'] = env['CM_ML_MODEL_PATH']
+            if env.get('INTEL_GPTJ_INT4', '') == 'yes':
+                model_precision = "int4"
+                env['INT4_MODEL_DIR'] = env['CM_ML_MODEL_PATH']
+            else:
+                env['INT8_MODEL_DIR'] = env['CM_ML_MODEL_PATH']
             env['CM_RUN_DIR'] = i['run_script_input']['path']
             env['CM_RUN_CMD'] = "bash run_gptj_harness.sh "
 

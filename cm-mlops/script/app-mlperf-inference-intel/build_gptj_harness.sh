@@ -33,5 +33,7 @@ export CALIBRATION_DATA_JSON=${WORKLOAD_DATA}/calibration-data/cnn_dailymail_cal
 export VALIDATION_DATA_JSON=${WORKLOAD_DATA}/validation-data/cnn_dailymail_validation.json
 export INT4_CALIBRATION_DIR=${WORKLOAD_DATA}/quantized-int4-model
 #sudo -E bash run_quantization.sh
-bash run_quantization.sh
+#bash run_quantization.sh
+echo "${RUN_QUANTIZATION_CMD}"
+eval "${RUN_QUANTIZATION_CMD}"
 test $? -eq 0 || exit $?
