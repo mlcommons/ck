@@ -134,6 +134,11 @@ def preprocess(i):
             add_deps_recursive['mlperf-inference-implementation'] = {}
         add_deps_recursive['mlperf-inference-implementation']['tags'] = "_batch_size."+env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
+    if env.get('CM_MLPERF_SUT_VARIATION', '') != '':
+        if not add_deps_recursive.get('mlperf-inference-implementation', {}):
+            add_deps_recursive['mlperf-inference-implementation'] = {}
+        add_deps_recursive['mlperf-inference-implementation']['tags'] = "_"+env['CM_MLPERF_SUT_VARIATION']
+
     if env.get('CM_NETWORK_LOADGEN', '') != '':
         if not add_deps_recursive.get('mlperf-inference-implementation', {}):
             add_deps_recursive['mlperf-inference-implementation'] = {}
