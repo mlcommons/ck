@@ -28,7 +28,7 @@ USER_CONF="${CM_MLPERF_USER_CONF}"
 
 
 cmd="python runner.py --workload-name gptj \
-	--scenario Offline \
+	--scenario ${${CM_MLPERF_LOADGEN_SCENARIO}} \
 	--mode ${LOADGEN_MODE} \
 	--num-proc ${NUM_PROC} \
 	--cpus-per-proc ${CPUS_PER_PROC} \
