@@ -112,7 +112,8 @@ def preprocess(i):
         elif tool == "rclone":
             if env.get('CM_RCLONE_CONFIG_CMD', '') != '':
                 env['CM_DOWNLOAD_CONFIG_CMD'] = env['CM_RCLONE_CONFIG_CMD']
-            env['CM_DOWNLOAD_CMD'] = f"rclone sync {url} {os.path.join(os.getcwd(), env['CM_DOWNLOAD_FILENAME'])} -P"
+            rclone_copy_using = env.get('CM_RCLONE_COPY_USING', 'sync')
+            env['CM_DOWNLOAD_CMD'] = f"rclone {rclone_copy_using} {url} {os.path.join(os.getcwd(), env['CM_DOWNLOAD_FILENAME'])} -P"
 
         filename = env['CM_DOWNLOAD_FILENAME']
         env['CM_DOWNLOAD_DOWNLOADED_FILENAME'] = filename

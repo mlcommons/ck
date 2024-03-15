@@ -10,7 +10,9 @@
       "tags": "detect,os"
     }
   ],
-  "env": {},
+  "default_env": {
+    "CM_RCLONE_COPY_USING": "sync"
+  },
   "input_description": {},
   "input_mapping": {
     "download_path": "CM_DOWNLOAD_PATH",
