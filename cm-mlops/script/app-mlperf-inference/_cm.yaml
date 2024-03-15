@@ -360,25 +360,45 @@ variations:
     docker:
       interactive: True
 
-  kilt,qualcomm,resnet50:
+  kilt,qaic,resnet50:
     default_variations:
       precision: uint8
 
-  kilt,qualcomm,retinanet:
+  kilt,qaic,retinanet:
     default_variations:
       precision: uint8
 
-  kilt,qualcomm,resnet50:
+  kilt,qaic,bert-99:
     default_variations:
       precision: uint8
 
-  kilt,qualcomm,bert-99:
-    default_variations:
-      precision: uint8
-
-  kilt,qualcomm,bert-99.9:
+  kilt,qaic,bert-99.9:
     default_variations:
       precision: float16
+
+  intel-original,resnet50:
+    default_variations:
+      precision: int8
+
+  intel-original,retinanet:
+    default_variations:
+      precision: int8
+
+  intel-original,bert-99:
+    default_variations:
+      precision: int8
+
+  intel-original,bert-99.9:
+    default_variations:
+      precision: int8
+
+  intel-original,gptj-99:
+    default_variations:
+      precision: int4
+
+  intel-original,gptj-99.9:
+    default_variations:
+      precision: bfloat16
 
   resnet50:
     group:

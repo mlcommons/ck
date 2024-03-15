@@ -11,7 +11,7 @@ num_numa=$(numactl --hardware|grep available|awk -F' ' '{ print $2 }')
 
 NUM_PROC=${NUM_PROC:-$num_numa}
 CPUS_PER_PROC=$((num_physical_cores/num_numa))
-WORKERS_PER_PROC=3
+WORKERS_PER_PROC=${WORKERS_PER_PROC}
 TOTAL_SAMPLE_COUNT=13368
 BATCH_SIZE=${CM_MLPERF_LOADGEN_BATCH_SIZE}
 TIMESTAMP=$(date +%m-%d-%H-%M)

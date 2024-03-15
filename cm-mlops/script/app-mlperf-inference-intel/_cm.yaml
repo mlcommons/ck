@@ -559,9 +559,9 @@ variations:
   sapphire-rapids.24c,gptj-99,offline,int4:
     env:
       KMP_BLOCKTIME: 10
-      WORKERS_PER_PROC: 1
+      WORKERS_PER_PROC: 2
     default_env:
-      CM_MLPERF_LOADGEN_BATCH_SIZE: 5
+      CM_MLPERF_LOADGEN_BATCH_SIZE: 8
 
   sapphire-rapids.112c,gptj-99,offline,int8:
     env:
@@ -585,14 +585,14 @@ variations:
     default_env:
       CM_MLPERF_LOADGEN_BATCH_SIZE: 1
 
-  sapphire-rapids.112c,gptj_,server,int4:
+  sapphire-rapids.112c,gptj-99,server,int4:
     env:
       KMP_BLOCKTIME: 1
       WORKERS_PER_PROC: 4
     default_env:
       CM_MLPERF_LOADGEN_BATCH_SIZE: 1
 
-  sapphire-rapids.24c,bert_:
+  sapphire-rapids.24c,bert-99:
     env:
       WORKERS_PER_PROC: 1
 
