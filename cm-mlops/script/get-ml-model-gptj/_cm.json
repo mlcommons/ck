@@ -99,6 +99,77 @@
         }
       }
     },
+    "saxml": {
+      "group": "framework"
+    },
+    "saxml,fp32": {
+      "env": {
+        "CM_TMP_MODEL_SAXML": "fp32"
+      },
+      "new_env_keys": [
+        "GPTJ_SAXML_CHECKPOINT_PATH"
+      ],
+      "deps": [
+        {
+          "tags": "get,ml-model,gptj,_pytorch,_fp32"
+        },
+        {
+          "tags": "get,python3",
+          "names": [
+            "python",
+            "python3"
+          ]
+        },
+        {
+          "tags": "get,generic-python-lib,_package.jax[cpu]"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.paxml"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.praxis"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.transformers"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.accelerate"
+        }
+      ]
+    },
+    "saxml,int8": {
+      "env": {
+        "CM_TMP_MODEL_SAXML": "int8"
+      },
+      "deps": [
+        {
+          "tags": "get,ml-model,gptj,_saxml,_fp32"
+        },
+        {
+          "tags": "get,python3",
+          "names": [
+            "python",
+            "python3"
+          ]
+        },
+        {
+          "tags": "get,generic-python-lib,_package.praxis"
+        },
+        {
+          "tags": "get,generic-python-lib,_package.apache-beam"
+        },
+        {
+          "tags": "get,git,repo,_repo.https://github.com/google/saxml",
+          "extra_cache_tags": "saxml",
+          "env": {
+            "CM_GIT_CHECKOUT_PATH_ENV_NAME": "CM_SAXML_REPO_PATH"
+          },
+          "names": [
+            "saxml"
+          ]
+        }
+      ]
+    },
     "int4": {
       "env": {
         "CM_ML_MODEL_INPUT_DATA_TYPES": "int4",
