@@ -146,6 +146,43 @@ ___
              - CM script: [install-ipex-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-ipex-from-src)
            * get,dataset,cnndm,_calibration
              - CM script: [get-dataset-cnndm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-cnndm)
+    * `_saxml,fp32`
+      - Environment variables:
+        - *CM_TMP_MODEL_SAXML*: `fp32`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,ml-model,gptj,_pytorch,_fp32
+             - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)
+           * get,python3
+             * CM names: `--adr.['python', 'python3']...`
+             - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+           * get,generic-python-lib,_package.jax[cpu]
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.paxml
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.praxis
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.transformers
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.accelerate
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_saxml,int8`
+      - Environment variables:
+        - *CM_TMP_MODEL_SAXML*: `int8`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,ml-model,gptj,_saxml,_fp32
+             - CM script: [get-ml-model-gptj](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj)
+           * get,python3
+             * CM names: `--adr.['python', 'python3']...`
+             - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+           * get,generic-python-lib,_package.praxis
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.apache-beam
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,git,repo,_repo.https://github.com/google/saxml
+             * CM names: `--adr.['saxml']...`
+             - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
 
     </details>
 
@@ -177,6 +214,8 @@ ___
         - *CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
         - *CM_ML_MODEL_FRAMEWORK*: `pytorch`
         - *CM_ML_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
+      - Workflow:
+    * `_saxml`
       - Workflow:
 
     </details>
@@ -271,6 +310,8 @@ ___
   1. ***Run native script if exists***
      * [run-int4-calibration.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj/run-int4-calibration.sh)
      * [run-intel.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj/run-intel.sh)
+     * [run-saxml-quantized.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj/run-saxml-quantized.sh)
+     * [run-saxml.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj/run-saxml.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-gptj/_cm.json)

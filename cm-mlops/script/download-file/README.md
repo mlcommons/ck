@@ -179,6 +179,7 @@ r=cm.access({... , "download_path":...}
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
+* CM_RCLONE_COPY_USING: `sync`
 
 </details>
 
