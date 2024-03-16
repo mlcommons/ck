@@ -150,7 +150,8 @@
           "names": [
             "python",
             "python3"
-          ]
+          ],
+          "version": "3.10.0"
         },
         {
           "tags": "get,generic-python-lib,_package.praxis"
