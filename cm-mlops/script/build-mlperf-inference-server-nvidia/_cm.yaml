@@ -220,7 +220,6 @@ docker:
   extra_run_args: ' --runtime=nvidia --ulimit memlock=-1 --cap-add SYS_ADMIN --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
   docker_os: ubuntu
   docker_real_run: False
-  run: False
   interactive: True
   docker_os_version: '20.04'
   base_image: nvcr.io/nvidia/mlperf/mlperf-inference:mlpinf-v3.1-cuda12.2-cudnn8.9-x86_64-ubuntu20.04-l4-public
