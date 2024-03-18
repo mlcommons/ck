@@ -33,56 +33,73 @@ where CM is used:
 
 You can participate in our discussions via [public Discord server](https://discord.gg/JjWNWXKxwT).
 
-## Status
+## Deliverables (2024)
 
-### 2023
+* Collaborate with chip vendors and MLPerf inference submitters to add
+  their implementations to CM and automate their submissions.
 
-Following our [regular public weekly conf-calls in 2023](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw), 
-[Discord discussions](https://discord.gg/JjWNWXKxwT) and very useful feedback from the research community, 
-Google, AMD, Neural Magic, OctoML, Nvidia, Qualcomm, Dell, HPE, Red Hat,
-Intel, TTA, One Stop Systems and other organizations, we have developed a new version 
-of the [Collective Mind automation framework (CM)](https://github.com/mlcommons/ck) as a very lightweight, 
-non-intrusive and technology-agnostic workflow automation framework that provides a common, simple 
-and human-readable interface to manage, run, reproduce and customize MLPerf benchmarks
-across continuously changing models, datasets, software and hardware from different vendors:
-[github.com/mlcommons/ck/tree/master/docs/mlperf](https://github.com/mlcommons/ck/tree/master/docs/mlperf).
- 
-#### Outcome
+* Develop a more universal Python and C++ wrapper for the MLPerf loadgen
+  with the CM automation to support different models, data sets, software
+  and hardware: [Python prototype](https://github.com/mlcommons/ck/blob/master/docs/tutorials/scc23-mlperf-inference-bert.md); 
+  [C++ prototype](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-cpp).
 
-* We have released the new CM version 1.5.3 and successfully validated it with the community during MLPerf inference v3.1 submission 
-  enabling the 1st mass submission of 12K+ performance and power results across 120+ system configurations.
+* Introduce [CM automation badge](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-cpp) 
+  to MLPerf inference v4.1 submission
+  similar to ACM/IEEE/NeurIPS reproducibility badges to make it easier for
+  all submitters to re-run and reproduce each others’ results before the
+  publication date.
 
-* We continued extending [Modular C++ Inference Library for MLPerf (MIL)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp) 
-  and validated it in the v3.1 round. We also developed a Python prototype of the reference network implementation
-  with CM interface for BERT model and added it to the [main inference repository](https://github.com/mlcommons/inference/tree/master/language/bert#loadgen-over-the-network).
+* Collaborate with system vendors and cloud providers to quickly benchmark
+  their platforms using the best available MLPerf inference implementation.
 
-* We successfully introduced CM automation at the [ACM/IEEE International Symposium on Microarchitecture (MICRO'23)](https://cTuning.org/ae/micro2023.html)
-  to reproduce results from accepted research papers: [GitHub](https://github.com/ctuning/cm-reproduce-research-projects/tree/main/script)
-  
-* We successfully introduced CM automation at the [Student Cluster Competition at SuperComputing'23](https://github.com/mlcommons/ck/blob/master/docs/tutorials/scc23-mlperf-inference-bert.md)
-  to run MLPerf inference benchmarks across diverse hardware. It resulted in different contributions to improve MLPerf inference benchmarks
-  (such as adding AMD GPU backend) and CM workflows.
+* Collaborate with other MLPerf working groups to modularize their
+  benchmarks using [CM automation recipes](https://access.cknowledge.org/playground/?action=scripts).
 
-* We gave invited keynote about CM at the 1st ACM Conference on Reproducibility and Replicability: 
-  [Slides](https://doi.org/10.5281/zenodo.8105339), [ACM YouTube channel](https://www.youtube.com/watch?v=_1f9i_Bzjmg)
+* Use MLCommons CM to modularize and automate the upcoming [automotive benchmark](https://mlcommons.org/working-groups/benchmarks/automotive/).
+
+* Use [MLCommons Croissant](https://mlcommons.org/working-groups/data/croissant/) 
+  to unify [MLPerf datasets](https://access.cknowledge.org/playground/?action=scripts).
 
 
-### 2024
 
-We are requested to focus on the following tasks:
+## Completed deliverables
 
-1) Continue extending CM interface and workflows to reproduce as many MLPerf inference v3.1 submissions as possible: see [current coverage](https://github.com/mlcommons/ck/issues/1052)
-2) Help all MLPerf inference v4.0 submitters automate their submissions and provide a common CM interface to rerun them in a unified way
-3) Apply standard [ACM artifact review and badging methodology](https://www.acm.org/publications/policies/artifact-review-and-badging-current) 
-   with [cTuning extensions to ML and systems conferences](https://cTuning.org/ae) 
-   to MLPerf inference v4.0 submission to make it easier to rerun experiments and reproduce results (see [ACM Tech Talk](https://www.youtube.com/watch?v=7zpeIVwICa4) 
-   and [ACM REP keynote](https://doi.org/10.5281/zenodo.8105339) to learn more about our vision and related experience).
-4) Add CM support for the new automotive benchmark
-5) Extend [CM GUI](https://cknowledge.org/cm-gui/?tags=generic,app,mlperf,inference) to help users generate CM commands to customize and run MLPerf inference benchmarks
-6) Extend [Modular C++ Inference Library for MLPerf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp) to support more models and backends
+* Developed [reusable and technology-agnostic automation recipes and workflows](https://access.cknowledge.org/playground/?action=scripts) 
+  with a common and human-friendly interface (MLCommons Collective Mind aka CM) to modularize
+  MLPerf inference benchmarks and run them in a unified and automated way
+  across diverse models, data sets, software and hardware from different
+  vendors.
+
+* Added [GitHub actions](https://github.com/mlcommons/inference/tree/master/.github/workflows) 
+  to test MLPerf inference benchmarks using CM.
+
+* Encoded MLPerf inference rules and best practices in the [CM automation
+  recipes and workflows for MLPerf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
+  and reduced the burden for submitters to go through numerous README files 
+  and track all the latest changes and reproduce results.
+
+* Automated [MLPerf inference submissions](https://access.cknowledge.org/playground/?action=howtorun) 
+  and made it easier to re-run and reproduce results 
+  (see [submitters orientation](https://doi.org/10.5281/zenodo.10605079) 
+  and [CM-MLPerf documentation](https://github.com/mlcommons/ck/tree/master/docs/mlperf)).
+
+* Started developing an open-source platform to automatically compose
+  high-performance and cost-effective AI applications and systems using
+  MLPerf and CM (see our [presentation at MLPerf-Bench at HPCA’24](https://doi.org/10.5281/zenodo.10786893)).
+
+* Supported AI, ML and Systems conferences to automate artifact evaluation
+  and reproducibility initiatives (see CM at [ACM/IEEE MICRO’23](https://ctuning.org/ae/micro2023.html) 
+  and [SCC’23/SuperComputing’23](https://github.com/mlcommons/ck/blob/master/docs/tutorials/scc23-mlperf-inference-bert.md)).
+
+
 
 ## Resources
 
+* [GitHub project](https://github.com/mlcommons/ck)
+* [Getting Started Guide](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md)
+* [CM-MLPerf commands](https://github.com/mlcommons/ck/tree/master/docs/mlperf)
+* [CM-MLPerf GUI](https://access.cknowledge.org/playground/?action=howtorun)
+* [Invited talk at MLPerf-Bench @ HPCA'24 about Automatically Composing High-Performance and Cost-effective AI Systems with MLCommons' CM and MLPerf](https://doi.org/10.5281/zenodo.10786893)
 * [Invited keynote about CM framework at ACM REP'23](https://doi.org/10.5281/zenodo.8105339)
 * [ACM artifact review and badging methodology](https://www.acm.org/publications/policies/artifact-review-and-badging-current) 
 * [Artifact Evaluation at ML and systems conferences](https://cTuning.org/ae)
