@@ -78,11 +78,20 @@ def preprocess(i):
 
                 print ('* Running submission checker ...')
 
+                xenv = {}
+
+                submitter = env.get('CM_MLPERF_SUBMITTER', '')
+                if submitter != '':
+                    xenv['CM_MLPERF_SUBMITTER'] = submitter
+
                 ii = {'action':'run',
                       'automation':'script',
                       'tags':'run,mlperf,inference,submission,checker',
                       'extra_args':' --skip-extra-files-in-root-check',
                       'submission_dir':path}
+
+                if len(xenv)>0:
+                    ii['env'] = xenv
 
                 if version!='':
                     print ('  Version detected from cache tags: {}'.format(version))
