@@ -352,16 +352,22 @@ def gui(i):
     inp = script_meta['input_description']
 
     # Here we can update params
-    st.markdown('---')
-    st.markdown('**How would you like to run the MLPerf inference benchmark?**')
-
-    
     v = compute_meta.get('mlperf_inference_device')
     if v!=None and v!='': 
         inp['device']['force'] = v
+
+        if v in ['tpu', 'gaudi']:
+            st.markdown('----')
+            st.markdown('**WARNING: unified CM workflow support for this hardware is pending - please [feel free to help](https://discord.gg/JjWNWXKxwT)!**')
+            return {'return':0, 'skip': True, 'end_html':end_html}
+
+    st.markdown('---')
+    st.markdown('**How would you like to run the MLPerf inference benchmark?**')
+
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_device', 'desc':inp['device']})
     device = r.get('value2')
     inp['device']['force'] = device
+
 
     if device == 'cpu':
         inp['implementation']['choices']=['mlcommons-python', 'mlcommons-cpp', 'intel', 'ctuning-cpp-tflite']
@@ -370,9 +376,13 @@ def gui(i):
         inp['backend']['default']='onnxruntime'
     elif device == 'rocm':
         inp['implementation']['force']='mlcommons-python'
+        inp['precision']['choices']=['']
+        inp['precision']['force']=''
         inp['backend']['force']='onnxruntime'
+        st.markdown('*WARNING: CM-MLPerf inference workflow was not tested thoroughly for AMD GPU - please feel free to test and improve!*')
     elif device == 'qaic':
         inp['implementation']['force']='qualcomm'
+        inp['precision']['force']=''
         inp['backend']['force']='glow'
 
 
@@ -433,7 +443,7 @@ def gui(i):
         inp['model']['choices'] = ['resnet50', 'retinanet']
         st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-cpp)]*')
     elif implementation == 'mlcommons-python':
-        inp['precision']['default']='float32'
+        inp['precision']['force']='float32'
         if device == 'cuda':
             inp['backend']['choices']=['onnxruntime','pytorch','tf']
             inp['backend']['default'] = 'onnxruntime'
@@ -475,7 +485,9 @@ def gui(i):
     if backend == 'deepsparse':
         inp['model']['choices'] = ['resnet50', 'retinanet', 'bert-99', 'bert-99.9']
         inp['model']['default'] = 'bert-99'
+        inp['precision']['choices'] = ['float32', 'int8']
         inp['precision']['default'] = 'int8'
+        if 'force' in inp['precision']: del(inp['precision']['force'])
 
 
 
