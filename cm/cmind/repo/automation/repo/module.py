@@ -415,6 +415,14 @@ class CAutomation(Automation):
         return r
 
     ############################################################
+    def ximport(self, i):
+
+        if i.get('path','')!='':
+            i['here']=True
+
+        return self.init(i)
+
+    ############################################################
     def init(self, i):
         """
         Initialize CM repository.
