@@ -338,6 +338,7 @@ def gui(i):
     script_tags = i.get('script_tags', '')
 
     compute_meta = i.get('compute_meta',{})
+    compute_tags = compute_meta.get('tags', [])
     bench_meta = i.get('bench_meta',{})
 
     compute_uid = compute_meta.get('uid','')
@@ -371,9 +372,12 @@ def gui(i):
 
     if device == 'cpu':
         inp['implementation']['choices']=['mlcommons-python', 'mlcommons-cpp', 'intel', 'ctuning-cpp-tflite']
-        inp['implementation']['default']='mlcommons-python'
-        inp['backend']['choices']=['onnxruntime','deepsparse','pytorch','tf','tvm-onnx']
-        inp['backend']['default']='onnxruntime'
+        if 'intel' in compute_tags:
+            inp['implementation']['default']='intel'
+        else:
+            inp['implementation']['default']='mlcommons-python'
+            inp['backend']['choices']=['onnxruntime','deepsparse','pytorch','tf','tvm-onnx']
+            inp['backend']['default']='onnxruntime'
     elif device == 'rocm':
         inp['implementation']['force']='mlcommons-python'
         inp['precision']['choices']=['']
@@ -452,14 +456,14 @@ def gui(i):
         inp['precision']['force']='float32'
         inp['model']['force']='resnet50'
         st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-ctuning-cpp-tflite)]*')
-
     elif implementation == 'nvidia':
         inp['backend']['force'] = 'tensorrt'
         st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia)]*')
     elif implementation == 'intel':
-        inp['model']['choices'] = ['bert-99', 'bert-99.9', 'gptj-99']
+        inp['model']['choices'] = ['bert-99', 'gptj-99']
         inp['model']['default'] = 'bert-99'
-        inp['precision']['force'] = 'uint8'
+        inp['precision']['choices'] = ['int8', 'int4']
+        inp['precision']['default'] = 'int8'
         inp['category']['force'] = 'datacenter'
         inp['backend']['force'] = 'pytorch'
 #        st.markdown('*:red[Note: Intel implementation require extra CM command to build and run Docker container - you will run CM commands to run MLPerf benchmarks there!]*')
@@ -491,6 +495,8 @@ def gui(i):
 
 
 
+    #############################################################################
+    # Model
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_model', 'desc':inp['model']})
     model = r.get('value2')
     inp['model']['force'] = model
@@ -526,7 +532,20 @@ def gui(i):
 
     if github_doc_model == '': github_doc_model = model
     
-    extra_notes_online = '[Extra notes online](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/{})\n'.format(github_doc_model)
+    model_cm_url='https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/{}'.format(github_doc_model)
+    extra_notes_online = '[Extra notes online]({})\n'.format(model_cm_url)
+
+    st.markdown('*[CM GitHub docs for this model]({})*'.format(model_cm_url))
+
+    #############################################################################
+    # Precision
+    if implementation == 'intel':
+        if model == 'bert-99':
+            inp['precision']['force'] = 'int8'
+        elif model == 'gptj-99':
+            inp['precision']['force'] = 'int4'
+
+    
 
     r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_precision', 'desc':inp['precision']})
     precision = r.get('value2')
