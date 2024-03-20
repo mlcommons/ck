@@ -25,3 +25,4 @@ supported_compute:
 - gpu,amd
 - accelerator,acc,qualcomm,ai,100,ai-100
 - tpu,google
+- gaudi,habana
