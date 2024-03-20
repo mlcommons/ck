@@ -1,4 +1,7 @@
 {
+  "action_substitutions": {
+    "import":"ximport"
+  },
   "alias": "repo",
   "automation_alias": "automation",
   "automation_uid": "bbeb15d8f0a944a4",

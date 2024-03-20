@@ -354,6 +354,8 @@ class CM(object):
                 elif not utils.is_cm_uid(xuid):
                     return {'return':1, 'error':'you must use CM UID after automation {} when using --common'.format(parsed_automation[0][0])}
                     
+        automation_meta = {}
+        
         if automation != '' and not use_common_automation:
             # If wildcards in automation, use the common one (usually for search across different automations)
             # However, still need above "parse_automation" for proper search
@@ -458,7 +460,8 @@ class CM(object):
 
         if action in self.cfg['action_substitutions']:
             action = self.cfg['action_substitutions'][action]
-
+        elif action in automation_meta.get('action_substitutions',{}):
+            action = automation_meta['action_substitutions'][action]
 
         # Check if common automation and --help
         if (use_common_automation or automation=='') and cm_help:
