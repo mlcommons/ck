@@ -27,6 +27,7 @@ class CAutomation(Automation):
           (pat) (str): Personal Access Token (if supported and url=='')
           (branch) (str): Git branch
           (checkout) (str): Git checkout
+          (checkout_only) (bool): only checkout existing repo
           (depth) (int): Git depth
           (desc) (str): brief repository description (1 line)
           (prefix) (str): extra directory to keep CM artifacts
@@ -47,6 +48,8 @@ class CAutomation(Automation):
         desc = i.get('desc','')
         prefix = i.get('prefix','')
         pat = i.get('pat','')
+
+        checkout_only = i.get('checkout_only', False)
 
         if url == '':
             if alias != '':
@@ -80,7 +83,7 @@ class CAutomation(Automation):
 
         if url == '':
             pull_repos = []
-            
+
             for repo in sorted(self.cmind.repos.lst, key = lambda x: x.meta.get('alias','')):
                 meta = repo.meta
 
@@ -89,7 +92,7 @@ class CAutomation(Automation):
                     # Pick it up from the path
 
                     repo_path = repo.path
-                    
+
                     pull_repos.append({'alias': os.path.basename(repo_path),
                                        'path_to_repo': repo_path})
         else:
@@ -127,15 +130,23 @@ class CAutomation(Automation):
 
              # Prepare path to repo
              repos = self.cmind.repos
-             
-             r = repos.pull(alias = alias, url = url, branch = branch, checkout = checkout, console = console, 
-                            desc=desc, prefix=prefix, depth=depth, path_to_repo=path_to_repo)
+
+             r = repos.pull(alias = alias,
+                            url = url,
+                            branch = branch,
+                            checkout = checkout,
+                            console = console,
+                            desc=desc,
+                            prefix=prefix,
+                            depth=depth,
+                            path_to_repo=path_to_repo,
+                            checkout_only=checkout_only)
              if r['return']>0: return r
 
              repo_meta = r['meta']
 
              repo_metas[alias] = repo_meta
-             
+
         if len(pull_repos)>0 and self.cmind.use_index:
             if console:
                 print (self.cmind.cfg['line'])
@@ -144,6 +155,28 @@ class CAutomation(Automation):
             rx = self.reindex(ii)
 
         return {'return':0, 'meta':repo_meta, 'metas': repo_metas}
+
+
+
+    ############################################################
+    def checkout(self, i):
+        """
+        Checkout repository
+
+        Args:
+            (branch) (str): branch name
+            (checkout) (str): checkout
+
+            See "pull" action
+
+        Returns: 
+            See "pull" action
+        """
+
+        i['checkout_only'] = True
+
+        return self.pull(i)
+
 
     ############################################################
     def show(self, i):
@@ -162,7 +195,6 @@ class CAutomation(Automation):
         return self.search(i)
 
 
-    
     ############################################################
     def search(self, i):
         """
