@@ -127,21 +127,23 @@ class Repos:
                     repo = Repo(full_path_to_repo, self.cfg)
 
                     r = repo.load()
-                    if r['return']>0: return r
+                    if r['return']>0 and r['return']!=16: return r
 
-                    # Set only after all initializations
-                    self.lst.append(repo)
-                   
-                    repo_uid = repo.meta['uid']
-                    if repo_uid!='':
-                        self.extra_info[repo_uid]=repo
+                    # Load only if desc exists
+                    if r['return']!=16:
+                        # Set only after all initializations
+                        self.lst.append(repo)
 
-                    repo_alias = repo.meta['alias']
-                    if repo_alias!='':
-                        self.extra_info[repo_alias]=repo
+                        repo_uid = repo.meta['uid']
+                        if repo_uid!='':
+                            self.extra_info[repo_uid]=repo
 
-                    found = True
-                    break
+                        repo_alias = repo.meta['alias']
+                        if repo_alias!='':
+                            self.extra_info[repo_alias]=repo
+
+                        found = True
+                        break
 
             # Repo path exists but repo itself doesn't exist - fail
             if found:
@@ -151,14 +153,18 @@ class Repos:
 
         # Save with correct paths
         if len(checked_self_paths)!=len(self.paths):
-            self.paths = checked_self_paths
-            
+            import copy
+
+            self.paths = copy.deepcopy(checked_self_paths)
+
+            if self.path_to_internal_repo in checked_self_paths:
+                checked_self_paths.remove(self.path_to_internal_repo)
+
             print ('WARNING: fixed repo list file {}'.format(full_path_to_repo_paths))
 
-            r = utils.save_json(full_path_to_repo_paths, meta = self.paths)
+            r = utils.save_json(full_path_to_repo_paths, meta = checked_self_paths)
             if r['return']>0: return r
 
-        
         return {'return':0}
 
     ############################################################
@@ -279,6 +285,25 @@ class Repos:
             print ('Local path: '+path_to_repo)
             print ('')
 
+        # Check if repository already exists but corrupted
+        path_to_repo_desc = os.path.join(path_to_repo, self.cfg['file_meta_repo'])
+        r=utils.is_file_json_or_yaml(file_name = path_to_repo_desc)
+        if r['return']>0: return r
+        repo_desc_exists=r['is_file']
+
+        if os.path.isdir(path_to_repo) and not repo_desc_exists:
+            print ('')
+            print ('WARNING: directory {} already exists but without cmr.yaml - maybe clone or download was corrupted!'.format(path_to_repo))
+
+            x = input('Delete this repo (Y/n)? ')
+            if x.strip().lower() not in ['n','no']:
+                import shutil
+
+                print ('')
+                print ('Deleting {} ...'.format(path_to_repo))
+                shutil.rmtree(path_to_repo, onerror=rm_read_only)
+                print ('')
+
         cur_dir = os.getcwd()
 
         clone=False
@@ -286,6 +311,7 @@ class Repos:
         download=True if url.find('.zip')>0 else False
 
         if download:
+            # If CM repo already exists
             if os.path.isdir(path_to_repo):
                 return {'return':1, 'error':'repository is already installed'}
 
@@ -387,8 +413,6 @@ class Repos:
                 return {'return':1, 'error':'git checkout for repository failed'}
 
         # Check if repo description exists 
-        path_to_repo_desc = os.path.join(path_to_repo, self.cfg['file_meta_repo'])
-
         r=utils.is_file_json_or_yaml(file_name = path_to_repo_desc)
         if r['return']>0: return r
 
