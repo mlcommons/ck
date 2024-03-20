@@ -349,6 +349,9 @@ def page(i):
     if len(meta.get('docker',{}))>0:
         run_via_docker = st.toggle('Use Docker', key='run_via_docker', value=False)
 
+        if run_via_docker:
+            st.markdown("*WARNING: CM automatically generates containers for a give script - it's a beta functionality - feel free to [test and provide feedback](https://discord.gg/JjWNWXKxwT)!*")
+
     action = 'docker' if run_via_docker else 'run'
     cli = 'cm {} script {} {}\n'.format(action, tags, flags)
 
