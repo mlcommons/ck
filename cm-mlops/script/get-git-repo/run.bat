@@ -8,6 +8,8 @@ rem cd inference
 rem git checkout -b "%CM_GIT_CHECKOUT%"
 rem 
 
+rem Next line allows ERRORLEVEL inside if statements!
+setlocal enabledelayedexpansion
 
 set CUR_DIR=%cd%
 set SCRIPT_DIR=%CM_TMP_CURRENT_SCRIPT_PATH%
@@ -23,13 +25,13 @@ if not exist %CM_TMP_GIT_PATH% (
   echo Cloning %CM_GIT_REPO_NAME% from %CM_GIT_URL%
   echo "%CM_GIT_CLONE_CMD%"
   %CM_GIT_CLONE_CMD%
-  IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
+  IF !ERRORLEVEL! NEQ 0 EXIT !ERRORLEVEL!
   cd %folder%
   if not "%CM_GIT_SHA%" == "" (
        echo.
        echo.
        git checkout "%CM_GIT_CHECKOUT%"
-       IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
+       IF !ERRORLEVEL! NEQ 0 EXIT !ERRORLEVEL!
   )
 
 ) else (
@@ -43,7 +45,7 @@ if not "%CM_GIT_SUBMODULES%" == "" (
     echo.
     echo Initializing submodule %%s
     git submodule update --init %%s
-    IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
+    IF !ERRORLEVEL! NEQ 0 EXIT !ERRORLEVEL!
   )
 )
 
@@ -51,7 +53,7 @@ if "%CM_GIT_PATCH%" == "yes" (
    for %%x in (%CM_GIT_PATCH_FILEPATHS%) do (
        echo Applying patch %%x ...
        git apply %%x
-       IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
+       IF !ERRORLEVEL! NEQ 0 EXIT !ERRORLEVEL!
    )
 )
 

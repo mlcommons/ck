@@ -1593,8 +1593,10 @@ class CAutomation(Automation):
 
 
                 # Check if the cached entry is dependent on any other cached entry
-                if dependent_cached_path != '' and not os.path.samefile(cached_path, dependent_cached_path):
-                    cached_meta['dependent_cached_path'] = dependent_cached_path
+                if dependent_cached_path != '':
+                    if os.path.isdir(cached_path) and os.path.isdir(dependent_cached_path):
+                        if not os.path.samefile(cached_path, dependent_cached_path):
+                            cached_meta['dependent_cached_path'] = dependent_cached_path
 
                 ii = {'action': 'update',
                       'automation': self.meta['deps']['cache'],
