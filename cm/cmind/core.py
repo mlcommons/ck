@@ -597,7 +597,7 @@ class CM(object):
             self.index.updated=False
 
         # If delayed help
-        if delayed_help:
+        if delayed_help and not r.get('skip_delayed_help', False):
             print ('')
             print (delayed_help_api_prefix_0)
             print ('')
