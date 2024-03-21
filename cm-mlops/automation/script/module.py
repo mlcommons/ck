@@ -685,7 +685,7 @@ class CAutomation(Automation):
         # Check if has --help
         if i.get('help',False):
             return utils.call_internal_module(self, __file__, 'module_help', 'print_help', {'meta':meta, 'path':path})
-            
+
         run_state['script_id'] = meta['alias'] + "," + meta['uid']
         run_state['script_variation_tags'] = variation_tags
 
