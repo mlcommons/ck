@@ -26,7 +26,7 @@ tags:
 - inference
 - reference
 
-tags_help: "run-mlperf-inference"
+tags_help: "run-mlperf,inference"
 
 default_env:
   CM_MLPERF_IMPLEMENTATION: reference
@@ -247,7 +247,6 @@ variations:
     group: benchmark-version
 
   r4.0:
-    default: true
     env:
       CM_MLPERF_INFERENCE_VERSION: '4.0'
       CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r4.0_default
@@ -394,6 +393,10 @@ input_description:
     default: test
     desc: MLPerf execution mode
     sort: 700
+  sut:
+    default: ''
+    desc: SUT configuration (if known)
+    sort: 750
   submitter:
     default: CTuning
     desc: Submitter name (without space)

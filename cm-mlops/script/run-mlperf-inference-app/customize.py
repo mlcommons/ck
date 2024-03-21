@@ -350,6 +350,9 @@ def gui(i):
 
     end_html = ''
 
+    extra = {}
+    add_to_st_inputs = {}
+
     inp = script_meta['input_description']
 
     # Here we can update params
@@ -362,6 +365,11 @@ def gui(i):
             st.markdown('**WARNING: unified CM workflow support for this hardware is pending - please [feel free to help](https://discord.gg/JjWNWXKxwT)!**')
             return {'return':0, 'skip': True, 'end_html':end_html}
 
+        elif 'orin' in compute_tags:
+            st.markdown('----')
+            st.markdown('**WARNING: we need to encode CM knowledge from [this Orin setp](https://github.com/mlcommons/ck/blob/master/docs/mlperf/setup/setup-nvidia-jetson-orin.md) to this GUI!**')
+            return {'return':0, 'skip': True, 'end_html':end_html}
+
     st.markdown('---')
     st.markdown('**How would you like to run the MLPerf inference benchmark?**')
 
@@ -369,6 +377,7 @@ def gui(i):
     device = r.get('value2')
     inp['device']['force'] = device
 
+    
 
     if device == 'cpu':
         inp['implementation']['choices']=['mlcommons-python', 'mlcommons-cpp', 'intel', 'ctuning-cpp-tflite']
@@ -380,7 +389,6 @@ def gui(i):
             inp['backend']['default']='onnxruntime'
     elif device == 'rocm':
         inp['implementation']['force']='mlcommons-python'
-        inp['precision']['choices']=['']
         inp['precision']['force']=''
         inp['backend']['force']='onnxruntime'
         st.markdown('*WARNING: CM-MLPerf inference workflow was not tested thoroughly for AMD GPU - please feel free to test and improve!*')
@@ -440,6 +448,8 @@ def gui(i):
     r = get_url(script_url, script_path, 'faq', implementation, 'FAQ online')
     if r['return'] == 0: url_faq_implementation = r['url_online']
 
+    can_have_docker_flag = False
+
     if implementation == 'mlcommons-cpp':
 #        inp['backend']['choices'] = ['onnxruntime']
         inp['precision']['force']='float32'
@@ -458,6 +468,8 @@ def gui(i):
         st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-ctuning-cpp-tflite)]*')
     elif implementation == 'nvidia':
         inp['backend']['force'] = 'tensorrt'
+        extra['skip_script_docker_func'] = True
+        can_have_docker_flag = True
         st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia)]*')
     elif implementation == 'intel':
         inp['model']['choices'] = ['bert-99', 'gptj-99']
@@ -466,12 +478,16 @@ def gui(i):
         inp['precision']['default'] = 'int8'
         inp['category']['force'] = 'datacenter'
         inp['backend']['force'] = 'pytorch'
+        inp['sut']['default'] = 'sapphire-rapids.112c'
+        can_have_docker_flag = True
+        extra['skip_script_docker_func'] = True
 #        st.markdown('*:red[Note: Intel implementation require extra CM command to build and run Docker container - you will run CM commands to run MLPerf benchmarks there!]*')
         st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel)]*')
     elif implementation == 'qualcomm':
-        inp['model']['choices'] = ['resnet50', 'retinanet', 'bert-99', 'bert-99.9']
-        inp['model']['default'] = 'bert-99.9'
+        inp['model']['choices'] = ['resnet50', 'retinanet', 'bert-99']
+        inp['model']['default'] = 'bert-99'
         inp['precision']['default'] = 'float16'
+        extra['skip_script_docker_func'] = True
         st.markdown('*:red[[CM automation recipe for this implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm)]*')
 
 
@@ -535,7 +551,7 @@ def gui(i):
     model_cm_url='https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference/{}'.format(github_doc_model)
     extra_notes_online = '[Extra notes online]({})\n'.format(model_cm_url)
 
-    st.markdown('*[CM GitHub docs for this model]({})*'.format(model_cm_url))
+    st.markdown('*[CM-MLPerf GitHub docs for this model]({})*'.format(model_cm_url))
 
     #############################################################################
     # Precision
@@ -544,16 +560,50 @@ def gui(i):
             inp['precision']['force'] = 'int8'
         elif model == 'gptj-99':
             inp['precision']['force'] = 'int4'
+    elif implementation == 'qualcomm':
+        if model == 'resnet50':
+            inp['precision']['print'] = 'int8'
+        elif model == 'retinanet':
+            inp['precision']['print'] = 'int8'
+        elif model == 'bert-99':
+            inp['precision']['print'] = 'int8/float16'
 
+    if inp['precision'].get('force','')=='':
+        x = inp['precision'].get('print','')
+        if x!='':
+            st.markdown('**{}**: {}'.format(inp['precision']['desc'], x))
+    else:
+        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_precision', 'desc':inp['precision']})
+        precision = r.get('value2')
+        inp['precision']['force'] = precision
+
+    #############################################################################
+    # Benchmark version
+
+    script_meta_variations = script_meta['variations']
     
+    choices = [''] + [k for k in script_meta_variations if script_meta_variations[k].get('group','') == 'benchmark-version']
+    desc = {'choices': choices, 'default':choices[0], 'desc':'Force specific benchmark version?'}
+    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_version', 'desc':desc})
+    benchmark_version = r.get('value2')
 
-    r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_precision', 'desc':inp['precision']})
-    precision = r.get('value2')
-    inp['precision']['force'] = precision
+    if benchmark_version!='':
+        params['~~benchmark-version']=[benchmark_version]
 
+    #############################################################################
+    # Run via Docker container
+    if can_have_docker_flag:
 
+        default_choice = 'yes - run in container'
+        
+        choices = [default_choice, 'no - run natively'] 
+        desc = {'choices': choices, 'default':choices[0], 'desc':'Should CM script prepare and run Docker container in interactive mode to run MLPerf? You can then copy/paste CM commands generated by this GUI to benchmark different models.'}
+        r = misc.make_selector({'st':st, 'st_inputs':st_inputs_custom, 'params':params, 'key': 'mlperf_inference_docker', 'desc':desc})
+        benchmark_docker = r.get('value2')
 
-    
+        if benchmark_docker == 'yes - run in container':
+            add_to_st_inputs['@docker']=True
+            add_to_st_inputs['@docker_cache']='no'
     
     #############################################################################
     # Prepare submission
@@ -712,9 +762,9 @@ def gui(i):
         if x != '': x+='\n\n'
         x+=backend_setup
 
-    extra = {'extra_notes_online':extra_notes_online,
-             'extra_faq_online':url_faq_implementation,
-             'extra_setup':x}
+    extra['extra_notes_online'] = extra_notes_online
+    extra['extra_faq_online'] = url_faq_implementation
+    extra['extra_setup'] = x
 
     #############################################################################
     value_reproduce = inp.get('repro',{}).get('force', False)
@@ -723,22 +773,25 @@ def gui(i):
     explore = st.toggle('Explore/tune benchmark (batch size, threads, etc)?', value = False)
 
     if reproduce or explore:
-        inp['repro']['force'] = True
-        extra['use_experiment'] = True
-        extra['add_to_st_inputs'] = {
+        add_to_st_inputs.update({
           "@repro_extra.run-mlperf-inference-app.bench_uid": bench_uid,
           "@repro_extra.run-mlperf-inference-app.compute_uid": compute_uid,
           '@results_dir':'{{CM_EXPERIMENT_PATH3}}',
           '@submission_dir':'{{CM_EXPERIMENT_PATH3}}'
-        }
+        })
+        
+        inp['repro']['force'] = True
+        extra['use_experiment'] = True
 
     if explore:
-        extra['add_to_st_inputs']['@batch_size']='{{CM_EXPLORE_BATCH_SIZE{[1,2,4,8]}}}'
+        add_to_st_inputs['@batch_size']='{{CM_EXPLORE_BATCH_SIZE{[1,2,4,8]}}}'
 
     #############################################################################
     debug = st.toggle('Debug and run MLPerf benchmark natively from command line after CM auto-generates CMD?', value=False)
     if debug:
         inp['debug']['force'] = True
       
+
+    extra['add_to_st_inputs'] = add_to_st_inputs
 
     return {'return':0, 'end_html':end_html, 'extra':extra}

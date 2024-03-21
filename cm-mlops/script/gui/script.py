@@ -346,7 +346,7 @@ def page(i):
     
     ############################################################################
     run_via_docker = False
-    if len(meta.get('docker',{}))>0:
+    if not extra.get('skip_script_docker_func', False) and len(meta.get('docker',{}))>0:
         run_via_docker = st.toggle('Use Docker', key='run_via_docker', value=False)
 
         if run_via_docker:
@@ -367,14 +367,14 @@ def page(i):
 
     ############################################################################
     
-    extra_setup = extra.get('extra_setup','')
-    if extra_setup!='':    
+    extra_setup = extra.get('extra_setup','').strip()
+    if len(extra_setup)>2:
         show_extra_setup_notes = st.toggle('Show extra setup notes?', value = True)
 
         if show_extra_setup_notes:
-            st.markdown('---')
+#            st.markdown('---')
             st.markdown(extra_setup)
-            st.markdown('---')
+#            st.markdown('---')
 
     
     show_python_api = st.toggle('Run via Python API', value=False)
