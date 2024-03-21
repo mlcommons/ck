@@ -365,6 +365,11 @@ def gui(i):
             st.markdown('**WARNING: unified CM workflow support for this hardware is pending - please [feel free to help](https://discord.gg/JjWNWXKxwT)!**')
             return {'return':0, 'skip': True, 'end_html':end_html}
 
+        elif 'orin' in compute_tags:
+            st.markdown('----')
+            st.markdown('**WARNING: we need to encode CM knowledge from [this Orin setp](https://github.com/mlcommons/ck/blob/master/docs/mlperf/setup/setup-nvidia-jetson-orin.md) to this GUI!**')
+            return {'return':0, 'skip': True, 'end_html':end_html}
+
     st.markdown('---')
     st.markdown('**How would you like to run the MLPerf inference benchmark?**')
 
