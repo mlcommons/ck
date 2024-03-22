@@ -6,6 +6,7 @@
 ## V2.0.3
    - added support to handle broken CM repositories: https://github.com/mlcommons/ck/issues/1177
    - added "cm checkout repo mlcommons@ck --branch=dev" to make it easier to switch branches
+   - added "cm pull repo mlcommons@ck --checkout=dev" to make it easier to switch branches
    - added "cm import repo" to import repository in the current directory
 
 ## V2.0.2
