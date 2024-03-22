@@ -125,6 +125,8 @@ def doc(i):
     template_file = 'template_list_of_scripts.md'
     list_file = 'list_of_scripts.md'
 
+    public_taskforce = '[Public MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)'
+
     console = i.get('out') == 'con'
 
     repos = i.get('repos','')
@@ -169,17 +171,6 @@ def doc(i):
 
         # Common index for all scripts
         md_script = []
-
-        # This readme
-        md_script_readme = [
-                            '<details>',
-                            '<summary>Click here to see the table of contents.</summary>',
-                            '{{CM_README_TOC}}',
-                            '</details>',
-                            '',
-                            '*Note that this README is automatically generated - don\'t edit!*', 
-                            ''
-                            ]
 
         path = artifact.path
         meta = artifact.meta
@@ -236,10 +227,10 @@ def doc(i):
         url = ''
         url_repo = ''
         if repo_alias == 'internal':
-            url_repo = 'https://github.com/mlcommons/ck/tree/master/cm/cmind/repo'
+            url_repo = 'https://github.com/mlcommons/ck/tree/dev/cm/cmind/repo'
             url = url_repo+'/script/'
         elif '@' in repo_alias:
-            url_repo = 'https://github.com/'+repo_alias.replace('@','/')+'/tree/master'
+            url_repo = 'https://github.com/'+repo_alias.replace('@','/')+'/tree/dev'
             if repo_meta.get('prefix','')!='': url_repo+='/'+repo_meta['prefix']
             url = url_repo+ '/script/'
 
@@ -248,18 +239,40 @@ def doc(i):
 
         urls[alias]=url
 
-        x = '* [{}]({})'.format(alias, url)
-        if name !='': x+=' *('+name+')*'
-        toc.append(x)
+        # Check if there is about doc
+        path_readme = os.path.join(path, 'README.md')
+        path_readme_extra = os.path.join(path, 'README-extra.md')
+        path_readme_about = os.path.join(path, 'README-about.md')
+
+        readme_about = ''
+        if os.path.isfile(path_readme_about):
+            r = utils.load_txt(path_readme_about, split = True)
+            if r['return']>0: return 
+        
+            s = r['string']
+            readme_about = r['list']
+
+        
+        #######################################################################
+        # Start automatically generated README
+        md_script_readme = [
+#                            '<details>',
+#                            '<summary>Click here to see the table of contents.</summary>',
+#                            '{{CM_README_TOC}}',
+#                            '</details>',
+#                            '',
+                            'Automatically generated README for this automation recipe: **{}**'.format(meta['alias']), 
+                            ]
+
 
         md_script.append('## '+alias)
         md_script.append('')
 
-        x = 'About'
+#        x = 'About'
 #        md_script_readme.append('___')
-        md_script_readme.append('### '+x)
-        md_script_readme.append('')
-        toc_readme.append(x)
+#        md_script_readme.append('### '+x)
+#        md_script_readme.append('')
+#        toc_readme.append(x)
 
 #        x = 'About'
 #        md_script_readme.append('#### '+x)
@@ -271,22 +284,10 @@ def doc(i):
             md_script.append('*'+name+'*')
             md_script.append('')
 
-            md_script_readme.append('*'+name+'*')
-            md_script_readme.append('')
+#            md_script_readme.append('*'+name+'*')
+#            md_script_readme.append('')
         
-        # Check if there is about doc
-        path_readme = os.path.join(path, 'README.md')
-        path_readme_extra = os.path.join(path, 'README-extra.md')
-        path_readme_about = os.path.join(path, 'README-about.md')
-
-        if os.path.isfile(path_readme_about):
-            r = utils.load_txt(path_readme_about, split = True)
-            if r['return']>0: return 
         
-            s = r['string']
-            readme_about = r['list']
-
-            md_script_readme += readme_about
             
         if os.path.isfile(path_readme):
             r = utils.load_txt(path_readme, split = True)
@@ -309,26 +310,62 @@ def doc(i):
                 os.system('git add README-extra.md')
                 os.chdir(cur_dir)
         
-        cm_readme_extra = ''
-        cm_see_readme_extra = 'Use `README-extra.md` to add more info'
+
+
+        if category!='':
+            md_script_readme.append('')
+            md_script_readme.append('Category: **{}**'.format(category))
+                            
+        md_script_readme.append('')
+        md_script_readme.append('License: **Apache 2.0**')
 
         
+        md_script_readme.append('')
+
+        if developers == '':
+            md_script_readme.append('Maintainers: ' + public_taskforce)
+        else:
+            md_script_readme.append('Developers: ' + developers)
+
+        x = '* [{}]({})'.format(alias, url)
+        if name !='': x+=' *('+name+')*'
+        toc.append(x)
         
+
+        
+        cm_readme_extra = '[ [Online info and GUI to run this CM script](https://access.cknowledge.org/playground/?action=scripts&name={},{}) ] '.format(alias, uid)
+
         if os.path.isfile(path_readme_extra):
-            md_script_readme.append('{{CM_README_EXTRA}}')
+            readme_extra_url = url+'/README-extra.md'
 
-#        if developers!='':
-#            md_script.append('Developers: '+developers)
-#            md_script.append('')
+            x = '* Notes from the authors, contributors and users: [*GitHub*]({})'.format(readme_extra_url)
+            md_script.append(x)
+
+            cm_readme_extra += '[ [Notes from the authors, contributors and users](README-extra.md) ] '
+
+        md_script_readme.append('')
+        md_script_readme.append('---')
+        md_script_readme.append('*'+cm_readme_extra.strip()+'*')
+
+
+        if readme_about!='':
+            md_script_readme += ['', '---', ''] + readme_about
+
+
 
         x = 'Summary'
-#        md_script_readme.append('___')
-        md_script_readme.append('#### '+x)
         md_script_readme.append('')
+        md_script_readme.append('---')
+        md_script_readme += [
+#                             '<details>',
+#                             '<summary>Click to see the summary</summary>',
+                             '#### Summary',
+                             ''
+                            ]
         toc_readme.append(x)
 
         
-        if category != '':
+#        if category != '':
 #            x = 'Category'
 #            md_script_readme.append('___')
 #            md_script_readme.append('#### '+x)
@@ -336,8 +373,8 @@ def doc(i):
 #            md_script_readme.append(category+'.')
 #            toc_readme.append(x)
 
-            x = '* Category: *{}*'.format(category + '.')
-            md_script_readme.append(x)
+#            x = '* Category: *{}*'.format(category + '.')
+#            md_script_readme.append(x)
 
 
 #        x = 'Origin'
@@ -374,7 +411,7 @@ def doc(i):
 
         if len(variation_keys)>0:
             variation_pointer="[,variations]"
-            variation_pointer2="[ variations]"
+            variation_pointer2="[variations]"
         else:
             variation_pointer=''
             variation_pointer2=''
@@ -384,12 +421,16 @@ def doc(i):
         else:
             input_mapping_pointer=''
         
-        cli_all_tags = '`cm run script --tags={}{} {}`'.format(','.join(tags), variation_pointer, input_mapping_pointer)
+        cli_all_tags = '`cm run script --tags={}`'.format(','.join(tags))
+        cli_all_tags3 = '`cm run script --tags={}{} {}`'.format(','.join(tags), variation_pointer, input_mapping_pointer)
         x = '* CM CLI with all tags: {}*'.format(cli_all_tags)
         md_script.append(x)
 
-        cli_all_tags_alternative = '`cmr "{}{}" {}`'.format(' '.join(tags), variation_pointer2, input_mapping_pointer)
-        cli_all_tags_alternative_j = '`cmr "{}{}" {} -j`'.format(' '.join(tags), variation_pointer, input_mapping_pointer)
+        cli_help_tags_alternative = '`cmr "{}" --help`'.format(' '.join(tags))
+
+        cli_all_tags_alternative = '`cmr "{}"`'.format(' '.join(tags))
+        cli_all_tags_alternative3 = '`cmr "{} {}" {}`'.format(' '.join(tags), variation_pointer2, input_mapping_pointer)
+        cli_all_tags_alternative_j = '`cmr "{} {}" {} -j`'.format(' '.join(tags), variation_pointer, input_mapping_pointer)
         x = '* CM CLI alternative: {}*'.format(cli_all_tags_alternative)
         md_script.append(x)
 
@@ -421,17 +462,7 @@ def doc(i):
 
 
 
-
-        if os.path.isfile(path_readme_extra):
-            readme_extra_url = url+'/README-extra.md'
-
-            x = '* More info: [*GitHub*]({})'.format(readme_extra_url)
-            md_script.append(x)
-
-            cm_see_readme_extra = 'See extra [notes](README-extra.md) from the authors and contributors'
-            cm_readme_extra='\n'+cm_see_readme_extra+'.\n'
-
-
+ 
         md_script.append('')
 #        md_script_readme.append('')
 
@@ -446,7 +477,7 @@ def doc(i):
         x = 'Tags'
 #        md_script_readme.append('___')
 #        md_script_readme.append('### '+x)
-        md_script_readme.append('* CM "database" tags to find this script: *{}*'.format(','.join(tags)))
+        md_script_readme.append('* All CM tags to find and reuse this script (see in above meta description): *{}*'.format(','.join(tags)))
 #        md_script_readme.append('')
 #        toc_readme.append(x)
 
@@ -454,50 +485,101 @@ def doc(i):
         cache = meta.get('cache', False)
         md_script_readme.append('* Output cached? *{}*'.format(str(cache)))
 
+        md_script_readme.append('* See [pipeline of dependencies]({}) on other CM scripts'.format('#dependencies-on-other-cm-scripts'))
+
+        md_script_readme += ['',
+#                             '</details>'
+                             ]
 
         
         
         # Add usage
         x1 = 'Reuse this script in your project'
-        x1a = 'Install CM automation language'
-        x1aa = 'Pull CM repository with this automation'
-        x1b = 'Check CM script flags'
-        x2 = 'Run this script from command line'
+        x1a = 'Install MLCommons CM automation meta-framework'
+        x1aa = 'Pull CM repository with this automation recipe (CM script)'
+        x1b = 'Print CM help from the command line'
+        x2 = 'Customize and run this script from the command line with different variations and flags'
         x3 = 'Run this script from Python'
         x3a = 'Run this script via GUI'
         x4 = 'Run this script via Docker (beta)'
-        md_script_readme += ['___',
+        md_script_readme += [
+                             '',
+                             '---',
                              '### '+x1,
                              '',
                              '#### '+x1a,
                              '',
-                             '* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)',
-                             '* [CM intro](https://doi.org/10.5281/zenodo.8105339)',
+                             '* [Install CM](https://access.cknowledge.org/playground/?action=install)',
+                             '* [CM Getting Started Guide](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md)',
                              '',
                              '#### '+x1aa,
                              '',
                              '```cm pull repo {}```'.format(repo_alias),
                              '',
-#                             '##### '+x1b,
-#                             '',
-#                             '```cm run script --help```',
+                             '#### '+x1b,
+                             '',
+                             '```{}```'.format(cli_help_tags_alternative),
                              '',
                              '#### '+x2,
                              '',
-                             '1. {}'.format(cli_all_tags),
+                             '{}'.format(cli_all_tags),
                              '',
-                             '2. {}'.format(cli_all_tags_alternative),
-#                             '',
+                             '{}'.format(cli_all_tags3),
+                             '',
+                             '*or*',
+                             '',
+                             '{}'.format(cli_all_tags_alternative),
+                             '',
+                             '{}'.format(cli_all_tags_alternative3),
+                             '',
 #                             '3. {}'.format(cli_uid),
                              '']
+
+        
+        x = ' and check the [Gettings Started Guide](https://github.com/mlcommons/ck/blob/dev/docs/getting-started.md) for more details.'
         if len(variation_keys)>0:
-            md_script_readme += ['* `variations` can be seen [here](#variations)',
+            md_script_readme += ['* *See the list of `variations` [here](#variations)'+x+'*',
                                  ''
                                  ]
-        if len(input_mapping)>0:
-            md_script_readme += ['* `input_flags` can be seen [here](#script-flags-mapped-to-environment)',
-                                 ''
-                                 ]
+
+        if input_description and len(input_description)>0:
+            x = 'Input Flags'
+            md_script_readme.append('')
+            md_script_readme.append('#### '+x)
+            toc_readme.append(' '+x)
+
+            md_script_readme.append('')
+            key0 = ''
+            for key in input_description:
+                if key0=='': key0=key
+
+                value = input_description[key]
+                desc = value
+
+                if type(value) == dict:
+                    desc = value['desc']
+
+                    choices = value.get('choices', [])
+                    if len(choices) > 0:
+                        desc+=' {'+','.join(choices)+'}'
+
+                    default = value.get('default','')
+                    if default!='':
+                        desc+=' (*'+str(default)+'*)'
+
+                md_script_readme.append('* --**{}**={}'.format(key,desc))
+
+            md_script_readme.append('')
+            md_script_readme.append('**Above CLI flags can be used in the Python CM API as follows:**')
+            md_script_readme.append('')
+
+            x = '```python\nr=cm.access({... , "'+key0+'":...}\n```'
+            md_script_readme.append(x)
+
+        
+        
+        
+        
         md_script_readme += ['#### '+x3,
                              '',
                              '<details>',
@@ -714,40 +796,6 @@ def doc(i):
 
 
 
-        if input_description and len(input_description)>0:
-            x = 'Input description'
-            md_script_readme.append('')
-            md_script_readme.append('#### '+x)
-            toc_readme.append(' '+x)
-
-            md_script_readme.append('')
-            key0 = ''
-            for key in input_description:
-                if key0=='': key0=key
-
-                value = input_description[key]
-                desc = value
-
-                if type(value) == dict:
-                    desc = value['desc']
-
-                    choices = value.get('choices', [])
-                    if len(choices) > 0:
-                        desc+=' {'+','.join(choices)+'}'
-
-                    default = value.get('default','')
-                    if default!='':
-                        desc+=' (*'+str(default)+'*)'
-
-                md_script_readme.append('* --**{}** {}'.format(key,desc))
-
-            md_script_readme.append('')
-            md_script_readme.append('**Above CLI flags can be used in the Python CM API as follows:**')
-            md_script_readme.append('')
-
-            x = '```python\nr=cm.access({... , "'+key0+'":...}\n```'
-            md_script_readme.append(x)
-
         
         
         # Check input flags
@@ -825,14 +873,14 @@ def doc(i):
 
         
         # Add workflow
-        x = 'Script workflow, dependencies and native scripts'
+        x = 'Dependencies on other CM scripts'
         md_script_readme += ['___',
                              '### '+x,
                              '']
         toc_readme.append(x)
 
-        md_script_readme.append('<details>')
-        md_script_readme.append('<summary>Click here to expand this section.</summary>')
+#        md_script_readme.append('<details>')
+#        md_script_readme.append('<summary>Click here to expand this section.</summary>')
 
         md_script_readme.append('')
 
@@ -911,7 +959,7 @@ def doc(i):
         md_script_readme.append(('  1. '+x+'Run "postrocess" function from {}'+x).format(y))
 
         process_deps(self_module, meta, meta_url, md_script_readme, 'post_deps')
-        md_script_readme.append('</details>')
+ #       md_script_readme.append('</details>')
         md_script_readme.append('')
                     
         # New environment
@@ -959,12 +1007,12 @@ def doc(i):
 
 
         # Add maintainers
-        x = 'Maintainers'
-        md_script_readme.append('___')
-        md_script_readme.append('### '+x)
-        md_script_readme.append('')
-        md_script_readme.append('* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)')
-        toc_readme.append(x)
+#        x = 'Maintainers'
+#        md_script_readme.append('___')
+#        md_script_readme.append('### '+x)
+#        md_script_readme.append('')
+#        md_script_readme.append('* ' + public_taskforce)
+#        toc_readme.append(x)
 
         # Process TOC
         toc_readme_string = '\n'
@@ -985,7 +1033,7 @@ def doc(i):
         s = '\n'.join(md_script_readme)
 
         s = s.replace('{{CM_README_EXTRA}}', cm_readme_extra)
-        s = s.replace('{{CM_SEE_README_EXTRA}}', cm_see_readme_extra)
+#        s = s.replace('{{CM_SEE_README_EXTRA}}', cm_see_readme_extra)
         s = s.replace('{{CM_README_TOC}}', toc_readme_string)
         
         r = utils.save_txt(path_readme, s)

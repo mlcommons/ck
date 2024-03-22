@@ -52,6 +52,9 @@ pip install cmind -U
 
 cm pull repo mlcommons@ck
 
+cm checkout repo mlcommons@ck --branch=dev
+cm checkout repo mlcommons@ck --branch=master
+
 cm rm cache -f
 
 cm run script "get mlcommons inference src"

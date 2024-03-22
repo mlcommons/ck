@@ -2,8 +2,8 @@
 
 # MLCommons Task force on Automation and Reproducibility
 
-***Announcement: we are peparing new tasks for Q2-Q3 2024 with MLCommons and looking for volunteers and another co-chair.
-   [Get in touch](mailto:gfursin@cknowledge.org) for more details!***
+***Announcement: we are peparing new tasks for Q2-Q3 2024 with MLCommons and looking for volunteers and an extra co-chair.
+   Please get in touch via [email](mailto:gfursin@cknowledge.org) or [Discord](https://discord.gg/JjWNWXKxwT) for more details!***
 
 ## Mission
 

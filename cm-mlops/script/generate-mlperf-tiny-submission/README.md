@@ -1,58 +1,53 @@
-<details>
-<summary>Click here to see the table of contents.</summary>
+Automatically generated README for this automation recipe: **generate-mlperf-tiny-submission**
 
-* [About](#about)
-* [Summary](#summary)
-* [Reuse this script in your project](#reuse-this-script-in-your-project)
-  * [ Install CM automation language](#install-cm-automation-language)
-  * [ Check CM script flags](#check-cm-script-flags)
-  * [ Run this script from command line](#run-this-script-from-command-line)
-  * [ Run this script from Python](#run-this-script-from-python)
-  * [ Run this script via GUI](#run-this-script-via-gui)
-  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
-* [Customization](#customization)
-  * [ Default environment](#default-environment)
-* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
-* [Script output](#script-output)
-* [New environment keys (filter)](#new-environment-keys-(filter))
-* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
-* [Maintainers](#maintainers)
+Category: **MLPerf benchmark support**
 
-</details>
+License: **Apache 2.0**
 
-*Note that this README is automatically generated - don't edit!*
+Maintainers: [Public MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
 
-### About
+---
+*[ [Online info and GUI to run this CM script](https://access.cknowledge.org/playground/?action=scripts&name=generate-mlperf-tiny-submission,04289b9fc07b42b6) ] [ [Notes from the authors, contributors and users](README-extra.md) ]*
 
-
-See extra [notes](README-extra.md) from the authors and contributors.
-
+---
 #### Summary
 
-* Category: *MLPerf benchmark support.*
-* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-tiny-submission)*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/dev/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/generate-mlperf-tiny-submission)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *generate,submission,mlperf,mlperf-tiny,tiny,mlcommons,tiny-submission,mlperf-tiny-submission,mlcommons-tiny-submission*
+* All CM tags to find and reuse this script (see in above meta description): *generate,submission,mlperf,mlperf-tiny,tiny,mlcommons,tiny-submission,mlperf-tiny-submission,mlcommons-tiny-submission*
 * Output cached? *False*
-___
+* See [pipeline of dependencies](#dependencies-on-other-cm-scripts) on other CM scripts
+
+
+---
 ### Reuse this script in your project
 
-#### Install CM automation language
+#### Install MLCommons CM automation meta-framework
 
-* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-* [CM intro](https://doi.org/10.5281/zenodo.8105339)
+* [Install CM](https://access.cknowledge.org/playground/?action=install)
+* [CM Getting Started Guide](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md)
 
-#### Pull CM repository with this automation
+#### Pull CM repository with this automation recipe (CM script)
 
 ```cm pull repo mlcommons@ck```
 
+#### Print CM help from the command line
 
-#### Run this script from command line
+````cmr "generate submission mlperf mlperf-tiny tiny mlcommons tiny-submission mlperf-tiny-submission mlcommons-tiny-submission" --help````
 
-1. `cm run script --tags=generate,submission,mlperf,mlperf-tiny,tiny,mlcommons,tiny-submission,mlperf-tiny-submission,mlcommons-tiny-submission `
+#### Customize and run this script from the command line with different variations and flags
 
-2. `cmr "generate submission mlperf mlperf-tiny tiny mlcommons tiny-submission mlperf-tiny-submission mlcommons-tiny-submission" `
+`cm run script --tags=generate,submission,mlperf,mlperf-tiny,tiny,mlcommons,tiny-submission,mlperf-tiny-submission,mlcommons-tiny-submission`
+
+`cm run script --tags=generate,submission,mlperf,mlperf-tiny,tiny,mlcommons,tiny-submission,mlperf-tiny-submission,mlcommons-tiny-submission `
+
+*or*
+
+`cmr "generate submission mlperf mlperf-tiny tiny mlcommons tiny-submission mlperf-tiny-submission mlcommons-tiny-submission"`
+
+`cmr "generate submission mlperf mlperf-tiny tiny mlcommons tiny-submission mlperf-tiny-submission mlcommons-tiny-submission " `
+
 
 #### Run this script from Python
 
@@ -104,25 +99,53 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 ___
-### Script workflow, dependencies and native scripts
+### Dependencies on other CM scripts
 
-<details>
-<summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-tiny-submission/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/generate-mlperf-tiny-submission/_cm.json)***
      * get,python3
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,sut,system-description
        - CM script: [get-mlperf-inference-sut-description](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-tiny-submission/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-tiny-submission/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/generate-mlperf-tiny-submission/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/generate-mlperf-tiny-submission/_cm.json)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-tiny-submission/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-tiny-submission/customize.py)***
-  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-tiny-submission/_cm.json)***
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/generate-mlperf-tiny-submission/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/generate-mlperf-tiny-submission/customize.py)***
+  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/generate-mlperf-tiny-submission/_cm.json)***
      * 
        * `if (CM_MLPERF_RUN_STYLE  == valid)`
+       - CM script: [test-script1](https://github.com/gfursin/cm-tests/tree/master/script/test-script1)
+       - CM script: [test-script2](https://github.com/gfursin/cm-tests/tree/master/script/test-script2)
+       - CM script: [test-script3](https://github.com/gfursin/cm-tests/tree/master/script/test-script3)
+       - CM script: [test-script4](https://github.com/gfursin/cm-tests/tree/master/script/test-script4)
+       - CM script: [test-script5](https://github.com/gfursin/cm-tests/tree/master/script/test-script5)
+       - CM script: [app-generate-image-dalle-mini-jax-py](https://github.com/cknowledge/tests/tree/master/cm/script/app-generate-image-dalle-mini-jax-py)
+       - CM script: [app-generate-image-stable-diffusion2-pytorch-cuda-py](https://github.com/cknowledge/tests/tree/master/cm/script/app-generate-image-stable-diffusion2-pytorch-cuda-py)
+       - CM script: [app-image-classification-onnx-py-ck](https://github.com/cknowledge/tests/tree/master/cm/script/app-image-classification-onnx-py-ck)
+       - CM script: [app-image-corner-detection-old](https://github.com/cknowledge/tests/tree/master/cm/script/app-image-corner-detection-old)
+       - CM script: [app-ipol-demo](https://github.com/cknowledge/tests/tree/master/cm/script/app-ipol-demo)
+       - CM script: [app-stable-diffusion-pytorch-cuda-py](https://github.com/cknowledge/tests/tree/master/cm/script/app-stable-diffusion-pytorch-cuda-py)
+       - CM script: [not-needed--get-android-cmdline-tools](https://github.com/cknowledge/tests/tree/master/cm/script/not-needed--get-android-cmdline-tools)
+       - CM script: [not-needed--install-android-cmdline-tools](https://github.com/cknowledge/tests/tree/master/cm/script/not-needed--install-android-cmdline-tools)
+       - CM script: [gui-llm](https://github.com/cknowledge/cm-private/tree/master/script/gui-llm)
+       - CM script: [run-refiners-hello-world](https://github.com/cknowledge/cm-reproduce/tree/master/script/run-refiners-hello-world)
+       - CM script: [reproduce-ieee-acm-micro2023-paper-22](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-22)
+       - CM script: [reproduce-ieee-acm-micro2023-paper-28](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-28)
+       - CM script: [reproduce-ieee-acm-micro2023-paper-33](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-33)
+       - CM script: [reproduce-ieee-acm-micro2023-paper-38](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-38)
+       - CM script: [reproduce-ieee-acm-micro2023-paper-5](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-5)
+       - CM script: [reproduce-ieee-acm-micro2023-paper-8](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-8)
+       - CM script: [reproduce-ieee-acm-micro2023-paper-85](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-85)
+       - CM script: [reproduce-ieee-acm-micro2023-paper-87](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-87)
+       - CM script: [reproduce-ieee-acm-micro2023-paper-96](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-96)
+       - CM script: [reproduce-ipol-paper-2022-439a](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ipol-paper-2022-439a)
+       - CM script: [reproduce-neurips-paper-2022-arxiv-2204.09656](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-neurips-paper-2022-arxiv-2204.09656)
+       - CM script: [run-how-to-run-server](https://github.com/how-to-run/server/tree/master/script/run-how-to-run-server)
+       - CM script: [app-mlperf-inference-nvidia](https://github.com/cknowledge/cm-tests/tree/master/script/app-mlperf-inference-nvidia)
+       - CM script: [get-axs](https://github.com/cknowledge/cm-tests/tree/master/script/get-axs)
+       - CM script: [process-mlperf-inference-results](https://github.com/mlcommons/ck_mlperf_results/tree/master/script/process-mlperf-inference-results)
        - CM script: [activate-python-venv](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/activate-python-venv)
        - CM script: [add-custom-nvidia-system](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/add-custom-nvidia-system)
        - CM script: [app-image-classification-onnx-py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py)
@@ -132,15 +155,17 @@ ___
        - CM script: [app-image-corner-detection](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection)
        - CM script: [app-loadgen-generic-python](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python)
        - CM script: [app-mlperf-inference](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference)
-       - CM script: [app-mlperf-inference-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
+       - CM script: [app-mlperf-inference-ctuning-cpp-tflite](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-ctuning-cpp-tflite)
+       - CM script: [app-mlperf-inference-dummy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-dummy)
+       - CM script: [app-mlperf-inference-intel](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-intel)
+       - CM script: [app-mlperf-inference-mlcommons-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-cpp)
+       - CM script: [app-mlperf-inference-mlcommons-python](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-python)
        - CM script: [app-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia)
-       - CM script: [app-mlperf-inference-reference](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference)
-       - CM script: [app-mlperf-inference-tflite-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp)
+       - CM script: [app-mlperf-inference-qualcomm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-qualcomm)
        - CM script: [app-mlperf-training-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-training-nvidia)
        - CM script: [app-mlperf-training-reference](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-training-reference)
        - CM script: [app-stable-diffusion-onnx-py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-stable-diffusion-onnx-py)
        - CM script: [benchmark-any-mlperf-inference-implementation](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-any-mlperf-inference-implementation)
-       - CM script: [benchmark-object-detection-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-object-detection-loadgen)
        - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
        - CM script: [benchmark-program-mlperf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf)
        - CM script: [build-docker-image](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image)
@@ -187,6 +212,7 @@ ___
        - CM script: [get-compiler-flags](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags)
        - CM script: [get-compiler-rust](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-rust)
        - CM script: [get-conda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-conda)
+       - CM script: [get-croissant](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-croissant)
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
        - CM script: [get-cuda-devices](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-devices)
        - CM script: [get-cudnn](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn)
@@ -218,6 +244,7 @@ ___
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
        - CM script: [get-github-cli](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-github-cli)
        - CM script: [get-go](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-go)
+       - CM script: [get-google-saxml](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-saxml)
        - CM script: [get-google-test](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-google-test)
        - CM script: [get-ipol-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ipol-src)
        - CM script: [get-java](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-java)
@@ -246,7 +273,6 @@ ___
        - CM script: [get-ml-model-stable-diffusion](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-stable-diffusion)
        - CM script: [get-ml-model-tiny-resnet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-tiny-resnet)
        - CM script: [get-ml-model-using-imagenet-from-model-zoo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-using-imagenet-from-model-zoo)
-       - CM script: [get-mlcommons-croissant](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlcommons-croissant)
        - CM script: [get-mlperf-inference-intel-scratch-space](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-intel-scratch-space)
        - CM script: [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)
        - CM script: [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
@@ -312,6 +338,7 @@ ___
        - CM script: [install-llvm-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src)
        - CM script: [install-mlperf-logging-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-mlperf-logging-from-src)
        - CM script: [install-nccl-libs](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-nccl-libs)
+       - CM script: [install-numactl-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-numactl-from-src)
        - CM script: [install-onednn-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onednn-from-src)
        - CM script: [install-onnxruntime-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-onnxruntime-from-src)
        - CM script: [install-openssl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-openssl)
@@ -326,11 +353,14 @@ ___
        - CM script: [install-tensorflow-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src)
        - CM script: [install-terraform-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-terraform-from-src)
        - CM script: [install-tflite-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tflite-from-src)
+       - CM script: [install-torchvision-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-torchvision-from-src)
+       - CM script: [install-tpp-pytorch-extension](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tpp-pytorch-extension)
        - CM script: [install-transformers-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-transformers-from-src)
        - CM script: [launch-benchmark](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/launch-benchmark)
        - CM script: [prepare-training-data-bert](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-bert)
        - CM script: [prepare-training-data-resnet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prepare-training-data-resnet)
        - CM script: [preprocess-mlperf-inference-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/preprocess-mlperf-inference-submission)
+       - CM script: [print-croissant-desc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-croissant-desc)
        - CM script: [print-hello-world](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world)
        - CM script: [print-hello-world-java](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-java)
        - CM script: [print-hello-world-javac](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-javac)
@@ -345,10 +375,6 @@ ___
        - CM script: [push-mlperf-inference-results-to-github](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/push-mlperf-inference-results-to-github)
        - CM script: [remote-run-commands](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands)
        - CM script: [reproduce-ipol-paper-2022-439](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-ipol-paper-2022-439)
-       - CM script: [reproduce-micro-paper-2023-victima](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-micro-paper-2023-victima)
-       - CM script: [reproduce-mlperf-inference-intel](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-intel)
-       - CM script: [reproduce-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia)
-       - CM script: [reproduce-mlperf-inference-qualcomm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-qualcomm)
        - CM script: [reproduce-mlperf-octoml-tinyml-results](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results)
        - CM script: [reproduce-mlperf-training-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-training-nvidia)
        - CM script: [run-docker-container](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container)
@@ -374,48 +400,10 @@ ___
        - CM script: [truncate-mlperf-inference-accuracy-log](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log)
        - CM script: [upgrade-python-pip](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/upgrade-python-pip)
        - CM script: [wrapper-reproduce-octoml-tinyml-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-reproduce-octoml-tinyml-submission)
-       - CM script: [test-script1](https://github.com/gfursin/cm-tests/tree/master/script/test-script1)
-       - CM script: [test-script2](https://github.com/gfursin/cm-tests/tree/master/script/test-script2)
-       - CM script: [test-script3](https://github.com/gfursin/cm-tests/tree/master/script/test-script3)
-       - CM script: [test-script4](https://github.com/gfursin/cm-tests/tree/master/script/test-script4)
-       - CM script: [test-script5](https://github.com/gfursin/cm-tests/tree/master/script/test-script5)
-       - CM script: [app-generate-image-dalle-mini-jax-py](https://github.com/cknowledge/tests/tree/master/cm/script/app-generate-image-dalle-mini-jax-py)
-       - CM script: [app-generate-image-stable-diffusion2-pytorch-cuda-py](https://github.com/cknowledge/tests/tree/master/cm/script/app-generate-image-stable-diffusion2-pytorch-cuda-py)
-       - CM script: [app-image-classification-onnx-py-ck](https://github.com/cknowledge/tests/tree/master/cm/script/app-image-classification-onnx-py-ck)
-       - CM script: [app-image-corner-detection-old](https://github.com/cknowledge/tests/tree/master/cm/script/app-image-corner-detection-old)
-       - CM script: [app-ipol-demo](https://github.com/cknowledge/tests/tree/master/cm/script/app-ipol-demo)
-       - CM script: [app-stable-diffusion-pytorch-cuda-py](https://github.com/cknowledge/tests/tree/master/cm/script/app-stable-diffusion-pytorch-cuda-py)
-       - CM script: [not-needed--get-android-cmdline-tools](https://github.com/cknowledge/tests/tree/master/cm/script/not-needed--get-android-cmdline-tools)
-       - CM script: [not-needed--install-android-cmdline-tools](https://github.com/cknowledge/tests/tree/master/cm/script/not-needed--install-android-cmdline-tools)
-       - CM script: [gui-llm](https://github.com/cknowledge/cm-private/tree/master/script/gui-llm)
-       - CM script: [run-refiners-hello-world](https://github.com/cknowledge/cm-reproduce/tree/master/script/run-refiners-hello-world)
-       - CM script: [install_dep](install_dep)
-       - CM script: [produce-plots](produce-plots)
-       - CM script: [reproduce-micro-2023-paper-victima](reproduce-micro-2023-paper-victima)
-       - CM script: [run-experiments](run-experiments)
-       - CM script: [process-mlperf-inference-results](https://github.com/mlcommons/ck_mlperf_results/tree/master/script/process-mlperf-inference-results)
-       - CM script: [reproduce-ieee-acm-micro2023-paper-22](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-22)
-       - CM script: [reproduce-ieee-acm-micro2023-paper-28](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-28)
-       - CM script: [reproduce-ieee-acm-micro2023-paper-33](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-33)
-       - CM script: [reproduce-ieee-acm-micro2023-paper-38](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-38)
-       - CM script: [reproduce-ieee-acm-micro2023-paper-5](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-5)
-       - CM script: [reproduce-ieee-acm-micro2023-paper-8](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-8)
-       - CM script: [reproduce-ieee-acm-micro2023-paper-85](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-85)
-       - CM script: [reproduce-ieee-acm-micro2023-paper-87](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ieee-acm-micro2023-paper-87)
-       - CM script: [reproduce-ipol-paper-2022-439a](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-ipol-paper-2022-439a)
-       - CM script: [reproduce-neurips-paper-2022-arxiv-2204.09656](https://github.com/ctuning/cm-reproduce-research-projects/tree/master/script/reproduce-neurips-paper-2022-arxiv-2204.09656)
-       - CM script: [run-how-to-run-server](https://github.com/how-to-run/server/tree/master/script/run-how-to-run-server)
-       - CM script: [get-dataset-cognata-mlcommons](https://github.com/mlcommons/abtf-ssd-pytorch/tree/master/cm/script/get-dataset-cognata-mlcommons)
-</details>
 
 ___
 ### Script output
-`cmr "generate submission mlperf mlperf-tiny tiny mlcommons tiny-submission mlperf-tiny-submission mlcommons-tiny-submission"  -j`
+`cmr "generate submission mlperf mlperf-tiny tiny mlcommons tiny-submission mlperf-tiny-submission mlcommons-tiny-submission "  -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
-
-___
-### Maintainers
-
-* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
