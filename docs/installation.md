@@ -260,6 +260,12 @@ cm pull repo --url=https://zenodo.org/records/10787459/files/cm-mlops-repo-20240
 
 ```
 
+You can pull repository and checkout a specific branch as follows:
+```bash
+cm rm repo mlcommons@ck --checkout=dev
+cm pull repo --url=https://zenodo.org/records/10787459/files/cm-mlops-repo-20240306.zip
+```
+
 If you use CM scripts with Python outside containers, we suggest you to set up CM Python virtual
 environment as described [here](../cm-mlops/automation/script/README-extra.md#using-python-virtual-environments).
 
