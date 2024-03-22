@@ -1,31 +1,15 @@
-<details>
-<summary>Click here to see the table of contents.</summary>
+Automatically generated README for this automation recipe: **gui**
 
-* [About](#about)
-* [Summary](#summary)
-* [Reuse this script in your project](#reuse-this-script-in-your-project)
-  * [ Install CM automation language](#install-cm-automation-language)
-  * [ Check CM script flags](#check-cm-script-flags)
-  * [ Run this script from command line](#run-this-script-from-command-line)
-  * [ Run this script from Python](#run-this-script-from-python)
-  * [ Run this script via GUI](#run-this-script-via-gui)
-  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
-* [Customization](#customization)
-  * [ Variations](#variations)
-  * [ Input description](#input-description)
-  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
-  * [ Default environment](#default-environment)
-* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
-* [Script output](#script-output)
-* [New environment keys (filter)](#new-environment-keys-(filter))
-* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
-* [Maintainers](#maintainers)
+Category: **GUI**
 
-</details>
+License: **Apache 2.0**
 
-*Note that this README is automatically generated - don't edit!*
+Developers: [Grigori Fursin](https://cKnowledge.org/gfursin)
 
-### About
+---
+*[ [Online info and GUI to run this CM script](https://access.cknowledge.org/playground/?action=scripts&name=gui,605cac42514a4c69) ]*
+
+---
 
 This CM script provides a unified GUI to run CM scripts using [Streamlit library](https://streamlit.io).
 
@@ -43,37 +27,60 @@ python3 -m http.server 80
 ```
 
 
+
+---
 #### Summary
 
-* Category: *GUI.*
-* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui)*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/dev/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/gui)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *cm,gui,cm-gui,script-gui,cm-script-gui,streamlit*
+* All CM tags to find and reuse this script (see in above meta description): *cm,gui,cm-gui,script-gui,cm-script-gui,streamlit*
 * Output cached? *False*
-___
+* See [pipeline of dependencies](#dependencies-on-other-cm-scripts) on other CM scripts
+
+
+---
 ### Reuse this script in your project
 
-#### Install CM automation language
+#### Install MLCommons CM automation meta-framework
 
-* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-* [CM intro](https://doi.org/10.5281/zenodo.8105339)
+* [Install CM](https://access.cknowledge.org/playground/?action=install)
+* [CM Getting Started Guide](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md)
 
-#### Pull CM repository with this automation
+#### Pull CM repository with this automation recipe (CM script)
 
 ```cm pull repo mlcommons@ck```
 
+#### Print CM help from the command line
 
-#### Run this script from command line
+````cmr "cm gui cm-gui script-gui cm-script-gui streamlit" --help````
 
-1. `cm run script --tags=cm,gui,cm-gui,script-gui,cm-script-gui,streamlit[,variations] [--input_flags]`
+#### Customize and run this script from the command line with different variations and flags
 
-2. `cmr "cm gui cm-gui script-gui cm-script-gui streamlit[ variations]" [--input_flags]`
+`cm run script --tags=cm,gui,cm-gui,script-gui,cm-script-gui,streamlit`
 
-* `variations` can be seen [here](#variations)
+`cm run script --tags=cm,gui,cm-gui,script-gui,cm-script-gui,streamlit[,variations] [--input_flags]`
 
-* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
+*or*
 
+`cmr "cm gui cm-gui script-gui cm-script-gui streamlit"`
+
+`cmr "cm gui cm-gui script-gui cm-script-gui streamlit [variations]" [--input_flags]`
+
+
+* *See the list of `variations` [here](#variations) and check the [Gettings Started Guide](https://github.com/mlcommons/ck/blob/dev/docs/getting-started.md) for more details.*
+
+
+#### Input Flags
+
+* --**script**=script tags
+* --**app**=gui app
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "script":...}
+```
 #### Run this script from Python
 
 <details>
@@ -108,7 +115,7 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=cm,gui,cm-gui,script-g
 
 #### Run this script via Docker (beta)
 
-`cm docker script "cm gui cm-gui script-gui cm-script-gui streamlit[ variations]" [--input_flags]`
+`cm docker script "cm gui cm-gui script-gui cm-script-gui streamlit[variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -160,17 +167,6 @@ ___
     </details>
 
 
-#### Input description
-
-* --**script** script tags
-* --**app** gui app
-
-**Above CLI flags can be used in the Python CM API as follows:**
-
-```python
-r=cm.access({... , "script":...}
-```
-
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
@@ -215,12 +211,10 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 ___
-### Script workflow, dependencies and native scripts
+### Dependencies on other CM scripts
 
-<details>
-<summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui/_cm.yaml)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/gui/_cm.yaml)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
@@ -234,24 +228,18 @@ ___
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_streamlit
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui/_cm.yaml)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/gui/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/gui/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui/_cm.yaml)
+     * [run.bat](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/gui/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/gui/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/gui/_cm.yaml)
   1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui/_cm.yaml)
-</details>
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/gui/_cm.yaml)
 
 ___
 ### Script output
-`cmr "cm gui cm-gui script-gui cm-script-gui streamlit[,variations]" [--input_flags] -j`
+`cmr "cm gui cm-gui script-gui cm-script-gui streamlit [,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
-
-___
-### Maintainers
-
-* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

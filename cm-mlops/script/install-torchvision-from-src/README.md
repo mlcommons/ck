@@ -1,60 +1,55 @@
-<details>
-<summary>Click here to see the table of contents.</summary>
+Automatically generated README for this automation recipe: **install-torchvision-from-src**
 
-* [About](#about)
-* [Summary](#summary)
-* [Reuse this script in your project](#reuse-this-script-in-your-project)
-  * [ Install CM automation language](#install-cm-automation-language)
-  * [ Check CM script flags](#check-cm-script-flags)
-  * [ Run this script from command line](#run-this-script-from-command-line)
-  * [ Run this script from Python](#run-this-script-from-python)
-  * [ Run this script via GUI](#run-this-script-via-gui)
-  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
-* [Customization](#customization)
-  * [ Variations](#variations)
-  * [ Default environment](#default-environment)
-* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
-* [Script output](#script-output)
-* [New environment keys (filter)](#new-environment-keys-(filter))
-* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
-* [Maintainers](#maintainers)
+Category: **Compiler automation**
 
-</details>
+License: **Apache 2.0**
 
-*Note that this README is automatically generated - don't edit!*
+Maintainers: [Public MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
 
-### About
+---
+*[ [Online info and GUI to run this CM script](https://access.cknowledge.org/playground/?action=scripts&name=install-torchvision-from-src,68b855780d474546) ]*
 
-*Build pytorchvision from sources.*
-
+---
 #### Summary
 
-* Category: *Compiler automation.*
-* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-torchvision-from-src)*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/dev/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/install-torchvision-from-src)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *install,get,src,from.src,pytorchvision,torchvision,src-pytorchvision*
+* All CM tags to find and reuse this script (see in above meta description): *install,get,src,from.src,pytorchvision,torchvision,src-pytorchvision*
 * Output cached? *True*
-___
+* See [pipeline of dependencies](#dependencies-on-other-cm-scripts) on other CM scripts
+
+
+---
 ### Reuse this script in your project
 
-#### Install CM automation language
+#### Install MLCommons CM automation meta-framework
 
-* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-* [CM intro](https://doi.org/10.5281/zenodo.8105339)
+* [Install CM](https://access.cknowledge.org/playground/?action=install)
+* [CM Getting Started Guide](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md)
 
-#### Pull CM repository with this automation
+#### Pull CM repository with this automation recipe (CM script)
 
 ```cm pull repo mlcommons@ck```
 
+#### Print CM help from the command line
 
-#### Run this script from command line
+````cmr "install get src from.src pytorchvision torchvision src-pytorchvision" --help````
 
-1. `cm run script --tags=install,get,src,from.src,pytorchvision,torchvision,src-pytorchvision[,variations] `
+#### Customize and run this script from the command line with different variations and flags
 
-2. `cmr "install get src from.src pytorchvision torchvision src-pytorchvision[ variations]" `
+`cm run script --tags=install,get,src,from.src,pytorchvision,torchvision,src-pytorchvision`
 
-* `variations` can be seen [here](#variations)
+`cm run script --tags=install,get,src,from.src,pytorchvision,torchvision,src-pytorchvision[,variations] `
+
+*or*
+
+`cmr "install get src from.src pytorchvision torchvision src-pytorchvision"`
+
+`cmr "install get src from.src pytorchvision torchvision src-pytorchvision [variations]" `
+
+
+* *See the list of `variations` [here](#variations) and check the [Gettings Started Guide](https://github.com/mlcommons/ck/blob/dev/docs/getting-started.md) for more details.*
 
 #### Run this script from Python
 
@@ -90,7 +85,7 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=install,get,src,from.s
 
 #### Run this script via Docker (beta)
 
-`cm docker script "install get src from.src pytorchvision torchvision src-pytorchvision[ variations]" `
+`cm docker script "install get src from.src pytorchvision torchvision src-pytorchvision[variations]" `
 
 ___
 ### Customization
@@ -168,12 +163,10 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 ___
-### Script workflow, dependencies and native scripts
+### Dependencies on other CM scripts
 
-<details>
-<summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-torchvision-from-src/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/install-torchvision-from-src/_cm.json)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
@@ -185,24 +178,18 @@ ___
      * get,git,repo
        * CM names: `--adr.['pytorchision-src-repo', 'torchision-src-repo']...`
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-torchvision-from-src/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-torchvision-from-src/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/install-torchvision-from-src/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/install-torchvision-from-src/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-torchvision-from-src/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-torchvision-from-src/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-torchvision-from-src/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-torchvision-from-src/_cm.json)
-</details>
+     * [run.sh](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/install-torchvision-from-src/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/install-torchvision-from-src/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/install-torchvision-from-src/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/install-torchvision-from-src/_cm.json)
 
 ___
 ### Script output
-`cmr "install get src from.src pytorchvision torchvision src-pytorchvision[,variations]"  -j`
+`cmr "install get src from.src pytorchvision torchvision src-pytorchvision [,variations]"  -j`
 #### New environment keys (filter)
 
 * `CM_PYTORCHVISION_*`
 #### New environment keys auto-detected from customize
-
-___
-### Maintainers
-
-* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

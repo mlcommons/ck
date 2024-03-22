@@ -1,30 +1,15 @@
-<details>
-<summary>Click here to see the table of contents.</summary>
+Automatically generated README for this automation recipe: **app-mlperf-inference-mlcommons-python**
 
-* [About](#about)
-* [Summary](#summary)
-* [Reuse this script in your project](#reuse-this-script-in-your-project)
-  * [ Install CM automation language](#install-cm-automation-language)
-  * [ Check CM script flags](#check-cm-script-flags)
-  * [ Run this script from command line](#run-this-script-from-command-line)
-  * [ Run this script from Python](#run-this-script-from-python)
-  * [ Run this script via GUI](#run-this-script-via-gui)
-  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
-* [Customization](#customization)
-  * [ Variations](#variations)
-  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
-  * [ Default environment](#default-environment)
-* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
-* [Script output](#script-output)
-* [New environment keys (filter)](#new-environment-keys-(filter))
-* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
-* [Maintainers](#maintainers)
+Category: **Modular MLPerf inference benchmark pipeline**
 
-</details>
+License: **Apache 2.0**
 
-*Note that this README is automatically generated - don't edit!*
+Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Grigori Fursin](https://cKnowledge.org/gfursin)
 
-### About
+---
+*[ [Online info and GUI to run this CM script](https://access.cknowledge.org/playground/?action=scripts&name=app-mlperf-inference-mlcommons-python,ff149e9781fc4b65) ] [ [Notes from the authors, contributors and users](README-extra.md) ]*
+
+---
 
 This portable CM script is being developed by the [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
 to modularize the *python reference implementations* of the [MLPerf inference benchmark](https://github.com/mlcommons/inference) 
@@ -35,38 +20,47 @@ across diverse platforms with continuously changing software and hardware.
 See the current coverage of different models, devices and backends [here](README-extra.md#current-coverage).
 
 
-See extra [notes](README-extra.md) from the authors and contributors.
-
+---
 #### Summary
 
-* Category: *Modular MLPerf inference benchmark pipeline.*
-* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-python)*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/dev/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-mlperf-inference-mlcommons-python)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *app,vision,language,mlcommons,mlperf,inference,reference,ref*
+* All CM tags to find and reuse this script (see in above meta description): *app,vision,language,mlcommons,mlperf,inference,reference,ref*
 * Output cached? *False*
-___
+* See [pipeline of dependencies](#dependencies-on-other-cm-scripts) on other CM scripts
+
+
+---
 ### Reuse this script in your project
 
-#### Install CM automation language
+#### Install MLCommons CM automation meta-framework
 
-* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-* [CM intro](https://doi.org/10.5281/zenodo.8105339)
+* [Install CM](https://access.cknowledge.org/playground/?action=install)
+* [CM Getting Started Guide](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md)
 
-#### Pull CM repository with this automation
+#### Pull CM repository with this automation recipe (CM script)
 
 ```cm pull repo mlcommons@ck```
 
+#### Print CM help from the command line
 
-#### Run this script from command line
+````cmr "app vision language mlcommons mlperf inference reference ref" --help````
 
-1. `cm run script --tags=app,vision,language,mlcommons,mlperf,inference,reference,ref[,variations] [--input_flags]`
+#### Customize and run this script from the command line with different variations and flags
 
-2. `cmr "app vision language mlcommons mlperf inference reference ref[ variations]" [--input_flags]`
+`cm run script --tags=app,vision,language,mlcommons,mlperf,inference,reference,ref`
 
-* `variations` can be seen [here](#variations)
+`cm run script --tags=app,vision,language,mlcommons,mlperf,inference,reference,ref[,variations] [--input_flags]`
 
-* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
+*or*
+
+`cmr "app vision language mlcommons mlperf inference reference ref"`
+
+`cmr "app vision language mlcommons mlperf inference reference ref [variations]" [--input_flags]`
+
+
+* *See the list of `variations` [here](#variations) and check the [Gettings Started Guide](https://github.com/mlcommons/ck/blob/dev/docs/getting-started.md) for more details.*
 
 #### Run this script from Python
 
@@ -102,7 +96,7 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=app,vision,language,ml
 
 #### Run this script via Docker (beta)
 
-`cm docker script "app vision language mlcommons mlperf inference reference ref[ variations]" [--input_flags]`
+`cm docker script "app vision language mlcommons mlperf inference reference ref[variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -553,6 +547,24 @@ ___
     </details>
 
 
+  * Group "**network**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_network-lon`
+      - Environment variables:
+        - *CM_NETWORK_LOADGEN*: `lon`
+        - *CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1*: `network_loadgen`
+      - Workflow:
+    * `_network-sut`
+      - Environment variables:
+        - *CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1*: `network_sut`
+        - *CM_NETWORK_LOADGEN*: `sut`
+      - Workflow:
+
+    </details>
+
+
   * Group "**precision**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -648,12 +660,10 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 ___
-### Script workflow, dependencies and native scripts
+### Dependencies on other CM scripts
 
-<details>
-<summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-python/_cm.yaml)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-mlperf-inference-mlcommons-python/_cm.yaml)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
@@ -831,28 +841,27 @@ ___
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,generic-python-lib,_package.psutil
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-python/customize.py)***
-  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-python/_cm.yaml)***
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-mlperf-inference-mlcommons-python/customize.py)***
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-mlperf-inference-mlcommons-python/_cm.yaml)***
      * remote,run,cmds
        * `if (CM_ASSH_RUN_COMMANDS  == on)`
        * CM names: `--adr.['remote-run-cmds']...`
        - CM script: [remote-run-commands](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands)
   1. ***Run native script if exists***
-  1. ***Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-python/_cm.yaml)***
+  1. ***Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-mlperf-inference-mlcommons-python/_cm.yaml)***
      * benchmark-mlperf
        * `if (CM_MLPERF_SKIP_RUN  != on)`
        * CM names: `--adr.['mlperf-runner']...`
        - CM script: [benchmark-program-mlperf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program-mlperf)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-python/customize.py)***
-  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-python/_cm.yaml)***
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-mlperf-inference-mlcommons-python/customize.py)***
+  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-mlperf-inference-mlcommons-python/_cm.yaml)***
      * save,mlperf,inference,state
        * CM names: `--adr.['save-mlperf-inference-state']...`
        - CM script: [save-mlperf-inference-implementation-state](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/save-mlperf-inference-implementation-state)
-</details>
 
 ___
 ### Script output
-`cmr "app vision language mlcommons mlperf inference reference ref[,variations]" [--input_flags] -j`
+`cmr "app vision language mlcommons mlperf inference reference ref [,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 * `CM_DATASET_*`
@@ -872,7 +881,3 @@ ___
 * `CM_MLPERF_OUTPUT_DIR`
 * `CM_MLPERF_RUN_CMD`
 * `CM_ML_MODEL_FILE_WITH_PATH`
-___
-### Maintainers
-
-* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
