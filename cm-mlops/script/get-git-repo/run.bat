@@ -22,8 +22,12 @@ if not exist "%CM_TMP_GIT_PATH%" (
     deltree %folder%
   )
   echo ******************************************************
+  echo Current directory: %CUR_DIR%
+  echo.
   echo Cloning %CM_GIT_REPO_NAME% from %CM_GIT_URL%
+  echo.
   echo "%CM_GIT_CLONE_CMD%"
+  echo.
   %CM_GIT_CLONE_CMD%
   IF !ERRORLEVEL! NEQ 0 EXIT !ERRORLEVEL!
   cd %folder%
@@ -51,6 +55,7 @@ if not "%CM_GIT_SUBMODULES%" == "" (
 
 if "%CM_GIT_PATCH%" == "yes" (
    for %%x in (%CM_GIT_PATCH_FILEPATHS%) do (
+       echo.
        echo Applying patch %%x ...
        git apply %%x
        IF !ERRORLEVEL! NEQ 0 EXIT !ERRORLEVEL!
