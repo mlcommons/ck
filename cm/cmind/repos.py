@@ -302,7 +302,7 @@ class Repos:
 
                 print ('')
                 print ('Deleting {} ...'.format(path_to_repo))
-                shutil.rmtree(path_to_repo, onerror=rm_read_only)
+                shutil.rmtree(path_to_repo, onerror=utils.rm_read_only)
                 print ('')
 
         cur_dir = os.getcwd()
@@ -654,27 +654,9 @@ class Repos:
                 if console:
                     print ('  Deleting repository content ...')
 
-                shutil.rmtree(path_to_repo, onerror=rm_read_only)
+                shutil.rmtree(path_to_repo, onerror=utils.rm_read_only)
             else:
                 if console:
                     print ('  CM repository was unregistered from CM but its content was not deleted ...')
 
         return {'return':0}
-
-##############################################################################
-def rm_read_only(f, p, e):
-    """
-    Internal aux function to remove files and dirs even if read only
-    particularly on Windows
-    """
-
-    import os
-    import stat
-    import errno
-
-    ex = e[1]
-
-    os.chmod(p, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
-    f(p)
-
-    return
