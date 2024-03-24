@@ -1613,3 +1613,21 @@ def tags_matched(tags, and_tags, no_tags):
                 break
 
     return matched
+
+##############################################################################
+def rm_read_only(f, p, e):
+    """
+    Internal aux function to remove files and dirs even if read only
+    particularly on Windows
+    """
+
+    import os
+    import stat
+    import errno
+
+    ex = e[1]
+
+    os.chmod(p, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
+    f(p)
+
+    return
