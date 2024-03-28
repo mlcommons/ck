@@ -105,8 +105,8 @@ def visualize(st, query_params, action = ''):
         v_experiment_tags = v_experiment_tags.replace(',',' ')
 
         # Check default
-        if v_experiment_tags == '' and v_experiment_name == '':
-            v_experiment_tags = 'mlperf-inference v4.0'
+#        if v_experiment_tags == '' and v_experiment_name == '':
+#            v_experiment_tags = 'mlperf-inference v4.0'
         
         v_experiment_tags = st.text_input('Select CM experiment tags separated by space:', value=v_experiment_tags, key='v_experiment_tags').strip()
         v_experiment_tags = v_experiment_tags.replace(',',' ')
