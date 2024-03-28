@@ -25,10 +25,21 @@ def preprocess(i):
     if not os.path.isdir(old_dir):
         return {'return':1, 'error':'OLD directory doesn\'t exist {}'.format(old_dir)}
 
-    cmd = 'diff -Naur {} {} > patch.patch'.format(old_dir, new_dir)
+    exclude = env.get('CM_CREATE_PATCH_EXCLUDE', '').strip()
+    x_exclude = ''
 
-    print ('Running command:')
-    print (cmd)
+    if exclude!='':
+        for e in exclude.split(','):
+            x_exclude+=' --exclude={}'.format(e)
+
+    cmd = 'diff -Naur {} {} {} > patch.patch'.format(x_exclude, old_dir, new_dir)
+
+    if not quiet:
+        print ('')
+        print ('Running command:')
+        print ('')
+        print (cmd)
+        print ('')
 
     os.system(cmd)
 

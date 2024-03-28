@@ -6,6 +6,8 @@ automation_uid: 5b4e0237da074764
 
 category: Modular MLPerf inference benchmark pipeline
 
+developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.org/gfursin)"
+
 gui:
   title: CM GUI to run MLPerf inference benchmarks and prepare submissions
 

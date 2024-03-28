@@ -8,9 +8,13 @@ automation_uid: 5b4e0237da074764
 
 cache: false
 
+deps:
+- tags: detect,os
+
 input_mapping:
   new: CM_CREATE_PATCH_NEW
   old: CM_CREATE_PATCH_OLD
+  exclude: CM_CREATE_PATCH_EXCLUDE
 
 tags:
 - create

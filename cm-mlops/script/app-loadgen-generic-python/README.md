@@ -1,66 +1,75 @@
-<details>
-<summary>Click here to see the table of contents.</summary>
+Automatically generated README for this automation recipe: **app-loadgen-generic-python**
 
-* [About](#about)
-* [Summary](#summary)
-* [Reuse this script in your project](#reuse-this-script-in-your-project)
-  * [ Install CM automation language](#install-cm-automation-language)
-  * [ Check CM script flags](#check-cm-script-flags)
-  * [ Run this script from command line](#run-this-script-from-command-line)
-  * [ Run this script from Python](#run-this-script-from-python)
-  * [ Run this script via GUI](#run-this-script-via-gui)
-  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
-* [Customization](#customization)
-  * [ Variations](#variations)
-  * [ Input description](#input-description)
-  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
-  * [ Default environment](#default-environment)
-* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
-* [Script output](#script-output)
-* [New environment keys (filter)](#new-environment-keys-(filter))
-* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
-* [Maintainers](#maintainers)
+Category: **Modular MLPerf inference benchmark pipeline**
 
-</details>
+License: **Apache 2.0**
 
-*Note that this README is automatically generated - don't edit!*
+Developers: [Gaz Iqbal](https://www.linkedin.com/in/gaziqbal), [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.org/gfursin)
 
-### About
+---
+*[ [Online info and GUI to run this CM script](https://access.cknowledge.org/playground/?action=scripts&name=app-loadgen-generic-python,d3d949cc361747a6) ] [ [Notes from the authors, contributors and users](README-extra.md) ]*
 
-
-See extra [notes](README-extra.md) from the authors and contributors.
-
+---
 #### Summary
 
-* Category: *Modular MLPerf inference benchmark pipeline.*
-* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python)*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/dev/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-loadgen-generic-python)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *python,app,generic,loadgen*
+* All CM tags to find and reuse this script (see in above meta description): *python,app,generic,loadgen*
 * Output cached? *False*
-___
+* See [pipeline of dependencies](#dependencies-on-other-cm-scripts) on other CM scripts
+
+
+---
 ### Reuse this script in your project
 
-#### Install CM automation language
+#### Install MLCommons CM automation meta-framework
 
-* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-* [CM intro](https://doi.org/10.5281/zenodo.8105339)
+* [Install CM](https://access.cknowledge.org/playground/?action=install)
+* [CM Getting Started Guide](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md)
 
-#### Pull CM repository with this automation
+#### Pull CM repository with this automation recipe (CM script)
 
 ```cm pull repo mlcommons@ck```
 
+#### Print CM help from the command line
 
-#### Run this script from command line
+````cmr "python app generic loadgen" --help````
 
-1. `cm run script --tags=python,app,generic,loadgen[,variations] [--input_flags]`
+#### Customize and run this script from the command line with different variations and flags
 
-2. `cmr "python app generic loadgen[ variations]" [--input_flags]`
+`cm run script --tags=python,app,generic,loadgen`
 
-* `variations` can be seen [here](#variations)
+`cm run script --tags=python,app,generic,loadgen[,variations] [--input_flags]`
 
-* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
+*or*
 
+`cmr "python app generic loadgen"`
+
+`cmr "python app generic loadgen [variations]" [--input_flags]`
+
+
+* *See the list of `variations` [here](#variations) and check the [Gettings Started Guide](https://github.com/mlcommons/ck/blob/dev/docs/getting-started.md) for more details.*
+
+
+#### Input Flags
+
+* --**modelpath**=Full path to a model
+* --**ep**=ONNX Execution provider
+* --**scenario**=MLPerf LoadGen scenario
+* --**samples**=Number of samples (*2*)
+* --**runner**=MLPerf runner
+* --**execmode**=MLPerf exec mode
+* --**output_dir**=MLPerf output directory
+* --**concurrency**=MLPerf concurrency
+* --**intraop**=MLPerf intra op threads
+* --**interop**=MLPerf inter op threads
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "modelpath":...}
+```
 #### Run this script from Python
 
 <details>
@@ -95,7 +104,7 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=python,app,generic,loa
 
 #### Run this script via Docker (beta)
 
-`cm docker script "python app generic loadgen[ variations]" [--input_flags]`
+`cm docker script "python app generic loadgen[variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -183,25 +192,6 @@ ___
 
 `_cpu,_onnxruntime`
 
-#### Input description
-
-* --**modelpath** Full path to a model
-* --**ep** ONNX Execution provider
-* --**scenario** MLPerf LoadGen scenario
-* --**samples** Number of samples (*2*)
-* --**runner** MLPerf runner
-* --**execmode** MLPerf exec mode
-* --**output_dir** MLPerf output directory
-* --**concurrency** MLPerf concurrency
-* --**intraop** MLPerf intra op threads
-* --**interop** MLPerf inter op threads
-
-**Above CLI flags can be used in the Python CM API as follows:**
-
-```python
-r=cm.access({... , "modelpath":...}
-```
-
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
@@ -238,12 +228,10 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 ___
-### Script workflow, dependencies and native scripts
+### Dependencies on other CM scripts
 
-<details>
-<summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
@@ -280,25 +268,19 @@ ___
      * get,ml-model,retinanet,_onnx,_fp32
        * `if (CM_MODEL  == retinanet)`
        - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-loadgen-generic-python/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
-</details>
+     * [run.bat](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-loadgen-generic-python/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-loadgen-generic-python/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-loadgen-generic-python/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
 
 ___
 ### Script output
-`cmr "python app generic loadgen[,variations]" [--input_flags] -j`
+`cmr "python app generic loadgen [,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 * `CM_MLPERF_*`
 #### New environment keys auto-detected from customize
-
-___
-### Maintainers
-
-* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

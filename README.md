@@ -154,6 +154,11 @@ pip install cmind -U
 
 cm pull repo mlcommons@ck
 
+cm checkout repo mlcommons@ck --branch=dev
+cm checkout repo mlcommons@ck --branch=master
+
+cm rm cache -f
+
 cm run script "python app image-classification onnx"
 cmr "python app image-classification onnx"
 

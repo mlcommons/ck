@@ -1,67 +1,106 @@
-<details>
-<summary>Click here to see the table of contents.</summary>
+Automatically generated README for this automation recipe: **run-mlperf-inference-app**
 
-* [About](#about)
-* [Summary](#summary)
-* [Reuse this script in your project](#reuse-this-script-in-your-project)
-  * [ Install CM automation language](#install-cm-automation-language)
-  * [ Check CM script flags](#check-cm-script-flags)
-  * [ Run this script from command line](#run-this-script-from-command-line)
-  * [ Run this script from Python](#run-this-script-from-python)
-  * [ Run this script via GUI](#run-this-script-via-gui)
-  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
-* [Customization](#customization)
-  * [ Variations](#variations)
-  * [ Input description](#input-description)
-  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
-  * [ Default environment](#default-environment)
-* [Versions](#versions)
-* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
-* [Script output](#script-output)
-* [New environment keys (filter)](#new-environment-keys-(filter))
-* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
-* [Maintainers](#maintainers)
+Category: **Modular MLPerf inference benchmark pipeline**
 
-</details>
+License: **Apache 2.0**
 
-*Note that this README is automatically generated - don't edit!*
+Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.org/gfursin)
 
-### About
+---
+*[ [Online info and GUI to run this CM script](https://access.cknowledge.org/playground/?action=scripts&name=run-mlperf-inference-app,4a5d5b13fd7e4ac8) ] [ [Notes from the authors, contributors and users](README-extra.md) ]*
 
-
-See extra [notes](README-extra.md) from the authors and contributors.
-
+---
 #### Summary
 
-* Category: *Modular MLPerf inference benchmark pipeline.*
-* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app)*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/dev/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/run-mlperf-inference-app)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *run-mlperf-inference*
+* All CM tags to find and reuse this script (see in above meta description): *run-mlperf,inference*
 * Output cached? *False*
-___
+* See [pipeline of dependencies](#dependencies-on-other-cm-scripts) on other CM scripts
+
+
+---
 ### Reuse this script in your project
 
-#### Install CM automation language
+#### Install MLCommons CM automation meta-framework
 
-* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-* [CM intro](https://doi.org/10.5281/zenodo.8105339)
+* [Install CM](https://access.cknowledge.org/playground/?action=install)
+* [CM Getting Started Guide](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md)
 
-#### Pull CM repository with this automation
+#### Pull CM repository with this automation recipe (CM script)
 
 ```cm pull repo mlcommons@ck```
 
+#### Print CM help from the command line
 
-#### Run this script from command line
+````cmr "run-mlperf,inference" --help````
 
-1. `cm run script --tags=run-mlperf-inference[,variations] [--input_flags]`
+#### Customize and run this script from the command line with different variations and flags
 
-2. `cmr "run-mlperf-inference[ variations]" [--input_flags]`
+`cm run script --tags=run-mlperf,inference`
 
-* `variations` can be seen [here](#variations)
+`cm run script --tags=run-mlperf,inference[,variations] [--input_flags]`
 
-* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
+*or*
 
+`cmr "run-mlperf,inference"`
+
+`cmr "run-mlperf,inference [variations]" [--input_flags]`
+
+
+* *See the list of `variations` [here](#variations) and check the [Gettings Started Guide](https://github.com/mlcommons/ck/blob/dev/docs/getting-started.md) for more details.*
+
+
+#### Input Flags
+
+* --**division**=MLPerf division {open,closed} (*open*)
+* --**category**=MLPerf category {edge,datacenter,network} (*edge*)
+* --**device**=MLPerf device {cpu,cuda,rocm,qaic} (*cpu*)
+* --**model**=MLPerf model {resnet50,retinanet,bert-99,bert-99.9,3d-unet-99,3d-unet-99.9,rnnt,dlrm-v2-99,dlrm-v2-99.9,gptj-99,gptj-99.9,sdxl,llama2-70b-99,llama2-70b-99.9,mobilenet,efficientnet} (*resnet50*)
+* --**precision**=MLPerf model precision {float32,float16,bfloat16,int8,uint8}
+* --**implementation**=MLPerf implementation {mlcommons-python,mlcommons-cpp,nvidia,intel,qualcomm,ctuning-cpp-tflite} (*mlcommons-python*)
+* --**backend**=MLPerf framework (backend) {onnxruntime,tf,pytorch,deepsparse,tensorrt,glow,tvm-onnx} (*onnxruntime*)
+* --**scenario**=MLPerf scenario {Offline,Server,SingleStream,MultiStream} (*Offline*)
+* --**mode**=MLPerf benchmark mode {,accuracy,performance}
+* --**execution_mode**=MLPerf execution mode {test,fast,valid} (*test*)
+* --**sut**=SUT configuration (if known)
+* --**submitter**=Submitter name (without space) (*CTuning*)
+* --**results_dir**=Folder path to store results (defaults to the current working directory)
+* --**submission_dir**=Folder path to store MLPerf submission tree
+* --**adr.compiler.tags**=Compiler for loadgen and any C/C++ part of implementation
+* --**adr.inference-src-loadgen.env.CM_GIT_URL**=Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)
+* --**adr.inference-src.env.CM_GIT_URL**=Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)
+* --**adr.mlperf-inference-implementation.max_batchsize**=Maximum batchsize to be used
+* --**adr.mlperf-inference-implementation.num_threads**=Number of threads (reference & C++ implementation only)
+* --**adr.python.name**=Python virtual environment name (optional)
+* --**adr.python.version**=Force Python version (must have all system deps)
+* --**adr.python.version_min**=Minimal Python version (*3.8*)
+* --**power**=Measure power {yes,no} (*no*)
+* --**adr.mlperf-power-client.power_server**=MLPerf Power server IP address (*192.168.0.15*)
+* --**adr.mlperf-power-client.port**=MLPerf Power server port (*4950*)
+* --**clean**=Clean run (*False*)
+* --**compliance**=Whether to run compliance tests (applicable only for closed division) {yes,no} (*no*)
+* --**dashboard_wb_project**=W&B dashboard project (*cm-mlperf-dse-testing*)
+* --**dashboard_wb_user**=W&B dashboard user (*cmind*)
+* --**hw_name**=MLPerf hardware name (for example "gcp.c3_standard_8", "nvidia_orin", "lenovo_p14s_gen_4_windows_11", "macbook_pro_m1_2", "thundercomm_rb6" ...)
+* --**multistream_target_latency**=Set MultiStream target latency
+* --**offline_target_qps**=Set LoadGen Offline target QPS
+* --**quiet**=Quiet run (select default values for all questions) (*True*)
+* --**server_target_qps**=Set Server target QPS
+* --**singlestream_target_latency**=Set SingleStream target latency
+* --**target_latency**=Set Target latency
+* --**target_qps**=Set LoadGen target QPS
+* --**j**=Print results dictionary to console at the end of the run (*False*)
+* --**repro**=Record input/output/state/info files to make it easier to reproduce results (*False*)
+* --**time**=Print script execution time at the end of the run (*True*)
+* --**debug**=Debug this script (*False*)
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "division":...}
+```
 #### Run this script from Python
 
 <details>
@@ -73,7 +112,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'run-mlperf-inference'
+                  'tags':'run-mlperf,inference'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -90,13 +129,13 @@ if r['return']>0:
 
 #### Run this script via GUI
 
-```cmr "cm gui" --script="run-mlperf-inference"```
+```cmr "cm gui" --script="run-mlperf,inference"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run-mlperf-inference) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run-mlperf,inference) to generate CM CMD.
 
 #### Run this script via Docker (beta)
 
-`cm docker script "run-mlperf-inference[ variations]" [--input_flags]`
+`cm docker script "run-mlperf,inference[variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -143,7 +182,7 @@ ___
         - *CM_MLPERF_INFERENCE_VERSION*: `3.1`
         - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r3.1_default`
       - Workflow:
-    * **`_r4.0`** (default)
+    * `_r4.0`
       - Environment variables:
         - *CM_MLPERF_INFERENCE_VERSION*: `4.0`
         - *CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS*: `r4.0_default`
@@ -230,56 +269,7 @@ ___
 
 #### Default variations
 
-`_find-performance,_r4.0,_short`
-
-#### Input description
-
-* --**division** MLPerf division {open,closed} (*open*)
-* --**category** MLPerf category {edge,datacenter,network} (*edge*)
-* --**device** MLPerf device {cpu,cuda,rocm,qaic} (*cpu*)
-* --**model** MLPerf model {resnet50,retinanet,bert-99,bert-99.9,3d-unet-99,3d-unet-99.9,rnnt,dlrm-v2-99,dlrm-v2-99.9,gptj-99,gptj-99.9,sdxl,llama2-70b-99,llama2-70b-99.9,mobilenet,efficientnet} (*resnet50*)
-* --**precision** MLPerf model precision {float32,float16,bfloat16,int8,uint8}
-* --**implementation** MLPerf implementation {mlcommons-python,mlcommons-cpp,nvidia,intel,qualcomm,ctuning-cpp-tflite} (*mlcommons-python*)
-* --**backend** MLPerf framework (backend) {onnxruntime,tf,pytorch,deepsparse,tensorrt,glow,tvm-onnx} (*onnxruntime*)
-* --**scenario** MLPerf scenario {Offline,Server,SingleStream,MultiStream} (*Offline*)
-* --**mode** MLPerf benchmark mode {,accuracy,performance}
-* --**execution_mode** MLPerf execution mode {test,fast,valid} (*test*)
-* --**submitter** Submitter name (without space) (*CTuning*)
-* --**results_dir** Folder path to store results (defaults to the current working directory)
-* --**submission_dir** Folder path to store MLPerf submission tree
-* --**adr.compiler.tags** Compiler for loadgen and any C/C++ part of implementation
-* --**adr.inference-src-loadgen.env.CM_GIT_URL** Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)
-* --**adr.inference-src.env.CM_GIT_URL** Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)
-* --**adr.mlperf-inference-implementation.max_batchsize** Maximum batchsize to be used
-* --**adr.mlperf-inference-implementation.num_threads** Number of threads (reference & C++ implementation only)
-* --**adr.python.name** Python virtual environment name (optional)
-* --**adr.python.version** Force Python version (must have all system deps)
-* --**adr.python.version_min** Minimal Python version (*3.8*)
-* --**power** Measure power {yes,no} (*no*)
-* --**adr.mlperf-power-client.power_server** MLPerf Power server IP address (*192.168.0.15*)
-* --**adr.mlperf-power-client.port** MLPerf Power server port (*4950*)
-* --**clean** Clean run (*False*)
-* --**compliance** Whether to run compliance tests (applicable only for closed division) {yes,no} (*no*)
-* --**dashboard_wb_project** W&B dashboard project (*cm-mlperf-dse-testing*)
-* --**dashboard_wb_user** W&B dashboard user (*cmind*)
-* --**hw_name** MLPerf hardware name (for example "gcp.c3_standard_8", "nvidia_orin", "lenovo_p14s_gen_4_windows_11", "macbook_pro_m1_2", "thundercomm_rb6" ...)
-* --**multistream_target_latency** Set MultiStream target latency
-* --**offline_target_qps** Set LoadGen Offline target QPS
-* --**quiet** Quiet run (select default values for all questions) (*True*)
-* --**server_target_qps** Set Server target QPS
-* --**singlestream_target_latency** Set SingleStream target latency
-* --**target_latency** Set Target latency
-* --**target_qps** Set LoadGen target QPS
-* --**j** Print results dictionary to console at the end of the run (*False*)
-* --**repro** Record input/output/state/info files to make it easier to reproduce results (*False*)
-* --**time** Print script execution time at the end of the run (*True*)
-* --**debug** Debug this script (*False*)
-
-**Above CLI flags can be used in the Python CM API as follows:**
-
-```python
-r=cm.access({... , "division":...}
-```
+`_find-performance,_short`
 
 #### Script flags mapped to environment
 <details>
@@ -334,6 +324,7 @@ r=cm.access({... , "division":...}
 * `--skip_truncation=value`  &rarr;  `CM_SKIP_TRUNCATE_ACCURACY=value`
 * `--submission_dir=value`  &rarr;  `CM_MLPERF_INFERENCE_SUBMISSION_DIR=value`
 * `--submitter=value`  &rarr;  `CM_MLPERF_SUBMITTER=value`
+* `--sut=value`  &rarr;  `CM_MLPERF_INFERENCE_SUT_VARIATION=value`
 * `--sut_servers=value`  &rarr;  `CM_NETWORK_LOADGEN_SUT_SERVERS=value`
 * `--sw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_SW_NOTES_EXTRA=value`
 * `--system_type=value`  &rarr;  `CM_MLPERF_SUBMISSION_SYSTEM_TYPE=value`
@@ -367,12 +358,10 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 * `master`
 * `r2.1`
 ___
-### Script workflow, dependencies and native scripts
+### Dependencies on other CM scripts
 
-<details>
-<summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.yaml)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/run-mlperf-inference-app/_cm.yaml)***
      * detect,os
        * `if (CM_MLPERF_USE_DOCKER  != True)`
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
@@ -396,22 +385,16 @@ ___
        - CM script: [install-pip-package-for-cmind-python](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-pip-package-for-cmind-python)
      * get,mlperf,inference,utils
        - CM script: [get-mlperf-inference-utils](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-utils)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.yaml)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/run-mlperf-inference-app/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/run-mlperf-inference-app/_cm.yaml)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.yaml)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.yaml)
-</details>
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/run-mlperf-inference-app/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/run-mlperf-inference-app/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/run-mlperf-inference-app/_cm.yaml)
 
 ___
 ### Script output
-`cmr "run-mlperf-inference[,variations]" [--input_flags] -j`
+`cmr "run-mlperf,inference [,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
-
-___
-### Maintainers
-
-* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

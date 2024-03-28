@@ -86,6 +86,15 @@ def print_help(i):
 
 
     print ('')
-    input ('Press Enter to see common flags for all scripts')
+    x = input ('Would you like to see a Python API with a list of common keys/flags for all scripts including this one (y/N)? ')
 
-    return {'return':0}
+    x = x.strip().lower()
+
+    skip_delayed_help = False if x in ['y','yes'] else True
+
+    r = {'return':0}
+
+    if skip_delayed_help: 
+        r['skip_delayed_help'] = True
+
+    return r

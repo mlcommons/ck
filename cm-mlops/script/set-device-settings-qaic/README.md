@@ -1,58 +1,55 @@
-<details>
-<summary>Click here to see the table of contents.</summary>
+Automatically generated README for this automation recipe: **set-device-settings-qaic**
 
-* [About](#about)
-* [Summary](#summary)
-* [Reuse this script in your project](#reuse-this-script-in-your-project)
-  * [ Install CM automation language](#install-cm-automation-language)
-  * [ Check CM script flags](#check-cm-script-flags)
-  * [ Run this script from command line](#run-this-script-from-command-line)
-  * [ Run this script from Python](#run-this-script-from-python)
-  * [ Run this script via GUI](#run-this-script-via-gui)
-  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
-* [Customization](#customization)
-  * [ Variations](#variations)
-  * [ Default environment](#default-environment)
-* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
-* [Script output](#script-output)
-* [New environment keys (filter)](#new-environment-keys-(filter))
-* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
-* [Maintainers](#maintainers)
+Category: **DevOps automation**
 
-</details>
+License: **Apache 2.0**
 
-*Note that this README is automatically generated - don't edit!*
+Maintainers: [Public MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
 
-### About
+---
+*[ [Online info and GUI to run this CM script](https://access.cknowledge.org/playground/?action=scripts&name=set-device-settings-qaic,408a1a1563b44780) ]*
 
+---
 #### Summary
 
-* Category: *DevOps automation.*
-* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic)*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/dev/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/set-device-settings-qaic)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *set,device,qaic,ai100,cloud,performance,power,setting,mode,vc,ecc*
+* All CM tags to find and reuse this script (see in above meta description): *set,device,qaic,ai100,cloud,performance,power,setting,mode,vc,ecc*
 * Output cached? *False*
-___
+* See [pipeline of dependencies](#dependencies-on-other-cm-scripts) on other CM scripts
+
+
+---
 ### Reuse this script in your project
 
-#### Install CM automation language
+#### Install MLCommons CM automation meta-framework
 
-* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-* [CM intro](https://doi.org/10.5281/zenodo.8105339)
+* [Install CM](https://access.cknowledge.org/playground/?action=install)
+* [CM Getting Started Guide](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md)
 
-#### Pull CM repository with this automation
+#### Pull CM repository with this automation recipe (CM script)
 
 ```cm pull repo mlcommons@ck```
 
+#### Print CM help from the command line
 
-#### Run this script from command line
+````cmr "set device qaic ai100 cloud performance power setting mode vc ecc" --help````
 
-1. `cm run script --tags=set,device,qaic,ai100,cloud,performance,power,setting,mode,vc,ecc[,variations] `
+#### Customize and run this script from the command line with different variations and flags
 
-2. `cmr "set device qaic ai100 cloud performance power setting mode vc ecc[ variations]" `
+`cm run script --tags=set,device,qaic,ai100,cloud,performance,power,setting,mode,vc,ecc`
 
-* `variations` can be seen [here](#variations)
+`cm run script --tags=set,device,qaic,ai100,cloud,performance,power,setting,mode,vc,ecc[,variations] `
+
+*or*
+
+`cmr "set device qaic ai100 cloud performance power setting mode vc ecc"`
+
+`cmr "set device qaic ai100 cloud performance power setting mode vc ecc [variations]" `
+
+
+* *See the list of `variations` [here](#variations) and check the [Gettings Started Guide](https://github.com/mlcommons/ck/blob/dev/docs/getting-started.md) for more details.*
 
 #### Run this script from Python
 
@@ -88,7 +85,7 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=set,device,qaic,ai100,
 
 #### Run this script via Docker (beta)
 
-`cm docker script "set device qaic ai100 cloud performance power setting mode vc ecc[ variations]" `
+`cm docker script "set device qaic ai100 cloud performance power setting mode vc ecc[variations]" `
 
 ___
 ### Customization
@@ -123,34 +120,26 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 </details>
 
 ___
-### Script workflow, dependencies and native scripts
+### Dependencies on other CM scripts
 
-<details>
-<summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/set-device-settings-qaic/_cm.json)***
      * detect-os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,qaic,platform,sdk
        - CM script: [get-qaic-platform-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-qaic-platform-sdk)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/set-device-settings-qaic/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/set-device-settings-qaic/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-device-settings-qaic/_cm.json)
-</details>
+     * [run.sh](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/set-device-settings-qaic/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/set-device-settings-qaic/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/set-device-settings-qaic/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/set-device-settings-qaic/_cm.json)
 
 ___
 ### Script output
-`cmr "set device qaic ai100 cloud performance power setting mode vc ecc[,variations]"  -j`
+`cmr "set device qaic ai100 cloud performance power setting mode vc ecc [,variations]"  -j`
 #### New environment keys (filter)
 
 * `CM_QAIC_DEVICE_*`
 #### New environment keys auto-detected from customize
-
-___
-### Maintainers
-
-* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

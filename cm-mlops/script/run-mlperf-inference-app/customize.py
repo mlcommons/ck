@@ -109,7 +109,7 @@ def preprocess(i):
     variation_backend= ",_" + env["CM_MLPERF_BACKEND"] if env.get("CM_MLPERF_BACKEND","") != "" else ""
     variation_device= ",_" + env["CM_MLPERF_DEVICE"] if env.get("CM_MLPERF_DEVICE","") != "" else ""
     variation_run_style= ",_" + env.get("CM_MLPERF_RUN_STYLE", "test")
-    variation_reproducibility= ",_" + env["CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS"]
+    variation_reproducibility= ",_" + env["CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS"] if env.get("CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS","") != "" else ""
 
     if env.get("CM_MLPERF_MODEL_PRECISION", '') != '':
         variation_quantization_string= ",_" + env["CM_MLPERF_MODEL_PRECISION"]
