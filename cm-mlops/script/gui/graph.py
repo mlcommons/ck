@@ -103,6 +103,11 @@ def visualize(st, query_params, action = ''):
             if q_experiment_tags[0]!='':
                 v_experiment_tags = q_experiment_tags[0]
         v_experiment_tags = v_experiment_tags.replace(',',' ')
+
+        # Check default
+        if v_experiment_tags == '' and v_experiment_name == '':
+            v_experiment_tags = 'mlperf-inference v4.0'
+        
         v_experiment_tags = st.text_input('Select CM experiment tags separated by space:', value=v_experiment_tags, key='v_experiment_tags').strip()
         v_experiment_tags = v_experiment_tags.replace(',',' ')
 
@@ -324,9 +329,12 @@ def visualize(st, query_params, action = ''):
                 if k not in keys:
                     keys.append(k)
 
+    first_keys = ['Organization', 'Model', 'Scenario', 'SystemName', 'notes', 'framework', 'Result', 'Result_Units', 'Accuracy']
+    sorted_keys = [k for k in first_keys if k in keys] + [k for k in sorted(keys, key=lambda s: s.lower()) if k not in first_keys]
+
     filter_value = query_params.get('filter',[''])[0].strip()
     if result_uid=='': # and filter_value!='':
-        filter_value = st.text_input("Optional: add result filter in Python. Example: result['Accuracy']>75", value = filter_value).strip()
+        filter_value = st.text_input("Optional: add result filter in Python. Examples: result['Accuracy']>75 or 'llama2' in result['Model']", value = filter_value).strip()
 
         st.markdown('---')
 
@@ -353,7 +361,7 @@ def visualize(st, query_params, action = ''):
             continue
 
         data = []
-        for k in sorted(keys, key=lambda s: s.lower()):
+        for k in sorted_keys:
             data.append(result.get(k))
 
         all_data.append(data)
@@ -382,7 +390,7 @@ def visualize(st, query_params, action = ''):
         result = {}
 
         j=0
-        for k in sorted(keys, key=lambda x: x.lower()):
+        for k in sorted_keys:
             result[k] = data[j]
             j+=1
 
@@ -401,7 +409,7 @@ def visualize(st, query_params, action = ''):
         
         
         x = ''
-        for k in sorted(keys, key=lambda x: x.lower()):
+        for k in sorted_keys:
             x+='* **{}**: {}\n'.format(k,str(result[k]))
 
         st.markdown(x)
@@ -465,7 +473,7 @@ def visualize(st, query_params, action = ''):
     axis_key_c=''
 
     if len(keys)>0:
-        keys = [''] + sorted(keys, key=lambda s: s.lower())
+        keys = [''] + sorted_keys
 
         axis_key_x = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_AXIS_KEY_X','')
         q_axis_key_x = query_params.get('x',[''])
@@ -631,7 +639,7 @@ def visualize(st, query_params, action = ''):
                 ss.append(style)
 
                 info=''
-                for key in sorted(v.keys(), key=lambda x: x):
+                for key in sorted(v.keys(), key=lambda x: x.lower()):
                     value = v[key]
                     info+=str(key)+': '+str(value)+'<br>\n'
 
@@ -735,7 +743,7 @@ def visualize(st, query_params, action = ''):
         # Show all data
         df = pd.DataFrame(
           all_data,
-          columns=(k for k in sorted(keys, key=lambda s: s) if k!='')
+          columns=(k for k in sorted_keys if k!='')
         )
 
         st.markdown('---')
