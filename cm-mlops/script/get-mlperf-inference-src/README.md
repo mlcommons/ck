@@ -107,8 +107,8 @@ ___
       - Workflow:
     * `_deepsparse`
       - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/neuralmagic/inference`
         - *CM_GIT_CHECKOUT*: `deepsparse`
+        - *CM_GIT_URL*: `https://github.com/neuralmagic/inference`
         - *CM_MLPERF_LAST_RELEASE*: `v3.0`
       - Workflow:
     * `_gn`
@@ -197,11 +197,11 @@ ___
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
+* CM_GIT_CHECKOUT_FOLDER: `inference`
 * CM_GIT_DEPTH: `--depth 4`
 * CM_GIT_PATCH: `no`
-* CM_GIT_URL: `https://github.com/mlcommons/inference.git`
 * CM_GIT_RECURSE_SUBMODULES: ``
-* CM_GIT_CHECKOUT_FOLDER: `inference`
+* CM_GIT_URL: `https://github.com/mlcommons/inference.git`
 
 </details>
 
@@ -210,6 +210,7 @@ Default version: `master`
 
 * `custom`
 * `deepsparse`
+* `main`
 * `master`
 * `pybind_fix`
 * `r2.1`
