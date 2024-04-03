@@ -83,7 +83,7 @@ new_env_keys:
 - +CPLUS_INCLUDE_PATH
 - +LD_LIBRARY_PATH
 - +DYLD_FALLBACK_LIBRARY_PATH
-- CM_MLPERF_INFERENCE_LOADGEN_VERSION
+- CM_MLPERF_INFERENCE_LOADGEN_*
 
 tags:
 - get
@@ -164,3 +164,6 @@ versions:
       inference-src-loadgen:
         tags: _pybind
         version: r3.1
+
+print_env_at_the_end:
+  CM_MLPERF_INFERENCE_LOADGEN_INSTALL_PATH: "Path to the tool"
