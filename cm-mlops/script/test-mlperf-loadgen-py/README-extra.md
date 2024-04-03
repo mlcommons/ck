@@ -49,6 +49,12 @@ cm pull repo mlcommons@abtf-ssd-pytorch --checkout=cognata-cm
 cm ls repo
 ```
 
+## Update all CM repos at the same time
+
+```bash
+cm pull repo
+```
+
 ## Run MLPerf loadgen test
 
 ```bash
