@@ -19,7 +19,12 @@ deps:
       - python
       - python3
 
-  # Get nupy
+  # May need to use CM in automation recipes
+  - tags: get,generic-python-lib,_package.cmind
+    names:
+      - python-cmind
+
+  # Get numpy
   - tags: get,generic-python-lib,_package.numpy
     names:
       - python-numpy
