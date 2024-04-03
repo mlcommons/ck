@@ -1,0 +1,17 @@
+{
+  "alias": "mlperf-inference-v4.0-press-release-ctuning",
+  "automation_alias": "report",
+  "automation_uid": "6462ecdba2054467",
+  "date": "20230913",
+  "redirect": "https://www.linkedin.com/pulse/new-cm-mlperf-automation-helps-benchmark-commodity-hardware-fursin-61noe",
+  "tags": [
+    "mlperf",
+    "inference",
+    "mlperf-inference",
+    "v4.0",
+    "analysis",
+    "ctuning"
+  ],
+  "title": "cTuning press-release about a new version of the CM workflow to automate MLPerf",
+  "uid": "acc35b8e9ed14c98"
+}
