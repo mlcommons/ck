@@ -40,22 +40,6 @@ deps:
     tags: get,lib,onnxruntime,lang-cpp,_cuda
 
 
-  ########################################################################
-  # Install ResNet50 model (ONNX) and ImageNet
-
-  - enable_if_env:
-      CM_MODEL:
-      - resnet50
-    names:
-      - imagenet-preprocessed
-    tags: get,dataset,preprocessed,imagenet,_NCHW
-
-  - enable_if_env:
-      CM_MODEL:
-      - resnet50
-    tags: get,ml-model,raw,resnet50,_onnx
-
-
 # Post dependencies to compile and run this app
 post_deps:
 

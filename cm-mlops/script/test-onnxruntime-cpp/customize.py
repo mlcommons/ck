@@ -28,9 +28,14 @@ def preprocess(i):
 
     # e.g. -lonnxruntime
     if env.get('CM_BACKEND','')=='onnxruntime':
+        import json
+        print (json.dumps(env, indent=2))
+        
+        x = env['CM_ONNXRUNTIME_LIB_PATH']+'\\onnxruntime.lib' if os_info['platform'] == 'windows' else '-lonnxruntime'
+        
         if '+ LDCXXFLAGS' not in env:
             env['+ LDCXXFLAGS'] = []
-        env['+ LDCXXFLAGS'].append('-lonnxruntime')
+        env['+ LDCXXFLAGS'].append(x)
 
     # On Windows we may need to copy onnxruntime.dll to the bin directory
     # otherwise the one from Windows sytem directory is always taken
