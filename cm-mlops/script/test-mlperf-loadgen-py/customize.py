@@ -7,6 +7,20 @@ def preprocess(i):
     env = i['env']
     meta = i['meta']
 
+    print ("********************************************************")
+    print ('- Importing CM library ...')
+    import cmind as cm
+    print ('  SUCCESS!')
+
+    print ('')
+    print ('- List CM repos ...')
+    print ('')
+    r = cm.access({'action':'ls', 'automation':'repo', 'out':'con'})
+    print ('')
+    print ('  SUCCESS!')
+    print ("********************************************************")
+
+
     return {'return':0}
 
 
