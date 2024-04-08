@@ -59,13 +59,23 @@ class XModelFactory(ModelFactory):
         print ('')
         print ('Loading model: {}'.format(self.model_path))
 
-        checkpoint = torch.load(self.model_path, map_location=torch.device('cpu'))
+
+        if self.execution_provider == 'CPUExecutionProvider':
+            torch_provider = 'cpu'
+        elif self.execution_provider == 'CUDAExecutionProvider':
+            torch_provider = 'cuda'
+            if not torch.cuda.is_available():
+                raise Exception('Error: CUDA is forced but not available or installed in PyTorch!')
+        else:
+            raise Exception('Error: execution provider is unknown ({})!'.format(self.execution_provider))
+                            
+        checkpoint = torch.load(self.model_path, map_location=torch.device(torch_provider))
 
         if self.model_code == '':
-            raise Exception('path to model code was not provided')
+            raise Exception('Error: path to model code was not provided!')
 
         if self.model_sample_pickle == '':
-            raise Exception('path to model sample pickle was not provided')
+            raise Exception('Error: path to model sample pickle was not provided!')
 
         # Load sample
         import pickle
@@ -88,6 +98,10 @@ class XModelFactory(ModelFactory):
             print ('Model cfg: {}'.format(self.model_cfg))
         
         model = model_module.model_init(checkpoint, self.model_cfg)
+
+        if torch_provider=='cuda':
+            model.cuda()
+        
         model.eval()
 
         return XModel(model)
