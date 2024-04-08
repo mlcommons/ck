@@ -13,31 +13,49 @@ def preprocess(i):
 
     run_opts = env.get('CM_RUN_OPTS', '')
 
-    if 'CM_MLPERF_RUNNER' in env:
+    if env.get('CM_MLPERF_BACKEND', '') != '':
+        run_opts +=" -b "+env['CM_MLPERF_BACKEND']
+    
+    if env.get('CM_MLPERF_RUNNER', '') != '':
         run_opts +=" -r "+env['CM_MLPERF_RUNNER']
 
-    if 'CM_MLPERF_CONCURRENCY' in env:
+    if env.get('CM_MLPERF_CONCURRENCY', '') != '':
         run_opts +=" --concurrency "+env['CM_MLPERF_CONCURRENCY']
 
-    if 'CM_MLPERF_EXECUTION_PROVIDER' in env:
+    if env.get('CM_MLPERF_EXECUTION_PROVIDER', '') != '':
         run_opts +=" --ep "+env['CM_MLPERF_EXECUTION_PROVIDER']
 
-    if 'CM_MLPERF_INTRAOP' in env:
+    if env.get('CM_MLPERF_INTRAOP', '') != '':
         run_opts +=" --intraop "+env['CM_MLPERF_INTRAOP']
 
-    if 'CM_MLPERF_INTEROP' in env:
+    if env.get('CM_MLPERF_INTEROP', '') != '':
         run_opts +=" --interop "+env['CM_MLPERF_INTEROP']
 
-    if 'CM_MLPERF_EXECMODE' in env:
+    if env.get('CM_MLPERF_EXECMODE', '') != '':
         run_opts +=" --execmode "+env['CM_MLPERF_EXECUTION_MODE']
 
-    if 'CM_MLPERF_LOADGEN_SAMPLES' in env:
+    if env.get('CM_MLPERF_LOADGEN_SAMPLES', '') != '':
         run_opts +=" --samples "+env['CM_MLPERF_LOADGEN_SAMPLES']
 
-    if env.get('CM_MLPERF_OUTPUT_DIR','')!='':
+    if env.get('CM_MLPERF_LOADGEN_EXPECTED_QPS', '') != '':
+        run_opts +=" --loadgen_expected_qps "+env['CM_MLPERF_LOADGEN_EXPECTED_QPS']
+
+    if env.get('CM_MLPERF_LOADGEN_DURATION_SEC', '') != '':
+        run_opts +=" --loadgen_duration_sec "+env['CM_MLPERF_LOADGEN_DURATION_SEC']
+
+    if env.get('CM_MLPERF_OUTPUT_DIR', '') != '':
         run_opts +=" --output "+env['CM_MLPERF_OUTPUT_DIR']
 
-    
+    if env.get('CM_ML_MODEL_CODE_WITH_PATH', '') != '':
+        run_opts +=" --model_code "+env['CM_ML_MODEL_CODE_WITH_PATH']
+
+    if env.get('CM_ML_MODEL_SAMPLE_WITH_PATH', '') != '':
+        run_opts +=" --model_sample_pickle "+env['CM_ML_MODEL_SAMPLE_WITH_PATH']
+                            
+    # Add path to file model weights at the end of command line
+
+    run_opts += ' '+env['CM_ML_MODEL_FILE_WITH_PATH']
+
     env['CM_RUN_OPTS'] = run_opts
 
     print ('')
