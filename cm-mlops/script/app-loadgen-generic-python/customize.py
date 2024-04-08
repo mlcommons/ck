@@ -1,3 +1,5 @@
+# Developer: Grigori Fursin
+
 from cmind import utils
 import os
 import shutil
@@ -48,6 +50,9 @@ def preprocess(i):
 
     if env.get('CM_ML_MODEL_CODE_WITH_PATH', '') != '':
         run_opts +=" --model_code "+env['CM_ML_MODEL_CODE_WITH_PATH']
+
+    if env.get('CM_ML_MODEL_CFG_WITH_PATH', '') != '':
+        run_opts +=" --model_cfg "+env['CM_ML_MODEL_CFG_WITH_PATH']
 
     if env.get('CM_ML_MODEL_SAMPLE_WITH_PATH', '') != '':
         run_opts +=" --model_sample_pickle "+env['CM_ML_MODEL_SAMPLE_WITH_PATH']

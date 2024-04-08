@@ -24,6 +24,7 @@ def main(
     backend: str,
     model_path: str,
     model_code: str,
+    model_cfg: str,
     model_sample_pickle: str,
     output_path: typing.Optional[str],
     runner_name: str,
@@ -48,6 +49,14 @@ def main(
     else:
         raise Exception("Error: backend is not recognized.")
 
+    # Load model cfg
+    model_cfg_dict = {}
+    if model_cfg!='':
+        import json
+
+        with open(model_cfg) as mc:
+            model_cfg_dict = json.load(mc)
+    
     model_factory = XModelFactory(
          model_path,
          execution_provider,
@@ -55,6 +64,7 @@ def main(
          interop_threads,
          intraop_threads,
          model_code,
+         model_cfg_dict,
          model_sample_pickle
     )
     
@@ -205,6 +215,7 @@ if __name__ == "__main__":
     parser.add_argument("--loadgen_expected_qps", help="Expected QPS", default=1, type=float)
     parser.add_argument("--loadgen_duration_sec", help="Expected duration in sec.", default=1, type=float)
     parser.add_argument("--model_code", help="(for PyTorch models) path to model code with cm.py", default="")
+    parser.add_argument("--model_cfg", help="(for PyTorch models) path to model's configuration in JSON file", default="")
     parser.add_argument("--model_sample_pickle", help="(for PyTorch models) path to a model sample in pickle format", default="")
 
     args = parser.parse_args()
@@ -212,6 +223,7 @@ if __name__ == "__main__":
         args.backend,
         args.model_path,
         args.model_code,
+        args.model_cfg,
         args.model_sample_pickle,
         args.output,
         args.runner,

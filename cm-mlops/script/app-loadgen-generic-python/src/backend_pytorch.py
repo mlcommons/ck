@@ -1,3 +1,5 @@
+# Developer: Grigori Fursin
+
 import typing
 import importlib
 import os
@@ -42,11 +44,13 @@ class XModelFactory(ModelFactory):
         intra_op_threads=0,
         inter_op_threads=0,
         model_code='',
+        model_cfg={},
         model_sample_pickle=''
     ):
 
         self.model_path = model_path
         self.model_code = model_code
+        self.model_cfg = model_cfg
         self.model_sample_pickle = model_sample_pickle
         self.execution_provider = execution_provider
 
@@ -80,7 +84,10 @@ class XModelFactory(ModelFactory):
         del(sys.path[0])
 
         # Init model
-        model = model_module.model_init(checkpoint, 'model_state_dict')
+        if len(self.model_cfg)>0:
+            print ('Model cfg: {}'.format(self.model_cfg))
+        
+        model = model_module.model_init(checkpoint, self.model_cfg)
         model.eval()
 
         return XModel(model)

@@ -1,3 +1,5 @@
+# Developer: Grigori Fursin
+
 import os
 import psutil
 

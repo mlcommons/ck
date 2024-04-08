@@ -30,6 +30,7 @@ default_env:
 input_mapping:
   modelpath: CM_ML_MODEL_FILE_WITH_PATH
   modelcodepath: CM_ML_MODEL_CODE_WITH_PATH
+  modelcfgpath: CM_ML_MODEL_CFG_WITH_PATH
   modelsamplepath: CM_ML_MODEL_SAMPLE_WITH_PATH
   output_dir: CM_MLPERF_OUTPUT_DIR
   scenario: CM_MLPERF_LOADGEN_SCENARIO
@@ -255,9 +256,11 @@ input_description:
   modelpath: 
     desc: Full path to file with model weights
   modelcodepath: 
-    desc: (for python models) Full path to file with model code
+    desc: (for PyTorch models) Full path to file with model code and cm.py
+  modelcfgpath: 
+    desc: (for PyTorch models) Full path to JSON file with model cfg
   modelsamplepath: 
-      desc: (for python models) Full path to file with model sample in pickle format
+    desc: (for PyTorch models) Full path to file with model sample in pickle format
   ep: 
     desc: ONNX Execution provider
   scenario: 

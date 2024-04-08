@@ -44,6 +44,7 @@ class XModelFactory(ModelFactory):
         intra_op_threads=0,
         inter_op_threads=0,
         model_code='',         # Not used here
+        model_cfg={},          # Not used here
         model_sample_pickle='' # Not used here
     ):
         self.model_path = model_path
