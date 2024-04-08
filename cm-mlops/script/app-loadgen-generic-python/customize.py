@@ -10,6 +10,7 @@ def preprocess(i):
 
     env = i['env']
 
+
     if 'CM_ML_MODEL_FILE_WITH_PATH' not in env:
         return {'return': 1, 'error': 'Please select a variation specifying the model to run'}
 
@@ -51,8 +52,27 @@ def preprocess(i):
     if env.get('CM_ML_MODEL_CODE_WITH_PATH', '') != '':
         run_opts +=" --model_code "+env['CM_ML_MODEL_CODE_WITH_PATH']
 
+    
     if env.get('CM_ML_MODEL_CFG_WITH_PATH', '') != '':
         run_opts +=" --model_cfg "+env['CM_ML_MODEL_CFG_WITH_PATH']
+    else:
+        # Check cfg from command line
+        cfg = env.get('CM_ML_MODEL_CFG', {})
+        if len(cfg)>0:
+            del (env['CM_ML_MODEL_CFG'])
+
+            import json, tempfile
+            tfile = tempfile.NamedTemporaryFile(mode="w+", suffix='.json')
+
+            fd, tfile = tempfile.mkstemp(suffix='.json', prefix='cm-cfg-')
+            os.close(fd)
+
+            with open(tfile, 'w') as fd:
+                json.dump(cfg, fd)
+
+            env['CM_APP_LOADGEN_GENERIC_PYTHON_TMP_CFG_FILE'] = tfile
+
+            run_opts +=" --model_cfg " + tfile
 
     if env.get('CM_ML_MODEL_SAMPLE_WITH_PATH', '') != '':
         run_opts +=" --model_sample_pickle "+env['CM_ML_MODEL_SAMPLE_WITH_PATH']
@@ -72,4 +92,10 @@ def preprocess(i):
 def postprocess(i):
 
     env = i['env']
+    
+    tfile =  env.get('CM_APP_LOADGEN_GENERIC_PYTHON_TMP_CFG_FILE', '')
+    
+    if tfile!='' and os.path.isfile(tfile):
+        os.remove(tfile)
+
     return {'return':0}

@@ -31,6 +31,7 @@ input_mapping:
   modelpath: CM_ML_MODEL_FILE_WITH_PATH
   modelcodepath: CM_ML_MODEL_CODE_WITH_PATH
   modelcfgpath: CM_ML_MODEL_CFG_WITH_PATH
+  modelcfg: CM_ML_MODEL_CFG
   modelsamplepath: CM_ML_MODEL_SAMPLE_WITH_PATH
   output_dir: CM_MLPERF_OUTPUT_DIR
   scenario: CM_MLPERF_LOADGEN_SCENARIO
