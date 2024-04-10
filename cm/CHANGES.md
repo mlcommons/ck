@@ -1,8 +1,9 @@
-## V2.0.3.1
+## V2.0.4
    - added skip of delayed help to simplify output of `cmr [tags] --help`
    - revisited automatically generated READMEs for CM scripts (automation recipes)
      based on user feedback: https://github.com/mlcommons/ck/issues/1169 
-   - improved deleting of CM entries on Windows
+   - improved deleting of CM artifacts (entries) on Windows
+   - print tags when deleting CM artifacts (entries)
 
 ## V2.0.3
    - added support to handle broken CM repositories: https://github.com/mlcommons/ck/issues/1177

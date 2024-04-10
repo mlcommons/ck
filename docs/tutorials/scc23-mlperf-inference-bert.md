@@ -1066,7 +1066,7 @@ cmr "app mlperf inference generic _python _bert-99 _onnxruntime _cpu _test" \
 
 You can check our [reproducibility initiative for ACM/IEEE/NeurIPS conferences](https://cTuning.org/ae),
 prune BERT model based on [NeurIPS 2022 paper "A Fast Post-Training Pruning Framework for Transformers"](https://arxiv.org/abs/2204.09656)
-using [this CM script](https://github.com/ctuning/cm-reproduce-research-projects/blob/main/script/reproduce-neurips-paper-2022-arxiv-2204.09656/README-extra.md)
+using [this CM script](https://github.com/ctuning/cm4research/blob/main/script/reproduce-neurips-paper-2022-arxiv-2204.09656/README-extra.md)
 and feed a newly pruned BERT model to the MLPerf inference benchmarking using `--env.CM_MLPERF_CUSTOM_MODEL_PATH` flag in the above command.
 
 We also suggest you to check another [related project from Hugging Face](https://github.com/huggingface/nn_pruning),

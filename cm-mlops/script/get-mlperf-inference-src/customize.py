@@ -14,7 +14,6 @@ def preprocess(i):
 
     script_path = i['run_script_input']['path']
 
-
     if 'CM_GIT_DEPTH' not in env:
         env['CM_GIT_DEPTH'] = ''
 

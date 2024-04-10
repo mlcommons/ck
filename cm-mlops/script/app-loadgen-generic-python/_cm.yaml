@@ -28,6 +28,11 @@ default_env:
 
 # Map script inputs to environment variables
 input_mapping:
+  modelpath: CM_ML_MODEL_FILE_WITH_PATH
+  modelcodepath: CM_ML_MODEL_CODE_WITH_PATH
+  modelcfgpath: CM_ML_MODEL_CFG_WITH_PATH
+  modelcfg: CM_ML_MODEL_CFG
+  modelsamplepath: CM_ML_MODEL_SAMPLE_WITH_PATH
   output_dir: CM_MLPERF_OUTPUT_DIR
   scenario: CM_MLPERF_LOADGEN_SCENARIO
   runner: CM_MLPERF_RUNNER
@@ -36,9 +41,11 @@ input_mapping:
   intraop: CM_MLPERF_INTRAOP
   interop: CM_MLPERF_INTEROP
   execmode: CM_MLPERF_EXEC_MODE
-  modelpath: CM_ML_MODEL_FILE_WITH_PATH
   samples: CM_MLPERF_LOADGEN_SAMPLES
+  loadgen_expected_qps: CM_MLPERF_LOADGEN_EXPECTED_QPS
+  loadgen_duration_sec: CM_MLPERF_LOADGEN_DURATION_SEC
 
+# New env keys exported from this script
 new_env_keys:
   - CM_MLPERF_*
 
@@ -60,6 +67,7 @@ deps:
 
   # Extra package
   - tags: get,generic-python-lib,_psutil
+  - tags: get,generic-python-lib,_package.numpy
 
   # Detect CUDA if required
   - tags: get,cuda
@@ -74,6 +82,7 @@ deps:
 
   ########################################################################
   # Install ML engines via CM
+  # ONNX
   - enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
@@ -100,6 +109,52 @@ deps:
     - onnx
 
   ########################################################################
+  # Install ML engines via CM
+  # PyTorch
+
+  # CPU
+  
+  - enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      CM_MLPERF_DEVICE:
+      - cpu
+    tags: get,generic-python-lib,_torch
+    names:
+    - torch
+
+  - enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      CM_MLPERF_DEVICE:
+      - cpu
+    tags: get,generic-python-lib,_torchvision
+    names:
+    - torchvision
+
+  # CUDA/GPU
+  
+  - enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      CM_MLPERF_DEVICE:
+      - gpu
+    tags: get,generic-python-lib,_torch_cuda
+    names:
+    - torch
+
+  - enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      CM_MLPERF_DEVICE:
+      - gpu
+    tags: get,generic-python-lib,_torchvision_cuda
+    names:
+    - torchvision
+
+
+
+  ########################################################################
   # Install MLPerf models
   - enable_if_env:
       CM_MODEL:
@@ -115,6 +170,8 @@ deps:
       CM_MODEL:
       - retinanet
     tags: get,ml-model,retinanet,_onnx,_fp32
+
+
 
 
 # Customize this CM script
@@ -139,7 +196,7 @@ variations:
     group:
       device
     default:
-      True
+      true
     env:
       CM_MLPERF_DEVICE:
         cpu
@@ -168,14 +225,13 @@ variations:
       models
     env:
       CM_MODEL: resnet50
-
-
   
   custom:
     group:
       models
     env:
       CM_MODEL: custom
+
 
 
   huggingface:
@@ -195,9 +251,28 @@ variations:
     env:
       CM_ML_MODEL_STUB: "#"
 
+
+  cmc:
+    env:
+      CM_CUSTOM_MODEL_CMC: yes
+
+
+  custom,cmc:
+    deps:
+    - tags: get,ml-model,cmc
+    names:
+    - cmc-model
+
+
 input_description:
   modelpath: 
-    desc: Full path to a model
+    desc: Full path to file with model weights
+  modelcodepath: 
+    desc: (for PyTorch models) Full path to file with model code and cmc.py
+  modelcfgpath: 
+    desc: (for PyTorch models) Full path to JSON file with model cfg
+  modelsamplepath: 
+    desc: (for PyTorch models) Full path to file with model sample in pickle format
   ep: 
     desc: ONNX Execution provider
   scenario: 
@@ -218,16 +293,19 @@ input_description:
   interop: 
     desc: MLPerf inter op threads
 
+
 docker:
   skip_run_cmd: 'no'
   all_gpus: 'yes'
   input_paths:
     - modelpath
     - env.CM_ML_MODEL_FILE_WITH_PATH
+    - env.CM_ML_MODEL_CODE_WITH_PATH
     - output_dir
   skip_input_for_fake_run:
     - modelpath
     - env.CM_ML_MODEL_FILE_WITH_PATH
+    - env.CM_ML_MODEL_CODE_WITH_PATH
     - output_dir
     - scenario
     - runner

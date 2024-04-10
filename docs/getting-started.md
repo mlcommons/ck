@@ -621,7 +621,7 @@ the community test it to make it easier to reproduce results from research paper
 initiatives at [systems conferences](https://ctuning.org/ae/micro2023.html).
 
 The idea is to provide a common interface to prepare and run experiments from research papers.
-See the latest CM scripts to rerun some experiments from the [ACM/IEEE MICRO'23 conference](https://github.com/ctuning/cm-reproduce-research-projects/tree/main/script)
+See the latest CM scripts to rerun some experiments from the [ACM/IEEE MICRO'23 conference](https://github.com/ctuning/cm4research/tree/main/script)
 and from the [Student Cluster Competition at Supercomputing'23](tutorials/scc23-mlperf-inference-bert.md).
 
 

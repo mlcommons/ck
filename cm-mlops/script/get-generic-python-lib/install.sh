@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo ""
+
 if [[ ${CM_GENERIC_PYTHON_PACKAGE_VARIANT} == "nvidia-apex-depreciated" ]]; then
   cd ${CM_GIT_REPO_CHECKOUT_PATH}
   cmd="${CM_PYTHON_BIN_WITH_PATH} -m pip install -v --disable-pip-version-check --global-option=\"--cpp_ext\" --global-option=\"--cuda_ext\" ./"
