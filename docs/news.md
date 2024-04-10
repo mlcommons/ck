@@ -17,7 +17,7 @@
 #### 202311
 
 * [ACM/IEEE MICRO'23](https://ctuning.org/ae/micro2023.html) used CM 
-  to [automate artifact evaluation](https://github.com/ctuning/cm-reproduce-research-projects/tree/main/script) 
+  to [automate artifact evaluation](https://github.com/ctuning/cm4research/tree/main/script) 
   and make it easier for research to understand, prepare, run and reproduce research projects
   from published papers.
 

@@ -216,7 +216,7 @@ cm replay experiment --tags=tuning,experiment,batch_size
 
 cmr "get conda"
 
-cm pull repo ctuning@cm-reproduce-research-projects
+cm pull repo ctuning@cm4research
 cmr "reproduce paper micro-2023 victima _install_deps"
 cmr "reproduce paper micro-2023 victima _run" 
 
