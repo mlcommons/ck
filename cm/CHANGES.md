@@ -1,4 +1,4 @@
-## V2.0.3.1
+## V2.0.4
    - added skip of delayed help to simplify output of `cmr [tags] --help`
    - revisited automatically generated READMEs for CM scripts (automation recipes)
      based on user feedback: https://github.com/mlcommons/ck/issues/1169 
