@@ -82,8 +82,8 @@ class XModelFactory(ModelFactory):
         with open (self.model_sample_pickle, 'rb') as handle:
            self.input_sample = pickle.load(handle)
                 
-        # Check if has CM interface
-        cm_model_module = os.path.join(self.model_code, 'cm.py')
+        # Check if has CM connector
+        cm_model_module = os.path.join(self.model_code, 'cmc.py')
         if not os.path.isfile(cm_model_module):
             raise Exception('cm.py interface for a PyTorch model was not found in {}'.format(self.model_code))
 

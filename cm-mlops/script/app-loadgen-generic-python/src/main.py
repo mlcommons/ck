@@ -214,7 +214,7 @@ if __name__ == "__main__":
     )
     parser.add_argument("--loadgen_expected_qps", help="Expected QPS", default=1, type=float)
     parser.add_argument("--loadgen_duration_sec", help="Expected duration in sec.", default=1, type=float)
-    parser.add_argument("--model_code", help="(for PyTorch models) path to model code with cm.py", default="")
+    parser.add_argument("--model_code", help="(for PyTorch models) path to model code with cmc.py", default="")
     parser.add_argument("--model_cfg", help="(for PyTorch models) path to model's configuration in JSON file", default="")
     parser.add_argument("--model_sample_pickle", help="(for PyTorch models) path to a model sample in pickle format", default="")
 

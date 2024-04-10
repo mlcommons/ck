@@ -257,7 +257,7 @@ input_description:
   modelpath: 
     desc: Full path to file with model weights
   modelcodepath: 
-    desc: (for PyTorch models) Full path to file with model code and cm.py
+    desc: (for PyTorch models) Full path to file with model code and cmc.py
   modelcfgpath: 
     desc: (for PyTorch models) Full path to JSON file with model cfg
   modelsamplepath: 
