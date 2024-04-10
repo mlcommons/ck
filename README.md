@@ -216,7 +216,7 @@ cm replay experiment --tags=tuning,experiment,batch_size
 
 cmr "get conda"
 
-cm pull repo ctuning@cm-reproduce-research-projects
+cm pull repo ctuning@cm4research
 cmr "reproduce paper micro-2023 victima _install_deps"
 cmr "reproduce paper micro-2023 victima _run" 
 
@@ -237,6 +237,7 @@ cmr "reproduce paper micro-2023 victima _run"
 
 ### CM documentation
 
+* [Nes](docs/news.md)
 * [Getting Started Guide and FAQ](docs/getting-started.md)
   * [Common CM interface to run MLPerf inference benchmarks](docs/mlperf/inference)
   * [Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23](docs/tutorials/common-interface-to-reproduce-research-projects.md)

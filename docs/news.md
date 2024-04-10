@@ -1,24 +1,23 @@
 [ [Back to index](README.md) ]
 
-## MLCommons CK and CM news
+### [News from the MLCommons Task Force on Automation and Reproducibility](taskforce.md)
 
-### 202403
-* [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
-  will present a new project to "Automatically Compose High-Performance and Cost-Efficient AI Systems with MLCommons' Collective Mind and MLPerf"
-  at the [MLPerf-Bench workshop @ HPCA'24](https://sites.google.com/g.harvard.edu/mlperf-bench-hpca24/home).
+#### 202403
+* [cKnowledge](https://cKnowledge.org) has completed a collaborative engineering project with MLCommons 
+  to enhance CM workflow automation to run MLPerf inference benchmarks
+  across different models, software and hardware from different vendors in a unified way: [GUI](https://access.cknowledge.org/playground/?action=howtorun).
+* [cTuning](https://cTuning.org) has validated the new [MLCommons CM workflow](https://github.com/mlcommons/ck) 
+  to automate ~90% of all MLPerf inference v4.0 performance and power submissions
+  while finding some top performance and cost-effective software/hardware configurations for AI systems: 
+  [report](https://www.linkedin.com/pulse/new-cm-mlperf-automation-helps-benchmark-commodity-hardware-fursin-61noe).
+* We presented a new project to ["Automatically Compose High-Performance and Cost-Efficient AI Systems with MLCommons' Collective Mind and MLPerf"](https://doi.org/10.5281/zenodo.10786893)
+  at the [MLPerf-Bench workshop @HPCA'24](https://sites.google.com/g.harvard.edu/mlperf-bench-hpca24/home).
 
-### 202401
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
-  are working for MLCommons.org to help all MLPerf inference benchmark v4.0 submitters automate and reproduce their submissions
-  using the unified MLCOmmons CM interface and automation: [current CM coverage for MLPerf inference](https://github.com/mlcommons/ck/issues/1052), 
-  [current progress report](https://github.com/mlcommons/inference/issues/1559).
-
-
-### 202311
+#### 202311
 
 * [ACM/IEEE MICRO'23](https://ctuning.org/ae/micro2023.html) used CM 
-  to [automate artifact evaluation](https://github.com/ctuning/cm-reproduce-research-projects/tree/main/script) 
+  to [automate artifact evaluation](https://github.com/ctuning/cm4research/tree/main/script) 
   and make it easier for research to understand, prepare, run and reproduce research projects
   from published papers.
 
@@ -30,7 +29,7 @@
   helping the community run, optimize and enhance MLPerf inference benchmarks using the MLCommons CM workflow automation language
   and [CK playground](https://access.cKnowledge.org).
 
-### 202310
+#### 202310
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin) gave an invited talk at [AVCC'23](https://avcc.org/avcc2023) about our MLCommons CM automation language and how it can help 
   to develop modular, portable and technology-agnostic benchmarks.
@@ -40,7 +39,7 @@
   and how it can make it easier for researchers to reproduce their projects and validate in the real world
   across rapidly evolving software and hardware.
 
-### 202309
+#### 202309
 
 * The Collective Knowledge Technology v3 with the open-source [MLCommons CM automation language](https://doi.org/10.5281/zenodo.8105338),
   [CK playground](https://access.cknowledge.org) 
@@ -51,22 +50,22 @@
   to prepare and automate their future MLPerf submissions - please check this [HPC Wire article](https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark)
   about cTuning's community submission and don't hesitate to reach us via [Discord server](https://discord.gg/JjWNWXKxwT) for more info!*
 
-### 202309
+#### 202309
 
 Our [CK playground](https://access.cKnowledge.org) was featured at the [AI hardware summit'23](https://aihwedgesummit.com/events/aihwedgesummit)
 
-### 202307
+#### 202307
 
 The overview of the MedPerf project was published in Nature: 
 [Federated benchmarking of medical artificial intelligence with MedPerf](https://www.nature.com/articles/s42256-023-00652-2)!
 
-### 202306
+#### 202306
 
 We were honored to give a [keynote](https://doi.org/10.5281/zenodo.8105338) about our MLCommons automation and reproducibility language
 to faciliate reproducible experiments and bridge the growing gap between research and production
 at the [1st ACM conference for Reproducibility and Replicability](https://acm-rep.github.io/2023/keynotes).
 
-### 202305
+#### 202305
 
 Following the successful validation of our [CK/CM technology](https://github.com/mlcommons/ck) by the community
 to automate MLPerf inference v3.0 submissions, the [MLCommons Task Force on automation and reproducibilty](taskforce.md) 
@@ -80,7 +79,7 @@ inference v3.0 results and/or submit new/better results to MLPerf
 inference v3.1 across diverse models, software and hardware 
 as a community effort.
 
-### 202304
+#### 202304
 
 We have successfully validated the [MLCommons CK and CM technology](https://github.com/mlcommons/ck) 
 to automate ~80% of MLPerf inference v3.0 submissions (98% of all power results).
@@ -97,20 +96,20 @@ via our recent [open optimization challenge](https://access.cknowledge.org/playg
 * [Linkedin article from Arjun Suresh (MLCommons Task Force co-chair)](https://www.linkedin.com/posts/arjunsuresh_nvidia-performance-trounces-all-competitors-activity-7049500972275929088-nnnx?utm_source=share&utm_medium=member_desktop)
 
 
-### 202304
+#### 202304
 
 We pre-released a free, open-source and technology-agnostic [Collective Knowledge Playground (MLCommon CK)](https://x.cKnowledge.org)
 to automate benchmarking, optimization and reproducibility of MLperf inference benchmark via collaborative challenges!
 
-### 202302
+#### 202302
 
 New GUI to visualize all MLPerf results is available [here](https://cknowledge.org/cm-gui-graph).
 
-### 202301
+#### 202301
 
 New GUI to run MLPerf inference is available [here](https://cknowledge.org/mlperf-inference-gui).
 
-### 202212
+#### 202212
 
 We have added GitHub actions to the MLPerf inference repo to automatically
 test MLPerf inference benchmark with different models, data sets and
@@ -120,7 +119,7 @@ frameworks using our customizable MLCommons CM-MLPerf workflows:
 * [Test RetinaNet](https://github.com/mlcommons/inference/blob/master/.github/workflows/test-retinanet.yml)
 * [Test ResNet50](https://github.com/mlcommons/inference/blob/master/.github/workflows/test-resnet50.yml)
 
-### 202211
+#### 202211
 
 [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
 successfully validated the prototype of  their new [workflow automation langugage (MLCommons CM)](https://github.com/mlcommons/ck/tree/master/cm) 
@@ -129,38 +128,38 @@ It was used to make it easier to prepare and run the MLPerf inference benchmark 
 Please test it using this [CM tutorial](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md).
 
 
-### 202210
+#### 202210
 
 We have prototyped [modular CM-MLPerf containers](../docker) 
 using our portable MLCommons CM scripting language.
 
-### 202209
+#### 202209
 
 We have prepared a [presentation](https://doi.org/10.5281/zenodo.7143424) 
 about the mission of the MLCommons Task Force on automation and reproducibility.
 
-### 202308
+#### 202308
 
 We have prototyped [universal MLPerf inference workflows](../cm-mlops/script/app-mlperf-inference)
 using the MLCommons CM scripting language.
 
-### 202307
+#### 202307
 
 [Grigori Fursin](https://cKnowledge.org/gfursin) 
 and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) have established an 
 [MLCommons Task Force on automation and reproducibility](taskforce.md)
 to continue developing MLCommons CK/CM as a community effort.
 
-### 202306     
+#### 202306     
 
 We have pre-released [stable and portable automation CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
 to unify MLOps and DevOps across diverse software, hardware, models and data.
 
-### 202305
+#### 202305
 
 We have prepared an example of [portable and modular image classification using the MLCommons CM scriping language](tutorials/modular-image-classification.md).
 
-### 202203
+#### 202203
 
 Following positive feedback from the community about our [Collective Knowledge concept](https://www.youtube.com/watch?v=7zpeIVwICa4) 
 to facilitate reproducible research and technology transfer across rapidly evolving models, software, hardware and data,

@@ -31,7 +31,7 @@ jobs:
 
         FOLDER=`cm find repo mlcommons@ck | cut -d' ' -f3`
 
-        USER=cTuning
+        USER=ctuning-admin
         EMAIL=admin@ctuning.org
 
         git config --global user.name "$USER"

@@ -1,0 +1,169 @@
+alias: get-mlperf-inference-loadgen
+uid: 64c3d98d0ba04950
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+cache: true
+
+category: MLPerf benchmark support
+
+default_env:
+  CM_SHARED_BUILD: 'no'
+
+default_version: master
+
+deps:
+- tags: detect,os
+- names:
+  - python3
+  - python
+  tags: get,python3
+- force_env_keys:
+  - CM_GIT_URL
+  - CM_GIT_CHECKOUT
+  names:
+  - inference-src-loadgen
+  skip_if_env:
+    CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD:
+    - 'YES'
+  tags: get,mlcommons,inference,src
+- enable_if_env:
+    CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD:
+    - 'YES'
+  force_cache: true
+  names:
+  - inference-src-loadgen-download
+  tags: download-and-extract,file,_wget,_extract
+  update_tags_from_env_with_prefix:
+    _url.:
+    - CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD_URL
+- names:
+  - compiler
+  skip_if_env:
+    CM_HOST_OS_TYPE:
+    - windows
+  tags: get,compiler
+- enable_if_env:
+    CM_HOST_OS_TYPE:
+    - windows
+  names:
+  - compiler
+  tags: get,cl
+- names:
+  - cmake
+  tags: get,cmake
+  version_min: '3.12'
+- names:
+  - pip-package
+  - wheel
+  tags: get,generic-python-lib,_package.wheel
+- names:
+  - pip-package
+  - pip
+  tags: get,generic-python-lib,_pip
+- names:
+  - pip-package
+  - pybind11
+  tags: get,generic-python-lib,_package.pybind11
+- names:
+  - pip-package
+  - setuputils
+  tags: get,generic-python-lib,_package.setuptools
+
+extra_cache_tags_from_env:
+- env: CM_PYTHON_CACHE_TAGS
+  prefix: python-
+- env: CM_COMPILER_CACHE_TAGS
+  prefix: compiler-
+
+new_env_keys:
+- +PYTHONPATH
+- +C_INCLUDE_PATH
+- +CPLUS_INCLUDE_PATH
+- +LD_LIBRARY_PATH
+- +DYLD_FALLBACK_LIBRARY_PATH
+- CM_MLPERF_INFERENCE_LOADGEN_*
+
+tags:
+- get
+- loadgen
+- inference
+- inference-loadgen
+- mlperf
+- mlcommons
+
+variations:
+  copy:
+    add_deps:
+      inference-src-loadgen:
+        env:
+           CM_GIT_URL: https://github.com/cknowledge/mlperf-inference-loadgen-copy
+    # You still need to add --version=main since it's forced here to 
+  custom-python:
+    ad:
+      pip-package:
+        tags: _custom-python
+      python3:
+        skip_if_env:
+          CM_TMP_USE_CUSTOM_PYTHON:
+          - 'on'
+    env:
+      CM_TMP_USE_CUSTOM_PYTHON: 'on'
+  download:
+    env:
+      CM_DOWNLOAD_CHECKSUM: af3f9525965b2c1acc348fb882a5bfd1
+      CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD: 'YES'
+      CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD_URL: https://www.dropbox.com/scl/fi/36dgoiur26i2tvwgsaatf/loadgen.zip?rlkey=ab68i7uza9anvaw0hk1xvf0qk&dl=0
+      CM_MLPERF_INFERENCE_LOADGEN_VERSION: v3.1
+      CM_VERIFY_SSL: false
+  download_v3.1:
+    env:
+      CM_DOWNLOAD_CHECKSUM: af3f9525965b2c1acc348fb882a5bfd1
+      CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD: 'YES'
+      CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD_URL: https://www.dropbox.com/scl/fi/36dgoiur26i2tvwgsaatf/loadgen.zip?rlkey=ab68i7uza9anvaw0hk1xvf0qk&dl=0
+      CM_MLPERF_INFERENCE_LOADGEN_VERSION: v3.1
+      CM_VERIFY_SSL: false
+  download_v4.0:
+    env:
+      CM_DOWNLOAD_CHECKSUM: b4d97525d9ad0539a64667f2a3ca20c5
+      CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD: 'YES'
+      CM_MLPERF_INFERENCE_LOADGEN_DOWNLOAD_URL: https://www.dropbox.com/scl/fi/gk5e9kziju5t56umxyzyx/loadgen.zip?rlkey=vsie4xnzml1inpjplm5cg7t54&dl=0
+      CM_MLPERF_INFERENCE_LOADGEN_VERSION: v4.0
+      CM_VERIFY_SSL: false
+
+versions:
+  custom:
+    add_deps:
+      inference-src-loadgen:
+        version: custom
+  main:
+    add_deps:
+      inference-src-loadgen:
+        version: main
+  master:
+    add_deps:
+      inference-src-loadgen:
+        version: master
+  pybind_fix:
+    add_deps:
+      inference-src-loadgen:
+        version: pybind_fix
+  r2.1:
+    add_deps:
+      inference-src-loadgen:
+        tags: _pybind
+        version: r2.1
+  r3.0:
+    add_deps:
+      inference-src-loadgen:
+        tags: _pybind
+        version: r3.0
+  r3.1:
+    add_deps:
+      inference-src-loadgen:
+        tags: _pybind
+        version: r3.1
+
+print_env_at_the_end:
+  CM_MLPERF_INFERENCE_LOADGEN_INSTALL_PATH: "Path to the tool"

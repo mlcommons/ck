@@ -2987,6 +2987,9 @@ class CAutomation(Automation):
 
         r = prepare_and_run_script_with_postprocessing(run_script_input, postprocess="")
 
+        env_tmp = copy.deepcopy(run_script_input['env'])
+        r['env_tmp'] = env_tmp
+
         run_script_input['state'] = run_script_input_state_copy
         run_script_input['env'] = env_copy
         run_script_input['script_name'] = script_name_copy
