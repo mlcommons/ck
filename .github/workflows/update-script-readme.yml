@@ -36,7 +36,7 @@ jobs:
         cd $FOLDER
         echo "Changed to $FOLDER"
 
-        USER=cTuning
+        USER=ctuning-admin
         EMAIL=admin@ctuning.org
 
         git config --global user.name "$USER"
