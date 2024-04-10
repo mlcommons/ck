@@ -252,6 +252,17 @@ variations:
       CM_ML_MODEL_STUB: "#"
 
 
+  cmc:
+    env:
+      CM_CUSTOM_MODEL_CMC: yes
+
+
+  custom,cmc:
+    deps:
+    - tags: get,ml-model,cmc
+    names:
+    - cmc-model
+
 
 input_description:
   modelpath: 

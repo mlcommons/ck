@@ -40,13 +40,13 @@ Maintainers: [Public MLCommons Task Force on Automation and Reproducibility](htt
 
 `cm run script --tags=get,generic-python-lib`
 
-`cm run script --tags=get,generic-python-lib[,variations] `
+`cm run script --tags=get,generic-python-lib[,variations] [--input_flags]`
 
 *or*
 
 `cmr "get generic-python-lib"`
 
-`cmr "get generic-python-lib [variations]" `
+`cmr "get generic-python-lib [variations]" [--input_flags]`
 
 
 * *See the list of `variations` [here](#variations) and check the [Gettings Started Guide](https://github.com/mlcommons/ck/blob/dev/docs/getting-started.md) for more details.*
@@ -85,7 +85,7 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,generic-python-lib
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get generic-python-lib[variations]" `
+`cm docker script "get generic-python-lib[variations]" [--input_flags]`
 
 ___
 ### Customization
@@ -487,8 +487,8 @@ ___
       - Workflow:
     * `_torch,rocm`
       - Environment variables:
-        - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/rocm5.6`
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
+        - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/rocm5.6`
         - *CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS*: `torch`
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
@@ -509,8 +509,8 @@ ___
     * `_torch_cuda,pre`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
-        - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/<<<CM_CUDA_VERSION_STRING>>>`
         - *CM_GENERIC_PYTHON_PIP_EXTRA*: ` --pre`
+        - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/<<<CM_CUDA_VERSION_STRING>>>`
         - *CM_TORCH_VERSION_EXTRA*: `CUDA`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
@@ -532,8 +532,8 @@ ___
       - Workflow:
     * `_torchaudio,rocm`
       - Environment variables:
-        - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/rocm5.6`
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchaudio`
+        - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/rocm5.6`
         - *CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS*: `torchaudio`
       - Workflow:
     * `_torchaudio_cuda`
@@ -553,8 +553,8 @@ ___
       - Workflow:
     * `_torchvision,rocm`
       - Environment variables:
-        - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/rocm5.6`
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchvision`
+        - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/rocm5.6`
         - *CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS*: `torchvision`
       - Workflow:
     * `_torchvision_cuda`
@@ -614,6 +614,23 @@ ___
 
     </details>
 
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--extra_index_url=value`  &rarr;  `CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL=value`
+* `--force_install=value`  &rarr;  `CM_TMP_PYTHON_PACKAGE_FORCE_INSTALL=value`
+* `--index_url=value`  &rarr;  `CM_GENERIC_PYTHON_PIP_INDEX_URL=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "extra_index_url":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
@@ -655,7 +672,7 @@ ___
 
 ___
 ### Script output
-`cmr "get generic-python-lib [,variations]"  -j`
+`cmr "get generic-python-lib [,variations]" [--input_flags] -j`
 #### New environment keys (filter)
 
 * `CM_PYTHONLIB_*`

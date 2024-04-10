@@ -119,6 +119,15 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_cmc`
+      - Environment variables:
+        - *CM_CUSTOM_MODEL_CMC*: `True`
+      - Workflow:
+    * `_custom,cmc`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,ml-model,cmc
+             - *Warning: no scripts found*
     * `_custom,huggingface`
       - Workflow:
         1. ***Read "deps" on other CM scripts***

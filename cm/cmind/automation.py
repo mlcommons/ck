@@ -576,7 +576,10 @@ class Automation:
             path_to_artifact = artifact.path
 
             if console:
-                print ('Deleting CM artifact in {} ...'.format(path_to_artifact))
+                tags = artifact.meta.get('tags',[])
+                x = '' if len(tags)=='' else ' with tags "{}"'.format(','.join(tags))
+                
+                print ('Deleting CM artifact in {}{} ...'.format(path_to_artifact, x))
 
                 if not force:
                     ask = input('  Are you sure you want to delete this artifact (y/N): ')
