@@ -9,7 +9,7 @@ and link reproducibility reports as shown in these examples:
 * [Power efficiency to compare Qualcomm, Nvidia and Sima.ai devices](https://cKnowledge.org/mlcommons-mlperf-inference-gui-derived-metrics-and-conditions)
 * [Reproducibility report for Nvidia Orin](https://access.cknowledge.org/playground/?action=experiments&name=mlperf-inference--v3.0--edge--closed--image-classification--offline&result_uid=3751b230c800434a)
 
-Aggreaged results are available in [this MLCommons repository](https://github.com/mlcommons/ck_mlperf_results).
+Aggreaged results are available in [this MLCommons repository](https://github.com/mlcommons/cm4mlperf-results).
 
 You can see these results at [MLCommons CK playground](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-inference,all).
 
@@ -24,10 +24,10 @@ Pull the MLCommons CK repository with automation recipes for interoperable MLOps
 cm pull repo mlcommons@ck
 ```
 
-Pull already imported results (v2.0, v2.1, v3.0, v3.1) from this [mlcommons@ck_mlperf_results repo](https://github.com/mlcommons/ck_mlperf_results):
+Pull already imported results (v2.0, v2.1, v3.0, v3.1) from this [mlcommons@cm4mlperf-results repo](https://github.com/mlcommons/cm4mlperf-results):
 
 ```bash
-cm pull repo mlcommons@ck_mlperf_results
+cm pull repo mlcommons@cm4mlperf-results
 ```
 
 Install repository with raw MLPerf inference benchmark results with {NEW VERSION}:
@@ -61,7 +61,7 @@ cm run script "import mlperf inference to-experiment _skip_checker"
 Import to a specific repo:
 
 ```bash
-cm run script "import mlperf inference to-experiment" --target_repo=mlcommons@ck_mlperf_results
+cm run script "import mlperf inference to-experiment" --target_repo=mlcommons@cm4mlperf-results
 ```
 
 Visualize results on your local machine via CK playground GUI:
@@ -73,7 +73,7 @@ These results are also available in the [public CK playground](https://access.ck
 
 ## Further analysis of results
 
-Please check this [README](https://github.com/mlcommons/ck_mlperf_results#how-to-update-this-repository-with-new-results).
+Please check this [README](https://github.com/mlcommons/cm4mlperf-results#how-to-update-this-repository-with-new-results).
 
 # Contact us
 

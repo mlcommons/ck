@@ -236,7 +236,7 @@ You can pull all past MLPerf results in the CM format, import your current exper
 with derived metrics on your system using the Collective Knowledge Playground as follows:
 
 ```bash
-cm pull repo mlcommons@ck_mlperf_results
+cm pull repo mlcommons@cm4mlperf-results
 cmr "get git repo _repo.https://github.com/ctuning/mlperf_inference_submissions_v3.1" \
     --env.CM_GIT_CHECKOUT=main \
     --extra_cache_tags=mlperf-inference-results,community,version-3.1

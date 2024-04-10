@@ -29,7 +29,7 @@ Official results:
 * https://github.com/mlcommons/inference_results_v3.0/tree/main/open/cTuning
 
 Results in the MLCommons CK/CM format:
-* https://github.com/ctuning/ck_mlperf_results
+* https://github.com/mlcommons/cm4mlperf-results
 
 Visualization and comparison with derived metrics:
 * [MLCommons Collective Knowledge Playground](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-inference,v3.0).
