@@ -47,7 +47,7 @@ def preprocess(i):
                'run_script_input':i['run_script_input'],
                'recursion_spaces':recursion_spaces})
 
-    force_install = env.get('CM_TMP_PYTHON_PACKAGE_FORCE_INSTALL', '') == 'yes'
+    force_install = (env.get('CM_TMP_PYTHON_PACKAGE_FORCE_INSTALL', '') in ['yes', 'true', 'True', True])
 
     if r['return'] >0 or force_install:
         if r['return'] == 16 or force_install:
@@ -57,6 +57,10 @@ def preprocess(i):
             if env.get(env_version_key,'')!='':
                 del(env[env_version_key])
 
+            # Check if upgrade
+            if force_install:
+                extra+=' --upgrade --no-deps --force-reinstall'
+            
             # Check index URL
             index_url = env.get('CM_GENERIC_PYTHON_PIP_INDEX_URL','').strip()
             if index_url != '':
@@ -78,6 +82,10 @@ def preprocess(i):
             # Check update
             if env.get('CM_GENERIC_PYTHON_PIP_UPDATE','') in [True,'true','yes','on']:
                 extra +=' -U'
+
+            print ('')
+            print (recursion_spaces + '      Extra PIP CMD: ' + extra)
+            print ('')
 
             env['CM_GENERIC_PYTHON_PIP_EXTRA'] = extra
 

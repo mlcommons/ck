@@ -59,7 +59,6 @@ class XModelFactory(ModelFactory):
         print ('')
         print ('Loading model: {}'.format(self.model_path))
 
-
         if self.execution_provider == 'CPUExecutionProvider':
             torch_provider = 'cpu'
         elif self.execution_provider == 'CUDAExecutionProvider':
@@ -87,17 +86,25 @@ class XModelFactory(ModelFactory):
         if not os.path.isfile(cm_model_module):
             raise Exception('cm.py interface for a PyTorch model was not found in {}'.format(self.model_code))
 
+        print ('')
+        print ('Collective Mind Connector for the model found: {}'.format(cm_model_module))
+
+        
         # Load CM interface for the model
         import sys
         sys.path.insert(0, self.model_code)
-        model_module=importlib.import_module('cm')
+        model_module=importlib.import_module('cmc')
         del(sys.path[0])
 
         # Init model
         if len(self.model_cfg)>0:
             print ('Model cfg: {}'.format(self.model_cfg))
         
-        model = model_module.model_init(checkpoint, self.model_cfg)
+        r = model_module.model_init(checkpoint, self.model_cfg)
+        if r['return']>0:
+            raise Exception('Error: {}'.format(r['error']))
+
+        model = r['model']
 
         if torch_provider=='cuda':
             model.cuda()
