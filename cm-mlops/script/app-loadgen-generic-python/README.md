@@ -54,7 +54,10 @@ Developers: [Gaz Iqbal](https://www.linkedin.com/in/gaziqbal), [Arjun Suresh](ht
 
 #### Input Flags
 
-* --**modelpath**=Full path to a model
+* --**modelpath**=Full path to file with model weights
+* --**modelcodepath**=(for PyTorch models) Full path to file with model code and cmc.py
+* --**modelcfgpath**=(for PyTorch models) Full path to JSON file with model cfg
+* --**modelsamplepath**=(for PyTorch models) Full path to file with model sample in pickle format
 * --**ep**=ONNX Execution provider
 * --**scenario**=MLPerf LoadGen scenario
 * --**samples**=Number of samples (*2*)
@@ -201,7 +204,13 @@ ___
 * `--execmode=value`  &rarr;  `CM_MLPERF_EXEC_MODE=value`
 * `--interop=value`  &rarr;  `CM_MLPERF_INTEROP=value`
 * `--intraop=value`  &rarr;  `CM_MLPERF_INTRAOP=value`
+* `--loadgen_duration_sec=value`  &rarr;  `CM_MLPERF_LOADGEN_DURATION_SEC=value`
+* `--loadgen_expected_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_EXPECTED_QPS=value`
+* `--modelcfg=value`  &rarr;  `CM_ML_MODEL_CFG=value`
+* `--modelcfgpath=value`  &rarr;  `CM_ML_MODEL_CFG_WITH_PATH=value`
+* `--modelcodepath=value`  &rarr;  `CM_ML_MODEL_CODE_WITH_PATH=value`
 * `--modelpath=value`  &rarr;  `CM_ML_MODEL_FILE_WITH_PATH=value`
+* `--modelsamplepath=value`  &rarr;  `CM_ML_MODEL_SAMPLE_WITH_PATH=value`
 * `--output_dir=value`  &rarr;  `CM_MLPERF_OUTPUT_DIR=value`
 * `--runner=value`  &rarr;  `CM_MLPERF_RUNNER=value`
 * `--samples=value`  &rarr;  `CM_MLPERF_LOADGEN_SAMPLES=value`
@@ -241,6 +250,8 @@ ___
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,generic-python-lib,_psutil
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_package.numpy
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,cuda
        * `if (CM_MLPERF_DEVICE  == gpu)`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
@@ -258,6 +269,22 @@ ___
      * get,generic-python-lib,_onnx
        * `if (CM_MLPERF_BACKEND  == onnxruntime)`
        * CM names: `--adr.['onnx']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_torch
+       * `if (CM_MLPERF_BACKEND  == pytorch AND CM_MLPERF_DEVICE  == cpu)`
+       * CM names: `--adr.['torch']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_torchvision
+       * `if (CM_MLPERF_BACKEND  == pytorch AND CM_MLPERF_DEVICE  == cpu)`
+       * CM names: `--adr.['torchvision']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_torch_cuda
+       * `if (CM_MLPERF_BACKEND  == pytorch AND CM_MLPERF_DEVICE  == gpu)`
+       * CM names: `--adr.['torch']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_torchvision_cuda
+       * `if (CM_MLPERF_BACKEND  == pytorch AND CM_MLPERF_DEVICE  == gpu)`
+       * CM names: `--adr.['torchvision']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,ml-model,resnet50,_onnx
        * `if (CM_MODEL  == resnet50)`
