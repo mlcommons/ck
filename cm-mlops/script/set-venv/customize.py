@@ -67,7 +67,13 @@ def preprocess(i):
                 os.makedirs(work_dir)
 
             if os_info['platform'] == 'windows':
-                cmd = 'cd {} & call {} & set CM_REPOS=%CD%\CM\n'.format(name, activate_script)
+                shell = os.environ.get('CM_SET_VENV_SHELL', '')
+                if shell == '':
+                    shell = env.get('CM_SET_VENV_SHELL', '')
+                if shell != '':
+                    shell = shell.replace('CM_SET_VENV_WORK', 'work')
+                if shell == '': shell = 'cmd'
+                cmd = 'cd {} & call {} & set CM_REPOS=%CD%\CM & {}\n'.format(name, activate_script, shell)
             else:
                 cmd = '#!/bin/bash\n\ncd {} ; source {} ; export CM_REPOS=$PWD/CM ; cd work\n'.format(name, activate_script)
 
