@@ -313,7 +313,7 @@ class CAutomation(Automation):
         show_time = i.get('time', False)
         show_space = i.get('space', False)
 
-        if not recursion and (verbose or show_space):
+        if not recursion and show_space:
             start_disk_stats = shutil.disk_usage("/")
 
         extra_recursion_spaces = '  '# if verbose else ''
@@ -1724,7 +1724,7 @@ class CAutomation(Automation):
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
 
 
-        if not recursion and (verbose or show_space):
+        if not recursion and show_space:
             stop_disk_stats = shutil.disk_usage("/")
 
             used_disk_space_in_mb = int((start_disk_stats.free - stop_disk_stats.free) / (1024*1024))
