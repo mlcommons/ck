@@ -43,7 +43,7 @@ class CAutomation(Automation):
         self.tmp_file_run_env = 'tmp-run-env.out'
         self.tmp_file_ver = 'tmp-ver.out'
 
-        self.__version__ = "1.1.6"
+        self.__version__ = "1.2.1"
 
         self.local_env_keys = ['CM_VERSION',
                                'CM_VERSION_MIN',
@@ -155,7 +155,8 @@ class CAutomation(Automation):
           (verbose) (bool): if True, prints all tech. info about script execution (False by default)
           (v) (bool): the same as verbose
 
-          (time) (bool): if True, print script execution time (on if verbose == True)
+          (time) (bool): if True, print script execution time (or if verbose == True)
+          (space) (bool): if True, print used disk space for this script (or if verbose == True)
 
           (ignore_script_error) (bool): if True, ignore error code in native tools and scripts
                                         and finish a given CM script. Useful to test/debug partial installations
@@ -201,6 +202,7 @@ class CAutomation(Automation):
         from cmind import utils
         import copy
         import time
+        import shutil
 
         # Check if save input/output to file
         repro = i.get('repro', False)
@@ -222,8 +224,9 @@ class CAutomation(Automation):
         recursion = i.get('recursion', False)
 
         # If first script run, check if can write to current directory
-        if not recursion and not can_write_to_current_directory():
-            return {'return':1, 'error':'Current directory "{}" is not writable - please change it'.format(os.getcwd())}
+        if not recursion:
+            if not can_write_to_current_directory():
+                return {'return':1, 'error':'Current directory "{}" is not writable - please change it'.format(os.getcwd())}
 
         recursion_int = int(i.get('recursion_int',0))+1
 
@@ -308,6 +311,10 @@ class CAutomation(Automation):
            env['CM_VERBOSE']='yes'
 
         show_time = i.get('time', False)
+        show_space = i.get('space', False)
+
+        if not recursion and (verbose or show_space):
+            start_disk_stats = shutil.disk_usage("/")
 
         extra_recursion_spaces = '  '# if verbose else ''
 
@@ -1715,6 +1722,16 @@ class CAutomation(Automation):
 
         if verbose or show_time:
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
+
+
+        if not recursion and (verbose or show_space):
+            stop_disk_stats = shutil.disk_usage("/")
+
+            used_disk_space_in_mb = int((start_disk_stats.free - stop_disk_stats.free) / (1024*1024))
+
+            if used_disk_space_in_mb > 0:
+                print (recursion_spaces+'  - used disk space: {} MB'.format(used_disk_space_in_mb))
+
 
         # Check if pause (useful if running a given script in a new terminal that may close automatically)
         if i.get('pause', False):
