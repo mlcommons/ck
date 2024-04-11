@@ -1,5 +1,5 @@
 ## V2.0.4.1
-
+   - changed outdated version of CM in requirements when creating new repos
 
 ## V2.0.4
    - added skip of delayed help to simplify output of `cmr [tags] --help`
