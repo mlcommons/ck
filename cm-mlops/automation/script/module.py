@@ -2389,7 +2389,8 @@ class CAutomation(Automation):
 
         parsed_artifact = i.get('parsed_artifact',[])
 
-        artifact_obj = parsed_artifact[0] if len(parsed_artifact)>0 else ('','')
+        artifact_obj = parsed_artifact[0] if len(parsed_artifact)>0 else None
+        artifact_repo = parsed_artifact[1] if len(parsed_artifact)>1 else None
 
         script_name = ''
         if 'script_name' in i:
@@ -2489,6 +2490,13 @@ class CAutomation(Automation):
             ii['yaml']=True
 
         ii['automation']='script,5b4e0237da074764'
+
+        for k in ['parsed_automation', 'parsed_artifact']:
+            if k in ii: del ii[k]
+
+        if artifact_repo != None:
+            artifact = ii.get('artifact','')
+            ii['artifact'] = utils.assemble_cm_object2(artifact_repo) + ':' + artifact
 
         r_obj=self.cmind.access(ii)
         if r_obj['return']>0: return r_obj
