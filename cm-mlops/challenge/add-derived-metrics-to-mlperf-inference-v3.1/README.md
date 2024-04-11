@@ -1,6 +1,6 @@
 ### Challenge
 
-Check past MLPerf inference results in [this MLCommons repository](https://github.com/mlcommons/ck_mlperf_results)
+Check past MLPerf inference results in [this MLCommons repository](https://github.com/mlcommons/cm4mlperf-results)
 and add derived metrics such as result/No of cores, power efficiency, device cost, operational costs, etc.
 
 Add clock speed as a third dimension to graphs and improve Bar graph visualization.
@@ -30,6 +30,6 @@ Check [this ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) to learn
 ### Results
 
 All accepted results will be publicly available in the CM format with derived metrics 
-in this [MLCommons repository](https://github.com/mlcommons/ck_mlperf_results),
+in this [MLCommons repository](https://github.com/mlcommons/cm4mlperf-results),
 in [MLCommons Collective Knowledge explorer](https://access.cknowledge.org/playground/?action=experiments) 
 and at official [MLCommons website](https://mlcommons.org).

@@ -145,7 +145,7 @@ ___
        - CM script: [run-how-to-run-server](https://github.com/how-to-run/server/tree/master/script/run-how-to-run-server)
        - CM script: [app-mlperf-inference-nvidia](https://github.com/cknowledge/cm-tests/tree/master/script/app-mlperf-inference-nvidia)
        - CM script: [get-axs](https://github.com/cknowledge/cm-tests/tree/master/script/get-axs)
-       - CM script: [process-mlperf-inference-results](https://github.com/mlcommons/ck_mlperf_results/tree/master/script/process-mlperf-inference-results)
+       - CM script: [process-mlperf-inference-results](https://github.com/mlcommons/cm4mlperf-results/tree/master/script/process-mlperf-inference-results)
        - CM script: [activate-python-venv](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/activate-python-venv)
        - CM script: [add-custom-nvidia-system](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/add-custom-nvidia-system)
        - CM script: [app-image-classification-onnx-py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py)
