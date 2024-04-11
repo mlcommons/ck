@@ -194,7 +194,7 @@
   "versions": {
     "custom": {
       "env": {
-        "CM_MLPERF_LAST_RELEASE": "v3.1"
+        "CM_MLPERF_LAST_RELEASE": "v4.0"
       }
     },
     "deepsparse": {
