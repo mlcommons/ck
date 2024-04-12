@@ -224,7 +224,7 @@ class CAutomation(Automation):
         recursion = i.get('recursion', False)
 
         # If first script run, check if can write to current directory
-        if not recursion:
+        if not recursion and not i.get('skip_write_test', False):
             if not can_write_to_current_directory():
                 return {'return':1, 'error':'Current directory "{}" is not writable - please change it'.format(os.getcwd())}
 

@@ -1292,7 +1292,11 @@ def aux_search(i):
     inp = i['input']
 
     repos = inp.get('repos','')
-    if repos == '': repos='internal,a4705959af8e447a'
+# Grigori Fursin remarked on 20240412 because this line prevents 
+# from searching for scripts in other public or private repositories.
+# Not sure why we enforce just 2 repositories
+# 
+#    if repos == '': repos='internal,a4705959af8e447a'
 
     parsed_artifact = inp.get('parsed_artifact',[])
 
@@ -1607,7 +1611,7 @@ def docker(i):
     # Prepare "clean" input to replicate command
     r = self_module.cmind.access({'action':'prune_input', 'automation':'utils', 'input':i, 'extra_keys_starts_with':['docker_']})
     i_run_cmd_arc = r['new_input']
-
+    
     noregenerate_docker_file = i.get('docker_noregenerate', False)
 
     if not noregenerate_docker_file:
@@ -1640,7 +1644,7 @@ def docker(i):
         if 'CM_DOCKER_CACHE' not in env:
             env['CM_DOCKER_CACHE'] = docker_cache
 
-    image_repo = i.get('image_repo','')
+    image_repo = i.get('docker_image_repo','')
     if image_repo == '':
         image_repo = 'cknowledge'
 
