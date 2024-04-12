@@ -81,6 +81,10 @@ class CAutomation(Automation):
 
         if 'tags' in i: del(i['tags'])
 
+        automation = i['automation']
+        if ',' not in automation: 
+            i['automation'] = automation + ',' + self.meta['uid']
+
         r_obj=self.cmind.access(i)
         if r_obj['return']>0: return r_obj
 
