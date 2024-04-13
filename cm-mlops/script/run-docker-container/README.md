@@ -119,6 +119,7 @@ ___
 * `--recreate=value`  &rarr;  `CM_DOCKER_IMAGE_RECREATE=value`
 * `--run_cmd=value`  &rarr;  `CM_DOCKER_RUN_CMD=value`
 * `--run_cmd_extra=value`  &rarr;  `CM_DOCKER_RUN_CMD_EXTRA=value`
+* `--save_script=value`  &rarr;  `CM_DOCKER_SAVE_SCRIPT=value`
 * `--script_tags=value`  &rarr;  `CM_DOCKER_RUN_SCRIPT_TAGS=value`
 * `--shm_size=value`  &rarr;  `CM_DOCKER_SHM_SIZE=value`
 
