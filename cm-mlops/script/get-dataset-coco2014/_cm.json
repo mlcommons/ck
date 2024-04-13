@@ -25,6 +25,9 @@
       ],
       "tags": "mlperf,inference,source",
       "version": "master"
+    },
+    {
+      "tags": "get,generic-python-lib,_package.tqdm"
     }
   ],
   "env": {
@@ -71,7 +74,6 @@
     },
     "calibration": {
       "env": {
-        "CM_CALIBRATION_DATASET_WGET_URL": "https://github.com/mlcommons/inference/blob/master/calibration/openimages/openimages_cal_images_list.txt",
         "CM_DATASET_CALIBRATION": "yes"
       },
       "group": "dataset-type"
