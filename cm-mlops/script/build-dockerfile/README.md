@@ -112,6 +112,8 @@ ___
 * `--build=value`  &rarr;  `CM_BUILD_DOCKER_IMAGE=value`
 * `--cache=value`  &rarr;  `CM_DOCKER_CACHE=value`
 * `--cm_repo=value`  &rarr;  `CM_MLOPS_REPO=value`
+* `--cm_repo_flags=value`  &rarr;  `CM_DOCKER_ADD_FLAG_TO_CM_MLOPS_REPO=value`
+* `--cm_repos=value`  &rarr;  `CM_DOCKER_EXTRA_CM_REPOS=value`
 * `--comments=value`  &rarr;  `CM_DOCKER_RUN_COMMENTS=value`
 * `--copy_files=value`  &rarr;  `CM_DOCKER_COPY_FILES=value`
 * `--docker_base_image=value`  &rarr;  `CM_DOCKER_IMAGE_BASE=value`
