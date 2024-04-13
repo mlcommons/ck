@@ -1,8 +1,13 @@
 alias: test-download-and-extract-artifacts
+uid: 51dde7580b404b27
+
 automation_alias: script
 automation_uid: 5b4e0237da074764
+
 cache: false
+
 category: Tests
+
 deps:
 - tags: download,file,_url.https://zenodo.org/record/4735647/files/resnet50_v1.onnx
   env:
@@ -17,9 +22,10 @@ deps:
 #    CM_DOWNLOAD_CHECKSUM: 
   force_cache: true
   extra_cache_tags: reproduce,paper,artifact,zenodo,xyz2
+
 new_env_keys: 
  - CM_REPRODUCE_PAPER_XYZ*
+
 tags:
 - test
 - download-and-extract-artifacts
-uid: 51dde7580b404b27

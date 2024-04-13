@@ -162,6 +162,10 @@ def postprocess(i):
         print ('')
         print ("Running "+run_cmd+" inside docker container")
 
+        x = env.get('CM_DOCKER_SAVE_SCRIPT', '')
+        if x != '':
+            record_script({'cmd':CMD, 'filename':x})
+
         print ('')
         docker_out = subprocess.check_output(CMD, shell=True).decode("utf-8")
 
@@ -187,10 +191,24 @@ def postprocess(i):
         print ('')
         print (CMD)
 
+        x = env.get('CM_DOCKER_SAVE_SCRIPT', '')
+        if x != '':
+            record_script({'cmd':CMD, 'filename':x})
+
         print ('')
         docker_out = os.system(CMD)
 
     return {'return':0}
+
+def record_script(i):
+
+    cmd = i['cmd']
+    filename = i['filename']
+
+    with open (filename, 'w') as f:
+        f.write(cmd + '\n')
+            
+    return
 
 def update_docker_info(env):
     # Updating Docker info

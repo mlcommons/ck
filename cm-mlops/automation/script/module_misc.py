@@ -1583,6 +1583,7 @@ def docker(i):
 
       (docker_path) (str): where to create or find Dockerfile
       (docker_gh_token) (str): GitHub token for private repositories
+      (docker_save_script) (str): if !='' name of script to save docker command
 
     Returns:
       (CM return dict):
@@ -1930,6 +1931,9 @@ def docker(i):
         if extra_run_args != '':
             cm_docker_input['extra_run_args'] = extra_run_args
 
+        if i.get('docker_save_script', ''):
+            cm_docker_input['save_script'] = i['docker_save_script']
+        
         print ('')
 
 
