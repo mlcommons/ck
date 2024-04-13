@@ -204,6 +204,8 @@ variations:
         CPUExecutionProvider
 
   cuda:
+    docker:
+      all_gpus: 'yes'
     group:
       device
     env:
@@ -296,7 +298,6 @@ input_description:
 
 docker:
   skip_run_cmd: 'no'
-  all_gpus: 'yes'
   input_paths:
     - modelpath
     - env.CM_ML_MODEL_FILE_WITH_PATH

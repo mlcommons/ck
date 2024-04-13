@@ -177,9 +177,9 @@ def postprocess(i):
         if env.get('CM_DOCKER_INTERACTIVE_MODE', '') in ['yes', 'True', True]:
             x1 = '-it'
             x2 = " && bash "
-           
 
-        CONTAINER="docker run {} --entrypoint ".format(x1) + x + x + " " + run_opts + " " + docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag
+
+        CONTAINER="docker run " + x1 + " --entrypoint " + x + x + " " + run_opts + " " + docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag
         CMD =  CONTAINER + " bash -c " + x + run_cmd + x2 + x
 
         print ('')
