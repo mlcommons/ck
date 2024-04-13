@@ -55,6 +55,7 @@ def preprocess(i):
     if docker_image and recreate_image != "yes":
         print("Docker image exists with ID: " + docker_image)
         env['CM_DOCKER_IMAGE_EXISTS'] = "yes"
+
     elif recreate_image == "yes":
         env['CM_DOCKER_IMAGE_RECREATE'] = "no"
 

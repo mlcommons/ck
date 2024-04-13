@@ -2,6 +2,7 @@
    - changed outdated version of CM in requirements when creating new repos
    - fixed minor bug in `cm add automation {name}` 
    - added dependency on giturlparse to support private repos in containers
+   - fixed bug when adding automation in the local repository: "cm add . {automation_name}"
 
 ## V2.0.4
    - added skip of delayed help to simplify output of `cmr [tags] --help`

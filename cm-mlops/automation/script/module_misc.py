@@ -1552,7 +1552,8 @@ def dockerfile(i):
         if r['return'] > 0:
             return r
 
-        print("Dockerfile generated at "+dockerfile_path)
+        print ('')
+        print ("Dockerfile generated at " + dockerfile_path)
 
     return {'return':0}
 
