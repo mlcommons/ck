@@ -1122,7 +1122,7 @@ def update_path_for_docker(path, mounts, force_path_target=''):
         path_target='/cm-mount'+path_target if force_path_target=='' else force_path_target
 
         # If file, mount directory
-        if os.path.isfile(path):
+        if os.path.isfile(path) or not os.path.isdir(path):
             x = os.path.dirname(path_orig) + ':' + os.path.dirname(path_target)
         else:
             x = path_orig + ':' + path_target

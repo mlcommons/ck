@@ -32,16 +32,17 @@ def preprocess(i):
     activate_script2 = os.path.join(name, activate_script)
 
     if not os.path.isfile(activate_script2):
-        python_path = env.get('CM_SET_VENV_PYTHON','')
+        force_python_path = env.get('CM_SET_VENV_PYTHON','')
 
-        if python_path == '':
+        if force_python_path != '' and not os.path.isfile(force_python_path):
+            return {'return':1, 'error':'python executable not found: {}'.format(force_python_path)}
 
-            if os_info['platform'] == 'windows':
-                python_path = 'python.exe'
-                create_dir = ' & md {}\work'
-            else:
-                python_path = 'python3'
-                create_dir = ' ; mkdir {}/work'
+        if os_info['platform'] == 'windows':
+            python_path = 'python.exe' if force_python_path == '' else force_python_path
+            create_dir = ' & md {}\work'
+        else:
+            python_path = 'python3' if force_python_path == '' else force_python_path
+            create_dir = ' ; mkdir {}/work'
 
         cmd = python_path + ' -m venv ' + name + create_dir.format(name)
 
@@ -73,7 +74,7 @@ def preprocess(i):
                 if shell != '':
                     shell = shell.replace('CM_SET_VENV_WORK', 'work')
                 if shell == '': shell = 'cmd'
-                cmd = 'cd {} & call {} & set CM_REPOS=%CD%\CM & {}\n'.format(name, activate_script, shell)
+                cmd = 'cd {} & call {} & set CM_REPOS=%CD%\{}\CM & {}\n'.format(name, activate_script, name, shell)
             else:
                 cmd = '#!/bin/bash\n\ncd {} ; source {} ; export CM_REPOS=$PWD/CM ; cd work\n'.format(name, activate_script)
 
