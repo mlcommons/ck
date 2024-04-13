@@ -115,7 +115,6 @@ ___
 
     * `_calibration`
       - Environment variables:
-        - *CM_CALIBRATION_DATASET_WGET_URL*: `https://github.com/mlcommons/inference/blob/master/calibration/openimages/openimages_cal_images_list.txt`
         - *CM_DATASET_CALIBRATION*: `yes`
       - Workflow:
     * **`_validation`** (default)
@@ -175,6 +174,8 @@ ___
      * mlperf,inference,source
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+     * get,generic-python-lib,_package.tqdm
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014/_cm.json)
   1. ***Run native script if exists***

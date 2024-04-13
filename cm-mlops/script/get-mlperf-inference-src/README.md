@@ -109,7 +109,7 @@ ___
       - Environment variables:
         - *CM_GIT_CHECKOUT*: `deepsparse`
         - *CM_GIT_URL*: `https://github.com/neuralmagic/inference`
-        - *CM_MLPERF_LAST_RELEASE*: `v3.0`
+        - *CM_MLPERF_LAST_RELEASE*: `v4.0`
       - Workflow:
     * `_gn`
       - Environment variables:
