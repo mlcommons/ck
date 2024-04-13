@@ -55,7 +55,7 @@ Sometimes it is difficult to add all variations needed for a script like say `ba
 * `--input` is automatically converted to `CM_INPUT` env key
 * `version` is converted to `CM_VERSION`, ``version_min` to `CM_VERSION_MIN` and `version_max` to `CM_VERSION_MAX`
 * If `env['CM_GH_TOKEN']=TOKEN_VALUE` is set then git URLs (specified by `CM_GIT_URL`) are changed to add this token.
-* If `env['CM_GIT_SSH']=yes`, then git URLs are chnged to SSH from HTTPS.
+* If `env['CM_GIT_SSH']=yes`, then git URLs are changed to SSH from HTTPS.
 
 ### Script Meta
 #### Special keys in script meta

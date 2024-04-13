@@ -157,6 +157,7 @@ def postprocess(i):
 
         print ('')
         print ("Container launch command:")
+        print ('')
         print (CMD)
         print ('')
         print ("Running "+run_cmd+" inside docker container")
@@ -183,6 +184,7 @@ def postprocess(i):
 
         print ('')
         print ("Container launch command:")
+        print ('')
         print (CMD)
 
         print ('')

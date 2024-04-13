@@ -1367,6 +1367,8 @@ def dockerfile(i):
     console = i.get('out') == 'con'
 
     cm_repo = i.get('docker_cm_repo', 'mlcommons@ck')
+    cm_repo_flags = i.get('docker_cm_repo_flags', '')
+    cm_repos = i.get('docker_cm_repos', '')
 
     # Search for script(s)
     r = aux_search({'self_module': self_module, 'input': i})
@@ -1491,7 +1493,11 @@ def dockerfile(i):
 
         env['CM_DOCKER_PRE_RUN_COMMANDS'] = docker_run_final_cmds
 
-        dockerfile_path = os.path.join(script_path,'dockerfiles', dockerfilename_suffix +'.Dockerfile')
+        docker_path = i.get('docker_path', '').strip()
+        if docker_path == '': 
+            docker_path = script_path
+        
+        dockerfile_path = os.path.join(docker_path, 'dockerfiles', dockerfilename_suffix +'.Dockerfile')
 
         if i.get('print_deps'):
             cm_input = {'action': 'run',
@@ -1514,27 +1520,31 @@ def dockerfile(i):
             comments = []
 
         cm_docker_input = {'action': 'run',
-                            'automation': 'script',
-                            'tags': 'build,dockerfile',
-                            'cm_repo': cm_repo,
-                            'docker_base_image': docker_base_image,
-                            'docker_os': docker_os,
-                            'docker_os_version': docker_os_version,
-                            'file_path': dockerfile_path,
-                            'fake_run_option': fake_run_option,
-                            'comments': comments,
-                            'run_cmd': f'{run_cmd} --quiet',
-                            'script_tags': f'{tag_string}',
-                            'copy_files': docker_copy_files,
-                            'quiet': True,
-                            'env': env,
-                            'dockerfile_env': dockerfile_env,
-                            'v': i.get('v', False),
-                            'fake_docker_deps': fake_run_deps,
-                            'print_deps': True,
-                            'real_run': True
-                            }
+                           'automation': 'script',
+                           'tags': 'build,dockerfile',
+                           'cm_repo': cm_repo,
+                           'cm_repo_flags': cm_repo_flags,
+                           'docker_base_image': docker_base_image,
+                           'docker_os': docker_os,
+                           'docker_os_version': docker_os_version,
+                           'file_path': dockerfile_path,
+                           'fake_run_option': fake_run_option,
+                           'comments': comments,
+                           'run_cmd': f'{run_cmd} --quiet',
+                           'script_tags': f'{tag_string}',
+                           'copy_files': docker_copy_files,
+                           'quiet': True,
+                           'env': env,
+                           'dockerfile_env': dockerfile_env,
+                           'v': i.get('v', False),
+                           'fake_docker_deps': fake_run_deps,
+                           'print_deps': True,
+                           'real_run': True
+                          }
 
+        if cm_repos!='':
+            cm_docker_input['cm_repos'] = cm_repos
+        
         if gh_token:
             cm_docker_input['gh_token'] = gh_token
 
@@ -1571,13 +1581,8 @@ def docker(i):
 
       (out) (str): if 'con', output to console
 
-      parsed_artifact (list): prepared in CM CLI or CM access function
-                                [ (artifact alias, artifact UID) ] or
-                                [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
-
-      (repos) (str): list of repositories to search for automations (internal & mlcommons@ck by default)
-
-      (output_dir) (str): output directory (./ by default)
+      (docker_path) (str): where to create or find Dockerfile
+      (docker_gh_token) (str): GitHub token for private repositories
 
     Returns:
       (CM return dict):
@@ -1812,7 +1817,11 @@ def docker(i):
 
         cm_repo=i.get('docker_cm_repo', 'mlcommons@ck')
 
-        dockerfile_path = os.path.join(script_path,'dockerfiles', dockerfilename_suffix +'.Dockerfile')
+        docker_path = i.get('docker_path', '').strip()
+        if docker_path == '': 
+            docker_path = script_path
+                                    
+        dockerfile_path = os.path.join(docker_path, 'dockerfiles', dockerfilename_suffix +'.Dockerfile')
 
         docker_skip_run_cmd = i.get('docker_skip_run_cmd', docker_settings.get('skip_run_cmd', False)) #skips docker run cmd and gives an interactive shell to the user
 
@@ -1866,12 +1875,15 @@ def docker(i):
         if docker_settings.get('mount_current_dir','')=='yes':
             run_cmd = 'cd '+current_path_target+' && '+run_cmd
 
+        final_run_cmd = run_cmd if docker_skip_run_cmd not in [ 'yes', True, 'True' ] else 'cm version'
+        
         print ('')
         print ('CM command line regenerated to be used inside Docker:')
         print ('')
-        print (run_cmd)
+        print (final_run_cmd)
         print ('')
 
+        
         cm_docker_input = {'action': 'run',
                            'automation': 'script',
                            'tags': 'run,docker,container',
@@ -1888,7 +1900,7 @@ def docker(i):
 #                            'image_tag': script_alias,
                            'detached': detached,
                            'script_tags': f'{tag_string}',
-                           'run_cmd': run_cmd if docker_skip_run_cmd not in [ 'yes', True, 'True' ] else 'echo "cm version"',
+                           'run_cmd': final_run_cmd,
                            'v': i.get('v', False),
                            'quiet': True,
                            'pre_run_cmds': docker_pre_run_cmds,
