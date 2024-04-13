@@ -540,6 +540,9 @@ ___
            * get,generic-python-lib,_package.open_clip_torch
              * CM names: `--adr.['open-clip']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_package.opencv-python
+             * CM names: `--adr.['opencv-python']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_package.scipy
              * CM names: `--adr.['scipy']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
