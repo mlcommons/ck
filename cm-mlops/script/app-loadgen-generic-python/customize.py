@@ -18,7 +18,7 @@ def preprocess(i):
 
     if env.get('CM_MLPERF_BACKEND', '') != '':
         run_opts +=" -b "+env['CM_MLPERF_BACKEND']
-    
+
     if env.get('CM_MLPERF_RUNNER', '') != '':
         run_opts +=" -r "+env['CM_MLPERF_RUNNER']
 

@@ -1755,6 +1755,7 @@ class CAutomation(Automation):
         print_env_at_the_end = meta.get('print_env_at_the_end',{})
         if len(print_env_at_the_end)>0:
             print ('')
+
             for p in sorted(print_env_at_the_end):
                 t = print_env_at_the_end[p]
                 if t == '': t = 'ENV[{}]'.format(p)
@@ -1762,6 +1763,8 @@ class CAutomation(Automation):
                 v = new_env.get(p, None)
 
                 print ('{}: {}'.format(t, str(v)))
+
+            print ('')
 
         return rr
 
