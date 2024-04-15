@@ -173,6 +173,7 @@ class CAutomation(Automation):
           (repro_prefix) (str): if !='', use it to record above files {repro-prefix)-input.json ...                
           (repro_dir) (str): if !='', use this directory to dump info
 
+          (script_call_prefix) (str): how to call script in logs and READMEs (cm run script)
           ...
 
         Returns:
@@ -477,7 +478,9 @@ class CAutomation(Automation):
 #            print (recursion_spaces + '* Running ' + cm_script_info)
 
 
-        cm_script_info = 'cm run script '
+        cm_script_info = i.get('script_call_prefix', '').strip()
+        if cm_script_info == '': cm_script_info = 'cm run script'
+        if not cm_script_info.endswith(' '): cm_script_info+=' '
 
         x = '"'
         y = ' '
@@ -688,6 +691,16 @@ class CAutomation(Automation):
 
         meta = script_artifact.meta
         path = script_artifact.path
+
+        # Check path to repo
+        script_repo_path = script_artifact.repo_path
+
+        script_repo_path_with_prefix = script_artifact.repo_path
+        if script_artifact.repo_meta.get('prefix', '') != '':
+            script_repo_path_with_prefix = os.path.join(script_repo_path, script_artifact.repo_meta['prefix'])
+
+        env['CM_TMP_CURRENT_SCRIPT_REPO_PATH'] = script_repo_path
+        env['CM_TMP_CURRENT_SCRIPT_REPO_PATH_WITH_PREFIX'] = script_repo_path_with_prefix
 
         # Check if has --help
         if i.get('help',False):

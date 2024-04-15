@@ -26,14 +26,14 @@ deps:
   - python3
   tags: get,python3
 
+- tags: get,generic-python-lib,_tqdm
+
 - force_env_keys:
   - CM_GIT_*
   names:
   - inference-src
   tags: mlperf,inference,source
   version: master
-
-- tags: get,generic-python-lib,_tqdm
 
 env:
   CM_DATASET: COCO2014
