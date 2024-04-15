@@ -10,6 +10,7 @@ def preprocess(i):
 
     env = i['env']
 
+
     interactive = env.get('CM_DOCKER_INTERACTIVE_MODE','')
 
     if interactive:
@@ -66,6 +67,7 @@ def postprocess(i):
     os_info = i['os_info']
 
     env = i['env']
+
 
     # Updating Docker info
     update_docker_info(env)
@@ -163,9 +165,7 @@ def postprocess(i):
         print ('')
         print ("Running "+run_cmd+" inside docker container")
 
-        x = env.get('CM_DOCKER_SAVE_SCRIPT', '')
-        if x != '':
-            record_script({'cmd':CMD, 'filename':x})
+        record_script({'cmd':CMD, 'env': env})
 
         print ('')
         docker_out = subprocess.check_output(CMD, shell=True).decode("utf-8")
@@ -192,9 +192,7 @@ def postprocess(i):
         print ('')
         print (CMD)
 
-        x = env.get('CM_DOCKER_SAVE_SCRIPT', '')
-        if x != '':
-            record_script({'cmd':CMD, 'filename':x})
+        record_script({'cmd':CMD, 'env': env})
 
         print ('')
         docker_out = os.system(CMD)
@@ -204,12 +202,28 @@ def postprocess(i):
 def record_script(i):
 
     cmd = i['cmd']
-    filename = i['filename']
+    env = i['env']
 
-    with open (filename, 'w') as f:
-        f.write(cmd + '\n')
-            
-    return
+    files = []
+
+    dockerfile_path = env.get('CM_DOCKERFILE_WITH_PATH', '')
+    if dockerfile_path != '' and os.path.isfile(dockerfile_path):
+        files.append(dockerfile_path + '.run.bat')
+        files.append(dockerfile_path + '.run.sh')
+
+    save_script = env.get('CM_DOCKER_SAVE_SCRIPT', '')
+    if save_script != '':
+        if save_script.endswith('.bat') or save_script.endswith('.sh'):
+            files.append(save_script)
+        else:
+            files.append(save_script+'.bat')
+            files.append(save_script+'.sh')
+
+    for filename in files:
+        with open (filename, 'w') as f:
+            f.write(cmd + '\n')
+
+    return {'return':0}
 
 def update_docker_info(env):
     # Updating Docker info
