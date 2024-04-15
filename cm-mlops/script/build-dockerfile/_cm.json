@@ -5,6 +5,7 @@
   "category": "Docker automation",
   "cache": false,
   "input_mapping": {
+    "extra_sys_deps": "CM_DOCKER_EXTRA_SYS_DEPS",
     "build": "CM_BUILD_DOCKER_IMAGE",
     "cache": "CM_DOCKER_CACHE",
     "cm_repo": "CM_MLOPS_REPO",

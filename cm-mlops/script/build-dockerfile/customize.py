@@ -17,6 +17,7 @@ def preprocess(i):
         config = json.load(f)
 
     build_args = []
+    build_args_default = {'CM_ADD_DOCKER_GROUP_ID':''}
     input_args = []
     copy_files = []
 
@@ -62,7 +63,7 @@ def preprocess(i):
     dockerfile_dir = os.path.dirname(dockerfile_with_path)
 
     extra_dir = os.path.dirname(dockerfile_with_path)
-    
+
     if extra_dir!='':
         os.makedirs(extra_dir, exist_ok=True)
 
@@ -79,15 +80,18 @@ def preprocess(i):
     f.write('LABEL github=""' + EOL)
     f.write('LABEL maintainer=""' + EOL)
     f.write('LABEL license=""' + EOL)
+
     f.write(EOL)
 
     image_label = get_value(env, config, 'LABEL', 'CM_DOCKER_IMAGE_LABEL')
     if image_label:
         f.write('LABEL ' + image_label + EOL)
+        f.write(EOL)
 
     shell = get_value(env, config, 'SHELL', 'CM_DOCKER_IMAGE_SHELL')
     if shell:
         f.write('SHELL ' + shell + EOL)
+        f.write(EOL)
 
     for arg in config['ARGS']:
         f.write('ARG '+ arg + EOL)
@@ -95,6 +99,11 @@ def preprocess(i):
     for build_arg in build_args:
         f.write('ARG '+ build_arg + EOL)
 
+    for build_arg in sorted(build_args_default):
+        v = build_args_default[build_arg]
+        f.write('ARG '+ build_arg + '="' + str(v) + '"' + EOL)
+
+    f.write(EOL)
     copy_cmds = []
     if 'CM_DOCKER_COPY_FILES' in env:
         import shutil
@@ -111,6 +120,9 @@ def preprocess(i):
     f.write('RUN ' + get_value(env, config, 'package-manager-update-cmd', 'CM_PACKAGE_MANAGER_UPDATE_CMD') + EOL)
     f.write('RUN '+ get_value(env, config, 'package-manager-get-cmd') + " " + " ".join(get_value(env, config,
         'packages')) + EOL)
+
+    if env.get('CM_DOCKER_EXTRA_SYS_DEPS', '')!='':
+        f.write('RUN ' + env['CM_DOCKER_EXTRA_SYS_DEPS'] + EOL)
 
     if env['CM_DOCKER_OS'] == "ubuntu":
         if int(env['CM_DOCKER_OS_VERSION'].split('.')[0]) >= 23:
@@ -143,7 +155,7 @@ def preprocess(i):
             DOCKER_GROUP_ID = "-g " + docker_groupid
         else:
             DOCKER_GROUP_ID = ""
-        f.write('RUN groupadd ' + DOCKER_GROUP_ID + docker_group + EOL)
+        f.write('RUN groupadd ${CM_ADD_DOCKER_GROUP_ID} ' + DOCKER_GROUP_ID + docker_group + EOL)
         if docker_userid:
             DOCKER_USER_ID = "-u " + docker_userid
         else:

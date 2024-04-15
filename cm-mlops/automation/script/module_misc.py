@@ -1274,8 +1274,8 @@ def regenerate_script_cmd(i):
             else:
                 run_cmd+=' --'+long_key+'='+q+str(v)+q
 
-        return run_cmd    
-    
+        return run_cmd
+
     run_cmd += rebuild_flags(i_run_cmd, fake_run, skip_input_for_fake_run, add_quotes_to_keys, '')
 
     run_cmd = docker_run_cmd_prefix + ' && ' + run_cmd if docker_run_cmd_prefix!='' else run_cmd
@@ -1475,6 +1475,8 @@ def dockerfile(i):
 
         docker_cm_repos = i.get('docker_cm_repos', docker_settings.get('cm_repos', ''))
 
+        docker_extra_sys_deps = i.get('docker_extra_sys_deps', '')
+
         if not docker_base_image:
             dockerfilename_suffix = docker_os +'_'+docker_os_version
         else:
@@ -1548,11 +1550,14 @@ def dockerfile(i):
                            'real_run': True
                           }
 
-        if docker_cm_repos!='':
+        if docker_cm_repos != '':
             cm_docker_input['cm_repos'] = docker_cm_repos
 
-        if gh_token!='':
+        if gh_token != '':
             cm_docker_input['gh_token'] = gh_token
+
+        if docker_extra_sys_deps != '':
+            cm_docker_input['extra_sys_deps'] = docker_extra_sys_deps
 
         r = self_module.cmind.access(cm_docker_input)
         if r['return'] > 0:
@@ -1626,7 +1631,7 @@ def docker(i):
     # Prepare "clean" input to replicate command
     r = self_module.cmind.access({'action':'prune_input', 'automation':'utils', 'input':i, 'extra_keys_starts_with':['docker_']})
     i_run_cmd_arc = r['new_input']
-    
+
     noregenerate_docker_file = i.get('docker_noregenerate', False)
 
     if not noregenerate_docker_file:
@@ -1663,7 +1668,6 @@ def docker(i):
     if image_repo == '':
         image_repo = 'cknowledge'
 
-    
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
         meta = artifact.meta
@@ -1741,7 +1745,6 @@ def docker(i):
             mounts.append(key)
 
         # Updating environment variables from CM input based on input_mapping from meta
-        
         input_mapping = meta.get('input_mapping', {})
 
         for c_input in input_mapping:
@@ -1808,13 +1811,19 @@ def docker(i):
 
         #check for proxy settings and pass onto the docker
         proxy_keys = [ "ftp_proxy", "FTP_PROXY", "http_proxy", "HTTP_PROXY", "https_proxy", "HTTPS_PROXY", "no_proxy", "NO_PROXY", "socks_proxy", "SOCKS_PROXY", "GH_TOKEN" ]
+
         if env.get('+ CM_DOCKER_BUILD_ARGS', []) == []:
             env['+ CM_DOCKER_BUILD_ARGS'] = []
+
         for key in proxy_keys:
             if os.environ.get(key, '') != '':
                 value = os.environ[key]
                 container_env_string += " --env.{}={} ".format(key, value)
                 env['+ CM_DOCKER_BUILD_ARGS'].append("{}={}".format(key, value))
+
+        docker_use_host_group_id = i.get('docker_use_host_group_id', docker_settings.get('use_host_group_id'))
+        if docker_use_host_group_id and os.name != 'nt':
+            env['+ CM_DOCKER_BUILD_ARGS'].append("{}={}".format('CM_ADD_DOCKER_GROUP_ID', '\\"-g $(id -g $USER) -o\\"'))
 
         docker_base_image = i.get('docker_base_image', docker_settings.get('base_image'))
         docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
@@ -1859,7 +1868,7 @@ def docker(i):
 
         if interactive == '':
             interactive = docker_settings.get('interactive', '')
-        
+
 #        # Regenerate run_cmd
 #        if i.get('cmd'):
 #            run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('--docker_') )
