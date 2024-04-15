@@ -1364,11 +1364,12 @@ def dockerfile(i):
 
     cur_dir = os.getcwd()
 
+    quiet = i.get('quiet', False)
+
     console = i.get('out') == 'con'
 
     cm_repo = i.get('docker_cm_repo', 'mlcommons@ck')
     cm_repo_flags = i.get('docker_cm_repo_flags', '')
-    cm_repos = i.get('docker_cm_repos', '')
 
     # Search for script(s)
     r = aux_search({'self_module': self_module, 'input': i})
@@ -1472,6 +1473,8 @@ def dockerfile(i):
         docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
         docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
 
+        docker_cm_repos = i.get('docker_cm_repos', docker_settings.get('cm_repos', ''))
+
         if not docker_base_image:
             dockerfilename_suffix = docker_os +'_'+docker_os_version
         else:
@@ -1481,7 +1484,10 @@ def dockerfile(i):
         fake_run_deps = i.get('fake_run_deps', docker_settings.get('fake_run_deps', False))
         docker_run_final_cmds = docker_settings.get('docker_run_final_cmds', [])
 
-        gh_token = i.get('docker_gh_token')
+        r = check_gh_token(i, docker_settings, quiet)
+        if r['return'] >0 : return r
+        gh_token = r['gh_token']
+        i['docker_gh_token'] = gh_token # To pass to docker function if needed
 
         if i.get('docker_real_run', docker_settings.get('docker_real_run',False)):
             fake_run_option = " "
@@ -1496,7 +1502,7 @@ def dockerfile(i):
         docker_path = i.get('docker_path', '').strip()
         if docker_path == '': 
             docker_path = script_path
-        
+
         dockerfile_path = os.path.join(docker_path, 'dockerfiles', dockerfilename_suffix +'.Dockerfile')
 
         if i.get('print_deps'):
@@ -1542,10 +1548,10 @@ def dockerfile(i):
                            'real_run': True
                           }
 
-        if cm_repos!='':
-            cm_docker_input['cm_repos'] = cm_repos
-        
-        if gh_token:
+        if docker_cm_repos!='':
+            cm_docker_input['cm_repos'] = docker_cm_repos
+
+        if gh_token!='':
             cm_docker_input['gh_token'] = gh_token
 
         r = self_module.cmind.access(cm_docker_input)
@@ -1596,6 +1602,8 @@ def docker(i):
 
     import copy
     import re
+
+    quiet = i.get('quiet', False)
 
     detached = i.get('docker_detached', '')
     if detached=='':
@@ -1822,7 +1830,7 @@ def docker(i):
         docker_path = i.get('docker_path', '').strip()
         if docker_path == '': 
             docker_path = script_path
-                                    
+
         dockerfile_path = os.path.join(docker_path, 'dockerfiles', dockerfilename_suffix +'.Dockerfile')
 
         docker_skip_run_cmd = i.get('docker_skip_run_cmd', docker_settings.get('skip_run_cmd', False)) #skips docker run cmd and gives an interactive shell to the user
@@ -1835,7 +1843,10 @@ def docker(i):
 
         device = i.get('docker_device', docker_settings.get('device'))
 
-        gh_token = i.get('docker_gh_token')
+        r = check_gh_token(i, docker_settings, quiet)
+        if r['return'] >0 : return r
+        gh_token = r['gh_token']
+
 
         port_maps = i.get('docker_port_maps', docker_settings.get('port_maps', []))
 
@@ -1860,8 +1871,7 @@ def docker(i):
 #            run_cmd = ""
 
 
-        
-        
+
         r = regenerate_script_cmd({'script_uid':script_uid,
                                    'script_alias':script_alias,
                                    'tags':tags,
@@ -1878,14 +1888,14 @@ def docker(i):
             run_cmd = 'cd '+current_path_target+' && '+run_cmd
 
         final_run_cmd = run_cmd if docker_skip_run_cmd not in [ 'yes', True, 'True' ] else 'cm version'
-        
+
         print ('')
         print ('CM command line regenerated to be used inside Docker:')
         print ('')
         print (final_run_cmd)
         print ('')
 
-        
+
         cm_docker_input = {'action': 'run',
                            'automation': 'script',
                            'tags': 'run,docker,container',
@@ -1920,7 +1930,7 @@ def docker(i):
         if device:
             cm_docker_input['device'] = device
 
-        if gh_token:
+        if gh_token != '':
             cm_docker_input['gh_token'] = gh_token
 
         if port_maps:
@@ -1934,9 +1944,8 @@ def docker(i):
 
         if i.get('docker_save_script', ''):
             cm_docker_input['save_script'] = i['docker_save_script']
-        
-        print ('')
 
+        print ('')
 
         r = self_module.cmind.access(cm_docker_input)
         if r['return'] > 0:
@@ -1944,3 +1953,21 @@ def docker(i):
 
 
     return {'return':0}
+
+############################################################
+def check_gh_token(i, docker_settings, quiet):
+    gh_token = i.get('docker_gh_token', '')
+
+    if docker_settings.get('gh_token_required', False) and gh_token == '':
+        rx = {'return':1, 'error':'GH token is required but not provided. Use --docker_gh_token to set it'}
+
+        if quiet:
+            return rx
+
+        print ('')
+        gh_token = input ('Enter GitHub token to access private CM repositories required for this CM script: ')
+
+        if gh_token == '':
+            return rx
+
+    return {'return':0, 'gh_token': gh_token}
