@@ -1480,8 +1480,11 @@ def dockerfile(i):
         if not docker_base_image:
             dockerfilename_suffix = docker_os +'_'+docker_os_version
         else:
-            dockerfilename_suffix = docker_base_image.split("/")
-            dockerfilename_suffix = dockerfilename_suffix[len(dockerfilename_suffix) - 1]
+            if os.name == 'nt':
+                dockerfilename_suffix = docker_base_image.replace('/', '-').replace(':','-')
+            else:
+                dockerfilename_suffix = docker_base_image.split("/")
+                dockerfilename_suffix = dockerfilename_suffix[len(dockerfilename_suffix) - 1]
 
         fake_run_deps = i.get('fake_run_deps', docker_settings.get('fake_run_deps', False))
         docker_run_final_cmds = docker_settings.get('docker_run_final_cmds', [])
@@ -1828,11 +1831,16 @@ def docker(i):
         docker_base_image = i.get('docker_base_image', docker_settings.get('base_image'))
         docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
         docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
+
         if not docker_base_image:
             dockerfilename_suffix = docker_os +'_'+docker_os_version
         else:
-            dockerfilename_suffix = docker_base_image.split("/")
-            dockerfilename_suffix = dockerfilename_suffix[len(dockerfilename_suffix) - 1]
+            if os.name == 'nt':
+                dockerfilename_suffix = docker_base_image.replace('/', '-').replace(':','-')
+            else:
+                dockerfilename_suffix = docker_base_image.split("/")
+                dockerfilename_suffix = dockerfilename_suffix[len(dockerfilename_suffix) - 1]
+
 
         cm_repo=i.get('docker_cm_repo', 'mlcommons@ck')
 

@@ -44,12 +44,21 @@ def preprocess(i):
     DOCKER_CONTAINER = docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag
 
     CMD = "docker images -q " +  DOCKER_CONTAINER
+
     if os_info['platform'] == 'windows':
         CMD += " 2> nul"
     else:
         CMD += " 2> /dev/null"
 
-    docker_image = subprocess.check_output(CMD, shell=True).decode("utf-8")
+    print ('')
+    print ('Checking Docker images:')
+    print (CMD)
+    print ('')
+    
+    try:
+        docker_image = subprocess.check_output(CMD, shell=True).decode("utf-8")
+    except Exception as e:
+        return {'return':1, 'error':'Docker is either not installed or not started:\n{}'.format(e)}
 
     recreate_image = env.get('CM_DOCKER_IMAGE_RECREATE', '')
 

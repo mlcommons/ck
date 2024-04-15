@@ -59,6 +59,7 @@ def preprocess(i):
 
     if 'CM_DOCKERFILE_WITH_PATH' not in env:
         env['CM_DOCKERFILE_WITH_PATH'] = os.path.join(os.getcwd(), "Dockerfile")
+
     dockerfile_with_path = env['CM_DOCKERFILE_WITH_PATH']
     dockerfile_dir = os.path.dirname(dockerfile_with_path)
 
@@ -256,7 +257,7 @@ def preprocess(i):
 
     f.close()
 
-    f = open(env['CM_DOCKERFILE_WITH_PATH'], "r")
+    #f = open(env['CM_DOCKERFILE_WITH_PATH'], "r")
     #print(f.read())
 
     return {'return':0}

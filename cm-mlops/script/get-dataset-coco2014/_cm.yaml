@@ -26,7 +26,7 @@ deps:
   - python3
   tags: get,python3
 
-- tags: get,generic-python-lib,_tqdm
+- tags: get,generic-python-lib,_package.tqdm
 
 - force_env_keys:
   - CM_GIT_*
@@ -63,7 +63,6 @@ variations:
     group: size
   calibration:
     env:
-      CM_CALIBRATION_DATASET_WGET_URL: https://github.com/mlcommons/inference/blob/master/calibration/openimages/openimages_cal_images_list.txt
       CM_DATASET_CALIBRATION: 'yes'
     group: dataset-type
   custom-annotations:
