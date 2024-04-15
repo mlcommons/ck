@@ -119,6 +119,7 @@ ___
 * `--docker_base_image=value`  &rarr;  `CM_DOCKER_IMAGE_BASE=value`
 * `--docker_os=value`  &rarr;  `CM_DOCKER_OS=value`
 * `--docker_os_version=value`  &rarr;  `CM_DOCKER_OS_VERSION=value`
+* `--extra_sys_deps=value`  &rarr;  `CM_DOCKER_EXTRA_SYS_DEPS=value`
 * `--fake_docker_deps=value`  &rarr;  `CM_DOCKER_FAKE_DEPS=value`
 * `--fake_run_option=value`  &rarr;  `CM_DOCKER_FAKE_RUN_OPTION=value`
 * `--file_path=value`  &rarr;  `CM_DOCKERFILE_WITH_PATH=value`
