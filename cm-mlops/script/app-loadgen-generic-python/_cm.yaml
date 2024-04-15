@@ -206,6 +206,7 @@ variations:
   cuda:
     docker:
       all_gpus: 'yes'
+      base_image: nvcr.io/nvidia/pytorch:24.03-py3
     group:
       device
     env:
@@ -300,11 +301,13 @@ docker:
   skip_run_cmd: 'no'
   input_paths:
     - modelpath
+    - modelsamplepath
     - env.CM_ML_MODEL_FILE_WITH_PATH
     - env.CM_ML_MODEL_CODE_WITH_PATH
     - output_dir
   skip_input_for_fake_run:
     - modelpath
+    - modelsamplepath
     - env.CM_ML_MODEL_FILE_WITH_PATH
     - env.CM_ML_MODEL_CODE_WITH_PATH
     - output_dir
@@ -315,3 +318,5 @@ docker:
     - interop
     - execmode
     - samples
+    - modelcfg.num_classes
+    - modelcfg.config
