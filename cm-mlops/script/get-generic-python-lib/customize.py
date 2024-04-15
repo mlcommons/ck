@@ -60,7 +60,7 @@ def preprocess(i):
             # Check if upgrade
             if force_install:
                 extra+=' --upgrade --no-deps --force-reinstall'
-            
+
             # Check index URL
             index_url = env.get('CM_GENERIC_PYTHON_PIP_INDEX_URL','').strip()
             if index_url != '':
