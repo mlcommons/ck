@@ -103,7 +103,7 @@ operating system using a few CM commands:
 
 ```bash
 pip install cmind
-cm pull repo mlcommons@ck
+cm pull repo mlcommons@cm4mlops --checkout=dev
 cm run script "python app image-classification onnx _cpu"
 ```
 
@@ -166,7 +166,7 @@ CM will then try to match all your tags without `_` prefix (`_` in tags mark
 the so-called CM script variations that customize a give script behavior 
 and will be described later)  with a `tags` list in the CM meta-description dictionary.
 In our case, it will match the corresponding [`_cm.yaml`](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L9) 
-in `$HOME/CM/repos/mlcommons@ck/script/app-image-classification-onnx-py/_cm.yaml` - 
+in `$HOME/CM/repos/mlcommons@cm4mlops/script/app-image-classification-onnx-py/_cm.yaml` - 
 a wrapper for a given CM automation recipe.
 
 *Note that if you use unique ID instead of tags to identify automation (such as `3d5e908e472b417e`), 

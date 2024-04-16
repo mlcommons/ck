@@ -226,19 +226,19 @@ However, if you are already familiar with the CM/CK concepts, you can
 use these [CM automation scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
 for portable MLOps and DevOps from MLCommons directly by installing the following repository:
 ```bash
-cm pull repo mlcommons@ck
+cm pull repo mlcommons@cm4mlops
 ```
 
 You can switch to a development branch of this or any other CM repository as follows:
 
 ```bash
-cm checkout repo mlcommons@ck --branch=dev
+cm checkout repo mlcommons@cm4mlops --branch=dev
 ```
 
 You can switch back to master branch as follows:
 
 ```bash
-cm checkout repo mlcommons@ck --branch=master
+cm checkout repo mlcommons@cm4mlops --branch=master
 ```
 
 If you plan to participate in our [reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges),
@@ -247,7 +247,7 @@ In such case, you will be able to create PRs with your updates to the main repos
 If you already installed above repo, you will need delete it and install your fork as follows:
 
 ```bash
-cm rm repo mlcommons@ck --all
+cm rm repo mlcommons@cm4mlops --all
 cm pull repo --url={URL of the fork of github.com/mlcommons/ck}
 ```
 
@@ -255,14 +255,14 @@ If you want to use stable CM snapshots of reusable automation recipes (CM script
 you can download a stable repository from Zenodo (~5MB):
 
 ```bash
-cm rm repo mlcommons@ck --all
+cm rm repo mlcommons@cm4mlops --all
 cm pull repo --url=https://zenodo.org/records/10787459/files/cm-mlops-repo-20240306.zip
 
 ```
 
 You can pull repository and checkout a specific branch as follows:
 ```bash
-cm rm repo mlcommons@ck --checkout=dev
+cm rm repo mlcommons@cm4mlops --checkout=dev
 cm pull repo --url=https://zenodo.org/records/10787459/files/cm-mlops-repo-20240306.zip
 ```
 
