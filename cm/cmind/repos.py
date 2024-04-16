@@ -252,7 +252,8 @@ class Repos:
         return {'return':0}
 
     ############################################################
-    def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = '', depth = None, path_to_repo = None, checkout_only = False):
+    def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = '', depth = None, 
+                    path_to_repo = None, checkout_only = False, skip_zip_parent_dir = False):
         """
         Clone or pull CM repository
 
@@ -267,6 +268,9 @@ class Repos:
             (desc) (str): optional repository description
             (prefix) (str): sub-directory to be used inside this CM repository to store artifacts
             (path_to_repo) (str): force path to repo (useful to pull imported repos with non-standard path)
+            (checkout_only) (bool): only checkout Git repository but don't pull
+            (skip_zip_parent_dir) (bool): skip parent dir in CM ZIP repo (useful when 
+                                          downloading CM repo archives from GitHub)
 
         Returns: 
             (CM return dict):
@@ -370,10 +374,19 @@ class Repos:
             if console:
                 print ('Unpacking {} to {} ...'.format(pack_file, repo_path))
 
+            parent_dir = ''
+            
             # Unpacking zip
             for f in files:
                 if not f.startswith('..') and not f.startswith('/') and not f.startswith('\\'):
-                    file_path = os.path.join(repo_path, f)
+
+                    if skip_zip_parent_dir and parent_dir == '':
+                        parent_dir = f
+
+                    ff = f[len(parent_dir):] if parent_dir != '' else f
+                    
+                    file_path = os.path.join(repo_path, ff)
+
                     if f.endswith('/'):
                         # create directory
                         if not os.path.exists(file_path):

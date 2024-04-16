@@ -94,7 +94,7 @@ setup(
         'install': custom_install
     },
 
-    install_requires=['pyyaml', 'requests'],
+    install_requires=['pyyaml', 'requests', 'setuptools', 'giturlparse'],
 
     entry_points={"console_scripts": [
                       "cmind = cmind.cli:run",
