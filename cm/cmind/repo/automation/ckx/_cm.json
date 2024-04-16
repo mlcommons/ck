@@ -1,5 +1,5 @@
 {
-  "alias": "ck",
+  "alias": "ckx",
   "automation_alias": "automation",
   "automation_uid": "bbeb15d8f0a944a4",
   "desc": "Accessing legacy CK automations",
@@ -7,7 +7,7 @@
   "sort": -1000,
   "tags": [
     "automation",
-    "ck"
+    "ckx"
   ],
   "uid": "1818c39eaf3a4a78",
   "use_any_action": true

@@ -1,0 +1,30 @@
+alias: get-croissant
+uid: 8fd653eac8da4c14
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+cache: true
+
+category: AI/ML datasets
+
+deps:
+  - tags: detect,os
+
+  - names:
+    - python3
+    - python
+    tags: get,python3
+    version_min: '3.10'
+
+  - env:
+      CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_MLCOMMONS_CROISSANT_PATH
+    extra_cache_tags: mlcommons,croissant
+    names:
+    - git-mlcommons-croissant
+    tags: git,repo,_repo.https://github.com/mlcommons/croissant
+
+tags:
+  - get
+  - mlcommons
+  - croissant

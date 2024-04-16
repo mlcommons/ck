@@ -119,5 +119,12 @@
       },
       "group": "installation-mode"
     }
+  },
+  "print_env_at_the_end" : {
+    "CM_CUDA_PATH_LIB_CUDNN_EXISTS": "",
+    "CM_CUDA_VERSION": "",
+    "CM_CUDA_VERSION_STRING": "",
+    "CM_NVCC_BIN_WITH_PATH": "",
+    "CUDA_HOME": ""
   }
 }

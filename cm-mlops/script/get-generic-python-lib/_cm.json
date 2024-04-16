@@ -965,7 +965,7 @@
     },
     "torchvision_cuda": {
       "default_env": {
-        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torchvision"
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS1": "torchvision"
       },
       "deps": [
         {

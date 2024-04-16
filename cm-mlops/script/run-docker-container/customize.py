@@ -10,6 +10,7 @@ def preprocess(i):
 
     env = i['env']
 
+
     interactive = env.get('CM_DOCKER_INTERACTIVE_MODE','')
 
     if interactive:
@@ -43,18 +44,28 @@ def preprocess(i):
     DOCKER_CONTAINER = docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag
 
     CMD = "docker images -q " +  DOCKER_CONTAINER
+
     if os_info['platform'] == 'windows':
         CMD += " 2> nul"
     else:
         CMD += " 2> /dev/null"
 
-    docker_image = subprocess.check_output(CMD, shell=True).decode("utf-8")
+    print ('')
+    print ('Checking Docker images:')
+    print (CMD)
+    print ('')
+    
+    try:
+        docker_image = subprocess.check_output(CMD, shell=True).decode("utf-8")
+    except Exception as e:
+        return {'return':1, 'error':'Docker is either not installed or not started:\n{}'.format(e)}
 
     recreate_image = env.get('CM_DOCKER_IMAGE_RECREATE', '')
 
     if docker_image and recreate_image != "yes":
         print("Docker image exists with ID: " + docker_image)
         env['CM_DOCKER_IMAGE_EXISTS'] = "yes"
+
     elif recreate_image == "yes":
         env['CM_DOCKER_IMAGE_RECREATE'] = "no"
 
@@ -65,6 +76,7 @@ def postprocess(i):
     os_info = i['os_info']
 
     env = i['env']
+
 
     # Updating Docker info
     update_docker_info(env)
@@ -157,9 +169,12 @@ def postprocess(i):
 
         print ('')
         print ("Container launch command:")
+        print ('')
         print (CMD)
         print ('')
         print ("Running "+run_cmd+" inside docker container")
+
+        record_script({'cmd':CMD, 'env': env})
 
         print ('')
         docker_out = subprocess.check_output(CMD, shell=True).decode("utf-8")
@@ -176,17 +191,46 @@ def postprocess(i):
         if env.get('CM_DOCKER_INTERACTIVE_MODE', '') in ['yes', 'True', True]:
             x1 = '-it'
             x2 = " && bash "
-           
 
-        CONTAINER="docker run {} --entrypoint ".format(x1) + x + x + " " + run_opts + " " + docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag
+
+        CONTAINER="docker run " + x1 + " --entrypoint " + x + x + " " + run_opts + " " + docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag
         CMD =  CONTAINER + " bash -c " + x + run_cmd + x2 + x
 
         print ('')
         print ("Container launch command:")
+        print ('')
         print (CMD)
+
+        record_script({'cmd':CMD, 'env': env})
 
         print ('')
         docker_out = os.system(CMD)
+
+    return {'return':0}
+
+def record_script(i):
+
+    cmd = i['cmd']
+    env = i['env']
+
+    files = []
+
+    dockerfile_path = env.get('CM_DOCKERFILE_WITH_PATH', '')
+    if dockerfile_path != '' and os.path.isfile(dockerfile_path):
+        files.append(dockerfile_path + '.run.bat')
+        files.append(dockerfile_path + '.run.sh')
+
+    save_script = env.get('CM_DOCKER_SAVE_SCRIPT', '')
+    if save_script != '':
+        if save_script.endswith('.bat') or save_script.endswith('.sh'):
+            files.append(save_script)
+        else:
+            files.append(save_script+'.bat')
+            files.append(save_script+'.sh')
+
+    for filename in files:
+        with open (filename, 'w') as f:
+            f.write(cmd + '\n')
 
     return {'return':0}
 

@@ -43,7 +43,7 @@ class CAutomation(Automation):
         self.tmp_file_run_env = 'tmp-run-env.out'
         self.tmp_file_ver = 'tmp-ver.out'
 
-        self.__version__ = "1.1.6"
+        self.__version__ = "1.2.1"
 
         self.local_env_keys = ['CM_VERSION',
                                'CM_VERSION_MIN',
@@ -155,7 +155,8 @@ class CAutomation(Automation):
           (verbose) (bool): if True, prints all tech. info about script execution (False by default)
           (v) (bool): the same as verbose
 
-          (time) (bool): if True, print script execution time (on if verbose == True)
+          (time) (bool): if True, print script execution time (or if verbose == True)
+          (space) (bool): if True, print used disk space for this script (or if verbose == True)
 
           (ignore_script_error) (bool): if True, ignore error code in native tools and scripts
                                         and finish a given CM script. Useful to test/debug partial installations
@@ -172,6 +173,7 @@ class CAutomation(Automation):
           (repro_prefix) (str): if !='', use it to record above files {repro-prefix)-input.json ...                
           (repro_dir) (str): if !='', use this directory to dump info
 
+          (script_call_prefix) (str): how to call script in logs and READMEs (cm run script)
           ...
 
         Returns:
@@ -201,6 +203,7 @@ class CAutomation(Automation):
         from cmind import utils
         import copy
         import time
+        import shutil
 
         # Check if save input/output to file
         repro = i.get('repro', False)
@@ -222,8 +225,9 @@ class CAutomation(Automation):
         recursion = i.get('recursion', False)
 
         # If first script run, check if can write to current directory
-        if not recursion and not can_write_to_current_directory():
-            return {'return':1, 'error':'Current directory "{}" is not writable - please change it'.format(os.getcwd())}
+        if not recursion and not i.get('skip_write_test', False):
+            if not can_write_to_current_directory():
+                return {'return':1, 'error':'Current directory "{}" is not writable - please change it'.format(os.getcwd())}
 
         recursion_int = int(i.get('recursion_int',0))+1
 
@@ -308,6 +312,10 @@ class CAutomation(Automation):
            env['CM_VERBOSE']='yes'
 
         show_time = i.get('time', False)
+        show_space = i.get('space', False)
+
+        if not recursion and show_space:
+            start_disk_stats = shutil.disk_usage("/")
 
         extra_recursion_spaces = '  '# if verbose else ''
 
@@ -470,7 +478,9 @@ class CAutomation(Automation):
 #            print (recursion_spaces + '* Running ' + cm_script_info)
 
 
-        cm_script_info = 'cm run script '
+        cm_script_info = i.get('script_call_prefix', '').strip()
+        if cm_script_info == '': cm_script_info = 'cm run script'
+        if not cm_script_info.endswith(' '): cm_script_info+=' '
 
         x = '"'
         y = ' '
@@ -681,6 +691,16 @@ class CAutomation(Automation):
 
         meta = script_artifact.meta
         path = script_artifact.path
+
+        # Check path to repo
+        script_repo_path = script_artifact.repo_path
+
+        script_repo_path_with_prefix = script_artifact.repo_path
+        if script_artifact.repo_meta.get('prefix', '') != '':
+            script_repo_path_with_prefix = os.path.join(script_repo_path, script_artifact.repo_meta['prefix'])
+
+        env['CM_TMP_CURRENT_SCRIPT_REPO_PATH'] = script_repo_path
+        env['CM_TMP_CURRENT_SCRIPT_REPO_PATH_WITH_PREFIX'] = script_repo_path_with_prefix
 
         # Check if has --help
         if i.get('help',False):
@@ -1716,6 +1736,16 @@ class CAutomation(Automation):
         if verbose or show_time:
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
 
+
+        if not recursion and show_space:
+            stop_disk_stats = shutil.disk_usage("/")
+
+            used_disk_space_in_mb = int((start_disk_stats.free - stop_disk_stats.free) / (1024*1024))
+
+            if used_disk_space_in_mb > 0:
+                print (recursion_spaces+'  - used disk space: {} MB'.format(used_disk_space_in_mb))
+
+
         # Check if pause (useful if running a given script in a new terminal that may close automatically)
         if i.get('pause', False):
             print ('')
@@ -1725,12 +1755,16 @@ class CAutomation(Automation):
         print_env_at_the_end = meta.get('print_env_at_the_end',{})
         if len(print_env_at_the_end)>0:
             print ('')
-            for p in print_env_at_the_end:
+
+            for p in sorted(print_env_at_the_end):
                 t = print_env_at_the_end[p]
+                if t == '': t = 'ENV[{}]'.format(p)
 
                 v = new_env.get(p, None)
 
                 print ('{}: {}'.format(t, str(v)))
+
+            print ('')
 
         return rr
 
@@ -2372,7 +2406,8 @@ class CAutomation(Automation):
 
         parsed_artifact = i.get('parsed_artifact',[])
 
-        artifact_obj = parsed_artifact[0] if len(parsed_artifact)>0 else ('','')
+        artifact_obj = parsed_artifact[0] if len(parsed_artifact)>0 else None
+        artifact_repo = parsed_artifact[1] if len(parsed_artifact)>1 else None
 
         script_name = ''
         if 'script_name' in i:
@@ -2472,6 +2507,13 @@ class CAutomation(Automation):
             ii['yaml']=True
 
         ii['automation']='script,5b4e0237da074764'
+
+        for k in ['parsed_automation', 'parsed_artifact']:
+            if k in ii: del ii[k]
+
+        if artifact_repo != None:
+            artifact = ii.get('artifact','')
+            ii['artifact'] = utils.assemble_cm_object2(artifact_repo) + ':' + artifact
 
         r_obj=self.cmind.access(ii)
         if r_obj['return']>0: return r_obj

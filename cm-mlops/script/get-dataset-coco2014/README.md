@@ -14,7 +14,7 @@ Maintainers: [Public MLCommons Task Force on Automation and Reproducibility](htt
 
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/dev/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014)*
-* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
 * All CM tags to find and reuse this script (see in above meta description): *get,dataset,coco2014,object-detection,original*
 * Output cached? *True*
 * See [pipeline of dependencies](#dependencies-on-other-cm-scripts) on other CM scripts
@@ -115,7 +115,6 @@ ___
 
     * `_calibration`
       - Environment variables:
-        - *CM_CALIBRATION_DATASET_WGET_URL*: `https://github.com/mlcommons/inference/blob/master/calibration/openimages/openimages_cal_images_list.txt`
         - *CM_DATASET_CALIBRATION*: `yes`
       - Workflow:
     * **`_validation`** (default)
@@ -168,24 +167,26 @@ ___
 ### Dependencies on other CM scripts
 
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014/_cm.yaml)***
      * get,python3
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,generic-python-lib,_package.tqdm
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * mlperf,inference,source
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014/_cm.json)
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014/_cm.yaml)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014/run.sh)
-  1. ***Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014/_cm.json)***
+  1. ***Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014/_cm.yaml)***
      * get,coco2014,annotations
        * `if (CM_DATASET_COCO2014_CUSTOM_ANNOTATIONS  == yes)`
        - *Warning: no scripts found*
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014/_cm.json)
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014/_cm.yaml)
 
 ___
 ### Script output

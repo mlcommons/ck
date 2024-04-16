@@ -72,6 +72,8 @@ deps:
 
 variations:
   cuda:
+    docker:
+      all_gpus: 'yes'
     group: target
     env:
       USE_CUDA: yes
@@ -98,7 +100,6 @@ input_description:
 
 docker:
   skip_run_cmd: 'no'
-  all_gpus: 'yes'
   input_paths:
     - output
   add_quotes_to_keys:

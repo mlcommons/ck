@@ -1122,7 +1122,7 @@ def update_path_for_docker(path, mounts, force_path_target=''):
         path_target='/cm-mount'+path_target if force_path_target=='' else force_path_target
 
         # If file, mount directory
-        if os.path.isfile(path):
+        if os.path.isfile(path) or not os.path.isdir(path):
             x = os.path.dirname(path_orig) + ':' + os.path.dirname(path_target)
         else:
             x = path_orig + ':' + path_target
@@ -1274,8 +1274,8 @@ def regenerate_script_cmd(i):
             else:
                 run_cmd+=' --'+long_key+'='+q+str(v)+q
 
-        return run_cmd    
-    
+        return run_cmd
+
     run_cmd += rebuild_flags(i_run_cmd, fake_run, skip_input_for_fake_run, add_quotes_to_keys, '')
 
     run_cmd = docker_run_cmd_prefix + ' && ' + run_cmd if docker_run_cmd_prefix!='' else run_cmd
@@ -1292,7 +1292,11 @@ def aux_search(i):
     inp = i['input']
 
     repos = inp.get('repos','')
-    if repos == '': repos='internal,a4705959af8e447a'
+# Grigori Fursin remarked on 20240412 because this line prevents 
+# from searching for scripts in other public or private repositories.
+# Not sure why we enforce just 2 repositories
+# 
+#    if repos == '': repos='internal,a4705959af8e447a'
 
     parsed_artifact = inp.get('parsed_artifact',[])
 
@@ -1360,9 +1364,12 @@ def dockerfile(i):
 
     cur_dir = os.getcwd()
 
+    quiet = i.get('quiet', False)
+
     console = i.get('out') == 'con'
 
     cm_repo = i.get('docker_cm_repo', 'mlcommons@ck')
+    cm_repo_flags = i.get('docker_cm_repo_flags', '')
 
     # Search for script(s)
     r = aux_search({'self_module': self_module, 'input': i})
@@ -1466,16 +1473,26 @@ def dockerfile(i):
         docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
         docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
 
+        docker_cm_repos = i.get('docker_cm_repos', docker_settings.get('cm_repos', ''))
+
+        docker_extra_sys_deps = i.get('docker_extra_sys_deps', '')
+
         if not docker_base_image:
             dockerfilename_suffix = docker_os +'_'+docker_os_version
         else:
-            dockerfilename_suffix = docker_base_image.split("/")
-            dockerfilename_suffix = dockerfilename_suffix[len(dockerfilename_suffix) - 1]
+            if os.name == 'nt':
+                dockerfilename_suffix = docker_base_image.replace('/', '-').replace(':','-')
+            else:
+                dockerfilename_suffix = docker_base_image.split("/")
+                dockerfilename_suffix = dockerfilename_suffix[len(dockerfilename_suffix) - 1]
 
         fake_run_deps = i.get('fake_run_deps', docker_settings.get('fake_run_deps', False))
         docker_run_final_cmds = docker_settings.get('docker_run_final_cmds', [])
 
-        gh_token = i.get('docker_gh_token')
+        r = check_gh_token(i, docker_settings, quiet)
+        if r['return'] >0 : return r
+        gh_token = r['gh_token']
+        i['docker_gh_token'] = gh_token # To pass to docker function if needed
 
         if i.get('docker_real_run', docker_settings.get('docker_real_run',False)):
             fake_run_option = " "
@@ -1487,7 +1504,11 @@ def dockerfile(i):
 
         env['CM_DOCKER_PRE_RUN_COMMANDS'] = docker_run_final_cmds
 
-        dockerfile_path = os.path.join(script_path,'dockerfiles', dockerfilename_suffix +'.Dockerfile')
+        docker_path = i.get('docker_path', '').strip()
+        if docker_path == '': 
+            docker_path = script_path
+
+        dockerfile_path = os.path.join(docker_path, 'dockerfiles', dockerfilename_suffix +'.Dockerfile')
 
         if i.get('print_deps'):
             cm_input = {'action': 'run',
@@ -1510,35 +1531,43 @@ def dockerfile(i):
             comments = []
 
         cm_docker_input = {'action': 'run',
-                            'automation': 'script',
-                            'tags': 'build,dockerfile',
-                            'cm_repo': cm_repo,
-                            'docker_base_image': docker_base_image,
-                            'docker_os': docker_os,
-                            'docker_os_version': docker_os_version,
-                            'file_path': dockerfile_path,
-                            'fake_run_option': fake_run_option,
-                            'comments': comments,
-                            'run_cmd': f'{run_cmd} --quiet',
-                            'script_tags': f'{tag_string}',
-                            'copy_files': docker_copy_files,
-                            'quiet': True,
-                            'env': env,
-                            'dockerfile_env': dockerfile_env,
-                            'v': i.get('v', False),
-                            'fake_docker_deps': fake_run_deps,
-                            'print_deps': True,
-                            'real_run': True
-                            }
+                           'automation': 'script',
+                           'tags': 'build,dockerfile',
+                           'cm_repo': cm_repo,
+                           'cm_repo_flags': cm_repo_flags,
+                           'docker_base_image': docker_base_image,
+                           'docker_os': docker_os,
+                           'docker_os_version': docker_os_version,
+                           'file_path': dockerfile_path,
+                           'fake_run_option': fake_run_option,
+                           'comments': comments,
+                           'run_cmd': f'{run_cmd} --quiet',
+                           'script_tags': f'{tag_string}',
+                           'copy_files': docker_copy_files,
+                           'quiet': True,
+                           'env': env,
+                           'dockerfile_env': dockerfile_env,
+                           'v': i.get('v', False),
+                           'fake_docker_deps': fake_run_deps,
+                           'print_deps': True,
+                           'real_run': True
+                          }
 
-        if gh_token:
+        if docker_cm_repos != '':
+            cm_docker_input['cm_repos'] = docker_cm_repos
+
+        if gh_token != '':
             cm_docker_input['gh_token'] = gh_token
+
+        if docker_extra_sys_deps != '':
+            cm_docker_input['extra_sys_deps'] = docker_extra_sys_deps
 
         r = self_module.cmind.access(cm_docker_input)
         if r['return'] > 0:
             return r
 
-        print("Dockerfile generated at "+dockerfile_path)
+        print ('')
+        print ("Dockerfile generated at " + dockerfile_path)
 
     return {'return':0}
 
@@ -1567,13 +1596,9 @@ def docker(i):
 
       (out) (str): if 'con', output to console
 
-      parsed_artifact (list): prepared in CM CLI or CM access function
-                                [ (artifact alias, artifact UID) ] or
-                                [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
-
-      (repos) (str): list of repositories to search for automations (internal & mlcommons@ck by default)
-
-      (output_dir) (str): output directory (./ by default)
+      (docker_path) (str): where to create or find Dockerfile
+      (docker_gh_token) (str): GitHub token for private repositories
+      (docker_save_script) (str): if !='' name of script to save docker command
 
     Returns:
       (CM return dict):
@@ -1585,6 +1610,8 @@ def docker(i):
 
     import copy
     import re
+
+    quiet = i.get('quiet', False)
 
     detached = i.get('docker_detached', '')
     if detached=='':
@@ -1640,11 +1667,10 @@ def docker(i):
         if 'CM_DOCKER_CACHE' not in env:
             env['CM_DOCKER_CACHE'] = docker_cache
 
-    image_repo = i.get('image_repo','')
+    image_repo = i.get('docker_image_repo','')
     if image_repo == '':
         image_repo = 'cknowledge'
 
-    
     for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
 
         meta = artifact.meta
@@ -1722,7 +1748,6 @@ def docker(i):
             mounts.append(key)
 
         # Updating environment variables from CM input based on input_mapping from meta
-        
         input_mapping = meta.get('input_mapping', {})
 
         for c_input in input_mapping:
@@ -1789,26 +1814,41 @@ def docker(i):
 
         #check for proxy settings and pass onto the docker
         proxy_keys = [ "ftp_proxy", "FTP_PROXY", "http_proxy", "HTTP_PROXY", "https_proxy", "HTTPS_PROXY", "no_proxy", "NO_PROXY", "socks_proxy", "SOCKS_PROXY", "GH_TOKEN" ]
+
         if env.get('+ CM_DOCKER_BUILD_ARGS', []) == []:
             env['+ CM_DOCKER_BUILD_ARGS'] = []
+
         for key in proxy_keys:
             if os.environ.get(key, '') != '':
                 value = os.environ[key]
                 container_env_string += " --env.{}={} ".format(key, value)
                 env['+ CM_DOCKER_BUILD_ARGS'].append("{}={}".format(key, value))
 
+        docker_use_host_group_id = i.get('docker_use_host_group_id', docker_settings.get('use_host_group_id'))
+        if docker_use_host_group_id and os.name != 'nt':
+            env['+ CM_DOCKER_BUILD_ARGS'].append("{}={}".format('CM_ADD_DOCKER_GROUP_ID', '\\"-g $(id -g $USER) -o\\"'))
+
         docker_base_image = i.get('docker_base_image', docker_settings.get('base_image'))
         docker_os = i.get('docker_os', docker_settings.get('docker_os', 'ubuntu'))
         docker_os_version = i.get('docker_os_version', docker_settings.get('docker_os_version', '22.04'))
+
         if not docker_base_image:
             dockerfilename_suffix = docker_os +'_'+docker_os_version
         else:
-            dockerfilename_suffix = docker_base_image.split("/")
-            dockerfilename_suffix = dockerfilename_suffix[len(dockerfilename_suffix) - 1]
+            if os.name == 'nt':
+                dockerfilename_suffix = docker_base_image.replace('/', '-').replace(':','-')
+            else:
+                dockerfilename_suffix = docker_base_image.split("/")
+                dockerfilename_suffix = dockerfilename_suffix[len(dockerfilename_suffix) - 1]
+
 
         cm_repo=i.get('docker_cm_repo', 'mlcommons@ck')
 
-        dockerfile_path = os.path.join(script_path,'dockerfiles', dockerfilename_suffix +'.Dockerfile')
+        docker_path = i.get('docker_path', '').strip()
+        if docker_path == '': 
+            docker_path = script_path
+
+        dockerfile_path = os.path.join(docker_path, 'dockerfiles', dockerfilename_suffix +'.Dockerfile')
 
         docker_skip_run_cmd = i.get('docker_skip_run_cmd', docker_settings.get('skip_run_cmd', False)) #skips docker run cmd and gives an interactive shell to the user
 
@@ -1820,7 +1860,10 @@ def docker(i):
 
         device = i.get('docker_device', docker_settings.get('device'))
 
-        gh_token = i.get('docker_gh_token')
+        r = check_gh_token(i, docker_settings, quiet)
+        if r['return'] >0 : return r
+        gh_token = r['gh_token']
+
 
         port_maps = i.get('docker_port_maps', docker_settings.get('port_maps', []))
 
@@ -1833,7 +1876,7 @@ def docker(i):
 
         if interactive == '':
             interactive = docker_settings.get('interactive', '')
-        
+
 #        # Regenerate run_cmd
 #        if i.get('cmd'):
 #            run_cmd = "cm run script " + " ".join( a for a in i['cmd'] if not a.startswith('--docker_') )
@@ -1845,8 +1888,7 @@ def docker(i):
 #            run_cmd = ""
 
 
-        
-        
+
         r = regenerate_script_cmd({'script_uid':script_uid,
                                    'script_alias':script_alias,
                                    'tags':tags,
@@ -1862,11 +1904,14 @@ def docker(i):
         if docker_settings.get('mount_current_dir','')=='yes':
             run_cmd = 'cd '+current_path_target+' && '+run_cmd
 
+        final_run_cmd = run_cmd if docker_skip_run_cmd not in [ 'yes', True, 'True' ] else 'cm version'
+
         print ('')
         print ('CM command line regenerated to be used inside Docker:')
         print ('')
-        print (run_cmd)
+        print (final_run_cmd)
         print ('')
+
 
         cm_docker_input = {'action': 'run',
                            'automation': 'script',
@@ -1884,7 +1929,7 @@ def docker(i):
 #                            'image_tag': script_alias,
                            'detached': detached,
                            'script_tags': f'{tag_string}',
-                           'run_cmd': run_cmd if docker_skip_run_cmd not in [ 'yes', True, 'True' ] else 'echo "cm version"',
+                           'run_cmd': final_run_cmd,
                            'v': i.get('v', False),
                            'quiet': True,
                            'pre_run_cmds': docker_pre_run_cmds,
@@ -1902,7 +1947,7 @@ def docker(i):
         if device:
             cm_docker_input['device'] = device
 
-        if gh_token:
+        if gh_token != '':
             cm_docker_input['gh_token'] = gh_token
 
         if port_maps:
@@ -1914,8 +1959,10 @@ def docker(i):
         if extra_run_args != '':
             cm_docker_input['extra_run_args'] = extra_run_args
 
-        print ('')
+        if i.get('docker_save_script', ''):
+            cm_docker_input['save_script'] = i['docker_save_script']
 
+        print ('')
 
         r = self_module.cmind.access(cm_docker_input)
         if r['return'] > 0:
@@ -1923,3 +1970,21 @@ def docker(i):
 
 
     return {'return':0}
+
+############################################################
+def check_gh_token(i, docker_settings, quiet):
+    gh_token = i.get('docker_gh_token', '')
+
+    if docker_settings.get('gh_token_required', False) and gh_token == '':
+        rx = {'return':1, 'error':'GH token is required but not provided. Use --docker_gh_token to set it'}
+
+        if quiet:
+            return rx
+
+        print ('')
+        gh_token = input ('Enter GitHub token to access private CM repositories required for this CM script: ')
+
+        if gh_token == '':
+            return rx
+
+    return {'return':0, 'gh_token': gh_token}
