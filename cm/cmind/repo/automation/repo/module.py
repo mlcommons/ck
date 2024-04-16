@@ -31,6 +31,8 @@ class CAutomation(Automation):
           (depth) (int): Git depth
           (desc) (str): brief repository description (1 line)
           (prefix) (str): extra directory to keep CM artifacts
+          (skip_zip_parent_dir) (bool): skip parent dir in CM ZIP repo (useful when 
+                                        downloading CM repo archives from GitHub)
 
         Returns:
           (CM return dict):
@@ -50,6 +52,7 @@ class CAutomation(Automation):
         pat = i.get('pat','')
 
         checkout_only = i.get('checkout_only', False)
+        skip_zip_parent_dir = i.get('skip_zip_parent_dir', False)
 
         if url == '':
             if alias != '':
@@ -140,7 +143,8 @@ class CAutomation(Automation):
                             prefix=prefix,
                             depth=depth,
                             path_to_repo=path_to_repo,
-                            checkout_only=checkout_only)
+                            checkout_only=checkout_only,
+                            skip_zip_parent_dir=skip_zip_parent_dir)
              if r['return']>0: return r
 
              repo_meta = r['meta']

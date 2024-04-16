@@ -1,3 +1,8 @@
+## V2.1.1
+   - added --skip-zip-parent-dir to "cm pull repo --url=..." to support downloading 
+     of stable CM-MLOps repositories from https://github.com/mlcommons/cm4mlops/releases .
+
+
 ## V2.1.0
    - changed outdated version of CM in requirements when creating new repos
    - fixed minor bug in `cm add automation {name}` 
