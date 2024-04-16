@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/install-cmake-prebuilt).**
+
+
+
 Automatically generated README for this automation recipe: **install-cmake-prebuilt**
 
 Category: **Detection or installation of tools and artifacts**

@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/get-ml-model-retinanet-nvidia).**
+
+
+
 Automatically generated README for this automation recipe: **get-ml-model-retinanet-nvidia**
 
 Category: **AI/ML models**

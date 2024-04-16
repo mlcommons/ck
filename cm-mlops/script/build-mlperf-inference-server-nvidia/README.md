@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/build-mlperf-inference-server-nvidia).**
+
+
+
 Automatically generated README for this automation recipe: **build-mlperf-inference-server-nvidia**
 
 Category: **MLPerf benchmark support**

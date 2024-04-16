@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/compile-model-for.qaic).**
+
+
+
 Automatically generated README for this automation recipe: **compile-model-for.qaic**
 
 Category: **AI/ML optimization**
@@ -395,8 +399,8 @@ ___
        - CM script: [calibrate-model-for.qaic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/calibrate-model-for.qaic)
      * get,ml-model
        * CM names: `--adr.['model-src']...`
+       - CM script: [get-ml-model-abtf-ssd-pytorch](https://github.com/mlcommons/cm4abtf/tree/master/script/get-ml-model-abtf-ssd-pytorch)
        - CM script: [get-ml-model-3d-unet-kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-3d-unet-kits19)
-       - CM script: [get-ml-model-abtf-ssd-pytorch](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-abtf-ssd-pytorch)
        - CM script: [get-ml-model-bert-base-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-base-squad)
        - CM script: [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)
        - CM script: [get-ml-model-dlrm-terabyte](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte)

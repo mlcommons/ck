@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/get-bazel).**
+
+
+
 Automatically generated README for this automation recipe: **get-bazel**
 
 Category: **Detection or installation of tools and artifacts**

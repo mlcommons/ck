@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/benchmark-any-mlperf-inference-implementation).**
+
+
+
 Automatically generated README for this automation recipe: **benchmark-any-mlperf-inference-implementation**
 
 Category: **MLPerf benchmark support**

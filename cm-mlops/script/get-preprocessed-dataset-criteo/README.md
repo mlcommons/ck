@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/get-preprocessed-dataset-criteo).**
+
+
+
 Automatically generated README for this automation recipe: **get-preprocessed-dataset-criteo**
 
 Category: **AI/ML datasets**

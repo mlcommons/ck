@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/get-ml-model-gptj).**
+
+
+
 Automatically generated README for this automation recipe: **get-ml-model-gptj**
 
 Category: **AI/ML models**

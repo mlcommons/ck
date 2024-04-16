@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/app-loadgen-generic-python).**
+
+
+
 Automatically generated README for this automation recipe: **app-loadgen-generic-python**
 
 Category: **Modular MLPerf inference benchmark pipeline**
@@ -127,7 +131,7 @@ ___
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,ml-model,cmc
-             - *Warning: no scripts found*
+             - CM script: [get-ml-model-abtf-ssd-pytorch](https://github.com/mlcommons/cm4abtf/tree/master/script/get-ml-model-abtf-ssd-pytorch)
     * `_custom,huggingface`
       - Workflow:
         1. ***Read "deps" on other CM scripts***

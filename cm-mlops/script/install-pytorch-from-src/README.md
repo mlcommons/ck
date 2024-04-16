@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/install-pytorch-from-src).**
+
+
+
 Automatically generated README for this automation recipe: **install-pytorch-from-src**
 
 Category: **Compiler automation**

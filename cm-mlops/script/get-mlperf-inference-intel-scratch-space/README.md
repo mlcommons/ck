@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/get-mlperf-inference-intel-scratch-space).**
+
+
+
 Automatically generated README for this automation recipe: **get-mlperf-inference-intel-scratch-space**
 
 Category: **MLPerf benchmark support**

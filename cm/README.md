@@ -50,10 +50,10 @@ using a few CM commands:
 
 pip install cmind -U
 
-cm pull repo mlcommons@ck
+cm pull repo mlcommons@cm4mlops
 
-cm checkout repo mlcommons@ck --branch=dev
-cm checkout repo mlcommons@ck --branch=master
+cm checkout repo mlcommons@cm4mlops --branch=dev
+cm checkout repo mlcommons@cm4mlops --branch=master
 
 cm rm cache -f
 
@@ -135,7 +135,7 @@ See more examples of CM scripts and workflows to download Stable Diffusion, GPT-
 ```bash
 pip install cmind -U
 
-cm pull repo mlcommons@ck
+cm pull repo mlcommons@cm4mlops
 
 cm run script "python app image-classification onnx"
 cmr "python app image-classification onnx"
@@ -183,7 +183,7 @@ cmr "get generic-python-lib _package.torchvision" --version=0.16.2
 cmr "python app image-classification torch" --input=computer_mouse.jpg
 
 
-cm rm repo mlcommons@ck
+cm rm repo mlcommons@cm4mlops
 cm pull repo --url=https://zenodo.org/records/10787459/files/cm-mlops-repo-20240306.zip
 
 cmr "install llvm prebuilt" --version=17.0.6

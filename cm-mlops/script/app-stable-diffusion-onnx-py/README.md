@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/app-stable-diffusion-onnx-py).**
+
+
+
 Automatically generated README for this automation recipe: **app-stable-diffusion-onnx-py**
 
 Category: **Modular AI/ML application pipeline**

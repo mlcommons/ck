@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/reproduce-mlperf-octoml-tinyml-results).**
+
+
+
 Automatically generated README for this automation recipe: **reproduce-mlperf-octoml-tinyml-results**
 
 Category: **Reproduce MLPerf benchmarks**

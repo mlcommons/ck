@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/build-docker-image).**
+
+
+
 Automatically generated README for this automation recipe: **build-docker-image**
 
 Category: **Docker automation**
@@ -153,6 +157,7 @@ ___
 #### New environment keys auto-detected from customize
 
 * `CM_DOCKER_BUILD_ARGS`
+* `CM_DOCKER_BUILD_CMD`
 * `CM_DOCKER_CACHE_ARG`
 * `CM_DOCKER_IMAGE_NAME`
 * `CM_DOCKER_IMAGE_REPO`

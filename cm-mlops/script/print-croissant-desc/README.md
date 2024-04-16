@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/print-croissant-desc).**
+
+
+
 Automatically generated README for this automation recipe: **print-croissant-desc**
 
 Category: **Tests**

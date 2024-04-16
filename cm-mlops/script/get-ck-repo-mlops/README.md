@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/get-ck-repo-mlops).**
+
+
+
 Automatically generated README for this automation recipe: **get-ck-repo-mlops**
 
 Category: **Legacy CK support**

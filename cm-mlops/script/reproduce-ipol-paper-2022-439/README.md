@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/reproduce-ipol-paper-2022-439).**
+
+
+
 Automatically generated README for this automation recipe: **reproduce-ipol-paper-2022-439**
 
 Category: **Reproducibility and artifact evaluation**

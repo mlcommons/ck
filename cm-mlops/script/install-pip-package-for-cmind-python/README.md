@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/install-pip-package-for-cmind-python).**
+
+
+
 Automatically generated README for this automation recipe: **install-pip-package-for-cmind-python**
 
 License: **Apache 2.0**

@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/get-generic-python-lib).**
+
+
+
 Automatically generated README for this automation recipe: **get-generic-python-lib**
 
 Category: **Python automation**

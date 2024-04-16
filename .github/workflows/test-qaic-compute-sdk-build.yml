@@ -27,7 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         python3 -m pip install cmind
-        cm pull repo mlcommons@ck
+        cm pull repo mlcommons@cm4mlops
         cm run script --tags=get,sys-utils-cm --quiet
   
     - name: Test QAIC Compute SDK for compilation
