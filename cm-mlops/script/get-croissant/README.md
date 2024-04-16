@@ -14,7 +14,7 @@ Maintainers: [Public MLCommons Task Force on Automation and Reproducibility](htt
 
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/dev/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-croissant)*
-* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
 * All CM tags to find and reuse this script (see in above meta description): *get,mlcommons,croissant*
 * Output cached? *True*
 * See [pipeline of dependencies](#dependencies-on-other-cm-scripts) on other CM scripts
@@ -102,7 +102,7 @@ ___
 ### Dependencies on other CM scripts
 
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-croissant/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-croissant/_cm.yaml)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,python3
@@ -112,13 +112,13 @@ ___
        * CM names: `--adr.['git-mlcommons-croissant']...`
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-croissant/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-croissant/_cm.json)
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-croissant/_cm.yaml)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-croissant/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-croissant/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-croissant/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-croissant/_cm.yaml)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-croissant/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-croissant/_cm.json)
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-croissant/_cm.yaml)
 
 ___
 ### Script output
