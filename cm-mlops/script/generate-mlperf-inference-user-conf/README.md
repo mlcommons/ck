@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/generate-mlperf-inference-user-conf).**
+
+
+
 Automatically generated README for this automation recipe: **generate-mlperf-inference-user-conf**
 
 Category: **MLPerf benchmark support**

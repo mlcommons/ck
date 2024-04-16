@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/test-set-sys-user-cm).**
+
+
+
 Automatically generated README for this automation recipe: **test-set-sys-user-cm**
 
 Category: **Tests**

@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/install-onednn-from-src).**
+
+
+
 Automatically generated README for this automation recipe: **install-onednn-from-src**
 
 Category: **Compiler automation**

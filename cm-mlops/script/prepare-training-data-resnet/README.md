@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/prepare-training-data-resnet).**
+
+
+
 Automatically generated README for this automation recipe: **prepare-training-data-resnet**
 
 Category: **MLPerf benchmark support**

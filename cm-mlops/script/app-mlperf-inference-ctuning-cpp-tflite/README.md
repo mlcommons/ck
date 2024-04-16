@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/app-mlperf-inference-ctuning-cpp-tflite).**
+
+
+
 Automatically generated README for this automation recipe: **app-mlperf-inference-ctuning-cpp-tflite**
 
 Category: **Modular MLPerf inference benchmark pipeline**

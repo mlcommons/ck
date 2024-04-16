@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/gui).**
+
+
+
 Automatically generated README for this automation recipe: **gui**
 
 Category: **GUI**

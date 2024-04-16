@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/set-sqlite-dir).**
+
+
+
 Automatically generated README for this automation recipe: **set-sqlite-dir**
 
 Category: **DevOps automation**

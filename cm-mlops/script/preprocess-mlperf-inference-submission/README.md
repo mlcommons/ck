@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/preprocess-mlperf-inference-submission).**
+
+
+
 Automatically generated README for this automation recipe: **preprocess-mlperf-inference-submission**
 
 Category: **MLPerf benchmark support**

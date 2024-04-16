@@ -261,6 +261,10 @@ def doc(i):
 #                            '{{CM_README_TOC}}',
 #                            '</details>',
 #                            '',
+                            '**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/{}).**'.format(meta['alias']),
+                            '',
+                            '',
+                            '',
                             'Automatically generated README for this automation recipe: **{}**'.format(meta['alias']), 
                             ]
 

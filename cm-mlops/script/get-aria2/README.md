@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/get-aria2).**
+
+
+
 Automatically generated README for this automation recipe: **get-aria2**
 
 Category: **Detection or installation of tools and artifacts**

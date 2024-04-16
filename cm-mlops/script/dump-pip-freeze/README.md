@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/dump-pip-freeze).**
+
+
+
 Automatically generated README for this automation recipe: **dump-pip-freeze**
 
 License: **Apache 2.0**

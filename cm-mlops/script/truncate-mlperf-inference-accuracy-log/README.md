@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/truncate-mlperf-inference-accuracy-log).**
+
+
+
 Automatically generated README for this automation recipe: **truncate-mlperf-inference-accuracy-log**
 
 Category: **MLPerf benchmark support**

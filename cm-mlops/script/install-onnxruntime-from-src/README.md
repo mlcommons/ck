@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/install-onnxruntime-from-src).**
+
+
+
 Automatically generated README for this automation recipe: **install-onnxruntime-from-src**
 
 Category: **Compiler automation**

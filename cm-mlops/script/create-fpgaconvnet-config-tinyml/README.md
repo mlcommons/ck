@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/create-fpgaconvnet-config-tinyml).**
+
+
+
 Automatically generated README for this automation recipe: **create-fpgaconvnet-config-tinyml**
 
 Category: **TinyML automation**

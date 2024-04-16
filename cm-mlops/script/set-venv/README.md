@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/set-venv).**
+
+
+
 Automatically generated README for this automation recipe: **set-venv**
 
 License: **Apache 2.0**

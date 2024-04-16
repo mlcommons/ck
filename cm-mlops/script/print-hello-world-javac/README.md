@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/print-hello-world-javac).**
+
+
+
 Automatically generated README for this automation recipe: **print-hello-world-javac**
 
 Category: **Tests**

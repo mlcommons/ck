@@ -54,7 +54,6 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [DevOps automation](#devops-automation)
 * [Docker automation](#docker-automation)
 * [GUI](#gui)
-* [Hardware automation](#hardware-automation)
 * [Legacy CK support](#legacy-ck-support)
 * [MLPerf benchmark support](#mlperf-benchmark-support)
 * [Modular AI/ML application pipeline](#modular-aiml-application-pipeline)
@@ -67,7 +66,6 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [Remote automation](#remote-automation)
 * [Reproduce MLPerf benchmarks](#reproduce-mlperf-benchmarks)
 * [Reproducibility and artifact evaluation](#reproducibility-and-artifact-evaluation)
-* [Testing libraries and tools](#testing-libraries-and-tools)
 * [Tests](#tests)
 * [TinyML automation](#tinyml-automation)
 
@@ -79,7 +77,6 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [get-dataset-cnndm](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-cnndm)
 * [get-dataset-coco](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco)
 * [get-dataset-coco2014](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014)
-* [get-dataset-cognata](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-cognata)
 * [get-dataset-criteo](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-criteo)
 * [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-imagenet-aux)
 * [get-dataset-imagenet-calibration](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-imagenet-calibration)
@@ -124,7 +121,6 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [get-bert-squad-vocab](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-bert-squad-vocab)
 * [get-dlrm](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dlrm)
 * [get-ml-model-3d-unet-kits19](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-ml-model-3d-unet-kits19)
-* [get-ml-model-abtf-ssd-pytorch](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-ml-model-abtf-ssd-pytorch)
 * [get-ml-model-bert-base-squad](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-ml-model-bert-base-squad)
 * [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-ml-model-bert-large-squad)
 * [get-ml-model-dlrm-terabyte](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-ml-model-dlrm-terabyte)
@@ -203,6 +199,7 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 ### Detection or installation of tools and artifacts
 
 * [get-android-sdk](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-android-sdk)
+* [get-aria2](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-aria2)
 * [get-bazel](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-bazel)
 * [get-blis](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-blis)
 * [get-brew](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-brew)
@@ -260,15 +257,12 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 
 * [build-docker-image](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/build-docker-image)
 * [build-dockerfile](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/build-dockerfile)
+* [prune-docker](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/prune-docker)
 * [run-docker-container](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/run-docker-container)
 
 ### GUI
 
 * [gui](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/gui)
-
-### Hardware automation
-
-* [get-target-device](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-target-device)
 
 ### Legacy CK support
 
@@ -383,10 +377,6 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [process-ae-users](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/process-ae-users)
 * [reproduce-ipol-paper-2022-439](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/reproduce-ipol-paper-2022-439)
 
-### Testing libraries and tools
-
-* [test-onnxruntime-cpp](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/test-onnxruntime-cpp)
-
 ### Tests
 
 * [print-croissant-desc](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/print-croissant-desc)
@@ -396,7 +386,6 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [print-hello-world-py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/print-hello-world-py)
 * [print-python-version](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/print-python-version)
 * [run-python](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/run-python)
-* [test-abtf-ssd-pytorch](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/test-abtf-ssd-pytorch)
 * [test-download-and-extract-artifacts](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/test-download-and-extract-artifacts)
 * [test-set-sys-user-cm](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/test-set-sys-user-cm)
 * [upgrade-python-pip](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/upgrade-python-pip)
@@ -466,6 +455,7 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [generate-nvidia-engine](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/generate-nvidia-engine)
 * [get-android-sdk](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-android-sdk)
 * [get-aocl](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-aocl)
+* [get-aria2](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-aria2)
 * [get-aws-cli](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-aws-cli)
 * [get-bazel](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-bazel)
 * [get-bert-squad-vocab](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-bert-squad-vocab)
@@ -487,7 +477,6 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [get-dataset-cnndm](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-cnndm)
 * [get-dataset-coco](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco)
 * [get-dataset-coco2014](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-coco2014)
-* [get-dataset-cognata](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-cognata)
 * [get-dataset-criteo](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-criteo)
 * [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-imagenet-aux)
 * [get-dataset-imagenet-calibration](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-dataset-imagenet-calibration)
@@ -523,7 +512,6 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [get-llvm](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-llvm) *(Detect or install LLVM compiler.)*
 * [get-microtvm](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-microtvm)
 * [get-ml-model-3d-unet-kits19](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-ml-model-3d-unet-kits19)
-* [get-ml-model-abtf-ssd-pytorch](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-ml-model-abtf-ssd-pytorch)
 * [get-ml-model-bert-base-squad](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-ml-model-bert-base-squad)
 * [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-ml-model-bert-large-squad)
 * [get-ml-model-dlrm-terabyte](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-ml-model-dlrm-terabyte)
@@ -578,7 +566,6 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [get-spec-ptd](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-spec-ptd)
 * [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-sys-utils-cm)
 * [get-sys-utils-min](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-sys-utils-min)
-* [get-target-device](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-target-device)
 * [get-tensorrt](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-tensorrt)
 * [get-terraform](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-terraform)
 * [get-tvm](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-tvm)
@@ -636,6 +623,7 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [process-ae-users](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/process-ae-users)
 * [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/process-mlperf-accuracy)
 * [prune-bert-models](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/prune-bert-models)
+* [prune-docker](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/prune-docker)
 * [publish-results-to-dashboard](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/publish-results-to-dashboard)
 * [pull-git-repo](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/pull-git-repo)
 * [push-csv-to-spreadsheet](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/push-csv-to-spreadsheet)
@@ -658,11 +646,10 @@ for a given task and platform [using simple JSON or YAML](https://github.com/mlc
 * [set-echo-off-win](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/set-echo-off-win)
 * [set-performance-mode](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/set-performance-mode)
 * [set-sqlite-dir](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/set-sqlite-dir)
+* [set-venv](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/set-venv)
 * [tar-my-folder](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/tar-my-folder)
-* [test-abtf-ssd-pytorch](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/test-abtf-ssd-pytorch)
 * [test-download-and-extract-artifacts](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/test-download-and-extract-artifacts)
 * [test-mlperf-inference-retinanet](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/test-mlperf-inference-retinanet)
-* [test-onnxruntime-cpp](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/test-onnxruntime-cpp)
 * [test-set-sys-user-cm](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/test-set-sys-user-cm)
 * [truncate-mlperf-inference-accuracy-log](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/truncate-mlperf-inference-accuracy-log)
 * [upgrade-python-pip](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/upgrade-python-pip)

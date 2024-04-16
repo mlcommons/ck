@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/get-ml-model-rnnt).**
+
+
+
 Automatically generated README for this automation recipe: **get-ml-model-rnnt**
 
 Category: **AI/ML models**

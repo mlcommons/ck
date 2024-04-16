@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/convert-ml-model-huggingface-to-onnx).**
+
+
+
 Automatically generated README for this automation recipe: **convert-ml-model-huggingface-to-onnx**
 
 Category: **AI/ML models**

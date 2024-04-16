@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/reproduce-mlperf-training-nvidia).**
+
+
+
 Automatically generated README for this automation recipe: **reproduce-mlperf-training-nvidia**
 
 Category: **Reproduce MLPerf benchmarks**

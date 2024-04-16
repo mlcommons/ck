@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/get-ml-model-efficientnet-lite).**
+
+
+
 Automatically generated README for this automation recipe: **get-ml-model-efficientnet-lite**
 
 Category: **AI/ML models**

@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/download-torrent).**
+
+
+
 Automatically generated README for this automation recipe: **download-torrent**
 
 Category: **DevOps automation**

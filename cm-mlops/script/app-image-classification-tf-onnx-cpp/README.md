@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/app-image-classification-tf-onnx-cpp).**
+
+
+
 Automatically generated README for this automation recipe: **app-image-classification-tf-onnx-cpp**
 
 Category: **Modular AI/ML application pipeline**

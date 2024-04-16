@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/process-mlperf-accuracy).**
+
+
+
 Automatically generated README for this automation recipe: **process-mlperf-accuracy**
 
 Category: **MLPerf benchmark support**

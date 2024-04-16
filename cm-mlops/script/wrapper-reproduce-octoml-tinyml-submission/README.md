@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/wrapper-reproduce-octoml-tinyml-submission).**
+
+
+
 Automatically generated README for this automation recipe: **wrapper-reproduce-octoml-tinyml-submission**
 
 Category: **Reproduce MLPerf benchmarks**

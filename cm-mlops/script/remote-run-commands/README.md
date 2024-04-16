@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/remote-run-commands).**
+
+
+
 Automatically generated README for this automation recipe: **remote-run-commands**
 
 Category: **Remote automation**

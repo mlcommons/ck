@@ -1,3 +1,7 @@
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/publish-results-to-dashboard).**
+
+
+
 Automatically generated README for this automation recipe: **publish-results-to-dashboard**
 
 Category: **Dashboard automation**
