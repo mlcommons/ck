@@ -1,3 +1,8 @@
+## V2.1.2
+   - added support for deps on other CM repos 
+     (if conflict = True - then fail if this repo is already installed
+      otherwise print that repo is missing)
+
 ## V2.1.1
    - added --skip-zip-parent-dir to "cm pull repo --url=..." to support downloading 
      of stable CM-MLOps repositories from https://github.com/mlcommons/cm4mlops/releases .

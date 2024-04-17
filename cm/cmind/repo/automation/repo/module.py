@@ -110,6 +110,8 @@ class CAutomation(Automation):
         repo_meta = {}
         repo_metas = {}
 
+        warnings = []
+        
         for repo in pull_repos:
              alias = repo['alias']
              url = repo.get('url', '')
@@ -151,12 +153,17 @@ class CAutomation(Automation):
 
              repo_metas[alias] = repo_meta
 
+             if len(r.get('warnings', []))>0:
+                 warnings += r['warnings']
+
         if len(pull_repos)>0 and self.cmind.use_index:
             if console:
                 print (self.cmind.cfg['line'])
 
             ii = {'out':'con'} if console else {}
             rx = self.reindex(ii)
+
+        print_warnings(warnings)    
 
         return {'return':0, 'meta':repo_meta, 'metas': repo_metas}
 
@@ -580,6 +587,9 @@ class CAutomation(Automation):
         if self.cmind.use_index:
             ii = {'out':'con'} if console else {}
             rx = self.reindex(ii)
+        
+        warnings = r.get('warnings', [])
+        print_warnings(warnings)
         
         return r
 
@@ -1196,3 +1206,14 @@ def convert_ck_dir_to_cm(rpath):
                                if r['return']>0: return r
 
     return {'return':0}
+
+def print_warnings(warnings):
+
+    if len(warnings)>0:
+        print ('')
+        print ('WARNINGS:')
+        print ('')
+        for w in warnings:
+            print ('  {}'.format(w))
+                                                                            
+    return
