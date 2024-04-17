@@ -22,10 +22,10 @@ and Modular Inference Library) or participate in collaborative developments.
 
 Thank you for your support and looking forward to collaborating with you!
 
-## Authors and project coordinators
+## Project coordinators
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin) (MLCommons.org, cTuning.org, cKnowledge.org)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (MLCommons.org, cTuning.org, cKnowledge.org)
+* [Grigori Fursin](https://cKnowledge.org/gfursin)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
 ## Contributors to MLCommons' Collective Mind (aka Collective Knowledge v3) in alphabetical order
 
