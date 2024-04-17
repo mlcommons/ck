@@ -7,3 +7,5 @@ echo "CM_ENV_TEST3 = ${CM_ENV_TEST3}"
 
 echo ""
 echo "HELLO WORLD!"
+
+echo ""
