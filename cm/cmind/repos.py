@@ -248,7 +248,7 @@ class Repos:
 
                             if match:
                                 if d.get('conflict', False):
-                                    return {'return':1, 'error':'Can\'t install this repository because it conflicts with the already installed one ({}) - you may need to remove it to proceed (cm rm repo {} --all)'.format(d_alias,d_alias)}
+                                    return {'return':1, 'error':'Can\'t install this repository because it conflicts with the already installed one ({}) - you may need to remove it to proceed (cm rm repo {})'.format(d_alias,d_alias)}
 
                                 d['matched'] = True
 
