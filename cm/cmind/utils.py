@@ -1656,17 +1656,24 @@ def debug_here(module_path, host='localhost', port=5678, text='', env_debug_uid=
     print ('Adding remote debug breakpoint ...')
     if text != '':
         print (text)
-    print ('')
-    print ('Add Folder to Workplace: {}'.format(workplace))
-    print ('Open Python file in VS to set breakpoint: {}'.format(module_path))
-    print ('')
-    print ('Start Python Debugger -> Remote Attach -> {} -> {}'.format(host, port))
-    print ('')
 
+    print ('')
     import debugpy
     debugpy.listen(port)
 
-    print("Waiting for debugger to attach ...")
+    print ('')
+    print ('Waiting for debugger to attach ...')
+    print ('')
+    print ('Further actions for Visual Studio Code:')
+    print ('  Open Python file in VS to set breakpoint: {}'.format(module_path))
+    print ('  File -> Add Folder to Workplace: {}'.format(workplace))
+    print ('  Run -> Add configuration -> Python Debugger -> Remote attach -> {} -> {}'.format(host, port))
+    print ('     Сhange "remoteRoot" to ${workspaceFolder}')
+    print ('  Set breakpoint ...')
+    print ('  Run -> Start Debugging (or press F5) ...')
+    print ('')
+
+
     debugpy.wait_for_client()
 
     # Go up outside this function to continue debugging (F11 in VS)
