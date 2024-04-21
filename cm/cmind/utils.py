@@ -1638,15 +1638,28 @@ def rm_read_only(f, p, e):
     return
 
 ##############################################################################
-def debug_here(module_path, host='localhost', port=5678):
-
+def debug_here(module_path, host='localhost', port=5678, text='', env_debug_uid=''):
     import os
-    workplace = os.path.dirname(module_path)
 
-    print ('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    print ('Adding remote debug breakpoint:')
+    if env_debug_uid!='':
+        x = os.environ.get('CM_TMP_DEBUG_UID', '').strip()
+        if x.lower() != env_debug_uid.lower():
+            class dummy:
+               def breakpoint(self):
+                   return
+
+            return dummy()
+
+    workplace = os.path.dirname(module_path)
+    self_module_path = os.path.dirname(__file__)
+
+    print ('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    print ('Adding remote debug breakpoint ...')
+    if text != '':
+        print (text)
     print ('')
     print ('Add Folder to Workplace: {}'.format(workplace))
+    print ('Add Folder 2 to Workplace: {}'.format(self_module_path))
     print ('Open Python file in VS to set breakpoint: {}'.format(module_path))
     print ('')
     print ('Start Python Debugger -> Remote Attach -> {} -> {}'.format(host, port))
@@ -1658,7 +1671,5 @@ def debug_here(module_path, host='localhost', port=5678):
     print("Waiting for debugger to attach ...")
     debugpy.wait_for_client()
 
-    debugpy.breakpoint()
-
     # Go up outside this function to continue debugging (F11 in VS)
-    return
+    return debugpy
