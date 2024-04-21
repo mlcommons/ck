@@ -1651,7 +1651,6 @@ def debug_here(module_path, host='localhost', port=5678, text='', env_debug_uid=
             return dummy()
 
     workplace = os.path.dirname(module_path)
-    self_module_path = os.path.dirname(__file__)
 
     print ('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     print ('Adding remote debug breakpoint ...')
@@ -1659,7 +1658,6 @@ def debug_here(module_path, host='localhost', port=5678, text='', env_debug_uid=
         print (text)
     print ('')
     print ('Add Folder to Workplace: {}'.format(workplace))
-    print ('Add Folder 2 to Workplace: {}'.format(self_module_path))
     print ('Open Python file in VS to set breakpoint: {}'.format(module_path))
     print ('')
     print ('Start Python Debugger -> Remote Attach -> {} -> {}'.format(host, port))
