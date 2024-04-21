@@ -1636,3 +1636,29 @@ def rm_read_only(f, p, e):
     f(p)
 
     return
+
+##############################################################################
+def debug_here(module_path, host='localhost', port=5678):
+
+    import os
+    workplace = os.path.dirname(module_path)
+
+    print ('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    print ('Adding remote debug breakpoint:')
+    print ('')
+    print ('Add Folder to Workplace: {}'.format(workplace))
+    print ('Open Python file in VS to set breakpoint: {}'.format(module_path))
+    print ('')
+    print ('Start Python Debugger -> Remote Attach -> {} -> {}'.format(host, port))
+    print ('')
+
+    import debugpy
+    debugpy.listen(port)
+
+    print("Waiting for debugger to attach ...")
+    debugpy.wait_for_client()
+
+    debugpy.breakpoint()
+
+    # Go up outside this function to continue debugging (F11 in VS)
+    return
