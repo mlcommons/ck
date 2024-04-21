@@ -1,3 +1,6 @@
+## V2.1.2.1
+   - fixed detection of a CM artifact using 'cm info .' when inside virtual env entries.
+
 ## V2.1.2
    - added support for deps on other CM repos 
      (if conflict = True - then fail if this repo is already installed

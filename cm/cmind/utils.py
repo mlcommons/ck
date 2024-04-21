@@ -966,7 +966,8 @@ def find_api(file_name, func):
 
 
 ###########################################################################
-def find_file_in_current_directory_or_above(file_names, path_to_start = None, reverse = False):
+def find_file_in_current_directory_or_above(file_names, path_to_start = None, 
+        reverse = False, path_to_stop = None):
     """
     Find file(s) in the current directory or above.
 
@@ -974,6 +975,7 @@ def find_file_in_current_directory_or_above(file_names, path_to_start = None, re
        file_names (list): files to find
        (path_to_start) (str): path to start; use current directory if None
        (reverse) (bool): if True search recursively in current directory and below.
+       (path_to_stop) (str): path to stop search (usually path to found repo)
 
     Returns:
        (CM return dict):
@@ -1024,12 +1026,15 @@ def find_file_in_current_directory_or_above(file_names, path_to_start = None, re
                       break
 
           if new_path == '':
-              break        
+              break
 
        else:
           new_path = os.path.dirname(current_path)
 
           if new_path == current_path:
+              break
+
+          if path_to_stop != None and new_path == path_to_stop:
               break
 
        found_in_current_path = False
