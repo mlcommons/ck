@@ -1,4 +1,4 @@
-## V2.1.2.1
+## V2.1.3
    - fixed detection of a CM artifact using 'cm info .' when inside virtual env entries.
    - added "cmind.utils.debug_here" function to attach remote Python debugger
      and tested with Visual Studio Code.
@@ -6,6 +6,8 @@
    - added utils.safe_load_json to return empty dict if file doesn't exist
    - added utils.compare_versions to check min version requirements for automations and entries
    - removed outdated convert_path (https://github.com/mlcommons/ck/issues/1219)
+   - added utils.check_if_true_yes_on (https://github.com/mlcommons/ck/issues/1216)
+   - check "min_cm_version" in CM automations and CM scripts (use _cm.yaml or _cm.json)
 
 ## V2.1.2
    - added support for deps on other CM repos 

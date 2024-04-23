@@ -163,7 +163,7 @@ def safe_load_json(path, file_name='', encoding='utf8'):
 
     meta = {}
 
-    r = load_json(path_to_file, check_if_exists, encoding)
+    r = load_json(path_to_file, check_if_exists=True, encoding=encoding)
     if r['return'] == 0:
         meta = r['meta']
 
@@ -1726,9 +1726,6 @@ def compare_versions(version1, version2):
                          -1 - version 1 < version 2
     """
 
-    version1 = i['version1']
-    version2 = i['version2']
-
     l_version1 = version1.split('.')
     l_version2 = version2.split('.')
 
@@ -1751,4 +1748,37 @@ def compare_versions(version1, version2):
             comparison = -1
             break
 
-    return {'return':0, 'comparison': comparison}
+    return comparison
+
+##############################################################################
+def check_if_true_yes_on(env, key):
+    """
+    Universal check if str(env.get(key, '')).lower() in ['true', 'yes', 'on']:
+
+    Args:    
+
+       env (dict): dictionary
+       key (str): key
+
+    Returns:
+       True if str(env.get(key, '')).lower() in ['true', 'yes', 'on']:
+    """
+
+    return str(env.get(key, '')).lower() in ['true', 'yes', 'on']
+
+##############################################################################
+def check_if_none_false_no_off(env, key):
+    """
+    Universal check if str(env.get(key, '')).lower() in ['false', 'no', 'off']:
+
+    Args:    
+
+       env (dict): dictionary
+       key (str): key
+
+    Returns:
+       True if str(env.get(key, '')).lower() in ['false', 'no', 'off']:
+    """
+
+    return str(env.get(key, '')).lower() in ['none', 'false', 'no', 'off']
+
