@@ -139,6 +139,37 @@ def save_json_or_yaml(file_name, meta, sort_keys=False, encoding = 'utf8'):
     return {'return':ERROR_UNKNOWN_FILE_EXTENSION, 'error':'unknown file extension'}
 
 ###########################################################################
+def safe_load_json(path, file_name='', encoding='utf8'):
+    """
+    Load JSON file if exists, otherwise return empty dict
+
+    Args:    
+       (CM input dict):
+
+       file_name (str): file name
+       (encoding) (str): file encoding ('utf8' by default)
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       * meta (dict): meta from the file
+
+    """
+
+    path_to_file = os.path.join(path, file_name) if file_name == '' or path != file_name else path
+
+    meta = {}
+
+    r = load_json(path_to_file, check_if_exists, encoding)
+    if r['return'] == 0:
+        meta = r['meta']
+
+    return {'return':0, 'meta': meta}
+
+###########################################################################
 def load_json(file_name, check_if_exists = False, encoding='utf8'):
     """
     Load JSON file.
@@ -173,8 +204,7 @@ def load_json(file_name, check_if_exists = False, encoding='utf8'):
         except Exception as e:
             return {'return':4, 'error': format(e)}
 
-    return {'return':0,
-            'meta': meta}
+    return {'return':0, 'meta': meta}
 
 ###########################################################################
 def save_json(file_name, meta={}, indent=2, sort_keys=True, encoding = 'utf8'):
@@ -1679,3 +1709,46 @@ def debug_here(module_path, host='localhost', port=5678, text='', env={}, env_de
 
     # Go up outside this function to continue debugging (F11 in VS)
     return debugpy
+
+##############################################################################
+def compare_versions(version1, version2):
+    """
+    Compare versions
+
+    Args:    
+
+       version1 (str): version 1
+       version2 (str): version 2
+
+    Returns:
+       comparison (int):  1 - version 1 > version 2
+                          0 - version 1 == version 2
+                         -1 - version 1 < version 2
+    """
+
+    version1 = i['version1']
+    version2 = i['version2']
+
+    l_version1 = version1.split('.')
+    l_version2 = version2.split('.')
+
+    # 3.9.6 vs 3.9
+    # 3.9 vs 3.9.6
+
+    i_version1 = [int(v) if v.isdigit() else v for v in l_version1]
+    i_version2 = [int(v) if v.isdigit() else v for v in l_version2]
+
+    comparison = 0
+
+    for index in range(max(len(i_version1), len(i_version2))):
+        v1 = i_version1[index] if index < len(i_version1) else 0
+        v2 = i_version2[index] if index < len(i_version2) else 0
+
+        if v1 > v2:
+            comparison = 1
+            break
+        elif v1 < v2:
+            comparison = -1
+            break
+
+    return {'return':0, 'comparison': comparison}

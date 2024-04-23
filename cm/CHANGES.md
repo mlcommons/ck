@@ -3,6 +3,9 @@
    - added "cmind.utils.debug_here" function to attach remote Python debugger
      and tested with Visual Studio Code.
    - added test to avoid checking out CM repo that was not pulled
+   - added utils.safe_load_json to return empty dict if file doesn't exist
+   - added utils.compare_versions to check min version requirements for automations and entries
+   - removed outdated convert_path (https://github.com/mlcommons/ck/issues/1219)
 
 ## V2.1.2
    - added support for deps on other CM repos 
