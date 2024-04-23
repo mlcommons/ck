@@ -41,8 +41,13 @@ CK consists of several ongoing sub-projects:
   * [Modular Python harness for MLPerf loadgen](https://github.com/mlcommons/cm4mlops/tree/main/script/app-mlperf-inference-mlcommons-python)
 
 * [Collective Knowledge Playground](https://access.cKnowledge.org) - an open-source platform to list CM scripts similar to PYPI,
-  aggregate AI/ML Systems benchmarking results with CM workflows, and organize public optimization challenges to find performance 
-  and cost-efficient AI systems.
+  aggregate AI/ML Systems benchmarking results with CM workflows, and organize 
+  [public optimization challenges and reproducibility initiatives](https://access.cknowledge.org/playground/?action=challenges) 
+  to find the most performance and cost-effective AI/ML Systems.
+
+  * [CK GUI to run modular benchmarks](https://access.cknowledge.org/playground/?action=howtorun) - such benchmarks 
+    are composed from [CM scripts](https://access.cknowledge.org/playground/?action=scripts)
+    and can run via a unified CM interface.
 
 ### License
 
