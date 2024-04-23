@@ -2,10 +2,11 @@
 <br>
 <br>
 
-**Note that this directory is in archive mode since the [Collective Knowledge framework (v1 and v2)](https://doi.org/10.1098/rsta.2020.0211) 
+**Note that this directory is in the archive mode since the Collective Knowledge framework (v1 and v2)
   is now officially discontinued in favour of the new, light-weight, non-intrusive and technology-agnostic 
-  [Collective Mind workflow automation language](https://doi.org/10.5281/zenodo.8105339) being developed, supported 
-  and maintained by the [MLCommons](https://mlcommons.org), [cTuning.org](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org).**
+  [Collective Mind workflow workflow automation framework ](../cm). You can learn more about the motivation
+  behind CK in this [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4) 
+  and the [journal article](https://doi.org/10.1098/rsta.2020.0211).**
 
 <br>
 <br>
@@ -30,10 +31,10 @@
 
 
 
-* **2022 May:** [Grigori Fursin](https://cKnowledge.org/cknowledge) (the author of the CK framework) 
+* **2022 May:** [Grigori Fursin](https://cKnowledge.org/gfursin) 
   started prototyping the new [Collective Mind framework](https://doi.org/10.5281/zenodo.8105339)
   within the [MLCommons Task Force on Automation and Reproducibility](../../docs/taskforce.md)
-  from scratch based on the feedback from the users and the community.
+  from scratch based on the feedback from the users and MLCommons members.
 
 * **2022 April 3:** We presented the CK concept to bridge the growing gap between ML Systems research and production 
   at the HPCA'22 workshop on [benchmarking deep learning systems](https://sites.google.com/g.harvard.edu/mlperf-bench-hpca22/home).
@@ -270,15 +271,9 @@ The community provides Docker containers to test CK and components using differe
 
 
 
-
-## Contacts
-
-* [Grigori Fursin](https://cKnowledge.org/gfursin) - author
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) - contributor and maintainer
-
 ## Acknowledgments
 
-We would like to thank all [contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
-and [collaborators](https://cKnowledge.org/partners.html) for their support, fruitful discussions, 
-and useful feedback! See more acknowledgments in the [CK journal article](https://doi.org/10.1098/rsta.2020.0211)
+We would like to thank all [collaborators and contributors](CONTRIBUTING.md) 
+for their support, fruitful discussions, and useful feedback! 
+See more acknowledgments in this [journal article](https://doi.org/10.1098/rsta.2020.0211)
 and [ACM TechTalk'21](https://www.youtube.com/watch?v=7zpeIVwICa4).

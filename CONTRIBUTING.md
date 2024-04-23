@@ -1,4 +1,4 @@
-## Contributing to the MLCommons
+### Contributing to the MLCommons
 
 The best way to contribute to the MLCommons is to get involved with one of our many project communities. 
 You find more information about getting involved with MLCommons [here](https://mlcommons.org/en/get-involved/#getting-started). 
@@ -14,20 +14,13 @@ Modify the project in your own fork and issue a pull request once you want other
 to take a look at what you have done and discuss the proposed changes. 
 Ensure that cla-bot and other checks pass for your Pull requests.
 
-## Contributing to this project
+### Contributing to this project
 
-Please join our [Discord server](https://discord.gg/JjWNWXKxwT)
-to learn about how to use the CK technology v3 (including the MLCommons CM automation language, CK playground
-and Modular Inference Library) or participate in collaborative developments.
+Please check the [MLCommons TaskForce on Automation and Reproducibility](docs/taskforce.md)
+and join our [Discord server](https://discord.gg/JjWNWXKxwT)
+to learn more about this project.
 
-Thank you for your support and looking forward to collaborating with you!
-
-## Project coordinators
-
-* [Grigori Fursin](https://cKnowledge.org/gfursin)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
-
-## Contributors to MLCommons' Collective Mind (aka Collective Knowledge v3) in alphabetical order
+### Contributors to the MLCommons Collective Mind project in alphabetical order
 
 * Resmi Arjun
 * Alice Cheng (Nvidia)
@@ -38,6 +31,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Himanshu Dutta (Indian Institute of Technology)
 * Justin Faust (One Stop Systems)
 * Diane Feddema (Red Hat)
+* Grigori Fursin (cTuning.org and cKnowledge.org)
 * Leonid Fursin (United Silicon Carbide)
 * Anirban Ghosh (Nvidia)
 * Michael Goin (Neural Magic)
@@ -75,6 +69,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Aditya Kumar Shaw (Indian Institute of Science)
 * Ilya Slavutin (Deelvin)
 * Jinho Suh (Nvidia)
+* Arjun Suresh (cTuning.org and cKnowledge.org)
 * Badhri Narayanan Suresh (Intel)
 * David Tafur (MLCommons)
 * Chloe Tessier

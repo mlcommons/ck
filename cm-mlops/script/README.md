@@ -1,3 +1,5 @@
+**This repository is archived. Please use [mlcommons@cm4mlops](https://github.com/mlcommons/cm4mlops/tree/dev/script) instead!**
+
 ### About
 
 This is a source code of portable and reusable automation recipes 

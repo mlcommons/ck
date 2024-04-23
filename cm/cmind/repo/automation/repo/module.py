@@ -990,7 +990,8 @@ class CAutomation(Automation):
                 r=utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_cmeta']+'.json', 
                                                                  self.cmind.cfg['file_cmeta']+'.yaml'],
                                                                  path_to_start = path,
-                                                                 reverse = reverse)
+                                                                 reverse = reverse,
+                                                                 path_to_stop = path_to_repo_real)
                 if r['return']>0: return r
 
                 artifact_found = r['found']

@@ -1,3 +1,9 @@
+## V2.1.2.1
+   - fixed detection of a CM artifact using 'cm info .' when inside virtual env entries.
+   - added "cmind.utils.debug_here" function to attach remote Python debugger
+     and tested with Visual Studio Code.
+   - added test to avoid checking out CM repo that was not pulled
+
 ## V2.1.2
    - added support for deps on other CM repos 
      (if conflict = True - then fail if this repo is already installed

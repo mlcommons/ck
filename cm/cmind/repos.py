@@ -248,7 +248,7 @@ class Repos:
 
                             if match:
                                 if d.get('conflict', False):
-                                    return {'return':1, 'error':'Can\'t install this repository because it conflicts with the already installed one ({}) - you may need to remove it to proceed (cm rm repo {} --all)'.format(d_alias,d_alias)}
+                                    return {'return':1, 'error':'Can\'t install this repository because it conflicts with the already installed one ({}) - you may need to remove it to proceed (cm rm repo {})'.format(d_alias,d_alias)}
 
                                 d['matched'] = True
 
@@ -297,7 +297,7 @@ class Repos:
             (url) (str): Git repository URL
             (branch) (str): Git repository branch
             (checkout) (str): Git repository checkout
-           (checkout_only) (bool): only checkout existing repo
+            (checkout_only) (bool): only checkout existing repo
             (depth) (int): Git repository depth
             (console) (bool): if True, print some info to console
             (desc) (str): optional repository description
@@ -352,7 +352,10 @@ class Repos:
 
         download=True if url.find('.zip')>0 else False
 
-        if not checkout_only:
+        if checkout_only:
+            if not os.path.isdir(path_to_repo):
+                return {'return':1, 'error':'Trying to checkout repo "{}" that was not pulled'.format(alias)}
+        else:
             if download:
                 # If CM repo already exists
                 if os.path.isdir(path_to_repo):

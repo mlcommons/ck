@@ -966,7 +966,8 @@ def find_api(file_name, func):
 
 
 ###########################################################################
-def find_file_in_current_directory_or_above(file_names, path_to_start = None, reverse = False):
+def find_file_in_current_directory_or_above(file_names, path_to_start = None, 
+        reverse = False, path_to_stop = None):
     """
     Find file(s) in the current directory or above.
 
@@ -974,6 +975,7 @@ def find_file_in_current_directory_or_above(file_names, path_to_start = None, re
        file_names (list): files to find
        (path_to_start) (str): path to start; use current directory if None
        (reverse) (bool): if True search recursively in current directory and below.
+       (path_to_stop) (str): path to stop search (usually path to found repo)
 
     Returns:
        (CM return dict):
@@ -1024,12 +1026,15 @@ def find_file_in_current_directory_or_above(file_names, path_to_start = None, re
                       break
 
           if new_path == '':
-              break        
+              break
 
        else:
           new_path = os.path.dirname(current_path)
 
           if new_path == current_path:
+              break
+
+          if path_to_stop != None and new_path == path_to_stop:
               break
 
        found_in_current_path = False
@@ -1631,3 +1636,46 @@ def rm_read_only(f, p, e):
     f(p)
 
     return
+
+##############################################################################
+def debug_here(module_path, host='localhost', port=5678, text='', env={}, env_debug_uid=''):
+    import os
+
+    if env_debug_uid!='':
+        if len(env)==0:
+            env = os.environ
+        x = env.get('CM_TMP_DEBUG_UID', '').strip()
+        if x.lower() != env_debug_uid.lower():
+            class dummy:
+               def breakpoint(self):
+                   return
+
+            return dummy()
+
+    workplace = os.path.dirname(module_path)
+
+    print ('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    print ('Adding remote debug breakpoint ...')
+    if text != '':
+        print (text)
+
+    print ('')
+    import debugpy
+    debugpy.listen(port)
+
+    print ('')
+    print ('Waiting for debugger to attach ...')
+    print ('')
+    print ('Further actions for Visual Studio Code:')
+    print ('  Open Python file in VS to set breakpoint: {}'.format(module_path))
+    print ('  File -> Add Folder to Workplace: {}'.format(workplace))
+    print ('  Run -> Add configuration -> Python Debugger -> Remote attach -> {} -> {}'.format(host, port))
+    print ('     Сhange "remoteRoot" to ${workspaceFolder}')
+    print ('  Set breakpoint ...')
+    print ('  Run -> Start Debugging (or press F5) ...')
+    print ('')
+
+    debugpy.wait_for_client()
+
+    # Go up outside this function to continue debugging (F11 in VS)
+    return debugpy
