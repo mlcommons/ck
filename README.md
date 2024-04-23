@@ -22,8 +22,9 @@ CK consists of several sub-projects:
     on diverse platforms with any software and hardware: see [online catalog](https://access.cknowledge.org/playground/?action=scripts) 
     and [source code](https://github.com/mlcommons/cm4mlops/blob/master/script).
 
-  * [CM automation recipes to reproduce research projects](https://github.com/ctuning/cm4research) - developing a unified CM interface to prepare, run and validate research
-    projects.
+  * [CM automation recipes to reproduce research projects](https://github.com/ctuning/cm4research) - a unified CM interface to access, prepare and run 
+    research projects and make it easier to validate them in the real world across rapidly evolving models, data, software and hardware
+    (see [our motivation](https://www.youtube.com/watch?v=7zpeIVwICa4) behind this interface).
 
 * [Collective Knowledge Playground](https://access.cKnowledge.org) - an open-source platform to list CM scripts similar to PYPI,
   aggregate AI/ML Systems benchmarking results with CM workflows, and organize public optimization challenges to find performance 
