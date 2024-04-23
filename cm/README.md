@@ -212,6 +212,18 @@ to understand how CM automation recipes work, how to use them to automate your o
 and how to implement and share new automations in your public or private projects.
 
 
+### Documentation
+
+**We plan to rewrite and simplify the CM documentation and tutorials based on user feedback in Q2 2024 - please stay tuned for more details**.
+
+* [News](../docs/news.md)
+* [Getting Started Guide and FAQ](../docs/getting-started.md)
+  * [Common CM interface to run MLPerf inference benchmarks](../docs/mlperf/inference)
+  * [Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23](../docs/tutorials/common-interface-to-reproduce-research-projects.md)
+  * [Other CM tutorials]../(docs/tutorials)
+* [Full documentation](../docs/README.md)
+
+
 ### License
 
 [Apache 2.0](LICENSE.md)
@@ -220,3 +232,14 @@ and how to implement and share new automations in your public or private project
 
 2022-2024 [MLCommons](https://mlcommons.org)
 
+### Get in touch
+
+Collective Mind workflow automation framework and Collective Knowledge Playground are being developed 
+by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+as a community effort. Volunteers are very welcome to help with this community project!
+
+### Acknowledgments
+
+CK and CM are community projects based on the feedback from our users and MLCommons members.
+We would like to thank all [collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
+for their support, fruitful discussions, and useful feedback! 

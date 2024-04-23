@@ -6,7 +6,7 @@
  and [Collective Knowledge playground](../platform)
  developed from scratch by the [MLCommons Task Force on Automation and Reproducibility](../docs/taskforce.md).*
 
-## Author
+## CK author
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin) ([cTuning foundation](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org))
 
@@ -70,4 +70,4 @@
 * @ValouBambou
 
 See more acknowledgments at the end of this [article](https://doi.org/10.1098/rsta.2020.0211)
-describing Collective Knowledge v1 concepts.
+describing Collective Knowledge concepts.

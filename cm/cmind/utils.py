@@ -1638,11 +1638,13 @@ def rm_read_only(f, p, e):
     return
 
 ##############################################################################
-def debug_here(module_path, host='localhost', port=5678, text='', env_debug_uid=''):
+def debug_here(module_path, host='localhost', port=5678, text='', env={}, env_debug_uid=''):
     import os
 
     if env_debug_uid!='':
-        x = os.environ.get('CM_TMP_DEBUG_UID', '').strip()
+        if len(env)==0:
+            env = os.environ
+        x = env.get('CM_TMP_DEBUG_UID', '').strip()
         if x.lower() != env_debug_uid.lower():
             class dummy:
                def breakpoint(self):
@@ -1672,7 +1674,6 @@ def debug_here(module_path, host='localhost', port=5678, text='', env_debug_uid=
     print ('  Set breakpoint ...')
     print ('  Run -> Start Debugging (or press F5) ...')
     print ('')
-
 
     debugpy.wait_for_client()
 
