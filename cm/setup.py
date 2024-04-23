@@ -2,7 +2,7 @@ import os
 import sys
 import re
 
-from setuptools import find_packages, setup, convert_path
+from setuptools import find_packages, setup
 
 try:
     from setuptools.command.install import install
