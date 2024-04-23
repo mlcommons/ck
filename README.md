@@ -8,16 +8,24 @@
 
 ### About
 
-Collective Knowledge (CK) in a community project to develop open-source tools and platforms
+Collective Knowledge (CK) in a community project to develop open-source tools, platforms and automation recipes 
 that can help researchers and engineers automate their repetitive, tedious and time-consuming tasks
 to build, run, benchmark and optimize AI, ML and other applications and systems 
 across diverse and continuously changing models, data, software and hardware.
 
 CK consists of several ongoing sub-projects:
 
-* [Collective Mind framework (CM)](cm) - a simple, Python-based, technology-agnostic, non-intrusive and decentralized workflow automation framework.
+* [Collective Mind framework (CM)](cm) - a very light-weight Python-based framework with minimal dependencies
+  to help the community implement, share and reuse cross-platform automation recipes to 
+  build, benchmark and optimize applications on any platform
+  with any software and hardware. It extends the cmake concept with 
+  reusable automation recipes and workflows written in plain Python or native OS scripts,
+  accessible via a human readable interface with simple tags,
+  and shareable in public and private repositories in a decentralized way.
+  You can read more about the CM concept in this [presentation](https://doi.org/10.5281/zenodo.8105339).
 
-  * [CM automation recipes for MLOps and DevOps](https://github.com/mlcommons/cm4mlops) - a collection of portable, extensible and technology-agnostic automation recipes
+
+  * [CM automation recipes for MLOps and DevOps](cm-mlops) - a collection of portable, extensible and technology-agnostic automation recipes
     with a human-friendly interface (aka CM scripts) to unify and automate all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
     on diverse platforms with any software and hardware: see [online catalog](https://access.cknowledge.org/playground/?action=scripts) 
     and [source code](https://github.com/mlcommons/cm4mlops/blob/master/script).
