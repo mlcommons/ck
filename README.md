@@ -13,7 +13,7 @@ that can help researchers and engineers automate their repetitive, tedious and t
 to build, run, benchmark and optimize AI, ML and other applications and systems 
 across diverse and continuously changing models, data, software and hardware.
 
-CK consists of several sub-projects:
+CK consists of several ongoing sub-projects:
 
 * [Collective Mind framework (CM)](cm) - a simple, Python-based, technology-agnostic, non-intrusive and decentralized workflow automation framework.
 
@@ -22,9 +22,15 @@ CK consists of several sub-projects:
     on diverse platforms with any software and hardware: see [online catalog](https://access.cknowledge.org/playground/?action=scripts) 
     and [source code](https://github.com/mlcommons/cm4mlops/blob/master/script).
 
-  * [CM automation recipes to reproduce research projects](https://github.com/ctuning/cm4research) - a unified CM interface to access, prepare and run 
-    research projects and make it easier to validate them in the real world across rapidly evolving models, data, software and hardware
-    (see [our motivation](https://www.youtube.com/watch?v=7zpeIVwICa4) behind this interface).
+  * [CM automation recipes to reproduce research projects](https://github.com/ctuning/cm4research) - a unified CM interface to help researchers
+    and engineers access, prepare and run diverse research projects and make it easier to validate them in the real world 
+    across rapidly evolving models, data, software and hardware
+    (see [our reproducibility initatives](https://cTuning.org/ae) 
+    and [motivation](https://www.youtube.com/watch?v=7zpeIVwICa4) behind this project).
+
+  * [Modular C++ harness for MLPerf loadgen](https://github.com/mlcommons/cm4mlops/tree/main/script/app-mlperf-inference-mlcommons-cpp)
+
+  * [Modular Python harness for MLPerf loadgen](https://github.com/mlcommons/cm4mlops/tree/main/script/app-mlperf-inference-mlcommons-python)
 
 * [Collective Knowledge Playground](https://access.cKnowledge.org) - an open-source platform to list CM scripts similar to PYPI,
   aggregate AI/ML Systems benchmarking results with CM workflows, and organize public optimization challenges to find performance 

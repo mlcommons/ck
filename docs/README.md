@@ -1,5 +1,7 @@
 # CM documentation
 
+**We plan to rewrite and simplify the CM documentation and tutorials based on user feedback in Q2 2024 - please stay tuned for more details**.
+
 Collective Mind (CM) is a lightweight, non-intrusive and technology-agnostic workflow automation framework 
 being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
 based on the feedback from the [the community, MLCommons members and individual contributors](CONTRIBUTING.md).
