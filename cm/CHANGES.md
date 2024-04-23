@@ -1,4 +1,4 @@
-## V2.1.3
+## V2.2.0
    - fixed detection of a CM artifact using 'cm info .' when inside virtual env entries.
    - added "cmind.utils.debug_here" function to attach remote Python debugger
      and tested with Visual Studio Code.
