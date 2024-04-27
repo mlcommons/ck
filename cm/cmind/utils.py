@@ -1215,7 +1215,8 @@ def get_current_date_time(i):
     Get current date and time.
 
     Args:    
-       (CM input dict): empty dict
+       (CM input dict): 
+         - (timezone) (str): timezone in pytz format: "Europe/Paris"
 
     Returns: 
        (CM return dict):
@@ -1239,7 +1240,14 @@ def get_current_date_time(i):
 
     a = {}
 
-    now1 = datetime.datetime.now()
+    tz = None
+
+    tz_str = i.get('timezone', '').strip()
+    if tz_str != '':
+        import pytz
+        tz = pytz.timezone(tz_str)
+
+    now1 = datetime.datetime.now(tz)
     now = now1.timetuple()
 
     a['date_year'] = now[0]
