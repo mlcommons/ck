@@ -1,5 +1,5 @@
 Copyright (c) 2021-2024 MLCommons
 
-cTuning foundation and OctoML donated this project to MLCommons to benefit everyone.
+The cTuning foundation and OctoML donated this project to MLCommons to benefit everyone.
 
 Copyright (c) 2014-2021 cTuning foundation

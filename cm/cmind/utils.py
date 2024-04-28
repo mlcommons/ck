@@ -1,6 +1,8 @@
 # Auxilary functions for CM
-
+#
 # Some functionality was reused from the CK framework for compatibility
+#
+# Written by Grigori Fursin
 
 import os
 

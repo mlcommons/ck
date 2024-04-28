@@ -1,3 +1,7 @@
+# CM automation to manage CM repositories
+#
+# Written by Grigori Fursin
+
 import os
 
 from cmind.automation import Automation
@@ -99,10 +103,29 @@ class CAutomation(Automation):
                     pull_repos.append({'alias': os.path.basename(repo_path),
                                        'path_to_repo': repo_path})
         else:
+            # We are migrating cm-mlops repo from mlcommons@ck to a clean and new mlcommons@cm4mlops:
+            # https://github.com/mlcommons/ck/issues/1215
+            # As discussed, we should have a transparent redirect with a warning
+            # unless branch/checkout is used - in such case we keep old repository
+            # for backwards compatibility and reproducibility
+
+            branch = i.get('branch', '')
+            checkout = i.get('checkout', '')
+
+            if alias == 'mlcommons@ck' and branch == '' and checkout == '':
+                print ('=========================================================================')
+                print ('Warning: mlcommons@ck was automatically changed to mlcommons@cm4mlops.')
+                print ('If you want to use older mlcommons@ck repository, use branch or checkout.')
+                print ('=========================================================================')
+
+                alias = 'mlcommons@cm4mlops'
+                url = url.replace('mlcommons/ck', 'mlcommons/cm4mlops')
+
+
             pull_repos = [{'alias':alias,
                            'url':url,
-                           'branch': i.get('branch', ''),
-                           'checkout': i.get('checkout', ''),
+                           'branch': branch,
+                           'checkout': checkout,
                            'depth': i.get('depth', '')}]
 
 

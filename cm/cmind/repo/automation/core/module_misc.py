@@ -1,3 +1,7 @@
+# Generate CM UID
+#
+# Written by Grigori Fursin
+
 import cmind.utils as utils
 
 ############################################################

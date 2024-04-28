@@ -16,9 +16,9 @@
 * help the community reproduce MLPerf benchmarks, prepare their own submissions and deploy Pareto-optimal ML/AI systems in the real world;
 * support student competitions, reproducibility initiatives and artifact evaluation at ML and Systems conferences using the rigorous MLPerf methodology and the MLCommons automation meta-framework.
 
-## Moderators
+## Co-chairs and tech leads
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin)
+* [Grigori Fursin](https://cKnowledge.org/gfursin) (CM project coordinator)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
 ## Discord server

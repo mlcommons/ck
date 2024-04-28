@@ -1,4 +1,6 @@
 ﻿# Collective Mind artifact
+#
+# Written by Grigori Fursin
 
 import os
 

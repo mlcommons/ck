@@ -692,6 +692,14 @@ class CAutomation(Automation):
         meta = script_artifact.meta
         path = script_artifact.path
 
+        # Check min CM version requirement
+        input('xyz2')
+        min_cm_version = meta.get('min_cm_version','').strip()
+        if min_cm_version != '':
+            print (min_cm_version)
+            input('xyz')
+     
+
         # Check path to repo
         script_repo_path = script_artifact.repo_path
 

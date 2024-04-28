@@ -1,3 +1,7 @@
+# CM wrapper for older CK framework in case it is still needed
+#
+# Written by Grigori Fursin
+
 import os
 
 from cmind.automation import Automation

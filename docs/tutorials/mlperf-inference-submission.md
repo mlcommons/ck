@@ -351,8 +351,8 @@ See the development roadmap [here](https://github.com/mlcommons/ck/issues/536).
 
 # Authors
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin) (MLCommons, cTuning foundation, cKnowledge Ltd)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (MLCommons, cTuning foundation)
+* [Grigori Fursin](https://cKnowledge.org/gfursin) (cTuning foundation and cKnowledge.org)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (cTuning foundation and cKnowledge.org)
 
 # Acknowledgments
 

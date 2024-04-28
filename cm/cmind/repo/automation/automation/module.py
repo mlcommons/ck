@@ -1,3 +1,7 @@
+# CM automation module to add or document all automations
+#
+# Written by Grigori Fursin
+
 import os
 
 from cmind.automation import Automation

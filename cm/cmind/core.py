@@ -1,4 +1,6 @@
 # Collective Mind core functions
+#
+# Written by Grigori Fursin
 
 from cmind.config import Config
 from cmind.repos import Repos
