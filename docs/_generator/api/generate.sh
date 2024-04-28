@@ -1,6 +1,6 @@
 rm -rf api
 
-sphinx-apidoc -H "CM API" -f -T -o api ../../../cm/cmind
+sphinx-apidoc -H "CM python package API" -f -T -o api ../../../cm/cmind
 
 sphinx-build -M html . api
 
