@@ -1,4 +1,8 @@
-__version__ = "2.2.0"
+# Collective Mind init
+#
+# Written by Grigori Fursin
+
+__version__ = "2.3.0"
 
 from cmind.core import access
 from cmind.core import error

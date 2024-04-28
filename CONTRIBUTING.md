@@ -14,13 +14,11 @@ Modify the project in your own fork and issue a pull request once you want other
 to take a look at what you have done and discuss the proposed changes. 
 Ensure that cla-bot and other checks pass for your Pull requests.
 
-### Contributing to this project
+## CM project coordinator
 
-Please check the [MLCommons TaskForce on Automation and Reproducibility](docs/taskforce.md)
-and join our [Discord server](https://discord.gg/JjWNWXKxwT)
-to learn more about this project.
+* Grigori Fursin (cTuning.org and cKnowledge.org)
 
-### Contributors to the MLCommons Collective Mind project in alphabetical order
+## CM contributors in alphabetical order (suggestions and/or scripts)
 
 * Resmi Arjun
 * Alice Cheng (Nvidia)

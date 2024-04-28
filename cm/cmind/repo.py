@@ -1,4 +1,6 @@
 ﻿# Collective Mind repository
+#
+# Written by Grigori Fursin
 
 import os
 

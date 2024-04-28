@@ -1,3 +1,7 @@
+# CM core automation with a few universal functions
+#
+# Written by Grigori Fursin
+
 import os
 
 from cmind.automation import Automation

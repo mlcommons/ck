@@ -1,4 +1,6 @@
 ﻿# Collective Mind automation
+#
+# Written by Grigori Fursin
 
 import os
 
@@ -120,9 +122,9 @@ class Automation:
 
         print ('')
         print ('GitHub for CM developments:        https://github.com/mlcommons/ck/tree/master/cm')
-        print ('GitHub for CM automation scripts:  https://github.com/mlcommons/ck/tree/master/cm-mlops')
+        print ('GitHub for CM automation scripts:  https://github.com/mlcommons/cm4mlops')
         print ('Reporting issues and ideas:        https://github.com/mlcommons/ck/issues')
-        print ('Joining the open MLPerf workgroup: https://cKnowledge.org/mlcommons-taskforce')
+        print ('MLCommons taskforce developing CM: https://github.com/mlcommons/ck/blob/master/docs/taskforce.md')
 
         return {'return':0}
 

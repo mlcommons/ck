@@ -1,4 +1,6 @@
 ﻿# Collective Mind configuration
+#
+# Written by Grigori Fursin
 
 import os
 

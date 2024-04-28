@@ -1,3 +1,10 @@
+## V2.3.0
+   - added automatic CM repo alias from mlcommons@ck to mlcommons@cm4mlops 
+     unless branch and checkout are used!
+   - improved CM python package API generation and uploaded to https://cknowledge.org/docs/cm 
+     (should move to MLCommons when ready)
+   - added timezone to utils.get_current_date_time to correctly time stamp various experiments!
+
 ## V2.2.0
    - fixed detection of a CM artifact using 'cm info .' when inside virtual env entries.
    - added "cmind.utils.debug_here" function to attach remote Python debugger

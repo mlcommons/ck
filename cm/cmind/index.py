@@ -1,4 +1,6 @@
 ﻿# Collective Mind index
+#
+# Written by Grigori Fursin
 
 import os
 import json
