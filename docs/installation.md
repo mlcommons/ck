@@ -76,13 +76,30 @@ Alternatively you can run
 source $HOME/.profile
 ```
 
-```
-gfursin@mlcommons-ck-cm-dev:~$ cm
+You can check that CM is available and print internal status as follows:
 
-cm {action} {automation} {artifact(s)} {--flags} @input.yaml @input.json
+```bash
+gfursin@mlcommons-ck-cm-dev:~$ cm test core
+
+CM version: 2.3.0
+
+Python executable used by CK: C:\!Progs\Python310\python.exe
+
+Path to CM package:           C:\!Progs\Python310\lib\site-packages\cmind
+Path to CM core module:       C:\!Progs\Python310\lib\site-packages\cmind\core.py
+Path to CM internal repo:     C:\!Progs\Python310\lib\site-packages\cmind\repo
+
+Path to CM repositories:      D:\Work1\CM
+
+GitHub for CM developments:        https://github.com/mlcommons/ck/tree/master/cm
+GitHub for CM automation scripts:  https://github.com/mlcommons/cm4mlops
+Reporting issues and ideas:        https://github.com/mlcommons/ck/issues
+MLCommons taskforce developing CM: https://github.com/mlcommons/ck/blob/master/docs/taskforce.md
+
 ```
 
-You are ready to use CM automation meta-framework.
+You are ready to use CM automation meta-framework. 
+
 
 
 
