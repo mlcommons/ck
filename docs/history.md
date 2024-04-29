@@ -17,16 +17,14 @@ The archive of this discontinued framework is available in the [/ck directory](.
 
 # MLCommons Collective Mind (CM)
 
-Grigori donated the CK technology to [MLCommons](https://mlcommons.org) in 2022 to benefit everyone and help establish
-the [MLCommons Task Force on Automation and Reproducibility](taskforce.md) co-led with [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
+Grigori donated the CK technology to [MLCommons](https://mlcommons.org) in 2022 to benefit everyone,
+prototyped a new version of CK called [Collective Mind (CM)](https://github.com/mlcommons/ck/tree/master/cm) 
+with [portable and reusable automation recipes for universal benchmarking and optimization of applications
+and systems (CM scripts)](https://access.cknowledge.org/playground/?action=scripts),
+and helped establish the [MLCommons Task Force on Automation and Reproducibility](taskforce.md)
+co-led with Arjun Suresh.
 
-This collaborative engineering effort resulted in the new version of CK called Collective Mind (CM)
-with [simple, portable and ready-to-use automation recipes](list_of_scripts.md) for MLOps and DevOps 
-developed by scratch with great help, feedback and contributions 
-from [the community](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
+We continue extending CM to support different MLCommons projects to modularize and unify benchmarking
+of ML/AI systems as a collaborative engineering effort based on [user feedback](../CONTRIBUTING.md).
 
-CM is now officially supported, developed and maintained by [MLCommons.org](https://mlcommons.org)
-with the help from [cKnowledge.org](https://cKnowledge.org) and [cTuning.org](https://cTuning.org).
-
-Please go to this [GitHub page](https://github.com/mlcommons/ck) to learn more about this project
-and check [the slides from ACM REP'23 keynote about CM](https://doi.org/10.5281/zenodo.8105339).
+You can learn more about the CM concept and motivation from the [keynote at ACM REP'23](https://doi.org/10.5281/zenodo.8105339).

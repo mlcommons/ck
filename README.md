@@ -62,21 +62,22 @@ CK consists of several ongoing sub-projects:
 
 ### Motivation behind CK and CM projects
 
-* ACM REP'23 keynote about MLCommons CM: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
+* ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
 * ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
 
 ### Documentation
 
 **We plan to rewrite and simplify the CM documentation and tutorials based on user feedback in Q2 2024 - please stay tuned for more details**.
 
-* [News](docs/news.md)
-* [Getting Started Guide and FAQ](docs/getting-started.md)
+* [CM Getting Started Guide and FAQ](docs/getting-started.md)
   * [Common CM interface to run MLPerf inference benchmarks](docs/mlperf/inference)
   * [Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23](docs/tutorials/common-interface-to-reproduce-research-projects.md)
   * [CM automation recipes for MLOps and DevOps](cm-mlops/script)
   * [Other CM tutorials](docs/tutorials)
 * [Full documentation](docs/README.md)
+* [CM development tasks](docs/taskforce.md#current-tasks)
 * [CM and CK history](docs/history.md)
+
 
 
 ### Acknowledgments
