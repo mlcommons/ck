@@ -1,22 +1,19 @@
 [ [Back to index](README.md) ]
 
-# MLCommons Task force on Automation and Reproducibility
-
-***Announcement: we are peparing new tasks for Q3-Q4 2024 - please stay tuned
-   or get in touch via [email](mailto:gfursin@cknowledge.org) for more details!***
+# MLCommons Task Force on Automation and Reproducibility
 
 ## Mission
 
-* Develop [reusable automation recipes and workflows](https://access.cknowledge.org/playground/?action=scripts) 
-  with [a common and human-friendly interface (Collective Mind aka CM)]( https://github.com/mlcommons/ck/tree/master/cm ) 
-  to support MLCommons projects and help everyone assemble, run, reproduce, customize and optimize ML(Perf) benchmarks
+* Extend [MLCommons CM workflow automation framework](https://github.com/mlcommons/ck) and
+  [reusable automation recipes (CM scripts)](https://access.cknowledge.org/playground/?action=scripts)
+  to automate MLCommons projects and make it easier to assemble, run, reproduce, customize and optimize ML(Perf) benchmarks
   in a unified and automated way across diverse models, data sets, software and hardware from different vendors.
-* Gradually extend a unified MLCommons CM interface to automate [all MLPerf inference submissions](https://github.com/mlcommons/ck/issues/1052) starting from v3.1.
-* Continuously encode MLPerf rules and best practices in the [CM automation recipes and workflows for MLPerf](https://github.com/mlcommons/cm4mlops/tree/main/script)
-  to reduce the burden for submitters to go through numerous README files 
-  and track all the latest changes and updates.
+* Extend [CM workflows](https://github.com/mlcommons/cm4mlops) 
+  to automate and reproduce MLPerf inference submissions from different vendors starting from v3.1.
+* Encode MLPerf rules and best practices in the [CM automation recipes and workflows for MLPerf](https://github.com/mlcommons/cm4mlops/tree/main/script)
+  to help MLPerf submitters avoid going through many README files and track all the latest MLPerf changes and updates.
 
-## Chairs and Tech Leads
+## Chairs
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin) (CM project coordinator)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
@@ -25,42 +22,54 @@
 
 Since we already participate in many weekly conf-calls to support various MLCommons initiatives, 
 we decided not to have yet another separate conf-call for our TF in 2024.
+
 Instead, we discuss our progress on MLPerf automation and reproducibility at existing MLCommons conf-calls
 where CM is used:
 * [MLPerf inference WG](https://mlcommons.org/working-groups/benchmarks/inference): weekly conf-calls on Tuesday at 8:30am PST
 * [MLPerf automotive WG](https://mlcommons.org/working-groups/benchmarks/automotive)
   * Automotive TF weekly conf-calls on Wednesday at 8am PST
   * Automotive implementation bi-weekly conf-calls on Friday at 9:30am PST
-* [Croissant TF](https://github.com/mlcommons/croissant): weekly at 8am PST
 
-You can participate in our discussions via [public Discord server](https://discord.gg/JjWNWXKxwT).
+You can also join our public Discord server [here](https://discord.gg/JjWNWXKxwT).
 
-## Deliverables (2024)
 
-* Collaborate with chip vendors and MLPerf inference submitters to add
-  their implementations to CM and automate their submissions.
+## Current projects
+
+* Continue improving CM to support different MLCommons projects for universal benchmarking and optimization across different platforms.
+
+* Extend CM workflows to reproduce MLPerf inference v4.0 submissions (Intel, Nvidia, Qualcomm, Google, Red Hat, etc) via a unified interface.
+
+* Prepare tutorial for MLPerf inference v4.1 submissions via CM.
+
+* Discuss how to introduce the [CM automation badge]( https://github.com/mlcommons/ck/blob/master/docs/artifact-evaluation/reviewing.md ) 
+  to MLPerf inference v4.1 submission similar to ACM/IEEE/NeurIPS reproducibility badges to make it easier for
+  all submitters to re-run and reproduce each others’ results before the publication date.
 
 * Develop a more universal Python and C++ wrapper for the MLPerf loadgen
   with the CM automation to support different models, data sets, software
   and hardware: [Python prototype](https://github.com/mlcommons/cm4mlops/tree/main/script/app-loadgen-generic-python); 
   [C++ prototype](https://github.com/mlcommons/cm4mlops/tree/main/script/app-mlperf-inference-mlcommons-cpp).
 
-* Discuss how to introduce the [CM automation badge](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-mlcommons-cpp) 
-  to MLPerf inference v4.1 submission similar to ACM/IEEE/NeurIPS reproducibility badges to make it easier for
-  all submitters to re-run and reproduce each others’ results before the publication date.
-
 * Collaborate with system vendors and cloud providers to help them benchmark
   their platforms using the best available MLPerf inference implementation.
 
-* Collaborate with other MLPerf working groups to modularize their
-  benchmarks using [CM automation recipes](https://access.cknowledge.org/playground/?action=scripts).
+* Collaborate with other MLCommons working groups to autoamte, modularize and unify
+  their benchmarks using [CM automation recipes](https://access.cknowledge.org/playground/?action=scripts).
 
-* Use MLCommons CM to modularize and automate the upcoming [automotive benchmark](https://mlcommons.org/working-groups/benchmarks/automotive/).
+* Use CM to modularize and automate the upcoming [automotive benchmark](https://mlcommons.org/working-groups/benchmarks/automotive/).
 
 * Use [MLCommons Croissant](https://mlcommons.org/working-groups/data/croissant/) 
   to unify [MLPerf datasets](https://access.cknowledge.org/playground/?action=scripts).
 
 
+## Current tasks
+
+* Improving CM workflow automation framework: [GitHub ticket](https://github.com/mlcommons/ck/issues/1229)
+* Updating/refactoring CM docs (framework and MLPef workflows): [GitHub ticket](https://github.com/mlcommons/ck/issues/1220)
+* Improving CM scripts to support MLPerf: [GitHub ticket](https://github.com/mlcommons/cm4mlops/issues/21)
+* Adding profiling and performance analysis during benchmarking: [GitHub ticket](https://github.com/mlcommons/cm4mlops/issues/23)
+* Improving universal build and run scripts to support cross-platform compilation: [GitHub ticket](https://github.com/mlcommons/cm4mlops/issues/24)
+* Automate ABTF benchmarking via CM: [GitHub ticket](https://github.com/mlcommons/cm4abtf/issues/6)
 
 ## Completed deliverables
 
@@ -95,13 +104,18 @@ You can participate in our discussions via [public Discord server](https://disco
 
 ## Resources
 
-* [GitHub project](https://github.com/mlcommons/ck)
-* [Getting Started Guide](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md)
+* [CM GitHub project](https://github.com/mlcommons/ck)
+* [CM concept (keynote at ACM REP'23)]( https://doi.org/10.5281/zenodo.8105339 )
+* [CM Getting Started Guide](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md)
 * [CM-MLPerf commands](https://github.com/mlcommons/ck/tree/master/docs/mlperf)
 * [CM-MLPerf GUI](https://access.cknowledge.org/playground/?action=howtorun)
-* [Invited talk at MLPerf-Bench @ HPCA'24 about Automatically Composing High-Performance and Cost-effective AI Systems with MLCommons' CM and MLPerf](https://doi.org/10.5281/zenodo.10786893)
-* [Invited keynote about CM framework at ACM REP'23]( https://doi.org/10.5281/zenodo.8105339 )
 * [ACM artifact review and badging methodology](https://www.acm.org/publications/policies/artifact-review-and-badging-current) 
 * [Artifact Evaluation at ML and systems conferences](https://cTuning.org/ae)
 * [Terminology (ACM/NISO): Repeatability, Reproducibility and Replicability](artifact-evaluation/faq.md#what-is-the-difference-between-repeatability-reproducibility-and-replicability)
-* [ACM TechTalk about reproducing 150+ research papers and validating them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4)
+* [CM motivation (ACM TechTalk about reproducing 150+ research papers and validating them in the real world)](https://www.youtube.com/watch?v=7zpeIVwICa4)
+
+## Acknowledgments
+
+This open-source technology is being developed as a community effort based on user feedback.
+We would like to thank all our [volunteers, collaborators and contributors](../CONTRIBUTING.md) 
+for their support, fruitful discussions, and useful feedback! 

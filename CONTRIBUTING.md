@@ -18,7 +18,7 @@ Ensure that cla-bot and other checks pass for your Pull requests.
 
 * Grigori Fursin (cTuning.org and cKnowledge.org)
 
-## CM contributors in alphabetical order (suggestions and/or scripts)
+## CM contributors in alphabetical order (suggestions, feedback, scripts)
 
 * Resmi Arjun
 * Alice Cheng (Nvidia)

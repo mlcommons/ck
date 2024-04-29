@@ -16,10 +16,10 @@ across diverse and continuously changing models, data, software and hardware.
 CK consists of several ongoing sub-projects:
 
 * [Collective Mind framework (CM)](cm) (*~1MB*) - a very light-weight Python-based framework with minimal dependencies
-  to help the community implement, share and reuse cross-platform automation recipes to 
+  to help users implement, share and reuse cross-platform automation recipes to 
   build, benchmark and optimize applications on any platform
-  with any software and hardware. Very simply, it extends the cmake concept with 
-  reusable automation recipes and workflows written in plain Python or native OS scripts,
+  with any software and hardware. CM attempts to extends the `cmake` concept 
+  with reusable automation recipes and workflows written in plain Python or native OS scripts,
   accessible via a human readable interface with simple tags,
   and shareable in public and private repositories in a decentralized way.
   Furthermore, in comparison with cmake, these automation recipes can not only detect missing code 
@@ -79,14 +79,9 @@ CK consists of several ongoing sub-projects:
 * [CM and CK history](docs/history.md)
 
 
-### Get in touch
-
-Collective Mind workflow automation framework and Collective Knowledge Playground are being developed 
-by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-as a community effort. Volunteers are very welcome to help with this community project!
-
 ### Acknowledgments
 
-CK and CM are community projects based on the feedback from our users and MLCommons members.
-We would like to thank all [collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
+This open-source technology is being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+as a community effort based on user feedback. 
+We would like to thank all our [volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
 for their support, fruitful discussions, and useful feedback! 
