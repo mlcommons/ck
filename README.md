@@ -16,10 +16,10 @@ across diverse and continuously changing models, data, software and hardware.
 CK consists of several ongoing sub-projects:
 
 * [Collective Mind framework (CM)](cm) (*~1MB*) - a very light-weight Python-based framework with minimal dependencies
-  to help the community implement, share and reuse cross-platform automation recipes to 
+  to help users implement, share and reuse cross-platform automation recipes to 
   build, benchmark and optimize applications on any platform
-  with any software and hardware. Very simply, it extends the cmake concept with 
-  reusable automation recipes and workflows written in plain Python or native OS scripts,
+  with any software and hardware. CM attempts to extends the `cmake` concept 
+  with reusable automation recipes and workflows written in plain Python or native OS scripts,
   accessible via a human readable interface with simple tags,
   and shareable in public and private repositories in a decentralized way.
   Furthermore, in comparison with cmake, these automation recipes can not only detect missing code 
@@ -62,31 +62,27 @@ CK consists of several ongoing sub-projects:
 
 ### Motivation behind CK and CM projects
 
-* ACM REP'23 keynote about MLCommons CM: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
+* ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
 * ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
 
 ### Documentation
 
 **We plan to rewrite and simplify the CM documentation and tutorials based on user feedback in Q2 2024 - please stay tuned for more details**.
 
-* [News](docs/news.md)
-* [Getting Started Guide and FAQ](docs/getting-started.md)
+* [CM Getting Started Guide and FAQ](docs/getting-started.md)
   * [Common CM interface to run MLPerf inference benchmarks](docs/mlperf/inference)
   * [Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23](docs/tutorials/common-interface-to-reproduce-research-projects.md)
   * [CM automation recipes for MLOps and DevOps](cm-mlops/script)
   * [Other CM tutorials](docs/tutorials)
 * [Full documentation](docs/README.md)
+* [CM development tasks](docs/taskforce.md#current-tasks)
 * [CM and CK history](docs/history.md)
 
 
-### Get in touch
-
-Collective Mind workflow automation framework and Collective Knowledge Playground are being developed 
-by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-as a community effort. Volunteers are very welcome to help with this community project!
 
 ### Acknowledgments
 
-CK and CM are community projects based on the feedback from our users and MLCommons members.
-We would like to thank all [collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
+This open-source technology is being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+as a community effort based on user feedback. 
+We would like to thank all our [volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
 for their support, fruitful discussions, and useful feedback! 
