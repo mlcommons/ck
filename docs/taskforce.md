@@ -70,6 +70,7 @@ You can also join our public Discord server [here](https://discord.gg/JjWNWXKxwT
 * Adding profiling and performance analysis during benchmarking: [GitHub ticket](https://github.com/mlcommons/cm4mlops/issues/23)
 * Improving universal build and run scripts to support cross-platform compilation: [GitHub ticket](https://github.com/mlcommons/cm4mlops/issues/24)
 * Automate ABTF benchmarking via CM: [GitHub ticket](https://github.com/mlcommons/cm4abtf/issues/6)
+* Help automate MLPerf inference benchmark at the Student Cluster Competition'24: [GitHub ticket](https://github.com/mlcommons/cm4mlops/issues/26)
 
 ## Completed deliverables
 
