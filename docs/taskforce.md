@@ -2,6 +2,9 @@
 
 # MLCommons Task Force on Automation and Reproducibility
 
+***We would like to apologize for possible delay in responding about CM because we are preparing a new roadmap for further developments
+   for Q3-Q4 2024 and allocating more resources to support the community. Please get in touch with Grigori Fursin for more details!***
+
 ## Mission
 
 * Extend [MLCommons CM workflow automation framework](https://github.com/mlcommons/ck) and
@@ -13,24 +16,10 @@
 * Encode MLPerf rules and best practices in the [CM automation recipes and workflows for MLPerf](https://github.com/mlcommons/cm4mlops/tree/main/script)
   to help MLPerf submitters avoid going through many README files and track all the latest MLPerf changes and updates.
 
-## Chairs
+## Sponsors
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin) (CM project coordinator)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
-
-## Discussions
-
-Since we already participate in many weekly conf-calls to support various MLCommons initiatives, 
-we decided not to have yet another separate conf-call for our TF in 2024.
-
-Instead, we discuss our progress on MLPerf automation and reproducibility at existing MLCommons conf-calls
-where CM is used:
-* [MLPerf inference WG](https://mlcommons.org/working-groups/benchmarks/inference): weekly conf-calls on Tuesday at 8:30am PST
-* [MLPerf automotive WG](https://mlcommons.org/working-groups/benchmarks/automotive)
-  * Automotive TF weekly conf-calls on Wednesday at 8am PST
-  * Automotive implementation bi-weekly conf-calls on Friday at 9:30am PST
-
-You can also join our public Discord server [here](https://discord.gg/JjWNWXKxwT).
+We thank [cKnowledge.org](https://cKnowledge.org), [cTuning.org](https://cTuning.org)
+and [MLCommons](https://mlcommons.org) for sponsoring this project!
 
 
 ## Current projects
