@@ -2,8 +2,8 @@
 
 # MLCommons Task Force on Automation and Reproducibility
 
-***We would like to apologize for possible delay in responding about CM because we are preparing a new roadmap for further developments
-   for Q3-Q4 2024 and allocating more resources to support the community. Please get in touch with Grigori Fursin for more details!***
+**News (May 2024):** our task force has successfully accomplished its mission and our on-going developments 
+ will be funded by MLCommons and integrated with several MLCommons Working Groups - please stay tuned for more details!
 
 ## Mission
 
@@ -18,7 +18,7 @@
 
 ## Sponsors
 
-We thank [cKnowledge.org](https://cKnowledge.org), [cTuning.org](https://cTuning.org)
+We thank [cKnowledge.org](https://cKnowledge.org), [cTuning.org](https://cTuning.org),
 and [MLCommons](https://mlcommons.org) for sponsoring this project!
 
 
@@ -106,6 +106,8 @@ and [MLCommons](https://mlcommons.org) for sponsoring this project!
 
 ## Acknowledgments
 
-This open-source technology is being developed as a community effort based on user feedback.
+This task force was established by [Grigori Fursin](https://cKnowledge.org/gfursin) 
+after he donated his CK and CM automation technology to MLCommons in 2022 to benefit everyone.
+Since then, this open-source technology is being developed as a community effort based on user feedback.
 We would like to thank all our [volunteers, collaborators and contributors](../CONTRIBUTING.md) 
 for their support, fruitful discussions, and useful feedback! 
