@@ -6,6 +6,7 @@ import os
 
 from cmind.automation import Automation
 from cmind import utils
+from cmind import net
 
 class CAutomation(Automation):
     """
@@ -108,6 +109,11 @@ class CAutomation(Automation):
             # As discussed, we should have a transparent redirect with a warning
             # unless branch/checkout is used - in such case we keep old repository
             # for backwards compatibility and reproducibility
+
+            r = net.request({'get': {'action': 'check-migration-repo-notes', 'repo': url}})
+            notes = r.get('dict', {}).get('notes','')
+            if notes !='':
+                print (notes)
 
             branch = i.get('branch', '')
             checkout = i.get('checkout', '')
