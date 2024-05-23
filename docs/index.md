@@ -1,1 +1,1 @@
-## MLPerf ABTF MVP Demo
+../cm/cmind/README.md
