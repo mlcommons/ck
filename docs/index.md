@@ -1,1 +1,1 @@
-../cm/cmind/README.md
+../cm/README.md
