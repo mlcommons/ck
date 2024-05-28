@@ -5,7 +5,7 @@ We use MLCommons CM Automation framework to run MLPerf inference benchmarks.
 
 We have successfully tested CM on
 
-* Ubuntu 18.x, 20.x, 22.x , 23.x, 
+* Ubuntu 18.x, 20.x, 22.x , 23.x, 24.04
 * RedHat 8, RedHat 9, CentOS 8
 * macOS
 * Wndows 10, Windows 11
