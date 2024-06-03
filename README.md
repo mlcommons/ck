@@ -60,14 +60,10 @@ CK consists of several ongoing sub-projects:
 
 2022-2024 [MLCommons](https://mlcommons.org)
 
-### Motivation behind CK and CM projects
-
-* ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
-* ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
 
 ### Documentation
 
-**We plan to rewrite and simplify the CM documentation and tutorials based on user feedback in Q2 2024 - please stay tuned for more details**.
+**MLCommons is updating the CM documentation based on user feedback - please stay tuned for more details**.
 
 * [CM Getting Started Guide and FAQ](docs/getting-started.md)
   * [Common CM interface to run MLPerf inference benchmarks](docs/mlperf/inference)
@@ -82,11 +78,14 @@ CK consists of several ongoing sub-projects:
 
 ### Acknowledgments
 
-This open-source technology is being developed by the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-as a community effort based on user feedback. 
+The open-source Collective Knowledge (CK) and Collective Mind automation frameworks (CM) were developed by [Grigori Fursin](https://cKnowledge.org/gfursin)
+and donated to MLCommons to benefit everyone. You can learn more about the motivation behind CK and CM from the following presentations:
 
-We would like to thank all [volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
+* ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
+* ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
+
+We would like to thank all 
+[volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
 for their support, fruitful discussions, and useful feedback! 
-
 We thank the [cTuning foundation](https://cTuning.org), [cKnowledge.org](https://cKnowledge.org)
 and [MLCommons](https://mlcommons.org) for sponsoring this project!
