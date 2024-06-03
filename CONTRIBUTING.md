@@ -14,9 +14,9 @@ Modify the project in your own fork and issue a pull request once you want other
 to take a look at what you have done and discuss the proposed changes. 
 Ensure that cla-bot and other checks pass for your Pull requests.
 
-## CM project coordinator
+## CM framework author
 
-* Grigori Fursin (cTuning.org and cKnowledge.org)
+* Grigori Fursin ([cKnowledge.org](https://cKnowledge.org) and [cTuning.org](https://cTuning.org))
 
 ## CM contributors in alphabetical order (suggestions, feedback, scripts)
 
