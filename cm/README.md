@@ -228,14 +228,14 @@ and how to implement and share new automations in your public or private project
 
 [Apache 2.0](LICENSE.md)
 
-### Copyright
+### Citing this project
 
-2022-2024 [MLCommons](https://mlcommons.org)
+Please use this [BibTex file](https://github.com/mlcommons/ck/blob/master/citation.bib).
 
 ### Acknowledgments
 
-The open-source Collective Knowledge (CK) and Collective Mind automation frameworks (CM) were developed by [Grigori Fursin](https://cKnowledge.org/gfursin)
-and donated to MLCommons to benefit everyone. You can learn more about the motivation behind CK and CM from the following presentations:
+The open-source Collective Knowledge (CK v1,v2) and Collective Mind automation frameworks (CM) were developed by [Grigori Fursin](https://cKnowledge.org/gfursin)
+and donated to MLCommons to benefit everyone. You can learn more about the motivation behind this project from the following presentations:
 
 * ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
 * ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]

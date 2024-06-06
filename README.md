@@ -43,9 +43,9 @@ CK consists of several ongoing sub-projects:
 
   * [Modular Python harness for MLPerf loadgen](https://github.com/mlcommons/cm4mlops/tree/main/script/app-mlperf-inference-mlcommons-python)
 
-* [Collective Knowledge Playground](https://access.cKnowledge.org) - an open-source platform to list CM scripts similar to PYPI,
-  aggregate AI/ML Systems benchmarking results with CM workflows, and organize 
-  [public optimization challenges and reproducibility initiatives](https://access.cknowledge.org/playground/?action=challenges) 
+* [Collective Knowledge Playground](https://access.cKnowledge.org) - an external platform being developed by [cKnowledge](https://cKnowledge.org)
+  to list CM scripts similar to PYPI, aggregate AI/ML Systems benchmarking results in a reproducible format with CM workflows, 
+  and organize [public optimization challenges and reproducibility initiatives](https://access.cknowledge.org/playground/?action=challenges) 
   to find the most performance and cost-effective AI/ML Systems.
 
   * [CK GUI to run modular benchmarks](https://access.cknowledge.org/playground/?action=howtorun) - such benchmarks 
@@ -56,9 +56,6 @@ CK consists of several ongoing sub-projects:
 
 [Apache 2.0](LICENSE.md)
 
-### Copyright
-
-2022-2024 [MLCommons](https://mlcommons.org)
 
 
 ### Documentation
@@ -75,11 +72,14 @@ CK consists of several ongoing sub-projects:
 * [CM and CK history](docs/history.md)
 
 
+### Citing this project
+
+Please use this [BibTex file](citation.bib).
 
 ### Acknowledgments
 
-The open-source Collective Knowledge (CK) and Collective Mind automation frameworks (CM) were developed by [Grigori Fursin](https://cKnowledge.org/gfursin)
-and donated to MLCommons to benefit everyone. You can learn more about the motivation behind CK and CM from the following presentations:
+The open-source Collective Knowledge (CK v1,v2) and Collective Mind automation frameworks (CM) were developed by [Grigori Fursin](https://cKnowledge.org/gfursin)
+and donated to MLCommons to benefit everyone. You can learn more about the motivation behind this project from the following presentations:
 
 * ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
 * ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
