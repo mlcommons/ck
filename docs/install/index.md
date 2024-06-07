@@ -14,10 +14,12 @@ We have successfully tested CM on
     ### Ubuntu, Debian
 
     Do the below commands if on a fresh installation
+
     ```bash
        sudo apt update && sudo apt upgrade
     ```
     Install the needed system dependencies if missing
+
     ```bash
        sudo apt install python3 python3-pip python3-venv git wget curl
     ```
