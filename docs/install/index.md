@@ -8,14 +8,17 @@ We have successfully tested CM on
 * Ubuntu 18.x, 20.x, 22.x , 23.x, 24.04
 * RedHat 8, RedHat 9, CentOS 8
 * macOS
-* Wndows 10, Windows 11
+* Windows 10, Windows 11
  
 === "Ubuntu"
     ### Ubuntu, Debian
 
-
+    Do the below commands if on a fresh installation
     ```bash
        sudo apt update && sudo apt upgrade
+    ```
+    Install the needed system dependencies if missing
+    ```bash
        sudo apt install python3 python3-pip python3-venv git wget curl
     ```
 
