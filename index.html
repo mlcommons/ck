@@ -1,0 +1,885 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="img/logo_v2.svg">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.26">
+    
+    
+      
+        <title>Collective Mind Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#about" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Collective Mind Documentation" class="md-header__button md-logo" aria-label="Collective Mind Documentation" data-md-component="logo">
+      
+  <img src="img/logo_v2.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Collective Mind Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mlcommons/ck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="install/" class="md-tabs__link">
+          
+  
+    
+  
+  Install
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="specs/cm-cli/" class="md-tabs__link">
+          
+  
+    
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="news/" class="md-tabs__link">
+          
+  
+    
+  
+  Release Notes
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Collective Mind Documentation" class="md-nav__button md-logo" aria-label="Collective Mind Documentation" data-md-component="logo">
+      
+  <img src="img/logo_v2.svg" alt="logo">
+
+    </a>
+    Collective Mind Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mlcommons/ck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="install/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Install
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Install
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="specs/cm-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CM CLI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Release Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="news/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What's New
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#about" class="md-nav__link">
+    <span class="md-ellipsis">
+      About
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#copyright" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copyright
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-in-touch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get in touch
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acknowledgments
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Home</h1>
+
+<p><a href="https://pepy.tech/project/cmind"><img alt="PyPI version" src="https://badge.fury.io/py/cmind.svg" /></a>
+<a href="https://github.com/mlcommons/ck/tree/master/cm/cmind"><img alt="Python Version" src="https://img.shields.io/badge/python-3+-blue.svg" /></a>
+<a href="LICENSE.md"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-green" /></a>
+<a href="https://pepy.tech/project/cmind"><img alt="Downloads" src="https://static.pepy.tech/badge/cmind" /></a></p>
+<p><a href="https://github.com/mlcommons/ck/actions/workflows/test-cm.yml"><img alt="CM test" src="https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg" /></a>
+<a href="https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml"><img alt="CM script automation features test" src="https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg" /></a>
+<a href="https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml"><img alt="Dockerfile update for CM scripts" src="https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml/badge.svg" /></a></p>
+<h3 id="about">About</h3>
+<p>Collective Mind (CM) is a collection of portable, extensible, technology-agnostic and ready-to-use automation recipes
+with a human-friendly interface (aka CM scripts) to unify and automate all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
+on any platform with any software and hardware: see <a href="https://access.cknowledge.org/playground/?action=scripts">online catalog</a> 
+and <a href="https://github.com/mlcommons/ck/blob/master/cm-mlops/script">source code</a>.</p>
+<p>CM scripts require Python 3.7+ with minimal dependencies and are 
+<a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">continuously extended by the community and MLCommons members</a>
+to run natively on Ubuntu, MacOS, Windows, RHEL, Debian, Amazon Linux
+and any other operating system, in a cloud or inside automatically generated containers
+while keeping backward compatibility - please don't hesitate 
+to  report encountered issues <a href="https://github.com/mlcommons/ck/issues">here</a> 
+and contact us via <a href="https://discord.gg/JjWNWXKxwT">public Discord Server</a> 
+to help this collaborative engineering effort!</p>
+<p>CM scripts were originally developed based on the following requirements from the
+<a href="https://mlcommons.org">MLCommons members</a> 
+to help them automatically compose and optimize complex MLPerf benchmarks, applications and systems
+across diverse and continuously changing models, data sets, software and hardware
+from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors:
+* must work out of the box with the default options and without the need to edit some paths, environment variables and configuration files;
+* must be non-intrusive, easy to debug and must reuse existing 
+  user scripts and automation tools (such as cmake, make, ML workflows, 
+  python poetry and containers) rather than substituting them; 
+* must have a very simple and human-friendly command line with a Python API and minimal dependencies;
+* must require minimal or zero learning curve by using plain Python, native scripts, environment variables 
+  and simple JSON/YAML descriptions instead of inventing new workflow languages;
+* must have the same interface to run all automations natively, in a cloud or inside containers.</p>
+<p><a href="https://access.cknowledge.org/playground/?action=scripts">CM scripts</a> 
+were successfully validated by MLCommons to <a href="https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md">modularize MLPerf inference benchmarks</a> 
+and help the community automate more than 95% of all performance and power submissions in the v3.1 round
+across more than 120 system configurations (models, frameworks, hardware) 
+while reducing development and maintenance costs.</p>
+<p>For example, you should be able to run the MLPerf inference benchmark on Linux, Windows and MacOS
+using a few CM commands:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>cmind<span class="w"> </span>-U
+
+cm<span class="w"> </span>pull<span class="w"> </span>repo<span class="w"> </span>mlcommons@cm4mlops
+
+cm<span class="w"> </span>checkout<span class="w"> </span>repo<span class="w"> </span>mlcommons@cm4mlops<span class="w"> </span>--branch<span class="o">=</span>dev
+cm<span class="w"> </span>checkout<span class="w"> </span>repo<span class="w"> </span>mlcommons@cm4mlops<span class="w"> </span>--branch<span class="o">=</span>master
+
+cm<span class="w"> </span>rm<span class="w"> </span>cache<span class="w"> </span>-f
+
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;get mlcommons inference src&quot;</span>
+
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;get generic-python-lib _onnxruntime&quot;</span><span class="w"> </span>--version<span class="o">=</span><span class="m">1</span>.17.1
+
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;get ml-model image-classification resnet50 raw _fp32 _onnx&quot;</span>
+
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;get dataset image-classification imagenet preprocessed _NCHW&quot;</span>
+
+cm<span class="w"> </span>show<span class="w"> </span>cache
+
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;run-mlperf-inference _r4.0 _accuracy-only _short&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--device<span class="o">=</span>cpu<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--model<span class="o">=</span>resnet50<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--precision<span class="o">=</span>float32<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--implementation<span class="o">=</span>reference<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--backend<span class="o">=</span>onnxruntime<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--scenario<span class="o">=</span>Offline<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--clean<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--quiet<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--time
+
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;run-mlperf-inference _r4.0 _submission _short&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--device<span class="o">=</span>cpu<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--model<span class="o">=</span>resnet50<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--precision<span class="o">=</span>float32<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--implementation<span class="o">=</span>reference<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--backend<span class="o">=</span>onnxruntime<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--scenario<span class="o">=</span>Offline<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--clean<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--quiet<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--time
+
+...
+
++----------+----------+----------+--------+-----------------+---------------------------------+
+<span class="p">|</span><span class="w">  </span>Model<span class="w">   </span><span class="p">|</span><span class="w"> </span>Scenario<span class="w"> </span><span class="p">|</span><span class="w"> </span>Accuracy<span class="w"> </span><span class="p">|</span><span class="w">  </span>QPS<span class="w">   </span><span class="p">|</span><span class="w"> </span>Latency<span class="w"> </span><span class="o">(</span><span class="k">in</span><span class="w"> </span>ms<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Power<span class="w"> </span>Efficiency<span class="w"> </span><span class="o">(</span><span class="k">in</span><span class="w"> </span>samples/J<span class="o">)</span><span class="w"> </span><span class="p">|</span>
++----------+----------+----------+--------+-----------------+---------------------------------+
+<span class="p">|</span><span class="w"> </span>resnet50<span class="w"> </span><span class="p">|</span><span class="w"> </span>Offline<span class="w">  </span><span class="p">|</span><span class="w">   </span><span class="m">80</span>.0<span class="w">   </span><span class="p">|</span><span class="w"> </span><span class="m">27</span>.371<span class="w"> </span><span class="p">|</span><span class="w">        </span>-<span class="w">        </span><span class="p">|</span><span class="w">                                 </span><span class="p">|</span>
++----------+----------+----------+--------+-----------------+---------------------------------+
+
+The<span class="w"> </span>MLPerf<span class="w"> </span>inference<span class="w"> </span>results<span class="w"> </span>are<span class="w"> </span>stored<span class="w"> </span>at<span class="w"> </span>/home/gfursin/CM/repos/local/cache/a504fb143e97452f/test_results
+
+Path<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>MLPerf<span class="w"> </span>inference<span class="w"> </span>benchmark<span class="w"> </span>reference<span class="w"> </span>sources:<span class="w"> </span>/home/gfursin/CM/repos/local/cache/8061c243b8b54a3b/inference
+Path<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>MLPerf<span class="w"> </span>inference<span class="w"> </span>reference<span class="w"> </span>configuration<span class="w"> </span>file:<span class="w"> </span>/home/gfursin/CM/repos/local/cache/8061c243b8b54a3b/inference/mlperf.conf
+</code></pre></div>
+<p>You can also run the same commands using a unified CM Python API:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">cmind</span>
+<span class="n">output</span><span class="o">=</span><span class="n">cmind</span><span class="o">.</span><span class="n">access</span><span class="p">({</span>
+   <span class="s1">&#39;action&#39;</span><span class="p">:</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="s1">&#39;automation&#39;</span><span class="p">:</span><span class="s1">&#39;script&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;tags&#39;</span><span class="p">:</span><span class="s1">&#39;run-mlperf-inference,_r4.0,_performance-only,_short&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;device&#39;</span><span class="p">:</span><span class="s1">&#39;cpu&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;model&#39;</span><span class="p">:</span><span class="s1">&#39;resnet50&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;precision&#39;</span><span class="p">:</span><span class="s1">&#39;float32&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;implementation&#39;</span><span class="p">:</span><span class="s1">&#39;reference&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;backend&#39;</span><span class="p">:</span><span class="s1">&#39;onnxruntime&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;scenario&#39;</span><span class="p">:</span><span class="s1">&#39;Offline&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;clean&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span>
+   <span class="s1">&#39;quiet&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span>
+   <span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span>
+   <span class="s1">&#39;out&#39;</span><span class="p">:</span><span class="s1">&#39;con&#39;</span>
+<span class="p">})</span>
+<span class="k">if</span> <span class="n">output</span><span class="p">[</span><span class="s1">&#39;return&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> <span class="nb">print</span> <span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</code></pre></div>
+<p>We suggest you to use this <a href="https://access.cknowledge.org/playground/?action=howtorun">online CM interface</a>
+to generate CM commands that will prepare and run MLPerf benchmarks and AI applications across different platforms.</p>
+<p>See more examples of CM scripts and workflows to download Stable Diffusion, GPT-J and LLAMA2 models, process datasets, install tools and compose AI applications:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>cmind<span class="w"> </span>-U
+
+cm<span class="w"> </span>pull<span class="w"> </span>repo<span class="w"> </span>mlcommons@cm4mlops
+
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span>
+cmr<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span>
+
+cmr<span class="w"> </span><span class="s2">&quot;download file _wget&quot;</span><span class="w"> </span>--url<span class="o">=</span>https://cKnowledge.org/ai/data/computer_mouse.jpg<span class="w"> </span>--verify<span class="o">=</span>no<span class="w"> </span>--env.CM_DOWNLOAD_CHECKSUM<span class="o">=</span>45ae5c940233892c2f860efdf0b66e7e
+cmr<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span><span class="w"> </span>--input<span class="o">=</span>computer_mouse.jpg
+cmr<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span><span class="w"> </span>--input<span class="o">=</span>computer_mouse.jpg<span class="w"> </span>--debug
+
+cm<span class="w"> </span>find<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span>
+cm<span class="w"> </span>load<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span><span class="w"> </span>--yaml
+
+cmr<span class="w"> </span><span class="s2">&quot;get python&quot;</span><span class="w"> </span>--version_min<span class="o">=</span><span class="m">3</span>.8.0<span class="w"> </span>--name<span class="o">=</span>mlperf-experiments
+cmr<span class="w"> </span><span class="s2">&quot;install python-venv&quot;</span><span class="w"> </span>--version_max<span class="o">=</span><span class="m">3</span>.10.11<span class="w"> </span>--name<span class="o">=</span>mlperf
+
+cmr<span class="w"> </span><span class="s2">&quot;get ml-model stable-diffusion&quot;</span>
+cmr<span class="w"> </span><span class="s2">&quot;get ml-model sdxl _fp16 _rclone&quot;</span>
+cmr<span class="w"> </span><span class="s2">&quot;get ml-model huggingface zoo _model-stub.alpindale/Llama-2-13b-ONNX&quot;</span><span class="w"> </span>--model_filename<span class="o">=</span>FP32/LlamaV2_13B_float32.onnx<span class="w"> </span>--skip_cache
+cmr<span class="w"> </span><span class="s2">&quot;get dataset coco _val _2014&quot;</span>
+cmr<span class="w"> </span><span class="s2">&quot;get dataset openimages&quot;</span><span class="w"> </span>-j
+
+cm<span class="w"> </span>show<span class="w"> </span>cache
+cm<span class="w"> </span>show<span class="w"> </span>cache<span class="w"> </span><span class="s2">&quot;get ml-model stable-diffusion&quot;</span>
+
+cmr<span class="w"> </span><span class="s2">&quot;get generic-python-lib _package.onnxruntime&quot;</span><span class="w"> </span>--version_min<span class="o">=</span><span class="m">1</span>.16.0
+cmr<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span><span class="w"> </span>--input<span class="o">=</span>computer_mouse.jpg
+
+cm<span class="w"> </span>rm<span class="w"> </span>cache<span class="w"> </span>-f
+cmr<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span><span class="w"> </span>--input<span class="o">=</span>computer_mouse.jpg<span class="w"> </span>--adr.onnxruntime.version_max<span class="o">=</span><span class="m">1</span>.16.0
+
+cmr<span class="w"> </span><span class="s2">&quot;get cuda&quot;</span><span class="w"> </span>--version_min<span class="o">=</span><span class="m">12</span>.0.0<span class="w"> </span>--version_max<span class="o">=</span><span class="m">12</span>.3.1
+cmr<span class="w"> </span><span class="s2">&quot;python app image-classification onnx _cuda&quot;</span><span class="w"> </span>--input<span class="o">=</span>computer_mouse.jpg
+
+cm<span class="w"> </span>gui<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span>
+
+cm<span class="w"> </span>docker<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span><span class="w"> </span>--input<span class="o">=</span>computer_mouse.jpg
+cm<span class="w"> </span>docker<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span><span class="w"> </span>--input<span class="o">=</span>computer_mouse.jpg<span class="w"> </span>-j<span class="w"> </span>-docker_it
+
+cm<span class="w"> </span>docker<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;get coco dataset _val _2017&quot;</span><span class="w"> </span>--to<span class="o">=</span>d:<span class="se">\D</span>ownloads<span class="se">\C</span>OCO-2017-val<span class="w"> </span>--store<span class="o">=</span>d:<span class="se">\D</span>ownloads<span class="w"> </span>--docker_cm_repo<span class="o">=</span>ctuning@mlcommons-ck
+
+cmr<span class="w"> </span><span class="s2">&quot;run common mlperf inference&quot;</span><span class="w"> </span>--implementation<span class="o">=</span>nvidia<span class="w"> </span>--model<span class="o">=</span>bert-99<span class="w"> </span>--category<span class="o">=</span>datacenter<span class="w"> </span>--division<span class="o">=</span>closed
+cm<span class="w"> </span>find<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;run common mlperf inference&quot;</span>
+
+cmr<span class="w"> </span><span class="s2">&quot;get generic-python-lib _package.torch&quot;</span><span class="w"> </span>--version<span class="o">=</span><span class="m">2</span>.1.2
+cmr<span class="w"> </span><span class="s2">&quot;get generic-python-lib _package.torchvision&quot;</span><span class="w"> </span>--version<span class="o">=</span><span class="m">0</span>.16.2
+cmr<span class="w"> </span><span class="s2">&quot;python app image-classification torch&quot;</span><span class="w"> </span>--input<span class="o">=</span>computer_mouse.jpg
+
+
+cm<span class="w"> </span>rm<span class="w"> </span>repo<span class="w"> </span>mlcommons@cm4mlops
+cm<span class="w"> </span>pull<span class="w"> </span>repo<span class="w"> </span>--url<span class="o">=</span>https://zenodo.org/records/10787459/files/cm-mlops-repo-20240306.zip
+
+cmr<span class="w"> </span><span class="s2">&quot;install llvm prebuilt&quot;</span><span class="w"> </span>--version<span class="o">=</span><span class="m">17</span>.0.6
+cmr<span class="w"> </span><span class="s2">&quot;app image corner-detection&quot;</span>
+
+cm<span class="w"> </span>run<span class="w"> </span>experiment<span class="w"> </span>--tags<span class="o">=</span>tuning,experiment,batch_size<span class="w"> </span>--<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>--batch_size<span class="o">={{</span>VAR1<span class="o">{</span>range<span class="o">(</span><span class="m">1</span>,8<span class="o">)}}}</span>
+
+cm<span class="w"> </span>replay<span class="w"> </span>experiment<span class="w"> </span>--tags<span class="o">=</span>tuning,experiment,batch_size
+
+cmr<span class="w"> </span><span class="s2">&quot;get conda&quot;</span>
+
+cm<span class="w"> </span>pull<span class="w"> </span>repo<span class="w"> </span>ctuning@cm4research
+cmr<span class="w"> </span><span class="s2">&quot;reproduce paper micro-2023 victima _install_deps&quot;</span>
+cmr<span class="w"> </span><span class="s2">&quot;reproduce paper micro-2023 victima _run&quot;</span><span class="w"> </span>
+</code></pre></div>
+<p>See a few examples of modular containers and GitHub actions with CM commands:</p>
+<ul>
+<li><a href="https://github.com/mlcommons/inference/blob/master/.github/workflows/test-bert.yml">GitHub action with CM commands to test MLPerf inference benchmark</a></li>
+<li><a href="https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/dockerfiles/bert-99.9/ubuntu_22.04_python_onnxruntime_cpu.Dockerfile">Dockerfile to run MLPerf inference benchmark via CM</a></li>
+</ul>
+<p>Please check the <a href="https://github.com/mlcommons/ck/blob/master/docs/getting-started.md"><strong>Getting Started Guide</strong></a> 
+to understand how CM automation recipes work, how to use them to automate your own projects,
+and how to implement and share new automations in your public or private projects.</p>
+<h3 id="documentation">Documentation</h3>
+<p><strong>We plan to rewrite and simplify the CM documentation and tutorials based on user feedback in Q2 2024 - please stay tuned for more details</strong>.</p>
+<ul>
+<li><a href="../docs/news.md">News</a></li>
+<li><a href="../docs/getting-started.md">Getting Started Guide and FAQ</a></li>
+<li><a href="../docs/mlperf/inference">Common CM interface to run MLPerf inference benchmarks</a></li>
+<li><a href="../docs/tutorials/common-interface-to-reproduce-research-projects.md">Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23</a></li>
+<li>[Other CM tutorials]../(docs/tutorials)</li>
+<li><a href="../docs/README.md">Full documentation</a></li>
+</ul>
+<h3 id="license">License</h3>
+<p><a href="LICENSE.md">Apache 2.0</a></p>
+<h3 id="copyright">Copyright</h3>
+<p>2022-2024 <a href="https://mlcommons.org">MLCommons</a></p>
+<h3 id="get-in-touch">Get in touch</h3>
+<p>Collective Mind workflow automation framework and Collective Knowledge Playground are being developed 
+by the <a href="https://github.com/mlcommons/ck/blob/master/docs/taskforce.md">MLCommons Task Force on Automation and Reproducibility</a>
+as a community effort. Volunteers are very welcome to help with this community project!</p>
+<h3 id="acknowledgments">Acknowledgments</h3>
+<p>CK and CM are community projects based on the feedback from our users and MLCommons members.
+We would like to thank all <a href="https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md">collaborators and contributors</a> 
+for their support, fruitful discussions, and useful feedback! </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["content.tabs.link", "content.code.copy", "navigation.expand", "navigation.sections", "navigation.indexes", "navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "toc.follow"], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+    
+  </body>
+</html>
