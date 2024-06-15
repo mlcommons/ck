@@ -28,16 +28,19 @@ CK consists of several ongoing sub-projects:
   You can read more about the CM concept in this [presentation](https://doi.org/10.5281/zenodo.8105339).
 
 
-  * [CM automation recipes for MLOps and DevOps](cm-mlops) (*~6MB*) - a small collection of portable, extensible and technology-agnostic automation recipes
+  * [CM automation recipes for MLOps and DevOps](https://github.com/mlcommons/cm4mlops) (*~6MB*) - a small collection of portable, extensible and technology-agnostic automation recipes
     with a human-friendly interface (aka CM scripts) to unify and automate all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
     on diverse platforms with any software and hardware: see [online catalog](https://access.cknowledge.org/playground/?action=scripts) 
     and [source code](https://github.com/mlcommons/cm4mlops/blob/master/script).
 
-  * [CM automation recipes to reproduce research projects](https://github.com/ctuning/cm4research) - a unified CM interface to help researchers
+  * [CM automation recipes to reproduce research projects](https://github.com/ctuning/cm4research) (*~1MB*) - a unified CM interface to help researchers
     and engineers access, prepare and run diverse research projects and make it easier to validate them in the real world 
     across rapidly evolving models, data, software and hardware
     (see [our reproducibility initatives](https://cTuning.org/ae) 
     and [motivation](https://www.youtube.com/watch?v=7zpeIVwICa4) behind this project).
+
+  * [CM automation recipes for ABTF](https://github.com/mlcommons/cm4abtf) (*~1MB*) - a unified CM interface and automation recipes
+    to run automotive benchmark across different models, data sets, software and hardware from different vendors.
 
   * [Modular C++ harness for MLPerf loadgen](https://github.com/mlcommons/cm4mlops/tree/main/script/app-mlperf-inference-mlcommons-cpp)
 
@@ -65,7 +68,7 @@ CK consists of several ongoing sub-projects:
 * [CM Getting Started Guide and FAQ](docs/getting-started.md)
   * [Common CM interface to run MLPerf inference benchmarks](docs/mlperf/inference)
   * [Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23](docs/tutorials/common-interface-to-reproduce-research-projects.md)
-  * [CM automation recipes for MLOps and DevOps](cm-mlops/script)
+  * [CM automation recipes for MLOps and DevOps](https://access.cknowledge.org/playground/?action=scripts)
   * [Other CM tutorials](docs/tutorials)
 * [Full documentation](docs/README.md)
 * [CM development tasks](docs/taskforce.md#current-tasks)
@@ -78,13 +81,16 @@ Please use this [BibTex file](citation.bib).
 
 ### Acknowledgments
 
-The open-source Collective Knowledge (CK v1,v2) and Collective Mind automation frameworks (CM) were developed by [Grigori Fursin](https://cKnowledge.org/gfursin)
-and donated to MLCommons to benefit everyone. You can learn more about the motivation behind this project from the following presentations:
+[Collective Knowledge automation framework (deprecated CK v1 and v2)](https://github.com/mlcommons/ck/tree/master/ck),
+[Collective Mind automation framework (CM)](https://github.com/mlcommons/ck/tree/master/cm),
+[CM4MLOPS](https://github.com/mlcommons/cm4mlops) and
+[CM4ABTF](https://github.com/mlcommons/cm4abtf) were originally developed by [Grigori Fursin](https://cKnowledge.org/gfursin)
+and donated to MLCommons to benefit everyone. You can learn more about the motivation behind these projects from the following presentations:
 
 * ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
 * ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
 
-We would like to thank all 
+We would like to thank all our great
 [volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
 for their support, fruitful discussions, and useful feedback! 
 We thank the [cTuning foundation](https://cTuning.org), [cKnowledge.org](https://cKnowledge.org)
