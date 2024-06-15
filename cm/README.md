@@ -216,13 +216,17 @@ and how to implement and share new automations in your public or private project
 
 **MLCommons is updating the CM documentation based on user feedback - please stay tuned for more details**.
 
-* [News](../docs/news.md)
-* [Getting Started Guide and FAQ](../docs/getting-started.md)
-  * [Common CM interface to run MLPerf inference benchmarks](../docs/mlperf/inference)
-  * [Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23](../docs/tutorials/common-interface-to-reproduce-research-projects.md)
-  * [Other CM tutorials]../(docs/tutorials)
-* [Full documentation](../docs/README.md)
+* [Getting Started Guide and FAQ](https://github.com/mlcommons/ck/tree/master/docs/getting-started.md)
+  * [Common CM interface to run MLPerf inference benchmarks](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference)
+  * [Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23](https://github.com/mlcommons/ck/tree/master/docs/tutorials/common-interface-to-reproduce-research-projects.md)
+  * [Other CM tutorials](https://github.com/mlcommons/ck/tree/master/docs/tutorials)
+* [Full documentation](https://github.com/mlcommons/ck/tree/master/docs/tutorials/README.md)
 
+### Projects modularized and automated by CM
+
+* [cm4research](https://github.com/ctuning/cm4research)
+* [cm4mlops](https://github.com/mlcommons/cm4mlops)
+* [cm4abtf](https://github.com/mlcommons/cm4abtf)
 
 ### License
 
@@ -234,13 +238,16 @@ Please use this [BibTex file](https://github.com/mlcommons/ck/blob/master/citati
 
 ### Acknowledgments
 
-The open-source Collective Knowledge (CK v1,v2) and Collective Mind automation frameworks (CM) were developed by [Grigori Fursin](https://cKnowledge.org/gfursin)
-and donated to MLCommons to benefit everyone. You can learn more about the motivation behind this project from the following presentations:
+[Collective Knowledge automation framework (deprecated CK v1 and v2)](https://github.com/mlcommons/ck/tree/master/ck),
+[Collective Mind automation framework (CM)](https://github.com/mlcommons/ck/tree/master/cm),
+[CM4MLOPS](https://github.com/mlcommons/cm4mlops) and
+[CM4ABTF](https://github.com/mlcommons/cm4abtf) were originally developed by [Grigori Fursin](https://cKnowledge.org/gfursin)
+and donated to MLCommons to benefit everyone. You can learn more about the motivation behind these projects from the following presentations:
 
 * ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
 * ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
 
-We would like to thank all 
+We would like to thank all our great
 [volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
 for their support, fruitful discussions, and useful feedback! 
 We thank the [cTuning foundation](https://cTuning.org), [cKnowledge.org](https://cKnowledge.org)

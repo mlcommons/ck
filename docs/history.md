@@ -20,7 +20,7 @@ The archive of this discontinued framework is available in the [/ck directory](.
 Grigori donated the CK technology to [MLCommons](https://mlcommons.org) in 2022 to benefit everyone,
 prototyped a new version of CK called [Collective Mind (CM)](https://github.com/mlcommons/ck/tree/master/cm) 
 with [portable and reusable automation recipes for universal benchmarking and optimization of applications
-and systems (CM scripts)](https://access.cknowledge.org/playground/?action=scripts),
+and systems (CM4MLOps scripts and workflows)](https://github.com/mlcommons/cm4mlops),
 and helped establish the [MLCommons Task Force on Automation and Reproducibility](taskforce.md)
 co-led with Arjun Suresh.
 

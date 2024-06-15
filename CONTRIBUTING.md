@@ -14,7 +14,7 @@ Modify the project in your own fork and issue a pull request once you want other
 to take a look at what you have done and discuss the proposed changes. 
 Ensure that cla-bot and other checks pass for your Pull requests.
 
-## CM framework author
+## Original author (CK, CM, CM4MLOPS, CM4ABTF, CM4MLPERF)
 
 * Grigori Fursin ([cKnowledge.org](https://cKnowledge.org) and [cTuning.org](https://cTuning.org))
 
