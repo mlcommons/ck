@@ -1,7 +1,10 @@
-## V2.3.1
+## V2.3.2
    - fixed "cm pull repo --branch={BRANCH NAME}" behavior for all OS
    - added GitHub tests for Windows
    - added more tests for CM-MLPerf workflows for different hardware
+
+## v2.3.1
+   - various minor fixes based on user feedback
 
 ## V2.3.0
    - added automatic CM repo alias from mlcommons@ck to mlcommons@cm4mlops 
