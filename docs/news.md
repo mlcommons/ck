@@ -2,6 +2,10 @@
 
 ### [News from the MLCommons Task Force on Automation and Reproducibility](taskforce.md)
 
+#### 202406
+
+* We published a white paper about the Collective Knowledge Playground, Collective Mind, MLPerf and CM4MLOps: https://arxiv.org/abs/2406.16791
+
 #### 202403
 
 * [cKnowledge](https://cKnowledge.org) has completed a collaborative engineering project with MLCommons 

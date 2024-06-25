@@ -5,14 +5,13 @@
 
 [![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 [![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
-[![Dockerfile update for CM scripts](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml)
 
 ### About
 
 Collective Mind (CM) is a collection of portable, extensible, technology-agnostic and ready-to-use automation recipes
 with a human-friendly interface (aka CM scripts) to unify and automate all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
-on any platform with any software and hardware: see [online catalog](https://access.cknowledge.org/playground/?action=scripts) 
-and [source code](https://github.com/mlcommons/ck/blob/master/cm-mlops/script).
+on any platform with any software and hardware: see [CM4MLOps online catalog](https://access.cknowledge.org/playground/?action=scripts), 
+[source code](https://github.com/mlcommons/ck/blob/master/cm-mlops/script), [ArXiv project article](https://arxiv.org/abs/2406.16791).
 
 CM scripts require Python 3.7+ with minimal dependencies and are 
 [continuously extended by the community and MLCommons members](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)
@@ -38,34 +37,17 @@ from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors:
 * must have the same interface to run all automations natively, in a cloud or inside containers.
 
 [CM scripts](https://access.cknowledge.org/playground/?action=scripts) 
-were successfully validated by MLCommons to [modularize MLPerf inference benchmarks](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md) 
-and help the community automate more than 95% of all performance and power submissions in the v3.1 round
-across more than 120 system configurations (models, frameworks, hardware) 
-while reducing development and maintenance costs.
+are used by MLCommons, cTuning.org and cKnowledge.org to modularize MLPerf inference benchmarks
+(see [this white paper](https://arxiv.org/abs/2406.16791))
+and help anyone run them across different models, datasets, software and hardware: 
+https://docs.mlcommons.org/inference .
 
 For example, you should be able to run the MLPerf inference benchmark on Linux, Windows and MacOS
 using a few CM commands:
 
 ```bash
 
-pip install cmind -U
-
-cm pull repo mlcommons@cm4mlops
-
-cm checkout repo mlcommons@cm4mlops --branch=dev
-cm checkout repo mlcommons@cm4mlops --branch=master
-
-cm rm cache -f
-
-cm run script "get mlcommons inference src"
-
-cm run script "get generic-python-lib _onnxruntime" --version=1.17.1
-
-cm run script "get ml-model image-classification resnet50 raw _fp32 _onnx"
-
-cm run script "get dataset image-classification imagenet preprocessed _NCHW"
-
-cm show cache
+pip install cm4mlperf -U
 
 cm run script "run-mlperf-inference _r4.0 _accuracy-only _short" \
    --device=cpu \
@@ -135,7 +117,9 @@ See more examples of CM scripts and workflows to download Stable Diffusion, GPT-
 ```bash
 pip install cmind -U
 
-cm pull repo mlcommons@cm4mlops
+cm pull repo mlcommons@cm4mlops --branch=dev
+
+cm show repo
 
 cm run script "python app image-classification onnx"
 cmr "python app image-classification onnx"
@@ -242,8 +226,9 @@ Please use this [BibTex file](https://github.com/mlcommons/ck/blob/master/citati
 [Collective Mind automation framework (CM)](https://github.com/mlcommons/ck/tree/master/cm),
 [CM4MLOPS](https://github.com/mlcommons/cm4mlops) and
 [CM4ABTF](https://github.com/mlcommons/cm4abtf) were originally developed by [Grigori Fursin](https://cKnowledge.org/gfursin)
-and donated to MLCommons to benefit everyone. You can learn more about the motivation behind these projects from the following presentations:
+and donated to MLCommons to benefit everyone. You can learn more about the motivation behind these projects from the following articles and presentations:
 
+* "Enabling more efficient and cost-effective AI/ML systems with Collective Mind, virtualized MLOps, MLPerf, Collective Knowledge Playground and reproducible optimization tournaments": [ [ArXiv](https://arxiv.org/abs/2406.16791) ] 
 * ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
 * ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
 
