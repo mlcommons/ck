@@ -68,6 +68,7 @@ deps:
   # Extra package
   - tags: get,generic-python-lib,_psutil
   - tags: get,generic-python-lib,_package.numpy
+    version_max: "1.99.99"
 
   # Detect CUDA if required
   - tags: get,cuda
