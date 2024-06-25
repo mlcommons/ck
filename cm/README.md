@@ -168,7 +168,7 @@ cmr "python app image-classification torch" --input=computer_mouse.jpg
 
 
 cm rm repo mlcommons@cm4mlops
-cm pull repo --url=https://zenodo.org/records/10787459/files/cm-mlops-repo-20240306.zip
+cm pull repo --url=https://zenodo.org/records/12528908/files/cm4mlops-20240625.zip
 
 cmr "install llvm prebuilt" --version=17.0.6
 cmr "app image corner-detection"

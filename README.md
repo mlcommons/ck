@@ -26,12 +26,15 @@ CK consists of several ongoing sub-projects:
   Furthermore, in comparison with cmake, these automation recipes can not only detect missing code 
   but also download artifacts (models, data sets), preprocess them, build missing 
   dependencies, install them and run the final code on diverse platforms in a unified and automated way.
-  You can read more about the CM concept in this [presentation](https://doi.org/10.5281/zenodo.8105339).
+  You can learn more about the CM concept from this [white paper](https://arxiv.org/abs/2406.16791) 
+  and the [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339).
 
 
-  * [CM automation recipes for MLOps and DevOps](https://github.com/mlcommons/cm4mlops) (*~6MB*) - a small collection of portable, extensible and technology-agnostic automation recipes
+  * [CM4MLOPS: CM automation recipes for MLOps, MLPerf and DevOps](https://github.com/mlcommons/cm4mlops) (*~6MB*) - 
+    a collection of portable, extensible and technology-agnostic automation recipes
     with a human-friendly interface (aka CM scripts) to unify and automate all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
-    on diverse platforms with any software and hardware: see [online catalog](https://access.cknowledge.org/playground/?action=scripts) 
+    on diverse platforms with any software and hardware: see [online cKnowledge catalog](https://access.cknowledge.org/playground/?action=scripts),
+    [online MLCommons catalog](https://docs.mlcommons.org/cm4mlops/scripts) 
     and [source code](https://github.com/mlcommons/cm4mlops/blob/master/script).
 
   * [CM automation recipes to reproduce research projects](https://github.com/ctuning/cm4research) (*~1MB*) - a unified CM interface to help researchers
@@ -45,16 +48,18 @@ CK consists of several ongoing sub-projects:
 
   * [Modular C++ harness for MLPerf loadgen](https://github.com/mlcommons/cm4mlops/tree/main/script/app-mlperf-inference-mlcommons-cpp)
 
-  * [Modular Python harness for MLPerf loadgen](https://github.com/mlcommons/cm4mlops/tree/main/script/app-mlperf-inference-mlcommons-python)
+  * [Modular Python harness for MLPerf loadgen](https://github.com/mlcommons/cm4mlops/tree/main/script/app-loadgen-generic-python)
 
 * [Collective Knowledge Playground](https://access.cKnowledge.org) - an external platform being developed by [cKnowledge](https://cKnowledge.org)
   to list CM scripts similar to PYPI, aggregate AI/ML Systems benchmarking results in a reproducible format with CM workflows, 
   and organize [public optimization challenges and reproducibility initiatives](https://access.cknowledge.org/playground/?action=challenges) 
   to find the most performance and cost-effective AI/ML Systems.
 
-  * [CK GUI to run modular benchmarks](https://access.cknowledge.org/playground/?action=howtorun) - such benchmarks 
+  * [GUI to run modular benchmarks](https://access.cknowledge.org/playground/?action=howtorun) - such benchmarks 
     are composed from [CM scripts](https://access.cknowledge.org/playground/?action=scripts)
     and can run via a unified CM interface.
+
+  * [MLCommons docs to run MLPerf inference benchmarks from command line via CM](https://docs.mlcommons.org/inference)
 
 ### License
 

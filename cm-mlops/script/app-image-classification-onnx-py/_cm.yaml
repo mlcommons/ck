@@ -49,6 +49,7 @@ deps:
 
 - tags: get,generic-python-lib,_package.Pillow
 - tags: get,generic-python-lib,_package.numpy
+  version_max: "1.99.99"
 - tags: get,generic-python-lib,_package.opencv-python
 
 

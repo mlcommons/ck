@@ -5,7 +5,7 @@ git: true
 
 prefix: cm-mlops
 
-version: 2.0.4
+version: 2.3.2
 
 deps:
   - alias: mlcommons@cm4mlops
