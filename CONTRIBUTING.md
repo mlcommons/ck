@@ -14,11 +14,11 @@ Modify the project in your own fork and issue a pull request once you want other
 to take a look at what you have done and discuss the proposed changes. 
 Ensure that cla-bot and other checks pass for your Pull requests.
 
-## Original author (CK, CM, CM4MLOPS, CM4ABTF, CM4MLPERF)
-
-* Grigori Fursin ([cKnowledge.org](https://cKnowledge.org) and [cTuning.org](https://cTuning.org))
-
-## CM contributors in alphabetical order (suggestions, feedback, scripts)
+Collective Knowledge (CK) and Collective Mind (CM) were created by [Grigori Fursin](https://cKnowledge.org/gfursin),
+sponsored by cKnowledge.org and cTuning.org, and donated to MLCommons to benefit everyone. 
+Since then, this open-source technology (CM, CM4MLOps, CM4ABTF, CM4Research, etc)
+is being developed as a community effort thanks to all our volunteers, collaborators and contributors
+listed here in alphabetical order:
 
 * Resmi Arjun
 * Alice Cheng (Nvidia)

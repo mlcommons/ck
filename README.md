@@ -65,10 +65,6 @@ CK consists of several ongoing sub-projects:
 
 [Apache 2.0](LICENSE.md)
 
-### Citing this project
-
-Please use this [BibTex file](https://github.com/mlcommons/ck/blob/master/citation.bib).
-
 ### Documentation
 
 **MLCommons is updating the CM documentation based on user feedback - please stay tuned for more details**.
@@ -86,15 +82,18 @@ Please use this [BibTex file](https://github.com/mlcommons/ck/blob/master/citati
 
 ### Acknowledgments
 
-This open-source technology was originally developed by [Grigori Fursin](https://cKnowledge.org/gfursin)
-and donated to MLCommons to benefit everyone. You can learn more about the motivation behind these projects from the following articles and presentations:
+Collective Knowledge (CK) and Collective Mind (CM) were created by [Grigori Fursin](https://cKnowledge.org/gfursin),
+sponsored by cKnowledge.org and cTuning.org, and donated to MLCommons to benefit everyone. 
+Since then, this open-source technology (CM, CM4MLOps, CM4ABTF, CM4Research, etc)
+is being developed as a community effort thanks to all our
+[volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)! 
+
+You can learn more about the motivation behind these projects from the following articles and presentations:
 
 * "Enabling more efficient and cost-effective AI/ML systems with Collective Mind, virtualized MLOps, MLPerf, Collective Knowledge Playground and reproducible optimization tournaments": [ [ArXiv](https://arxiv.org/abs/2406.16791) ] 
 * ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
 * ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
 
-We would like to thank all our great
-[volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
-for their support, fruitful discussions, and useful feedback! 
-We thank the [cTuning foundation](https://cTuning.org), [cKnowledge.org](https://cKnowledge.org)
-and [MLCommons](https://mlcommons.org) for sponsoring this project!
+### Citing this project
+
+Please use this [BibTex file](https://github.com/mlcommons/ck/blob/master/citation.bib).
