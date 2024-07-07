@@ -1,3 +1,6 @@
+## V2.3.3
+   - minor documentation update for MLPerf inference v4.1
+
 ## V2.3.2
    - fixed "cm pull repo --branch={BRANCH NAME}" behavior for all OS
    - added GitHub tests for Windows
