@@ -49,7 +49,7 @@ using a few CM commands:
 
 pip install cmind -U
 
-cm pull repo cknowledge@cm4mlops --branch=mlperf-inference
+cm pull repo mlcommons@cm4mlops --branch=dev
 
 cm run script "run-mlperf-inference _r4.1 _accuracy-only _short" \
    --device=cpu \
@@ -139,7 +139,7 @@ See more examples of CM scripts and workflows to download Stable Diffusion, GPT-
 ```bash
 pip install cmind -U
 
-cm pull repo mlcommons@cm4mlops --branch=mlperf-inference
+cm pull repo mlcommons@cm4mlops --branch=dev
 
 cm show repo
 
@@ -238,13 +238,10 @@ and how to implement and share new automations in your public or private project
 
 [Apache 2.0](LICENSE.md)
 
-### Acknowledgments
+### Citing CM
 
-Collective Knowledge (CK) and Collective Mind (CM) were created by [Grigori Fursin](https://cKnowledge.org/gfursin),
-sponsored by cKnowledge.org and cTuning.org, and donated to MLCommons to benefit everyone. 
-Since then, this open-source technology (CM, CM4MLOps, CM4ABTF, CM4Research, etc)
-is being developed as a community effort thanks to all our
-[volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)! 
+If you found CM useful, please cite this article: 
+[ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].
 
 You can learn more about the motivation behind these projects from the following articles and presentations:
 
@@ -252,6 +249,10 @@ You can learn more about the motivation behind these projects from the following
 * ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
 * ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
 
-### Citing this project
+### Acknowledgments
 
-Please use this [BibTex file](https://github.com/mlcommons/ck/blob/master/citation.bib).
+Collective Knowledge (CK) and Collective Mind (CM) were created by [Grigori Fursin](https://cKnowledge.org/gfursin),
+sponsored by cKnowledge.org and cTuning.org, and donated to MLCommons to benefit everyone. 
+Since then, this open-source technology (CM, CM4MLOps, CM4MLPerf, CM4ABTF, CM4Research, etc)
+is being developed as a community effort thanks to all our
+[volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)! 

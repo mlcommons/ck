@@ -110,13 +110,13 @@ class CAutomation(Automation):
             # unless branch/checkout is used - in such case we keep old repository
             # for backwards compatibility and reproducibility
 
-            r = net.request({'get': {'action': 'check-migration-repo-notes', 'repo': url}})
+            branch = i.get('branch', '')
+            checkout = i.get('checkout', '')
+
+            r = net.request({'get': {'action': 'check-migration-repo-notes', 'repo': url, 'branch': branch, 'checkout': checkout}})
             notes = r.get('dict', {}).get('notes','')
             if notes !='':
                 print (notes)
-
-            branch = i.get('branch', '')
-            checkout = i.get('checkout', '')
 
             if alias == 'mlcommons@ck' and branch == '' and checkout == '':
                 print ('=========================================================================')

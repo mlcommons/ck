@@ -26,7 +26,7 @@
 
 
 
-MLCommons Collective Mind framework requires minimal dependencies to run on any platform: `python 3+, pip, git, wget`.
+MLCommons Collective Mind framework requires minimal dependencies to run on any platform: `python 3+, pip, git, git-lfs, wget`.
 However, most CM automation recipes shared by the community and MLCommons require Python 3.7+ .
 
 ***By default, CM will pull Git repositories and cache installations and downloaded files in your `$HOME/CM` directory (Linux/MacOS). 
@@ -54,7 +54,7 @@ You can reuse misc CM utils listed [here](#misc-cm-utils).
 ```bash
 sudo apt update && sudo apt upgrade
 
-sudo apt install python3 python3-pip python3-venv git wget curl
+sudo apt install python3 python3-pip python3-venv git git-lfs wget curl
 sudo apt install libgl1-mesa-dev
 ```
 
@@ -95,7 +95,6 @@ Path to CM repositories:      D:\Work1\CM
 GitHub for CM developments:        https://github.com/mlcommons/ck/tree/master/cm
 GitHub for CM automation scripts:  https://github.com/mlcommons/cm4mlops
 Reporting issues and ideas:        https://github.com/mlcommons/ck/issues
-MLCommons taskforce developing CM: https://github.com/mlcommons/ck/blob/master/docs/taskforce.md
 
 ```
 
@@ -111,7 +110,7 @@ You are ready to use CM automation meta-framework.
 ```bash
 sudo dnf update
 
-sudo dnf install python3 python-pip git wget curl
+sudo dnf install python3 python-pip git git-lfs wget curl
 
 python3 -m pip install cmind --user
 
@@ -132,7 +131,7 @@ Don't forget to add brew to PATH environment as described in the end.
 Then install python, pip, git and wget:
 
 ```bash
-brew install python3 git wget curl
+brew install python3 git git-lfs wget curl
 
 python3 -m pip install cmind
 ```

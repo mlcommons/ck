@@ -21,17 +21,20 @@ is being developed as a community effort thanks to all our volunteers, collabora
 listed here in alphabetical order:
 
 * Resmi Arjun
+* Omar Benjelloun (Google)
 * Alice Cheng (Nvidia)
 * Jiahao Chen (MIT)
 * Ramesh N Chukka (Intel)
 * Ray DeMoss (One Stop Systems)
 * Ryan T DeRue (Purdue University)
 * Himanshu Dutta (Indian Institute of Technology)
+* Nicolas Essayan
 * Justin Faust (One Stop Systems)
 * Diane Feddema (Red Hat)
 * Grigori Fursin (cTuning.org and cKnowledge.org)
 * Leonid Fursin (United Silicon Carbide)
 * Anirban Ghosh (Nvidia)
+* James Goel (Qualcomm)
 * Michael Goin (Neural Magic)
 * Jose Armando Hernandez (Paris Saclay University)
 * Mehrdad Hessar (OctoML)
@@ -40,6 +43,7 @@ listed here in alphabetical order:
 * Tom Jablin (Google)
 * Nino Jacob
 * David Kanter (MLCommons)
+* Alex Karargyris
 * Jason Knight (OctoML)
 * Ilya Kozulin (Deelvin)
 * @makaveli10 (Collabora)
@@ -63,15 +67,18 @@ listed here in alphabetical order:
 * Sergey Serebryakov (HPE)
 * Warren Schultz (Principled Technologies)
 * Amrutha Sheleenderan (Kerala Technical University)
+* Micah J Sheller (Intel)
 * Byoungjun Seo (TTA)
 * Aditya Kumar Shaw (Indian Institute of Science)
 * Ilya Slavutin (Deelvin)
 * Jinho Suh (Nvidia)
-* Arjun Suresh (cTuning.org and cKnowledge.org)
+* Arjun Suresh
 * Badhri Narayanan Suresh (Intel)
 * David Tafur (MLCommons)
 * Chloe Tessier
 * Gaurav Verma (Stony Brook University)
+* Zixian Wang
+* Nathan Wasson
 * Scott Wasson (MLCommons)
 * Haoyang Zhang  (UIUC)
 * Bojian Zheng (University of Toronto)
