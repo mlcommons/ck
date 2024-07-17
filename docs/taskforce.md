@@ -2,8 +2,11 @@
 
 # MLCommons Task Force on Automation and Reproducibility
 
-**News (May 2024):** our task force has successfully accomplished its mission and our on-going developments 
- will be funded by MLCommons and integrated with several MLCommons Working Groups - please stay tuned for more details!
+**News (May 2024):** our task force has successfully accomplished the first goal 
+ to provide a [stable CM interface for MLPerf benchmarks](https://docs.mlcommons.org/inference) 
+ and discussing the next steps with MLCommons - please stay tuned for more details!
+
+
 
 ## Mission
 
@@ -20,6 +23,12 @@
 
 We thank [cKnowledge.org](https://cKnowledge.org), [cTuning.org](https://cTuning.org),
 and [MLCommons](https://mlcommons.org) for sponsoring this project!
+
+
+### Citing CM
+
+If you found CM useful, please cite this article: 
+[ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].
 
 
 ## Current projects
@@ -111,3 +120,4 @@ after he donated his CK and CM automation technology to MLCommons in 2022 to ben
 Since then, this open-source technology is being developed as a community effort based on user feedback.
 We would like to thank all our [volunteers, collaborators and contributors](../CONTRIBUTING.md) 
 for their support, fruitful discussions, and useful feedback! 
+

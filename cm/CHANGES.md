@@ -1,3 +1,6 @@
+## V2.3.4
+   - minor documentation update
+
 ## V2.3.3
    - minor documentation update for MLPerf inference v4.1
 
