@@ -32,13 +32,6 @@ We thank all [our contributors](https://access.cknowledge.org/playground/?action
 for interesting discussions and feedback that helped to improve the open-source MLCommons CM automation workflows
 for MLPerf benchmarks and [make them available to everyone](https://github.com/mlcommons/ck/tree/master/docs/mlperf)!
 
-Join our public [Discord server](https://discord.gg/JjWNWXKxwT) to learn how to 
-use our open-source MLPerf automation and submit your results to MLPerf inference v4.0!
-
-Don't hesitate to contact [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
-and [Grigori Fursin](https://cKnowledge.org/gfursin) for more details about this community project from MLCommons and the cTuning foundation.
-
-
 
 
 ## New CM capabilities to automate experiments, optimizations and design space exploration

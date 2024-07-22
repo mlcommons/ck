@@ -1557,13 +1557,12 @@ We welcome other MLPerf and CM extensions including support for multi-node execu
 Please join our [Discord server](https://discord.gg/JjWNWXKxwT) to provide your feedback and participate in these community developments!
 
 
+# Authors
+
+* [Grigori Fursin](https://cKnowledge.org/gfursin) (cTuning foundation and cKnowledge.org)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (cTuning foundation and cKnowledge.org)
 
 ## Acknowledgments
-
-This tutorial, the MLCommons CM automation language, CM scripts and CM automation workflows 
-for MLPerf were developed by [Grigori Fursin](https://cKnowledge.org/gfursin) 
-and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) ([cTuning foundation](https://cTuning.org) 
-and [cKnowledge.org](https://cKnowledge.org)) in collaboration with the community and MLCommons.
 
 We thank Miro Hodak, Mitchelle Rasquinha, Amiya K. Maji, Ryan T DeRue, Michael Goin, Kasper Mecklenburg, 
 Lior Khermosh, James Goel, Jinho Suh, Thomas Zhu, Peter Mattson, David Kanter, Vijay Janappa Reddi 

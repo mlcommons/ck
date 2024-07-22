@@ -16,7 +16,7 @@ across diverse and continuously changing models, data, software and hardware.
 
 CK consists of several ongoing sub-projects:
 
-* [Collective Mind framework (CM)](cm) (*~1MB*) - a very light-weight Python-based framework with minimal dependencies
+* [Collective Mind framework (CM)](cm) - a very light-weight Python-based framework with minimal dependencies
   to help users implement, share and reuse cross-platform automation recipes to 
   build, benchmark and optimize applications on any platform
   with any software and hardware. CM attempts to extends the `cmake` concept 
@@ -30,25 +30,15 @@ CK consists of several ongoing sub-projects:
   and the [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339).
 
 
-  * [CM4MLOPS: CM automation recipes for MLOps, MLPerf and DevOps](https://github.com/mlcommons/cm4mlops) (*~6MB*) - 
+  * [CM4MLOPS](https://github.com/mlcommons/cm4mlops) - 
     a collection of portable, extensible and technology-agnostic automation recipes
     with a human-friendly interface (aka CM scripts) to unify and automate all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
     on diverse platforms with any software and hardware: see [online cKnowledge catalog](https://access.cknowledge.org/playground/?action=scripts),
     [online MLCommons catalog](https://docs.mlcommons.org/cm4mlops/scripts) 
     and [source code](https://github.com/mlcommons/cm4mlops/blob/master/script).
 
-  * [CM automation recipes to reproduce research projects](https://github.com/ctuning/cm4research) (*~1MB*) - a unified CM interface to help researchers
-    and engineers access, prepare and run diverse research projects and make it easier to validate them in the real world 
-    across rapidly evolving models, data, software and hardware
-    (see [our reproducibility initatives](https://cTuning.org/ae) 
-    and [motivation](https://www.youtube.com/watch?v=7zpeIVwICa4) behind this project).
-
-  * [CM automation recipes for ABTF](https://github.com/mlcommons/cm4abtf) (*~1MB*) - a unified CM interface and automation recipes
+  * [CM4ABTF](https://github.com/mlcommons/cm4abtf) - a unified CM interface and automation recipes
     to run automotive benchmark across different models, data sets, software and hardware from different vendors.
-
-  * [Modular C++ harness for MLPerf loadgen](https://github.com/mlcommons/cm4mlops/tree/main/script/app-mlperf-inference-mlcommons-cpp)
-
-  * [Modular Python harness for MLPerf loadgen](https://github.com/mlcommons/cm4mlops/tree/main/script/app-loadgen-generic-python)
 
 * [Collective Knowledge Playground](https://access.cKnowledge.org) - an external platform being developed by [cKnowledge](https://cKnowledge.org)
   to list CM scripts similar to PYPI, aggregate AI/ML Systems benchmarking results in a reproducible format with CM workflows, 
@@ -71,6 +61,12 @@ We are preparing new projects based on user feedback:
 ### License
 
 [Apache 2.0](LICENSE.md)
+
+### Copyright
+
+* Copyright (c) 2021-2024 MLCommons
+* Copyright (c) 2014-2021 cTuning foundation
+
 
 ### Documentation
 

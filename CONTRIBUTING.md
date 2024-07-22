@@ -31,7 +31,6 @@ listed here in alphabetical order:
 * Nicolas Essayan
 * Justin Faust (One Stop Systems)
 * Diane Feddema (Red Hat)
-* Grigori Fursin (cTuning.org and cKnowledge.org)
 * Leonid Fursin (United Silicon Carbide)
 * Anirban Ghosh (Nvidia)
 * James Goel (Qualcomm)
