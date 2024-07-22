@@ -16,7 +16,7 @@ across diverse and continuously changing models, data, software and hardware.
 
 CK consists of several ongoing sub-projects:
 
-* [Collective Mind framework (CM)](cm) (*~1MB*) - a very light-weight Python-based framework with minimal dependencies
+* [Collective Mind framework (CM)](cm) - a very light-weight Python-based framework with minimal dependencies
   to help users implement, share and reuse cross-platform automation recipes to 
   build, benchmark and optimize applications on any platform
   with any software and hardware. CM attempts to extends the `cmake` concept 
@@ -37,7 +37,7 @@ CK consists of several ongoing sub-projects:
     [online MLCommons catalog](https://docs.mlcommons.org/cm4mlops/scripts) 
     and [source code](https://github.com/mlcommons/cm4mlops/blob/master/script).
 
-  * [CM4ABTF](https://github.com/mlcommons/cm4abtf) (*~1MB*) - a unified CM interface and automation recipes
+  * [CM4ABTF](https://github.com/mlcommons/cm4abtf) - a unified CM interface and automation recipes
     to run automotive benchmark across different models, data sets, software and hardware from different vendors.
 
 * [Collective Knowledge Playground](https://access.cKnowledge.org) - an external platform being developed by [cKnowledge](https://cKnowledge.org)
