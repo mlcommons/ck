@@ -39,7 +39,7 @@
 * [Grigori Fursin](https://cKnowledge.org/gfursin) gave an invited talk at [AVCC'23](https://avcc.org/avcc2023) about our MLCommons CM automation language and how it can help 
   to develop modular, portable and technology-agnostic benchmarks.
 
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) and [Grigori Fursin](https://cKnowledge.org/gfursin) 
+* [Grigori Fursin](https://cKnowledge.org/gfursin) 
   gave an [IISWC'23 tutorial](https://iiswc.org/iiswc2023/#/program/) about our CM workflow automation language 
   and how it can make it easier for researchers to reproduce their projects and validate in the real world
   across rapidly evolving software and hardware.

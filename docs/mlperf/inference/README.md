@@ -258,7 +258,6 @@ You can see example of this visualization GUI [online](https://access.cknowledge
 ## Acknowledgments
 
 [Collective Mind](https://doi.org/10.5281/zenodo.8105339) is an open community project 
-led by [Grigori Fursin](https://cKnowledge.org/gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
 to modularize AI benchmarks and provide a common interface to run them across diverse models, data sets, software and hardware - 
 we would like to thank all our [great contributors](../../../CONTRIBUTING.md) for their feedback, support and extensions!
 
