@@ -262,6 +262,19 @@ deps:
       - run_harness
 
   - tags: get,generic-python-lib,_package.nvmitten,_path./opt/nvmitten-0.1.3-cp38-cp38-linux_x86_64.whl
+    enable_if_env:
+      CM_RUN_STATE_DOCKER:
+        - 'yes'
+        - True
+        - 'True'
+
+  - tags: get,nvidia,mitten
+    skip_if_env:
+      CM_RUN_STATE_DOCKER:
+        - 'yes'
+        - True
+        - 'True'
+
 prehook_deps:
   ########################################################################
   # Install GPTJ-6B model

@@ -1,4 +1,6 @@
 ﻿# Collective Mind configuration
+#
+# Written by Grigori Fursin
 
 import os
 
@@ -60,7 +62,7 @@ class Config(object):
                        "cp":"copy"
                      },
 
-                     "new_repo_requirements": "cmind >= 0.7.5\n",
+                     "new_repo_requirements": "cmind >= 2.0.4\n",
 
                      "cmind_automation":"automation",
 

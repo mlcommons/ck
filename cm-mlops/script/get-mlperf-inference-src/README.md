@@ -1,62 +1,59 @@
-<details>
-<summary>Click here to see the table of contents.</summary>
-
-* [About](#about)
-* [Summary](#summary)
-* [Reuse this script in your project](#reuse-this-script-in-your-project)
-  * [ Install CM automation language](#install-cm-automation-language)
-  * [ Check CM script flags](#check-cm-script-flags)
-  * [ Run this script from command line](#run-this-script-from-command-line)
-  * [ Run this script from Python](#run-this-script-from-python)
-  * [ Run this script via GUI](#run-this-script-via-gui)
-  * [ Run this script via Docker (beta)](#run-this-script-via-docker-(beta))
-* [Customization](#customization)
-  * [ Variations](#variations)
-  * [ Default environment](#default-environment)
-* [Versions](#versions)
-* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
-* [Script output](#script-output)
-* [New environment keys (filter)](#new-environment-keys-(filter))
-* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
-* [Maintainers](#maintainers)
-
-</details>
-
-*Note that this README is automatically generated - don't edit!*
-
-### About
+**Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/get-mlperf-inference-src).**
 
 
-See extra [notes](README-extra.md) from the authors and contributors.
 
+Automatically generated README for this automation recipe: **get-mlperf-inference-src**
+
+Category: **MLPerf benchmark support**
+
+License: **Apache 2.0**
+
+Maintainers: [Public MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+
+---
+*[ [Online info and GUI to run this CM script](https://access.cknowledge.org/playground/?action=scripts&name=get-mlperf-inference-src,4b57186581024797) ] [ [Notes from the authors, contributors and users](README-extra.md) ]*
+
+---
 #### Summary
 
-* Category: *MLPerf benchmark support.*
-* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/dev/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-mlperf-inference-src)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,src,source,inference,inference-src,inference-source,mlperf,mlcommons*
+* All CM tags to find and reuse this script (see in above meta description): *get,src,source,inference,inference-src,inference-source,mlperf,mlcommons*
 * Output cached? *True*
-___
+* See [pipeline of dependencies](#dependencies-on-other-cm-scripts) on other CM scripts
+
+
+---
 ### Reuse this script in your project
 
-#### Install CM automation language
+#### Install MLCommons CM automation meta-framework
 
-* [Installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-* [CM intro](https://doi.org/10.5281/zenodo.8105339)
+* [Install CM](https://access.cknowledge.org/playground/?action=install)
+* [CM Getting Started Guide](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md)
 
-#### Pull CM repository with this automation
+#### Pull CM repository with this automation recipe (CM script)
 
 ```cm pull repo mlcommons@ck```
 
+#### Print CM help from the command line
 
-#### Run this script from command line
+````cmr "get src source inference inference-src inference-source mlperf mlcommons" --help````
 
-1. `cm run script --tags=get,src,source,inference,inference-src,inference-source,mlperf,mlcommons[,variations] `
+#### Customize and run this script from the command line with different variations and flags
 
-2. `cmr "get src source inference inference-src inference-source mlperf mlcommons[ variations]" `
+`cm run script --tags=get,src,source,inference,inference-src,inference-source,mlperf,mlcommons`
 
-* `variations` can be seen [here](#variations)
+`cm run script --tags=get,src,source,inference,inference-src,inference-source,mlperf,mlcommons[,variations] `
+
+*or*
+
+`cmr "get src source inference inference-src inference-source mlperf mlcommons"`
+
+`cmr "get src source inference inference-src inference-source mlperf mlcommons [variations]" `
+
+
+* *See the list of `variations` [here](#variations) and check the [Gettings Started Guide](https://github.com/mlcommons/ck/blob/dev/docs/getting-started.md) for more details.*
 
 #### Run this script from Python
 
@@ -92,7 +89,7 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,src,source,inferen
 
 #### Run this script via Docker (beta)
 
-`cm docker script "get src source inference inference-src inference-source mlperf mlcommons[ variations]" `
+`cm docker script "get src source inference inference-src inference-source mlperf mlcommons[variations]" `
 
 ___
 ### Customization
@@ -114,9 +111,9 @@ ___
       - Workflow:
     * `_deepsparse`
       - Environment variables:
-        - *CM_GIT_URL*: `https://github.com/neuralmagic/inference`
         - *CM_GIT_CHECKOUT*: `deepsparse`
-        - *CM_MLPERF_LAST_RELEASE*: `v3.0`
+        - *CM_GIT_URL*: `https://github.com/neuralmagic/inference`
+        - *CM_MLPERF_LAST_RELEASE*: `v4.0`
       - Workflow:
     * `_gn`
       - Environment variables:
@@ -204,11 +201,11 @@ ___
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
+* CM_GIT_CHECKOUT_FOLDER: `inference`
 * CM_GIT_DEPTH: `--depth 4`
 * CM_GIT_PATCH: `no`
-* CM_GIT_URL: `https://github.com/mlcommons/inference.git`
 * CM_GIT_RECURSE_SUBMODULES: ``
-* CM_GIT_CHECKOUT_FOLDER: `inference`
+* CM_GIT_URL: `https://github.com/mlcommons/inference.git`
 
 </details>
 
@@ -217,6 +214,7 @@ Default version: `master`
 
 * `custom`
 * `deepsparse`
+* `main`
 * `master`
 * `pybind_fix`
 * `r2.1`
@@ -224,31 +222,28 @@ Default version: `master`
 * `r3.1`
 * `tvm`
 ___
-### Script workflow, dependencies and native scripts
+### Dependencies on other CM scripts
 
-<details>
-<summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-mlperf-inference-src/_cm.json)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,python3
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/customize.py)***
-  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/_cm.json)***
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-mlperf-inference-src/customize.py)***
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-mlperf-inference-src/_cm.json)***
      * get,git,repo
        * CM names: `--adr.['inference-git-repo']...`
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
   1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/_cm.json)
-</details>
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-mlperf-inference-src/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-mlperf-inference-src/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/dev/cm-mlops/script/get-mlperf-inference-src/_cm.json)
 
 ___
 ### Script output
-`cmr "get src source inference inference-src inference-source mlperf mlcommons[,variations]"  -j`
+`cmr "get src source inference inference-src inference-source mlperf mlcommons [,variations]"  -j`
 #### New environment keys (filter)
 
 * `+PYTHONPATH`
@@ -275,7 +270,3 @@ ___
 * `CM_MLPERF_INFERENCE_GPTJ_PATH`
 * `CM_MLPERF_INFERENCE_RNNT_PATH`
 * `CM_MLPERF_INFERENCE_VISION_PATH`
-___
-### Maintainers
-
-* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

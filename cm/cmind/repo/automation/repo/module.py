@@ -1,7 +1,12 @@
+# CM automation to manage CM repositories
+#
+# Written by Grigori Fursin
+
 import os
 
 from cmind.automation import Automation
 from cmind import utils
+from cmind import net
 
 class CAutomation(Automation):
     """
@@ -27,9 +32,12 @@ class CAutomation(Automation):
           (pat) (str): Personal Access Token (if supported and url=='')
           (branch) (str): Git branch
           (checkout) (str): Git checkout
+          (checkout_only) (bool): only checkout existing repo
           (depth) (int): Git depth
           (desc) (str): brief repository description (1 line)
           (prefix) (str): extra directory to keep CM artifacts
+          (skip_zip_parent_dir) (bool): skip parent dir in CM ZIP repo (useful when 
+                                        downloading CM repo archives from GitHub)
 
         Returns:
           (CM return dict):
@@ -47,6 +55,9 @@ class CAutomation(Automation):
         desc = i.get('desc','')
         prefix = i.get('prefix','')
         pat = i.get('pat','')
+
+        checkout_only = i.get('checkout_only', False)
+        skip_zip_parent_dir = i.get('skip_zip_parent_dir', False)
 
         if url == '':
             if alias != '':
@@ -80,7 +91,7 @@ class CAutomation(Automation):
 
         if url == '':
             pull_repos = []
-            
+
             for repo in sorted(self.cmind.repos.lst, key = lambda x: x.meta.get('alias','')):
                 meta = repo.meta
 
@@ -89,14 +100,38 @@ class CAutomation(Automation):
                     # Pick it up from the path
 
                     repo_path = repo.path
-                    
+
                     pull_repos.append({'alias': os.path.basename(repo_path),
                                        'path_to_repo': repo_path})
         else:
+            # We are migrating cm-mlops repo from mlcommons@ck to a clean and new mlcommons@cm4mlops:
+            # https://github.com/mlcommons/ck/issues/1215
+            # As discussed, we should have a transparent redirect with a warning
+            # unless branch/checkout is used - in such case we keep old repository
+            # for backwards compatibility and reproducibility
+
+            branch = i.get('branch', '')
+            checkout = i.get('checkout', '')
+
+            r = net.request({'get': {'action': 'check-migration-repo-notes', 'repo': url, 'branch': branch, 'checkout': checkout}})
+            notes = r.get('dict', {}).get('notes','')
+            if notes !='':
+                print (notes)
+
+            if alias == 'mlcommons@ck' and branch == '' and checkout == '':
+                print ('=========================================================================')
+                print ('Warning: mlcommons@ck was automatically changed to mlcommons@cm4mlops.')
+                print ('If you want to use older mlcommons@ck repository, use branch or checkout.')
+                print ('=========================================================================')
+
+                alias = 'mlcommons@cm4mlops'
+                url = url.replace('mlcommons/ck', 'mlcommons/cm4mlops')
+
+
             pull_repos = [{'alias':alias,
                            'url':url,
-                           'branch': i.get('branch', ''),
-                           'checkout': i.get('checkout', ''),
+                           'branch': branch,
+                           'checkout': checkout,
                            'depth': i.get('depth', '')}]
 
 
@@ -104,6 +139,8 @@ class CAutomation(Automation):
         repo_meta = {}
         repo_metas = {}
 
+        warnings = []
+        
         for repo in pull_repos:
              alias = repo['alias']
              url = repo.get('url', '')
@@ -127,15 +164,27 @@ class CAutomation(Automation):
 
              # Prepare path to repo
              repos = self.cmind.repos
-             
-             r = repos.pull(alias = alias, url = url, branch = branch, checkout = checkout, console = console, 
-                            desc=desc, prefix=prefix, depth=depth, path_to_repo=path_to_repo)
+
+             r = repos.pull(alias = alias,
+                            url = url,
+                            branch = branch,
+                            checkout = checkout,
+                            console = console,
+                            desc=desc,
+                            prefix=prefix,
+                            depth=depth,
+                            path_to_repo=path_to_repo,
+                            checkout_only=checkout_only,
+                            skip_zip_parent_dir=skip_zip_parent_dir)
              if r['return']>0: return r
 
              repo_meta = r['meta']
 
              repo_metas[alias] = repo_meta
-             
+
+             if len(r.get('warnings', []))>0:
+                 warnings += r['warnings']
+
         if len(pull_repos)>0 and self.cmind.use_index:
             if console:
                 print (self.cmind.cfg['line'])
@@ -143,7 +192,31 @@ class CAutomation(Automation):
             ii = {'out':'con'} if console else {}
             rx = self.reindex(ii)
 
+        print_warnings(warnings)    
+
         return {'return':0, 'meta':repo_meta, 'metas': repo_metas}
+
+
+
+    ############################################################
+    def checkout(self, i):
+        """
+        Checkout repository
+
+        Args:
+            (branch) (str): branch name
+            (checkout) (str): checkout
+
+            See "pull" action
+
+        Returns: 
+            See "pull" action
+        """
+
+        i['checkout_only'] = True
+
+        return self.pull(i)
+
 
     ############################################################
     def show(self, i):
@@ -162,7 +235,6 @@ class CAutomation(Automation):
         return self.search(i)
 
 
-    
     ############################################################
     def search(self, i):
         """
@@ -415,6 +487,14 @@ class CAutomation(Automation):
         return r
 
     ############################################################
+    def ximport(self, i):
+
+        if i.get('path','')!='':
+            i['here']=True
+
+        return self.init(i)
+
+    ############################################################
     def init(self, i):
         """
         Initialize CM repository.
@@ -536,6 +616,9 @@ class CAutomation(Automation):
         if self.cmind.use_index:
             ii = {'out':'con'} if console else {}
             rx = self.reindex(ii)
+        
+        warnings = r.get('warnings', [])
+        print_warnings(warnings)
         
         return r
 
@@ -936,7 +1019,8 @@ class CAutomation(Automation):
                 r=utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_cmeta']+'.json', 
                                                                  self.cmind.cfg['file_cmeta']+'.yaml'],
                                                                  path_to_start = path,
-                                                                 reverse = reverse)
+                                                                 reverse = reverse,
+                                                                 path_to_stop = path_to_repo_real)
                 if r['return']>0: return r
 
                 artifact_found = r['found']
@@ -1152,3 +1236,14 @@ def convert_ck_dir_to_cm(rpath):
                                if r['return']>0: return r
 
     return {'return':0}
+
+def print_warnings(warnings):
+
+    if len(warnings)>0:
+        print ('')
+        print ('WARNINGS:')
+        print ('')
+        for w in warnings:
+            print ('  {}'.format(w))
+                                                                            
+    return

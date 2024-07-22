@@ -1,3 +1,7 @@
+# CM automation module to add or document all automations
+#
+# Written by Grigori Fursin
+
 import os
 
 from cmind.automation import Automation
@@ -80,6 +84,10 @@ class CAutomation(Automation):
                    'tags':tags_list}
 
         if 'tags' in i: del(i['tags'])
+
+        automation = i['automation']
+        if automation!='.' and ',' not in automation: 
+            i['automation'] = automation + ',' + self.meta['uid']
 
         r_obj=self.cmind.access(i)
         if r_obj['return']>0: return r_obj

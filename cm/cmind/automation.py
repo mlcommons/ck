@@ -1,4 +1,6 @@
 ﻿# Collective Mind automation
+#
+# Written by Grigori Fursin
 
 import os
 
@@ -120,9 +122,9 @@ class Automation:
 
         print ('')
         print ('GitHub for CM developments:        https://github.com/mlcommons/ck/tree/master/cm')
-        print ('GitHub for CM automation scripts:  https://github.com/mlcommons/ck/tree/master/cm-mlops')
+        print ('GitHub for CM automation scripts:  https://github.com/mlcommons/cm4mlops')
         print ('Reporting issues and ideas:        https://github.com/mlcommons/ck/issues')
-        print ('Joining the open MLPerf workgroup: https://cKnowledge.org/mlcommons-taskforce')
+        print ('MLCommons taskforce developing CM: https://github.com/mlcommons/ck/blob/master/docs/taskforce.md')
 
         return {'return':0}
 
@@ -576,7 +578,10 @@ class Automation:
             path_to_artifact = artifact.path
 
             if console:
-                print ('Deleting CM artifact in {} ...'.format(path_to_artifact))
+                tags = artifact.meta.get('tags',[])
+                x = '' if len(tags)=='' else ' with tags "{}"'.format(','.join(tags))
+                
+                print ('Deleting CM artifact in {}{} ...'.format(path_to_artifact, x))
 
                 if not force:
                     ask = input('  Are you sure you want to delete this artifact (y/N): ')
@@ -594,7 +599,8 @@ class Automation:
 
             if os.name == 'nt':
                 # To be able to remove .git files
-                shutil.rmtree(path_to_artifact, ignore_errors = False, onerror = delete_helper)
+                shutil.rmtree(path_to_artifact, onerror = utils.rm_read_only)
+#                shutil.rmtree(path_to_artifact, ignore_errors = False, onerror = delete_helper)
             else:
                 shutil.rmtree(path_to_artifact)
 
@@ -1254,15 +1260,15 @@ class Automation:
 
         return {'return':0, 'list': lst}
 
-############################################################
-def delete_helper(func, path, ret):
-    import stat, errno
-
-    if ret[1].errno != errno.EACCES:
-        raise
-    else:
-        clean_attr = stat.S_IRWXG | stat.S_IRWXO | stat.S_IRWXU
-        os.chmod(path, clean_attr)
-        func(path)
-
-    return
+#############################################################
+#def delete_helper(func, path, ret):
+#    import stat, errno
+#
+#    if ret[1].errno != errno.EACCES:
+#        raise
+#    else:
+#        clean_attr = stat.S_IRWXG | stat.S_IRWXO | stat.S_IRWXU
+#        os.chmod(path, clean_attr)
+#        func(path)
+#
+#    return

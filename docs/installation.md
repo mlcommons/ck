@@ -26,7 +26,7 @@
 
 
 
-MLCommons Collective Mind framework requires minimal dependencies to run on any platform: `python 3+, pip, git, wget`.
+MLCommons Collective Mind framework requires minimal dependencies to run on any platform: `python 3+, pip, git, git-lfs, wget`.
 However, most CM automation recipes shared by the community and MLCommons require Python 3.7+ .
 
 ***By default, CM will pull Git repositories and cache installations and downloaded files in your `$HOME/CM` directory (Linux/MacOS). 
@@ -54,7 +54,8 @@ You can reuse misc CM utils listed [here](#misc-cm-utils).
 ```bash
 sudo apt update && sudo apt upgrade
 
-sudo apt install python3 python3-pip python3-venv git wget curl
+sudo apt install python3 python3-pip python3-venv git git-lfs wget curl
+sudo apt install libgl1-mesa-dev
 ```
 
 **Note that you must set up virtual env on Ubuntu 23+ before using any Python project:**
@@ -76,13 +77,29 @@ Alternatively you can run
 source $HOME/.profile
 ```
 
-```
-gfursin@mlcommons-ck-cm-dev:~$ cm
+You can check that CM is available and print internal status as follows:
 
-cm {action} {automation} {artifact(s)} {--flags} @input.yaml @input.json
+```bash
+gfursin@mlcommons-ck-cm-dev:~$ cm test core
+
+CM version: 2.3.0
+
+Python executable used by CK: C:\!Progs\Python310\python.exe
+
+Path to CM package:           C:\!Progs\Python310\lib\site-packages\cmind
+Path to CM core module:       C:\!Progs\Python310\lib\site-packages\cmind\core.py
+Path to CM internal repo:     C:\!Progs\Python310\lib\site-packages\cmind\repo
+
+Path to CM repositories:      D:\Work1\CM
+
+GitHub for CM developments:        https://github.com/mlcommons/ck/tree/master/cm
+GitHub for CM automation scripts:  https://github.com/mlcommons/cm4mlops
+Reporting issues and ideas:        https://github.com/mlcommons/ck/issues
+
 ```
 
-You are ready to use CM automation meta-framework.
+You are ready to use CM automation meta-framework. 
+
 
 
 
@@ -93,7 +110,7 @@ You are ready to use CM automation meta-framework.
 ```bash
 sudo dnf update
 
-sudo dnf install python3 python-pip git wget curl
+sudo dnf install python3 python-pip git git-lfs wget curl
 
 python3 -m pip install cmind --user
 
@@ -114,7 +131,7 @@ Don't forget to add brew to PATH environment as described in the end.
 Then install python, pip, git and wget:
 
 ```bash
-brew install python3 git wget curl
+brew install python3 git git-lfs wget curl
 
 python3 -m pip install cmind
 ```
@@ -226,24 +243,44 @@ However, if you are already familiar with the CM/CK concepts, you can
 use these [CM automation scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
 for portable MLOps and DevOps from MLCommons directly by installing the following repository:
 ```bash
-cm pull repo mlcommons@ck
+cm pull repo mlcommons@cm4mlops
+```
+
+You can switch to a development branch of this or any other CM repository as follows:
+
+```bash
+cm checkout repo mlcommons@cm4mlops --branch=dev
+```
+
+You can switch back to master branch as follows:
+
+```bash
+cm checkout repo mlcommons@cm4mlops --branch=master
 ```
 
 If you plan to participate in our [reproducibility and optimization challenges](https://access.cknowledge.org/playground/?action=challenges),
 we suggest you to create a fork of [github.com/mlcommons/ck](https://github.com/mlcommons/ck) and use it. 
 In such case, you will be able to create PRs with your updates to the main repository.
 If you already installed above repo, you will need delete it and install your fork as follows:
+
 ```bash
-cm rm repo mlcommons@ck --all
+cm rm repo mlcommons@cm4mlops --all
 cm pull repo --url={URL of the fork of github.com/mlcommons/ck}
 ```
 
 If you want to use stable CM snapshots of reusable automation recipes (CM scripts), 
 you can download a stable repository from Zenodo (~5MB):
+
 ```bash
-cm rm repo mlcommons@ck --all
+cm rm repo mlcommons@cm4mlops --all
 cm pull repo --url=https://zenodo.org/records/10787459/files/cm-mlops-repo-20240306.zip
 
+```
+
+You can pull repository and checkout a specific branch as follows:
+```bash
+cm rm repo mlcommons@cm4mlops --checkout=dev
+cm pull repo --url=https://zenodo.org/records/10787459/files/cm-mlops-repo-20240306.zip
 ```
 
 If you use CM scripts with Python outside containers, we suggest you to set up CM Python virtual

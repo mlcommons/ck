@@ -49,6 +49,7 @@ deps:
 
 - tags: get,generic-python-lib,_package.Pillow
 - tags: get,generic-python-lib,_package.numpy
+  version_max: "1.99.99"
 - tags: get,generic-python-lib,_package.opencv-python
 
 
@@ -67,6 +68,8 @@ deps:
 
 variations:
   cuda:
+    docker:
+      all_gpus: 'yes'
     group: target
     env:
       USE_CUDA: yes
@@ -101,7 +104,6 @@ input_description:
 
 docker:
   skip_run_cmd: 'no'
-  all_gpus: 'yes'
   input_paths:
     - input
     - env.CM_IMAGE

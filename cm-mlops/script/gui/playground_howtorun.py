@@ -223,6 +223,7 @@ def page(st, params, action = ''):
         ############################################################################################
         # Check if has customization
         extra = {}
+        skip = False
         
         script_tags = script_meta.get('tags_help','')
         if script_tags =='':
@@ -265,11 +266,12 @@ def page(st, params, action = ''):
                     r = func(ii)
                     if r['return'] > 0 : return r
 
-                    extra = r.get('extra',{})
+                    extra = r.get('extra', {})
+                    skip = r.get('skip', False)
 
         ############################################################################################
         # Show official GUI
-        if script_path!='':
+        if script_path!='' and not skip:
             import script
 
             ii = {'st': st,

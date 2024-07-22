@@ -1,4 +1,6 @@
 # Reused from the CK framework for compatibility
+#
+# Written by Grigori Fursin
 
 import urllib
 import json

@@ -36,7 +36,8 @@
     "extra_run_args": "CM_DOCKER_EXTRA_RUN_ARGS",
     "device": "CM_DOCKER_ADD_DEVICE",
     "cache": "CM_DOCKER_CACHE",
-    "all_gpus": "CM_DOCKER_ADD_ALL_GPUS"
+    "all_gpus": "CM_DOCKER_ADD_ALL_GPUS",
+    "save_script": "CM_DOCKER_SAVE_SCRIPT"
   },
   "prehook_deps": [
     {

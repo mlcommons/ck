@@ -5,4 +5,9 @@ git: true
 
 prefix: cm-mlops
 
-version: 2.0.1
+version: 2.3.2
+
+deps:
+  - alias: mlcommons@cm4mlops
+    uid: 9e97bb72b0474657
+    conflict: True

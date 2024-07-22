@@ -867,6 +867,9 @@ variations:
       - tags: get,generic-python-lib,_package.open_clip_torch
         names:
           - open-clip
+      - tags: get,generic-python-lib,_package.opencv-python
+        names:
+          - opencv-python
       - tags: get,generic-python-lib,_package.scipy
         names:
           - scipy

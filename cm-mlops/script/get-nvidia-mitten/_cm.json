@@ -17,6 +17,9 @@
       "tags": "get,python3"
     },
     {
+      "tags": "get,generic-python-lib,_pycuda"
+    },
+    {
       "tags": "get,git,_repo.https://github.com/NVIDIA/mitten",
       "force_env_keys": [
         "CM_GIT_CHECKOUT"

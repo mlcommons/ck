@@ -1,3 +1,66 @@
+## V2.3.4
+   - minor documentation update
+
+## V2.3.3
+   - minor documentation update for MLPerf inference v4.1
+
+## V2.3.2
+   - fixed "cm pull repo --branch={BRANCH NAME}" behavior for all OS
+   - added GitHub tests for Windows
+   - added more tests for CM-MLPerf workflows for different hardware
+
+## v2.3.1
+   - various minor fixes based on user feedback
+
+## V2.3.0
+   - added automatic CM repo alias from mlcommons@ck to mlcommons@cm4mlops 
+     unless branch and checkout are used!
+   - improved CM python package API generation and uploaded to https://cknowledge.org/docs/cm 
+     (should move to MLCommons when ready)
+   - added timezone to utils.get_current_date_time to correctly time stamp various experiments!
+
+## V2.2.0
+   - fixed detection of a CM artifact using 'cm info .' when inside virtual env entries.
+   - added "cmind.utils.debug_here" function to attach remote Python debugger
+     and tested with Visual Studio Code.
+   - added test to avoid checking out CM repo that was not pulled
+   - added utils.safe_load_json to return empty dict if file doesn't exist
+   - added utils.compare_versions to check min version requirements for automations and entries
+   - removed outdated convert_path (https://github.com/mlcommons/ck/issues/1219)
+   - added utils.check_if_true_yes_on (https://github.com/mlcommons/ck/issues/1216)
+   - check "min_cm_version" in CM automations and CM scripts (use _cm.yaml or _cm.json)
+
+## V2.1.2
+   - added support for deps on other CM repos 
+     (if conflict = True - then fail if this repo is already installed
+      otherwise print that repo is missing)
+
+## V2.1.1
+   - added --skip-zip-parent-dir to "cm pull repo --url=..." to support downloading 
+     of stable CM-MLOps repositories from https://github.com/mlcommons/cm4mlops/releases .
+
+
+## V2.1.0
+   - changed outdated version of CM in requirements when creating new repos
+   - fixed minor bug in `cm add automation {name}` 
+   - added dependency on giturlparse to support private repos in containers
+   - fixed bug when adding automation in the local repository: "cm add . {automation_name}"
+   - moved cm-mlops repo to a standalone MLCommons repo:
+     https://github.com/mlcommons/cm4mlops
+
+## V2.0.4
+   - added skip of delayed help to simplify output of `cmr [tags] --help`
+   - revisited automatically generated READMEs for CM scripts (automation recipes)
+     based on user feedback: https://github.com/mlcommons/ck/issues/1169 
+   - improved deleting of CM artifacts (entries) on Windows
+   - print tags when deleting CM artifacts (entries)
+
+## V2.0.3
+   - added support to handle broken CM repositories: https://github.com/mlcommons/ck/issues/1177
+   - added "cm checkout repo mlcommons@ck --branch=dev" to make it easier to switch branches
+   - added "cm pull repo mlcommons@ck --checkout=dev" to make it easier to switch branches
+   - added "cm import repo" to import repository in the current directory
+
 ## V2.0.2
    - added support to update all CM Git repos in one go: "cm pull repo"
    - added support to show extra info about CM Git repos: "cm show repo"

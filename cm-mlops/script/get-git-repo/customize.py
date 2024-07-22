@@ -15,6 +15,9 @@ def preprocess(i):
     
     env_key = get_env_key(env)
 
+    cm_git_url = env['CM_GIT_URL']
+
+
     if 'CM_GIT_REPO_NAME' not in env:
         update_env(env, 'CM_GIT_REPO{}_NAME', env_key, os.path.basename(env['CM_GIT_URL']))
 

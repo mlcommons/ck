@@ -3,24 +3,23 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE.md)
 [![Downloads](https://static.pepy.tech/badge/cmind)](https://pepy.tech/project/cmind)
 
+[![arXiv](https://img.shields.io/badge/arXiv-2406.16791-b31b1b.svg)](https://arxiv.org/abs/2406.16791)
 [![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 [![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
-[![Dockerfile update for CM scripts](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/update-script-dockerfiles.yml)
 
 ### About
 
 Collective Mind (CM) is a collection of portable, extensible, technology-agnostic and ready-to-use automation recipes
 with a human-friendly interface (aka CM scripts) to unify and automate all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
-on any platform with any software and hardware: see [online catalog](https://access.cknowledge.org/playground/?action=scripts) 
-and [source code](https://github.com/mlcommons/ck/blob/master/cm-mlops/script).
+on any platform with any software and hardware: see [CM4MLOps online catalog](https://access.cknowledge.org/playground/?action=scripts), 
+[source code](https://github.com/mlcommons/ck/blob/master/cm-mlops/script), [ArXiv white paper]( https://arxiv.org/abs/2406.16791 ).
 
 CM scripts require Python 3.7+ with minimal dependencies and are 
 [continuously extended by the community and MLCommons members](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)
 to run natively on Ubuntu, MacOS, Windows, RHEL, Debian, Amazon Linux
 and any other operating system, in a cloud or inside automatically generated containers
 while keeping backward compatibility - please don't hesitate 
-to  report encountered issues [here](https://github.com/mlcommons/ck/issues) 
-and contact us via [public Discord Server](https://discord.gg/JjWNWXKxwT) 
+to report encountered issues [here](https://github.com/mlcommons/ck/issues) 
 to help this collaborative engineering effort!
 
 CM scripts were originally developed based on the following requirements from the
@@ -38,10 +37,10 @@ from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors:
 * must have the same interface to run all automations natively, in a cloud or inside containers.
 
 [CM scripts](https://access.cknowledge.org/playground/?action=scripts) 
-were successfully validated by MLCommons to [modularize MLPerf inference benchmarks](https://github.com/mlcommons/ck/blob/master/docs/mlperf/inference/README.md) 
-and help the community automate more than 95% of all performance and power submissions in the v3.1 round
-across more than 120 system configurations (models, frameworks, hardware) 
-while reducing development and maintenance costs.
+are used by MLCommons, cTuning.org and cKnowledge.org to modularize MLPerf inference benchmarks
+(see [this white paper](https://arxiv.org/abs/2406.16791))
+and help anyone run them across different models, datasets, software and hardware: 
+https://docs.mlcommons.org/inference .
 
 For example, you should be able to run the MLPerf inference benchmark on Linux, Windows and MacOS
 using a few CM commands:
@@ -50,21 +49,9 @@ using a few CM commands:
 
 pip install cmind -U
 
-cm pull repo mlcommons@ck
+cm pull repo mlcommons@cm4mlops --branch=dev
 
-cm rm cache -f
-
-cm run script "get mlcommons inference src"
-
-cm run script "get generic-python-lib _onnxruntime" --version=1.17.1
-
-cm run script "get ml-model image-classification resnet50 raw _fp32 _onnx"
-
-cm run script "get dataset image-classification imagenet preprocessed _NCHW"
-
-cm show cache
-
-cm run script "run-mlperf-inference _r4.0 _accuracy-only _short" \
+cm run script "run-mlperf-inference _r4.1 _accuracy-only _short" \
    --device=cpu \
    --model=resnet50 \
    --precision=float32 \
@@ -75,7 +62,7 @@ cm run script "run-mlperf-inference _r4.0 _accuracy-only _short" \
    --quiet \
    --time
 
-cm run script "run-mlperf-inference _r4.0 _submission _short" \
+cm run script "run-mlperf-inference _r4.1 _submission _short" \
    --device=cpu \
    --model=resnet50 \
    --precision=float32 \
@@ -88,16 +75,36 @@ cm run script "run-mlperf-inference _r4.0 _submission _short" \
 
 ...
 
-+----------+----------+----------+--------+-----------------+---------------------------------+
-|  Model   | Scenario | Accuracy |  QPS   | Latency (in ms) | Power Efficiency (in samples/J) |
-+----------+----------+----------+--------+-----------------+---------------------------------+
-| resnet50 | Offline  |   80.0   | 27.371 |        -        |                                 |
-+----------+----------+----------+--------+-----------------+---------------------------------+
+                                                                           0
+Organization                                                         CTuning
+Availability                                                       available
+Division                                                                open
+SystemType                                                              edge
+SystemName                                                   ip_172_31_87_92
+Platform                   ip_172_31_87_92-reference-cpu-onnxruntime-v1.1...
+Model                                                               resnet50
+MlperfModel                                                           resnet
+Scenario                                                             Offline
+Result                                                               14.3978
+Accuracy                                                                80.0
+number_of_nodes                                                            1
+host_processor_model_name     Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz
+host_processors_per_node                                                   1
+host_processor_core_count                                                  2
+accelerator_model_name                                                   NaN
+accelerators_per_node                                                      0
+Location                   open/CTuning/results/ip_172_31_87_92-reference...
+framework                                                onnxruntime v1.18.1
+operating_system               Ubuntu 24.04 (linux-6.8.0-1009-aws-glibc2.39)
+notes                                     Automated by MLCommons CM v2.3.2.
+compliance                                                                 1
+errors                                                                     0
+version                                                                 v4.1
+inferred                                                                   0
+has_power                                                              False
+Units                                                              Samples/s
 
-The MLPerf inference results are stored at /home/gfursin/CM/repos/local/cache/a504fb143e97452f/test_results
 
-Path to the MLPerf inference benchmark reference sources: /home/gfursin/CM/repos/local/cache/8061c243b8b54a3b/inference
-Path to the MLPerf inference reference configuration file: /home/gfursin/CM/repos/local/cache/8061c243b8b54a3b/inference/mlperf.conf
 ```
 
 You can also run the same commands using a unified CM Python API:
@@ -106,7 +113,7 @@ You can also run the same commands using a unified CM Python API:
 import cmind
 output=cmind.access({
    'action':'run', 'automation':'script',
-   'tags':'run-mlperf-inference,_r4.0,_performance-only,_short',
+   'tags':'run-mlperf-inference,_r4.1,_performance-only,_short',
    'device':'cpu',
    'model':'resnet50',
    'precision':'float32',
@@ -132,7 +139,9 @@ See more examples of CM scripts and workflows to download Stable Diffusion, GPT-
 ```bash
 pip install cmind -U
 
-cm pull repo mlcommons@ck
+cm pull repo mlcommons@cm4mlops --branch=dev
+
+cm show repo
 
 cm run script "python app image-classification onnx"
 cmr "python app image-classification onnx"
@@ -180,8 +189,8 @@ cmr "get generic-python-lib _package.torchvision" --version=0.16.2
 cmr "python app image-classification torch" --input=computer_mouse.jpg
 
 
-cm rm repo mlcommons@ck
-cm pull repo --url=https://zenodo.org/records/10787459/files/cm-mlops-repo-20240306.zip
+cm rm repo mlcommons@cm4mlops
+cm pull repo --url=https://zenodo.org/records/12528908/files/cm4mlops-20240625.zip
 
 cmr "install llvm prebuilt" --version=17.0.6
 cmr "app image corner-detection"
@@ -191,7 +200,7 @@ cm replay experiment --tags=tuning,experiment,batch_size
 
 cmr "get conda"
 
-cm pull repo ctuning@cm-reproduce-research-projects
+cm pull repo ctuning@cm4research
 cmr "reproduce paper micro-2023 victima _install_deps"
 cmr "reproduce paper micro-2023 victima _run" 
 
@@ -209,11 +218,41 @@ to understand how CM automation recipes work, how to use them to automate your o
 and how to implement and share new automations in your public or private projects.
 
 
+### Documentation
+
+**MLCommons is updating the CM documentation based on user feedback - please stay tuned for more details**.
+
+* [Getting Started Guide and FAQ](https://github.com/mlcommons/ck/tree/master/docs/getting-started.md)
+  * [Common CM interface to run MLPerf inference benchmarks](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference)
+  * [Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23](https://github.com/mlcommons/ck/tree/master/docs/tutorials/common-interface-to-reproduce-research-projects.md)
+  * [Other CM tutorials](https://github.com/mlcommons/ck/tree/master/docs/tutorials)
+* [Full documentation](https://github.com/mlcommons/ck/tree/master/docs/tutorials/README.md)
+
+### Projects modularized and automated by CM
+
+* [cm4research](https://github.com/ctuning/cm4research)
+* [cm4mlops](https://github.com/mlcommons/cm4mlops)
+* [cm4abtf](https://github.com/mlcommons/cm4abtf)
+
 ### License
 
 [Apache 2.0](LICENSE.md)
 
-### Copyright
+### Citing CM
 
-2022-2024 [MLCommons](https://mlcommons.org)
+If you found CM useful, please cite this article: 
+[ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].
 
+You can learn more about the motivation behind these projects from the following articles and presentations:
+
+* "Enabling more efficient and cost-effective AI/ML systems with Collective Mind, virtualized MLOps, MLPerf, Collective Knowledge Playground and reproducible optimization tournaments": [ [ArXiv](https://arxiv.org/abs/2406.16791) ] 
+* ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
+* ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
+
+### Acknowledgments
+
+Collective Knowledge (CK) and Collective Mind (CM) were created by [Grigori Fursin](https://cKnowledge.org/gfursin),
+sponsored by cKnowledge.org and cTuning.org, and donated to MLCommons to benefit everyone. 
+Since then, this open-source technology (CM, CM4MLOps, CM4MLPerf, CM4ABTF, CM4Research, etc)
+is being developed as a community effort thanks to all our
+[volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)! 

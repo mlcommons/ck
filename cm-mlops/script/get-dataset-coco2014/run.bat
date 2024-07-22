@@ -15,5 +15,7 @@ if not "%CM_DATASET_SIZE%" == "" (
    set MAX_IMAGES=
 )
 
+rem TBD - next file doesn't exist in the latest inference - need to check/fix ...
+
 %CM_PYTHON_BIN% download-coco-2014.py %MAX_IMAGES% --dataset-dir=%INSTALL_DIR% --output-labels=openimages-mlperf.json
 IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%

@@ -1,0 +1,89 @@
+alias: get-dataset-coco2014
+uid: 3f7ad9d42f4040f8
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+cache: true
+
+category: AI/ML datasets
+category_sort: 8500
+
+tags:
+- get
+- dataset
+- coco2014
+- object-detection
+- original
+
+default_env:
+  CM_DATASET_CALIBRATION: 'no'
+
+deps:
+
+- names:
+  - python
+  - python3
+  tags: get,python3
+
+- tags: get,generic-python-lib,_package.tqdm
+
+- force_env_keys:
+  - CM_GIT_*
+  names:
+  - inference-src
+  tags: mlperf,inference,source
+  version: master
+
+env:
+  CM_DATASET: COCO2014
+
+new_env_keys:
+- CM_DATASET_PATH
+- CM_DATASET_PATH_ROOT
+- CM_DATASET_ANNOTATIONS_DIR_PATH
+- CM_DATASET_ANNOTATIONS_FILE_PATH
+- CM_CALIBRATION_DATASET_PATH
+
+posthook_deps:
+- enable_if_env:
+    CM_DATASET_COCO2014_CUSTOM_ANNOTATIONS:
+    - 'yes'
+  tags: get,coco2014,annotations
+
+variations:
+  '50':
+    default: true
+    env:
+      CM_DATASET_SIZE: '50'
+    group: size
+  '500':
+    env:
+      CM_DATASET_SIZE: '500'
+    group: size
+  calibration:
+    env:
+      CM_DATASET_CALIBRATION: 'yes'
+    group: dataset-type
+  custom-annotations:
+    env:
+      CM_DATASET_COCO2014_CUSTOM_ANNOTATIONS: 'yes'
+    group: annotations
+  default-annotations:
+    default: true
+    env:
+      CM_DATASET_COCO2014_CUSTOM_ANNOTATIONS: 'no'
+    group: annotations
+  full:
+    env:
+      CM_DATASET_SIZE: ''
+    group: size
+  size.#:
+    env:
+      CM_DATASET_SIZE: '#'
+    group: size
+  validation:
+    default: true
+    env:
+      CM_DATASET_CALIBRATION: 'no'
+    group: dataset-type

@@ -1,4 +1,6 @@
 ﻿# Collective Mind repositories
+#
+# Written by Grigori Fursin
 
 import os
 
@@ -127,21 +129,23 @@ class Repos:
                     repo = Repo(full_path_to_repo, self.cfg)
 
                     r = repo.load()
-                    if r['return']>0: return r
+                    if r['return']>0 and r['return']!=16: return r
 
-                    # Set only after all initializations
-                    self.lst.append(repo)
-                   
-                    repo_uid = repo.meta['uid']
-                    if repo_uid!='':
-                        self.extra_info[repo_uid]=repo
+                    # Load only if desc exists
+                    if r['return']!=16:
+                        # Set only after all initializations
+                        self.lst.append(repo)
 
-                    repo_alias = repo.meta['alias']
-                    if repo_alias!='':
-                        self.extra_info[repo_alias]=repo
+                        repo_uid = repo.meta['uid']
+                        if repo_uid!='':
+                            self.extra_info[repo_uid]=repo
 
-                    found = True
-                    break
+                        repo_alias = repo.meta['alias']
+                        if repo_alias!='':
+                            self.extra_info[repo_alias]=repo
+
+                        found = True
+                        break
 
             # Repo path exists but repo itself doesn't exist - fail
             if found:
@@ -151,14 +155,18 @@ class Repos:
 
         # Save with correct paths
         if len(checked_self_paths)!=len(self.paths):
-            self.paths = checked_self_paths
-            
+            import copy
+
+            self.paths = copy.deepcopy(checked_self_paths)
+
+            if self.path_to_internal_repo in checked_self_paths:
+                checked_self_paths.remove(self.path_to_internal_repo)
+
             print ('WARNING: fixed repo list file {}'.format(full_path_to_repo_paths))
 
-            r = utils.save_json(full_path_to_repo_paths, meta = self.paths)
+            r = utils.save_json(full_path_to_repo_paths, meta = checked_self_paths)
             if r['return']>0: return r
 
-        
         return {'return':0}
 
     ############################################################
@@ -177,6 +185,8 @@ class Repos:
             * return (int): return code == 0 if no error and >0 if error
             * (error) (str): error string if return>0
 
+            * (warnings) (list of str): warnings to install more CM repositories
+
         """
 
         # Load clean file with repo paths
@@ -187,43 +197,71 @@ class Repos:
 
         modified = False
 
+        warnings = []
+
         if mode == 'add':
             if repo_path not in paths:
-                if len(paths)>0:
-                    # Load meta of the current repo
-                    path_to_repo_desc = os.path.join(repo_path, self.cfg['file_meta_repo'])
-                    r=utils.load_yaml_and_json(file_name_without_ext=path_to_repo_desc)
+                # Load meta of the current repo
+                path_to_repo_desc = os.path.join(repo_path, self.cfg['file_meta_repo'])
+
+                r=utils.load_yaml_and_json(file_name_without_ext=path_to_repo_desc)
+                if r['return']>0: return r
+
+                meta = r['meta']
+
+                alias = meta.get('alias', '')
+                uid = meta.get('uid', '')
+
+                deps_on_other_repos = meta.get('deps', {})
+                
+                # Check that no repos exist with the same alias and/or uid 
+                # (to avoid adding forks and original repos)
+
+                for path in paths:
+                    path_to_existing_repo_desc = os.path.join(path, self.cfg['file_meta_repo'])
+                    r=utils.load_yaml_and_json(file_name_without_ext=path_to_existing_repo_desc)
                     if r['return']>0: return r
 
-                    meta = r['meta']
+                    existing_meta = r['meta']
 
-                    alias = meta.get('alias', '')
-                    uid = meta.get('uid', '')
+                    existing_alias = existing_meta.get('alias', '')
+                    existing_uid = existing_meta.get('uid', '')
 
-                    # Check that no repos exist with the same alias and/or uid 
-                    # (to avoid adding forks and original repos)
+                    # Check if repository already exists under different name
+                    exist = False
+                    if alias != '' and existing_alias !='' and alias == existing_alias:
+                        exist = True
 
-                    for path in paths:
-                        path_to_existing_repo_desc = os.path.join(path, self.cfg['file_meta_repo'])
-                        r=utils.load_yaml_and_json(file_name_without_ext=path_to_existing_repo_desc)
-                        if r['return']>0: return r
+                    if not exist and uid !='' and existing_uid !='' and uid == existing_uid:
+                        exist = True
 
-                        existing_meta = r['meta']
+                    if exist:
+                        return {'return':1, 'error':'CM repository with the same alias "{}" and/or uid "{}" already exists in {}'.format(alias, uid, path)}
 
-                        existing_alias = existing_meta.get('alias', '')
-                        existing_uid = existing_meta.get('uid', '')
+                    # Check if there is a conflict
+                    if len(deps_on_other_repos)>0:
+                        for d in deps_on_other_repos:
+                            d_alias = d.get('alias', '')
+                            d_uid = d.get('uid', '')
 
-                        exist = False
-                        if alias != '' and existing_alias !='' and alias == existing_alias:
-                            exist = True
+                            r = utils.match_objects(existing_uid, existing_alias, d_uid, d_alias)
+                            if r['return']>0: return r
+                            match = r['match']
 
-                        if not exist and uid !='' and existing_uid !='' and uid == existing_uid:
-                            exist = True
+                            if match:
+                                if d.get('conflict', False):
+                                    return {'return':1, 'error':'Can\'t install this repository because it conflicts with the already installed one ({}) - you may need to remove it to proceed (cm rm repo {})'.format(d_alias,d_alias)}
 
-                        if exist:
-                            return {'return':1, 'error':'CM repository with the same alias "{}" and/or uid "{}" already exists in {}'.format(alias, uid, path)}
+                                d['matched'] = True
 
+                                break
 
+                                    
+                # Check if has missing deps on other CM repos
+                for d in deps_on_other_repos:
+                    if not d.get('conflict', False) and not d.get('matched', False):
+                        warnings.append('You must install extra CM repository: cm pull repo {}'.format(d['alias']))
+                
                 paths.append(repo_path)
                 modified = True
 
@@ -243,10 +281,16 @@ class Repos:
             # Reload repos
             self.load(init=True)
 
-        return {'return':0}
+        rr = {'return':0}
+
+        if len(warnings)>0:
+            rr['warnings'] = warnings
+
+        return rr
 
     ############################################################
-    def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = '', depth = None, path_to_repo = None):
+    def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = '', depth = None, 
+                    path_to_repo = None, checkout_only = False, skip_zip_parent_dir = False):
         """
         Clone or pull CM repository
 
@@ -255,11 +299,15 @@ class Repos:
             (url) (str): Git repository URL
             (branch) (str): Git repository branch
             (checkout) (str): Git repository checkout
+            (checkout_only) (bool): only checkout existing repo
             (depth) (int): Git repository depth
             (console) (bool): if True, print some info to console
             (desc) (str): optional repository description
             (prefix) (str): sub-directory to be used inside this CM repository to store artifacts
             (path_to_repo) (str): force path to repo (useful to pull imported repos with non-standard path)
+            (checkout_only) (bool): only checkout Git repository but don't pull
+            (skip_zip_parent_dir) (bool): skip parent dir in CM ZIP repo (useful when 
+                                          downloading CM repo archives from GitHub)
 
         Returns: 
             (CM return dict):
@@ -268,6 +316,8 @@ class Repos:
             * (error) (str): error string if return>0
 
             * (meta) (dict): meta of the CM repository
+
+            * (warnings) (list of str): warnings to install more CM repositories
 
         """
 
@@ -279,52 +329,76 @@ class Repos:
             print ('Local path: '+path_to_repo)
             print ('')
 
+        # Check if repository already exists but corrupted
+        path_to_repo_desc = os.path.join(path_to_repo, self.cfg['file_meta_repo'])
+        r=utils.is_file_json_or_yaml(file_name = path_to_repo_desc)
+        if r['return']>0: return r
+        repo_desc_exists=r['is_file']
+
+        if os.path.isdir(path_to_repo) and not repo_desc_exists:
+            print ('')
+            print ('WARNING: directory {} already exists but without cmr.yaml - maybe clone or download was corrupted!'.format(path_to_repo))
+
+            x = input('Delete this repo (Y/n)? ')
+            if x.strip().lower() not in ['n','no']:
+                import shutil
+
+                print ('')
+                print ('Deleting {} ...'.format(path_to_repo))
+                shutil.rmtree(path_to_repo, onerror=utils.rm_read_only)
+                print ('')
+
         cur_dir = os.getcwd()
 
         clone=False
 
         download=True if url.find('.zip')>0 else False
 
-        if download:
-            if os.path.isdir(path_to_repo):
-                return {'return':1, 'error':'repository is already installed'}
-
-            os.makedirs(path_to_repo)
-
-            os.chdir(path_to_repo)
-
-            cmd = 'wget --no-check-certificate "'+url+'" -O '+alias
-
+        if checkout_only:
+            if not os.path.isdir(path_to_repo):
+                return {'return':1, 'error':'Trying to checkout repo "{}" that was not pulled'.format(alias)}
         else:
-            if os.path.isdir(path_to_repo):
-                # Attempt to update
+            if download:
+                # If CM repo already exists
+                if os.path.isdir(path_to_repo):
+                    return {'return':1, 'error':'repository is already installed'}
+
+                os.makedirs(path_to_repo)
+
                 os.chdir(path_to_repo)
 
-                cmd = 'git pull'
+                cmd = 'wget --no-check-certificate "'+url+'" -O '+alias
+
             else:
-                # Attempt to clone
-                clone = True
+                if os.path.isdir(path_to_repo):
+                    # Attempt to update
+                    os.chdir(path_to_repo)
 
-                os.chdir(self.full_path_to_repos)
+                    cmd = 'git pull'
+                else:
+                    # Attempt to clone
+                    clone = True
 
-                cmd = 'git clone '+url+' '+alias
+                    os.chdir(self.full_path_to_repos)
 
-                # Check if depth is set
-                if depth!=None and depth!='':
-                    cmd+=' --depth '+str(depth)
+                    cmd = 'git clone '+url+' '+alias
 
-        if console:
-            print (cmd)
-            print ('')
+                    # Check if depth is set
+                    if depth!=None and depth!='':
+                        cmd+=' --depth '+str(depth)
 
-        r = os.system(cmd)
+            if console:
+                print (cmd)
+                print ('')
 
-        if clone and not os.path.isdir(path_to_repo):
-            return {'return':1, 'error':'repository was not cloned'}
+            r = os.system(cmd)
+
+            if clone and not os.path.isdir(path_to_repo):
+                return {'return':1, 'error':'repository was not cloned'}
 
         os.chdir(path_to_repo)
 
-        if download:
+        if download and not checkout_only:
             import zipfile
 
             pack_file = os.path.join(path_to_repo, alias)
@@ -342,10 +416,19 @@ class Repos:
             if console:
                 print ('Unpacking {} to {} ...'.format(pack_file, repo_path))
 
+            parent_dir = ''
+            
             # Unpacking zip
             for f in files:
                 if not f.startswith('..') and not f.startswith('/') and not f.startswith('\\'):
-                    file_path = os.path.join(repo_path, f)
+
+                    if skip_zip_parent_dir and parent_dir == '':
+                        parent_dir = f
+
+                    ff = f[len(parent_dir):] if parent_dir != '' else f
+                    
+                    file_path = os.path.join(repo_path, ff)
+
                     if f.endswith('/'):
                         # create directory
                         if not os.path.exists(file_path):
@@ -370,8 +453,11 @@ class Repos:
         if branch != '' or checkout != '':
             cmd = 'git checkout'
 
+            # When checkout only, we do not need -b for branch
+            extra_flag = ' ' if checkout_only else ' -b '
+
             if branch != '':
-                cmd += ' -b ' + branch
+                cmd = 'git fetch && git switch ' + branch
 
             if checkout!='':
                 cmd += ' ' + checkout
@@ -387,8 +473,6 @@ class Repos:
                 return {'return':1, 'error':'git checkout for repository failed'}
 
         # Check if repo description exists 
-        path_to_repo_desc = os.path.join(path_to_repo, self.cfg['file_meta_repo'])
-
         r=utils.is_file_json_or_yaml(file_name = path_to_repo_desc)
         if r['return']>0: return r
 
@@ -458,6 +542,8 @@ class Repos:
         r = self.process(path_to_repo, 'add')
         if r['return']>0: return r
 
+        warnings = r.get('warnings', [])
+
         # Go back to original directory
         os.chdir(cur_dir)
 
@@ -465,7 +551,12 @@ class Repos:
             print ('')
             print ('CM alias for this repository: {}'.format(alias))
 
-        return {'return':0, 'meta':meta}
+        rr = {'return':0, 'meta':meta}
+        
+        if len(warnings)>0: rr['warnings'] = warnings
+
+        return rr
+
 
     ############################################################
     def init(self, alias, uid, path = '', console = False, desc = '', prefix = '', only_register = False):
@@ -492,6 +583,8 @@ class Repos:
             * path_to_repo_desc (str): path to repository description
             * path_to_repo_with_prefix (str): path to repository with prefix (== path_to_repo if prefix == "")
 
+            * (warnings) (list of str): warnings to install more CM repositories
+                
         """
 
         # Prepare path
@@ -570,10 +663,16 @@ class Repos:
         r = self.process(path_to_repo, 'add')
         if r['return']>0: return r
 
-        return {'return':0, 'meta':meta, 
-                            'path_to_repo': path_to_repo, 
-                            'path_to_repo_desc': path_to_repo_desc,
-                            'path_to_repo_with_prefix': path_to_repo_with_prefix}
+        warnings = r.get('warnings', [])
+
+        rr =  {'return':0, 'meta':meta, 
+                           'path_to_repo': path_to_repo, 
+                           'path_to_repo_desc': path_to_repo_desc,
+                           'path_to_repo_with_prefix': path_to_repo_with_prefix}
+
+        if len(warnings)>0: rr['warnings'] = warnings
+
+        return rr
 
     ############################################################
     def delete(self, lst, remove_all = False, console = False, force = False):
@@ -625,27 +724,9 @@ class Repos:
                 if console:
                     print ('  Deleting repository content ...')
 
-                shutil.rmtree(path_to_repo, onerror=rm_read_only)
+                shutil.rmtree(path_to_repo, onerror=utils.rm_read_only)
             else:
                 if console:
                     print ('  CM repository was unregistered from CM but its content was not deleted ...')
 
         return {'return':0}
-
-##############################################################################
-def rm_read_only(f, p, e):
-    """
-    Internal aux function to remove files and dirs even if read only
-    particularly on Windows
-    """
-
-    import os
-    import stat
-    import errno
-
-    ex = e[1]
-
-    os.chmod(p, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
-    f(p)
-
-    return

@@ -1,0 +1,6 @@
+{
+  "uid": "a42388a2a8cd412c",
+  "name": "Intel/Habana - Gauidi 2",
+  "tags": "gaudi,habana",
+  "mlperf_inference_device": "gaudi"
+}

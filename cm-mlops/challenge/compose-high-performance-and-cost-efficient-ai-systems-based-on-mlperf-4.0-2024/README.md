@@ -1,4 +1,4 @@
-This challenge is under preparation.
+This challenge is under preparation. You can read about the motivation behind this challenge in our [invited talk at MLPerf-Bench @ HPCA'24](https://doi.org/10.5281/zenodo.10786893).
 
 We plan to extend [MLCommons CM framework](https://github.com/mlcommons/ck) 
 to automatically compose high-performance and cost-efficient AI systems

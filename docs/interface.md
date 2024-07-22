@@ -143,8 +143,6 @@ without breaking automation workflows):
   
   "desc": "Managing CM repositories and software projects",
 
-  "developers": "Grigori Fursin and Arjun Suresh",
-
   "tags": [
     "automation",
     "repo"

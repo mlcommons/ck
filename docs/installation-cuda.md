@@ -16,7 +16,7 @@ to enable portable, modular, and technology-agnostic benchmarks and applications
 that can automatically run with any software, hardware, models and data sets:
 
 ```bash
-cm pull repo mlcommons@ck
+cm pull repo mlcommons@cm4mlops --checkout=dev
 ```
 
 
@@ -100,7 +100,7 @@ Even more radical, you can delete the whole `$HOME/CM` directory
 and start from scratch as follows:
 ```bash
 (sudo) rm -rf $HOME/CM
-cm pull repo mlcommons@ck
+cm pull repo mlcommons@cm4mlops --checkout=dev
 ```
 
 

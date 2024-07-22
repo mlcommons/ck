@@ -9,6 +9,7 @@ r = cm.access({'action':'run',
                'add_deps_recursive': {
                   'compiler': {'tags': "gcc"}
                }, 
+               'image_name':'cm-script-app-image-classification-onnx-py',
                'env': {
                  'CM_DOCKER_RUN_SCRIPT_TAGS': 'app,image-classification,onnx,python',
                  'CM_MLOPS_REPO': 'ctuning@mlcommons-ck', 

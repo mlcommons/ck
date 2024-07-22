@@ -92,6 +92,7 @@ for _os in docker_os:
                         if r['return'] > 0:
                             print(r)
                             exit(1)
-                        print("Dockerfile generated at "+dockerfile_path)
 
+                        print ('')
+                        print ("Dockerfile generated at " + dockerfile_path)
 

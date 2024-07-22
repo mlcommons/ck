@@ -1,4 +1,6 @@
 ﻿# Collective Mind repository
+#
+# Written by Grigori Fursin
 
 import os
 
@@ -63,7 +65,8 @@ class Repo:
 
         r = utils.load_yaml_and_json(file_name_without_ext = full_path)
         if r['return'] >0: 
-           r['error']='CM repository is broken ({})'.format(r['error'])
+           r['error'] = 'CM repository is broken ({})'.format(r['error'])
+           r['return'] = 16
            return r
 
         self.meta = r['meta']

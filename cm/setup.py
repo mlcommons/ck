@@ -2,7 +2,7 @@ import os
 import sys
 import re
 
-from setuptools import find_packages, setup, convert_path
+from setuptools import find_packages, setup
 
 try:
     from setuptools.command.install import install
@@ -69,7 +69,7 @@ setup(
     name="cmind",
 
     author="Grigori Fursin",
-    author_email="Grigori.Fursin@cTuning.org",
+    author_email="gfursin@cKnowledge.org",
 
     version=version,
 
@@ -80,7 +80,7 @@ setup(
     long_description=open('README.md', encoding="utf-8").read(),
     long_description_content_type="text/markdown",
 
-    url="https://github.com/mlcommons/ck",
+    url="https://github.com/mlcommons/ck/tree/master/cm",
 
     python_requires="", # do not force for testing
 
@@ -94,7 +94,7 @@ setup(
         'install': custom_install
     },
 
-    install_requires=['pyyaml', 'requests'],
+    install_requires=['pyyaml', 'requests', 'setuptools', 'giturlparse'],
 
     entry_points={"console_scripts": [
                       "cmind = cmind.cli:run",
@@ -107,5 +107,5 @@ setup(
 
     zip_safe=False,
 
-    keywords="collective mind,cmind,ck3,cdatabase,cmeta,automation,portability,reusability,productivity,meta,JSON,YAML,python,api,cli"
+    keywords="cm,collective mind,cmind,ck3,cdatabase,cmeta,automation,portability,reusability,productivity,meta,JSON,YAML,python,api,cli"
 )

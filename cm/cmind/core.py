@@ -1,4 +1,6 @@
 # Collective Mind core functions
+#
+# Written by Grigori Fursin
 
 from cmind.config import Config
 from cmind.repos import Repos
@@ -354,6 +356,8 @@ class CM(object):
                 elif not utils.is_cm_uid(xuid):
                     return {'return':1, 'error':'you must use CM UID after automation {} when using --common'.format(parsed_automation[0][0])}
                     
+        automation_meta = {}
+        
         if automation != '' and not use_common_automation:
             # If wildcards in automation, use the common one (usually for search across different automations)
             # However, still need above "parse_automation" for proper search
@@ -458,7 +462,8 @@ class CM(object):
 
         if action in self.cfg['action_substitutions']:
             action = self.cfg['action_substitutions'][action]
-
+        elif action in automation_meta.get('action_substitutions',{}):
+            action = automation_meta['action_substitutions'][action]
 
         # Check if common automation and --help
         if (use_common_automation or automation=='') and cm_help:
@@ -581,6 +586,16 @@ class CM(object):
 
             i['parsed_artifact'] = r['cm_object']
 
+        # Check min CM version requirement
+        min_cm_version = automation_meta.get('min_cm_version','').strip()
+        if min_cm_version != '':
+            from cmind import __version__ as current_cm_version
+            comparison = utils.compare_versions(current_cm_version, min_cm_version)
+            if comparison < 0:
+                return {'return':1, 'error':'CM automation requires CM version >= {} while current CM version is {} - please update using "pip install cmind -U"'.format(min_cm_version, current_cm_version)}
+
+
+
         # Call automation action
         action_addr=getattr(initialized_automation, action)
 
@@ -594,7 +609,7 @@ class CM(object):
             self.index.updated=False
 
         # If delayed help
-        if delayed_help:
+        if delayed_help and not r.get('skip_delayed_help', False):
             print ('')
             print (delayed_help_api_prefix_0)
             print ('')

@@ -22,10 +22,25 @@ def postprocess(i):
 
     # On Windows installs directly into Python distro for simplicity
 #    if os_info['platform'] != 'windows':
-    env['+C_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))
-    env['+CPLUS_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))
-    env['+LD_LIBRARY_PATH'].append(os.path.join(os.getcwd(), 'install', 'lib'))
-    env['+DYLD_FALLBACK_LIBRARY_PATH'].append(os.path.join(os.getcwd(), 'install', 'lib'))
-    env['+PYTHONPATH'].append(os.path.join(os.getcwd(), 'install', 'python'))
+
+    cur_path = os.getcwd()
+    install_path = os.path.join(cur_path, 'install')
+
+    env['CM_MLPERF_INFERENCE_LOADGEN_INSTALL_PATH'] = install_path
+
+    include_path = os.path.join(install_path, 'include')
+    lib_path = os.path.join(install_path, 'lib')
+    python_path = os.path.join(install_path, 'python')
+
+    env['+C_INCLUDE_PATH'].append(include_path)
+    env['+CPLUS_INCLUDE_PATH'].append(include_path)
+    env['CM_MLPERF_INFERENCE_LOADGEN_INCLUDE_PATH'] = include_path
+
+    env['+LD_LIBRARY_PATH'].append(lib_path)
+    env['+DYLD_FALLBACK_LIBRARY_PATH'].append(lib_path)
+    env['CM_MLPERF_INFERENCE_LOADGEN_LIBRARY_PATH'] = lib_path
+
+    env['+PYTHONPATH'].append(python_path)
+    env['CM_MLPERF_INFERENCE_LOADGEN_PYTHON_PATH'] = python_path
 
     return {'return':0}

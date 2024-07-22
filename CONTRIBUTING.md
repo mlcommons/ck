@@ -1,4 +1,4 @@
-## Contributing to the MLCommons
+### Contributing to the MLCommons
 
 The best way to contribute to the MLCommons is to get involved with one of our many project communities. 
 You find more information about getting involved with MLCommons [here](https://mlcommons.org/en/get-involved/#getting-started). 
@@ -14,32 +14,27 @@ Modify the project in your own fork and issue a pull request once you want other
 to take a look at what you have done and discuss the proposed changes. 
 Ensure that cla-bot and other checks pass for your Pull requests.
 
-## Contributing to this project
-
-Please join our [Discord server](https://discord.gg/JjWNWXKxwT)
-to learn about how to use the CK technology v3 (including the MLCommons CM automation language, CK playground
-and Modular Inference Library) or participate in collaborative developments.
-
-Thank you for your support and looking forward to collaborating with you!
-
-## Authors and project coordinators
-
-* [Grigori Fursin](https://cKnowledge.org/gfursin) (MLCommons.org, cTuning.org, cKnowledge.org)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (MLCommons.org, cTuning.org, cKnowledge.org)
-
-## Contributors to MLCommons' Collective Mind (aka Collective Knowledge v3) in alphabetical order
+Collective Knowledge (CK) and Collective Mind (CM) were created by [Grigori Fursin](https://cKnowledge.org/gfursin),
+sponsored by cKnowledge.org and cTuning.org, and donated to MLCommons to benefit everyone. 
+Since then, this open-source technology (CM, CM4MLOps, CM4ABTF, CM4Research, etc)
+is being developed as a community effort thanks to all our volunteers, collaborators and contributors
+listed here in alphabetical order:
 
 * Resmi Arjun
+* Omar Benjelloun (Google)
 * Alice Cheng (Nvidia)
 * Jiahao Chen (MIT)
 * Ramesh N Chukka (Intel)
 * Ray DeMoss (One Stop Systems)
 * Ryan T DeRue (Purdue University)
 * Himanshu Dutta (Indian Institute of Technology)
+* Nicolas Essayan
 * Justin Faust (One Stop Systems)
 * Diane Feddema (Red Hat)
+* Grigori Fursin (cTuning.org and cKnowledge.org)
 * Leonid Fursin (United Silicon Carbide)
 * Anirban Ghosh (Nvidia)
+* James Goel (Qualcomm)
 * Michael Goin (Neural Magic)
 * Jose Armando Hernandez (Paris Saclay University)
 * Mehrdad Hessar (OctoML)
@@ -48,6 +43,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Tom Jablin (Google)
 * Nino Jacob
 * David Kanter (MLCommons)
+* Alex Karargyris
 * Jason Knight (OctoML)
 * Ilya Kozulin (Deelvin)
 * @makaveli10 (Collabora)
@@ -71,14 +67,18 @@ Thank you for your support and looking forward to collaborating with you!
 * Sergey Serebryakov (HPE)
 * Warren Schultz (Principled Technologies)
 * Amrutha Sheleenderan (Kerala Technical University)
+* Micah J Sheller (Intel)
 * Byoungjun Seo (TTA)
 * Aditya Kumar Shaw (Indian Institute of Science)
 * Ilya Slavutin (Deelvin)
 * Jinho Suh (Nvidia)
+* Arjun Suresh
 * Badhri Narayanan Suresh (Intel)
 * David Tafur (MLCommons)
 * Chloe Tessier
 * Gaurav Verma (Stony Brook University)
+* Zixian Wang
+* Nathan Wasson
 * Scott Wasson (MLCommons)
 * Haoyang Zhang  (UIUC)
 * Bojian Zheng (University of Toronto)

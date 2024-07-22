@@ -1,4 +1,6 @@
 # Collective Mind command line wrapper
+#
+# Written by Grigori Fursin
 
 import sys
 

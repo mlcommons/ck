@@ -82,6 +82,6 @@ with PRs from participants [here](https://github.com/ctuning/mlperf_inference_su
 ### Results
 
 All accepted results will be publicly available in the CM format with derived metrics 
-in this [MLCommons repository](https://github.com/mlcommons/ck_mlperf_results),
+in this [MLCommons repository](https://github.com/mlcommons/cm4mlperf-results),
 in [MLCommons Collective Knowledge explorer](https://access.cknowledge.org/playground/?action=experiments) 
 and at official [MLCommons website](https://mlcommons.org).

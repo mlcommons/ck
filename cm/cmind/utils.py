@@ -1,6 +1,8 @@
 # Auxilary functions for CM
-
+#
 # Some functionality was reused from the CK framework for compatibility
+#
+# Written by Grigori Fursin
 
 import os
 
@@ -139,6 +141,37 @@ def save_json_or_yaml(file_name, meta, sort_keys=False, encoding = 'utf8'):
     return {'return':ERROR_UNKNOWN_FILE_EXTENSION, 'error':'unknown file extension'}
 
 ###########################################################################
+def safe_load_json(path, file_name='', encoding='utf8'):
+    """
+    Load JSON file if exists, otherwise return empty dict
+
+    Args:    
+       (CM input dict):
+
+       file_name (str): file name
+       (encoding) (str): file encoding ('utf8' by default)
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       * meta (dict): meta from the file
+
+    """
+
+    path_to_file = os.path.join(path, file_name) if file_name == '' or path != file_name else path
+
+    meta = {}
+
+    r = load_json(path_to_file, check_if_exists=True, encoding=encoding)
+    if r['return'] == 0:
+        meta = r['meta']
+
+    return {'return':0, 'meta': meta}
+
+###########################################################################
 def load_json(file_name, check_if_exists = False, encoding='utf8'):
     """
     Load JSON file.
@@ -173,8 +206,7 @@ def load_json(file_name, check_if_exists = False, encoding='utf8'):
         except Exception as e:
             return {'return':4, 'error': format(e)}
 
-    return {'return':0,
-            'meta': meta}
+    return {'return':0, 'meta': meta}
 
 ###########################################################################
 def save_json(file_name, meta={}, indent=2, sort_keys=True, encoding = 'utf8'):
@@ -966,7 +998,8 @@ def find_api(file_name, func):
 
 
 ###########################################################################
-def find_file_in_current_directory_or_above(file_names, path_to_start = None, reverse = False):
+def find_file_in_current_directory_or_above(file_names, path_to_start = None, 
+        reverse = False, path_to_stop = None):
     """
     Find file(s) in the current directory or above.
 
@@ -974,6 +1007,7 @@ def find_file_in_current_directory_or_above(file_names, path_to_start = None, re
        file_names (list): files to find
        (path_to_start) (str): path to start; use current directory if None
        (reverse) (bool): if True search recursively in current directory and below.
+       (path_to_stop) (str): path to stop search (usually path to found repo)
 
     Returns:
        (CM return dict):
@@ -1024,12 +1058,15 @@ def find_file_in_current_directory_or_above(file_names, path_to_start = None, re
                       break
 
           if new_path == '':
-              break        
+              break
 
        else:
           new_path = os.path.dirname(current_path)
 
           if new_path == current_path:
+              break
+
+          if path_to_stop != None and new_path == path_to_stop:
               break
 
        found_in_current_path = False
@@ -1180,7 +1217,8 @@ def get_current_date_time(i):
     Get current date and time.
 
     Args:    
-       (CM input dict): empty dict
+       (CM input dict): 
+         - (timezone) (str): timezone in pytz format: "Europe/Paris"
 
     Returns: 
        (CM return dict):
@@ -1204,7 +1242,14 @@ def get_current_date_time(i):
 
     a = {}
 
-    now1 = datetime.datetime.now()
+    tz = None
+
+    tz_str = i.get('timezone', '').strip()
+    if tz_str != '':
+        import pytz
+        tz = pytz.timezone(tz_str)
+
+    now1 = datetime.datetime.now(tz)
     now = now1.timetuple()
 
     a['date_year'] = now[0]
@@ -1613,3 +1658,137 @@ def tags_matched(tags, and_tags, no_tags):
                 break
 
     return matched
+
+##############################################################################
+def rm_read_only(f, p, e):
+    """
+    Internal aux function to remove files and dirs even if read only
+    particularly on Windows
+    """
+
+    import os
+    import stat
+    import errno
+
+    ex = e[1]
+
+    os.chmod(p, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
+    f(p)
+
+    return
+
+##############################################################################
+def debug_here(module_path, host='localhost', port=5678, text='', env={}, env_debug_uid=''):
+    import os
+
+    if env_debug_uid!='':
+        if len(env)==0:
+            env = os.environ
+        x = env.get('CM_TMP_DEBUG_UID', '').strip()
+        if x.lower() != env_debug_uid.lower():
+            class dummy:
+               def breakpoint(self):
+                   return
+
+            return dummy()
+
+    workplace = os.path.dirname(module_path)
+
+    print ('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    print ('Adding remote debug breakpoint ...')
+    if text != '':
+        print (text)
+
+    print ('')
+    import debugpy
+    debugpy.listen(port)
+
+    print ('')
+    print ('Waiting for debugger to attach ...')
+    print ('')
+    print ('Further actions for Visual Studio Code:')
+    print ('  Open Python file in VS to set breakpoint: {}'.format(module_path))
+    print ('  File -> Add Folder to Workplace: {}'.format(workplace))
+    print ('  Run -> Add configuration -> Python Debugger -> Remote attach -> {} -> {}'.format(host, port))
+    print ('     Сhange "remoteRoot" to ${workspaceFolder}')
+    print ('  Set breakpoint ...')
+    print ('  Run -> Start Debugging (or press F5) ...')
+    print ('')
+
+    debugpy.wait_for_client()
+
+    # Go up outside this function to continue debugging (F11 in VS)
+    return debugpy
+
+##############################################################################
+def compare_versions(version1, version2):
+    """
+    Compare versions
+
+    Args:    
+
+       version1 (str): version 1
+       version2 (str): version 2
+
+    Returns:
+       comparison (int):  1 - version 1 > version 2
+                          0 - version 1 == version 2
+                         -1 - version 1 < version 2
+    """
+
+    l_version1 = version1.split('.')
+    l_version2 = version2.split('.')
+
+    # 3.9.6 vs 3.9
+    # 3.9 vs 3.9.6
+
+    i_version1 = [int(v) if v.isdigit() else v for v in l_version1]
+    i_version2 = [int(v) if v.isdigit() else v for v in l_version2]
+
+    comparison = 0
+
+    for index in range(max(len(i_version1), len(i_version2))):
+        v1 = i_version1[index] if index < len(i_version1) else 0
+        v2 = i_version2[index] if index < len(i_version2) else 0
+
+        if v1 > v2:
+            comparison = 1
+            break
+        elif v1 < v2:
+            comparison = -1
+            break
+
+    return comparison
+
+##############################################################################
+def check_if_true_yes_on(env, key):
+    """
+    Universal check if str(env.get(key, '')).lower() in ['true', 'yes', 'on']:
+
+    Args:    
+
+       env (dict): dictionary
+       key (str): key
+
+    Returns:
+       True if str(env.get(key, '')).lower() in ['true', 'yes', 'on']:
+    """
+
+    return str(env.get(key, '')).lower() in ['true', 'yes', 'on']
+
+##############################################################################
+def check_if_none_false_no_off(env, key):
+    """
+    Universal check if str(env.get(key, '')).lower() in ['false', 'no', 'off']:
+
+    Args:    
+
+       env (dict): dictionary
+       key (str): key
+
+    Returns:
+       True if str(env.get(key, '')).lower() in ['false', 'no', 'off']:
+    """
+
+    return str(env.get(key, '')).lower() in ['none', 'false', 'no', 'off']
+
