@@ -28,7 +28,7 @@
 
 
 # We use 3 digits for the main (released) version and 4th digit for development revision
-__version__ = "2.6.3"
+__version__ = "2.6.4"
 # Do not use characters (to detect outdated version)!
 
 # Import packages that are global for the whole kernel
@@ -6745,9 +6745,8 @@ def short_help(i):
     # .replace('   ','')+'\n'
     h += '\n'+cfg['help_web'].replace('\n', '').strip()+'\n'
 
-    h += 'CK Google group:      https://bit.ly/ck-google-group\n'
-    h += 'CK Slack channel:     https://cKnowledge.org/join-slack\n'
-    h += 'Stable CK components: https://cknow.io'
+    h += 'CK white paper:       https://royalsocietypublishing.org/doi/10.1098/rsta.2020.0211\n'
+    h += 'CK ACM TechTalk:      https://learning.acm.org/techtalks/reproducibility\n'
 
     if o == 'con':
         out(h)
@@ -12385,11 +12384,11 @@ def access(i):
         o = i.get('out', '')
 
         # Print message that this framework was discontinued
-        if o == 'con':
-            out('')
-            out('WARNING: this framework was discontinued in favor of the new CK2 framework aka CM being developed by the open taskforce on automation and reproducibility at MLCommons:')
-            out('         https://bit.ly/mlperf-edu-wg')
-            out('')
+#        if o == 'con':
+#            out('')
+#            out('WARNING: this framework was discontinued in favor of the new CK2 framework aka CM being developed by the open taskforce on automation and reproducibility at MLCommons:')
+#            out('         https://bit.ly/mlperf-edu-wg')
+#            out('')
 
         # If profile
         cp = i.get('ck_profile', '')
