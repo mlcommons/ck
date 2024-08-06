@@ -457,7 +457,7 @@ class Repos:
             extra_flag = ' ' if checkout_only else ' -b '
 
             if branch != '':
-                cmd = 'git fetch && git switch ' + branch
+                cmd = 'git fetch && git checkout ' + branch
 
             if checkout!='':
                 cmd += ' ' + checkout
