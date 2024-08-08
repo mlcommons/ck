@@ -195,7 +195,8 @@ cm pull repo --url=https://zenodo.org/records/12528908/files/cm4mlops-20240625.z
 cmr "install llvm prebuilt" --version=17.0.6
 cmr "app image corner-detection"
 
-cm run experiment --tags=tuning,experiment,batch_size -- echo --batch_size={{VAR1{range(1,8)}}}
+cm run experiment --tags=tuning,experiment,batch_size -- echo --batch_size={{ print_str("VAR1{range(1,8)}") }}
+
 cm replay experiment --tags=tuning,experiment,batch_size
 
 cmr "get conda"

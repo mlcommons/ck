@@ -2,32 +2,6 @@
 
 # Collective Mind Getting Started Guide and FAQ
 
-<details>
-<summary>Click here to see the table of contents.</summary>
-
-* [Collective Mind Getting Started Guide and FAQ](#collective-mind-getting-started-guide-and-faq)
-  * [Why CM?](#why-cm?)
-  * [CM automation recipe for image classification](#cm-automation-recipe-for-image-classification)
-  * [How CM scripts works?](#how-cm-scripts-works?)
-  * [How CM runs automation recipes?](#how-cm-runs-automation-recipes?)
-  * [How CM unifies inputs, outputs and environment variables?](#how-cm-unifies-inputs-outputs-and-environment-variables?)
-  * [How CM chains automation recipes into portable workflows?](#how-cm-chains-automation-recipes-into-portable-workflows?)
-  * [How to add new CM scripts?](#how-to-add-new-cm-scripts?)
-  * [How to customize CM scripts using variations?](#how-to-customize-cm-scripts-using-variations?)
-  * [How to cache and reuse CM scripts' output?](#how-to-cache-and-reuse-cm-scripts'-output?)
-  * [How to use CM with Python virtual environments?](#how-to-use-cm-with-python-virtual-environments?)
-  * [How to debug CM scripts?](#how-to-debug-cm-scripts?)
-  * [How to extend/improve CM scripts?](#how-to-extend/improve-cm-scripts?)
-  * [How to use CM with containers?](#how-to-use-cm-with-containers?)
-  * [How to use CM GUI to run automation recipes?](#how-to-use-cm-gui-to-run-automation-recipes?)
-  * [How to run MLPerf benchmarks via CM?](#how-to-run-mlperf-benchmarks-via-cm?)
-  * [How to use CM to reproduce research papers?](#how-to-use-cm-to-reproduce-research-papers?)
-  * [How to use CM as a common interface to other projects?](#how-to-use-cm-as-a-common-interface-to-other-projects?)
-  * [Where to read about the CM vision and history?](#where-to-read-about-the-cm-vision-and-history?)
-  * [How to get in touch with the CM community?](#how-to-get-in-touch-with-the-cm-community?)
-
-</details>
-
 
 ## Why CM?
 
