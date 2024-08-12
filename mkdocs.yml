@@ -1,0 +1,47 @@
+site_name: Collective Mind Documentation
+repo_url: https://github.com/mlcommons/ck
+theme:
+  name: material
+  logo: img/logo_v2.svg
+  favicon: img/logo_v2.svg
+  palette:
+    primary: deep purple
+    accent: green
+  features:
+    - content.tabs.link
+    - content.code.copy
+    - navigation.expand
+    - navigation.sections
+    - navigation.indexes
+    - navigation.instant
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - toc.follow
+nav:
+  - Install:
+    - install/index.md
+  - Documentation:
+    - CM CLI: specs/cm-cli.md
+    - Getting Started: getting-started.md
+  - Release Notes:
+    - What's New: news.md
+
+markdown_extensions:
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.details
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+plugins:
+  - search
+  - macros
