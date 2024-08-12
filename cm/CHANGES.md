@@ -1,3 +1,8 @@
+## V2.3.4.1
+   - added "cm init" to check system deps and pull mlcommons@cm4mlops by default
+   - fixed branch checkout in "cm pull repo"
+
+
 ## V2.3.4
    - minor documentation update
 

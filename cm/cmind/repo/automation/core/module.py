@@ -14,25 +14,37 @@ from cmind import utils
 #from cm_60cb625a46b38610 import misc
 
 class CMInit():
-    def run(self):
+    ###############################################################
+    def run(self, quiet = False, repo_name = 'mlcommons@cm4mlops', repo_branch = ''):
+        import cmind
+
         print ('Checking platform information ...')
         self.get_sys_platform()
 
         print ('')
         print ('Checking system dependencies ...')
-        self.install_system_packages()
+        r = self.install_system_packages(quiet)
+        if r['return']>0 or r.get('warning','') !='' :
+            return r
 
         print ('')
         print ('Obtaining default automation repository ...')
 
         print ('')
-        r = self.pull_repo()
-        return r
+        ii = {'action':'pull', 
+              'automation':'repo',
+              'artifact':repo_name,
+              'out':'con'}
 
-    def install_system_packages(self):
+        if repo_branch !='':
+            ii['branch'] = repo_branch
+
+        return cmind.access(ii)
+
+    ###############################################################
+    def install_system_packages(self, quiet):
 
         import sys
-        import subprocess
         import importlib.util
 
         # List of packages to install via system package manager
@@ -41,9 +53,11 @@ class CMInit():
         git_status = self.command_exists('git')
         if not git_status:
             packages.append("git")
+
         wget_status = self.command_exists('wget')
         if not wget_status:
             packages.append("wget")
+
         curl_status = self.command_exists('curl')
         if not curl_status:
             packages.append("curl")
@@ -52,26 +66,60 @@ class CMInit():
 
         if name in sys.modules:
             pass #nothing needed
-        elif (spec := importlib.util.find_spec(name)) is not None:
-            module = importlib.util.module_from_spec(spec)
-            sys.modules[name] = module
-            spec.loader.exec_module(module)
-            #print(f"{name} has been imported")
         else:
-            packages.append("python3-venv")
+            spec = importlib.util.find_spec(name)
+            if spec is not None:
+                module = importlib.util.module_from_spec(spec)
+                sys.modules[name] = module
+                spec.loader.exec_module(module)
+            else:
+                packages.append("python3-venv")
         
+        warning = ''
+
         if packages:
+
+            install_cmd = ''
+
             if self.system == 'Linux' or self.system == 'Darwin':
                 manager, details = self.get_package_manager_details()
                 if manager:
                     if manager == "apt-get":
-                        subprocess.check_call(['sudo', 'apt-get', 'update'])
-                        subprocess.check_call(['sudo', 'apt-get', 'install', '-y'] + packages)
-            elif self.system == 'Windows':
-                print(f"Please install the following packages manually: {packages}")
+                        install_cmd = '{}apt-get update && apt-get install -y {}'
 
+            if install_cmd == '':
+                warning = "You must install the following system packages manually: {}".format(', '.join(packages))
+            else:
+                print ('')
+                print ('The following system packages will be installed:')
+                print ('')
+                print (install_cmd.format('sudo', ' '.join(packages)))
 
+                sudo = 'sudo '
+                if not quiet:
+                    print ('')
+                    x = input ('Would you like to skip "sudo" from above command (y/N)? ')
 
+                    if x.lower() in ['y','yes']:
+                        sudo = ''
+
+                install_cmd = install_cmd.format(sudo, ' '.join(packages))
+
+                print ('')
+                print ('Running system command:')
+                print (install_cmd)
+
+                r = os.system(install_cmd)
+                if r>0:
+                    return {'return':1, 'error':f'Command {install_cmd} failed with return code {r}'}
+
+        rr = {'return':0}
+
+        if warning != '': rr['warning'] = warning
+
+        return rr
+
+    ###############################################################
     def detect_package_manager(self):
         package_managers = {
             'apt-get': '/usr/bin/apt-get',
@@ -88,6 +136,7 @@ class CMInit():
 
         return None
 
+    ###############################################################
     def get_package_manager_details(self):
         import subprocess
 
@@ -101,6 +150,7 @@ class CMInit():
         else:
             return None, 'No supported package manager found'
 
+    ###############################################################
     # Checks if command exists(for installing required packages).
     # If the command exists, which returns 0, making the function return True.
     # If the command does not exist, which returns a non-zero value, making the function return False.
@@ -114,16 +164,14 @@ class CMInit():
         elif self.system == "Windows":
             return subprocess.call([command, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True) == 0
 
-    def pull_repo(self):
-        import cmind
-
-        r = cmind.access({'action':'pull', 'automation':'repo', 'artifact':'mlcommons@cm4mlops', 'branch': 'mlperf-inference', 'out':'con'})
-        return r
     
+    ###############################################################
     def get_sys_platform(self):
         import platform
 
         self.system =  platform.system() 
+
+
 
 class CAutomation(Automation):
     """
@@ -162,7 +210,9 @@ class CAutomation(Automation):
         Args:
           (CM input dict):
 
-          (out) (str): if 'con', output to console
+          (quiet) (bool): if True, skip asking questions about sudo, etc
+          (repo_name) (str): automation repository to pull ('mlcommons@cm4mlops' by default) 
+          (repo_branch) (str): branch to use ('' by default)
 
 
         Returns:
@@ -174,5 +224,19 @@ class CAutomation(Automation):
 
         cm_init = CMInit()
 
-        return cm_init.run()
+        quiet = i.get('quiet', False)
 
+        repo_name = i.get('repo_name', '')
+        if repo_name == '': repo_name = 'mlcommons@cm4mlops'
+
+        repo_branch = i.get('repo_branch', '')
+
+        r = cm_init.run(quiet = quiet, repo_name = repo_name, repo_branch = repo_branch)
+        if r['return']>0: return r
+
+        warning = r.get('warning', '')
+        if warning != '':
+            print ('')
+            print (warning)
+
+        return {'return':0}
