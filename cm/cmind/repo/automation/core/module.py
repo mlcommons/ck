@@ -211,8 +211,8 @@ class CAutomation(Automation):
           (CM input dict):
 
           (quiet) (bool): if True, skip asking questions about sudo, etc
-          (repo_name) (str): automation repository to pull ('mlcommons@cm4mlops' by default) 
-          (repo_branch) (str): branch to use ('' by default)
+          (repo) (str): automation repository to pull ('mlcommons@cm4mlops' by default) 
+          (branch) (str): branch to use ('' by default)
 
 
         Returns:
@@ -226,10 +226,10 @@ class CAutomation(Automation):
 
         quiet = i.get('quiet', False)
 
-        repo_name = i.get('repo_name', '')
+        repo_name = i.get('repo', '')
         if repo_name == '': repo_name = 'mlcommons@cm4mlops'
 
-        repo_branch = i.get('repo_branch', '')
+        repo_branch = i.get('branch', '')
 
         r = cm_init.run(quiet = quiet, repo_name = repo_name, repo_branch = repo_branch)
         if r['return']>0: return r
