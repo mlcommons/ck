@@ -255,6 +255,9 @@ class CM(object):
         elif action == '' and automation == '' and i.get('version',False):
             action = 'version'
             automation = 'core'
+        elif action == 'init' and automation == '':
+            automation = 'core'
+
 
         # Print basic help if action == ''
         extra_help = True if action == 'help' and automation == '' else False
