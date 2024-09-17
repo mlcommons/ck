@@ -51,7 +51,7 @@ jobs:
         cd tmp_cm_repo && cm init repo
         cm add script tmp_cm_repo:my-test-script --tags=test,script
         cm add script .:my-test-script2 --tags=test2,script
-        cm add repo my-test-repo
+        cd && cm add repo my-test-repo
         cm add script my-test-repo:my-test-script --tags=test,script
         cd $HOME/CM/repos/my-test-repo && cm add script .:my-test-script2 --tags=test2,script
 
