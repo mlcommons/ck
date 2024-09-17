@@ -1,0 +1,43 @@
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: CM script automation features test
+
+on:
+  pull_request:
+    branches: [ "master", "dev" ]
+    paths:
+      - '.github/workflows/test-cm-script-features.yml'
+      - '**'
+      - '!**.md'
+
+jobs:
+  build:
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.11", "3.8"]
+        on: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: "${{ matrix.on }}"
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        python -m pip install --ignore-installed --verbose pip setuptools
+        cd cm
+        python -m pip install .
+        cm init
+    - name: Test CM Script Features
+      run: |
+        python script/test-cm-core/src/script/test_deps.py
+        python script/test-cm-core/src/script/test_install.py
+        python script/test-cm-core/src/script/test_docker.py
+        python script/test-cm-core/src/script/test_features.py
