@@ -1,3 +1,6 @@
+## V2.3.6
+   - fixed "cm init" on Windows (do not check wget and curl - managed via CM scripts)
+ 
 ## V2.3.5
    - added "cm init" to check system deps and pull mlcommons@cm4mlops by default
    - fixed branch checkout in "cm pull repo"
