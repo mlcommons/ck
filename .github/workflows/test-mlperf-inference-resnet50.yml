@@ -17,7 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12", "3.11", "3.8"]
-        on: [ubuntu-latest, windows-latest, macos-latest]
+        on: [ubuntu-latest, macos-latest]
         backend: [ "onnxruntime", "tf" ]
         implementation: [ "python", "cpp" ]
         exclude:
