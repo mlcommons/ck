@@ -17,7 +17,10 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
-        on: [ubuntu-latest, windows-latest]
+        on: [ubuntu-latest, windows-latest, macos-latest]
+        exclude:
+          - python-version: "3.7"
+            on: "macos-latest"
     runs-on: "${{ matrix.on }}"
     steps:
     - uses: actions/checkout@v4
@@ -37,7 +40,8 @@ jobs:
         python -m pip install .
         python -m cmind
         # cm pull repo --url=${{ github.event.pull_request.head.repo.html_url }} --checkout=${{ github.event.pull_request.head.ref }}
-        cm pull repo mlcommons@cm4mlops --branch=main
+        # cm pull repo mlcommons@cm4mlops --branch=main
+        cm init
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
