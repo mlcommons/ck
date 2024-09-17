@@ -37,7 +37,7 @@ jobs:
         python -m pip install .
         python -m cmind
         # cm pull repo --url=${{ github.event.pull_request.head.repo.html_url }} --checkout=${{ github.event.pull_request.head.ref }}
-        cm pull repo mlcommons@cm4mlops --branch=mlperf-inference
+        cm pull repo mlcommons@cm4mlops --branch=main
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -47,4 +47,11 @@ jobs:
     - name: Test
       run: |
         python tests/test_cm.py
+        cd && mkdir tmp_cm_repo
+        cd tmp_cm_repo && cm init repo
+        cm add script tmp_cm_repo:my-test-script --tags=test,script
+        cm add script .:my-test-script2 --tags=test2,script
+        cd && cm add repo my-test-repo
+        cm add script my-test-repo:my-test-script --tags=test,script
+        cd $HOME/CM/repos/my-test-repo && cm add script .:my-test-script2 --tags=test2,script
 
