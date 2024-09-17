@@ -47,4 +47,8 @@ jobs:
     - name: Test
       run: |
         python tests/test_cm.py
+        mkdir tmp_cm_repo
+        cm add repo tmp_cm_repo
+        cm add script tmp_cm_repo:my-test-script --tags=test,script
+        cd tmp_cm_repo && cm add script .:my-test-script2 --tags=test2,script
 
