@@ -54,13 +54,17 @@ class CMInit():
         if not git_status:
             packages.append("git")
 
-        wget_status = self.command_exists('wget')
-        if not wget_status:
-            packages.append("wget")
 
-        curl_status = self.command_exists('curl')
-        if not curl_status:
-            packages.append("curl")
+        # wget and curl are managed via CM scripts on Windows
+        if os.name != 'nt':
+
+            wget_status = self.command_exists('wget')
+            if not wget_status:
+                packages.append("wget")
+
+            curl_status = self.command_exists('curl')
+            if not curl_status:
+                packages.append("curl")
 
         name='venv'
 
