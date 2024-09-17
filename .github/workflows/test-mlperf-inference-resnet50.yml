@@ -1,0 +1,45 @@
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: MLPerf inference resnet50
+
+on:
+  pull_request:
+    branches: [ "master", "dev" ]
+    paths:
+      - '.github/workflows/test-mlperf-inference-resnet50.yml'
+      - '**'
+      - '!**.md'
+
+jobs:
+  build:
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.11", "3.8"]
+        on: [ubuntu-latest, windows-latest, macos-latest]
+        backend: [ "onnxruntime", "tf" ]
+        implementation: [ "python", "cpp" ]
+        exclude:
+          - backend: tf
+            implementation: cpp
+    runs-on: "${{ matrix.on }}"
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        python -m pip install --ignore-installed --verbose pip setuptools
+        cd cm
+        python -m pip install .
+        cm init
+    - name: Test MLPerf inference ResNet50
+      run: |
+        cm run script --tags=run-mlperf,inference,_submission,_short --submitter="cTuning" --hw_name=default --model=resnet50 --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --target_qps=1 -v --quiet
