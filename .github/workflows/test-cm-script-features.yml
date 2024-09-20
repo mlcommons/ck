@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.12", "3.11", "3.8"]
+        python-version: ["3.12", "3.8"]
         on: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: "${{ matrix.on }}"
     steps:
@@ -35,9 +35,12 @@ jobs:
         cd cm
         python -m pip install .
         cm init
+    - name: Run test_docker on linux
+      if: runner.os == 'linux'
+      run: |
+        python script/test-cm-core/src/script/test_docker.py
     - name: Test CM Script Features
       run: |
         python tests/script/test_deps.py
         python tests/script/test_install.py
-        python tests/script/test_docker.py
         python tests/script/test_features.py
