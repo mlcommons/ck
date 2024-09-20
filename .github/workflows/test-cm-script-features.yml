@@ -12,7 +12,6 @@ on:
 
 jobs:
   build:
-
     strategy:
       fail-fast: false
       matrix:
