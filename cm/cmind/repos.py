@@ -154,18 +154,21 @@ class Repos:
                 print ('WARNING: repository path {} not found (check file {})'.format(path_to_repo, full_path_to_repo_paths))
 
         # Save with correct paths
-        if len(checked_self_paths)!=len(self.paths):
-            import copy
+        if len(checked_self_paths) != len(self.paths):
 
-            self.paths = copy.deepcopy(checked_self_paths)
+            skip_fix_paths = os.environ.get('CM_CORE_SKIP_FIX_REPO_PATH','').strip().lower()
+            if skip_fix_paths not in ['1', 'true', 'yes']:
+                import copy
 
-            if self.path_to_internal_repo in checked_self_paths:
-                checked_self_paths.remove(self.path_to_internal_repo)
+                self.paths = copy.deepcopy(checked_self_paths)
 
-            print ('WARNING: fixed repo list file {}'.format(full_path_to_repo_paths))
+                if self.path_to_internal_repo in checked_self_paths:
+                    checked_self_paths.remove(self.path_to_internal_repo)
 
-            r = utils.save_json(full_path_to_repo_paths, meta = checked_self_paths)
-            if r['return']>0: return r
+                print ('WARNING: fixed repo list file {}'.format(full_path_to_repo_paths))
+
+                r = utils.save_json(full_path_to_repo_paths, meta = checked_self_paths)
+                if r['return']>0: return r
 
         return {'return':0}
 

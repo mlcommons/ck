@@ -818,3 +818,39 @@ def get_version():
     r['version'] = version
 
     return r
+
+##############################################################################
+def debug(path_to_cm_automation_module):
+
+    import cmind
+
+    import os
+    automation = os.path.basename(os.path.dirname(path_to_cm_automation_module))
+
+    import sys
+    argv = sys.argv[1:]
+
+    # If run from VS, length == 1
+
+    # else normal argv
+
+    if len(argv) == 0:
+       cmd = 'test ' + automation
+    elif len(argv) == 1:
+       cmd = argv[0]
+
+       if ' ' not in cmd:
+           cmd += ' ' + automation
+       else:
+           space_index = cmd.find(' ')
+           cmd = cmd[:space_index] + ' ' + automation + ' ' + cmd[space_index+1:]
+    else:
+       cmd = argv
+       cmd.insert(1, automation)
+
+    print ('')
+    print ('Envoking CM command:')
+    print (f'{cmd}')
+
+    print ('')
+    return cmind.access(cmd)
