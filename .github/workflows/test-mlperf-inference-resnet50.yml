@@ -1,4 +1,3 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
 name: MLPerf inference resnet50
@@ -8,37 +7,39 @@ on:
     branches: [ "master", "dev" ]
     paths:
       - '.github/workflows/test-mlperf-inference-resnet50.yml'
-      - 'cm-mlops/**'
-      - '!cm-mlops/**.md'
+      - '**'
+      - '!**.md'
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
-    env:
-      CM_INDEX: "on"
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ "3.12", "3.9" ]
+        python-version: ["3.12", "3.11", "3.8"]
+        on: [ubuntu-latest, macos-latest]
         backend: [ "onnxruntime", "tf" ]
         implementation: [ "python", "cpp" ]
         exclude:
           - backend: tf
             implementation: cpp
-
+    runs-on: "${{ matrix.on }}"
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python3 -m pip install cmind
-        # cm pull repo --url=${{ github.event.pull_request.head.repo.html_url }} --checkout=${{ github.event.pull_request.head.ref }}
-        cm pull repo --url=${{ github.event.pull_request.head.repo.html_url }}
-        cm run script --quiet --tags=get,sys-utils-cm
-    - name: Test MLPerf Inference ResNet50
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        python -m pip install --ignore-installed --verbose pip setuptools
+        cd cm
+        python -m pip install .
+        cm init
+    - name: Test MLPerf inference ResNet50
       run: |
-        cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="cTuning" --hw_name=default --model=resnet50 --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --target_qps=1 -v --quiet 
+        cm run script --tags=run-mlperf,inference,_submission,_short --submitter="cTuning" --hw_name=default --model=resnet50 --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --target_qps=1 -v --quiet
