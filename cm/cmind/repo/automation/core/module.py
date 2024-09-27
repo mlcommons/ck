@@ -229,6 +229,7 @@ class CAutomation(Automation):
           (url) (str): main automation repository to pull via url (can use git@ instead of https)
           (branch) (str): branch to use ('' by default)
           (skip) (bool): skip pulling main automation repository
+          (min) (bool): the same as `skip`
 
         Returns:
           (CM return dict):
@@ -242,6 +243,8 @@ class CAutomation(Automation):
         quiet = i.get('quiet', False)
 
         skip = i.get('skip', False)
+        if not skip:
+            skip = i.get('min', False)
 
         repo_name = i.get('repo', '').strip()
         repo_url = i.get('url', '').strip()

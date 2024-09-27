@@ -1,3 +1,6 @@
+## V2.3.8.1
+   - added `--min` == `--skip` to `cm init` for readability
+
 ## V2.3.8
    - added `--skip` and `--url` flags to `cm init`
    - added support to pull CM repos using --url with "git@"
