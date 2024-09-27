@@ -2,7 +2,7 @@
 #
 # Written by Grigori Fursin
 
-__version__ = "2.3.7"
+__version__ = "2.3.7.1"
 
 from cmind.core import access
 from cmind.core import error
