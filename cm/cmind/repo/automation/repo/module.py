@@ -83,11 +83,17 @@ class CAutomation(Automation):
                else:
                    if alias.endswith('.git'): alias=alias[:-4]
 
-                   j = alias.find('//')
-                   if j>=0:
-                       j1 = alias.find('/', j+2)
-                       if j1>=0:
-                           alias = alias[j1+1:].replace('/','@')
+                   if alias.startswith('git@'):
+                       j = alias.find(':')
+                       if j>=0:
+                           alias = alias[j+1:].replace('/','@')
+                   else:
+                       j = alias.find('//')
+                       if j>=0:
+                           j1 = alias.find('/', j+2)
+                           if j1>=0:
+                               alias = alias[j1+1:].replace('/','@')
+
 
         if url == '':
             pull_repos = []
