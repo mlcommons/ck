@@ -15,7 +15,7 @@ from cmind import utils
 
 class CMInit():
     ###############################################################
-    def run(self, quiet = False, repo_name = 'mlcommons@cm4mlops', repo_branch = ''):
+    def run(self, quiet = False, skip = False, repo_name = 'mlcommons@cm4mlops', repo_url = '', repo_branch = ''):
         import cmind
 
         print ('Checking platform information ...')
@@ -27,19 +27,29 @@ class CMInit():
         if r['return']>0 or r.get('warning','') !='' :
             return r
 
-        print ('')
-        print ('Obtaining default automation repository ...')
+        rr = {'return':0}
 
-        print ('')
-        ii = {'action':'pull', 
-              'automation':'repo',
-              'artifact':repo_name,
-              'out':'con'}
+        if not skip:
 
-        if repo_branch !='':
-            ii['branch'] = repo_branch
+            print ('')
+            print ('Pulling default automation repository ...')
 
-        return cmind.access(ii)
+            print ('')
+            ii = {'action':'pull', 
+                  'automation':'repo',
+                  'out':'con'}
+
+            if repo_url != '':
+                ii['url'] = repo_url
+            elif repo_name != '':
+                ii['artifact'] = repo_name
+
+            if repo_branch !='':
+                ii['branch'] = repo_branch
+
+            rr = cmind.access(ii)
+
+        return rr
 
     ###############################################################
     def install_system_packages(self, quiet):
@@ -215,9 +225,10 @@ class CAutomation(Automation):
           (CM input dict):
 
           (quiet) (bool): if True, skip asking questions about sudo, etc
-          (repo) (str): automation repository to pull ('mlcommons@cm4mlops' by default) 
+          (repo) (str): main automation repository to pull ('mlcommons@cm4mlops' by default) 
+          (url) (str): main automation repository to pull via url (can use git@ instead of https)
           (branch) (str): branch to use ('' by default)
-
+          (skip) (bool): skip pulling main automation repository
 
         Returns:
           (CM return dict):
@@ -230,12 +241,16 @@ class CAutomation(Automation):
 
         quiet = i.get('quiet', False)
 
-        repo_name = i.get('repo', '')
-        if repo_name == '': repo_name = 'mlcommons@cm4mlops'
+        skip = i.get('skip', False)
+
+        repo_name = i.get('repo', '').strip()
+        repo_url = i.get('url', '').strip()
+        if repo_url == '' and repo_name == '': 
+            repo_name = 'mlcommons@cm4mlops'
 
         repo_branch = i.get('branch', '')
 
-        r = cm_init.run(quiet = quiet, repo_name = repo_name, repo_branch = repo_branch)
+        r = cm_init.run(quiet = quiet, skip = skip, repo_name = repo_name, repo_url = repo_url, repo_branch = repo_branch)
         if r['return']>0: return r
 
         warning = r.get('warning', '')

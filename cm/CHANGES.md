@@ -1,3 +1,7 @@
+## V2.3.8
+   - added `--skip` and `--url` flags to `cm init`
+   - added support to pull CM repos using --url with "git@"
+
 ## V2.3.7
    - added cmind.core.debug to make it easier to debug CM automations
    - added env CM_CORE_SKIP_FIX_REPO_PATH to skip fixing non-existent repo paths
