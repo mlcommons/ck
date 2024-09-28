@@ -55,9 +55,9 @@ CK consists of several ongoing sub-projects:
 
 ### Incubator
 
-We are preparing new projects based on user feedback:
+We are preparing new projects based on user feedback - please contact [Grigori Fursin](https://cKnowledge.org/gfursin) for more details:
 * [The next generation of CM](_incubator/cm-next-gen) *(prototyping stage)*
-* [The crowd-testing infrastructure for CM4MLOps and CM4MLPerf](_incubator/cm4mlops-testing) *(brainstorming stage)*
+* [Collaborative testing of MLPerf benchmarks](_incubator/cm4mlops-testing) *(brainstorming stage)*
 
 
 ### License
