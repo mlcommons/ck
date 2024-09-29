@@ -233,8 +233,12 @@ def parse(cmd):
                key = a[:j].strip()
                value = a[j+1:].strip()
             else:
-               key=a
-               value=True
+               if a.endswith('-'):
+                   key=a[:-1]
+                   value=False
+               else:
+                   key=a
+                   value=True
 
             if key.startswith('-'): key=key[1:]
             if key.startswith('-'): key=key[1:]
