@@ -15,7 +15,8 @@ from cmind import utils
 
 class CMInit():
     ###############################################################
-    def run(self, quiet = False, skip = False, repo_name = 'mlcommons@cm4mlops', repo_url = '', repo_branch = ''):
+    def run(self, quiet = False, skip = False, repo_name = 'mlcommons@cm4mlops', repo_url = '', 
+                  repo_branch = '', repo_checkout = ''):
         import cmind
 
         print ('Checking platform information ...')
@@ -46,6 +47,9 @@ class CMInit():
 
             if repo_branch !='':
                 ii['branch'] = repo_branch
+
+            if repo_checkout !='':
+                ii['checkout'] = repo_checkout
 
             rr = cmind.access(ii)
 
@@ -228,6 +232,7 @@ class CAutomation(Automation):
           (repo) (str): main automation repository to pull ('mlcommons@cm4mlops' by default) 
           (url) (str): main automation repository to pull via url (can use git@ instead of https)
           (branch) (str): branch to use ('' by default)
+          (checkout) (str): Git checkout ('' by default)
           (skip) (bool): skip pulling main automation repository
           (min) (bool): the same as `skip`
 
@@ -252,8 +257,14 @@ class CAutomation(Automation):
             repo_name = 'mlcommons@cm4mlops'
 
         repo_branch = i.get('branch', '')
+        repo_checkout = i.get('checkout', '')
 
-        r = cm_init.run(quiet = quiet, skip = skip, repo_name = repo_name, repo_url = repo_url, repo_branch = repo_branch)
+        r = cm_init.run(quiet = quiet, 
+                        skip = skip, 
+                        repo_name = repo_name, 
+                        repo_url = repo_url, 
+                        repo_branch = repo_branch,
+                        repo_checkout = repo_checkout)
         if r['return']>0: return r
 
         warning = r.get('warning', '')

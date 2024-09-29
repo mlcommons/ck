@@ -1,5 +1,6 @@
 ## V2.3.8.1
    - added `--min` == `--skip` to `cm init` for readability
+   - added `--checkout` to `cm init` to handle checkout
 
 ## V2.3.8
    - added `--skip` and `--url` flags to `cm init`
