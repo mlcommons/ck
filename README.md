@@ -72,8 +72,7 @@ We are preparing new projects based on user feedback - please contact [Grigori F
 
 ### Documentation
 
-**MLCommons is updating the CM documentation based on user feedback - please check stay tuned for more details**.
-
+* [CM installation GUI](https://access.cknowledge.org/playground/?action=install)
 * [CM Getting Started Guide and FAQ](docs/getting-started.md)
   * [Common CM interface to run MLPerf inference benchmarks](docs/mlperf/inference)
   * [Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23](docs/tutorials/common-interface-to-reproduce-research-projects.md)

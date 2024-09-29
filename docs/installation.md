@@ -224,7 +224,7 @@ for MLOps and MLPerf.
 You can skip installation of this repository and use the standard CM command to pull this repo
 as follows:
 ```bash
-cm init --skip
+cm init --min
 cm pull repo mlcommons@cm4mlops
 ```
 
