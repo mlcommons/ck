@@ -17,12 +17,10 @@
 
 </details>
 
-
-***Check our new [online installation GUI](https://access.cknowledge.org/playground/?action=install)***.
+**Last revision of this document: September 29, 2024**
 
 
 # CM installation
-
 
 
 
@@ -31,6 +29,12 @@ However, most CM automation recipes shared by the community and MLCommons requir
 
 ***By default, CM will pull Git repositories and cache installations and downloaded files in your `$HOME/CM` directory (Linux/MacOS). 
    You can change it to any another directory using the `CM_REPOS` environment variable, for example `export CM_REPOS=/scratch/CM`.***
+
+***We suggest you not to install `cm4mlops` package via PIP since you can't control installation of the CM framework and repositories 
+   and it doesn't handle CM errors properly - use a newer version of `cm init` after installing `cmind` package as described below.***
+
+***Feel free to use the [online installation GUI](https://access.cknowledge.org/playground/?action=install)***.
+
 
 Here are typical installation procedures across different operating systems:
 
@@ -173,6 +177,7 @@ python -m pip install cmind
 *We plan to provide a self-sustained package in the future to simplify CM installation on Windows.*
 
 
+
 # CM CLI testing
 
 If the installation is successful, you can run the CM CLI as follows:
@@ -203,6 +208,24 @@ GitHub for CM developments:        https://github.com/mlcommons/ck/tree/master/c
 GitHub for CM automation scripts:  https://github.com/mlcommons/ck/tree/master/cm-mlops
 Reporting issues and ideas:        https://github.com/mlcommons/ck/issues
 Joining the open MLPerf workgroup: https://cKnowledge.org/mlcommons-taskforce
+```
+
+# CM init
+
+Use the following command to test CM system dependencies (git, wget, curl, etc):
+
+```bash
+cm init
+```
+
+Note that it will also install stable `cm4mlops` repository with the automation recipes
+for MLOps and MLPerf.
+
+You can skip installation of this repository and use the standard CM command to pull this repo
+as follows:
+```bash
+cm init --skip
+cm pull repo mlcommons@cm4mlops
 ```
 
 # CUDA installation
