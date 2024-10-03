@@ -1,3 +1,7 @@
+## V2.3.9.1
+   - added `install_python_requirements` to the CM repo description (cmr.yaml)
+     to install requirements to a current python with CM installation if needed
+
 ## V2.3.9
    - added `--min` == `--skip` to `cm init` for readability
    - added `--checkout` to `cm init` to handle checkout
