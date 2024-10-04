@@ -1,4 +1,4 @@
-## V2.3.9.1
+## V2.4.0
    - added `install_python_requirements` to the CM repo description (cmr.yaml)
      to install requirements to a current python with CM installation if needed
 
