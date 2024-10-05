@@ -55,9 +55,9 @@ CK consists of several ongoing sub-projects:
 
 ### Incubator
 
-We are preparing new projects based on user feedback:
+We are preparing new projects based on user feedback - please contact [Grigori Fursin](https://cKnowledge.org/gfursin) for more details:
 * [The next generation of CM](_incubator/cm-next-gen) *(prototyping stage)*
-* [The crowd-testing infrastructure for CM4MLOps and CM4MLPerf](_incubator/cm4mlops-testing) *(brainstorming stage)*
+* [Collaborative testing of MLPerf benchmarks](_incubator/cm4mlops-testing) *(brainstorming stage)*
 
 
 ### License
@@ -72,8 +72,7 @@ We are preparing new projects based on user feedback:
 
 ### Documentation
 
-**MLCommons is updating the CM documentation based on user feedback - please check stay tuned for more details**.
-
+* [CM installation GUI](https://access.cknowledge.org/playground/?action=install)
 * [CM Getting Started Guide and FAQ](docs/getting-started.md)
   * [Common CM interface to run MLPerf inference benchmarks](docs/mlperf/inference)
   * [Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23](docs/tutorials/common-interface-to-reproduce-research-projects.md)

@@ -1,3 +1,14 @@
+## V2.4.0
+   - added `install_python_requirements` to the CM repo description (cmr.yaml)
+     to install requirements to a current python with CM installation if needed
+
+## V2.3.9
+   - added `--min` == `--skip` to `cm init` for readability
+   - added `--checkout` to `cm init` to handle checkout
+   - added support to set CLI parameter to False if it ends with `-`, 
+     i.e. `--no-cache-` -> `i['no_cache'] = False`
+     `--no-cache` -> `i['no_cache'] = True`
+
 ## V2.3.8
    - added `--skip` and `--url` flags to `cm init`
    - added support to pull CM repos using --url with "git@"

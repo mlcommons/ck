@@ -1792,3 +1792,35 @@ def check_if_none_false_no_off(env, key):
 
     return str(env.get(key, '')).lower() in ['none', 'false', 'no', 'off']
 
+##############################################################################
+def convert_dictionary(d, key, sub = True):
+    """
+    Grigori added to gradually clean up very complex "cm docker scrpit" implementation
+
+    Convert dictionary into flat dictionary with key prefix
+
+    Example input:
+      d = {'cfg':True, 'no-cache':True}
+      key = 'docker'
+      sub = True
+    Example output:
+      d = {'docker_cfg': True, 'docker_no_cache': True}
+
+    Args:    
+
+       d (dict): dictionary
+       key (str): key
+
+    Returns:
+       True if str(env.get(key, '')).lower() in ['false', 'no', 'off']:
+    """
+
+    dd = {}
+
+    for k in d:
+        kk = k.replace('-', '_') if sub else k
+
+        dd[key + '_' + kk] = d[k]
+
+    return dd
+

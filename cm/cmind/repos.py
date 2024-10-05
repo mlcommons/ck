@@ -547,6 +547,26 @@ class Repos:
 
         warnings = r.get('warnings', [])
 
+        # Check if need to install requirements
+        install_python_requirements = meta.get('install_python_requirements', False)
+
+        if install_python_requirements:
+            import sys
+
+            python_exec = sys.executable
+
+            cmd = python_exec + ' -m pip install -r requirements.txt'
+
+            if console:
+                print ('')
+                print (cmd)
+                print ('')
+
+            r = os.system(cmd)
+
+            if r>0:
+                return {'return':1, 'error':'pip install -r requirements failed for this CM repository'}
+
         # Go back to original directory
         os.chdir(cur_dir)
 
