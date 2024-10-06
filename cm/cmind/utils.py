@@ -1143,6 +1143,64 @@ def assemble_cm_object2(cm_obj):
     return assemble_cm_object(cm_obj[0], cm_obj[1])
 
 ###########################################################################
+def process_input(i, update_input = True):
+    """
+    Process automation, artifact and artifacts from i['control']
+
+    Args:    
+       control['_unparsed_automation']
+       control['_unparsed_artifact']
+       control['_unparsed_artifacts']
+
+    Returns: 
+       (dict)
+          name
+          alias
+
+    """
+
+    control = i['control']
+
+    for k in ['_parsed_automation', '_parsed_artifact']:
+        if k in control:
+            a = process_input_helper(control[k])
+            control[k[7:]] = a
+
+    if '_parsed_artifacts' in control:
+        control['_artifacts'] = []
+        for artifact in control['_parsed_artifacts']:
+            control['_artifacts'].append(process_input_helper(artifact))
+
+    if update_input:
+        for k in ['_automation', '_artifact', '_artifacts']:
+            if k in control:
+                i[k[1:]] = control[k]
+       
+
+    return {'return':0}
+
+def process_input_helper(cm_obj):
+    cm_artifact = ''
+
+    if len(cm_obj)>0:
+        cm_obj_artifact = cm_obj.pop(0)
+
+        cm_artifact_alias = cm_obj_artifact[0]
+        cm_artifact_uid = cm_obj_artifact[1]
+
+        cm_artifact = assemble_cm_object(cm_artifact_alias, cm_artifact_uid)
+
+    if len(cm_obj)>0:
+        cm_obj_repo = cm_obj.pop(0)
+
+        cm_repo_alias = cm_obj_repo[0]
+        cm_repo_uid = cm_obj_repo[1]
+
+        cm_artifact = assemble_cm_object(cm_repo_alias, cm_repo_uid) + ':' + cm_artifact
+
+    return cm_artifact
+
+###########################################################################
 def dump_safe_json(i):
     """
     Dump safe JSON

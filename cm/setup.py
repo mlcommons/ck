@@ -58,7 +58,7 @@ repo_dirs=['']
 for artifact in repo:
     directory=os.path.join(artifact[0], '*')
     ignore=False
-    for ignore_dir in ['__pycache__', 'build', 'egg-info', 'dist']:
+    for ignore_dir in ['__pycache__', 'build', 'egg-info', 'dist', 'dev', 'docs']:
         if ignore_dir in directory:
             ignore=True
             break
@@ -99,6 +99,7 @@ setup(
     entry_points={"console_scripts": [
                       "cmind = cmind.cli:run",
                       "cm = cmind.cli:run",
+                      "cmx = cmind.cli:runx",
                       "cmr = cmind.cli:run_script",
                       "cmrd = cmind.cli:docker_script",
                       "cmg = cmind.cli:gui_script",
