@@ -1,3 +1,6 @@
+## V3.0.1
+   - fixed minor bug in CM core
+
 ## V3.0.0
    - added `min_cm_version` to the CM repo description (cmr.yaml)
      to check compatibility of repositories with CM. 

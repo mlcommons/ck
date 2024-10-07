@@ -985,6 +985,9 @@ class CM(object):
                 automation_use_x = False
 
         # Check if action exists
+        print_automation = automation_meta.get('alias','') + ',' + automation_meta.get('uid','')
+        initialized_automation.artifact = print_automation
+
         if not hasattr(initialized_automation, action):
             return {'return':4, 'error':f'action "{action}" not found in automation "{print_automation}"'}
         else:
@@ -1003,9 +1006,6 @@ class CM(object):
         # Check action in a class when importing
         if use_any_action:
             action = 'any'
-
-        print_automation = automation_meta.get('alias','') + ',' + automation_meta.get('uid','')
-        initialized_automation.artifact = print_automation
 
         # Check if help about automation actions
         if action == 'help':
