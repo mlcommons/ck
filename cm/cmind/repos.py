@@ -537,6 +537,14 @@ class Repos:
             if not os.path.isdir(path_to_repo_with_prefix):
                 os.makedirs(path_to_repo_with_prefix)
 
+        # Check min CM version requirement
+        min_cm_version = meta.get('min_cm_version','').strip()
+        if min_cm_version != '':
+            from cmind import __version__ as current_cm_version
+            comparison = utils.compare_versions(current_cm_version, min_cm_version)
+            if comparison < 0:
+                return {'return':1, 'error':'This repository requires CM version >= {} while current CM version is {} - please update using "pip install cmind -U"'.format(min_cm_version, current_cm_version)}
+
         # Get final alias
         alias = meta.get('alias', '')
 
@@ -660,11 +668,12 @@ class Repos:
             if r['return']>0: return r
 
             # Check requirements.txt
-            path_to_requirements = os.path.join(path_to_repo, 'requirements.txt')
-
-            if not os.path.isfile(path_to_requirements):
-                r = utils.save_txt(file_name = path_to_requirements, string = self.cfg['new_repo_requirements'])
-                if r['return']>0: return r
+            # 20241006: Moved the check for min cmind version to _cmr.yaml
+#            path_to_requirements = os.path.join(path_to_repo, 'requirements.txt')
+#
+#            if not os.path.isfile(path_to_requirements):
+#                r = utils.save_txt(file_name = path_to_requirements, string = self.cfg['new_repo_requirements'])
+#                if r['return']>0: return r
 
         else:
             r=utils.load_yaml_and_json(file_name_without_ext=path_to_repo_desc)

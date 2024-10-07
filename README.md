@@ -11,53 +11,36 @@
 
 ### About
 
-Collective Knowledge (CK) in a community project to develop open-source tools, platforms and automation recipes 
-that can help researchers and engineers automate their repetitive, tedious and time-consuming tasks
+[Collective Knowledge (CK)](https://cKnowledge.org) in an educational project
+to help researchers and engineers automate their repetitive, tedious and time-consuming tasks
 to build, run, benchmark and optimize AI, ML and other applications and systems 
 across diverse and continuously changing models, data, software and hardware.
 
-CK consists of several ongoing sub-projects:
+CK consists of several sub-projects:
 
 * [Collective Mind framework (CM)](cm) - a very light-weight Python-based framework with minimal dependencies
   to help users implement, share and reuse cross-platform automation recipes to 
   build, benchmark and optimize applications on any platform
-  with any software and hardware. CM attempts to extends the `cmake` concept 
-  with reusable automation recipes and workflows written in plain Python or native OS scripts,
-  accessible via a human readable interface with simple tags,
-  and shareable in public and private repositories in a decentralized way.
-  Furthermore, in comparison with cmake, these automation recipes can not only detect missing code 
-  but also download artifacts (models, data sets), preprocess them, build missing 
-  dependencies, install them and run the final code on diverse platforms in a unified and automated way.
-  You can learn more about the CM concept from this [white paper](https://arxiv.org/abs/2406.16791) 
-  and the [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339).
+  with any software and hardware. 
 
+  * [CM interface to run MLPerf inference benchmarks](https://docs.mlcommons.org/inference)
 
   * [CM4MLOPS](https://github.com/mlcommons/cm4mlops) - 
     a collection of portable, extensible and technology-agnostic automation recipes
     with a human-friendly interface (aka CM scripts) to unify and automate all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
-    on diverse platforms with any software and hardware: see [online cKnowledge catalog](https://access.cknowledge.org/playground/?action=scripts),
+    on diverse platforms with any software and hardware: see [online catalog at CK playground](https://access.cknowledge.org/playground/?action=scripts),
     [online MLCommons catalog](https://docs.mlcommons.org/cm4mlops/scripts) 
-    and [source code](https://github.com/mlcommons/cm4mlops/blob/master/script).
 
   * [CM4ABTF](https://github.com/mlcommons/cm4abtf) - a unified CM interface and automation recipes
     to run automotive benchmark across different models, data sets, software and hardware from different vendors.
 
-* [Collective Knowledge Playground](https://access.cKnowledge.org) - an external platform being developed by [cKnowledge](https://cKnowledge.org)
+* [Collective Knowledge Playground](https://access.cKnowledge.org) - a unified platform
   to list CM scripts similar to PYPI, aggregate AI/ML Systems benchmarking results in a reproducible format with CM workflows, 
   and organize [public optimization challenges and reproducibility initiatives](https://access.cknowledge.org/playground/?action=challenges) 
-  to find the most performance and cost-effective AI/ML Systems.
+  to co-design more efficient and cost-effiective software and hardware for emerging workloads.
 
-  * [GUI to run modular benchmarks](https://access.cknowledge.org/playground/?action=howtorun) - such benchmarks 
-    are composed from [CM scripts](https://access.cknowledge.org/playground/?action=scripts)
-    and can run via a unified CM interface.
+* [Artifact Evaluation](https://cTuning.org/ae) - automating artifact evaluation and reproducibility initiatives at ML and systems conferences.
 
-  * [MLCommons docs to run MLPerf inference benchmarks from command line via CM](https://docs.mlcommons.org/inference)
-
-### Incubator
-
-We are preparing new projects based on user feedback - please contact [Grigori Fursin](https://cKnowledge.org/gfursin) for more details:
-* [The next generation of CM](_incubator/cm-next-gen) *(prototyping stage)*
-* [Collaborative testing of MLPerf benchmarks](_incubator/cm4mlops-testing) *(brainstorming stage)*
 
 
 ### License
@@ -69,8 +52,15 @@ We are preparing new projects based on user feedback - please contact [Grigori F
 * Copyright (c) 2021-2024 MLCommons
 * Copyright (c) 2014-2021 cTuning foundation
 
+### Motivation and long-term vision
 
-### Documentation
+You can learn more about the motivation behind these projects from the following articles and presentations:
+
+* "Enabling more efficient and cost-effective AI/ML systems with Collective Mind, virtualized MLOps, MLPerf, Collective Knowledge Playground and reproducible optimization tournaments": [ [ArXiv](https://arxiv.org/abs/2406.16791) ] 
+* ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
+* ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
+
+### CM Documentation
 
 * [CM installation GUI](https://access.cknowledge.org/playground/?action=install)
 * [CM Getting Started Guide and FAQ](docs/getting-started.md)
@@ -82,17 +72,6 @@ We are preparing new projects based on user feedback - please contact [Grigori F
 * [CM development tasks](docs/taskforce.md#current-tasks)
 * [CM and CK history](docs/history.md)
 
-
-### Citing CM
-
-If you found CM useful, please cite this article: 
-[ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].
-
-You can learn more about the motivation behind these projects from the following articles and presentations:
-
-* "Enabling more efficient and cost-effective AI/ML systems with Collective Mind, virtualized MLOps, MLPerf, Collective Knowledge Playground and reproducible optimization tournaments": [ [ArXiv](https://arxiv.org/abs/2406.16791) ] 
-* ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
-* ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
 
 ### Acknowledgments
 

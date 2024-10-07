@@ -37,7 +37,8 @@ class Config(object):
                      "flag_help2": "help",
 
                      "error_prefix": "CM error:",
-                     "info_cli": "cm {action} {automation} {artifact(s)} {--flags} @input.yaml @input.json",
+                     "info_cli": "cm {action} {automation} {artifact(s)} {flags} @input.yaml @input.json",
+                     "info_clix": "cmx {action} {automation} {artifact(s)} {flags} @input.yaml @input.json",
 
                      "default_home_dir": "CM",
 
@@ -50,6 +51,7 @@ class Config(object):
                      "file_meta_repo": "cmr",
 
                      "common_automation_module_name": "module",
+                     "common_automation_module_namex": "modulex",
 
                      "action_substitutions": {
                        "ls":"search",
@@ -62,7 +64,7 @@ class Config(object):
                        "cp":"copy"
                      },
 
-                     "new_repo_requirements": "cmind >= 2.0.4\n",
+                     "new_repo_requirements": "cmind >= 3.0.0\n",
 
                      "cmind_automation":"automation",
 

@@ -1,3 +1,17 @@
+## V3.0.1
+   - fixed minor bug in CM core
+
+## V3.0.0
+   - added `min_cm_version` to the CM repo description (cmr.yaml)
+     to check compatibility of repositories with CM. 
+     It is needed to implement new features in CM core and repositories
+     requested by our users that may not work with previous CM versions.
+     Hence, starting a new version.
+
+   - started prototyping a simpler and cleaner version of `cmind.access()`.
+     it should not influence existing automations and workflows 
+     and will co-exist in the future.
+
 ## V2.4.0
    - added `install_python_requirements` to the CM repo description (cmr.yaml)
      to install requirements to a current python with CM installation if needed
