@@ -22,7 +22,7 @@ sudo apt install python3 python3-pip python3-venv git git-lfs wget curl
 python3 -m venv cm
 source cm/bin/activate
 
-python3 -m pip install cmind
+pip install cmind
 ```
 
 Note that you may need to restart your shell to update PATH to the "cmx" binary. 
@@ -33,12 +33,14 @@ Alternatively you can run
 source $HOME/.profile
 ```
 
-You can check that CMX works using the following command:
+You can now check that all system dependencies are installed using the following command:
+```bash
+cmx init
+```
+You can also check that CMX core works using the following command:
 ```bash
 cmx test core
 ```
-
-
 
 ## Red Hat
 
