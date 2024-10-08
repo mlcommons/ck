@@ -16,11 +16,13 @@ from cmind import utils
 class CMInit():
     ###############################################################
     def run(self, quiet = False, skip = False, repo_name = 'mlcommons@cm4mlops', repo_url = '', 
-                  repo_branch = '', repo_checkout = ''):
+                  repo_branch = '', repo_checkout = '', x_was_called = False):
         import cmind
 
         print ('Checking platform information ...')
         self.get_sys_platform()
+
+        print ('[SUCCESS]')
 
         print ('')
         print ('Checking system dependencies ...')
@@ -28,9 +30,12 @@ class CMInit():
         if r['return']>0 or r.get('warning','') !='' :
             return r
 
+        print ('[SUCCESS]')
+
         rr = {'return':0}
 
-        if not skip:
+        # Do not pull extra repositories in CMX
+        if not skip and not x_was_called:
 
             print ('')
             print ('Pulling default automation repository ...')
@@ -259,12 +264,18 @@ class CAutomation(Automation):
         repo_branch = i.get('branch', '')
         repo_checkout = i.get('checkout', '')
 
+        # Check if X was called
+        x_was_called = False
+        if hasattr(self.cmind, 'x_was_called'):
+            x_was_called = self.cmind.x_was_called
+
         r = cm_init.run(quiet = quiet, 
                         skip = skip, 
                         repo_name = repo_name, 
                         repo_url = repo_url, 
                         repo_branch = repo_branch,
-                        repo_checkout = repo_checkout)
+                        repo_checkout = repo_checkout,
+                        x_was_called = x_was_called)
         if r['return']>0: return r
 
         warning = r.get('warning', '')

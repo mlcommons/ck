@@ -1,3 +1,6 @@
+## V3.0.2
+   - fixed cmx init
+
 ## V3.0.1
    - fixed minor bug in CM core
 
