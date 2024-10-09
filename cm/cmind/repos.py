@@ -293,7 +293,8 @@ class Repos:
 
     ############################################################
     def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = '', depth = None, 
-                    path_to_repo = None, checkout_only = False, skip_zip_parent_dir = False):
+                    path_to_repo = None, checkout_only = False, skip_zip_parent_dir = False,
+                    extra_cmd_git = '', extra_cmd_pip = ''):
         """
         Clone or pull CM repository
 
@@ -311,6 +312,9 @@ class Repos:
             (checkout_only) (bool): only checkout Git repository but don't pull
             (skip_zip_parent_dir) (bool): skip parent dir in CM ZIP repo (useful when 
                                           downloading CM repo archives from GitHub)
+            (extra_cmd_git) (str): add this string to git clone
+            (extra_cmd_pip) (str): add this string to pip install when installing
+                                   requirements from CM repositories
 
         Returns: 
             (CM return dict):
@@ -384,11 +388,14 @@ class Repos:
 
                     os.chdir(self.full_path_to_repos)
 
-                    cmd = 'git clone '+url+' '+alias
+                    cmd = 'git clone ' + url + ' ' + alias
 
                     # Check if depth is set
-                    if depth!=None and depth!='':
-                        cmd+=' --depth '+str(depth)
+                    if depth != None and depth != '':
+                        cmd += ' --depth ' + str(depth)
+
+                    if extra_cmd_git !='' :
+                        cmd +=' ' + extra_cmd_git
 
             if console:
                 print (cmd)
@@ -564,6 +571,9 @@ class Repos:
             python_exec = sys.executable
 
             cmd = python_exec + ' -m pip install -r requirements.txt'
+
+            if extra_cmd_pip !='' :
+                cmd +=' ' + extra_cmd_pip
 
             if console:
                 print ('')

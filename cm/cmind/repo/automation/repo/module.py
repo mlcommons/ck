@@ -38,6 +38,9 @@ class CAutomation(Automation):
           (prefix) (str): extra directory to keep CM artifacts
           (skip_zip_parent_dir) (bool): skip parent dir in CM ZIP repo (useful when 
                                         downloading CM repo archives from GitHub)
+          (extra_cmd_git) (str): add this string to git clone
+          (extra_cmd_pip) (str): add this string to pip install when installing
+                                 requirements from CM repositories
 
         Returns:
           (CM return dict):
@@ -55,6 +58,9 @@ class CAutomation(Automation):
         desc = i.get('desc','')
         prefix = i.get('prefix','')
         pat = i.get('pat','')
+
+        extra_cmd_git = i.get('extra_cmd_git', '')
+        extra_cmd_pip = i.get('extra_cmd_pip', '')
 
         checkout_only = i.get('checkout_only', False)
         skip_zip_parent_dir = i.get('skip_zip_parent_dir', False)
@@ -181,7 +187,9 @@ class CAutomation(Automation):
                             depth=depth,
                             path_to_repo=path_to_repo,
                             checkout_only=checkout_only,
-                            skip_zip_parent_dir=skip_zip_parent_dir)
+                            skip_zip_parent_dir=skip_zip_parent_dir,
+                            extra_cmd_git = extra_cmd_git,
+                            extra_cmd_pip = extra_cmd_pip)
              if r['return']>0: return r
 
              repo_meta = r['meta']
