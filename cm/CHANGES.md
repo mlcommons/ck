@@ -1,3 +1,8 @@
+## V3.0.3
+   - added -raise for https://github.com/mlcommons/ck/issues/1309
+   - added --extra_cmd_git and --extra_cmd_pip to cm/cmx pull repo
+     https://github.com/mlcommons/ck/issues/1308
+
 ## V3.0.2
    - fixed cmx init
 

@@ -657,7 +657,7 @@ class CM(object):
             * Output from a CM automation action
         """
 
-        # Check if first access call
+        # Check if very first access call
         x_was_called = self.x_was_called
         self.x_was_called = True
 
@@ -698,6 +698,36 @@ class CM(object):
         # Check if force out programmatically (such as from CLI)
         if 'out' not in control and out is not None:
             control['out'] = out
+
+        use_raise = control.get('raise', False)
+
+        # Call access helper
+        r = self._x(i, control)
+        
+        if not x_was_called:
+            # Very first call (not recursive)
+            # Check if output to json and save file
+
+            if self.output == 'json':
+               utils.dump_safe_json(r)
+
+            # Check if save to json
+            if control.get('save_to_json_file', '') != '':
+               utils.save_json(control['save_to_json_file'], meta = r)
+
+            if control.get('save_to_yaml_file', '') != '':
+               utils.save_yaml(control['save_to_yaml_file'], meta = r)
+
+            if use_raise and r['return']>0:
+                raise Exception(r['error'])
+
+        return r
+
+    ############################################################
+    def _x(self, i, control):
+        """
+        CMX access helper
+        """
 
         output = control.get('out', '')
 
@@ -1122,20 +1152,6 @@ class CM(object):
             print (delayed_help_api_prefix)
             print ('')
             print (delayed_help_api)
-        
-        if not x_was_called:
-            # Very first call (not recursive)
-            # Check if output to json and save file
-
-            if self.output == 'json':
-               utils.dump_safe_json(r)
-
-            # Check if save to json
-            if control.get('save_to_json_file', '') != '':
-               utils.save_json(control['save_to_json_file'], meta = r)
-
-            if control.get('save_to_yaml_file', '') != '':
-               utils.save_yaml(control['save_to_yaml_file'], meta = r)
 
         return r
 
