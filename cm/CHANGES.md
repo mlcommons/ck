@@ -1,3 +1,6 @@
+## V3.0.2.1
+   - added -raise for https://github.com/mlcommons/ck/issues/1309
+
 ## V3.0.2
    - fixed cmx init
 
