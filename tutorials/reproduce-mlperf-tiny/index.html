@@ -1,0 +1,787 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../img/logo_v2.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
+    
+    
+      
+        <title>Reproduce mlperf tiny - Collective Mind Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tutorial-reproducibility-study-for-tinymlperf-submission-with-microtvm-and-nucleo-l4r5zi-board-from-stmicroelecronics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Collective Mind Documentation" class="md-header__button md-logo" aria-label="Collective Mind Documentation" data-md-component="logo">
+      
+  <img src="../../img/logo_v2.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Collective Mind Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Reproduce mlperf tiny
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mlcommons/ck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../install/" class="md-tabs__link">
+          
+  
+    
+  
+  Install
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../specs/cm-cli/" class="md-tabs__link">
+          
+  
+    
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../news/" class="md-tabs__link">
+          
+  
+    
+  
+  Release Notes
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Collective Mind Documentation" class="md-nav__button md-logo" aria-label="Collective Mind Documentation" data-md-component="logo">
+      
+  <img src="../../img/logo_v2.svg" alt="logo">
+
+    </a>
+    Collective Mind Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mlcommons/ck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../install/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Install
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Install
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/cm-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CM CLI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Release Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../news/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What's New
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install-software-and-setup-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install software and setup hardware
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-all-benchmarks-from-octomls-v10-submission" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build all benchmarks from OctoML's v1.0 submission
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flash" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flash
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generate-submission" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate submission
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-submission-checker-and-prepare-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run submission checker and prepare report
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-results-to-the-ck-platform" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import results to the CK platform
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualize-and-compare-tinymlperf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualize and compare TinyMLPerf
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      The next steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contact-mlcommons-task-force-on-automation-and-reproducibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contact MLCommons task force on automation and reproducibility
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<p>[ <a href="../README.md">Back to index</a> ]</p>
+<details>
+<summary>Click here to see the table of contents.</summary>
+
+* [Tutorial: reproducibility study for TinyMLPerf submission with MicroTVM and NUCLEO-L4R5ZI board from STMicroelecronics](#tutorial-reproducibility-study-for-tinymlperf-submission-with-microtvm-and-nucleo-l4r5zi-board-from-stmicroelecronics)
+  * [Install software and setup hardware](#install-software-and-setup-hardware)
+  * [Build all benchmarks from OctoML's v1.0 submission](#build-all-benchmarks-from-octoml's-v10-submission)
+  * [Flash](#flash)
+  * [Generate submission](#generate-submission)
+  * [Run submission checker and prepare report](#run-submission-checker-and-prepare-report)
+  * [Import results to the CK platform](#import-results-to-the-ck-platform)
+  * [Visualize and compare TinyMLPerf](#visualize-and-compare-tinymlperf)
+  * [The next steps](#the-next-steps)
+  * [Contact MLCommons task force on automation and reproducibility](#contact-mlcommons-task-force-on-automation-and-reproducibility)
+
+</details>
+
+<h1 id="tutorial-reproducibility-study-for-tinymlperf-submission-with-microtvm-and-nucleo-l4r5zi-board-from-stmicroelecronics">Tutorial: reproducibility study for TinyMLPerf submission with MicroTVM and NUCLEO-L4R5ZI board from STMicroelecronics</h1>
+<p>The <a href="https://github.com/mlcommons/ck/blob/master/docs/taskforce.md">MLCommons task force on automation and reproducibility</a>,
+<a href="https://www.linkedin.com/company/ctuning-foundation">cTuning foundation</a> and <a href="https://www.linkedin.com/company/cknowledge">cKnowledge Ltd</a>
+organize public challenges to let the community run, visualize and optimize MLPerf benchmarks 
+out of the box across diverse software, hardware, models and data.</p>
+<p>This tutorial demonstrates how to run and/or reproduce Tiny MLPerf benchmark (OctoML v1.0 submission)
+with the help of the <a href="https://github.com/mlcommons/ck/blob/master/docs/README.md">MLCommons CM automation language</a>.</p>
+<p>You will build, flash and run image classification and keyword spotting applications
+using <a href="https://tvm.apache.org/docs/topic/microtvm/index.html">microTVM compiler</a>
+on the <a href="https://estore.st.com/en/nucleo-l4r5zi-cpn.html">NUCLEO-L4R5ZI board</a>
+from STMicroelectronics.</p>
+<p>You will need ~12GB of disk space and it will take ~20..30 minutes to download all dependencies 
+and build TinyMLPerf benchmarks depending on your Internet and host platform speed.</p>
+<p>Benchmark compilation and device flashing can be done on any Linux-based platform
+while running benchmark using EEMBC GUI can be done on Linux and Windows.</p>
+<p>If you have any questions about this tutorial, please get in touch via our public <a href="https://discord.gg/JjWNWXKxwT">Discord server</a>
+or open a GitHub issue <a href="https://github.com/mlcommons/ck/issues">here</a>.</p>
+<h2 id="install-software-and-setup-hardware">Install software and setup hardware</h2>
+<p>Please follow <a href="../automate-mlperf-tiny/">this tutorial</a>
+to install the MLCommons CM automation language, EEMBC Energy Runner and other software dependencies for your host platform,
+and setup NUCLEO-L4R5ZI board from STMicroelecronics.</p>
+<p>We reproduced/replicated OctoML's v1.0 submission using a host machine with Ubuntu 20.04 and Python 3.8.10.</p>
+<h2 id="build-all-benchmarks-from-octomls-v10-submission">Build all benchmarks from OctoML's v1.0 submission</h2>
+<p>You can use CM script to automatically build all benchmarks in all variants to reproduce OctoML's v1.0 submission:</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span>--tags<span class="o">=</span>generate,tiny,mlperf,octoml,submission
+</code></pre></div>
+<p>The main CM scripts which automatically gets called from the above command are given below.</p>
+<ol>
+<li><a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results">Build Tiny Models</a></li>
+<li><a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script/flash-tinyml-binary">Flash Tiny Models</a></li>
+<li><a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr">Get Zephyr</a></li>
+<li><a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk">Get Zephyr SDK</a></li>
+<li><a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm">Get MictoTVM</a></li>
+<li><a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmsis_5">GET CMSIS_5</a></li>
+</ol>
+<p>The above command should produce five elf binaries which can be located inside the respective cache entries given by the below command
+<div class="highlight"><pre><span></span><code>cm show cache --tags=reproduce,tiny,octoml,mlperf
+</code></pre></div></p>
+<h2 id="flash">Flash</h2>
+<p>To flash each benchmark, follow the command bellow. Make sure to replace <code>VARIANT</code> by either <code>cmsis_nn</code> or <code>native</code>. 
+You need to specify the model by replacing <code>MODEL</code> with a value from (<code>ad</code>, <code>kws</code>, <code>ic</code>, <code>vww</code>). 
+Finally, you need to choose <code>_NUCLEO</code> or <code>_NRF</code> to specify the target board to flash.</p>
+<div class="highlight"><pre><span></span><code>cm run script --tags=flash,tiny,_VARIANT,_MODEL,_BOARD
+</code></pre></div>
+<p>We have tested the following combinations:</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span>--tags<span class="o">=</span>flash,tiny,_cmsis_nn,_ic,_NUCLEO
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span>--tags<span class="o">=</span>flash,tiny,_native,_ic,_NUCLEO
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span>--tags<span class="o">=</span>flash,tiny,_cmsis_nn,_kws,_NUCLEO
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span>--tags<span class="o">=</span>flash,tiny,_native,_kws,_NUCLEO
+</code></pre></div>
+<p>After each flashing, follow the <a href="https://github.com/eembc/energyrunner#software-setup">EEMBC Runner guide</a>
+to run benchmark in performance and accuracy modes.</p>
+<p>You can find the logs after each run in the following directory on your host machine:
+<code>$HOME/eembc/runner/sessions</code>.</p>
+<h2 id="generate-submission">Generate submission</h2>
+<p><a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission">Under development</a>.</p>
+<h2 id="run-submission-checker-and-prepare-report">Run submission checker and prepare report</h2>
+<p>Follow this <a href="https://github.com/ctuning/mlcommons-ck/blob/master/cm-mlops/script/generate-mlperf-tiny-report/README-extra.md">guide</a>.</p>
+<h2 id="import-results-to-the-ck-platform">Import results to the CK platform</h2>
+<p>Follow this <a href="https://github.com/mlcommons/ck/blob/master/cm-mlops/script/import-mlperf-tiny-to-experiment/README-extra.md">guide</a></p>
+<h2 id="visualize-and-compare-tinymlperf">Visualize and compare TinyMLPerf</h2>
+<p>You can visualize and compare TinyMLPerf results <a href="https://access.cknowledge.org/playground/?action=experiments&amp;tags=mlperf-tiny">here</a>.
+You can use this collaborative platform inside your organization to reproduce and optimize benchmarks and applications of your interest.</p>
+<h2 id="the-next-steps">The next steps</h2>
+<p>Please follow the rest of this <a href="../automate-mlperf-tiny/">tutorial</a> 
+to see how to visualize and compare your results, and learn more about our future automation plans.</p>
+<h2 id="contact-mlcommons-task-force-on-automation-and-reproducibility">Contact MLCommons task force on automation and reproducibility</h2>
+<p>Please join the <a href="https://github.com/mlcommons/ck/blob/master/docs/taskforce.md">MLCommons task force on automation and reproducibility</a>
+to get free help to automate and optimize MLPerf benchmarks for your software and hardware stack using the MLCommons CM automation language!</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.tabs.link", "content.code.copy", "navigation.expand", "navigation.sections", "navigation.indexes", "navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+    
+  </body>
+</html>
