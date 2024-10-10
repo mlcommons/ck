@@ -1163,24 +1163,33 @@ def process_input(i, update_input = True):
 
     for k in ['_parsed_automation', '_parsed_artifact']:
         if k in control:
-            a = process_input_helper(control[k])
-            control[k[7:]] = a
+            r = process_input_helper(control[k])
+
+            for kk in ['cm_artifact', 'cm_artifact_name', 'cm_artifact_repo']:
+                control[k[7:] + kk[11:]] = r[kk]
 
     if '_parsed_artifacts' in control:
         control['_artifacts'] = []
+        control['_artifacts_name'] = []
+        control['_artifacts_repo'] = []
         for artifact in control['_parsed_artifacts']:
-            control['_artifacts'].append(process_input_helper(artifact))
+            r = process_input_helper(artifact)
+            for kk in ['cm_artifact', 'cm_artifact_name', 'cm_artifact_repo']:
+                control['_artifacts' + kk[11:]].append(r[kk])
 
     if update_input:
-        for k in ['_automation', '_artifact', '_artifacts']:
+        for k in ['_automation', '_automation_name', '_automation_repo',
+                  '_artifact', '_artifact_name', '_artifact_repo',
+                  '_artifacts', '_artifacts_name', '_artifacts_repo']:
             if k in control:
                 i[k[1:]] = control[k]
-       
 
     return {'return':0}
 
 def process_input_helper(cm_obj):
     cm_artifact = ''
+    cm_artifact_name = ''
+    cm_artifact_repo = ''
 
     if len(cm_obj)>0:
         cm_obj_artifact = cm_obj.pop(0)
@@ -1188,7 +1197,9 @@ def process_input_helper(cm_obj):
         cm_artifact_alias = cm_obj_artifact[0]
         cm_artifact_uid = cm_obj_artifact[1]
 
-        cm_artifact = assemble_cm_object(cm_artifact_alias, cm_artifact_uid)
+        cm_artifact_name = assemble_cm_object(cm_artifact_alias, cm_artifact_uid)
+
+        cm_artifact = cm_artifact_name
 
     if len(cm_obj)>0:
         cm_obj_repo = cm_obj.pop(0)
@@ -1196,9 +1207,13 @@ def process_input_helper(cm_obj):
         cm_repo_alias = cm_obj_repo[0]
         cm_repo_uid = cm_obj_repo[1]
 
-        cm_artifact = assemble_cm_object(cm_repo_alias, cm_repo_uid) + ':' + cm_artifact
+        cm_artifact_repo = assemble_cm_object(cm_repo_alias, cm_repo_uid)
 
-    return cm_artifact
+        cm_artifact = cm_artifact_repo + ':' + cm_artifact
+
+    return {'cm_artifact':cm_artifact, 
+            'cm_artifact_name': cm_artifact_name, 
+            'cm_artifact_repo': cm_artifact_repo}
 
 ###########################################################################
 def dump_safe_json(i):
