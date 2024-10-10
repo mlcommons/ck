@@ -1,3 +1,6 @@
+## V3.1.0
+   - simplified and changed process_input function API
+
 ## V3.0.4
    - splitted automation, artifact and artifacts into name and repo 
      in the access function to simplify handling of artifacts:

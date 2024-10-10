@@ -638,7 +638,7 @@ def is_cm_uid(obj):
     return True
 
 ###########################################################################
-def parse_cm_object(obj, max_length = 2):
+def parse_cm_object(obj, max_length = 2, decompose = False):
     """
     Parse CM object in string and return tuple of CM objects.
 
@@ -709,8 +709,12 @@ def parse_cm_object(obj, max_length = 2):
 
         cm_object.insert(0, sub_object)
 
-    return {'return':0, 'cm_object':cm_object}
+    rr = {'return':0, 'cm_object':cm_object}
 
+    if decompose:
+        rr['decomposed_object'] = decompose_cm_obj(cm_object)
+
+    return rr
 
 ###########################################################################
 def match_objects(uid, alias, uid2, alias2, more_strict = False):
@@ -1153,9 +1157,7 @@ def process_input(i, update_input = True):
        control['_unparsed_artifacts']
 
     Returns: 
-       (dict)
-          name
-          alias
+       TBD
 
     """
 
@@ -1163,33 +1165,57 @@ def process_input(i, update_input = True):
 
     for k in ['_parsed_automation', '_parsed_artifact']:
         if k in control:
-            r = process_input_helper(control[k])
-
-            for kk in ['cm_artifact', 'cm_artifact_name', 'cm_artifact_repo']:
-                control[k[7:] + kk[11:]] = r[kk]
+            x = decompose_cm_obj(control[k])
+            control[k[7:]] = x
+            del(control[k])
 
     if '_parsed_artifacts' in control:
         control['_artifacts'] = []
-        control['_artifacts_name'] = []
-        control['_artifacts_repo'] = []
         for artifact in control['_parsed_artifacts']:
-            r = process_input_helper(artifact)
-            for kk in ['cm_artifact', 'cm_artifact_name', 'cm_artifact_repo']:
-                control['_artifacts' + kk[11:]].append(r[kk])
+            x = decompose_cm_obj(artifact)
+            control['_artifacts'].append(x)
+        del(control['_parsed_artifacts'])
 
     if update_input:
-        for k in ['_automation', '_automation_name', '_automation_repo',
-                  '_artifact', '_artifact_name', '_artifact_repo',
-                  '_artifacts', '_artifacts_name', '_artifacts_repo']:
+        for k in ['_automation', '_artifact']:
             if k in control:
-                i[k[1:]] = control[k]
+                i[k[1:]] = control[k]['artifact']
+
+        artifacts = control.get('_artifacts', [])
+
+        if len(artifacts)>0:
+            i['artifacts'] = []
+            for a in artifacts:
+                i['artifacts'].append(a['artifact'])
 
     return {'return':0}
 
-def process_input_helper(cm_obj):
+###########################################################################
+def decompose_cm_obj(cm_obj):
+    """
+    Decompose CM object into dictionary
+
+    Args:    
+      cm_obj (CM object)
+
+    Returns: 
+       (dict)
+         artifact (str)
+         name (str)
+         name_alias (str)
+         name_uid (str)
+         repo (str)
+         repo_alias (str)
+         repo_uid (str)
+
+    """
     cm_artifact = ''
     cm_artifact_name = ''
+    cm_artifact_name_alias = ''
+    cm_artifact_name_uid = ''
     cm_artifact_repo = ''
+    cm_artifact_repo_alias = ''
+    cm_artifact_repo_uid = ''
 
     if len(cm_obj)>0:
         cm_obj_artifact = cm_obj.pop(0)
@@ -1204,16 +1230,20 @@ def process_input_helper(cm_obj):
     if len(cm_obj)>0:
         cm_obj_repo = cm_obj.pop(0)
 
-        cm_repo_alias = cm_obj_repo[0]
-        cm_repo_uid = cm_obj_repo[1]
+        cm_artifact_repo_alias = cm_obj_repo[0]
+        cm_artifact_repo_uid = cm_obj_repo[1]
 
-        cm_artifact_repo = assemble_cm_object(cm_repo_alias, cm_repo_uid)
+        cm_artifact_repo = assemble_cm_object(cm_artifact_repo_alias, cm_artifact_repo_uid)
 
         cm_artifact = cm_artifact_repo + ':' + cm_artifact
 
-    return {'cm_artifact':cm_artifact, 
-            'cm_artifact_name': cm_artifact_name, 
-            'cm_artifact_repo': cm_artifact_repo}
+    return {'artifact':cm_artifact, 
+            'name': cm_artifact_name,
+            'name_alias': cm_artifact_alias,
+            'name_uid': cm_artifact_uid, 
+            'repo': cm_artifact_repo,
+            'repo_alias': cm_artifact_repo_alias,
+            'repo_uid': cm_artifact_repo_uid}
 
 ###########################################################################
 def dump_safe_json(i):
