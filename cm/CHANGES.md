@@ -1,3 +1,8 @@
+## V3.0.4
+   - splitted automation, artifact and artifacts into name and repo 
+     in the access function to simplify handling of artifacts:
+     https://github.com/mlcommons/ck/issues/1311
+
 ## V3.0.3
    - added -raise for https://github.com/mlcommons/ck/issues/1309
    - added --extra_cmd_git and --extra_cmd_pip to cm/cmx pull repo
