@@ -781,7 +781,8 @@ class CM(object):
         # Load info about all CM repositories (to enable search for automations and artifacts)
         if self.repos == None:
             repos = Repos(path = self.repos_path, cfg = self.cfg, 
-                          path_to_internal_repo = self.path_to_cmind_repo)
+                          path_to_internal_repo = self.path_to_cmind_repo,
+                          cmx = True)
 
             r = repos.load()
             if r['return'] >0 : return r

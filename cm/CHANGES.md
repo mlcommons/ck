@@ -1,3 +1,6 @@
+## V3.1.0.1
+   - added `prefix_cmx` key to cmr.yaml to customize `cmx pull repo`
+
 ## V3.1.0
    - simplified and changed process_input function API
 

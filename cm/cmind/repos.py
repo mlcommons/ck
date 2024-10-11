@@ -12,7 +12,7 @@ class Repos:
     CM repositories class
     """
 
-    def __init__(self, path, cfg, path_to_internal_repo = ''):
+    def __init__(self, path, cfg, path_to_internal_repo = '', cmx = False):
         """
         Initialize CM repositories class
 
@@ -48,6 +48,8 @@ class Repos:
         self.full_path_to_repo_paths = ''
 
         self.extra_info = {}
+
+        self.cmx = cmx
 
     ############################################################
     def load(self, init = False):
@@ -128,7 +130,7 @@ class Repos:
                     # Load description
                     repo = Repo(full_path_to_repo, self.cfg)
 
-                    r = repo.load()
+                    r = repo.load(cmx = self.cmx)
                     if r['return']>0 and r['return']!=16: return r
 
                     # Load only if desc exists
