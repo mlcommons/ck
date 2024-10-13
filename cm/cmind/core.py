@@ -103,7 +103,6 @@ class CM(object):
 
         # Logging
         self.logger = None
-        self.log = []
 
         # Index
         self.index = None
@@ -112,7 +111,11 @@ class CM(object):
         if os.environ.get(self.cfg['env_index'],'').strip().lower() in ['no','off','false']:
             self.use_index = False
 
+        # Check if CM v3+ was called (to avoid mixing up older versions and make them co-exist)
         self.x_was_called = False
+
+        # Misc state 
+        self.state = {}
 
     ############################################################
     def error(self, r):
@@ -155,24 +158,40 @@ class CM(object):
         sys.exit(r['return'])
 
     ############################################################
-    def log(self, s):
+    def log(self, s, t = 'info'):
         """
         Args:
-           s (string): log string
+           s (str): log string
+           t (str): log type - "info" (default)
+                               "debug"
+                               "warning"
+                               "error"
 
         Returns:
            None
         """
 
-        # Force console
-        print (s)
+        logger = self.logger
+
+        if logger != None:
+            if t == 'debug':
+                self.logger.debug(s)
+            elif t == 'warning':
+                self.logger.warning(s)
+            elif t == 'error':
+                self.logger.error(s)
+            # info
+            else:
+                self.logger.info(s)
 
         return
+
 
     ############################################################
     def access(self, i, out = None):
         """
         Access CM automation actions in a unified way similar to micro-services.
+        (Legacy. Further development in the new "x" function).
 
         i (dict | str | argv): unified CM input
 
@@ -634,19 +653,23 @@ class CM(object):
         Args:
           i (dict | str | argv): unified CM input
 
-            (action) (str): automation action
-            (automation (CM object): CM automation in format (alias | UID | alias,UID) 
+            * (action) (str): automation action
+            * (automation (CM object): CM automation in format (alias | UID | alias,UID) 
                                        or (repo alias | repo UID | repo alias,UID):(alias | UID | alias,UID) 
-            (artifact) (CM object): CM artifact
-            (artifacts) (list of CM objects): extra CM artifacts
+            * (artifact) (CM object): CM artifact
+            * (artifacts) (list of CM objects): extra CM artifacts
 
-            (common) (bool): if True, use common automation action from Automation class
 
-            (help) (bool): if True, print CM automation action API
+            Control flags starting with - :
 
-            (ignore_inheritance) (bool): if True, ignore inheritance when searching for artifacts and automations
+            * (out) (str): if 'con', tell automations and CM to output extra information to console
 
-            (out) (str): if 'con', tell automations and CM to output extra information to console
+            * (common) (bool): if True, use common automation action from Automation class
+
+            * (help) (bool): if True, print CM automation action API
+
+            * (ignore_inheritance) (bool): if True, ignore inheritance when searching for artifacts and automations
+
 
         Returns: 
             (CM return dict):
@@ -654,12 +677,16 @@ class CM(object):
             * return (int): return code == 0 if no error and >0 if error
             * (error) (str): error string if return>0
 
-            * Output from a CM automation action
+            * Output from a given CM automation action
         """
+
+        import copy
 
         # Check if very first access call
         x_was_called = self.x_was_called
         self.x_was_called = True
+
+        cur_dir = os.getcwd()
 
         # Check the type of input
         if i is None:
@@ -669,10 +696,6 @@ class CM(object):
         # If error in parse_cli, it will raise error
         if self.cfg['flag_debug'] in i:
             self.debug = True
-
-        # Check if log
-        if self.logger is None:
-            self.logger = logging.getLogger("cm")
 
         # Parse as command line if string or list
         if type(i) == str or type(i) == list:
@@ -694,22 +717,116 @@ class CM(object):
                 i['control']['_input'][k] = i[k]
             
         control = i['control']
-        
+
+        # Expose only control flags
+        control_flags = {}
+        for flag in control:
+            if not flag.startswith('_'):
+                control_flags[flag] = control[flag]
+
+        # Check if unknown flags
+        unknown_control_flags = [flag for flag in control_flags if flag not in [
+          'h', 'help', 'version', 'out', 'j', 'json', 
+          'save_to_json_file', 'save_to_yaml_file', 'common', 
+          'ignore_inheritance', 'log', 'logfile', 'raise', 'repro']]
+
+        if len(unknown_control_flags)>0:
+            unknown_control_flags_str = ','.join(unknown_control_flags)
+
+            print (f'Unknown control flag(s): {unknown_control_flags_str}')
+            print ('')
+            # Force print help
+            control['h'] = True
+
+        # Check repro
+        use_log = str(control_flags.pop('log', '')).strip().lower()
+        log_file = control_flags.pop('logfile', '')
+
+        if control.get('repro', '') != '':
+            if not os.path.isdir('cmx-repro'):
+                os.mkdir('cmx-repro')
+
+            if log_file == '':
+                log_file = os.path.join(cur_dir, 'cmx-repro', 'cmx.log')
+            if use_log == '':
+                use_log = 'debug'
+
+            ii = copy.deepcopy(i)
+            ii['control'] = {}
+            for k in control:
+                if not k.startswith('_') and k not in ['repro']:
+                    ii['control'][k] = i[k]
+
+            utils.save_json(os.path.join('cmx-repro', 'cmx-input.json'), 
+                            meta = ii)
+
+        # Check logging
+        if self.logger is None:
+            log_level = None
+
+            if use_log == "false": 
+                use_log = ''
+            elif use_log == "true": 
+                use_log = 'info'
+
+            if log_file == '': 
+                log_file = None
+            else:
+                if use_log == '':
+                    use_log = 'debug'
+
+            if use_log != '':
+                if use_log == 'debug':
+                    log_level = logging.DEBUG
+                elif use_log == 'warning':
+                    log_level = logging.WARNING
+                elif use_log == 'error':
+                    log_level = logging.ERROR
+                else:
+                    # info by default
+                    log_level = logging.INFO
+
+                # Configure
+                self.logger = logging.getLogger("cmx")
+                logging.basicConfig(filename = log_file, filemode = 'w', level = log_level)
+
         # Check if force out programmatically (such as from CLI)
         if 'out' not in control and out is not None:
             control['out'] = out
 
         use_raise = control.get('raise', False)
 
+        # Log access
+        recursion = self.state.get('recursion', 0)
+        self.state['recursion'] = recursion + 1
+
+        if not self.logger == None:
+            log_action = i.get('action', '')
+            log_automation = i.get('automation', '')
+            log_artifact = i.get('artifact', '')
+
+            spaces = ' ' * recursion
+
+            self.log(f"x log: {spaces} {log_action} {log_automation} {log_artifact}", "info")
+            self.log(f"x input: {spaces} ({i})", "debug")
+
         # Call access helper
         r = self._x(i, control)
         
+        if not self.logger == None:
+            self.log(f"x output: {r}", "debug")
+
+        self.state['recursion'] = recursion
+
         if not x_was_called:
             # Very first call (not recursive)
             # Check if output to json and save file
 
             if self.output == 'json':
                utils.dump_safe_json(r)
+
+            # Restore directory of call
+            os.chdir(cur_dir)
 
             # Check if save to json
             if control.get('save_to_json_file', '') != '':
@@ -718,8 +835,27 @@ class CM(object):
             if control.get('save_to_yaml_file', '') != '':
                utils.save_yaml(control['save_to_yaml_file'], meta = r)
 
-            if use_raise and r['return']>0:
-                raise Exception(r['error'])
+            if control.get('repro', '') != '':
+                if not os.path.isdir('cmx-repro'):
+                    os.mkdir('cmx-repro')
+                utils.save_json(os.path.join('cmx-repro', 'cmx-output.json'), 
+                                meta = r)
+
+            if r['return'] >0:
+                if r['return'] > 32:
+                    print ('')
+                    print ('CM Error Call Stack:')
+
+                    call_stack = self.state['call_stack']
+
+                    for cs in call_stack:
+                        print (f'  {cs}')
+
+                    self.log(f"x error call stack: {call_stack}", "debug")
+                    self.log(f"x error: {r}", "debug")
+
+                if use_raise:
+                    raise Exception(r['error'])
 
         return r
 
@@ -731,6 +867,9 @@ class CM(object):
 
         output = control.get('out', '')
 
+        if output == True:
+            output = 'con'
+
         # Check and force json console output
         if control.get('j', False) or control.get('json', False):
             output = 'json'
@@ -739,6 +878,8 @@ class CM(object):
         # to print error in the end if needed
         if self.output is None:
             self.output = output
+
+        control['out'] = output
 
         # Check if console
         console = (output == 'con')
@@ -775,13 +916,34 @@ class CM(object):
 
                 if cm_help or extra_help:
                    print_db_actions(self.common_automation, self.cfg['action_substitutions'], '', cmx = True)
+
+                   print ('')
+                   print ('Control flags:')
+                   print ('')
+                   print ('  -h | -help - print this help')
+                   print ('  -version - print version')
+                   print ('  -out (default) - output to console')
+                   print ('  -out=con (default) - output to console')
+                   print ('  -j | -json - print output of the automation action to console as JSON')
+                   print ('  -save_to_json_file={file} - save output of the automation action to file as JSON')
+                   print ('  -save_to_yaml_file={file} - save output of the automation action to file as YAML')
+                   print ('  -common - force call default common CMX automation action')
+                   print ('  -ignore_inheritance - ignore CMX meta inheritance')
+                   print ('  -log - log internal CMX information to console')
+                   print ('  -log={info (default) | debug | warning | error} - log level')
+                   print ('  -logfile={path to log file} - record log to file instead of console')
+                   print ('  -raise - raise Python error when automation action fails')
+                   print ('  -repro - record various info to the cmx-repro directory to replay CMX command')
+                   print ('')
+                   print ('Check https://github.com/mlcommons/ck/tree/master/cm/docs/cmx for more details.')
                                                                                                   
             return {'return':0, 'warning':'no action specified'}
 
         # Load info about all CM repositories (to enable search for automations and artifacts)
         if self.repos == None:
             repos = Repos(path = self.repos_path, cfg = self.cfg, 
-                          path_to_internal_repo = self.path_to_cmind_repo)
+                          path_to_internal_repo = self.path_to_cmind_repo,
+                          cmx = True)
 
             r = repos.load()
             if r['return'] >0 : return r
@@ -1134,8 +1296,21 @@ class CM(object):
                 if not k.startswith('_'):
                     ii[k] = control[k]
 
+
+        # Add call stack
+        call_stack = self.state.get('call_stack', [])
+        call_stack.append({'module':automation_full_path, 'func':action})
+        self.state['call_stack'] = call_stack
+
         # Call automation action
         r = action_addr(i)
+
+        # Remove from stack if no error
+        if r['return'] == 0:
+            call_stack = self.state.get('call_stack', [])
+            if len(call_stack)>0:
+                call_stack.pop()
+                self.state['call_stack'] = call_stack
 
         # Check if need to save index
         if self.use_index and self.index.updated:
@@ -1188,7 +1363,7 @@ def print_db_actions(automation, equivalent_actions, automation_name, cmx = Fals
     import types
 
     print ('')
-    print ('Common actions to manage CM repositories:')
+    print ('Common actions to manage CM repositories (use -h | -help to see the API):')
     print ('')
 
     db_actions=[]

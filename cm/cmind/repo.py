@@ -41,7 +41,7 @@ class Repo:
         self.meta = {}
 
     ############################################################
-    def load(self):
+    def load(self, cmx = False):
         """
         Load CM repository
 
@@ -71,8 +71,15 @@ class Repo:
 
         self.meta = r['meta']
 
-        self.path_prefix = self.meta.get('prefix','')
+        if cmx and self.meta.get('prefix_cmx', '') != '':
+            self.path_prefix = self.meta.get('prefix_cmx','')
+        else:
+            self.path_prefix = self.meta.get('prefix','')
+
         if self.path_prefix is not None and self.path_prefix.strip() !='':
             self.path_with_prefix = os.path.join(self.path, self.path_prefix)
+
+        if os.path.isdir(self.path) and not os.path.isdir(self.path_with_prefix):
+            os.makedirs(self.path_with_prefix)
 
         return {'return':0}

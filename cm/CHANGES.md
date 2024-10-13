@@ -1,3 +1,19 @@
+## V3.2.0
+   - added `utils.test_input` to test if input has keys
+     and report them as error
+   - added `prefix_cmx` key to cmr.yaml to customize `cmx pull repo`
+   - improved CMX logging (-log and -logfile):
+     https://github.com/mlcommons/ck/issues/1317
+   - print control flags in help (cmx -h | cmx -help):
+     https://github.com/mlcommons/ck/issues/1318
+   - fail if control flag is not recognized:
+     https://github.com/mlcommons/ck/issues/1315
+   - added -repro flag to record various info to cmx-repro directory
+     https://github.com/mlcommons/ck/issues/1319
+   - print call stack when error > 32 to be able to trace error cause:
+     https://github.com/mlcommons/ck/issues/1320
+     can be combined with -log=debug and -logfile
+
 ## V3.1.0
    - simplified and changed process_input function API
 

@@ -1927,3 +1927,22 @@ def convert_dictionary(d, key, sub = True):
 
     return dd
 
+##############################################################################
+def test_input(i, module):
+    """
+    Test if input has keys and report them as error
+    """
+
+    r = {'return':0}
+
+    if len(i)>0:
+        unknown_keys = i.keys()
+        unknown_keys_str = ', '.join(unknown_keys)
+
+        r =  {'return': 1, 
+              'error': 'unknown input key(s) "{}" in module {}'.format(unknown_keys_str, module),
+              'module': module,
+              'unknown_keys': unknown_keys,
+              'unknown_keys_str': unknown_keys_str}
+
+    return r
