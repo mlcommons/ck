@@ -725,10 +725,14 @@ class CM(object):
                 control_flags[flag] = control[flag]
 
         # Check if unknown flags
+        # f should be deprecated in the future - used for backwards
+        # compatibility with older commands like cm/cmx rm cache -f
+
         unknown_control_flags = [flag for flag in control_flags if flag not in [
           'h', 'help', 'version', 'out', 'j', 'json', 
           'save_to_json_file', 'save_to_yaml_file', 'common', 
-          'ignore_inheritance', 'log', 'logfile', 'raise', 'repro']]
+          'ignore_inheritance', 'log', 'logfile', 'raise', 'repro',
+          'f']]
 
         if len(unknown_control_flags)>0:
             unknown_control_flags_str = ','.join(unknown_control_flags)
@@ -737,6 +741,9 @@ class CM(object):
             print ('')
             # Force print help
             control['h'] = True
+
+        if control.pop('f', ''):
+            i['f'] = True
 
         # Check repro
         use_log = str(control_flags.pop('log', '')).strip().lower()
