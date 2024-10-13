@@ -4,7 +4,7 @@ name: CM script automation features test
 
 on:
   pull_request:
-    branches: [ "master", "dev" ]
+    branches: [ "master", "main", "dev" ]
     paths:
       - '.github/workflows/test-cm-script-features.yml'
       - '**'

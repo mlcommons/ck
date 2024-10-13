@@ -5,7 +5,7 @@ name: 'CM: image classification with ONNX'
 
 on:
   pull_request:
-    branches: [ "main", "dev" ]
+    branches: [ "master", "main", "dev" ]
     paths:
       - '.github/workflows/test-image-classification-onnx.yml'
       - '**'
