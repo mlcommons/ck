@@ -1,4 +1,4 @@
-## V3.1.0.1
+## V3.2.0
    - added `utils.test_input` to test if input has keys
      and report them as error
    - added `prefix_cmx` key to cmr.yaml to customize `cmx pull repo`
