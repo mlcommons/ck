@@ -10,6 +10,9 @@
      https://github.com/mlcommons/ck/issues/1315
    - added -repro flag to record various info to cmx-repro directory
      https://github.com/mlcommons/ck/issues/1319
+   - print call stack when error > 32 to be able to trace error cause:
+     https://github.com/mlcommons/ck/issues/1320
+     can be combined with -log=debug and -logfile
 
 ## V3.1.0
    - simplified and changed process_input function API

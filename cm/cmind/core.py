@@ -841,8 +841,21 @@ class CM(object):
                 utils.save_json(os.path.join('cmx-repro', 'cmx-output.json'), 
                                 meta = r)
 
-            if use_raise and r['return']>0:
-                raise Exception(r['error'])
+            if r['return'] >0:
+                if r['return'] > 32:
+                    print ('')
+                    print ('CM Error Call Stack:')
+
+                    call_stack = self.state['call_stack']
+
+                    for cs in call_stack:
+                        print (f'  {cs}')
+
+                    self.log(f"x error call stack: {call_stack}", "debug")
+                    self.log(f"x error: {r}", "debug")
+
+                if use_raise:
+                    raise Exception(r['error'])
 
         return r
 
@@ -1283,8 +1296,21 @@ class CM(object):
                 if not k.startswith('_'):
                     ii[k] = control[k]
 
+
+        # Add call stack
+        call_stack = self.state.get('call_stack', [])
+        call_stack.append({'module':automation_full_path, 'func':action})
+        self.state['call_stack'] = call_stack
+
         # Call automation action
         r = action_addr(i)
+
+        # Remove from stack if no error
+        if r['return'] == 0:
+            call_stack = self.state.get('call_stack', [])
+            if len(call_stack)>0:
+                call_stack.pop()
+                self.state['call_stack'] = call_stack
 
         # Check if need to save index
         if self.use_index and self.index.updated:
