@@ -111,7 +111,11 @@ class CM(object):
         if os.environ.get(self.cfg['env_index'],'').strip().lower() in ['no','off','false']:
             self.use_index = False
 
+        # Check if CM v3+ was called (to avoid mixing up older versions and make them co-exist)
         self.x_was_called = False
+
+        # Misc state 
+        self.state = {}
 
     ############################################################
     def error(self, r):
@@ -676,9 +680,13 @@ class CM(object):
             * Output from a given CM automation action
         """
 
+        import copy
+
         # Check if very first access call
         x_was_called = self.x_was_called
         self.x_was_called = True
+
+        cur_dir = os.getcwd()
 
         # Check the type of input
         if i is None:
@@ -720,7 +728,7 @@ class CM(object):
         unknown_control_flags = [flag for flag in control_flags if flag not in [
           'h', 'help', 'version', 'out', 'j', 'json', 
           'save_to_json_file', 'save_to_yaml_file', 'common', 
-          'ignore_inheritance', 'log', 'logfile', 'raise']]
+          'ignore_inheritance', 'log', 'logfile', 'raise', 'repro']]
 
         if len(unknown_control_flags)>0:
             unknown_control_flags_str = ','.join(unknown_control_flags)
@@ -730,29 +738,57 @@ class CM(object):
             # Force print help
             control['h'] = True
 
-        # Check logging
-        use_log = control_flags.pop('log', '')
-        log_level = None
-        if use_log == True:
-            log_level = logging.INFO
-        else:
-            use_log = use_log.strip().lower()
-            if use_log == 'debug':
-                log_level = logging.DEBUG
-            elif use_log == 'warning':
-                log_level = logging.WARNING
-            elif use_log == 'error':
-                log_level = logging.ERROR
-            else:
-                log_level = logging.INFO
-        
+        # Check repro
+        use_log = str(control_flags.pop('log', '')).strip().lower()
         log_file = control_flags.pop('logfile', '')
-        if log_file == '': log_file = None
 
-        # Check if log
-        if self.logger is None and use_log:
-            self.logger = logging.getLogger("cmx")
-            logging.basicConfig(filename = log_file, filemode = 'w', level = log_level)
+        if control.get('repro', '') != '':
+            if not os.path.isdir('cmx-repro'):
+                os.mkdir('cmx-repro')
+
+            if log_file == '':
+                log_file = os.path.join(cur_dir, 'cmx-repro', 'cmx.log')
+            if use_log == '':
+                use_log = 'debug'
+
+            ii = copy.deepcopy(i)
+            ii['control'] = {}
+            for k in control:
+                if not k.startswith('_') and k not in ['repro']:
+                    ii['control'][k] = i[k]
+
+            utils.save_json(os.path.join('cmx-repro', 'cmx-input.json'), 
+                            meta = ii)
+
+        # Check logging
+        if self.logger is None:
+            log_level = None
+
+            if use_log == "false": 
+                use_log = ''
+            elif use_log == "true": 
+                use_log = 'info'
+
+            if log_file == '': 
+                log_file = None
+            else:
+                if use_log == '':
+                    use_log = 'debug'
+
+            if use_log != '':
+                if use_log == 'debug':
+                    log_level = logging.DEBUG
+                elif use_log == 'warning':
+                    log_level = logging.WARNING
+                elif use_log == 'error':
+                    log_level = logging.ERROR
+                else:
+                    # info by default
+                    log_level = logging.INFO
+
+                # Configure
+                self.logger = logging.getLogger("cmx")
+                logging.basicConfig(filename = log_file, filemode = 'w', level = log_level)
 
         # Check if force out programmatically (such as from CLI)
         if 'out' not in control and out is not None:
@@ -760,9 +796,28 @@ class CM(object):
 
         use_raise = control.get('raise', False)
 
+        # Log access
+        recursion = self.state.get('recursion', 0)
+        self.state['recursion'] = recursion + 1
+
+        if not self.logger == None:
+            log_action = i.get('action', '')
+            log_automation = i.get('automation', '')
+            log_artifact = i.get('artifact', '')
+
+            spaces = ' ' * recursion
+
+            self.log(f"x log: {spaces} {log_action} {log_automation} {log_artifact}", "info")
+            self.log(f"x input: {spaces} ({i})", "debug")
+
         # Call access helper
         r = self._x(i, control)
         
+        if not self.logger == None:
+            self.log(f"x output: {r}", "debug")
+
+        self.state['recursion'] = recursion
+
         if not x_was_called:
             # Very first call (not recursive)
             # Check if output to json and save file
@@ -770,12 +825,21 @@ class CM(object):
             if self.output == 'json':
                utils.dump_safe_json(r)
 
+            # Restore directory of call
+            os.chdir(cur_dir)
+
             # Check if save to json
             if control.get('save_to_json_file', '') != '':
                utils.save_json(control['save_to_json_file'], meta = r)
 
             if control.get('save_to_yaml_file', '') != '':
                utils.save_yaml(control['save_to_yaml_file'], meta = r)
+
+            if control.get('repro', '') != '':
+                if not os.path.isdir('cmx-repro'):
+                    os.mkdir('cmx-repro')
+                utils.save_json(os.path.join('cmx-repro', 'cmx-output.json'), 
+                                meta = r)
 
             if use_raise and r['return']>0:
                 raise Exception(r['error'])
@@ -856,6 +920,7 @@ class CM(object):
                    print ('  -log={info (default) | debug | warning | error} - log level')
                    print ('  -logfile={path to log file} - record log to file instead of console')
                    print ('  -raise - raise Python error when automation action fails')
+                   print ('  -repro - record various info to the cmx-repro directory to replay CMX command')
                    print ('')
                    print ('Check https://github.com/mlcommons/ck/tree/master/cm/docs/cmx for more details.')
                                                                                                   
