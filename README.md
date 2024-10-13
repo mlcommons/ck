@@ -37,7 +37,7 @@ CK consists of several sub-projects:
 * [Collective Knowledge Playground](https://access.cKnowledge.org) - a unified platform
   to list CM scripts similar to PYPI, aggregate AI/ML Systems benchmarking results in a reproducible format with CM workflows, 
   and organize [public optimization challenges and reproducibility initiatives](https://access.cknowledge.org/playground/?action=challenges) 
-  to co-design more efficient and cost-effiective software and hardware for emerging workloads.
+  to co-design more efficient and cost-effective software and hardware for emerging workloads.
 
 * [Artifact Evaluation](https://cTuning.org/ae) - automating artifact evaluation and reproducibility initiatives at ML and systems conferences.
 
