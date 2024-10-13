@@ -38,7 +38,7 @@ class Config(object):
 
                      "error_prefix": "CM error:",
                      "info_cli": "cm {action} {automation} {artifact(s)} {flags} @input.yaml @input.json",
-                     "info_clix": "cmx {action} {automation} {artifact(s)} {flags} @input.yaml @input.json",
+                     "info_clix": "cmx {action} {automation} {artifact(s)} {CMX control flags (-)} {CMX automation flags (--)}",
 
                      "default_home_dir": "CM",
 
@@ -64,7 +64,7 @@ class Config(object):
                        "cp":"copy"
                      },
 
-                     "new_repo_requirements": "cmind >= 3.0.0\n",
+                     "new_repo_requirements": "cmind >= 3.1.0\n",
 
                      "cmind_automation":"automation",
 
