@@ -1,4 +1,4 @@
-## V3.2.0.1
+## V3.2.1
    - added `-f` to the CMX core to be backwards compatible 
      with CM commands like `cm rm cache -f`
 
