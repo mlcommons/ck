@@ -1,3 +1,7 @@
+## V3.2.0.1
+   - added `-f` to the CMX core to be backwards compatible 
+     with CM commands like `cm rm cache -f`
+
 ## V3.2.0
    - added `utils.test_input` to test if input has keys
      and report them as error
