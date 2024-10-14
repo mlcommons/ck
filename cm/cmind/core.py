@@ -1187,21 +1187,6 @@ class CM(object):
         print_automation = automation_meta.get('alias','') + ',' + automation_meta.get('uid','')
         initialized_automation.artifact = print_automation
 
-        if not hasattr(initialized_automation, action):
-            return {'return':4, 'error':f'action "{action}" not found in automation "{print_automation}"'}
-        else:
-            # Check if has _cmx extension
-            if loaded_common_automation:
-                # By default don't use CMX in the common automation unless has _cmx extension
-                # (checked later)
-                automation_use_x = False
-
-            if not automation_use_x and hasattr(initialized_automation, action + '_cmx'):
-                action_addr = getattr(initialized_automation, action + '_cmx')
-                automation_use_x = True
-            else:
-                action_addr = getattr(initialized_automation, action)
-
         # Check action in a class when importing
         if use_any_action:
             action = 'any'
@@ -1231,10 +1216,25 @@ class CM(object):
                 print ('')
 
                 for d in actions:
-                    print ('  * cmx ' + d + '  ' + automation_meta.get('alias',''))
+                    print ('  * cmx ' + d + '  ' + automation_meta.get('alias','') + ' -h')
 
             return {'return':0, 'warning':'no automation action'}
 
+
+        if not hasattr(initialized_automation, action):
+            return {'return':4, 'error':f'action "{action}" not found in automation "{print_automation}"'}
+        else:
+            # Check if has _cmx extension
+            if loaded_common_automation:
+                # By default don't use CMX in the common automation unless has _cmx extension
+                # (checked later)
+                automation_use_x = False
+
+            if not automation_use_x and hasattr(initialized_automation, action + '_cmx'):
+                action_addr = getattr(initialized_automation, action + '_cmx')
+                automation_use_x = True
+            else:
+                action_addr = getattr(initialized_automation, action)
 
 
         # Check if help for a given automation action
@@ -1398,9 +1398,14 @@ def print_db_actions(automation, equivalent_actions, automation_name, cmx = Fals
 
             x = '  ' + automation_name if automation_name!='' else ''
             
-            postfix = 'x' if cmx else '' 
+            if cmx:
+                postfix = 'x' 
+                extra = ' -h'
+            else:
+                postfix = ''
+                extra = '' 
 
-            print (f'  * cm{postfix}  ' + s + x)
+            print (f'  * cm{postfix}  ' + s + x + extra)
 
     return {'return':0, 'db_actions':db_actions}
 
@@ -1409,13 +1414,14 @@ def print_action_help(automation, common_automation, print_automation, action, o
 
      # 20240202: 
      # Check if already have full path to automation and if not, try to detect it
+
+     import inspect
+
      delayed_help = False
      
      try:
          path_to_automation = automation.full_path
      except:
-         import inspect
-
          automation_module = inspect.getmodule(automation)
          path_to_automation = inspect.getfile(automation_module)
 
