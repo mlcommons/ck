@@ -1,3 +1,7 @@
+## V3.2.2
+   - fixed action `help` and flag `-h` to work with all automations:
+     https://github.com/mlcommons/ck/issues/1325
+
 ## V3.2.1
    - added `-f` to the CMX core to be backwards compatible 
      with CM commands like `cm rm cache -f`
