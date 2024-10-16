@@ -296,7 +296,7 @@ class Repos:
     ############################################################
     def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = '', depth = None, 
                     path_to_repo = None, checkout_only = False, skip_zip_parent_dir = False,
-                    extra_cmd_git = '', extra_cmd_pip = ''):
+                    extra_cmd_git = '', extra_cmd_pip = '', new_branch = ''):
         """
         Clone or pull CM repository
 
@@ -304,6 +304,7 @@ class Repos:
             alias (str): CM repository alias
             (url) (str): Git repository URL
             (branch) (str): Git repository branch
+            (new_branch) (str): Create new  branch
             (checkout) (str): Git repository checkout
             (checkout_only) (bool): only checkout existing repo
             (depth) (int): Git repository depth
@@ -462,6 +463,19 @@ class Repos:
             os.remove(pack_file)
 
         # Check if branch 
+        if new_branch != '':
+            cmd = 'git checkout -b ' + new_branch
+
+            if console:
+                print ('')
+                print (cmd)
+                print ('')
+
+            r = os.system(cmd)
+
+            if r>0:
+                return {'return':1, 'error':'creating new git branch failed'}
+
         if branch != '' or checkout != '':
             cmd = 'git checkout'
 

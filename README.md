@@ -34,6 +34,10 @@ CK consists of several sub-projects:
   * [CM4ABTF](https://github.com/mlcommons/cm4abtf) - a unified CM interface and automation recipes
     to run automotive benchmark across different models, data sets, software and hardware from different vendors.
 
+* [CMX (the next generation of CM)](cm/docs/cmx) - we are developing the next generation of CM 
+  to make it simpler and more flexible based on user feedback. Please follow 
+  this project [here](https://github.com/orgs/mlcommons/projects/46).
+
 * [Collective Knowledge Playground](https://access.cKnowledge.org) - a unified platform
   to list CM scripts similar to PYPI, aggregate AI/ML Systems benchmarking results in a reproducible format with CM workflows, 
   and organize [public optimization challenges and reproducibility initiatives](https://access.cknowledge.org/playground/?action=challenges) 
