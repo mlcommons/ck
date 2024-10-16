@@ -1,3 +1,7 @@
+## V3.2.3
+   - added --new_branch to `cm pull repo` and `cm checkout repo`
+   - fixed a bug in `cm show repo` (removed dependency on cm4mlops)
+
 ## V3.2.2
    - fixed action `help` and flag `-h` to work with all automations:
      https://github.com/mlcommons/ck/issues/1325
