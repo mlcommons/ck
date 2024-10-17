@@ -1,3 +1,7 @@
+## V3.2.4
+   - CMX: improved logging
+   - CMX: improved error handling (show module path and line number)
+
 ## V3.2.3
    - added --new_branch to `cm pull repo` and `cm checkout repo`
    - fixed a bug in `cm show repo` (removed dependency on cm4mlops 

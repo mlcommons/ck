@@ -84,7 +84,7 @@ def runx(argv = None):
     r = cm.x(argv, out='con')
 
     if r['return']>0 and (cm.output is None or cm.output == 'con'):
-        cm.error(r)
+        cm.errorx(r)
 
     sys.exit(r['return'])
 
