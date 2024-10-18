@@ -842,7 +842,7 @@ class CM(object):
           'h', 'help', 'version', 'out', 'j', 'json', 
           'save_to_json_file', 'save_to_yaml_file', 'common', 
           'ignore_inheritance', 'log', 'logfile', 'raise', 'repro',
-          'f', 'time']]
+          'f', 'time', 'profile']]
 
         if len(unknown_control_flags)>0:
             unknown_control_flags_str = ','.join(unknown_control_flags)
@@ -855,10 +855,12 @@ class CM(object):
         if control.pop('f', ''):
             i['f'] = True
 
-        self_time = control.pop('time', False)
+        self_time = control.get('time', False)
         if not x_was_called and self_time:
             import time
             self_time1 = time.time()
+
+        self_profile = control.get('profile', False)
 
         # Check repro
         use_log = str(control_flags.pop('log', '')).strip().lower()
@@ -933,6 +935,13 @@ class CM(object):
             self.log(f"x input: {spaces} ({i})", "debug")
 
         # Call access helper
+        if not x_was_called and self_profile:
+            # https://docs.python.org/3/library/profile.html#module-cProfile
+            import cProfile, pstats, io
+            from pstats import SortKey
+            profile = cProfile.Profile()
+            profile.enable()
+
         r = self._x(i, control)
         
         if not self.logger == None:
@@ -941,6 +950,17 @@ class CM(object):
         self.state['recursion'] = recursion
 
         if not x_was_called:
+            if self_profile:
+                profile.disable()
+                s = io.StringIO()
+                sortby = SortKey.CUMULATIVE
+                ps = pstats.Stats(profile, stream=s).sort_stats(sortby)
+                ps.print_stats(32)
+                print ('')
+                print ('CMX profile:')
+                print ('')
+                print (s.getvalue())
+
             # Very first call (not recursive)
             # Check if output to json and save file
 
