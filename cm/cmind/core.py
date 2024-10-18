@@ -842,7 +842,7 @@ class CM(object):
           'h', 'help', 'version', 'out', 'j', 'json', 
           'save_to_json_file', 'save_to_yaml_file', 'common', 
           'ignore_inheritance', 'log', 'logfile', 'raise', 'repro',
-          'f']]
+          'f', 'time']]
 
         if len(unknown_control_flags)>0:
             unknown_control_flags_str = ','.join(unknown_control_flags)
@@ -854,6 +854,11 @@ class CM(object):
 
         if control.pop('f', ''):
             i['f'] = True
+
+        self_time = control.pop('time', False)
+        if not x_was_called and self_time:
+            import time
+            self_time1 = time.time()
 
         # Check repro
         use_log = str(control_flags.pop('log', '')).strip().lower()
@@ -938,6 +943,14 @@ class CM(object):
         if not x_was_called:
             # Very first call (not recursive)
             # Check if output to json and save file
+
+            if self_time:
+                self_time = time.time() - self_time1
+                r['self_time'] = self_time
+
+                if self.output == 'con':
+                    print ('')
+                    print ('CMX elapsed time: {:.3f} sec.'.format(self_time))
 
             if self.output == 'json':
                utils.dump_safe_json(r)
@@ -1211,7 +1224,7 @@ class CM(object):
                         return {'return':4, 'error':'automation meta not found in {}'.format(automation_path)}
 
                     # Load artifact class
-                    r=utils.load_yaml_and_json(automation_path_meta)
+                    r = utils.load_yaml_and_json(automation_path_meta)
                     if r['return']>0: return r
 
                     automation_meta = r['meta']
