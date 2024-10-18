@@ -1071,6 +1071,8 @@ class CM(object):
                    print ('  -log={info (default) | debug | warning | error} - log level')
                    print ('  -logfile={path to log file} - record log to file instead of console')
                    print ('  -raise - raise Python error when automation action fails')
+                   print ('  -time - print elapsed time for a given automation')
+                   print ('  -profile - profile a given automation')
                    print ('  -repro - record various info to the cmx-repro directory to replay CMX command')
                    print ('')
                    print ('Check https://github.com/mlcommons/ck/tree/master/cm/docs/cmx for more details.')
