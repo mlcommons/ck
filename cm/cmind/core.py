@@ -141,6 +141,116 @@ class CM(object):
         return r
 
     ############################################################
+    def errorx(self, r):
+        """
+        If r['return']>0: print CM error and raise error if in debugging mode
+
+        Args:
+           r (dict): output from CM function with "return" and "error"
+
+        Returns:
+           (dict): r
+
+        """
+
+        import os
+
+        if r['return']>0:
+            if self.debug:
+                raise Exception(r['error'])
+
+            module_path = r.get('module_path', '')
+            lineno = r.get('lineno', '')
+
+            message = ''
+
+            if not self.logger == None or (module_path != '' and lineno != ''):
+                call_stack = self.state.get('call_stack', [])
+
+                if not self.logger == None:
+
+                    self.log(f"x error call stack: {call_stack}", "debug")
+                    self.log(f"x error: {r}", "debug")
+
+                sys.stderr.write('='*60 + '\n')
+
+                if not self.logger == None:
+                    sys.stderr.write('CMX call stack:\n')
+
+                    for cs in call_stack:
+                        sys.stderr.write(f' * {cs}\n')
+
+                    message += '\n'
+            else:
+                message += '\n'
+
+            message += self.cfg['error_prefix2']
+
+            if module_path != '' and lineno !='':
+                message += f' in {module_path} ({lineno}):\n\n'
+            else:
+                message += ': '
+
+            message += r['error'] + '\n'
+
+            sys.stderr.write(message)
+
+        return r
+
+    ############################################################
+    def prepare_error(self, returncode, error):
+        """
+        Prepare error dictionary with the module and line number of an error
+
+        Args:
+           returncode (int): CMX returncode
+           error (str): error message
+
+        Returns:
+           (dict): r
+              return (int)
+              error (str)
+              module_path (str): path to module
+              lineno (int): line number
+
+        """
+
+        from inspect import getframeinfo, stack
+
+        caller = getframeinfo(stack()[1][0])
+
+        return {'return': returncode,
+                'error': error,
+                'module_path': caller.filename,
+                'lineno': caller.lineno}
+
+    ############################################################
+    def embed_error(self, r):
+        """
+        Embed module and line number to an error
+
+        Args:
+           r (dict): CM return dict
+
+        Returns:
+           (dict): r
+              return (int)
+              error (str)
+              module_path (str): path to module
+              lineno (int): line number
+
+        """
+
+        from inspect import getframeinfo, stack
+
+        caller = getframeinfo(stack()[1][0])
+
+        r['module_path'] = caller.filename
+        r['lineno'] = caller.lineno
+
+        return r
+
+    ############################################################
     def halt(self, r):
         """
         If r['return']>0: print CM error and raise error if in debugging mode or halt with "return" code
@@ -506,7 +616,7 @@ class CM(object):
                 if automation=='':
                     return {'return':4, 'error':'automation was not specified'}
                 else:
-                    return {'return':4, 'error':'automation {} not found'.format(automation)}
+                    return {'return':4, 'error':'automation "{}" not found'.format(automation)}
 
         # If no automation was found or we force common automation
         if use_common_automation or len(automation_lst)==0:
@@ -732,18 +842,29 @@ class CM(object):
           'h', 'help', 'version', 'out', 'j', 'json', 
           'save_to_json_file', 'save_to_yaml_file', 'common', 
           'ignore_inheritance', 'log', 'logfile', 'raise', 'repro',
-          'f']]
+          'f', 'time', 'profile']]
 
+        delayed_error = ''
+        
         if len(unknown_control_flags)>0:
             unknown_control_flags_str = ','.join(unknown_control_flags)
 
-            print (f'Unknown control flag(s): {unknown_control_flags_str}')
-            print ('')
+            delayed_error = f'Unknown control flag(s): {unknown_control_flags_str}'
+
             # Force print help
             control['h'] = True
 
         if control.pop('f', ''):
             i['f'] = True
+
+        output_json = (control.get('j', False) or control.get('json', False))
+
+        self_time = control.get('time', False)
+        if not x_was_called and self_time:
+            import time
+            self_time1 = time.time()
+
+        self_profile = control.get('profile', False)
 
         # Check repro
         use_log = str(control_flags.pop('log', '')).strip().lower()
@@ -818,18 +939,48 @@ class CM(object):
             self.log(f"x input: {spaces} ({i})", "debug")
 
         # Call access helper
+        if not x_was_called and self_profile:
+            # https://docs.python.org/3/library/profile.html#module-cProfile
+            import cProfile, pstats, io
+            from pstats import SortKey
+            profile = cProfile.Profile()
+            profile.enable()
+
         r = self._x(i, control)
-        
+
+        if delayed_error != '' and r['return'] == 0:
+            r['return'] = 1
+            r['error'] = delayed_error
+
         if not self.logger == None:
             self.log(f"x output: {r}", "debug")
 
         self.state['recursion'] = recursion
 
         if not x_was_called:
+            if self_profile:
+                profile.disable()
+                s = io.StringIO()
+                sortby = SortKey.CUMULATIVE
+                ps = pstats.Stats(profile, stream=s).sort_stats(sortby)
+                ps.print_stats(32)
+                print ('')
+                print ('CMX profile:')
+                print ('')
+                print (s.getvalue())
+
             # Very first call (not recursive)
             # Check if output to json and save file
 
-            if self.output == 'json':
+            if self_time:
+                self_time = time.time() - self_time1
+                r['self_time'] = self_time
+
+                if self.output == 'con':
+                    print ('')
+                    print ('CMX elapsed time: {:.3f} sec.'.format(self_time))
+
+            if output_json:
                utils.dump_safe_json(r)
 
             # Restore directory of call
@@ -849,18 +1000,6 @@ class CM(object):
                                 meta = r)
 
             if r['return'] >0:
-                if r['return'] > 32:
-                    print ('')
-                    print ('CM Error Call Stack:')
-
-                    call_stack = self.state['call_stack']
-
-                    for cs in call_stack:
-                        print (f'  {cs}')
-
-                    self.log(f"x error call stack: {call_stack}", "debug")
-                    self.log(f"x error: {r}", "debug")
-
                 if use_raise:
                     raise Exception(r['error'])
 
@@ -877,9 +1016,10 @@ class CM(object):
         if output == True:
             output = 'con'
 
-        # Check and force json console output
-        if control.get('j', False) or control.get('json', False):
-            output = 'json'
+# Changed in v3.2.5
+#        # Check and force json console output
+#        if control.get('j', False) or control.get('json', False):
+#            output = 'json'
 
         # Set self.output to the output of the very first access 
         # to print error in the end if needed
@@ -913,6 +1053,17 @@ class CM(object):
         elif action == 'init' and automation == '':
             automation = 'core'
 
+        # Can add popular shortcuts
+        elif action == 'ff':
+            task = ''
+            if automation != '' and (' ' in automation or ',' in automation):
+                task = automation
+                if ' ' in automation: task = automation.replace(' ',',')
+                i['task'] = task
+            automation = 'flex.flow'
+            action = 'run'
+            i['automation'] = automation
+            i['action'] = action
 
         # Print basic help if action == ''
         extra_help = True if action == 'help' and automation == '' else False
@@ -940,6 +1091,8 @@ class CM(object):
                    print ('  -log={info (default) | debug | warning | error} - log level')
                    print ('  -logfile={path to log file} - record log to file instead of console')
                    print ('  -raise - raise Python error when automation action fails')
+                   print ('  -time - print elapsed time for a given automation')
+                   print ('  -profile - profile a given automation')
                    print ('  -repro - record various info to the cmx-repro directory to replay CMX command')
                    print ('')
                    print ('Check https://github.com/mlcommons/ck/tree/master/cm/docs/cmx for more details.')
@@ -1113,7 +1266,7 @@ class CM(object):
                         return {'return':4, 'error':'automation meta not found in {}'.format(automation_path)}
 
                     # Load artifact class
-                    r=utils.load_yaml_and_json(automation_path_meta)
+                    r = utils.load_yaml_and_json(automation_path_meta)
                     if r['return']>0: return r
 
                     automation_meta = r['meta']
@@ -1152,7 +1305,7 @@ class CM(object):
                 if automation=='':
                     return {'return':4, 'error':'automation was not specified'}
                 else:
-                    return {'return':4, 'error':f'automation {automation} not found'}
+                    return {'return':4, 'error':f'automation "{automation}" not found'}
 
         # If no automation was found or we force common automation
         loaded_common_automation = False
@@ -1517,6 +1670,23 @@ def error(i):
        cm=CM()
 
     return cm.error(i)
+
+############################################################
+def errorx(i):
+    """
+    Automatically initialize CM and print error if needed
+    without the need to initialize and customize CM class.
+    Useful for Python automation scripts.
+
+    See CM.error function for more details.
+    """
+
+    global cm
+
+    if cm is None:
+       cm=CM()
+
+    return cm.errorx(i)
 
 ############################################################
 def halt(i):

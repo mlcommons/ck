@@ -1,3 +1,10 @@
+## V3.2.5
+   - CMX: improved logging
+   - CMX: improved error handling (show module path and line number)
+   - CMX: fixed bug when detecting unknown control flag
+   - CMX: do not change output to json if -j or --json
+          just print json in the end ...
+
 ## V3.2.3
    - added --new_branch to `cm pull repo` and `cm checkout repo`
    - fixed a bug in `cm show repo` (removed dependency on cm4mlops 
