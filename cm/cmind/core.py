@@ -616,7 +616,7 @@ class CM(object):
                 if automation=='':
                     return {'return':4, 'error':'automation was not specified'}
                 else:
-                    return {'return':4, 'error':'automation {} not found'.format(automation)}
+                    return {'return':4, 'error':'automation "{}" not found'.format(automation)}
 
         # If no automation was found or we force common automation
         if use_common_automation or len(automation_lst)==0:
@@ -857,6 +857,8 @@ class CM(object):
         if control.pop('f', ''):
             i['f'] = True
 
+        output_json = (control.get('j', False) or control.get('json', False))
+
         self_time = control.get('time', False)
         if not x_was_called and self_time:
             import time
@@ -978,7 +980,7 @@ class CM(object):
                     print ('')
                     print ('CMX elapsed time: {:.3f} sec.'.format(self_time))
 
-            if self.output == 'json':
+            if output_json:
                utils.dump_safe_json(r)
 
             # Restore directory of call
@@ -1014,9 +1016,10 @@ class CM(object):
         if output == True:
             output = 'con'
 
-        # Check and force json console output
-        if control.get('j', False) or control.get('json', False):
-            output = 'json'
+# Changed in v3.2.5
+#        # Check and force json console output
+#        if control.get('j', False) or control.get('json', False):
+#            output = 'json'
 
         # Set self.output to the output of the very first access 
         # to print error in the end if needed
@@ -1050,6 +1053,17 @@ class CM(object):
         elif action == 'init' and automation == '':
             automation = 'core'
 
+        # Can add popular shortcuts
+        elif action == 'ff':
+            task = ''
+            if automation != '' and (' ' in automation or ',' in automation):
+                task = automation
+                if ' ' in automation: task = automation.replace(' ',',')
+                i['task'] = task
+            automation = 'flex.flow'
+            action = 'run'
+            i['automation'] = automation
+            i['action'] = action
 
         # Print basic help if action == ''
         extra_help = True if action == 'help' and automation == '' else False
@@ -1291,7 +1305,7 @@ class CM(object):
                 if automation=='':
                     return {'return':4, 'error':'automation was not specified'}
                 else:
-                    return {'return':4, 'error':f'automation {automation} not found'}
+                    return {'return':4, 'error':f'automation "{automation}" not found'}
 
         # If no automation was found or we force common automation
         loaded_common_automation = False
