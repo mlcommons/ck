@@ -1,6 +1,7 @@
 ## V3.2.4
    - CMX: improved logging
    - CMX: improved error handling (show module path and line number)
+   - CMX: fixed bug when detecting unknown control flag
 
 ## V3.2.3
    - added --new_branch to `cm pull repo` and `cm checkout repo`

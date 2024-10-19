@@ -844,11 +844,13 @@ class CM(object):
           'ignore_inheritance', 'log', 'logfile', 'raise', 'repro',
           'f', 'time', 'profile']]
 
+        delayed_error = ''
+        
         if len(unknown_control_flags)>0:
             unknown_control_flags_str = ','.join(unknown_control_flags)
 
-            print (f'Unknown control flag(s): {unknown_control_flags_str}')
-            print ('')
+            delayed_error = f'Unknown control flag(s): {unknown_control_flags_str}'
+
             # Force print help
             control['h'] = True
 
@@ -943,7 +945,11 @@ class CM(object):
             profile.enable()
 
         r = self._x(i, control)
-        
+
+        if delayed_error != '' and r['return'] == 0:
+            r['return'] = 1
+            r['error'] = delayed_error
+
         if not self.logger == None:
             self.log(f"x output: {r}", "debug")
 
