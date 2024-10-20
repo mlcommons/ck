@@ -1,3 +1,7 @@
+## V3.2.5.1
+   - Fix type of "unknown_keys" to list to be serializable
+     https://github.com/mlcommons/ck/issues/1335
+
 ## V3.2.5
    - CMX: improved logging
    - CMX: improved error handling (show module path and line number)

@@ -15,7 +15,7 @@ across diverse models, data sets, software and hardware.
 
 CM is a part of [Collective Knowledge (CK)](https://github.com/mlcommons/ck) - 
 an educational community project to learn how to run emerging workloads 
-in the most efficient and cost-effictive way across diverse 
+in the most efficient and cost-effective way across diverse 
 and continuously changing systems.
 
 CM includes a collection of portable, extensible and technology-agnostic automation recipes
