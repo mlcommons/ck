@@ -136,7 +136,9 @@ class CM(object):
             if self.debug:
                 raise Exception(r['error'])
 
-            sys.stderr.write('\n'+self.cfg['error_prefix']+' '+r['error']+'!\n')
+            text = self.cfg['error_prefix'] + ' ' + r['error'] + '!\n'
+
+            sys.stderr.write(f'\n{text}')
 
         return r
 
@@ -159,39 +161,44 @@ class CM(object):
             if self.debug:
                 raise Exception(r['error'])
 
-            module_path = r.get('module_path', '')
-            lineno = r.get('lineno', '')
+            if 'warning' in r:
+                message = r.get('warning', '')
+                if message != '':
+                    message = '\nCMX warning: ' + message.capitalize() + '!\n'
+            else:
+                module_path = r.get('module_path', '')
+                lineno = r.get('lineno', '')
 
-            message = ''
+                message = ''
 
-            if not self.logger == None or (module_path != '' and lineno != ''):
-                call_stack = self.state.get('call_stack', [])
+                if not self.logger == None or (module_path != '' and lineno != ''):
+                    call_stack = self.state.get('call_stack', [])
 
-                if not self.logger == None:
+                    if not self.logger == None:
 
-                    self.log(f"x error call stack: {call_stack}", "debug")
-                    self.log(f"x error: {r}", "debug")
+                        self.log(f"x error call stack: {call_stack}", "debug")
+                        self.log(f"x error: {r}", "debug")
 
-                sys.stderr.write('='*60 + '\n')
+                    sys.stderr.write('^'*60 + '\n')
 
-                if not self.logger == None:
-                    sys.stderr.write('CMX call stack:\n')
+                    if not self.logger == None:
+                        sys.stderr.write('CMX call stack:\n')
 
-                    for cs in call_stack:
-                        sys.stderr.write(f' * {cs}\n')
+                        for cs in call_stack:
+                            sys.stderr.write(f' * {cs}\n')
 
+                        message += '\n'
+                else:
                     message += '\n'
-            else:
-                message += '\n'
 
-            message += self.cfg['error_prefix2']
+                message += self.cfg['error_prefix2']
 
-            if module_path != '' and lineno !='':
-                message += f' in {module_path} ({lineno}):\n\n'
-            else:
-                message += ': '
+                if module_path != '' and lineno !='':
+                    message += f' in {module_path} ({lineno}):\n\n'
+                else:
+                    message += ': '
 
-            message += r['error'] + '\n'
+                message += r['error'] + '\n'
 
             sys.stderr.write(message)
 
@@ -1097,7 +1104,7 @@ class CM(object):
                    print ('')
                    print ('Check https://github.com/mlcommons/ck/tree/master/cm/docs/cmx for more details.')
                                                                                                   
-            return {'return':0, 'warning':'no action specified'}
+            return {'return':1, 'warning':'', 'error':'help requested'}
 
         # Load info about all CM repositories (to enable search for automations and artifacts)
         if self.repos == None:
@@ -1292,11 +1299,13 @@ class CM(object):
 
         # Check if common automation and --help
         if (use_common_automation or automation == '') and cm_help:
-            return print_action_help(self.common_automation, 
-                                     self.common_automation, 
-                                     'common',
-                                     action,
-                                     original_action)
+            r = print_action_help(self.common_automation, 
+                                  self.common_automation, 
+                                  'common',
+                                  action,
+                                  original_action)
+
+            return {'return':1, 'warning':'', 'error':'help requested'}
 
         # If no automation was found we do not force common automation, check if should fail or continue
         if not use_common_automation and len(automation_lst)==0:
@@ -1371,7 +1380,7 @@ class CM(object):
                 for d in actions:
                     print ('  * cmx ' + d + '  ' + automation_meta.get('alias','') + ' -h')
 
-            return {'return':0, 'warning':'no automation action'}
+            return {'return':1, 'warning':'', 'error':'help requested'}
 
 
         if not hasattr(initialized_automation, action):
@@ -1487,6 +1496,8 @@ class CM(object):
             print (delayed_help_api_prefix)
             print ('')
             print (delayed_help_api)
+
+            return {'return':1, 'warning':'', 'error':'help requested'}
 
         return r
 
