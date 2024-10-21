@@ -198,7 +198,10 @@ class CM(object):
                 else:
                     message += ': '
 
-                message += r['error'] + '\n'
+                text = r['error'].capitalize()
+                if not text.endswith('!'): text += '!'
+
+                message += text + '\n'
 
             sys.stderr.write(message)
 
