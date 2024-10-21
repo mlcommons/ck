@@ -1936,7 +1936,7 @@ def test_input(i):
     r = {'return':0}
 
     if len(i)>0:
-        unknown_keys = i.keys()
+        unknown_keys = list(i.keys())
         unknown_keys_str = ', '.join(unknown_keys)
 
         x = '' if len(unknown_keys) == 1 else 's'

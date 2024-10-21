@@ -1,3 +1,9 @@
+## V3.2.6
+   - Fix type of "unknown_keys" to list to be serializable
+     https://github.com/mlcommons/ck/issues/1335
+   - Added support to print warning instead of error
+     (useful for help)
+
 ## V3.2.5
    - CMX: improved logging
    - CMX: improved error handling (show module path and line number)
