@@ -164,7 +164,8 @@ class CM(object):
             if 'warning' in r:
                 message = r.get('warning', '')
                 if message != '':
-                    message = '\nCMX warning: ' + message.capitalize() + '!\n'
+                    message = message[0].upper() + message[1:]
+                    message = '\nCMX warning: ' + message + '!\n'
             else:
                 module_path = r.get('module_path', '')
                 lineno = r.get('lineno', '')
@@ -195,10 +196,13 @@ class CM(object):
 
                 if module_path != '' and lineno !='':
                     message += f' in {module_path} ({lineno}):\n\n'
+                    text = r['error']
+                    text = text[0].upper() + text[1:]
+
                 else:
                     message += ': '
+                    text = r['error']
 
-                text = r['error'].capitalize()
                 if not text.endswith('!'): text += '!'
 
                 message += text + '\n'
