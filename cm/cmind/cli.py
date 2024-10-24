@@ -194,6 +194,21 @@ def run_experiment(argv = None):
     return run(['run', 'experiment'] + argv)
 
 ############################################################
+def run_ff(argv = None):
+    """
+    """
+
+    # Access CMX
+    if argv is None:
+        argv = sys.argv[1:]
+
+    x = 'lex'
+    if len(argv) >0 and argv[0].startswith('_misc'):
+        x = argv[0]
+
+    return runx(['run', 'f'+x+'.flow'] + argv)
+
+############################################################
 def parse(cmd):
     """
     Parse CM command line into CM input dictionary.

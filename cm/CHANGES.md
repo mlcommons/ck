@@ -1,3 +1,6 @@
+## V3.2.7
+   - minor improvement in error handling and messages
+
 ## V3.2.6
    - Fix type of "unknown_keys" to list to be serializable
      https://github.com/mlcommons/ck/issues/1335

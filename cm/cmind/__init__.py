@@ -2,7 +2,7 @@
 #
 # Written by Grigori Fursin
 
-__version__ = "3.2.6"
+__version__ = "3.2.7"
 
 from cmind.core import access
 from cmind.core import x
