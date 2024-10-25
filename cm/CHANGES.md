@@ -1,3 +1,6 @@
+## V3.2.8
+   - minor improvements
+
 ## V3.2.7
    - minor improvement in error handling and messages
 
