@@ -101,7 +101,7 @@ setup(
                       "cm = cmind.cli:run",
                       "cmx = cmind.cli:runx",
                       "cmr = cmind.cli:run_script",
-                      "fflow = cmind.cli:run_ff",
+                      "flexflow = cmind.cli:run_ff",
                       "cmrd = cmind.cli:docker_script",
                       "cmg = cmind.cli:gui_script",
                       "cme = cmind.cli:run_experiment"
