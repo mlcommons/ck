@@ -1,3 +1,7 @@
+## V3.2.8
+   - fixed Docker test for mlperf-inference with cm4mlops
+   - minor improvements
+
 ## V3.2.7
    - minor improvement in error handling and messages
 
