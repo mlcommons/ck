@@ -192,7 +192,7 @@ Such architecture makes it possible to easily chain existing user scripts and to
 instead of substituting or rewriting them.
 
 It is possible to chain CM scripts using simple 
-[`deps` list](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L21) 
+[`deps` list](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L23) 
 in a meta description of a given script:
 
 <sup>
@@ -262,7 +262,7 @@ cmr "python app image-classification onnx _cpu" --input=computer_mouse.jpg -j
  variables at the host. However, CM allows you to do that 
  by explicitly specifying which environment variables and state keys
  will be updated at the host using `new_env_keys` and `new_state_keys`
- in the meta of a given script as shown [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L83).
+ in the meta of a given script as shown [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L88).
  This helped us make behavior of complex CM workflows more deterministic
  and reproducible.*
 
@@ -294,7 +294,7 @@ detect or install Python and PIP packages, download and preprocess data sets and
 
 ## How to add new CM scripts?
 
-One the main requirement for CM was to provide a very light-weight connectors 
+One of the main requirement for CM was to provide a very light-weight connectors 
 between existing automation scripts and tools rather than substituting them.
 
 You can add your own scripts and tools to CM using the following command
