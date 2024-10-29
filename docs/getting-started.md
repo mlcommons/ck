@@ -314,7 +314,7 @@ You can also run it from python as follows:
 import cmind
 output=cmind.access({'action':'run', 
                      'automation':'script', 
-                     'tags':'my,script})
+                     'tags':'my,script'})
 if output['return']==0: print (output)
 ```
 
