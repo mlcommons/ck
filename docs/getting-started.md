@@ -412,7 +412,7 @@ export CM_SCRIPT_EXTRA_CMD="--adr.python.name=mlperf"
 
 If you now run our image classification automation recipe, 
 it will reuse model and dataset from the cache, but will
-use 
+use the newly created virtual environment `mlperf` for running the script.
 
 
 ## How to debug CM scripts?
