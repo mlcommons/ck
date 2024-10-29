@@ -1,3 +1,7 @@
+## V3.2.9
+   - fixed minor bug with JSON console output
+   - fixed minor bug with console in cmind.x function
+
 ## V3.2.8
    - fixed Docker test for mlperf-inference with cm4mlops
    - minor improvements

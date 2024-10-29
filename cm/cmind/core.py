@@ -1656,7 +1656,7 @@ def access(i):
     return cm.access(i)
 
 ############################################################
-def x(i):
+def x(i, out = None):
     """
     Automatically initialize CM and run automations 
     without the need to initialize and customize CM class.
@@ -1668,9 +1668,9 @@ def x(i):
     global cm
 
     if cm is None:
-       cm=CM()
+       cm = CM()
 
-    return cm.x(i)
+    return cm.x(i, out = out)
 
 ############################################################
 def error(i):
