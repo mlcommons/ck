@@ -18,7 +18,7 @@ across diverse and continuously changing models, data, software and hardware.
 
 CK consists of several sub-projects:
 
-* [Collective Mind framework (CM)](cm) - a very light-weight Python-based framework with minimal dependencies
+* [Collective Mind framework (CM)](cm) - a very lightweight Python-based framework with minimal dependencies
   to help users implement, share and reuse cross-platform automation recipes to 
   build, benchmark and optimize applications on any platform
   with any software and hardware. 
