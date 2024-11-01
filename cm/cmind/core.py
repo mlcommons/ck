@@ -1341,6 +1341,9 @@ class CM(object):
             loaded_common_automation = True
 
         # Finalize automation class initialization
+        if not self.logger == None:
+            self.log(f"x automation_full_path: {automation_full_path}", "info")
+
         initialized_automation = loaded_automation_class(self, automation_full_path)
         initialized_automation.meta = automation_meta
         initialized_automation.full_path = automation_full_path
