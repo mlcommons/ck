@@ -66,6 +66,12 @@ class CAutomation(Automation):
         checkout_only = i.get('checkout_only', False)
         skip_zip_parent_dir = i.get('skip_zip_parent_dir', False)
 
+        # Check alias is URL
+        if url == '' and (alias.startswith('https://') or alias.startswith('git@')):
+            url = alias
+            alias = ''
+
+        # Process URL and alias
         if url == '':
             if alias != '':
                 url = self.cmind.cfg['repo_url_prefix']
