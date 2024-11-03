@@ -1,4 +1,4 @@
-cmind>=2.0.1
+cmind>=3.3.3
 pyyaml
 requests
 setuptools
