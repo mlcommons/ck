@@ -162,8 +162,8 @@ class CAutomation(Automation):
 
         warnings = []
 
-        if not self.cmind.logger == None:
-            self.cmind.log(f"x repo log: {pull_repos}", "debug")
+#        if not self.cmind.xlogger == None:
+#            self.cmind.log(f"x repo log: {pull_repos}", "debug")
         
         for repo in pull_repos:
              alias = repo['alias']

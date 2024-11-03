@@ -1,3 +1,6 @@
+## V3.3.3
+   - fixed CM logger issue
+
 ## V3.3.2
    - moved "CMX stack error" to -log
    - improved error reporting
