@@ -1,3 +1,10 @@
+## V3.3.3
+   - fixed CM logger issue
+
+## V3.3.2
+   - moved "CMX stack error" to -log
+   - improved error reporting
+
 ## V3.3.1
    - allow "cm/cmx pull repo {URL}" along with "cm/cmx pull repo --url={URL}" 
    - CMX: added "automation_full_path" to -log

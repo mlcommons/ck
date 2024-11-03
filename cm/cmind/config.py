@@ -37,7 +37,7 @@ class Config(object):
                      "flag_help2": "help",
 
                      "error_prefix": "CM error:",
-                     "error_prefix2": "CMX detected an issue",
+                     "error_prefix2": "CMX detected a problem",
                      "info_cli": "cm {action} {automation} {artifact(s)} {flags} @input.yaml @input.json",
                      "info_clix": "cmx {action} {automation} {artifact(s)} {CMX control flags (-)} {CMX automation flags (--)}",
 
