@@ -180,7 +180,8 @@ class CM(object):
                         self.log(f"x error call stack: {call_stack}", "debug")
                         self.log(f"x error: {r}", "debug")
 
-                    sys.stderr.write('^'*60 + '\n')
+#                    sys.stderr.write('^'*60 + '\n')
+                    sys.stderr.write('\n')
 
                     if not self.logger == None:
                         sys.stderr.write('CMX call stack:\n')
@@ -195,7 +196,7 @@ class CM(object):
                 message += self.cfg['error_prefix2']
 
                 if module_path != '' and lineno !='':
-                    message += f' in {module_path} ({lineno}):\n\n'
+                    message += f' while running automation {module_path} ({lineno}):\n\n'
                     text = r['error']
                     text = text[0].upper() + text[1:]
 
@@ -352,9 +353,10 @@ class CM(object):
         if self.cfg['flag_debug'] in i:
             self.debug = True
 
-        # Check if log
-        if self.logger is None:
-            self.logger = logging.getLogger("cm")
+#        Not used in CM but used in CMX
+#        # Check if log
+#        if self.logger is None:
+#            self.logger = logging.getLogger("cm")
 
         # Parse as command line if string or list
         if type(i) == str or type(i) == list:
