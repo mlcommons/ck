@@ -1,3 +1,13 @@
+## V3.3.4
+   - added utils.path2: 
+     add quotes if spaces in path
+   - added utils.update_dict_with_flat_key: 
+     update dictionary via flat key (x.y.z)
+   - added utils.get_value_from_dict_with_flat_key
+     get value from dict via flat key (x.y.z)
+   - added utils.load_module
+     universal python module loader
+
 ## V3.3.3
    - fixed CM logger issue
 
