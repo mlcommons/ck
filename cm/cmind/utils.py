@@ -1947,3 +1947,82 @@ def test_input(i):
               'unknown_keys_str': unknown_keys_str}
 
     return r
+
+##############################################################################
+def path2(path):
+    """
+    Add quotes if spaces in path
+    """
+    new_path = f'"{path}"' if not path.startswith('"') and ' ' in path else path
+
+    return new_path
+
+##############################################################################
+def update_dict_with_flat_key(key, value, d):
+    """
+    Update dictionary via flat key (x.y.z)
+    """
+
+    if '.' in key:
+       keys = key.split('.')
+
+       new_d = d
+
+       first = True
+
+       for key in keys[:-1]:
+           if first:
+               first = False
+
+           if key not in new_d:
+              new_d[key] = {}
+
+           new_d = new_d[key]
+
+       new_d[keys[-1]] = value
+    else:
+       d[key] = value
+
+    return {'return':0}
+
+##############################################################################
+def get_value_from_dict_with_flat_key(key, d):
+    """
+    Get value from dict via flat key (x.y.z)
+    """
+
+    if '.' in key:
+       keys = key.split('.')
+       new_d = d
+       for key in keys[:-1]:
+           if key in new_d:
+              new_d = new_d[key]
+       value = new_d.get(keys[-1])
+    else:
+       value = d.get(key)
+
+    return value
+
+##############################################################################
+def load_module(cmind, task_path, sub_module_name):
+    """
+    Universal python module loaders
+    """
+
+    import importlib
+
+    sub_module_obj = None
+
+    sub_module_path = os.path.join(task_path, sub_module_name)
+    if os.path.isfile(sub_module_path):
+        sub_module_spec = importlib.util.spec_from_file_location(sub_module_name, sub_module_path)
+        if sub_module_spec == None:
+            return cmind.prepare_error(1, f"Can\'t load Python module file spec {sub_module_path}")
+
+        try:
+           sub_module_obj = importlib.util.module_from_spec(sub_module_spec)
+           sub_module_spec.loader.exec_module(sub_module_obj)
+        except Exception as e:  # pragma: no cover
+           return cmind.prepare_error(1, f"Can\'t load Python module code {sub_module_path}:\n\n{e}")
+
+    return {'return':0, 'sub_module_obj': sub_module_obj, 'sub_module_path': sub_module_path}
