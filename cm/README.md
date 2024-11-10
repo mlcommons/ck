@@ -74,8 +74,8 @@ You can learn more about the motivation behind these projects from the following
 
 ### Acknowledgments
 
-The Collective Mind framework (CM) was created by [Grigori Fursin](https://cKnowledge.org/gfursin),
+The Collective Mind automation framework (CM) was created by [Grigori Fursin](https://cKnowledge.org/gfursin),
 sponsored by cKnowledge.org and cTuning.org, and donated to MLCommons to benefit everyone. 
-Since then, this open-source technology (CM, CM4MLOps, CM4MLPerf, CM4ABTF, CM4Research, etc)
-is being developed as a community effort thanks to all our
+This open-source technology (CM, CM4MLOps, CM4MLPerf, CM4ABTF, CM4Research, etc)
+is being developed as a community effort thanks to all our fantastic
 [volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)! 
