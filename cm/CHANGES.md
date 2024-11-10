@@ -1,3 +1,9 @@
+## V3.4.1
+   - reduced Python min version in pyproject.toml to 3.7 for backwards compatibility
+
+## V3.4.0
+   - added pyproject.toml to install CM and deprecated setup.py
+
 ## V3.3.4
    - added utils.path2: 
      add quotes if spaces in path

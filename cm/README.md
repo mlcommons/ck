@@ -44,12 +44,16 @@ from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors:
   and simple JSON/YAML descriptions instead of inventing new workflow languages;
 * must have the same interface to run all automations natively, in a cloud or inside containers.
 
+### Maintainers
+
+* [Grigori Fursin](https://cKnowledge.org/gfursin)
+
 ### Resources
 
-* CM v2.x (stable version 2022-cur): [installation on Linux, Windows, MacOS](https://access.cknowledge.org/playground/?action=install) ; 
+* CM v2.x (2022-cur) (stable): [installation on Linux, Windows, MacOS](https://access.cknowledge.org/playground/?action=install) ; 
   [docs](https://docs.mlcommons.org/ck) ; [popular commands](https://github.com/mlcommons/ck/tree/master/cm/docs/demos/some-cm-commands.md) ; 
   [getting started guide](https://github.com/mlcommons/ck/blob/master/docs/getting-started.md)
-* CM v3.x (prototype 2024-cur): [docs](https://github.com/mlcommons/ck/tree/master/cm/docs/cmx)
+* CM v3.x aka CMX (2024-cur) (stable): [docs](https://github.com/orgs/mlcommons/projects/46)
 * MLPerf inference benchmark automated via CM
   * [Run MLPerf for submissions](https://docs.mlcommons.org/inference)
   * [Run MLPerf at the Student Cluster Competition'24](https://docs.mlcommons.org/inference/benchmarks/text_to_image/reproducibility/scc24)
@@ -61,21 +65,21 @@ from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors:
 
 [Apache 2.0](LICENSE.md)
 
-### Citing CM and CM4MLOps
+### Citing CM project
 
-If you found CM useful, please cite this article: 
+If you found CM automations useful, please cite this article: 
 [ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].
 
-You can learn more about the motivation behind these projects from the following articles and presentations:
+You can learn more about the motivation behind these projects from the following presentations:
 
-* "Enabling more efficient and cost-effective AI/ML systems with Collective Mind, virtualized MLOps, MLPerf, Collective Knowledge Playground and reproducible optimization tournaments": [ [ArXiv](https://arxiv.org/abs/2406.16791) ] 
+* "Enabling more efficient and cost-effective AI/ML systems with Collective Mind, virtualized MLOps, MLPerf, Collective Knowledge Playground and reproducible optimization tournaments": [ [ArXiv](https://arxiv.org/abs/2406.16791) ]
 * ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
 * ACM TechTalk'21 about Collective Knowledge project: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
 
 ### Acknowledgments
 
-The Collective Mind framework (CM) was created by [Grigori Fursin](https://cKnowledge.org/gfursin),
+The Collective Mind automation framework (CM) was created by [Grigori Fursin](https://cKnowledge.org/gfursin),
 sponsored by cKnowledge.org and cTuning.org, and donated to MLCommons to benefit everyone. 
-Since then, this open-source technology (CM, CM4MLOps, CM4MLPerf, CM4ABTF, CM4Research, etc)
-is being developed as a community effort thanks to all our
+This open-source technology (CM, CM4MLOps, CM4MLPerf, CM4ABTF, CM4Research, etc)
+is being developed as a community effort thanks to all our fantastic
 [volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)! 

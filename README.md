@@ -35,8 +35,9 @@ CK consists of several sub-projects:
     to run automotive benchmark across different models, data sets, software and hardware from different vendors.
 
 * [CMX (the next generation of CM)](cm/docs/cmx) - we are developing the next generation of CM 
-  to make it simpler and more flexible based on user feedback. Please follow 
-  this project [here](https://github.com/orgs/mlcommons/projects/46).
+    to make it simpler and more flexible based on user feedback. Please follow 
+    this project [here]( https://github.com/orgs/mlcommons/projects/46 ).
+
 
 * [Collective Knowledge Playground](https://access.cKnowledge.org) - a unified platform
   to list CM scripts similar to PYPI, aggregate AI/ML Systems benchmarking results in a reproducible format with CM workflows, 
@@ -55,6 +56,11 @@ CK consists of several sub-projects:
 
 * Copyright (c) 2021-2024 MLCommons
 * Copyright (c) 2014-2021 cTuning foundation
+
+### Maintainers
+
+* CM/CMX/CM4Research: [Grigori Fursin](https://cKnowledge.org/gfursin)
+* CM4MLOps: [Arjun Suresh](https://github.com/arjunsuresh) and [Anandhu Sooraj](https://github.com/anandhu-eng)
 
 ### Motivation and long-term vision
 
@@ -79,8 +85,8 @@ You can learn more about the motivation behind these projects from the following
 
 ### Acknowledgments
 
-Collective Knowledge (CK) and Collective Mind (CM) were created by [Grigori Fursin](https://cKnowledge.org/gfursin),
+The Collective Mind automation framework (CM) was created by [Grigori Fursin](https://cKnowledge.org/gfursin),
 sponsored by cKnowledge.org and cTuning.org, and donated to MLCommons to benefit everyone. 
-Since then, this open-source technology (CM, CM4MLOps, CM4MLPerf, CM4ABTF, CM4Research, etc)
-is being developed as a community effort thanks to all our
+This open-source technology (CM, CM4MLOps, CM4MLPerf, CM4ABTF, CM4Research, etc)
+is being developed as a community effort thanks to all our fantastic
 [volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)! 
