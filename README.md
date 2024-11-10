@@ -35,8 +35,9 @@ CK consists of several sub-projects:
     to run automotive benchmark across different models, data sets, software and hardware from different vendors.
 
 * [CMX (the next generation of CM)](cm/docs/cmx) - we are developing the next generation of CM 
-  to make it simpler and more flexible based on user feedback. Please follow 
-  this project [here](https://github.com/orgs/mlcommons/projects/46).
+    to make it simpler and more flexible based on user feedback. Please follow 
+    this project [here]( https://github.com/orgs/mlcommons/projects/46 ).
+
 
 * [Collective Knowledge Playground](https://access.cKnowledge.org) - a unified platform
   to list CM scripts similar to PYPI, aggregate AI/ML Systems benchmarking results in a reproducible format with CM workflows, 
@@ -58,7 +59,7 @@ CK consists of several sub-projects:
 
 ### Maintainers
 
-* CM/CMX automation framework: [Grigori Fursin](https://cKnowledge.org/gfursin)
+* CM/CMX/CM4Research: [Grigori Fursin](https://cKnowledge.org/gfursin)
 * CM4MLOps: [Arjun Suresh](https://github.com/arjunsuresh) and [Anandhu Sooraj](https://github.com/anandhu-eng)
 
 ### Motivation and long-term vision

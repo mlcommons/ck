@@ -44,6 +44,10 @@ from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors:
   and simple JSON/YAML descriptions instead of inventing new workflow languages;
 * must have the same interface to run all automations natively, in a cloud or inside containers.
 
+### Maintainers
+
+* [Grigori Fursin](https://cKnowledge.org/gfursin)
+
 ### Resources
 
 * CM v2.x (stable version 2022-cur): [installation on Linux, Windows, MacOS](https://access.cknowledge.org/playground/?action=install) ; 
