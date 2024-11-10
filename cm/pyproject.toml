@@ -17,7 +17,7 @@ maintainers = [
 
 description = "Collective Mind automation framework (CM)"
 
-requires-python = ">=3.8"
+requires-python = ">=3.7"
 
 dependencies = [
     "pyyaml", 
