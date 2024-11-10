@@ -1,3 +1,6 @@
+## V3.4.0
+   - added pyproject.toml to install CM and deprecated setup.py
+
 ## V3.3.4
    - added utils.path2: 
      add quotes if spaces in path
