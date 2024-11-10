@@ -62,7 +62,7 @@ listed here in alphabetical order:
 * Arun Tejusve Raghunath Rajan (Cruise)
 * Vijay Janapa Reddi (Harvard University)
 * Andrew Reusch (OctoML)
-* Anandhu S (Kerala Technical University)
+* Anandhu Sooraj (Kerala Technical University)
 * Sergey Serebryakov (HPE)
 * Warren Schultz (Principled Technologies)
 * Amrutha Sheleenderan (Kerala Technical University)
