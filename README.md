@@ -62,13 +62,17 @@ CK consists of several sub-projects:
 * CM/CMX/CM4Research: [Grigori Fursin](https://cKnowledge.org/gfursin)
 * CM4MLOps: [Arjun Suresh](https://github.com/arjunsuresh) and [Anandhu Sooraj](https://github.com/anandhu-eng)
 
-### Motivation and long-term vision
+### Citing our project
 
-You can learn more about the motivation behind these projects from the following articles and presentations:
+If you found the CM automation framework helpful, kindly reference this article:
+[ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].
 
-* "Enabling more efficient and cost-effective AI/ML systems with Collective Mind, virtualized MLOps, MLPerf, Collective Knowledge Playground and reproducible optimization tournaments": [ [ArXiv](https://arxiv.org/abs/2406.16791) ] 
+To learn more about the motivation behind CK and CM technology, please explore the following presentations:
+
+* "Enabling more efficient and cost-effective AI/ML systems with Collective Mind, virtualized MLOps, MLPerf, Collective Knowledge Playground and reproducible optimization tournaments": [ [ArXiv](https://arxiv.org/abs/2406.16791) ]
 * ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
-* ACM TechTalk'21 about automating research projects: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
+* ACM TechTalk'21 about Collective Knowledge project: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
+
 
 ### CM Documentation
 
@@ -85,8 +89,11 @@ You can learn more about the motivation behind these projects from the following
 
 ### Acknowledgments
 
-The Collective Mind automation framework (CM) was created by [Grigori Fursin](https://cKnowledge.org/gfursin),
-sponsored by cKnowledge.org and cTuning.org, and donated to MLCommons to benefit everyone. 
-This open-source technology (CM, CM4MLOps, CM4MLPerf, CM4ABTF, CM4Research, etc)
-is being developed as a community effort thanks to all our fantastic
-[volunteers, collaborators and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)! 
+The open-source Collective Knowledge project (CK)
+was founded by [Grigori Fursin](https://cKnowledge.org/gfursin),
+sponsored by cTuning.org, HiPEAC and OctoML, and donated to MLCommons 
+to serve the wider community. This open-source initiative includes 
+CM, CM4MLOps/CM4MLPerf, CM4ABTF, and CMX automation technologies. 
+Its development is a collaborative community effort, 
+made possible by our dedicated [volunteers, collaborators, 
+and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)!
