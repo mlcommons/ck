@@ -1,3 +1,6 @@
+## V3.4.1.1
+   - added utils.flatten_dict
+
 ## V3.4.1
    - reduced Python min version in pyproject.toml to 3.7 for backwards compatibility
 

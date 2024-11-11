@@ -2026,3 +2026,24 @@ def load_module(cmind, task_path, sub_module_name):
            return cmind.prepare_error(1, f"Can\'t load Python module code {sub_module_path}:\n\n{e}")
 
     return {'return':0, 'sub_module_obj': sub_module_obj, 'sub_module_path': sub_module_path}
+
+##############################################################################
+def flatten_dict(d, fd = {}, prefix = ''):
+    """
+    Flatten dict ({"x":{"y":"z"}} -> x.y=z)
+    """
+
+
+    for k in d:
+        v = d[k]
+
+        if type(v) == list and len(v) == 1 and type(v[0]) == dict:
+            v = v[0]
+
+        if type(v) == dict:
+           new_prefix = prefix + k + '.'
+           flatten_dict(v, fd, new_prefix)
+        else:
+           fd[prefix + k] = str(v)
+
+    return
