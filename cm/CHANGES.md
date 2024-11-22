@@ -1,5 +1,9 @@
-## V3.4.1.1
+## V3.4.2
    - added utils.flatten_dict
+   - added utils.safe_int
+   - added utils.safe_float
+   - added utils.get_set
+   - added utils.digits
 
 ## V3.4.1
    - reduced Python min version in pyproject.toml to 3.7 for backwards compatibility

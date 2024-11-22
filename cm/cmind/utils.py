@@ -2047,3 +2047,108 @@ def flatten_dict(d, fd = {}, prefix = ''):
            fd[prefix + k] = str(v)
 
     return
+
+##############################################################################
+def safe_int(i, d):
+    """
+    Get safe int (useful for sorting function)
+
+    Args:    
+             i (any): variable with any type
+             d (int): default value
+
+    Returns: 
+             (int): returns i if it can be converted to int, or d otherwise
+    """
+
+    r = d
+    try:
+        r = int(i)
+    except Exception as e:
+        pass
+
+    return r
+
+##############################################################################
+def safe_float(i, d):
+    """
+    Get safe float (useful for sorting function)
+
+    Args:    
+             i (any): variable with any type
+             d (float): default value
+
+    Returns: 
+             (float): returns i if it can be converted to float or d otherwise
+
+    """
+
+    r = d
+    try:
+        r = float(i)
+    except Exception as e:
+        pass
+
+    return r
+
+##############################################################################
+def get_set(meta, key, state, keys):
+    """
+    Get value from dict and update in another dict 
+
+    Args:
+      meta (dict): original dict
+      key (str): key to get value from original dict
+      state (dict): target dict
+      keys (list): list of keys to set value in target dict
+
+    Returns:
+      (Python object): value from original dict or None
+
+    """
+
+    v = meta.get(key, None)
+    if v != None:
+        cur = state
+        vv = None
+        for k in keys:
+            if k == keys[-1]:
+                vv = cur.get(k, None)
+                if vv == None:
+                    cur[k] = v
+            else:
+                if k not in cur:
+                    cur[k] = {}
+                cur = cur[k]
+
+    return v
+
+##############################################################################
+def digits(s, first = True):
+    """
+    Get first digits and convert to int
+
+    Args:    
+      s (str): string ("1.3+xyz")
+      first (bool): if True, choose only first digits, otherwise all
+
+    Returns: 
+      (int): returns int from first digits or 0
+
+    """
+
+    v = 0
+
+    digits = ''
+    for char in s:
+        if char.isdigit():
+            digits+=char
+        elif first:
+            break
+
+    try:
+       v = int(digits)
+    except Exception as e:
+       pass
+
+    return v
