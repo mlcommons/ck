@@ -34,7 +34,7 @@ CK consists of several sub-projects:
   * [CM4ABTF](https://github.com/mlcommons/cm4abtf) - a unified CM interface and automation recipes
     to run automotive benchmark across different models, data sets, software and hardware from different vendors.
 
-* [CMX (the next generation of CM)](cm/docs/cmx) - we are developing the next generation of CM 
+* [CMX (the next generation of CM and CM4MLOps)](cm/docs/cmx) - we are developing the next generation of CM 
     to make it simpler and more flexible based on user feedback. Please follow 
     this project [here]( https://github.com/orgs/mlcommons/projects/46 ).
 
@@ -59,8 +59,9 @@ CK consists of several sub-projects:
 
 ### Maintainers
 
-* CM/CMX/CM4Research: [Grigori Fursin](https://cKnowledge.org/gfursin)
+* CM/CM4Research: [Grigori Fursin](https://cKnowledge.org/gfursin)
 * CM4MLOps: [Arjun Suresh](https://github.com/arjunsuresh) and [Anandhu Sooraj](https://github.com/anandhu-eng)
+* CMX (the next generation of CM) [Grigori Fursin](https://cKnowledge.org/gfursin)
 
 ### Citing our project
 
@@ -89,11 +90,11 @@ To learn more about the motivation behind CK and CM technology, please explore t
 
 ### Acknowledgments
 
-The open-source Collective Knowledge project (CK)
-was founded by [Grigori Fursin](https://cKnowledge.org/gfursin),
-sponsored by cTuning.org, HiPEAC and OctoML, and donated to MLCommons 
-to serve the wider community. This open-source initiative includes 
-CM, CM4MLOps/CM4MLPerf, CM4ABTF, and CMX automation technologies. 
-Its development is a collaborative community effort, 
-made possible by our dedicated [volunteers, collaborators, 
-and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)!
+The open-source Collective Knowledge project (CK, CM, CM4MLOps/CM4MLPerf, 
+CM4Research and CMX) was created by [Grigori Fursin](https://cKnowledge.org/gfursin)
+and sponsored by cTuning.org, OctoAI and HiPEAC.
+Grigori donated CK to MLCommons to benefit the community
+and to advance its development as a collaborative, community-driven effort.
+We thank MLCommons and FlexAI for supporting this project,
+as well as our dedicated [volunteers and collaborators](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)
+for their feedback and contributions!

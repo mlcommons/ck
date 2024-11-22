@@ -2122,3 +2122,33 @@ def get_set(meta, key, state, keys):
                 cur = cur[k]
 
     return v
+
+##############################################################################
+def digits(s, first = True):
+    """
+    Get first digits and convert to int
+
+    Args:    
+      s (str): string ("1.3+xyz")
+      first (bool): if True, choose only first digits, otherwise all
+
+    Returns: 
+      (int): returns int from first digits or 0
+
+    """
+
+    v = 0
+
+    digits = ''
+    for char in s:
+        if char.isdigit():
+            digits+=char
+        elif first:
+            break
+
+    try:
+       v = int(digits)
+    except Exception as e:
+       pass
+
+    return v
