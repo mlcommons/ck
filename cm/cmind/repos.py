@@ -482,10 +482,14 @@ class Repos:
             # When checkout only, we do not need -b for branch
             extra_flag = ' ' if checkout_only else ' -b '
 
-            if branch != '':
+            if branch != '' and checkout != '':
+            # if both branch and checkout are specified, we do checkout and set remote branch
+                cmd = "git checkout -b " + branch + " " + checkout + " && git branch --set-upstream-to=origin/"+ branch + " " + branch  
+
+            elif branch != '':
                 cmd = 'git fetch && git checkout ' + branch
 
-            if checkout!='':
+            elif checkout!='':
                 cmd += ' ' + checkout
 
             if console:
