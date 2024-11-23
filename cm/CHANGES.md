@@ -1,3 +1,120 @@
+## V3.4.2
+   - added utils.flatten_dict
+   - added utils.safe_int
+   - added utils.safe_float
+   - added utils.get_set
+   - added utils.digits
+
+## V3.4.1
+   - reduced Python min version in pyproject.toml to 3.7 for backwards compatibility
+
+## V3.4.0
+   - added pyproject.toml to install CM and deprecated setup.py
+
+## V3.3.4
+   - added utils.path2: 
+     add quotes if spaces in path
+   - added utils.update_dict_with_flat_key: 
+     update dictionary via flat key (x.y.z)
+   - added utils.get_value_from_dict_with_flat_key
+     get value from dict via flat key (x.y.z)
+   - added utils.load_module
+     universal python module loader
+
+## V3.3.3
+   - fixed CM logger issue
+
+## V3.3.2
+   - moved "CMX stack error" to -log
+   - improved error reporting
+
+## V3.3.1
+   - allow "cm/cmx pull repo {URL}" along with "cm/cmx pull repo --url={URL}" 
+   - CMX: added "automation_full_path" to -log
+
+## V3.2.9
+   - fixed minor bug with JSON console output
+   - fixed minor bug with console in cmind.x function
+
+## V3.2.8
+   - fixed Docker test for mlperf-inference with cm4mlops
+   - minor improvements
+
+## V3.2.7
+   - minor improvement in error handling and messages
+
+## V3.2.6
+   - Fix type of "unknown_keys" to list to be serializable
+     https://github.com/mlcommons/ck/issues/1335
+   - Added support to print warning instead of error
+     (useful for help)
+
+## V3.2.5
+   - CMX: improved logging
+   - CMX: improved error handling (show module path and line number)
+   - CMX: fixed bug when detecting unknown control flag
+   - CMX: do not change output to json if -j or --json
+          just print json in the end ...
+
+## V3.2.3
+   - added --new_branch to `cm pull repo` and `cm checkout repo`
+   - fixed a bug in `cm show repo` (removed dependency on cm4mlops 
+     and used subprocess.check_output)
+
+## V3.2.2
+   - fixed action `help` and flag `-h` to work with all automations:
+     https://github.com/mlcommons/ck/issues/1325
+
+## V3.2.1
+   - added `-f` to the CMX core to be backwards compatible 
+     with CM commands like `cm rm cache -f`
+
+## V3.2.0
+   - added `utils.test_input` to test if input has keys
+     and report them as error
+   - added `prefix_cmx` key to cmr.yaml to customize `cmx pull repo`
+   - improved CMX logging (-log and -logfile):
+     https://github.com/mlcommons/ck/issues/1317
+   - print control flags in help (cmx -h | cmx -help):
+     https://github.com/mlcommons/ck/issues/1318
+   - fail if control flag is not recognized:
+     https://github.com/mlcommons/ck/issues/1315
+   - added -repro flag to record various info to cmx-repro directory
+     https://github.com/mlcommons/ck/issues/1319
+   - print call stack when error > 32 to be able to trace error cause:
+     https://github.com/mlcommons/ck/issues/1320
+     can be combined with -log=debug and -logfile
+
+## V3.1.0
+   - simplified and changed process_input function API
+
+## V3.0.4
+   - splitted automation, artifact and artifacts into name and repo 
+     in the access function to simplify handling of artifacts:
+     https://github.com/mlcommons/ck/issues/1311
+
+## V3.0.3
+   - added -raise for https://github.com/mlcommons/ck/issues/1309
+   - added --extra_cmd_git and --extra_cmd_pip to cm/cmx pull repo
+     https://github.com/mlcommons/ck/issues/1308
+
+## V3.0.2
+   - fixed cmx init
+
+## V3.0.1
+   - fixed minor bug in CM core
+
+## V3.0.0
+   - added `min_cm_version` to the CM repo description (cmr.yaml)
+     to check compatibility of repositories with CM. 
+     It is needed to implement new features in CM core and repositories
+     requested by our users that may not work with previous CM versions.
+     Hence, starting a new version.
+
+   - started prototyping a simpler and cleaner version of `cmind.access()`.
+     it should not influence existing automations and workflows 
+     and will co-exist in the future.
+
 ## V2.4.0
    - added `install_python_requirements` to the CM repo description (cmr.yaml)
      to install requirements to a current python with CM installation if needed

@@ -5,7 +5,7 @@ name: CM test
 
 on:
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "main", "dev" ]
     paths:
       - '.github/workflows/test-cm.yml'
       - 'cm/**'

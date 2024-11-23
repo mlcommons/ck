@@ -12,7 +12,7 @@ class Repos:
     CM repositories class
     """
 
-    def __init__(self, path, cfg, path_to_internal_repo = ''):
+    def __init__(self, path, cfg, path_to_internal_repo = '', cmx = False):
         """
         Initialize CM repositories class
 
@@ -48,6 +48,8 @@ class Repos:
         self.full_path_to_repo_paths = ''
 
         self.extra_info = {}
+
+        self.cmx = cmx
 
     ############################################################
     def load(self, init = False):
@@ -128,7 +130,7 @@ class Repos:
                     # Load description
                     repo = Repo(full_path_to_repo, self.cfg)
 
-                    r = repo.load()
+                    r = repo.load(cmx = self.cmx)
                     if r['return']>0 and r['return']!=16: return r
 
                     # Load only if desc exists
@@ -293,7 +295,8 @@ class Repos:
 
     ############################################################
     def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = '', depth = None, 
-                    path_to_repo = None, checkout_only = False, skip_zip_parent_dir = False):
+                    path_to_repo = None, checkout_only = False, skip_zip_parent_dir = False,
+                    extra_cmd_git = '', extra_cmd_pip = '', new_branch = ''):
         """
         Clone or pull CM repository
 
@@ -301,6 +304,7 @@ class Repos:
             alias (str): CM repository alias
             (url) (str): Git repository URL
             (branch) (str): Git repository branch
+            (new_branch) (str): Create new  branch
             (checkout) (str): Git repository checkout
             (checkout_only) (bool): only checkout existing repo
             (depth) (int): Git repository depth
@@ -311,6 +315,9 @@ class Repos:
             (checkout_only) (bool): only checkout Git repository but don't pull
             (skip_zip_parent_dir) (bool): skip parent dir in CM ZIP repo (useful when 
                                           downloading CM repo archives from GitHub)
+            (extra_cmd_git) (str): add this string to git clone
+            (extra_cmd_pip) (str): add this string to pip install when installing
+                                   requirements from CM repositories
 
         Returns: 
             (CM return dict):
@@ -384,11 +391,14 @@ class Repos:
 
                     os.chdir(self.full_path_to_repos)
 
-                    cmd = 'git clone '+url+' '+alias
+                    cmd = 'git clone ' + url + ' ' + alias
 
                     # Check if depth is set
-                    if depth!=None and depth!='':
-                        cmd+=' --depth '+str(depth)
+                    if depth != None and depth != '':
+                        cmd += ' --depth ' + str(depth)
+
+                    if extra_cmd_git !='' :
+                        cmd +=' ' + extra_cmd_git
 
             if console:
                 print (cmd)
@@ -453,6 +463,19 @@ class Repos:
             os.remove(pack_file)
 
         # Check if branch 
+        if new_branch != '':
+            cmd = 'git checkout -b ' + new_branch
+
+            if console:
+                print ('')
+                print (cmd)
+                print ('')
+
+            r = os.system(cmd)
+
+            if r>0:
+                return {'return':1, 'error':'creating new git branch failed'}
+
         if branch != '' or checkout != '':
             cmd = 'git checkout'
 
@@ -537,6 +560,14 @@ class Repos:
             if not os.path.isdir(path_to_repo_with_prefix):
                 os.makedirs(path_to_repo_with_prefix)
 
+        # Check min CM version requirement
+        min_cm_version = meta.get('min_cm_version','').strip()
+        if min_cm_version != '':
+            from cmind import __version__ as current_cm_version
+            comparison = utils.compare_versions(current_cm_version, min_cm_version)
+            if comparison < 0:
+                return {'return':1, 'error':'This repository requires CM version >= {} while current CM version is {} - please update using "pip install cmind -U"'.format(min_cm_version, current_cm_version)}
+
         # Get final alias
         alias = meta.get('alias', '')
 
@@ -556,6 +587,9 @@ class Repos:
             python_exec = sys.executable
 
             cmd = python_exec + ' -m pip install -r requirements.txt'
+
+            if extra_cmd_pip !='' :
+                cmd +=' ' + extra_cmd_pip
 
             if console:
                 print ('')
@@ -660,11 +694,12 @@ class Repos:
             if r['return']>0: return r
 
             # Check requirements.txt
-            path_to_requirements = os.path.join(path_to_repo, 'requirements.txt')
-
-            if not os.path.isfile(path_to_requirements):
-                r = utils.save_txt(file_name = path_to_requirements, string = self.cfg['new_repo_requirements'])
-                if r['return']>0: return r
+            # 20241006: Moved the check for min cmind version to _cmr.yaml
+#            path_to_requirements = os.path.join(path_to_repo, 'requirements.txt')
+#
+#            if not os.path.isfile(path_to_requirements):
+#                r = utils.save_txt(file_name = path_to_requirements, string = self.cfg['new_repo_requirements'])
+#                if r['return']>0: return r
 
         else:
             r=utils.load_yaml_and_json(file_name_without_ext=path_to_repo_desc)
