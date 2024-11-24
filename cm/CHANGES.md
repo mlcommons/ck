@@ -1,3 +1,8 @@
+## V3.4.2.1
+   - fixed pyproject.toml
+   - fixed docs generation
+   - improved  cm pull repo with branch and SHA (#1355)
+
 ## V3.4.2
    - added utils.flatten_dict
    - added utils.safe_int
