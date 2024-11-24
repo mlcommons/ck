@@ -18,10 +18,14 @@ Collective Knowledge (CK) and Collective Mind (CM)
 were created by [Grigori Fursin](https://arxiv.org/abs/2406.16791),
 sponsored by cKnowledge.org and cTuning.org, and donated to MLCommons 
 to benefit everyone. Since then, this open-source automation technology
-(CM/CMX, CM4MLOps, CM4ABTF, CM4Research, etc) is being extended 
+(CM/CMX, CM4MLOps/CM4MLPerf, CM4ABTF, CM4Research, etc) is being extended 
 as a community effort thanks to all our volunteers, collaborators 
 and contributors listed here in alphabetical order:
 
+* @Henryfzh
+* @Leonard226
+* @Oseltamivir
+* @Submandarine
 * Resmi Arjun
 * Omar Benjelloun (Google)
 * Alice Cheng (Nvidia)
