@@ -11,25 +11,25 @@
 
 ### About
 
-[Collective Knowledge (CK)](https://cKnowledge.org) in an educational project
-to help researchers and engineers automate their repetitive, tedious and time-consuming tasks
-to build, run, benchmark and optimize AI, ML and other applications and systems 
-across diverse and continuously changing models, data, software and hardware.
+[Collective Knowledge (CK, CM, CM4MLOps, CM4MLPerf and CMX)](https://cKnowledge.org) 
+is an educational community project to learn how to run AI, ML and other emerging workloads 
+in the most efficient and cost-effective way across diverse models, data sets, software and hardware.
 
 CK consists of several sub-projects:
 
 * [Collective Mind framework (CM)](cm) - a very lightweight Python-based framework with minimal dependencies
-  to help users implement, share and reuse cross-platform automation recipes to 
-  build, benchmark and optimize applications on any platform
-  with any software and hardware. 
-
-  * [CM interface to run MLPerf inference benchmarks](https://docs.mlcommons.org/inference)
+  intended to help researchers and engineers automate their repetitive, tedious and time-consuming tasks
+  to build, run, benchmark and optimize AI, ML and other applications and systems 
+  across diverse and continuously changing models, data, software and hardware.
 
   * [CM4MLOPS](https://github.com/mlcommons/cm4mlops) - 
     a collection of portable, extensible and technology-agnostic automation recipes
     with a human-friendly interface (aka CM scripts) to unify and automate all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
     on diverse platforms with any software and hardware: see [online catalog at CK playground](https://access.cknowledge.org/playground/?action=scripts),
     [online MLCommons catalog](https://docs.mlcommons.org/cm4mlops/scripts) 
+
+  * [CM interface to run MLPerf inference benchmarks](https://docs.mlcommons.org/inference)
+
 
   * [CM4ABTF](https://github.com/mlcommons/cm4abtf) - a unified CM interface and automation recipes
     to run automotive benchmark across different models, data sets, software and hardware from different vendors.
