@@ -73,7 +73,7 @@ cmind = ["repo/*",
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = [".", "cmind"]
+include = ["cmind"]
 exclude = ["docs", "docs.*", "tests", "tests.*"]
 
 
