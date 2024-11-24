@@ -99,6 +99,17 @@ class Repos:
             r = utils.save_json(full_path_to_repo_paths, meta = self.paths)
             if r['return']>0: return r
 
+        # Skip internal repos
+        skip_internal_repos = os.environ.get('CM_CORE_SKIP_INTERNAL_REPOS','').strip().lower()
+        if skip_internal_repos not in ['1', 'true', 'yes']:
+            import pkgutil
+            for mi, name, ispkg in pkgutil.iter_modules():
+                if name.startswith('cm') and name != 'cmind':
+                    path = os.path.join(mi.path, name, 'repo')
+                    path_cmr = os.path.join(path, 'cmr.yaml')
+                    if os.path.isfile(path_cmr) and path not in self.paths:
+                        self.paths.insert(0, path)
+
         # Check internal repo (will be after local)
         if self.path_to_internal_repo != '' and os.path.isdir(self.path_to_internal_repo):
             self.paths.insert(0, self.path_to_internal_repo)
