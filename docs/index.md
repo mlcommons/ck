@@ -1,1 +1,1 @@
-../cm/README.md
+../README.md
