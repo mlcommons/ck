@@ -59,7 +59,7 @@ CK consists of several sub-projects:
 
 ### Maintainers
 
-* CM/CM4Research: [Grigori Fursin](https://cKnowledge.org/gfursin)
+* CM/CM4Research/CM4MLPerf-results: [Grigori Fursin](https://cKnowledge.org/gfursin)
 * CM4MLOps: [Arjun Suresh](https://github.com/arjunsuresh) and [Anandhu Sooraj](https://github.com/anandhu-eng)
 * CMX (the next generation of CM) [Grigori Fursin](https://cKnowledge.org/gfursin)
 
