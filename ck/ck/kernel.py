@@ -35,7 +35,7 @@ __version__ = "2.6.4"
 import sys
 import json
 import os
-import imp   # Needed to load CK Python modules from CK repositories
+import importlib   # Needed to load CK Python modules from CK repositories
 
 initialized = False      # True if initialized
 # Needed to suppress all output (useful for CK-based web services)
@@ -4093,17 +4093,14 @@ def load_module_from_path(i):
     xcfg = i.get('cfg', None)
 
     # Find module
-    try:
-        x = imp.find_module(n, [p])
-    except ImportError as e:  # pragma: no cover
-        return {'return': 1, 'error': 'can\'t find module code (path='+p+', name='+n+', err='+format(e)+')'}
+    x = importlib.machinery.PathFinder().find_spec(n, [p])
+    if not x:
+        return {'return': 1, 'error': 'can\'t find module code (path='+p+', name='+n+')'}
 
-    ff = x[0]
-    full_path = x[1]
+    full_path = x.origin
 
     # Check if code has been already loaded
     if full_path in work['cached_module_by_path'] and work['cached_module_by_path_last_modification'][full_path] == os.path.getmtime(full_path):
-        ff.close()
         # Code already loaded
         return work['cached_module_by_path'][full_path]
 
@@ -4131,11 +4128,10 @@ def load_module_from_path(i):
     ruid = 'rt-'+r['data_uid']
 
     try:
-        c = imp.load_module(ruid, ff, full_path, x[2])
+        c = importlib.util.module_from_spec(x)
+        x.loader.exec_module(c)
     except ImportError as e:  # pragma: no cover
         return {'return': 1, 'error': 'can\'t load module code (path='+p+', name='+n+', err='+format(e)+')'}
-
-    x[0].close()
 
     # Initialize module with this CK instance
     c.ck = sys.modules[__name__]
