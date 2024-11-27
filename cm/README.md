@@ -83,6 +83,8 @@ developed by [Grigori Fursin](https://cKnowledge.org/gfursin),
 as a part of the [Collective Knowledge educational initiative](https://cKnowledge.org),
 sponsored by [cTuning.org](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org), 
 and contributed to MLCommons for the benefit of all. 
+
 This open-source technology, including CM4MLOps/CM4MLPerf, CM4ABTF, CM4Research, and more, 
-is a collaborative community-driven project made possible by our 
-[amazing volunteers, collaborators, and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)! 
+is a collaborative project supported by [MLCommons](https://mlcommons.org), 
+[FlexAI](https://flex.ai), [cTuning](https://cTuning.org)
+and our [amazing volunteers, collaborators, and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)! 
