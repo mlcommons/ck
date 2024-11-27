@@ -34,6 +34,7 @@ class CAutomation(Automation):
           (new_branch) (str): Create new Git branch
           (checkout) (str): Git checkout
           (checkout_only) (bool): only checkout existing repo
+          (dir) (str): use repository in this directory
           (depth) (int): Git depth
           (desc) (str): brief repository description (1 line)
           (prefix) (str): extra directory to keep CM artifacts
@@ -54,11 +55,11 @@ class CAutomation(Automation):
 
         console = i.get('out') == 'con'
 
-        alias = i.get('artifact','')
-        url = i.get('url','')
-        desc = i.get('desc','')
-        prefix = i.get('prefix','')
-        pat = i.get('pat','')
+        alias = i.get('artifact', '')
+        url = i.get('url', '')
+        desc = i.get('desc', '')
+        prefix = i.get('prefix', '')
+        pat = i.get('pat', '')
 
         extra_cmd_git = i.get('extra_cmd_git', '')
         extra_cmd_pip = i.get('extra_cmd_pip', '')
@@ -132,13 +133,14 @@ class CAutomation(Automation):
             branch = i.get('branch', '')
             new_branch = i.get('new_branch', '')
             checkout = i.get('checkout', '')
+            _dir = i.get('dir', '')
 
             r = net.request({'get': {'action': 'check-migration-repo-notes', 'repo': url, 'branch': branch, 'checkout': checkout}})
             notes = r.get('dict', {}).get('notes','')
             if notes !='':
                 print (notes)
 
-            if alias == 'mlcommons@ck' and branch == '' and checkout == '':
+            if alias == 'mlcommons@ck' and branch == '' and checkout == '' and _dir == '':
                 print ('=========================================================================')
                 print ('Warning: mlcommons@ck was automatically changed to mlcommons@cm4mlops.')
                 print ('If you want to use older mlcommons@ck repository, use branch or checkout.')
@@ -153,6 +155,7 @@ class CAutomation(Automation):
                            'branch': branch,
                            'new_branch': new_branch,
                            'checkout': checkout,
+                           'dir': _dir,
                            'depth': i.get('depth', '')}]
 
 
@@ -173,6 +176,7 @@ class CAutomation(Automation):
              checkout = repo.get('checkout','')
              depth = repo.get('depth','')
              path_to_repo = repo.get('path_to_repo', None)
+             _dir = repo.get('dir', '')
 
              if console:
                  print (self.cmind.cfg['line'])
@@ -185,6 +189,8 @@ class CAutomation(Automation):
                      print ('New branch: {}'.format(new_branch))
                  if checkout!='':
                      print ('Checkout:   {}'.format(checkout))
+                 if _dir!='':
+                     print ('Directory:  {}'.format(_dir))
                  if depth!='' and depth!=None:
                      print ('Depth:      {}'.format(str(depth)))
                  print ('')
@@ -197,6 +203,7 @@ class CAutomation(Automation):
                             branch = branch,
                             new_branch = new_branch,
                             checkout = checkout,
+                            _dir = _dir,
                             console = console,
                             desc=desc,
                             prefix=prefix,

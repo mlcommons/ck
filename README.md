@@ -61,7 +61,7 @@ CK consists of several sub-projects:
 
 * CM/CM4Research/CM4MLPerf-results: [Grigori Fursin](https://cKnowledge.org/gfursin)
 * CM4MLOps: [Arjun Suresh](https://github.com/arjunsuresh) and [Anandhu Sooraj](https://github.com/anandhu-eng)
-* CMX (the next generation of CM) [Grigori Fursin](https://cKnowledge.org/gfursin)
+* CMX (the next generation of CM, CM4MLOps and CM4MLPerf): [Grigori Fursin](https://cKnowledge.org/gfursin)
 
 ### Citing our project
 
@@ -73,19 +73,20 @@ To learn more about the motivation behind CK and CM technology, please explore t
 * "Enabling more efficient and cost-effective AI/ML systems with Collective Mind, virtualized MLOps, MLPerf, Collective Knowledge Playground and reproducible optimization tournaments": [ [ArXiv](https://arxiv.org/abs/2406.16791) ]
 * ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
 * ACM TechTalk'21 about Collective Knowledge project: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
+* Journal of Royal Society'20: [ [paper](https://royalsocietypublishing.org/doi/10.1098/rsta.2020.0211) ]
 
 
 ### CM Documentation
 
 * [CM installation GUI](https://access.cknowledge.org/playground/?action=install)
-* [CM Getting Started Guide and FAQ](docs/getting-started.md)
-  * [Common CM interface to run MLPerf inference benchmarks](docs/mlperf/inference)
-  * [Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23](docs/tutorials/common-interface-to-reproduce-research-projects.md)
+* [CM Getting Started Guide and FAQ](https://github.com/mlcommons/ck/tree/master/docs/getting-started.md)
+  * [Common CM interface to run MLPerf inference benchmarks](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference)
+  * [Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23](https://github.com/mlcommons/ck/tree/master/docs/tutorials/common-interface-to-reproduce-research-projects.md)
   * [CM automation recipes for MLOps and DevOps](https://access.cknowledge.org/playground/?action=scripts)
-  * [Other CM tutorials](docs/tutorials)
-* [Full documentation](docs/README.md)
-* [CM development tasks](docs/taskforce.md#current-tasks)
-* [CM and CK history](docs/history.md)
+  * [Other CM tutorials](https://github.com/mlcommons/ck/tree/master/docs/tutorials)
+* [Full documentation](https://github.com/mlcommons/ck/tree/master/docs/README.md)
+* [CM taskforce](https://github.com/mlcommons/ck/tree/master/docs/taskforce.md)
+* [CMX, CM and CK history](https://github.com/mlcommons/ck/tree/master/docs/history.md)
 
 
 ### Acknowledgments
@@ -95,6 +96,8 @@ CM4Research and CMX) was created by [Grigori Fursin](https://cKnowledge.org/gfur
 and sponsored by cTuning.org, OctoAI and HiPEAC.
 Grigori donated CK to MLCommons to benefit the community
 and to advance its development as a collaborative, community-driven effort.
-We thank MLCommons and FlexAI for supporting this project,
+
+We thank [MLCommons](https://mlcommons.org), [FlexAI](https://flex.ai) 
+and [cTuning](https://cTuning.org) for supporting this project,
 as well as our dedicated [volunteers and collaborators](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)
 for their feedback and contributions!

@@ -1,3 +1,6 @@
+## V3.4.3.1
+   - enhancing 'cm pull repo' based on user feedback
+
 ## V3.4.3
    - fixed pyproject.toml
    - fixed docs generation
