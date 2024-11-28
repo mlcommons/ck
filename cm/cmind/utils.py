@@ -204,7 +204,7 @@ def load_json(file_name, check_if_exists = False, encoding='utf8'):
         try:
             meta = json.load(jf)
         except Exception as e:
-            return {'return':4, 'error': format(e)}
+            return {'return':4, 'error': f'detected problem in {file_name}: {e}'}
 
     return {'return':0, 'meta': meta}
 
@@ -274,7 +274,7 @@ def load_yaml(file_name, check_if_exists = False, encoding = 'utf8'):
                 # To support old versions
                 meta = yaml.safe_load(yf)
         except Exception as e:
-            return {'return':4, 'error': format(e)}
+            return {'return':4, 'error': f'detected problem in {file_name}: {e}'}
 
     return {'return':0,
             'meta': meta}
@@ -2152,3 +2152,21 @@ def digits(s, first = True):
        pass
 
     return v
+
+##############################################################################
+def substitute_template(template, variables):
+    """
+    Substitutes variables in a template string with values from a dictionary.
+
+    Args:
+        template (str): The template string with placeholders (e.g., "something-{var1}-something-{var2}").
+        vars (dict): A dictionary containing variable-value pairs (e.g., {'var1': 'a', 'var2': 'b'}).
+
+    Returns:
+        str: The template string with placeholders replaced by the corresponding values.
+    """
+    try:
+        return template.format(**variables)
+    except KeyError as e:
+        return f"Error: Missing value for {e.args[0]} in the vars dictionary."
+

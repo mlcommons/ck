@@ -57,6 +57,10 @@ CK consists of several sub-projects:
 * Copyright (c) 2021-2024 MLCommons
 * Copyright (c) 2014-2021 cTuning foundation
 
+### Author
+
+* [Grigori Fursin](https://cKnowledge.org/gfursin) (FlexAI, cTuning)
+
 ### Maintainers
 
 * CM/CM4Research/CM4MLPerf-results: [Grigori Fursin](https://cKnowledge.org/gfursin)
