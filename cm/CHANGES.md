@@ -1,5 +1,7 @@
-## V3.4.3.1
-   - enhancing 'cm pull repo' based on user feedback
+## V3.4.4
+   - improved error reporting in utils.load_json and utils.load_yaml
+   - added utils.substitute_template
+   - enhanced 'cm pull repo' based on user feedback
 
 ## V3.4.3
    - fixed pyproject.toml
