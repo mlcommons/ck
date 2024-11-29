@@ -24,8 +24,11 @@ and systems (CM4MLOps scripts and workflows)](https://github.com/mlcommons/cm4ml
 and helped establish the [MLCommons Task Force on Automation and Reproducibility](taskforce.md)
 co-led with Arjun Suresh.
 
-We continue extending CM to support different MLCommons projects to modularize and unify benchmarking
-of ML/AI systems as a collaborative engineering effort based on [user feedback](../CONTRIBUTING.md).
-
 You can learn more about the CM concept and motivation from the [keynote at ACM REP'23](https://doi.org/10.5281/zenodo.8105339)
 and this [white paper](https://arxiv.org/abs/2406.16791).
+
+# CMX (the next generation of CM and CM4MLOps)
+
+Grigori started prototyping CMX during summer 2024 to simplify CM interfaces based on user feedback. 
+It is available as a part of the standard [CM package at PYPI](https://pypi.org/project/cmind). 
+Please reach out to learn more about our plans.

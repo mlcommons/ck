@@ -1,4 +1,4 @@
-site_name: Collective Mind Documentation
+site_name: Collective Knowledge Documentation
 repo_url: https://github.com/mlcommons/ck
 theme:
   name: material
@@ -19,13 +19,15 @@ theme:
     - navigation.top
     - toc.follow
 nav:
-  - Install:
-    - install/index.md
-  - Documentation:
-    - CM CLI: specs/cm-cli.md
+  - HOME: index.md
+  - CM:
+    - Summary: cm/README.md
     - Getting Started: getting-started.md
-  - Release Notes:
-    - What's New: news.md
+    - CM installation: install/index.md
+    - CM CLI: specs/cm-cli.md
+  - Releases:
+    - CM/CMX releases: https://github.com/mlcommons/ck/releases
+    - CK/CM/CMX news: news.md
 
 markdown_extensions:
   - pymdownx.tasklist:

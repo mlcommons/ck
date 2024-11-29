@@ -1,13 +1,16 @@
 name: Publish documentation site
 
-
 on:
   release:
     types: [published]
   push:
     branches:
-      - main
+      - master
       - docs
+    paths:
+      - docs/**
+      - mkdocs.yml
+      - README.md
 
 jobs:
 
