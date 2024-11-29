@@ -204,7 +204,7 @@ def load_json(file_name, check_if_exists = False, encoding='utf8'):
         try:
             meta = json.load(jf)
         except Exception as e:
-            return {'return':4, 'error': format(e)}
+            return {'return':4, 'error': f'detected problem in {file_name}: {e}'}
 
     return {'return':0, 'meta': meta}
 
@@ -274,7 +274,7 @@ def load_yaml(file_name, check_if_exists = False, encoding = 'utf8'):
                 # To support old versions
                 meta = yaml.safe_load(yf)
         except Exception as e:
-            return {'return':4, 'error': format(e)}
+            return {'return':4, 'error': f'detected problem in {file_name}: {e}'}
 
     return {'return':0,
             'meta': meta}
@@ -1947,3 +1947,226 @@ def test_input(i):
               'unknown_keys_str': unknown_keys_str}
 
     return r
+
+##############################################################################
+def path2(path):
+    """
+    Add quotes if spaces in path
+    """
+    new_path = f'"{path}"' if not path.startswith('"') and ' ' in path else path
+
+    return new_path
+
+##############################################################################
+def update_dict_with_flat_key(key, value, d):
+    """
+    Update dictionary via flat key (x.y.z)
+    """
+
+    if '.' in key:
+       keys = key.split('.')
+
+       new_d = d
+
+       first = True
+
+       for key in keys[:-1]:
+           if first:
+               first = False
+
+           if key not in new_d:
+              new_d[key] = {}
+
+           new_d = new_d[key]
+
+       new_d[keys[-1]] = value
+    else:
+       d[key] = value
+
+    return {'return':0}
+
+##############################################################################
+def get_value_from_dict_with_flat_key(key, d):
+    """
+    Get value from dict via flat key (x.y.z)
+    """
+
+    if '.' in key:
+       keys = key.split('.')
+       new_d = d
+       for key in keys[:-1]:
+           if key in new_d:
+              new_d = new_d[key]
+       value = new_d.get(keys[-1])
+    else:
+       value = d.get(key)
+
+    return value
+
+##############################################################################
+def load_module(cmind, task_path, sub_module_name):
+    """
+    Universal python module loaders
+    """
+
+    import importlib
+
+    sub_module_obj = None
+
+    sub_module_path = os.path.join(task_path, sub_module_name)
+    if os.path.isfile(sub_module_path):
+        sub_module_spec = importlib.util.spec_from_file_location(sub_module_name, sub_module_path)
+        if sub_module_spec == None:
+            return cmind.prepare_error(1, f"Can\'t load Python module file spec {sub_module_path}")
+
+        try:
+           sub_module_obj = importlib.util.module_from_spec(sub_module_spec)
+           sub_module_spec.loader.exec_module(sub_module_obj)
+        except Exception as e:  # pragma: no cover
+           return cmind.prepare_error(1, f"Can\'t load Python module code {sub_module_path}:\n\n{e}")
+
+    return {'return':0, 'sub_module_obj': sub_module_obj, 'sub_module_path': sub_module_path}
+
+##############################################################################
+def flatten_dict(d, fd = {}, prefix = ''):
+    """
+    Flatten dict ({"x":{"y":"z"}} -> x.y=z)
+    """
+
+
+    for k in d:
+        v = d[k]
+
+        if type(v) == list and len(v) == 1 and type(v[0]) == dict:
+            v = v[0]
+
+        if type(v) == dict:
+           new_prefix = prefix + k + '.'
+           flatten_dict(v, fd, new_prefix)
+        else:
+           fd[prefix + k] = str(v)
+
+    return
+
+##############################################################################
+def safe_int(i, d):
+    """
+    Get safe int (useful for sorting function)
+
+    Args:    
+             i (any): variable with any type
+             d (int): default value
+
+    Returns: 
+             (int): returns i if it can be converted to int, or d otherwise
+    """
+
+    r = d
+    try:
+        r = int(i)
+    except Exception as e:
+        pass
+
+    return r
+
+##############################################################################
+def safe_float(i, d):
+    """
+    Get safe float (useful for sorting function)
+
+    Args:    
+             i (any): variable with any type
+             d (float): default value
+
+    Returns: 
+             (float): returns i if it can be converted to float or d otherwise
+
+    """
+
+    r = d
+    try:
+        r = float(i)
+    except Exception as e:
+        pass
+
+    return r
+
+##############################################################################
+def get_set(meta, key, state, keys):
+    """
+    Get value from dict and update in another dict 
+
+    Args:
+      meta (dict): original dict
+      key (str): key to get value from original dict
+      state (dict): target dict
+      keys (list): list of keys to set value in target dict
+
+    Returns:
+      (Python object): value from original dict or None
+
+    """
+
+    v = meta.get(key, None)
+    if v != None:
+        cur = state
+        vv = None
+        for k in keys:
+            if k == keys[-1]:
+                vv = cur.get(k, None)
+                if vv == None:
+                    cur[k] = v
+            else:
+                if k not in cur:
+                    cur[k] = {}
+                cur = cur[k]
+
+    return v
+
+##############################################################################
+def digits(s, first = True):
+    """
+    Get first digits and convert to int
+
+    Args:    
+      s (str): string ("1.3+xyz")
+      first (bool): if True, choose only first digits, otherwise all
+
+    Returns: 
+      (int): returns int from first digits or 0
+
+    """
+
+    v = 0
+
+    digits = ''
+    for char in s:
+        if char.isdigit():
+            digits+=char
+        elif first:
+            break
+
+    try:
+       v = int(digits)
+    except Exception as e:
+       pass
+
+    return v
+
+##############################################################################
+def substitute_template(template, variables):
+    """
+    Substitutes variables in a template string with values from a dictionary.
+
+    Args:
+        template (str): The template string with placeholders (e.g., "something-{var1}-something-{var2}").
+        vars (dict): A dictionary containing variable-value pairs (e.g., {'var1': 'a', 'var2': 'b'}).
+
+    Returns:
+        str: The template string with placeholders replaced by the corresponding values.
+    """
+    try:
+        return template.format(**variables)
+    except KeyError as e:
+        return f"Error: Missing value for {e.args[0]} in the vars dictionary."
+

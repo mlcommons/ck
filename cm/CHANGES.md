@@ -1,3 +1,54 @@
+## V3.4.4.1
+   - added tabulate as requirement
+
+## V3.4.4
+   - improved error reporting in utils.load_json and utils.load_yaml
+   - added utils.substitute_template
+   - enhanced 'cm pull repo' based on user feedback
+
+## V3.4.3
+   - fixed pyproject.toml
+   - fixed docs generation
+   - improved  cm pull repo with branch and SHA (#1355)
+
+## V3.4.2
+   - added utils.flatten_dict
+   - added utils.safe_int
+   - added utils.safe_float
+   - added utils.get_set
+   - added utils.digits
+
+## V3.4.1
+   - reduced Python min version in pyproject.toml to 3.7 for backwards compatibility
+
+## V3.4.0
+   - added pyproject.toml to install CM and deprecated setup.py
+
+## V3.3.4
+   - added utils.path2: 
+     add quotes if spaces in path
+   - added utils.update_dict_with_flat_key: 
+     update dictionary via flat key (x.y.z)
+   - added utils.get_value_from_dict_with_flat_key
+     get value from dict via flat key (x.y.z)
+   - added utils.load_module
+     universal python module loader
+
+## V3.3.3
+   - fixed CM logger issue
+
+## V3.3.2
+   - moved "CMX stack error" to -log
+   - improved error reporting
+
+## V3.3.1
+   - allow "cm/cmx pull repo {URL}" along with "cm/cmx pull repo --url={URL}" 
+   - CMX: added "automation_full_path" to -log
+
+## V3.2.9
+   - fixed minor bug with JSON console output
+   - fixed minor bug with console in cmind.x function
+
 ## V3.2.8
    - fixed Docker test for mlperf-inference with cm4mlops
    - minor improvements

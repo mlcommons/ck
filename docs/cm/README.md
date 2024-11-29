@@ -9,20 +9,18 @@
 
 ### About
 
-Collective Mind (CM) is a small [Python package](https://pypi.org/project/cmind)
-with a unified CLI and API designed for creating and managing 
-portable and technology-agnostic automations for MLOps, DevOps and ResearchOps.
-
-It is intended to make it easier to build, run, benchmark and optimize applications 
+Collective Mind (CM) is a small, modular, cross-platform and decentralized workflow automation framework 
+with a human-friendly interface to make it easier to build, run, benchmark and optimize applications 
 across diverse models, data sets, software and hardware.
-   
-CM is a part of [Collective Knowledge (CK)](https://github.com/mlcommons/ck) - 
-an educational community project to learn how to run AI, ML and other emerging workloads 
-in the most efficient and cost-effective way across diverse 
-and continuously changing systems using the MLPerf benchmarking methodology.
 
-CM includes a [collection of portable, extensible and technology-agnostic automation recipes](https://access.cknowledge.org/playground/?action=scripts)
-(aka CM scripts) to unify and automate different steps required to compose, run, benchmark and optimize complex ML/AI applications 
+CM is a part of [Collective Knowledge (CK)](https://github.com/mlcommons/ck) - 
+an educational community project to learn how to run emerging workloads 
+in the most efficient and cost-effective way across diverse 
+and continuously changing systems.
+
+CM includes a collection of portable, extensible and technology-agnostic automation recipes
+with a common API and CLI (aka CM scripts) to unify and automate different steps 
+required to compose, run, benchmark and optimize complex ML/AI applications 
 on any platform with any software and hardware. 
 
 CM scripts extend the concept of `cmake` with simple Python automations, native scripts
@@ -46,9 +44,9 @@ from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors:
   and simple JSON/YAML descriptions instead of inventing new workflow languages;
 * must have the same interface to run all automations natively, in a cloud or inside containers.
 
-### Author and maintainer
+### Maintainers
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin) (FlexAI, cTuning)
+* [Grigori Fursin](https://cKnowledge.org/gfursin)
 
 ### Resources
 
@@ -85,8 +83,6 @@ developed by [Grigori Fursin](https://cKnowledge.org/gfursin),
 as a part of the [Collective Knowledge educational initiative](https://cKnowledge.org),
 sponsored by [cTuning.org](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org), 
 and contributed to MLCommons for the benefit of all. 
-
 This open-source technology, including CM4MLOps/CM4MLPerf, CM4ABTF, CM4Research, and more, 
-is a collaborative project supported by [MLCommons](https://mlcommons.org), 
-[FlexAI](https://flex.ai), [cTuning](https://cTuning.org)
-and our [amazing volunteers, collaborators, and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)! 
+is a collaborative community-driven project made possible by our 
+[amazing volunteers, collaborators, and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)! 

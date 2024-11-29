@@ -103,6 +103,7 @@ class CM(object):
 
         # Logging
         self.logger = None
+        self.xlogger = None
 
         # Index
         self.index = None
@@ -172,17 +173,18 @@ class CM(object):
 
                 message = ''
 
-                if not self.logger == None or (module_path != '' and lineno != ''):
+                if not self.xlogger == None or (module_path != '' and lineno != ''):
                     call_stack = self.state.get('call_stack', [])
 
-                    if not self.logger == None:
+                    if not self.xlogger == None:
 
                         self.log(f"x error call stack: {call_stack}", "debug")
                         self.log(f"x error: {r}", "debug")
 
-                    sys.stderr.write('^'*60 + '\n')
+#                    sys.stderr.write('^'*60 + '\n')
+                    sys.stderr.write('\n')
 
-                    if not self.logger == None:
+                    if not self.xlogger == None:
                         sys.stderr.write('CMX call stack:\n')
 
                         for cs in call_stack:
@@ -195,7 +197,7 @@ class CM(object):
                 message += self.cfg['error_prefix2']
 
                 if module_path != '' and lineno !='':
-                    message += f' in {module_path} ({lineno}):\n\n'
+                    message += f' while running automation {module_path} ({lineno}):\n\n'
                     text = r['error']
                     text = text[0].upper() + text[1:]
 
@@ -295,7 +297,7 @@ class CM(object):
            None
         """
 
-        logger = self.logger
+        logger = self.xlogger
 
         if logger != None:
             if t == 'debug':
@@ -903,7 +905,7 @@ class CM(object):
                             meta = ii)
 
         # Check logging
-        if self.logger is None:
+        if self.xlogger is None:
             log_level = None
 
             if use_log == "false": 
@@ -929,7 +931,7 @@ class CM(object):
                     log_level = logging.INFO
 
                 # Configure
-                self.logger = logging.getLogger("cmx")
+                self.xlogger = logging.getLogger("cmx")
                 logging.basicConfig(filename = log_file, filemode = 'w', level = log_level)
 
         # Check if force out programmatically (such as from CLI)
@@ -942,7 +944,7 @@ class CM(object):
         recursion = self.state.get('recursion', 0)
         self.state['recursion'] = recursion + 1
 
-        if not self.logger == None:
+        if not self.xlogger == None:
             log_action = i.get('action', '')
             log_automation = i.get('automation', '')
             log_artifact = i.get('artifact', '')
@@ -966,7 +968,7 @@ class CM(object):
             r['return'] = 1
             r['error'] = delayed_error
 
-        if not self.logger == None:
+        if not self.xlogger == None:
             self.log(f"x output: {r}", "debug")
 
         self.state['recursion'] = recursion
@@ -1341,6 +1343,9 @@ class CM(object):
             loaded_common_automation = True
 
         # Finalize automation class initialization
+        if not self.xlogger == None:
+            self.log(f"x automation_full_path: {automation_full_path}", "info")
+
         initialized_automation = loaded_automation_class(self, automation_full_path)
         initialized_automation.meta = automation_meta
         initialized_automation.full_path = automation_full_path
@@ -1656,7 +1661,7 @@ def access(i):
     return cm.access(i)
 
 ############################################################
-def x(i):
+def x(i, out = None):
     """
     Automatically initialize CM and run automations 
     without the need to initialize and customize CM class.
@@ -1668,9 +1673,9 @@ def x(i):
     global cm
 
     if cm is None:
-       cm=CM()
+       cm = CM()
 
-    return cm.x(i)
+    return cm.x(i, out = out)
 
 ############################################################
 def error(i):

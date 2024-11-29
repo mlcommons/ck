@@ -1,4 +1,6 @@
 pyyaml
 requests
 setuptools
+wheel
 giturlparse
+tabulate

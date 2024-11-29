@@ -94,14 +94,13 @@ setup(
         'install': custom_install
     },
 
-    install_requires=['pyyaml', 'requests', 'setuptools', 'giturlparse'],
+    install_requires=['pyyaml', 'requests', 'setuptools', 'wheel', 'giturlparse'],
 
     entry_points={"console_scripts": [
                       "cmind = cmind.cli:run",
                       "cm = cmind.cli:run",
                       "cmx = cmind.cli:runx",
                       "cmr = cmind.cli:run_script",
-                      "flexflow = cmind.cli:run_ff",
                       "cmrd = cmind.cli:docker_script",
                       "cmg = cmind.cli:gui_script",
                       "cme = cmind.cli:run_experiment"

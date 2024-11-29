@@ -99,6 +99,17 @@ class Repos:
             r = utils.save_json(full_path_to_repo_paths, meta = self.paths)
             if r['return']>0: return r
 
+        # Skip internal repos
+        skip_internal_repos = os.environ.get('CM_CORE_SKIP_INTERNAL_REPOS','').strip().lower()
+        if skip_internal_repos not in ['1', 'true', 'yes']:
+            import pkgutil
+            for mi, name, ispkg in pkgutil.iter_modules():
+                if name.startswith('cm') and name != 'cmind':
+                    path = os.path.join(mi.path, name, 'repo')
+                    path_cmr = os.path.join(path, 'cmr.yaml')
+                    if os.path.isfile(path_cmr) and path not in self.paths:
+                        self.paths.insert(0, path)
+
         # Check internal repo (will be after local)
         if self.path_to_internal_repo != '' and os.path.isdir(self.path_to_internal_repo):
             self.paths.insert(0, self.path_to_internal_repo)
@@ -294,7 +305,7 @@ class Repos:
         return rr
 
     ############################################################
-    def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = '', depth = None, 
+    def pull(self, alias, url = '', branch = '', checkout = '', _dir = '', console = False, desc = '', prefix = '', depth = None, 
                     path_to_repo = None, checkout_only = False, skip_zip_parent_dir = False,
                     extra_cmd_git = '', extra_cmd_pip = '', new_branch = ''):
         """
@@ -307,6 +318,7 @@ class Repos:
             (new_branch) (str): Create new  branch
             (checkout) (str): Git repository checkout
             (checkout_only) (bool): only checkout existing repo
+            (_dir) (str): use repository in this directory
             (depth) (int): Git repository depth
             (console) (bool): if True, print some info to console
             (desc) (str): optional repository description
@@ -334,6 +346,9 @@ class Repos:
         # Prepare path
         if path_to_repo == None:
             path_to_repo = os.path.join(self.full_path_to_repos, alias)
+
+        if _dir != '': 
+            path_to_repo = os.path.join(path_to_repo, _dir)
 
         if console:
             print ('Local path: '+path_to_repo)
@@ -482,10 +497,14 @@ class Repos:
             # When checkout only, we do not need -b for branch
             extra_flag = ' ' if checkout_only else ' -b '
 
-            if branch != '':
+            if branch != '' and checkout != '':
+            # if both branch and checkout are specified, we do checkout and set remote branch
+                cmd = "git checkout -b " + branch + " " + checkout + " && git branch --set-upstream-to=origin/"+ branch + " " + branch  
+
+            elif branch != '':
                 cmd = 'git fetch && git checkout ' + branch
 
-            if checkout!='':
+            elif checkout!='':
                 cmd += ' ' + checkout
 
             if console:

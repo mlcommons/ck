@@ -1,6 +1,9 @@
 # Collective Mind v3 aka CMX
 
-We prototype the next generation of CM.
+CMX is the next generation of the CM automation framework 
+being developed by [Grigori Fursin](https://cKnowledge.org/gfursin) 
+based on extensive feedback from CM users.
+
 
 ## Documentation
 
