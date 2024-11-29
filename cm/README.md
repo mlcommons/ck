@@ -7,7 +7,7 @@
 [![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 [![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
 
-### About
+## Collective Mind (CM)
 
 Collective Mind (CM) is a small [Python package](https://pypi.org/project/cmind)
 with a unified CLI and API designed for creating and managing 
@@ -21,7 +21,10 @@ an educational community project to learn how to run AI, ML and other emerging w
 in the most efficient and cost-effective way across diverse 
 and continuously changing systems using the MLPerf benchmarking methodology.
 
-CM includes a [collection of portable, extensible and technology-agnostic automation recipes](https://access.cknowledge.org/playground/?action=scripts)
+CM supportes CM4MLOps, CM4MLPerf, CM4ABTF, CM4Research and other projects.
+
+For example, CM4MLOps repository includes 
+a [collection of portable, extensible and technology-agnostic automation recipes](https://access.cknowledge.org/playground/?action=scripts)
 (aka CM scripts) to unify and automate different steps required to compose, run, benchmark and optimize complex ML/AI applications 
 on any platform with any software and hardware. 
 
@@ -49,6 +52,24 @@ from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors:
 ### Author and maintainer
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin) (FlexAI, cTuning)
+
+### Repositories powered by CM
+
+* [CM4MLOPS / CM4MLPerf](https://github.com/mlcommons/cm4mlops) - 
+  a collection of portable, extensible and technology-agnostic automation recipes
+  with a common CLI and Python API (CM scripts) to unify and automate 
+  all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
+  on diverse platforms with any software and hardware: see [online catalog at CK playground](https://access.cknowledge.org/playground/?action=scripts),
+  [online MLCommons catalog](https://docs.mlcommons.org/cm4mlops/scripts) 
+
+* [CM interface to run MLPerf inference benchmarks](https://docs.mlcommons.org/inference)
+
+* [CM4ABTF](https://github.com/mlcommons/cm4abtf) - a unified CM interface and automation recipes
+  to run automotive benchmark across different models, data sets, software and hardware from different vendors.
+
+* [CM4Research](https://github.com/ctuning/cm4research) - a unified CM interface an automation recipes
+  to make it easier to reproduce results from published research papers.
+
 
 ### Resources
 

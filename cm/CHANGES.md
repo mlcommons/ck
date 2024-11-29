@@ -1,5 +1,8 @@
-## V3.4.4.1
+## V3.5.1
    - added tabulate as requirement
+   - merged Anandu's docs update
+   - added links to archived repositories to keep development history
+     (ck, cm-mlops, etc)
 
 ## V3.4.4
    - improved error reporting in utils.load_json and utils.load_yaml

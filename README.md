@@ -17,12 +17,13 @@ in the most efficient and cost-effective way across diverse models, data sets, s
 
 CK consists of several sub-projects:
 
-* [Collective Mind framework (CM)](cm) - a very lightweight Python-based framework with minimal dependencies
+* [Collective Mind framework (CM)](https://github.com/mlcommons/ck/tree/master/cm) -
+  a very lightweight Python-based framework with minimal dependencies
   intended to help researchers and engineers automate their repetitive, tedious and time-consuming tasks
   to build, run, benchmark and optimize AI, ML and other applications and systems 
   across diverse and continuously changing models, data, software and hardware.
 
-  * [CM4MLOPS](https://github.com/mlcommons/cm4mlops) - 
+  * [CM4MLOPS / CM4MLPerf](https://github.com/mlcommons/cm4mlops) - 
     a collection of portable, extensible and technology-agnostic automation recipes
     with a common CLI and Python API (CM scripts) to unify and automate 
     all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
