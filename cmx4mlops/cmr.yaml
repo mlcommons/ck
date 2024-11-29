@@ -6,3 +6,7 @@ git: true
 version: "0.5.1"
 
 author: "Grigori Fursin"
+
+install_python_requirements: false
+
+min_cm_version: "3.4.4"

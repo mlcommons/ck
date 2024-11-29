@@ -10,6 +10,7 @@ on:
     paths:
       - docs/**
       - mkdocs.yml
+      - README.md
 
 jobs:
 

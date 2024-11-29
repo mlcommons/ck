@@ -24,17 +24,18 @@ CK consists of several sub-projects:
 
   * [CM4MLOPS](https://github.com/mlcommons/cm4mlops) - 
     a collection of portable, extensible and technology-agnostic automation recipes
-    with a human-friendly interface (aka CM scripts) to unify and automate all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
+    with a common CLI and Python API (CM scripts) to unify and automate 
+    all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
     on diverse platforms with any software and hardware: see [online catalog at CK playground](https://access.cknowledge.org/playground/?action=scripts),
     [online MLCommons catalog](https://docs.mlcommons.org/cm4mlops/scripts) 
 
   * [CM interface to run MLPerf inference benchmarks](https://docs.mlcommons.org/inference)
 
-
   * [CM4ABTF](https://github.com/mlcommons/cm4abtf) - a unified CM interface and automation recipes
     to run automotive benchmark across different models, data sets, software and hardware from different vendors.
 
-* [CMX (the next generation of CM and CM4MLOps)](cm/docs/cmx) - we are developing the next generation of CM 
+* [CMX (the next generation of CM, CM4MLOps and CM4MLPerf)](cm/docs/cmx) - 
+    we are developing the next generation of CM 
     to make it simpler and more flexible based on user feedback. Please follow 
     this project [here]( https://github.com/orgs/mlcommons/projects/46 ).
 
@@ -43,6 +44,12 @@ CK consists of several sub-projects:
   to list CM scripts similar to PYPI, aggregate AI/ML Systems benchmarking results in a reproducible format with CM workflows, 
   and organize [public optimization challenges and reproducibility initiatives](https://access.cknowledge.org/playground/?action=challenges) 
   to co-design more efficient and cost-effiective software and hardware for emerging workloads.
+
+  * [CM4MLPerf-results](https://github.com/mlcommons/cm4mlperf-results) - 
+    a simplified and unified representation of the past MLPerf results 
+    for further visualization and analysis using [CK graphs](https://access.cknowledge.org/playground/?action=experiments)
+    (*the new version is coming soon*).
+
 
 * [Artifact Evaluation](https://cTuning.org/ae) - automating artifact evaluation and reproducibility initiatives at ML and systems conferences.
 
@@ -63,8 +70,8 @@ CK consists of several sub-projects:
 
 ### Maintainers
 
-* CM/CM4Research/CM4MLPerf-results: [Grigori Fursin](https://cKnowledge.org/gfursin)
-* CM4MLOps: [Arjun Suresh](https://github.com/arjunsuresh) and [Anandhu Sooraj](https://github.com/anandhu-eng)
+* [Collective Mind (CM)](cm): [Grigori Fursin](https://cKnowledge.org/gfursin)
+* CM4MLOps (CM automation recipes): [Arjun Suresh](https://github.com/arjunsuresh) and [Anandhu Sooraj](https://github.com/anandhu-eng)
 * CMX (the next generation of CM, CM4MLOps and CM4MLPerf): [Grigori Fursin](https://cKnowledge.org/gfursin)
 
 ### Citing our project
