@@ -3,3 +3,4 @@ requests
 setuptools
 wheel
 giturlparse
+tabulate

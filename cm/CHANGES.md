@@ -1,3 +1,6 @@
+## V3.4.4.1
+   - added tabulate as requirement
+
 ## V3.4.4
    - improved error reporting in utils.load_json and utils.load_yaml
    - added utils.substitute_template

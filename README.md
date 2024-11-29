@@ -53,6 +53,10 @@ CK consists of several sub-projects:
 
 * [Artifact Evaluation](https://cTuning.org/ae) - automating artifact evaluation and reproducibility initiatives at ML and systems conferences.
 
+### Deprecated and archived projects 
+
+* [CM-MLOps](cm-mlops) - now [CM4MLOps](cm4mlops)
+* [CK automation framework v1 and v2](ck) - now [CM](cm)
 
 
 ### License
