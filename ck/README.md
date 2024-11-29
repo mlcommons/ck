@@ -8,6 +8,9 @@
   behind CK in this [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4) 
   and the [journal article](https://doi.org/10.1098/rsta.2020.0211).**
 
+We keep this directory for backwards compatibility to let users reproduce past projects relying on this repository.
+
+
 <br>
 <br>
 <br>

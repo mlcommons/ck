@@ -22,7 +22,8 @@ dependencies = [
     "requests", 
     "setuptools",
     "wheel",
-    "giturlparse"
+    "giturlparse",
+    "tabulate"
 ]
 
 keywords = [
