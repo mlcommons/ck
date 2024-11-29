@@ -30,11 +30,11 @@ CK consists of several sub-projects:
 
   * [CM interface to run MLPerf inference benchmarks](https://docs.mlcommons.org/inference)
 
-
   * [CM4ABTF](https://github.com/mlcommons/cm4abtf) - a unified CM interface and automation recipes
     to run automotive benchmark across different models, data sets, software and hardware from different vendors.
 
-* [CMX (the next generation of CM and CM4MLOps)](cm/docs/cmx) - we are developing the next generation of CM 
+* [CMX (the next generation of CM, CM4MLOps and CM4MLPerf)](cm/docs/cmx) - 
+    we are developing the next generation of CM 
     to make it simpler and more flexible based on user feedback. Please follow 
     this project [here]( https://github.com/orgs/mlcommons/projects/46 ).
 
@@ -63,8 +63,8 @@ CK consists of several sub-projects:
 
 ### Maintainers
 
-* CM/CM4Research/CM4MLPerf-results: [Grigori Fursin](https://cKnowledge.org/gfursin)
-* CM4MLOps: [Arjun Suresh](https://github.com/arjunsuresh) and [Anandhu Sooraj](https://github.com/anandhu-eng)
+* [Collective Mind (CM)](cm): [Grigori Fursin](https://cKnowledge.org/gfursin)
+* CM4MLOps (CM automation recipes): [Arjun Suresh](https://github.com/arjunsuresh) and [Anandhu Sooraj](https://github.com/anandhu-eng)
 * CMX (the next generation of CM, CM4MLOps and CM4MLPerf): [Grigori Fursin](https://cKnowledge.org/gfursin)
 
 ### Citing our project
