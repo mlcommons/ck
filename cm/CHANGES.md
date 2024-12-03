@@ -1,5 +1,8 @@
 ## V3.5.1
-   - added tabulate as requirement
+   - added Collective Mind architecture diagram: 
+     https://github.com/mlcommons/ck/tree/master/docs/specs/cm-diagram-v3.5.1.png
+   - added tabulate as requirement based on user feedback
+   - updated white paper: https://arxiv.org/abs/2406.16791
    - merged Anandu's docs update
    - added links to archived repositories to keep development history
      (ck, cm-mlops, etc)

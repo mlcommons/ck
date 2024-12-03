@@ -1,4 +1,4 @@
-.. Copyright 2021-2024 MLCommons
+.. Copyright MLCommons
 
 .. CM documentation master file
 

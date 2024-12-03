@@ -7,6 +7,8 @@ prefix: cm-mlops
 
 version: 2.3.2
 
+author: "Grigori Fursin"
+
 deps:
   - alias: mlcommons@cm4mlops
     uid: 9e97bb72b0474657
