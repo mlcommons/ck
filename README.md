@@ -9,76 +9,126 @@
 [![MLPerf inference resnet50](https://github.com/mlcommons/ck/actions/workflows/test-cm-mlperf-inference-resnet50.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-mlperf-inference-resnet50.yml)
 [![CMX: image classification with ONNX](https://github.com/mlcommons/ck/actions/workflows/test-cmx-image-classification-onnx.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cmx-image-classification-onnx.yml)
 
-### About
+## Collective Knowledge
 
 [Collective Knowledge (CK, CM, CM4MLOps, CM4MLPerf and CMX)](https://cKnowledge.org) 
 is an educational community project to learn how to run AI, ML and other emerging workloads 
 in the most efficient and cost-effective way across diverse models, data sets, software and hardware.
+It includes the following sub-projects.
 
-CK consists of several sub-projects:
+### Collective Mind (CM)
 
-* [Collective Mind framework (CM)](cm) - a very lightweight Python-based framework with minimal dependencies
-  intended to help researchers and engineers automate their repetitive, tedious and time-consuming tasks
-  to build, run, benchmark and optimize AI, ML and other applications and systems 
-  across diverse and continuously changing models, data, software and hardware.
+[Collective Mind (CM)](https://github.com/mlcommons/ck/tree/master/cm) -
+a very lightweight Python-based framework with a unified CLI, Python API and minimal dependencies
+intended to help researchers and engineers automate their repetitive, tedious and time-consuming tasks
+to build, run, benchmark and optimize AI, ML and other applications and systems 
+across diverse and continuously changing models, data, software and hardware.
 
-  * [CM4MLOPS](https://github.com/mlcommons/cm4mlops) - 
-    a collection of portable, extensible and technology-agnostic automation recipes
-    with a common CLI and Python API (CM scripts) to unify and automate 
-    all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
-    on diverse platforms with any software and hardware: see [online catalog at CK playground](https://access.cknowledge.org/playground/?action=scripts),
-    [online MLCommons catalog](https://docs.mlcommons.org/cm4mlops/scripts) 
+Collective Mind is continuously enhanced through public and private CM4* Git repositories, 
+which serve as the unified interface for various collections of reusable automations and artifacts.
 
-  * [CM interface to run MLPerf inference benchmarks](https://docs.mlcommons.org/inference)
+The CM architecture diagram is available for viewing 
+[here](https://github.com/mlcommons/ck/tree/master/docs/specs/cm-diagram-v3.5.1.png).
 
-  * [CM4ABTF](https://github.com/mlcommons/cm4abtf) - a unified CM interface and automation recipes
-    to run automotive benchmark across different models, data sets, software and hardware from different vendors.
+### Collective Mind repositories
 
-* [CMX (the next generation of CM, CM4MLOps and CM4MLPerf)](cm/docs/cmx) - 
-    we are developing the next generation of CM 
-    to make it simpler and more flexible based on user feedback. Please follow 
-    this project [here]( https://github.com/orgs/mlcommons/projects/46 ).
+#### CM4MLOps
+
+[CM4MLOPS repository powered by CM](https://github.com/mlcommons/cm4mlops) - 
+a collection of portable, extensible and technology-agnostic automation recipes
+with a common CLI and Python API (CM scripts) to unify and automate 
+all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
+on diverse platforms with any software and hardware. 
+
+The two key automations are *script" and *cache*:
+see [online catalog at CK playground](https://access.cknowledge.org/playground/?action=scripts),
+[online MLCommons catalog](https://docs.mlcommons.org/cm4mlops/scripts).
+
+CM scripts extend the concept of `cmake` with simple Python automations, native scripts
+and JSON/YAML meta descriptions. They require Python 3.7+ with minimal dependencies and are 
+[continuously extended by the community and MLCommons members](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)
+to run natively on Ubuntu, MacOS, Windows, RHEL, Debian, Amazon Linux
+and any other operating system, in a cloud or inside automatically generated containers
+while keeping backward compatibility.
+
+See the [online documentation](https://docs.mlcommons.org/inference) 
+at MLCommons to run MLPerf inference benchmarks across diverse systems using CM.
+
+#### CM4ABTF
+
+[CM4ABTF repository powered by CM](https://github.com/mlcommons/cm4abtf) - 
+a collection of portable automations and CM scripts to run the upcoming 
+automotive MLPerf benchmark across different models, data sets, software 
+and hardware from different vendors.
+
+#### CM4MLPerf-results
+
+[CM4MLPerf-results powered by CM](https://github.com/mlcommons/cm4mlperf-results) - 
+a simplified and unified representation of the past MLPerf results 
+in the CM format for further visualization and analysis using [CK graphs](https://access.cknowledge.org/playground/?action=experiments).
+
+#### CM4Research
+
+[CM4Research repository powered by CM](https://github.com/ctuning/cm4research) - 
+a unified interface designed to streamline the preparation, execution, and reproduction of experiments in research projects.
 
 
-* [Collective Knowledge Playground](https://access.cKnowledge.org) - a unified platform
-  to list CM scripts similar to PYPI, aggregate AI/ML Systems benchmarking results in a reproducible format with CM workflows, 
-  and organize [public optimization challenges and reproducibility initiatives](https://access.cknowledge.org/playground/?action=challenges) 
-  to co-design more efficient and cost-effiective software and hardware for emerging workloads.
+### Projects powered by Collective Mind
 
-  * [CM4MLPerf-results](https://github.com/mlcommons/cm4mlperf-results) - 
-    a simplified and unified representation of the past MLPerf results 
-    for further visualization and analysis using [CK graphs](https://access.cknowledge.org/playground/?action=experiments)
-    (*the new version is coming soon*).
+#### Collective Knowledge Playground
+
+[Collective Knowledge Playground](https://access.cKnowledge.org) - 
+a unified and open-source platform designed to [index all CM scripts](https://access.cknowledge.org/playground/?action=scripts) similar to PYPI,
+assist users in preparing CM commands to:
+
+* [run MLPerf benchmarks](https://access.cknowledge.org/playground/?action=howtorun)
+* aggregate, process, visualize, and compare [benchmarking results](https://access.cknowledge.org/playground/?action=experiments) for AI and ML systems
+* organize [open, reproducible optimization challenges and tournaments](https://access.cknowledge.org/playground/?action=challenges). 
+
+These initiatives aim to help academia and industry
+collaboratively enhance the efficiency and cost-effectiveness of AI systems.
+
+#### Artifact Evaluation
+
+[Artifact Evaluation automation](https://cTuning.org/ae) - a community-driven initiative 
+leveraging the Collective Mind framework to automate artifact evaluation 
+and support reproducibility efforts at ML and systems conferences.
 
 
-* [Artifact Evaluation](https://cTuning.org/ae) - automating artifact evaluation and reproducibility initiatives at ML and systems conferences.
+## Incubator
 
-### Deprecated and archived projects 
+[CMX](https://github.com/mlcommons/ck/tree/master/cmx) - the next evolution of the Collective Mind framework,
+designed to enhance simplicity, flexibility, and extensibility of automations 
+based on user feedback. Follow the project's progress [here]( https://github.com/orgs/mlcommons/projects/46 ).
 
-* [CM-MLOps](cm-mlops) - now [CM4MLOps](cm4mlops)
-* [CK automation framework v1 and v2](ck) - now [CM](cm)
+
+## Archived projects 
+
+* [CM-MLOps](https://github.com/mlcommons/ck/tree/master/cm-mlops) - now [CM4MLOps](https://github.com/mlcommons/ck/tree/master/cm4mlops)
+* [CK automation framework v1 and v2](https://github.com/mlcommons/ck/tree/master/ck) - now [CM](https://github.com/mlcommons/ck/tree/master/cm)
 
 
-### License
+## License
 
 [Apache 2.0](LICENSE.md)
 
-### Copyright
+## Copyright
 
 * Copyright (c) 2021-2024 MLCommons
 * Copyright (c) 2014-2021 cTuning foundation
 
-### Author
+## Author
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin) (FlexAI, cTuning)
 
-### Maintainers
+## Maintainers
 
-* [Collective Mind (CM)](cm): [Grigori Fursin](https://cKnowledge.org/gfursin)
-* CM4MLOps (CM automation recipes): [Arjun Suresh](https://github.com/arjunsuresh) and [Anandhu Sooraj](https://github.com/anandhu-eng)
-* CMX (the next generation of CM, CM4MLOps and CM4MLPerf): [Grigori Fursin](https://cKnowledge.org/gfursin)
+* Collective Mind (CM): [Grigori Fursin](https://cKnowledge.org/gfursin)
+* CM4MLOps repository: [Arjun Suresh](https://github.com/arjunsuresh) and [Anandhu Sooraj](https://github.com/anandhu-eng)
+* CMX (the next generation of CM and CM4MLOps): [Grigori Fursin](https://cKnowledge.org/gfursin)
 
-### Citing our project
+
+## Citing Collective Mind and Collective Knowledge
 
 If you found the CM automation framework helpful, kindly reference this article:
 [ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].
@@ -91,17 +141,19 @@ To learn more about the motivation behind CK and CM technology, please explore t
 * Journal of Royal Society'20: [ [paper](https://royalsocietypublishing.org/doi/10.1098/rsta.2020.0211) ]
 
 
-### CM Documentation
+## CM Documentation
 
-* [CM installation GUI](https://access.cknowledge.org/playground/?action=install)
+* [Collective Mind white paper](https://arxiv.org/abs/2406.16791)
+* [CM/CMX architecture](https://github.com/mlcommons/ck/tree/master/docs/specs/cm-diagram-v3.5.1.png)
+* [CM/CMX installation GUI](https://access.cknowledge.org/playground/?action=install)
 * [CM Getting Started Guide and FAQ](https://github.com/mlcommons/ck/tree/master/docs/getting-started.md)
   * [Common CM interface to run MLPerf inference benchmarks](https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference)
   * [Common CM interface to re-run experiments from ML and Systems papers including MICRO'23 and the Student Cluster Competition @ SuperComputing'23](https://github.com/mlcommons/ck/tree/master/docs/tutorials/common-interface-to-reproduce-research-projects.md)
-  * [CM automation recipes for MLOps and DevOps](https://access.cknowledge.org/playground/?action=scripts)
+  * [CM4MLOps automation recipes for MLOps and DevOps](https://access.cknowledge.org/playground/?action=scripts)
   * [Other CM tutorials](https://github.com/mlcommons/ck/tree/master/docs/tutorials)
 * [Full documentation](https://github.com/mlcommons/ck/tree/master/docs/README.md)
 * [CM taskforce](https://github.com/mlcommons/ck/tree/master/docs/taskforce.md)
-* [CMX, CM and CK history](https://github.com/mlcommons/ck/tree/master/docs/history.md)
+* [CK, CM and CMX history](https://github.com/mlcommons/ck/tree/master/docs/history.md)
 
 
 ### Acknowledgments
