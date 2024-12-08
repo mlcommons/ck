@@ -7,6 +7,7 @@ import os
 from cmind.automation import Automation
 from cmind import utils
 
+
 class CAutomation(Automation):
     """
     CM "automation" automation actions
@@ -35,12 +36,12 @@ class CAutomation(Automation):
         """
 
         import json
-        print (json.dumps(i, indent=2))
+        print(json.dumps(i, indent=2))
 
-        return {'return':0}
-
+        return {'return': 0}
 
     ############################################################
+
     def add(self, i):
         """
         Add CM automation.
@@ -66,36 +67,40 @@ class CAutomation(Automation):
 
         console = i.get('out') == 'con'
 
-        parsed_artifact = i.get('parsed_artifact',[])
+        parsed_artifact = i.get('parsed_artifact', [])
 
-        artifact_obj = parsed_artifact[0] if len(parsed_artifact)>0 else ('','')
+        artifact_obj = parsed_artifact[0] if len(
+            parsed_artifact) > 0 else ('', '')
 
         module_name = 'module.py'
 
         tags_list = utils.convert_tags_to_list(i)
-        if 'automation' not in tags_list: tags_list.append('automation')
+        if 'automation' not in tags_list:
+            tags_list.append('automation')
 
         # Add placeholder (use common action)
-        i['out']='con'
-        i['common']=True
+        i['out'] = 'con'
+        i['common'] = True
 
-        i['meta']={'automation_alias':self.meta['alias'],
-                   'automation_uid':self.meta['uid'],
-                   'tags':tags_list}
+        i['meta'] = {'automation_alias': self.meta['alias'],
+                     'automation_uid': self.meta['uid'],
+                     'tags': tags_list}
 
-        if 'tags' in i: del(i['tags'])
+        if 'tags' in i:
+            del (i['tags'])
 
         automation = i['automation']
-        if automation!='.' and ',' not in automation: 
+        if automation != '.' and ',' not in automation:
             i['automation'] = automation + ',' + self.meta['uid']
 
-        r_obj=self.cmind.access(i)
-        if r_obj['return']>0: return r_obj
+        r_obj = self.cmind.access(i)
+        if r_obj['return'] > 0:
+            return r_obj
 
         new_automation_path = r_obj['path']
 
         if console:
-            print ('Created automation in {}'.format(new_automation_path))
+            print('Created automation in {}'.format(new_automation_path))
 
         # Create Python module holder
         module_holder_path = new_automation_path
@@ -106,12 +111,12 @@ class CAutomation(Automation):
         # Copy module files
         for f in ['module_dummy.py']:
             f1 = os.path.join(self.path, f)
-            f2 = os.path.join(new_automation_path, f.replace('_dummy',''))
+            f2 = os.path.join(new_automation_path, f.replace('_dummy', ''))
 
             if console:
-                print ('  * Copying {} to {}'.format(f1, f2))
+                print('  * Copying {} to {}'.format(f1, f2))
 
-            shutil.copyfile(f1,f2)
+            shutil.copyfile(f1, f2)
 
         return r_obj
 
@@ -137,20 +142,23 @@ class CAutomation(Automation):
 
         # Prepare to call common function
         r = utils.process_input(i)
-        if r['return']>0: return r
+        if r['return'] > 0:
+            return r
 
         # Take only out from original control
-        i['control']={'out':i['control']['out'],
-                      'common':True}
+        i['control'] = {'out': i['control']['out'],
+                        'common': True}
 
         tags_list = utils.convert_tags_to_list(i)
-        if 'automation' not in tags_list: tags_list.append('automation')
+        if 'automation' not in tags_list:
+            tags_list.append('automation')
 
-        i['meta']={'automation_alias':self.meta['alias'],
-                   'automation_uid':self.meta['uid'],
-                   'tags':tags_list}
+        i['meta'] = {'automation_alias': self.meta['alias'],
+                     'automation_uid': self.meta['uid'],
+                     'tags': tags_list}
 
-        if 'tags' in i: del(i['tags'])
+        if 'tags' in i:
+            del (i['tags'])
 
         # Use yaml by default
         if 'yaml' not in i:
@@ -158,12 +166,13 @@ class CAutomation(Automation):
 
         # Pass to common action
         r_obj = self.cmind.x(i)
-        if r_obj['return']>0: return r_obj
+        if r_obj['return'] > 0:
+            return r_obj
 
         new_automation_path = r_obj['path']
 
         if console:
-            print ('Created automation in {}'.format(new_automation_path))
+            print('Created automation in {}'.format(new_automation_path))
 
         module_name = 'modulex.py'
 
@@ -176,18 +185,17 @@ class CAutomation(Automation):
         # Copy module files
         for f in ['modulex_dummy.py']:
             f1 = os.path.join(self.path, f)
-            f2 = os.path.join(new_automation_path, f.replace('_dummy',''))
+            f2 = os.path.join(new_automation_path, f.replace('_dummy', ''))
 
             if console:
-                print ('  * Copying {} to {}'.format(f1, f2))
+                print('  * Copying {} to {}'.format(f1, f2))
 
-            shutil.copyfile(f1,f2)
+            shutil.copyfile(f1, f2)
 
         return r_obj
 
-
-
     ############################################################
+
     def doc(self, i):
         """
         Add CM automation.

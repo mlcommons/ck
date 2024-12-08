@@ -13,28 +13,31 @@
 
 [Collective Knowledge (CK, CM, CM4MLOps, CM4MLPerf and CMX)](https://cKnowledge.org) 
 is an educational community project to learn how to run AI, ML and other emerging workloads 
-in the most efficient and cost-effective way across diverse models, data sets, software and hardware.
+in the most efficient and cost-effective way across diverse models, data sets, software and hardware:
+[ [white paper](https://arxiv.org/abs/2406.16791) ].
+
 It includes the following sub-projects.
 
 ### Collective Mind (CM)
 
-[Collective Mind (CM)](https://github.com/mlcommons/ck/tree/master/cm) -
-a very lightweight Python-based framework with a unified CLI, Python API and minimal dependencies
-intended to help researchers and engineers automate their repetitive, tedious and time-consuming tasks
-to build, run, benchmark and optimize AI, ML and other applications and systems 
-across diverse and continuously changing models, data, software and hardware.
+The [Collective Mind framework](https://github.com/mlcommons/ck/tree/master/cm) 
+is a lightweight, Python-based toolset featuring 
+a unified command-line interface (CLI), Python API, and minimal dependencies. 
+It is designed to assist researchers and engineers in automating repetitive, time-consuming 
+tasks such as building, running, benchmarking, and optimizing AI, machine learning, 
+and other applications across diverse and continuously changing models, data, software and hardware.
 
-Collective Mind is continuously enhanced through public and private CM4* Git repositories, 
-which serve as the unified interface for various collections of reusable automations and artifacts.
+Collective Mind is continuously enhanced through public and private Git repositories
+with CM automation recipes and artifacts accessible via unified CM interface.
 
 The CM architecture diagram is available for viewing 
 [here](https://github.com/mlcommons/ck/tree/master/docs/specs/cm-diagram-v3.5.1.png).
 
-### Collective Mind repositories
+### Notable Collective Mind repositories
 
 #### CM4MLOps
 
-[CM4MLOPS repository powered by CM](https://github.com/mlcommons/cm4mlops) - 
+[CM4MLOPS repository powered by CM](https://github.com/mlcommons/ck/tree/master/cm-mlops) - 
 a collection of portable, extensible and technology-agnostic automation recipes
 with a common CLI and Python API (CM scripts) to unify and automate 
 all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
@@ -120,13 +123,6 @@ based on user feedback. Follow the project's progress [here]( https://github.com
 ## Author
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin) (FlexAI, cTuning)
-
-## Maintainers
-
-* Collective Mind (CM): [Grigori Fursin](https://cKnowledge.org/gfursin)
-* CM4MLOps repository: [Arjun Suresh](https://github.com/arjunsuresh) and [Anandhu Sooraj](https://github.com/anandhu-eng)
-* CMX (the next generation of CM and CM4MLOps): [Grigori Fursin](https://cKnowledge.org/gfursin)
-
 
 ## Citing Collective Mind and Collective Knowledge
 

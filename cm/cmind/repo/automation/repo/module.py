@@ -8,6 +8,7 @@ from cmind.automation import Automation
 from cmind import utils
 from cmind import net
 
+
 class CAutomation(Automation):
     """
     CM "repo" automation actions
@@ -80,39 +81,39 @@ class CAutomation(Automation):
                 if '@' not in alias:
                     alias = self.cmind.cfg['repo_url_org'] + '@' + alias
 
-                url += alias.replace('@','/')
+                url += alias.replace('@', '/')
 
                 if pat != '' and url.startswith('https://'):
                     url = url[:8]+pat+'@'+url[8:]
         else:
-           if alias == '':
-               # Get alias from URL
-               alias = url
+            if alias == '':
+                # Get alias from URL
+                alias = url
 
-               # Check if zip file
-               j = alias.find('.zip')
-               if j>0:
-                   j1 = alias.rfind('/')
-                   alias = alias[j1+1:j+4]
-               else:
-                   if alias.endswith('.git'): alias=alias[:-4]
+                # Check if zip file
+                j = alias.find('.zip')
+                if j > 0:
+                    j1 = alias.rfind('/')
+                    alias = alias[j1+1:j+4]
+                else:
+                    if alias.endswith('.git'):
+                        alias = alias[:-4]
 
-                   if alias.startswith('git@'):
-                       j = alias.find(':')
-                       if j>=0:
-                           alias = alias[j+1:].replace('/','@')
-                   else:
-                       j = alias.find('//')
-                       if j>=0:
-                           j1 = alias.find('/', j+2)
-                           if j1>=0:
-                               alias = alias[j1+1:].replace('/','@')
-
+                    if alias.startswith('git@'):
+                        j = alias.find(':')
+                        if j >= 0:
+                            alias = alias[j+1:].replace('/', '@')
+                    else:
+                        j = alias.find('//')
+                        if j >= 0:
+                            j1 = alias.find('/', j+2)
+                            if j1 >= 0:
+                                alias = alias[j1+1:].replace('/', '@')
 
         if url == '':
             pull_repos = []
 
-            for repo in sorted(self.cmind.repos.lst, key = lambda x: x.meta.get('alias','')):
+            for repo in sorted(self.cmind.repos.lst, key=lambda x: x.meta.get('alias', '')):
                 meta = repo.meta
 
                 if meta.get('git', False):
@@ -124,40 +125,32 @@ class CAutomation(Automation):
                     pull_repos.append({'alias': os.path.basename(repo_path),
                                        'path_to_repo': repo_path})
         else:
-            # We are migrating cm-mlops repo from mlcommons@ck to a clean and new mlcommons@cm4mlops:
-            # https://github.com/mlcommons/ck/issues/1215
-            # As discussed, we should have a transparent redirect with a warning
-            # unless branch/checkout is used - in such case we keep old repository
-            # for backwards compatibility and reproducibility
-
+            # Migration has been completed
             branch = i.get('branch', '')
             new_branch = i.get('new_branch', '')
             checkout = i.get('checkout', '')
             _dir = i.get('dir', '')
 
-            r = net.request({'get': {'action': 'check-migration-repo-notes', 'repo': url, 'branch': branch, 'checkout': checkout}})
-            notes = r.get('dict', {}).get('notes','')
-            if notes !='':
-                print (notes)
-
             if alias == 'mlcommons@ck' and branch == '' and checkout == '' and _dir == '':
-                print ('=========================================================================')
-                print ('Warning: mlcommons@ck was automatically changed to mlcommons@cm4mlops.')
-                print ('If you want to use older mlcommons@ck repository, use branch or checkout.')
-                print ('=========================================================================')
+                print(
+                    '=========================================================================')
+                print(
+                    'Warning: mlcommons@ck was automatically changed to mlcommons@cm4mlops.')
+                print(
+                    'If you want to use older mlcommons@ck repository, use branch or checkout.')
+                print(
+                    '=========================================================================')
 
                 alias = 'mlcommons@cm4mlops'
                 url = url.replace('mlcommons/ck', 'mlcommons/cm4mlops')
 
-
-            pull_repos = [{'alias':alias,
-                           'url':url,
+            pull_repos = [{'alias': alias,
+                           'url': url,
                            'branch': branch,
                            'new_branch': new_branch,
                            'checkout': checkout,
                            'dir': _dir,
                            'depth': i.get('depth', '')}]
-
 
         # Go through repositories and pull
         repo_meta = {}
@@ -167,75 +160,75 @@ class CAutomation(Automation):
 
 #        if not self.cmind.xlogger == None:
 #            self.cmind.log(f"x repo log: {pull_repos}", "debug")
-        
+
         for repo in pull_repos:
-             alias = repo['alias']
-             url = repo.get('url', '')
-             branch = repo.get('branch','')
-             new_branch = repo.get('new_branch','')
-             checkout = repo.get('checkout','')
-             depth = repo.get('depth','')
-             path_to_repo = repo.get('path_to_repo', None)
-             _dir = repo.get('dir', '')
+            alias = repo['alias']
+            url = repo.get('url', '')
+            branch = repo.get('branch', '')
+            new_branch = repo.get('new_branch', '')
+            checkout = repo.get('checkout', '')
+            depth = repo.get('depth', '')
+            path_to_repo = repo.get('path_to_repo', None)
+            _dir = repo.get('dir', '')
 
-             if console:
-                 print (self.cmind.cfg['line'])
-                 print ('Alias:      {}'.format(alias))
-                 if url!='':
-                     print ('URL:        {}'.format(url))
-                 if branch!='':
-                     print ('Branch:     {}'.format(branch))
-                 if new_branch!='':
-                     print ('New branch: {}'.format(new_branch))
-                 if checkout!='':
-                     print ('Checkout:   {}'.format(checkout))
-                 if _dir!='':
-                     print ('Directory:  {}'.format(_dir))
-                 if depth!='' and depth!=None:
-                     print ('Depth:      {}'.format(str(depth)))
-                 print ('')
-
-             # Prepare path to repo
-             repos = self.cmind.repos
-
-             r = repos.pull(alias = alias,
-                            url = url,
-                            branch = branch,
-                            new_branch = new_branch,
-                            checkout = checkout,
-                            _dir = _dir,
-                            console = console,
-                            desc=desc,
-                            prefix=prefix,
-                            depth=depth,
-                            path_to_repo=path_to_repo,
-                            checkout_only=checkout_only,
-                            skip_zip_parent_dir=skip_zip_parent_dir,
-                            extra_cmd_git = extra_cmd_git,
-                            extra_cmd_pip = extra_cmd_pip)
-             if r['return']>0: return r
-
-             repo_meta = r['meta']
-
-             repo_metas[alias] = repo_meta
-
-             if len(r.get('warnings', []))>0:
-                 warnings += r['warnings']
-
-        if len(pull_repos)>0 and self.cmind.use_index:
             if console:
-                print (self.cmind.cfg['line'])
+                print(self.cmind.cfg['line'])
+                print('Alias:      {}'.format(alias))
+                if url != '':
+                    print('URL:        {}'.format(url))
+                if branch != '':
+                    print('Branch:     {}'.format(branch))
+                if new_branch != '':
+                    print('New branch: {}'.format(new_branch))
+                if checkout != '':
+                    print('Checkout:   {}'.format(checkout))
+                if _dir != '':
+                    print('Directory:  {}'.format(_dir))
+                if depth != '' and depth != None:
+                    print('Depth:      {}'.format(str(depth)))
+                print('')
 
-            ii = {'out':'con'} if console else {}
+            # Prepare path to repo
+            repos = self.cmind.repos
+
+            r = repos.pull(alias=alias,
+                           url=url,
+                           branch=branch,
+                           new_branch=new_branch,
+                           checkout=checkout,
+                           _dir=_dir,
+                           console=console,
+                           desc=desc,
+                           prefix=prefix,
+                           depth=depth,
+                           path_to_repo=path_to_repo,
+                           checkout_only=checkout_only,
+                           skip_zip_parent_dir=skip_zip_parent_dir,
+                           extra_cmd_git=extra_cmd_git,
+                           extra_cmd_pip=extra_cmd_pip)
+            if r['return'] > 0:
+                return r
+
+            repo_meta = r['meta']
+
+            repo_metas[alias] = repo_meta
+
+            if len(r.get('warnings', [])) > 0:
+                warnings += r['warnings']
+
+        if len(pull_repos) > 0 and self.cmind.use_index:
+            if console:
+                print(self.cmind.cfg['line'])
+
+            ii = {'out': 'con'} if console else {}
             rx = self.reindex(ii)
 
-        print_warnings(warnings)    
+        print_warnings(warnings)
 
-        return {'return':0, 'meta':repo_meta, 'metas': repo_metas}
-
-
+        return {'return': 0, 'meta': repo_meta, 'metas': repo_metas}
 
     ############################################################
+
     def checkout(self, i):
         """
         Checkout repository
@@ -254,8 +247,8 @@ class CAutomation(Automation):
 
         return self.pull(i)
 
-
     ############################################################
+
     def show(self, i):
         """
         Show verbose info about registered CM repos.
@@ -271,8 +264,8 @@ class CAutomation(Automation):
 
         return self.search(i)
 
-
     ############################################################
+
     def search(self, i):
         """
         List registered CM repos.
@@ -305,12 +298,14 @@ class CAutomation(Automation):
 
         lst = []
 
-        parsed_artifact = i.get('parsed_artifact',[])
+        parsed_artifact = i.get('parsed_artifact', [])
 
-        min_out = i.get('min',False)
+        min_out = i.get('min', False)
 
-        artifact_obj = parsed_artifact[0] if len(parsed_artifact)>0 else ('','')
-        artifact_repo = parsed_artifact[1] if len(parsed_artifact)>1 else None
+        artifact_obj = parsed_artifact[0] if len(
+            parsed_artifact) > 0 else ('', '')
+        artifact_repo = parsed_artifact[1] if len(
+            parsed_artifact) > 1 else None
 
         artifact_repo_wildcards = False
         if artifact_repo is not None:
@@ -321,13 +316,14 @@ class CAutomation(Automation):
             meta = repo.meta
 
             uid = meta['uid']
-            alias = meta.get('alias','')
+            alias = meta.get('alias', '')
 
-            r = utils.match_objects(uid = uid, 
-                                    alias = alias,
-                                    uid2 = artifact_obj[1],
-                                    alias2 = artifact_obj[0])
-            if r['return']>0: return r
+            r = utils.match_objects(uid=uid,
+                                    alias=alias,
+                                    uid2=artifact_obj[1],
+                                    alias2=artifact_obj[0])
+            if r['return'] > 0:
+                return r
 
             if r['match']:
                 lst.append(repo)
@@ -343,78 +339,81 @@ class CAutomation(Automation):
                 path = l.path_with_prefix if with_prefix else l.path
 
                 if min_out:
-                    print (path)
+                    print(path)
                 else:
                     if i.get('verbose', False):
 
-                       uid = meta['uid']
-                       desc = meta.get('desc', '')
-                       git = meta.get('git', False)
-                       prefix = meta.get('prefix', '')
+                        uid = meta['uid']
+                        desc = meta.get('desc', '')
+                        git = meta.get('git', False)
+                        prefix = meta.get('prefix', '')
 
-                       local_alias = os.path.basename(path)
+                        local_alias = os.path.basename(path)
 
-                       if alias == 'local' or alias == 'internal' or local_alias == 'ck':
-                           local_alias = ''
-                       
-                       print (self.cmind.cfg['line'])
-                       print ('Path:               {}'.format(path))
-                       if prefix != '':
-                           print ('  CM sub-directory: {}'.format(prefix))
+                        if alias == 'local' or alias == 'internal' or local_alias == 'ck':
+                            local_alias = ''
 
-                       if alias != local_alias:
-                           if local_alias!='':
-                               print ('  Alias:            {}'.format(local_alias))
-                               print ('  Original alias:   {}'.format(alias))
-                           else:
-                               print ('  Alias:            {}'.format(alias))
-                       else:
-                           print ('  Alias:            {}'.format(alias))
+                        print(self.cmind.cfg['line'])
+                        print('Path:               {}'.format(path))
+                        if prefix != '':
+                            print('  CM sub-directory: {}'.format(prefix))
 
-                       print ('  UID:              {}'.format(uid))
+                        if alias != local_alias:
+                            if local_alias != '':
+                                print('  Alias:            {}'.format(local_alias))
+                                print('  Original alias:   {}'.format(alias))
+                            else:
+                                print('  Alias:            {}'.format(alias))
+                        else:
+                            print('  Alias:            {}'.format(alias))
 
-                       if desc != '':
-                           print ('Description:        {}'.format(desc))
+                        print('  UID:              {}'.format(uid))
 
-                       print ('Git:                {}'.format(str(git)))
+                        if desc != '':
+                            print('Description:        {}'.format(desc))
 
-                       if git:
-                           url = ''
-                           branch = ''
-                           checkout = ''
+                        print('Git:                {}'.format(str(git)))
 
-                           import subprocess
+                        if git:
+                            url = ''
+                            branch = ''
+                            checkout = ''
 
-                           cur_dir = os.getcwd()
+                            import subprocess
 
-                           os.chdir(path)
+                            cur_dir = os.getcwd()
 
-                           try:
-                              url = subprocess.check_output('git config --get remote.origin.url', shell=True).decode("utf-8").strip()
-                           except subprocess.CalledProcessError as e:
-                              url = ''
+                            os.chdir(path)
 
-                           try:
-                              branch = subprocess.check_output('git rev-parse --abbrev-ref HEAD', shell=True).decode("utf-8").strip()
-                           except subprocess.CalledProcessError as e:
-                              branch = ''
-                           
-                           try:
-                              checkout = subprocess.check_output('git rev-parse HEAD', shell=True).decode("utf-8").strip()
-                           except subprocess.CalledProcessError as e:
-                              checkout = ''
-                           
-                           if url!='':
-                               print (f'  URL:              {url}')
-                           if branch!='':
-                               print (f'  Branch:           {branch}')
-                           if checkout!='':
-                               print (f'  Checkout:         {checkout}')
+                            try:
+                                url = subprocess.check_output(
+                                    'git config --get remote.origin.url', shell=True).decode("utf-8").strip()
+                            except subprocess.CalledProcessError as e:
+                                url = ''
+
+                            try:
+                                branch = subprocess.check_output(
+                                    'git rev-parse --abbrev-ref HEAD', shell=True).decode("utf-8").strip()
+                            except subprocess.CalledProcessError as e:
+                                branch = ''
+
+                            try:
+                                checkout = subprocess.check_output(
+                                    'git rev-parse HEAD', shell=True).decode("utf-8").strip()
+                            except subprocess.CalledProcessError as e:
+                                checkout = ''
+
+                            if url != '':
+                                print(f'  URL:              {url}')
+                            if branch != '':
+                                print(f'  Branch:           {branch}')
+                            if checkout != '':
+                                print(f'  Checkout:         {checkout}')
 
                     else:
-                       print ('{},{} = {}'.format(alias, uid, path))
+                        print('{},{} = {}'.format(alias, uid, path))
 
-        return {'return':0, 'list':lst}
+        return {'return': 0, 'list': lst}
 
     ############################################################
     def where(self, i):
@@ -435,7 +434,7 @@ class CAutomation(Automation):
             * list (list): list of updated CM repository objects
         """
 
-        i['min']=True
+        i['min'] = True
 
         return self.search(i)
 
@@ -463,18 +462,19 @@ class CAutomation(Automation):
         for repo in self.cmind.repos.lst:
             meta = repo.meta
 
-            alias = meta.get('alias','')
+            alias = meta.get('alias', '')
 
             git = meta.get('git', False)
 
             if git:
                 if console:
-                    print ('Updating "{}" ...'.format(alias))
-                    print ('')
-                r = self.cmind.repos.pull(alias = alias, console = console)
-                if r['return']>0: return r
+                    print('Updating "{}" ...'.format(alias))
+                    print('')
+                r = self.cmind.repos.pull(alias=alias, console=console)
+                if r['return'] > 0:
+                    return r
 
-        return {'return':0, 'list':self.cmind.repos.lst}
+        return {'return': 0, 'list': self.cmind.repos.lst}
 
     ############################################################
     def delete(self, i):
@@ -505,39 +505,41 @@ class CAutomation(Automation):
 
         console = i.get('out') == 'con'
 
-        force = (i.get('force',False) or i.get('f',False))
+        force = (i.get('force', False) or i.get('f', False))
 
-        artifact = i.get('artifact','').strip()
+        artifact = i.get('artifact', '').strip()
 
         if artifact == '':
-            return {'return':1, 'error':'repositories are not specified'}
+            return {'return': 1, 'error': 'repositories are not specified'}
 
         # Search CM repository
-        i['action']='search'
-        i['out']=None
-        r=self.cmind.access(i)
+        i['action'] = 'search'
+        i['out'] = None
+        r = self.cmind.access(i)
 
-        if r['return'] >0 : return r
+        if r['return'] > 0:
+            return r
 
         lst = r['list']
-        if len(lst)==0:
-           return {'return':1, 'error':'Repository not found'}
+        if len(lst) == 0:
+            return {'return': 1, 'error': 'Repository not found'}
 
         remove_all = i.get('all', '')
 
-        r = self.cmind.repos.delete(lst, remove_all = remove_all, console = console, force = force)
+        r = self.cmind.repos.delete(
+            lst, remove_all=remove_all, console=console, force=force)
 
         if self.cmind.use_index:
-            ii = {'out':'con'} if console else {}
+            ii = {'out': 'con'} if console else {}
             rx = self.reindex(ii)
-        
+
         return r
 
     ############################################################
     def ximport(self, i):
 
-        if i.get('path','')!='':
-            i['here']=True
+        if i.get('path', '') != '':
+            i['here'] = True
 
         return self.init(i)
 
@@ -570,57 +572,59 @@ class CAutomation(Automation):
         console = i.get('out') == 'con'
 
         alias = i.get('artifact', '')
-        uid = i.get('uid','')
+        uid = i.get('uid', '')
         path = i.get('path', '')
-        desc = i.get('desc','')
-        prefix = i.get('prefix','')
+        desc = i.get('desc', '')
+        prefix = i.get('prefix', '')
 
         # If path is not specified, initialize in the current directory!
-        if (path=='' and alias=='') or (alias!='' and (path=='.' or i.get('here', False))):
-           path = os.path.abspath(os.getcwd())
+        if (path == '' and alias == '') or (alias != '' and (path == '.' or i.get('here', False))):
+            path = os.path.abspath(os.getcwd())
 
         # Check if there is a repo in a path
-        r = self.cmind.access({'action':'detect',
-                               'automation':self.meta['alias']+','+self.meta['uid'],
-                               'path':path})
-        if r['return']>0: return r
+        r = self.cmind.access({'action': 'detect',
+                               'automation': self.meta['alias']+','+self.meta['uid'],
+                               'path': path})
+        if r['return'] > 0:
+            return r
 
         repo_desc_found = r['found']
-        repo_registered = r.get('registered',False)
+        repo_registered = r.get('registered', False)
 
         if repo_desc_found:
             if repo_registered:
-                return {'return':1, 'error':'CM repository found in this path and already registered in CM'}
+                return {'return': 1, 'error': 'CM repository found in this path and already registered in CM'}
 
             if console:
-                print ('CM repository description found in this path: {}'.format(r['path_to_repo_desc']))
+                print('CM repository description found in this path: {}'.format(
+                    r['path_to_repo_desc']))
 
-            path= r['path_to_repo']
+            path = r['path_to_repo']
 
             repo_meta = r['meta']
 
-            repo_meta_alias = repo_meta.get('alias','')
-            repo_meta_uid = repo_meta.get('uid','')
-            repo_meta_prefix = repo_meta.get('prefix','')
+            repo_meta_alias = repo_meta.get('alias', '')
+            repo_meta_uid = repo_meta.get('uid', '')
+            repo_meta_prefix = repo_meta.get('prefix', '')
 
             # Check if mismatch in alias
-            if alias!='':
-                if repo_meta_alias!='' and repo_meta_alias!=alias:
-                    return {'return':1, 'error':'mismatch between new repo alias and the existing one'}
+            if alias != '':
+                if repo_meta_alias != '' and repo_meta_alias != alias:
+                    return {'return': 1, 'error': 'mismatch between new repo alias and the existing one'}
             else:
                 alias = repo_meta_alias
 
             # Check if mismatch in UID
-            if uid!='':
-                if repo_meta_uid!='' and repo_meta_uid!=uid:
-                    return {'return':1, 'error':'mismatch between new repo UID and the existing one'}
+            if uid != '':
+                if repo_meta_uid != '' and repo_meta_uid != uid:
+                    return {'return': 1, 'error': 'mismatch between new repo UID and the existing one'}
             else:
                 uid = repo_meta_uid
 
             # Check if mismatch in prefix
-            if prefix!='':
-                if repo_meta_prefix!='' and repo_meta_prefix is not None and repo_meta_prefix!=prefix:
-                    return {'return':1, 'error':'mismatch between new repo prefix and the existing one'}
+            if prefix != '':
+                if repo_meta_prefix != '' and repo_meta_prefix is not None and repo_meta_prefix != prefix:
+                    return {'return': 1, 'error': 'mismatch between new repo prefix and the existing one'}
             else:
                 prefix = repo_meta_prefix
 
@@ -630,43 +634,48 @@ class CAutomation(Automation):
             alias = os.path.basename(path).strip().lower()
 
         # Generate UID
-        if uid =='':
-            r=utils.gen_uid()
-            if r['return']>0: return r
+        if uid == '':
+            r = utils.gen_uid()
+            if r['return'] > 0:
+                return r
             uid = r['uid']
 
-        if alias == '': alias = uid
+        if alias == '':
+            alias = uid
 
         if console:
-            print (self.cmind.cfg['line'])
-            print ('Alias:    {}'.format(alias))
-            print ('UID:      {}'.format(uid))
-            print ('Desc:     {}'.format(desc))
-            print ('Prefix:   {}'.format(prefix))
-            print ('')
+            print(self.cmind.cfg['line'])
+            print('Alias:    {}'.format(alias))
+            print('UID:      {}'.format(uid))
+            print('Desc:     {}'.format(desc))
+            print('Prefix:   {}'.format(prefix))
+            print('')
 
         # Check if repository with this alias and UID doesn't exist
         for repo_artifact in [alias, uid]:
-            ii={'automation':'repo', 'action':'search', 'artifact':repo_artifact}
+            ii = {'automation': 'repo', 'action': 'search',
+                  'artifact': repo_artifact}
 
-            r=self.cmind.access(ii) 
-            if r['return']>0: return r
+            r = self.cmind.access(ii)
+            if r['return'] > 0:
+                return r
 
-            lst=r['list']
+            lst = r['list']
 
-            if len(lst)>0: 
-                return {'return':1, 'error':'Repository "{}" is already registered in CM'.format(repo_artifact)}
+            if len(lst) > 0:
+                return {'return': 1, 'error': 'Repository "{}" is already registered in CM'.format(repo_artifact)}
 
-        # Create repository 
-        r = self.cmind.repos.init(alias = alias, uid = uid, path = path, console = console, desc=desc, prefix=prefix, only_register=repo_desc_found)
+        # Create repository
+        r = self.cmind.repos.init(alias=alias, uid=uid, path=path, console=console,
+                                  desc=desc, prefix=prefix, only_register=repo_desc_found)
 
         if self.cmind.use_index:
-            ii = {'out':'con'} if console else {}
+            ii = {'out': 'con'} if console else {}
             rx = self.reindex(ii)
-        
+
         warnings = r.get('warnings', [])
         print_warnings(warnings)
-        
+
         return r
 
     ############################################################
@@ -704,17 +713,18 @@ class CAutomation(Automation):
         console = i.get('out') == 'con'
 
         # Search repository
-        i['out']=None
+        i['out'] = None
         r = self.search(i)
 
-        if r['return']>0: return r
+        if r['return'] > 0:
+            return r
 
         lst = r['list']
 
-        if len(lst)==0:
-            return {'return':16, 'error':'no repsitories found'}
-        elif len(lst)>1:
-            return {'return':16, 'error':'more than 1 repository found'}
+        if len(lst) == 0:
+            return {'return': 16, 'error': 'no repsitories found'}
+        elif len(lst) > 1:
+            return {'return': 16, 'error': 'more than 1 repository found'}
 
         repo = lst[0]
 
@@ -723,10 +733,12 @@ class CAutomation(Automation):
         pack_file = self.cmind.cfg['default_repo_pack']
 
         if console:
-            print ('Packing repo from {} to {} ...'.format(repo_path, pack_file))
+            print('Packing repo from {} to {} ...'.format(repo_path, pack_file))
 
-        r = utils.list_all_files({'path': repo_path, 'all': 'yes', 'ignore_names':['.git']})
-        if r['return'] > 0: return r
+        r = utils.list_all_files(
+            {'path': repo_path, 'all': 'yes', 'ignore_names': ['.git']})
+        if r['return'] > 0:
+            return r
 
         files = r['list']
 
@@ -745,7 +757,7 @@ class CAutomation(Automation):
         except Exception as e:
             return {'return': 1, 'error': 'failed to pack repo: {}'.format(format(e))}
 
-        return {'return':0}
+        return {'return': 0}
 
     ############################################################
     def unpack(self, i):
@@ -773,15 +785,15 @@ class CAutomation(Automation):
         pack_file = self.cmind.cfg['default_repo_pack']
 
         if not os.path.isfile(pack_file):
-            return {'return':16, 'error':'CM repo pack file not found {}'.format(pack_file)}
+            return {'return': 16, 'error': 'CM repo pack file not found {}'.format(pack_file)}
 
-        # Attempt to read cmr.json 
+        # Attempt to read cmr.json
         repo_pack_file = open(pack_file, 'rb')
         repo_pack_zip = zipfile.ZipFile(repo_pack_file)
 
         repo_pack_desc = self.cmind.cfg['file_meta_repo']
 
-        files=repo_pack_zip.namelist()
+        files = repo_pack_zip.namelist()
 
         repo_meta = {}
 
@@ -804,28 +816,30 @@ class CAutomation(Automation):
         # Get meta info
         uid = repo_meta['uid']
         alias = repo_meta['alias']
-        desc = repo_meta.get('desc','')
-        prefix = repo_meta.get('prefix','')
+        desc = repo_meta.get('desc', '')
+        prefix = repo_meta.get('prefix', '')
 
         # Check if repo exists
-        r = self.search({'parsed_artifact':[(alias,uid)]})
-        if r['return']>0: return r
+        r = self.search({'parsed_artifact': [(alias, uid)]})
+        if r['return'] > 0:
+            return r
 
         lst = r['list']
 
-        if len(lst)>0:
-            return {'return':1, 'error':'Repository already exists'}
+        if len(lst) > 0:
+            return {'return': 1, 'error': 'Repository already exists'}
 
         # Initialize repository
-        r_new = self.init({'artifact':alias,
-                           'uid':uid,
-                           'prefix':prefix})
-        if r_new['return']>0: return r_new
+        r_new = self.init({'artifact': alias,
+                           'uid': uid,
+                           'prefix': prefix})
+        if r_new['return'] > 0:
+            return r_new
 
         repo_path = r_new['path_to_repo']
 
         if console:
-            print ('Unpacking {} to {} ...'.format(pack_file, repo_path))
+            print('Unpacking {} to {} ...'.format(pack_file, repo_path))
 
         # Unpacking zip
         for f in files:
@@ -849,9 +863,9 @@ class CAutomation(Automation):
         repo_pack_file.close()
 
         if self.cmind.use_index:
-            ii = {'out':'con'} if console else {}
+            ii = {'out': 'con'} if console else {}
             rx = self.reindex(ii)
-        
+
         return r_new
 
     ##############################################################################
@@ -874,36 +888,39 @@ class CAutomation(Automation):
         import cmind
         import os
 
-        r=ck.access({'action':'search',
-                     'module_uoa':'repo',
-                     'add_meta':'yes'})
-        if r['return']>0: return r
+        r = ck.access({'action': 'search',
+                       'module_uoa': 'repo',
+                      'add_meta': 'yes'})
+        if r['return'] > 0:
+            return r
 
-        lst=r['lst']
+        lst = r['lst']
 
         for l in lst:
-            ruoa=l['data_uoa']
-            ruid=l['data_uid']
+            ruoa = l['data_uoa']
+            ruid = l['data_uid']
 
-            rmeta=l['meta']
+            rmeta = l['meta']
 
-            rpath=rmeta.get('path','')
+            rpath = rmeta.get('path', '')
 
-            if rpath!='' and os.path.isdir(rpath):
-                print ('********************************************************')
-                print (ruoa)
-                print (rpath)
+            if rpath != '' and os.path.isdir(rpath):
+                print('********************************************************')
+                print(ruoa)
+                print(rpath)
 
-                r=cmind.access({'automation':'repo',
-                                'action':'init',
-                                'artifact':ruoa,
-                                'path':rpath})
-                if r['return']>0: return r
+                r = cmind.access({'automation': 'repo',
+                                  'action': 'init',
+                                 'artifact': ruoa,
+                                  'path': rpath})
+                if r['return'] > 0:
+                    return r
 
                 r = convert_ck_dir_to_cm(rpath)
-                if r['return']>0: return r
+                if r['return'] > 0:
+                    return r
 
-        return {'return':0}
+        return {'return': 0}
 
     ##############################################################################
     def convert_ck_to_cm(self, i):
@@ -927,19 +944,19 @@ class CAutomation(Automation):
         import cmind
         import os
 
-
         console = i.get('out') == 'con'
 
         # Search CM repository
-        i['action']='search'
-        i['out']=None
-        r=self.cmind.access(i)
+        i['action'] = 'search'
+        i['out'] = None
+        r = self.cmind.access(i)
 
-        if r['return'] >0 : return r
+        if r['return'] > 0:
+            return r
 
         lst = r['list']
-        if len(lst)==0:
-           return {'return':1, 'error':'Repository not found'}
+        if len(lst) == 0:
+            return {'return': 1, 'error': 'Repository not found'}
 
         for repo in lst:
 
@@ -947,19 +964,20 @@ class CAutomation(Automation):
             ruid = repo.meta['uid']
             rpath = repo.path
 
-            if rpath!='' and os.path.isdir(rpath):
-                print ('********************************************************')
-                print (ralias)
-                print (ruid)
-                print (rpath)
+            if rpath != '' and os.path.isdir(rpath):
+                print('********************************************************')
+                print(ralias)
+                print(ruid)
+                print(rpath)
 
                 r = convert_ck_dir_to_cm(rpath)
-                if r['return']>0: return r
+                if r['return'] > 0:
+                    return r
 
-        return {'return':0}
-
+        return {'return': 0}
 
     ############################################################
+
     def detect(self, i):
         """
         Detect CM repository in the current path.
@@ -1010,15 +1028,17 @@ class CAutomation(Automation):
         repos = self.cmind.repos
 
         path = i.get('path')
-        if path == '': path = None
+        if path == '':
+            path = None
 
         # Search for cmr.yaml or cmr.json in current directory and above
-        r=utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_meta_repo']+'.json', 
-                                                         self.cmind.cfg['file_meta_repo']+'.yaml'],
-                                                         path_to_start = path)
-        if r['return']>0: return r
+        r = utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_meta_repo']+'.json',
+                                                           self.cmind.cfg['file_meta_repo']+'.yaml'],
+                                                          path_to_start=path)
+        if r['return'] > 0:
+            return r
 
-        rr = {'return':0}
+        rr = {'return': 0}
 
         found = r['found']
         rr['found'] = found
@@ -1036,7 +1056,8 @@ class CAutomation(Automation):
 
             # Load meta
             r = utils.load_json_or_yaml(path_to_repo_desc)
-            if r['return']>0: return r
+            if r['return'] > 0:
+                return r
 
             repo_meta = r['meta']
 
@@ -1054,7 +1075,8 @@ class CAutomation(Automation):
                         registered = True
 
             if registered:
-                rr['cm_repo'] = utils.assemble_cm_object(repo_meta['alias'],repo_meta['uid'])
+                rr['cm_repo'] = utils.assemble_cm_object(
+                    repo_meta['alias'], repo_meta['uid'])
 
         rr['registered'] = registered
 
@@ -1063,15 +1085,17 @@ class CAutomation(Automation):
 
         if found:
             for reverse in [False, True]:
-                r=utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_cmeta']+'.json', 
-                                                                 self.cmind.cfg['file_cmeta']+'.yaml'],
-                                                                 path_to_start = path,
-                                                                 reverse = reverse,
-                                                                 path_to_stop = path_to_repo_real)
-                if r['return']>0: return r
+                r = utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_cmeta']+'.json',
+                                                                   self.cmind.cfg['file_cmeta']+'.yaml'],
+                                                                  path_to_start=path,
+                                                                  reverse=reverse,
+                                                                  path_to_stop=path_to_repo_real)
+                if r['return'] > 0:
+                    return r
 
                 artifact_found = r['found']
-                artifact_found_in_current_path = r.get('found_in_current_path', False)
+                artifact_found_in_current_path = r.get(
+                    'found_in_current_path', False)
 
                 rr['artifact_found'] = artifact_found
 
@@ -1088,62 +1112,69 @@ class CAutomation(Automation):
                     # Load meta
                     path_to_artifact_desc_without_ext = path_to_artifact_desc
                     j = path_to_artifact_desc.rfind('.')
-                    if j>=0:
-                        path_to_artifact_desc_without_ext=path_to_artifact_desc[:j]
+                    if j >= 0:
+                        path_to_artifact_desc_without_ext = path_to_artifact_desc[:j]
 
-                    r = utils.load_yaml_and_json(path_to_artifact_desc_without_ext)
-                    if r['return']>0: return r
+                    r = utils.load_yaml_and_json(
+                        path_to_artifact_desc_without_ext)
+                    if r['return'] > 0:
+                        return r
 
                     artifact_meta = r['meta']
 
                     rr['artifact_meta'] = artifact_meta
 
-                    rr['cm_automation'] = utils.assemble_cm_object(artifact_meta['automation_alias'],artifact_meta['automation_uid'])
+                    rr['cm_automation'] = utils.assemble_cm_object(
+                        artifact_meta['automation_alias'], artifact_meta['automation_uid'])
 
                     if not reverse or artifact_found_in_current_path:
-                        rr['cm_artifact'] = utils.assemble_cm_object(artifact_meta['alias'],artifact_meta['uid'])
+                        rr['cm_artifact'] = utils.assemble_cm_object(
+                            artifact_meta['alias'], artifact_meta['uid'])
 
                     break
 
         # Print
         if console:
             if not found:
-                print ('CM repository not found')
+                print('CM repository not found')
             else:
-                print ('CM repository found:')
+                print('CM repository found:')
 
-                print ('')
-                print ('Path to repo desc file: {}'.format(path_to_repo_desc))
-                print ('Path to repo:           {}'.format(path_to_repo))
+                print('')
+                print('Path to repo desc file: {}'.format(path_to_repo_desc))
+                print('Path to repo:           {}'.format(path_to_repo))
 
                 if registered:
-                    print ('')
-                    print ('  This repository is registered in CM')
+                    print('')
+                    print('  This repository is registered in CM')
 
-                    print ('')
-                    print ('  Repo alias: {}'.format(repo_meta['alias']))
-                    print ('  Repo UID:   {}'.format(repo_meta['uid']))
+                    print('')
+                    print('  Repo alias: {}'.format(repo_meta['alias']))
+                    print('  Repo UID:   {}'.format(repo_meta['uid']))
 
                 if artifact_found:
-                    print ('')
-                    print ('Current directory has related CM automation:')
+                    print('')
+                    print('Current directory has related CM automation:')
 
-                    print ('')
-                    print ('  Automation alias: {}'.format(artifact_meta['automation_alias']))
-                    print ('  Automation UID:   {}'.format(artifact_meta['automation_uid']))
+                    print('')
+                    print('  Automation alias: {}'.format(
+                        artifact_meta['automation_alias']))
+                    print('  Automation UID:   {}'.format(
+                        artifact_meta['automation_uid']))
 
                 if artifact_found_in_current_path:
-                    print ('')
-                    print ('Current directory has a CM artifact:')
+                    print('')
+                    print('Current directory has a CM artifact:')
 
-                    print ('')
-                    print ('  Artifact alias: {}'.format(artifact_meta['alias']))
-                    print ('  Artifact UID:   {}'.format(artifact_meta['uid']))
+                    print('')
+                    print('  Artifact alias: {}'.format(
+                        artifact_meta['alias']))
+                    print('  Artifact UID:   {}'.format(artifact_meta['uid']))
 
         return rr
 
-
     ############################################################
+
     def reindex(self, i):
         """
         Reindex all CM repositories
@@ -1166,28 +1197,29 @@ class CAutomation(Automation):
         console = i.get('out') == 'con'
 
         if console:
-            print ('')
-            print ('Reindexing all CM artifacts. Can take some time ...')
-        
+            print('')
+            print('Reindexing all CM artifacts. Can take some time ...')
+
         out = 'con' if verbose else ''
-        
+
         # Clean index
         self.cmind.index.meta = {}
-        
+
         import time
         t1 = time.time()
 
-        r = self.cmind.access({'action':'search',
-                               'automation':'*',
-                               'out':out,
-                               'skip_index_search':True,
-                               'force_index_add':True})
-        if r['return']>0: return r
+        r = self.cmind.access({'action': 'search',
+                               'automation': '*',
+                               'out': out,
+                               'skip_index_search': True,
+                               'force_index_add': True})
+        if r['return'] > 0:
+            return r
 
         t2 = time.time() - t1
 
         if console:
-            print ('Took {:.1f} sec.'.format(t2))
+            print('Took {:.1f} sec.'.format(t2))
 
         # Save
         rx = self.cmind.index.save()
@@ -1197,9 +1229,7 @@ class CAutomation(Automation):
             rx = self.cmind.index.load()
             # Ignore output for now to continue working even if issues ...
 
-
-        return {'return':0, 'self_time':t2}
-
+        return {'return': 0, 'self_time': t2}
 
 
 ##############################################################################
@@ -1224,30 +1254,31 @@ def convert_ck_dir_to_cm(rpath):
     dir1 = os.listdir(rpath)
 
     for d1 in dir1:
-        if d1!='.cm':
-            dd1=os.path.join(rpath, d1)
+        if d1 != '.cm':
+            dd1 = os.path.join(rpath, d1)
             if os.path.isdir(dd1):
 
                 dir2 = os.listdir(dd1)
 
                 for d2 in dir2:
-                    if d2!='.cm':
-                        dd2=os.path.join(dd1, d2, '.cm')
+                    if d2 != '.cm':
+                        dd2 = os.path.join(dd1, d2, '.cm')
                         if os.path.isdir(dd2):
                             dmeta = {}
 
                             broken = False
-                            for f in ['info.json','meta.json']:
-                                dd2a=os.path.join(dd2, f)
+                            for f in ['info.json', 'meta.json']:
+                                dd2a = os.path.join(dd2, f)
 
                                 if os.path.isfile(dd2a):
 
-                                    r=ck.load_json_file({'json_file':dd2a})
-                                    if r['return']>0: return r
+                                    r = ck.load_json_file({'json_file': dd2a})
+                                    if r['return'] > 0:
+                                        return r
 
                                     dmeta.update(r['dict'])
                                 else:
-                                    broken=True
+                                    broken = True
                                     break
 
                             if broken or \
@@ -1255,42 +1286,46 @@ def convert_ck_dir_to_cm(rpath):
                                'backup_module_uid' not in dmeta or \
                                'backup_module_uoa' not in dmeta:
 
-                               print ('Ignored: '+dd2)
+                                print('Ignored: '+dd2)
                             else:
-                               backup_data_uid = dmeta['backup_data_uid']
+                                backup_data_uid = dmeta['backup_data_uid']
 
-                               backup_module_uid = dmeta['backup_module_uid']
-                               backup_module_uoa = dmeta['backup_module_uoa']
+                                backup_module_uid = dmeta['backup_module_uid']
+                                backup_module_uoa = dmeta['backup_module_uoa']
 
-                               dmeta2 = {}
-                               for k in dmeta:
-                                   if not k.startswith('backup_') and not k.startswith('cm_'):
-                                       dmeta2[k]=dmeta[k]
+                                dmeta2 = {}
+                                for k in dmeta:
+                                    if not k.startswith('backup_') and not k.startswith('cm_'):
+                                        dmeta2[k] = dmeta[k]
 
-                               dmeta2['uid']=backup_data_uid
+                                dmeta2['uid'] = backup_data_uid
 
-                               if not ck.is_uid(d2):
-                                  dmeta2['alias']=d2
+                                if not ck.is_uid(d2):
+                                    dmeta2['alias'] = d2
 
-                               dmeta2['automation_alias']=backup_module_uoa
-                               dmeta2['automation_uid']=backup_module_uid
+                                dmeta2['automation_alias'] = backup_module_uoa
+                                dmeta2['automation_uid'] = backup_module_uid
 
-                               cm_meta_file = os.path.join(dd1, d2, '_cm.json')
+                                cm_meta_file = os.path.join(
+                                    dd1, d2, '_cm.json')
 
-                               print (cm_meta_file)
+                                print(cm_meta_file)
 
-                               r=ck.save_json_to_file({'json_file':cm_meta_file, 'dict': dmeta2, 'sort_keys':'yes'})
-                               if r['return']>0: return r
+                                r = ck.save_json_to_file(
+                                    {'json_file': cm_meta_file, 'dict': dmeta2, 'sort_keys': 'yes'})
+                                if r['return'] > 0:
+                                    return r
 
-    return {'return':0}
+    return {'return': 0}
+
 
 def print_warnings(warnings):
 
-    if len(warnings)>0:
-        print ('')
-        print ('WARNINGS:')
-        print ('')
+    if len(warnings) > 0:
+        print('')
+        print('WARNINGS:')
+        print('')
         for w in warnings:
-            print ('  {}'.format(w))
-                                                                            
+            print('  {}'.format(w))
+
     return
