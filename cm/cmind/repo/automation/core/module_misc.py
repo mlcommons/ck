@@ -5,6 +5,8 @@
 import cmind.utils as utils
 
 ############################################################
+
+
 def uid(i):
 
     console = i.get('out') == 'con'
@@ -12,6 +14,6 @@ def uid(i):
     r = utils.gen_uid()
 
     if console:
-        print (r['uid'])
+        print(r['uid'])
 
     return r

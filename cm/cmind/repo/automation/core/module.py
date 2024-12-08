@@ -9,51 +9,52 @@ from cmind import utils
 
 # This is just an example of how to import extra files from such a package
 # We need to make it unique!
-#import sys
-#sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-#from cm_60cb625a46b38610 import misc
+# import sys
+# sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# from cm_60cb625a46b38610 import misc
+
 
 class CMInit():
     ###############################################################
-    def run(self, quiet = False, skip = False, repo_name = 'mlcommons@cm4mlops', repo_url = '', 
-                  repo_branch = '', repo_checkout = '', x_was_called = False):
+    def run(self, quiet=False, skip=False, repo_name='mlcommons@cm4mlops', repo_url='',
+            repo_branch='', repo_checkout='', x_was_called=False):
         import cmind
 
-        print ('Checking platform information ...')
+        print('Checking platform information ...')
         self.get_sys_platform()
 
-        print ('[SUCCESS]')
+        print('[SUCCESS]')
 
-        print ('')
-        print ('Checking system dependencies ...')
+        print('')
+        print('Checking system dependencies ...')
         r = self.install_system_packages(quiet)
-        if r['return']>0 or r.get('warning','') !='' :
+        if r['return'] > 0 or r.get('warning', '') != '':
             return r
 
-        print ('[SUCCESS]')
+        print('[SUCCESS]')
 
-        rr = {'return':0}
+        rr = {'return': 0}
 
         # Do not pull extra repositories in CMX
         if not skip and not x_was_called:
 
-            print ('')
-            print ('Pulling default automation repository ...')
+            print('')
+            print('Pulling default automation repository ...')
 
-            print ('')
-            ii = {'action':'pull', 
-                  'automation':'repo',
-                  'out':'con'}
+            print('')
+            ii = {'action': 'pull',
+                  'automation': 'repo',
+                  'out': 'con'}
 
             if repo_url != '':
                 ii['url'] = repo_url
             elif repo_name != '':
                 ii['artifact'] = repo_name
 
-            if repo_branch !='':
+            if repo_branch != '':
                 ii['branch'] = repo_branch
 
-            if repo_checkout !='':
+            if repo_checkout != '':
                 ii['checkout'] = repo_checkout
 
             rr = cmind.access(ii)
@@ -68,11 +69,10 @@ class CMInit():
 
         # List of packages to install via system package manager
         packages = []
-        
+
         git_status = self.command_exists('git')
         if not git_status:
             packages.append("git")
-
 
         # wget and curl are managed via CM scripts on Windows
         if os.name != 'nt':
@@ -85,10 +85,10 @@ class CMInit():
             if not curl_status:
                 packages.append("curl")
 
-        name='venv'
+        name = 'venv'
 
         if name in sys.modules:
-            pass #nothing needed
+            pass  # nothing needed
         else:
             spec = importlib.util.find_spec(name)
             if spec is not None:
@@ -97,7 +97,7 @@ class CMInit():
                 spec.loader.exec_module(module)
             else:
                 packages.append("python3-venv")
-        
+
         warning = ''
 
         if packages:
@@ -111,34 +111,37 @@ class CMInit():
                         install_cmd = '{}apt-get update && apt-get install -y {}'
 
             if install_cmd == '':
-                warning = "You must install the following system packages manually: {}".format(', '.join(packages))
+                warning = "You must install the following system packages manually: {}".format(
+                    ', '.join(packages))
             else:
-                print ('')
-                print ('The following system packages will be installed:')
-                print ('')
-                print (install_cmd.format('sudo', ' '.join(packages)))
+                print('')
+                print('The following system packages will be installed:')
+                print('')
+                print(install_cmd.format('sudo', ' '.join(packages)))
 
                 sudo = 'sudo '
                 if not quiet:
-                    print ('')
-                    x = input ('Would you like to skip "sudo" from above command (y/N)? ')
+                    print('')
+                    x = input(
+                        'Would you like to skip "sudo" from above command (y/N)? ')
 
-                    if x.lower() in ['y','yes']:
+                    if x.lower() in ['y', 'yes']:
                         sudo = ''
 
                 install_cmd = install_cmd.format(sudo, ' '.join(packages))
 
-                print ('')
-                print ('Running system command:')
-                print (install_cmd)
+                print('')
+                print('Running system command:')
+                print(install_cmd)
 
                 r = os.system(install_cmd)
-                if r>0:
-                    return {'return':1, 'error':f'Command {install_cmd} failed with return code {r}'}
+                if r > 0:
+                    return {'return': 1, 'error': f'Command {install_cmd} failed with return code {r}'}
 
-        rr = {'return':0}
+        rr = {'return': 0}
 
-        if warning != '': rr['warning'] = warning
+        if warning != '':
+            rr['warning'] = warning
 
         return rr
 
@@ -166,7 +169,8 @@ class CMInit():
         manager = self.detect_package_manager()
         if manager:
             try:
-                version_output = subprocess.check_output([manager, '--version'], stderr=subprocess.STDOUT).decode('utf-8')
+                version_output = subprocess.check_output(
+                    [manager, '--version'], stderr=subprocess.STDOUT).decode('utf-8')
                 return manager, version_output.split('\n')[0]
             except subprocess.CalledProcessError:
                 return manager, 'Version information not available'
@@ -177,7 +181,7 @@ class CMInit():
     # Checks if command exists(for installing required packages).
     # If the command exists, which returns 0, making the function return True.
     # If the command does not exist, which returns a non-zero value, making the function return False.
-    # NOTE: The standard output and standard error streams are redirected to PIPES so that it could be captured in future if needed.    
+    # NOTE: The standard output and standard error streams are redirected to PIPES so that it could be captured in future if needed.
     def command_exists(self, command):
         import subprocess
 
@@ -187,13 +191,12 @@ class CMInit():
         elif self.system == "Windows":
             return subprocess.call([command, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True) == 0
 
-    
     ###############################################################
+
     def get_sys_platform(self):
         import platform
 
-        self.system =  platform.system() 
-
+        self.system = platform.system()
 
 
 class CAutomation(Automation):
@@ -205,8 +208,8 @@ class CAutomation(Automation):
     def __init__(self, cmind, automation_file):
         super().__init__(cmind, __file__)
 
-
     ############################################################
+
     def uid(self, i):
         """
         Generate CM UID.
@@ -258,7 +261,7 @@ class CAutomation(Automation):
 
         repo_name = i.get('repo', '').strip()
         repo_url = i.get('url', '').strip()
-        if repo_url == '' and repo_name == '': 
+        if repo_url == '' and repo_name == '':
             repo_name = 'mlcommons@cm4mlops'
 
         repo_branch = i.get('branch', '')
@@ -269,18 +272,19 @@ class CAutomation(Automation):
         if hasattr(self.cmind, 'x_was_called'):
             x_was_called = self.cmind.x_was_called
 
-        r = cm_init.run(quiet = quiet, 
-                        skip = skip, 
-                        repo_name = repo_name, 
-                        repo_url = repo_url, 
-                        repo_branch = repo_branch,
-                        repo_checkout = repo_checkout,
-                        x_was_called = x_was_called)
-        if r['return']>0: return r
+        r = cm_init.run(quiet=quiet,
+                        skip=skip,
+                        repo_name=repo_name,
+                        repo_url=repo_url,
+                        repo_branch=repo_branch,
+                        repo_checkout=repo_checkout,
+                        x_was_called=x_was_called)
+        if r['return'] > 0:
+            return r
 
         warning = r.get('warning', '')
         if warning != '':
-            print ('')
-            print (warning)
+            print('')
+            print(warning)
 
-        return {'return':0}
+        return {'return': 0}
