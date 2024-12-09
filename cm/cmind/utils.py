@@ -2170,3 +2170,52 @@ def substitute_template(template, variables):
     except KeyError as e:
         return f"Error: Missing value for {e.args[0]} in the vars dictionary."
 
+##############################################################################
+def get_memory_use(console = False):
+
+    """
+    Get memory usage
+
+    Args:
+        console (bool): if True, print to console
+
+    Returns:
+       memory_use (int)
+       memory_use_gb (float)
+       available_memory (int)
+       available_memory_gb (float)
+       total_memory (int)
+       total_memory_gb (float)
+
+    """
+
+    import os
+    import psutil
+
+    pid = os.getpid()
+
+    python_process = psutil.Process(pid)
+
+    memory_use = python_process.memory_info()[0] # in bytes
+    memory_use_gb = memory_use / (1024 ** 3) 
+
+    memory_info = psutil.virtual_memory()
+
+    available_memory = memory_info.available  # in bytes
+    total_memory = memory_info.total  # in bytes
+
+    available_memory_gb = available_memory / (1024 ** 3)
+    total_memory_gb = total_memory / (1024 ** 3)
+
+    if console:
+        print(f"Total Memory: {total_memory_gb:.2f} GB")
+        print(f"Available Memory: {available_memory_gb:.2f} GB")
+        print(f"Used Python Memory: {memory_use_gb:.2f} GB")
+
+    return {'return':0, 'memory_use': memory_use,
+                        'memory_use_gb': memory_use_gb,
+                        'available_memory': available_memory,
+                        'available_memory_gb': available_memory_gb,
+                        'total_memory': total_memory,
+                        'total_memory_gb': total_memory_gb}
+

@@ -1,4 +1,5 @@
 ## V3.5.1.1
+   - added utils.get_memory_use
    - formatted Python modules from the internal repository using autopep8
 
 ## V3.5.1
