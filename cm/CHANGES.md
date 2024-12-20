@@ -1,4 +1,7 @@
-## V3.5.1.1
+## V3.5.2
+   - added `-i` flag to print memory and disk use before running CM/CMX commands: 
+     https://github.com/mlcommons/ck/issues/1375
+   - added utils.get_disk_use
    - added utils.get_memory_use
    - formatted Python modules from the internal repository using autopep8
 
