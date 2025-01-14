@@ -14,11 +14,11 @@ Modify the project in your own fork and issue a pull request once you want other
 to take a look at what you have done and discuss the proposed changes. 
 Ensure that cla-bot and other checks pass for your Pull requests.
 
-Collective Knowledge (CK) and Collective Mind (CM)
+Collective Knowledge (CK), Collective Mind (CM) and Common Metadata eXchange (CMX)
 were created by [Grigori Fursin](https://arxiv.org/abs/2406.16791),
 sponsored by cKnowledge.org and cTuning.org, and donated to MLCommons 
 to benefit everyone. Since then, this open-source automation technology
-(CM/CMX, CM4MLOps/CM4MLPerf, CM4ABTF, CM4Research, etc) is being extended 
+(CM/CMX, CM4MLOps/MLPerf automations, CM4ABTF, CM4Research, etc) is being extended 
 as a community effort thanks to all our volunteers, collaborators 
 and contributors listed here in alphabetical order:
 
