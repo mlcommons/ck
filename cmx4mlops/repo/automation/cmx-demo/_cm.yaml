@@ -1,0 +1,16 @@
+alias: cmx-demo
+uid: 7099bc46c47f4a5e
+
+automation_alias: automation
+automation_uid: bbeb15d8f0a944a4
+
+tags:
+- automation
+- cmx
+- demo
+
+authors:
+- 'Grigori Fursin'
+
+contributors:
+- 'Grigori Fursin'
