@@ -1,6 +1,13 @@
 ﻿# Collective Mind repository
 #
-# Written by Grigori Fursin
+# Author(s): Grigori Fursin
+# Contributor(s):
+#
+# Copyright: https://github.com/mlcommons/ck/blob/master/COPYRIGHT.txt
+# License: https://github.com/mlcommons/ck/blob/master/LICENSE.md
+# History: https://github.com/mlcommons/ck/blob/master/HISTORY.CM.md
+# White paper: https://arxiv.org/abs/2406.16791
+# Project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 
 import os
 
@@ -39,6 +46,7 @@ class Repo:
 
         # Repo meta
         self.meta = {}
+        self.original_meta = {} # for compatibility with CM/CMX universal search
 
     ############################################################
     def load(self, cmx = False):
@@ -70,6 +78,7 @@ class Repo:
            return r
 
         self.meta = r['meta']
+        self.original_meta = self.meta
 
         if cmx and self.meta.get('prefix_cmx', '') != '':
             self.path_prefix = self.meta.get('prefix_cmx','')

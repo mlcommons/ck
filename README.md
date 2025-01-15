@@ -31,18 +31,6 @@ in the [cmind package](https://pypi.org/project/cmind/) and can serve as drop-in
 The CM/CMX architecture diagram is available for viewing 
 [here](https://github.com/mlcommons/ck/tree/master/docs/specs/cm-diagram-v3.5.1.png).
 
-#### CM automation framework 
-
-The [Collective Mind framework](https://github.com/mlcommons/ck/tree/master/cm) 
-is a lightweight, Python-based toolset featuring 
-a unified command-line interface (CLI), Python API, and minimal dependencies. 
-It is designed to assist researchers and engineers in automating repetitive, time-consuming 
-tasks such as building, running, benchmarking, and optimizing AI, machine learning, 
-and other applications across diverse and continuously changing models, data, software and hardware.
-
-Collective Mind is continuously enhanced through public and private Git repositories
-with CM automation recipes and artifacts accessible via unified CM interface.
-
 ### Notable CM use cases
 
 #### MLOps and MLPerf automations
@@ -103,10 +91,31 @@ and support reproducibility efforts at ML and systems conferences.
 a unified interface designed to streamline the preparation, execution, and reproduction of experiments in research projects.
 
 
-## Archived projects 
+## Legacy projects 
 
-* [CM-MLOps](https://github.com/mlcommons/ck/tree/master/cm-mlops) - now [CM4MLOps](https://github.com/mlcommons/ck/tree/master/cm4mlops)
-* [CK automation framework v1 and v2](https://github.com/mlcommons/ck/tree/master/ck) - now [CM](https://github.com/mlcommons/ck/tree/master/cm)
+### CM automation framework v1 and v2
+
+The [Collective Mind framework](https://github.com/mlcommons/ck/tree/master/cm) 
+is a lightweight, Python-based toolset featuring 
+a unified command-line interface (CLI), Python API, and minimal dependencies. 
+It is designed to assist researchers and engineers in automating repetitive, time-consuming 
+tasks such as building, running, benchmarking, and optimizing AI, machine learning, 
+and other applications across diverse and continuously changing models, data, software and hardware.
+
+Collective Mind is continuously enhanced through public and private Git repositories
+with CM automation recipes and artifacts accessible via unified CM interface.
+
+### CM-MLOps (now CM4MLOps)
+
+You can find CM-MLOps original dev directory [here](https://github.com/mlcommons/ck/tree/master/cm-mlops).
+We moved it to [CM4MLOps](https://github.com/mlcommons/ck/tree/master/cm4mlops) in 2024.
+In 2025, we aggregate all CM and CMX automations in the [new CMX4MLOps repository](https://github.com/mlcommons/ck/tree/master/cmx4mlops).
+
+### CK automation framework v1 and v2
+
+You can find the original CK automation framework v1 and v2 directory [here](https://github.com/mlcommons/ck/tree/master/ck).
+It was deprecated for the [CM framework](https://github.com/mlcommons/ck/tree/master/cm)
+and later for the [CMX workflow automation framework (backwards compatible with CM)](https://github.com/mlcommons/ck/tree/master/cmx)
 
 
 ## License
@@ -115,9 +124,11 @@ a unified interface designed to streamline the preparation, execution, and repro
 
 ## Copyright
 
-* Copyright (c) 2021-2024 MLCommons
-* Grigori Fursin, the cTuning foundation and OctoML donated this project to MLCommons to benefit everyone.
-* Copyright (c) 2014-2021 cTuning foundation
+Copyright (c) 2021-2024 MLCommons
+
+Grigori Fursin, the cTuning foundation and OctoML donated this project to MLCommons to benefit everyone.
+
+Copyright (c) 2014-2021 cTuning foundation
 
 ## Author
 
@@ -144,7 +155,7 @@ To learn more about the motivation behind CK and CM technology, please explore t
   * [Other CM tutorials](https://github.com/mlcommons/ck/tree/master/docs/tutorials)
 * [Full documentation](https://github.com/mlcommons/ck/tree/master/docs/README.md)
 * [CM taskforce](https://github.com/mlcommons/ck/tree/master/docs/taskforce.md)
-* [CK, CM and CMX history](https://github.com/mlcommons/ck/tree/master/docs/history.md)
+* History: [CK](https://github.com/mlcommons/ck/tree/master/docs/history.md), [CM and CM automations for MLOps and MLPerf](https://github.com/mlcommons/ck/blob/master/HISTORY.CM.md)
 
 
 ### Acknowledgments
@@ -159,5 +170,5 @@ and [cTuning](https://cTuning.org) for supporting this project,
 as well as our dedicated [volunteers and collaborators](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)
 for their feedback and contributions!
 
-If you found the CM automation framework helpful, kindly reference this article:
+If you found the CM automations helpful, kindly reference this article:
 [ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].

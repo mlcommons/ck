@@ -1,8 +1,15 @@
 # Collective Mind init
 #
-# Written by Grigori Fursin
+# Author(s): Grigori Fursin
+# Contributor(s):
+#
+# Copyright: https://github.com/mlcommons/ck/blob/master/COPYRIGHT.txt
+# License: https://github.com/mlcommons/ck/blob/master/LICENSE.md
+# History: https://github.com/mlcommons/ck/blob/master/HISTORY.CM.md
+# White paper: https://arxiv.org/abs/2406.16791
+# Project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 
-__version__ = "3.5.2"
+__version__ = "3.5.3"
 
 from cmind.core import access
 from cmind.core import x

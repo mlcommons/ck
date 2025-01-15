@@ -23,6 +23,12 @@ aimed at benefiting the broader community and fostering its ongoing development 
   [ref4](https://github.com/mlcommons/ck/tree/master/ck),
   [ref5](https://github.com/mlcommons/ck-mlops).
 
+  Prepared MLCommons proposal for the creation of the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md),
+  aimed at fostering community-driven support for CK and CM developments to benefit everyone.
+
+* Jan, 2022: hired Arjun Suresh at OctoML to support and maintain CK1 framework and help prepare OctoML's MLPerf submissions using CK1.
+  Meanwhile, transitioned to focusing on CM and CM-MLOps development, building upon the prototypes created in 2021.
+
 * Mar 1, 2022: started developing cm-mlops: [ref](https://github.com/octoml/cm-mlops/commit/0ae94736a420dfa84f7417fc62d323303b8760c6).
 
 * Mar 24, 2022: after successfully stabilizing the initial prototype of CM, donated it to MLCommons to benefit the entire community:
@@ -55,7 +61,7 @@ aimed at benefiting the broader community and fostering its ongoing development 
  [ref3](https://github.com/octoml/cm-mlops/blob/7692240becd6397a96c3975388913ea082002e7a/CONTRIBUTIONS).
 
 * May 11, 2022: After successfully prototyping CM and CM-MLOps, deprecated the CK1 framework in favor of CM. 
-  Welcomed Arjun as a maintainer and tester for CM and CM-MLOps:
+  Transferred Arjun Suresh to the CM project as a maintainer and tester for CM and CM-MLOps:
   [ref](https://github.com/octoml/cm-mlops/blob/17405833665bc1e93820f9ff76deb28a0f543bdb/CONTRIBUTIONS).
 
   Created a [file](https://github.com/mlcommons/ck/blob/master/cm-mlops/CHANGES.md) 
@@ -75,17 +81,47 @@ aimed at benefiting the broader community and fostering its ongoing development 
   [ref1](https://github.com/mlcommons/ck/commit/2c5d5c5c944ae5f252113c62af457c7a4c5e877a#diff-faac2c4ecfd0bfb928dafc938d3dad5651762fbb504a2544752a337294ee2573R224),
   [ref2](https://github.com/mlcommons/ck/blob/2c5d5c5c944ae5f252113c62af457c7a4c5e877a/CONTRIBUTING.md#author-and-coordinator).
 
-  Welcomed Arjun Suresh as a contributor to CM: [ref](https://github.com/mlcommons/ck/blob/2c5d5c5c944ae5f252113c62af457c7a4c5e877a/CONTRIBUTING.md#contributors-in-alphabetical-order).
+  Welcomed Arjun Suresh as a contributor to CM automations for MLPerf: [ref](https://github.com/mlcommons/ck/blob/2c5d5c5c944ae5f252113c62af457c7a4c5e877a/CONTRIBUTING.md#contributors-in-alphabetical-order).
 
 * From September 2022: coordinated community development of CM and CM4MLOps 
-  to [modularize and automate MLPerf](https://docs.mlcommons.org/inference)
+  to [modularize and automate MLPerf benchmarks](https://docs.mlcommons.org/inference)
   and support [reproducibility initiatives at ML and Systems conferences](https://cTuning.or/ae) 
-  through the MLCommons Task Force on Automation and Reproducibility.
+  through the [MLCommons Task Force on Automation and Reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).
+
+  * Directed and financed the creation of (CM) automations to streamline the MLPerf power measurement processes.
+
+  * Proposed to use MLPerf benchmarks for the Student Cluster Competition, led the developments 
+    and prepared a tutorial to run MLPerf inference at SCC'22 via CM: [ref](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md)
+
+* April 2023: departed OctoML to focus on the development of the [CK playground](https://access.cKnowledge.org) and CM automations 
+  to make Mlperf accessible to everyone. Hired Arjun Suresh to help with developments.
+
+  * Initiated and funded development of the [MLPerf explorer](https://github.com/ctuning/q2a-mlperf-visualizer)
+    to improve visualization of results
+
+* August 2023: organized the 1st mass-scale MLPerf community submission of 12217 inference benchmark v3.1 results 
+   out of total 13351 results (including 90% of all power results) across diverse models, software and hardware 
+   from different vendors via [open challenges](https://access.cknowledge.org/playground/?action=challenges) funded by cTuning.org : 
+   [LinkedIn article](https://www.linkedin.com/pulse/new-milestone-make-mlperf-benchmarks-accessible-everyone-fursin/) 
+   with results visualized by the [MLPerf explorer](https://github.com/ctuning/q2a-mlperf-visualizer),
+   [CM4MLOps challenges at GitHub](https://github.com/mlcommons/cm4mlops/tree/main/challenge). 
+
+* February, 2024: proposed to use CM to automate [MLPerf automotive benchmark (ABTF)](https://mlcommons.org/working-groups/benchmarks/automotive/).
+
+  * moved my prototypes of the CM automation for ABTF to cm4abtf repo: [ref](https://github.com/mlcommons/cm4abtf/commit/f92b9f464de89a38a4bde149290dede2d94c8631)
+  * led further CM4ABTF developments funded by cTuning.org.
 
 * Starting in April 2024, began the gradual transfer of ongoing maintenance and enhancement 
   responsibilities for CM and CM4MLOps, including MLPerf automations, to MLCommons.
   Welcomed Anandhu Sooraj as a maintainer and contributor to CM4MLOps with MLPerf automations.
 
-For more details, please refer to this [white paper](https://arxiv.org/abs/2406.16791) 
-and [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339).
+* Took a break from all development activities.
 
+* July 2024: started prototyping the next generation of CM (CMX and CMX4MLOps) with simpler interfaces 
+  based on user feedback while maintaining backward compatibility.
+
+* 2025: continue developing CMX and CMX4MLOPs to make it easier to run and customize MLPerf inference, training 
+  and other benchmarks across diverse models, datasets, software and hardware.
+
+For more details, please refer to the [white paper](https://arxiv.org/abs/2406.16791) 
+and the [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339).

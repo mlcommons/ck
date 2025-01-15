@@ -1,3 +1,6 @@
+## V3.5.3
+   - fixed `cm info repo` and `cmx info repo`: https://github.com/mlcommons/ck/issues/1378 
+
 ## V3.5.2
    - added `-i` flag to print memory and disk use before running CM/CMX commands: 
      https://github.com/mlcommons/ck/issues/1375

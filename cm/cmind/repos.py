@@ -1,6 +1,13 @@
 ﻿# Collective Mind repositories
 #
-# Written by Grigori Fursin
+# Author(s): Grigori Fursin
+# Contributor(s):
+#
+# Copyright: https://github.com/mlcommons/ck/blob/master/COPYRIGHT.txt
+# License: https://github.com/mlcommons/ck/blob/master/LICENSE.md
+# History: https://github.com/mlcommons/ck/blob/master/HISTORY.CM.md
+# White paper: https://arxiv.org/abs/2406.16791
+# Project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 
 import os
 
@@ -105,10 +112,13 @@ class Repos:
             import pkgutil
             for mi, name, ispkg in pkgutil.iter_modules():
                 if name.startswith('cm') and name != 'cmind':
-                    path = os.path.join(mi.path, name, 'repo')
-                    path_cmr = os.path.join(path, 'cmr.yaml')
-                    if os.path.isfile(path_cmr) and path not in self.paths:
-                        self.paths.insert(0, path)
+                    for x in [None, 'repo']:
+                        path = os.path.join(mi.path, name)
+                        if x != None: path = os.path.join(path, x)
+                        path_cmr = os.path.join(path, 'cmr.yaml')
+                        if os.path.isfile(path_cmr) and path not in self.paths:
+                            self.paths.insert(0, path)
+                            break
 
         # Check internal repo (will be after local)
         if self.path_to_internal_repo != '' and os.path.isdir(self.path_to_internal_repo):

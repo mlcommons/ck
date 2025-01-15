@@ -1,5 +1,0 @@
-Copyright (c) 2022-2023 MLCommons
-
-Grigori Fursin, the cTuning foundation and OctoML donated this project to MLCommons to benefit everyone. 
-
-Since 2024, we use a separate Github repository for further developments: https://github.com/mlcommons/cm4mlops
