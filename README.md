@@ -20,6 +20,18 @@ It includes the following sub-projects.
 
 ### Collective Minds (CM)
 
+#### CM automation framework
+
+The [Collective Mind framework](https://github.com/mlcommons/ck/tree/master/cm) 
+is a lightweight, Python-based toolset featuring 
+a unified command-line interface (CLI), Python API, and minimal dependencies. 
+It is designed to assist researchers and engineers in automating repetitive, time-consuming 
+tasks such as building, running, benchmarking, and optimizing AI, machine learning, 
+and other applications across diverse and continuously changing models, data, software and hardware.
+
+Collective Mind is continuously enhanced through public and private Git repositories
+with CM automation recipes and artifacts accessible via unified CM interface.
+
 #### CMX automation framework
 
 [CMX](https://github.com/mlcommons/ck/tree/master/cmx) - the next evolution 
@@ -92,18 +104,6 @@ a unified interface designed to streamline the preparation, execution, and repro
 
 
 ## Legacy projects 
-
-### CM automation framework v1 and v2
-
-The [Collective Mind framework](https://github.com/mlcommons/ck/tree/master/cm) 
-is a lightweight, Python-based toolset featuring 
-a unified command-line interface (CLI), Python API, and minimal dependencies. 
-It is designed to assist researchers and engineers in automating repetitive, time-consuming 
-tasks such as building, running, benchmarking, and optimizing AI, machine learning, 
-and other applications across diverse and continuously changing models, data, software and hardware.
-
-Collective Mind is continuously enhanced through public and private Git repositories
-with CM automation recipes and artifacts accessible via unified CM interface.
 
 ### CM-MLOps (now CM4MLOps)
 
