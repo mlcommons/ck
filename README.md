@@ -20,6 +20,11 @@ It includes the following sub-projects.
 
 ### Collective Minds (CM)
 
+The Collective Mind (CM) project, or Collective Minds, facilitates the
+decomposition of complex software systems into portable, reusable, and
+interconnected automation recipes. These recipes are developed and
+continuously improved by the community.
+
 #### CM automation framework
 
 The [Collective Mind framework](https://github.com/mlcommons/ck/tree/master/cm) 
@@ -34,14 +39,15 @@ with CM automation recipes and artifacts accessible via unified CM interface.
 
 #### CMX automation framework
 
-[CMX](https://github.com/mlcommons/ck/tree/master/cmx) - the next evolution 
-of the [Collective Mind framework](https://github.com/mlcommons/ck/tree/master/cm) 
-designed to enhance simplicity, flexibility, and extensibility of automations 
+[CMX](https://github.com/mlcommons/ck/tree/master/cmx) is the next evolution 
+of the Collective Mind framework designed to enhance simplicity, flexibility, and extensibility of automations 
 based on user feedback. It is backwards compatible with CM, released along with CM 
 in the [cmind package](https://pypi.org/project/cmind/) and can serve as drop-in replacement for CM.
 
 The CM/CMX architecture diagram is available for viewing 
 [here](https://github.com/mlcommons/ck/tree/master/docs/specs/cm-diagram-v3.5.1.png).
+
+
 
 ### Notable CM use cases
 
