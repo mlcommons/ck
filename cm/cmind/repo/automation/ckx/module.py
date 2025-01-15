@@ -1,6 +1,13 @@
 # CM wrapper for older CK framework in case it is still needed
 #
-# Written by Grigori Fursin
+# Authors: Grigori Fursin
+# Contributors:
+#
+# Copyright: https://github.com/mlcommons/ck/blob/master/COPYRIGHT.txt
+# License: https://github.com/mlcommons/ck/blob/master/LICENSE.md
+# History: https://github.com/mlcommons/ck/blob/master/HISTORY.CM.md
+# White paper: https://arxiv.org/abs/2406.16791
+# Project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 
 import os
 

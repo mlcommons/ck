@@ -22,22 +22,34 @@ an educational community project to learn how to run AI, ML and other emerging w
 in the most efficient and cost-effective way across diverse 
 and ever-evolving systems using the MLPerf benchmarking methodology.
 
-## Collective Mind architecture
+#### CMX automation framework
+
+[CMX](https://github.com/mlcommons/ck/tree/master/cmx) - the next evolution 
+of the [Collective Mind framework](https://github.com/mlcommons/ck/tree/master/cm) 
+designed to enhance simplicity, flexibility, and extensibility of automations 
+based on user feedback. It is backwards compatible with CM, released along with CM 
+in the [cmind package](https://pypi.org/project/cmind/) and can serve as drop-in replacement for CM.
+
+The CM/CMX architecture diagram is available for viewing 
+[here](https://github.com/mlcommons/ck/tree/master/docs/specs/cm-diagram-v3.5.1.png).
+
+
+## CM and CMX architecture
 
 The diagram below illustrates the primary classes, functions, and internal automations within the Collective Mind framework:
 
-![](https://github.com/mlcommons/ck/tree/master/docs/specs/cm-diagram-v3.5.1.png)
+![](https://cKnowledge.org/images/cm-diagram-v3.5.1.png)
 
 The CM API documentation is available [here](https://cknowledge.org/docs/cm/api/cmind.html).
 
-## Collective Mind repositories
+## Projects powered by Collective Mind
 
-Collective Mind is continuously enhanced through public and private CM4* Git repositories, 
+Collective Mind is continuously enhanced through public and private Git repositories, 
 which serve as the unified interface for various collections of reusable automations and artifacts.
 
 The most notable projects and repositories powered by CM are:
 
-#### CM4MLOps
+#### Automations for MLOps and MLPerf
 
 [CM4MLOPS repository powered by CM](https://github.com/mlcommons/cm4mlops) - 
 a collection of portable, extensible and technology-agnostic automation recipes
@@ -173,10 +185,12 @@ from Nvidia, Intel, AMD, Google, Qualcomm, Amazon and other vendors:
 
 [Apache 2.0](LICENSE.md)
 
-### Citing Collective Mind
+### Citing Collective Mind project
 
-If you found CM automations, please cite this article: 
+If you found CM automations help, please cite this article: 
 [ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].
+
+History: [CM and CM automations for MLOps and MLPerf](https://github.com/mlcommons/ck/blob/master/HISTORY.CM.md).
 
 You can learn more about the motivation behind these projects from the following presentations:
 
@@ -191,7 +205,7 @@ as a part of the [Collective Knowledge educational initiative](https://cKnowledg
 sponsored by [cTuning.org](https://cTuning.org) and [cKnowledge.org](https://cKnowledge.org), 
 and contributed to MLCommons for the benefit of all. 
 
-This open-source technology, including CM4MLOps/CM4MLPerf, CM4ABTF, CM4Research, and more, 
+This open-source technology, including CM4MLOps and MLPerf automations, CM4ABTF, CM4Research, and more, 
 is a collaborative project supported by [MLCommons](https://mlcommons.org), 
 [FlexAI](https://flex.ai), [cTuning](https://cTuning.org)
 and our [amazing volunteers, collaborators, and contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)! 

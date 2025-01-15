@@ -3,10 +3,12 @@ uid: 428611a6db02407f
 
 git: true
 
-version: "0.5.1"
+version: "0.0.2"
 
 author: "Grigori Fursin"
 
 install_python_requirements: false
 
-min_cm_version: "3.4.4"
+min_cm_version: "3.5.3"
+
+prefix: repo

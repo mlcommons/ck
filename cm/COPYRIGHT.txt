@@ -1,4 +1,4 @@
-Copyright (c) 2022-2024 MLCommons
+Copyright (c) 2022-2025 MLCommons
 
 Grigori Fursin, the cTuning foundation and OctoML 
 donated CM and CM4MLOps to MLCommons to benefit everyone. 
