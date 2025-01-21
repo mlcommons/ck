@@ -1,0 +1,83 @@
+alias: install-python-src
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: Python automation
+default_env:
+  CM_CUSTOM_SSL: 'no'
+  CM_ENABLE_SSL: 'no'
+  CM_PYTHON_LTO_FLAG: ''
+  CM_PYTHON_OPTIMIZATION_FLAG: ''
+  CM_SHARED_BUILD: 'no'
+  CM_WGET_URL: https://www.python.org/ftp/python/[PYTHON_VERSION]/Python-[PYTHON_VERSION].tgz
+default_version: 3.10.13
+deps:
+- tags: detect,os
+- tags: detect,cpu
+- tags: get,generic-sys-util,_libffi-dev
+- tags: get,generic-sys-util,_libbz2-dev
+- tags: get,generic-sys-util,_libssl-dev
+- enable_if_env:
+    CM_HOST_OS_FLAVOR:
+    - ubuntu
+  tags: get,generic-sys-util,_liblzma-dev
+- enable_if_env:
+    CM_HOST_OS_FLAVOR:
+    - ubuntu
+  tags: get,generic-sys-util,_libncurses-dev
+- enable_if_env:
+    CM_HOST_OS_FLAVOR:
+    - ubuntu
+  tags: get,generic-sys-util,_libreadline-dev
+- enable_if_env:
+    CM_HOST_OS_FLAVOR:
+    - ubuntu
+  tags: get,generic-sys-util,_libsqlite3-dev
+new_env_keys:
+- CM_PYTHON_INSTALL_PATH
+- CM_PYTHON_BIN_WITH_PATH
+- +PATH
+- +LD_LIBRARY_PATH
+- +C_INCLUDE_PATH
+post_deps:
+- inherit_variation_tags: 'True'
+  names:
+  - python
+  - python3
+  reuse_version: true
+  skip_if_env:
+    CM_REQUIRE_INSTALL:
+    - 'yes'
+  tags: get,python3
+tags:
+- install
+- src
+- python
+- python3
+- src-python3
+- src-python
+uid: 12d3a608afe14a1e
+variations:
+  lto:
+    env:
+      CM_PYTHON_INSTALL_CACHE_TAGS: with-lto
+      CM_PYTHON_LTO_FLAG: ' --lto'
+  optimized:
+    env:
+      CM_PYTHON_INSTALL_CACHE_TAGS: optimized
+      CM_PYTHON_OPTIMIZATION_FLAG: ' --enable-optimizations'
+  shared:
+    env:
+      CM_PYTHON_INSTALL_CACHE_TAGS: shared
+      CM_SHARED_BUILD: 'yes'
+  with-custom-ssl:
+    deps:
+    - tags: get,openssl
+    env:
+      CM_CUSTOM_SSL: 'yes'
+      CM_PYTHON_INSTALL_CACHE_TAGS: with-custom-ssl
+  with-ssl:
+    env:
+      CM_ENABLE_SSL: 'yes'
+      CM_PYTHON_INSTALL_CACHE_TAGS: with-ssl
+    group: ssl

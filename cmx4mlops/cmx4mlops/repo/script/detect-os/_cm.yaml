@@ -1,0 +1,30 @@
+alias: detect-os
+automation_alias: script
+automation_uid: 5b4e0237da074764
+category: Platform information
+clean_files:
+- tmp-run.out
+new_env_keys:
+- CM_HOST_OS_*
+- +CM_HOST_OS_*
+- CM_HOST_PLATFORM_*
+- CM_HOST_PYTHON_*
+- CM_HOST_SYSTEM_NAME
+- CM_RUN_STATE_DOCKER
+- +PATH
+new_state_keys:
+- os_uname_*
+post_deps:
+- enable_if_env:
+    CM_HOST_OS_TYPE:
+    - windows
+  skip_if_env:
+    CM_WINDOWS_SYS_UTILS_MIN_INSTALL:
+    - 'yes'
+  tags: get,sys-utils-min
+tags:
+- detect-os
+- detect
+- os
+- info
+uid: 863735b7db8c44fc

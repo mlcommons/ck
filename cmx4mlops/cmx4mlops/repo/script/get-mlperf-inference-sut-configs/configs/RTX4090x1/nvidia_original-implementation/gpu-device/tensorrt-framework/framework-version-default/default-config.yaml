@@ -1,0 +1,36 @@
+3d-unet-99:
+  Offline:
+    target_qps: 4.0
+  SingleStream:
+    target_latency: 400
+3d-unet-99.9:
+  Offline:
+    target_qps: 4.0
+  SingleStream:
+    target_latency: 400
+bert-99:
+  Offline:
+    target_qps: 4000.0
+  Server:
+    target_qps: 3800.0
+bert-99.9:
+  Offline:
+    target_qps: 2000.0
+  Server:
+    target_qps: 1400.0
+resnet50:
+  Offline:
+    target_qps: '42959.4'
+  Server:
+    target_qps: 35000.0
+retinanet:
+  Offline:
+    target_qps: 850.0
+  Server:
+    target_qps: 630.0
+sdxl:
+  Offline:
+    target_qps: 0.7
+  Server:
+    target_qps: 0.3
+  

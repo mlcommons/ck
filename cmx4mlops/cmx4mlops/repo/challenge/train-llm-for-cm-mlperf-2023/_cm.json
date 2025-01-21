@@ -1,0 +1,21 @@
+{
+  "alias": "train-llm-for-cm-mlperf-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close_extension": true,
+  "date_open": "20230704",
+  "experiments": [],
+  "points": 3,
+  "tags": [
+    "train",
+    "improve",
+    "llm",
+    "assistant",
+    "mlperf-llm",
+    "mlperf-llm-assistant",
+    "mlperf-assistant"
+  ],
+  "title": "Train and improve LLM to suggest users how to run MLPerf inference benchmarks using CM automation language",
+  "trophies": true,
+  "uid": "d37bf37a24c44ec3"
+}

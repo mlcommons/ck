@@ -1,0 +1,150 @@
+# Identification of this CM script
+alias: app-mlperf-training-reference
+uid: 0c4b11bdcf494b4f
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular MLPerf training benchmark pipeline"
+
+# User-friendly tags to find this CM script
+tags:
+  - app
+  - vision
+  - language
+  - mlcommons
+  - mlperf
+  - training
+  - reference
+  - ref
+
+# Default environment
+default_env:
+  CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: reference
+  CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX: ''
+
+# Map script inputs to environment variables
+input_mapping:
+  docker: CM_RUN_DOCKER_CONTAINER
+  hw_name: CM_HW_NAME
+  num_threads: CM_NUM_THREADS
+  model: CM_MLPERF_CUSTOM_MODEL_PATH
+  output_dir: OUTPUT_BASE_DIR
+  rerun: CM_RERUN
+  clean: CM_MLPERF_CLEAN_SUBMISSION_DIR
+
+
+# Env keys which are exposed to higher level scripts
+new_env_keys:
+  - CM_MLPERF_*
+  - CM_DATASET_*
+  - CM_HW_NAME
+  - CM_ML_MODEL_*
+
+new_state_keys:
+  - mlperf-inference-implementation
+  - CM_SUT_*
+
+# Dependencies on other CM scripts
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+  # Detect/install python
+  - tags: get,python
+    names:
+    - python
+    - python3
+
+  # Get MLPerf training source
+  - tags: get,mlperf,training,src
+    names:
+    - training-src
+
+  # Detect CUDA if required
+  - tags: get,cuda
+    enable_if_env:
+      CM_MLPERF_DEVICE:
+      - cuda
+
+
+  ## Torchvision (CUDA)
+  - tags: get,generic-python-lib,_torchvision_cuda
+    names:
+    - ml-engine-torchvision
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      CM_MLPERF_DEVICE:
+      - cuda
+
+  - tags: get,generic-python-lib,_mlperf_logging
+
+
+  ########################################################################
+  # Prepare Data 
+
+  ## BERT
+  - tags: prepare,mlperf,training,data,bert,_reference
+    names:
+    - prepare-data
+    - bert-model
+    enable_if_env:
+      CM_MLPERF_MODEL:
+      - bert
+
+
+
+# Variations to customize dependencies
+variations:
+  pytorch:
+    group: framework
+    env:
+      CM_MLPERF_BACKEND: pytorch
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
+
+  tf:
+    group: framework
+    env:
+      CM_MLPERF_BACKEND: tf
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TENSORFLOW_VERSION>>>
+
+  tensorflow:
+    alias: tf
+
+  # Reference MLPerf models
+  bert:
+    env:
+      CM_MLPERF_MODEL: bert
+    deps:
+    - tags: get,generic-python-lib,_protobuf
+      names:
+      - protobuf
+      version_max: "3.19"
+      enable_if_env:
+        CM_MLPERF_BACKEND:
+        - tf
+        - tflite
+    - tags: get,generic-python-lib,_torch
+      names:
+      - ml-engine-pytorch
+  tpu:
+    group: device
+    env:
+      CM_MLPERF_DEVICE: tpu
+      CUDA_VISIBLE_DEVICES: ''
+      USE_CUDA: no
+
+  cuda:
+    group: device
+    default: true
+    env:
+      CM_MLPERF_DEVICE: cuda
+      USE_CUDA: yes

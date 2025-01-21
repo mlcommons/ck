@@ -1,0 +1,28 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-windows-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230817",
+  "date_close_extension": true,
+  "date_open": "20230704",
+  "points":2,
+  "trophies":true,
+  "experiments": [],
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "automate",
+    "benchmark",
+    "windows",
+    "mlperf-inference",
+    "mlperf-inference-windows",
+    "mlperf-inference-windows",
+    "mlperf-inference-windows-v3.1",
+    "mlperf-inference-windows-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Run and optimize MLPerf inference v3.1 benchmarks on Windows",
+  "uid": "53e56d714c7649c7"
+}

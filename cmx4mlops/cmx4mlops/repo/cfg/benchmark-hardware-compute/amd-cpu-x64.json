@@ -1,0 +1,6 @@
+{
+  "uid": "cdfd424c32734e38",
+  "name": "AMD - x64",
+  "tags": "cpu,x64,generic,amd",
+  "mlperf_inference_device": "cpu"
+}

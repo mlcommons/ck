@@ -1,0 +1,14 @@
+alias: test-cm-core
+uid: 2c2fb9d20dc64cf3
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: Tests
+
+tags:
+- test
+- cm
+- core
+
+cache: false

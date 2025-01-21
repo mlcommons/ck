@@ -1,0 +1,79 @@
+alias: install-onednn-from-src
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: Compiler automation
+deps:
+- tags: detect,os
+- tags: detect,cpu
+- names:
+  - python
+  - python3
+  skip_if_env:
+    CM_CONDA_ENV:
+    - 'yes'
+  tags: get,python3
+- env:
+    CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_ONEDNN_SRC_REPO_PATH
+  extra_cache_tags: onednn,src,onednn-src,onednn-src-repo
+  names:
+  - onednn-src-repo
+  tags: get,git,repo
+  update_tags_from_env_with_prefix:
+    _branch.:
+    - CM_GIT_CHECKOUT
+    _repo.:
+    - CM_GIT_URL
+    _sha.:
+    - CM_GIT_CHECKOUT_SHA
+    _tag.:
+    - CM_GIT_CHECKOUT_TAG
+env:
+  CM_GIT_URL: https://github.com/oneapi-src/oneDNN
+name: Build oneDNN from sources
+new_env_keys:
+- CM_ONEDNN_*
+prehook_deps: []
+sort: 1000
+tags:
+- install
+- get
+- src
+- from.src
+- onednn
+- src-onednn
+uid: fe3a652e315f4c8f
+variations:
+  branch.#:
+    env:
+      CM_GIT_CHECKOUT: '#'
+  for-intel-mlperf-inference-v3.1-bert:
+    adr:
+      conda-package:
+        tags: _name.bert-pt
+      oneddn-src-repo:
+        tags: _norecurse-submodule
+    base:
+    - tag.v2.6
+    env:
+      CM_CONDA_ENV: 'yes'
+      CM_FOR_INTEL_MLPERF_INFERENCE_BERT: 'yes'
+  repo.#:
+    env:
+      CM_GIT_URL: '#'
+    group: repo
+  repo.https://github.com/oneapi-src/oneDNN:
+    default: true
+    env:
+      CM_GIT_URL: https://github.com/oneapi-src/oneDNN
+    group: repo
+  sha.#:
+    env:
+      CM_GIT_CHECKOUT_SHA: '#'
+  tag.#:
+    ad:
+      onednn-src-repo:
+        tags: _no-recurse-submodules,_full-history
+    env:
+      CM_GIT_CHECKOUT_TAG: '#'
+versions: {}

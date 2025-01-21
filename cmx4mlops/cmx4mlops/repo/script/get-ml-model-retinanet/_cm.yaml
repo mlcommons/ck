@@ -1,0 +1,123 @@
+alias: get-ml-model-retinanet
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML models
+env:
+  CM_ML_MODEL: retinanet
+  CM_ML_MODEL_DATASET: open-images
+  CM_ML_MODEL_IMAGE_HEIGHT: '800'
+  CM_ML_MODEL_IMAGE_WIDTH: '800'
+  CM_ML_MODEL_NORMALIZE_DATA: 'yes'
+  CM_ML_MODEL_RETRAINING: 'no'
+  CM_ML_MODEL_SUBTRACT_MEANS: 'yes'
+  CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: 'no'
+new_env_keys:
+- CM_ML_MODEL_*
+- <<<CM_ENV_NAME_ML_MODEL_FILE>>>
+prehook_deps:
+- env:
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
+    CM_EXTRACT_EXTRACTED_FILENAME: <<<CM_ML_MODEL_FILE>>>
+    CM_EXTRACT_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
+  extra_cache_tags: get,ml-model,model-retinanet
+  force_cache: true
+  names:
+  - dae
+  skip_if_env:
+    CM_TMP_ML_MODEL_RETINANET_NO_NMS:
+    - 'yes'
+  tags: download-and-extract
+  update_tags_from_env_with_prefix:
+    _url.:
+    - CM_PACKAGE_URL
+print_env_at_the_end:
+  CM_ML_MODEL_ACCURACY: Model accuracy
+  CM_ML_MODEL_FILE_WITH_PATH: Path to the ML model
+tags:
+- get
+- ml-model
+- raw
+- resnext50
+- retinanet
+- object-detection
+uid: 427bc5665e4541c2
+variations:
+  fp32:
+    default: true
+    env:
+      CM_ML_MODEL_INPUT_DATA_TYPES: fp32
+      CM_ML_MODEL_PRECISION: fp32
+      CM_ML_MODEL_WEIGHT_DATA_TYPES: fp32
+    group: precision
+  no-nms:
+    env:
+      CM_ML_MODEL_RETINANET_NO_NMS: 'yes'
+      CM_QAIC_PRINT_NODE_PRECISION_INFO: 'yes'
+      CM_TMP_ML_MODEL_RETINANET_NO_NMS: 'yes'
+  onnx:
+    default: true
+    env:
+      CM_ML_MODEL_DATA_LAYOUT: NCHW
+      CM_ML_MODEL_FRAMEWORK: onnx
+    group: framework
+  onnx,fp32:
+    env:
+      CM_DOWNLOAD_CHECKSUM: 4544f4e56e0a4684215831cc937ea45c
+      CM_ML_MODEL_ACCURACY: '0.3757'
+      CM_PACKAGE_URL: https://zenodo.org/record/6617879/files/resnext50_32x4d_fpn.onnx
+    required_disk_space: 150
+    warning: This model is downloaded from Zenodo.org
+  onnx,no-nms:
+    deps:
+    - names:
+      - python, python3
+      tags: get,python3
+    - tags: get,generic-python-lib,_package.onnx
+    - tags: get,generic-python-lib,_package.onnxsim
+    - env:
+        CM_DOWNLOAD_FINAL_ENV_NAME: CM_RETINANET_NO_NMS_PATCH_FILE_PATH
+      extra_cache_tags: retinanet,training,patch,file
+      force_cache: true
+      tags: download,file,_url.https://raw.githubusercontent.com/arjunsuresh/ck-qaic/main/package/model-onnx-mlperf-retinanet-no-nms/remove-nms-and-extract-priors.patch
+    - env:
+        CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_MLPERF_TRAINING_REPO_PATCHED_PATH
+        CM_GIT_PATCH_FILEPATHS: <<<CM_RETINANET_NO_NMS_PATCH_FILE_PATH>>>
+      extra_cache_tags: training,src,mlperf,patched
+      names:
+      - mlperf-training-src
+      tags: get,git,repo,_repo.https://github.com/mlcommons/training.git,_patch
+    - env:
+        CM_ENV_NAME_ML_MODEL_FILE: CM_ML_MODEL_RETINANET_PYTORCH_WEIGHTS_FILE_PATH
+      names:
+      - pytorch-weights
+      tags: get,ml-model,retinanet,_pytorch,_fp32,_weights
+    - names:
+      - torch
+      - pytorch
+      tags: get,generic-python-lib,_package.torch
+      version_min: 1.13.1
+    env: {}
+  pytorch:
+    env:
+      CM_ML_MODEL_DATA_LAYOUT: NCHW
+      CM_ML_MODEL_FRAMEWORK: pytorch
+    group: framework
+  pytorch,fp32:
+    env:
+      CM_DOWNLOAD_CHECKSUM: a55f6bec3464f605ce8d686da8ac1533
+      CM_ML_MODEL_ACCURACY: '0.3755'
+      CM_PACKAGE_URL: https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth
+  pytorch,fp32,weights:
+    add_deps_recursive:
+      dae:
+        tags: _extract
+    env:
+      CM_DOWNLOAD_CHECKSUM: '2037c152a6be18e371ebec654314f7e0 '
+      CM_ML_MODEL_ACCURACY: '0.3755'
+      CM_ML_MODEL_FILE: retinanet_model_10.pth
+      CM_PACKAGE_URL: https://zenodo.org/record/6605272/files/retinanet_model_10.zip?download=1
+      CM_UNZIP: 'yes'
+  weights:
+    env:
+      CM_MODEL_WEIGHTS_FILE: 'yes'

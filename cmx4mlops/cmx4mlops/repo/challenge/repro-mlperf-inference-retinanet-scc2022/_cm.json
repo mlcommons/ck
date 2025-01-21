@@ -1,0 +1,20 @@
+{
+  "alias": "repro-mlperf-inference-retinanet-scc2022",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20221201",
+  "date_open": "20221101",
+  "tags": [
+    "modularize",
+    "reproduce",
+    "replicate",
+    "automate",
+    "benchmark",
+    "mlperf",
+    "mlperf-inference",
+    "mlperf-inference-scc",
+    "mlperf-inference-scc-2022"
+  ],
+  "title": "Automate MLPerf RetinaNet benchmark at the Student Cluster Competition at SuperComputing'22 using CM",
+  "uid": "e71fa8b396874e68"
+}

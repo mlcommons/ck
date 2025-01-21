@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/Cloud-automation/destroy-terraform](https://docs.mlcommons.org/cm4mlops/scripts/Cloud-automation/destroy-terraform) for the documentation of this CM script.

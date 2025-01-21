@@ -1,0 +1,73 @@
+---
+  resnet50:
+    Offline:
+      target_qps: 1.0
+    Server:
+      target_qps: 1.0
+    SingleStream:
+      target_latency: 0.1
+    MultiStream:
+      target_latency: 0.1
+  retinanet:
+    Offline:
+      target_qps: 1.0
+    Server:
+      target_qps: 1.0
+    SingleStream:
+      target_latency: 1
+    MultiStream:
+      target_latency: 1
+  bert-99:
+    Offline:
+      target_qps: 1.0
+    Server:
+      target_qps: 1.0
+    SingleStream:
+      target_latency: 1
+  bert-99.9:
+    Offline:
+      target_qps: 1.0
+    Server:
+      target_qps: 1.0
+  3d-unet-99:
+    Offline:
+      target_qps: 1.0
+    Server:
+      target_qps: 1.0
+    SingleStream:
+      target_latency: 500
+  3d-unet-99.9:
+    Offline:
+      target_qps: 1.0
+    Server:
+      target_qps: 1.0
+    SingleStream:
+      target_latency: 500
+  gpt-j:
+    Offline:
+      target_qps: 1.0
+    Server:
+      target_qps: 1.0
+    SingleStream:
+      target_latency: 500
+  sdxl:
+    Offline:
+      target_qps: 1.0
+    Server:
+      target_qps: 1.0
+    SingleStream:
+      target_latency: 200
+  llama2-70b-99:
+    Offline:
+      target_qps: 0.1
+    Server:
+      target_qps: 0.1
+    SingleStream:
+      target_latency: 2000
+  llama2-70b-99.9:
+    Offline:
+      target_qps: 0.1
+    Server:
+      target_qps: 0.1
+    SingleStream:
+      target_latency: 2000

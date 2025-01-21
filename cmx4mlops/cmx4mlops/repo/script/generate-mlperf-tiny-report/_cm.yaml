@@ -1,0 +1,42 @@
+# Identification of this CM script
+alias: generate-mlperf-tiny-report
+uid: 709c3f3f9b3e4783
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "MLPerf benchmark support"
+
+developers: "[Grigori Fursin](https://cKnowledge.org/gfursin)"
+
+default_env:
+  CM_IMPORT_TINYMLPERF_REPO_TAGS: "1.1-private"
+
+# User-friendly tags to find this CM script
+tags:
+  - generate
+  - mlperf
+  - tiny
+  - mlperf-tiny
+  - report
+
+input_mapping:
+  repo_tags: CM_IMPORT_TINYMLPERF_REPO_TAGS
+
+# Dependencies on other CM scripts
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+  # Detect python3
+  - tags: get,python3
+    names:
+    - python
+    - python3
+
+  - tags: get,generic-python-lib,_xlsxwriter
+  - tags: get,generic-python-lib,_pandas

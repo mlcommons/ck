@@ -1,0 +1,39 @@
+alias: benchmark-run-mlperf-inference-v4.1
+uid: b7e89771987d4168
+
+automation_alias: cfg
+automation_uid: 88dce9c160324c5d
+
+tags:
+- benchmark
+- run
+- mlperf
+- inference
+- v4.1
+     
+name: "MLPerf inference - v4.1"
+
+supported_compute:
+- ee8c568e0ac44f2b
+- fe379ecd1e054a00
+- d8f06040f7294319
+
+bench_uid: 39877bb63fb54725
+
+view_dimensions:
+- - input.device
+  - "MLPerf device"
+- - input.implementation
+  - "MLPerf implementation"
+- - input.backend
+  - "MLPerf backend"
+- - input.model
+  - "MLPerf model"
+- - input.scenario
+  - "MLPerf scenario"
+- - input.host_os
+  - "Host OS"
+- - output.state.cm-mlperf-inference-results-last.performance
+  - "Got performance"
+- - output.state.cm-mlperf-inference-results-last.accuracy
+  - "Got accuracy"

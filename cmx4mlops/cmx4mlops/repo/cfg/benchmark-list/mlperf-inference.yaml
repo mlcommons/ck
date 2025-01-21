@@ -1,0 +1,28 @@
+﻿uid: 39877bb63fb54725
+
+tags: benchmark,run,mlperf,inference,mlperf-inference
+
+name: "MLPerf inference"
+
+urls:
+- name: "Official page"
+  url: "https://mlcommons.org/benchmarks/inference"
+- name: "GitHub dev page"
+  url: "https://github.com/mlcommons/inference"
+- name: "ArXiv paper"
+  url: "https://arxiv.org/abs/1911.02549"
+- name: "MLCommons CM automation for MLPerf inference"
+  url: "https://github.com/mlcommons/ck/tree/master/docs/mlperf/inference"
+
+script_name: run-mlperf-inference-app,4a5d5b13fd7e4ac8
+
+skip_extra_urls: true
+
+supported_compute:
+- cpu,x64
+- cpu,arm64
+- gpu,nvidia
+- gpu,amd
+- accelerator,acc,qualcomm,ai,100,ai-100
+- tpu,google
+- gaudi,habana

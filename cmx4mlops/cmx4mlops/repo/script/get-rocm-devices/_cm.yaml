@@ -1,0 +1,29 @@
+alias: get-rocm-devices
+uid: c618239543364753
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+tags:
+- get
+- rocm-devices
+
+cache: false
+
+can_force_cache: true
+
+category: ROCM automation
+
+clean_files:
+- tmp-run.out
+docker:
+  run: false
+  all_gpus: 'yes'
+  skip_run_cmd: 'no'
+  skip_cm_sys_upgrade: 'yes'
+  cm_repo_flags: '--checkout=dev'
+  use_host_group_id: 'yes'
+  image_tag_extra: '-cm-dev'
+
+print_files_if_script_error:
+- tmp-run.out

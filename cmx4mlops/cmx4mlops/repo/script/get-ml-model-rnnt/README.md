@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-models/get-ml-model-rnnt](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-models/get-ml-model-rnnt) for the documentation of this CM script.

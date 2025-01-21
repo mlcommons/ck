@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/set-sqlite-dir](https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/set-sqlite-dir) for the documentation of this CM script.

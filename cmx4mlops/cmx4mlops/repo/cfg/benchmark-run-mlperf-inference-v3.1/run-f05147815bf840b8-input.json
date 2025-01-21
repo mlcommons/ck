@@ -1,0 +1,55 @@
+{
+  "action": "run",
+  "automation": "script",
+  "tags": "run-mlperf-inference,_r4.0,_performance-only,_short",
+  "division": "open",
+  "category": "edge",
+  "device": "cpu",
+  "model": "bert-99",
+  "precision": "float32",
+  "implementation": "reference",
+  "backend": "pytorch",
+  "scenario": "Offline",
+  "execution_mode": "test",
+  "power": "no",
+  "adr": {
+    "python": {
+      "version_min": "3.8"
+    }
+  },
+  "clean": true,
+  "compliance": "no",
+  "j": true,
+  "jf": "run-f05147815bf840b8",
+  "quiet": true,
+  "time": true,
+  "host_os": "linux",
+  "cmd": [
+    "--tags=run-mlperf-inference,_r4.0,_performance-only,_short",
+    "--division=open",
+    "--category=edge",
+    "--device=cpu",
+    "--model=bert-99",
+    "--precision=float32",
+    "--implementation=reference",
+    "--backend=pytorch",
+    "--scenario=Offline",
+    "--execution_mode=test",
+    "--power=no",
+    "--adr.python.version_min=3.8",
+    "--clean",
+    "--compliance=no",
+    "--j",
+    "--jf=run-f05147815bf840b8",
+    "--quiet",
+    "--time",
+    "--host_os=linux"
+  ],
+  "out": "con",
+  "parsed_automation": [
+    [
+      "script",
+      "5b4e0237da074764"
+    ]
+  ]
+}

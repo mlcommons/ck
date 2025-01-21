@@ -1,0 +1,41 @@
+alias: get-dlrm-data-mlperf-inference
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+tags:
+- get
+- dlrm
+- data
+- mlperf
+- inference
+uid: 34bdfcd9c8364935
+docker:
+  real_run: false
+new_env_keys:
+  - CM_DLRM_DATA_PATH
+  - DLRM_DATA_PATH
+input_mapping:
+  dlrm_data_path: CM_DLRM_DATA_PATH
+  criteo_day23_raw_data_path: CM_CRITEO_DAY23_RAW_DATA_PATH
+prehook_deps:
+  - tags: get,ml-model,dlrm,_pytorch
+    enable_if_env:
+      CM_DLRM_MODEL_DOWNLOAD:
+        - "on"
+  - tags: get,dataset,preprocessed,criteo,_mlc
+    enable_if_env:
+      CM_DLRM_DATASET_DOWNLOAD:
+        - "on"
+variations:
+  nvidia:
+    group: implementation
+    default: true
+    new_env_keys:
+    - CM_DLRM_V2_DAY23_FILE_PATH
+    - CM_DLRM_V2_AGGREGATION_TRACE_FILE_PATH
+    env:
+      CM_DLRM_DATA_VARIATION: nvidia
+  intel:
+    group: implementation
+    env:
+      CM_DLRM_DATA_VARIATION: intel

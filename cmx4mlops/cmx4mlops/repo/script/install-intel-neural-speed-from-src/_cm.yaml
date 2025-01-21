@@ -1,0 +1,76 @@
+alias: install-intel-neural-speed-from-src
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: Detection or installation of tools and artifacts
+deps:
+- tags: detect,os
+- tags: detect,cpu
+- env:
+    CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_INTEL_NEURAL_SPEED_SRC_REPO_PATH
+  extra_cache_tags: intel-neural-speed,neural-speed-src,src,intel-neural-speed-src,neural-speed-src-repo
+  names:
+  - neural-speed-src-repo
+  tags: get,git,repo
+  update_tags_from_env_with_prefix:
+    _branch.:
+    - CM_GIT_CHECKOUT
+    _repo.:
+    - CM_GIT_URL
+    _sha.:
+    - CM_GIT_CHECKOUT_SHA
+    _tag.:
+    - CM_GIT_CHECKOUT_TAG
+env:
+  CM_GIT_URL: https://github.com/intel/neural-speed
+name: Build Intel Neural Speed from sources
+new_env_keys:
+- CM_INTEL_NEURAL_SPEED_*
+sort: 1000
+tags:
+- install
+- src
+- from.src
+- neural-speed
+- intel-neural-speed
+uid: b5477fdc929744ce
+variations:
+  branch.#:
+    env:
+      CM_GIT_CHECKOUT: '#'
+  for-intel-mlperf-inference-v4.0-gptj:
+    adr:
+      conda-package:
+        tags: _name.gptj-pt
+    deps:
+    - names:
+      - conda
+      tags: get,conda,_name.gptj-pt
+    - names:
+      - conda-package
+      - python3
+      tags: get,generic,conda-package,_package.python
+      version: '3.9'
+    - names:
+      - conda-package
+      - wheel
+      tags: get,generic,conda-package,_package.wheel,_source.conda-forge
+  repo.#:
+    env:
+      CM_GIT_URL: '#'
+    group: repo
+  repo.https://github.com/intel/neural-speed:
+    default: true
+    env:
+      CM_GIT_URL: https://github.com/intel/neural-speed
+    group: repo
+  sha.#:
+    env:
+      CM_GIT_CHECKOUT_SHA: '#'
+  tag.#:
+    ad:
+      neural-speed-src-repo:
+        tags: _no-recurse-submodules,_full-history
+    env:
+      CM_GIT_CHECKOUT_TAG: '#'
+warnings: []

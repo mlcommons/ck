@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/Compiler-automation/install-onnxruntime-from-src](https://docs.mlcommons.org/cm4mlops/scripts/Compiler-automation/install-onnxruntime-from-src) for the documentation of this CM script.

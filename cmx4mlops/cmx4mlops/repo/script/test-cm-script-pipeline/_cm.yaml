@@ -1,0 +1,37 @@
+alias: test-cm-script-pipeline
+uid: ebe50aa281be4458
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: Tests
+
+developers: "Grigori Fursin"
+
+tags:
+- test
+- cm-script
+- pipeline
+
+cache: false
+
+deps:
+- tags: print,any-text
+  env:
+    CM_PRINT_ANY_TEXT: "_cm.yaml: deps"
+
+prehook_deps:
+- tags: print,any-text
+  env:
+    CM_PRINT_ANY_TEXT: "_cm.yaml: prehook_deps"
+
+posthook_deps:
+- tags: print,any-text
+  env:
+    CM_PRINT_ANY_TEXT: "_cm.yaml: posthook_deps"
+
+post_deps:
+- tags: print,any-text
+  env:
+    CM_PRINT_ANY_TEXT: "_cm.yaml: post_deps"
+    CM_PRINT_ANY_CM_ENV_KEYS: 'CM_TMP_CURRENT_SCRIPT_PATH,CM_TMP_CURRENT_PATH,CM_QUIET'

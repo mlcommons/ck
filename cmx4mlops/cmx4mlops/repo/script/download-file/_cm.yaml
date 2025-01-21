@@ -1,0 +1,79 @@
+alias: download-file
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+can_force_cache: true
+category: DevOps automation
+default_env:
+  CM_RCLONE_COPY_USING: sync
+deps:
+- tags: detect,os
+- enable_if_env:
+    CM_DOWNLOAD_CHECKSUM:
+    - 'on'
+    CM_HOST_OS_FLAVOR:
+    - macos
+  tags: get,generic-sys-util,_md5sha1sum
+input_description: {}
+input_mapping:
+  download_path: CM_DOWNLOAD_PATH
+  from: CM_DOWNLOAD_LOCAL_FILE_PATH
+  local_path: CM_DOWNLOAD_LOCAL_FILE_PATH
+  md5sum: CM_DOWNLOAD_CHECKSUM
+  output_file: CM_DOWNLOAD_FILENAME
+  store: CM_DOWNLOAD_PATH
+  url: CM_DOWNLOAD_URL
+  verify: CM_VERIFY_SSL
+  verify_ssl: CM_VERIFY_SSL
+new_env_keys:
+- CM_DOWNLOAD_DOWNLOADED_PATH
+- <<<CM_DOWNLOAD_FINAL_ENV_NAME>>>
+- CM_GET_DEPENDENT_CACHED_PATH
+new_state_keys: []
+post_deps: []
+prehook_deps: []
+tags:
+- download
+- file
+- download-file
+tags_help: download file
+uid: 9cdc8dc41aae437e
+variations:
+  cmutil:
+    default: true
+    env:
+      CM_DOWNLOAD_TOOL: cmutil
+    group: download-tool
+  curl:
+    default_env:
+      CM_DOWNLOAD_CURL_EMULATE_BROWSER: 'no'
+    env:
+      CM_DOWNLOAD_TOOL: curl
+    group: download-tool
+  gdown:
+    deps:
+    - tags: get,generic-python-lib,_package.gdown
+    env:
+      CM_DOWNLOAD_TOOL: gdown
+    group: download-tool
+  rclone:
+    deps:
+    - tags: get,rclone
+    - enable_if_env:
+        CM_RCLONE_CONFIG_NAME:
+        - 'on'
+      tags: get,rclone-config
+      update_tags_from_env_with_prefix:
+        _:
+        - CM_RCLONE_CONFIG_NAME
+    env:
+      CM_DOWNLOAD_TOOL: rclone
+    group: download-tool
+  url.#:
+    env:
+      CM_DOWNLOAD_URL: '#'
+  wget:
+    env:
+      CM_DOWNLOAD_TOOL: wget
+    group: download-tool
+versions: {}

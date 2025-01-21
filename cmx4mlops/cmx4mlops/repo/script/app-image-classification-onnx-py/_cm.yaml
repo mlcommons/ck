@@ -1,0 +1,120 @@
+alias: app-image-classification-onnx-py
+uid: 3d5e908e472b417e
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular AI/ML application pipeline"
+
+tags:
+- app
+- modular
+- image-classification
+- onnx
+- python
+
+tags_help: "modular python app image-classification onnx"
+
+default_env:
+  CM_BATCH_COUNT: '1'
+  CM_BATCH_SIZE: '1'
+
+
+deps:
+- tags: detect,os
+#- tags: get,sys-utils-cm
+- names:
+  - python
+  - python3
+  tags: get,python3
+
+- tags: get,cuda
+  names:
+  - cuda
+  enable_if_env:
+    USE_CUDA:
+    - yes
+- tags: get,cudnn
+  names:
+  - cudnn
+  enable_if_env:
+    USE_CUDA:
+    - yes
+
+- tags: get,dataset,imagenet,image-classification,original,_run-during-docker-build
+
+- tags: get,dataset-aux,imagenet-aux,image-classification
+- tags: get,ml-model,resnet50,_onnx,image-classification
+  names:
+  - ml-model
+
+- tags: get,generic-python-lib,_package.Pillow
+- tags: get,generic-python-lib,_package.numpy
+  version_max: "1.99.99"
+- tags: get,generic-python-lib,_package.opencv-python
+
+
+- tags: get,generic-python-lib,_onnxruntime
+  names:
+  - onnxruntime
+  skip_if_env:
+    USE_CUDA:
+    - yes
+- tags: get,generic-python-lib,_onnxruntime_gpu
+  names:
+  - onnxruntime
+  enable_if_env:
+    USE_CUDA:
+    - yes
+
+variations:
+  cuda:
+    docker:
+      all_gpus: 'yes'
+    group: target
+    env:
+      USE_CUDA: yes
+
+  cpu:
+    group: target
+    default: yes
+    env:
+      USE_CPU: yes
+
+input_mapping:
+  input: CM_IMAGE
+  output: CM_APP_IMAGE_CLASSIFICATION_ONNX_PY_OUTPUT
+
+
+new_env_keys:
+  - CM_APP_IMAGE_CLASSIFICATION_ONNX_PY*
+
+
+new_state_keys:
+  - cm_app_image_classification_onnx_py
+
+
+input_description:
+  input: 
+    desc: "Path to JPEG image to classify"
+  output: 
+    desc: "Output directory (optional)"
+  j:
+    desc: "Print JSON output"
+    boolean: true
+
+docker:
+  skip_run_cmd: 'no'
+  skip_cm_sys_upgrade: 'yes'
+  cm_repo_flags: '--branch=dev'
+  use_host_group_id: 'yes'
+  image_tag_extra: '-cm-dev'
+  input_paths:
+    - input
+    - env.CM_IMAGE
+    - output
+  skip_input_for_fake_run:
+    - input
+    - env.CM_IMAGE
+    - output
+    - j

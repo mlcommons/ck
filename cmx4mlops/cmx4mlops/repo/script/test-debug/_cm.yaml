@@ -1,0 +1,29 @@
+alias: test-debug
+uid: 5ccd3d701a9144f9
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: CM interface prototyping
+
+deps:
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Get Python
+  - tags: get,python3
+    names:
+      - python
+      - python3
+
+  # May need to use CM in automation recipes
+  - tags: get,generic-python-lib,_package.cmind
+    names:
+      - python-cmind
+
+tags:
+- test
+- cm-debug

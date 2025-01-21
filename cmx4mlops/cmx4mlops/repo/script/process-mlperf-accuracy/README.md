@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/process-mlperf-accuracy](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/process-mlperf-accuracy) for the documentation of this CM script.

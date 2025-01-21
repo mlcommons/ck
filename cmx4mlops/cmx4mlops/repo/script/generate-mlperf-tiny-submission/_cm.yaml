@@ -1,0 +1,26 @@
+alias: generate-mlperf-tiny-submission
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: MLPerf benchmark support
+deps:
+- names:
+  - python
+  - python3
+  tags: get,python3
+- tags: get,sut,system-description
+post_deps:
+- enable_if_env:
+    CM_MLPERF_RUN_STYLE:
+    - valid
+tags:
+- generate
+- submission
+- mlperf
+- mlperf-tiny
+- tiny
+- mlcommons
+- tiny-submission
+- mlperf-tiny-submission
+- mlcommons-tiny-submission
+uid: 04289b9fc07b42b6

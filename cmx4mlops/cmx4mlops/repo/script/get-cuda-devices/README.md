@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/CUDA-automation/get-cuda-devices](https://docs.mlcommons.org/cm4mlops/scripts/CUDA-automation/get-cuda-devices) for the documentation of this CM script.

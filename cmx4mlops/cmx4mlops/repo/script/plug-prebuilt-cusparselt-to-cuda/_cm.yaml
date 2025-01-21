@@ -1,0 +1,60 @@
+alias: plug-prebuilt-cusparselt-to-cuda
+uid: d87ae2182d364483
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+tags:
+  - plug
+  - prebuilt-cusparselt
+  - to-cuda
+
+cache: true
+
+category: CUDA automation
+
+default_env:
+  CM_SUDO: sudo
+
+default_version: 0.6.2.3
+
+deps:
+  - tags: detect,os
+  - tags: detect,cpu
+  - tags: get,cuda
+
+docker:
+  run: true
+
+input_description:
+  tar_file:
+    desc: Full path to the cuSPARSELt Tar file downloaded from Nvidia website (https://developer.nvidia.com/cusparselt-downloads)
+
+input_mapping:
+  tar_file: CM_CUSPARSELT_TAR_FILE_PATH
+  skip_sudo: CUDA_SKIP_SUDO
+
+new_env_keys:
+- CM_CUSPARSELT_*
+
+prehook_deps:
+#- tags: get,generic-sys-util,_xz
+- tags: download,file
+  env:
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_CUSPARSELT_TAR_FILE_PATH
+  extra_cache_tags: cusparselt,archive
+  force_cache: true
+  names:
+  - download-script
+  skip_if_env:
+    CM_CUSPARSELT_TAR_FILE_PATH:
+      - True
+  update_tags_from_env_with_prefix:
+    _url.:
+    - WGET_URL
+
+versions:
+  0.6.2.3:
+    env:
+      CM_CUSPARSELT_TAR_FILE_NAME_TEMPLATE: libcusparse_lt-linux-x86_64-0.6.2.3-archive.tar.xz
+      CM_CUSPARSELT_TAR_MD5SUM: 2fa73268de8bbdab5560f4aa1a5a73ab

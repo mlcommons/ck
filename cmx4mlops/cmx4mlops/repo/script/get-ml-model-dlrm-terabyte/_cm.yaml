@@ -1,0 +1,125 @@
+alias: get-ml-model-dlrm-terabyte
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML models
+env:
+  CM_DOWNLOAD_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
+  CM_EXTRACT_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
+  CM_ML_MODEL: dlrm
+  CM_ML_MODEL_DATASET: criteo-terabyte
+  CM_ML_MODEL_RETRAINING: 'no'
+  CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: 'no'
+input_mapping:
+  dir: CM_DOWNLOAD_PATH
+  download_path: CM_DOWNLOAD_PATH
+  to: CM_DOWNLOAD_PATH
+new_env_keys:
+- CM_ML_MODEL_*
+prehook_deps:
+- env:
+    CM_DOWNLOAD_DOWNLOADED_FILENAME: <<<CM_ML_MODEL_FILE>>>
+    CM_EXTRACT_EXTRACTED_FILENAME: <<<CM_ML_MODEL_FILE>>>
+  extra_cache_tags: ml-model,dlrm,terabyte,raw,ml-model-dlrm
+  force_cache: true
+  names:
+  - dae
+  tags: download-and-extract
+  update_tags_from_env_with_prefix:
+    _url.:
+    - CM_PACKAGE_URL
+print_env_at_the_end:
+  CM_ML_MODEL_FILE_WITH_PATH: Path to the ML model
+tags:
+- get
+- ml-model
+- dlrm
+- raw
+- terabyte
+- criteo-terabyte
+- criteo
+- recommendation
+uid: 8fa7582c603a4db3
+variations:
+  debug:
+    env:
+      CM_ML_MODEL_DEBUG: 'yes'
+  fp32:
+    default: true
+    env:
+      CM_ML_MODEL_INPUT_DATA_TYPES: fp32
+      CM_ML_MODEL_PRECISION: fp32
+      CM_ML_MODEL_WEIGHT_DATA_TYPES: fp32
+    group: precision
+  onnx:
+    env:
+      CM_ML_MODEL_FRAMEWORK: onnx
+    group: framework
+  onnx,fp32:
+    env:
+      CM_DOWNLOAD_CHECKSUM: 763b964eaffe5f86e92cdcb60c5dc0de
+      CM_ML_MODEL_ACCURACY: '0.8025'
+      CM_ML_MODEL_DLRM_MAX_INDEX_RANGE: '40000000'
+      CM_ML_MODEL_FILE: tb00_40M.onnx
+      CM_PACKAGE_URL: https://dlrm.s3-us-west-1.amazonaws.com/models/tb00_40M.onnx.tar
+      CM_UNTAR: 'yes'
+  onnx,fp32,debug:
+    env:
+      CM_DOWNLOAD_CHECKSUM: d11255cd9926cda9181a347861e4d263
+      CM_ML_MODEL_ACCURACY: '0.8107'
+      CM_ML_MODEL_DLRM_MAX_INDEX_RANGE: '10000000'
+      CM_ML_MODEL_FILE: tb0875_10M.onnx
+      CM_PACKAGE_URL: https://dlrm.s3-us-west-1.amazonaws.com/models/tb0875_10M.onnx.tar
+      CM_UNTAR: 'yes'
+  pytorch:
+    default: true
+    env:
+      CM_ML_MODEL_FRAMEWORK: pytorch
+      CM_TMP_MODEL_ADDITIONAL_NAME: dlrm_terabyte.pytorch
+    group: framework
+  pytorch,fp32:
+    env:
+      CM_DOWNLOAD_CHECKSUM: 2d49a5288cddb37c3c64860a06d79bb9
+      CM_ML_MODEL_ACCURACY: '0.8025'
+      CM_ML_MODEL_DLRM_MAX_INDEX_RANGE: '40000000'
+      CM_PACKAGE_URL: https://dlrm.s3-us-west-1.amazonaws.com/models/tb00_40M.pt
+  pytorch,fp32,debug:
+    env:
+      CM_DOWNLOAD_CHECKSUM: b7cacffcf75f767faa9cb2af397723aa
+      CM_ML_MODEL_ACCURACY: '0.8107'
+      CM_ML_MODEL_DLRM_MAX_INDEX_RANGE: '10000000'
+      CM_PACKAGE_URL: https://dlrm.s3-us-west-1.amazonaws.com/models/tb0875_10M.pt
+  pytorch,fp32,weight_sharded:
+    default_variations:
+      download-tool: rclone
+    env:
+      CM_DOWNLOAD_CHECKSUM: ''
+      CM_ML_MODEL_ACCURACY: '0.8025'
+      CM_ML_MODEL_DLRM_MAX_INDEX_RANGE: '40000000'
+      CM_ML_MODEL_FILE: model_weights
+      CM_TMP_MODEL_ADDITIONAL_NAME: ''
+  pytorch,fp32,weight_sharded,rclone:
+    env:
+      CM_PACKAGE_URL: mlc-inference:mlcommons-inference-wg-public/model_weights
+      CM_RCLONE_CONFIG_NAME: mlc-inference
+  pytorch,fp32,weight_sharded,wget:
+    env:
+      CM_DAE_EXTRACT_DOWNLOADED: 'yes'
+      CM_DOWNLOAD_FILENAME: download
+      CM_EXTRACT_UNZIP: 'yes'
+      CM_PACKAGE_URL: https://cloud.mlcommons.org/index.php/s/XzfSeLgW8FYfR3S/download
+  rclone:
+    ad:
+      dae:
+        tags: _rclone
+    group: download-tool
+  weight_sharded:
+    default: true
+    env:
+      CM_DLRM_MULTIHOT_MODEL: 'yes'
+    group: type
+  wget:
+    ad:
+      dae:
+        tags: _wget
+    group: download-tool

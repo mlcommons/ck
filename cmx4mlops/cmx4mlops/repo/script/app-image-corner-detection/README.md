@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/Modular-application-pipeline/app-image-corner-detection](https://docs.mlcommons.org/cm4mlops/scripts/Modular-application-pipeline/app-image-corner-detection) for the documentation of this CM script.

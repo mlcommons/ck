@@ -1,0 +1,37 @@
+alias: push-mlperf-inference-results-to-github
+automation_alias: script
+automation_uid: 5b4e0237da074764
+category: MLPerf benchmark support
+default_env:
+  CM_MLPERF_RESULTS_GIT_REPO_URL: https://github.com/mlcommons/mlperf_inference_submissions_v4.0
+deps:
+- names:
+  - python3
+  - python
+  tags: get,python3
+- tags: get,generic-sys-util,_rsync
+- names:
+  - get-mlperf-submission-dir
+  skip_if_env:
+    CM_MLPERF_INFERENCE_SUBMISSION_DIR:
+    - 'on'
+  tags: get,mlperf,submission,dir
+input_mapping:
+  branch: CM_GIT_BRANCH
+  commit_message: CM_MLPERF_RESULTS_REPO_COMMIT_MESSAGE
+  repo_branch: CM_GIT_BRANCH
+  repo_url: CM_MLPERF_RESULTS_GIT_REPO_URL
+  submission_dir: CM_MLPERF_INFERENCE_SUBMISSION_DIR
+prehook_deps:
+- names:
+  - get-git-repo
+  tags: get,git,repo
+tags:
+- push
+- mlperf
+- mlperf-inference-results
+- publish-results
+- inference
+- submission
+- github
+uid: 36c2ffd5df5d453a

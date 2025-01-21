@@ -1,0 +1,17 @@
+{
+  "alias": "mlperf-inference-v3.1-press-release-hpcwire",
+  "automation_alias": "report",
+  "automation_uid": "6462ecdba2054467",
+  "date": "20230913",
+  "tags": [
+    "mlperf",
+    "inference",
+    "mlperf-inference",
+    "v3.1",
+    "analysis",
+    "ctuning"
+  ],
+  "redirect": "https://www.hpcwire.com/2023/09/13/mlperf-releases-latest-inference-results-and-new-storage-benchmark",
+  "title": "HPCWire about MLPerf inference v3.1 and storage results (with cTuning/cKnowledge coverage)",
+  "uid": "50960565640142d6"
+}

@@ -1,0 +1,36 @@
+alias: reproduce-ieee-acm-micro2023-paper-38
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: Reproducibility and artifact evaluation
+default_env:
+  max_process_num: 1
+deps:
+- tags: detect,os
+- names:
+  - python
+  - python3
+  tags: get,python
+- tags: get,git,repo,_repo.https://github.com/HieronZhang/G10-Artifact.git
+  env:
+      CM_GIT_ENV_KEY: 'G10'
+  extra_cache_tags: micro23,artifact,ae,G10
+input_mapping:
+  max_process_num: max_process_num
+script_name: run
+tags:
+- reproduce
+- project
+- paper
+- micro
+- micro-2023
+- g10
+- G10
+uid: b6ec80696a364ff4
+variations:
+  install_deps:
+    script_name: install_deps
+  plot:
+    script_name: plot
+  run:
+    script_name: run

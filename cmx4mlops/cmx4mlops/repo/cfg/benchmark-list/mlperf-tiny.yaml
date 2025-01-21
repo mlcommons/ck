@@ -1,0 +1,16 @@
+﻿uid: 28870394c19c4c37
+
+tags: benchmark,run,mlperf,tiny,mlperf-tiny
+
+name: "MLPerf tiny"
+
+urls:
+- name: "Official page"
+  url: "https://mlcommons.org/benchmarks/inference-tiny"
+- name: "GitHub dev page"
+  url: "https://github.com/mlcommons/tiny"
+- name: "MLCommons CM automation (under development)"
+  url: "https://github.com/mlcommons/ck/blob/master/docs/tutorials/reproduce-mlperf-tiny.md"
+
+supported_compute:
+- stm32

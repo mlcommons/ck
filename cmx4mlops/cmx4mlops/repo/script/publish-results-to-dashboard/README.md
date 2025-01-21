@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/Dashboard-automation/publish-results-to-dashboard](https://docs.mlcommons.org/cm4mlops/scripts/Dashboard-automation/publish-results-to-dashboard) for the documentation of this CM script.

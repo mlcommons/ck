@@ -1,0 +1,23 @@
+alias: install-gflags
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: Detection or installation of tools and artifacts
+default_version: 2.2.2
+deps:
+- tags: detect,os
+- tags: detect,cpu
+- tags: get,cmake
+  version_min: '3.1'
+env: {}
+new_env_keys: []
+tags:
+- install
+- src
+- get
+- gflags
+uid: 10bb562c29ea459e
+versions:
+  2.2.2:
+    env:
+      CM_VERSION: 2.2.2

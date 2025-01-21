@@ -1,0 +1,40 @@
+alias: reproduce-ipol-paper-2022-439
+uid: f9b9e5bd65e34e4f
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: Reproducibility and artifact evaluation
+
+input_mapping:
+  image1: CM_IMAGE_1
+  image2: CM_IMAGE_2
+
+deps:
+- tags: detect,os
+- tags: get,python3
+  names:
+  - python
+  - python3
+- tags: get,ipol,src
+  names:
+  - ipol-src
+- tags: get,generic-python-lib,_torch
+  names:
+  - torch
+- tags: get,generic-python-lib,_torchvision
+  names:
+  - torchvision
+
+tags:
+- app
+- python
+- reproduce
+- project
+- paper
+- ipol
+- journal
+- repro
+- reproducibility
+- pytorch
+- 2022-439

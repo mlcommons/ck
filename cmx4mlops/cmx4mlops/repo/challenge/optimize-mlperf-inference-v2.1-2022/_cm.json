@@ -1,0 +1,27 @@
+{
+  "alias": "optimize-mlperf-inference-v2.1-2022",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20220901",
+  "date_open": "20220701",
+  "experiments": [
+    {
+      "tags": "mlperf-inference,v2.1"
+    }
+  ],
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "automate",
+    "benchmark",
+    "mlperf",
+    "mlperf-inference",
+    "mlperf-inference-v2.1",
+    "mlperf-inference-v2.1-2022",
+    "v2.1"
+  ],
+  "title": "Run and optimize MLPerf inference v2.1 benchmarks",
+  "uid": "2e13154b7fbb412d"
+}

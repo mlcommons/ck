@@ -1,0 +1,17 @@
+{
+  "alias": "mlperf-inference-v3.1-press-release-ctuning",
+  "automation_alias": "report",
+  "automation_uid": "6462ecdba2054467",
+  "date": "20230913",
+  "redirect": "https://www.linkedin.com/pulse/new-milestone-make-mlperf-benchmarks-accessible-everyone-fursin",
+  "tags": [
+    "mlperf",
+    "inference",
+    "mlperf-inference",
+    "v3.1",
+    "analysis",
+    "ctuning"
+  ],
+  "title": "cTuning press-release about making MLPerf inference accessible to everyone",
+  "uid": "85ff4a6ac203411e"
+}

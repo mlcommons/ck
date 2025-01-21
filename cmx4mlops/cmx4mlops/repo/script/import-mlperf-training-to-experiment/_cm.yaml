@@ -1,0 +1,39 @@
+# Identification of this CM script
+alias: import-mlperf-training-to-experiment
+uid: b13d9b7337414f17
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "MLPerf benchmark support"
+
+developers: "[Grigori Fursin](https://cKnowledge.org/gfursin)"
+
+# User-friendly tags to find this CM script
+tags:
+  - import
+  - mlperf
+  - training
+  - mlperf-training
+  - experiment
+  - 2experiment
+  - to-experiment
+
+input_mapping:
+  target_repo: CM_IMPORT_MLPERF_TRAINING_TARGET_REPO
+
+# Dependencies on other CM scripts
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+  - names:
+    - python
+    - python3
+    tags: get,python3
+
+  - tags: get,mlperf,logging

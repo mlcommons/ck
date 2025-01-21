@@ -1,0 +1,223 @@
+alias: get-ml-model-neuralmagic-zoo
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML models
+deps:
+- names:
+  - python3
+  - python
+  tags: get,python3
+- tags: get,generic-python-lib,_package.protobuf
+  version_max: 3.20.1
+- tags: get,generic-python-lib,_sparsezoo
+env: {}
+new_env_keys:
+- CM_ML_MODEL*
+- CM_MODEL_ZOO_STUB
+- CM_MLPERF_CUSTOM_MODEL_PATH
+- CM_GET_DEPENDENT_CACHED_PATH
+print_env_at_the_end:
+  CM_ML_MODEL_FILE_WITH_PATH: Path to the ML model
+tags:
+- get
+- ml-model
+- model
+- zoo
+- deepsparse
+- model-zoo
+- sparse-zoo
+- neuralmagic
+- neural-magic
+uid: adbb3f2525a14f97
+variations:
+  bert-base-pruned90-none:
+    env:
+      CM_ML_MODEL_FULL_NAME: bert-base-pruned90-none-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+      CM_ML_MODEL_RETRAINING: 'no'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://huggingface.co/bert-base-uncased
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp32
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned90-none
+  bert-base-pruned95_obs_quant-none:
+    env:
+      CM_ML_MODEL_FULL_NAME: bert-base-pruned95_obs_quant-none-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int64
+      CM_ML_MODEL_RETRAINING: 'yes'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://huggingface.co/bert-base-uncased
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned95_obs_quant-none
+  bert-base_cased-pruned90-none:
+    env:
+      CM_ML_MODEL_FULL_NAME: bert-base_cased-pruned90-none-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+      CM_ML_MODEL_RETRAINING: 'no'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://huggingface.co/bert-base-cased
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp32
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/bert-base_cased/pytorch/huggingface/squad/pruned90-none
+  bert-large-base-none:
+    env:
+      CM_ML_MODEL_FULL_NAME: bert-large-base-none-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+      CM_ML_MODEL_RETRAINING: 'no'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://huggingface.co/bert-large-uncased
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp32
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/bert-large/pytorch/huggingface/squad/base-none
+  bert-large-pruned80_quant-none-vnni:
+    env:
+      CM_ML_MODEL_FULL_NAME: bert-large-pruned80_quant-none-vnni-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int64
+      CM_ML_MODEL_RETRAINING: 'no'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://huggingface.co/bert-large-uncased
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/bert-large/pytorch/huggingface/squad/pruned80_quant-none-vnni
+  mobilebert-14layer_pruned50-none-vnni:
+    env:
+      CM_ML_MODEL_FULL_NAME: mobilebert-14layer_pruned50-none-vnni-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+      CM_ML_MODEL_RETRAINING: 'no'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://storage.googleapis.com/cloud-tpu-checkpoints/mobilebert/uncased_L-24_H-128_B-512_A-4_F-4_OPT.tar.gz
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp32
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50-none-vnni
+  mobilebert-14layer_pruned50_quant-none-vnni:
+    env:
+      CM_ML_MODEL_FULL_NAME: mobilebert-14layer_pruned50_quant-none-vnni-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int64
+      CM_ML_MODEL_RETRAINING: 'yes'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://storage.googleapis.com/cloud-tpu-checkpoints/mobilebert/uncased_L-24_H-128_B-512_A-4_F-4_OPT.tar.gz
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni
+  mobilebert-base_quant-none:
+    env:
+      CM_ML_MODEL_FULL_NAME: mobilebert-base_quant-none-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int64
+      CM_ML_MODEL_RETRAINING: 'yes'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://storage.googleapis.com/cloud-tpu-checkpoints/mobilebert/uncased_L-24_H-128_B-512_A-4_F-4_OPT.tar.gz
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base_quant-none
+  mobilebert-none-base-none:
+    env:
+      CM_ML_MODEL_FULL_NAME: mobilebert-none-base-none-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+      CM_ML_MODEL_RETRAINING: 'no'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://storage.googleapis.com/cloud-tpu-checkpoints/mobilebert/uncased_L-24_H-128_B-512_A-4_F-4_OPT.tar.gz
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp32
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base-none
+  model-stub.#:
+    env:
+      CM_MODEL_ZOO_STUB: '#'
+  model-stub.zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned90-none:
+    alias: bert-base-pruned90-none
+  model-stub.zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned95_obs_quant-none:
+    alias: bert-base-pruned95_obs_quant-none
+  model-stub.zoo:nlp/question_answering/bert-base_cased/pytorch/huggingface/squad/pruned90-none:
+    alias: bert-base_cased-pruned90-none
+  model-stub.zoo:nlp/question_answering/bert-large/pytorch/huggingface/squad/base-none:
+    alias: bert-large-base-none
+  model-stub.zoo:nlp/question_answering/bert-large/pytorch/huggingface/squad/pruned80_quant-none-vnni:
+    alias: bert-large-pruned80_quant-none-vnni
+  model-stub.zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50-none-vnni:
+    alias: mobilebert-14layer_pruned50-none-vnni
+  model-stub.zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/14layer_pruned50_quant-none-vnni:
+    alias: mobilebert-14layer_pruned50_quant-none-vnni
+  model-stub.zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base-none:
+    alias: mobilebert-none-base-none
+  model-stub.zoo:nlp/question_answering/mobilebert-none/pytorch/huggingface/squad/base_quant-none:
+    alias: mobilebert-base_quant-none
+  model-stub.zoo:nlp/question_answering/obert-base/pytorch/huggingface/squad/pruned90-none:
+    alias: obert-base-pruned90-none
+  model-stub.zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/base-none:
+    alias: obert-large-base-none
+  model-stub.zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95-none-vnni:
+    alias: obert-large-pruned95-none-vnni
+  model-stub.zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95_quant-none-vnni:
+    alias: obert-large-pruned95_quant-none-vnni
+  model-stub.zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned97-none:
+    alias: obert-large-pruned97-none
+  model-stub.zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned97_quant-none:
+    alias: obert-large-pruned97-quant-none
+  model-stub.zoo:nlp/question_answering/oberta-base/pytorch/huggingface/squad/pruned90_quant-none:
+    alias: oberta-base-pruned90-quant-none
+  model-stub.zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/pruned85_quant-none:
+    alias: roberta-base-pruned85-quant-none
+  obert-base-pruned90-none:
+    env:
+      CM_ML_MODEL_FULL_NAME: obert-base-pruned90-none-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+      CM_ML_MODEL_RETRAINING: 'no'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://huggingface.co/bert-large-uncased
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp32
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/obert-base/pytorch/huggingface/squad/pruned90-none
+  obert-large-base-none:
+    env:
+      CM_ML_MODEL_FULL_NAME: obert-large-base-none-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+      CM_ML_MODEL_RETRAINING: 'no'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://huggingface.co/bert-large-uncased
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp32
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/base-none
+  obert-large-pruned95-none-vnni:
+    env:
+      CM_ML_MODEL_FULL_NAME: obert-large-pruned95-none-vnni-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+      CM_ML_MODEL_RETRAINING: 'no'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://huggingface.co/bert-large-uncased
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp32
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95-none-vnni
+  obert-large-pruned95_quant-none-vnni:
+    env:
+      CM_ML_MODEL_FULL_NAME: obert-large-pruned95_quant-none-vnni-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int64
+      CM_ML_MODEL_RETRAINING: 'yes'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://huggingface.co/bert-large-uncased
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned95_quant-none-vnni
+  obert-large-pruned97-none:
+    env:
+      CM_ML_MODEL_FULL_NAME: obert-large-pruned97-none-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+      CM_ML_MODEL_RETRAINING: 'no'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://huggingface.co/bert-large-uncased
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp32
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned97-none
+  obert-large-pruned97-quant-none:
+    env:
+      CM_ML_MODEL_FULL_NAME: obert-large-pruned97-quant-none-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int64
+      CM_ML_MODEL_RETRAINING: 'no'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://huggingface.co/bert-large-uncased
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/obert-large/pytorch/huggingface/squad/pruned97_quant-none
+  oberta-base-pruned90-quant-none:
+    env:
+      CM_ML_MODEL_FULL_NAME: oberta-base-pruned90-quant-none-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int64
+      CM_ML_MODEL_RETRAINING: 'no'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://huggingface.co/roberta-base
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/oberta-base/pytorch/huggingface/squad/pruned90_quant-none
+  roberta-base-pruned85-quant-none:
+    env:
+      CM_ML_MODEL_FULL_NAME: roberta-base-pruned85-quant-none-bert-99
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int64
+      CM_ML_MODEL_RETRAINING: 'no'
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://huggingface.co/roberta-base
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, unstructured pruning
+      CM_MODEL_ZOO_STUB: zoo:nlp/question_answering/roberta-base/pytorch/huggingface/squad/pruned85_quant-none

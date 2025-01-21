@@ -1,0 +1,97 @@
+alias: get-preprocessed-dataset-kits19
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML datasets
+default_env:
+  CM_DATASET: kits19
+  CM_DATASET_DTYPE: fp32
+deps:
+- names:
+  - python3
+  - python
+  tags: get,python3
+- names:
+  - original-dataset
+  tags: get,dataset,medical-imaging,kits19,original
+- names:
+  - inference-src
+  tags: mlperf,mlcommons,inference,source,src
+- tags: get,generic-python-lib,_scipy
+- tags: get,generic-python-lib,_nibabel
+- names:
+  - numpy
+  tags: get,generic-python-lib,_numpy
+input_mapping:
+  dir: CM_DATASET_PREPROCESSED_PATH
+  threads: CM_NUM_PREPROCESS_THREADS
+new_env_keys:
+- CM_DATASET_*
+tags:
+- get
+- dataset
+- medical-imaging
+- kits19
+- preprocessed
+uid: 2094d9b9ab6c4c9e
+variations:
+  '1':
+    adr:
+      original-dataset:
+        tags: _1
+    env:
+      CM_DATASET_SIZE: '1'
+    group: dataset-count
+  '5':
+    adr:
+      original-dataset:
+        tags: _5
+    env:
+      CM_DATASET_SIZE: '5'
+    group: dataset-count
+  '50':
+    adr:
+      original-dataset:
+        tags: _50
+    env:
+      CM_DATASET_SIZE: '50'
+    group: dataset-count
+  '500':
+    adr:
+      original-dataset:
+        tags: _500
+    env:
+      CM_DATASET_SIZE: '500'
+    group: dataset-count
+  calibration:
+    add_deps:
+      original-dataset:
+        tags: _calibration
+    env:
+      CM_DATASET_PATH: <<<CM_CALIBRATION_DATASET_PATH>>>
+    group: dataset-type
+  fp32:
+    default: true
+    env:
+      CM_DATASET_DTYPE: fp32
+    group: dataset-precision
+  full:
+    adr:
+      original-dataset:
+        tags: _full
+    env:
+      CM_DATASET_SIZE: ''
+    group: dataset-count
+  int8:
+    env:
+      CM_DATASET_DTYPE: int8
+    group: dataset-precision
+  nvidia:
+    env:
+      CM_PREPROCESSING_BY_NVIDIA: 'yes'
+  validation:
+    add_deps:
+      original-dataset:
+        tags: _validation
+    default: true
+    group: dataset-type

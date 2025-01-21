@@ -1,0 +1,65 @@
+alias: get-mlperf-power-dev
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: MLPerf benchmark support
+default_env:
+  CM_GIT_CHECKOUT_FOLDER: power-dev
+  CM_GIT_DEPTH: --depth 1
+  CM_GIT_PATCH: 'no'
+deps: []
+new_env_keys:
+- CM_MLPERF_POWER_SOURCE
+prehook_deps:
+- env:
+    CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_MLPERF_POWER_SOURCE
+  extra_cache_tags: mlperf,power,power-dev,src
+  force_env_keys:
+  - CM_GIT_*
+  names:
+  - mlperf-power-dev-git-repo
+  tags: get,git,repo
+  update_tags_from_env_with_prefix:
+    _branch.:
+    - CM_GIT_CHECKOUT
+    _repo.:
+    - CM_GIT_URL
+    _sha.:
+    - CM_GIT_SHA
+    _tag.:
+    - CM_GIT_CHECKOUT_TAG
+tags:
+- get
+- src
+- source
+- power
+- power-dev
+- mlperf
+- mlcommons
+uid: 72aa56768c994bcf
+variations:
+  branch.#:
+    env:
+      CM_GIT_CHECKOUT: '#'
+    group: checkout
+  mlcommons:
+    default: true
+    env:
+      CM_GIT_URL: https://github.com/mlcommons/power-dev.git
+    group: repo
+  octoml:
+    env:
+      CM_GIT_URL: https://github.com/octoml/power-dev.git
+    group: repo
+  repo.#:
+    env:
+      CM_GIT_URL: '#'
+    group: repo
+  sha.#:
+    env:
+      CM_GIT_SHA: '#'
+    group: checkout
+  tag.#:
+    env:
+      CM_GIT_CHECKOUT_TAG: '#'
+    group: checkout

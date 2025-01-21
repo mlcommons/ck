@@ -1,0 +1,10 @@
+{
+  "alias": "benchmark-hardware-compute",
+  "automation_alias": "cfg",
+  "automation_uid": "88dce9c160324c5d",
+  "tags": [
+    "benchmark",
+    "compute"
+  ],
+  "uid": "ca67f372e7294afd"
+}

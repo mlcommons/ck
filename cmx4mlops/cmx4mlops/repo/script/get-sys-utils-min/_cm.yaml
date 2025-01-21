@@ -1,0 +1,33 @@
+alias: get-sys-utils-min
+uid: a9af7714d3d94779
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+cache: true
+
+category: Detection or installation of tools and artifacts
+
+deps:
+  - tags: detect,os
+  - tags: get,generic,sys-util,_xz
+    enable_if_env:
+      CM_HOST_OS_TYPE:
+        - windows
+  - tags: get,generic,sys-util,_zlib
+    enable_if_env:
+      CM_HOST_OS_TYPE:
+        - windows
+
+env:
+  CM_CLEAN_DIRS: bin
+  CM_WINDOWS_SYS_UTILS_MIN_INSTALL: yes
+  CM_PACKAGE_WIN_URL: https://zenodo.org/records/13868077/files/cm-artifact-os-windows-32.zip?download=1
+  CM_SUDO: sudo
+
+new_env_keys:
+- +PATH
+
+tags:
+- get
+- sys-utils-min

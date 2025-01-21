@@ -1,0 +1,27 @@
+alias: get-zendnn
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: Detection or installation of tools and artifacts
+deps:
+- names:
+  - aocl
+  tags: get,amd,aocl
+- tags: get,lib,blis,_amd
+- tags: detect,cpu
+- tags: get,git,_repo.https://github.com/amd/ZenDNN.git
+input_description: {}
+input_mapping: {}
+new_env_keys: []
+new_state_keys: []
+post_deps: []
+posthook_deps: []
+prehook_deps: []
+tags:
+- get
+- zendnn
+- amd
+- from.src
+uid: d1c6feb0ee684b09
+variations: {}
+versions: {}

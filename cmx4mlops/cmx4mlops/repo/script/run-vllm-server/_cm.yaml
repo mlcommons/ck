@@ -1,0 +1,143 @@
+uid: c3eff27c791048aa
+alias: run-vllm-server
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+cache: false
+
+category: DevOps automation
+
+tags:
+- run
+- server
+- vllm
+- vllm-server
+
+input_mapping:
+  model: CM_VLLM_SERVER_MODEL_NAME
+  tp_size: CM_VLLM_SERVER_TP_SIZE
+  pp_size: CM_VLLM_SERVER_PP_SIZE
+  distributed-executor-backend: CM_VLLM_SERVER_DIST_EXEC_BACKEND
+  api_key: CM_VLLM_SERVER_API_KEY
+  skip_docker_model_download: CM_VLLM_SKIP_DOCKER_MODEL_DOWNLOAD
+  host: CM_VLLM_SERVER_HOST
+  port: CM_VLLM_SERVER_PORT
+  uvicorn_log_level: CM_VLLM_SERVER_UVICORN_LOG_LEVEL
+  allow_credentials: CM_VLLM_SERVER_ALLOW_CREDENTIALS
+  allowed_origins: CM_VLLM_SERVER_ALLOWED_ORIGINS
+  allowed_methods: CM_VLLM_SERVER_ALLOWED_METHODS
+  allowed_headers: CM_VLLM_SERVER_ALLOWED_HEADERS
+  lora_modules: CM_VLLM_SERVER_LORA_MODULES
+  prompt_adapters: CM_VLLM_SERVER_PROMPT_ADAPTERS
+  chat_template: CM_VLLM_SERVER_CHAT_TEMPLATE
+  response_role: CM_VLLM_SERVER_RESPONSE_ROLE
+  ssl_keyfile: CM_VLLM_SERVER_SSL_KEYFILE
+  ssl_certfile: CM_VLLM_SERVER_SSL_CERTFILE
+  ssl_ca_certs: CM_VLLM_SERVER_SSL_CA_CERTS
+  ssl_cert_reqs: CM_VLLM_SERVER_SSL_CERT_REQS
+  root_path: CM_VLLM_SERVER_ROOT_PATH
+  middleware: CM_VLLM_SERVER_MIDDLEWARE
+  tokenizer: CM_VLLM_SERVER_TOKENIZER
+  skip_tokenizer_init: CM_VLLM_SERVER_SKIP_TOKENIZER_INIT
+  revision: CM_VLLM_SERVER_REVISION
+  code_revision: CM_VLLM_SERVER_CODE_REVISION
+  tokenizer_revision: CM_VLLM_SERVER_TOKENIZER_REVISION
+  tokenizer_mode: CM_VLLM_SERVER_TOKENIZER_MODE
+  trust_remote_code: CM_VLLM_SERVER_TRUST_REMOTE_CODE
+  download_dir: CM_VLLM_SERVER_DOWNLOAD_DIR
+  load_format: CM_VLLM_SERVER_LOAD_FORMAT
+  dtype: CM_VLLM_SERVER_DTYPE
+  kv_cache_dtype: CM_VLLM_SERVER_KV_CACHE_DTYPE
+  quantization_param_path: CM_VLLM_SERVER_QUANTIZATION_PARAM_PATH
+  max_model_len: CM_VLLM_SERVER_MAX_MODEL_LEN
+  guided_decoding_backend: CM_VLLM_SERVER_GUIDED_DECODING_BACKEND
+  worker_use_ray: CM_VLLM_SERVER_WORKER_USE_RAY
+  pipeline_parallel_size: CM_VLLM_SERVER_PIPELINE_PARALLEL_SIZE
+  max_parallel_loading_workers: CM_VLLM_SERVER_MAX_PARALLEL_LOADING_WORKERS
+  ray_workers_use_nsight: CM_VLLM_SERVER_RAY_WORKERS_USE_NSIGHT
+  block_size: CM_VLLM_SERVER_BLOCK_SIZE
+  enable_prefix_caching: CM_VLLM_SERVER_ENABLE_PREFIX_CACHING
+  disable_sliding_window: CM_VLLM_SERVER_DISABLE_SLIDING_WINDOW
+  use_v2_block_manager: CM_VLLM_SERVER_USE_V2_BLOCK_MANAGER
+  num_lookahead_slots: CM_VLLM_SERVER_NUM_LOOKAHEAD_SLOTS
+  seed: CM_VLLM_SERVER_SEED
+  swap_space: CM_VLLM_SERVER_SWAP_SPACE
+  gpu_memory_utilization: CM_VLLM_SERVER_GPU_MEMORY_UTILIZATION
+  num_gpu_blocks_override: CM_VLLM_SERVER_NUM_GPU_BLOCKS_OVERRIDE
+  max_num_batched_tokens: CM_VLLM_SERVER_MAX_NUM_BATCHED_TOKENS
+  max_num_seqs: CM_VLLM_SERVER_MAX_NUM_SEQS
+  max_logprobs: CM_VLLM_SERVER_MAX_LOGPROBS
+  disable_log_stats: CM_VLLM_SERVER_DISABLE_LOG_STATS
+  quantization: CM_VLLM_SERVER_QUANTIZATION
+  rope_scaling: CM_VLLM_SERVER_ROPE_SCALING
+  rope_theta: CM_VLLM_SERVER_ROPE_THETA
+  enforce_eager: CM_VLLM_SERVER_ENFORCE_EAGER
+  max_context_len_to_capture: CM_VLLM_SERVER_MAX_CONTEXT_LEN_TO_CAPTURE
+  max_seq_len_to_capture: CM_VLLM_SERVER_MAX_SEQ_LEN_TO_CAPTURE
+  disable_custom_all_reduce: CM_VLLM_SERVER_DISABLE_CUSTOM_ALL_REDUCE
+  tokenizer_pool_size: CM_VLLM_SERVER_TOKENIZER_POOL_SIZE
+  tokenizer_pool_type: CM_VLLM_SERVER_TOKENIZER_POOL_TYPE
+  tokenizer_pool_extra_config: CM_VLLM_SERVER_TOKENIZER_POOL_EXTRA_CONFIG
+  enable_lora: CM_VLLM_SERVER_ENABLE_LORA
+  max_loras: CM_VLLM_SERVER_MAX_LORAS
+  max_lora_rank: CM_VLLM_SERVER_MAX_LORA_RANK
+  lora_extra_vocab_size: CM_VLLM_SERVER_LORA_EXTRA_VOCAB_SIZE
+  lora_dtype: CM_VLLM_SERVER_LORA_DTYPE
+  long_lora_scaling_factors: CM_VLLM_SERVER_LONG_LORA_SCALING_FACTORS
+  max_cpu_loras: CM_VLLM_SERVER_MAX_CPU_LORAS
+  fully_sharded_loras: CM_VLLM_SERVER_FULLY_SHARDED_LORAS
+  enable_prompt_adapter: CM_VLLM_SERVER_ENABLE_PROMPT_ADAPTER
+  max_prompt_adapters: CM_VLLM_SERVER_MAX_PROMPT_ADAPTERS
+  max_prompt_adapter_token: CM_VLLM_SERVER_MAX_PROMPT_ADAPTER_TOKEN
+  device: CM_VLLM_SERVER_DEVICE
+  scheduler_delay_factor: CM_VLLM_SERVER_SCHEDULER_DELAY_FACTOR
+  enable_chunked_prefill: CM_VLLM_SERVER_ENABLE_CHUNKED_PREFILL
+  speculative_model: CM_VLLM_SERVER_SPECULATIVE_MODEL
+  num_speculative_tokens: CM_VLLM_SERVER_NUM_SPECULATIVE_TOKENS
+  speculative_draft_tensor_parallel_size: CM_VLLM_SERVER_SPECULATIVE_DRAFT_TENSOR_PARALLEL_SIZE
+  speculative_max_model_len: CM_VLLM_SERVER_SPECULATIVE_MAX_MODEL_LEN
+  speculative_disable_by_batch_size: CM_VLLM_SERVER_SPECULATIVE_DISABLE_BY_BATCH_SIZE
+  ngram_prompt_lookup_max: CM_VLLM_SERVER_NGRAM_PROMPT_LOOKUP_MAX
+  ngram_prompt_lookup_min: CM_VLLM_SERVER_NGRAM_PROMPT_LOOKUP_MIN
+  spec_decoding_acceptance_method: CM_VLLM_SERVER_SPEC_DECODING_ACCEPTANCE_METHOD
+  typical_acceptance_sampler_posterior_threshold: CM_VLLM_SERVER_TYPICAL_ACCEPTANCE_SAMPLER_POSTERIOR_THRESHOLD
+  typical_acceptance_sampler_posterior_alpha: CM_VLLM_SERVER_TYPICAL_ACCEPTANCE_SAMPLER_POSTERIOR_ALPHA
+  model_loader_extra_config: CM_VLLM_SERVER_MODEL_LOADER_EXTRA_CONFIG
+  preemption_mode: CM_VLLM_SERVER_PREEMPTION_MODE
+  served_model_name: CM_VLLM_SERVER_SERVED_MODEL_NAME
+  qlora_adapter_name_or_path: CM_VLLM_SERVER_QLORA_ADAPTER_NAME_OR_PATH
+  otlp_traces_endpoint: CM_VLLM_SERVER_OTLP_TRACES_ENDPOINT
+  engine_use_ray: CM_VLLM_SERVER_ENGINE_USE_RAY
+  disable_log_requests: CM_VLLM_SERVER_DISABLE_LOG_REQUESTS
+  max_log_len: CM_VLLM_SERVER_MAX_LOG_LEN
+
+deps:
+  - tags: get,python3,get-python3
+    version_max: "3.11.999"
+    version_max_usable: "3.11.0"    
+ 
+  - tags: get,cuda,_cudnn
+    names:
+      - cuda
+
+  - tags: get,ml-model,huggingface,zoo,_clone-repo
+    update_tags_from_env_with_prefix:
+      _model-stub.:
+      - CM_VLLM_SERVER_MODEL_NAME
+    enable_if_env:
+      CM_VLLM_SERVER_MODEL_NAME: [ on ]
+    skip_if_env:
+      CM_VLLM_SKIP_DOCKER_MODEL_DOWNLOAD: [ on ]
+  
+  - tags: get,generic-python-lib,_package.vllm
+
+docker:
+  port_maps:
+    - "8000:8000"
+  base_image: nvcr.io/nvidia/pytorch:24.06-py3
+  interactive: True
+  extra_run_args: ' --ulimit memlock=-1'
+  all_gpus: 'yes'
+  os: "ubuntu"
+  os_version: "22.04"

@@ -1,0 +1,58 @@
+alias: get-ml-model-huggingface-zoo
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML models
+deps:
+- names:
+  - python3
+  - python
+  tags: get,python3
+- tags: get,generic-python-lib,_huggingface_hub
+env: {}
+input_mapping:
+  download_path: CM_DOWNLOAD_PATH
+  env_key: CM_MODEL_ZOO_ENV_KEY
+  full_subfolder: CM_HF_FULL_SUBFOLDER
+  model_filename: CM_MODEL_ZOO_FILENAME
+  revision: CM_HF_REVISION
+  subfolder: CM_HF_SUBFOLDER
+new_env_keys:
+- CM_ML_MODEL*
+- CM_MODEL_ZOO_STUB
+print_env_at_the_end:
+  CM_ML_MODEL_FILE_WITH_PATH: Path to the ML model
+tags:
+- get
+- ml-model
+- model
+- zoo
+- raw
+- model-zoo
+- huggingface
+tags_help: get ml-model huggingface zoo
+uid: 53cf8252a443446a
+variations:
+  clone-repo:
+    deps:
+    - env:
+        CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_ML_MODEL_PATH
+      tags: get,git,repo,_lfs
+      update_tags_from_env_with_prefix:
+        _repo.https://huggingface.co/:
+        - CM_MODEL_ZOO_STUB
+    env:
+      CM_GIT_CLONE_REPO: 'yes'
+    group: download-type
+  model-stub.#:
+    env:
+      CM_MODEL_ZOO_STUB: '#'
+  onnx-subfolder:
+    env:
+      CM_HF_SUBFOLDER: onnx
+  pierreguillou_bert_base_cased_squad_v1.1_portuguese:
+    env:
+      CM_MODEL_ZOO_STUB: pierreguillou/bert-base-cased-squad-v1.1-portuguese
+  prune:
+    env:
+      CM_MODEL_TASK: prune

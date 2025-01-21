@@ -1,0 +1,48 @@
+alias: get-dataset-imagenet-train
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML datasets
+deps: []
+input_description: {}
+input_mapping:
+  input: IMAGENET_TRAIN_PATH
+  torrent: CM_DATASET_IMAGENET_TRAIN_TORRENT_PATH
+new_env_keys:
+- CM_DATASET_PATH
+- CM_DATASET_IMAGENET_*
+new_state_keys: []
+post_deps: []
+posthook_deps: []
+prehook_deps:
+- enable_if_env:
+    CM_DATASET_IMAGENET_VAL_REQUIRE_DAE:
+    - 'yes'
+    - 'True'
+  env:
+    CM_EXTRACT_TO_FOLDER: imagenet-2012-train
+  tags: download-and-extract,file,_extract
+  update_tags_from_env:
+  - CM_DAE_EXTRA_TAGS
+  update_tags_from_env_with_prefix:
+    _url.:
+    - CM_DAE_URL
+- enable_if_env:
+    CM_DAE_ONLY_EXTRACT:
+    - 'yes'
+    - 'True'
+  env:
+    CM_EXTRACT_TO_FOLDER: imagenet-2012-train
+  tags: file,extract
+  update_tags_from_env_with_prefix:
+    _path.:
+    - CM_EXTRACT_PATH
+tags:
+- get
+- imagenet
+- train
+- dataset
+- original
+uid: 2bec165da5cc4ebf
+variations: {}
+versions: {}

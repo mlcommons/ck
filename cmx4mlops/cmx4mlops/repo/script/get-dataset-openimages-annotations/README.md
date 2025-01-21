@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-openimages-annotations](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-openimages-annotations) for the documentation of this CM script.

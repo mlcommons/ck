@@ -1,0 +1,42 @@
+alias: set-performance-mode
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: DevOps automation
+deps:
+- tags: detect-os
+- tags: detect-cpu
+docker_input_mapping: {}
+input_description: {}
+input_mapping: {}
+new_env_keys:
+- OMP_*
+new_state_keys: []
+post_deps: []
+posthook_deps: []
+prehook_deps: []
+tags:
+- set
+- system
+- performance
+- power
+- mode
+uid: 2c0ab7b64692443d
+variations:
+  cpu:
+    default: 'true'
+    env:
+      CM_SET_PERFORMANCE_MODE_OF: cpu
+    group: device
+  performance:
+    default: true
+    env:
+      CM_SET_PERFORMANCE_MODE: performance
+    group: performance-mode
+  power:
+    env:
+      CM_SET_PERFORMANCE_MODE: power
+    group: power
+  reproducibility:
+    env:
+      CM_SET_OS_PERFORMANCE_REPRODUCIBILITY_MODE: 'yes'

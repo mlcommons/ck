@@ -1,0 +1,68 @@
+alias: get-ml-model-bert-base-squad
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML models
+env:
+  CM_ML_MODEL: BERT
+  CM_ML_MODEL_DATASET: squad-1.1
+  CM_ML_MODEL_MAX_SEQ_LENGTH: '384'
+  CM_ML_MODEL_NAME: MLPERF BERT Base on SQuAD v1.1
+  CM_TMP_ML_MODEL_REQUIRE_DOWNLOAD: 'no'
+new_env_keys:
+- CM_ML_MODEL*
+post_deps:
+- tags: get,bert,squad,vocab
+prehook_deps:
+- enable_if_env:
+    CM_TMP_ML_MODEL_REQUIRE_DOWNLOAD: 'yes'
+  env:
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
+    CM_EXTRACT_EXTRACTED_FILENAME: <<<CM_ML_MODEL_FILE>>>
+    CM_EXTRACT_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
+  tags: download-and-extract
+  update_tags_from_env_with_prefix:
+    _url.:
+    - CM_PACKAGE_URL
+print_env_at_the_end:
+  CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH: Path to the BERT vocab file
+  CM_ML_MODEL_FILE_WITH_PATH: Path to the ML model
+tags:
+- get
+- ml-model
+- raw
+- bert
+- bert-base
+- bert-squad
+- language
+- language-processing
+uid: b3b10b452ce24c5f
+variations:
+  deepsparse:
+    env:
+      CM_ML_MODEL_FRAMEWORK: deepsparse
+      CM_ML_MODEL_INPUT_IDS_NAME: input_ids
+      CM_ML_MODEL_INPUT_MASK_NAME: input_mask
+      CM_ML_MODEL_INPUT_SEGMENTS_NAME: segment_ids
+      CM_ML_MODEL_OUTPUT_END_LOGITS_NAME: output_end_logits
+      CM_ML_MODEL_OUTPUT_START_LOGITS_NAME: output_start_logits
+    group: framework
+  deepsparse,int8:
+    deps:
+    - names:
+      - neural-magic-zoo-downloader
+      tags: get,ml-model,zoo,deepsparse,_bert-base-pruned95_obs_quant-none
+    env:
+      CM_ML_MODEL_F1: '87.89'
+      CM_ML_MODEL_FILE: model.onnx
+      CM_PRUNING_PERCENTAGE: '95'
+  fp32:
+    default: true
+    env:
+      CM_ML_MODEL_PRECISION: fp32
+    group: precision
+  int8:
+    env:
+      CM_ML_MODEL_PRECISION: int8
+      CM_ML_MODEL_QUANTIZED: 'yes'
+    group: precision

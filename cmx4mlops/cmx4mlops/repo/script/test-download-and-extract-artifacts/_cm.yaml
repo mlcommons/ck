@@ -1,0 +1,31 @@
+alias: test-download-and-extract-artifacts
+uid: 51dde7580b404b27
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+cache: false
+
+category: Tests
+
+deps:
+- tags: download,file,_url.https://zenodo.org/record/4735647/files/resnet50_v1.onnx
+  env:
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_REPRODUCE_PAPER_XYZ
+    CM_DOWNLOAD_CHECKSUM: 
+  force_cache: true
+  extra_cache_tags: reproduce,paper,artifact,zenodo,xyz
+- tags: download-and-extract,_extract,_url.https://zenodo.org/record/5597155/files/3dunet_kits19_128x128x128.tf.zip?download=1
+  env:
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_REPRODUCE_PAPER_XYZ2
+    CM_EXTRACT_FINAL_ENV_NAME: CM_REPRODUCE_PAPER_XYZ2_EXTRACTED
+#    CM_DOWNLOAD_CHECKSUM: 
+  force_cache: true
+  extra_cache_tags: reproduce,paper,artifact,zenodo,xyz2
+
+new_env_keys: 
+ - CM_REPRODUCE_PAPER_XYZ*
+
+tags:
+- test
+- download-and-extract-artifacts

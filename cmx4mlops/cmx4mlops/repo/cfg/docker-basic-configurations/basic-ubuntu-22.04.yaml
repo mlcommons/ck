@@ -1,0 +1,9 @@
+﻿uid: 614aa48d90724835
+
+name: "Basic Ubuntu 22.04"
+
+input:
+  docker_base_image: 'ubuntu:22.04'
+  docker_os: ubuntu
+  docker_os_version: '22.04'
+  

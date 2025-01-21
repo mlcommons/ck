@@ -1,0 +1,22 @@
+{
+  "alias": "connect-mlperf-inference-v3.1-with-openbenchmarking",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_open": "20240101",
+  "date_close_extension": true,
+  "points": 2,
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "benchmark",
+    "automate",
+    "openbenchmarking",
+    "mlperf-inference",
+    "mlperf-inference-openbenchmarking"
+  ],
+  "title": "Run MLPerf inference benchmarks using CM via OpenBenchmarking.org",
+  "trophies": true,
+  "uid": "534592626eb44efe"
+}

@@ -1,0 +1,66 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: MLPerf inference ResNet50 via CMX
+
+on:
+  pull_request_target:
+    branches: [ "main", "master", "dev", "mlperf-inference" ]
+    paths:
+      - '.github/workflows/test-cmx-mlperf-inference-resnet50.yml'
+      - '**'
+      - '!**.md'
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    env:
+      CM_INDEX: "on"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: [ "3.12" ]
+        backend: [ "onnxruntime", "tf" ]
+        implementation: [ "python", "cpp" ]
+        exclude:
+          - backend: tf
+            implementation: cpp
+          - os: macos-latest
+            backend: tf
+          - os: windows-latest
+            implementation: cpp
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Configure git longpaths (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        git config --system core.longpaths true
+    - name: Install dependencies
+      run: |
+        pip install cmx4mlops
+    - name: Test MLPerf Inference ResNet50 (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        cm run script --tags=run-mlperf,inference,_submission,_short --submitter="MLCommons" --hw_name=gh_${{ matrix.os }}_x86 --model=resnet50 --adr.loadgen.tags=_from-pip --pip_loadgen=yes --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --target_qps=1 -v --quiet 
+    - name: Test MLPerf Inference ResNet50 (Linux/macOS)
+      if: matrix.os != 'windows-latest'
+      run: |
+        cm run script --tags=run-mlperf,inference,_submission,_short --submitter="MLCommons" --hw_name=gh_${{ matrix.os }}_x86 --model=resnet50 --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --target_qps=1 -v --quiet 
+    - name: Push Results
+      if: github.repository_owner == 'ctuning'
+      env:
+          USER: "GitHub Action"
+          EMAIL: "admin@cTuning.org"
+          GITHUB_TOKEN: ${{ secrets.TEST_RESULTS_GITHUB_TOKEN }}
+      run: |
+        git config --global user.name "${{ env.USER }}"
+        git config --global user.email "${{ env.EMAIL }}"
+        git config --global credential.https://github.com.helper ""
+        git config --global credential.https://github.com.helper "!gh auth git-credential"
+        git config --global credential.https://gist.github.com.helper ""
+        git config --global credential.https://gist.github.com.helper "!gh auth git-credential"
+        cm run script --tags=push,github,mlperf,inference,submission --repo_url= https://github.com/ctuning/test_mlperf_inference_submissions --repo_branch=main --commit_message="Results from R50 GH action on ${{ matrix.os }}" --quiet

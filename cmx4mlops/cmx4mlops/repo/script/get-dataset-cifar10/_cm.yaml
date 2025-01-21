@@ -1,0 +1,36 @@
+alias: get-dataset-cifar10
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML datasets
+deps:
+- tags: detect,os
+new_env_keys:
+- CM_DATASET_*
+tags:
+- get
+- dataset
+- cifar10
+- image-classification
+- validation
+- training
+uid: 2f0c0bb3663b4ed7
+variations:
+  python:
+    default: true
+    env:
+      CM_DATASET: CIFAR10
+      CM_DATASET_CIFAR10: https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
+      CM_DATASET_FILENAME: cifar-10-python.tar.gz
+      CM_DATASET_FILENAME1: cifar-10-python.tar
+    group: data_format
+  tiny:
+    deps:
+    - names:
+      - python
+      - python3
+      tags: get,python3
+    - tags: get,tinymlperf,src
+    - tags: get,src,eembc,energy-runner
+    env:
+      CM_DATASET_CONVERT_TO_TINYMLPERF: 'yes'

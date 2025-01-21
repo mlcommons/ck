@@ -1,0 +1,46 @@
+alias: get-dataset-squad
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML datasets
+default_version: '1.1'
+deps:
+- tags: get,sys-utils-cm
+env:
+  CM_DATASET: SQUAD
+new_env_keys:
+- CM_DATASET_*
+prehook_deps:
+- env:
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_DATASET_SQUAD_VAL_PATH
+  extra_cache_tags: bert,get,dataset-squad
+  force_cache: true
+  tags: download-and-extract,_wget
+  update_tags_from_env_with_prefix:
+    _url.:
+    - CM_PACKAGE_URL
+print_env_at_the_end:
+  CM_DATASET_SQUAD_VAL_PATH: Path to SQUAD dataset
+tags:
+- get
+- dataset
+- squad
+- language-processing
+- validation
+- original
+uid: 6651c119c3ae49b3
+versions:
+  '1.1':
+    env:
+      CM_DOWNLOAD_CHECKSUM: 3e85deb501d4e538b6bc56f786231552
+      CM_DOWNLOAD_FILENAME: dev-v1.1.json
+      CM_PACKAGE_URL: https://raw.githubusercontent.com/rajpurkar/SQuAD-explorer/master/dataset/dev-v1.1.json
+      CM_TRAIN_FILENAME: train-v1.1.json
+      CM_VAL_FILENAME: dev-v1.1.json
+  '2.0':
+    env:
+      CM_DOWNLOAD_CHECKSUM: 246adae8b7002f8679c027697b0b7cf8
+      CM_DOWNLOAD_FILENAME: dev-v2.0.json
+      CM_PACKAGE_URL: https://raw.githubusercontent.com/rajpurkar/SQuAD-explorer/master/dataset/dev-v2.0.json
+      CM_TRAIN_FILENAME: train-v2.0.json
+      CM_VAL_FILENAME: dev-v2.0.json
