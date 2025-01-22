@@ -4,10 +4,11 @@ on:
   issue_comment:
     types: [created]
   pull_request_target:
-    types: [opened,closed,synchronize]
+    types: [opened,closed,synchronize]  
 
 jobs:
   cla-check:
+    if: github.repository_owner == 'mlcommons'
     runs-on: ubuntu-latest
     steps:
       - name: "MLCommons CLA bot check"
@@ -22,7 +23,7 @@ jobs:
           path-to-signatures: 'cla-bot/v1/cla.json'
           # branch should not be protected
           branch: 'main'
-          allowlist: user1,bot*
+          allowlist: user1,mlcommons-bot,bot*
           remote-organization-name: mlcommons
           remote-repository-name: systems
           
