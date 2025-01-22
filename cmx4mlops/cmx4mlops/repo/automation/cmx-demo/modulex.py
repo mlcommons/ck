@@ -88,4 +88,6 @@ class CAutomation(Automation):
         import json
         print (json.dumps(i, indent=2))
 
-        return {'return':0, 'new_key':'new_value'}
+        v = i.get('test','')
+
+        return {'return':0, 'new_key':v}
