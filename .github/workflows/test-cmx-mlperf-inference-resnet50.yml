@@ -35,13 +35,13 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python3 -m pip install cmx4mlops
     - name: Configure git longpaths (Windows)
       if: matrix.os == 'windows-latest'
       run: |
         git config --system core.longpaths true
-    - name: Install dependencies
-      run: |
-        python3 -m pip install cmx4mlops
     - name: Test MLPerf Inference ResNet50 (Windows)
       if: matrix.os == 'windows-latest'
       run: |
