@@ -89,5 +89,6 @@ class CAutomation(Automation):
         print (json.dumps(i, indent=2))
 
         v = i.get('test', 'default')
+        v2 = i.get('test2', 'default')
 
-        return {'return':0, 'new_key':v}
+        return {'return':0, 'new_key':v, 'new_key2':v2}
