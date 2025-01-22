@@ -81,3 +81,11 @@ class CAutomation(Automation):
 
         return {'return':0}
 
+
+    ############################################################
+    def run(self, i):
+
+        import json
+        print (json.dumps(i, indent=2))
+
+        return {'return':0, 'new_key':'new_value'}
