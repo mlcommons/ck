@@ -45,11 +45,13 @@ jobs:
     - name: Test MLPerf Inference ResNet50 (Windows)
       if: matrix.os == 'windows-latest'
       run: |
-        cm run script --tags=run-mlperf,inference,_submission,_short --submitter="MLCommons" --hw_name=gh_${{ matrix.os }}_x86 --model=resnet50 --adr.loadgen.tags=_from-pip --pip_loadgen=yes --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --target_qps=1 -v --quiet 
+#        cm run script --tags=run-mlperf,inference,_submission,_short --submitter="MLCommons" --hw_name=gh_${{ matrix.os }}_x86 --model=resnet50 --adr.loadgen.tags=_from-pip --pip_loadgen=yes --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --target_qps=1 -v --quiet 
+        cmx run script --tags=run-mlperf,inference,_submission,_short --submitter="MLCommons" --hw_name=gh_${{ matrix.os }}_x86 --model=resnet50 --adr.loadgen.tags=_from-pip --pip_loadgen=yes --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --target_qps=1  --quiet 
     - name: Test MLPerf Inference ResNet50 (Linux/macOS)
       if: matrix.os != 'windows-latest'
       run: |
-        cm run script --tags=run-mlperf,inference,_submission,_short --submitter="MLCommons" --hw_name=gh_${{ matrix.os }}_x86 --model=resnet50 --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --target_qps=1 -v --quiet 
+#        cm run script --tags=run-mlperf,inference,_submission,_short --submitter="MLCommons" --hw_name=gh_${{ matrix.os }}_x86 --model=resnet50 --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --target_qps=1 -v --quiet 
+        cmx run script --tags=run-mlperf,inference,_submission,_short --submitter="MLCommons" --hw_name=gh_${{ matrix.os }}_x86 --model=resnet50 --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --target_qps=1 --v --quiet 
     - name: Push Results
       if: github.repository_owner == 'ctuning'
       env:
