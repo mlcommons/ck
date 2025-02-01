@@ -50,7 +50,7 @@ jobs:
       if: matrix.os != 'windows-latest'
       run: |
         cm run script --tags=run-mlperf,inference,_submission,_short --submitter="MLCommons" --hw_name=gh_${{ matrix.os }}_x86 --model=resnet50 --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --target_qps=1 -v --quiet 
-    - name: Push Results
+    - name: Push Test MLPerf Results when on cTuning test branch
       if: github.repository_owner == 'ctuning'
       env:
           USER: "GitHub Action"
@@ -63,4 +63,4 @@ jobs:
         git config --global credential.https://github.com.helper "!gh auth git-credential"
         git config --global credential.https://gist.github.com.helper ""
         git config --global credential.https://gist.github.com.helper "!gh auth git-credential"
-        cm run script --tags=push,github,mlperf,inference,submission --repo_url= https://github.com/ctuning/test_mlperf_inference_submissions --repo_branch=main --commit_message="Results from R50 GH action on ${{ matrix.os }}" --quiet
+        cm run script --tags=push,github,mlperf,inference,submission --repo_url=https://github.com/ctuning/test_mlperf_inference_submissions --repo_branch=main --commit_message="Results from R50 GH action on ${{ matrix.os }}" --quiet

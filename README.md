@@ -11,14 +11,14 @@
 
 ## Collective Knowledge
 
-[Collective Knowledge (CK, CM, CM4MLOps, CM4MLPerf and CMX)](https://cKnowledge.org) 
+[Collective Knowledge (CK)](https://cKnowledge.org) 
 is an educational community project to learn how to run AI, ML and other emerging workloads 
 in the most efficient and cost-effective way across diverse models, data sets, software and hardware:
 [ [white paper](https://arxiv.org/abs/2406.16791) ].
 
 It includes the following sub-projects.
 
-### Collective Minds (CM)
+### Collective Mind (CM)
 
 The Collective Mind (CM) project, or Collective Minds, facilitates the
 decomposition of complex software systems into portable, reusable, and
