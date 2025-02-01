@@ -140,6 +140,11 @@ Copyright (c) 2014-2021 cTuning foundation
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin) (FlexAI, cTuning)
 
+## Maintainers
+
+* CM, CM4MLOps and MLPerf automations: MLCommons
+* CMX (the next generation of CM): Grigori Fursin
+
 ## Long-term vision
 
 To learn more about the motivation behind CK and CM technology, please explore the following presentations:

@@ -1,34 +1,34 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: 'MLPerf inference ResNet50 via CMX'
+name: MLPerf inference bert (deepsparse, tf, onnxruntime, pytorch)
 
 on:
   pull_request_target:
     branches: [ "main", "master", "dev"]
     paths:
-      - '.github/workflows/test-cmx-mlperf-inference-resnet50.yml'
+      - '.github/workflows/test-mlperf-inference-bert-deepsparse-tf-onnxruntime-pytorch.yml'
       - '**'
       - '!**.md'
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    env:
-      CM_INDEX: "on"
     strategy:
       fail-fast: false
       matrix:
+        # 3.12 didn't work on 20240305 - need to check
+        python-version: [ "3.11" ]
+        backend: [ "deepsparse", "tf", "onnxruntime", "pytorch" ]
+        precision: [ "int8", "fp32" ]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: [ "3.12" ]
-        backend: [ "onnxruntime", "tf" ]
-        implementation: [ "python", "cpp" ]
         exclude:
           - backend: tf
-            implementation: cpp
-          - os: macos-latest
-            backend: tf
+          - backend: pytorch
+          - backend: onnxruntime
+          - precision: fp32
           - os: windows-latest
-            implementation: cpp
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
@@ -42,14 +42,14 @@ jobs:
     - name: Install dependencies
       run: |
         python3 -m pip install cmx4mlops
-    - name: Test MLPerf Inference ResNet50 (Windows)
+    - name: Test MLPerf Inference Bert ${{ matrix.backend }} on ${{ matrix.os }}
       if: matrix.os == 'windows-latest'
       run: |
-        cmx run script --tags=run-mlperf,inference,_submission,_short --submitter="MLCommons" --hw_name=gh_${{ matrix.os }}_x86 --model=resnet50 --adr.loadgen.tags=_from-pip --pip_loadgen=yes --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --target_qps=1  --quiet 
-    - name: Test MLPerf Inference ResNet50 (Linux/macOS)
+        cmx run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="MLCommons" --hw_name=gh_${{ matrix.os }} --model=bert-99 --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=5 --adr.loadgen.tags=_from-pip --pip_loadgen=yes --precision=${{ matrix.precision }} --target_qps=1 --v --quiet
+    - name: Test MLPerf Inference Bert ${{ matrix.backend }} on ${{ matrix.os }}
       if: matrix.os != 'windows-latest'
       run: |
-        cmx run script --tags=run-mlperf,inference,_submission,_short --submitter="MLCommons" --hw_name=gh_${{ matrix.os }}_x86 --model=resnet50 --implementation=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --target_qps=1 --v --quiet 
+        cmx run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="MLCommons" --hw_name=gh_${{ matrix.os }}_x86 --model=bert-99 --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=5 --precision=${{ matrix.precision }} --target_qps=1 --v --quiet
     - name: Push Test MLPerf Results (only for cTuning dev branches)
       if: github.repository_owner == 'ctuning'
       env:
