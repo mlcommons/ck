@@ -1,0 +1,14 @@
+﻿uid: 8b2ed0897bd74267
+
+tags: benchmark,run,mlperf,mobile,mlperf-mobile
+
+name: "MLPerf mobile"
+
+urls:
+- name: "Official page"
+  url: "https://mlcommons.org/benchmarks/inference-mobile/"
+- name: "GitHub page for mobile app"
+  url: "https://github.com/mlcommons/mobile_app_open"
+
+supported_compute:
+- cpu,arm64

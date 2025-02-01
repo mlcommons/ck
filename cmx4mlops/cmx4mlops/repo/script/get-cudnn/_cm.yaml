@@ -1,0 +1,55 @@
+alias: get-cudnn
+uid: d73ee19baee14df8
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+tags:
+- get
+- cudnn
+- nvidia
+
+cache: true
+
+category: CUDA automation
+
+default_env:
+  CM_INPUT: ''
+  CM_SUDO: sudo
+
+deps:
+- tags: detect,os
+- names:
+  - cuda
+  skip_if_env:
+    CM_CUDA_PATH_INCLUDE:
+    - 'on'
+    CM_CUDA_PATH_LIB:
+    - 'on'
+  tags: get,cuda
+
+input_description:
+  input:
+    desc: Full path to the installed cuDNN library
+  tar_file:
+    desc: Full path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)
+
+input_mapping:
+  input: CM_INPUT
+  tar_file: CM_CUDNN_TAR_FILE_PATH
+
+new_env_keys:
+- CM_CUDNN_*
+- CM_CUDA_PATH_LIB_CUDNN
+- CM_CUDA_PATH_INCLUDE_CUDNN
+- CM_CUDA_PATH_LIB_CUDNN_EXISTS
+- +PATH
+- +C_INCLUDE_PATH
+- +CPLUS_INCLUDE_PATH
+- +LD_LIBRARY_PATH
+- +DYLD_FALLBACK_LIBRARY_PATH
+
+print_env_at_the_end:
+  CM_CUDA_PATH_LIB_CUDNN: ''
+  CM_CUDA_PATH_INCLUDE_CUDNN: ''
+  CM_CUDNN_VERSION: ''

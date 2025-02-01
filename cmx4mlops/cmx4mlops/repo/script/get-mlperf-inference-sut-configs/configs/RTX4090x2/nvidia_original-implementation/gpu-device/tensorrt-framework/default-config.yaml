@@ -1,0 +1,38 @@
+---
+  resnet50:
+    Offline:
+      target_qps: 43000.0
+    Server:
+      target_qps: 37000.0
+  retinanet:
+    Offline:
+      target_qps: 650.0
+    Server:
+      target_qps: 600
+  bert-99:
+    Offline:
+      target_qps: 4000
+  bert-99.9:
+    Offline:
+      target_qps: 4000
+  3d-unet-99:
+    Offline:
+      target_qps: 2.0
+  3d-unet-99.9:
+    Offline:
+      target_qps: 2.0
+  gptj-99.9:
+    Offline:
+      target_qps: 4
+    Server:
+      target_qps: 3.5
+  gptj-99:
+    Offline:
+      target_qps: 4
+    Server:
+      target_qps: 3.5
+  sdxl:
+    Offline:
+      target_qps: 2
+    Server:
+      target_qps: 1

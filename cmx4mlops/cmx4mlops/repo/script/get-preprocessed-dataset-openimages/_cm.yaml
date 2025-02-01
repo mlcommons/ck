@@ -1,0 +1,232 @@
+alias: get-preprocessed-dataset-openimages
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML datasets
+default_env:
+  CM_DATASET: OPENIMAGES
+  CM_DATASET_CROP_FACTOR: '100.0'
+  CM_DATASET_DTYPE: fp32
+  CM_DATASET_INPUT_SQUARE_SIDE: '800'
+  CM_DATASET_QUANTIZE: '0'
+  CM_DATASET_QUANT_OFFSET: '0'
+  CM_DATASET_QUANT_SCALE: '1'
+deps:
+- names:
+  - python3
+  - python
+  tags: get,python3
+- names:
+  - original-dataset
+  tags: get,dataset,object-detection,openimages,original
+- names:
+  - inference-src
+  tags: mlperf,mlcommons,inference,source,src
+- names:
+  - pycocotools
+  tags: get,generic-python-lib,_pycocotools
+- tags: get,generic-python-lib,_opencv-python
+- tags: get,generic-python-lib,_pillow
+- tags: get,generic-python-lib,_package.ujson
+- names:
+  - numpy
+  tags: get,generic-python-lib,_numpy
+- names:
+  - numpy
+  tags: get,generic-python-lib,_numpy
+input_mapping:
+  dir: CM_DATASET_PREPROCESSED_PATH
+  threads: CM_NUM_PREPROCESS_THREADS
+new_env_keys:
+- CM_DATASET_*
+tags:
+- get
+- dataset
+- openimages
+- open-images
+- object-detection
+- preprocessed
+uid: 9842f1be8cba4c7b
+variations:
+  '50':
+    ad:
+      original-dataset:
+        tags: _50
+    default: true
+    env:
+      CM_DATASET_SIZE: '50'
+    group: dataset-count
+  '500':
+    ad:
+      original-dataset:
+        tags: _500
+    env:
+      CM_DATASET_SIZE: '500'
+    group: dataset-count
+  NCHW:
+    default: true
+    env:
+      CM_DATASET_DATA_LAYOUT: NCHW
+    group: dataset-layout
+  NHWC:
+    env:
+      CM_DATASET_DATA_LAYOUT: NHWC
+    group: dataset-layout
+  calibration:
+    ad:
+      original-dataset:
+        tags: _calibration
+    default_variations:
+      dataset-count: '500'
+    env:
+      CM_DATASET_ANNOTATIONS_FILE_PATH: <<<CM_DATASET_CALIBRATION_ANNOTATIONS_FILE_PATH>>>
+      CM_DATASET_PATH: <<<CM_CALIBRATION_DATASET_PATH>>>
+      CM_DATASET_TYPE: calibration
+    group: dataset-type
+  custom-annotations:
+    ad:
+      original-dataset:
+        tags: _custom-annotations
+    group: annotations
+  default-annotations:
+    ad:
+      original-dataset:
+        tags: _default-annotations
+    default: true
+    group: annotations
+  filter:
+    ad:
+      original-dataset:
+        tags: _filter
+  filter,calibration:
+    env:
+      CM_DATASET_CALIBRATION_FILTER: 'yes'
+  filter-size.#:
+    ad:
+      original-dataset:
+        tags: _filter-size.#
+    group: filter-size
+  for.retinanet.onnx:
+    default_variations:
+      dataset-layout: NCHW
+      interpolation-method: inter.linear
+      preprocessing-source: generic-preprocessor
+    env:
+      CM_DATASET_CONVERT_TO_BGR: '0'
+      CM_DATASET_CROP_FACTOR: '100.0'
+      CM_DATASET_GIVEN_CHANNEL_MEANS: 0.485 0.456 0.406
+      CM_DATASET_GIVEN_CHANNEL_STDS: 0.229 0.224 0.225
+      CM_DATASET_NORMALIZE_DATA: '0'
+      CM_DATASET_NORMALIZE_LOWER: '0.0'
+      CM_DATASET_NORMALIZE_UPPER: '1.0'
+      CM_DATASET_SUBTRACT_MEANS: '1'
+      CM_ML_MODEL_NAME: retinanet
+  for.retinanet.onnx,fp32:
+    env: {}
+  for.retinanet.onnx,uint8:
+    env:
+      CM_DATASET_QUANT_OFFSET: '114'
+      CM_DATASET_QUANT_SCALE: '0.0186584499'
+  fp32:
+    default: true
+    default_variations:
+      extension: raw
+    env:
+      CM_DATASET_CONVERT_TO_UNSIGNED: '0'
+      CM_DATASET_DTYPE: fp32
+      CM_DATASET_INPUT_DTYPE: fp32
+      CM_DATASET_QUANTIZE: '0'
+    group: dataset-precision
+  full:
+    group: dataset-count
+  full,validation:
+    ad:
+      original-dataset:
+        tags: _full
+    env:
+      CM_DATASET_SIZE: '24781'
+  generic-preprocessor:
+    deps:
+    - names:
+      - torch
+      - pytorch
+      tags: get,generic-python-lib,_torch
+    - names:
+      - torchvision
+      tags: get,generic-python-lib,_torchvision
+    env:
+      CM_DATASET_REFERENCE_PREPROCESSOR: '0'
+    group: preprocessing-source
+    prehook_deps:
+    - tags: get,generic,image-preprocessor
+  int8:
+    default_variations:
+      extension: rgb8
+    env:
+      CM_DATASET_CONVERT_TO_UNSIGNED: '0'
+      CM_DATASET_DTYPE: int8
+      CM_DATASET_INPUT_DTYPE: fp32
+      CM_DATASET_QUANTIZE: '1'
+    group: dataset-precision
+  inter.area:
+    env:
+      CM_DATASET_INTERPOLATION_METHOD: INTER_AREA
+    group: interpolation-method
+  inter.linear:
+    env:
+      CM_DATASET_INTERPOLATION_METHOD: INTER_LINEAR
+    group: interpolation-method
+  mlcommons-reference-preprocessor:
+    default: true
+    env:
+      CM_DATASET_REFERENCE_PREPROCESSOR: '1'
+    group: preprocessing-source
+  npy:
+    env:
+      CM_DATASET_PREPROCESSED_EXTENSION: npy
+    group: extension
+  nvidia:
+    env:
+      CM_PREPROCESSING_BY_NVIDIA: 'yes'
+  quant-offset.#:
+    const:
+      CM_DATASET_QUANT_OFFSET: '#'
+  quant-scale.#:
+    const:
+      CM_DATASET_QUANT_SCALE: '#'
+  raw:
+    env:
+      CM_DATASET_PREPROCESSED_EXTENSION: raw
+    group: extension
+  rgb32:
+    env:
+      CM_DATASET_PREPROCESSED_EXTENSION: rgb32
+    group: extension
+  rgb8:
+    env:
+      CM_DATASET_PREPROCESSED_EXTENSION: rgb8
+    group: extension
+  size.#:
+    ad:
+      original-dataset:
+        tags: _size.#
+    env:
+      CM_DATASET_SIZE: '#'
+    group: dataset-count
+  uint8:
+    default_variations:
+      extension: rgb8
+    env:
+      CM_DATASET_CONVERT_TO_UNSIGNED: '1'
+      CM_DATASET_DTYPE: uint8
+      CM_DATASET_INPUT_DTYPE: fp32
+      CM_DATASET_QUANTIZE: '1'
+    group: dataset-precision
+  validation:
+    ad:
+      original-dataset:
+        tags: _validation
+    default: true
+    env:
+      CM_DATASET_TYPE: validation
+    group: dataset-type

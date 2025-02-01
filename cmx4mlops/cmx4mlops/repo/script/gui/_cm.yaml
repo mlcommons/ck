@@ -1,0 +1,106 @@
+# Identification of this CM script
+alias: gui
+uid: 605cac42514a4c69
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "GUI"
+
+developers: "[Grigori Fursin](https://cKnowledge.org/gfursin)"
+
+# User-friendly tags to find this CM script
+tags:
+  - cm
+  - gui
+  - cm-gui
+  - script-gui
+  - cm-script-gui
+  - streamlit
+
+# Map script inputs to environment variables
+input_mapping:
+  script: CM_GUI_SCRIPT_TAGS
+  prefix: CM_GUI_SCRIPT_PREFIX_LINUX
+  port: CM_GUI_PORT
+  address: CM_GUI_ADDRESS
+  title: CM_GUI_TITLE
+  no_browser: CM_GUI_NO_BROWSER
+  no_run: CM_GUI_NO_RUN
+  app: CM_GUI_APP
+  exp_tags: CM_GUI_GRAPH_EXPERIMENT_TAGS
+  exp_name: CM_GUI_GRAPH_EXPERIMENT_NAME
+  exp_max_results: CM_GUI_GRAPH_EXPERIMENT_MAX_RESULTS
+  exp_uid: CM_GUI_GRAPH_EXPERIMENT_RESULT_UID
+  exp_title: CM_GUI_GRAPH_EXPERIMENT_TITLE
+  exp_key_x: CM_GUI_GRAPH_EXPERIMENT_AXIS_KEY_X
+  exp_key_y: CM_GUI_GRAPH_EXPERIMENT_AXIS_KEY_Y
+  exp_key_c: CM_GUI_GRAPH_EXPERIMENT_AXIS_KEY_C
+  exp_key_s: CM_GUI_GRAPH_EXPERIMENT_AXIS_KEY_S
+
+default_env:
+  CM_GUI_EXTRA_CMD: ""
+  CM_GUI_SCRIPT_PREFIX_LINUX: "gnome-terminal --"
+  CM_GUI_APP: app
+
+# Dependencies on other CM scripts
+deps:
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+  # Detect/install python
+  - tags: get,python
+    names:
+    - python
+    - python3
+
+  - tags: get,generic-python-lib,_cmind
+  - tags: get,generic-python-lib,_streamlit
+
+# Variations to customize dependencies
+variations:
+  main:
+    group:
+      app
+    env:
+      CM_GUI_APP: 'app'
+
+  graph:
+    group:
+      app
+    env:
+      CM_GUI_APP: 'graph'
+    prehook_deps:
+      - tags: get,generic-python-lib,_matplotlib
+      - tags: get,generic-python-lib,_mpld3
+
+  playground:
+    group:
+      app
+    env:
+      CM_GUI_APP: 'playground'
+    prehook_deps:
+      - tags: get,generic-python-lib,_matplotlib
+      - tags: get,generic-python-lib,_mpld3
+      - tags: get,generic-python-lib,_streamlit_option_menu
+      - tags: get,generic-python-lib,_numpy
+      - tags: get,generic-python-lib,_pandas
+      - tags: get,generic-python-lib,_package.plotly
+      - tags: get,generic-python-lib,_package.streamlit-aggrid
+
+  chatgpt:
+    group:
+      app
+    env:
+      CM_GUI_APP: 'chatgpt'
+
+
+input_description:
+  script: "script tags"
+  app: "gui app"

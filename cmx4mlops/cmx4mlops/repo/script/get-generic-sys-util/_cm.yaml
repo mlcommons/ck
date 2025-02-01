@@ -1,0 +1,717 @@
+alias: get-generic-sys-util
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: Detection or installation of tools and artifacts
+default_env:
+  CM_CLEAN_DIRS: bin
+  CM_SUDO: sudo
+deps:
+- tags: detect,os
+env:
+  CM_GENERIC_SYS_UTIL_INSTALL_NEEDED: 'no'
+  CM_SYS_UTIL_VERSION_CMD: ''
+input_mapping:
+  fail_safe: CM_TMP_FAIL_SAFE
+  ignore_missing: CM_GENERIC_SYS_UTIL_IGNORE_MISSING_PACKAGE
+new_env_keys:
+- +PATH
+tags:
+- get
+- sys-util
+- generic
+- generic-sys-util
+tests:
+  run_inputs:
+  - docker: 'yes'
+    docker_os: rhel
+    docker_os_version: '9'
+    env:
+      CM_TMP_FAIL_SAFE: 'yes'
+    ignore_missing: 'yes'
+    test-all-variations: 'yes'
+  - docker: 'yes'
+    docker_os: ubuntu
+    docker_os_version: '20.04'
+    fail_safe: 'yes'
+    ignore_missing: 'yes'
+    test-all-variations: 'yes'
+  - docker: 'yes'
+    docker_os: ubuntu
+    docker_os_version: '22.04'
+    fail_safe: 'yes'
+    ignore_missing: 'yes'
+    test-all-variations: 'yes'
+  - docker: 'yes'
+    docker_os: ubuntu
+    docker_os_version: '24.04'
+    fail_safe: 'yes'
+    ignore_missing: 'yes'
+    test-all-variations: 'yes'
+uid: bb0393afa8404a11
+variations:
+  cmake:
+    env:
+      CM_SYS_UTIL_NAME: cmake
+      CM_SYS_UTIL_VERSION_CMD: cmake --version
+      CM_SYS_UTIL_VERSION_RE: cmake version ([\d.]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 1
+    new_env_keys:
+    - CM_CMAKE_VERSION
+    state:
+      cmake:
+        apt: cmake
+        brew: cmake
+        dnf: cmake
+        yum: cmake
+  detect:
+    default: true
+    env:
+      CM_GENERIC_SYS_UTIL_RUN_MODE: detect
+    group: mode
+    prehook_deps:
+    - enable_if_env:
+        CM_GENERIC_SYS_UTIL_INSTALL_NEEDED:
+        - 'yes'
+      force_env_keys:
+      - CM_TMP_FAIL_SAFE
+      inherit_variation_tags: true
+      names:
+      - install-sys-util
+      skip_inherit_variation_groups:
+      - mode
+      tags: get,generic-sys-util,_install
+  dmidecode:
+    env:
+      CM_SYS_UTIL_NAME: dmidecode
+      CM_SYS_UTIL_VERSION_CMD: dmidecode --version
+      CM_SYS_UTIL_VERSION_RE: ([\d.]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_DMIDECODE_VERSION
+    state:
+      dmidecode:
+        apt: dmidecode
+        brew: ''
+        dnf: dmidecode
+        yum: dmidecode
+  g++-11:
+    env:
+      CM_GENERIC_SYS_UTIL_IGNORE_VERSION_DETECTION_FAILURE: 'yes'
+      CM_SYS_UTIL_NAME: g++11
+      CM_SYS_UTIL_VERSION_CMD: g++-11 --version
+      CM_SYS_UTIL_VERSION_RE: \b(\d+\.\d+(?:\.\d+)?)\b
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_GPP11_VERSION
+    state:
+      g++11:
+        apt: g++-11
+        dnf: gcc-toolset-11-gcc-c++
+  g++-12:
+    env:
+      CM_GENERIC_SYS_UTIL_IGNORE_VERSION_DETECTION_FAILURE: 'yes'
+      CM_SYS_UTIL_NAME: g++12
+      CM_SYS_UTIL_VERSION_CMD: g++-12 --version
+      CM_SYS_UTIL_VERSION_RE: \b(\d+\.\d+(?:\.\d+)?)\b
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_GPP12_VERSION
+    state:
+      g++12:
+        apt: g++-12
+        dnf: gcc-toolset-12-gcc-c++
+  g++-9:
+    env:
+      CM_SYS_UTIL_NAME: g++9
+      CM_SYS_UTIL_VERSION_CMD: g++-9 --version
+      CM_SYS_UTIL_VERSION_RE: \b(\d+\.\d+(?:\.\d+)?)\b
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_GPP9_VERSION
+    state:
+      g++9:
+        apt: g++-9
+        dnf: gcc-toolset-9-gcc-c++
+  gcc-11:
+    env:
+      CM_SYS_UTIL_NAME: gcc11
+      CM_SYS_UTIL_VERSION_CMD: gcc-11 --version
+      CM_SYS_UTIL_VERSION_RE: \b(\d+\.\d+(?:\.\d+)?)\b
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_GCC11_VERSION
+    state:
+      gcc11:
+        apt: gcc-11
+  gcc-9:
+    env:
+      CM_SYS_UTIL_NAME: gcc9
+      CM_SYS_UTIL_VERSION_CMD: gcc-9 --version
+      CM_SYS_UTIL_VERSION_RE: \b(\d+\.\d+(?:\.\d+)?)\b
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_GCC9_VERSION
+    state:
+      gcc9:
+        apt: gcc-9
+  gflags-dev:
+    env:
+      CM_SYS_UTIL_NAME: gflags-dev
+    new_env_keys:
+    - CM_GFLAGS_DEV_VERSION
+    state:
+      gflags-dev:
+        apt: libgflags-dev
+        brew: gflags
+        dnf: gflags-devel
+        yum: gflags-devel
+  git-lfs:
+    env:
+      CM_SYS_UTIL_NAME: git-lfs
+      CM_SYS_UTIL_VERSION_CMD: git-lfs --version
+      CM_SYS_UTIL_VERSION_RE: git-lfs\/([\d.]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_GIT_LFS_VERSION
+    state:
+      git-lfs:
+        apt: git-lfs
+        brew: git-lfs
+        dnf: git-lfs
+        yum: git-lfs
+  glog-dev:
+    env:
+      CM_SYS_UTIL_NAME: glog-dev
+    new_env_keys:
+    - CM_GLOG_DEV_VERSION
+    state:
+      glog-dev:
+        apt: libgoogle-glog-dev
+        brew: glog
+        dnf: glog-devel
+        yum: glog-devel
+  install:
+    env:
+      CM_GENERIC_SYS_UTIL_RUN_MODE: install
+    group: mode
+    new_env_keys:
+    - CM_TMP_GENERIC_SYS_UTIL_PACKAGE_INSTALL_IGNORED
+    - CM_GET_GENERIC_SYS_UTIL_INSTALL_FAILED
+  libboost-all-dev:
+    env:
+      CM_SYS_UTIL_NAME: libboost-all-dev
+      CM_SYS_UTIL_VERSION_CMD: dpkg -s libboost-dev | grep 'Version'
+      CM_SYS_UTIL_VERSION_RE: ([0-9]+(\.[0-9]+)+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 1
+    new_env_keys:
+    - CM_LIBBOOST_ALL_DEV_VERSION
+    state:
+      libboost-all-dev:
+        apt: libboost-all-dev
+        brew: ''
+        dnf: boost-devel
+        yum: boost-devel
+  libbz2-dev:
+    env:
+      CM_SYS_UTIL_NAME: libbz2_dev
+      CM_SYS_UTIL_VERSION_CMD_OVERRIDE: bzcat --version 2>&1 | grep bzip > tmp-ver.out
+      CM_SYS_UTIL_VERSION_RE: ([0-9]+(\.[0-9]+)+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 1
+    new_env_keys:
+    - CM_LIBBZ2_DEV_VERSION
+    state:
+      libbz2_dev:
+        apt: libbz2-dev
+        brew: bzip2
+        dnf: libbzip2-devel
+        yum: libbzip2-devel
+        zlib-devel: libbz2-devel
+  libev-dev:
+    env:
+      CM_SYS_UTIL_NAME: libev_dev
+      CM_SYS_UTIL_VERSION_CMD: dpkg -s libev-dev | grep 'Version'
+      CM_SYS_UTIL_VERSION_RE: ([\d:]+\.[\d\.-]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_LIBEV_DEV_VERSION
+    state:
+      libev_dev:
+        apt: libev-dev
+  libffi:
+    env:
+      CM_SYS_UTIL_NAME: libffi
+    new_env_keys:
+    - CM_LIBFFI_VERSION
+    state:
+      libffi:
+        apt: libffi
+  libffi-dev:
+    env:
+      CM_SYS_UTIL_NAME: libffi_dev
+    new_env_keys:
+    - CM_LIBFFI_DEV_VERSION
+    state:
+      libffi_dev:
+        apt: libffi-dev
+        brew: libffi
+        dnf: libffi-devel
+        yum: libffi-devel
+  libffi7:
+    env:
+      CM_SYS_UTIL_NAME: libffi7
+      CM_SYS_UTIL_VERSION_CMD: dpkg -l libffi7 2>/dev/null | grep '^ii' | awk '{print
+        $3}' || rpm -q libffi7 2>/dev/null || pacman -Q libffi7 2>/dev/null
+      CM_SYS_UTIL_VERSION_RE: \d\.\d-[0-9]+
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_LIBFFI7_VERSION
+    state:
+      libffi7:
+        apt: libffi7
+  libffi8:
+    env:
+      CM_SYS_UTIL_NAME: libffi8
+    new_env_keys:
+    - CM_LIBFFI8_VERSION
+    state:
+      libffi8:
+        apt: libffi8
+  libgdbm-dev:
+    env:
+      CM_SYS_UTIL_NAME: libgdbm_dev
+      CM_SYS_UTIL_VERSION_CMD: dpkg -s libgdbm-dev | grep 'Version'
+      CM_SYS_UTIL_VERSION_RE: ([\d]+\.[\d\.-]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_LIBGDBM_DEV_VERSION
+    state:
+      libgdbm_dev:
+        apt: libgdbm-dev
+  libgmock-dev:
+    env:
+      CM_SYS_UTIL_NAME: libgmock-dev
+    new_env_keys:
+    - CM_LIBGMOCK_DEV_VERSION
+    state:
+      libgmock-dev:
+        apt: libgmock-dev
+        brew: ''
+        dnf: gmock-devel
+        yum: gmock-devel
+  liblzma-dev:
+    env:
+      CM_SYS_UTIL_NAME: liblzma_dev
+      CM_SYS_UTIL_VERSION_CMD: xz --version
+      CM_SYS_UTIL_VERSION_RE: (\d(\.\d)+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_LIBLZMA_DEV_VERSION
+    state:
+      liblzma_dev:
+        apt: liblzma-dev
+  libmkl-dev:
+    env:
+      CM_SYS_UTIL_NAME: libmkl-dev
+    new_env_keys:
+    - CM_LIBMKL_DEV_VERSION
+    state:
+      libmkl-dev:
+        apt: libmkl-dev
+        brew: ''
+        dnf: ''
+        yum: ''
+  libmpfr-dev:
+    env:
+      CM_SYS_UTIL_NAME: libmpfr-dev
+    new_env_keys:
+    - CM_LIBMPFR_DEV_VERSION
+    state:
+      libmpfr-dev:
+        apt: libmpfr-dev
+        brew: ''
+        dnf: mpfr-devel.x86_64
+        yum: mpfr-devel.x86_64
+        zypper: mpfr-devel
+  libncurses-dev:
+    env:
+      CM_GENERIC_SYS_UTIL_IGNORE_VERSION_DETECTION_FAILURE: 'yes'
+      CM_SYS_UTIL_NAME: libncurses_dev
+      CM_SYS_UTIL_VERSION_CMD: ncurses5-config --version
+      CM_SYS_UTIL_VERSION_RE: ([0-9]+(\.[0-9]+)+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 1
+    new_env_keys:
+    - CM_LIBNCURSES_DEV_VERSION
+    state:
+      libncurses_dev:
+        apt: libncurses-dev
+        dnf: libncurses-devel
+        yum: libncurses-devel
+  libnuma-dev:
+    env:
+      CM_SYS_UTIL_NAME: libnuma-dev
+    new_env_keys:
+    - CM_LIBNUMA_DEV_VERSION
+    state:
+      libnuma-dev:
+        apt: libnuma-dev
+        brew: ''
+        dnf: numactl-libs
+        yum: numactl-libs
+  libpci-dev:
+    env:
+      CM_SYS_UTIL_NAME: libpci-dev
+    new_env_keys:
+    - CM_LIBPCI_DEV_VERSION
+    state:
+      libpci-dev:
+        apt: libpci-dev
+        brew: ''
+        dnf: pciutils-devel
+        yum: pciutils-devel
+  libpng-dev:
+    env:
+      CM_SYS_UTIL_NAME: libpng-dev
+    new_env_keys:
+    - CM_LIBPNG_DEV_VERSION
+    state:
+      libpng-dev:
+        apt: libpng-dev
+        brew: ''
+        dnf: libpng-devel
+        yum: libpng-devel
+  libre2-dev:
+    env:
+      CM_SYS_UTIL_NAME: libre2-dev
+    new_env_keys:
+    - CM_LIBRE2_DEV_VERSION
+    state:
+      libre2-dev:
+        apt: libre2-dev
+        brew: ''
+        dnf: libre-devel
+        yum: libre-devel
+  libreadline-dev:
+    env:
+      CM_SYS_UTIL_NAME: libreadline_dev
+    new_env_keys:
+    - CM_LIBREADLINE_DEV_VERSION
+    state:
+      libreadline_dev:
+        apt: libreadline-dev
+        dnf: libreadline-devel
+        yum: readline-devel
+  libsqlite3-dev:
+    env:
+      CM_SYS_UTIL_NAME: libsqlite3_dev
+    new_env_keys:
+    - CM_LIBSQLITE3_DEV_VERSION
+    state:
+      libsqlite3_dev:
+        apt: libsqlite3-dev
+  libssl-dev:
+    env:
+      CM_SYS_UTIL_NAME: libssl_dev
+      CM_SYS_UTIL_VERSION_CMD: openssl version
+      CM_SYS_UTIL_VERSION_RE: OpenSSL\s+([\d.]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 1
+    new_env_keys:
+    - CM_LIBSSL_DEV_VERSION
+    state:
+      libssl_dev:
+        apt: libssl-dev
+        brew: openssl
+        dnf: libssl-devel
+        yum: libssl-devel
+  libudev-dev:
+    env:
+      CM_SYS_UTIL_NAME: libudev-dev
+    new_env_keys:
+    - CM_LIBUDEV_DEV_VERSION
+    state:
+      libudev-dev:
+        apt: libudev-dev
+        brew: ''
+        dnf: libudev-devl
+        yum: libudev-devel
+  linux-tools:
+    deps:
+    - tags: detect,os
+    env:
+      CM_SYS_UTIL_NAME: linux-tools
+    new_env_keys:
+    - CM_LINUX_TOOLS_VERSION
+    state:
+      linux-tools:
+        apt: linux-tools-<<<CM_HOST_OS_KERNEL_VERSION>>>
+  md5sha1sum:
+    env:
+      CM_SYS_UTIL_NAME: md5sha1sum
+      CM_SYS_UTIL_VERSION_CMD: md5sum --version | grep sha1sum
+      CM_SYS_UTIL_VERSION_RE: \b(\d+\.\d+(?:\.\d+)?)\b
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_MD5SHA1SUM_VERSION
+    state:
+      md5sha1sum:
+        apt: ''
+        brew: md5sha1sum
+  ninja-build:
+    env:
+      CM_SYS_UTIL_NAME: ninja-build
+      CM_SYS_UTIL_VERSION_CMD: ninja --version
+      CM_SYS_UTIL_VERSION_RE: ([\d.]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_NINJA_BUILD_VERSION
+    state:
+      ninja-build:
+        apt: ninja-build
+        brew: ninja-build
+        dnf: ninja-build
+        yum: ninja-build
+        zypper: ninja-build
+  nlohmann-json3-dev:
+    env:
+      CM_SYS_UTIL_NAME: nlohmann_json3_dev
+    new_env_keys:
+    - CM_NLOHMANN_JSON3_DEV_VERSION
+    state:
+      nlohmann_json3_dev:
+        apt: nlohmann-json3-dev
+        dnf: nlohmann-json-devel
+  ntpdate:
+    env:
+      CM_SYS_UTIL_NAME: ntpdate
+    new_env_keys:
+    - CM_NTPDATE_VERSION
+    state:
+      ntpdate:
+        apt: ntpdate
+        brew: ''
+        dnf: ntpdate
+        yum: ntpdate
+  numactl:
+    deps:
+    - enable_if_env:
+        CM_HOST_OS_FLAVOR:
+        - rhel
+        CM_HOST_OS_VERSION:
+        - '9.1'
+        - '9.2'
+        - '9.3'
+      tags: install,numactl,from.src
+    env:
+      CM_SYS_UTIL_NAME: numactl
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_NUMACTL_VERSION
+    state:
+      numactl:
+        apt: numactl
+        dnf: numactl-devel
+        yum: numactl-devel
+  nvidia-cuda-toolkit:
+    env:
+      CM_SYS_UTIL_NAME: nvidia-cuda-toolkit
+      CM_SYS_UTIL_VERSION_CMD: nvcc --version
+      CM_SYS_UTIL_VERSION_RE: release ([\d.]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 1
+    new_env_keys:
+    - CM_NVIDIA_CUDA_TOOLKIT_VERSION
+    state:
+      nvidia-cuda-toolkit:
+        apt: nvidia-cuda-toolkit
+        brew: ''
+        dnf: nvidia-cuda-toolkit
+        yum: nvidia-cuda-toolkit
+  pkg-config:
+    env:
+      CM_SYS_UTIL_NAME: pkg_config
+      CM_SYS_UTIL_VERSION_RE: \b(\d+\.\d+(?:\.\d+)?)\b
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    state:
+      pkg_config:
+        apt: pkg-config
+        brew: pkg-config
+        dnf: pkg-config
+        yum: pkg-config
+  psmisc:
+    env:
+      CM_SYS_UTIL_NAME: psmisc
+    new_env_keys:
+    - CM_PSMISC_VERSION
+    state:
+      psmisc:
+        apt: psmisc
+        brew: pstree
+        dnf: psmisc
+        yum: psmisc
+  rapidjson-dev:
+    env:
+      CM_SYS_UTIL_NAME: rapidjson-dev
+    new_env_keys:
+    - CM_RAPIDJSON_DEV_VERSION
+    state:
+      rapidjson-dev:
+        apt: rapidjson-dev
+        brew: ''
+        dnf: rapidjson-devel
+        yum: rapidjson-devel
+  rsync:
+    env:
+      CM_SYS_UTIL_NAME: rsync
+      CM_SYS_UTIL_VERSION_CMD: rsync --version
+      CM_SYS_UTIL_VERSION_RE: rsync\s+version\s+([\d.]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_RSYNC_VERSION
+    state:
+      rsync:
+        apt: rsync
+        brew: rsync
+        dnf: rsync
+        yum: rsync
+        zypper: rsync
+  screen:
+    env:
+      CM_SYS_UTIL_NAME: screen
+      CM_SYS_UTIL_VERSION_CMD: screen --version
+      CM_SYS_UTIL_VERSION_RE: Screen version ([\d.]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_SCREEN_VERSION
+    state:
+      screen:
+        apt: screen
+        brew: screen
+        dnf: screen
+        yum: screen
+        zypper: rsync
+  sox:
+    env:
+      CM_SYS_UTIL_NAME: sox
+      CM_SYS_UTIL_VERSION_CMD: sox --version
+      CM_SYS_UTIL_VERSION_RE: sox:\s+SoX\s+v([\d.]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_SOX_VERSION
+    state:
+      sox:
+        apt: sox
+        brew: sox
+        dnf: sox
+  systemd:
+    env:
+      CM_SYS_UTIL_NAME: systemd
+      CM_SYS_UTIL_VERSION_CMD: systemctl --version
+      CM_SYS_UTIL_VERSION_RE: systemd ([\d]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_SYSTEMD_VERSION
+    state:
+      systemd:
+        apt: systemd
+        brew: ''
+        dnf: systemd
+        yum: systemd
+  tk-dev:
+    env:
+      CM_SYS_UTIL_NAME: tk_dev
+      CM_SYS_UTIL_VERSION_CMD: dpkg -s tk-dev | grep Version
+      CM_SYS_UTIL_VERSION_RE: ([0-9]+(\.[0-9]+)+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 1
+    new_env_keys:
+    - CM_TK_DEV_VERSION
+    state:
+      tk_dev:
+        apt: tk-dev
+  transmission:
+    env:
+      CM_SYS_UTIL_NAME: transmission
+      CM_SYS_UTIL_VERSION_CMD: transmission-daemon --version
+      CM_SYS_UTIL_VERSION_CMD_USE_ERROR_STREAM: 'yes'
+      CM_SYS_UTIL_VERSION_RE: transmission-daemon ([\d.]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_TRANSMISSION_VERSION
+    state:
+      transmission:
+        apt: transmission-daemon
+        brew: transmission
+        dnf: transmission-daemon
+        yum: transmission-daemon
+  vim-common:
+    env:
+      CM_SYS_UTIL_NAME: vim_common
+      CM_SYS_UTIL_VERSION_CMD: vim --version
+      CM_SYS_UTIL_VERSION_RE: VIM - Vi IMproved ([\d.]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_VIM_COMMON_VERSION
+    state:
+      vim_common:
+        apt: vim-common
+        brew: vim
+        choco: vim
+        dnf: vim-common
+        yum: vim-common
+  wget:
+    env:
+      CM_SYS_UTIL_NAME: wget
+      CM_SYS_UTIL_VERSION_CMD: wget --version
+      CM_SYS_UTIL_VERSION_RE: Wget\s*([\d.]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_WGET_VERSION
+    state:
+      wget:
+        apt: wget
+        brew: wget
+  wkhtmltopdf:
+    env:
+      CM_SYS_UTIL_NAME: wkhtmltopdf
+      CM_SYS_UTIL_VERSION_CMD: wkhtmltopdf --version
+      CM_SYS_UTIL_VERSION_RE: wkhtmltopdf ([\d.]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 0
+    new_env_keys:
+    - CM_WKHTMLTOPDF_VERSION
+    state:
+      wkhtmltopdf:
+        apt: wkhtmltopdf
+        brew: wkhtmltopdf
+  xz:
+    env:
+      CM_SYS_UTIL_NAME: xz
+      CM_SYS_UTIL_VERSION_CMD: xz --version
+      CM_SYS_UTIL_VERSION_RE: xz \(XZ Utils\) ([\d.]+)
+      CM_TMP_VERSION_DETECT_GROUP_NUMBER: 1
+    new_env_keys:
+    - CM_XZ_VERSION
+    state:
+      xz:
+        apt: xz-utils
+        brew: xz
+        choco: xz
+        dnf: xz
+        yum: xz
+  zlib:
+    env:
+      CM_SYS_UTIL_NAME: zlib
+    new_env_keys:
+    - CM_ZLIB_VERSION
+    state:
+      zlib:
+        apt: zlib1g
+        choco: zlib
+  zlib1g-dev:
+    env:
+      CM_SYS_UTIL_NAME: zlib1g_dev
+    new_env_keys:
+    - CM_ZLIB1G_DEV_VERSION
+    state:
+      zlib1g_dev:
+        apt: zlib1g-dev
+        dnf: zlib-devel
+        yum: zlib-devel
+        zypper: zlib-devel

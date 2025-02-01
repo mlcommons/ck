@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/Docker-automation/run-docker-container](https://docs.mlcommons.org/cm4mlops/scripts/Docker-automation/run-docker-container) for the documentation of this CM script.

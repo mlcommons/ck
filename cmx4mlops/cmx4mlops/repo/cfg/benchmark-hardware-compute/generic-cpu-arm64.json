@@ -1,0 +1,6 @@
+{
+  "uid":"357a972e79614903",
+  "name": "Arm - AArch64",
+  "tags": "cpu,arm64,aarch64,generic",
+  "mlperf_inference_device": "cpu"
+}

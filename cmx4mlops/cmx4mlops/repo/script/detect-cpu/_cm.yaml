@@ -1,0 +1,22 @@
+alias: detect-cpu
+automation_alias: script
+automation_uid: 5b4e0237da074764
+category: Platform information
+clean_files:
+- tmp-lscpu.out
+- tmp-systeminfo.csv
+- tmp-wmic-cpu.csv
+deps:
+- tags: detect,os
+new_env_keys:
+- CM_HOST_CPU_*
+- CM_HOST_MEMORY_CAPACITY
+- CM_HOST_DISK_CAPACITY
+new_state_keys:
+- host_device_raw_info
+tags:
+- detect
+- cpu
+- detect-cpu
+- info
+uid: 586c8a43320142f7

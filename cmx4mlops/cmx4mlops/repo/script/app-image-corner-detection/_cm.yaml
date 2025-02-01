@@ -1,0 +1,32 @@
+alias: app-image-corner-detection
+uid: 998ffee0bc534d0a
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: Modular application pipeline
+
+deps:
+- tags: detect,os
+
+- tags: detect,cpu
+
+- tags: download,file,_url.https://cKnowledge.org/ai/data/data.pgm
+  md5sum: 0af279e557a8de252d7ff0751a999379
+  force_cache: false
+
+
+posthook_deps:
+- skip_if_env:
+    CM_SKIP_COMPILE:
+    - 'on'
+  tags: compile,cpp-program
+- skip_if_env:
+    CM_SKIP_RUN:
+    - 'on'
+  tags: benchmark-program
+
+tags:
+- app
+- image
+- corner-detection

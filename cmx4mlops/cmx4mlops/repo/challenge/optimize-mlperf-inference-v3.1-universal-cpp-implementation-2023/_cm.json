@@ -1,0 +1,27 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-universal-cpp-implementation-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230817",
+  "date_close_extension": true,
+  "date_open": "20230704",
+  "points": 2,
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "automate",
+    "benchmark",
+    "cpp",
+    "mlperf-inference",
+    "mlperf-inference-cpp",
+    "mlperf-inference-cpp",
+    "mlperf-inference-cpp-v3.1",
+    "mlperf-inference-cpp-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Add more models and hardware backends to the universal C++ implementation of MLPerf inference benchmarks from MLCommons",
+  "trophies": true,
+  "uid": "518420b0e6dd4fed"
+}

@@ -1,0 +1,26 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-qualcomm-ai100-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20240104",
+  "date_open": "20230704",
+  "points":3,
+  "trophies":true,
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "automate",
+    "benchmark",
+    "ai100",
+    "mlperf-inference",
+    "mlperf-inference-ai100",
+    "mlperf-inference-ai100",
+    "mlperf-inference-ai100-v3.1",
+    "mlperf-inference-ai100-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Add the CM interface to run MLPerf inference benchmarks on Qualcomm AI100-based platforms",
+  "uid": "09bd5f9e05ff46b1"
+}

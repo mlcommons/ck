@@ -1,0 +1,27 @@
+alias: app-image-classification-tf-onnx-cpp
+automation_alias: script
+automation_uid: 5b4e0237da074764
+category: Modular AI/ML application pipeline
+default_env:
+  CM_BATCH_COUNT: '1'
+  CM_BATCH_SIZE: '1'
+deps:
+- tags: detect,os
+- tags: get,sys-utils-cm
+- tags: get,gcc
+- tags: get,dataset,image-classification,original
+- tags: get,dataset-aux,image-classification
+- tags: get,ml-model,raw,image-classification,resnet50,_onnx,_opset-11
+- tags: tensorflow,from-src
+  version: v2.0.0
+tags:
+- app
+- image-classification
+- tf
+- tensorflow
+- tf-onnx
+- tensorflow-onnx
+- onnx
+- cpp
+tags_help: app image-classification cpp tensorflow onnx
+uid: 879ed32e47074033

@@ -1,0 +1,55 @@
+alias: reproduce-ieee-acm-micro2023-paper-87
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: Reproducibility and artifact evaluation
+deps:
+- tags: detect,os
+- names:
+  - python
+  - python3
+  tags: get,python
+- tags: download-and-extract,_extract,_url.https://zenodo.org/record/8218698/files/Clockhands_Artifact_MICRO2023.tar?download=1
+  env:
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_ARTIFACT_CLOCKHANDS
+    CM_EXTRACT_FINAL_ENV_NAME: CM_ARTIFACT_CLOCKHANDS_EXTRACTED
+#    CM_DOWNLOAD_CHECKSUM: 
+  force_cache: true
+  extra_cache_tags: reproduce,paper,artifact,micro,clockhands
+tags:
+- reproduce
+- project
+- paper
+- m
+- micro
+- micro-2023
+- '2023'
+- '87'
+- clockhands
+- Clockhands
+uid: bd56037bf32c4b71
+variations:
+  install_deps:
+    script_name: install_deps
+  build_compiler:
+    script_name: build_compiler
+  create_binary:
+    script_name: create_binary
+  build_onikiri:
+    script_name: build_onikiri
+  experiment_setup:
+    script_name: experiment_setup
+  experiment:
+    script_name: experiment
+  plot:
+    script_name: plot
+  Preliminary_build_onikiri:
+    script_name: Preliminary_build_onikiri
+  Preliminary_create_binary:
+    script_name: Preliminary_create_binary
+  Preliminary_experiment_setup:
+    script_name: Preliminary_experiment_setup
+  Preliminary_experiment:
+    script_name: Preliminary_experiment
+  Preliminary_plot:
+    script_name: Preliminary_plot

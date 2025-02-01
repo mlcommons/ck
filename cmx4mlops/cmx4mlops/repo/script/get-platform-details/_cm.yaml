@@ -1,0 +1,62 @@
+alias: get-platform-details
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: Platform information
+deps:
+- tags: detect,os
+- skip_if_env:
+    CM_HOST_OS_TYPE:
+    - windows
+  tags: detect,sudo
+- skip_if_any_env:
+    CM_HOST_OS_TYPE:
+    - windows
+  skip_if_env:
+    CM_SUDO_USER:
+    - 'no'
+  tags: get,sys-util,generic,_psmisc
+- enable_if_env:
+    CM_HOST_OS_TYPE:
+    - linux
+  skip_if_env:
+    CM_SUDO_USER:
+    - 'no'
+  tags: get,sys-util,generic,_systemd
+- enable_if_env:
+    CM_HOST_OS_TYPE:
+    - linux
+  skip_if_env:
+    CM_SUDO_USER:
+    - 'no'
+  tags: get,sys-util,generic,_dmidecode
+input_mapping:
+  out_dir_path: CM_PLATFORM_DETAILS_DIR_PATH
+  out_file_name: CM_PLATFORM_DETAILS_FILE_NAME
+prehook_deps:
+- enable_if_env:
+    CM_HOST_OS_TYPE:
+    - linux
+    CM_INSTALL_NUMACTL:
+    - 'True'
+  skip_if_env:
+    CM_SUDO_USER:
+    - 'no'
+  tags: get,sys-util,generic,_numactl
+- enable_if_env:
+    CM_HOST_OS_TYPE:
+    - linux
+    CM_INSTALL_CPUPOWER:
+    - 'True'
+  env:
+    CM_TMP_FAIL_SAFE: 'yes'
+  skip_if_env:
+    CM_SUDO_USER:
+    - 'no'
+  tags: get,sys-util,generic,_linux-tools
+tags:
+- get
+- platform
+- details
+- platform-details
+uid: f0801943c17f4e48

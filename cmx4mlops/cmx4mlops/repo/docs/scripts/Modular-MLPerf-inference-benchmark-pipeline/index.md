@@ -1,0 +1,7 @@
+* [app-loadgen-generic-python](app-loadgen-generic-python/index.md)
+* [app-mlperf-inference](app-mlperf-inference/index.md)
+* [app-mlperf-inference-ctuning-cpp-tflite](app-mlperf-inference-ctuning-cpp-tflite/index.md)
+* [app-mlperf-inference-mlcommons-cpp](app-mlperf-inference-mlcommons-cpp/index.md)
+* [app-mlperf-inference-mlcommons-python](app-mlperf-inference-mlcommons-python/index.md)
+* [benchmark-program-mlperf](benchmark-program-mlperf/index.md)
+* [run-mlperf-inference-app](run-mlperf-inference-app/index.md)

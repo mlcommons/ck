@@ -1,0 +1,34 @@
+alias: convert-csv-to-md
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: DevOps automation
+deps:
+- names:
+  - python, python3
+  tags: get,python3
+- names:
+  - pandas
+  tags: get,generic-python-lib,_pandas
+  version_min: '1.0'
+- names:
+  - tabulate
+  tags: get,generic-python-lib,_package.tabulate
+docker_input_mapping: {}
+input_description: {}
+input_mapping:
+  csv_file: CM_CSV_FILE
+  md_file: CM_MD_FILE
+new_env_keys: []
+new_state_keys: []
+post_deps: []
+posthook_deps: []
+prehook_deps: []
+tags:
+- csv-to-md
+- convert
+- to-md
+- from-csv
+uid: 200a95b80bee4a25
+variations: {}
+versions: {}

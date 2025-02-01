@@ -1,0 +1,26 @@
+alias: get-cmake
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: Detection or installation of tools and artifacts
+deps:
+- tags: detect,cpu
+env:
+  CM_REQUIRE_INSTALL: 'no'
+new_env_keys:
+- CM_CMAKE_*
+- CM_MAKE_CORES
+- +PATH
+prehook_deps:
+- enable_if_env:
+    CM_REQUIRE_INSTALL:
+    - 'yes'
+  reuse_version: true
+  tags: install,cmake,prebuilt
+print_env_at_the_end:
+  CM_CMAKE_BIN_WITH_PATH: Path to the tool
+tags:
+- get
+- cmake
+- get-cmake
+uid: 52bf974d791b4fc8

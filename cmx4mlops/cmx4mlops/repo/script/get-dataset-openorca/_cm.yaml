@@ -1,0 +1,55 @@
+alias: get-dataset-openorca
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML datasets
+category_sort: 8500
+default_env:
+  CM_DATASET_CALIBRATION: 'no'
+deps:
+- env:
+    CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_DATASET_OPENORCA_PATH
+  extra_cache_tags: openorca,repo,src
+  force_env_keys:
+  - CM_GIT_*
+  names:
+  - openorca-src
+  tags: get,git,repo,_lfs,_repo.https://huggingface.co/datasets/Open-Orca/OpenOrca
+env:
+  CM_DATASET: OPENORCA
+new_env_keys:
+- CM_DATASET_*
+tags:
+- get
+- dataset
+- openorca
+- language-processing
+- original
+uid: 9252c4d90d5940b7
+variations:
+  '500':
+    env:
+      CM_DATASET_SIZE: '500'
+    group: size
+  '60':
+    env:
+      CM_DATASET_SIZE: '60'
+    group: size
+  calibration:
+    env:
+      CM_DATASET_CALIBRATION: 'yes'
+    group: dataset-type
+  full:
+    default: true
+    env:
+      CM_DATASET_SIZE: '24576'
+    group: size
+  size.#:
+    env:
+      CM_DATASET_SIZE: '#'
+    group: size
+  validation:
+    default: true
+    env:
+      CM_DATASET_CALIBRATION: 'no'
+    group: dataset-type

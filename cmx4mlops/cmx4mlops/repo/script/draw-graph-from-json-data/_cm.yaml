@@ -1,0 +1,21 @@
+alias: draw-graph-from-json-data
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+tags:
+- draw
+- graph
+- from-json
+- from-json-data
+uid: 2ed1ebcb6be548fd
+input_mapping:
+  input: CM_JSON_INPUT_FILE
+  json_input_file: CM_JSON_INPUT_FILE
+  output_image_path: CM_OUTPUT_IMAGE_PATH
+deps:
+  - tags: get,python3
+    names:
+      - python
+      - python3
+  - tags: get,generic-python-lib,_package.networkx
+  - tags: get,generic-python-lib,_package.matplotlib

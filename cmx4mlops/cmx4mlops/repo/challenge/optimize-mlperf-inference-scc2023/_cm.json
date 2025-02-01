@@ -1,0 +1,20 @@
+{
+  "alias": "optimize-mlperf-inference-scc2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20231115",
+  "date_open": "20230915",
+  "tags": [
+    "automate",
+    "modularize",
+    "reproduce",
+    "replicate",
+    "benchmark",
+    "mlperf",
+    "mlperf-inference",
+    "mlperf-inference-scc",
+    "mlperf-inference-scc-2023"
+  ],
+  "title": "Reproduce and optimize MLPerf inference v3.1 benchmarks at the Student Cluster Competition'23 at SuperComputing'23 using CM",
+  "uid": "ddaf594f84b14bc2"
+}

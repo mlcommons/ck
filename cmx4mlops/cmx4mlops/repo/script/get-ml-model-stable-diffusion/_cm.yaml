@@ -1,0 +1,129 @@
+alias: get-ml-model-stable-diffusion
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML models
+env:
+  CM_ML_MODEL: SDXL
+  CM_ML_MODEL_DATASET: openorca
+  CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: 'no'
+input_mapping:
+  checkpoint: SDXL_CHECKPOINT_PATH
+  download_path: CM_DOWNLOAD_PATH
+  to: CM_DOWNLOAD_PATH
+new_env_keys:
+- CM_ML_MODEL_*
+- SDXL_CHECKPOINT_PATH
+prehook_deps:
+- enable_if_env:
+    CM_DOWNLOAD_TOOL:
+    - git
+    CM_TMP_REQUIRE_DOWNLOAD:
+    - 'yes'
+  env:
+    CM_GIT_CHECKOUT_FOLDER: stable-diffusion-xl-base-1.0
+    CM_MODEL_ZOO_ENV_KEY: SDXL
+  force_env_keys:
+  - CM_GIT_CHECKOUT_FOLDER
+  names:
+  - hf-zoo
+  tags: get,ml-model,huggingface,zoo,_clone-repo,_model-stub.stabilityai/stable-diffusion-xl-base-1.0
+- enable_if_env:
+    CM_DOWNLOAD_TOOL:
+    - rclone
+    CM_TMP_REQUIRE_DOWNLOAD:
+    - 'yes'
+  env:
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_ML_MODEL_PATH
+  extra_cache_tags: stable-diffusion,sdxl,model
+  force_cache: true
+  names:
+  - dae
+  tags: download-and-extract
+  update_tags_from_env_with_prefix:
+    _url.:
+    - CM_DOWNLOAD_URL
+print_env_at_the_end:
+  SDXL_CHECKPOINT_PATH: Stable diffusion checkpoint path
+tags:
+- get
+- raw
+- ml-model
+- stable-diffusion
+- sdxl
+- text-to-image
+uid: 22c6516b2d4d4c23
+variations:
+  batch_size.#:
+    env:
+      CM_ML_MODEL_BATCH_SIZE: '#'
+  fp16:
+    env:
+      CM_ML_MODEL_INPUT_DATA_TYPES: fp16
+      CM_ML_MODEL_PRECISION: fp16
+      CM_ML_MODEL_WEIGHT_DATA_TYPES: fp16
+    group: precision
+  fp32:
+    default: true
+    env:
+      CM_ML_MODEL_INPUT_DATA_TYPES: fp32
+      CM_ML_MODEL_PRECISION: fp32
+      CM_ML_MODEL_WEIGHT_DATA_TYPES: fp32
+    group: precision
+  git:
+    env:
+      CM_DOWNLOAD_TOOL: git
+    group: download-tool
+  huggingface:
+    default_variations:
+      download-tool: git
+    group: download-source
+  int8:
+    env:
+      CM_ML_MODEL_INPUT_DATA_TYPES: int8
+      CM_ML_MODEL_PRECISION: int8
+      CM_ML_MODEL_WEIGHT_DATA_TYPES: int8
+    group: precision
+  mlcommons:
+    default: true
+    default_variations:
+      download-tool: rclone
+    group: download-source
+  pytorch:
+    default: true
+    env:
+      CM_ML_MODEL_FRAMEWORK: pytorch
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://github.com/mlcommons/inference/tree/master/text_to_image#download-model
+    group: framework
+  pytorch,fp16:
+    required_disk_space: 6500
+  pytorch,fp32:
+    env: {}
+    required_disk_space: 13000
+  rclone:
+    adr:
+      dae:
+        tags: _rclone
+    env:
+      CM_DOWNLOAD_TOOL: rclone
+      CM_RCLONE_CONFIG_NAME: mlc-inference
+    group: download-tool
+  rclone,fp16:
+    env:
+      CM_DOWNLOAD_URL: mlc-inference:mlcommons-inference-wg-public/stable_diffusion_fp16
+  rclone,fp32:
+    env:
+      CM_DOWNLOAD_URL: mlc-inference:mlcommons-inference-wg-public/stable_diffusion_fp32
+  uint8:
+    env:
+      CM_ML_MODEL_INPUT_DATA_TYPES: uint8
+      CM_ML_MODEL_PRECISION: uint8
+      CM_ML_MODEL_WEIGHT_DATA_TYPES: uint8
+    group: precision
+  wget:
+    adr:
+      dae:
+        tags: _wget
+    env:
+      CM_DOWNLOAD_TOOL: wget
+    group: download-tool

@@ -1,0 +1,31 @@
+alias: test-cm-scripts
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+tags:
+- test
+- test-scripts
+- cm-test
+env:
+  CM_VAR1: orig
+const:
+  CM_CVAR1: orig
+new_env_keys:
+  - CM_VAR*
+  - CM_CVAR*
+
+uid: 6fbe3884575c4e51
+variations:
+  v1:
+    env:
+      CM_VAR1: v1
+  v2:
+    env:
+      CM_VAR1: v2
+      CM_VAR2: v2
+    const:
+      CM_VAR2: constv2
+  v1,v2:
+    env:
+      CM_VAR1: combv1v2
+      CM_VAR2: combv1v2

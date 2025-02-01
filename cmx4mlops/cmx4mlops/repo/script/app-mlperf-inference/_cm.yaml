@@ -1,0 +1,1787 @@
+# Identification of this CM script
+alias: app-mlperf-inference
+uid: d775cac873ee4231
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular MLPerf inference benchmark pipeline"
+
+developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Grigori Fursin](https://cKnowledge.org/gfursin)"
+
+# User-friendly tags to find this CM script
+tags:
+  - app
+  - vision
+  - language
+  - mlcommons
+  - mlperf
+  - inference
+  - generic
+
+# Default environment
+default_env:
+  CM_MLPERF_LOADGEN_MODE: accuracy
+  CM_MLPERF_LOADGEN_SCENARIO: Offline
+  CM_OUTPUT_FOLDER_NAME: test_results
+  CM_MLPERF_RUN_STYLE: test
+  CM_TEST_QUERY_COUNT: '10'
+  CM_MLPERF_QUANTIZATION: off
+  CM_GET_PLATFORM_DETAILS: yes
+
+env:
+  CM_MLPERF_PRINT_SUMMARY: "no"
+  CM_MLPERF_MODEL_EQUAL_ISSUE_MODE: 'no'
+
+# Map script inputs to environment variables
+input_mapping:
+  count: CM_MLPERF_LOADGEN_QUERY_COUNT
+  docker: CM_RUN_DOCKER_CONTAINER
+  hw_name: CM_HW_NAME
+  imagenet_path: IMAGENET_PATH
+  max_batchsize: CM_MLPERF_LOADGEN_MAX_BATCHSIZE
+  mode: CM_MLPERF_LOADGEN_MODE
+  num_threads: CM_NUM_THREADS
+  output_dir: OUTPUT_BASE_DIR
+  power: CM_MLPERF_POWER
+  power_server: CM_MLPERF_POWER_SERVER_ADDRESS
+  ntp_server: CM_MLPERF_POWER_NTP_SERVER
+  max_amps: CM_MLPERF_POWER_MAX_AMPS
+  max_volts: CM_MLPERF_POWER_MAX_VOLTS
+  regenerate_files: CM_REGENERATE_MEASURE_FILES
+  rerun: CM_RERUN
+  scenario: CM_MLPERF_LOADGEN_SCENARIO
+  test_query_count: CM_TEST_QUERY_COUNT
+  clean: CM_MLPERF_CLEAN_SUBMISSION_DIR
+  target_qps: CM_MLPERF_LOADGEN_TARGET_QPS
+  target_latency: CM_MLPERF_LOADGEN_TARGET_LATENCY
+  offline_target_qps: CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS
+  server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
+  singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
+  multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
+  readme: CM_MLPERF_README
+  debug: CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM
+  gpu_name: CM_NVIDIA_GPU_NAME
+  nvidia_llama2_dataset_file_path: CM_NVIDIA_LLAMA_DATASET_FILE_PATH
+  tp_size: CM_NVIDIA_TP_SIZE
+  use_dataset_from_host: CM_USE_DATASET_FROM_HOST
+
+# Duplicate CM environment variables to the ones used in native apps
+env_key_mappings:
+  CM_HOST_: HOST_
+  CM_ML_: ML_
+  CM_MLPERF_TVM: MLPERF_TVM
+
+# Env keys which are exposed to higher level scripts
+new_env_keys:
+  - CM_MLPERF_*
+
+new_state_keys:
+  - app_mlperf_inference_*
+  - cm-mlperf-inference-results*
+
+# Dependencies on other CM scripts
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+  # Detect/install python
+  - tags: get,python
+    names:
+    - python
+    - python3
+
+
+  ########################################################################
+  # Install MLPerf inference dependencies
+
+  # Download MLPerf inference source
+  - tags: get,mlcommons,inference,src
+    names:
+    - inference-src
+  - tags: pull,git,repo
+    env:
+      CM_GIT_CHECKOUT_PATH: '<<<CM_MLPERF_INFERENCE_SOURCE>>>'
+    enable_if_env:
+      CM_MLPERF_INFERENCE_PULL_SRC_CHANGES:
+      - 'yes'
+  - tags: get,mlperf,inference,utils
+
+  - tags: install,pip-package,for-cmind-python,_package.pandas
+    enable_if_env:
+      CM_PROFILE_NVIDIA_POWER:
+        - on
+
+posthook_deps:
+  - tags: get,mlperf,sut,description #populate system meta information like framework
+  - tags: get,platform,details
+    enable_if_any_env:
+      CM_GET_PLATFORM_DETAILS:
+        - yes
+    skip_if_env:
+      CM_MLPERF_LOADGEN_MODE:
+      - accuracy
+    env: 
+      CM_PLATFORM_DETAILS_FILE_PATH: '<<<CM_MLPERF_OUTPUT_DIR>>>/system_info.txt'
+
+post_deps:
+  - tags: draw,graph,from-json
+    enable_if_env:
+      CM_MLPERF_RUN_JSON_VERSION_INFO_FILE:
+        - on
+    env:
+      CM_JSON_INPUT_FILE: <<<CM_MLPERF_RUN_JSON_VERSION_INFO_FILE>>>
+      CM_OUTPUT_IMAGE_PATH: <<<CM_MLPERF_RUN_DEPS_GRAPH>>>
+      CM_OUTPUT_MERMAID_PATH: <<<CM_MLPERF_RUN_DEPS_MERMAID>>>
+
+# Order of variations for documentation
+variation_groups_order:
+  - implementation
+  - backend
+  - device
+  - model
+  - precision
+  - execution-mode
+  - reproducibility
+
+# Variations to customize dependencies
+variations:
+  # Implementation (cpp, reference/python, nvidia, tflite-cpp)
+  cpp:
+    group:
+      implementation
+    add_deps_recursive:
+      imagenet-accuracy-script:
+        tags: _int64
+    env:
+      CM_MLPERF_CPP: 'yes'
+      CM_MLPERF_IMPLEMENTATION: mlcommons_cpp
+      CM_IMAGENET_ACCURACY_DTYPE: float32
+      CM_OPENIMAGES_ACCURACY_DTYPE: float32
+    prehook_deps:
+      - names:
+         - cpp-mlperf-inference
+         - mlperf-inference-implementation
+        tags: app,mlperf,cpp,inference
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+
+  mil:
+    alias: cpp
+
+  mlcommons-cpp:
+    alias: cpp
+
+  ctuning-cpp-tflite:
+    alias: tflite-cpp
+
+  tflite-cpp:
+    default_variations:
+      backend: tflite
+      device: cpu
+    group:
+      implementation
+    add_deps_recursive:
+      imagenet-accuracy-script:
+        tags: _float32
+    env:
+      CM_MLPERF_TFLITE_CPP: 'yes'
+      CM_MLPERF_CPP: 'yes'
+      CM_MLPERF_IMPLEMENTATION: ctuning_cpp_tflite
+      CM_IMAGENET_ACCURACY_DTYPE: float32
+    prehook_deps:
+      - names:
+         - tflite-cpp-mlperf-inference
+         - mlperf-inference-implementation
+        tags: app,mlperf,tflite-cpp,inference
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+
+  reference:
+    group:
+      implementation
+    default:
+      true
+    default_variations:
+      reproducibility: r4.1-dev_default
+    add_deps_recursive:
+      imagenet-accuracy-script:
+        tags: _float32
+      squad-accuracy-script:
+        tags: _float32
+      librispeech-accuracy-script:
+        tags: _int32
+      cnndm-accuracy-script:
+        tags: _int32
+    env:
+      CM_MLPERF_PYTHON: 'yes'
+      CM_MLPERF_IMPLEMENTATION: mlcommons_python
+      CM_SQUAD_ACCURACY_DTYPE: float32
+      CM_IMAGENET_ACCURACY_DTYPE: float32
+      CM_OPENIMAGES_ACCURACY_DTYPE: float32
+      CM_LIBRISPEECH_ACCURACY_DTYPE: float32
+      CM_CNNDM_ACCURACY_DTYPE: int32
+    prehook_deps:
+      - names:
+         - python-reference-mlperf-inference
+         - mlperf-inference-implementation
+        tags: app,mlperf,reference,inference
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+
+  neuralmagic:
+    alias: reference
+    
+  all-models: {}
+
+  python:
+    alias: reference
+  
+  nvidia:
+    alias: nvidia-original
+
+  mlcommons-python:
+    alias: reference
+
+  reference,gptj_:
+    default_variations:
+      backend: pytorch
+
+  reference,rgat:
+    default_variations:
+      backend: pytorch
+
+  reference,sdxl_:
+    default_variations:
+      backend: pytorch
+
+  reference,dlrm-v2_:
+    default_variations:
+      backend: pytorch
+
+  reference,llama2-70b_:
+    default_variations:
+      backend: pytorch
+  
+  reference,mixtral-8x7b:
+    default_variations:
+      backend: pytorch
+
+  reference,resnet50:
+    default_variations:
+      backend: onnxruntime
+
+  reference,retinanet:
+    default_variations:
+      backend: onnxruntime
+
+  reference,bert_:
+    default_variations:
+      backend: onnxruntime
+
+  all-models,nvidia-original:
+    docker:
+      deps:
+        - tags: get,ml-model,gptj,raw
+          skip_if_env:
+            CM_MLPERF_NVIDIA_SKIP_GPTJ:
+              - "yes"
+        - tags: get,ml-model,gptj,_nvidia,_fp8
+          skip_if_env:
+            CM_MLPERF_NVIDIA_SKIP_GPTJ:
+              - "yes"
+        - tags: get,ml-model,llama2-70b,_nvidia,_fp8
+          update_tags_from_env_with_prefix:
+            _tp-size.:
+              - CM_NVIDIA_TP_SIZE
+          skip_if_env:
+            CM_MLPERF_NVIDIA_SKIP_LLAMA2_70B:
+              - "yes"
+        - tags: get,dataset,imagenet,validation,original,_full
+          names:
+            - imagenet-original
+            - dataset-original
+          skip_if_env:
+            CM_MLPERF_NVIDIA_SKIP_RESNET50:
+              - "yes"
+        - tags: get,dlrm,data,mlperf,inference,_nvidia
+          skip_if_env:
+            CM_MLPERF_NVIDIA_SKIP_DLRM:
+              - "yes"
+        - enable_if_env:
+            CM_MLPERF_MODEL_SDXL_DOWNLOAD_TO_HOST:
+            - 'yes'
+          tags: get,ml-model,sdxl,_fp16,_rclone
+          skip_if_env:
+            CM_MLPERF_NVIDIA_SKIP_SDXL:
+              - "yes"
+      env:
+        BUILD_TRTLLM: 1
+
+  nvidia-original,r4.1-dev_default:
+    docker:
+      build_deps:
+        - tags: detect,os
+      image_name: mlperf-inference-nvidia-v4.1-dev-common
+    update_meta_if_env:
+      - enable_if_env:
+          CM_HOST_PLATFORM_FLAVOR:
+            - x86_64
+        docker:
+          base_image: nvcr.io/nvidia/mlperf/mlperf-inference:mlpinf-v4.0-cuda12.2-cudnn8.9-x86_64-ubuntu20.04-public
+
+      - skip_if_env:
+          CM_HOST_PLATFORM_FLAVOR:
+            - x86_64
+        docker:
+          base_image: nvcr.io/nvidia/mlperf/mlperf-inference:mlpinf-v4.1-cuda12.4-pytorch24.04-ubuntu22.04-aarch64-GraceHopper-release
+
+
+
+  nvidia-original,gptj_:
+    env:
+      BUILD_TRTLLM: 1
+
+  nvidia-original,llama2-70b_:
+    env:
+      BUILD_TRTLLM: 1
+
+  nvidia-original,mixtral-8x7b:
+    env:
+      BUILD_TRTLLM: 1
+
+  nvidia-original,r4.1-dev_default,gptj_:
+    docker:
+      image_name: mlperf-inference-nvidia-v4.1-dev-llm
+      deps:
+        - tags: get,ml-model,gptj,_nvidia,_fp8
+          update_tags_from_env_with_prefix:
+            _tp-size.:
+              - CM_NVIDIA_TP_SIZE
+
+  nvidia-original,r4.1_default:
+    docker:
+      base_image: nvcr.io/nvidia/mlperf/mlperf-inference:mlpinf-v4.1-cuda12.4-pytorch24.04-ubuntu22.04-x86_64-release
+
+  nvidia-original,r4.1_default,gptj_:
+    docker:
+      deps:
+        - tags: get,ml-model,gptj,_nvidia,_fp8
+          update_tags_from_env_with_prefix:
+            _tp-size.:
+              - CM_NVIDIA_TP_SIZE
+        
+  
+  nvidia-original,r4.1-dev_default,llama2-70b_:
+    docker:
+      image_name: mlperf-inference-nvidia-v4.1-dev-llm
+      deps:
+        - tags: get,ml-model,llama2-70b,_nvidia,_fp8
+          update_tags_from_env_with_prefix:
+            _tp-size.:
+              - CM_NVIDIA_TP_SIZE
+    env:
+      BUILD_TRTLLM: 1
+
+  nvidia-original,r4.1_default,llama2-70b_:
+    docker:
+      deps:
+        - tags: get,ml-model,llama2-70b,_nvidia,_fp8
+          update_tags_from_env_with_prefix:
+            _tp-size.:
+              - CM_NVIDIA_TP_SIZE
+    env:
+      BUILD_TRTLLM: 1
+
+  nvidia-original:
+    docker:
+      interactive: True
+      extra_run_args: ' --ulimit memlock=-1 --cap-add SYS_ADMIN --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
+      base_image: nvcr.io/nvidia/mlperf/mlperf-inference:mlpinf-v3.1-cuda12.2-cudnn8.9-x86_64-ubuntu20.04-l4-public
+      os: "ubuntu"
+      os_version: "20.04"
+      deps:
+        - tags: get,mlperf,inference,nvidia,scratch,space
+          names:
+            - mlperf-inference-nvidia-scratch-space
+        - tags: get,nvidia-docker
+          skip_if_env:
+            CM_SKIP_GET_NVIDIA_DOCKER:
+              - yes
+      mounts:
+        - "${{ CM_CUDNN_TAR_FILE_PATH }}:${{ CM_CUDNN_TAR_FILE_PATH }}"
+        - "${{ CM_TENSORRT_TAR_FILE_PATH }}:${{ CM_TENSORRT_TAR_FILE_PATH }}"
+        - "${{ CUDA_RUN_FILE_LOCAL_PATH }}:${{ CUDA_RUN_FILE_LOCAL_PATH }}"
+        - "${{ MLPERF_SCRATCH_PATH }}:${{ MLPERF_SCRATCH_PATH }}"
+ 
+    update_meta_if_env:
+      - enable_if_env:
+         CM_HOST_OS_FLAVOR: 
+           - ubuntu
+         CM_HOST_OS_VERSION:
+           - 20.04
+        docker:
+          extra_run_args: ' --runtime=nvidia --ulimit memlock=-1 --cap-add SYS_ADMIN --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
+
+    default_variations:
+      backend: tensorrt
+      device: cuda
+      reproducibility: r4.1-dev_default
+    group:
+      implementation
+    add_deps_recursive:
+      imagenet-accuracy-script:
+        tags: _int32
+      squad-accuracy-script:
+        tags: _float16
+      librispeech-accuracy-script:
+        tags: _int8
+      cnndm-accuracy-script:
+        tags: _int32
+    env:
+      BUILD_TRTLLM: 0
+      CM_MLPERF_IMPLEMENTATION: nvidia
+      CM_SQUAD_ACCURACY_DTYPE: float16
+      CM_IMAGENET_ACCURACY_DTYPE: int32
+      CM_CNNDM_ACCURACY_DTYPE: int32
+      CM_LIBRISPEECH_ACCURACY_DTYPE: int8
+      CM_DOCKER_USE_VIRTUAL_PYTHON: no
+    prehook_deps:
+      - names:
+         - nvidia-original-mlperf-inference
+         - nvidia-harness
+         - mlperf-inference-implementation
+        tags: reproduce,mlperf,nvidia,inference,_run_harness
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+        update_tags_from_env_with_prefix:
+          "_gpu_memory." :
+            - CM_NVIDIA_GPU_MEMORY
+        update_tags_from_env:
+          - CM_NVIDIA_HARNESS_GPU_VARIATION
+
+  intel:
+    alias: intel-original
+
+  intel-original:
+    group:
+      implementation
+    docker:
+      interactive: True
+      extra_run_args: ' --privileged'
+      mounts:
+      - "${{ CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH }}:${{ CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH }}"
+      - "${{ GPTJ_CHECKPOINT_PATH }}:${{ GPTJ_CHECKPOINT_PATH }}"
+      skip_run_cmd: 'no'
+      shm_size: '32gb'
+      os: ubuntu
+      real_run: false
+      run: true
+      docker_input_mapping:
+        criteo_preprocessed_path: CRITEO_PREPROCESSED_PATH
+        dlrm_data_path: DLRM_DATA_PATH
+        intel_gptj_int8_model_path: CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH
+    default_variations:
+      device: cpu
+      backend: pytorch
+      reproducibility: r4.1-dev_default
+    prehook_deps:
+      - names:
+         - intel
+         - intel-harness
+         - mlperf-inference-implementation
+        tags: reproduce,mlperf,inference,intel
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+    env:
+      CM_MLPERF_IMPLEMENTATION: intel
+
+  intel-original,gptj_:
+    adr:
+      cnndm-accuracy-script:
+        tags: _int32
+
+  amd,r4.1_default:
+    docker:
+      base_image: rocm/pytorch:rocm6.1.2_ubuntu20.04_py3.9_pytorch_staging
+      extra_run_args: ' --device=/dev/kfd --device=/dev/dri --device=/dev/mem'
+
+  amd:
+    group:
+      implementation
+    docker:
+      interactive: True
+      extra_run_args: ' --privileged'
+      mounts:
+      - "${{ LLAMA2_CHECKPOINT_PATH }}:${{ LLAMA2_CHECKPOINT_PATH }}"
+      - "${{ GPTJ_CHECKPOINT_PATH }}:${{ GPTJ_CHECKPOINT_PATH }}"
+      skip_run_cmd: 'no'
+      shm_size: '32gb'
+      os: ubuntu
+      real_run: false
+      run: true
+    default_variations:
+      device: cpu
+      backend: pytorch
+      reproducibility: r4.1-dev_default
+    prehook_deps:
+      - names:
+         - amd
+         - amd-harness
+         - mlperf-inference-implementation
+        tags: reproduce,mlperf,inference,amd
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+    env:
+      CM_MLPERF_IMPLEMENTATION: amd
+
+  redhat:
+    group:
+      implementation
+    default_variations:
+      device: cuda
+      backend: openshift
+      reproducibility: r4.1-dev_default
+    prehook_deps:
+      - names:
+         - redhat
+         - redhat-harness
+         - mlperf-inference-implementation
+        tags: reproduce,mlperf,inference,redhat
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+    env:
+      CM_MLPERF_IMPLEMENTATION: redhat
+    docker:
+      interactive: True
+
+  qualcomm:
+    alias: kilt
+
+  kilt:
+    group:
+      implementation
+    default_variations:
+      device: qaic
+      backend: glow
+      reproducibility: r4.1-dev_default
+    prehook_deps:
+      - names:
+         - kilt
+         - kilt-harness
+         - mlperf-inference-implementation
+        tags: reproduce,mlperf,inference,kilt
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+    env:
+      CM_MLPERF_IMPLEMENTATION: qualcomm
+    docker:
+      interactive: True
+
+  kilt,qaic,resnet50:
+    default_variations:
+      precision: uint8
+
+  kilt,qaic,retinanet:
+    default_variations:
+      precision: uint8
+
+  kilt,qaic,bert-99:
+    default_variations:
+      precision: uint8
+
+  kilt,qaic,bert-99.9:
+    default_variations:
+      precision: float16
+
+  intel-original,resnet50:
+    default_variations:
+      precision: int8
+    add_deps_recursive:
+      imagenet-accuracy-script:
+        tags: _int32
+
+  intel-original,retinanet:
+    default_variations:
+      precision: int8
+
+  intel-original,bert-99:
+    default_variations:
+      precision: int8
+
+  intel-original,bert-99.9:
+    default_variations:
+      precision: int8
+
+  intel-original,gptj-99:
+    default_variations:
+      precision: int4
+
+  intel-original,gptj-99.9:
+    default_variations:
+      precision: bfloat16
+
+  resnet50:
+    group:
+      model
+    default:
+      true
+    env:
+      CM_MODEL:
+        resnet50
+    deps:
+    - tags: get,dataset-aux,imagenet-aux
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _resnet50
+    posthook_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - mlperf-accuracy-script
+      - imagenet-accuracy-script
+      tags: run,accuracy,mlperf,_imagenet
+    docker:
+      deps:
+      - tags: get,dataset,imagenet,validation,original,_full
+        enable_if_env:
+          CM_USE_DATASET_FROM_HOST:
+          - 'yes'
+        names:
+          - imagenet-original
+          - dataset-original
+
+  retinanet:
+    group:
+      model
+    env:
+      CM_MODEL:
+        retinanet
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _retinanet
+    posthook_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - mlperf-accuracy-script
+      - openimages-accuracy-script
+      tags: run,accuracy,mlperf,_openimages
+
+    docker:
+      deps:
+      - names:
+        - openimages-original
+        enable_if_env:
+          CM_USE_DATASET_FROM_HOST:
+          - 'yes'
+        tags: get,dataset,original,openimages,_validation,_full,_custom-annotations
+      - names:
+        - openimages-calibration
+        enable_if_env:
+          CM_USE_DATASET_FROM_HOST:
+          - 'yes'
+        tags: get,dataset,original,openimages,_calibration
+
+  3d-unet-99:
+    group:
+      model
+    base:
+    - 3d-unet_
+    env:
+      CM_MODEL:
+        3d-unet-99
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _3d-unet-99
+
+  3d-unet-99.9:
+    group:
+      model
+    base:
+    - 3d-unet_
+    env:
+      CM_MODEL:
+        3d-unet-99.9
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _3d-unet-99.9
+
+  3d-unet_:
+    default_env:
+      CM_MLPERF_INFERENCE_TEST_QPS: "0.01"
+    env:
+      CM_MLPERF_MODEL_EQUAL_ISSUE_MODE: 'yes'
+    posthook_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      skip_if_env:
+        CM_MLPERF_IMPLEMENTATION:
+        - nvidia
+      names:
+      - mlperf-accuracy-script
+      - 3d-unet-accuracy-script
+      tags: run,accuracy,mlperf,_kits19,_int8
+
+  3d-unet_,reference:
+    docker:
+      image_name: mlperf-inference-mlcommons-python-implementation-3d-unet
+      deps:
+        - enable_if_env:
+            CM_MLPERF_DATASET_3DUNET_DOWNLOAD_TO_HOST:
+            - 'yes'
+          tags: get,dataset,kits19,preprocessed
+
+  rgat:
+    group:
+      model
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _rgat
+    env:
+      CM_MODEL:
+        rgat
+
+  sdxl:
+    group:
+      model
+    env:
+      CM_MODEL: stable-diffusion-xl
+      CM_MLPERF_INFERENCE_TEST_QPS: "0.05"
+    default_variations:
+      precision: float32
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _sdxl
+    posthook_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - mlperf-accuracy-script
+      - coco2014-accuracy-script
+      tags: run,accuracy,mlperf,_coco2014
+
+  sdxl,nvidia-original:
+    docker:
+      deps:
+        - enable_if_any_env:
+            CM_MLPERF_MODEL_SDXL_DOWNLOAD_TO_HOST:
+            - 'yes'
+            CM_USE_MODEL_FROM_HOST:
+            - 'yes'
+          tags: get,ml-model,sdxl,_fp16,_rclone
+
+  sdxl,reference,float16:
+    docker:
+      image_name: mlperf-inference-mlcommons-python-implementation-sdxl-float16
+      deps:
+        - enable_if_any_env:
+            CM_MLPERF_MODEL_SDXL_DOWNLOAD_TO_HOST:
+            - 'yes'
+            CM_USE_MODEL_FROM_HOST:
+            - 'yes'
+          tags: get,ml-model,sdxl,_fp16,_rclone
+
+  sdxl,reference,bfloat16:
+    docker:
+      image_name: mlperf-inference-mlcommons-python-implementation-sdxl-bfloat16
+      deps:
+        - enable_if_any_env:
+            CM_MLPERF_MODEL_SDXL_DOWNLOAD_TO_HOST:
+            - 'yes'
+            CM_USE_MODEL_FROM_HOST:
+            - 'yes'
+          tags: get,ml-model,sdxl,_fp16,_rclone
+
+  sdxl,reference,float32:
+    docker:
+      image_name: mlperf-inference-mlcommons-python-implementation-sdxl-float32
+      deps:
+        - enable_if_any_env:
+            CM_MLPERF_MODEL_SDXL_DOWNLOAD_TO_HOST:
+            - 'yes'
+            CM_USE_MODEL_FROM_HOST:
+            - 'yes'
+          tags: get,ml-model,sdxl,_fp32,_rclone
+
+  llama2-70b_:
+    default_env:
+      CM_MLPERF_INFERENCE_TEST_QPS: "0.01"
+    env:
+      CM_MLPERF_MODEL_EQUAL_ISSUE_MODE: 'yes'
+    posthook_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      skip_if_env:
+        CM_MLPERF_IMPLEMENTATION:
+        - nvidia
+      names:
+      - mlperf-accuracy-script
+      - open-orca-accuracy-script
+      tags: run,accuracy,mlperf,_open-orca,_int32
+
+  llama2-70b-99:
+    group:
+      model
+    base:
+    - llama2-70b_
+    env:
+      CM_MODEL:
+        llama2-70b-99
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _llama2-70b-99
+
+  llama2-70b-99.9:
+    group:
+      model
+    base:
+    - llama2-70b_
+    env:
+      CM_MODEL:
+        llama2-70b-99.9
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _llama2-70b-99.9
+
+  llama2-70b_,reference:
+    docker:
+      image_name: mlperf-inference-mlcommons-python-implementation-llama2-70b
+      deps:
+        - enable_if_any_env:
+            CM_MLPERF_MODEL_LLAMA2_70B_DOWNLOAD_TO_HOST:
+            - 'yes'
+            CM_USE_MODEL_FROM_HOST:
+            - 'yes'
+          tags: get,ml-model,llama2
+
+  llama2-70b_,amd:
+    docker:
+      image_name: mlperf-inference-amd-python-implementation-llama2-70b
+      mounts:
+        - "${{ CM_LLAMA2_FINAL_SAFE_TENSORS_PATH }}:${{ CM_LLAMA2_FINAL_SAFE_TENSORS_PATH }"
+      deps:
+        - enable_if_any_env:
+            CM_MLPERF_MODEL_LLAMA2_70B_DOWNLOAD_TO_HOST:
+            - 'yes'
+            CM_USE_MODEL_FROM_HOST:
+            - 'yes'
+          tags: get,ml-model,llama2,_amd,_pytorch
+  
+  mixtral-8x7b:
+    group:
+      model
+    base:
+    - mixtral-8x7b
+    env:
+      CM_MODEL:
+        mixtral-8x7b
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _mixtral-8x7b
+    env:
+      CM_MLPERF_MODEL_EQUAL_ISSUE_MODE: 'yes'
+    posthook_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      skip_if_env:
+        CM_MLPERF_IMPLEMENTATION:
+        - nvidia
+      names:
+      - mlperf-accuracy-script
+      - openorca-gsm8k-mbxp-combined-accuracy-script
+      tags: run,accuracy,mlperf,_openorca-gsm8k-mbxp,_int32
+
+  mixtral-8x7b,reference:
+    docker:
+      image_name: mlperf-inference-mlcommons-python-implementation-mixtral-8x7b
+      deps:
+        - tags: get,ml-model,mixtral
+          names:
+          - ml-model
+          - mixtral-model
+          enable_if_any_env:
+            CM_MLPERF_MODEL_MIXTRAL_8X7B_DOWNLOAD_TO_HOST:
+            - 'yes'
+            CM_USE_MODEL_FROM_HOST:
+            - 'yes'
+        - tags: get,dataset-mixtral,openorca-mbxp-gsm8k-combined
+          names:
+          - openorca-mbxp-gsm8k-combined-preprocessed
+          enable_if_env:
+            CM_MLPERF_DATASET_MIXTRAL_8X7B_DOWNLOAD_TO_HOST:
+            - 'yes'
+      mounts:
+        - "${{ MIXTRAL_CHECKPOINT_PATH }}:${{ MIXTRAL_CHECKPOINT_PATH }}"
+        - "${{ CM_DATASET_MIXTRAL_PREPROCESSED_PATH }}:${{ CM_DATASET_MIXTRAL_PREPROCESSED_PATH }}"
+
+  rnnt:
+    group:
+      model
+    env:
+      CM_MODEL:
+        rnnt
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _rnnt
+    posthook_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      skip_if_env:
+        CM_MLPERF_IMPLEMENTATION:
+        - nvidia
+      names:
+      - mlperf-accuracy-script
+      - librispeech-accuracy-script
+      tags: run,accuracy,mlperf,_librispeech
+
+  rnnt,reference:
+    env:
+      CM_MLPERF_PRINT_SUMMARY: "no"
+
+  gptj-99:
+    group:
+      model
+    base:
+    - gptj_
+    env:
+      CM_MODEL:
+        gptj-99
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _gptj-99
+
+  gptj-99.9:
+    group:
+      model
+    base:
+    - gptj_
+    env:
+      CM_MODEL:
+        gptj-99.9
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _gptj-99.9
+
+  gptj:
+    alias: gptj_
+
+  gptj_:
+    docker:
+      deps:
+      - tags: get,ml-model,gptj,raw
+    env:
+      CM_MLPERF_MODEL_EQUAL_ISSUE_MODE: 'yes'
+    posthook_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - cnndm-accuracy-script
+      - mlperf-accuracy-script
+      tags: run,accuracy,mlperf,_cnndm
+
+  bert_:
+    deps:
+    - skip_if_env:
+        CM_DATASET_SQUAD_VAL_PATH: "on"
+      tags: get,dataset,squad,language-processing
+    - skip_if_env:
+        CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH: "on"
+      tags: get,dataset-aux,squad-vocab
+    posthook_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - squad-accuracy-script
+      - mlperf-accuracy-script
+      tags: run,accuracy,mlperf,_squad
+    add_deps_recursive:
+      inference-src:
+        tags: _deeplearningexamples
+
+  bert-99:
+    group:
+      model
+    base:
+    - bert_
+    env:
+      CM_MODEL:
+        bert-99
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _bert-99
+
+  bert-99.9:
+    group:
+      model
+    base:
+    - bert_
+    env:
+      CM_MODEL:
+        bert-99.9
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _bert-99.9
+
+  dlrm_:
+    posthook_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - terabyte-accuracy-script
+      - mlperf-accuracy-script
+      tags: run,accuracy,mlperf,_terabyte,_float32
+
+  dlrm-v2-99:
+    group:
+      model
+    base:
+    - dlrm_
+    env:
+      CM_MODEL:
+        dlrm-v2-99
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _dlrm-v2-99
+
+  dlrm-v2-99.9:
+    group:
+      model
+    base:
+    - dlrm_
+    env:
+      CM_MODEL:
+        dlrm-v2-99.9
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _dlrm-v2-99.9
+
+  dlrm_,nvidia:
+    docker:
+      deps:
+        - tags: get,dlrm,data,mlperf,inference,_nvidia
+      mounts:
+        - "${{ DLRM_DATA_PATH }}:/home/mlperf_inf_dlrmv2"
+
+  dlrm_,intel:
+    docker:
+      deps:
+        - tags: get,preprocessed,dataset,criteo,_mlc
+      mounts:
+        - "${{ DLRM_DATA_PATH }}:${{ DLRM_DATA_PATH }}"
+
+  dlrm_,reference:
+    docker:
+      deps:
+        - tags: get,preprocessed,dataset,criteo,_mlc
+        - tags: get,ml-model,dlrm,_pytorch,_fp32
+      mounts:
+        - "${{ CM_ML_MODEL_FILE_WITH_PATH }}:${{ CM_ML_MODEL_FILE_WITH_PATH }}"
+        - "${{ DLRM_DATA_PATH }}:${{ DLRM_DATA_PATH }}"
+      dockerfile_env:
+        CM_ML_MODEL_FILE_WITH_PATH: "on"
+
+
+  mobilenet:
+    group:
+      model
+    env:
+      CM_MODEL:
+        mobilenet
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _mobilenet
+    deps:
+    - tags: get,dataset-aux,imagenet-aux
+    posthook_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - mlperf-accuracy-script
+      - imagenet-accuracy-script
+      tags: run,accuracy,mlperf,_imagenet
+
+  efficientnet:
+    group:
+      model
+    env:
+      CM_MODEL:
+        efficientnet
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _efficientnet
+    deps:
+    - tags: get,dataset-aux,imagenet-aux
+    posthook_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - mlperf-accuracy-script
+      - imagenet-accuracy-script
+      tags: run,accuracy,mlperf,_imagenet
+
+  onnxruntime:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND:
+        onnxruntime
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _onnxruntime
+
+  tensorrt:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND:
+        tensorrt
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tensorrt
+
+  tensorflow:
+    alias: tf
+
+  tf:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND:
+        tf
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tf
+
+  pytorch:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND:
+        pytorch
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _pytorch
+
+  openshift:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND:
+        openshift
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _openshift
+
+  ncnn:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND:
+        ncnn
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _ncnn
+
+  deepsparse:
+    group: backend
+    default_variations:
+      precision: int8
+    env:
+      CM_MLPERF_BACKEND:
+        deepsparse
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _deepsparse
+
+  tflite:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND: tflite
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tflite
+
+  glow:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND: glow
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _glow
+
+  tvm-onnx:
+    group: backend
+    base:
+      - batch_size.1
+    env:
+      CM_MLPERF_BACKEND: tvm-onnx
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tvm-onnx
+
+  tvm-pytorch:
+    group: backend
+    base:
+      - batch_size.1
+    env:
+      CM_MLPERF_BACKEND: tvm-pytorch
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tvm-pytorch
+
+  tvm-tflite:
+    group: backend
+    base:
+      - batch_size.1
+    env:
+      CM_MLPERF_BACKEND: tvm-tflite
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tvm-tflite
+
+  ray:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND:
+        ray
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _ray
+
+  cpu:
+    group:
+      device
+    default:
+      True
+    env:
+      CM_MLPERF_DEVICE:
+        cpu
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _cpu
+
+  cuda,reference:
+    docker:
+      base_image: nvcr.io/nvidia/pytorch:24.03-py3
+
+  cuda:
+    docker:
+      all_gpus: 'yes'
+      deps:
+        - tags: get,nvidia-docker 
+          skip_if_env:
+            CM_SKIP_GET_NVIDIA_DOCKER:
+              - yes
+    group:
+      device
+    env:
+      CM_MLPERF_DEVICE:
+        gpu
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _cuda
+    deps:
+      - tags: get,cuda-devices,_with-pycuda
+        skip_if_env:
+          CM_CUDA_DEVICE_PROP_GLOBAL_MEMORY:
+            - "yes"
+            - "on"
+  rocm:
+    docker:
+      all_gpus: 'yes'
+    group:
+      device
+    env:
+      CM_MLPERF_DEVICE:
+        rocm
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _rocm
+  qaic:
+    group:
+      device
+    env:
+      CM_MLPERF_DEVICE:
+        qaic
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _qaic
+
+  tpu:
+    group:
+      device
+    env:
+      CM_MLPERF_DEVICE:
+        tpu
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tpu
+
+  # Execution modes
+  fast:
+    group: execution-mode
+    env:
+      CM_FAST_FACTOR: '5'
+      CM_OUTPUT_FOLDER_NAME: fast_results
+      CM_MLPERF_RUN_STYLE: fast
+
+  test:
+    group: execution-mode
+    default: true
+    env:
+      CM_OUTPUT_FOLDER_NAME: test_results
+      CM_MLPERF_RUN_STYLE: test
+
+  valid,retinanet:
+    adr:
+      openimages-accuracy-script-disabled:
+        tags: _nvidia-pycocotools
+
+  valid:
+    group: execution-mode
+    env:
+      CM_OUTPUT_FOLDER_NAME: valid_results
+      CM_MLPERF_RUN_STYLE: valid
+
+  # Model precision
+  quantized:
+    alias: int8
+
+  fp32:
+    alias: float32
+
+  float32:
+    group: precision
+    default: true
+    env:
+      CM_MLPERF_QUANTIZATION: off
+      CM_MLPERF_MODEL_PRECISION: float32
+    add_deps_recursive:
+      python-reference-mlperf-inference:
+        tags: _fp32
+      kilt-harness:
+        tags: _fp32
+
+  float16:
+    group: precision
+    env:
+      CM_MLPERF_QUANTIZATION: off
+      CM_MLPERF_MODEL_PRECISION: float16
+    add_deps_recursive:
+      python-reference-mlperf-inference:
+        tags: _float16
+      kilt-harness:
+        tags: _fp16
+
+  bfloat16:
+    group: precision
+    env:
+      CM_MLPERF_QUANTIZATION: off
+      CM_MLPERF_MODEL_PRECISION: bfloat16
+    add_deps_recursive:
+      python-reference-mlperf-inference:
+        tags: _bfloat16
+
+  int4:
+    group: precision
+    env:
+      CM_MLPERF_QUANTIZATION: on
+      CM_MLPERF_MODEL_PRECISION: int4
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _int4
+  int8:
+    group: precision
+    env:
+      CM_MLPERF_QUANTIZATION: on
+      CM_MLPERF_MODEL_PRECISION: int8
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _int8
+      kilt-harness:
+        tags: _int8
+
+  uint8:
+    group: precision
+    env:
+      CM_MLPERF_QUANTIZATION: on
+      CM_MLPERF_MODEL_PRECISION: uint8
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _uint8
+      kilt-harness:
+        tags: _uint8
+
+  offline:
+    group: loadgen-scenario
+    default: true
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Offline
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _offline
+  multistream:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: MultiStream
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _multistream
+  singlestream:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _singlestream
+  server:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Server
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _server
+
+  power:
+    env:
+      CM_MLPERF_POWER: 'yes'
+      CM_SYSTEM_POWER: 'yes'
+    add_deps_recursive:
+      mlperf-runner:
+        tags:
+          _power
+
+  batch_size.#:
+    group: batch_size
+    env:
+      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '#'
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _batch_size.#
+
+  # Reproducibility (past submissions)
+  r2.1_default:
+    group:
+      reproducibility
+    add_deps_recursive:
+      compiler:
+        tags: llvm
+      inference-src:
+        tags: _octoml
+      loadgen:
+        version: r2.1
+      nvidia-inference-common-code:
+        version: r2.1
+        tags: _custom
+      nvidia-inference-server:
+        version: r2.1
+        tags: _custom
+    env:
+      CM_SKIP_SYS_UTILS: 'yes'
+      CM_TEST_QUERY_COUNT: '100'
+
+  r3.0_default:
+    group:
+      reproducibility
+    add_deps_recursive:
+      compiler:
+        tags: gcc
+      cuda:
+        version_max: "11.8"
+      nvidia-inference-common-code:
+        version: r2.1
+        tags: _custom
+      nvidia-inference-server:
+        version: r2.1
+        tags: _custom
+    env:
+      CM_SKIP_SYS_UTILS: 'yes'
+
+  r3.1_default:
+    group:
+      reproducibility
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        version: r3.0
+        tags: _nvidia-only
+      nvidia-inference-server:
+        version: r3.0
+        tags: _nvidia-only
+    default_env:
+      CM_SKIP_SYS_UTILS: 'yes'
+      CM_REGENERATE_MEASURE_FILES: 'yes'
+    env:
+      CM_ENV_NVMITTEN_DOCKER_WHEEL_PATH: '/opt/nvmitten-0.1.3-cp38-cp38-linux_x86_64.whl'
+
+  r4.0-dev_default:
+    group:
+      reproducibility
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        version: r3.1
+        tags: _ctuning
+      nvidia-inference-server:
+        version: r3.1
+        tags: _ctuning
+      intel-harness:
+        tags: _v3.1
+    default_env:
+      CM_SKIP_SYS_UTILS: 'yes'
+      CM_REGENERATE_MEASURE_FILES: 'yes'
+    env:
+      CM_ENV_NVMITTEN_DOCKER_WHEEL_PATH: '/opt/nvmitten-0.1.3-cp38-cp38-linux_x86_64.whl'
+
+  r4.0_default:
+    group:
+      reproducibility
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        version: r3.1
+        tags: _ctuning
+      nvidia-inference-server:
+        version: r3.1
+        tags: _ctuning
+      intel-harness:
+        tags: _v3.1
+    default_env:
+      CM_SKIP_SYS_UTILS: 'yes'
+      CM_REGENERATE_MEASURE_FILES: 'yes'
+    env:
+      CM_ENV_NVMITTEN_DOCKER_WHEEL_PATH: '/opt/nvmitten-0.1.3-cp38-cp38-linux_x86_64.whl'
+
+        #uses public code for inference v4.1
+
+  r4.1-dev_default:
+    group:
+      reproducibility
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        version: r4.0
+        tags: _mlcommons
+      nvidia-inference-server:
+        version: r4.0
+        tags: _mlcommons
+      intel-harness:
+        tags: _v4.0
+    default_env:
+      CM_SKIP_SYS_UTILS: 'yes'
+      CM_REGENERATE_MEASURE_FILES: 'yes'
+    env:
+      CM_ENV_NVMITTEN_DOCKER_WHEEL_PATH: '/opt/nvmitten-0.1.3b0-cp38-cp38-linux_x86_64.whl'
+
+  r4.1_default:
+    group:
+      reproducibility
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        version: r4.1
+        tags: _go
+      nvidia-inference-server:
+        version: r4.1
+        tags: _go
+      intel-harness:
+        tags: _v4.1
+    default_env:
+      CM_SKIP_SYS_UTILS: 'yes'
+      CM_REGENERATE_MEASURE_FILES: 'yes'
+    env:
+      CM_ENV_NVMITTEN_DOCKER_WHEEL_PATH: '/opt/nvmitten-0.1.3b0-cp38-cp38-linux_x86_64.whl'
+      CM_MLPERF_INFERENCE_VERSION: '4.1'
+
+invalid_variation_combinations:
+  -
+    - retinanet
+    - tf
+  -
+    - nvidia-original
+    - tf
+  -
+    - nvidia-original
+    - onnxruntime
+  -
+    - nvidia-original
+    - pytorch
+  -
+    - nvidia
+    - tf
+  -
+    - nvidia
+    - onnxruntime
+  -
+    - nvidia
+    - pytorch
+  -
+    - gptj
+    - tf
+
+input_description:
+  scenario: 
+    desc: "MLPerf inference scenario"
+    choices:
+      - Offline
+      - Server
+      - SingleStream
+      - MultiStream
+    default: Offline
+  mode: 
+    desc: "MLPerf inference mode"
+    choices: 
+      - performance
+      - accuracy
+    default: accuracy
+  test_query_count: 
+    desc: "Specifies the number of samples to be processed during a test run"
+  target_qps: 
+    desc: "Target QPS"
+  target_latency: 
+    desc: "Target Latency"
+  max_batchsize: 
+    desc: "Maximum batchsize to be used"
+  num_threads: 
+    desc: "Number of CPU threads to launch the application with"
+  hw_name: 
+    desc: "Valid value - any system description which has a config file (under same name) defined [here](https://github.com/mlcommons/cm4mlops/tree/main/script/get-configs-sut-mlperf-inference/configs)"
+  output_dir: 
+    desc: "Location where the outputs are produced"
+  rerun: 
+    desc: "Redo the run even if previous run files exist"
+    boolean: true
+    default: true
+  regenerate_files: 
+    desc: "Regenerates measurement files including accuracy.txt files even if a previous run exists. This option is redundant if `--rerun` is used"
+    boolean: true
+  adr.python.name:
+    desc: "Python virtual environment name (optional)"
+    default: mlperf
+  adr.python.version_min:
+    desc: "Minimal Python version"
+    default: "3.8"
+  adr.python.version:
+    desc: "Force Python version (must have all system deps)"
+  adr.compiler.tags:
+    desc: "Compiler for loadgen"
+    default: gcc
+  adr.inference-src-loadgen.env.CM_GIT_URL:
+    desc: "Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)"
+  adr.inference-src.env.CM_GIT_URL:
+    desc: "Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)"
+  quiet:
+    desc: "Quiet run (select default values for all questions)"
+    boolean: true
+    default: false
+  readme: 
+    desc: "Generate README with the reproducibility report"
+  debug: 
+    desc: "Debug MLPerf script"
+
+gui:
+  title: "CM GUI for the MLPerf inference benchmark"
+
+docker:
+  use_host_group_id: True
+  use_host_user_id: True
+  pass_user_group: True #useful if docker is run by a different user fromt he one who built it and under the same group
+  deps:
+    - tags: get,mlperf,inference,results,dir,local
+      names:
+      - get-mlperf-inference-results-dir
+      skip_if_env:
+        OUTPUT_BASE_DIR: [ on ]
+    - tags: get,mlperf,inference,submission,dir,local
+      names:
+      - get-mlperf-inference-submission-dir
+      skip_if_env:
+        CM_MLPERF_INFERENCE_SUBMISSION_DIR: [ on ]
+
+  pre_run_cmds:
+    #- cm pull repo && cm run script --tags=get,git,repo,_repo.https://github.com/GATEOverflow/inference_results_v4.0.git --update
+    - cm pull repo
+    - cm rm cache --tags=inference,src -f
+  mounts:
+   - "${{ CM_DATASET_IMAGENET_PATH }}:${{ CM_DATASET_IMAGENET_PATH }}"
+   - "${{ CM_DATASET_OPENIMAGES_PATH }}:${{ CM_DATASET_OPENIMAGES_PATH }}"
+   - "${{ CM_OPENIMAGES_CALIBRATION_DATASET_PATH }}:${{ CM_OPENIMAGES_CALIBRATION_DATASET_PATH }}"
+   - "${{ CM_DATASET_OPENIMAGES_ANNOTATIONS_DIR_PATH }}:${{ CM_DATASET_OPENIMAGES_ANNOTATIONS_DIR_PATH }}"
+   - "${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}:${{ CM_MLPERF_INFERENCE_RESULTS_DIR }}"
+   - "${{ OUTPUT_BASE_DIR }}:${{ OUTPUT_BASE_DIR }}"
+   - "${{ CM_MLPERF_INFERENCE_SUBMISSION_DIR }}:${{ CM_MLPERF_INFERENCE_SUBMISSION_DIR }}"
+   - "${{ GPTJ_CHECKPOINT_PATH }}:${{ GPTJ_CHECKPOINT_PATH }}"
+   - "${{ CM_CRITEO_PREPROCESSED_PATH }}:${{ CM_CRITEO_PREPROCESSED_PATH }}"
+   - "${{ LLAMA2_CHECKPOINT_PATH }}:${{ LLAMA2_CHECKPOINT_PATH }}"
+   - "${{ CM_NVIDIA_LLAMA_DATASET_FILE_PATH }}:${{ CM_NVIDIA_LLAMA_DATASET_FILE_PATH }}"
+   - "${{ SDXL_CHECKPOINT_PATH }}:${{ SDXL_CHECKPOINT_PATH }}"
+   - "${{ CM_DATASET_KITS19_PREPROCESSED_PATH }}:${{ CM_DATASET_KITS19_PREPROCESSED_PATH }}"
+  skip_run_cmd: 'no'
+  shm_size: '32gb'
+  interactive: True
+  extra_run_args: ' --dns 8.8.8.8 --dns 8.8.4.4 --ulimit memlock=-1 --cap-add SYS_ADMIN --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
+  os: ubuntu
+  cm_repo: mlcommons@cm4mlops
+  cm_repo_branch: mlperf-inference
+  real_run: False
+  os_version: '22.04'
+  docker_input_mapping:
+    imagenet_path: IMAGENET_PATH
+    gptj_checkpoint_path: GPTJ_CHECKPOINT_PATH
+    criteo_preprocessed_path: CRITEO_PREPROCESSED_PATH
+    results_dir: RESULTS_DIR
+    submission_dir: SUBMISSION_DIR
+    dlrm_data_path: DLRM_DATA_PATH
+    intel_gptj_int8_model_path: CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH
+    nvidia_llama2_dataset_file_path: CM_NVIDIA_LLAMA_DATASET_FILE_PATH
+    tp_size: CM_NVIDIA_TP_SIZE

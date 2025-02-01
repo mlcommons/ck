@@ -1,0 +1,265 @@
+alias: get-ml-model-bert-large-squad
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML models
+env:
+  CM_ML_MODEL: BERT
+  CM_ML_MODEL_DATASET: squad-1.1
+  CM_ML_MODEL_MAX_SEQ_LENGTH: '384'
+  CM_ML_MODEL_NAME: MLPERF BERT Large on SQuAD v1.1
+  CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: <<<CM_PACKAGE_URL>>>
+new_env_keys:
+- CM_ML_MODEL*
+post_deps:
+- tags: get,dataset-aux,squad-vocab
+prehook_deps:
+- env:
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
+    CM_DOWNLOAD_URL1: <<<CM_PACKAGE_URL1>>>
+    CM_EXTRACT_EXTRACTED_FILENAME: <<<CM_ML_MODEL_FILE>>>
+    CM_EXTRACT_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
+  extra_cache_tags: bert-large,ml-model
+  force_cache: true
+  skip_if_env:
+    CM_ML_MODEL_BERT_PACKED:
+    - 'yes'
+  tags: download-and-extract
+  update_tags_from_env_with_prefix:
+    _url.:
+    - CM_PACKAGE_URL
+print_env_at_the_end:
+  CM_ML_MODEL_FILE_WITH_PATH: Path to the ML model
+tags:
+- get
+- ml-model
+- raw
+- bert
+- bert-large
+- bert-squad
+- language
+- language-processing
+uid: 5e865dbdc65949d2
+variations:
+  amazon-s3:
+    group: download-source
+  armi:
+    group: download-source
+  custom-url.#:
+    env:
+      CM_PACKAGE_URL: '#'
+    group: download-source
+  deepsparse:
+    default_variations:
+      download-source: github
+    env:
+      CM_ML_MODEL_FRAMEWORK: deepsparse
+      CM_ML_MODEL_INPUT_IDS_NAME: input_ids
+      CM_ML_MODEL_INPUT_MASK_NAME: input_mask
+      CM_ML_MODEL_INPUT_SEGMENTS_NAME: segment_ids
+      CM_ML_MODEL_OUTPUT_END_LOGITS_NAME: output_end_logits
+      CM_ML_MODEL_OUTPUT_START_LOGITS_NAME: output_start_logits
+    group: framework
+  deepsparse,int8:
+    env:
+      CM_DAE_EXTRACT_DOWNLOADED: 'yes'
+      CM_ML_MODEL_F1: '90.21282641816266'
+      CM_ML_MODEL_FILE: oBERT-Large_95sparse_block4_qat.onnx
+  deepsparse,int8,github:
+    env:
+      CM_PACKAGE_URL: https://github.com/mlcommons/inference_results_v2.1/raw/master/open/NeuralMagic/code/bert/deepsparse/models/oBERT-Large_95sparse_block4_qat.onnx.tar.xz
+  fp32:
+    default: true
+    env:
+      CM_ML_MODEL_PRECISION: fp32
+    group: precision
+  github:
+    group: download-source
+  int8:
+    env:
+      CM_ML_MODEL_PRECISION: int8
+      CM_ML_MODEL_QUANTIZED: 'yes'
+    group: precision
+  onnx:
+    default: true
+    default_variations:
+      download-source: armi
+    env:
+      CM_ML_MODEL_FRAMEWORK: onnx
+      CM_ML_MODEL_INPUT_IDS_NAME: input_ids
+      CM_ML_MODEL_INPUT_MASK_NAME: input_mask
+      CM_ML_MODEL_INPUT_SEGMENTS_NAME: segment_ids
+      CM_ML_MODEL_OUTPUT_END_LOGITS_NAME: output_end_logits
+      CM_ML_MODEL_OUTPUT_START_LOGITS_NAME: output_start_logits
+    group: framework
+  onnx,fp32:
+    env:
+      CM_DOWNLOAD_CHECKSUM: 819b25b19cd8e59080c10892689750ca
+      CM_ML_MODEL_F1: '90.874'
+  onnx,fp32,armi:
+    env:
+      CM_PACKAGE_URL: https://armi.in/files/model.onnx
+      CM_PACKAGE_URL1: https://zenodo.org/record/3733910/files/model.onnx
+  onnx,fp32,zenodo:
+    env:
+      CM_PACKAGE_URL: https://zenodo.org/record/3733910/files/model.onnx
+  onnx,int8:
+    env:
+      CM_DOWNLOAD_CHECKSUM: 45f88ffb2915362242703c85c38ec2d4
+      CM_ML_MODEL_F1: '90.067'
+      CM_PACKAGE_URL: https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx
+  onnx,int8,amazon-s3:
+    env:
+      CM_PACKAGE_URL: https://mlperf-public.s3.us-west-2.amazonaws.com/bert_large_v1_1_fake_quant.onnx
+  onnx,int8,zenodo:
+    env:
+      CM_PACKAGE_URL: https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx
+  onnxruntime:
+    base:
+    - onnx
+  packed:
+    deps:
+    - names:
+      - python
+      - python3
+      tags: get,python3
+      version_max: 3.8.999
+      version_max_usable: 3.8.12
+    - names:
+      - torch
+      - pytorch
+      tags: get,generic-python-lib,_torch
+      version: 1.8.1
+    - names:
+      - tensorflow
+      tags: get,generic-python-lib,_package.tensorflow
+      version: 2.11.0
+    - names:
+      - transformers
+      tags: get,generic-python-lib,_package.transformers
+      version: 2.4.0
+    - names:
+      - protobuf
+      tags: get,generic-python-lib,_package.protobuf
+      version: 3.20.1
+    - names:
+      - onnx
+      tags: get,generic-python-lib,_package.onnx
+      version: 1.12.0
+    - names:
+      - onnx-graphsurgeon
+      tags: get,generic-python-lib,_onnx-graphsurgeon
+      version: 0.3.26
+    - names:
+      - numpy
+      tags: get,generic-python-lib,_numpy
+      version: 1.23.0
+    - names:
+      - inference-src
+      tags: get,mlperf,inference,src
+    env:
+      CM_ML_MODEL_BERT_PACKED: 'yes'
+    group: packing
+    new_env_keys:
+    - CM_BERT_
+    prehook_deps:
+    - env:
+        CM_DOWNLOAD_CHECKSUM: 3089b27c559906a868878741d992ade7
+        CM_DOWNLOAD_FILENAME: model.ckpt-5474.data-00000-of-00001
+        CM_DOWNLOAD_FINAL_ENV_NAME: CM_BERT_CHECKPOINT_DATA_PATH
+        CM_DOWNLOAD_PATH: <<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>
+      extra_cache_tags: bert,checkpoint,weights,bert-large
+      force_cache: true
+      tags: download,file,_wget,_url.https://zenodo.org/record/3733868/files/model.ckpt-5474.data-00000-of-00001
+    - env:
+        CM_DOWNLOAD_CHECKSUM: d23d61572d9404da4dac3363b5bc735b
+        CM_DOWNLOAD_FILENAME: model.ckpt-5474.index
+        CM_DOWNLOAD_FINAL_ENV_NAME: CM_BERT_CHECKPOINT_INDEX_PATH
+        CM_DOWNLOAD_PATH: <<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>
+      extra_cache_tags: bert,checkpoint-index,bert-large
+      force_cache: true
+      tags: download,file,_wget,_url.https://zenodo.org/record/3733868/files/model.ckpt-5474.index
+    - env:
+        CM_DOWNLOAD_CHECKSUM: 83e11e57eea14c9e9a246af74af40d66
+        CM_DOWNLOAD_FILENAME: model.ckpt-5474.meta
+        CM_DOWNLOAD_FINAL_ENV_NAME: CM_BERT_CHECKPOINT_META_PATH
+        CM_DOWNLOAD_PATH: <<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>
+      extra_cache_tags: bert,checkpoint-meta,bert-large
+      force_cache: true
+      tags: download,file,_wget,_url.https://zenodo.org/record/3733868/files/model.ckpt-5474.meta
+    - env:
+        CM_DOWNLOAD_CHECKSUM: 64800d5d8528ce344256daf115d4965e
+        CM_DOWNLOAD_FILENAME: vocab.txt
+        CM_DOWNLOAD_FINAL_ENV_NAME: CM_BERT_VOCAB_PATH
+        CM_DOWNLOAD_PATH: <<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>
+      extra_cache_tags: bert,vocab,bert-large
+      force_cache: true
+      tags: download,file,_wget,_url.https://zenodo.org/record/3733868/files/vocab.txt
+    - env:
+        CM_DOWNLOAD_CHECKSUM: 94c91ce422e8f36f9d98b4926e2ad688
+        CM_DOWNLOAD_FILENAME: convert_model.py
+        CM_DOWNLOAD_FINAL_ENV_NAME: CM_BERT_CONVERTER_CODE_PATH
+      extra_cache_tags: bert,checkpoint,converter,code,bert-large
+      force_cache: true
+      tags: download,file,_wget,_url.https://raw.githubusercontent.com/krai/axs2kilt/main/model_onnx_bert_large_packed_recipe/convert_model.py
+  pytorch:
+    default_variations:
+      download-source: armi
+    env:
+      CM_ML_MODEL_FRAMEWORK: pytorch
+      CM_ML_MODEL_INPUT_IDS_NAME: input_ids
+      CM_ML_MODEL_INPUT_MASK_NAME: input_mask
+      CM_ML_MODEL_INPUT_SEGMENTS_NAME: segment_ids
+      CM_ML_MODEL_OUTPUT_END_LOGITS_NAME: output_end_logits
+      CM_ML_MODEL_OUTPUT_START_LOGITS_NAME: output_start_logits
+    group: framework
+  pytorch,fp32:
+    env:
+      CM_DOWNLOAD_CHECKSUM: 00fbcbfaebfa20d87ac9885120a6e9b4
+      CM_ML_MODEL_F1: '90.874'
+  pytorch,fp32,armi:
+    env:
+      CM_PACKAGE_URL: https://armi.in/files/fp32/model.pytorch
+      CM_PACKAGE_URL1: https://zenodo.org/record/3733896/files/model.pytorch
+  pytorch,fp32,zenodo:
+    env:
+      CM_PACKAGE_URL: https://zenodo.org/record/3733896/files/model.pytorch
+  pytorch,int8:
+    env:
+      CM_DOWNLOAD_CHECKSUM: 0734c580cb53b4b56a3f400771ffcb7c
+      CM_ML_MODEL_F1: '90.633'
+  pytorch,int8,armi:
+    env:
+      CM_PACKAGE_URL: https://armi.in/files/int8/pytorch_model.bin
+      CM_PACKAGE_URL1: https://zenodo.org/record/4792496/files/pytorch_model.bin
+  pytorch,int8,zenodo:
+    env:
+      CM_PACKAGE_URL: https://zenodo.org/record/4792496/files/pytorch_model.bin
+  tensorflow:
+    base:
+    - tf
+  tf:
+    default_variations:
+      download-source: zenodo
+    env:
+      CM_ML_MODEL_FRAMEWORK: tf
+      CM_ML_MODEL_INPUT_IDS_NAME: input_ids
+      CM_ML_MODEL_INPUT_MASK_NAME: input_mask
+      CM_ML_MODEL_INPUT_SEGMENTS_NAME: segment_ids
+      CM_ML_MODEL_OUTPUT_END_LOGITS_NAME: output_end_logits
+      CM_ML_MODEL_OUTPUT_START_LOGITS_NAME: output_start_logits
+    group: framework
+  tf,fp32:
+    env:
+      CM_DOWNLOAD_CHECKSUM: dd72de12e8226f25f0128a1a864b97ad
+      CM_ML_MODEL_F1: '90.874'
+  tf,fp32,zenodo:
+    env:
+      CM_PACKAGE_URL: https://zenodo.org/record/3939747/files/model.pb
+  unpacked:
+    default: true
+    env:
+      CM_ML_MODEL_BERT_PACKED: 'no'
+    group: packing
+  zenodo:
+    group: download-source

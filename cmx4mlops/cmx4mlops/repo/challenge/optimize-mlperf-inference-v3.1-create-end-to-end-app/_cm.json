@@ -1,0 +1,26 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-create-end-to-end-app",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_open": "20230704",
+  "date_close_extension": true,
+  "points":3,
+  "trophies":true,
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "automate",
+    "benchmark",
+    "end-to-end-app",
+    "mlperf-inference",
+    "mlperf-inference-end-to-end-app",
+    "mlperf-inference-end-to-end-app",
+    "mlperf-inference-end-to-end-app-v3.1",
+    "mlperf-inference-end-to-end-app-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Generate end-to-end optimized AI apps (LLM, speech, etc) based on MLPerf inference results (with and without container)",
+  "uid": "96ca61a5aa914063"
+}

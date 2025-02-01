@@ -1,0 +1,18 @@
+alias: activate-python-venv
+automation_alias: script
+automation_uid: 5b4e0237da074764
+category: Python automation
+developers: '[Grigori Fursin](https://cKnowledge.org/gfursin)'
+name: Activate virtual Python environment
+prehook_deps:
+- names:
+  - python-venv
+  reuse_version: true
+  tags: install,python-venv
+tags:
+- activate
+- python
+- activate-python-venv
+- python-venv
+tags_help: activate python-venv
+uid: fcbbb84946f34c55

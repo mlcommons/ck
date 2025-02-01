@@ -1,0 +1,34 @@
+alias: print-any-text
+uid: f4bf2d1d33c24e31
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: Tests
+
+developers: "Grigori Fursin"
+
+default_env:
+  CM_PRINT_ANY_TEXT: ''
+
+input_mapping:
+  text: CM_PRINT_ANY_TEXT
+  cm_env_keys: CM_PRINT_ANY_CM_ENV_KEYS
+  os_env_keys: CM_PRINT_ANY_OS_ENV_KEYS
+
+tags:
+- print
+- any-text
+
+variations:
+  text.#:
+    env:
+      CM_PRINT_ANY_TEXT: "#"
+
+  cm_env.#:
+    env:
+      CM_PRINT_ANY_CM_ENV_KEYS: "#"
+
+  os_env.#:
+    env:
+      CM_PRINT_ANY_OS_ENV_KEYS: "#"

@@ -1,4 +1,4 @@
-This document narrates the history of the creation and design of CM and CM4MLOps (also known as CK2) 
+This document narrates the history of the creation and design of CM, CM4MLOps and MLPerf automations (also known as CK2) 
 by [Grigori Fursin](https://cKnowledge.org/gfursin). It also highlights the donation of this open-source technology to MLCommons, 
 aimed at benefiting the broader community and fostering its ongoing development as a collaborative, community-driven initiative:
 

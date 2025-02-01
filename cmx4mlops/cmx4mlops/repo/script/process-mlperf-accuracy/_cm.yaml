@@ -1,0 +1,263 @@
+alias: process-mlperf-accuracy
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: MLPerf benchmark support
+clean_files: []
+deps:
+- names:
+  - python3
+  - python
+  tags: get,python3
+- names:
+  - inference-src
+  - accuracy-check-src
+  tags: get,mlcommons,inference,src
+input_mapping:
+  rerun: CM_RERUN
+  result_dir: CM_MLPERF_ACCURACY_RESULTS_DIR
+new_state_keys:
+- app_mlperf_inference_accuracy*
+tags:
+- run
+- mlperf
+- mlcommons
+- accuracy
+- mlc
+- process
+- process-accuracy
+uid: 6e809013816b42ea
+variations:
+  cnndm:
+    deps:
+    - tags: get,dataset,cnndm,_validation
+    - names:
+      - pip-package
+      - datasets
+      tags: get,generic-python-lib,_package.datasets
+    - names:
+      - pip-package
+      - rouge-score
+      tags: get,generic-python-lib,_package.rouge_score
+    - names:
+      - pip-package
+      - nltk
+      tags: get,generic-python-lib,_package.nltk
+      version_max: 3.8.1
+      version_max_usable: 3.8.1
+    - names:
+      - pip-package
+      - evaluate
+      tags: get,generic-python-lib,_package.evaluate
+    - names:
+      - pip-package
+      - absl-py
+      tags: get,generic-python-lib,_package.absl-py
+    - enable_if_env:
+        CM_MLPERF_IMPLEMENTATION:
+        - intel
+      env:
+        CM_DOWNLOAD_FINAL_ENV_NAME: CM_MLPERF_INFERENCE_INTEL_GPTJ_ACCURACY_FILE_WITH_PATH
+      extra_cache_tags: intel,accuracy,file,gptj,mlperf,inference
+      force_cache: true
+      tags: download,file,_url.https://raw.githubusercontent.com/mlcommons/inference_results_v4.0/main/closed/Intel/code/gptj-99/ITREX/evaluation.py
+    - enable_if_env:
+        CM_MLPERF_IMPLEMENTATION:
+        - intel
+      env:
+        CM_DOWNLOAD_FINAL_ENV_NAME: CM_MLPERF_INFERENCE_INTEL_GPTJ_DATASET_FILE_WITH_PATH
+      extra_cache_tags: intel,dataset,file,gptj,mlperf,inference
+      force_cache: true
+      tags: download,file,_url.https://raw.githubusercontent.com/mlcommons/inference_results_v4.0/main/closed/Intel/code/gptj-99/ITREX/dataset.py
+    - enable_if_env:
+        CM_MLPERF_IMPLEMENTATION:
+        - intel
+      env:
+        CM_DOWNLOAD_FINAL_ENV_NAME: CM_MLPERF_INFERENCE_INTEL_GPTJ_DATASET_ITEM_FILE_WITH_PATH
+      extra_cache_tags: intel,dataset,item,file,gptj,mlperf,inference
+      force_cache: true
+      tags: download,file,_url.https://raw.githubusercontent.com/mlcommons/inference_results_v4.0/main/closed/Intel/code/gptj-99/ITREX/item.py
+    - enable_if_env:
+        CM_MLPERF_IMPLEMENTATION:
+        - intel
+      tags: get,ml-model,gptj,_fp32,_pytorch
+    env:
+      CM_DATASET: cnndm
+    group: dataset
+  coco2014:
+    deps:
+    - names:
+      - coco2014-dataset
+      - coco2014-original
+      tags: get,dataset,coco2014,original
+    - tags: get,generic-python-lib,_package.ijson
+    - tags: get,generic-python-lib,_package.Pillow
+    - tags: get,generic-python-lib,_package.pandas
+    - tags: get,generic-python-lib,_package.torch
+    - tags: get,generic-python-lib,_package.open-clip-torch
+    - tags: get,generic-python-lib,_package.scipy
+    - names:
+      - pip-package
+      - numpy
+      tags: get,generic-python-lib,_package.numpy
+    env:
+      CM_DATASET: coco2014
+    group: dataset
+  default-pycocotools:
+    default: true
+    group: coco-evaluation-tool
+  default-pycocotools,openimages:
+    deps:
+    - tags: get,generic-python-lib,_pycocotools
+    - names:
+      - for-pycocotools
+      - accuracy-check-src
+      tags: get,mlcommons,mlperf,inference,src,-_openimages-nvidia-pycocotools
+  float16:
+    env:
+      CM_ACCURACY_DTYPE: float16
+    group: precision
+  float32:
+    default: 'true'
+    env:
+      CM_ACCURACY_DTYPE: float32
+    group: precision
+  float64:
+    env:
+      CM_ACCURACY_DTYPE: float64
+    group: precision
+  imagenet:
+    default: 'true'
+    deps:
+    - tags: get,dataset-aux,image-classification,imagenet-aux
+    - tags: get,generic-python-lib,_numpy
+    env:
+      CM_DATASET: imagenet
+    group: dataset
+  int16:
+    env:
+      CM_ACCURACY_DTYPE: int16
+    group: precision
+  int32:
+    env:
+      CM_ACCURACY_DTYPE: int32
+    group: precision
+  int64:
+    env:
+      CM_ACCURACY_DTYPE: int64
+    group: precision
+  int8:
+    env:
+      CM_ACCURACY_DTYPE: int8
+    group: precision
+  kits19:
+    deps:
+    - tags: get,dataset,preprocessed,medical-imaging,kits19
+    - tags: get,generic-python-lib,_pandas
+      version_max: 1.53.0
+      version_max_usable: 1.53.0
+    env:
+      CM_DATASET: kits19
+    group: dataset
+  librispeech:
+    deps:
+    - tags: get,dataset,preprocessed,speech-recognition,librispeech
+    env:
+      CM_DATASET: librispeech
+    group: dataset
+  nvidia-pycocotools:
+    group: coco-evaluation-tool
+  nvidia-pycocotools,openimages:
+    deps:
+    - tags: get,generic-python-lib,_nvidia-pycocotools
+    - names:
+      - for-pycocotools
+      - accuracy-check-src
+      tags: get,mlcommons,mlperf,inference,src,_openimages-nvidia-pycocotools
+  open-orca:
+    deps:
+    - names:
+      - openorca-dataset
+      tags: get,dataset,openorca,preprocessed
+    - names:
+      - llama2-model
+      skip_if_env:
+        CM_MLPERF_INFERENCE_API_SERVER:
+        - 'on'
+      tags: get,ml-model,llama2
+    env:
+      CM_DATASET: openorca
+    group: dataset
+  openimages:
+    deps:
+    - enable_if_env:
+        CM_MLPERF_RUN_STYLE:
+        - valid
+      tags: get,dataset-aux,openimages,annotations
+    - names:
+      - openimages-original
+      skip_if_env:
+        CM_MLPERF_RUN_STYLE:
+        - valid
+      tags: get,dataset,openimages,original
+    - tags: get,generic-python-lib,_package.kiwisolver
+    env:
+      CM_DATASET: openimages
+    group: dataset
+  openorca-gsm8k-mbxp:
+    deps:
+    - names:
+      - pip-package
+      - rouge-score
+      tags: get,generic-python-lib,_package.rouge_score
+    - names:
+      - openorca-gsm8k-mbxp-combined
+      skip_if_env:
+        CM_MLPERF_DATASET_MIXTRAL_8X7B_DOWNLOAD_TO_HOST:
+        - 'yes'
+      tags: get,dataset-mixtral,openorca-mbxp-gsm8k-combined
+    - names:
+      - mixtral-8x7b-model
+      skip_if_env:
+        CM_MLPERF_MODEL_MIXTRAL_8X7B_DOWNLOAD_TO_HOST:
+        - 'yes'
+      tags: get,ml-model,mixtral
+    env:
+      CM_DATASET: openorca-gsm8k-mbxp-combined
+    group: dataset
+  squad:
+    add_deps_recursive:
+      inference-src:
+        tags: _deeplearningexamples
+    deps:
+    - tags: get,generic-python-lib,_boto3
+    - tags: get,generic-python-lib,_package.transformers
+    - skip_if_env:
+        CM_DATASET_SQUAD_VAL_PATH: []
+      tags: get,dataset,squad,language-processing
+    - skip_if_env:
+        CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH:
+        - 'on'
+      tags: get,dataset-aux,squad-vocab
+    - skip_if_env:
+        CM_MLPERF_DEVICE:
+        - cuda
+        - gpu
+      tags: get,generic-python-lib,_torch
+    - enable_if_env:
+        CM_MLPERF_DEVICE:
+        - cuda
+        - gpu
+      tags: get,generic-python-lib,_torch_cuda
+    - tags: get,generic-python-lib,_tokenization
+    env:
+      CM_DATASET: squad
+    group: dataset
+  terabyte:
+    deps:
+    - tags: get,generic-python-lib,_ujson
+    - tags: get,generic-python-lib,_scikit-learn
+    - tags: get,generic-python-lib,_numpy
+    env:
+      CM_DATASET: terabyte
+    group: dataset

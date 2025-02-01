@@ -1,0 +1,23 @@
+{
+  "alias": "reproduce-and-automate-tinymlperf-v1.1-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230519",
+  "date_open": "20230501",
+  "experiments": [],
+  "tags": [
+    "modularize",
+    "automate",
+    "reproduce",
+    "replicate",
+    "optimize",
+    "benchmark",
+    "tinymlperf",
+    "tinymlperf-inference",
+    "tinymlperf-inference-v3.0",
+    "tinymlperf-inference-v3.0-2023",
+    "v1.0"
+  ],
+  "title": "Reproduce and optimize TinyMLPerf inference v1.1 benchmarks",
+  "uid": "d98cd66e0e5641f7"
+}

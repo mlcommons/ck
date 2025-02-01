@@ -1,0 +1,26 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-intel-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20240104",
+  "date_open": "20230704",
+  "points": 2,
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "automate",
+    "benchmark",
+    "intel",
+    "mlperf-inference",
+    "mlperf-inference-intel",
+    "mlperf-inference-intel",
+    "mlperf-inference-intel-v3.1",
+    "mlperf-inference-intel-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Add the CM interface to run MLPerf inference benchmarks on Intel-based platforms",
+  "trophies": true,
+  "uid": "1c1d5da6766f4afb"
+}

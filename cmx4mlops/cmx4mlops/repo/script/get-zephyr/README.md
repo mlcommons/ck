@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/TinyML-automation/get-zephyr](https://docs.mlcommons.org/cm4mlops/scripts/TinyML-automation/get-zephyr) for the documentation of this CM script.

@@ -1,0 +1,28 @@
+alias: install-llvm-prebuilt
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: Compiler automation
+default_version: 15.0.6
+deps:
+- tags: detect,os
+name: Install prebuilt LLVM compiler
+new_env_keys:
+- CM_LLVM_*
+- CM_COMPILER_NAME
+- +PATH
+- +LD_LIBRARY_PATH
+- +C_INCLUDE_PATH
+- +CPLUS_INCLUDE_PATH
+post_deps:
+- skip_if_env:
+    CM_REQUIRE_INSTALL:
+    - 'yes'
+  tags: get,llvm
+tags:
+- install
+- prebuilt
+- llvm
+- prebuilt-llvm
+- install-prebuilt-llvm
+uid: cda9094971724a0a

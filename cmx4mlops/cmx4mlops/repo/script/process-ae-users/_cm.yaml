@@ -1,0 +1,17 @@
+alias: process-ae-users
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: Reproducibility and artifact evaluation
+deps:
+- names:
+  - python3
+  - python
+  tags: get,python3
+input_mapping:
+  file: CM_PROCESS_AE_USERS_INPUT_FILE
+tags:
+- process
+- ae
+- users
+uid: 5800f1ed677e4efb

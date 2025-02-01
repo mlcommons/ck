@@ -1,0 +1,15 @@
+alias: print-python-version
+automation_alias: script
+automation_uid: 5b4e0237da074764
+category: Tests
+deps:
+- names:
+  - python
+  - python3
+  tags: get,python3
+tags:
+- print
+- python
+- version
+- python-version
+uid: d3a538fa4abb464b

@@ -1,0 +1,52 @@
+alias: get-dataset-imagenet-aux
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML datasets
+new_env_keys:
+- CM_DATASET_AUX_*
+prehook_deps:
+- env:
+    CM_DOWNLOAD_URL: <<<CM_PACKAGE_URL>>>
+    CM_DOWNLOAD_URL1: <<<CM_PACKAGE_URL1>>>
+    CM_EXTRACT_EXTRACTED_FILENAME: <<<CM_ML_MODEL_FILE>>>
+    CM_EXTRACT_FINAL_ENV_NAME: CM_DATASET_AUX_PATH
+  extra_cache_tags: imagenet-aux,dataset-aux
+  force_cache: true
+  tags: download-and-extract,_extract,_wget
+  update_tags_from_env_with_prefix:
+    _url.:
+    - CM_PACKAGE_URL
+tags:
+- get
+- aux
+- dataset-aux
+- image-classification
+- imagenet-aux
+uid: bb2c6dd8c8c64217
+variations:
+  '2012':
+    env:
+      CM_DATASET_AUX_VER: '2012'
+  from.berkeleyvision:
+    base:
+    - '2012'
+    default: true
+    env:
+      CM_DOWNLOAD_CHECKSUM: f963098ea0e785a968ca1eb634003a90
+      CM_DOWNLOAD_CHECKSUM1: ee346d67141e476df9c1a3f813552503
+      CM_PACKAGE_URL: http://dl.caffe.berkeleyvision.org/caffe_ilsvrc12.tar.gz
+      CM_PACKAGE_URL1: https://www.dropbox.com/s/92n2fyej3lzy3s3/caffe_ilsvrc12.tar.gz
+    group: download-source
+  from.dropbox:
+    base:
+    - '2012'
+    env:
+      CM_DOWNLOAD_CHECKSUM: ee346d67141e476df9c1a3f813552503
+      CM_DOWNLOAD_CHECKSUM1: f963098ea0e785a968ca1eb634003a90
+      CM_PACKAGE_URL: https://www.dropbox.com/s/92n2fyej3lzy3s3/caffe_ilsvrc12.tar.gz
+      CM_PACKAGE_URL1: http://dl.caffe.berkeleyvision.org/caffe_ilsvrc12.tar.gz
+    group: download-source
+  skip_ssl_verification:
+    env:
+      CM_VERIFY_SSL: 'False'

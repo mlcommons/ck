@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-models/get-ml-model-retinanet-nvidia](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-models/get-ml-model-retinanet-nvidia) for the documentation of this CM script.

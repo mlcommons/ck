@@ -1,0 +1,25 @@
+alias: repro-mlperf-inference-v4.0-2024
+uid: e6b8738383eb46d0
+
+automation_alias: challenge
+automation_uid: 3d84abd768f34e08
+
+title: Reproduce and automate MLPerf inference benchmark results v4.0 from different vendors (Intel, Nvidia, Qualcomm, Google, NeuralMagic, ...) using CM
+
+date_open: '20240201'
+
+tags:
+- modularize
+- optimize
+- reproduce
+- replicate
+- automate
+- benchmark
+- mlperf
+- mlperf-inference
+- mlperf-inference-v4.0
+- mlperf-inference-v4.0-2024
+- v4.0
+
+experiments:
+- tags: mlperf-inference,v4.0

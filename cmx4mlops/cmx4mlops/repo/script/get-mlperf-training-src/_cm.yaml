@@ -1,0 +1,97 @@
+alias: get-mlperf-training-src
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: MLPerf benchmark support
+default_env:
+  CM_GIT_CHECKOUT: master
+  CM_GIT_CHECKOUT_FOLDER: training
+  CM_GIT_DEPTH: --depth 4
+  CM_GIT_PATCH: 'no'
+  CM_GIT_RECURSE_SUBMODULES: ' --recurse-submodules'
+default_version: master
+new_env_keys:
+- CM_MLPERF_TRAINING_*
+- CM_MLPERF_TRAINING_LAST_RELEASE
+- +PYTHONPATH
+prehook_deps:
+- env:
+    CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_MLPERF_TRAINING_SOURCE
+  extra_cache_tags: mlperf,training,src
+  force_env_keys:
+  - CM_GIT_*
+  names:
+  - mlperf-training-repo
+  tags: get,git,repo
+  update_tags_from_env_with_prefix:
+    _branch.:
+    - CM_GIT_CHECKOUT
+    _repo.:
+    - CM_GIT_URL
+    _sha.:
+    - CM_GIT_SHA
+    _tag.:
+    - CM_GIT_CHECKOUT_TAG
+tags:
+- get
+- src
+- source
+- training
+- training-src
+- training-source
+- mlperf
+- mlcommons
+uid: dc440bd88e794a28
+variations:
+  branch.#:
+    env:
+      CM_GIT_CHECKOUT: '#'
+    group: checkout
+  cknowledge:
+    default: true
+    env:
+      CM_GIT_URL: https://github.com/cknowledge/training.git
+    group: src
+  full-history:
+    env:
+      CM_GIT_DEPTH: ''
+    group: git-history
+  mlcommons:
+    env:
+      CM_GIT_URL: https://github.com/mlcommons/training.git
+    group: src
+  no-recurse-submodules:
+    env:
+      CM_GIT_RECURSE_SUBMODULES: ''
+  nvidia-retinanet:
+    base:
+    - patch
+    env:
+      CM_GIT_PATCH_FILENAMES: nvidia-retinanet.patch,cpu_load.patch
+  patch:
+    env:
+      CM_GIT_PATCH: 'yes'
+  repo.#:
+    env:
+      CM_GIT_URL: '#'
+    group: repo
+  sha.#:
+    env:
+      CM_GIT_SHA: '#'
+    group: checkout
+  short-history:
+    default: true
+    env:
+      CM_GIT_DEPTH: --depth 5
+    group: git-history
+  tag.#:
+    env:
+      CM_GIT_CHECKOUT_TAG: '#'
+    group: checkout
+versions:
+  custom:
+    env:
+      CM_MLPERF_LAST_RELEASE: custom
+  master:
+    env:
+      CM_MLPERF_LAST_RELEASE: v3.1

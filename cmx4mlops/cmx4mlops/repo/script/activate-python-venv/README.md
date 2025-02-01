@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/Python-automation/activate-python-venv](https://docs.mlcommons.org/cm4mlops/scripts/Python-automation/activate-python-venv) for the documentation of this CM script.

@@ -1,0 +1,36 @@
+alias: install-mlperf-logging-from-src
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: MLPerf benchmark support
+deps:
+  - tags: get,python3
+    names:
+      - python
+      - python3
+  - tags: get,git,repo,_repo.https://github.com/mlcommons/logging
+    extra_cache_tags: mlperf_logging
+    env:
+      CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_MLPERF_LOGGING_REPO_PATH
+docker_input_mapping:
+input_description:
+new_env_keys:
+  - CM_MLPERF_LOGGING_REPO_PATH
+new_state_keys: []
+post_deps: []
+posthook_deps: []
+prehook_deps: []
+tags:
+- install
+- mlperf
+- logging
+- from.src
+uid: f67cb84a5dc942c3
+variations: {}
+versions:
+  master:
+    env:
+      CM_MLPERF_LOGGING_VERSION: master
+  v3.1:
+    env:
+      CM_MLPERF_LOGGING_VERSION: v3.1

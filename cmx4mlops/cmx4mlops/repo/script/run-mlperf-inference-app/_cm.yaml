@@ -1,0 +1,617 @@
+alias: run-mlperf-inference-app
+uid: 4a5d5b13fd7e4ac8
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: Modular MLPerf inference benchmark pipeline
+
+developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.org/gfursin)"
+
+gui:
+  title: CM GUI to run MLPerf inference benchmarks and prepare submissions
+
+clean_output_files:
+- open.tar.gz
+- summary.csv
+- summary.json
+
+tags:
+- run
+- common
+- generate-run-cmds
+- run-mlperf
+- run-mlperf-inference
+- vision
+- mlcommons
+- mlperf
+- inference
+- reference
+
+tags_help: "run-mlperf,inference"
+
+default_env:
+  CM_MLPERF_IMPLEMENTATION: reference
+  CM_MLPERF_MODEL: resnet50
+  CM_MLPERF_RUN_STYLE: test
+  CM_MLPERF_SKIP_SUBMISSION_GENERATION: no
+  CM_DOCKER_PRIVILEGED_MODE: yes
+
+input_mapping:
+  api_server: CM_MLPERF_INFERENCE_API_SERVER
+  backend: CM_MLPERF_BACKEND
+  batch_size: CM_MLPERF_LOADGEN_MAX_BATCHSIZE
+  beam_size: GPTJ_BEAM_SIZE
+  category: CM_MLPERF_SUBMISSION_SYSTEM_TYPE
+  clean: CM_MLPERF_CLEAN_ALL
+  compliance: CM_MLPERF_LOADGEN_COMPLIANCE
+  custom_system_nvidia: CM_CUSTOM_SYSTEM_NVIDIA
+  dashboard_wb_project: CM_MLPERF_DASHBOARD_WANDB_PROJECT
+  dashboard_wb_user: CM_MLPERF_DASHBOARD_WANDB_USER
+  debug: CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM
+  device: CM_MLPERF_DEVICE
+  division: CM_MLPERF_SUBMISSION_DIVISION
+  dlrm_data_path: DLRM_DATA_PATH
+  docker: CM_MLPERF_USE_DOCKER
+  dump_version_info: CM_DUMP_VERSION_INFO
+  save_console_log: CM_SAVE_CONSOLE_LOG
+  execution_mode: CM_MLPERF_RUN_STYLE
+  find_performance: CM_MLPERF_FIND_PERFORMANCE_MODE
+  framework: CM_MLPERF_BACKEND
+  docker_keep_alive: CM_DOCKER_CONTAINER_KEEP_ALIVE
+  get_platform_details: CM_GET_PLATFORM_DETAILS
+  gpu_name: CM_NVIDIA_GPU_NAME
+  hw_name: CM_HW_NAME
+  pip_loadgen: CM_MLPERF_INFERENCE_LOADGEN_INSTALL_FROM_PIP
+  hw_notes_extra: CM_MLPERF_SUT_SW_NOTES_EXTRA
+  imagenet_path: IMAGENET_PATH
+  implementation: CM_MLPERF_IMPLEMENTATION
+  lang: CM_MLPERF_IMPLEMENTATION
+  min_query_count: CM_MLPERF_INFERENCE_MIN_QUERY_COUNT
+  max_query_count: CM_MLPERF_INFERENCE_MAX_QUERY_COUNT
+  mode: CM_MLPERF_LOADGEN_MODE
+  model: CM_MLPERF_MODEL
+  multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
+  network: CM_NETWORK_LOADGEN
+  nvidia_system_name: CM_NVIDIA_SYSTEM_NAME
+  offline_target_qps: CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS
+  output_dir: OUTPUT_BASE_DIR
+  output_summary: MLPERF_INFERENCE_SUBMISSION_SUMMARY
+  output_tar: MLPERF_INFERENCE_SUBMISSION_TAR_FILE
+  performance_sample_count: CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT
+  power: CM_SYSTEM_POWER
+  precision: CM_MLPERF_MODEL_PRECISION
+  preprocess_submission: CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR
+  push_to_github: CM_MLPERF_RESULT_PUSH_TO_GITHUB
+  pull_changes: CM_MLPERF_INFERENCE_PULL_CODE_CHANGES
+  pull_inference_changes: CM_MLPERF_INFERENCE_PULL_SRC_CHANGES
+  readme: CM_MLPERF_README
+  regenerate_accuracy_file: CM_MLPERF_REGENERATE_ACCURACY_FILE
+  regenerate_files: CM_REGENERATE_MEASURE_FILES
+  rerun: CM_RERUN
+  results_dir: OUTPUT_BASE_DIR
+  results_git_url: CM_MLPERF_RESULTS_GIT_REPO_URL
+  run_checker: CM_RUN_SUBMISSION_CHECKER
+  run_style: CM_MLPERF_RUN_STYLE
+  scenario: CM_MLPERF_LOADGEN_SCENARIO
+  server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
+  singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
+  skip_submission_generation: CM_MLPERF_SKIP_SUBMISSION_GENERATION
+  skip_truncation: CM_SKIP_TRUNCATE_ACCURACY
+  submission_dir: CM_MLPERF_INFERENCE_SUBMISSION_DIR
+  submitter: CM_MLPERF_SUBMITTER
+  sut_servers: CM_NETWORK_LOADGEN_SUT_SERVERS
+  sw_notes_extra: CM_MLPERF_SUT_SW_NOTES_EXTRA
+  system_type: CM_MLPERF_SUBMISSION_SYSTEM_TYPE
+  target_latency: CM_MLPERF_LOADGEN_TARGET_LATENCY
+  target_qps: CM_MLPERF_LOADGEN_TARGET_QPS
+  test_query_count: CM_TEST_QUERY_COUNT
+  threads: CM_NUM_THREADS
+  sut: CM_MLPERF_INFERENCE_SUT_VARIATION
+  nvidia_llama2_dataset_file_path: CM_NVIDIA_LLAMA_DATASET_FILE_PATH
+  tp_size: CM_NVIDIA_TP_SIZE
+  vllm_model_name: CM_VLLM_SERVER_MODEL_NAME
+  num_workers: CM_MLPERF_INFERENCE_NUM_WORKERS
+  max_test_duration: CM_MLPERF_MAX_DURATION_TEST
+  all_models: CM_MLPERF_ALL_MODELS
+  criteo_day23_raw_data_path: CM_CRITEO_DAY23_RAW_DATA_PATH
+  use_dataset_from_host: CM_USE_DATASET_FROM_HOST
+  use_model_from_host: CM_USE_MODEL_FROM_HOST
+  rgat_checkpoint_path: RGAT_CHECKPOINT_PATH
+
+new_state_keys:
+- app_mlperf_inference_*
+- cm-mlperf-inference-results*
+
+deps:
+- tags: detect,os
+  skip_if_env:
+    CM_MLPERF_USE_DOCKER: [ on ]
+- tags: detect,cpu
+  skip_if_env:
+    CM_MLPERF_USE_DOCKER: [ on ]
+- names:
+  - python
+  - python3
+  tags: get,python3
+  skip_if_env:
+    CM_MLPERF_USE_DOCKER: [ on ]
+- names:
+  - inference-src
+  tags: get,mlcommons,inference,src
+- tags: get,sut,description
+  skip_if_env:
+    CM_MLPERF_USE_DOCKER: [ on ]
+
+- tags: get,mlperf,inference,results,dir
+  names:
+    - get-mlperf-inference-results-dir
+  enable_if_env:
+    CM_MLPERF_USE_DOCKER: [ off ]
+  skip_if_env:
+    OUTPUT_BASE_DIR: [ on ]
+- tags: install,pip-package,for-cmind-python,_package.tabulate
+- tags: get,mlperf,inference,utils
+
+#We use this script as a command generator to run docker via app-mlperf-inference script
+docker_off:
+  mounts:
+  - ${{ INSTALL_DATA_PATH }}:/install_data
+  - ${{ DATA_PATH }}:/data
+  - ${{ CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH }}:${{ CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH }}
+  - ${{ GPTJ_CHECKPOINT_PATH }}:${{ GPTJ_CHECKPOINT_PATH }}
+  skip_run_cmd: 'no'
+  shm_size: '32gb'
+  extra_run_args: ' --ulimit memlock=-1 --cap-add SYS_ADMIN --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
+  os: ubuntu
+  real_run: false
+  run: true
+  interactive: true
+  docker_input_mapping:
+    imagenet_path: IMAGENET_PATH
+    gptj_checkpoint_path: GPTJ_CHECKPOINT_PATH
+    criteo_preprocessed_path: CRITEO_PREPROCESSED_PATH
+    results_dir: RESULTS_DIR
+    submission_dir: SUBMISSION_DIR
+    dlrm_data_path: DLRM_DATA_PATH
+    intel_gptj_int8_model_path: CM_MLPERF_INFERENCE_INTEL_GPTJ_INT8_MODEL_PATH
+
+variations:
+
+  accuracy-only:
+    default_variations:
+      submission-generation-style: full
+    env:
+      CM_MLPERF_LOADGEN_MODE: accuracy
+      CM_MLPERF_SUBMISSION_RUN: 'yes'
+      CM_RUN_MLPERF_ACCURACY: 'on'
+      CM_RUN_SUBMISSION_CHECKER: 'no'
+    group: submission-generation
+
+  all-modes:
+    env:
+      CM_MLPERF_LOADGEN_ALL_MODES: 'yes'
+    group: mode
+
+  all-scenarios:
+    env:
+      CM_MLPERF_LOADGEN_ALL_SCENARIOS: 'yes'
+
+  compliance:
+    env:
+      CM_MLPERF_LOADGEN_COMPLIANCE: 'yes'
+
+  dashboard:
+    default_gui: false
+    env:
+      CM_MLPERF_DASHBOARD: 'on'
+
+  find-performance:
+    env:
+      CM_MLPERF_FIND_PERFORMANCE_MODE: 'yes'
+      CM_MLPERF_LOADGEN_ALL_MODES: 'no'
+      CM_MLPERF_LOADGEN_MODE: performance
+      CM_MLPERF_RESULT_PUSH_TO_GITHUB: false
+    group: submission-generation
+
+  full:
+    add_deps_recursive:
+      coco2014-original:
+        tags: _full
+      coco2014-preprocessed:
+        tags: _full
+      imagenet-original:
+        tags: _full
+      imagenet-preprocessed:
+        tags: _full
+      openimages-original:
+        tags: _full
+      openimages-preprocessed:
+        tags: _full
+      openorca-original:
+        tags: _full
+      openorca-preprocessed:
+        tags: _full
+      coco2014-dataset:
+        tags: _full
+      igbh-dataset:
+        tags: _full
+    env:
+      CM_MLPERF_SUBMISSION_GENERATION_STYLE: full
+    group: submission-generation-style
+
+  performance-only:
+    default_variations:
+      submission-generation-style: full
+    env:
+      CM_MLPERF_LOADGEN_MODE: performance
+      CM_MLPERF_SUBMISSION_RUN: 'yes'
+      CM_RUN_SUBMISSION_CHECKER: 'no'
+    group: submission-generation
+
+  populate-readme:
+    base:
+    - all-modes
+    default_variations:
+      submission-generation-style: full
+    env:
+      CM_MLPERF_README: 'yes'
+      CM_MLPERF_SUBMISSION_RUN: 'yes'
+      CM_RUN_SUBMISSION_CHECKER: 'no'
+    group: submission-generation
+
+  scc24-base:
+    base:
+    - short
+    env:
+      CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX4: scc24-base
+      CM_DOCKER_IMAGE_NAME: scc24
+      CM_MLPERF_INFERENCE_MIN_QUERY_COUNT: 50 
+    adr:
+      coco2014-preprocessed:
+        tags: _size.50,_with-sample-ids
+      coco2014-dataset:
+        tags: _size.50,_with-sample-ids
+      nvidia-preprocess-data:
+        extra_cache_tags: "scc24-base"
+    deps:
+      - tags: clean,nvidia,scratch,_sdxl,_downloaded-data
+        extra_cache_rm_tags: scc24-main
+
+  scc24-main:
+    base:
+    - short
+    adr:
+      coco2014-preprocessed:
+        tags: _size.500,_with-sample-ids
+      coco2014-dataset:
+        tags: _size.500,_with-sample-ids
+      nvidia-preprocess-data:
+        extra_cache_tags: "scc24-main"
+    env:
+      CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX4: scc24-main
+      CM_DOCKER_IMAGE_NAME: scc24
+      CM_MLPERF_INFERENCE_MIN_QUERY_COUNT: 500 
+    deps:
+      - tags: clean,nvidia,scratch,_sdxl,_downloaded-data
+        extra_cache_rm_tags: scc24-base
+
+  r2.1:
+    env:
+      CM_MLPERF_INFERENCE_VERSION: '2.1'
+      CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r2.1_default
+    group: benchmark-version
+
+  r3.0:
+    env:
+      CM_MLPERF_INFERENCE_VERSION: '3.0'
+      CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r3.0_default
+    group: benchmark-version
+
+  r3.1:
+    env:
+      CM_MLPERF_INFERENCE_VERSION: '3.1'
+      CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r3.1_default
+    group: benchmark-version
+
+  r4.0-dev:
+    env:
+      CM_MLPERF_INFERENCE_VERSION: '4.0-dev'
+      CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r4.0-dev_default
+    group: benchmark-version
+
+  r4.0:
+    env:
+      CM_MLPERF_INFERENCE_VERSION: '4.0'
+      CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r4.0_default
+    group: benchmark-version
+    adr:
+      get-mlperf-inference-results-dir:
+        tags: _version.r4_0-dev
+      get-mlperf-inference-submission-dir:
+        tags: _version.r4_0-dev
+      mlperf-inference-nvidia-scratch-space:
+        tags: _version.r4_0-dev
+
+  r4.1-dev:
+    default: true
+    env:
+      CM_MLPERF_INFERENCE_VERSION: '4.1-dev'
+      CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r4.1-dev_default
+    group: benchmark-version
+    adr:
+      get-mlperf-inference-results-dir:
+        tags: _version.r4_1-dev
+      get-mlperf-inference-submission-dir:
+        tags: _version.r4_1-dev
+      mlperf-inference-nvidia-scratch-space:
+        tags: _version.r4_1-dev
+
+  r4.1:
+    env:
+      CM_MLPERF_INFERENCE_VERSION: '4.1'
+      CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: r4.1_default
+    adr:
+      get-mlperf-inference-results-dir:
+        tags: _version.r4_1
+      get-mlperf-inference-submission-dir:
+        tags: _version.r4_1
+      mlperf-inference-nvidia-scratch-space:
+        tags: _version.r4_1
+    group: benchmark-version
+
+  short:
+    add_deps_recursive:
+      submission-checker:
+        tags: _short-run
+    default: 'true'
+    env:
+      CM_MLPERF_SUBMISSION_DIVISION: open
+      CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR: off
+      CM_MLPERF_SUBMISSION_GENERATION_STYLE: short
+    group: submission-generation-style
+
+  performance-and-accuracy:
+    default: true
+    base:
+    - all-modes
+    default_variations:
+      submission-generation-style: full
+    group: submission-generation
+
+  submission:
+    base:
+    - all-modes
+    default_gui: true
+    default_variations:
+      submission-generation-style: full
+    env:
+      CM_MLPERF_LOADGEN_COMPLIANCE: 'yes'
+      CM_MLPERF_SUBMISSION_RUN: 'yes'
+      CM_RUN_MLPERF_ACCURACY: 'on'
+      CM_RUN_SUBMISSION_CHECKER: 'yes'
+      CM_TAR_SUBMISSION_DIR: 'yes'
+    group: submission-generation
+    post_deps:
+    - names:
+      - submission-generator
+      skip_if_env:
+        CM_MLPERF_SKIP_SUBMISSION_GENERATION:
+        - 'yes'
+      tags: generate,mlperf,inference,submission
+
+versions:
+  master: {}
+  r2.1: {}
+
+input_description:
+  division:
+    choices:
+    - 'open'
+    - 'closed'
+    default: 'open'
+    desc: MLPerf division
+    sort: 50
+  category:
+    choices:
+    - 'edge'
+    - 'datacenter'
+    - 'network'
+    default: 'edge'
+    desc: MLPerf category
+    sort: 60
+  device:
+    choices:
+    - cpu
+    - cuda
+    - rocm
+    - qaic
+    default: cpu
+    desc: MLPerf device
+    sort: 100
+  model:
+    choices:
+    - resnet50
+    - retinanet
+    - bert-99
+    - bert-99.9
+    - 3d-unet-99
+    - 3d-unet-99.9
+    - rnnt
+    - dlrm-v2-99
+    - dlrm-v2-99.9
+    - gptj-99
+    - gptj-99.9
+    - sdxl
+    - llama2-70b-99
+    - llama2-70b-99.9
+    - mixtral-8x7b
+    - mobilenet
+    - efficientnet
+    - rgat
+    default: resnet50
+    desc: MLPerf model
+    sort: 200
+  precision:
+    choices:
+    - float32
+    - float16
+    - bfloat16
+    - int8
+    - uint8
+    default: ''
+    desc: MLPerf model precision
+    sort: 250
+  implementation:
+    choices:
+    - mlcommons-python
+    - mlcommons-cpp
+    - nvidia
+    - intel
+    - qualcomm
+    - ctuning-cpp-tflite
+    default: mlcommons-python
+    desc: MLPerf implementation
+    sort: 300
+  backend:
+    choices:
+    - onnxruntime
+    - tf
+    - pytorch
+    - deepsparse
+    - tensorrt
+    - glow
+    - tvm-onnx
+    default: onnxruntime
+    desc: MLPerf framework (backend)
+    sort: 400
+  scenario:
+    choices:
+    - Offline
+    - Server
+    - SingleStream
+    - MultiStream
+    default: Offline
+    desc: MLPerf scenario
+    sort: 500
+  mode:
+    choices:
+    - ''
+    - accuracy
+    - performance
+    default: ''
+    desc: MLPerf benchmark mode
+    sort: 600
+  execution_mode:
+    choices:
+    - test
+    - fast
+    - valid
+    default: test
+    desc: MLPerf execution mode
+    sort: 700
+  sut:
+    default: ''
+    desc: SUT configuration (if known)
+    sort: 750
+  submitter:
+    default: CTuning
+    desc: Submitter name (without space)
+    sort: 800
+  results_dir:
+    desc: Folder path to store results (defaults to the current working directory)
+    default: ''
+    sort: 900
+  submission_dir:
+    desc: Folder path to store MLPerf submission tree 
+    default: ''
+    sort: 1000
+
+  adr.compiler.tags:
+    desc: Compiler for loadgen and any C/C++ part of implementation
+  adr.inference-src-loadgen.env.CM_GIT_URL:
+    default: ''
+    desc: Git URL for MLPerf inference sources to build LoadGen (to enable non-reference
+      implementations)
+  adr.inference-src.env.CM_GIT_URL:
+    default: ''
+    desc: Git URL for MLPerf inference sources to run benchmarks (to enable non-reference
+      implementations)
+  adr.mlperf-inference-implementation.max_batchsize:
+    desc: Maximum batchsize to be used
+  adr.mlperf-inference-implementation.num_threads:
+    desc: Number of threads (reference & C++ implementation only)
+  adr.python.name:
+    desc: Python virtual environment name (optional)
+  adr.python.version:
+    desc: Force Python version (must have all system deps)
+  adr.python.version_min:
+    default: '3.8'
+    desc: Minimal Python version
+  power:
+    choices:
+    - 'yes'
+    - 'no'
+    default: 'no'
+    desc: Measure power
+    sort: 5000
+  adr.mlperf-power-client.power_server:
+    default: '192.168.0.15'
+    desc: MLPerf Power server IP address
+    sort: 5005
+  adr.mlperf-power-client.port: 
+    default: 4950
+    desc: MLPerf Power server port
+    sort: 5010
+  clean:
+    boolean: true
+    default: false
+    desc: Clean run
+  compliance:
+    choices:
+    - 'yes'
+    - 'no'
+    default: 'no'
+    desc: Whether to run compliance tests (applicable only for closed division)
+  dashboard_wb_project:
+    desc: W&B dashboard project
+    default: cm-mlperf-dse-testing
+  dashboard_wb_user:
+    desc: W&B dashboard user
+    default: cmind
+  hw_name:
+    desc: MLPerf hardware name (for example "gcp.c3_standard_8", "nvidia_orin", "lenovo_p14s_gen_4_windows_11", "macbook_pro_m1_2", "thundercomm_rb6" ...)
+  multistream_target_latency:
+    desc: Set MultiStream target latency
+  offline_target_qps:
+    desc: Set LoadGen Offline target QPS
+  quiet:
+    boolean: true
+    default: true
+    desc: Quiet run (select default values for all questions)
+  server_target_qps:
+    desc: Set Server target QPS
+  singlestream_target_latency:
+    desc: Set SingleStream target latency
+  target_latency:
+    desc: Set Target latency
+  target_qps:
+    desc: Set LoadGen target QPS
+  j:
+    desc: Print results dictionary to console at the end of the run
+    boolean: true
+    default: false
+  repro:
+    desc: Record input/output/state/info files to make it easier to reproduce results
+    boolean: true
+    default: false
+  time:
+    desc: Print script execution time at the end of the run
+    boolean: true
+    default: true
+  debug:
+    desc: Debug this script
+    boolean: true
+    default: false
+    
+#repo_to_report_errors: https://github.com/mlcommons/inference/issues

@@ -1,0 +1,38 @@
+alias: get-cmsis_5
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: Detection or installation of tools and artifacts
+default_env:
+  CM_GIT_DEPTH: ''
+  CM_GIT_PATCH: 'no'
+  CM_GIT_URL: https://github.com/ARM-software/CMSIS_5.git
+default_version: custom
+deps:
+- tags: detect,os
+new_env_keys:
+- CMSIS*
+tags:
+- get
+- cmsis
+- cmsis_5
+- arm-software
+uid: 2258c212b11443f5
+variations:
+  recurse-submodules:
+    env:
+      CM_GIT_RECURSE_SUBMODULES: --recurse-submodules
+  short-history:
+    env:
+      CM_GIT_DEPTH: --depth 10
+versions:
+  custom:
+    env:
+      CM_GIT_CHECKOUT: e5dc19182f6084de32d8dc5a22c84e01210f4995
+      CM_GIT_SHA: 'yes'
+  develop:
+    env:
+      CM_GIT_CHECKOUT: develop
+  master:
+    env:
+      CM_GIT_CHECKOUT: master

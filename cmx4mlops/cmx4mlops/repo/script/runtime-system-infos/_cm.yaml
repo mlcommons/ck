@@ -1,0 +1,51 @@
+# Identification of this CM script
+alias: runtime-system-infos
+uid: 755cf27627784001
+cache: false
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "MLPerf benchmark support"
+docker:
+  real_run: False
+
+# User-friendly tags to find this CM script
+tags:
+  - runtime
+  - system
+  - utilisation
+  - infos
+
+input_mapping:
+  log_dir: CM_LOGS_DIR
+  interval: CM_SYSTEM_INFO_MEASUREMENT_INTERVAL
+
+
+# Dependencies on other CM scripts
+
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+  # Detect python3
+  - tags: get,python3
+    names:
+    - python
+    - python3
+
+variations:
+  all:    # TODO: get both cpu and gpu measurements
+    group: devices
+
+  cpu:    # TODO: get the cpu measurements
+    group: devices
+
+  cuda:    # TODO: get the gpu(cuda) measurements
+    group: devices

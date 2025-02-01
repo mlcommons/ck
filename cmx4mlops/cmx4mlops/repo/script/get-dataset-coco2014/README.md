@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-coco2014](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-coco2014) for the documentation of this CM script.

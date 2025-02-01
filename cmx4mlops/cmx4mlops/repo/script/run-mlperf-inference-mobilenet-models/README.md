@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/run-mlperf-inference-mobilenet-models](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/run-mlperf-inference-mobilenet-models) for the documentation of this CM script.

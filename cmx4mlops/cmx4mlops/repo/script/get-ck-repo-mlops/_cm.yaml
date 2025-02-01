@@ -1,0 +1,12 @@
+alias: get-ck-repo-mlops
+automation_alias: script
+automation_uid: 5b4e0237da074764
+category: Legacy CK support
+deps:
+- tags: get,ck
+tags:
+- get
+- ck-repo
+- mlops
+- ck-repo-mlops
+uid: d3a619b8186e4f74

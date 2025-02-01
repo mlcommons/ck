@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/Tests/print-hello-world-java](https://docs.mlcommons.org/cm4mlops/scripts/Tests/print-hello-world-java) for the documentation of this CM script.

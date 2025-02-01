@@ -1,0 +1,62 @@
+alias: get-dataset-librispeech
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML datasets
+default_version: dev-clean
+deps:
+- names:
+  - sys-utils
+  tags: get,sys-utils-cm
+env:
+  CM_DATASET: LIBRISPEECH
+  CM_WGET_URL: http://www.openslr.org/resources/12/<<<CM_DATASET_ARCHIVE>>>
+new_env_keys:
+- CM_DATASET_*
+tags:
+- get
+- dataset
+- speech
+- speech-recognition
+- librispeech
+- validation
+- audio
+- training
+- original
+uid: 09f29df607e0415d
+versions:
+  dev-clean:
+    env:
+      CM_DATASET_ARCHIVE: dev-clean.tar.gz
+      CM_DATASET_MD5: 42e2234ba48799c1f50f24a7926300a1
+      CM_DATASET_NAME: LibriSpeech Dev Clean dataset
+  dev-other:
+    env:
+      CM_DATASET_ARCHIVE: dev-other.tar.gz
+      CM_DATASET_MD5: c8d0bcc9cca99d4f8b62fcc847357931
+      CM_DATASET_NAME: LibriSpeech Dev Other dataset
+  test-clean:
+    env:
+      CM_DATASET_ARCHIVE: test-clean.tar.gz
+      CM_DATASET_MD5: 32fa31d27d2e1cad72775fee3f4849a9
+      CM_DATASET_NAME: LibriSpeech Test Clean dataset
+  test-other:
+    env:
+      CM_DATASET_ARCHIVE: test-other.tar.gz
+      CM_DATASET_MD5: fb5a50374b501bb3bac4815ee91d3135
+      CM_DATASET_NAME: LibriSpeech Test Other dataset
+  train-clean-100:
+    env:
+      CM_DATASET_ARCHIVE: train-clean-100.tar.gz
+      CM_DATASET_MD5: 2a93770f6d5c6c964bc36631d331a522
+      CM_DATASET_NAME: LibriSpeech Train Clean 100 dataset
+  train-clean-360:
+    env:
+      DATASET_ARCHIVE: train-clean-360.tar.gz
+      DATASET_MD5: c0e676e450a7ff2f54aeade5171606fa
+      DATASET_NAME: LibriSpeech Train Clean 360 dataset
+  train-other-500:
+    env:
+      DATASET_ARCHIVE: train-other-500.tar.gz
+      DATASET_MD5: d1a0fd59409feb2c614ce4d30c387708
+      DATASET_NAME: LibriSpeech Train Other 500 dataset

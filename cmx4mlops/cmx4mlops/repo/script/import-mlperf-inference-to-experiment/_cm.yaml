@@ -1,0 +1,38 @@
+# Identification of this CM script
+alias: import-mlperf-inference-to-experiment
+uid: 72099fa962ea499c
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "MLPerf benchmark support"
+
+developers: "[Grigori Fursin](https://cKnowledge.org/gfursin)"
+
+# User-friendly tags to find this CM script
+tags:
+  - import
+  - mlperf
+  - inference
+  - mlperf-inference
+  - experiment
+  - 2experiment
+  - to-experiment
+
+input_mapping:
+  target_repo: CM_IMPORT_MLPERF_INFERENCE_TARGET_REPO
+  submitter: CM_MLPERF_SUBMITTER
+
+# Dependencies on other CM scripts
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+variations:
+  skip_checker:
+    env:
+      CM_SKIP_SUBMISSION_CHECKER: yes

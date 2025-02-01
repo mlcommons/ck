@@ -1,0 +1,28 @@
+alias: wrapper-reproduce-octoml-tinyml-submission
+automation_alias: script
+automation_uid: 5b4e0237da074764
+category: Reproduce MLPerf benchmarks
+default_version: r1.0
+deps:
+- names:
+  - python
+  - python3
+  tags: get,python3
+env: {}
+input_mapping:
+  flash: CM_FLASH_BOARD
+  recreate_binary: CM_RECREATE_BINARY
+tags:
+- run
+- generate-tiny
+- generate
+- submission
+- tiny
+- generate-tiny-submission
+- results
+- mlcommons
+- mlperf
+- octoml
+uid: b946001e289c4480
+versions:
+  r1.0: {}

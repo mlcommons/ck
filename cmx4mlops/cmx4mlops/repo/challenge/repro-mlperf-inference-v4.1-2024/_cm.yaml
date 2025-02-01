@@ -1,0 +1,22 @@
+alias: repro-mlperf-inference-v4.1-2024
+uid: 2093f4d750144df4
+
+automation_alias: challenge
+automation_uid: 3d84abd768f34e08
+
+title: 'Reproduce the upcoming MLPerf inference benchmark v4.1 results'
+
+date_open: '20240901'
+
+tags:
+- modularize
+- optimize
+- reproduce
+- replicate
+- automate
+- benchmark
+- mlperf
+- mlperf-inference
+- mlperf-inference-v4.1
+- mlperf-inference-v4.1-2024
+- v4.1

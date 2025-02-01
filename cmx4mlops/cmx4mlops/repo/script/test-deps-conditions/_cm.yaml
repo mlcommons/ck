@@ -1,0 +1,54 @@
+alias: test-deps-conditions
+uid: 5cb82aee472640df
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: Tests
+
+developers: "Grigori Fursin"
+
+deps:
+  - tags: print,native,hello-world,_skip_print_env
+  - tags: print,native,hello-world,_skip_print_env,_text.SKIP_IF_ALL_ENV
+    skip_if_env:
+      CM_ENV1:
+      - True
+      CM_ENV2:
+      - True
+      CM_ENV3:
+      - True
+  - tags: print,native,hello-world,_skip_print_env,_text.SKIP_IF_ANY_ENV
+    skip_if_any_env:
+      CM_ENV1:
+      - True
+      CM_ENV2:
+      - True
+      CM_ENV3:
+      - True
+  - tags: print,native,hello-world,_skip_print_env,_text.ENABLE_IF_ALL_ENV
+    enable_if_env:
+      CM_ENV1:
+      - True
+      CM_ENV2:
+      - True
+      CM_ENV3:
+      - True
+  - tags: print,native,hello-world,_skip_print_env,_text.ENABLE_IF_ANY_ENV
+    enable_if_any_env:
+      CM_ENV1:
+      - True
+      CM_ENV2:
+      - True
+      CM_ENV3:
+      - True
+
+input_mapping:
+  test1: CM_ENV1
+  test2: CM_ENV2
+  test3: CM_ENV3
+
+tags:
+- test
+- deps
+- conditions

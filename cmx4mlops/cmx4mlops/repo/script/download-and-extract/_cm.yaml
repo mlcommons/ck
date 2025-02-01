@@ -1,0 +1,117 @@
+alias: download-and-extract
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+can_force_cache: true
+category: DevOps automation
+deps: []
+input_description: {}
+input_mapping:
+  download_path: CM_DOWNLOAD_PATH
+  extra_folder: CM_EXTRACT_TO_FOLDER
+  extract_path: CM_EXTRACT_PATH
+  from: CM_DOWNLOAD_LOCAL_FILE_PATH
+  local_path: CM_DOWNLOAD_LOCAL_FILE_PATH
+  store: CM_DOWNLOAD_PATH
+  to: CM_EXTRACT_PATH
+  url: CM_DAE_URL
+  verify: CM_VERIFY_SSL
+new_env_keys:
+- CM_DOWNLOAD_DOWNLOADED_PATH*
+- CM_EXTRACT_EXTRACTED_PATH
+- <<<CM_DOWNLOAD_FINAL_ENV_NAME>>>
+- <<<CM_EXTRACT_FINAL_ENV_NAME>>>
+- <<<CM_DAE_FINAL_ENV_NAME>>>
+- CM_GET_DEPENDENT_CACHED_PATH
+new_state_keys: []
+post_deps: []
+posthook_deps:
+- enable_if_env:
+    CM_DAE_EXTRACT_DOWNLOADED:
+    - 'yes'
+    - 'True'
+  names:
+  - extract-script
+  tags: extract,file
+  force_env_keys:
+    - CM_OUTDIRNAME
+  update_tags_from_env_with_prefix:
+    _path.:
+    - CM_DOWNLOAD_DOWNLOADED_PATH
+    - CM_TORRENT_DOWNLOADED_PATH
+prehook_deps:
+- names:
+  - download-script
+  skip_if_env:
+    CM_DAE_DOWNLOAD_USING_TORRENT:
+    - 'yes'
+    - 'True'
+  tags: download,file
+  force_env_keys:
+    - CM_OUTDIRNAME
+  update_tags_from_env_with_prefix:
+    _url.:
+    - CM_DAE_URL
+tags:
+- dae
+- file
+- download-and-extract
+tags_help: download-and-extract file
+uid: c67e81a4ce2649f5
+variations:
+  cmutil:
+    add_deps:
+      download-script:
+        tags: _cmutil
+    default: true
+    group: download-tool
+  curl:
+    add_deps:
+      download-script:
+        tags: _wget
+    group: download-tool
+  extract:
+    env:
+      CM_DAE_EXTRACT_DOWNLOADED: 'yes'
+  gdown:
+    add_deps:
+      download-script:
+        tags: _gdown
+    group: download-tool
+  keep:
+    default: 'true'
+    env:
+      CM_EXTRACT_REMOVE_EXTRACTED: 'no'
+    group: keep
+  no-remove-extracted:
+    env:
+      CM_EXTRACT_REMOVE_EXTRACTED: 'no'
+    group: keep
+  rclone:
+    add_deps:
+      download-script:
+        tags: _rclone
+    group: download-tool
+  torrent:
+    env:
+      CM_DAE_DOWNLOAD_USING_TORRENT: 'yes'
+      CM_TORRENT_DOWNLOADED_FILE_NAME: <<<CM_DAE_FILENAME>>>
+      CM_TORRENT_DOWNLOADED_PATH_ENV_KEY: CM_DAE_FILEPATH
+      CM_TORRENT_WAIT_UNTIL_COMPLETED: 'yes'
+    group: download-tool
+    new_env_keys:
+    - CM_TORRENT_DOWNLOADED_PATH
+    prehook_deps:
+    - tags: download,torrent
+      update_tags_from_env_with_prefix:
+        _torrent.:
+        - CM_DAE_TORRENT_PATH
+  url.#:
+    env:
+      CM_DAE_URL: '#'
+  wget:
+    add_deps:
+      download-script:
+        tags: _wget
+    group: download-tool
+versions: {}

@@ -1,0 +1,23 @@
+alias: compile-program
+automation_alias: script
+automation_uid: 5b4e0237da074764
+category: DevOps automation
+clean_files:
+- tmp-run.out
+default_env:
+  SKIP_RECOMPILE: 'no'
+deps:
+- tags: detect,cpu
+- names:
+  - compiler
+  tags: get,compiler
+- tags: get,compiler-flags
+tags:
+- compile
+- program
+- c-program
+- cpp-program
+- compile-program
+- compile-c-program
+- compile-cpp-program
+uid: c05042ba005a4bfa

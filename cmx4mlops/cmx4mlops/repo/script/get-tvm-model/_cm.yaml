@@ -1,0 +1,120 @@
+alias: get-tvm-model
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML models
+default_env:
+  CM_ML_MODEL_MAX_BATCH_SIZE: '1'
+  CM_TUNE_TVM_MODEL: 'no'
+  CM_TVM_FRONTEND_FRAMEWORK: onnx
+  CM_TVM_USE_VM: 'yes'
+deps:
+- names:
+  - python
+  - python3
+  tags: get,python3
+- names:
+  - tvm
+  tags: get,tvm
+- tags: get,generic-python-lib,_decorator
+- tags: get,generic-python-lib,_psutil
+- tags: get,generic-python-lib,_scipy
+- tags: get,generic-python-lib,_attrs
+new_env_keys:
+- CM_ML_MODEL_*
+- CM_TUNE_TVM_*
+- CM_TVM_*
+prehook_deps:
+- names:
+  - original-model
+  tags: get,ml-model,raw
+  update_tags_from_env:
+  - CM_ML_MODEL
+  update_tags_from_env_with_prefix:
+    _:
+    - CM_TVM_FRONTEND_FRAMEWORK
+tags:
+- get
+- ml-model-tvm
+- tvm-model
+uid: c1b7b656b6224307
+variations:
+  batch_size.#:
+    env:
+      CM_ML_MODEL_MAX_BATCH_SIZE: '#'
+    group: batchsize
+  fp32:
+    add_deps_recursive:
+      original-model:
+        tags: _fp32
+    default: true
+    group: precision
+  graph_executor:
+    env:
+      CM_TVM_USE_VM: 'no'
+    group: runtime
+  int8:
+    add_deps_recursive:
+      original-model:
+        tags: _int8
+    group: precision
+  model.#:
+    env:
+      CM_ML_MODEL: '#'
+    group: model
+  onnx:
+    default: true
+    deps:
+    - names:
+      - onnx
+      tags: get,generic-python-lib,_onnx
+    env:
+      CM_TVM_FRONTEND_FRAMEWORK: onnx
+    group: frontend
+  pytorch:
+    deps:
+    - names:
+      - pytorch
+      - torch
+      tags: get,generic-python-lib,_torch
+    - tags: get,generic-python-lib,_torchvision
+    env:
+      CM_TVM_FRONTEND_FRAMEWORK: pytorch
+    group: frontend
+  tensorflow:
+    deps:
+    - names:
+      - tensorflow
+      tags: get,generic-python-lib,_tensorflow
+    env:
+      CM_TVM_FRONTEND_FRAMEWORK: tensorflow
+    group: frontend
+  tf:
+    alias: tensorflow
+  tflite:
+    deps:
+    - names:
+      - tflite
+      tags: get,generic-python-lib,_tflite
+    env:
+      CM_TVM_FRONTEND_FRAMEWORK: tflite
+    group: frontend
+  torch:
+    alias: pytorch
+  tune-model:
+    deps:
+    - tags: get,generic-python-lib,_xgboost
+    - tags: get,generic-python-lib,_pandas
+    - tags: get,generic-python-lib,_tornado
+    env:
+      CM_TUNE_TVM_MODEL: 'yes'
+  uint8:
+    add_deps_recursive:
+      original-model:
+        tags: _uint8
+    group: precision
+  virtual_machine:
+    default: true
+    env:
+      CM_TVM_USE_VM: 'yes'
+    group: runtime

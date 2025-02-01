@@ -1,0 +1,272 @@
+alias: get-preprocessed-dataset-imagenet
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML datasets
+default_env:
+  CM_DATASET_CONVERT_TO_UNSIGNED: '0'
+  CM_DATASET_CROP_FACTOR: '87.5'
+  CM_DATASET_DATA_LAYOUT: NCHW
+  CM_DATASET_DATA_TYPE: float32
+  CM_DATASET_PREPROCESSED_EXTENSION: npy
+  CM_DATASET_QUANTIZE: '0'
+  CM_DATASET_QUANT_OFFSET: '0'
+  CM_DATASET_QUANT_SCALE: '1'
+  CM_DATASET_REFERENCE_PREPROCESSOR: '1'
+  CM_MODEL: resnet50
+  CM_PREPROCESS_VGG: 'yes'
+deps:
+- names:
+  - python3
+  - python
+  skip_if_env:
+    CM_IMAGENET_PREPROCESSED_PATH:
+    - 'on'
+  tags: get,python3
+- names:
+  - original-dataset
+  skip_if_env:
+    CM_IMAGENET_PREPROCESSED_PATH:
+    - 'on'
+  tags: get,dataset,image-classification,original
+- enable_if_env:
+    CM_DATASET_TYPE:
+    - validation
+  skip_if_env:
+    CM_IMAGENET_PREPROCESSED_PATH:
+    - 'on'
+  tags: get,dataset-aux,image-classification,imagenet-aux
+- enable_if_env:
+    CM_DATASET_TYPE:
+    - calibration
+  tags: get,dataset,imagenet,calibration
+- tags: get,generic-python-lib,_package.opencv-python-headless
+- tags: get,generic-python-lib,_pillow
+- enable_if_env:
+    CM_DATASET_REFERENCE_PREPROCESSOR:
+    - '1'
+  names:
+  - inference-src
+  skip_if_env:
+    CM_IMAGENET_PREPROCESSED_PATH:
+    - 'on'
+  tags: mlperf,mlcommons,inference,source,src
+docker:
+  run: false
+env:
+  CM_DATASET: imagenet
+input_mapping:
+  dir: CM_DATASET_PREPROCESSED_PATH
+  imagenet_path: CM_IMAGENET_PATH
+  imagenet_preprocessed_path: CM_IMAGENET_PREPROCESSED_PATH
+  threads: CM_NUM_PREPROCESS_THREADS
+new_env_keys:
+- CM_DATASET_*
+tags:
+- get
+- dataset
+- imagenet
+- ILSVRC
+- image-classification
+- preprocessed
+uid: f259d490bbaf45f5
+variations:
+  '1':
+    add_deps:
+      original-dataset:
+        tags: _2012-1
+    env:
+      CM_DATASET_SIZE: '1'
+    group: size
+  '500':
+    add_deps:
+      original-dataset:
+        tags: _2012
+    env:
+      CM_DATASET_SIZE: '500'
+    group: size
+  500,validation:
+    add_deps:
+      original-dataset:
+        tags: _size.500
+  NCHW:
+    default: true
+    env:
+      CM_DATASET_DATA_LAYOUT: NCHW
+    group: layout
+  NHWC:
+    env:
+      CM_DATASET_DATA_LAYOUT: NHWC
+    group: layout
+  calibration:
+    add_deps:
+      original-dataset:
+        tags: _full
+    default_variations:
+      calibration-option: mlperf.option1
+      preprocessing-source: generic-preprocessor
+    env:
+      CM_DATASET_TYPE: calibration
+    group: dataset-type
+  default: {}
+  float32:
+    env:
+      CM_DATASET_CONVERT_TO_UNSIGNED: '0'
+      CM_DATASET_DATA_TYPE: float32
+      CM_DATASET_QUANTIZE: '0'
+    group: precision
+  for.mobilenet:
+    base:
+    - mobilenet_
+    env: {}
+    group: model
+  for.mobilenet,float32:
+    env:
+      CM_DATASET_GIVEN_CHANNEL_MEANS: ''
+      CM_DATASET_NORMALIZE_DATA: '1'
+      CM_DATASET_QUANTIZE: '0'
+      CM_DATASET_SUBTRACT_MEANS: '0'
+  for.mobilenet,rgb8:
+    env:
+      CM_DATASET_DATA_TYPE: uint8
+      CM_DATASET_GIVEN_CHANNEL_MEANS: ''
+      CM_DATASET_NORMALIZE_DATA: '0'
+      CM_DATASET_QUANTIZE: '0'
+      CM_DATASET_SUBTRACT_MEANS: '0'
+  for.resnet50:
+    base:
+    - resnet50_
+    env:
+      CM_DATASET_GIVEN_CHANNEL_MEANS: 123.68 116.78 103.94
+      CM_DATASET_INTERPOLATION_METHOD: INTER_AREA
+      CM_DATASET_NORMALIZE_DATA: '0'
+      CM_DATASET_SUBTRACT_MEANS: '1'
+    group: model
+  for.resnet50,float32:
+    env: {}
+  for.resnet50,rgb8:
+    env:
+      CM_DATASET_DATA_TYPE: uint8
+      CM_DATASET_GIVEN_CHANNEL_MEANS: ''
+      CM_DATASET_NORMALIZE_DATA: '0'
+      CM_DATASET_QUANTIZE: '0'
+      CM_DATASET_SUBTRACT_MEANS: '0'
+  for.resnet50,rgb8,uint8:
+    env:
+      CM_DATASET_GIVEN_CHANNEL_MEANS: 123.68 116.78 103.94
+      CM_DATASET_QUANTIZE: '1'
+      CM_DATASET_SUBTRACT_MEANS: '1'
+  for.resnet50,uint8:
+    env:
+      CM_DATASET_QUANT_OFFSET: '0'
+      CM_DATASET_QUANT_SCALE: '1.18944883'
+  full:
+    add_deps:
+      original-dataset:
+        tags: _full
+    env:
+      CM_DATASET_SIZE: '50000'
+    group: size
+  generic-preprocessor:
+    env:
+      CM_DATASET_REFERENCE_PREPROCESSOR: '0'
+    group: preprocessing-source
+    prehook_deps:
+    - tags: get,generic,image-preprocessor
+  int8:
+    env:
+      CM_DATASET_CONVERT_TO_UNSIGNED: '0'
+      CM_DATASET_DATA_TYPE: int8
+      CM_DATASET_QUANTIZE: '1'
+    group: precision
+  inter.area:
+    env:
+      CM_DATASET_INTERPOLATION_METHOD: INTER_AREA
+    group: interpolation-method
+  inter.linear:
+    env:
+      CM_DATASET_INTERPOLATION_METHOD: INTER_LINEAR
+    group: interpolation-method
+  mlcommons-reference-preprocessor:
+    default: true
+    env:
+      CM_DATASET_REFERENCE_PREPROCESSOR: '1'
+    group: preprocessing-source
+  mlperf.option1:
+    env:
+      CM_DATASET_CALIBRATION_OPTION: one
+    group: calibration-option
+  mlperf.option2:
+    env:
+      CM_DATASET_CALIBRATION_OPTION: two
+    group: calibration-option
+  mobilenet_:
+    default_variations:
+      extension: rgb32
+      interpolation-method: inter.linear
+      precision: int8
+      preprocessing-source: generic-preprocessor
+    env:
+      CM_MODEL: mobilenet
+  pytorch:
+    default_variations:
+      preprocessing-source: mlcommons-reference-preprocessor
+    deps:
+    - names:
+      - torchvision
+      tags: get,generic-python-lib,_torchvision
+    env:
+      CM_MODEL: resnet50
+      CM_PREPROCESS_PYTORCH: 'yes'
+  resnet50_:
+    default_variations:
+      extension: rgb32
+      interpolation-method: inter.area
+      precision: float32
+      preprocessing-source: generic-preprocessor
+    env:
+      CM_MODEL: resnet50
+  resolution.#:
+    env:
+      CM_DATASET_INPUT_SQUARE_SIDE: '#'
+    group: resolution
+  resolution.224:
+    default: true
+    env:
+      CM_DATASET_INPUT_SQUARE_SIDE: '224'
+    group: resolution
+  rgb32:
+    env:
+      CM_DATASET_PREPROCESSED_EXTENSION: rgb32
+    group: extension
+  rgb8:
+    env:
+      CM_DATASET_PREPROCESSED_EXTENSION: rgb8
+    group: extension
+  size.#:
+    add_deps:
+      original-dataset:
+        tags: _#
+    env:
+      CM_DATASET_SIZE: '#'
+    group: size
+  tflite_tpu:
+    default_variations:
+      preprocessing-source: mlcommons-reference-preprocessor
+    env:
+      CM_MODEL: resnet50
+      CM_PREPROCESS_TFLITE_TPU: 'yes'
+  uint8:
+    env:
+      CM_DATASET_CONVERT_TO_UNSIGNED: '1'
+      CM_DATASET_DATA_TYPE: uint8
+      CM_DATASET_DATA_TYPE_INPUT: float32
+      CM_DATASET_QUANTIZE: '1'
+    group: precision
+  validation:
+    default: 'true'
+    default_variations:
+      size: '500'
+    env:
+      CM_DATASET_TYPE: validation
+    group: dataset-type

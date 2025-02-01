@@ -1,0 +1,6 @@
+docker:
+  build: true
+  docker_os: ubuntu
+  docker_os_version: "22.04"
+
+run_with_default_inputs: true #if false the script won't run automatic tests

@@ -1,0 +1,41 @@
+alias: truncate-mlperf-inference-accuracy-log
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: MLPerf benchmark support
+clean_files: []
+deps:
+- names:
+  - python
+  - python3
+  tags: get,python3
+- names:
+  - inference-src
+  tags: get,mlcommons,inference,src
+- names:
+  - get-mlperf-submission-dir
+  skip_if_env:
+    CM_MLPERF_INFERENCE_SUBMISSION_DIR:
+    - 'on'
+  tags: get,mlperf,submission,dir
+input_mapping:
+  input: CM_MLPERF_INFERENCE_SUBMISSION_DIR
+  submission_dir: CM_MLPERF_INFERENCE_SUBMISSION_DIR
+  submitter: CM_MLPERF_SUBMITTER
+tags:
+- run
+- mlc
+- mlcommons
+- mlperf
+- inference
+- mlperf-inference
+- truncation
+- truncator
+- truncate
+- accuracy
+- accuracy-log
+- accuracy-log-trancation
+- accuracy-log-truncator
+- mlc-accuracy-log-trancation
+- mlc-accuracy-log-truncator
+uid: 9d5ec20434084d14

@@ -1,0 +1,83 @@
+alias: get-mlperf-inference-results
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: MLPerf benchmark support
+default_env:
+  CM_GIT_CHECKOUT: master
+  CM_GIT_DEPTH: --depth 1
+  CM_GIT_PATCH: 'no'
+default_version: v4.0
+deps: []
+new_env_keys:
+- CM_MLPERF_INFERENCE_RESULTS_*
+prehook_deps:
+- env:
+    CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_MLPERF_INFERENCE_RESULTS_PATH
+  extra_cache_tags: mlperf,inference,results,official
+  force_env_keys:
+  - CM_GIT_*
+  names:
+  - inference-results-repo
+  tags: get,git,repo
+  update_tags_from_env_with_prefix:
+    _repo.:
+    - CM_GIT_URL
+tags:
+- get
+- results
+- inference
+- official
+- inference-results
+- mlcommons
+- mlperf
+uid: 36bae5b25dbe41da
+variations:
+  code-only:
+    adr:
+      inference-results-repo:
+        tags: _branch.cm-code-only
+    group: repo-branch
+  ctuning:
+    env:
+      GITHUB_REPO_OWNER: ctuning
+    group: source-repo
+  custom:
+    env:
+      GITHUB_REPO_OWNER: arjunsuresh
+    group: source-repo
+  go:
+    env:
+      GITHUB_REPO_OWNER: GATEOverflow
+    group: source-repo
+  mlcommons:
+    default: true
+    env:
+      GITHUB_REPO_OWNER: mlcommons
+    group: source-repo
+  nvidia-only:
+    env:
+      GITHUB_REPO_OWNER: GATEOverflow
+      NVIDIA_ONLY: 'yes'
+    group: source-repo
+versions:
+  v2.1:
+    env:
+      CM_GIT_URL: https://github.com/<<<GITHUB_REPO_OWNER>>>/inference_results_v2.1.git
+      CM_MLPERF_INFERENCE_RESULTS_VERSION_NAME: v2.1
+  v3.0:
+    env:
+      CM_GIT_URL: https://github.com/<<<GITHUB_REPO_OWNER>>>/inference_results_v3.0.git
+      CM_MLPERF_INFERENCE_RESULTS_VERSION_NAME: v3.0
+  v3.1:
+    env:
+      CM_GIT_URL: https://github.com/<<<GITHUB_REPO_OWNER>>>/inference_results_v3.1.git
+      CM_MLPERF_INFERENCE_RESULTS_VERSION_NAME: v3.1
+  v4.0:
+    env:
+      CM_GIT_URL: https://github.com/<<<GITHUB_REPO_OWNER>>>/inference_results_v4.0.git
+      CM_MLPERF_INFERENCE_RESULTS_VERSION_NAME: v4.0
+  v4.1:
+    env:
+      CM_GIT_URL: https://github.com/<<<GITHUB_REPO_OWNER>>>/inference_results_v4.1.git
+      CM_MLPERF_INFERENCE_RESULTS_VERSION_NAME: v4.1

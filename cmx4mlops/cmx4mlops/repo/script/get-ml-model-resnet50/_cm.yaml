@@ -1,0 +1,239 @@
+alias: get-ml-model-resnet50
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML models
+env:
+  CM_DOWNLOAD_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
+  CM_ML_MODEL: RESNET50
+  CM_ML_MODEL_DATASET: imagenet2012-val
+  CM_ML_MODEL_IMAGE_HEIGHT: '224'
+  CM_ML_MODEL_IMAGE_WIDTH: '224'
+  CM_ML_MODEL_NORMALIZE_DATA: '0'
+  CM_ML_MODEL_RETRAINING: 'no'
+  CM_ML_MODEL_SUBTRACT_MEANS: 'YES'
+  CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: 'no'
+new_env_keys:
+- CM_ML_MODEL_*
+prehook_deps:
+- env:
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
+    CM_EXTRACT_EXTRACTED_FILENAME: <<<CM_ML_MODEL_FILE>>>
+    CM_EXTRACT_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
+  extra_cache_tags: ml-model,resnet50,raw,ml-model-resnet50,_<<<CM_ML_MODEL_FRAMEWORK>>>
+  force_cache: true
+  force_env_keys:
+    - CM_OUTDIRNAME
+  names:
+  - model-downloader
+  tags: download-and-extract
+  update_tags_from_env_with_prefix:
+    _url.:
+    - CM_PACKAGE_URL
+print_env_at_the_end:
+  CM_ML_MODEL_FILE_WITH_PATH: Path to the ML model
+tags:
+- get
+- raw
+- ml-model
+- resnet50
+- ml-model-resnet50
+- image-classification
+uid: 56203e4e998b4bc0
+variations:
+  argmax:
+    default: true
+    env:
+      CM_ML_MODEL_OUTPUT_LAYER_ARGMAX: 'yes'
+    group: model-output
+  batch_size.#:
+    env:
+      CM_ML_MODEL_BATCH_SIZE: '#'
+  batch_size.1:
+    env:
+      CM_ML_MODEL_BATCH_SIZE: '1'
+  fix-input-shape:
+    deps:
+    - names:
+      - python
+      - python3
+      tags: get,python3
+  fp32:
+    default: true
+    env:
+      CM_ML_MODEL_INPUT_DATA_TYPES: fp32
+      CM_ML_MODEL_PRECISION: fp32
+      CM_ML_MODEL_WEIGHT_DATA_TYPES: fp32
+    group: precision
+  from-tf: {}
+  huggingface_default:
+    env:
+      CM_DOWNLOAD_CHECKSUM: f6a4da60cd5f084d97efc2c1ddb10beb
+      CM_PACKAGE_URL: https://huggingface.co/ctuning/mlperf-inference-resnet50-onnx-fp32-imagenet2012-v1.0/resolve/main/resnet50_v1.onnx
+  int8:
+    env:
+      CM_ML_MODEL_INPUT_DATA_TYPES: int8
+      CM_ML_MODEL_PRECISION: int8
+      CM_ML_MODEL_WEIGHT_DATA_TYPES: int8
+    group: precision
+  ncnn:
+    env:
+      CM_ML_MODEL_FRAMEWORK: ncnn
+    group: framework
+  ncnn,fp32:
+    env:
+      CM_DOWNLOAD_CHECKSUM: 0360777ab2178a65a8f78c35a7d619e0
+      CM_PACKAGE_URL: https://zenodo.org/record/8073420/files/resnet50_v1.bin?download=1
+    post_deps:
+    - env:
+        CM_DOWNLOAD_CHECKSUM: f9ba6c4d7f66348e6d24c06bfe3f4ae8
+        CM_EXTRACT_EXTRACTED_FILENAME: <<<CM_ML_MODEL_PARAM_FILE>>>
+      extra_cache_tags: ml-model-params,params,resnet50,ncnn,model-params
+      tags: download-and-extract,_url.https://zenodo.org/record/8073420/files/resnet50_v1.param?download=
+  no-argmax:
+    env:
+      CM_ML_MODEL_OUTPUT_LAYER_ARGMAX: 'no'
+    group: model-output
+  onnx:
+    default: true
+    default_variations:
+      opset-version: opset-11
+    env:
+      CM_ML_MODEL_DATA_LAYOUT: NCHW
+      CM_ML_MODEL_FRAMEWORK: onnx
+      CM_ML_MODEL_INPUT_LAYERS: input_tensor:0
+      CM_ML_MODEL_INPUT_LAYER_NAME: input_tensor:0
+      CM_ML_MODEL_INPUT_SHAPES: '\"input_tensor:0\": (BATCH_SIZE, 3, 224, 224)'
+      CM_ML_MODEL_OUTPUT_LAYERS: softmax_tensor:0
+      CM_ML_MODEL_OUTPUT_LAYER_NAME: softmax_tensor:0
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: <<<CM_PACKAGE_URL>>>
+      CM_ML_MODEL_VER: '1.5'
+    group: framework
+  onnx,from-tf:
+    env:
+      CM_DOWNLOAD_CHECKSUM: 7b94a2da05dd30f6c0af23a46bc08886
+      CM_ML_MODEL_DATA_LAYOUT: NHWC
+      CM_ML_MODEL_FRAMEWORK: onnx
+      CM_ML_MODEL_INPUT_LAYERS: input_tensor
+      CM_ML_MODEL_INPUT_LAYER_NAME: input_tensor
+      CM_ML_MODEL_INPUT_SHAPES: '\"input_tensor\": (BATCH_SIZE, 224, 224, 3)'
+      CM_ML_MODEL_OUTPUT_LAYERS: softmax_tensor
+      CM_ML_MODEL_OUTPUT_LAYER_NAME: softmax_tensor
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://zenodo.org/record/2535873/files/resnet50_v1.pb
+  onnx,from-tf,fp32:
+    adr:
+      model-downloader:
+        tags: _gdown
+    env:
+      CM_DOWNLOAD_CHECKSUM: 04a510152d9eded924883bdfcf85dd4a
+      CM_DOWNLOAD_FILENAME: resnet50_v1_modified.onnx
+      CM_PACKAGE_URL: https://drive.google.com/uc?id=15wZ_8Vt12cb10IEBsln8wksD1zGwlbOM
+  onnx,opset-11:
+    env:
+      CM_DOWNLOAD_CHECKSUM: f6a4da60cd5f084d97efc2c1ddb10beb
+      CM_PACKAGE_URL: https://zenodo.org/record/4735647/files/resnet50_v1.onnx
+  onnx,opset-8:
+    env:
+      CM_DOWNLOAD_CHECKSUM: a638cf028b5870da29e09ccc2f7182e7
+      CM_PACKAGE_URL: https://zenodo.org/record/2592612/files/resnet50_v1.onnx
+  onnxruntime:
+    alias: onnx
+  opset-11:
+    env:
+      CM_ML_MODEL_ONNX_OPSET: '11'
+    group: opset-version
+  opset-8:
+    env:
+      CM_ML_MODEL_ONNX_OPSET: '8'
+    group: opset-version
+  pytorch:
+    env:
+      CM_ML_MODEL_DATA_LAYOUT: NCHW
+      CM_ML_MODEL_FRAMEWORK: pytorch
+      CM_ML_MODEL_GIVEN_CHANNEL_MEANS: '?'
+      CM_ML_MODEL_INPUT_LAYER_NAME: input_tensor:0
+      CM_ML_MODEL_INPUT_SHAPES: '\"input_tensor:0\": [BATCH_SIZE, 3, 224, 224]'
+      CM_ML_MODEL_OUTPUT_LAYERS: output
+      CM_ML_MODEL_OUTPUT_LAYER_NAME: '?'
+      CM_ML_STARTING_WEIGHTS_FILENAME: <<<CM_PACKAGE_URL>>>
+    group: framework
+  pytorch,fp32:
+    env:
+      CM_DOWNLOAD_CHECKSUM: 9e9c86b324d80e65229fab49b8d9a8e8
+      CM_PACKAGE_URL: https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth
+  pytorch,int8:
+    base:
+    - int8
+    - pytorch
+    env:
+      CM_DOWNLOAD_CHECKSUM: 6893ea9769b0afce65bb0ddf002f4438
+      CM_PACKAGE_URL: https://zenodo.org/record/4589637/files/resnet50_INT8bit_quantized.pt
+  tensorflow:
+    env:
+      CM_DOWNLOAD_CHECKSUM: 7b94a2da05dd30f6c0af23a46bc08886
+      CM_ML_MODEL_ACCURACY: '76.456'
+      CM_ML_MODEL_DATA_LAYOUT: NHWC
+      CM_ML_MODEL_FRAMEWORK: tensorflow
+      CM_ML_MODEL_GIVEN_CHANNEL_MEANS: 123.68 116.78 103.94
+      CM_ML_MODEL_INPUT_LAYERS: input_tensor
+      CM_ML_MODEL_INPUT_LAYER_NAME: input_tensor
+      CM_ML_MODEL_INPUT_SHAPES: '\"input_tensor:0\": (BATCH_SIZE, 3, 224, 224)'
+      CM_ML_MODEL_NORMALIZE_DATA: '0'
+      CM_ML_MODEL_OUTPUT_LAYERS: softmax_tensor
+      CM_ML_MODEL_OUTPUT_LAYER_NAME: softmax_tensor
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: <<<CM_PACKAGE_URL>>>
+      CM_ML_MODEL_SUBTRACT_MEANS: 'YES'
+      CM_PACKAGE_URL: https://zenodo.org/record/2535873/files/resnet50_v1.pb
+    group: framework
+  tensorflow,fix-input-shape:
+    deps:
+    - names:
+      - tensorflow
+      tags: get,generic-python-lib,_package.tensorflow
+    env:
+      CM_ML_MODEL_TF_FIX_INPUT_SHAPE: 'yes'
+  tf:
+    alias: tensorflow
+  tflite:
+    env:
+      CM_ML_MODEL_ACCURACY: '76.456'
+      CM_ML_MODEL_DATA_LAYOUT: NHWC
+      CM_ML_MODEL_FRAMEWORK: tflite
+      CM_ML_MODEL_GIVEN_CHANNEL_MEANS: 123.68 116.78 103.94
+      CM_ML_MODEL_INPUT_LAYERS: input_tensor
+      CM_ML_MODEL_INPUT_LAYER_NAME: input_tensor
+      CM_ML_MODEL_INPUT_SHAPES: '\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)'
+      CM_ML_MODEL_NORMALIZE_DATA: '0'
+      CM_ML_MODEL_OUTPUT_LAYERS: softmax_tensor
+      CM_ML_MODEL_OUTPUT_LAYER_NAME: softmax_tensor
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: <<<CM_PACKAGE_URL>>>
+      CM_ML_MODEL_SUBTRACT_MEANS: 'YES'
+    group: framework
+  tflite,argmax:
+    env:
+      CM_DAE_EXTRACT_DOWNLOADED: 'yes'
+      CM_DOWNLOAD_CHECKSUM: 92b5ae497e0de5c2d487507953b6e5cc
+      CM_DOWNLOAD_FINAL_ENV_NAME: ''
+      CM_EXTRACT_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
+      CM_ML_MODEL_FILE: resnet50_v1.tflite
+      CM_ML_MODEL_INPUT_SHAPES: '\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)'
+      CM_PACKAGE_URL: https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz?dl=1
+  tflite,int8,no-argmax:
+    env:
+      CM_DOWNLOAD_CHECKSUM: a657cf1f97545aefd058c1c718cc0e17
+      CM_DOWNLOAD_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
+      CM_ML_MODEL_FILE: resnet50_quant_full_mlperf_edgetpu.tflite
+      CM_ML_MODEL_INPUT_SHAPES: '\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)'
+      CM_PACKAGE_URL: https://zenodo.org/record/8234946/files/resnet50_quant_full_mlperf_edgetpu.tflite?download=1
+  tflite,no-argmax:
+    env:
+      CM_DOWNLOAD_CHECKSUM: 53e81f9f9b459ecfb6d64add3da91564
+      CM_ML_MODEL_FILE: resnet50_v1.no-argmax.tflite
+      CM_ML_MODEL_INPUT_SHAPES: '\"input_tensor 2\": (BATCH_SIZE, 224, 224, 3)'
+      CM_PACKAGE_URL: https://www.dropbox.com/s/vhuqo0wc39lky0a/resnet50_v1.no-argmax.tflite?dl=1
+  uint8:
+    env:
+      CM_ML_MODEL_INPUT_DATA_TYPES: uint8
+      CM_ML_MODEL_PRECISION: uint8
+      CM_ML_MODEL_WEIGHT_DATA_TYPES: uint8
+    group: precision

@@ -1,0 +1,48 @@
+alias: reproduce-ieee-acm-micro2023-paper-33
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: Reproducibility and artifact evaluation
+deps:
+- tags: detect,os
+- names:
+  - python
+  - python3
+  tags: get,python
+- tags: get,git,repo,_repo.https://github.com/filipmazurek/spa-artifact
+  env:
+    CM_GIT_ENV_KEY: 'SPA_ARTIFACT'
+  extra_cache_tags: micro23,artifact,ae,spa_artifact
+  skip_if_env:
+    CM_RUN_INSIDE_DOCKER:
+    - yes
+script_name: run
+tags:
+- reproduce
+- project
+- paper
+- m
+- micro
+- micro-2023
+- '2023'
+- '33'
+uid: 5dad99d41c0b422b
+variations:
+  install_deps:
+    script_name: install_deps
+  install_deps_kernel:
+    script_name: install_deps_kernel
+    env:
+      CM_RUN_INSIDE_DOCKER: yes
+  install_deps_gem5:
+    script_name: install_deps_gem5
+    env:
+      CM_RUN_INSIDE_DOCKER: yes
+  plot:
+    script_name: plot
+    env:
+      CM_RUN_INSIDE_DOCKER: yes
+  run:
+    script_name: run
+    env:
+      CM_RUN_INSIDE_DOCKER: yes

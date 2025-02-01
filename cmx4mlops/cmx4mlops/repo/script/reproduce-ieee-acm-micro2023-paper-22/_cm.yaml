@@ -1,0 +1,45 @@
+alias: reproduce-ieee-acm-micro2023-paper-22
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: Reproducibility and artifact evaluation
+deps:
+- tags: detect,os
+- names:
+  - python
+  - python3
+  tags: get,python
+- tags: get,git,repo,_repo.https://github.com/UofT-EcoSystem/Grape-MICRO56-Artifact
+  env:
+    CM_GIT_ENV_KEY: 'GRAPE_MICRO56'
+  extra_cache_tags: micro56,artifact,ae,grape
+script_name: run
+tags:
+- reproduce
+- project
+- paper
+- m
+- micro
+- micro-2023
+- '2023'
+- '22'
+uid: e26c9ce3e7b84526
+variations:
+  install_deps:
+    script_name: install_deps
+  install_deps_driver:
+    script_name: install_deps_driver
+  install_deps_cuda:
+    script_name: install_deps_cuda
+  install_deps_pytorch:
+    script_name: install_deps_pytorch
+  install_deps_transformers:
+    script_name: install_deps_transformers
+  run:
+    script_name: run
+  run_figure11:
+    script_name: run_figure11
+  run_figure12:
+    script_name: run_figure12
+  run_figure13:
+    script_name: run_figure13
