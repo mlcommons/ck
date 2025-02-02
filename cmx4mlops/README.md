@@ -22,9 +22,10 @@ by `yaml` metadata, enabling the creation of robust and flexible ML workflows.
 
 Grigori Fursin, the cTuning foundation and OctoML donated the CK and CM projects to MLCommons to benefit everyone and encourage collaborative development.
 
-## Maintainer(s)
+## Maintainers
 
-* MLCommons
+* CM, CM4MLOps and MLPerf automations: MLCommons
+* CMX (the next generation of CM): Grigori Fursin
 
 ## Author
 
@@ -36,6 +37,25 @@ for their invaluable feedback and support!
 ## Concepts
 
 Check our [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) and the [white paper](https://arxiv.org/abs/2406.16791).
+
+## Test image classification and MLPerf R-GAT inference benchmark via CMX PYPI package
+
+```bash
+pip install cmind
+pip install cmx4mlops
+cmx run script "python app image-classification onnx" --quiet
+cmx run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="MLCommons" --adr.inference-src.tags=_branch.dev --pull_changes=yes --pull_inference_changes=yes  --submitter="MLCommons" --hw_name=ubuntu-latest_x86 --model=rgat --implementation=python --backend=pytorch --device=cpu --scenario=Offline --test_query_count=500 --adr.compiler.tags=gcc --category=datacenter --quiet  --v --target_qps=1
+```
+
+## Test image classification and MLPerf R-GAT inference benchmark via CMX GitHub repo
+
+```bash
+pip uninstall cmx4mlops
+pip install cmind
+cmx pull repo mlcommons@ck --dir=cmx4mlops/cmx4mlops
+cmx run script "python app image-classification onnx" --quiet
+cmx run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="MLCommons" --adr.inference-src.tags=_branch.dev --pull_changes=yes --pull_inference_changes=yes  --submitter="MLCommons" --hw_name=ubuntu-latest_x86 --model=rgat --implementation=python --backend=pytorch --device=cpu --scenario=Offline --test_query_count=500 --adr.compiler.tags=gcc --category=datacenter --quiet  --v --target_qps=1
+```
 
 ## Parent project
 

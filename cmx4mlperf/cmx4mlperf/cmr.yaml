@@ -1,5 +1,5 @@
-alias: cmx4mlops
-uid: 428611a6db02407f
+alias: cmx4mlperf
+uid: 5c24e5e0ce5a457a
 
 git: true
 
@@ -9,6 +9,6 @@ author: "Grigori Fursin and contributors"
 
 install_python_requirements: false
 
-min_cm_version: "3.5.2"
+min_cm_version: "3.5.3"
 
 prefix: repo
