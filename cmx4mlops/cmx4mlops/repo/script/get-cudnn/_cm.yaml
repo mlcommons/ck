@@ -19,6 +19,7 @@ default_env:
 
 deps:
 - tags: detect,os
+- tags: detect,sudo
 - names:
   - cuda
   skip_if_env:

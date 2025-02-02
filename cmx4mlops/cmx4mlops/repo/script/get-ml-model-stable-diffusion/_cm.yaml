@@ -28,6 +28,8 @@ prehook_deps:
   names:
   - hf-zoo
   tags: get,ml-model,huggingface,zoo,_clone-repo,_model-stub.stabilityai/stable-diffusion-xl-base-1.0
+  force_env_keys:
+    - CM_OUTDIRNAME  
 - enable_if_env:
     CM_DOWNLOAD_TOOL:
     - rclone

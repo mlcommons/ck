@@ -3,15 +3,15 @@ automation_alias: script
 automation_uid: 5b4e0237da074764
 cache: true
 category: AI/ML models
+docker:
+  fake_run_deps: True
 env:
   CM_ML_MODEL: RGAT
-  CM_ML_MODEL_DATASET: ICBH
 input_mapping:
   checkpoint: RGAT_CHECKPOINT_PATH
-  download_path: CM_DOWNLOAD_PATH
-  to: CM_DOWNLOAD_PATH
 new_env_keys:
 - CM_ML_MODEL_*
+- CM_ML_MODEL_RGAT_CHECKPOINT_PATH
 - RGAT_CHECKPOINT_PATH
 prehook_deps:
 - enable_if_env:
@@ -20,12 +20,14 @@ prehook_deps:
     CM_TMP_REQUIRE_DOWNLOAD:
     - 'yes'
   env:
-    CM_DOWNLOAD_FINAL_ENV_NAME: CM_ML_MODEL_PATH
-  extra_cache_tags: rgat,gnn,model
+    CM_DOWNLOAD_FINAL_ENV_NAME: RGAT_DIR_PATH
+  extra_cache_tags: rgat,gnn,model,ml-model
   force_cache: true
   names:
-  - dae
-  tags: download-and-extract
+  - download-file
+  tags: download,file
+  force_env_keys:
+    - CM_OUTDIRNAME
   update_tags_from_env_with_prefix:
     _url.:
     - CM_DOWNLOAD_URL
@@ -54,7 +56,7 @@ variations:
     group: download-source
   rclone:
     adr:
-      dae:
+      download-file:
         tags: _rclone
     env:
       CM_DOWNLOAD_TOOL: rclone
@@ -62,4 +64,6 @@ variations:
     group: download-tool
   rclone,fp32:
     env:
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: https://github.com/mlcommons/inference/tree/master/graph/R-GAT#download-model-using-rclone
       CM_DOWNLOAD_URL: mlc-inference:mlcommons-inference-wg-public/R-GAT/RGAT.pt
+      CM_DOWNLOAD_FILENAME: RGAT

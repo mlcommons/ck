@@ -25,6 +25,8 @@ prehook_deps:
   names:
   - dae
   tags: download-and-extract
+  force_env_keys:
+    - CM_OUTDIRNAME  
   update_tags_from_env_with_prefix:
     _url.:
     - CM_PACKAGE_URL

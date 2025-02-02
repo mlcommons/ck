@@ -24,6 +24,7 @@ new_env_keys:
 - CM_MLPERF_INFERENCE_DLRM_V2_PATH
 - CM_MLPERF_INFERENCE_GPTJ_PATH
 - CM_MLPERF_INFERENCE_RNNT_PATH
+- CM_MLPERF_INFERENCE_RGAT_PATH
 - CM_MLPERF_INFERENCE_SOURCE
 - CM_MLPERF_INFERENCE_SOURCE_VERSION
 - CM_MLPERF_INFERENCE_VERSION
@@ -49,8 +50,6 @@ prehook_deps:
     _submodules.:
     - CM_GIT_SUBMODULES
 print_env_at_the_end_disabled:
-  CM_MLPERF_INFERENCE_CONF_PATH: Path to the MLPerf inference benchmark configuration
-    file
   CM_MLPERF_INFERENCE_SOURCE: Path to MLPerf inference benchmark sources
 tags:
 - get
@@ -134,38 +133,55 @@ variations:
 versions:
   custom:
     env:
-      CM_MLPERF_LAST_RELEASE: v4.1
+      CM_MLPERF_LAST_RELEASE: v5.0
   deepsparse:
     env:
-      CM_MLPERF_LAST_RELEASE: v4.1
+      CM_MLPERF_LAST_RELEASE: v5.0
       CM_TMP_GIT_CHECKOUT: deepsparse
       CM_TMP_GIT_URL: https://github.com/neuralmagic/inference
   main:
     env:
-      CM_MLPERF_LAST_RELEASE: v4.1
+      CM_MLPERF_LAST_RELEASE: v5.0
       CM_TMP_GIT_CHECKOUT: main
   master:
     env:
-      CM_MLPERF_LAST_RELEASE: v4.1
+      CM_MLPERF_LAST_RELEASE: v5.0
       CM_TMP_GIT_CHECKOUT: master
   r2.1:
     env:
       CM_MLPERF_LAST_RELEASE: v2.1
       CM_TMP_GIT_CHECKOUT: v2.1
   r3.0:
-    adr:
+    ad:
       inference-git-repo:
         tags: _tag.v3.0
     env:
       CM_MLPERF_LAST_RELEASE: v3.0
       CM_TMP_GIT_CHECKOUT: ''
   r3.1:
-    adr:
+    ad:
       inference-git-repo:
         tags: _tag.v3.1
     env:
       CM_MLPERF_LAST_RELEASE: v3.1
-      CM_TMP_GIT_CHECKOUT: ''
+      CM_GIT_CHECKOUT_TAG: 'v3.1'
+  r4.0:
+    ad:
+      inference-git-repo:
+        tags: _tag.v4.0
+    env:
+      CM_MLPERF_LAST_RELEASE: v4.0
+      CM_GIT_CHECKOUT_TAG: 'v4.0'
+  r4.1:
+    ad:
+      inference-git-repo:
+        tags: _tag.v4.1
+    env:
+      CM_MLPERF_LAST_RELEASE: v4.1
+      CM_GIT_CHECKOUT_TAG: 'v4.1'
+  r5.0:
+    env:
+      CM_MLPERF_LAST_RELEASE: v5.0
   tvm:
     env:
       CM_MLPERF_LAST_RELEASE: v3.1

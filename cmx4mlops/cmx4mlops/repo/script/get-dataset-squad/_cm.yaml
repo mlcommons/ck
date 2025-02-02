@@ -16,6 +16,8 @@ prehook_deps:
   extra_cache_tags: bert,get,dataset-squad
   force_cache: true
   tags: download-and-extract,_wget
+  force_env_keys:
+    - CM_OUTDIRNAME  
   update_tags_from_env_with_prefix:
     _url.:
     - CM_PACKAGE_URL

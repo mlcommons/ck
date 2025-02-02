@@ -48,14 +48,15 @@ def preprocess(i):
 #        env['CM_BUILD_DOCKERFILE'] = "no"
 #
     if env.get("CM_DOCKER_IMAGE_REPO", "") == '':
-        env['CM_DOCKER_IMAGE_REPO'] = "local"
+        env['CM_DOCKER_IMAGE_REPO'] = "localhost/local"
 
     docker_image_name = env.get('CM_DOCKER_IMAGE_NAME', '')
     if docker_image_name == '':
         docker_image_name = "cm-script-" + \
             env.get('CM_DOCKER_RUN_SCRIPT_TAGS', '').replace(
                 ',', '-').replace('_', '-')
-        env['CM_DOCKER_IMAGE_NAME'] = docker_image_name
+
+    env['CM_DOCKER_IMAGE_NAME'] = docker_image_name.lower()
 
     if env.get("CM_DOCKER_IMAGE_TAG", "") == '':
         env['CM_DOCKER_IMAGE_TAG'] = "latest"
@@ -76,7 +77,8 @@ def preprocess(i):
 
     # Prepare CMD to build image
     XCMD = [
-        'docker build ' + env.get('CM_DOCKER_CACHE_ARG', ''),
+        f'{env["CM_CONTAINER_TOOL"]} build ' +
+        env.get('CM_DOCKER_CACHE_ARG', ''),
         ' ' + build_args,
         ' -f "' + dockerfile_path + '"',
         ' -t "' + image_name,

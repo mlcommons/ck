@@ -13,6 +13,8 @@ new_env_keys:
 - CM_ML_MODEL*
 post_deps:
 - tags: get,dataset-aux,squad-vocab
+  force_env_keys:
+    - CM_OUTDIRNAME
 prehook_deps:
 - env:
     CM_DOWNLOAD_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
@@ -25,6 +27,8 @@ prehook_deps:
     CM_ML_MODEL_BERT_PACKED:
     - 'yes'
   tags: download-and-extract
+  force_env_keys:
+    - CM_OUTDIRNAME  
   update_tags_from_env_with_prefix:
     _url.:
     - CM_PACKAGE_URL

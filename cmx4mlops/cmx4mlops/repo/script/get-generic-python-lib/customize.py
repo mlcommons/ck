@@ -200,4 +200,8 @@ def postprocess(i):
     if pip_version and len(pip_version) > 1 and int(pip_version[0]) >= 23:
         env['CM_PYTHON_PIP_COMMON_EXTRA'] = " --break-system-packages"
 
+    if version.count('.') > 1:
+        env[f"{env_version_key}_MAJOR_MINOR"] = ".".join(
+            version.split(".")[:2])
+
     return {'return': 0, 'version': version}

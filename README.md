@@ -53,8 +53,7 @@ The CM/CMX architecture diagram is available for viewing
 
 #### MLOps and MLPerf automations
 
-[CM4MLOPS repository powered by CM](https://github.com/mlcommons/ck/tree/master/cm-mlops) - 
-a collection of portable, extensible and technology-agnostic automation recipes
+We have developed a collection of portable, extensible and technology-agnostic automation recipes
 with a common CLI and Python API (CM scripts) to unify and automate 
 all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
 on diverse platforms with any software and hardware. 
@@ -65,7 +64,7 @@ see [online catalog at CK playground](https://access.cknowledge.org/playground/?
 
 CM scripts extend the concept of `cmake` with simple Python automations, native scripts
 and JSON/YAML meta descriptions. They require Python 3.7+ with minimal dependencies and are 
-[continuously extended by the community and MLCommons members](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)
+[continuously extended by the community and MLCommons members](https://github.com/mlcommons/ck/blob/master/CONTRIBUTORS.md)
 to run natively on Ubuntu, MacOS, Windows, RHEL, Debian, Amazon Linux
 and any other operating system, in a cloud or inside automatically generated containers
 while keeping backward compatibility.
@@ -75,10 +74,9 @@ at MLCommons to run MLPerf inference benchmarks across diverse systems using CM.
 
 #### MLCommons ABTF automation
 
-[CM4ABTF repository powered by CM](https://github.com/mlcommons/cm4abtf) - 
-a collection of portable automations and CM scripts to run the upcoming 
+We have developed a collection of portable automations and CM scripts to run the upcoming 
 automotive MLPerf benchmark across different models, data sets, software 
-and hardware from different vendors.
+and hardware from different vendors: see [CM4ABTF repository](https://github.com/mlcommons/cm4abtf).
 
 #### MLPerf results visualization
 
@@ -178,7 +176,7 @@ and to advance its development as a collaborative, community-driven effort.
 
 We thank [MLCommons](https://mlcommons.org), [FlexAI](https://flex.ai) 
 and [cTuning](https://cTuning.org) for supporting this project,
-as well as our dedicated [volunteers and collaborators](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md)
+as well as our dedicated [volunteers and collaborators](https://github.com/mlcommons/ck/blob/master/CONTRIBUTORS.md)
 for their feedback and contributions!
 
 If you found the CM automations helpful, kindly reference this article:

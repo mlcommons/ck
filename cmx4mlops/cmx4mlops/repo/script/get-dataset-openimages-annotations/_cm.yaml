@@ -12,6 +12,8 @@ prehook_deps:
   extra_cache_tags: retinanet,get,dataset-openimages-annotations
   force_cache: true
   tags: download-and-extract,_wget,_extract
+  force_env_keys:
+    - CM_OUTDIRNAME  
   update_tags_from_env_with_prefix:
     _url.:
     - CM_PACKAGE_URL

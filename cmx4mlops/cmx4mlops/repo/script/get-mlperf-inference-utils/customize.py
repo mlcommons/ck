@@ -26,7 +26,7 @@ def preprocess(i):
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
 
-    utils_path = i['run_script_input']['path']
+    utils_path = env['CM_TMP_CURRENT_SCRIPT_PATH']
 
     env['+PYTHONPATH'] = [utils_path]
 

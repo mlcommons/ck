@@ -1647,12 +1647,12 @@ def dockerfile(i):
             'docker_cm_repo',
             docker_settings.get(
                 'cm_repo',
-                'mlcommons@cm4mlops'))
+                'mlcommons@mlperf-automations'))
         cm_repo_branch = i.get(
             'docker_cm_repo_branch',
             docker_settings.get(
                 'cm_repo_branch',
-                'mlperf-inference'))
+                'main'))
 
         cm_repo_flags = i.get(
             'docker_cm_repo_flags',
@@ -1915,6 +1915,9 @@ def docker(i):
 
     noregenerate_docker_file = i.get('docker_noregenerate', False)
     norecreate_docker_image = i.get('docker_norecreate', True)
+    recreate_docker_image = i.get('docker_recreate', False)
+    if recreate_docker_image:  # force recreate
+        norecreate_docker_image = False
 
     if i.get('docker_skip_build', False):
         noregenerate_docker_file = True
@@ -1987,8 +1990,6 @@ def docker(i):
             env['CM_DOCKER_CACHE'] = docker_cache
 
     image_repo = i.get('docker_image_repo', '')
-    if image_repo == '':
-        image_repo = 'local'
 
     # Host system needs to have docker
     r = self_module.cmind.access({'action': 'run',
@@ -2084,6 +2085,14 @@ def docker(i):
             continue
         '''
 
+        r = script_automation._update_env_from_input(env, i)
+        if r['return'] > 0:
+            return r
+
+        # mount outdirname path
+        if env.get('CM_OUTDIRNAME', '') != '':
+            mounts.append(f"""{env['CM_OUTDIRNAME']}:{env['CM_OUTDIRNAME']}""")
+
         # Check if need to update/map/mount inputs and env
         r = process_inputs({'run_cmd_arc': i_run_cmd_arc,
                             'docker_settings': docker_settings,
@@ -2174,7 +2183,7 @@ def docker(i):
 
         # env keys corresponding to container mounts are explicitly passed to
         # the container run cmd
-        container_env_string = ''
+        container_env = {}
         for index in range(len(mounts)):
             mount = mounts[index]
             # Since windows may have 2 :, we search from the right
@@ -2216,7 +2225,6 @@ def docker(i):
                         new_container_mount, new_container_mount_env = get_container_path(
                             env[tmp_value])
                         container_env_key = new_container_mount_env
-                        # container_env_string += " --env.{}={} ".format(tmp_value, new_container_mount_env)
                     else:  # we skip those mounts
                         mounts[index] = None
                         skip = True
@@ -2228,8 +2236,7 @@ def docker(i):
                 continue
             mounts[index] = new_host_mount + ":" + new_container_mount
             if host_env_key:
-                container_env_string += " --env.{}={} ".format(
-                    host_env_key, container_env_key)
+                container_env[host_env_key] = container_env_key
 
                 for v in docker_input_mapping:
                     if docker_input_mapping[v] == host_env_key:
@@ -2260,9 +2267,15 @@ def docker(i):
         for key in proxy_keys:
             if os.environ.get(key, '') != '':
                 value = os.environ[key]
-                container_env_string += " --env.{}={} ".format(key, value)
+                container_env[key] = value
                 env['+ CM_DOCKER_BUILD_ARGS'].append(
                     "{}={}".format(key, value))
+
+        if container_env:
+            if not i_run_cmd.get('env'):
+                i_run_cmd['env'] = container_env
+            else:
+                i_run_cmd['env'] = {**i_run_cmd['env'], **container_env}
 
         docker_use_host_group_id = i.get(
             'docker_use_host_group_id',
@@ -2308,7 +2321,7 @@ def docker(i):
             'docker_cm_repo',
             docker_settings.get(
                 'cm_repo',
-                'mlcommons@cm4mlops'))
+                'mlcommons@mlperf-automations'))
 
         docker_path = i.get('docker_path', '').strip()
         if docker_path == '':
@@ -2405,8 +2418,7 @@ def docker(i):
                                    'docker_run_cmd_prefix': i.get('docker_run_cmd_prefix', '')})
         if r['return'] > 0:
             return r
-        run_cmd = r['run_cmd_string'] + ' ' + \
-            container_env_string + ' --docker_run_deps '
+        run_cmd = r['run_cmd_string'] + ' ' + ' --docker_run_deps '
 
         env['CM_RUN_STATE_DOCKER'] = True
 
@@ -2422,7 +2434,8 @@ def docker(i):
         print(final_run_cmd)
         print('')
 
-        docker_recreate_image = 'yes' if not norecreate_docker_image else 'no'
+        docker_recreate_image = 'yes' if str(norecreate_docker_image).lower() not in [
+            "yes", "true", "1"] else 'no'
 
         if i.get('docker_push_image', '') in ['True', True, 'yes']:
             env['CM_DOCKER_PUSH_IMAGE'] = 'yes'
@@ -2436,10 +2449,8 @@ def docker(i):
                            'docker_os_version': docker_os_version,
                            'cm_repo': cm_repo,
                            'env': env,
-                           'image_repo': image_repo,
                            'interactive': interactive,
                            'mounts': mounts,
-                           'image_name': image_name,
                            #                            'image_tag': script_alias,
                            'image_tag_extra': image_tag_extra,
                            'detached': detached,
@@ -2455,6 +2466,12 @@ def docker(i):
                                }
                            }
                            }
+
+        if image_repo:
+            cm_docker_input['image_repo'] = image_repo
+
+        if image_name:
+            cm_docker_input['image_name'] = image_name
 
         if all_gpus:
             cm_docker_input['all_gpus'] = True

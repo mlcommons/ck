@@ -9,7 +9,8 @@ docker_input_mapping: {}
 input_description: {}
 input_mapping: {}
 new_env_keys: [
-  "CM_DOCKER_VERSION"
+  "CM_DOCKER_VERSION",
+  "CM_CONTAINER_TOOL"
 ]
 new_state_keys: []
 post_deps: []

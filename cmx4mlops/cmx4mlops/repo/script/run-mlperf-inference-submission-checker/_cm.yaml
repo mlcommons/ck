@@ -36,6 +36,7 @@ deps:
   tags: preprocess,mlperf,inference,submission
 input_mapping:
   extra_args: CM_MLPERF_SUBMISSION_CHECKER_EXTRA_ARGS
+  extra_checker_args: CM_MLPERF_SUBMISSION_CHECKER_EXTRA_ARGS
   extra_model_benchmark_map: CM_MLPERF_EXTRA_MODEL_MAPPING
   input: CM_MLPERF_INFERENCE_SUBMISSION_DIR
   power: CM_MLPERF_POWER
@@ -50,6 +51,7 @@ input_mapping:
   src_version: CM_MLPERF_SUBMISSION_CHECKER_VERSION
   submission_dir: CM_MLPERF_INFERENCE_SUBMISSION_DIR
   submitter: CM_MLPERF_SUBMITTER
+  submitter_id: CM_MLPERF_SUBMITTER_ID
   tar: CM_TAR_SUBMISSION_DIR
 post_deps:
 - enable_if_env:
@@ -66,6 +68,12 @@ post_deps:
     CM_TAR_SUBMISSION_DIR:
     - 'yes'
   tags: run,tar
+- enable_if_env:
+    CM_SUBMITTER_ID:
+    - 'yes'
+  tags: submit,mlperf,results,_inference
+  env:
+    CM_MLPERF_SUBMISSION_FILE: <<<MLPERF_INFERENCE_SUBMISSION_TAR_FILE>>>
 tags:
 - run
 - mlc
@@ -103,3 +111,7 @@ versions:
     adr:
       submission-checker-src:
         version: r4.1
+  r5.0:
+    adr:
+      submission-checker-src:
+        version: master

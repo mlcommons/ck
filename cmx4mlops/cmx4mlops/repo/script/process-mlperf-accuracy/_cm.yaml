@@ -261,3 +261,11 @@ variations:
     env:
       CM_DATASET: terabyte
     group: dataset
+  igbh:
+    env:
+      CM_DATASET: igbh
+    group: dataset
+  dataset_llama3:
+    env:
+      CM_DATASET: dataset_llama3
+    group: dataset
