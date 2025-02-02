@@ -48,14 +48,14 @@ def preprocess(i):
     make_command = env['MLPERF_NVIDIA_RUN_COMMAND']
 
     if make_command == "prebuild":
-        cmds.append(f"make prebuild NETWORK_NODE=SUT")
+        cmds.append(f"""make prebuild NETWORK_NODE=SUT""")
 
     if env['CM_MODEL'] == "resnet50":
         target_data_path = os.path.join(
             env['MLPERF_SCRATCH_PATH'], 'data', 'imagenet')
         if not os.path.exists(target_data_path):
             cmds.append(
-                f"ln -sf {env['CM_DATASET_IMAGENET_PATH']} {target_data_path}")
+                f"""ln -sf {env['CM_DATASET_IMAGENET_PATH']} {target_data_path}""")
 
         model_path = os.path.join(
             env['MLPERF_SCRATCH_PATH'],
@@ -64,11 +64,11 @@ def preprocess(i):
             'resnet50_v1.onnx')
 
         if not os.path.exists(os.path.dirname(model_path)):
-            cmds.append(f"mkdir -p {os.path.dirname(model_path)}")
+            cmds.append(f"""mkdir -p {os.path.dirname(model_path)}""")
 
         if not os.path.exists(model_path):
             cmds.append(
-                f"ln -sf {env['CM_ML_MODEL_FILE_WITH_PATH']} {model_path}")
+                f"""ln -sf {env['CM_ML_MODEL_FILE_WITH_PATH']} {model_path}""")
         model_name = "resnet50"
 
     elif "bert" in env['CM_MODEL']:
@@ -94,17 +94,17 @@ def preprocess(i):
             'vocab.txt')
 
         if not os.path.exists(os.path.dirname(fp32_model_path)):
-            cmds.append(f"mkdir -p {os.path.dirname(fp32_model_path)}")
+            cmds.append(f"""mkdir -p {os.path.dirname(fp32_model_path)}""")
 
         if not os.path.exists(fp32_model_path):
             cmds.append(
-                f"ln -sf {env['CM_ML_MODEL_BERT_LARGE_FP32_PATH']} {fp32_model_path}")
+                f"""cp -r --remove-destination {env['CM_ML_MODEL_BERT_LARGE_FP32_PATH']} {fp32_model_path}""")
         if not os.path.exists(int8_model_path):
             cmds.append(
-                f"ln -sf {env['CM_ML_MODEL_BERT_LARGE_INT8_PATH']} {int8_model_path}")
+                f"""cp -r --remove-destination {env['CM_ML_MODEL_BERT_LARGE_INT8_PATH']} {int8_model_path}""")
         if not os.path.exists(vocab_path):
             cmds.append(
-                f"ln -sf {env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH']} {vocab_path}")
+                f"""cp -r --remove-destination {env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH']} {vocab_path}""")
         model_name = "bert"
         model_path = fp32_model_path
 
@@ -123,9 +123,9 @@ def preprocess(i):
             # cmds.append("make download_data BENCHMARKS='stable-diffusion-xl'")
             env['CM_REQUIRE_COCO2014_DOWNLOAD'] = 'yes'
             cmds.append(
-                f"cp -r \\$CM_DATASET_PATH_ROOT/captions/captions.tsv {target_data_path}/captions_5k_final.tsv")
+                f"""cp -r \\$CM_DATASET_PATH_ROOT/captions/captions.tsv {target_data_path}/captions_5k_final.tsv""")
             cmds.append(
-                f"cp -r \\$CM_DATASET_PATH_ROOT/latents/latents.pt {target_data_path}/latents.pt")
+                f"""cp -r \\$CM_DATASET_PATH_ROOT/latents/latents.pt {target_data_path}/latents.pt""")
         fp16_model_path = os.path.join(
             env['MLPERF_SCRATCH_PATH'],
             'models',
@@ -135,7 +135,7 @@ def preprocess(i):
             'stable_diffusion_fp16')
 
         if not os.path.exists(os.path.dirname(fp16_model_path)):
-            cmds.append(f"mkdir -p {os.path.dirname(fp16_model_path)}")
+            cmds.append(f"""mkdir -p {os.path.dirname(fp16_model_path)}""")
 
         if not os.path.exists(fp16_model_path):
             if os.path.islink(fp16_model_path):
@@ -698,11 +698,15 @@ def preprocess(i):
             '')  # will be ignored during build engine
 
         if "stable-diffusion" in env["CM_MODEL"]:
-            extra_build_engine_options_string += f" --model_path {os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'SDXL/')}"
+            extra_build_engine_options_string += f""" --model_path {
+                os.path.join(
+                    env['MLPERF_SCRATCH_PATH'],
+                    'models',
+                    'SDXL/')}"""
 
         run_config += " --no_audit_verify"
 
-        cmds.append(f"make {make_command} RUN_ARGS=' --benchmarks={model_name} --scenarios={scenario} {test_mode_string} {run_config} {extra_build_engine_options_string} {extra_run_options_string}'")
+        cmds.append(f"""make {make_command} RUN_ARGS=' --benchmarks={model_name} --scenarios={scenario} {test_mode_string} {run_config} {extra_build_engine_options_string} {extra_run_options_string}'""")
 
     run_cmd = " && ".join(cmds)
     env['CM_MLPERF_RUN_CMD'] = run_cmd

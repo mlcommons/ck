@@ -3,14 +3,9 @@
 # Author(s): Grigori Fursin
 # Contributor(s): 
 #
-# Copyright: https://github.com/mlcommons/ck/blob/master/COPYRIGHT.md
+# Copyright: https://github.com/mlcommons/ck/blob/master/COPYRIGHT.txt
 # License: https://github.com/mlcommons/ck/blob/master/LICENSE.md
-#
-# White paper: https://arxiv.org/abs/2406.16791
-# History: https://github.com/mlcommons/ck/blob/master/HISTORY.CM.md
-#
-# CK and CM project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
-#
+# Project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 
 import os
 
@@ -81,14 +76,3 @@ class CAutomation(Automation):
 
         return {'return':0}
 
-
-    ############################################################
-    def run(self, i):
-
-        import json
-        print (json.dumps(i, indent=2))
-
-        v = i.get('test', 'default')
-        v2 = i.get('test2', 'default')
-
-        return {'return':0, 'new_key':v, 'new_key2':v2}

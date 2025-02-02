@@ -35,6 +35,8 @@ prehook_deps:
   env:
     CM_EXTRACT_TO_FOLDER: imagenet-2012-val
   tags: download-and-extract,file,_extract
+  force_env_keys:
+    - CM_OUTDIRNAME  
   update_tags_from_env:
   - CM_DAE_EXTRA_TAGS
   update_tags_from_env_with_prefix:

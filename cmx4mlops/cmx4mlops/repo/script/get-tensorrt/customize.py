@@ -24,7 +24,7 @@ def preprocess(i):
 
     # Not enforcing dev requirement for now
     if env.get('CM_TENSORRT_TAR_FILE_PATH', '') == '' and env.get(
-            'CM_TENSORRT_REQUIRE_DEV1', '') != 'yes' and env.get('CM_HOST_PLATFORM_FLAVOR', '') != 'aarch64':
+            'CM_TENSORRT_REQUIRE_DEV1', '') != 'yes' and env.get('CM_HOST_PLATFORM_FLAVOR_', '') != 'aarch64':
 
         if os_info['platform'] == 'windows':
             extra_pre = ''

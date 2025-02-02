@@ -8,9 +8,11 @@ new_env_keys:
 prehook_deps:
 - env:
     CM_DOWNLOAD_FINAL_ENV_NAME: CM_DATASET_PREPROCESSED_PATH
-  extra_cache_tags: mixtral,get-mixtral-dataset
+  extra_cache_tags: mixtral,get-mixtral-dataset  
   force_cache: true
   tags: download-and-extract
+  force_env_keys:
+    - CM_OUTDIRNAME  
   update_tags_from_env_with_prefix:
     _url.:
     - CM_PACKAGE_URL

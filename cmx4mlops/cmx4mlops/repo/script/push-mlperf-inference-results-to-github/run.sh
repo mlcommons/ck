@@ -16,5 +16,8 @@ fi
 test $? -eq 0 || exit $?
 
 git commit -a -m "${CM_MLPERF_RESULTS_REPO_COMMIT_MESSAGE}"
-git push
+
+echo ${CM_GIT_PUSH_CMD}
+${CM_GIT_PUSH_CMD}
+
 test $? -eq 0 || exit $?

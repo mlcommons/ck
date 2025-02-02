@@ -1,5 +1,5 @@
 # Author: Grigori Fursin
-# Contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
+# Contributors: Arjun Suresh, Anandhu Sooraj
 #
 # Copyright: https://github.com/mlcommons/ck/blob/master/cm-mlops/COPYRIGHT.md
 # License: https://github.com/mlcommons/ck/blob/master/cm-mlops/LICENSE.md

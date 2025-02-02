@@ -6,6 +6,8 @@ category: AI/ML models
 env:
   CM_ML_MODEL_DATASET: ''
   CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: 'no'
+docker:
+  real_run: False
 input_mapping:
   checkpoint: MIXTRAL_CHECKPOINT_PATH
 new_env_keys:
@@ -22,6 +24,8 @@ prehook_deps:
   names:
   - hf-zoo
   tags: get,ml-model,huggingface,zoo,_clone-repo
+  force_env_keys:
+    - CM_OUTDIRNAME  
 print_env_at_the_end:
   MIXTRAL_CHECKPOINT_PATH: MIXTRAL checkpoint path
 tags:

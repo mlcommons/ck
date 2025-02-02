@@ -22,6 +22,8 @@ prehook_deps:
   env:
     CM_EXTRACT_EXTRACTED_FILENAME: <<<CM_ML_MODEL_FILE>>>
   tags: download-and-extract
+  force_env_keys:
+    - CM_OUTDIRNAME  
   update_tags_from_env_with_prefix:
     _url.:
     - CM_PACKAGE_URL

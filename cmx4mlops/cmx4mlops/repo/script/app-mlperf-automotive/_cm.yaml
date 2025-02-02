@@ -1,0 +1,287 @@
+alias: app-mlperf-automotive
+uid: f7488ce376484fd2
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular MLPerf inference benchmark pipeline for ABTF model"
+
+
+# User-friendly tags to find this CM script
+tags:
+- app
+- app-mlperf-inference
+- mlperf-inference
+- abtf-inference
+
+predeps: no
+
+# Default environment
+default_env:
+  CM_MLPERF_LOADGEN_MODE: accuracy
+  CM_MLPERF_LOADGEN_SCENARIO: Offline
+  CM_OUTPUT_FOLDER_NAME: test_results
+  CM_MLPERF_RUN_STYLE: test
+  CM_TEST_QUERY_COUNT: '10'
+  CM_MLPERF_QUANTIZATION: off
+  CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: reference
+  CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX: ''
+
+
+# Map script inputs to environment variables
+input_mapping:
+  device: CM_MLPERF_DEVICE
+  count: CM_MLPERF_LOADGEN_QUERY_COUNT
+  docker: CM_RUN_DOCKER_CONTAINER
+  hw_name: CM_HW_NAME
+  imagenet_path: IMAGENET_PATH
+  max_batchsize: CM_MLPERF_LOADGEN_MAX_BATCHSIZE
+  mode: CM_MLPERF_LOADGEN_MODE
+  num_threads: CM_NUM_THREADS
+  threads: CM_NUM_THREADS
+  dataset: CM_MLPERF_VISION_DATASET_OPTION
+  model: CM_MLPERF_CUSTOM_MODEL_PATH
+  output_dir: OUTPUT_BASE_DIR
+  power: CM_MLPERF_POWER
+  power_server: CM_MLPERF_POWER_SERVER_ADDRESS
+  ntp_server: CM_MLPERF_POWER_NTP_SERVER
+  max_amps: CM_MLPERF_POWER_MAX_AMPS
+  max_volts: CM_MLPERF_POWER_MAX_VOLTS
+  regenerate_files: CM_REGENERATE_MEASURE_FILES
+  rerun: CM_RERUN
+  scenario: CM_MLPERF_LOADGEN_SCENARIO
+  test_query_count: CM_TEST_QUERY_COUNT
+  clean: CM_MLPERF_CLEAN_SUBMISSION_DIR
+  dataset_args: CM_MLPERF_EXTRA_DATASET_ARGS
+  target_qps: CM_MLPERF_LOADGEN_TARGET_QPS
+  target_latency: CM_MLPERF_LOADGEN_TARGET_LATENCY
+  offline_target_qps: CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS
+  server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
+  singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
+  multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
+  output: CM_MLPERF_OUTPUT_DIR
+
+# Env keys which are exposed to higher level scripts
+new_env_keys:
+  - CM_MLPERF_*
+  - CM_OUTPUT_PREDICTIONS_PATH
+
+new_state_keys:
+  - cm-mlperf-inference-results*
+
+# Dependencies on other CM scripts
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+  # Detect/install python
+  - tags: get,python
+    names:
+    - python
+    - python3
+
+  # Use cmind inside CM scripts
+  - tags: get,generic-python-lib,_package.cmind
+
+  - tags: get,mlperf,inference,utils
+
+
+docker:
+  cm_repo: gateoverflow@cm4mlops
+  use_host_group_id: True
+  use_host_user_id: True
+  real_run: false
+  interactive: True
+  cm_repos: 'cm pull repo mlcommons@cm4abtf --checkout=poc'
+  deps:
+    - tags: get,abtf,scratch,space
+  mounts:
+    - "${{ CM_ABTF_SCRATCH_PATH_DATASETS }}:${{ CM_ABTF_SCRATCH_PATH_DATASETS }}"
+
+
+# Variations to customize dependencies
+variations:
+
+  # Implementation
+  mlcommons-python:
+    group: implementation
+    default: true
+    env:
+      CM_MLPERF_PYTHON: 'yes'
+      CM_MLPERF_IMPLEMENTATION: reference
+    prehook_deps:
+      - names:
+         - python-reference-abtf-inference
+         - abtf-inference-implementation
+        tags: run-mlperf-inference,demo,abtf-model
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+
+
+  # Execution modes
+  fast:
+    group: execution-mode
+    env:
+      CM_FAST_FACTOR: '5'
+      CM_OUTPUT_FOLDER_NAME: fast_results
+      CM_MLPERF_RUN_STYLE: fast
+
+  test:
+    group: execution-mode
+    default: true
+    env:
+      CM_OUTPUT_FOLDER_NAME: test_results
+      CM_MLPERF_RUN_STYLE: test
+
+  valid:
+    group: execution-mode
+    env:
+      CM_OUTPUT_FOLDER_NAME: valid_results
+      CM_MLPERF_RUN_STYLE: valid
+
+
+  # ML engine
+  onnxruntime:
+    group: framework
+    env:
+      CM_MLPERF_BACKEND: onnxruntime
+    add_deps_recursive:
+      abtf-inference-implementation:
+        tags: _onnxruntime
+
+
+  onnxruntime,cpu:
+    env:
+      CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
+
+  onnxruntime,cuda:
+    env:
+      CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_GPU_VERSION>>>
+      ONNXRUNTIME_PREFERRED_EXECUTION_PROVIDER: "CUDAExecutionProvider"
+
+
+  pytorch:
+    group: framework
+    default: true
+    env:
+      CM_MLPERF_BACKEND: pytorch
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
+    add_deps_recursive:
+      abtf-inference-implementation:
+        tags: _pytorch
+
+
+  abtf-demo-model:
+    env:
+      CM_MODEL: retinanet
+    group: models
+    add_deps_recursive:
+      abtf-inference-implementation:
+        tags: _abtf-demo-model
+
+  abtf-poc-model:
+    env:
+      CM_MODEL: retinanet
+    default: true
+    group: models
+    add_deps_recursive:
+      abtf-inference-implementation:
+        tags: _abtf-poc-model
+    docker:
+      deps:
+        - tags: get,dataset,raw,mlcommons-cognata,_abtf-poc
+          names:
+          - raw-dataset-mlcommons-cognata
+          enable_if_env:
+            CM_DATASET_MLCOMMONS_COGNATA_DOWNLOAD_IN_HOST:
+              - yes
+
+      mounts:
+        - "${{ CM_DATASET_MLCOMMONS_COGNATA_PATH }}:${{ CM_DATASET_MLCOMMONS_COGNATA_PATH }}"
+
+
+  # Target devices
+  cpu:
+    group: device
+    default: true
+    env:
+      CM_MLPERF_DEVICE: cpu
+      CUDA_VISIBLE_DEVICES: ''
+      USE_CUDA: no
+      USE_GPU: no
+    add_deps_recursive:
+      abtf-inference-implementation:
+        tags: _cpu
+
+  cuda:
+    group: device
+    env:
+      CM_MLPERF_DEVICE: gpu
+      USE_CUDA: yes
+      USE_GPU: yes
+    add_deps_recursive:
+      abtf-inference-implementation:
+        tags: _cuda
+    docker:
+      all_gpus: 'yes'
+      base_image: nvcr.io/nvidia/pytorch:24.03-py3
+
+
+
+  # Loadgen scenarios
+  offline:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Offline
+    add_deps_recursive:
+      abtf-inference-implementation:
+        tags: _offline
+  multistream:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: MultiStream
+    add_deps_recursive:
+      abtf-inference-implementation:
+        tags: _multistream
+  singlestream:
+    group: loadgen-scenario
+    default: true
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+    add_deps_recursive:
+      abtf-inference-implementation:
+        tags: _singlestream
+  server:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Server
+    add_deps_recursive:
+      abtf-inference-implementation:
+        tags: _server
+
+  mvp-demo:
+    env:
+      CM_ABTF_MVP_DEMO: yes
+      CM_MLPERF_VISION_DATASET_OPTION: cognata-8mp-pt
+      CM_ABTF_ML_MODEL_CONFIG: baseline_8MP_ss_scales_all
+      CM_ABTF_NUM_CLASSES: 15
+      CM_DATASET_MLCOMMONS_COGNATA_SERIAL_NUMBERS: 10002_Urban_Clear_Morning
+      CM_DATASET_MLCOMMONS_COGNATA_GROUP_NAMES: Cognata_Camera_01_8M
+      CM_ABTF_ML_MODEL_TRAINING_FORCE_COGNATA_LABELS: 'yes'
+      CM_ABTF_ML_MODEL_SKIP_WARMUP: 'yes'
+
+  poc-demo:
+    env:
+      CM_ABTF_POC_DEMO: yes
+      CM_MLPERF_VISION_DATASET_OPTION: cognata-8mp-pt
+      CM_ABTF_ML_MODEL_CONFIG: baseline_8MP_ss_scales_fm1_5x5_all
+      CM_ABTF_NUM_CLASSES: 15
+      CM_DATASET_MLCOMMONS_COGNATA_SERIAL_NUMBERS: 10002_Urban_Clear_Morning
+      CM_DATASET_MLCOMMONS_COGNATA_GROUP_NAMES: Cognata_Camera_01_8M
+      CM_ABTF_ML_MODEL_TRAINING_FORCE_COGNATA_LABELS: 'yes'
+      CM_ABTF_ML_MODEL_SKIP_WARMUP: 'yes'

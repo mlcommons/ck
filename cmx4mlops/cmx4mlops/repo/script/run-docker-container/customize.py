@@ -14,6 +14,7 @@ import cmind as cm
 import os
 import subprocess
 from os.path import exists
+import json
 
 
 def preprocess(i):
@@ -62,7 +63,7 @@ def preprocess(i):
     print('')
     print('Checking existing Docker container:')
     print('')
-    CMD = f"""docker ps --filter "ancestor={DOCKER_CONTAINER}" """
+    CMD = f"""{env['CM_CONTAINER_TOOL']} ps --format=json  --filter "ancestor={DOCKER_CONTAINER}" """
     if os_info['platform'] == 'windows':
         CMD += " 2> nul"
     else:
@@ -71,17 +72,31 @@ def preprocess(i):
     print('')
 
     try:
-        docker_container = subprocess.check_output(
-            CMD, shell=True).decode("utf-8")
+        out = subprocess.check_output(
+            CMD, shell=True, text=True).strip()
     except Exception as e:
         return {
-            'return': 1, 'error': 'Docker is either not installed or not started:\n{}'.format(e)}
+            'return': 1,
+            'error': 'Unexpected error occurred with docker run:\n{}'.format(e)
+        }
 
-    output_split = docker_container.split("\n")
-    if len(output_split) > 1 and str(env.get('CM_DOCKER_REUSE_EXISTING_CONTAINER',
-                                             '')).lower() in ["1", "true", "yes"]:  # container exists
-        out = output_split[1].split(" ")
-        existing_container_id = out[0]
+    if len(out) > 0 and str(env.get('CM_DOCKER_REUSE_EXISTING_CONTAINER',
+                                    '')).lower() in ["1", "true", "yes"]:  # container exists
+        # print(out)
+        out_split = out.splitlines()
+        if len(out_split) > 0:
+            try:
+                out_json = json.loads(out_split[0])
+                # print("JSON successfully loaded:", out_json)
+            except json.JSONDecodeError as e:
+                print(f"Error: First line of 'out' is not valid JSON: {e}")
+                return {
+                    'return': 1, 'error': f"Error: First line of 'out' is not valid JSON: {e}"}
+    else:
+        out_json = []
+
+    if isinstance(out_json, list) and len(out_json) > 0:
+        existing_container_id = out_json[0]['Id']
         print(f"Reusing existing container {existing_container_id}")
         env['CM_DOCKER_CONTAINER_ID'] = existing_container_id
 
@@ -89,7 +104,7 @@ def preprocess(i):
         if env.get('CM_DOCKER_CONTAINER_ID', '') != '':
             del (env['CM_DOCKER_CONTAINER_ID'])  # not valid ID
 
-        CMD = "docker images -q " + DOCKER_CONTAINER
+        CMD = f"""{env['CM_CONTAINER_TOOL']} images -q """ + DOCKER_CONTAINER
 
         if os_info['platform'] == 'windows':
             CMD += " 2> nul"
@@ -178,6 +193,10 @@ def postprocess(i):
     if env.get('CM_DOCKER_EXTRA_RUN_ARGS', '') != '':
         run_opts += env['CM_DOCKER_EXTRA_RUN_ARGS']
 
+    if env.get('CM_CONTAINER_TOOL', '') == 'podman' and env.get(
+            'CM_PODMAN_MAP_USER_ID', '').lower() not in ["no", "0", "false"]:
+        run_opts += " --userns=keep-id"
+
     if env.get('CM_DOCKER_PORT_MAPS', []):
         for ports in env['CM_DOCKER_PORT_MAPS']:
             port_map_cmds.append(ports)
@@ -202,11 +221,6 @@ def postprocess(i):
             else:
                 return {'return': 1, 'error': 'Can\'t find separator : in a mount string: {}'.format(
                     mount_cmd)}
-
-#            mount_parts = mount_cmd.split(":")
-#            if len(mount_parts) != 2:
-# return {'return': 1, 'error': 'Invalid mount {}
-# specified'.format(mount_parts)}
 
             host_mount = mount_parts[0]
 
@@ -247,14 +261,14 @@ def postprocess(i):
 
         existing_container_id = env.get('CM_DOCKER_CONTAINER_ID', '')
         if existing_container_id:
-            CMD = f"ID={existing_container_id} && docker exec $ID bash -c '" + run_cmd + "'"
+            CMD = f"""ID={existing_container_id} && {env['CM_CONTAINER_TOOL']} exec $ID bash -c '""" + run_cmd + "'"
         else:
-            CONTAINER = f"docker run -dt {run_opts} --rm  {docker_image_repo}/{docker_image_name}:{docker_image_tag} bash"
-            CMD = f"ID=`{CONTAINER}` && docker exec $ID bash -c '{run_cmd}'"
+            CONTAINER = f"""{env['CM_CONTAINER_TOOL']} run -dt {run_opts} --rm  {docker_image_repo}/{docker_image_name}:{docker_image_tag} bash"""
+            CMD = f"""ID=`{CONTAINER}` && {env['CM_CONTAINER_TOOL']} exec $ID bash -c '{run_cmd}'"""
 
             if False and str(env.get('CM_KEEP_DETACHED_CONTAINER', '')).lower() not in [
                     'yes', "1", 'true']:
-                CMD += " && docker kill $ID >/dev/null"
+                CMD += f""" && {env['CM_CONTAINER_TOOL']} kill $ID >/dev/null"""
 
         CMD += ' && echo "ID=$ID"'
 
@@ -263,7 +277,10 @@ def postprocess(i):
         print('')
         print(CMD)
         print('')
-        print("Running " + run_cmd + " inside docker container")
+        print(
+            "Running " +
+            run_cmd +
+            f""" inside {env['CM_CONTAINER_TOOL']} container""")
 
         record_script({'cmd': CMD, 'env': env})
 
@@ -287,7 +304,8 @@ def postprocess(i):
 
         docker_out = result.stdout
         # if docker_out != 0:
-        #    return {'return': docker_out, 'error': 'docker run failed'}
+        # return {'return': docker_out, 'error': f""{env['CM_CONTAINER_TOOL']}
+        # run failed""}
 
         lines = docker_out.split("\n")
 
@@ -311,7 +329,7 @@ def postprocess(i):
             x1 = '-it'
             x2 = " && bash ) || bash"
 
-        CONTAINER = "docker run " + x1 + " --entrypoint " + x + x + " " + run_opts + \
+        CONTAINER = f"{env['CM_CONTAINER_TOOL']} run " + x1 + " --entrypoint " + x + x + " " + run_opts + \
             " " + docker_image_repo + "/" + docker_image_name + ":" + docker_image_tag
         CMD = CONTAINER + " bash -c " + x + run_cmd_prefix + run_cmd + x2 + x
 
@@ -325,7 +343,10 @@ def postprocess(i):
         print('')
         docker_out = os.system(CMD)
         if docker_out != 0:
-            return {'return': docker_out, 'error': 'docker run failed'}
+            if docker_out % 256 == 0:
+                docker_out = 1
+            return {'return': docker_out,
+                    'error': f"""{env['CM_CONTAINER_TOOL']} run failed"""}
 
     return {'return': 0}
 
@@ -360,7 +381,7 @@ def record_script(i):
 def update_docker_info(env):
 
     # Updating Docker info
-    docker_image_repo = env.get('CM_DOCKER_IMAGE_REPO', 'local')
+    docker_image_repo = env.get('CM_DOCKER_IMAGE_REPO', 'localhost/local')
     env['CM_DOCKER_IMAGE_REPO'] = docker_image_repo
 
     docker_image_base = env.get('CM_DOCKER_IMAGE_BASE')

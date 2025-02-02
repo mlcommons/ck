@@ -53,8 +53,7 @@ The CM/CMX architecture diagram is available for viewing
 
 #### MLOps and MLPerf automations
 
-[CM4MLOPS repository powered by CM](https://github.com/mlcommons/ck/tree/master/cm-mlops) - 
-a collection of portable, extensible and technology-agnostic automation recipes
+We have developed a collection of portable, extensible and technology-agnostic automation recipes
 with a common CLI and Python API (CM scripts) to unify and automate 
 all the manual steps required to compose, run, benchmark and optimize complex ML/AI applications 
 on diverse platforms with any software and hardware. 
@@ -75,10 +74,9 @@ at MLCommons to run MLPerf inference benchmarks across diverse systems using CM.
 
 #### MLCommons ABTF automation
 
-[CM4ABTF repository powered by CM](https://github.com/mlcommons/cm4abtf) - 
-a collection of portable automations and CM scripts to run the upcoming 
+We have developed a collection of portable automations and CM scripts to run the upcoming 
 automotive MLPerf benchmark across different models, data sets, software 
-and hardware from different vendors.
+and hardware from different vendors: see [CM4ABTF repository](https://github.com/mlcommons/cm4abtf).
 
 #### MLPerf results visualization
 

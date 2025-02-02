@@ -14,6 +14,8 @@ deps:
 - tags: get,mlperf,training,src,_nvidia-retinanet
 - tags: get,mlperf,inference,src
 - tags: get,ml-model,retinanet,_pytorch,_fp32,_weights
+  force_env_keys:
+    - CM_OUTDIRNAME  
 - enable_if_env:
     CM_TORCH_DEVICE: cpu
   tags: get,generic-python-lib,_torch

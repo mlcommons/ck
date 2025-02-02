@@ -66,6 +66,8 @@ input_mapping:
   tp_size: CM_NVIDIA_TP_SIZE
   use_dataset_from_host: CM_USE_DATASET_FROM_HOST
 
+predeps: False
+
 # Duplicate CM environment variables to the ones used in native apps
 env_key_mappings:
   CM_HOST_: HOST_
@@ -219,6 +221,8 @@ variations:
         tags: _int32
       cnndm-accuracy-script:
         tags: _int32
+      llama3_1-405b-accuracy-script:
+        tags: _int32
     env:
       CM_MLPERF_PYTHON: 'yes'
       CM_MLPERF_IMPLEMENTATION: mlcommons_python
@@ -269,6 +273,10 @@ variations:
   reference,llama2-70b_:
     default_variations:
       backend: pytorch
+  
+  reference,llama3_1-405b:
+     default_variations:
+       backend: pytorch
   
   reference,mixtral-8x7b:
     default_variations:
@@ -336,12 +344,16 @@ variations:
             - x86_64
         docker:
           base_image: nvcr.io/nvidia/mlperf/mlperf-inference:mlpinf-v4.0-cuda12.2-cudnn8.9-x86_64-ubuntu20.04-public
+        env:
+            CM_ENV_NVMITTEN_DOCKER_WHEEL_PATH: '/opt/nvmitten-0.1.3b0-cp38-cp38-linux_x86_64.whl'
 
       - skip_if_env:
           CM_HOST_PLATFORM_FLAVOR:
             - x86_64
         docker:
           base_image: nvcr.io/nvidia/mlperf/mlperf-inference:mlpinf-v4.1-cuda12.4-pytorch24.04-ubuntu22.04-aarch64-GraceHopper-release
+        env:
+            CM_ENV_NVMITTEN_DOCKER_WHEEL_PATH: '/opt/nvmitten-0.1.3b0-cp310-cp310-linux_aarch64.whl'
 
 
 
@@ -403,7 +415,7 @@ variations:
   nvidia-original:
     docker:
       interactive: True
-      extra_run_args: ' --ulimit memlock=-1 --cap-add SYS_ADMIN --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
+      extra_run_args: ' --cap-add SYS_ADMIN --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
       base_image: nvcr.io/nvidia/mlperf/mlperf-inference:mlpinf-v3.1-cuda12.2-cudnn8.9-x86_64-ubuntu20.04-l4-public
       os: "ubuntu"
       os_version: "20.04"
@@ -428,7 +440,7 @@ variations:
          CM_HOST_OS_VERSION:
            - 20.04
         docker:
-          extra_run_args: ' --runtime=nvidia --ulimit memlock=-1 --cap-add SYS_ADMIN --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
+          extra_run_args: ' --runtime=nvidia  --cap-add SYS_ADMIN --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
 
     default_variations:
       backend: tensorrt
@@ -765,6 +777,63 @@ variations:
     env:
       CM_MODEL:
         rgat
+    posthook_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      skip_if_env:
+        CM_MLPERF_IMPLEMENTATION:
+        - nvidia
+      names:
+      - mlperf-accuracy-script
+      - 3d-unet-accuracy-script
+      tags: run,accuracy,mlperf,_igbh
+    docker:
+      deps:
+      - tags: get,dataset,igbh
+        enable_if_env:
+          CM_USE_DATASET_FROM_HOST:
+          - 'yes'
+        names:
+          - igbh-original
+          - igbh-dataset
+
+  llama3_1-405b:
+    group:
+      model
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _llama3_1-405b
+    env:
+      CM_MODEL:
+        llama3_1-405b
+    posthook_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      skip_if_env:
+        CM_MLPERF_IMPLEMENTATION:
+        - nvidia
+      names:
+      - mlperf-accuracy-script
+      - llama3_1-405b-accuracy-script
+      tags: run,accuracy,mlperf,_dataset_llama3
+    docker:
+      deps:
+      - tags: get,ml-model,llama3
+        enable_if_env:
+          CM_USE_DATASET_FROM_HOST:
+          - 'yes'
+        names:
+          - llama3_1-405b
+          - llama3-405b
+
 
   sdxl:
     group:
@@ -1602,7 +1671,7 @@ variations:
       CM_SKIP_SYS_UTILS: 'yes'
       CM_REGENERATE_MEASURE_FILES: 'yes'
     env:
-      CM_ENV_NVMITTEN_DOCKER_WHEEL_PATH: '/opt/nvmitten-0.1.3-cp38-cp38-linux_x86_64.whl'
+      CM_ENV_NVMITTEN_DOCKER_WHEEL_PATH: '/opt/nvmitten-0.1.3b0-cp38-cp38-linux_x86_64.whl'
 
         #uses public code for inference v4.1
 
@@ -1621,8 +1690,6 @@ variations:
     default_env:
       CM_SKIP_SYS_UTILS: 'yes'
       CM_REGENERATE_MEASURE_FILES: 'yes'
-    env:
-      CM_ENV_NVMITTEN_DOCKER_WHEEL_PATH: '/opt/nvmitten-0.1.3b0-cp38-cp38-linux_x86_64.whl'
 
   r4.1_default:
     group:
@@ -1642,6 +1709,27 @@ variations:
     env:
       CM_ENV_NVMITTEN_DOCKER_WHEEL_PATH: '/opt/nvmitten-0.1.3b0-cp38-cp38-linux_x86_64.whl'
       CM_MLPERF_INFERENCE_VERSION: '4.1'
+
+  r5.0-dev_default:
+    group:
+      reproducibility
+    add_deps_recursive:
+      nvidia-inference-common-code:
+        version: r4.1
+        tags: _mlcommons
+      nvidia-inference-server:
+        version: r4.1
+        tags: _mlcommons
+      intel-harness:
+        tags: _v4.1
+      inference-src:
+         version: r5.0
+    default_env:
+      CM_SKIP_SYS_UTILS: 'yes'
+      CM_REGENERATE_MEASURE_FILES: 'yes'
+    env:
+      CM_ENV_NVMITTEN_DOCKER_WHEEL_PATH: '/opt/nvmitten-0.1.3b0-cp38-cp38-linux_x86_64.whl'
+
 
 invalid_variation_combinations:
   -
@@ -1729,13 +1817,32 @@ input_description:
   debug: 
     desc: "Debug MLPerf script"
 
-gui:
-  title: "CM GUI for the MLPerf inference benchmark"
+update_meta_if_env:
+  - enable_if_env:
+      CM_CONTAINER_TOOL:
+      - podman
+    # podman maps the host userid to the root user inside the container
+    docker:
+      use_host_group_id: False
+      use_host_user_id: False
+      pass_user_group: False #useful if docker is run by a different user from the one who built it and under the same group
+    default_env:
+      CM_DOCKER_USE_DEFAULT_USER: 'yes'
+  - skip_if_env:
+      CM_CONTAINER_TOOL:
+      - podman
+    docker:
+      use_host_group_id: True
+      use_host_user_id: True
+      pass_user_group: True #useful if docker is run by a different user from the one who built it and under the same group
+  - enable_if_env:
+      CM_HOST_OS_TYPE:
+        - linux
+      adr:
+        compiler:
+          tags: gcc
 
 docker:
-  use_host_group_id: True
-  use_host_user_id: True
-  pass_user_group: True #useful if docker is run by a different user fromt he one who built it and under the same group
   deps:
     - tags: get,mlperf,inference,results,dir,local
       names:
@@ -1751,7 +1858,6 @@ docker:
   pre_run_cmds:
     #- cm pull repo && cm run script --tags=get,git,repo,_repo.https://github.com/GATEOverflow/inference_results_v4.0.git --update
     - cm pull repo
-    - cm rm cache --tags=inference,src -f
   mounts:
    - "${{ CM_DATASET_IMAGENET_PATH }}:${{ CM_DATASET_IMAGENET_PATH }}"
    - "${{ CM_DATASET_OPENIMAGES_PATH }}:${{ CM_DATASET_OPENIMAGES_PATH }}"
@@ -1766,13 +1872,15 @@ docker:
    - "${{ CM_NVIDIA_LLAMA_DATASET_FILE_PATH }}:${{ CM_NVIDIA_LLAMA_DATASET_FILE_PATH }}"
    - "${{ SDXL_CHECKPOINT_PATH }}:${{ SDXL_CHECKPOINT_PATH }}"
    - "${{ CM_DATASET_KITS19_PREPROCESSED_PATH }}:${{ CM_DATASET_KITS19_PREPROCESSED_PATH }}"
+   - "${{ CM_DATASET_IGBH_PATH }}:${{ CM_DATASET_IGBH_PATH }}"
+   - "${{ CM_ML_MODEL_RGAT_CHECKPOINT_PATH }}:${{ CM_ML_MODEL_RGAT_CHECKPOINT_PATH }}"
   skip_run_cmd: 'no'
   shm_size: '32gb'
   interactive: True
-  extra_run_args: ' --dns 8.8.8.8 --dns 8.8.4.4 --ulimit memlock=-1 --cap-add SYS_ADMIN --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
+  extra_run_args: ' --dns 8.8.8.8 --dns 8.8.4.4 --cap-add SYS_ADMIN  --cap-add SYS_TIME --security-opt apparmor=unconfined --security-opt seccomp=unconfined'
   os: ubuntu
-  cm_repo: mlcommons@cm4mlops
-  cm_repo_branch: mlperf-inference
+  cm_repo: mlcommons@mlperf-automations
+  cm_repo_branch: dev
   real_run: False
   os_version: '22.04'
   docker_input_mapping:

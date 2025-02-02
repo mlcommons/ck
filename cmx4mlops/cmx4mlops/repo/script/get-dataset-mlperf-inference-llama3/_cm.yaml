@@ -1,0 +1,56 @@
+alias: get-dataset-mlperf-inference-llama3
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+tags:
+- get
+- dataset
+- mlperf
+- llama3
+- inference
+uid: c3bc69599cbc4db7
+new_env_keys:
+  - CM_DATASET_LLAMA3_PATH
+input_mapping:
+  outdirname: CM_OUTDIRNAME
+prehook_deps:
+  - env:
+      CM_DOWNLOAD_FINAL_ENV_NAME: CM_DATASET_LLAMA3_PATH
+      CM_EXTRACT_TO_FOLDER: llama-3-dataset
+    extra_cache_tags: dataset,llama3
+    force_cache: true
+    enable_if_env:
+      CM_TMP_REQUIRE_DOWNLOAD:
+      - 'yes'
+    names:
+    - dae
+    tags: download-and-extract
+    update_tags_from_env_with_prefix:
+      _url.:
+        - CM_DOWNLOAD_URL
+variations:
+  validation:
+    default: true
+    group: dataset-type
+    env:
+      CM_RCLONE_URL: mlc-inference:mlcommons-inference-wg-public/llama3_405b/mlperf_llama3.1_405b_dataset_8313_processed_fp16_eval.pkl 
+      CM_DATASET_TYPE: validation
+      CM_DATASET_FILE_NAME: mlperf_llama3.1_405b_dataset_8313_processed_fp16_eval.pkl
+  calibration:
+    group: dataset-type
+    env:
+      CM_RCLONE_URL: mlc-inference:mlcommons-inference-wg-public/llama3_405b/mlperf_llama3.1_405b_calibration_dataset_512_processed_fp16_eval.pkl
+      CM_DATASET_TYPE: calibration
+      CM_DATASET_FILE_NAME: mlperf_llama3.1_405b_calibration_dataset_512_processed_fp16_eval.pkl
+  rclone:
+    add_deps_recursive:
+      dae:
+        tags: _rclone
+    default: true
+    env:
+      CM_DOWNLOAD_FILENAME: checkpoint
+      CM_DOWNLOAD_URL: <<<CM_RCLONE_URL>>>
+      CM_RCLONE_CONFIG_NAME: mlc-inference
+    group: download-tool
+print_env_at_the_end:
+  CM_DATASET_LLAMA3_PATH: Path to the dataset

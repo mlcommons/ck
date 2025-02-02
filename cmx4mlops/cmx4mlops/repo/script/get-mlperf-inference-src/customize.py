@@ -52,7 +52,8 @@ def preprocess(i):
     # if not try to assign the values specified in version parameters,
     # if version parameters does not have the value to a parameter, set the
     # default one
-    if env.get('CM_GIT_CHECKOUT', '') == '':
+    if env.get('CM_GIT_CHECKOUT', '') == '' and env.get(
+            'CM_GIT_CHECKOUT_TAG', '') == '':
         if env.get('CM_TMP_GIT_CHECKOUT', '') != '':
             env["CM_GIT_CHECKOUT"] = env["CM_TMP_GIT_CHECKOUT"]
         else:
@@ -65,7 +66,7 @@ def preprocess(i):
             env["CM_GIT_URL"] = "https://github.com/mlcommons/inference"
 
     if env.get("CM_MLPERF_LAST_RELEASE", '') == '':
-        env["CM_MLPERF_LAST_RELEASE"] = "v4.1"
+        env["CM_MLPERF_LAST_RELEASE"] = "v5.0"
 
     if 'CM_GIT_DEPTH' not in env:
         env['CM_GIT_DEPTH'] = ''
@@ -120,6 +121,8 @@ def postprocess(i):
         inference_root, 'recommendation', 'dlrm')
     env['CM_MLPERF_INFERENCE_DLRM_V2_PATH'] = os.path.join(
         inference_root, 'recommendation', 'dlrm_v2')
+    env['CM_MLPERF_INFERENCE_RGAT_PATH'] = os.path.join(
+        inference_root, 'graph', 'R-GAT')
     env['CM_MLPERF_INFERENCE_3DUNET_PATH'] = os.path.join(
         inference_root, 'vision', 'medical_imaging', '3d-unet-kits19')
 

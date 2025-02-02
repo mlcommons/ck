@@ -10,6 +10,8 @@ category: "AI/ML datasets"
 
 deps:
   - tags: download,file
+    force_env_keys:
+      - CM_OUTDIRNAME
     force_cache: true
     extra_cache_tags: imagenet-calibration,imagenet,calibration
     names:

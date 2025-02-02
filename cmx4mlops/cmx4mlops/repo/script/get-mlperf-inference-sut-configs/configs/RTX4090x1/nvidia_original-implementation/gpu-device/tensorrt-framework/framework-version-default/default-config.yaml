@@ -28,9 +28,8 @@ retinanet:
     target_qps: 850.0
   Server:
     target_qps: 630.0
-sdxl:
+stable-diffusion-xl:
   Offline:
     target_qps: 0.7
   Server:
-    target_qps: 0.3
-  
+    target_qps: 0.3  

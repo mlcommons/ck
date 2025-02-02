@@ -43,6 +43,8 @@ variations:
       extra_cache_tags: 3d-unet,medical-imaging
       force-cache: true
       tags: download,file,download-file,_wget
+      force_env_keys:
+        - CM_OUTDIRNAME
     env:
       CM_ML_MODEL_ACCURACY: '0.86170'
       CM_ML_MODEL_FILE: 3dunet_kits19_128x128x128_dynbatch.onnx
@@ -60,6 +62,8 @@ variations:
       extra_cache_tags: 3d-unet,medical-imaging
       force-cache: true
       tags: download,file,download-file,_wget
+      force_env_keys:
+        - CM_OUTDIRNAME
     env:
       CM_ML_MODEL_ACCURACY: '0.86170'
       CM_ML_MODEL_FILE: 3dunet_kits19_pytorch.ptc
@@ -73,6 +77,8 @@ variations:
       extra_cache_tags: 3d-unet,medical-imaging
       force-cache: true
       tags: download-and-extract,_wget,_extract
+      force_env_keys:
+        - CM_OUTDIRNAME
     env:
       CM_ML_MODEL_ACCURACY: '0.86170'
       CM_ML_MODEL_FILE: 3dunet_kits19_pytorch_checkpoint.pth
@@ -92,6 +98,8 @@ variations:
       extra_cache_tags: 3d-unet,medical-imaging
       force-cache: true
       tags: download-and-extract,_wget,_extract
+      force_env_keys:
+        - CM_OUTDIRNAME
     env:
       CM_ML_MODEL_ACCURACY: '0.86170'
       CM_ML_MODEL_FILE: 3dunet_kits19_128x128x128.tf

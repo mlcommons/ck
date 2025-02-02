@@ -28,6 +28,8 @@ prehook_deps:
     CM_TMP_ML_MODEL_RETINANET_NO_NMS:
     - 'yes'
   tags: download-and-extract
+  force_env_keys:
+    - CM_OUTDIRNAME  
   update_tags_from_env_with_prefix:
     _url.:
     - CM_PACKAGE_URL
@@ -80,6 +82,8 @@ variations:
       extra_cache_tags: retinanet,training,patch,file
       force_cache: true
       tags: download,file,_url.https://raw.githubusercontent.com/arjunsuresh/ck-qaic/main/package/model-onnx-mlperf-retinanet-no-nms/remove-nms-and-extract-priors.patch
+      force_env_keys:
+        - CM_OUTDIRNAME  
     - env:
         CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_MLPERF_TRAINING_REPO_PATCHED_PATH
         CM_GIT_PATCH_FILEPATHS: <<<CM_RETINANET_NO_NMS_PATCH_FILE_PATH>>>

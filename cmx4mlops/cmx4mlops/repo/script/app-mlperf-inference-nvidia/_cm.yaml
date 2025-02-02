@@ -1823,7 +1823,7 @@ variations:
     default_variations:
       batch-size: batch_size.2048
     env:
-      CM_MLPERF_PERFORMANCE_SAMPLE_COUNT: "2048"
+      CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT: "2048"
 
   a100,sxm,retinanet,offline,run_harness:
     default_variations:

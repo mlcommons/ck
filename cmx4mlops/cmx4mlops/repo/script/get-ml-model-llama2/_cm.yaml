@@ -26,6 +26,8 @@ prehook_deps:
   names:
   - hf-zoo
   tags: get,ml-model,huggingface,zoo,_clone-repo
+  force_env_keys:
+    - CM_OUTDIRNAME  
 print_env_at_the_end:
   LLAMA2_CHECKPOINT_PATH: LLAMA2 checkpoint path
 tags:

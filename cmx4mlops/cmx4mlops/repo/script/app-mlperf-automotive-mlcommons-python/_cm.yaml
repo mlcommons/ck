@@ -1,0 +1,469 @@
+alias: app-mlperf-automotive-mlcommons-python
+uid: 621240c5d30a437c
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular MLPerf inference benchmark pipeline for ABTF model"
+
+
+# User-friendly tags to find this CM script
+tags:
+- demo
+- run-mlperf-inference
+- object-detection
+- abtf-model
+
+
+# Default environment
+default_env:
+  CM_MLPERF_LOADGEN_MODE: accuracy
+  CM_MLPERF_LOADGEN_SCENARIO: Offline
+  CM_MLPERF_LOADGEN_BUILD_FROM_SRC: 'on'
+  CM_OUTPUT_FOLDER_NAME: test_results
+  CM_MLPERF_RUN_STYLE: test
+  CM_TEST_QUERY_COUNT: '10'
+  CM_MLPERF_QUANTIZATION: off
+  CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: reference
+  CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX: ''
+
+
+# Map script inputs to environment variables
+input_mapping:
+  device: CM_MLPERF_DEVICE
+  count: CM_MLPERF_LOADGEN_QUERY_COUNT
+  docker: CM_RUN_DOCKER_CONTAINER
+  hw_name: CM_HW_NAME
+  imagenet_path: IMAGENET_PATH
+  max_batchsize: CM_MLPERF_LOADGEN_MAX_BATCHSIZE
+  mode: CM_MLPERF_LOADGEN_MODE
+  num_threads: CM_NUM_THREADS
+  threads: CM_NUM_THREADS
+  dataset: CM_MLPERF_VISION_DATASET_OPTION
+  model: CM_MLPERF_CUSTOM_MODEL_PATH
+  output_dir: OUTPUT_BASE_DIR
+  power: CM_MLPERF_POWER
+  power_server: CM_MLPERF_POWER_SERVER_ADDRESS
+  ntp_server: CM_MLPERF_POWER_NTP_SERVER
+  max_amps: CM_MLPERF_POWER_MAX_AMPS
+  max_volts: CM_MLPERF_POWER_MAX_VOLTS
+  regenerate_files: CM_REGENERATE_MEASURE_FILES
+  rerun: CM_RERUN
+  scenario: CM_MLPERF_LOADGEN_SCENARIO
+  test_query_count: CM_TEST_QUERY_COUNT
+  clean: CM_MLPERF_CLEAN_SUBMISSION_DIR
+  dataset_args: CM_MLPERF_EXTRA_DATASET_ARGS
+  target_qps: CM_MLPERF_LOADGEN_TARGET_QPS
+  target_latency: CM_MLPERF_LOADGEN_TARGET_LATENCY
+  offline_target_qps: CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS
+  server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
+  singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
+  multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
+  output: CM_MLPERF_OUTPUT_DIR
+
+# Duplicate CM environment variables to the ones used in native apps
+env_key_mappings:
+  CM_HOST_: HOST_
+  CM_ML_: ML_
+  CM_MLPERF_TVM: MLPERF_TVM
+  CM_MLPERF_DELETE: MLPERF_DELETE
+
+# Env keys which are exposed to higher level scripts
+new_env_keys:
+  - CM_MLPERF_*
+  - CM_DATASET_*
+  - CM_HW_NAME
+  - CM_COGNATA_ACCURACY_DUMP_FILE
+  - CM_OUTPUT_PREDICTIONS_PATH
+  - CM_ML_MODEL_*
+  - CM_MAX_EXAMPLES
+
+new_state_keys:
+  - mlperf-inference-implementation
+  - CM_SUT_*
+
+# Dependencies on other CM scripts
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+  # Detect/install python
+  - tags: get,python
+    names:
+    - python
+    - python3
+
+  # Use cmind inside CM scripts
+  - tags: get,generic-python-lib,_package.cmind
+
+
+  # CUDA
+  - tags: get,cuda
+    enable_if_env:
+      USE_CUDA:
+      - yes
+    names:
+    - cuda
+
+
+
+  ########################################################################
+  # Install ML engines via CM
+
+  ## Onnx CPU Runtime
+  - tags: get,generic-python-lib,_onnxruntime
+    names:
+    - ml-engine-onnxruntime
+    - onnxruntime
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      - tvm-onnx
+      CM_MLPERF_DEVICE:
+      - cpu
+      - rocm
+
+  ## Onnx CUDA Runtime
+  - tags: get,generic-python-lib,_onnxruntime_gpu
+    names:
+    - ml-engine-onnxruntime-cuda
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      - tvm-onnx
+      CM_MLPERF_DEVICE:
+      - gpu
+    skip_if_env:
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+
+  ## resnet50 and 3d-unet need both onnxruntime and onnxruntime_gpu on cuda
+  - tags: get,generic-python-lib,_onnxruntime
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MLPERF_DEVICE:
+      - gpu
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+      - resnet50
+  - tags: get,generic-python-lib,_onnxruntime_gpu
+    env:
+      CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS: ""
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MLPERF_DEVICE:
+      - gpu
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+      - resnet50
+
+  ## Pytorch (CPU)
+  - tags: get,generic-python-lib,_torch
+    names:
+    - ml-engine-pytorch
+    - pytorch
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      - tvm-pytorch
+      CM_MLPERF_DEVICE:
+      - cpu
+      - rocm
+
+  ## Pytorch (CUDA)
+  - tags: get,generic-python-lib,_torch_cuda
+    names:
+    - ml-engine-pytorch
+    - pytorch
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      - tvm-pytorch
+      - ray
+      CM_MLPERF_DEVICE:
+      - gpu
+
+  ## Torchvision (CPU)
+  - tags: get,generic-python-lib,_torchvision
+    names:
+    - ml-engine-torchvision
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      - tvm-pytorch
+      CM_MLPERF_DEVICE:
+      - cpu
+
+  ## Torchvision (CUDA)
+  - tags: get,generic-python-lib,_torchvision_cuda
+    names:
+    - ml-engine-torchvision
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      - tvm-pytorch
+      - ray
+      CM_MLPERF_DEVICE:
+      - gpu
+
+  ## tensorrt
+  - tags: get,generic-python-lib,_tensorrt
+    names:
+    - ml-engine-tensorrt
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - ray
+
+  ## torch_tensorrt
+  - tags: get,generic-python-lib,_torch_tensorrt
+    names:
+    - ml-engine-torch_tensorrt
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - ray
+
+  ## Ray
+  - tags: get,generic-python-lib,_ray
+    names:
+    - ray
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+        - ray
+
+
+
+  ## Tensorflow
+  - tags: get,generic-python-lib,_tensorflow
+    names:
+    - ml-engine-tensorflow
+    - tensorflow
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - tf
+      - tflite
+
+  # Install MLPerf inference dependencies
+
+
+
+  # Creates user conf for given SUT
+  - tags: generate,user-conf,mlperf,inference
+    names:
+    - user-conf-generator
+
+
+  # Install MLPerf loadgen
+  - tags: get,generic-python-lib,_package.mlcommons-loadgen
+    enable_if_env:
+      CM_MLPERF_LOADGEN_BUILD_FROM_SRC:
+        - "off"
+    names:
+    - loadgen
+    - mlperf-inference-loadgen
+
+  - tags: get,loadgen
+    enable_if_any_env:
+      CM_MLPERF_LOADGEN_BUILD_FROM_SRC:
+        - "on"
+    names:
+    - loadgen
+    - mlperf-inference-loadgen
+    - mlperf-inference-loadgen-from-src
+
+
+#
+#  # Download MLPerf inference source
+#  - tags: get,mlcommons,inference,src
+#    env:
+#      CM_GET_MLPERF_IMPLEMENTATION_ONLY: 'yes'
+#    names:
+#    - mlperf-implementation
+
+  - tags: get,generic-python-lib,_package.psutil
+
+
+
+
+prehook_deps:
+  - names:
+    - remote-run-cmds
+    tags: remote,run,cmds
+    enable_if_env:
+      CM_ASSH_RUN_COMMANDS:
+      - "on"
+
+
+
+posthook_deps: 
+  - names:
+    - mlperf-runner
+    tags: benchmark-mlperf
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+      - "on"
+
+
+post_deps:
+  - tags: save,mlperf,inference,state
+    names:
+      - save-mlperf-inference-state
+
+
+docker:
+  real_run: false
+
+# Variations to customize dependencies
+variations:
+  # Implementation
+  python:
+    group: implementation
+    default: true
+    env:
+      CM_MLPERF_PYTHON: 'yes'
+      CM_MLPERF_IMPLEMENTATION: reference
+
+
+  # ML engine
+  onnxruntime:
+    group: framework
+    env:
+      CM_MLPERF_BACKEND: onnxruntime
+
+  onnxruntime,cpu:
+    env:
+      CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
+
+  onnxruntime,cuda:
+    env:
+      CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_GPU_VERSION>>>
+      ONNXRUNTIME_PREFERRED_EXECUTION_PROVIDER: "CUDAExecutionProvider"
+
+
+  pytorch:
+    group: framework
+    default: true
+    add_deps_recursive:
+      imagenet-preprocessed:
+        tags: _NCHW
+      openimages-preprocessed:
+        tags: _NCHW
+      ml-model:
+        tags: raw,_pytorch
+    env:
+      CM_MLPERF_BACKEND: pytorch
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
+
+
+
+
+#  retinanet:
+#    group: models
+#    deps:
+#    - tags: get,generic-python-lib,_opencv-python
+#    - tags: get,generic-python-lib,_numpy
+#    - tags: get,generic-python-lib,_pycocotools
+#
+#    env:
+#      CM_MODEL: retinanet
+#      CM_MLPERF_USE_MLCOMMONS_RUN_SCRIPT: 'yes'
+#      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
+
+
+  abtf-demo-model:
+    group: models
+    deps:
+      - tags: get,generic-python-lib,_opencv-python
+      - tags: get,generic-python-lib,_numpy
+      - tags: get,generic-python-lib,_pycocotools
+      - tags: get,generic-python-lib,_package.torchmetrics
+      - tags: get,generic-python-lib,_package.faster-coco-eval
+        version_max: "1.5.7"
+        version_max_usable: "1.5.7"
+        names:
+        - cocoeval
+      - tags: get,dataset,raw,mlcommons-cognata
+        names:
+        - raw-dataset-mlcommons-cognata
+      - tags: get,ml-model,abtf-ssd-pytorch,_abtf-mvp
+        names:
+        - ml-model-abtf
+
+    env:
+      CM_MODEL: retinanet
+
+  abtf-poc-model:
+    group: models
+    default: true
+    deps:
+      - tags: get,generic-python-lib,_opencv-python
+      - tags: get,generic-python-lib,_numpy
+        version_max: "1.26.4"
+        version_max_usable: "1.26.4"
+      - tags: get,generic-python-lib,_pycocotools
+      - tags: get,generic-python-lib,_package.torchmetrics
+      - tags: get,generic-python-lib,_package.faster-coco-eval
+        version_max: "1.5.7"
+        version_max_usable: "1.5.7"
+        names:
+        - cocoeval
+      - tags: get,dataset,raw,mlcommons-cognata,_abtf-poc
+        skip_if_env:
+          CM_RUN_STATE_DOCKER:
+            - 'yes'
+        names:
+        - raw-dataset-mlcommons-cognata
+      - tags: get,ml-model,abtf-ssd-pytorch,_abtf-poc
+        names:
+        - ml-model-abtf
+
+    env:
+      CM_MODEL: retinanet
+
+  # Target devices
+  cpu:
+    group: device
+    default: true
+    env:
+      CM_MLPERF_DEVICE: cpu
+      CUDA_VISIBLE_DEVICES: ''
+      USE_CUDA: no
+      USE_GPU: no
+
+  cuda:
+    group: device
+    env:
+      CM_MLPERF_DEVICE: gpu
+      USE_CUDA: yes
+      USE_GPU: yes
+
+
+
+  # Loadgen scenarios
+  offline:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Offline
+  multistream:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: MultiStream
+  singlestream:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: 1
+  server:
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Server
+
+  mvp_demo:
+    env:

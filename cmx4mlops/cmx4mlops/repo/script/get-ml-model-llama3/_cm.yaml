@@ -1,0 +1,68 @@
+alias: get-ml-model-llama3
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML models
+input_mapping:
+  outdirname: CM_OUTDIRNAME
+new_env_keys:
+- CM_ML_MODEL_*
+- LLAMA3_CHECKPOINT_PATH
+prehook_deps:
+- enable_if_env:
+    CM_TMP_REQUIRE_DOWNLOAD:
+    - 'yes'
+  env: {}
+  extra_cache_tags: llama3,llama-3
+  force_env_keys:
+  - CM_GIT_CHECKOUT_FOLDER
+  names:
+  - hf-zoo
+  tags: get,ml-model,huggingface,zoo,_clone-repo
+print_env_at_the_end:
+  LLAMA3_CHECKPOINT_PATH: LLAMA3 checkpoint path
+tags:
+- get
+- raw
+- ml-model
+- language-processing
+- llama3
+- llama3-405b
+uid: 2f8cef2acc334e80
+variations:
+  fp16:
+    default: true
+    env:
+      CM_ML_MODEL_INPUT_DATA_TYPES: fp16
+      CM_ML_MODEL_PRECISION: fp16
+      CM_ML_MODEL_WEIGHT_DATA_TYPES: fp16
+    group: precision
+  meta-llama/Llama-3.1-405B-Instruct:
+    adr:
+      hf-zoo:
+        tags: _model-stub.meta-llama/Llama-3.1-405B-Instruct
+    default: true
+    env:
+      CM_ML_MODEL_NAME: Llama-3-405b-instruct
+      CM_MODEL_ZOO_ENV_KEY: LLAMA3
+    group: huggingface-stub
+  meta-llama/Llama-3.1-8B-Instruct:
+    adr:
+      hf-zoo:
+        tags: _model-stub.meta-llama/Llama-3.1-8B-Instruct
+    env:
+      CM_ML_MODEL_NAME: Llama-3-8b-instruct
+      CM_MODEL_ZOO_ENV_KEY: LLAMA3
+    group: huggingface-stub
+  vllm:
+    default: true
+    env:
+      CM_ML_MODEL_FRAMEWORK: vllm
+    group: framework
+  stub.#:
+    adr:
+      hf-zoo:
+        tags: _model-stub.#
+    env:
+      CM_MODEL_ZOO_ENV_KEY: LLAMA3
+    group: huggingface-stub
