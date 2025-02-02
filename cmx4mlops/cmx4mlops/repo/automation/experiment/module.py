@@ -280,8 +280,8 @@ class CAutomation(Automation):
 
             explore_keys.append(k)
 
-
-if not isinstance(v,             if )                v = eval(v)
+            if type(v)!=list:
+                v=eval(v)
 
             explore_dimensions.append(v)
 

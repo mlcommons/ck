@@ -104,11 +104,9 @@ def copy_to_remote(i):
         cm_cache_path = os.path.realpath(
             os.path.join(cm_repos_path, "local", "cache"))
 
-        for key, val in new_env.items():
-
-
-if isinstance(val,             if )                new_env[key] = val.replace(
-    cm_cache_path, remote_cm_cache_location)
+        for key,val in new_env.items():
+            if type(val) == str and cm_cache_path in val:
+                new_env[key] = val.replace(cm_cache_path, remote_cm_cache_location)
 
         with open("tmp_remote_cached_state.json", "w") as f:
             json.dump(cm_cached_state, f, indent=2)
