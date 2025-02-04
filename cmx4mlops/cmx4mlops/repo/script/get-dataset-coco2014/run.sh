@@ -5,8 +5,7 @@ python3() {
 export -f python3
 
 CUR=${PWD}
-mkdir -p install
-INSTALL_DIR=${CUR}/install
+INSTALL_DIR=${CUR}
 
 cd ${CM_RUN_DIR}
 

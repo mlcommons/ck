@@ -1,15 +1,14 @@
 [ [Back to index](README.md) ]
 
-# CM Installation
+# Common Metadata eXchange installation
 
-CM framework requires minimal dependencies to run on any platform: `python 3.7+, pip, venv, git, git-lfs, wget, curl`.
+CMX framework requires minimal dependencies to run on any platform: `python 3.7+, pip, venv, git, git-lfs, wget, curl`.
 
-By default, CM will pull Git repositories and cache installations and downloaded files in your `$HOME/CM` directory on Linux and MacOS
+By default, CMX will pull Git repositories and cache installations and downloaded files in your `$HOME/CM` directory on Linux and MacOS
 or `%userprofile%\CM` directory on Windows.
 You can change it to any another directory using the `CM_REPOS` environment variable, for example `export CM_REPOS=/scratch/CM`.
 
-*Feel free to use the [online installation GUI](https://access.cknowledge.org/playground/?action=install-cmx)*.
-
+*Feel free to use the [online installation GUI](https://access.cknowledge.org/playground/?action=install)*.
 
 ## Ubuntu, Debian
 
@@ -114,13 +113,16 @@ python -m pip install cmind
 
 
 
-# CM CLI testing
+# CMX CLI
 
 If the installation is successful, you can run the CM CLI as follows:
 
 ```bash
 gfursin@cmind:~$ cmx
 
-cmx {action} {automation} {artifact(s)} {flags} @input.yaml @input.json
+cmx {action} {automation} {artifact(s)} {CMX control flags (-)} {CMX automation flags (--)}
 ```
 
+```bash
+gfursin@cmind:~$ cmx test core
+```

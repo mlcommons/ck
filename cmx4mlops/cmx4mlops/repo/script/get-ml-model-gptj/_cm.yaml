@@ -29,6 +29,8 @@ prehook_deps:
   names:
   - dae
   tags: download-and-extract
+  force_env_keys:
+    - CM_OUTDIRNAME  
   update_tags_from_env_with_prefix:
     _url.:
     - CM_DOWNLOAD_URL
@@ -159,6 +161,10 @@ variations:
       - python3
       tags: get,python3
     - tags: get,generic-python-lib,_package.safetensors
+    - tags: get,generic-python-lib,_torch
+      names:
+      - torch
+      - pytorch
   rclone:
     add_deps_recursive:
       dae:

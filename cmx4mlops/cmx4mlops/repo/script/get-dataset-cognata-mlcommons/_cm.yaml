@@ -1,0 +1,161 @@
+# Written by Grigori Fursin
+
+alias: get-dataset-cognata-mlcommons
+uid: 464ce21f2dce464e
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+developers: "Grigori Fursin, Radoyeh Shojaei"
+
+tags:
+- get
+- raw
+- dataset
+- cognata
+- mlcommons-cognata
+- ml-task--object-detection
+- ml-task--image-segmentation
+
+min_cm_version: '2.2.0'
+
+private: true
+
+cache: false
+
+category: AI/ML datasets
+category_sort: 8500
+
+
+input_mapping:
+  update: CM_DATASET_MLCOMMONS_COGNATA_UPDATE
+  import: CM_DATASET_MLCOMMONS_COGNATA_IMPORT_PATH
+  private_url: CM_DATASET_MLCOMMONS_COGNATA_PRIVATE_URL
+  serial_numbers: CM_DATASET_MLCOMMONS_COGNATA_SERIAL_NUMBERS
+  group_names: CM_DATASET_MLCOMMONS_COGNATA_GROUP_NAMES
+  file_names: CM_DATASET_MLCOMMONS_COGNATA_FILE_NAMES
+
+env:
+  CM_DATASET: MLCOMMONS_COGNATA
+  CM_DATASET_MLCOMMONS_COGNATA_KEY1: "Dataset 1.0"
+
+
+
+
+deps:
+# Prepare dummy CM cache entry to manage dataset
+- names:
+  - custom-cache-entry-mlcommons-cognata-dataset
+  tags: create,custom,cache,entry
+  extra_cache_tags: dataset,cognata,mlcommons-cognata
+  skip_if_env:
+    CM_DATASET_MLCOMMONS_COGNATA_FILE_NAMES:
+    - 'off'
+  env_key: DATASET_MLCOMMONS_COGNATA
+  # this script will prepare env CM_CUSTOM_CACHE_ENTRY_{env_key}_PATH
+
+
+prehook_deps:
+- names:
+  - gdrive-downloader-cognata
+  skip_if_env:
+    CM_DATASET_MLCOMMONS_COGNATA_FILE_NAMES:
+    - 'on'
+  enable_if_env:
+    CM_DATASET_MLCOMMONS_COGNATA_IMPORTED:
+    - 'no'
+    CM_DATASET_MLCOMMONS_COGNATA_DOWNLOAD_TOOL:
+    - gdrive
+  tags: download,file,_gdown,_url.https://drive.google.com/drive/folders/1FS-qLbzB5htgMnfry6z4gx8J_ZH_7MsJ?usp=drive_link
+  env:
+    CM_DOWNLOAD_EXTRA_OPTIONS: " --folder"
+    CM_DOWNLOAD_FILENAME: 10002_Urban_Clear_Morning
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_CUSTOM_CACHE_ENTRY_DATASET_MLCOMMONS_COGNATA_PATH
+  force_cache: true
+  extra_cache_tags: abtf,cognata,poc,dataset
+
+- names:
+  - rclone-downloader-cognata
+  skip_if_env:
+    CM_DATASET_MLCOMMONS_COGNATA_FILE_NAMES:
+    - 'on'
+  enable_if_env:
+    CM_DATASET_MLCOMMONS_COGNATA_IMPORTED:
+    - 'no'
+    CM_DATASET_MLCOMMONS_COGNATA_DOWNLOAD_TOOL:
+    - rclone
+  tags: download-and-extract,file,_extract,_rclone,_url.https://automotive.mlcommons-storage.org/Cognata_Dataset_PoC_Demo%2F10002_Urban_Clear_Morning.zip
+  env:
+    CM_RCLONE_COPY_USING: copyurl
+    CM_RCLONE_CONFIG_CMD: ''
+    CM_DOWNLOAD_CHECKSUM: '76389b05b0ee1e08d354d3c1b696b8c0'
+    CM_EXTRACT_EXTRACTED_CHECKSUM_FILE: "<<<CM_DATASET_COGNATA_POC_TEXT_MD5_FILE_PATH>>>"
+    CM_DOWNLOAD_PATH: <<<CM_ABTF_SCRATCH_PATH_DATASET_COGNATA_TMP>>>
+    CM_EXTRACT_PATH: <<<CM_ABTF_SCRATCH_PATH_DATASET_COGNATA>>>
+    CM_EXTRACT_EXTRACTED_FILENAME: 10002_Urban_Clear_Morning
+    CM_DAE_FINAL_ENV_NAME: CM_CUSTOM_CACHE_ENTRY_DATASET_MLCOMMONS_COGNATA_PATH
+  force_cache: true
+  extra_cache_tags: abtf,cognata,poc,dataset
+
+- names:
+  - python
+  - python3
+  tags: get,python3
+  skip_if_env:
+    CM_DATASET_MLCOMMONS_COGNATA_IMPORTED:
+    - 'yes'
+  enable_if_env:
+    CM_DATASET_MLCOMMONS_COGNATA_FILE_NAMES:
+      - 'on'
+
+# Python package to read/write Excel files
+- tags: get,generic-python-lib,_package.openpyxl
+  skip_if_env:
+    CM_DATASET_MLCOMMONS_COGNATA_IMPORTED:
+    - 'yes'
+  enable_if_env:
+    CM_DATASET_MLCOMMONS_COGNATA_FILE_NAMES:
+      - 'on'
+
+# Tool to download large files
+- tags: get,aria2
+  skip_if_env:
+    CM_DATASET_MLCOMMONS_COGNATA_IMPORTED:
+    - 'yes'
+  enable_if_env:
+    CM_DATASET_MLCOMMONS_COGNATA_FILE_NAMES:
+    - 'on'
+
+
+variations:
+  abtf-demo:
+    group: dataset-type
+    env:
+      CM_DATASET_MLCOMMONS_COGNATA_SERIAL_NUMBERS: "10002_Urban_Clear_Morning"
+      CM_DATASET_MLCOMMONS_COGNATA_GROUP_NAMES: "Cognata_Camera_01_8M"
+      CM_DATASET_MLCOMMONS_COGNATA_FILE_NAMES: "Cognata_Camera_01_8M_ann.zip;Cognata_Camera_01_8M_ann_laneline.zip;Cognata_Camera_01_8M.zip"
+
+  abtf-poc:
+    group: dataset-type
+    default: true
+    env:
+      CM_DATASET_MLCOMMONS_COGNATA_SERIAL_NUMBERS: "10002_Urban_Clear_Morning"
+      CM_DATASET_MLCOMMONS_COGNATA_GROUP_NAMES: "Cognata_Camera_01_8M"
+      CM_DATASET_MLCOMMONS_COGNATA_FILE_NAMES: ""
+
+  rclone:
+    group: download-tool
+    default: true
+    env:
+      CM_DATASET_MLCOMMONS_COGNATA_DOWNLOAD_TOOL: rclone
+
+  gdrive:
+    group: download-tool
+    env:
+      CM_DATASET_MLCOMMONS_COGNATA_DOWNLOAD_TOOL: gdrive
+
+new_env_keys:
+- CM_DATASET_MLCOMMONS_COGNATA*
+
+print_env_at_the_end:
+  CM_DATASET_MLCOMMONS_COGNATA_PATH: Path to Cognata dataset

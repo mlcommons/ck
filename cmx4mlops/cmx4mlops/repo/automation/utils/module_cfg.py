@@ -242,10 +242,11 @@ def process_base(meta, full_path):
                     else:
                         base[k] = meta[k]
 
-
-elif isinstance(v,                 elif)                    for vv in v:
+                elif type(v) == list:
+                    for vv in v:
                         base[k].append(vv)
-elif isinstance(v,                 elif )                    base[k].merge(v)
+                elif type(v) == dict:
+                    base[k].merge(v)
 
         meta = base
 

@@ -142,7 +142,7 @@ def preprocess(i):
                 print(
                     f"Converted repo format from {env['CM_MLOPS_REPO']} to {cm_mlops_repo}")
         else:
-            cm_mlops_repo = "mlcommons@cm4mlops"
+            cm_mlops_repo = "mlcommons@mlperf-automations"
 
     cm_mlops_repo_branch_string = f" --branch={env['CM_MLOPS_REPO_BRANCH']}"
 
@@ -183,7 +183,7 @@ def preprocess(i):
 
     shell = get_value(env, config, 'SHELL', 'CM_DOCKER_IMAGE_SHELL')
     if shell:
-        f.write('SHELL ' + shell + EOL)
+        # f.write('SHELL ' + shell + EOL)
         f.write(EOL)
 
     for arg in config['ARGS_DEFAULT']:
@@ -261,7 +261,12 @@ def preprocess(i):
     docker_user = get_value(env, config, 'USER', 'CM_DOCKER_USER')
     docker_group = get_value(env, config, 'GROUP', 'CM_DOCKER_GROUP')
 
-    if docker_user:
+    if env.get('CM_CONTAINER_TOOL', '') == 'podman' and env.get(
+            'CM_DOCKER_USE_DEFAULT_USER', '') == '':
+        env['CM_DOCKER_USE_DEFAULT_USER'] = 'yes'
+
+    if docker_user and str(env.get('CM_DOCKER_USE_DEFAULT_USER', '')).lower() not in [
+            "yes", "1", "true"]:
 
         f.write('RUN groupadd -g $GID -o ' + docker_group + EOL)
 
@@ -277,14 +282,20 @@ def preprocess(i):
             ' ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers' +
             EOL)
         f.write('USER ' + docker_user + ":" + docker_group + EOL)
+        f.write('ENV HOME=/home/cmuser' + EOL)
+
+    else:
+        f.write('ENV HOME=/root' + EOL)
 
     dockerfile_env = env.get('CM_DOCKERFILE_ENV', {})
     dockerfile_env_input_string = ""
     for docker_env_key in dockerfile_env:
         dockerfile_env_input_string = dockerfile_env_input_string + " --env." + \
             docker_env_key + "=" + str(dockerfile_env[docker_env_key])
+
     workdir = get_value(env, config, 'WORKDIR', 'CM_DOCKER_WORKDIR')
-    if workdir:
+    if workdir and ("/home/cmuser" not in workdir or str(env.get('CM_DOCKER_USE_DEFAULT_USER', '')).lower() not in [
+            "yes", "1", "true"]):
         f.write('WORKDIR ' + workdir + EOL)
 
     f.write(EOL + '# Install python packages' + EOL)
@@ -292,9 +303,10 @@ def preprocess(i):
 
     docker_use_virtual_python = env.get('CM_DOCKER_USE_VIRTUAL_PYTHON', "yes")
     if str(docker_use_virtual_python).lower() not in ["no", "0", "false"]:
-        f.write('RUN {} -m venv /home/cmuser/venv/cm'.format(python) + " " + EOL)
-        f.write('ENV PATH="/home/cmuser/venv/cm/bin:$PATH"' + EOL)
+        f.write('RUN {} -m venv $HOME/venv/cm'.format(python) + " " + EOL)
+        f.write('ENV PATH="$HOME/venv/cm/bin:$PATH"' + EOL)
     # f.write('RUN . /opt/venv/cm/bin/activate' + EOL)
+
     f.write(
         'RUN {} -m pip install '.format(python) +
         " ".join(
@@ -310,7 +322,7 @@ def preprocess(i):
     f.write(EOL + '# Download CM repo for scripts' + EOL)
 
     if use_copy_repo:
-        docker_repo_dest = "/home/cmuser/CM/repos/mlcommons@cm4mlops"
+        docker_repo_dest = "$HOME/CM/repos/mlcommons@mlperf-automations"
         f.write(
             f'COPY --chown=cmuser:cm {relative_repo_path} {docker_repo_dest}' +
             EOL)
@@ -389,6 +401,26 @@ def preprocess(i):
             x += ' --quiet'
         if run_cmd_extra != '':
             x += ' ' + run_cmd_extra
+
+    if env.get('CM_DOCKER_RUN_SCRIPT_TAGS', '') != '' and str(env.get(
+            'CM_DOCKER_ADD_DEPENDENT_SCRIPTS_RUN_COMMANDS', '')).lower() in ["yes", "1", "true"]:
+        cm_input = {'action': 'run',
+                    'automation': 'script',
+                    'tags': f"""{env['CM_DOCKER_RUN_SCRIPT_TAGS']}""",
+                    'print_deps': True,
+                    'quiet': True,
+                    'silent': True,
+                    'fake_run': True,
+                    'fake_deps': True
+                    }
+        r = self_module.cmind.access(cm_input)
+        if r['return'] > 0:
+            return r
+        print_deps = r['new_state']['print_deps']
+        fake_run_str = " --fake_run" if env.get('CM_DOCKER_FAKE_DEPS') else ""
+        cmds = ["RUN " + dep for dep in print_deps]
+        for cmd in cmds:
+            f.write(cmd + fake_run_str + EOL)
 
     f.write(x + EOL)
 

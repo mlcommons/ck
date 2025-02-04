@@ -6,6 +6,7 @@ can_force_cache: true
 tags:
 - get
 - gh
+- github
 - actions-runner
 - runner-code
 - runner
@@ -29,21 +30,27 @@ deps:
 
 variations:
   config:
+    group: command
+    default: true
     env:
       CM_GH_ACTIONS_RUNNER_COMMAND: config
   remove:
+    group: command
     env:
       CM_GH_ACTIONS_RUNNER_COMMAND: remove
   install:
+    group: command
     deps:
       - tags: get,gh,actions-runner,_config
         force_cache: yes
     env:
       CM_GH_ACTIONS_RUNNER_COMMAND: install
   uninstall:
+    group: command
     env:
       CM_GH_ACTIONS_RUNNER_COMMAND: uninstall
   start:
+    group: command
     deps:
       - tags: get,gh,actions-runner,_install
         force_cache: yes

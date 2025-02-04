@@ -17,5 +17,5 @@ export DOCKER_RUN_ARGS=" -v ${CM_NVIDIA_MLPERF_SCRATCH_PATH}:/mnt"
 make -C docker run LOCAL_USER=1
 test $? -eq 0 || exit $?
 
-${CM_PYTHON_BIN_WITH_PATH} ${CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH}/code/gptj/tensorrt/onnx_tune.py --fp8-scalers-path=${CM_NVIDIA_MLPERF_SCRATCH_PATH}/models/GPTJ-6B/fp8-quantized-ammo/GPTJ-FP8-quantized/rank0.safetensors --scaler 1.005 --index 15
+PYTHONPATH='' ${CM_PYTHON_BIN_WITH_PATH} ${CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH}/code/gptj/tensorrt/onnx_tune.py --fp8-scalers-path=${CM_NVIDIA_MLPERF_SCRATCH_PATH}/models/GPTJ-6B/fp8-quantized-ammo/GPTJ-FP8-quantized/rank0.safetensors --scaler 1.005 --index 15
 test $? -eq 0 || exit $?

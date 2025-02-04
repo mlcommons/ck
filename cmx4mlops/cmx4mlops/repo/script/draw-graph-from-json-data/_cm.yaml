@@ -19,3 +19,4 @@ deps:
       - python3
   - tags: get,generic-python-lib,_package.networkx
   - tags: get,generic-python-lib,_package.matplotlib
+  - tags: get,generic-python-lib,_package.typing_extensions

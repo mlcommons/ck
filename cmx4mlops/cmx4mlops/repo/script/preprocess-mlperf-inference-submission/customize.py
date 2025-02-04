@@ -40,8 +40,11 @@ def preprocess(i):
         print(f"Cleaning {submission_processed}")
         shutil.rmtree(submission_processed)
 
+    version = env.get('CM_MLPERF_SUBMISSION_CHECKER_VERSION', '')
+    x_version = ' --version ' + version + ' ' if version != '' else ''
+
     CMD = env['CM_PYTHON_BIN'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "tools", "submission",
-                                                     "preprocess_submission.py") + "' --input '" + submission_dir + "' --submitter '" + submitter + "' --output '" + submission_processed + "'"
+                                                     "preprocess_submission.py") + "' --input '" + submission_dir + "' --submitter '" + submitter + "' --output '" + submission_processed + "'" + x_version
     env['CM_RUN_CMD'] = CMD
 
     return {'return': 0}

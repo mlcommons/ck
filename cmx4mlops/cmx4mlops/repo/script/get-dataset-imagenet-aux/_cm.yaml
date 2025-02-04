@@ -14,6 +14,8 @@ prehook_deps:
   extra_cache_tags: imagenet-aux,dataset-aux
   force_cache: true
   tags: download-and-extract,_extract,_wget
+  force_env_keys:
+    - CM_OUTDIRNAME  
   update_tags_from_env_with_prefix:
     _url.:
     - CM_PACKAGE_URL

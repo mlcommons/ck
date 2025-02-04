@@ -22,6 +22,7 @@ deps:
 input_mapping:
   input: CM_MLPERF_INFERENCE_SUBMISSION_DIR
   submission_dir: CM_MLPERF_INFERENCE_SUBMISSION_DIR
+  version: CM_MLPERF_SUBMISSION_CHECKER_VERSION
   submitter: CM_MLPERF_SUBMITTER
 tags:
 - run

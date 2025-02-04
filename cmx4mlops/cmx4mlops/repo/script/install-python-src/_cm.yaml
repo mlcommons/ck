@@ -16,6 +16,9 @@ deps:
 - tags: detect,cpu
 - tags: get,generic-sys-util,_libffi-dev
 - tags: get,generic-sys-util,_libbz2-dev
+  enable_if_env:
+    CM_HOST_OS_FLAVOR:
+    - ubuntu
 - tags: get,generic-sys-util,_libssl-dev
 - enable_if_env:
     CM_HOST_OS_FLAVOR:

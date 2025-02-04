@@ -1,0 +1,12 @@
+{
+  "alias": "mlc",
+  "automation_alias": "automation",
+  "automation_uid": "bbeb15d8f0a944a4",
+  "desc": "CMX interface for mlcflow",
+  "sort": -1000,
+  "tags": [
+    "automation",
+    "mlc"
+  ],
+  "uid": "26193c384fae476c"
+}

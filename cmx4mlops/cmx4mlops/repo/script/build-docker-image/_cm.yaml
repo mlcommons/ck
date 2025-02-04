@@ -38,6 +38,9 @@ input_mapping:
 new_env_keys:
 - CM_DOCKER_*
 
+deps:
+  - tags: get,docker
+
 prehook_deps:
 - enable_if_env:
     CM_BUILD_DOCKERFILE:

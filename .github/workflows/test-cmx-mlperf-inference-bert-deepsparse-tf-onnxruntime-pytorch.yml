@@ -50,7 +50,7 @@ jobs:
       if: matrix.os != 'windows-latest'
       run: |
         cmx run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="MLCommons" --hw_name=gh_${{ matrix.os }}_x86 --model=bert-99 --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=5 --precision=${{ matrix.precision }} --target_qps=1 --v --quiet
-    - name: Push Results
+    - name: Push Test MLPerf Results (only for cTuning dev branches)
       if: github.repository_owner == 'ctuning'
       env:
           USER: "GitHub Action"

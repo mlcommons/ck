@@ -228,8 +228,8 @@ def preprocess(i):
     user_conf += ml_model_name + "." + scenario + \
         "." + metric + " = " + str(metric_value) + "\n"
 
-    if env.get('CM_MLPERF_PERFORMANCE_SAMPLE_COUNT', '') != '':
-        performance_sample_count = env['CM_MLPERF_PERFORMANCE_SAMPLE_COUNT']
+    if env.get('CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT', '') != '':
+        performance_sample_count = env['CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT']
         user_conf += ml_model_name + ".*.performance_sample_count_override = " + \
             performance_sample_count + "\n"
 

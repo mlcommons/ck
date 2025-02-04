@@ -1,0 +1,248 @@
+alias: run-mlperf-automotive-app
+uid: 2a7315d2dff74898
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: Modular MLPerf inference benchmark pipeline
+
+developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.org/gfursin)"
+
+
+clean_output_files:
+- open.tar.gz
+- summary.csv
+- summary.json
+
+tags:
+- run
+- run-abtf
+- run-abtf-inference
+- mlcommons
+- inference
+- reference
+
+tags_help: "run-abtf,inference"
+
+default_env:
+  CM_MLPERF_IMPLEMENTATION: reference
+  CM_MLPERF_MODEL: retinanet
+  CM_MLPERF_RUN_STYLE: test
+
+input_mapping:
+  backend: CM_MLPERF_BACKEND
+  clean: CM_MLPERF_CLEAN_ALL
+  compliance: CM_MLPERF_LOADGEN_COMPLIANCE
+  dashboard_wb_project: CM_MLPERF_DASHBOARD_WANDB_PROJECT
+  dashboard_wb_user: CM_MLPERF_DASHBOARD_WANDB_USER
+  debug: CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM
+  device: CM_MLPERF_DEVICE
+  division: CM_MLPERF_SUBMISSION_DIVISION
+  docker: CM_MLPERF_USE_DOCKER
+  dump_version_info: CM_DUMP_VERSION_INFO
+  save_console_log: CM_SAVE_CONSOLE_LOG
+  execution_mode: CM_MLPERF_RUN_STYLE
+  find_performance: CM_MLPERF_FIND_PERFORMANCE_MODE
+  gh_token: CM_GH_TOKEN
+  gpu_name: CM_NVIDIA_GPU_NAME
+  hw_name: CM_HW_NAME
+  hw_notes_extra: CM_MLPERF_SUT_SW_NOTES_EXTRA
+  imagenet_path: IMAGENET_PATH
+  implementation: CM_MLPERF_IMPLEMENTATION
+  lang: CM_MLPERF_IMPLEMENTATION
+  mode: CM_MLPERF_LOADGEN_MODE
+  model: CM_MLPERF_MODEL
+  multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
+  offline_target_qps: CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS
+  output_dir: OUTPUT_BASE_DIR
+  output_summary: MLPERF_INFERENCE_SUBMISSION_SUMMARY
+  output_tar: MLPERF_INFERENCE_SUBMISSION_TAR_FILE
+  performance_sample_count: CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT
+  power: CM_SYSTEM_POWER
+  precision: CM_MLPERF_MODEL_PRECISION
+  preprocess_submission: CM_RUN_MLPERF_SUBMISSION_PREPROCESSOR
+  push_to_github: CM_MLPERF_RESULT_PUSH_TO_GITHUB
+  readme: CM_MLPERF_README
+  regenerate_accuracy_file: CM_MLPERF_REGENERATE_ACCURACY_FILE
+  regenerate_files: CM_REGENERATE_MEASURE_FILES
+  rerun: CM_RERUN
+  results_dir: OUTPUT_BASE_DIR
+  results_git_url: CM_MLPERF_RESULTS_GIT_REPO_URL
+  run_checker: CM_RUN_SUBMISSION_CHECKER
+  run_style: CM_MLPERF_RUN_STYLE
+  scenario: CM_MLPERF_LOADGEN_SCENARIO
+  server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
+  singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
+  skip_submission_generation: CM_MLPERF_SKIP_SUBMISSION_GENERATION
+  skip_truncation: CM_SKIP_TRUNCATE_ACCURACY
+  submission_dir: CM_MLPERF_INFERENCE_SUBMISSION_DIR
+  submitter: CM_MLPERF_SUBMITTER
+  sut_servers: CM_NETWORK_LOADGEN_SUT_SERVERS
+  sw_notes_extra: CM_MLPERF_SUT_SW_NOTES_EXTRA
+  system_type: CM_MLPERF_SUBMISSION_SYSTEM_TYPE
+  target_latency: CM_MLPERF_LOADGEN_TARGET_LATENCY
+  target_qps: CM_MLPERF_LOADGEN_TARGET_QPS
+  test_query_count: CM_TEST_QUERY_COUNT
+  threads: CM_NUM_THREADS
+  batch_size: CM_MLPERF_LOADGEN_MAX_BATCHSIZE
+  sut: CM_MLPERF_INFERENCE_SUT_VARIATION
+
+new_state_keys:
+- app_mlperf_inference_*
+- cm-mlperf-inference-results*
+
+deps:
+- tags: detect,os
+  skip_if_env:
+    CM_MLPERF_USE_DOCKER: [ on ]
+- tags: detect,cpu
+  skip_if_env:
+    CM_MLPERF_USE_DOCKER: [ on ]
+- names:
+  - python
+  - python3
+  tags: get,python3
+  skip_if_env:
+    CM_MLPERF_USE_DOCKER: [ on ]
+- names:
+  - inference-src
+  tags: get,mlcommons,inference,src
+  skip_if_env:
+    CM_MLPERF_USE_DOCKER: [ on ]
+- tags: get,sut,description
+  skip_if_env:
+    CM_MLPERF_USE_DOCKER: [ on ]
+
+- tags: get,mlperf,inference,results,dir
+  names:
+    - get-mlperf-inference-results-dir
+  enable_if_env:
+    CM_MLPERF_USE_DOCKER: [ off ]
+  skip_if_env:
+    OUTPUT_BASE_DIR: [ on ]
+- tags: install,pip-package,for-cmind-python,_package.tabulate
+- tags: get,mlperf,inference,utils
+  skip_if_env:
+    CM_MLPERF_USE_DOCKER: [ on ]
+
+variations:
+  accuracy-only:
+    default_variations:
+      submission-generation-style: full
+    env:
+      CM_MLPERF_LOADGEN_MODE: accuracy
+      CM_MLPERF_SUBMISSION_RUN: 'yes'
+      CM_RUN_MLPERF_ACCURACY: 'on'
+      CM_RUN_SUBMISSION_CHECKER: 'no'
+    group: submission-generation
+
+  all-modes:
+    env:
+      CM_MLPERF_LOADGEN_ALL_MODES: 'yes'
+    group: mode
+
+  all-scenarios:
+    env:
+      CM_MLPERF_LOADGEN_ALL_SCENARIOS: 'yes'
+
+  compliance:
+    env:
+      CM_MLPERF_LOADGEN_COMPLIANCE: 'yes'
+
+  dashboard:
+    default_gui: false
+    env:
+      CM_MLPERF_DASHBOARD: 'on'
+
+  find-performance:
+    env:
+      CM_MLPERF_FIND_PERFORMANCE_MODE: 'yes'
+      CM_MLPERF_LOADGEN_ALL_MODES: 'no'
+      CM_MLPERF_LOADGEN_MODE: performance
+      CM_MLPERF_RESULT_PUSH_TO_GITHUB: false
+    group: submission-generation
+
+  full:
+    add_deps_recursive:
+      coco2014-original:
+        tags: _full
+      coco2014-preprocessed:
+        tags: _full
+    env:
+      CM_MLPERF_SUBMISSION_GENERATION_STYLE: full
+      CM_MLPERF_SKIP_SUBMISSION_GENERATION: 'yes'
+    group: submission-generation-style
+
+  performance-only:
+    default_variations:
+      submission-generation-style: full
+    env:
+      CM_MLPERF_LOADGEN_MODE: performance
+      CM_MLPERF_SUBMISSION_RUN: 'yes'
+      CM_RUN_SUBMISSION_CHECKER: 'no'
+    group: submission-generation
+
+  mvp-demo:
+    default_env:
+      CM_MLPERF_DEVICE: cpu
+
+    env:
+      CM_MLPERF_INFERENCE_VERSION: mvp-demo
+      CM_MLPERF_MODEL: abtf-demo-model
+      CM_MLPERF_BACKEND: pytorch 
+      CM_MLPERF_IMPLEMENTATION: mlcommons-python
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+      CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: mvp-demo
+    adr:
+      compiler:
+        tags: gcc
+    group: benchmark-version
+
+  poc-demo:
+    default_env:
+      CM_MLPERF_DEVICE: cpu
+      CM_TEST_QUERY_COUNT: "20"
+
+    env:
+      CM_MLPERF_INFERENCE_VERSION: poc-demo
+      CM_MLPERF_MODEL: abtf-poc-model
+      CM_MLPERF_BACKEND: pytorch
+      CM_MLPERF_IMPLEMENTATION: mlcommons-python
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+      CM_RUN_MLPERF_INFERENCE_APP_DEFAULTS: poc-demo
+    adr:
+      compiler:
+        tags: gcc
+    group: benchmark-version
+
+  performance-and-accuracy:
+    default: true
+    base:
+    - all-modes
+    default_variations:
+      submission-generation-style: full
+    group: submission-generation
+
+  submission:
+    base:
+    - all-modes
+    default_gui: true
+    default_variations:
+      submission-generation-style: full
+    env:
+      CM_MLPERF_LOADGEN_COMPLIANCE: 'yes'
+      CM_MLPERF_SUBMISSION_RUN: 'yes'
+      CM_RUN_MLPERF_ACCURACY: 'on'
+      CM_RUN_SUBMISSION_CHECKER: 'yes'
+      CM_TAR_SUBMISSION_DIR: 'yes'
+    group: submission-generation
+    post_deps:
+    - names:
+      - submission-generator
+      enable_if_env:
+        CM_MLPERF_SKIP_SUBMISSION_GENERATION:
+        - 'no'
+        - 'false'
+        - 'False'
+        - '0'
+      tags: generate,mlperf,inference,submission

@@ -18,7 +18,7 @@ r = cm.access({'action': 'run', 'automation': 'script', 'tags': 'run,mlperf,infe
                'device': 'cpu', 'scenario': 'Offline', 'mode': 'accuracy', 'test_query_count': '5', 'clean': 'true', 'quiet': 'yes'})
 checks.check_return(r)
 
-r = cm.access({'action': 'run', 'automation': 'script', 'tags': 'run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard', 'adr':
+r = cm.access({'action': 'run', 'automation': 'script', 'tags': 'run,mlperf,inference,generate-run-cmds,_submission,_short', 'adr':
                {'python': {'name': 'mlperf', 'version_min': '3.8'}, 'tvm': {
                    'tags': '_pip-install'}, 'tvm-model': {'tags': '_graph_executor'}},
                'submitter': 'Community', 'implementation': 'python', 'hw_name': 'default', 'model': 'resnet50', 'backend': 'tvm-onnx',
