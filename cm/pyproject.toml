@@ -13,7 +13,7 @@ maintainers = [
     {name = "Grigori Fursin", email = "grigori.fursin@ctuning.org"}
 ]
 
-description = "Collective Mind automation framework (CM)"
+description = "Common Metadata eXchange framework (CMX) and Collective Mind automation framework (CM)"
 
 requires-python = ">=3.7"
 
@@ -30,6 +30,9 @@ keywords = [
  "cmind",
  "cm",
  "cmx",
+ "cmx-mlcflow",
+ "cmx-mlcr",
+ "common metadata exchange",
  "collective mind",
  "automation",
  "portability",
@@ -67,6 +70,8 @@ include-package-data = true
 cmind = ["repo/*", 
          "repo/automation/automation/*",
          "repo/automation/ckx/*",
+         "repo/automation/mlc/*",
+         "repo/automation/mlcr/*",
          "repo/automation/core/*",
          "repo/automation/core/cm_60cb625a46b38610/*",
          "repo/automation/repo/*"
