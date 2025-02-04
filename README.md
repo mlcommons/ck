@@ -60,10 +60,11 @@ while keeping backward compatibility.
 
 See the [online documentation](https://docs.mlcommons.org/inference) 
 at MLCommons to run MLPerf inference benchmarks across diverse systems using CMX.
-Just install `pip install cmind` and substitute the following commands with `cmx`:
+Just install `pip install cmind` and substitute the following commands and flags:
 * `cm` -> `cmx`
 * `mlc` -> `cmx run mlc`
 * `mlcr` -> `cmx run mlcr`
+* `-v` -> `--v`
 
 ### MLPerf results visualization
 
