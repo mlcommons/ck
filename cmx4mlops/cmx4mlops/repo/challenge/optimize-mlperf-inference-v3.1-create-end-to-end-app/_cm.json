@@ -22,5 +22,6 @@
     "v3.1"
   ],
   "title": "Generate end-to-end optimized AI apps (LLM, speech, etc) based on MLPerf inference results (with and without container)",
-  "uid": "96ca61a5aa914063"
+  "uid": "96ca61a5aa914063",
+  "skip": true
 }
