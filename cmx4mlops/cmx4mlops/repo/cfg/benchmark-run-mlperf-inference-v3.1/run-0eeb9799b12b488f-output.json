@@ -1,0 +1,137 @@
+{
+  "return": 0,
+  "env": {},
+  "new_env": {},
+  "state": {
+    "app_mlperf_inference_log_summary": {
+      "sut name": "PySUT",
+      "scenario": "Offline",
+      "mode": "PerformanceOnly",
+      "samples per second": "12.4548",
+      "result is": "VALID",
+      "min duration satisfied": "Yes",
+      "min queries satisfied": "Yes",
+      "early stopping satisfied": "Yes",
+      "min latency (ns)": "64039368",
+      "max latency (ns)": "802905050",
+      "mean latency (ns)": "372956875",
+      "50.00 percentile latency (ns)": "378435867",
+      "90.00 percentile latency (ns)": "802905050",
+      "95.00 percentile latency (ns)": "802905050",
+      "97.00 percentile latency (ns)": "802905050",
+      "99.00 percentile latency (ns)": "802905050",
+      "99.90 percentile latency (ns)": "802905050",
+      "samples_per_query": "10",
+      "target_qps": "1",
+      "target_latency (ns)": "0",
+      "max_async_queries": "1",
+      "min_duration (ms)": "0",
+      "max_duration (ms)": "0",
+      "min_query_count": "1",
+      "max_query_count": "10",
+      "qsl_rng_seed": "13281865557512327830",
+      "sample_index_rng_seed": "198141574272810017",
+      "schedule_rng_seed": "7575108116881280410",
+      "accuracy_log_rng_seed": "0",
+      "accuracy_log_probability": "0",
+      "accuracy_log_sampling_target": "0",
+      "print_timestamps": "0",
+      "performance_issue_unique": "0",
+      "performance_issue_same": "0",
+      "performance_issue_same_index": "0",
+      "performance_sample_count": "10833"
+    },
+    "app_mlperf_inference_measurements": {
+      "starting_weights_filename": "https://github.com/mlcommons/inference_results_v2.1/raw/master/open/NeuralMagic/code/bert/deepsparse/models/oBERT-Large_95sparse_block4_qat.onnx.tar.xz",
+      "retraining": "no",
+      "input_data_types": "fp32",
+      "weight_data_types": "fp32",
+      "weight_transformations": "none"
+    },
+    "cm-mlperf-inference-results": {
+      "ip_172_31_89_56-reference-cpu-deepsparse-vdefault-default_config": {
+        "bert-99": {
+          "Offline": {
+            "performance": "12.455",
+            "performance_valid": true
+          }
+        }
+      }
+    },
+    "cm-mlperf-inference-results-last": {
+      "performance": "12.455",
+      "performance_valid": true
+    }
+  },
+  "new_state": {
+    "app_mlperf_inference_log_summary": {
+      "sut name": "PySUT",
+      "scenario": "Offline",
+      "mode": "PerformanceOnly",
+      "samples per second": "12.4548",
+      "result is": "VALID",
+      "min duration satisfied": "Yes",
+      "min queries satisfied": "Yes",
+      "early stopping satisfied": "Yes",
+      "min latency (ns)": "64039368",
+      "max latency (ns)": "802905050",
+      "mean latency (ns)": "372956875",
+      "50.00 percentile latency (ns)": "378435867",
+      "90.00 percentile latency (ns)": "802905050",
+      "95.00 percentile latency (ns)": "802905050",
+      "97.00 percentile latency (ns)": "802905050",
+      "99.00 percentile latency (ns)": "802905050",
+      "99.90 percentile latency (ns)": "802905050",
+      "samples_per_query": "10",
+      "target_qps": "1",
+      "target_latency (ns)": "0",
+      "max_async_queries": "1",
+      "min_duration (ms)": "0",
+      "max_duration (ms)": "0",
+      "min_query_count": "1",
+      "max_query_count": "10",
+      "qsl_rng_seed": "13281865557512327830",
+      "sample_index_rng_seed": "198141574272810017",
+      "schedule_rng_seed": "7575108116881280410",
+      "accuracy_log_rng_seed": "0",
+      "accuracy_log_probability": "0",
+      "accuracy_log_sampling_target": "0",
+      "print_timestamps": "0",
+      "performance_issue_unique": "0",
+      "performance_issue_same": "0",
+      "performance_issue_same_index": "0",
+      "performance_sample_count": "10833"
+    },
+    "app_mlperf_inference_measurements": {
+      "starting_weights_filename": "https://github.com/mlcommons/inference_results_v2.1/raw/master/open/NeuralMagic/code/bert/deepsparse/models/oBERT-Large_95sparse_block4_qat.onnx.tar.xz",
+      "retraining": "no",
+      "input_data_types": "fp32",
+      "weight_data_types": "fp32",
+      "weight_transformations": "none"
+    },
+    "cm-mlperf-inference-results": {
+      "ip_172_31_89_56-reference-cpu-deepsparse-vdefault-default_config": {
+        "bert-99": {
+          "Offline": {
+            "performance": "12.455",
+            "performance_valid": true
+          }
+        }
+      }
+    },
+    "cm-mlperf-inference-results-last": {
+      "performance": "12.455",
+      "performance_valid": true
+    }
+  },
+  "deps": [
+    "detect,os",
+    "detect,cpu",
+    "get,python3",
+    "get,mlcommons,inference,src",
+    "get,sut,description",
+    "get,mlperf,inference,results,dir",
+    "install,pip-package,for-cmind-python,_package.tabulate",
+    "get,mlperf,inference,utils"
+  ]
+}

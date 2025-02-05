@@ -1,0 +1,37 @@
+alias: get-mlperf-inference-intel-scratch-space
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: MLPerf benchmark support
+deps: []
+docker:
+  run: false
+input_description: {}
+input_mapping:
+  scratch_path: MLPERF_INTEL_SCRATCH_PATH
+new_env_keys:
+- CM_INTEL_MLPERF_SCRATCH_PATH
+- CM_INTEL_SCRATCH_SPACE_VERSION
+new_state_keys: []
+post_deps: []
+posthook_deps: []
+prehook_deps: []
+tags:
+- get
+- mlperf
+- inference
+- intel
+- scratch
+- space
+uid: e83fca30851f45ef
+variations:
+  version.#:
+    env:
+      CM_INTEL_SCRATCH_SPACE_VERSION: '#'
+    group: version
+  version.4_0:
+    default: true
+    env:
+      CM_INTEL_SCRATCH_SPACE_VERSION: '4_0'
+    group: version
+versions: {}

@@ -1,0 +1,1853 @@
+# Identification of this CM script
+alias: app-mlperf-inference-nvidia
+uid: bc3b17fb430f4732
+cache: false
+can_force_cache: true
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Reproduce MLPerf benchmarks"
+
+
+# User-friendly tags to find this CM script
+tags:
+  - reproduce
+  - mlcommons
+  - mlperf
+  - inference
+  - harness
+  - nvidia-harness
+  - nvidia
+
+# Default environment
+default_env:
+  CM_BATCH_COUNT: '1'
+  CM_BATCH_SIZE: '1'
+  CM_FAST_COMPILATION: 'yes'
+  CM_MLPERF_LOADGEN_SCENARIO: Offline
+  CM_MLPERF_LOADGEN_MODE: performance
+  # SKIP_POLICIES: '1'
+  CM_SKIP_PREPROCESS_DATASET: 'no'
+  CM_SKIP_MODEL_DOWNLOAD: 'no'
+  CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: nvidia_original
+  CM_MLPERF_SKIP_RUN: 'no'
+env:
+  CM_CALL_MLPERF_RUNNER: 'no'
+
+# Map script inputs to environment variables
+input_mapping:
+  count: CM_MLPERF_LOADGEN_QUERY_COUNT
+  max_batchsize: CM_MLPERF_LOADGEN_MAX_BATCHSIZE
+  mlperf_conf: CM_MLPERF_CONF
+  mode: CM_MLPERF_LOADGEN_MODE
+  output_dir: CM_MLPERF_OUTPUT_DIR
+  scenario: CM_MLPERF_LOADGEN_SCENARIO
+  user_conf: CM_MLPERF_USER_CONF
+  devices: CM_MLPERF_NVIDIA_HARNESS_DEVICES
+  skip_preprocess: CM_SKIP_PREPROCESS_DATASET
+  skip_preprocessing: CM_SKIP_PREPROCESS_DATASET
+  target_qps: CM_MLPERF_LOADGEN_TARGET_QPS
+  offline_target_qps: CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS
+  server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
+  target_latency: CM_MLPERF_LOADGEN_TARGET_LATENCY
+  singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
+  multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
+  use_triton: CM_MLPERF_NVIDIA_HARNESS_USE_TRITON
+  gpu_copy_streams: CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS
+  gpu_inference_streams: CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS
+  gpu_batch_size: CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE
+  dla_copy_streams: CM_MLPERF_NVIDIA_HARNESS_DLA_COPY_STREAMS
+  dla_inference_streams: CM_MLPERF_NVIDIA_HARNESS_DLA_INFERENCE_STREAMS
+  dla_batch_size: CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE
+  input_format: CM_MLPERF_NVIDIA_HARNESS_INPUT_FORMAT
+  performance_sample_count: CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT
+  workspace_size: CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE
+  log_dir: CM_MLPERF_NVIDIA_HARNESS_LOG_DIR
+  use_graphs: CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS
+  run_infer_on_copy_streams: CM_MLPERF_NVIDIA_HARNESS_RUN_INFER_ON_COPY_STREAMS
+  start_from_device: CM_MLPERF_NVIDIA_HARNESS_START_FROM_DEVICE
+  end_on_device: CM_MLPERF_NVIDIA_HARNESS_END_ON_DEVICE
+  max_dlas: CM_MLPERF_NVIDIA_HARNESS_MAX_DLAS
+  power_setting: CM_MLPERF_NVIDIA_HARNESS_POWER_SETTING
+  make_cmd: MLPERF_NVIDIA_RUN_COMMAND
+  rerun: CM_RERUN
+  extra_run_options: CM_MLPERF_NVIDIA_HARNESS_EXTRA_RUN_OPTIONS
+  use_deque_limit: CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT
+  deque_timeout_usec: CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC
+  use_cuda_thread_per_device: CM_MLPERF_NVIDIA_HARNESS_USE_CUDA_THREAD_PER_DEVICE
+  num_warmups: CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS
+  graphs_max_seqlen: CM_MLPERF_NVIDIA_HARNESS_GRAPHS_MAX_SEQLEN
+  num_issue_query_threads: CM_MLPERF_NVIDIA_HARNESS_NUM_ISSUE_QUERY_THREADS
+  soft_drop: CM_MLPERF_NVIDIA_HARNESS_SOFT_DROP
+  use_small_tile_gemm_plugin: CM_MLPERF_NVIDIA_HARNESS_USE_SMALL_TILE_GEMM_PLUGIN
+  audio_buffer_num_lines: CM_MLPERF_NVIDIA_HARNESS_AUDIO_BUFFER_NUM_LINES
+  use_fp8: CM_MLPERF_NVIDIA_HARNESS_USE_FP8
+  enable_sort: CM_MLPERF_NVIDIA_HARNESS_ENABLE_SORT
+  num_sort_segments: CM_MLPERF_NVIDIA_HARNESS_NUM_SORT_SEGMENTS
+  skip_postprocess: CM_MLPERF_NVIDIA_HARNESS_SKIP_POSTPROCESS
+  embedding_weights_on_gpu_part: CM_MLPERF_NVIDIA_HARNESS_EMBEDDING_WEIGHTS_ON_GPU_PART
+  sdxl_batcher_time_limit: CM_MLPERF_NVIDIA_HARNESS_SDXL_SERVER_BATCHER_TIME_LIMIT
+
+# Dependencies on other CM scripts
+
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+  # Get Nvidia scratch space where data and models get downloaded
+  - tags: get,mlperf,inference,nvidia,scratch,space
+    names:
+    - nvidia-scratch-space
+
+  # Get MLPerf logging library
+  - tags: get,generic-python-lib,_mlperf_logging
+    names:
+    - mlperf-logging
+
+  ########################################################################
+  # Install ResNet50 model (ONNX) and ImageNet
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    skip_if_env:
+      CM_USE_DATASET_FROM_HOST:
+      - 'yes'
+      CM_RUN_STATE_DOCKER:
+      - 'yes'
+    names:
+      - imagenet-original
+    tags: get,dataset,original,imagenet,_full
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    names:
+      - resnet50-model
+      - ml-model
+    tags: get,ml-model,resnet50,_fp32,_onnx,_opset-8
+
+  ########################################################################
+  # Install kits19 dataset
+
+  - enable_if_env:
+      CM_MODEL:
+      - 3d-unet-99-disabled
+      - 3d-unet-99.9-disabled
+    names:
+      - kits19-original
+    tags: get,dataset,original,kits19
+
+
+  ########################################################################
+  # Install librispeech dataset
+
+  - enable_if_env:
+      CM_MODEL:
+      - rnnt
+    names:
+      - librispeech-original
+    tags: get,dataset,original,librispeech
+
+  ########################################################################
+  # Install criteo dataset
+
+  - enable_if_env:
+      CM_MODEL:
+      - dlrm-v2-99
+      - dlrm-v2-99.9
+    skip_if_any_env:
+      DLRM_DATA_PATH:
+      - 'on'
+      CM_RUN_STATE_DOCKER:
+      - 'yes'
+    names:
+      - criteo-preprocessed
+    tags: get,dataset,preprocessed,criteo
+
+  ########################################################################
+  # Install dlrm model
+  - enable_if_env:
+      CM_MODEL:
+      - dlrm-v2-99
+      - dlrm-v2-99.9
+    skip_if_any_env:
+      DLRM_DATA_PATH:
+      - on
+      CM_RUN_STATE_DOCKER:
+      - 'yes'
+    names:
+      - dlrm-model
+    tags: get,ml-model,dlrm,_pytorch
+
+  ########################################################################
+  # Install bert models
+  - enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+    names:
+      - bert-model
+      - bert-model-fp32
+    tags: get,ml-model,bert,_onnx,_fp32
+
+  - enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+    names:
+      - bert-model
+      - bert-model-int8
+    tags: get,ml-model,bert,_onnx,_int8
+
+  - enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+    names:
+      - bert-vocab
+    tags: get,squad-vocab
+
+  ########################################################################
+  # Install OpenImages
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    skip_if_env:
+      CM_USE_DATASET_FROM_HOST:
+      - 'yes'
+      CM_RUN_STATE_DOCKER:
+      - 'yes'
+    names:
+      - openimages-original
+    tags: get,dataset,original,openimages,_validation,_full,_custom-annotations
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    skip_if_env:
+      CM_USE_DATASET_FROM_HOST:
+      - 'yes'
+      CM_RUN_STATE_DOCKER:
+      - 'yes'
+    names:
+      - openimages-calibration
+    tags: get,dataset,original,openimages,_calibration   
+
+  ########################################################################
+  # Install MLPerf inference dependencies
+
+  # Download MLPerf inference source
+  - tags: get,mlcommons,inference,src
+    names:
+    - inference-src
+
+  # Download Nvidia Submission Code
+  - tags: get,nvidia,mlperf,inference,common-code
+    names:
+    - nvidia-inference-common-code
+
+  - tags: pull,git,repo
+    env:
+      CM_GIT_CHECKOUT_PATH: '<<<CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH>>>'
+    enable_if_env:
+      CM_MLPERF_INFERENCE_PULL_CODE_CHANGES:
+      - 'yes'
+
+  # Creates user conf for given SUT
+  - tags: generate,user-conf,mlperf,inference
+    names:
+    - user-conf-generator
+    enable_if_env:
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
+      - run_harness
+
+  - tags: get,generic-python-lib,_package.pycuda
+    version: "2022.2.2"
+
+  - tags: get,generic-python-lib,_package.nvmitten
+    update_tags_from_env_with_prefix:
+      _path.:
+        - CM_ENV_NVMITTEN_DOCKER_WHEEL_PATH
+    enable_if_env:
+      CM_RUN_STATE_DOCKER:
+        - 'yes'
+        - True
+        - 'True'
+
+  - tags: get,nvidia,mitten
+    skip_if_env:
+      CM_RUN_STATE_DOCKER:
+        - 'yes'
+        - True
+        - 'True'
+
+prehook_deps:
+  ########################################################################
+  # Install GPTJ-6B model
+  - enable_if_env:
+      CM_REQUIRE_GPTJ_MODEL_DOWNLOAD:
+      - 'yes'
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
+      - download_model
+      - preprocess_data
+    names:
+      - gptj-model
+    tags: get,ml-model,gptj,_pytorch,_rclone
+  
+  # Download model for sdxl
+  - enable_if_env:
+      CM_MODEL:
+      - stable-diffusion-xl
+      CM_REQUIRE_SDXL_MODEL_DOWNLOAD:
+      - 'yes'
+    names:
+      - stable-diffusion-xl
+      - sdxl-model
+      - ml-model
+    tags: get,ml-model,sdxl,_fp16,_rclone
+    skip_if_env:
+      CM_RUN_STATE_DOCKER:
+      - 'yes'
+      CM_MLPERF_MODEL_SDXL_DOWNLOAD_TO_HOST:
+      - 'yes'
+
+  # Install coco2014 dataset
+  - enable_if_env:
+      CM_REQUIRE_COCO2014_DOWNLOAD:
+      - 'yes'
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE:
+      - preprocess_data
+    names:
+      - coco2014-dataset
+    tags: get,dataset,coco2014,_validation
+  
+# Post dependencies to run this app including for power measurement
+post_deps:
+
+  - names:
+    - runner
+    - mlperf-runner
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - 'yes'
+        - yes
+    tags: benchmark-mlperf
+    enable_if_env:
+      CM_CALL_MLPERF_RUNNER:
+        - yes
+  - tags: save,mlperf,inference,state
+    names:
+      - save-mlperf-inference-state
+
+# Variations to customize dependencies
+variations:
+  # MLPerf inference version
+  v4.1:
+    group: version
+    env:
+      CM_MLPERF_INFERENCE_CODE_VERSION: "v4.1"
+      CM_MLPERF_GPTJ_MODEL_FP8_PATH_SUFFIX: GPTJ-FP8-quantized
+    adr:
+      pytorch:
+        tags: _for-nvidia-mlperf-inference-v4.1
+ 
+  v4.1-dev:
+    group: version
+    default: true
+    env:
+      CM_MLPERF_INFERENCE_CODE_VERSION: "v4.0"
+      CM_MLPERF_GPTJ_MODEL_FP8_PATH_SUFFIX: GPTJ-FP8-quantized
+    adr:
+      pytorch:
+        tags: _for-nvidia-mlperf-inference-v4.0
+
+  v4.0:
+    group: version
+    env:
+      CM_MLPERF_INFERENCE_CODE_VERSION: "v4.0"
+      CM_MLPERF_GPTJ_MODEL_FP8_PATH_SUFFIX: GPTJ-FP8-quantized
+    adr:
+      pytorch:
+        tags: _for-nvidia-mlperf-inference-v4.0
+  v3.1:
+    env:
+      CM_MLPERF_INFERENCE_CODE_VERSION: "v3.1"
+      CM_MLPERF_GPTJ_MODEL_FP8_PATH_SUFFIX: GPTJ-07142023.pth
+    adr:
+      pytorch:
+        tags: _for-nvidia-mlperf-inference-v3.1
+  
+  # Target devices
+  cpu:
+    group: device
+    env:
+      CM_MLPERF_DEVICE: cpu
+  cuda:
+    group: device
+    default: true
+    env:
+      CM_MLPERF_DEVICE: gpu
+      CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
+
+  tensorrt:
+    group: backend
+    default: true
+    env:
+      CM_MLPERF_BACKEND: tensorrt
+      CM_MLPERF_BACKEND_NAME: TensorRT
+
+  # Reference MLPerf models
+  resnet50:
+    group: model
+    default: true
+    env:
+      CM_MODEL: resnet50
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+      CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS: 10
+    deps:
+    - tags: get,generic-python-lib,_onnx-graphsurgeon
+      version: 0.3.27
+    - tags: get,generic-python-lib,_package.onnx
+      version: 1.13.1
+
+  retinanet:
+    group: model
+    env:
+      CM_MODEL: retinanet
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth"
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+    deps:
+    - tags: get,generic-python-lib,_Pillow
+    - tags: get,generic-python-lib,_opencv-python
+    - tags: get,generic-python-lib,_numpy
+    - tags: get,generic-python-lib,_pycocotools
+    - tags: get,generic-python-lib,_onnx-graphsurgeon
+    - tags: get,generic-python-lib,_package.onnx
+      version: 1.14.1
+    - tags: get,generic-python-lib,_package.sympy
+
+  sdxl:
+    new_env_keys:                                                                      
+      - CM_SDXL_ACCURACY_RUN_DEVICE
+    group: model
+    env:
+      CM_MODEL: stable-diffusion-xl
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://github.com/mlcommons/cm4mlops/blob/main/script/get-ml-model-stable-diffusion/_cm.json#L174"
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: "quantization, affine fusion"
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+      CM_SDXL_ACCURACY_RUN_DEVICE: "gpu"
+    deps:
+      - tags: get,generic-python-lib,_package.diffusers
+        names:
+          - diffusers
+        version_max: "0.30.3"
+        version_max_usable: "0.30.3"
+      - tags: get,generic-python-lib,_package.transformers
+        names:
+          - transformers
+      - tags: get,generic-python-lib,_package.accelerate
+        names:
+          - accelerate
+      - tags: get,generic-python-lib,_package.torchmetrics
+        names:
+          - torchmetrics
+      - tags: get,generic-python-lib,_package.torch-fidelity
+        names:
+          - torch-fidelity
+      - tags: get,generic-python-lib,_package.open_clip_torch
+        names:
+          - open-clip
+      - tags: get,generic-python-lib,_package.opencv-python
+        names:
+          - opencv-python
+      - tags: get,generic-python-lib,_package.polygraphy
+        names:
+          - polygraphy
+      - tags: get,generic-python-lib,_package.nvtx
+        names:
+          - nvtx
+      - tags: get,generic-python-lib,_package.cuda-python
+        names:
+          - cuda-python
+      - tags: get,generic-python-lib,_package.ninja
+        names:
+          - ninja
+      - tags: get,generic-python-lib,_package.onnxruntime
+        names:
+          - onnxruntime
+      - tags: get,generic-python-lib,_package.colored
+        names:
+          - colored
+      - tags: get,generic-python-lib,_package.nvidia-ammo
+        names:
+          - nvidia-ammo
+        version: 0.7.4
+        env:
+          CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL: "https://pypi.nvidia.com"
+          CM_GENERIC_PYTHON_PIP_EXTRA: "--no-cache-dir"
+      - tags: get,generic-python-lib,_package.optimum
+        names:
+          - optimum
+      - tags: get,generic-python-lib,_package.onnx
+        names:
+          - onnx
+        version: 1.14.0
+      - tags: get,generic-python-lib,_package.scipy
+        names:
+          - scipy
+        version: 1.10.1
+      - tags: get,generic-python-lib,_package.numpy
+        names:
+          - numpy
+        version_max: 1.22.99
+        version_max_usable: "1.22"
+
+  sdxl,v4.1:
+    deps:
+    - tags: get,generic-python-lib,_package.torchrec
+      version: 0.4.0
+    - tags: get,generic-python-lib,_package.torchmetrics
+      version: 1.0.3
+    - tags: get,generic-python-lib,_package.typeguard
+
+  bert_:
+    deps:
+    - tags: get,generic-python-lib,_transformers
+    - tags: get,generic-python-lib,_safetensors
+    - tags: get,generic-python-lib,_onnx
+    - tags: get,generic-python-lib,_package.sympy
+    - tags: get,generic-python-lib,_onnx-graphsurgeon
+
+  bert-99:
+    group: model
+    base:
+    - bert_
+    env:
+      CM_MODEL: bert-99
+      CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx"
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+
+  bert-99.9:
+    group: model
+    base:
+    - bert_
+    env:
+      CM_MODEL: bert-99.9
+      CM_NOT_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3733910/files/model.onnx"
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp16
+
+  3d-unet_:
+    deps:
+    - tags: get,generic-python-lib,_transformers
+    - tags: get,generic-python-lib,_package.nibabel
+    - tags: get,generic-python-lib,_pandas
+      version_max: "1.5.3"
+    - tags: get,generic-python-lib,_onnx-graphsurgeon
+      version: 0.3.27
+    - tags: get,generic-python-lib,_package.onnx
+      version: 1.13.1
+
+  3d-unet-99:
+    group: model
+    base:
+    - 3d-unet_
+    env:
+      CM_MODEL: 3d-unet-99
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/5597155/files/3dunet_kits19_128x128x128.onnx"
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+
+  3d-unet-99.9:
+    group: model
+    base:
+    - 3d-unet_
+    env:
+      CM_MODEL: 3d-unet-99.9
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/5597155/files/3dunet_kits19_128x128x128.onnx"
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int8
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+
+  rnnt:
+    group: model
+    env:
+      CM_MODEL: rnnt
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://zenodo.org/record/3662521/files/DistributedDataParallel_1576581068.9962234-epoch-100.pt"
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp16
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp16
+    deps:
+    - tags: get,generic-python-lib,_toml
+    - tags: get,generic-python-lib,_torchvision_cuda
+      names:
+      - torchvision
+    - tags: get,generic-python-lib,_torch_cuda
+    - tags: get,generic-python-lib,_nvidia-apex
+    - tags: get,generic-python-lib,_unidecode
+    - tags: get,generic-python-lib,_inflect
+    - tags: get,generic-python-lib,_librosa
+      names:
+        - librosa
+    - tags: get,generic-python-lib,_sox
+    - tags: get,generic-sys-util,_sox
+
+  dlrm_:
+    new_env_keys:
+      - CM_DLRM_V2_DAY23_FILE_PATH
+      - CM_DLRM_V2_AGGREGATION_TRACE_FILE_PATH
+    deps:
+    - tags: get,dlrm,data,mlperf,inference,_nvidia
+    - tags: get,generic-python-lib,_package.torchsnapshot
+    - tags: get,generic-python-lib,_package.torchrec
+      version: 0.3.2
+    - tags: get,generic-python-lib,_package.fbgemm-gpu
+      version: 0.3.2
+    - tags: get,generic-python-lib,_onnx-graphsurgeon
+    - tags: get,generic-python-lib,_package.scikit-learn
+
+  dlrm-v2-99:
+    group: model
+    base:
+    - dlrm_
+    env:
+      CM_MODEL: dlrm-v2-99
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp16
+
+  dlrm-v2-99.9:
+    group: model
+    base:
+    - dlrm_
+    env:
+      CM_MODEL: dlrm-v2-99.9
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp16
+
+  llama2-70b_:
+    deps:
+      - tags: get,generic-python-lib,_package.transformers
+        names:
+          - transformers
+      - tags: get,generic-python-lib,_package.datasets
+        names:
+          - datasets
+      - tags: get,generic-python-lib,_package.sentencepiece
+        names:
+          - sentencepiece
+      - tags: get,generic-python-lib,_package.protobuf
+        names:
+          - protobuf
+      - tags: get,generic-python-lib,_package.accelerate
+        names:
+          - accelerate
+      - tags: get,generic-python-lib,_package.absl-py
+        names:
+          - absl-py
+      - tags: get,generic-python-lib,_package.evaluate
+        names:
+          - evaluate
+      - tags: get,generic-python-lib,_package.nltk
+        names:
+          - nltk
+      - tags: get,generic-python-lib,_package.numpy
+        names:
+          - numpy
+      - tags: get,generic-python-lib,_package.rouge-score
+        names:
+          - rouge-score
+    env:
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://github.com/mlcommons/cm4mlops/blob/b18ff890ff559e21d2e27a3b54cd26467ac1fd9e/script/get-ml-model-llama2/_cm.json#L51"
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp16
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+
+  llama2-70b-99:
+    group: model
+    base:
+    - llama2-70b_
+    env:
+      CM_MODEL: llama2-70b-99
+
+  llama2-70b-99.9:
+    group: model
+    base:
+    - llama2-70b_
+    env:
+      CM_MODEL: llama2-70b-99.9
+
+  gptj_:
+    deps:
+    - tags: get,generic-python-lib,_package.datasets
+    - tags: get,generic-python-lib,_package.simplejson
+    - tags: get,generic-python-lib,_onnx
+    - tags: get,generic-python-lib,_transformers
+    - tags: get,generic-python-lib,_onnx-graphsurgeon
+    - tags: get,generic-python-lib,_package.sympy
+    env:
+      CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: "https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download"
+  
+  gptj_,build:
+    deps:
+    - tags: install,pytorch,from.src
+      names:
+      - pytorch
+    - tags: get,cmake
+      version_min: "3.25.0"
+
+  gptj_,build_engine:
+    deps:
+    - tags: install,pytorch,from.src
+      names:
+      - pytorch
+    - tags: get,cmake
+      version_min: "3.25.0"
+
+  gptj-99:
+    group: model
+    base:
+    - gptj_
+    env:
+      CM_MODEL: gptj-99
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp16
+
+  gptj-99.9:
+    group: model
+    base:
+    - gptj_
+    env:
+      CM_MODEL: gptj-99.9
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: quantization, affine fusion
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp16
+
+  batch_size.#:
+    group: batch-size
+    env:
+      CM_MODEL_BATCH_SIZE: "#"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "#"
+      #CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "gpu_batch_size.#"
+
+  dla_batch_size.#:
+    group: dla-batch-size
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE: "#"
+      CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX2: "dla_batch_size.#"
+    adr:
+      build-engine:
+        tags: _dla_batch_size.#
+
+  use_triton:
+    group: triton
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_USE_TRITON: "yes"
+      CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX3: "using_triton"
+
+  use-graphs:
+    group: graphs
+    env:
+     CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS: "yes"
+
+  prebuild:
+    group: run-mode
+    env:
+      MLPERF_NVIDIA_RUN_COMMAND: prebuild
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: prebuild
+
+  build:
+    group: run-mode
+    env:
+      MLPERF_NVIDIA_RUN_COMMAND: build
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: build
+    deps:
+       - tags: get,cmake
+         version_min: "3.18"
+
+       # Detect Google Logger
+       - tags: get,generic,sys-util,_glog-dev
+
+       # Detect GFlags
+       - tags: get,generic,sys-util,_gflags-dev
+
+       # Detect libgmock-dev
+       - tags: get,generic,sys-util,_libgmock-dev
+
+       # Detect libre2-dev
+       - tags: get,generic,sys-util,_libre2-dev
+
+       # Detect libnuma-dev
+       - tags: get,generic,sys-util,_libnuma-dev
+
+       # Detect libboost-all-dev
+       - tags: get,generic,sys-util,_libboost-all-dev
+
+       # Detect rapidjson-dev
+       - tags: get,generic,sys-util,_rapidjson-dev
+  
+       # Detect CUDA
+       - names:
+         - cuda
+         tags: get,cuda,_cudnn
+
+       # Detect Tensorrt
+       - names:
+         - tensorrt
+         tags: get,tensorrt
+
+       # Build nvidia inference server
+       - names:
+         - nvidia-inference-server
+         tags: build,nvidia,inference,server
+
+
+  maxq:
+    group: power-mode
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_MAXQ: yes
+
+  maxn:
+    group: power-mode
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_MAXN: yes
+
+  preprocess-data:
+    alias: preprocess_data
+
+  preprocess_data:
+    group: run-mode
+    env:
+      MLPERF_NVIDIA_RUN_COMMAND: preprocess_data
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: preprocess_data
+
+  download-model:
+    alias: download-model
+
+  download_model:
+    group: run-mode
+    env:
+      MLPERF_NVIDIA_RUN_COMMAND: download_model
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: download_model
+    deps:
+      - tags: get,generic-python-lib,_torch_cuda
+        enable_if_env:
+          CM_MODEL:
+            - retinanet
+
+  calibrate:
+    group: run-mode
+    env:
+      MLPERF_NVIDIA_RUN_COMMAND: calibrate
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: calibrate
+    deps:
+      - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
+        inherit_variation_tags: true
+        force_cache: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - device-memory
+          - gpu-name
+          - power-mode
+          - batch-size
+          - triton
+        skip_if_env:
+          CM_MODEL:
+            - retinanet_old
+            - resnet50
+            - bert-99
+            - bert-99.9
+            - dlrm-v2-99
+            - dlrm-v2-99.9
+
+  build-engine:
+    alias: build_engine
+
+  build_engine:
+    group: run-mode
+    default_variations:
+      loadgen-scenario: offline
+    env:
+      MLPERF_NVIDIA_RUN_COMMAND: generate_engines
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: generate_engines
+    deps:
+      # Detect CUDA
+      - names:
+        - cuda
+        tags: get,cuda,_cudnn
+
+      # Detect Tensorrt
+      - names:
+        - tensorrt
+        tags: get,tensorrt
+
+      # Build nvidia inference server
+      - names:
+        - nvidia-inference-server
+        tags: build,nvidia,inference,server
+
+      - tags: reproduce,mlperf,inference,nvidia,harness,_preprocess_data
+        names:
+          - nvidia-preprocess-data
+        inherit_variation_tags: true
+        force_cache: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - device-memory
+          - gpu-name
+          - batch-size
+          - num-gpus
+          - triton
+          - build-engine-options
+        skip_if_env:
+          CM_MODEL:
+            - dlrm-v2-99
+            - dlrm-v2-99.9
+
+      - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
+        inherit_variation_tags: true
+        force_cache: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - device-memory
+          - gpu-name
+          - num-gpus
+          - batch-size
+          - triton
+          - power-mode
+          - build-engine-options
+        skip_if_env:
+          CM_MODEL:
+            - retinanet_old
+            - resnet50
+            - bert-99
+            - bert-99.9
+            - dlrm-v2-99
+            - dlrm-v2-99.9
+
+      - tags: reproduce,mlperf,inference,nvidia,harness,_calibrate
+        inherit_variation_tags: true
+        enable_if_env:
+          CM_MODEL:
+            - retinanet
+        force_cache: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - device-memory
+          - device-type
+          - num-gpus
+          - power-mode
+          - gpu-name
+          - triton
+          - batch-size
+          - build-engine-options
+
+
+  singlestream:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: SingleStream
+      CUDA_VISIBLE_DEVICES_NOT_USED: "0"
+  multistream:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: MultiStream
+  offline:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Offline
+  server:
+    group: loadgen-scenario
+    env:
+      CM_MLPERF_LOADGEN_SCENARIO: Server
+
+  run-harness:
+    alis: run_harness
+
+  run_harness:
+    group: run-mode
+    default: true
+    default_variations:
+      loadgen-scenario: offline
+    deps:
+      # Detect CUDA
+      - names:
+        - cuda
+        tags: get,cuda,_cudnn
+
+      # Detect Tensorrt
+      - names:
+        - tensorrt
+        tags: get,tensorrt
+
+      # Build nvidia inference server
+      - names:
+        - nvidia-inference-server
+        tags: build,nvidia,inference,server
+      - tags: reproduce,mlperf,inference,nvidia,harness,_build_engine
+        inherit_variation_tags: true
+        names:
+          - build-engine
+        skip_inherit_variation_groups:
+          - run-mode
+          - gpu-name
+          - num-gpus
+          - device-memory
+        force_cache: true
+
+      - tags: reproduce,mlperf,inference,nvidia,harness,_preprocess_data
+        inherit_variation_tags: true
+        names:
+          - nvidia-preprocess-data
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - num-gpus
+          - device-memory
+          - power-mode
+          - gpu-name
+          - batch-size
+          - triton
+          - build-engine-options
+        force_cache: true
+        skip_if_env:
+          CM_MODEL:
+           - dlrm-v2-99
+           - dlrm-v2-99.9
+
+      - tags: reproduce,mlperf,inference,nvidia,harness,_download_model
+        inherit_variation_tags: true
+        skip_inherit_variation_groups:
+          - run-mode
+          - loadgen-scenario
+          - device-memory
+          - gpu-name
+          - num-gpus
+          - power-mode
+          - batch-size
+          - build-engine-options
+        force_cache: true
+        skip_if_env:
+          CM_MODEL:
+            - retinanet
+            - resnet50
+            - bert-99
+            - bert-99.9
+            - dlrm-v2-99
+            - dlrm-v2-99.9
+            - stable-diffusion-xl
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_RUN_MODE: run_harness
+      MLPERF_NVIDIA_RUN_COMMAND: run_harness
+      CM_CALL_MLPERF_RUNNER: 'yes'
+    new_env_keys:
+      - CM_MLPERF_*
+      - CM_DATASET_*
+      - CM_ML_MODEL_*
+      - CM_HW_NAME
+      - CM_MAX_EXAMPLES
+    new_state_keys:
+      - mlperf-inference-implementation
+      - CM_SUT_*
+
+  build_engine_options.#:
+    group: build-engine-options
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_EXTRA_BUILD_ENGINE_OPTIONS: "#"
+
+  gpu_memory.16:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "16"
+  gpu_memory.24:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "24"
+  gpu_memory.8:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "8"
+  gpu_memory.32:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "32"
+  gpu_memory.40:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "40"
+  gpu_memory.48:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "48"
+  gpu_memory.80:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "80"
+  gpu_memory.#:
+    group: device-memory
+    env:
+      CM_NVIDIA_GPU_MEMORY: "#"
+
+  singlestream,resnet50:
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_DISABLE_BETA1_SMALLK: yes
+      SKIP_POLICIES: '0' # skip_policies used to give better latency but is not working with 4.0 and later Nvidia codes
+
+  server,resnet50:
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC: 2000
+      CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT: True
+      CM_MLPERF_NVIDIA_HARNESS_USE_CUDA_THREAD_PER_DEVICE: True
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: 9
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: 2
+
+  multistream,resnet50:
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_DISABLE_BETA1_SMALLK: yes
+      SKIP_POLICIES: '0'
+
+  singlestream,run_harness:
+    default_variations:
+      batch-size: batch_size.1
+
+  llama2-70b_,run_harness:
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_USE_FP8: 'True'
+
+  gptj_,run_harness:
+    deps:
+    - tags: install,pytorch,from.src
+      names:
+      - pytorch
+    - tags: get,cmake
+      version_min: "3.25.0"
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_USE_FP8: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_ENABLE_SORT: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_NUM_SORT_SEGMENTS: '2'
+      CM_MLPERF_NVIDIA_HARNESS_SKIP_POSTPROCESS: True
+
+  gpu_memory.80,num-gpus.2,llama2-70b,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.896
+      
+  gpu_memory.16,gptj_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.4
+
+  gpu_memory.24,gptj_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.7
+
+  gpu_memory.32,gptj_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  gpu_memory.48,gptj_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.14
+
+  gpu_memory.40,gptj_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.10
+
+  gpu_memory.80,gptj_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.32
+  
+  gpu_memory.16,sdxl,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+
+  gpu_memory.24,sdxl,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+  
+  gpu_memory.32,sdxl,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.3
+  
+  gpu_memory.80,sdxl,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+  
+  gpu_memory.96,sdxl,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+  
+  gpu_memory.96,sdxl,server,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  gpu_memory.80,sdxl,server,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+  
+  gpu_memory.140,sdxl,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  gpu_memory.8,bert_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.256
+
+  gpu_memory.16,bert_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.256
+
+  gpu_memory.24,bert_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.256
+
+  gpu_memory.32,bert_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.256
+
+  gpu_memory.48,bert_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1024
+
+  gpu_memory.40,bert_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.256
+
+  gpu_memory.80,bert_,server,run_harness:
+    default_variations:
+      batch-size: batch_size.64
+
+  gpu_memory.8,resnet50,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.64
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "4"
+
+  gpu_memory.16,resnet50,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1024
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "4"
+
+  gpu_memory.40,resnet50,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+
+  gpu_memory.24,resnet50,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.64
+
+  gpu_memory.32,resnet50,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+
+  gpu_memory.48,resnet50,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+
+  gpu_memory.80,resnet50,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+
+  num-gpus.#:
+    group: num-gpus
+    env:
+      CM_NVIDIA_NUM_GPUS: "#"
+
+  num-gpus.1:
+    group: num-gpus
+    default: true
+    env:
+      CM_NVIDIA_NUM_GPUS: "1"
+
+  resnet50,server,run_harness:
+    default_variations:
+      batch-size: batch_size.64
+
+  resnet50,multistream,run_harness,num-gpus.1:
+    default_variations:
+      batch-size: batch_size.8
+
+  resnet50,multistream,run_harness,num-gpus.2:
+    default_variations:
+      batch-size: batch_size.4
+
+  retinanet,multistream,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+
+  gpu_memory.8,retinanet,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+
+  gpu_memory.16,retinanet,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+
+  gpu_memory.40,retinanet,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.4
+
+  gpu_memory.32,retinanet,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.4
+
+  gpu_memory.48,retinanet,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.4
+
+  gpu_memory.24,retinanet,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
+
+  gpu_memory.80,retinanet,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  retinanet,server,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
+
+  gpu_memory.8,rnnt,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1024
+
+  gpu_memory.16,rnnt,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1024
+
+  gpu_memory.40,rnnt,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+
+  gpu_memory.24,rnnt,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+
+  gpu_memory.32,rnnt,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+
+  gpu_memory.48,rnnt,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+
+  gpu_memory.80,rnnt,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+
+  gpu_memory.8,3d-unet_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.4
+
+  gpu_memory.16,3d-unet_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.4
+
+  gpu_memory.40,3d-unet_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  gpu_memory.24,3d-unet_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  gpu_memory.80,3d-unet_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  gpu_memory.32,3d-unet_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  gpu_memory.48,3d-unet_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  gpu_memory.16,dlrm_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1400
+
+  gpu_memory.40,dlrm_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1400
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_EMBEDDING_WEIGHTS_ON_GPU_PART: "0.40"
+
+  gpu_memory.24,dlrm_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1400
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_EMBEDDING_WEIGHTS_ON_GPU_PART: "0.30"
+
+  gpu_memory.32,dlrm_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1400
+
+  gpu_memory.48,dlrm_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1400
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_EMBEDDING_WEIGHTS_ON_GPU_PART: "0.50"
+
+  gpu_memory.80,dlrm_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1400
+
+  orin:
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
+      CM_MODEL_BATCH_SIZE: "" #we pick from nvidia config
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  orin,rnnt,singlestream,run_harness:
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS: "1"
+  
+  orin,sdxl,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1
+
+  rtx_4090:
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
+
+  rtx_4090,sdxl,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+      graphs: use-graphs
+  
+  rtx_4090,sdxl,server,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+      graphs: use-graphs
+
+  rtx_4090,resnet50,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.64
+
+  rtx_4090,resnet50,server,run_harness:
+    default_variations:
+      batch-size: batch_size.32
+      graphs: use-graphs
+
+  rtx_4090,retinanet,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
+
+  rtx_4090,retinanet,server,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
+
+  rtx_4090,bert_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.256
+
+  rtx_4090,bert_,server,run_harness:
+    default_variations:
+      batch-size: batch_size.256
+
+  rtx_4090,3d-unet_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  rtx_4090,3d-unet_,server,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  rtx_4090,rnnt,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+
+  rtx_4090,rnnt,server,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+
+  rtx_4090,gptj_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.7
+
+  rtx_4090,gptj_,server,run_harness:
+    default_variations:
+      batch-size: batch_size.7
+
+  rtx_4090,dlrm_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1400
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_EMBEDDING_WEIGHTS_ON_GPU_PART: "0.30"
+
+  a6000:
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
+
+  rtx_a6000,resnet50,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.64
+
+  rtx_a6000,resnet50,server,run_harness:
+    default_variations:
+      batch-size: batch_size.32
+
+  rtx_a6000,retinanet,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+
+  rtx_a6000,retinanet,server,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+
+  rtx_a6000,bert_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.256
+
+  rtx_a6000,bert_,server,run_harness:
+    default_variations:
+      batch-size: batch_size.256
+
+  rtx_a6000,3d-unet_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  rtx_a6000,3d-unet_,server,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  rtx_a6000,rnnt,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+
+  rtx_a6000,rnnt,server,run_harness:
+    default_variations:
+      batch-size: batch_size.512
+
+  rtx_a6000,dlrm_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1400
+
+  rtx_6000_ada:
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
+
+  rtx_6000_ada,resnet50,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.64
+
+  rtx_6000_ada,resnet50,server,run_harness:
+    default_variations:
+      batch-size: batch_size.32
+
+  rtx_6000_ada,retinanet,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+
+  rtx_6000_ada,retinanet,server,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+
+  rtx_6000_ada,bert_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.256
+
+  rtx_6000_ada,bert_,server,run_harness:
+    default_variations:
+      batch-size: batch_size.256
+
+  rtx_6000_ada,3d-unet_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  rtx_6000_ada,3d-unet_,server,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  rtx_6000_ada,rnnt,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.512
+
+  rtx_6000_ada,rnnt,server,run_harness:
+    default_variations:
+      batch-size: batch_size.512
+
+  rtx_6000_ada,dlrm_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1400
+
+  l4:
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
+
+  l4,sdxl,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS: 'True'
+      CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS: 0.6
+    
+  l4,sdxl,offline,run_harness,num-gpu.8:
+    default_variations:
+      batch-size: batch_size.1
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS: 'True'
+      CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS: 4.8
+    
+  l4,sdxl,server,run_harness,num-gpu.1:
+    default_variations:
+      batch-size: batch_size.1
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS: 'True'
+      CM_MLPERF_LOADGEN_SERVER_TARGET_QPS: 0.55
+      CM_MLPERF_NVIDIA_HARNESS_SDXL_SERVER_BATCHER_TIME_LIMIT: 0
+  
+  l4,sdxl,server,run_harness,num-gpu.8:
+    default_variations:
+      batch-size: batch_size.1
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS: 'True'
+      CM_MLPERF_LOADGEN_SERVER_TARGET_QPS: 5.05
+      CM_MLPERF_NVIDIA_HARNESS_SDXL_SERVER_BATCHER_TIME_LIMIT: 0
+
+  l4,resnet50:
+    default_env:
+      CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS: 10500
+      CM_MLPERF_LOADGEN_SERVER_TARGET_QPS: 9000
+      CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY: 0.35
+      CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY: 1
+
+  l4,resnet50,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.32
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "1"
+      CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS: 'True'
+
+  l4,resnet50,server,run_harness:
+    default_variations:
+      batch-size: batch_size.16
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "9"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC: 2000
+      CM_MLPERF_NVIDIA_HARNESS_USE_CUDA_THREAD_PER_DEVICE: 'True'
+
+  l4,retinanet,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+
+  l4,retinanet,server,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC: 30000
+      CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE: 20000000000
+
+  l4,bert_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.16
+
+  l4,bert_,server,run_harness:
+    default_variations:
+      batch-size: batch_size.16
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GRAPHS_MAX_SEQLEN: "200"
+      CM_MLPERF_NVIDIA_HARNESS_SERVER_NUM_ISSUE_QUERY_THREADS: "1"
+      CM_MLPERF_NVIDIA_HARNESS_SOFT_DROP: "1.0"
+      CM_MLPERF_NVIDIA_HARNESS_USE_SMALL_TILE_GEMM_PLUGIN: "True"
+
+  l4,3d-unet_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1
+
+  l4,rnnt,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.512
+
+  l4,rnnt,server,run_harness:
+    default_variations:
+      batch-size: batch_size.512
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_AUDIO_BATCH_SIZE: "64"
+      CM_MLPERF_NVIDIA_HARNESS_AUDIO_BUFFER_NUM_LINES: "1024"
+      CM_MLPERF_NVIDIA_HARNESS_NUM_WARMUPS: "1024"
+
+  l4,dlrm_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1400
+  t4:
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
+
+  t4,resnet50:
+    default_env:
+      CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS: 4900
+      CM_MLPERF_LOADGEN_SERVER_TARGET_QPS: 4000
+      CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY: 0.6
+      CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY: 2
+
+  t4,resnet50,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.256
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "4"
+
+  t4,resnet50,server,run_harness:
+    default_variations:
+      batch-size: batch_size.26
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "4"
+      CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT: True
+      CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC: 2000
+      CM_MLPERF_NVIDIA_HARNESS_SOFT_DROP: "0.993"
+
+  t4,retinanet,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.4
+
+  t4,retinanet,server,run_harness:
+    default_variations:
+      batch-size: batch_size.2
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_USE_DEQUE_LIMIT: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_DEQUE_TIMEOUT_USEC: 20000
+      CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE: 20000000000
+
+  t4,bert_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.256
+
+  t4,bert_,server,run_harness:
+    default_variations:
+      batch-size: batch_size.4
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GRAPHS_MAX_SEQLEN: "240"
+      CM_MLPERF_NVIDIA_HARNESS_SERVER_NUM_ISSUE_QUERY_THREADS: "0"
+      CM_MLPERF_NVIDIA_HARNESS_USE_SMALL_TILE_GEMM_PLUGIN: "no"
+
+  t4,3d-unet_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  t4,rnnt,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "4"
+      CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_AUDIO_BATCH_SIZE: "128"
+      CM_MLPERF_NVIDIA_HARNESS_DISABLE_ENCODER_PLUGIN: "True"
+
+  t4,rnnt,server,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "4"
+      CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS: 'True'
+      CM_MLPERF_NVIDIA_HARNESS_AUDIO_BATCH_SIZE: "128"
+      CM_MLPERF_NVIDIA_HARNESS_DISABLE_ENCODER_PLUGIN: "True"
+
+  t4,dlrm_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1400
+
+  pcie:
+    group: gpu-connection
+
+  sxm:
+    group: gpu-connection
+
+  custom:
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
+      CM_MODEL_BATCH_SIZE: "" #we pick from nvidia config
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "<<<CM_MODEL_BATCH_SIZE>>>"
+
+  a100:
+    default_variation:
+      gpu-connection: sxm
+    group: gpu-name
+    env:
+      CM_NVIDIA_CUSTOM_GPU: "yes"
+
+  a100,sxm,resnet50,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+    env:
+      CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT: "2048"
+
+  a100,sxm,retinanet,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.32
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS: "2"
+      CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE: "300000000000"
+
+  a100,sxm,bert_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.256
+
+  a100,sxm,3d-unet_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.8
+
+  a100,sxm,rnnt,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.2048
+
+  a100,sxm,dlrm_,offline,run_harness:
+    default_variations:
+      batch-size: batch_size.1400
+
+docker:
+  real_run: False

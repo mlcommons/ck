@@ -1,0 +1,53 @@
+alias: get-mlperf-training-nvidia-code
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: MLPerf benchmark support
+clean_files: []
+default_version: r3.0
+deps:
+- env:
+    CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_MLPERF_TRAINING_RESULTS_PATH
+  extra_cache_tags: mlperf,training,results
+  names:
+  - mlperf-training-results
+  tags: get,git,repo
+  update_tags_from_env_with_prefix:
+    _repo.:
+    - CM_NVIDIA_CODE_DOWNLOAD_URL
+new_env_keys:
+- CM_MLPERF_TRAINING_NVIDIA_CODE_PATH
+tags:
+- get
+- nvidia
+- mlperf
+- training
+- code
+- training-code
+uid: fdc630b1d41743c5
+variations:
+  ctuning:
+    env:
+      CM_TMP_TRAINING_SRC: ctuning
+    group: repo-owner
+  custom:
+    group: repo-owner
+  mlcommons:
+    default: true
+    env:
+      CM_TMP_TRAINING_SRC: mlcommons
+    group: repo-owner
+  nvidia-only:
+    env:
+      CM_TMP_TRAINING_SRC: GATEOverflow
+    group: repo-owner
+versions:
+  r2.1:
+    env:
+      CM_NVIDIA_CODE_DOWNLOAD_URL: https://github.com/<<<CM_TMP_TRAINING_SRC>>>/training_results_v2.1
+  r3.0:
+    env:
+      CM_NVIDIA_CODE_DOWNLOAD_URL: https://github.com/<<<CM_TMP_TRAINING_SRC>>>/training_results_v3.0
+  r3.1:
+    env:
+      CM_NVIDIA_CODE_DOWNLOAD_URL: https://github.com/<<<CM_TMP_TRAINING_SRC>>>/training_results_v3.1

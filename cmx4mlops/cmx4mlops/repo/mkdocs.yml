@@ -1,0 +1,77 @@
+site_name: CM Script Automation Documentation
+repo_url: https://github.com/mlcommons/cm4mlops
+theme:
+  name: material
+  logo: img/logo_v2.svg
+  favicon: img/logo_v2.svg
+  palette:
+    primary: deep purple
+    accent: green
+  features:
+    - content.tabs.link
+    - content.code.copy
+    - navigation.expand
+    - navigation.sections
+    - navigation.indexes
+    - navigation.instant
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - toc.follow
+nav:
+  - HOME: index.md
+  - Getting Started: getting-started.md
+  - CM Scripts:
+    - scripts/index.md
+    - Python-automation: scripts/Python-automation/index.md
+    - MLPerf-benchmark-support: scripts/MLPerf-benchmark-support/index.md
+    - Modular-AI-ML-application-pipeline: scripts/Modular-AI-ML-application-pipeline/index.md
+    - Modular-application-pipeline: scripts/Modular-application-pipeline/index.md
+    - Modular-MLPerf-inference-benchmark-pipeline: scripts/Modular-MLPerf-inference-benchmark-pipeline/index.md
+    - Modular-MLPerf-benchmarks: scripts/Modular-MLPerf-benchmarks/index.md
+    - Reproduce-MLPerf-benchmarks: scripts/Reproduce-MLPerf-benchmarks/index.md
+    - Modular-MLPerf-training-benchmark-pipeline: scripts/Modular-MLPerf-training-benchmark-pipeline/index.md
+    - DevOps-automation: scripts/DevOps-automation/index.md
+    - Docker-automation: scripts/Docker-automation/index.md
+    - AI-ML-optimization: scripts/AI-ML-optimization/index.md
+    - AI-ML-models: scripts/AI-ML-models/index.md
+    - CM-automation: scripts/CM-automation/index.md
+    - TinyML-automation: scripts/TinyML-automation/index.md
+    - Cloud-automation: scripts/Cloud-automation/index.md
+    - Platform-information: scripts/Platform-information/index.md
+    - Detection-or-installation-of-tools-and-artifacts: scripts/Detection-or-installation-of-tools-and-artifacts/index.md
+    - Compiler-automation: scripts/Compiler-automation/index.md
+    - CM-Interface: scripts/CM-Interface/index.md
+    - Legacy-CK-support: scripts/Legacy-CK-support/index.md
+    - AI-ML-datasets: scripts/AI-ML-datasets/index.md
+    - CUDA-automation: scripts/CUDA-automation/index.md
+    - AI-ML-frameworks: scripts/AI-ML-frameworks/index.md
+    - Reproducibility-and-artifact-evaluation: scripts/Reproducibility-and-artifact-evaluation/index.md
+    - GUI: scripts/GUI/index.md
+    - Collective-benchmarking: scripts/Collective-benchmarking/index.md
+    - Tests: scripts/Tests/index.md
+    - Dashboard-automation: scripts/Dashboard-automation/index.md
+    - Remote-automation: scripts/Remote-automation/index.md
+    - CM-interface-prototyping: scripts/CM-interface-prototyping/index.md
+
+markdown_extensions:
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.details
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      slugify: !!python/object/apply:pymdownx.slugs.slugify {kwds: {case: lower}}
+plugins:
+  - search
+  - macros
+  - caseinsensitivefiles 

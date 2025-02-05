@@ -1,0 +1,49 @@
+alias: get-blis
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: Detection or installation of tools and artifacts
+default_version: master
+deps:
+- force_env_keys:
+  - CM_GIT_CHECKOUT
+  names:
+  - blis-source-repo
+  tags: get,git
+- tags: detect,cpu
+input_description: {}
+input_mapping: {}
+new_env_keys:
+- CM_BLIS_SRC_PATH
+- +LD_LIBRARY_PATH
+- CM_BLIS_INSTALL_PATH
+- CM_BLIS_INC
+- CM_BLIS_LIB
+new_state_keys: []
+post_deps: []
+posthook_deps: []
+prehook_deps: []
+tags:
+- get
+- lib
+- blis
+uid: ea6e1cf75242456c
+variations:
+  amd:
+    add_deps_recursive:
+      blis-source-repo:
+        tags: _repo.https://github.com/amd/libflame.git
+    group: source
+  flame:
+    add_deps_recursive:
+      blis-source-repo:
+        tags: _repo.https://github.com/flame/blis.git
+    default: true
+    group: source
+versions:
+  0.9.0:
+    env:
+      CM_GIT_CHECKOUT: 0.9.0
+  master:
+    env:
+      CM_GIT_CHECKOUT: master

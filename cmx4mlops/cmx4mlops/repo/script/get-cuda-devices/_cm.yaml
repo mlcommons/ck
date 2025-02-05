@@ -1,0 +1,64 @@
+alias: get-cuda-devices
+uid: 7a3ede4d3558427a
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+tags:
+- get
+- cuda-devices
+
+cache: false
+
+can_force_cache: true
+
+category: CUDA automation
+
+clean_files:
+- tmp-run.out
+
+deps:
+- names:
+  - cuda
+  tags: get,cuda,_toolkit
+
+docker:
+  run: false
+  all_gpus: 'yes'
+  skip_run_cmd: 'no'
+  skip_cm_sys_upgrade: 'yes'
+  cm_repo_flags: '--checkout=dev'
+  use_host_group_id: 'yes'
+  image_tag_extra: '-cm-dev'
+
+env:
+  CM_DETECT_USING_PYCUDA: 'no'
+
+new_env_keys:
+- CM_CUDA_DEVICE_*
+- CM_CUDA_NUM_DEVICES
+- CM_CUDA_VERSION
+
+new_state_keys:
+- cm_cuda_device_prop
+- cm_cuda_devices_prop
+- cm_cuda_num_devices
+
+print_files_if_script_error:
+- tmp-run.out
+
+variations:
+  with-pycuda:
+    env:
+      CM_DETECT_USING_PYCUDA: 'yes'
+    deps:
+      - tags: get,python3
+        names:
+          - python
+          - python3
+      - tags: get,generic-python-lib,_package.pycuda
+        names:
+          - pycuda
+      - tags: get,generic-python-lib,_package.numpy
+        names:
+          - numpy

@@ -1,0 +1,27 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-google-tpu-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230817",
+  "date_open": "20230704",
+  "points":3,
+  "trophies":true,
+  "date_close_extension": true,
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "automate",
+    "benchmark",
+    "tpu",
+    "mlperf-inference",
+    "mlperf-inference-tpu",
+    "mlperf-inference-tpu",
+    "mlperf-inference-tpu-v3.1",
+    "mlperf-inference-tpu-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Develop a reference implementation of any MLPerf inference benchmark to run on the latest publicly available Google TPU (GCP or Coral USB accelerator) and submit to MLPerf inference v3.1+",
+  "uid": "5975fd0e18cd4073"
+}

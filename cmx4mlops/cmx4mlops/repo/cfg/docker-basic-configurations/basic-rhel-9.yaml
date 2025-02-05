@@ -1,0 +1,9 @@
+﻿uid: 27b4afcdd8e042e8
+
+name: "Basic RHEL 9"
+
+input:
+  docker_base_image: 'registry.access.redhat.com/ubi9'
+  docker_os: 'rhel'
+  docker_os_version: '9'
+  

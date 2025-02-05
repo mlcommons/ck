@@ -1,0 +1,110 @@
+alias: app-stable-diffusion-onnx-py
+uid: 4d33981ac3534b3b
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular AI/ML application pipeline"
+
+tags:
+- app
+- modular
+- stable
+- diffusion
+- stable-diffusion
+- onnx
+- python
+
+tags_help: "modular python app stable-diffusion onnx"
+
+
+deps:
+- tags: detect,os
+- tags: get,sys-utils-cm
+- names:
+  - python
+  - python3
+  tags: get,python3
+
+- tags: get,cuda
+  names:
+  - cuda
+  enable_if_env:
+    USE_CUDA:
+    - yes
+- tags: get,cudnn
+  names:
+  - cudnn
+  enable_if_env:
+    USE_CUDA:
+    - yes
+
+
+
+
+
+
+
+- tags: get,generic-python-lib,_package.optimum[onnxruntime]
+  names:
+  - optimum
+  skip_if_env:
+    USE_CUDA:
+    - yes
+
+- tags: get,generic-python-lib,_package.optimum[onnxruntime-gpu]
+  names:
+  - optimum
+  enable_if_env:
+    USE_CUDA:
+    - yes
+
+- tags: get,generic-python-lib,_package.diffusers
+  names:
+  - diffusers
+
+
+- tags: get,ml-model,huggingface,zoo,_model-stub.runwayml/stable-diffusion-v1-5
+  revision: onnx
+  model_filename: model_index.json
+  full_subfolder: .
+
+
+variations:
+  cuda:
+    docker:
+      all_gpus: 'yes'
+    group: target
+    env:
+      USE_CUDA: yes
+      CM_DEVICE: cuda:0
+
+  cpu:
+    group: target
+    default: yes
+    env:
+      USE_CPU: yes
+      CM_DEVICE: cpu
+
+input_mapping:
+  text: CM_APP_STABLE_DIFFUSION_ONNX_PY_TEXT
+  output: CM_APP_STABLE_DIFFUSION_ONNX_PY_OUTPUT
+
+
+input_description:
+  text: 
+    desc: "Text to generate image"
+  output: 
+    desc: "Output directory"
+
+
+docker:
+  skip_run_cmd: 'no'
+  input_paths:
+    - output
+  add_quotes_to_keys:
+    - text
+  skip_input_for_fake_run:
+    - text
+    - output
+    - env.CM_DOCKER_ADD_FLAG_TO_CM_MLOPS_REPO

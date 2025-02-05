@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/Modular-MLPerf-inference-benchmark-pipeline/app-mlperf-inference-mlcommons-python](https://docs.mlcommons.org/cm4mlops/scripts/Modular-MLPerf-inference-benchmark-pipeline/app-mlperf-inference-mlcommons-python) for the documentation of this CM script.

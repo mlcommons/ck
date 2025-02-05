@@ -1,0 +1,75 @@
+alias: run-docker-container
+uid: 1e0c884107514b46
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+tags:
+- run
+- docker
+- container
+
+cache: false
+
+category: Docker automation
+
+default_env:
+  CM_DOCKER_DETACHED_MODE: 'yes'
+  CM_DOCKER_REUSE_EXISTING_CONTAINER: 'no'
+  CM_DOCKER_PRIVILEGED_MODE: 'no'
+  CM_PODMAN_MAP_USER_ID: 'no'
+
+input_mapping:
+  all_gpus: CM_DOCKER_ADD_ALL_GPUS
+  num_gpus: CM_DOCKER_ADD_NUM_GPUS
+  base: CM_DOCKER_IMAGE_BASE
+  cache: CM_DOCKER_CACHE
+  cm_repo: CM_MLOPS_REPO
+  detached: CM_DOCKER_DETACHED_MODE
+  device: CM_DOCKER_ADD_DEVICE
+  docker_image_base: CM_DOCKER_IMAGE_BASE
+  docker_base_image: CM_DOCKER_IMAGE_BASE
+  keep_detached: CM_KEEP_DETACHED_CONTAINER
+  docker_os: CM_DOCKER_OS
+  docker_os_version: CM_DOCKER_OS_VERSION
+  extra_run_args: CM_DOCKER_EXTRA_RUN_ARGS
+  fake_run_option: CM_DOCKER_FAKE_RUN_OPTION
+  gh_token: CM_GH_TOKEN
+  image_name: CM_DOCKER_IMAGE_NAME
+  image_repo: CM_DOCKER_IMAGE_REPO
+  image_tag: CM_DOCKER_IMAGE_TAG
+  image_tag_extra: CM_DOCKER_IMAGE_TAG_EXTRA
+  interactive: CM_DOCKER_INTERACTIVE_MODE
+  it: CM_DOCKER_INTERACTIVE
+  mounts: CM_DOCKER_VOLUME_MOUNTS
+  pass_user_id: CM_DOCKER_PASS_USER_ID
+  pass_user_group: CM_DOCKER_PASS_USER_GROUP
+  port_maps: CM_DOCKER_PORT_MAPS
+  post_run_cmds: CM_DOCKER_POST_RUN_COMMANDS
+  pre_run_cmds: CM_DOCKER_PRE_RUN_COMMANDS
+  real_run: CM_REAL_RUN
+  recreate: CM_DOCKER_IMAGE_RECREATE
+  run_cmd: CM_DOCKER_RUN_CMD
+  run_cmd_extra: CM_DOCKER_RUN_CMD_EXTRA
+  save_script: CM_DOCKER_SAVE_SCRIPT
+  script_tags: CM_DOCKER_RUN_SCRIPT_TAGS
+  shm_size: CM_DOCKER_SHM_SIZE
+
+new_env_keys:
+  - 'CM_DOCKER_CONTAINER_ID'
+
+deps:
+  - tags: get,docker
+
+prehook_deps:
+- names:
+  - build-docker-image
+  skip_if_any_env:
+    CM_DOCKER_IMAGE_EXISTS:
+    - 'yes'
+    CM_DOCKER_SKIP_BUILD:
+    - 'yes'
+    CM_DOCKER_CONTAINER_ID:
+    - on
+  tags: build,docker,image
+- tags: get,docker

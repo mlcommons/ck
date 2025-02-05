@@ -1,0 +1,97 @@
+alias: get-dataset-coco
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML datasets
+deps:
+- tags: detect,os
+docker:
+  input_paths:
+  - store
+  - from
+  - to
+  mount_current_dir: 'yes'
+  skip_input_for_fake_run:
+  - store
+  - from
+  - to
+  skip_run_cmd: 'no'
+env:
+  CM_DATASET: COCO
+  CM_DATASET_COCO_URL_ANNOTATIONS: http://images.cocodataset.org/annotations
+  CM_DATASET_COCO_URL_DATA: http://images.cocodataset.org/zips
+input_mapping:
+  from: CM_FROM
+  home: CM_HOME_DIR
+  store: CM_STORE
+  to: CM_TO
+new_env_keys:
+- CM_DATASET_COCO*
+- CM_DATASET_PATH
+- CM_DATASET_PATH_ROOT
+prehook_deps:
+- env:
+    CM_DOWNLOAD_CHECKSUM: <<<CM_DATASET_COCO_MD5SUM_DATA>>>
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_DATASET_COCO_DATA_DOWNLOAD_PATH
+    CM_EXTRACT_FINAL_ENV_NAME: CM_DATASET_COCO_DATA_PATH
+  force_cache: true
+  names:
+  - get-dataset-coco-data
+  - 746e5dad5e784ad6
+  skip_if_env:
+    CM_DATASET_COCO_DETECTED:
+    - 'yes'
+  skip_if_fake_run: true
+  tags: download-and-extract,file,_wget,_extract
+  update_tags_from_env_with_prefix:
+    _url.:
+    - CM_DATASET_COCO_URL_DATA_FULL
+  verify: false
+- env:
+    CM_DOWNLOAD_CHECKSUM: <<<CM_DATASET_COCO_MD5SUM_ANN>>>
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_DATASET_COCO_ANNOTATIONS_DOWNLOAD_PATH
+    CM_DOWNLOAD_PATH: <<<CM_DATASET_COCO_DATA_DOWNLOAD_PATH_ROOT>>>
+    CM_EXTRACT_FINAL_ENV_NAME: CM_DATASET_COCO_ANNOTATIONS_PATH
+  force_cache: true
+  names:
+  - get-dataset-coco-annotations
+  - edb6cd092ff64171
+  skip_if_env:
+    CM_DATASET_COCO_DETECTED:
+    - 'yes'
+  skip_if_fake_run: true
+  tags: download-and-extract,file,_wget,_extract
+  update_tags_from_env_with_prefix:
+    _url.:
+    - CM_DATASET_COCO_URL_ANNOTATIONS_FULL
+  verify: false
+tags:
+- get
+- dataset
+- object-detection
+- coco
+uid: c198e1f60ac6445c
+variations:
+  '2017':
+    default: true
+    env:
+      CM_DATASET_COCO_VERSION: '2017'
+    group: version
+  complete:
+    default: true
+    env:
+      CM_DATASET_COCO_SIZE: complete
+    group: size
+  small:
+    env:
+      CM_DATASET_COCO_SIZE: small
+    group: size
+  train:
+    env:
+      CM_DATASET_COCO_TYPE: train
+    group: type
+  val:
+    default: true
+    env:
+      CM_DATASET_COCO_TYPE: val
+    group: type

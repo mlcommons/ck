@@ -1,0 +1,6 @@
+{
+  "uid": "fe379ecd1e054a00",
+  "name": "Nvidia - GPU",
+  "tags": "gpu,nvidia",
+  "mlperf_inference_device": "cuda"
+}

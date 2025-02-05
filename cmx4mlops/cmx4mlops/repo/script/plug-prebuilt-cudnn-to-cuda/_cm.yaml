@@ -1,0 +1,60 @@
+alias: plug-prebuilt-cudnn-to-cuda
+uid: 894452315a3247ef
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+tags:
+  - plug
+  - prebuilt-cudnn
+  - to-cuda
+
+cache: true
+
+category: CUDA automation
+
+default_env:
+  CM_SUDO: sudo
+
+default_version: 9.3.0
+
+deps:
+  - tags: detect,os
+  - tags: detect,cpu
+  - tags: get,cuda
+
+docker:
+  run: true
+
+input_description:
+  tar_file:
+    desc: Full path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)
+
+input_mapping:
+  tar_file: CM_CUDNN_TAR_FILE_PATH
+  skip_sudo: CUDA_SKIP_SUDO
+
+new_env_keys:
+- CM_CUDNN_*
+
+prehook_deps:
+#- tags: get,generic-sys-util,_xz
+- tags: download,file
+  env:
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_CUDNN_TAR_FILE_PATH
+  extra_cache_tags: cudnn,archive
+  force_cache: true
+  names:
+  - download-script
+  skip_if_env:
+    CM_CUDNN_TAR_FILE_PATH:
+      - True
+  update_tags_from_env_with_prefix:
+    _url.:
+    - WGET_URL
+
+versions:
+  9.3.0:
+    env:
+      CM_CUDNN_TAR_FILE_NAME_TEMPLATE: cudnn-linux-x86_64-9.3.0.75_cuda{{CUDA_MAJOR_VERSION}}-archive.tar.xz
+      CM_CUDNN_TAR_MD5SUM: 2fa73268de8bbdab5560f4aa1a5a73ab

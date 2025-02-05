@@ -1,0 +1,11 @@
+﻿uid: e0e7167139a74e36
+
+name: "Nvidia Ubuntu 22.04 CUDA 12.1 cuDNN 8.9.1 PyTorch 2.0.0 (pytorch:23.05)"
+
+ref_url: https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/rel-23-05.html
+
+input:
+  docker_base_image: 'nvcr.io/nvidia/pytorch:23.05-py3'
+  docker_os: ubuntu
+  docker_os_version: '22.04'
+  

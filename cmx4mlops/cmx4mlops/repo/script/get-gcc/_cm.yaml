@@ -1,0 +1,32 @@
+alias: get-gcc
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: Compiler automation
+clean_files: []
+deps:
+- tags: detect,os
+name: Detect or install GCC compiler
+new_env_keys:
+- CM_GCC_*
+- CM_C_COMPILER_*
+- CM_CXX_COMPILER_*
+- CM_COMPILER_*
+- CM_LINKER_*
+- + CFLAGS
+- + CXXFLAGS
+- + FFLAGS
+- + LDFLAGS
+- +CM_HOST_OS_DEFAULT_INCLUDE_PATH
+- +PATH
+post_deps:
+- tags: get,compiler-flags
+sort: 500
+tags:
+- get
+- gcc
+- compiler
+- c-compiler
+- cpp-compiler
+- get-gcc
+uid: dbf4ab5cbed74372

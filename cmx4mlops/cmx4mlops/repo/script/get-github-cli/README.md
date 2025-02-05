@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/get-github-cli](https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/get-github-cli) for the documentation of this CM script.

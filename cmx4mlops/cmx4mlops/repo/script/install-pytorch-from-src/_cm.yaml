@@ -1,0 +1,288 @@
+alias: install-pytorch-from-src
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: Compiler automation
+deps:
+- tags: detect,os
+- tags: detect,cpu
+- names:
+  - python
+  - python3
+  skip_if_env:
+    CM_CONDA_ENV:
+    - 'yes'
+  tags: get,python3
+- names:
+  - compiler
+  tags: get,compiler
+- env:
+    CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_PYTORCH_SRC_REPO_PATH
+  extra_cache_tags: pytorch,src,pytorch-src,pytorch-src-repo
+  names:
+  - pytorch-src-repo
+  tags: get,git,repo
+  update_tags_from_env_with_prefix:
+    _branch.:
+    - CM_GIT_CHECKOUT
+    _repo.:
+    - CM_GIT_URL
+    _sha.:
+    - CM_GIT_CHECKOUT_SHA
+    _tag.:
+    - CM_GIT_CHECKOUT_TAG
+env:
+  CM_GIT_URL: https://github.com/pytorch/pytorch
+name: Build pytorch from sources
+new_env_keys:
+- CM_PYTORCH_*
+prehook_deps: []
+sort: 1000
+tags:
+- install
+- get
+- src
+- from-src
+- from.src
+- pytorch
+- src-pytorch
+uid: 64eaf3e81de94f41
+variations:
+  branch.#:
+    env:
+      CM_GIT_CHECKOUT: '#'
+  cherrypicks.#:
+    ad:
+      pytorch-src-repo:
+        tags: _cherrypicks.#
+    env: {}
+  cuda:
+    deps:
+    - names:
+      - cuda
+      tags: get,cuda,_cudnn
+    env:
+      CUDA_HOME: <<<CM_CUDA_INSTALLED_PATH>>>
+      CUDA_NVCC_EXECUTABLE: <<<CM_NVCC_BIN_WITH_PATH>>>
+      CUDNN_INCLUDE_PATH: <<<CM_CUDA_PATH_INCLUDE_CUDNN>>>
+      CUDNN_LIBRARY_PATH: <<<CM_CUDA_PATH_LIB_CUDNN>>>
+      TORCH_CUDA_ARCH_LIST: Ampere Ada Hopper
+      TORCH_CXX_FLAGS: -D_GLIBCXX_USE_CXX11_ABI=1
+      USE_CUDA: '1'
+      USE_CUDNN: '1'
+  for-intel-mlperf-inference-resnet50:
+    adr:
+      conda-package:
+        tags: _name.resnet50-pt
+    base:
+    - tag.v1.12.0-rc7
+    - pr-to-apply.pull/76869/head
+    deps:
+    - names:
+      - conda
+      tags: get,conda,_name.resnet50-pt
+    - names:
+      - conda-package
+      - ncurses
+      tags: get,generic,conda-package,_package.ncurses,_source.conda-forge
+    - names:
+      - conda-package
+      - python3
+      tags: get,generic,conda-package,_package.python
+      version: '3.9'
+    - tags: get,gcc
+      version_max: '11.9'
+      version_max_usable: '11.3'
+    - names:
+      - conda-package
+      - cmake
+      tags: get,generic,conda-package,_package.cmake
+      version_min: '3.26'
+    - names:
+      - pip-package
+      - numpy
+      tags: get,generic-python-lib,_package.numpy
+      version_max: 1.26.4
+    - names:
+      - conda-package
+      - libstdcxx-ng
+      tags: get,generic,conda-package,_package.libstdcxx-ng,_source.conda-forge
+    env:
+      CM_CONDA_ENV: 'yes'
+      CM_MLPERF_INFERENCE_INTEL: 'yes'
+      CM_MLPERF_INFERENCE_INTEL_MODEL: resnet50
+      USE_CUDA: '0'
+  for-intel-mlperf-inference-retinanet:
+    adr:
+      conda-package:
+        tags: _name.retinanet-pt
+    base:
+    - tag.v1.12.0-rc7
+    - pr-to-apply.pull/89925/head
+    - cherrypicks.78cad998e505b667d25ac42f8aaa24409f5031e1
+    deps:
+    - names:
+      - conda
+      tags: get,conda,_name.retinanet-pt
+    - names:
+      - conda-package
+      - ncurses
+      tags: get,generic,conda-package,_package.ncurses,_source.conda-forge
+    - names:
+      - conda-package
+      - python3
+      tags: get,generic,conda-package,_package.python
+      version: '3.9'
+    - tags: get,gcc
+      version_max: '11.9'
+      version_max_usable: '11.3'
+    - names:
+      - conda-package
+      - cmake
+      tags: get,generic,conda-package,_package.cmake
+      version_min: '3.26'
+    - names:
+      - pip-package
+      - numpy
+      tags: get,generic-python-lib,_package.numpy
+      version_max: 1.26.4
+    - names:
+      - conda-package
+      - libstdcxx-ng
+      tags: get,generic,conda-package,_package.libstdcxx-ng,_source.conda-forge
+    env:
+      CM_CONDA_ENV: 'yes'
+      CM_MLPERF_INFERENCE_INTEL: 'yes'
+      CM_MLPERF_INFERENCE_INTEL_MODEL: retinanet
+      USE_CUDA: '0'
+  for-intel-mlperf-inference-v3.1-bert:
+    adr:
+      conda-package:
+        tags: _name.bert-pt
+    base:
+    - tag.v1.12.0
+    deps:
+    - tags: get,generic-sys-util,_libffi7
+    - names:
+      - conda
+      tags: get,conda,_name.bert-pt
+    - names:
+      - conda-package
+      - ncurses
+      tags: get,generic,conda-package,_package.ncurses,_source.conda-forge
+    - names:
+      - conda-package
+      - python3
+      tags: get,generic,conda-package,_package.python
+      version: '3.8'
+    - tags: install,llvm,src,_tag.llvmorg-15.0.7,_runtimes.libcxx:libcxxabi:openmp,_clang,_release,_for-intel-mlperf-inference-v3.1-bert
+    - names:
+      - conda-package
+      - ninja
+      tags: get,generic,conda-package,_package.ninja
+    - names:
+      - conda-package
+      - cmake
+      tags: get,generic,conda-package,_package.cmake
+    - names:
+      - conda-package
+      - mkl
+      tags: get,generic,conda-package,_package.mkl,_source.intel
+      version: 2023.1.0
+    - names:
+      - conda-package
+      - mkl-include
+      tags: get,generic,conda-package,_package.mkl-include,_source.intel
+      version: 2023.1.0
+    - names:
+      - conda-package
+      - intel-openmp
+      tags: get,generic,conda-package,_package.intel-openmp,_source.intel
+      version: 2023.1.0
+    - names:
+      - conda-package
+      - llvm-openmp
+      tags: get,generic,conda-package,_package.llvm-openmp,_source.conda-forge
+    - names:
+      - conda-package
+      - jemalloc
+      tags: get,generic,conda-package,_package.jemalloc,_source.conda-forge
+    - names:
+      - conda-package
+      - wheel
+      tags: get,generic,conda-package,_package.wheel,_source.conda-forge
+    - names:
+      - conda-package
+      - setuptools
+      tags: get,generic,conda-package,_package.setuptools,_source.conda-forge
+      version: 69.5.1
+    - names:
+      - conda-package
+      - future
+      tags: get,generic,conda-package,_package.future,_source.conda-forge
+    - names:
+      - conda-package
+      - libstdcxx-ng
+      tags: get,generic,conda-package,_package.libstdcxx-ng,_source.conda-forge
+    env:
+      CM_CONDA_ENV: 'yes'
+      CM_MLPERF_INFERENCE_INTEL: 'yes'
+      CM_MLPERF_INFERENCE_INTEL_LANGUAGE_MODEL: 'yes'
+      USE_CUDA: '0'
+  for-intel-mlperf-inference-v3.1-dlrm-v2:
+    ad:
+      pytorch-src-repo:
+        tags: _no-recurse-submodules,_full-history
+    base:
+    - sha.927dc662386af052018212c7d01309a506fc94cd
+    deps:
+    - tags: get,cmake
+      version_min: 3.25.0
+  for-nvidia-mlperf-inference-v3.1:
+    ad:
+      pytorch-src-repo:
+        tags: _no-recurse-submodules,_full-history
+    base:
+    - sha.b5021ba9
+    - cuda
+    deps:
+    - tags: get,cmake
+      version_min: 3.25.0
+  for-nvidia-mlperf-inference-v4.0:
+    ad:
+      pytorch-src-repo:
+        tags: _no-recurse-submodules,_full-history
+    base:
+    - sha.32f93b1
+    - cuda
+    deps:
+    - tags: get,cmake
+      version_min: 3.25.0
+    - tags: get,generic-python-lib,_package.numpy
+      version: 1.22.4
+    - tags: get,generic-python-lib,_package.networkx
+      version: '3.1'
+  pr-to-apply.#:
+    ad:
+      pytorch-src-repo:
+        tags: _pr-to-apply.#
+    env: {}
+  repo.#:
+    env:
+      CM_GIT_URL: '#'
+    group: repo
+  repo.https://github.com/pytorch/pytorch:
+    default: true
+    env:
+      CM_GIT_URL: https://github.com/pytorch/pytorch
+    group: repo
+  sha.#:
+    env:
+      CM_GIT_CHECKOUT_SHA: '#'
+  tag.#:
+    ad:
+      pytorch-src-repo:
+        tags: _no-recurse-submodules,_full-history
+    env:
+      CM_GIT_CHECKOUT_TAG: '#'
+versions: {}

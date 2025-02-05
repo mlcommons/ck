@@ -1,0 +1,64 @@
+uid: 27228976bb084dd0
+alias: get-dataset-openimages-calibration
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+cache: true
+
+category: "AI/ML datasets"
+
+deps:
+  - tags: download,file
+    force_env_keys:
+      - CM_OUTDIRNAME
+    force_cache: true
+    extra_cache_tags: openimages-calibration,openimages,calibration
+    names:
+      - calibration-file-downloader
+    env:
+        CM_DOWNLOAD_FINAL_ENV_NAME: CM_MLPERF_OPENIMAGES_CALIBRATION_LIST_FILE_WITH_PATH
+
+new_env_keys:
+- CM_MLPERF_OPENIMAGES_CALIBRATION_LIST_FILE_WITH_PATH
+
+tags:
+- get
+- dataset
+- openimages
+- calibration
+
+variations:
+  mlperf.option1:
+    group: calibration-option
+    default: true
+    env:
+      CM_MLPERF_OPENIMAGES_CALIBRATION_OPTION: one
+      CM_DOWNLOAD_CHECKSUM: 5c3196ddcec4605c6a9fcf004d9615e6
+    adr:
+      calibration-file-downloader:
+        tags: _url.https://github.com/mlcommons/inference/raw/master/calibration/openimages/openimages_cal_images_list.txt
+        env:
+            CM_DOWNLOAD_CHECKSUM: 5c3196ddcec4605c6a9fcf004d9615e6
+  filter:
+    default_variations:
+      filter-size: filter_size.400
+    deps:
+      - names:
+        - python
+        - python3
+        tags: get,python3
+      - tags: get,openimages,dataset,original,_calibration
+        env:
+          CM_CALIBRATE_FILTER: ''
+    env:
+      CM_CALIBRATE_FILTER: 'yes'
+
+  filter-size.#:
+    group: filter-size
+    env:
+      CM_CALIBRATION_FILTER_SIZE: "#"
+  filter-size.400:
+    group: filter-size
+    env:
+      CM_CALIBRATION_FILTER_SIZE: 400

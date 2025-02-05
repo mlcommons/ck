@@ -1,0 +1,134 @@
+alias: run-mlperf-inference-mobilenet-models
+automation_alias: script
+automation_uid: 5b4e0237da074764
+category: MLPerf benchmark support
+default_env:
+  CM_MLPERF_NO_RERUN: 'no'
+  CM_MLPERF_RUN_EFFICIENTNETS: 'no'
+  CM_MLPERF_RUN_FP32: 'yes'
+  CM_MLPERF_RUN_INT8: 'yes'
+  CM_MLPERF_RUN_MOBILENETS: 'no'
+deps:
+- tags: get,sys-utils-cm
+docker:
+  docker_input_mapping:
+    imagenet_path: IMAGENET_PATH
+    results_dir: RESULTS_DIR
+    submission_dir: SUBMISSION_DIR
+  docker_run_final_cmds:
+  - cm run script --tags=run,mlperf,inference,mobilenet-models,_find-performance --adr.mlperf-inference-implementation.fake_run=True
+    --adr.compiler.tags=gcc
+  fake_run_deps: false
+  mounts:
+  - ${{ IMAGENET_PATH }}:${{ IMAGENET_PATH }}
+  - ${{ RESULTS_DIR }}:/home/cmuser/mobilenet_results
+  - ${{ SUBMISSION_DIR }}:/home/cmuser/inference_submission_3.1
+  run: true
+input_mapping:
+  find-performance: CM_MLPERF_FIND_PERFORMANCE_MODE
+  imagenet_path: IMAGENET_PATH
+  no-rerun: CM_MLPERF_NO_RERUN
+  power: CM_MLPERF_POWER
+  results_dir: CM_MLPERF_INFERENCE_RESULTS_DIR
+  submission: CM_MLPERF_SUBMISSION_MODE
+  submission_dir: CM_MLPERF_INFERENCE_SUBMISSION_DIR
+tags:
+- run
+- mobilenet
+- models
+- image-classification
+- mobilenet-models
+- mlperf
+- inference
+uid: f21cc993a8b14a58
+variations:
+  accuracy-only:
+    env:
+      CM_MLPERF_ACCURACY_MODE: 'yes'
+      CM_MLPERF_FIND_PERFORMANCE_MODE: 'no'
+      CM_MLPERF_SUBMISSION_MODE: 'no'
+    group: run-mode
+  all-models:
+    default: true
+    env:
+      CM_MLPERF_RUN_EFFICIENTNETS: 'yes'
+      CM_MLPERF_RUN_MOBILENETS: 'yes'
+    group: model-selection
+  armnn:
+    env:
+      CM_MLPERF_USE_ARMNN_LIBRARY: 'yes'
+  efficientnet:
+    env:
+      CM_MLPERF_RUN_EFFICIENTNETS: 'yes'
+    group: model-selection
+  find-performance:
+    env:
+      CM_MLPERF_FIND_PERFORMANCE_MODE: 'yes'
+      CM_MLPERF_SUBMISSION_MODE: 'no'
+    group: run-mode
+  mobilenet:
+    env:
+      CM_MLPERF_RUN_MOBILENETS: 'yes'
+    group: model-selection
+  mobilenet-v1:
+    env:
+      CM_MLPERF_RUN_MOBILENET_V1: 'yes'
+    group: model-selection
+  mobilenet-v2:
+    env:
+      CM_MLPERF_RUN_MOBILENET_V2: 'yes'
+    group: model-selection
+  mobilenet-v3:
+    env:
+      CM_MLPERF_RUN_MOBILENET_V3: 'yes'
+    group: model-selection
+  neon:
+    env:
+      CM_MLPERF_USE_NEON: 'yes'
+  only-fp32:
+    env:
+      CM_MLPERF_RUN_INT8: 'no'
+  only-int8:
+    env:
+      CM_MLPERF_RUN_FP32: 'no'
+  opencl:
+    env:
+      CM_MLPERF_USE_OPENCL: 'yes'
+  performance-and-accuracy:
+    default: 'true'
+    env:
+      CM_MLPERF_ACCURACY_MODE: 'yes'
+      CM_MLPERF_FIND_PERFORMANCE_MODE: 'no'
+      CM_MLPERF_PERFORMANCE_MODE: 'yes'
+      CM_MLPERF_SUBMISSION_MODE: 'no'
+    group: run-mode
+  performance-only:
+    env:
+      CM_MLPERF_FIND_PERFORMANCE_MODE: 'no'
+      CM_MLPERF_PERFORMANCE_MODE: 'yes'
+      CM_MLPERF_SUBMISSION_MODE: 'no'
+    group: run-mode
+  submission:
+    env:
+      CM_MLPERF_FIND_PERFORMANCE_MODE: 'no'
+      CM_MLPERF_SUBMISSION_MODE: 'yes'
+    group: run-mode
+  tflite:
+    default: true
+    group: base-framework
+  tflite,armnn:
+    env:
+      CM_MLPERF_TFLITE_ARMNN: 'yes'
+  tflite,armnn,neon:
+    env:
+      CM_MLPERF_TFLITE_ARMNN_NEON: 'yes'
+  tflite,armnn,opencl:
+    env:
+      CM_MLPERF_TFLITE_ARMNN_OPENCL: 'yes'
+  tflite-default:
+    default: true
+    env:
+      CM_MLPERF_TFLITE_DEFAULT_MODE: 'yes'
+    group: optimization
+  use-neon:
+    alias: neon

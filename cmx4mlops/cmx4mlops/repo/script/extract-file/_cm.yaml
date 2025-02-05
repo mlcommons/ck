@@ -1,0 +1,47 @@
+alias: extract-file
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+can_force_cache: true
+category: DevOps automation
+deps:
+- tags: detect,os
+- enable_if_env:
+    CM_HOST_OS_FLAVOR:
+    - macos
+  skip_if_any_env:
+    CM_EXTRACT_EXTRACTED_CHECKSUM:
+    - 'off'
+    CM_EXTRACT_EXTRACTED_CHECKSUM_FILE:
+    - 'off'
+  tags: get,generic-sys-util,_md5sha1sum
+input_description: {}
+input_mapping:
+  extra_folder: CM_EXTRACT_TO_FOLDER
+  extract_path: CM_EXTRACT_PATH
+  input: CM_EXTRACT_FILEPATH
+  to: CM_EXTRACT_PATH
+new_env_keys:
+- CM_EXTRACT_EXTRACTED_PATH
+- <<<CM_EXTRACT_FINAL_ENV_NAME>>>
+- CM_GET_DEPENDENT_CACHED_PATH
+new_state_keys: []
+post_deps: []
+posthook_deps: []
+prehook_deps: []
+tags:
+- extract
+- file
+tags_help: extract file
+uid: 3f0b76219d004817
+variations:
+  keep:
+    env:
+      CM_EXTRACT_REMOVE_EXTRACTED: 'no'
+  no-remove-extracted:
+    env:
+      CM_EXTRACT_REMOVE_EXTRACTED: 'no'
+  path.#:
+    env:
+      CM_EXTRACT_FILEPATH: '#'
+versions: {}

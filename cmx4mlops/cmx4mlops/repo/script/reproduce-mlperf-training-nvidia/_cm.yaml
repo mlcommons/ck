@@ -1,0 +1,80 @@
+# Identification of this CM script
+alias: reproduce-mlperf-training-nvidia
+uid: f183628f292341e2
+cache: false
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Reproduce MLPerf benchmarks"
+
+
+# User-friendly tags to find this CM script
+tags:
+  - reproduce
+  - mlcommons
+  - mlperf
+  - train
+  - training
+  - nvidia-training
+  - nvidia
+
+
+# Map script inputs to environment variables
+input_mapping:
+  system_conf_name: CM_MLPERF_NVIDIA_TRAINING_SYSTEM_CONF_NAME
+  results_dir: CM_MLPERF_RESULTS_DIR
+
+new_state_keys:
+  - mlperf-training-implementation
+  - CM_SUT_*
+
+# Dependencies on other CM scripts
+
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,nvidia-docker
+    skip_if_env:
+      CM_SKIP_GET_NVIDIA_DOCKER:
+        - yes
+
+  # Detect CUDA
+  - names:
+    - cuda
+    tags: get,cuda
+    version: 11.7.0
+
+variations:
+  resnet:
+    group: benchmark
+    env:
+      CM_MLPERF_TRAINING_BENCHMARK: resnet
+    deps:
+      - tags: prepare,mlperf,training,resnet,_nvidia
+        names:
+        - prepare-training-data
+        - nvidia-training-data
+      - tags: get,nvidia,training,code
+        names:
+        - nvidia-training-code
+
+versions:
+  r2.1:
+    adr:
+      nvidia-training-code:
+        version: r2.1
+    env:
+      resnet_benchmark_implementation: mxnet-22.04
+  r3.0:
+    adr:
+      nvidia-training-code:
+        version: r3.0
+    env:
+      resnet_benchmark_implementation: mxnet

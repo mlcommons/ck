@@ -1,0 +1,146 @@
+alias: calibrate-model-for.qaic
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML optimization
+deps:
+- tags: detect,cpu
+- names:
+  - qaic-apps-sdk
+  tags: get,qaic,apps,sdk
+- enable_if_env:
+    CM_CALIBRATE_OPENIMAGES:
+    - 'yes'
+  names:
+  - openimages-cal
+  - preprocessed-dataset
+  tags: get,preprocessed,dataset,_calibration,openimages,_for.retinanet.onnx,_NCHW,_fp32,_custom-annotations
+- enable_if_env:
+    CM_CALIBRATE_IMAGENET:
+    - 'yes'
+  names:
+  - imagenet-cal
+  - preprocessed-calibration-dataset
+  tags: get,dataset,imagenet,preprocessed,_calibration,_for.resnet50,_float32,_rgb32
+- enable_if_env:
+    CM_CALIBRATE_SQUAD:
+    - 'on'
+  names:
+  - squad-cal
+  - preprocessed-dataset
+  tags: get,dataset,preprocessed,_calib1,squad,_pickle,_seq-length.384,_packed
+- names:
+  - model-src
+  tags: get,ml-model
+new_env_keys:
+- CM_QAIC_MODEL_PROFILE_*
+tags:
+- qaic
+- calibrate
+- profile
+- qaic-profile
+- qaic-calibrate
+uid: 817bad70df2f4e45
+variations:
+  bert-99:
+    base:
+    - bert_
+    env:
+      CM_CALIBRATE_SQUAD: 'yes'
+      CM_QAIC_COMPILER_ARGS: ''
+      CM_QAIC_COMPILER_PARAMS: -onnx-define-symbol=batch_size,1 -onnx-define-symbol=seg_length,<<<CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH>>>
+        -input-list-file=<<<CM_DATASET_SQUAD_TOKENIZED_PACKED_FILENAMES_FILE>>> -num-histogram-bins=512
+        -profiling-threads=<<<CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET>>>
+      CM_QAIC_MODEL_TO_CONVERT: calibrate_bert_mlperf
+    group: model
+  bert_:
+    adr:
+      model-src:
+        tags: bert-large,_onnx,_packed
+    default-variations:
+      seq-length: seq.384
+    env:
+      CM_CREATE_INPUT_BATCH: 'no'
+      CM_QAIC_MODEL_NAME: bert-large
+  bs.#:
+    env:
+      CM_CREATE_INPUT_BATCH: 'yes'
+      CM_QAIC_MODEL_BATCH_SIZE: '#'
+    group: batch-size
+  bs.1:
+    env:
+      CM_CREATE_INPUT_BATCH: 'yes'
+      CM_QAIC_MODEL_BATCH_SIZE: '1'
+    group: batch-size
+  filter-size.#:
+    ad:
+      preprocessed-dataset:
+        tags: _filter-size.#,_filter,_size.#
+    group: calib-dataset-filter-size
+  first.#:
+    adr:
+      preprocessed-dataset:
+        tags: first.#
+  mlperf.option1:
+    adr:
+      preprocessed-dataset:
+        tags: _mlperf.option1
+    group: calibration-option
+  mlperf.option2:
+    adr:
+      preprocessed-dataset:
+        tags: _mlperf.option2
+    group: calibration-option
+  resnet50:
+    adr:
+      model-src:
+        tags: resnet50,_tf
+    default_variations:
+      calibration-option: mlperf.option1
+      model-framework: tf
+    env:
+      CM_CALIBRATE_IMAGENET: 'yes'
+      CM_QAIC_COMPILER_ARGS: ''
+      CM_QAIC_COMPILER_PARAMS: -output-node-name=ArgMax -profiling-threads=<<<CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET>>>
+      CM_QAIC_MODEL_NAME: resnet50
+      CM_QAIC_MODEL_TO_CONVERT: calibrate_resnet50_tf
+      CM_QAIC_OUTPUT_NODE_NAME: -output-node-name=ArgMax
+    group: model
+  resnet50,tf:
+    adr:
+      model-src:
+        tags: _fix-input-shape
+      preprocessed-dataset:
+        tags: _NHWC
+    env:
+      CM_QAIC_MODEL_TO_CONVERT: calibrate_resnet50_tf
+  retinanet:
+    adr:
+      model-src:
+        tags: retinanet,_no-nms,_onnx
+    env:
+      CM_CALIBRATE_OPENIMAGES: 'yes'
+      CM_QAIC_COMPILER_ARGS: ''
+      CM_QAIC_COMPILER_PARAMS: -enable-channelwise -profiling-threads=<<<CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET>>>
+        -onnx-define-symbol=batch_size,<<<CM_QAIC_MODEL_BATCH_SIZE>>> -node-precision-info=<<<CM_ML_MODEL_RETINANET_QAIC_NODE_PRECISION_INFO_FILE_PATH>>>
+      CM_QAIC_MODEL_NAME: retinanet
+      CM_QAIC_MODEL_TO_CONVERT: calibrate_retinanet_no_nms_mlperf
+    group: model
+    new_env_keys:
+    - CM_QAIC_MODEL_RETINANET_*
+  seq.#:
+    ad:
+      squad-preprocessed:
+        tags: _seq.#
+    env:
+      CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH: '#'
+    group: seq-length
+  seq.384:
+    ad:
+      squad-preprocessed:
+        tags: _seq.384
+    env:
+      CM_DATASET_SQUAD_TOKENIZED_MAX_SEQ_LENGTH: '#'
+    group: seq-length
+  tf:
+    group: model-framework

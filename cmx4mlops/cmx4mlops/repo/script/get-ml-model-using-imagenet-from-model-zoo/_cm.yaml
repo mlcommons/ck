@@ -1,0 +1,37 @@
+alias: get-ml-model-using-imagenet-from-model-zoo
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML models
+env:
+  CM_ML_MODEL: resnet
+  CM_ML_MODEL_DATASET: imagenet
+new_env_keys:
+- CM_ML_MODEL*
+tags:
+- get
+- ml-model
+- model-zoo
+- zoo
+- imagenet
+- image-classification
+uid: 153e08828c4e45cc
+variations:
+  model.#:
+    deps:
+    - names:
+      - neural-magic-zoo-downloader
+      tags: get,ml-model,zoo,deepsparse,_model-stub.#
+    group: model-source
+  model.resnet101-pytorch-base:
+    deps:
+    - names:
+      - neural-magic-zoo-downloader
+      tags: get,ml-model,zoo,deepsparse,_model-stub.zoo:cv/classification/resnet_v1-101/pytorch/sparseml/imagenet/base-none
+    group: model-source
+  model.resnet50-pruned95-uniform-quant:
+    deps:
+    - names:
+      - neural-magic-zoo-downloader
+      tags: get,ml-model,zoo,deepsparse,_model-stub.zoo:cv/classification/resnet_v1-50/pytorch/sparseml/imagenet/pruned95_uniform_quant-none
+    group: model-source

@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/Platform-information/detect-os](https://docs.mlcommons.org/cm4mlops/scripts/Platform-information/detect-os) for the documentation of this CM script.

@@ -1,4 +1,4 @@
-site_name: Collective Knowledge Documentation
+site_name: Collective Knowledge and Common Metadata eXchange Documentation
 repo_url: https://github.com/mlcommons/ck
 theme:
   name: material
@@ -20,14 +20,14 @@ theme:
     - toc.follow
 nav:
   - HOME: index.md
-  - CM:
-    - Summary: cm/README.md
-    - Getting Started: getting-started.md
-    - CM installation: install/index.md
-    - CM CLI: specs/cm-cli.md
+  - CMX:
+    - Summary: ../cmx/README.md
+    - Introduction: ../cmx/introduction.md
+    - Installation: ../cmx/install.md
+    - Getting Started Guide: ../cmx/getting-started.md
+  - CK Playground: https://access.cKnowledge.org
   - Releases:
-    - CM/CMX releases: https://github.com/mlcommons/ck/releases
-    - CK/CM/CMX news: news.md
+    - CMX: https://github.com/mlcommons/ck/releases
 
 markdown_extensions:
   - pymdownx.tasklist:

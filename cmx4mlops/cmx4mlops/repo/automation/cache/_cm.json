@@ -1,0 +1,12 @@
+{
+  "alias": "cache",
+  "automation_alias": "automation",
+  "automation_uid": "bbeb15d8f0a944a4",
+  "desc": "Caching cross-platform CM scripts",
+  "developers": "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.org/gfursin)",
+  "sort": 900,
+  "tags": [
+    "automation"
+  ],
+  "uid": "541d6f712a6b464e"
+}

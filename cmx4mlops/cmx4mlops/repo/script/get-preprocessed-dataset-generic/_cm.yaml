@@ -1,0 +1,14 @@
+alias: get-preprocesser-script-generic
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: AI/ML datasets
+new_env_keys:
+- +PYTHONPATH
+tags:
+- get
+- preprocessor
+- generic
+- image-preprocessor
+- script
+uid: d5e603627e2046eb

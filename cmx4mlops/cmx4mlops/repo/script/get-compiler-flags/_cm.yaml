@@ -1,0 +1,22 @@
+alias: get-compiler-flags
+automation_alias: script
+automation_uid: 5b4e0237da074764
+category: Compiler automation
+deps:
+- tags: detect,cpu
+- names:
+  - compiler
+  skip_if_env:
+    CM_C_COMPILER_BIN:
+    - 'on'
+  tags: get,compiler
+new_env_keys:
+- + CFLAGS
+- + CXXFLAGS
+- + FFLAGS
+- + LDFLAGS
+- +CM_HOST_OS_DEFAULT_INCLUDE_PATH
+tags:
+- get
+- compiler-flags
+uid: 31be8b74a69742f8

@@ -1,0 +1,18 @@
+{
+  "alias": "script",
+  "automation_alias": "automation",
+  "automation_uid": "bbeb15d8f0a944a4",
+  "min_cm_version": "2.2.0",
+  "deps": {
+    "cache": "cache,541d6f712a6b464e"
+  },
+  "desc": "Making native scripts more portable, interoperable and deterministic",
+  "developers": "Arjun Suresh and Grigori Fursin",
+  "actions_with_help":["run", "docker"],
+  "prototype": true,
+  "sort": 1000,
+  "tags": [
+    "automation"
+  ],
+  "uid": "5b4e0237da074764"
+}

@@ -1,0 +1,174 @@
+# Written by Grigori Fursin
+
+alias: get-ml-model-abtf-ssd-pytorch
+uid: b3750a4b222a485d
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+cache: true
+
+category: AI/ML models
+
+private: true
+
+
+tags:
+- get
+- ml-model
+- abtf-ssd-pytorch
+- cmc
+
+
+input_mapping:
+  model_code_git_url: CM_ABTF_MODEL_CODE_GIT_URL
+  model_code_git_branch: CM_ABTF_MODEL_CODE_GIT_BRANCH
+
+
+default_env:
+  CM_ABTF_MODEL_CODE_GIT_URL: https://github.com/mlcommons/abtf-ssd-pytorch
+  CM_ABTF_MODEL_CODE_GIT_BRANCH: cognata
+
+
+deps:
+
+- tags: detect,os
+
+- tags: get,git,repo
+  names:
+  - abtf-ssd-pytorch-git-repo
+  - abtf-ml-model-code-git-repo
+  skip_if_env:
+    CM_SKIP_MODEL_CODE_DOWNLOAD:
+    - 'yes'
+  env:
+    CM_GIT_AUTH: 'yes'
+    CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_ABTF_SSD_PYTORCH
+  extra_cache_tags: abtf,ssd,pytorch,ml-model,cmc
+  update_tags_from_env_with_prefix:
+    _repo.:
+      - CM_ABTF_MODEL_CODE_GIT_URL
+    _branch.:
+      - CM_ABTF_MODEL_CODE_GIT_BRANCH
+
+
+- tags: download,file
+  env:
+    CM_DOWNLOAD_CHECKSUM: <<<CM_ML_MODEL_CHECKSUM>>>
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_ML_MODEL_FILE_WITH_PATH
+    CM_DOWNLOAD_FILENAME: <<<CM_ML_MODEL_FILENAME>>>
+    CM_VERIFY_SSL: 'no'
+  force_cache: true
+  names:
+  - abtf-ml-model-weights
+  - abtf-ml-model-weights-download
+  skip_if_env:
+    CM_SKIP_MODEL_WEIGHTS_DOWNLOAD:
+    - 'yes'
+  update_tags_from_env_with_prefix:
+    _url.:
+      - CM_ML_MODEL_URL
+
+
+
+new_env_keys:
+- CM_ML_MODEL_*
+
+print_env_at_the_end:
+  CM_ML_MODEL_FILE_WITH_PATH: Path to the ML model weights
+  CM_ML_MODEL_CODE_WITH_PATH: Path to the ML model code
+
+
+variations:
+  e01:
+    env:
+      CM_ML_MODEL: abtf-ssd-pytorch
+      CM_ML_MODEL_CHECKSUM: 31d177228308bbe43917c912b01c2d67
+      CM_ML_MODEL_DATASET: coco
+      CM_ML_MODEL_FILENAME: SSD_e1.pth
+      CM_ML_MODEL_IMAGE_HEIGHT: '300'
+      CM_ML_MODEL_IMAGE_WIDTH: '300'
+      CM_ML_MODEL_URL: https://www.dropbox.com/scl/fi/7nqt5z8gplgeaveo933eo/SSD_e1.pth?rlkey=7lyb4qs2hzg491bfprwcuvx54&dl=0
+    group: model-weights
+
+  e65:
+    env:
+      CM_ML_MODEL: abtf-ssd-pytorch
+      CM_ML_MODEL_CHECKSUM: f769eb0321ac7fc1c16f982db6131d2f
+      CM_ML_MODEL_DATASET: coco
+      CM_ML_MODEL_FILENAME: SSD_e65.pth
+      CM_ML_MODEL_IMAGE_HEIGHT: '300'
+      CM_ML_MODEL_IMAGE_WIDTH: '300'
+      CM_ML_MODEL_URL: https://www.dropbox.com/scl/fi/wkegl2qxvm8cefbqq00o3/SSD_e65.pth?rlkey=ez26jafjdcly665npl6pdqxl8&dl=0
+    group: model-weights
+
+  abtf-mvp:
+    env:
+      CM_ML_MODEL: abtf-ssd-pytorch
+      CM_ML_MODEL_CHECKSUM: 1ab66f523715f9564603626e94e59c8c
+      CM_ML_MODEL_DATASET: cognata
+      CM_ML_MODEL_FILENAME: baseline_8MP_ss_scales_all_ep60.pth
+      CM_ML_MODEL_IMAGE_SIZE: '8M'
+      CM_ML_MODEL_URL: https://www.dropbox.com/scl/fi/9un2i2169rgebui4xklnm/baseline_8MP_ss_scales_all_ep60.pth?rlkey=sez3dnjep4waa09s5uy4r3wmk&st=z859czgk&dl=0
+    group: model-weights
+
+  abtf-poc:
+    default_variations:
+      download-tool: rclone
+    env:
+      CM_ML_MODEL: abtf-ssd-pytorch
+      CM_ML_MODEL_CHECKSUM: 26845c3b9573ce115ef29dca4ae5be14
+      CM_ML_MODEL_DATASET: cognata
+      CM_ML_MODEL_FILENAME: baseline_8MP_ss_scales_fm1_5x5_all_ep60.pth
+      CM_ML_MODEL_IMAGE_SIZE: '8M'
+    group: model-weights
+
+  abtf-poc,gdrive:
+    env:
+      CM_ML_MODEL_URL: https://drive.google.com/file/d/1kfJR_bs54KONprVd51kZu0PYmmh1wZZa/view
+
+  abtf-poc,rclone:
+    env:
+      CM_RCLONE_COPY_USING: copyurl
+      CM_ML_MODEL_URL: https://automotive.mlcommons-storage.org/SSD_ResNet50%2Fbaseline_8MP_ss_scales_fm1_5x5_all_ep60.pth
+      CM_RCLONE_CONFIG_CMD: ''
+
+
+  local.#:
+    env:
+      CM_ML_MODEL_FILENAME: '#'
+      CM_ML_MODEL_LOCAL: 'yes'
+      CM_SKIP_MODEL_WEIGHTS_DOWNLOAD: 'yes'
+    group: model-weights
+
+  skip_weights:
+    default: true
+    env:
+      CM_SKIP_MODEL_WEIGHTS_DOWNLOAD: 'yes'
+    group: model-weights
+
+  skip_code:
+    env:
+      CM_SKIP_MODEL_CODE_DOWNLOAD: 'yes'
+
+  rclone:
+    group: download-tool
+    env:
+      CM_RCLONE_COPY_USING: copyurl
+    adr:
+      abtf-ml-model-weights-download:
+        tags: _rclone
+
+  wget:
+    group: download-tool
+    default: true
+    adr:
+      abtf-ml-model-weights-download:
+        tags: _wget
+  gdown:
+    group: download-tool
+    env:
+      CM_DOWNLOAD_EXTRA_OPTIONS: " --fuzzy"
+    adr:
+      abtf-ml-model-weights-download:
+        tags: _gdown

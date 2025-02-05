@@ -1,0 +1,44 @@
+alias: create-fpgaconvnet-app-tinyml
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: TinyML automation
+deps:
+- names:
+  - config-generator
+  tags: create,fpgaconvnet,config
+- names:
+  - xilinx-sdk
+  tags: get,xilinx,sdk
+  version: '2019.1'
+- names:
+  - tensorflow
+  tags: get,tensorflow
+input_description: {}
+input_mapping: {}
+new_env_keys: []
+new_state_keys: []
+post_deps: []
+posthook_deps: []
+prehook_deps: []
+tags:
+- create
+- app
+- fpgaconvnet
+uid: 618f3520e98e4728
+variations:
+  ic:
+    add_deps:
+      config-generator:
+        tags: _ic
+    default: true
+    group: benchmark
+  zc706:
+    add_deps:
+      config-generator:
+        tags: _zc706
+    default: true
+    env:
+      CM_TINY_BOARD: zc706
+    group: board
+versions: {}

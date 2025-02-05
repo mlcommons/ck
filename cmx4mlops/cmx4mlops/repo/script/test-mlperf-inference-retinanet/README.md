@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/CM-interface-prototyping/test-mlperf-inference-retinanet](https://docs.mlcommons.org/cm4mlops/scripts/CM-interface-prototyping/test-mlperf-inference-retinanet) for the documentation of this CM script.

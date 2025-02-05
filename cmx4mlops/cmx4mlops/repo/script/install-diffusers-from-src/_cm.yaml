@@ -1,0 +1,79 @@
+alias: install-diffusers-from-src
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: Compiler automation
+deps:
+- tags: detect,os
+- tags: detect,cpu
+- names:
+  - python
+  - python3
+  skip_if_env:
+    CM_CONDA_ENV:
+    - 'yes'
+  tags: get,python3
+- names:
+  - compiler
+  tags: get,compiler
+- env:
+    CM_GIT_CHECKOUT_PATH_ENV_NAME: CM_DIFFUSERS_SRC_REPO_PATH
+  extra_cache_tags: diffusers,diffusers-src,src,diffusers-src,diffusers-src-repo
+  names:
+  - diffusers-src-repo
+  tags: get,git,repo
+  update_tags_from_env_with_prefix:
+    _branch.:
+    - CM_GIT_CHECKOUT
+    _repo.:
+    - CM_GIT_URL
+    _sha.:
+    - CM_GIT_CHECKOUT_SHA
+    _tag.:
+    - CM_GIT_CHECKOUT_TAG
+env:
+  CM_GIT_URL: https://github.com/huggingface/diffusers.git
+name: Build diffusers from sources
+new_env_keys:
+- CM_DIFFUSERS_*
+prehook_deps: []
+sort: 1000
+tags:
+- install
+- get
+- src
+- from.src
+- diffusers
+- src-diffusers
+uid: b2ddda995f63412f
+variations:
+  branch.#:
+    env:
+      CM_GIT_CHECKOUT: '#'
+  for-intel-mlperf-inference-v4.0-sdxl:
+    base:
+    - tag.v0.25.1
+    env:
+      CM_INTEL_MLPERF_INFERENCE_v4_0_STABLE_DIFFUSION_PATCH: 'yes'
+  python.#:
+    env:
+      CM_PYTHON_BIN_WITH_PATH: '#'
+  repo.#:
+    env:
+      CM_GIT_URL: '#'
+    group: repo
+  repo.https://github.com/huggingface/diffusers:
+    default: true
+    env:
+      CM_GIT_URL: https://github.com/huggingface/diffusers
+    group: repo
+  sha.#:
+    env:
+      CM_GIT_CHECKOUT_SHA: '#'
+  tag.#:
+    ad:
+      diffusers-src-repo:
+        tags: _no-recurse-submodules,_full-history
+    env:
+      CM_GIT_CHECKOUT_TAG: '#'
+versions: {}

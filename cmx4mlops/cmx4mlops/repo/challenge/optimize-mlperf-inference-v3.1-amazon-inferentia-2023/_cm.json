@@ -1,0 +1,27 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-amazon-inferentia-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230817",
+  "date_close_extension": true,
+  "date_open": "20230704",
+  "points":3,
+  "trophies":true,
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "benchmark",
+    "automate",
+    "inferentia",
+    "mlperf-inference",
+    "mlperf-inference-inferentia",
+    "mlperf-inference-inferentia",
+    "mlperf-inference-inferentia-v3.1",
+    "mlperf-inference-inferentia-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Develop a reference implementation of any MLPerf inference benchmark to run on Amazon Inferentia and submit to MLPerf inference v3.1+",
+  "uid": "c8f2573320424e2a"
+}

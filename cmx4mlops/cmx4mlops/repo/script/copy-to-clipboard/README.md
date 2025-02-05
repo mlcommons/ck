@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/copy-to-clipboard](https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/copy-to-clipboard) for the documentation of this CM script.

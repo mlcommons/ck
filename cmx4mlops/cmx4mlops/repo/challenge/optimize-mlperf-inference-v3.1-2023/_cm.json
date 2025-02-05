@@ -1,0 +1,26 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230817",
+  "date_open": "20230704",
+  "experiments": [],
+  "points": 1,
+  "sort": -10,
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "benchmark",
+    "automate",
+    "mlperf",
+    "mlperf-inference",
+    "mlperf-inference-v3.1",
+    "mlperf-inference-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Crowd-benchmark all MLPerf inference benchmarks similar to SETI@home (latency, throughput, power consumption, accuracy, costs)",
+  "trophies": true,
+  "uid": "3e971d8089014d1f"
+}

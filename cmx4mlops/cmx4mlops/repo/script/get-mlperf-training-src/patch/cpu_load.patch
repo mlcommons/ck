@@ -1,0 +1,16 @@
+diff --git a/single_stage_detector/ssd/pth_to_onnx.py b/single_stage_detector/ssd/pth_to_onnx.py
+index 93679cd..6146d49 100755
+--- a/single_stage_detector/ssd/pth_to_onnx.py
++++ b/single_stage_detector/ssd/pth_to_onnx.py
+@@ -54,7 +54,10 @@ def main(args):
+     model.to(device)
+ 
+     print("Loading model")
+-    checkpoint = torch.load(args.input)
++    if args.device == "cpu":
++        checkpoint = torch.load(args.input, map_location=torch.device('cpu'))
++    else:
++        checkpoint = torch.load(args.input)
+ 
+     # For some reason the batchnorms in the checkpoint do not have the same sizes as the module object. The checkpoint
+     # batchnorms have a size of [1, N, 1, 1], while the model batchnorms just have a size of [N].

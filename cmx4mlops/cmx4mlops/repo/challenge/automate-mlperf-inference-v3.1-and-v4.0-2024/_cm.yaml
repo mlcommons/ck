@@ -1,0 +1,21 @@
+alias: automate-mlperf-inference-v3.1-and-v4.0-2024
+uid: f89f152fc2614240
+
+automation_alias: challenge
+automation_uid: 3d84abd768f34e08
+
+title: Add MLCommons CM workflows and unifed interface to automate MLPerf inference v3.1 and v4.0 benchmarks (Intel, Nvidia, Qualcomm, Arm64, TPU ...)
+
+date_open: '20231215'
+date_close: '20240315'
+
+hot: true
+
+tags:
+- automate
+- mlperf-inference-v3.1-and-v4.0
+- 2024
+
+experiments:
+- tags: mlperf-inference,v3.1
+- tags: mlperf-inference,v4.0

@@ -1,0 +1,28 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-tvm-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230817",
+  "date_close_extension": true,
+  "date_open": "20230704",
+  "points":1,
+  "trophies":true,
+  "experiments": [],
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "automate",
+    "benchmark",
+    "tvm",
+    "mlperf-inference",
+    "mlperf-inference-tvm",
+    "mlperf-inference-tvm",
+    "mlperf-inference-tvm-v3.1",
+    "mlperf-inference-tvm-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Run and optimize MLPerf inference v3.1 benchmarks with Apache TVM",
+  "uid": "29c416e245884746"
+}

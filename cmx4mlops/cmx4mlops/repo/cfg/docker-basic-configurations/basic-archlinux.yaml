@@ -1,0 +1,9 @@
+﻿uid: 9960e9fb3cb24cb3
+
+name: "Basic ArchLinux"
+
+input:
+  docker_base_image: 'archlinux'
+  docker_os: arch
+  docker_os_version: 'latest'
+  

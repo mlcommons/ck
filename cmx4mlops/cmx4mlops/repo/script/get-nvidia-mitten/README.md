@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/get-nvidia-mitten](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/get-nvidia-mitten) for the documentation of this CM script.

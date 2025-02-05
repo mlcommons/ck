@@ -1,0 +1,76 @@
+alias: build-dockerfile
+uid: e66a7483230d4641
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+tags:
+- build
+- dockerfile
+
+cache: false
+
+category: Docker automation
+
+default_env:
+  CM_DOCKER_BUILD_SLIM: 'no'
+  CM_DOCKER_IMAGE_EOL: '
+
+    '
+  CM_DOCKER_OS: ubuntu
+  CM_DOCKER_NOT_PULL_UPDATE: False
+  CM_MLOPS_REPO_BRANCH: dev
+
+input_mapping:
+  build: CM_BUILD_DOCKER_IMAGE
+  cache: CM_DOCKER_CACHE
+  cm_repo: CM_MLOPS_REPO
+  cm_repo_flags: CM_DOCKER_ADD_FLAG_TO_CM_MLOPS_REPO
+  cm_repos: CM_DOCKER_EXTRA_CM_REPOS
+  cm_repo_branch: CM_MLOPS_REPO_BRANCH
+  comments: CM_DOCKER_RUN_COMMENTS
+  copy_files: CM_DOCKER_COPY_FILES
+  docker_base_image: CM_DOCKER_IMAGE_BASE
+  docker_os: CM_DOCKER_OS
+  docker_os_version: CM_DOCKER_OS_VERSION
+  dockerfile_env: CM_DOCKERFILE_ENV
+  extra_sys_deps: CM_DOCKER_EXTRA_SYS_DEPS
+  fake_docker_deps: CM_DOCKER_FAKE_DEPS
+  fake_run_option: CM_DOCKER_FAKE_RUN_OPTION
+  file_path: CM_DOCKERFILE_WITH_PATH
+  gh_token: CM_GH_TOKEN
+  image_repo: CM_DOCKER_IMAGE_REPO
+  image_tag: CM_DOCKER_IMAGE_TAG
+  package_manager_update_cmd: CM_PACKAGE_MANAGER_UPDATE_CMD
+  pip_extra_flags: CM_DOCKER_PIP_INSTALL_EXTRA_FLAGS
+  post_file: DOCKER_IMAGE_POST_FILE
+  post_run_cmds: CM_DOCKER_POST_RUN_COMMANDS
+  pre_run_cmds: CM_DOCKER_PRE_RUN_COMMANDS
+  real_run: CM_REAL_RUN
+  run_cmd: CM_DOCKER_RUN_CMD
+  run_cmd_extra: CM_DOCKER_RUN_CMD_EXTRA
+  script_tags: CM_DOCKER_RUN_SCRIPT_TAGS
+  skip_cm_sys_upgrade: CM_DOCKER_SKIP_CM_SYS_UPGRADE
+  push_image: CM_DOCKER_PUSH_IMAGE
+  docker_not_pull_update: CM_DOCKER_NOT_PULL_UPDATE
+
+new_env_keys:
+- CM_DOCKERFILE_*
+
+deps:
+  - tags: get,docker
+    names:
+    - docker
+
+post_deps:
+- enable_if_env:
+    CM_BUILD_DOCKER_IMAGE:
+    - 'yes'
+  names:
+  - build-docker-image
+  tags: build,docker,image
+
+variations:
+  slim:
+    env:
+      CM_DOCKER_BUILD_SLIM: 'yes'

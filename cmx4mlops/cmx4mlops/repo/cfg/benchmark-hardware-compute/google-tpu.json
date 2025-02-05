@@ -1,0 +1,6 @@
+{
+  "uid": "b3be7ac9ef954f5a",
+  "name": "Google - TPU",
+  "tags": "tpu,google",
+  "mlperf_inference_device": "tpu"
+}

@@ -1,0 +1,71 @@
+alias: run-mlperf-training-submission-checker
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: MLPerf benchmark support
+clean_files: []
+default_env:
+  CM_MLPERF_SHORT_RUN: 'no'
+default_version: master
+deps:
+- names:
+  - python
+  - python3
+  tags: get,python3
+- names:
+  - inference-src
+  - submission-checker-src
+  tags: get,mlcommons,inference,src
+- tags: install,mlperf,logging,from.src
+input_mapping:
+  extra_args: CM_MLPERF_SUBMISSION_CHECKER_EXTRA_ARGS
+  input: CM_MLPERF_SUBMISSION_DIR
+  power: CM_MLPERF_POWER
+  push_to_github: CM_MLPERF_RESULT_PUSH_TO_GITHUB
+  skip_compliance: CM_MLPERF_SKIP_COMPLIANCE
+  skip_power_check: CM_MLPERF_SKIP_POWER_CHECK
+  src_version: CM_MLPERF_SUBMISSION_CHECKER_VERSION
+  submission_dir: CM_MLPERF_SUBMISSION_DIR
+  submitter: CM_MLPERF_SUBMITTER
+  tar: CM_TAR_SUBMISSION_DIR
+post_deps:
+- enable_if_env:
+    CM_MLPERF_RESULT_PUSH_TO_GITHUB:
+    - 'on'
+  names:
+  - push-to-github
+  tags: publish-results,github
+- enable_if_env:
+    CM_TAR_SUBMISSION_DIR:
+    - 'yes'
+  tags: run,tar
+tags:
+- run
+- mlc
+- mlcommons
+- mlperf
+- training
+- train
+- mlperf-training
+- submission
+- checker
+- submission-checker
+- mlc-submission-checker
+uid: cb5cb60ac9a74d09
+variations:
+  short-run:
+    env:
+      CM_MLPERF_SHORT_RUN: 'yes'
+versions:
+  master:
+    adr:
+      submission-checker-src:
+        version: master
+  r3.0:
+    adr:
+      submission-checker-src:
+        version: r3.0
+  r3.1:
+    adr:
+      submission-checker-src:
+        version: r3.1

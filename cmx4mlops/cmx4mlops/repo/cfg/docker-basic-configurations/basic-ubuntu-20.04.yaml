@@ -1,0 +1,9 @@
+﻿uid: 59311e6098c14b21
+
+name: "Basic Ubuntu 20.04"
+
+input:
+  docker_base_image: 'ubuntu:20.04'
+  docker_os: ubuntu
+  docker_os_version: '20.04'
+  

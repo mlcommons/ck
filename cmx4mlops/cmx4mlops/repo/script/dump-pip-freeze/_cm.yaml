@@ -1,0 +1,16 @@
+alias: dump-pip-freeze
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+tags:
+- dump
+- pip
+- freeze
+new_state_keys:
+  - pip_freeze
+deps:
+  - tags: get,python
+    names:
+      - python
+      - python3
+uid: 33eb0a8006664cae

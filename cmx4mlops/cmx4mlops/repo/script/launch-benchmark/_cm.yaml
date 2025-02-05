@@ -1,0 +1,15 @@
+alias: launch-benchmark
+uid: 5dc7662804bc4cad
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+tags:
+- launch
+- benchmark
+
+category: "Collective benchmarking"
+
+gui:
+  title: "Launch benchmark"
+  use_customize_func: "gui"

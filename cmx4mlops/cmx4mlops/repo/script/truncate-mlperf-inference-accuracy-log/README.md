@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/truncate-mlperf-inference-accuracy-log](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/truncate-mlperf-inference-accuracy-log) for the documentation of this CM script.

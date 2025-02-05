@@ -1,0 +1,17 @@
+alias: install-pip-package-for-cmind-python
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+tags:
+- install
+- pip
+- package
+- pip-package
+- for-cmind-python
+- for.cmind-python
+uid: b16ed087abab459c
+
+variations:
+  package.#:
+    env:
+      CM_PIP_PACKAGE_NAME: "#"

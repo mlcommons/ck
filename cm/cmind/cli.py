@@ -1,4 +1,4 @@
-# Collective Mind command line wrapper
+# Collective Mind and Common Metadata eXchange command line wrapper
 #
 # Author(s): Grigori Fursin
 # Contributor(s):
@@ -121,6 +121,32 @@ def run_script(argv = None):
         argv = sys.argv[1:]
 
     return run(['run', 'script'] + argv)
+
+############################################################
+def runx_script(argv = None):
+    """
+    Shortcut to "cmx run script ..." or "mlcr ..."
+
+    CMX command line format:
+
+    Args:
+        argv (list | string): command line arguments
+
+    Returns: 
+        (CM return dict):
+
+        * return (int): return code == 0 if no error and >0 if error
+        * (error) (str): error string if return>0
+
+        * Output from a CM automation action
+
+    """
+
+    # Access CMX
+    if argv is None:
+        argv = sys.argv[1:]
+
+    return runx(['run', 'mlcr'] + argv)
 
 ############################################################
 def docker_script(argv = None):

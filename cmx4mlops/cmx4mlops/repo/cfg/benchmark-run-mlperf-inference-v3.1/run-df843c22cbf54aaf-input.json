@@ -1,0 +1,56 @@
+{
+  "action": "run",
+  "automation": "script",
+  "tags": "run-mlperf-inference,_r4.0,_submission,_short",
+  "division": "open",
+  "category": "edge",
+  "device": "cpu",
+  "model": "resnet50",
+  "host_os": "windows",
+  "precision": "float32",
+  "implementation": "reference",
+  "backend": "onnxruntime",
+  "scenario": "Offline",
+  "execution_mode": "test",
+  "submitter": "CTuning",
+  "power": "no",
+  "adr": {
+    "python": {
+      "version_min": "3.8"
+    }
+  },
+  "compliance": "no",
+  "j": true,
+  "time": true,
+  "clean": true,
+  "quiet": true,
+  "jf": "mlperf-inference-results",
+  "cmd": [
+    "--tags=run-mlperf-inference,_r4.0,_submission,_short",
+    "--division=open",
+    "--category=edge",
+    "--device=cpu",
+    "--model=retinanet",
+    "--precision=float32",
+    "--implementation=reference",
+    "--backend=onnxruntime",
+    "--scenario=Offline",
+    "--execution_mode=test",
+    "--submitter=CTuning",
+    "--power=no",
+    "--adr.python.version_min=3.8",
+    "--compliance=no",
+    "--j",
+    "--time",
+    "--clean",
+    "--quiet",
+    "--jf=mlperf-inference-results"
+  ],
+  "out": "con",
+  "parsed_automation": [
+    [
+      "script",
+      "5b4e0237da074764"
+    ]
+  ]
+}

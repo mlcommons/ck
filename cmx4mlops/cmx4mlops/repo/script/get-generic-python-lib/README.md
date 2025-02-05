@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/Python-automation/get-generic-python-lib](https://docs.mlcommons.org/cm4mlops/scripts/Python-automation/get-generic-python-lib) for the documentation of this CM script.

@@ -1,0 +1,152 @@
+# Identification of this CM script
+alias: generate-nvidia-engine
+uid: 0eef9f05b272401f
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "MLPerf benchmark support"
+
+
+# User-friendly tags to find this CM script
+tags:
+  - generate
+  - engine
+  - mlperf
+  - inference
+  - nvidia
+
+# Default environment
+default_env:
+  CM_BATCH_COUNT: '1'
+  CM_BATCH_SIZE: '1'
+  CM_LOADGEN_SCENARIO: 'Offline'
+  CM_GPU_COPY_STREAMS: '1'
+  CM_TENSORRT_WORKSPACE_SIZE: '4194304' 
+
+# Map script inputs to environment variables
+input_mapping:
+  output_dir: CM_MLPERF_OUTPUT_DIR
+
+new_env_keys:
+  - CM_MLPERF_*
+  - CM_DATASET_*
+
+# Dependencies on other CM scripts
+
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+  # Detect CUDA
+  - tags: get,cuda,_cudnn
+
+  # Detect Tensorrt
+  - tags: get,tensorrt
+
+  # Detect numpy
+  - tags: get,generic-python-lib,_numpy
+
+  # Detect numpy
+  - tags: get,generic-python-lib,_pycuda
+
+
+  ########################################################################
+  # Install MLPerf inference dependencies
+  
+  # Install MLPerf loadgen
+  - tags: get,loadgen
+    names:
+    - loadgen
+    
+  # Download MLPerf inference source
+  - tags: get,mlcommons,inference,src
+    names:
+    - inference-src
+
+  # Download Nvidia Submission Code
+  - tags: get,nvidia,mlperf,inference,common-code
+    names:
+    - nvidia-inference-common-code
+
+
+  ########################################################################
+  # Install ResNet50 model (ONNX) and ImageNet
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    names:
+      - imagenet-preprocessed
+    tags: get,dataset,preprocessed,imagenet,_NCHW
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    names:
+      - ml-model
+      - resnet50-model
+    tags: get,ml-model,resnet50,_onnx
+
+
+  ########################################################################
+  # Install RetinaNet model (ONNX) and OpenImages
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    names:
+      - openimages-preprocessed
+    tags: get,dataset,preprocessed,openimages,_validation,_NCHW
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    names:
+      - ml-model
+      - retinanet-model
+    tags: get,ml-model,retinanet,_onnx,_fp32
+
+
+  
+
+# Variations to customize dependencies
+variations:
+  # Target devices
+  cpu:
+    group: device
+    default: true
+    env:
+      CM_MLPERF_DEVICE: cpu
+  cuda:
+    env:
+      CM_MLPERF_DEVICE: gpu
+      CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
+
+
+  # Reference MLPerf models
+  resnet50:
+    group: model
+    default: true
+    env:
+      CM_MODEL: resnet50
+
+  retinanet:
+    group: model
+    env:
+      CM_MODEL: retinanet
+
+  batch_size.#:
+    env:
+      CM_MODEL_BATCH_SIZE: #
+
+  copy_streams.#:
+    env:
+      CM_GPU_COPY_STREAMS: #

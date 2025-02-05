@@ -1,0 +1,10 @@
+alias: docker-basic-configurations
+uid: d2a0c5bb17664c93
+
+automation_alias: cfg
+automation_uid: 88dce9c160324c5d
+
+tags:
+- docker
+- basic
+- configurations

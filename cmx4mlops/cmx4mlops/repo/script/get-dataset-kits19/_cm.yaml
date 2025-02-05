@@ -1,0 +1,60 @@
+alias: get-dataset-kits19
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML datasets
+default_env:
+  CM_GIT_CHECKOUT: master
+  CM_GIT_DEPTH: --depth 2
+  CM_GIT_PATCH: 'no'
+  CM_GIT_RECURSE_SUBMODULES: ''
+  CM_GIT_URL: https://github.com/neheller/kits19
+default_version: master
+deps:
+- tags: detect,os
+- names:
+  - python3
+  - python
+  tags: get,python3
+new_env_keys:
+- CM_DATASET_*
+tags:
+- get
+- dataset
+- medical-imaging
+- kits
+- original
+- kits19
+uid: 79992bb221024ac5
+variations:
+  calibration:
+    env:
+      CM_DATASET_CALIBRATION: 'yes'
+  default:
+    base:
+    - short-history
+    env:
+      CM_GIT_PATCH: 'no'
+  full-history:
+    env:
+      CM_GIT_DEPTH: ''
+  no-recurse-submodules:
+    env:
+      CM_GIT_RECURSE_SUBMODULES: ''
+  patch:
+    env:
+      CM_GIT_PATCH: 'yes'
+  short-history:
+    env:
+      CM_GIT_DEPTH: --depth 5
+  validation:
+    env:
+      CM_DATASET_VALIDATION: 'yes'
+versions:
+  custom:
+    env:
+      CM_GIT_CHECKOUT: ''
+      CM_GIT_SHA: 'yes'
+  master:
+    env:
+      CM_GIT_CHECKOUT: master

@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts//install-pip-package-for-cmind-python](https://docs.mlcommons.org/cm4mlops/scripts//install-pip-package-for-cmind-python) for the documentation of this CM script.

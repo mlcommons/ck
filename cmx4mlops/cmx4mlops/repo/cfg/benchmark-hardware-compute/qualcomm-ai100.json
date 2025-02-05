@@ -1,0 +1,6 @@
+{
+  "uid": "d2ae645066664463",
+  "name": "Qualcomm - AI 100",
+  "tags": "accelerator,acc,qualcomm,ai,100,ai-100",
+  "mlperf_inference_device": "qaic"
+}

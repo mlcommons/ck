@@ -1,0 +1,87 @@
+{
+  "python-packages": [
+    "wheel", "cmind", "requests", "giturlparse", "tabulate"
+  ],
+  "ARGS": [
+    "CM_GH_TOKEN"
+  ],
+  "ARGS_DEFAULT": {
+    "UID" : "1000",
+    "GID" : "1000"
+  },
+  "ENTRYPOINT": "[\"/bin/bash\", \"-c\"]",
+  "ENV": {
+    "TZ": "US/Pacific",
+    "PATH": "${PATH}:/home/cmuser/.local/bin"
+  },
+  "RUN_CMDS": [
+    "ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ >/etc/timezone"
+  ],
+  "PYTHON": "python3",
+  "UID": "",
+  "USER": "cmuser",
+  "GID": "",
+  "GROUP": "cm",
+  "SHELL": "[\"/bin/bash\", \"-c\"]",
+  "WORKDIR": "/home/cmuser",
+  "distros": {
+    "ubuntu": {
+      "package-manager-update-cmd": "apt-get update -y",
+      "package-manager-get-cmd": "apt-get install -y", 
+      "packages": [
+        "python3", "python3-pip", "git", "sudo", "wget", "python3-venv"
+      ],
+      "versions": {
+        "18.04": {
+          "FROM": "ubuntu:18.04"
+        },
+        "20.04": {
+          "FROM": "ubuntu:20.04"
+        },
+        "22.04": {
+          "FROM": "ubuntu:22.04"
+        },
+        "23.04": {
+          "FROM": "ubuntu:23.04"
+        },
+        "24.04": {
+          "FROM": "ubuntu:24.04"
+        }
+      }
+    },
+    "rhel": {
+      "FROM": "registry.access.redhat.com/ubi9", 
+      "package-manager-update-cmd": "dnf update -y",
+      "package-manager-get-cmd": "dnf install -y", 
+      "packages": [
+        "python3", "python-pip", "git", "wget", "sudo", "binutils"
+      ],
+      "versions": {
+        "9": {
+        },
+        "8": {
+          "FROM": "registry.access.redhat.com/ubi8",
+          "packages": [
+            "python39", "python39-pip", "git", "wget", "sudo", "binutils"
+          ],
+          "python-packages": [
+            "cmind", "requests", "giturlparse", "tabulate"
+          ],
+          "PYTHON": "python3.9"
+        }
+      }
+    },
+    "arch": {
+      "FROM": "archlinux",
+      "package-manager-update-cmd": "pacman -Syu --noconfirm",
+      "package-manager-get-cmd": "pacman -Sy --noconfirm",
+      "packages": [
+        "python", "python-pip", "git", "wget", "sudo", "binutils"
+      ],
+      "versions": {
+        "latest": {
+        }
+      }
+    }
+  }
+}

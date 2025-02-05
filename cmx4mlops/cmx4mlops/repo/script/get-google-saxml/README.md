@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-frameworks/get-google-saxml](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-frameworks/get-google-saxml) for the documentation of this CM script.

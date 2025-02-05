@@ -1,0 +1,17 @@
+{
+  "alias": "participate-mlperf-inference-5.0",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_open": "20250201",
+  "date_close": "20250228",
+  "tags": [
+    "participate",
+    "event",
+    "mlperf",
+    "mlperf-inference",
+    "mlperf-inference-5.0"
+  ],
+  "title": "Participate in the MLPerf inference v5.0 submission",
+  "uid": "360c549906414ac0",
+  "url": "https://github.com/mlcommons/inference"
+}

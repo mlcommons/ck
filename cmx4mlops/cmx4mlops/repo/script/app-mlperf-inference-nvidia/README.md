@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/Reproduce-MLPerf-benchmarks/app-mlperf-inference-nvidia](https://docs.mlcommons.org/cm4mlops/scripts/Reproduce-MLPerf-benchmarks/app-mlperf-inference-nvidia) for the documentation of this CM script.

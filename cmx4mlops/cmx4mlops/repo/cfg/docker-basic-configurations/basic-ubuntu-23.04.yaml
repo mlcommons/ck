@@ -1,0 +1,9 @@
+﻿uid: 276bd8ab39324f5f
+
+name: "Basic Ubuntu 23.04"
+
+input:
+  docker_base_image: 'ubuntu:23.04'
+  docker_os: ubuntu
+  docker_os_version: '23.04'
+  

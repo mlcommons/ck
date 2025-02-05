@@ -1,0 +1,27 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-hugging-face-models-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230817",
+  "date_close_extension": true,
+  "date_open": "20230704",
+  "points":3,
+  "trophies":true,
+  "tags": [
+    "modularize",
+    "optimize",
+    "reproduce",
+    "replicate",
+    "automate",
+    "benchmark",
+    "huggingface",
+    "mlperf-inference",
+    "mlperf-inference-huggingface",
+    "mlperf-inference-huggingface",
+    "mlperf-inference-huggingface-v3.1",
+    "mlperf-inference-huggingface-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Implement CM automation to run benchmark Hugging Face models using MLPerf loadgen",
+  "uid": "72b95d08a9e04698"
+}

@@ -1,0 +1,38 @@
+alias: flash-tinyml-binary
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: TinyML automation
+default_version: r1.0
+deps:
+- tags: detect,os
+- names:
+  - zephyr
+  tags: get,zephyr
+- names:
+  - zephyr-sdk
+  tags: get,zephyr-sdk
+- inherit_variation_tags: 'True'
+  skip_if_env:
+    CM_TINY_BUILD_DIR:
+    - 'on'
+  tags: reproduce,tiny,mlperf
+input_mapping:
+  build_dir: CM_TINY_BUILD_DIR
+local_env_keys:
+- CM_*
+tags:
+- flash
+- tiny
+- mlperf
+- mlcommons
+uid: 98913babb43f4fcb
+variations:
+  NRF: {}
+  NUCLEO: {}
+  ad: {}
+  cmsis_nn: {}
+  ic: {}
+  kws: {}
+  native: {}
+  vww: {}

@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-frameworks/install-rocm](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-frameworks/install-rocm) for the documentation of this CM script.

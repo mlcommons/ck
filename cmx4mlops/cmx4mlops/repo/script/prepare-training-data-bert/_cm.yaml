@@ -1,0 +1,107 @@
+alias: prepare-training-data-bert
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: MLPerf benchmark support
+deps: []
+input_description: {}
+input_mapping:
+  clean: CM_MLPERF_TRAINING_CLEAN_TFRECORDS
+  data_dir: CM_DATA_DIR
+new_env_keys:
+- CM_MLPERF_TRAINING_BERT_*
+new_state_keys: []
+post_deps: []
+posthook_deps: []
+prehook_deps:
+- env:
+    CM_DOWNLOAD_CHECKSUM: 7f59165e21b7d566db610ff6756c926b
+    CM_DOWNLOAD_FILENAME: bert_config.json
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_BERT_CONFIG_FILE_PATH
+    CM_DOWNLOAD_PATH: <<<CM_BERT_CONFIG_DOWNLOAD_DIR>>>
+  extra_cache_tags: mlperf,training,bert,config
+  force_cache: true
+  tags: download,file,_gdown,_url.https://drive.google.com/uc?id=1fbGClQMi2CoMv7fwrwTC5YYPooQBdcFW
+- env:
+    CM_DOWNLOAD_CHECKSUM: 64800d5d8528ce344256daf115d4965e
+    CM_DOWNLOAD_FILENAME: vocab.txt
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_BERT_VOCAB_FILE_PATH
+    CM_DOWNLOAD_PATH: <<<CM_BERT_VOCAB_DOWNLOAD_DIR>>>
+  extra_cache_tags: bert,vocab
+  force_cache: true
+  tags: download,file,_gdown,_url.https://drive.google.com/uc?id=1USK108J6hMM_d27xCHi738qBL8_BT1u1
+- env:
+    CM_DOWNLOAD_CHECKSUM: 7d3a0619cb8bf7e829af99fa5c29daa8
+    CM_DOWNLOAD_FILENAME: bert_reference_results_text_md5.txt
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_BERT_REFERENCE_RESULTS_TEXT_MD5_FILE_PATH
+    CM_DOWNLOAD_PATH: <<<CM_BERT_DATA_DOWNLOAD_DIR>>>
+  extra_cache_tags: bert,data,results,md5
+  force_cache: true
+  tags: download,file,_gdown,_url.https://drive.google.com/uc?id=1tmMgLwoBvbEJEHXh77sqrXYw5RpqT8R_
+- env:
+    CM_DOWNLOAD_CHECKSUM: ''
+    CM_DOWNLOAD_FILENAME: results_text.tar.gz
+    CM_DOWNLOAD_PATH: <<<CM_BERT_DATA_DOWNLOAD_DIR>>>
+    CM_EXTRACT_EXTRACTED_CHECKSUM_FILE: <<<CM_BERT_REFERENCE_RESULTS_TEXT_MD5_FILE_PATH>>>
+    CM_EXTRACT_EXTRACTED_FILENAME: results4
+    CM_EXTRACT_FINAL_ENV_NAME: CM_BERT_TRAINING_DATA_PATH
+    CM_EXTRACT_PATH: <<<CM_BERT_DATA_DOWNLOAD_DIR>>>
+  extra_cache_tags: bert,data,results
+  force_cache: true
+  tags: download-and-extract,file,_gdown,_extract,_url.https://drive.google.com/uc?id=14xV2OUGSQDG_yDBrmbSdcDC-QGeqpfs_
+- env:
+    CM_DOWNLOAD_CHECKSUM: 50797acd537880bfb5a7ade80d976129
+    CM_DOWNLOAD_FILENAME: model.ckpt-28252.data-00000-of-00001
+    CM_DOWNLOAD_FINAL_ENV_NAME: CM_BERT_CHECKPOINT_FILE_PATH
+    CM_DOWNLOAD_PATH: <<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>
+  extra_cache_tags: bert,checkpoint,data
+  force_cache: true
+  tags: download,file,_gdown,_url.https://drive.google.com/uc?id=1chiTBljF0Eh1U5pKs6ureVHgSbtU8OG_
+- env:
+    CM_DOWNLOAD_CHECKSUM: f97de3ae180eb8d479555c939d50d048
+    CM_DOWNLOAD_FILENAME: model.ckpt-28252.index
+    CM_DOWNLOAD_PATH: <<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>
+  extra_cache_tags: bert,checkpoint,index
+  force_cache: true
+  tags: download,file,_gdown,_url.https://drive.google.com/uc?id=1Q47V3K3jFRkbJ2zGCrKkKk-n0fvMZsa0
+- env:
+    CM_DOWNLOAD_CHECKSUM: dbd16c731e8a8113bc08eeed0326b8e7
+    CM_DOWNLOAD_FILENAME: model.ckpt-28252.meta
+    CM_DOWNLOAD_PATH: <<<CM_BERT_CHECKPOINT_DOWNLOAD_DIR>>>
+  extra_cache_tags: bert,checkpoint,meta
+  force_cache: true
+  tags: download,file,_gdown,_url.https://drive.google.com/uc?id=1vAcVmXSLsLeQ1q7gvHnQUSth5W_f_pwv
+tags:
+- prepare
+- mlperf
+- training
+- data
+- input
+- bert
+uid: 1e06a7abe23545eb
+variations:
+  nvidia:
+    default: true
+    deps:
+    - extra_cache_tags: mlperf,training,results
+      tags: get,git,repo,_repo.https://github.com/wchen61/training_results_v2.1,_branch.fix_bert_prepare_data
+    env:
+      CM_TMP_VARIATION: nvidia
+    group: implementation
+  reference:
+    deps:
+    - names:
+      - mlperf-training-src
+      tags: get,mlperf,training,src
+    - names:
+      - python3
+      tags: get,python3
+    - tags: get,generic-python-lib,_tensorflow
+      version: 2.4.0
+    - tags: get,generic-python-lib,_protobuf
+      version_max: 3.20.1
+      version_max_usable: 3.20.1
+    env:
+      CM_TMP_VARIATION: reference
+    group: implementation
+versions: {}

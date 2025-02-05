@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-optimization/prune-bert-models](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-optimization/prune-bert-models) for the documentation of this CM script.

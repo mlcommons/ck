@@ -1,0 +1,9 @@
+﻿uid: 12e86eb386314866
+
+name: "Basic Ubuntu 24.04"
+
+input:
+  docker_base_image: 'ubuntu:24.04'
+  docker_os: ubuntu
+  docker_os_version: '24.04'
+  

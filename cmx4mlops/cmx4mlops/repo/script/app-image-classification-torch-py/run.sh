@@ -1,0 +1,20 @@
+#!/bin/bash
+
+CM_TMP_CURRENT_SCRIPT_PATH=${CM_TMP_CURRENT_SCRIPT_PATH:-$PWD}
+
+# connect CM intelligent components with CK env
+export CM_ML_TORCH_MODEL_NAME=resnet50
+export CM_ML_MODEL_INPUT_DATA_TYPE=float32
+export CM_ML_MODEL_IMAGE_HEIGHT=224
+export CM_ML_MODEL_IMAGE_WIDTH=224
+export CM_DATASET_IMAGENET_PREPROCESSED_DIR=${CM_DATASET_PREPROCESSED_FULL_PATH}
+export CM_CAFFE_IMAGENET_SYNSET_WORDS_TXT=${CM_DATASET_AUX_PATH}/synset_words.txt
+export CM_DATASET_IMAGENET_PREPROCESSED_DATA_TYPE=float32
+export CM_RESULTS_DIR=${CM_TMP_CURRENT_SCRIPT_PATH}/results
+export ML_MODEL_DATA_LAYOUT=NCHW
+
+${CM_PYTHON_BIN} -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
+test $? -eq 0 || exit 1
+
+${CM_PYTHON_BIN} ${CM_TMP_CURRENT_SCRIPT_PATH}/src/pytorch_classify_preprocessed.py
+test $? -eq 0 || exit 1

@@ -1,0 +1,58 @@
+alias: get-gh-actions-runner
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+can_force_cache: true
+tags:
+- get
+- gh
+- github
+- actions-runner
+- runner-code
+- runner
+- code
+- gh-actions-runner
+uid: 5b005c5a76f242a7
+input_mapping:
+  token: CM_GH_ACTIONS_RUNNER_TOKEN
+  url: CM_GH_ACTIONS_RUNNER_URL
+
+new_env_keys:
+  - CM_GH_ACTIONS_RUNNER_CODE_PATH
+
+deps:
+  - tags: detect-os
+  - tags: download-and-extract,_extract,_url.https://github.com/actions/runner/releases/download/v2.320.0/actions-runner-linux-x64-2.320.0.tar.gz
+    force_cache: yes
+    extra_cache_tags: gh-actions-runner-code,gh-actions,code
+    env:
+      CM_DAE_FINAL_ENV_NAME: CM_GH_ACTIONS_RUNNER_CODE_PATH
+
+variations:
+  config:
+    group: command
+    default: true
+    env:
+      CM_GH_ACTIONS_RUNNER_COMMAND: config
+  remove:
+    group: command
+    env:
+      CM_GH_ACTIONS_RUNNER_COMMAND: remove
+  install:
+    group: command
+    deps:
+      - tags: get,gh,actions-runner,_config
+        force_cache: yes
+    env:
+      CM_GH_ACTIONS_RUNNER_COMMAND: install
+  uninstall:
+    group: command
+    env:
+      CM_GH_ACTIONS_RUNNER_COMMAND: uninstall
+  start:
+    group: command
+    deps:
+      - tags: get,gh,actions-runner,_install
+        force_cache: yes
+    env:
+      CM_GH_ACTIONS_RUNNER_COMMAND: start

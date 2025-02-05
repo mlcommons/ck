@@ -1,0 +1,130 @@
+uid: 8d3cd46f54464810
+alias: run-all-mlperf-models
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+cache: false
+
+category: MLPerf benchmark support
+
+tags:
+- run
+- natively
+- all
+- mlperf-models
+
+variations:
+
+  mil:
+    group: implementation
+    env:
+      IMPLEMENTATION: mil
+    default_env:
+      MODELS: resnet50,retinanet
+      BACKENDS: onnxruntime
+      DEVICES: cpu,cuda
+
+  reference:
+    group: implementation
+    env:
+      IMPLEMENTATION: reference
+    default_env:
+      MODELS: resnet50,retinanet,bert-99,3d-unet-99,rnnt
+      CATEGORY: edge
+
+  nvidia:
+    group: implementation
+    env:
+      IMPLEMENTATION: nvidia
+    default_env:
+      MODELS: resnet50,retinanet,bert-99,bert-99.9,3d-unet-99,rnnt,gptj-99,gptj-99.9,dlrmv2-99,dlrmv2-99.9
+      BACKENDS: tensorrt
+      DEVICES: cuda
+
+  qualcomm:
+    group: implementation
+    env:
+      IMPLEMENTATION: qualcomm
+    default_env:
+      MODELS: resnet50,retinanet,bert-99,bert-99.9
+      DIVISION: closed
+      BACKENDS: glow
+      DEVICES: qaic
+
+  intel:
+    group: implementation
+    env:
+      IMPLEMENTATION: intel
+    default_env:
+      MODELS: resnet50,retinanet,bert-99,3d-unet-99,rnnt
+      DIVISION: closed
+      BACKENDS: pytorch
+      DEVICES: cpu
+
+  deepsparse:
+    group: implementation
+    env:
+      DIVISION: open
+      IMPLEMENTATION: deepsparse
+    default_env:
+      MODELS: bert-99
+      BACKENDS: deepsparse
+      DEVICES: cpu
+
+  tflite-cpp:
+    group: implementation
+    env:
+      IMPLEMENTATION: tflite_cpp
+    default_env:
+      MODELS: mobilenet,efficientnet
+      CATEGORY: edge
+      DIVISION: open
+      BACKENDS: tflite
+      DEVICES: cpu
+
+  performance-only:
+    group: power
+    default: true
+
+  power:
+    group: power
+    env:
+      POWER: yes
+    default_env:
+      POWER_SERVER_IP: 192.168.0.15
+      POWER_SERVER_PORT: 4950
+
+
+  phoenix:
+    group: sut
+    env:
+      CATEGORY: edge,datacenter
+      DIVISION: closed
+    state:
+      resnet50:
+        cpu:
+          onnxruntime:
+            offline_target_qps: 250
+
+  phoenix,reference:
+    default_env:
+      DEVICES: cpu,cuda
+
+  orin.32g:
+    group: sut
+    env:
+      CATEGORY: edge
+      DIVISION: closed
+
+  sapphire-rapids.24c:
+    group: sut
+    env:
+      CATEGORY: edge,datacenter
+      DIVISION: closed
+
+  macbookpro-m1:
+    group: sut
+    env:
+      CATEGORY: edge
+      DIVISION: closed

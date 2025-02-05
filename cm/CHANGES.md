@@ -1,3 +1,9 @@
+## CMX V4.0.1
+   - provided backward compatibility with various MLCommons tools
+
+## CMX V4.0.0
+   - added CMX interface for new tools
+
 ## V3.5.3
    - fixed `cm info repo` and `cmx info repo`: https://github.com/mlcommons/ck/issues/1378 
 

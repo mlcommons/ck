@@ -1,0 +1,18 @@
+﻿uid: 59311e6098c14b22
+
+tags: benchmark,run,mlperf,training,mlperf-training
+
+name: "MLPerf training"
+
+urls:
+- name: "Official page"
+  url: "https://mlcommons.org/benchmarks/training"
+- name: "GitHub dev page"
+  url: "https://github.com/mlcommons/training"
+- name: "MLCommons CM automation (under development)"
+  url: "https://github.com/mlcommons/ck/blob/master/docs/tutorials/reproduce-mlperf-training.md"
+
+supported_compute:
+- cpu,x64
+- gpu,nvidia
+- tpu,google

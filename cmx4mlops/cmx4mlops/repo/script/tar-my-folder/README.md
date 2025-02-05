@@ -1,0 +1,1 @@
+Please see [https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/tar-my-folder](https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/tar-my-folder) for the documentation of this CM script.

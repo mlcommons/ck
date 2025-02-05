@@ -1,0 +1,280 @@
+alias: get-ml-model-mobilenet
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: AI/ML models
+default_env:
+  CM_ML_MODEL: mobilenet
+  CM_ML_MODEL_DATASET: imagenet2012-val
+  CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+  CM_ML_MODEL_MOBILENET_NAME_SUFFIX: ''
+  CM_ML_MODEL_RETRAINING: 'no'
+  CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp32
+  CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: 'no'
+new_env_keys:
+- CM_ML_MODEL_*
+- CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS
+print_env_at_the_end:
+  CM_ML_MODEL_FILE_WITH_PATH: Path to the ML model
+tags:
+- get
+- ml-model
+- mobilenet
+- raw
+- ml-model-mobilenet
+- image-classification
+uid: ce46675a3ab249e4
+variations:
+  fp32:
+    default: true
+    env:
+      CM_ML_MODEL_INPUTS_DATA_TYPE: fp32
+      CM_ML_MODEL_MOBILENET_PRECISION: float
+      CM_ML_MODEL_PRECISION: fp32
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: fp32
+    group: precision
+  from.google:
+    env:
+      CM_DOWNLOAD_SOURCE: google
+    group: source
+  from.zenodo:
+    env:
+      CM_DOWNLOAD_SOURCE: zenodo
+    group: source
+  int8:
+    base:
+    - quantized_
+    env:
+      CM_ML_MODEL_INPUTS_DATA_TYPE: int8
+      CM_ML_MODEL_MOBILENET_PRECISION: int8
+      CM_ML_MODEL_PRECISION: int8
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: int8
+    group: precision
+  large:
+    env:
+      CM_ML_MODEL_MOBILENET_KIND: large
+    group: kind
+  large-minimalistic:
+    env:
+      CM_ML_MODEL_MOBILENET_KIND: large-minimalistic
+    group: kind
+  multiplier-0.25:
+    env:
+      CM_ML_MODEL_MOBILENET_MULTIPLIER: '0.25'
+      CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE: '25'
+    group: multiplier
+  multiplier-0.35:
+    env:
+      CM_ML_MODEL_MOBILENET_MULTIPLIER: '0.35'
+      CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE: '35'
+    group: multiplier
+  multiplier-0.5:
+    env:
+      CM_ML_MODEL_MOBILENET_MULTIPLIER: '0.5'
+      CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE: '50'
+    group: multiplier
+  multiplier-0.75:
+    env:
+      CM_ML_MODEL_MOBILENET_MULTIPLIER: '0.75'
+      CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE: '75'
+    group: multiplier
+  multiplier-1.0:
+    env:
+      CM_ML_MODEL_MOBILENET_MULTIPLIER: '1.0'
+      CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE: '100'
+    group: multiplier
+  onnx:
+    env:
+      CM_ML_MODEL_DATA_LAYOUT: NCHW
+      CM_ML_MODEL_FRAMEWORK: onnx
+    group: framework
+  onnx,fp32,v1:
+    env:
+      CM_ML_MODEL_INPUT_LAYER_NAME: input:0
+      CM_ML_MODEL_NORMALIZE_DATA: 'yes'
+      CM_ML_MODEL_OUTPUT_LAYER_NAME: MobilenetV1/Predictions/Reshape_1:0
+      CM_ML_MODEL_SUBTRACT_MEANS: 'no'
+      CM_ML_MODEL_VER: '1_1.0_224'
+  onnx,int8,v1:
+    env:
+      CM_ML_MODEL_FILE: mobilenet_sym_no_bn.onnx
+      CM_ML_MODEL_GIVEN_CHANNEL_MEANS: 128.0 128.0 128.0
+      CM_ML_MODEL_INPUT_LAYER_NAME: '0'
+      CM_ML_MODEL_NORMALIZE_DATA: 'no'
+      CM_ML_MODEL_OUTPUT_LAYER_NAME: '169'
+      CM_ML_MODEL_SUBTRACT_MEANS: 'yes'
+      CM_ML_MODEL_VER: 1_1.0_224_quant
+      CM_PACKAGE_URL: https://zenodo.org/record/3353417/files/Quantized%20MobileNet.zip
+      CM_UNZIP: 'yes'
+  onnx,opset-11,fp32,v1:
+    env:
+      CM_PACKAGE_URL: https://zenodo.org/record/4735651/files/mobilenet_v1_1.0_224.onnx
+  onnx,opset-8,fp32,v1:
+    env:
+      CM_PACKAGE_URL: https://zenodo.org/record/3157894/files/mobilenet_v1_1.0_224.onnx
+  opset-11:
+    env:
+      CM_ML_MODEL_ONNX_OPSET: '11'
+    group: opset-version
+  opset-8:
+    env:
+      CM_ML_MODEL_ONNX_OPSET: '8'
+    group: opset-version
+  quantized_:
+    env:
+      CM_ML_MODEL_MOBILENET_NAME_SUFFIX: _quant
+      CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: 'yes'
+  resolution-128:
+    env:
+      CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS: _resolution.128
+      CM_ML_MODEL_IMAGE_HEIGHT: '128'
+      CM_ML_MODEL_IMAGE_WIDTH: '128'
+      CM_ML_MODEL_MOBILENET_RESOLUTION: '128'
+    group: resolution
+  resolution-160:
+    env:
+      CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS: _resolution.160
+      CM_ML_MODEL_IMAGE_HEIGHT: '160'
+      CM_ML_MODEL_IMAGE_WIDTH: '160'
+      CM_ML_MODEL_MOBILENET_RESOLUTION: '160'
+    group: resolution
+  resolution-192:
+    env:
+      CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS: _resolution.192
+      CM_ML_MODEL_IMAGE_HEIGHT: '192'
+      CM_ML_MODEL_IMAGE_WIDTH: '192'
+      CM_ML_MODEL_MOBILENET_RESOLUTION: '192'
+    group: resolution
+  resolution-224:
+    env:
+      CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS: _resolution.224
+      CM_ML_MODEL_IMAGE_HEIGHT: '224'
+      CM_ML_MODEL_IMAGE_WIDTH: '224'
+      CM_ML_MODEL_MOBILENET_RESOLUTION: '224'
+    group: resolution
+  small:
+    env:
+      CM_ML_MODEL_MOBILENET_KIND: small
+    group: kind
+  small-minimalistic:
+    default_variations:
+      precision: fp32
+    env:
+      CM_ML_MODEL_MOBILENET_KIND: small-minimalistic
+    group: kind
+  tf:
+    default: true
+    default_variations:
+      source: from.google
+    env:
+      CM_ML_MODEL_DATA_LAYOUT: NHWC
+      CM_ML_MODEL_INPUT_LAYER_NAME: input
+      CM_ML_MODEL_NORMALIZE_DATA: 'yes'
+      CM_ML_MODEL_SUBTRACT_MEANS: 'no'
+    group: framework
+  tf,fp32,v1,resolution-224,multiplier-1.0:
+    env:
+      CM_ML_MODEL_ACCURACY: '71.676'
+  tf,from.google,v1:
+    env:
+      CM_PACKAGE_URL: http://download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>><<<CM_ML_MODEL_MOBILENET_NAME_SUFFIX>>>.tgz
+      CM_UNTAR: 'yes'
+  tf,from.google,v2,fp32:
+    env:
+      CM_ML_MODEL_FILE: mobilenet_v2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>.tflite
+      CM_ML_MODEL_WEIGHTS_FILE: mobilenet_v2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>.ckpt.data-00000-of-00001
+      CM_PACKAGE_URL: https://storage.googleapis.com/mobilenet_v2/checkpoints/mobilenet_v2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>.tgz
+      CM_UNTAR: 'yes'
+  tf,from.google,v2,quantized_:
+    env:
+      CM_EXTRACT_FOLDER: v2_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE>>>
+      CM_ML_MODEL_FILE: model.tflite
+      CM_ML_MODEL_WEIGHTS_FILE: <<<CM_ML_MODEL_MOBILENET_NAME_PREFIX>>>_v2_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE>>>.ckpt.data-00000-of-00001
+      CM_PACKAGE_URL: https://storage.googleapis.com/mobilenet_v2/checkpoints/<<<CM_ML_MODEL_MOBILENET_NAME_PREFIX>>>_v2_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE>>>.tgz
+      CM_UNTAR: 'yes'
+  tf,from.google,v3:
+    env:
+      CM_EXTRACT_FOLDER: v3-<<<CM_ML_MODEL_MOBILENET_KIND>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_PRECISION>>>
+      CM_ML_MODEL_FILE: v3-<<<CM_ML_MODEL_MOBILENET_KIND>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_PRECISION>>>.tflite
+      CM_PACKAGE_URL: https://storage.googleapis.com/mobilenet_v3/checkpoints/v3-<<<CM_ML_MODEL_MOBILENET_KIND>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_PRECISION>>>.tgz
+      CM_UNTAR: 'yes'
+  tf,from.zenodo,v1:
+    env:
+      CM_PACKAGE_URL: https://zenodo.org/record/2269307/files/mobilenet_v1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>><<<CM_ML_MODEL_MOBILENET_NAME_SUFFIX>>>.tgz
+      CM_UNTAR: 'yes'
+  tf,int8,v1,resolution-224,multiplier-1.0:
+    env:
+      CM_ML_MODEL_ACCURACY: '70.762'
+  tf,v1:
+    env:
+      CM_ML_MODEL_FILE: mobilenet_v1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>><<<CM_ML_MODEL_MOBILENET_NAME_SUFFIX>>>.tflite
+      CM_ML_MODEL_OUTPUT_LAYER_NAME: MobilenetV1/Predictions/Reshape_1
+      CM_ML_MODEL_VER: 1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>><<<CM_ML_MODEL_MOBILENET_NAME_SUFFIX>>>_2018_08_02
+      CM_ML_MODEL_WEIGHTS_FILE: mobilenet_v1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>><<<CM_ML_MODEL_MOBILENET_NAME_SUFFIX>>>.ckpt.data-00000-of-00001
+  tf,v1,fp32:
+    env:
+      CM_ML_MODEL_MOBILENET_NAME_PREFIX: ''
+  tf,v1,int8:
+    env:
+      CM_ML_MODEL_MOBILENET_NAME_SUFFIX: _quant
+  tf,v1,uint8:
+    env:
+      CM_ML_MODEL_MOBILENET_NAME_SUFFIX: _quant
+  tf,v2,fp32:
+    env:
+      CM_ML_MODEL_MOBILENET_NAME_PREFIX: ''
+      CM_ML_MODEL_OUTPUT_LAYER_NAME: MobilenetV2/Predictions/Reshape_1
+      CM_ML_MODEL_VER: 2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>
+  tf,v2,int8:
+    env:
+      CM_ML_MODEL_MOBILENET_NAME_PREFIX: quantized
+      CM_ML_MODEL_OUTPUT_LAYER_NAME: MobilenetV2/Predictions/Softmax
+      CM_ML_MODEL_VER: 2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>
+  tf,v2,uint8:
+    env:
+      CM_ML_MODEL_MOBILENET_NAME_PREFIX: quantized
+      CM_ML_MODEL_OUTPUT_LAYER_NAME: MobilenetV2/Predictions/Softmax
+      CM_ML_MODEL_VER: 2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>
+  tf,v3:
+    env:
+      CM_ML_MODEL_OUTPUT_LAYER_NAME: MobilenetV3/Predictions/Softmax
+      CM_ML_MODEL_VER: 3_<<<CM_ML_MODEL_MOBILENET_KIND>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>
+  tflite:
+    base:
+    - tf
+  uint8:
+    base:
+    - quantized_
+    env:
+      CM_ML_MODEL_INPUTS_DATA_TYPE: uint8
+      CM_ML_MODEL_MOBILENET_PRECISION: uint8
+      CM_ML_MODEL_PRECISION: uint8
+      CM_ML_MODEL_WEIGHTS_DATA_TYPE: uint8
+    group: precision
+  v1:
+    default_variations:
+      multiplier: multiplier-1.0
+      resolution: resolution-224
+    env:
+      CM_ML_MODEL_FULL_NAME: mobilenet-v1-precision_<<<CM_ML_MODEL_MOBILENET_PRECISION>>>-<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>-<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>
+      CM_ML_MODEL_MOBILENET_VERSION: '1'
+    group: version
+  v2:
+    default_variations:
+      multiplier: multiplier-1.0
+      resolution: resolution-224
+    env:
+      CM_ML_MODEL_FULL_NAME: mobilenet-v2-precision_<<<CM_ML_MODEL_MOBILENET_PRECISION>>>-<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>-<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>
+      CM_ML_MODEL_MOBILENET_VERSION: '2'
+      CM_ML_MODEL_VER: '2'
+    group: version
+  v3:
+    default: true
+    default_variations:
+      multiplier: multiplier-1.0
+      resolution: resolution-224
+    env:
+      CM_ML_MODEL_FULL_NAME: mobilenet-v3-precision_<<<CM_ML_MODEL_MOBILENET_PRECISION>>>-<<<CM_ML_MODEL_MOBILENET_KIND>>>-<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>
+      CM_ML_MODEL_MOBILENET_VERSION: '3'
+      CM_ML_MODEL_VER: '3'
+    group: version

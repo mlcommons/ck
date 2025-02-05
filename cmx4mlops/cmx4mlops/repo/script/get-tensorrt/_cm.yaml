@@ -1,0 +1,38 @@
+alias: get-tensorrt
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: true
+category: CUDA automation
+clean_files: []
+default_env: {}
+deps:
+- tags: detect,os
+- names:
+  - python
+  - python3
+  tags: get,python3
+docker: {}
+input_description:
+  input: Full path to the installed TensorRT library (nvinfer)
+  tar_file: Full path to the TensorRT Tar file downloaded from the Nvidia website
+    (https://developer.nvidia.com/tensorrt)
+input_mapping:
+  input: CM_INPUT
+  tar_file: CM_TENSORRT_TAR_FILE_PATH
+new_env_keys:
+- CM_TENSORRT_*
+- +PATH
+- +C_INCLUDE_PATH
+- +CPLUS_INCLUDE_PATH
+- +LD_LIBRARY_PATH
+- +DYLD_FALLBACK_LIBRARY_PATH
+- + LDFLAGS
+tags:
+- get
+- tensorrt
+- nvidia
+uid: 2a84ca505e4c408d
+variations:
+  dev:
+    env:
+      CM_TENSORRT_REQUIRE_DEV: 'yes'

@@ -1,0 +1,42 @@
+alias: reproduce-ieee-acm-micro2023-paper-96
+automation_alias: script
+automation_uid: 5b4e0237da074764
+cache: false
+category: Reproducibility and artifact evaluation
+default_env:
+  CM_VICTIMA_JOB_MANAGER: native
+  CM_VICTIMA_CONTAINER: docker
+deps:
+- tags: detect,os
+- names:
+  - python
+  - python3
+  tags: get,python
+- tags: get,git,repo,_repo.https://github.com/CMU-SAFARI/Victima
+  env:
+    CM_GIT_ENV_KEY: 'CMU_SAFARI_VICTIMA'
+  extra_cache_tags: artifact,cmu,safari,victima
+input_mapping:
+  job_manager: CM_VICTIMA_JOB_MANAGER
+  container: CM_VICTIMA_CONTAINER
+script_name: run
+tags:
+- reproduce
+- project
+- paper
+- m
+- micro
+- micro-2023
+- '2023'
+- '96'
+- cmu
+- safari
+- victima
+uid: fc5bee3426174e7b
+variations:
+  install_deps:
+    script_name: install_deps
+  plot:
+    script_name: plot
+  run:
+    script_name: run
