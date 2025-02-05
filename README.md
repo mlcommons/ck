@@ -18,7 +18,7 @@ in the most efficient and cost-effective way across diverse models, data sets, s
 
 It includes the following sub-projects.
 
-### Common Metadata eXchange (CMX)
+### Common Metadata eXchange (CMX, 2025)
 
 The [CMX framework](https://github.com/mlcommons/ck/tree/master/cmx) 
 facilitates the decomposition of complex software systems and benchmarks such as MLPerf
@@ -26,8 +26,8 @@ into portable, reusable, and interconnected automation recipes for MLOps and Dev
 These recipes are developed and continuously improved by the community.
 
 ***Starting in 2025, CMX V4.0.0 serves as drop-in, backward-compatible replacement 
-   for the earlier [Collective Mind framework (CM)](https://github.com/mlcommons/ck/tree/master/cm),
-   while providing a simpler and more robust interface.***
+   for the earlier [Collective Mind framework (CM)](https://github.com/mlcommons/ck/tree/master/cm)
+   and other MLCommons automation prototypes, while providing a simpler and more robust interface.***
 
 CMX is a lightweight, Python-based toolset that provides a unified
 command-line interface (CLI), a Python API, and minimal dependencies.
@@ -62,8 +62,8 @@ See the [online documentation](https://docs.mlcommons.org/inference)
 at MLCommons to run MLPerf inference benchmarks across diverse systems using CMX.
 Just install `pip install cmind` and substitute the following commands and flags:
 * `cm` -> `cmx`
-* `mlc` -> `cmx run mlc`
-* `mlcr` -> `cmx run mlcr`
+* `mlc` -> `cmx`
+* `mlcr` -> `cmxr`
 * `-v` -> `--v`
 
 ### MLPerf results visualization
@@ -94,9 +94,9 @@ and support reproducibility efforts at ML and systems conferences.
 
 ## Legacy projects 
 
-* [CM](https://github.com/mlcommons/ck/tree/master/cm)
-* [CM-MLOps](https://github.com/mlcommons/ck/tree/master/cm-mlops)
-* [CM4MLOps](https://github.com/mlcommons/cm4mlops)
+* [CM](https://github.com/mlcommons/ck/tree/master/cm) (2022-2024)
+* [CM-MLOps](https://github.com/mlcommons/ck/tree/master/cm-mlops) (2021)
+* [CM4MLOps](https://github.com/mlcommons/cm4mlops) (2022-2024)
 * [CK automation framework v1 and v2](https://github.com/mlcommons/ck/tree/master/ck)
 
 
