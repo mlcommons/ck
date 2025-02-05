@@ -35,6 +35,7 @@ model2task = {
     "gptj-99.9": "language-processing",
     "llama2-70b-99": "language-processing",
     "llama2-70b-99.9": "language-processing",
+    "mixtral-8x7b": "languge-processing",
     "dlrm-99": "recommendation",
     "dlrm-v2-99": "recommendation",
     "dlrm-99.9": "recommendation",
@@ -103,7 +104,7 @@ def preprocess(i):
                 ii = {'action': 'run',
                       'automation': 'script',
                       'tags': 'run,mlperf,inference,submission,checker',
-                      'extra_args': ' --skip-extra-files-in-root-check',
+                      'extra_args': f' --skip-extra-files-in-root-check --skip_compliance --version={version}',
                       'submission_dir': path}
 
                 if len(xenv) > 0:
