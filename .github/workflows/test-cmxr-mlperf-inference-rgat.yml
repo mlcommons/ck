@@ -46,8 +46,8 @@ jobs:
           EMAIL: "admin@cTuning.org"
           GITHUB_TOKEN: ${{ secrets.TEST_RESULTS_GITHUB_TOKEN }}
       run: |
-        git config --global user.name "mlcommons-bot"
-        git config --global user.email "mlcommons-bot@users.noreply.github.com"
+        git config --global user.name "${{ env.USER }}"
+        git config --global user.email "${{ env.EMAIL }}"
         git config --global credential.https://github.com.helper ""
         git config --global credential.https://github.com.helper "!gh auth git-credential"
         git config --global credential.https://gist.github.com.helper ""
