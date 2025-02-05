@@ -20,14 +20,13 @@ theme:
     - toc.follow
 nav:
   - HOME: index.md
-  - CMX:
-    - Summary: ../cmx/README.md
-    - Introduction: ../cmx/introduction.md
-    - Installation: ../cmx/install.md
-    - Getting Started Guide: ../cmx/getting-started.md
+  - CMX: 
+    - Summary: cmx/README.md
+    - Introduction: cmx/introduction.md
+    - Installation: cmx/install.md
+    - Getting Started Guide: cmx/getting-started.md
   - CK Playground: https://access.cKnowledge.org
-  - Releases:
-    - CMX: https://github.com/mlcommons/ck/releases
+  - Releases: https://github.com/mlcommons/ck/releases
 
 markdown_extensions:
   - pymdownx.tasklist:

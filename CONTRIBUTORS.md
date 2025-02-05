@@ -6,12 +6,13 @@ to benefit everyone. Since then, this open-source automation technology
 as a community effort thanks to all our volunteers, collaborators 
 and contributors listed here in alphabetical order:
 
-# MLCommons Collective Mind (CM)
+# MLCommons CM and CMX
 
 * @Henryfzh
 * @Leonard226
 * @Oseltamivir
 * @Submandarine
+* Daniel Altunay
 * Resmi Arjun
 * Omar Benjelloun (Google)
 * Alice Cheng (Nvidia)
