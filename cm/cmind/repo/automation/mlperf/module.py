@@ -16,7 +16,7 @@ class CAutomation(Automation):
         super().__init__(cmind, __file__)
 
     ############################################################
-    def for(self, i):
+    def xfor(self, i):
         """
         CMX interface for MLPerf
         

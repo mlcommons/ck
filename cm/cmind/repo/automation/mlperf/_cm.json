@@ -1,12 +1,15 @@
 {
+  "action_substitutions": {
+    "for":"xfor"
+  },
   "alias": "mlperf",
   "automation_alias": "automation",
   "automation_uid": "bbeb15d8f0a944a4",
-  "desc": "CMX interface for mlcr",
+  "desc": "CMX interface for mlcr/mlperf",
   "sort": -1000,
   "tags": [
     "automation",
-    "mlcr"
+    "mlperf"
   ],
   "uid": "12343304a8964782"
 }
