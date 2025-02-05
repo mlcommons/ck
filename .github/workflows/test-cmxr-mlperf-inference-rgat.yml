@@ -2,7 +2,7 @@ name: MLPerf inference R-GAT via CMXR
 
 on:
   pull_request_target:
-    branches: [ "main", "dev" ]
+    branches: [ "master", "main", "dev" ]
     paths:
       - '.github/workflows/test-mlperf-inference-rgat.yml'
       - '**'
