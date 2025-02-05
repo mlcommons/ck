@@ -1,0 +1,12 @@
+{
+  "alias": "mlcr",
+  "automation_alias": "automation",
+  "automation_uid": "bbeb15d8f0a944a4",
+  "desc": "CMX interface for mlcr",
+  "sort": -1000,
+  "tags": [
+    "automation",
+    "mlcr"
+  ],
+  "uid": "f7d6f6786efd4e3c"
+}
