@@ -1,0 +1,19 @@
+{
+  "alias": "participate-acm-rep2025",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_open": "20250101",
+  "date_close": "20250331",
+  "tags": [
+    "participate",
+    "event",
+    "event-workshop",
+    "acm",
+    "acm-rep",
+    "acm-rep-2025",
+    "rep-2025"
+  ],
+  "title": "Participate in the 3rd ACM Conference on Reproducibility and Replicability (ACM REP 2025)",
+  "uid": "21943877e9e74135",
+  "url": "https://acm-rep.github.io/2025/"
+}

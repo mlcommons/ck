@@ -18,5 +18,6 @@
   ],
   "title": "Add derived metrics to MLPerf inference benchmarks (power efficiency, results / No of cores, costs, etc)",
   "trophies": true,
-  "uid": "c65b56d7770946ee"
+  "uid": "c65b56d7770946ee",
+  "skip": true
 }

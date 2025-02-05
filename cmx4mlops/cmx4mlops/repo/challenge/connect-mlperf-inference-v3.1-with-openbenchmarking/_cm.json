@@ -18,5 +18,6 @@
   ],
   "title": "Run MLPerf inference benchmarks using CM via OpenBenchmarking.org",
   "trophies": true,
-  "uid": "534592626eb44efe"
+  "uid": "534592626eb44efe",
+  "skip": true
 }

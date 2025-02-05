@@ -1,3 +1,6 @@
+## CMX V4.0.1
+   - provided backward compatibility with various MLCommons tools
+
 ## CMX V4.0.0
    - added CMX interface for new tools
 

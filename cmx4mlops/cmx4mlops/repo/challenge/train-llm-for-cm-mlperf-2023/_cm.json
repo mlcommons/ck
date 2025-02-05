@@ -17,5 +17,6 @@
   ],
   "title": "Train and improve LLM to suggest users how to run MLPerf inference benchmarks using CM automation language",
   "trophies": true,
-  "uid": "d37bf37a24c44ec3"
+  "uid": "d37bf37a24c44ec3",
+  "skip": true
 }

@@ -4,7 +4,7 @@ rd /Q /S api
 
 sphinx-apidoc -f -T -o api ../../../cm/cmind
 
-cm replace_string_in_file utils --input=api/cmind.rst --string="cmind package" --replacement="CM python package API"
+cm replace_string_in_file utils --input=api/cmind.rst --string="cmind package" --replacement="CMX python package API"
 
 sphinx-build -M html . api
 

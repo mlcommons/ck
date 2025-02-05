@@ -23,15 +23,15 @@ sys.path.insert(0, os.path.abspath('.'))
 
 # -- Project information -----------------------------------------------------
 
-project = u'Collective Mind (CM)'
-copyright = u'2022-2024 MLCommons'
+project = u'Common Metadata eXchange (CMX)'
+copyright = u'2022-2025 MLCommons'
 author = u'Grigori Fursin'
 
 version=''
 release=version
 
 edit_on_github_url='https://github.com'
-edit_on_github_project = 'mlcommons/ck/tree/master/docs/'
+edit_on_github_project = 'mlcommons/ck/tree/master/cm/'
 
 kernel_file=os.path.join('..', '..', '..', 'cm', 'cmind', '__init__.py')
 
@@ -39,7 +39,7 @@ with open(kernel_file, encoding="utf-8") as f:
     search = re.search(r'__version__ = ["\']([^"\']+)', f.read())
 
     if not search:
-       raise ValueError("We can't find the Collective Mind version in cmind/__init__.py")
+       raise ValueError("We can't find the CMX version in cmind/__init__.py")
 
     version = search.group(1)
 
@@ -185,7 +185,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'cmind.tex', u'Collective Mind',
+    (master_doc, 'cmind.tex', u'Common Metadata eXchange',
      u'Grigori Fursin', 'manual'),
 ]
 
@@ -195,7 +195,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'cmind.tex', u'Collective Mind',
+    (master_doc, 'cmind.tex', u'Collective Metadata eXchange',
      [author], 1)
 ]
 
@@ -206,8 +206,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'cmind.tex', u'Collective Mind',
-     author, 'CM', 'common-research-languge', 'reusability', 'automation', 'mlops2devops', 'mlops', 'devops'),
+    (master_doc, 'cmind.tex', u'Common Metadata eXchange',
+     author, 'CM', 'CMX', 'reusability', 'portability', 'automation', 'mlops', 'devops', 'mlperf'),
 ]
 
 

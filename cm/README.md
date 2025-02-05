@@ -16,8 +16,8 @@ into portable, reusable, and interconnected automation recipes for MLOps and Dev
 These recipes are developed and continuously improved by the community.
 
 ***Starting in 2025, CMX V4.0.0 serves as drop-in, backward-compatible replacement 
-   for the earlier [Collective Mind framework (CM)](https://github.com/mlcommons/ck/tree/master/cm),
-   while providing a simpler and more robust interface.***
+   for the earlier [Collective Mind framework (CM)](https://github.com/mlcommons/ck/tree/master/cm)
+   and other MLCommons automation prototypes, while providing a simpler and more robust interface.***
 
 CMX is a lightweight, Python-based toolset that provides a unified
 command-line interface (CLI), a Python API, and minimal dependencies.
@@ -59,10 +59,11 @@ while keeping backward compatibility.
 
 See the [online documentation](https://docs.mlcommons.org/inference) 
 at MLCommons to run MLPerf inference benchmarks across diverse systems using CMX.
-Just install `pip install cmind` and substitute the following commands with `cmx`:
+Just install `pip install cmind` and substitute the following commands and flags:
 * `cm` -> `cmx`
-* `mlc` -> `cmx run mlc`
-* `mlcr` -> `cmx run mlcr`
+* `mlc` -> `cmx`
+* `mlcr` -> `cmxr`
+* `-v` -> `--v`
 
 ### MLPerf results visualization
 
@@ -125,6 +126,7 @@ To learn more about the motivation behind this project, please explore the follo
 * [White paper](https://arxiv.org/abs/2406.16791)
 * [CMX architecture](https://github.com/mlcommons/ck/tree/master/docs/specs/cm-diagram-v3.5.1.png)
 * [CMX installation GUI](https://access.cknowledge.org/playground/?action=install)
+* [CMX Python API](https://cKnowledge.org/docs/cm)
 
 *TBD*
 

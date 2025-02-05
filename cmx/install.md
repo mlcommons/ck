@@ -1,6 +1,8 @@
 [ [Back to index](README.md) ]
 
-# Common Metadata eXchange installation
+# CMX installation (Common Metadata eXchange)
+
+***Check [online CMX installation GUI](https://access.cknowledge.org/playground/?action=install).***
 
 CMX framework requires minimal dependencies to run on any platform: `python 3.7+, pip, venv, git, git-lfs, wget, curl`.
 

@@ -3,6 +3,7 @@
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
   "date_open": "20241001",
+  "date_close": "20241201",
   "tags": [
     "automate",
     "modularize",
