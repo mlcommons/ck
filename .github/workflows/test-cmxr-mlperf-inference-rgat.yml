@@ -52,4 +52,4 @@ jobs:
         git config --global credential.https://github.com.helper "!gh auth git-credential"
         git config --global credential.https://gist.github.com.helper ""
         git config --global credential.https://gist.github.com.helper "!gh auth git-credential"
-        cmxr --tags=push,github,mlperf,inference,submission --repo_url="https://github.com/ctuning/test_mlperf_inference_submissions" --repo_branch=auto-update --commit_message="Results from R50 GH action on ${{ matrix.os }}" --quiet
+        cmxr --tags=push,github,mlperf,inference,submission --repo_url="https://github.com/ctuning/test_mlperf_inference_submissions" --repo_branch=main --commit_message="Results from R50 GH action on ${{ matrix.os }}" --quiet
