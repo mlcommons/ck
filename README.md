@@ -114,14 +114,14 @@ Copyright (c) 2014-2021 cTuning foundation
 
 ## Author
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin) (FlexAI, cTuning)
+* [Grigori Fursin](https://cKnowledge.org/gfursin)
 
 ## Maintainers
 
 * CM, CM4MLOps and MLPerf automations: [MLCommons infra WG](https://mlcommons.org)
 * CMX (the next generation of CM since 2025): [Grigori Fursin](https://cKnowledge.org/gfursin)
 
-## Long-term vision
+## Concepts
 
 To learn more about the motivation behind this project, please explore the following presentations:
 
@@ -129,15 +129,6 @@ To learn more about the motivation behind this project, please explore the follo
 * ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
 * ACM TechTalk'21 about Collective Knowledge project: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
 * Journal of Royal Society'20: [ [paper](https://royalsocietypublishing.org/doi/10.1098/rsta.2020.0211) ]
-
-## Documentation
-
-* [White paper](https://arxiv.org/abs/2406.16791)
-* [CMX architecture](https://github.com/mlcommons/ck/tree/master/docs/specs/cm-diagram-v3.5.1.png)
-* [CMX installation GUI](https://access.cknowledge.org/playground/?action=install)
-
-*TBD*
-
 
 ### Acknowledgments
 

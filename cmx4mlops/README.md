@@ -43,6 +43,7 @@ Check our [ACM REP'23 keynote](https://doi.org/10.5281/zenodo.8105339) and the [
 ```bash
 pip install cmind
 pip install cmx4mlops
+cmx reindex repo
 cmx run script "python app image-classification onnx" --quiet
 cmx run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="MLCommons" --adr.inference-src.tags=_branch.dev --pull_changes=yes --pull_inference_changes=yes  --submitter="MLCommons" --hw_name=ubuntu-latest_x86 --model=rgat --implementation=python --backend=pytorch --device=cpu --scenario=Offline --test_query_count=500 --adr.compiler.tags=gcc --category=datacenter --quiet  --v --target_qps=1
 ```

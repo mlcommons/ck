@@ -1,3 +1,16 @@
+[![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
+[![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE.md)
+[![Downloads](https://static.pepy.tech/badge/cmind)](https://pepy.tech/project/cmind)
+
+[![arXiv](https://img.shields.io/badge/arXiv-2406.16791-b31b1b.svg)](https://arxiv.org/abs/2406.16791)
+[![CMX test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cmx.yml)
+[![CMX image classification test](https://github.com/mlcommons/ck/actions/workflows/test-cmx-image-classification-onnx.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cmx-image-classification-onnx.yml)
+
+[![CMX MLPerf inference resnet-50 test](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-resnet50.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-resnet50.yml)
+[![CMX MLPerf inference r-GAT test](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-rgat.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-rgat.yml)
+[![CMX MLPerf inference BERT deepsparse test](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-bert-deepsparse-tf-onnxruntime-pytorch.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-bert-deepsparse-tf-onnxruntime-pytorch.yml)
+
 # Common Metadata eXchange (CMX)
 
 The [Common Metadata eXchange framework (CMX)](https://github.com/mlcommons/ck/tree/master/cmx)
@@ -37,7 +50,7 @@ tested on various flavors of Linux, macOS, Windows, and other operating
 systems to automate benchmarking, building, running, and optimizing AI,
 ML, and other emerging workloads and systems.
 
-CMX encourages community collaboration to share, reuse, and improve artifacts, automations, 
+It encourages community collaboration to share, reuse, and improve artifacts, automations, 
 and experimental setups through public and private Git repositories, 
 rather than redeveloping them from scratch.
 
@@ -61,7 +74,6 @@ Collective Mind (CM) in the Python cmind package:
 [sources](https://github.com/mlcommons/ck/tree/master/cm), 
 [pypi](https://pypi.org/project/cmind).
 
-
 ## Documentation
 
 See [online documentation](docs/README.md).
@@ -82,17 +94,3 @@ for their invaluable feedback and support!
 Copyright (c) 2024-2025 MLCommons
 
 Grigori Fursin and the cTuning foundation donated this project to MLCommons to benefit everyone.
-
-## Concepts
-
-To learn more about the motivation behind this project, please explore the following presentations:
-
-* "Enabling more efficient and cost-effective AI/ML systems with Collective Mind, virtualized MLOps, MLPerf, Collective Knowledge Playground and reproducible optimization tournaments": [ [ArXiv](https://arxiv.org/abs/2406.16791) ]
-* ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
-* ACM TechTalk'21 about Collective Knowledge project: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
-* Journal of Royal Society'20: [ [paper](https://royalsocietypublishing.org/doi/10.1098/rsta.2020.0211) ]
-
-## Citation
-
-If you found the CMX automations helpful, kindly reference this article:
-[ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].

@@ -1,5 +1,7 @@
-site_name: Collective Knowledge and Common Metadata eXchange Documentation
+site_name: Collective Knowledge (CK), Collective Mind (CM) and Common Metadata eXchange (CMX) Documentation
+
 repo_url: https://github.com/mlcommons/ck
+
 theme:
   name: material
   logo: img/logo_v2.svg
@@ -20,11 +22,11 @@ theme:
     - toc.follow
 nav:
   - HOME: index.md
-  - CMX: 
-    - Summary: cmx/README.md
-    - Introduction: cmx/introduction.md
-    - Installation: cmx/install.md
-    - Getting Started Guide: cmx/getting-started.md
+  - CMX/CM: 
+    - Summary: cmx/docs/README.md
+    - Introduction: cmx/docs/introduction.md
+    - Installation: cmx/docs/install.md
+    - Getting Started Guide: cmx/docs/getting-started.md
   - CK Playground: https://access.cKnowledge.org
   - Releases: https://github.com/mlcommons/ck/releases
 
@@ -43,6 +45,7 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
+
 plugins:
   - search
   - macros
