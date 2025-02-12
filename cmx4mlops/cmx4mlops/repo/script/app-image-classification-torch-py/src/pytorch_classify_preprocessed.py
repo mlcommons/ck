@@ -72,7 +72,7 @@ def main():
     path_to_model_pth = os.environ['CM_ML_MODEL_FILE_WITH_PATH']
 
     model = models.resnet50(pretrained=False)
-    model.load_state_dict(torch.load(path_to_model_pth))
+    model.load_state_dict(torch.load(path_to_model_pth, weights_only=False))
 
     model.eval()
 

@@ -78,19 +78,19 @@ test $? -eq 0 || exit $?
 echo "------------------------------------------------------------" >> $OUTPUT_FILE
 
 echo "14. cpupower frequency-info" >> $OUTPUT_FILE
-eval "cpupower frequency-info" >> $OUTPUT_FILE
-test $? -eq 0 || echo "FAILED: cpupower frequency-info" >> $OUTPUT_FILE
-echo "------------------------------------------------------------" >> $OUTPUT_FILE
-
-echo "15. sysctl" >> $OUTPUT_FILE
 if [[ ${CM_SUDO_USER} == "yes" ]]; then
-    echo "${CM_SUDO} sysctl -a"
-    eval "${CM_SUDO} sysctl -a" >> $OUTPUT_FILE
-    test $? -eq 0 || exit $?
-else
-    echo "Requires SUDO permission" >> $OUTPUT_FILE
+     eval "cpupower frequency-info" >> $OUTPUT_FILE
+     test $? -eq 0 || echo "FAILED: cpupower frequency-info" >> $OUTPUT_FILE
+     echo "------------------------------------------------------------" >> $OUTPUT_FILE
 fi
-echo "------------------------------------------------------------" >> $OUTPUT_FILE
+
+if [[ ${CM_SUDO_USER} == "yes" ]]; then
+     echo "15. sysctl" >> $OUTPUT_FILE
+     echo "${CM_SUDO} sysctl -a"
+     eval "${CM_SUDO} sysctl -a" >> $OUTPUT_FILE
+     test $? -eq 0 || exit $?
+     echo "------------------------------------------------------------" >> $OUTPUT_FILE
+fi
 
 echo "16. /sys/kernel/mm/transparent_hugepage" >> $OUTPUT_FILE
 eval "cat /sys/kernel/mm/transparent_hugepage/enabled" >> $OUTPUT_FILE
@@ -112,10 +112,12 @@ eval "lsblk" >> $OUTPUT_FILE
 test $? -eq 0 || exit $?
 echo "------------------------------------------------------------" >> $OUTPUT_FILE
 
-echo "20. /sys/devices/virtual/dmi/id" >> $OUTPUT_FILE
-eval "ls /sys/devices/virtual/dmi/id" >> $OUTPUT_FILE
-test $? -eq 0 || exit $?
-echo "------------------------------------------------------------" >> $OUTPUT_FILE
+if [[ ${CM_SUDO_USER} == "yes" ]]; then
+    echo "20. /sys/devices/virtual/dmi/id" >> $OUTPUT_FILE
+    eval "ls /sys/devices/virtual/dmi/id" >> $OUTPUT_FILE
+    test $? -eq 0 || exit $?
+    echo "------------------------------------------------------------" >> $OUTPUT_FILE
+fi
 
 echo "21. dmidecode" >> $OUTPUT_FILE
 if [[ ${CM_SUDO_USER} == "yes" ]]; then
