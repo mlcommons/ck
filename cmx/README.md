@@ -64,7 +64,18 @@ Collective Mind (CM) in the Python cmind package:
 
 ## Documentation
 
-See [online documentation](docs/README.md).
+*Under preparation*
+
+* [Installation (Linux, Windows, MacOS)](install.md)
+* [Getting Started Guide](getting-started.md)
+* [MLOps, DevOps and MLPerf automations](https://access.cknowledge.org/playground/?action=scripts)
+* [High-level architecture](architecture-4.0.0.png)
+* [Python API](https://cknowledge.org/docs/cmx)
+* [Motivation](motivation.md)
+
+
+
+
 
 ## Author
 

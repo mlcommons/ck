@@ -23,10 +23,13 @@ theme:
 nav:
   - HOME: index.md
   - CMX/CM: 
-    - Summary: cmx/docs/README.md
-    - Introduction: cmx/docs/introduction.md
-    - Installation: cmx/docs/install.md
-    - Getting Started Guide: cmx/docs/getting-started.md
+    - Summary: cmx/README.md
+    - Installation: cmx/install.md
+    - Getting Started Guide: cmx/getting-started.md
+    - MLOps, DevOps and MLPerf automations: https://access.cknowledge.org/playground/?action=scripts
+    - High-level architecture: https://cKnowledge.org/images/cmx-architecture-4.0.0.png
+    - Python API: https://cknowledge.org/docs/cmx
+    - Motivation: cmx/motivation.md
   - CK Playground: https://access.cKnowledge.org
   - Releases: https://github.com/mlcommons/ck/releases
 
