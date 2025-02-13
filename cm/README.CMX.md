@@ -80,6 +80,10 @@ Collective Mind (CM) in the Python cmind package:
 
 See [online documentation](docs/README.md).
 
+## License
+
+[Apache 2.0](https://github.com/mlcommons/ck/blob/master/cm/LICENSE.md)
+
 ## Author
 
 [Grigori Fursin](https://cKnowledge.org/gfursin).
@@ -87,12 +91,9 @@ See [online documentation](docs/README.md).
 We thank all our [contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTORS.md) 
 for their invaluable feedback and support!
 
-## License
-
-[Apache 2.0](https://github.com/mlcommons/ck/blob/master/cm/LICENSE.md)
-
 ## Copyright
 
 Copyright (c) 2024-2025 MLCommons
 
 Grigori Fursin and the cTuning foundation donated this project to MLCommons to benefit everyone.
+

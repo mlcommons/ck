@@ -62,21 +62,14 @@ Collective Mind (CM) in the Python cmind package:
 [sources](https://github.com/mlcommons/ck/tree/master/cm), 
 [pypi](https://pypi.org/project/cmind).
 
-
 ## Documentation
 
-*Under preparation*
+* [MLCommons website](https://docs.mlcommons.org/ck/cmx)
+* [GitHub](https://github.com/mlcommons/ck/edit/master/cmx/TOC.md)
 
-* [Installation (Linux, Windows, MacOS)](install.md)
-* CMX Guide:
-  * [Understanding CMX](understanding-cmx.md)
-  * [CMX commands to share and reuse artifacts](commands.md)
-  * [CMX automation commands](cmx-automations.md)
-  * [Reusing CMX automations and artifacts for MLOps, DevOps and MLPerf](cmx4mlops.md)
-* [CMX Python API](https://cknowledge.org/docs/cmx)
-* [CMX internal architecture](architecture-4.0.0.png)
-* [Motivation](motivation.md)
+## License
 
+[Apache 2.0](https://github.com/mlcommons/ck/blob/master/cm/LICENSE.md)
 
 ## Author
 
@@ -84,10 +77,6 @@ Collective Mind (CM) in the Python cmind package:
 
 We thank all our [contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTORS.md) 
 for their invaluable feedback and support!
-
-## License
-
-[Apache 2.0](https://github.com/mlcommons/ck/blob/master/cm/LICENSE.md)
 
 ## Copyright
 

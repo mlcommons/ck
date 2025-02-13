@@ -2,6 +2,77 @@
 
 # CMX commands
 
+
+
 ## Command Line
 
+```bash
+$ cmx {action} {automation} [CMX options] [CMX automation action flags]
+```
+
+CMX options have format -key=value or -key (value=True)
+
+CMX automation flags have format --key=value or --key (value=True) 
+
+Common actions for all automations (`cmx -h`):
+ * `find` automation (artifact)
+ * `load` automation (artifact) - load metadata of a give artifact referenced either by alias or UID or alias,UID or --tags
+ * `update` automation (artifact) - update metadata of a given artifact 
+ * `add` automation (artifact)
+ * `rm` automation (artifact)
+ * `mv` automation (repo:)artifact new_repo:
+ * `copy`automation (repo:)artifact (new repo:)new_artifact
+ * `help` automation - print available actions for a given automation 
+
+You can add -h to above actions to see related flags for a given automation action
+
+## Default automations
+
+When you install [CMX/CM](https://access.cknowledge.org/playground/?action=install), you have the following automations
+available by default inside the [`default` repository](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo) embedded in cmind package: 
+
+* `core` - core CMX automations such as generating UID
+* `repo` - CMX automations to manage CMX repositories (pull, rm, pack ...)
+* `automation` - CMX automation to manage automations (add, rm, mv ...
+
+You can list all pulled repositories as follows:
+```bash
+cmx find repo
+```
+
+You can also show extra information about repositories as follows:
+```bash
+cmx show repo
+```
+
+You can list all available automations as follows:
+```bash
+cmx find {automation}
+```
+
+You can list available actions for a given automation as follows:
+```bash
+cmx help {automation}
+```
+
+You can list available flags for a given automation action as follows:
+```bash
+cmx {action} {automation} -h
+
+
 ## Python API
+
+CMX provides a simple Python JSON API to manage artifacts, automations and metadata
+that converts above command line into 1 call with a unified Dictionary input and Dictionary output:
+
+```bash
+import cmind
+
+r = cmind.x({'action':'my action',
+             'automation':'my automation',
+             'key1':'value1',
+             'key2':'value2'})
+if r['return']>0: handle error in r['error']
+
+...
+```
