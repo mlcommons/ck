@@ -58,7 +58,7 @@ cmx help {automation}
 You can list available flags for a given automation action as follows:
 ```bash
 cmx {action} {automation} -h
-
+```
 
 ## Python API
 
