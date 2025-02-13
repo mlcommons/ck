@@ -51,9 +51,9 @@ or contact the [CMX author](mailto:gfursin@mlcommons.org).
 
 ## News
 
-### 202502: CMX V4 release
+### 202502: CMX V4.0.0 release
 
-We have released CMX version 4.0.0 as a drop-in, backward-compatible
+We have released a new version 4.0.0 of CMX as a drop-in, backward-compatible
 replacement for the earlier Collective Mind framework (CM) and other
 MLCommons automations. Designed with user feedback in mind, CMX
 offers a simpler, more robust interface. It is available alongside
@@ -96,8 +96,9 @@ Grigori Fursin and the cTuning foundation donated this project to MLCommons to b
 
 ## Concepts
 
-To learn more about the motivation behind this project, please explore the following presentations:
+To learn more about the motivation behind this project, please explore the following articles and presentations:
 
+* HPCA'25 article "MLPerf Power: Benchmarking the Energy Efficiency of Machine Learning Systems from Microwatts to Megawatts for Sustainable AI": [ [Arxiv](https://arxiv.org/abs/2410.12032) ], [ [tutorial to reproduce results using CM/CMX](https://github.com/aryatschand/MLPerf-Power-HPCA-2025/blob/main/measurement_tutorial.md) ]
 * "Enabling more efficient and cost-effective AI/ML systems with Collective Mind, virtualized MLOps, MLPerf, Collective Knowledge Playground and reproducible optimization tournaments": [ [ArXiv](https://arxiv.org/abs/2406.16791) ]
 * ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
 * ACM TechTalk'21 about Collective Knowledge project: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
