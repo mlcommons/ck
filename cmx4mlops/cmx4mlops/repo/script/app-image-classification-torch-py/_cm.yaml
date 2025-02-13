@@ -1,10 +1,15 @@
+uid: e3986ae887b84ca8
 alias: app-image-classification-torch-py
+
 automation_alias: script
 automation_uid: 5b4e0237da074764
+
 category: Modular AI/ML application pipeline
+
 default_env:
   CM_BATCH_COUNT: '1'
   CM_BATCH_SIZE: '1'
+
 deps:
 - tags: detect,os
 - names:
@@ -31,13 +36,16 @@ deps:
     USE_CUDA:
     - 'yes'
   tags: get,generic-python-lib,_torchvision_cuda
+
 tags:
 - app
 - image-classification
 - torch
 - python
+
 tags_help: app image-classification python torch
-uid: e3986ae887b84ca8
+
+
 variations:
   cuda:
     deps:

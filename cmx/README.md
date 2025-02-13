@@ -1,20 +1,22 @@
 # Common Metadata eXchange (CMX)
 
-The [Common Metadata eXchange framework (CMX)](https://github.com/mlcommons/ck/tree/master/cmx)
-was developed to support open science and facilitate
+We are developing the [Common Metadata eXchange framework (CMX)](https://github.com/mlcommons/ck/tree/master/cmx)
+to support open science and facilitate
 collaborative, reproducible, and reusable research, development, 
-and experimentation based on [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data).
+and experimentation based on [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data)
+and the [Collective Knowledge concept](https://learning.acm.org/techtalks/reproducibility).
 
-It helps users non-intrusively convert their software projects,
-directories, and Git(Hub) repositories into file-based repositories
-of portable and reusable artifacts (code, data, models, scripts) 
-with extensible metadata, a unified command-line interface, 
-and a simple Python API.
+It helps users non-intrusively convert their software projects 
+into file-based repositories of portable and reusable artifacts 
+(code, data, models, scripts) with extensible metadata, 
+a unified command-line interface, and a simple Python API.
 
-Such artifacts can be easily chained together into portable automation
-workflows, enabling users to rerun, reproduce, and reuse complex
-experimental setups across diverse and rapidly evolving models, datasets,
-software, and hardware.
+Such artifacts can be easily chained together into portable and technology-agnostic automation workflows,
+enabling users to  rerun, reproduce, and reuse complex experimental setups across diverse and rapidly 
+evolving models, datasets, software, and hardware.
+
+Such workflows, in turn, can be easily integrated with CI/CD pipelines and GitHub Actions 
+and used to create powerful, portable, modular and GUI-based applications.
 
 For example, you can run image classification and the MLPerf inference benchmark on Linux, macOS, 
 and Windows using a few CMX commands as follows:
@@ -27,8 +29,7 @@ cmx run script "run-mlperf inference _performance-only _short" --model=resnet50 
 cmx show cache
 ```
 
-CMX extends the [Collective Knowledge (CK)](https://learning.acm.org/techtalks/reproducibility) 
-and [Collective Mind (CM)](https://zenodo.org/records/8105339) concepts,
+CMX extends the [Collective Mind (CM) framework](https://zenodo.org/records/8105339),
 which have been successfully validated to 
 [modularize, automate, and modernize MLPerf benchmarks](https://arxiv.org/abs/2406.16791).
 
@@ -67,14 +68,14 @@ Collective Mind (CM) in the Python cmind package:
 *Under preparation*
 
 * [Installation (Linux, Windows, MacOS)](install.md)
-* [Getting Started Guide](getting-started.md)
-* [MLOps, DevOps and MLPerf automations](https://access.cknowledge.org/playground/?action=scripts)
-* [High-level architecture](architecture-4.0.0.png)
-* [Python API](https://cknowledge.org/docs/cmx)
+* CMX Guide:
+  * [Understanding CMX](understanding-cmx.md)
+  * [CMX commands to share and reuse artifacts](commands.md)
+  * [CMX automation commands](cmx-automations.md)
+  * [Reusing CMX automations and artifacts for MLOps, DevOps and MLPerf](cmx4mlops.md)
+* [CMX Python API](https://cknowledge.org/docs/cmx)
+* [CMX internal architecture](architecture-4.0.0.png)
 * [Motivation](motivation.md)
-
-
-
 
 
 ## Author
@@ -94,17 +95,9 @@ Copyright (c) 2024-2025 MLCommons
 
 Grigori Fursin and the cTuning foundation donated this project to MLCommons to benefit everyone.
 
-## Concepts
-
-To learn more about the motivation behind this project, please explore the following articles and presentations:
-
-* HPCA'25 article "MLPerf Power: Benchmarking the Energy Efficiency of Machine Learning Systems from Microwatts to Megawatts for Sustainable AI": [ [Arxiv](https://arxiv.org/abs/2410.12032) ], [ [tutorial to reproduce results using CM/CMX](https://github.com/aryatschand/MLPerf-Power-HPCA-2025/blob/main/measurement_tutorial.md) ]
-* "Enabling more efficient and cost-effective AI/ML systems with Collective Mind, virtualized MLOps, MLPerf, Collective Knowledge Playground and reproducible optimization tournaments": [ [ArXiv](https://arxiv.org/abs/2406.16791) ]
-* ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
-* ACM TechTalk'21 about Collective Knowledge project: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
-* Journal of Royal Society'20: [ [paper](https://royalsocietypublishing.org/doi/10.1098/rsta.2020.0211) ]
-
 ## Citation
 
-If you found the CMX automations helpful, kindly reference this article:
+If you found the CM/CMX automations for MLOps, DevOps and MLPerf helpful, kindly reference this article:
 [ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].
+
+You are welcome to contact the [author](https://cKnowledge.org/gfursin) to discuss long-term plans and potential collaboration.

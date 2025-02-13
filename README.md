@@ -23,6 +23,23 @@ It includes the following sub-projects.
 
 ### Common Metadata eXchange framework (CMX, 2024+)
 
+The [Common Metadata eXchange framework (CMX)](https://github.com/mlcommons/ck/tree/master/cmx)
+was developed to support open science and facilitate
+collaborative, reproducible, and reusable research, development, 
+and experimentation based on [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data).
+
+It helps users non-intrusively convert their software projects 
+into file-based repositories of portable and reusable artifacts 
+(code, data, models, scripts) with extensible metadata, 
+a unified command-line interface, and a simple Python API.
+
+Such artifacts can be easily chained together into portable 
+and technology-agnostic automation workflows, enabling users to 
+rerun, reproduce, and reuse complex experimental setups across diverse and rapidly evolving models, datasets,
+software, and hardware. 
+
+For example, CMX helps to modularize, automate and customize MLPerf benchmarks.
+
 See the [project page](https://github.com/mlcommons/ck/tree/master/cmx) for more details.
 
 ### Collective Mind framework (CM, 2021-2024)
@@ -124,3 +141,5 @@ for their feedback and contributions!
 
 If you found the CM automations helpful, kindly reference this article:
 [ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].
+
+You are welcome to contact the [author](https://cKnowledge.org/gfursin) to discuss long-term plans and potential collaboration.

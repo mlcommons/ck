@@ -25,11 +25,15 @@ nav:
   - CMX/CM: 
     - Summary: cmx/README.md
     - Installation: cmx/install.md
-    - Getting Started Guide: cmx/getting-started.md
+    - Understanding CMX: cmx/understanding-cmx.md
+    - CMX commands: cmx/commands.md
     - MLOps, DevOps and MLPerf automations: https://access.cknowledge.org/playground/?action=scripts
     - High-level architecture: https://cKnowledge.org/images/cmx-architecture-4.0.0.png
     - Python API: https://cknowledge.org/docs/cmx
     - Motivation: cmx/motivation.md
+  - MLPerf
+    - MLPerf inference benchmark <= v4.1: cmx/mlperf-inference/4.1/README.md
+    - MLPerf inference benchmark v5.0: cmx/mlperf-inference/5.0/README.md
   - CK Playground: https://access.cKnowledge.org
   - Releases: https://github.com/mlcommons/ck/releases
 
