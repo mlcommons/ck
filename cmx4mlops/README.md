@@ -3,9 +3,9 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE.md)
 [![Powered by CM/CMX](https://img.shields.io/badge/Powered_by-MLCommons%20CM-blue)](https://pypi.org/project/cmind).
 
-This repository is powered by the [Collective Mind workflow automation framework](https://github.com/mlcommons/ck/tree/master/cm).
+This repository is powered by the [CM and/or CMX framework](https://github.com/mlcommons/ck/tree/master/cm).
 
-Two key automations developed using CM are **Script** and **Cache**, which streamline machine learning (ML) workflows, 
+Two key automations developed using CM are **script** and **cache**, which streamline machine learning (ML) workflows, 
 including managing Docker runs. Both Script and Cache automations are part of the **cmx4mlops** repository.
 
 The [CM scripts](https://access.cknowledge.org/playground/?action=scripts), 

@@ -2,9 +2,9 @@
 [![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE.md)
 [![Downloads](https://static.pepy.tech/badge/cmind)](https://pepy.tech/project/cmind)
-
 [![arXiv](https://img.shields.io/badge/arXiv-2406.16791-b31b1b.svg)](https://arxiv.org/abs/2406.16791)
-[![CMX test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cmx.yml)
+
+[![CMX test](https://github.com/mlcommons/ck/actions/workflows/test-cmx.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cmx.yml)
 [![CMX image classification test](https://github.com/mlcommons/ck/actions/workflows/test-cmx-image-classification-onnx.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cmx-image-classification-onnx.yml)
 
 [![CMX MLPerf inference resnet-50 test](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-resnet50.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-resnet50.yml)
@@ -16,7 +16,8 @@
 The [Common Metadata eXchange framework (CMX)](https://github.com/mlcommons/ck/tree/master/cmx)
 was developed to support open science and facilitate
 collaborative, reproducible, and reusable research, development, 
-and experimentation based on [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data).
+and experimentation based on [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data)
+and the [Collective Knowledge concept](https://learning.acm.org/techtalks/reproducibility).
 
 It helps users non-intrusively convert their software projects,
 directories, and Git(Hub) repositories into file-based repositories
@@ -24,10 +25,12 @@ of portable and reusable artifacts (code, data, models, scripts)
 with extensible metadata, a unified command-line interface, 
 and a simple Python API.
 
-Such artifacts can be easily chained together into portable automation
-workflows, enabling users to rerun, reproduce, and reuse complex
-experimental setups across diverse and rapidly evolving models, datasets,
-software, and hardware.
+Such artifacts can be easily chained together into portable and technology-agnostic automation workflows,
+enabling users to  rerun, reproduce, and reuse complex experimental setups across diverse and rapidly 
+evolving models, datasets, software, and hardware.
+
+Such workflows, in turn, can be easily integrated with CI/CD pipelines and GitHub Actions 
+and used to create powerful, portable, modular and GUI-based applications.
 
 For example, you can run image classification and the MLPerf inference benchmark on Linux, macOS, 
 and Windows using a few CMX commands as follows:
@@ -40,8 +43,7 @@ cmx run script "run-mlperf inference _performance-only _short" --model=resnet50 
 cmx show cache
 ```
 
-CMX extends the [Collective Knowledge (CK)](https://learning.acm.org/techtalks/reproducibility) 
-and [Collective Mind (CM)](https://zenodo.org/records/8105339) concepts,
+CMX extends the [Collective Mind (CM) framework](https://zenodo.org/records/8105339),
 which have been successfully validated to 
 [modularize, automate, and modernize MLPerf benchmarks](https://arxiv.org/abs/2406.16791).
 

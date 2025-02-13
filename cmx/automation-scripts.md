@@ -1,6 +1,6 @@
 ﻿[ [Back to documentation](README.md) ]
 
-# Collective Mind Getting Started Guide and FAQ
+# CMX automations
 
 
 ## Why CM?

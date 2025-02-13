@@ -5,8 +5,8 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2406.16791-b31b1b.svg)](https://arxiv.org/abs/2406.16791)
 
 This Python package contains 2 projects:
-* [Common Metadata eXchange framework (CMX, 2025+)](README.CMX.md)
-* [Collective Mind framework (CM, 2021-2024)](README.CM.md)
+* [Common Metadata eXchange framework (CMX, 2024+)](https://github.com/mlcommons/ck/blob/master/cm/README.CMX.md)
+* [Collective Mind framework (CM, 2021-2024)](https://github.com/mlcommons/ck/blob/master/cm/README.CM.md)
 
 ## License
 
