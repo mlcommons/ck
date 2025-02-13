@@ -23,6 +23,10 @@ It includes the following sub-projects.
 
 ### Common Metadata eXchange framework (CMX, 2024+)
 
+*Starting in February 2025, CMX V4+ serves as drop-in, backward-compatible replacement 
+ for the earlier Collective Mind framework (CM) and other MLCommons automation prototypes, 
+ while providing a simpler and more robust interface.*
+
 The [Common Metadata eXchange framework (CMX)](https://github.com/mlcommons/ck/tree/master/cmx)
 was developed to support open science and facilitate
 collaborative, reproducible, and reusable research, development, 
@@ -41,6 +45,7 @@ software, and hardware.
 For example, CMX helps to modularize, automate and customize MLPerf benchmarks.
 
 See the [project page](https://github.com/mlcommons/ck/tree/master/cmx) for more details.
+
 
 ### Collective Mind framework (CM, 2021-2024)
 
