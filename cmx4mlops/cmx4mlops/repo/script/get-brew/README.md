@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/Detection-or-installation-of-tools-and-artifacts/get-brew](https://docs.mlcommons.org/cm4mlops/scripts/Detection-or-installation-of-tools-and-artifacts/get-brew) for the documentation of this CM script.

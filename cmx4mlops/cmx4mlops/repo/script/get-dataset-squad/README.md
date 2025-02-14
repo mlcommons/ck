@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-squad](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-squad) for the documentation of this CM script.

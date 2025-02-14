@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/get-mlperf-training-nvidia-code](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/get-mlperf-training-nvidia-code) for the documentation of this CM script.

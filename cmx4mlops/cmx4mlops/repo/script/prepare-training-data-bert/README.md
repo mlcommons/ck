@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/prepare-training-data-bert](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/prepare-training-data-bert) for the documentation of this CM script.

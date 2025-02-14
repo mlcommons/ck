@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/prepare-training-data-resnet](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/prepare-training-data-resnet) for the documentation of this CM script.

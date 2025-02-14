@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-optimization/calibrate-model-for.qaic](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-optimization/calibrate-model-for.qaic) for the documentation of this CM script.

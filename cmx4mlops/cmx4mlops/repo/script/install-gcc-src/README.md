@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/Compiler-automation/install-gcc-src](https://docs.mlcommons.org/cm4mlops/scripts/Compiler-automation/install-gcc-src) for the documentation of this CM script.

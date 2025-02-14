@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-imagenet-calibration](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-imagenet-calibration) for the documentation of this CM script.

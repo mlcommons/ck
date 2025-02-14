@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/get-mlperf-inference-loadgen](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/get-mlperf-inference-loadgen) for the documentation of this CM script.

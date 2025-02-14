@@ -1,0 +1,12 @@
+alias: cmx4mlperf
+uid: f41e2fe2fb54404e
+
+git: true
+
+version: "1.0.0"
+
+author: "Grigori Fursin"
+
+min_cm_version: "4.0.2"
+
+prefix: repo

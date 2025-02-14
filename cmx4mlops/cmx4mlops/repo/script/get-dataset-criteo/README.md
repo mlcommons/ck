@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-criteo](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-criteo) for the documentation of this CM script.

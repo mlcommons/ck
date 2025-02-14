@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-frameworks/get-onnxruntime-prebuilt](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-frameworks/get-onnxruntime-prebuilt) for the documentation of this CM script.

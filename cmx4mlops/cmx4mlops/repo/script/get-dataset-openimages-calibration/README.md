@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-openimages-calibration](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-openimages-calibration) for the documentation of this CM script.

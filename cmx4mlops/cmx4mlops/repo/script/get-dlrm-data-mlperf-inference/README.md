@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts//get-dlrm-data-mlperf-inference](https://docs.mlcommons.org/cm4mlops/scripts//get-dlrm-data-mlperf-inference) for the documentation of this CM script.

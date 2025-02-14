@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/create-conda-env](https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/create-conda-env) for the documentation of this CM script.

@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/CUDA-automation/get-tensorrt](https://docs.mlcommons.org/cm4mlops/scripts/CUDA-automation/get-tensorrt) for the documentation of this CM script.

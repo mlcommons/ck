@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/TinyML-automation/get-microtvm](https://docs.mlcommons.org/cm4mlops/scripts/TinyML-automation/get-microtvm) for the documentation of this CM script.

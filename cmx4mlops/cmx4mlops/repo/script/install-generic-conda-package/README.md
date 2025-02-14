@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/Python-automation/install-generic-conda-package](https://docs.mlcommons.org/cm4mlops/scripts/Python-automation/install-generic-conda-package) for the documentation of this CM script.

@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/generate-mlperf-inference-user-conf](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/generate-mlperf-inference-user-conf) for the documentation of this CM script.

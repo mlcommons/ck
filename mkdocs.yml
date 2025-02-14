@@ -22,19 +22,20 @@ theme:
     - toc.follow
 nav:
   - HOME: index.md
-  - CMX/CM: 
+  - CMX/CM:
     - Summary: cmx/README.md
     - Installation: cmx/install.md
     - Understanding CMX: cmx/understanding-cmx.md
-    - CMX commands: cmx/commands.md
-    - MLOps, DevOps and MLPerf automations: https://access.cknowledge.org/playground/?action=scripts
-    - High-level architecture: https://cKnowledge.org/images/cmx-architecture-4.0.0.png
-    - Python API: https://cknowledge.org/docs/cmx
+    - CMX commands to share and reuse artifacts with common metadata: cmx/common-automation-actions.md
+    - CMX automation actions for related artifacts: cmx/specific-automation-actions.md
+    - Reusing CMX automations and artifacts for MLOps, DevOps and MLPerf: cmx/cmx4mlops.md
+    - Creating new artifacts and automations: cmx/create.md
+    - Improving CMX framework: cmx/improving-cmx.md
     - Motivation: cmx/motivation.md
-  - MLPerf: 
+  - MLPerf automations:
     - Summary: cmx/mlperf-inference/README.md
-    - 'MLPerf inference benchmark v4.1': cmx/mlperf-inference/v4.1/README.md
-    - 'MLPerf inference benchmark v5.0': cmx/mlperf-inference/v5.0/README.md
+    - MLPerf inference benchmark v4.1: cmx/mlperf-inference/v4.1/README.md
+    - MLPerf inference benchmark v5.0: cmx/mlperf-inference/v5.0/README.md
   - CK Playground: https://access.cKnowledge.org
   - Releases: https://github.com/mlcommons/ck/releases
 

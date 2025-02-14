@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-models/get-ml-model-resnet50](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-models/get-ml-model-resnet50) for the documentation of this CM script.

@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/Python-automation/install-python-venv](https://docs.mlcommons.org/cm4mlops/scripts/Python-automation/install-python-venv) for the documentation of this CM script.

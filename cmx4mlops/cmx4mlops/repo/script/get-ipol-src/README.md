@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/Reproducibility-and-artifact-evaluation/get-ipol-src](https://docs.mlcommons.org/cm4mlops/scripts/Reproducibility-and-artifact-evaluation/get-ipol-src) for the documentation of this CM script.

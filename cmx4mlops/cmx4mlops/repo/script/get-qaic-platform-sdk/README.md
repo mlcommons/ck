@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-frameworks/get-qaic-platform-sdk](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-frameworks/get-qaic-platform-sdk) for the documentation of this CM script.

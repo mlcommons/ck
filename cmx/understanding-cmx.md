@@ -11,7 +11,7 @@ This common metadata includes extensible tags, a user-friendly alias, and an aut
 enabling everyone to find and reuse both public and private artifacts in accordance with [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data) 
 (findable, accessible, interoperable, and reusable).
 
-At the same time, CMX allows users to share and reuse common automations 
+CMX also allows users to add, share and reuse common automations 
 with a unified CLI and Python API, applying them to related artifacts
 based on their common metadata.
 
@@ -96,6 +96,7 @@ as follows:
 ```bash
 fursin@laptop:~$ pip install cmind
 fursin@laptop:~$ cmx pull repo mlcommons@ck --dir=cmx4mlops/cmx4mlops
+fursin@laptop:~$ cmx show repo
 fursin@laptop:~$ cmx find script
 
 /home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/script/app-image-classification-torch-py
@@ -137,7 +138,7 @@ allowing you to reuse artifacts and automations across different projects.
 
 All CMX artifacts contain a minimal set of keys in their metadata files.
 
-For example, the CMX script artifact `app-image-classification-torch-py`, 
+For example, the CMX script artifact [`app-image-classification-torch-py`](https://github.com/mlcommons/ck/tree/master/cmx4mlops/cmx4mlops/repo/script/app-image-classification-torch-py), 
 which includes PyTorch code for classifying images using the reference ResNet50 model, 
 has the following `_cm.yaml` format:
 
@@ -195,10 +196,65 @@ for artifact in artifacts:
 
 ## Understanding CMX automations
 
+All CMX artifacts must be associated with a corresponding CMX automation 
+that defines common actions based on the artifact's metadata.
 
+When one creates a new type of artifact, CMX will automatically generate a related automation 
+that inherits [common actions](common-automation-actions.md) 
+to manage all types of artifacts, including  `find/search`, `add`, `delete/rm`, `move/mv`, `copy/cp`, `load`, and `update`.
 
+For example, the metadata of the CMX script artifact [`app-image-classification-torch-py`](https://github.com/mlcommons/ck/blob/master/cmx4mlops/cmx4mlops/repo/script/app-image-classification-torch-py/_cm.yaml#L4)
+specifies its associated CMX automation:
 
+```yaml
+automation_alias: script
+automation_uid: 5b4e0237da074764
+```
 
+This allows CMX to find a related automation and determine which common actions 
+can be applied to this artifact based on its metadata.
 
+If we run the command `cmx load script app-image-classification-torch-py`, CMX will:
+* *search* for existing `script` automation in all `automation` directories across all CMX repositories.
+* *Locate* it in [`automation/script`](https://github.com/mlcommons/ck/tree/master/cmx4mlops/cmx4mlops/repo/automation/script).
+* *Load* `modulex.py` (for CMX) or [`module.py`](https://github.com/mlcommons/ck/blob/master/cmx4mlops/cmx4mlops/repo/automation/script/module.py) (for CM)
+* *Invoke* the  `load` function in the CAutomation class (which inherits common actions 
+  for all artifacts from the [CMX Automation class](https://github.com/mlcommons/ck/blob/master/cm/cmind/automation.py)).
+* *Pass* a unified CM/CMX input dictionary `{'artifact':'app-image-classification-torch-py' ...}`
 
-To be continued...
+The [common `load` function](https://github.com/mlcommons/ck/blob/master/cm/cmind/automation.py#L627) 
+will, in turn:
+* *Search* for this artifact in all CMX repositories
+* *Load* tha artifact's metadata from `_cm.yaml` and/or `_cm.json`
+* *Print* the metadata to the console as JSON
+
+If the same command is invoked through the CMX Python API, it will return metadata as a unified CMX dictionary:
+
+```bash
+
+$ python
+
+import cmind
+r = cmind.x({'action':'load', 'automation':'script', 'artifact':'app-image-classification-torch-py'})
+
+print (r)
+
+{'return': 0, 'path': '...', 'meta': {'alias': 'app-image-classification-torch-py', 'automation_alias': 'script', 
+ 'automation_uid': '5b4e0237da074764', 'category': 'Modular AI/ML application pipeline', ...
+```
+
+We can also implement automation actions tailored specifically for this group of artifacts.
+For example, we have implemented the 'run' action for scripts, enabling the execution 
+of both native and Python scripts on any platform, regardless of the operating system, 
+in a unified, portable, and deterministic manner:
+
+If we now run the command `cmx run script app-image-classification-torch-py`, CMX will
+invoke the [`run`](https://github.com/mlcommons/ck/blob/master/cmx4mlops/cmx4mlops/repo/automation/script/module.py#L96) 
+function within the `script` automation and execute it based on the [metadata](https://github.com/mlcommons/ck/blob/master/cmx4mlops/cmx4mlops/repo/script/app-image-classification-torch-py/_cm.yaml)
+of the `app-image-classification-torch-py` artifact.
+
+This covers the core CM/CMX concepts, which facilitate collaborative and
+reproducible research, development, and experimentation. They help users
+progressively modularize, unify, and extend complex projects using common
+and interconnected metadata and reusable automation. For example, the community has successfully
+applied this approach to [modularize and automate MLPerf benchmarks](https://arxiv.org/abs/2406.16791).

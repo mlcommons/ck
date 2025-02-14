@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/run-mlperf-training-submission-checker](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/run-mlperf-training-submission-checker) for the documentation of this CM script.

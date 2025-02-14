@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/run-mlperf-power-server](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/run-mlperf-power-server) for the documentation of this CM script.
