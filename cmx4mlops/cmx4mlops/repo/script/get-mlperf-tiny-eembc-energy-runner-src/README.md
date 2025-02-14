@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/get-mlperf-tiny-eembc-energy-runner-src](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/get-mlperf-tiny-eembc-energy-runner-src) for the documentation of this CM script.

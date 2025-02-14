@@ -2,9 +2,9 @@
 
 * [Installation (Linux, Windows, MacOS)](install.md)
 * [Understanding CMX](understanding-cmx.md)
-* [CMX commands to share and reuse artifacts with common metadata](commands.md)
-* [CMX automation commands for related artifacts](cmx-automations.md)
+* [CMX commands to share and reuse artifacts with common metadata](common-automation-actions.md)
+* [CMX automation actions for related artifacts](specific-automation-actions.md)
 * [Reusing CMX automations and artifacts for MLOps, DevOps and MLPerf](cmx4mlops.md)
-* [CMX Python API](https://cknowledge.org/docs/cmx)
-* [CMX internal architecture](architecture-4.0.0.png)
+* [Creating new artifacts and automations](cmx4mlops.md)
+* [Improving CMX framework](improving-cmx.md)
 * [Motivation](motivation.md)

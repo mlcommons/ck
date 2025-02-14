@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/CM-interface-prototyping/test-debug](https://docs.mlcommons.org/cm4mlops/scripts/CM-interface-prototyping/test-debug) for the documentation of this CM script.

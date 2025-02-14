@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/benchmark-any-mlperf-inference-implementation](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/benchmark-any-mlperf-inference-implementation) for the documentation of this CM script.

@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/Platform-information/detect-cpu](https://docs.mlcommons.org/cm4mlops/scripts/Platform-information/detect-cpu) for the documentation of this CM script.

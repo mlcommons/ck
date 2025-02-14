@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-models/get-ml-model-using-imagenet-from-model-zoo](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-models/get-ml-model-using-imagenet-from-model-zoo) for the documentation of this CM script.

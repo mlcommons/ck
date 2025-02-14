@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/get-git-repo](https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/get-git-repo) for the documentation of this CM script.

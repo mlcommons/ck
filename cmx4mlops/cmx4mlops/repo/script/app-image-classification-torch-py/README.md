@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/Modular-AI-ML-application-pipeline/app-image-classification-torch-py](https://docs.mlcommons.org/cm4mlops/scripts/Modular-AI-ML-application-pipeline/app-image-classification-torch-py) for the documentation of this CM script.

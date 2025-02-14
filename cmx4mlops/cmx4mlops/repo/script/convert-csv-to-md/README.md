@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/convert-csv-to-md](https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/convert-csv-to-md) for the documentation of this CM script.

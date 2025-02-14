@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/Modular-MLPerf-benchmarks/app-mlperf-inference-qualcomm](https://docs.mlcommons.org/cm4mlops/scripts/Modular-MLPerf-benchmarks/app-mlperf-inference-qualcomm) for the documentation of this CM script.

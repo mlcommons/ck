@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-kits19](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-kits19) for the documentation of this CM script.

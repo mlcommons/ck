@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/Detection-or-installation-of-tools-and-artifacts/get-google-test](https://docs.mlcommons.org/cm4mlops/scripts/Detection-or-installation-of-tools-and-artifacts/get-google-test) for the documentation of this CM script.

@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-cnndm](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-dataset-cnndm) for the documentation of this CM script.

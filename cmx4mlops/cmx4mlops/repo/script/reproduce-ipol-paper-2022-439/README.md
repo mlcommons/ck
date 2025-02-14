@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/Reproducibility-and-artifact-evaluation/reproduce-ipol-paper-2022-439](https://docs.mlcommons.org/cm4mlops/scripts/Reproducibility-and-artifact-evaluation/reproduce-ipol-paper-2022-439) for the documentation of this CM script.

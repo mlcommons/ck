@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/get-mlperf-inference-nvidia-common-code](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/get-mlperf-inference-nvidia-common-code) for the documentation of this CM script.

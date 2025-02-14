@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/download-and-extract](https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/download-and-extract) for the documentation of this CM script.

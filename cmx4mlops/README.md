@@ -64,5 +64,5 @@ Visit the [parent Collective Knowledge project](https://github.com/mlcommons/ck)
 
 ## Citing this project
 
-If you found the CM automations helpful, kindly reference this article:
+If you found the CM and CMX automations helpful, kindly reference this article:
 [ [ArXiv](https://arxiv.org/abs/2406.16791) ]

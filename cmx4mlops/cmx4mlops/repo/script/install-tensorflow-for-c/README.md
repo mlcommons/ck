@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-frameworks/install-tensorflow-for-c](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-frameworks/install-tensorflow-for-c) for the documentation of this CM script.

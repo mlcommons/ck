@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/Modular-MLPerf-inference-benchmark-pipeline/app-loadgen-generic-python](https://docs.mlcommons.org/cm4mlops/scripts/Modular-MLPerf-inference-benchmark-pipeline/app-loadgen-generic-python) for the documentation of this CM script.

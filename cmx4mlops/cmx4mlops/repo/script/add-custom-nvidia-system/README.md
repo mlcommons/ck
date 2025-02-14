@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/add-custom-nvidia-system](https://docs.mlcommons.org/cm4mlops/scripts/MLPerf-benchmark-support/add-custom-nvidia-system) for the documentation of this CM script.

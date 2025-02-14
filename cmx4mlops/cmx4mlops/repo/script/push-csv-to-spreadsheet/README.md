@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/push-csv-to-spreadsheet](https://docs.mlcommons.org/cm4mlops/scripts/DevOps-automation/push-csv-to-spreadsheet) for the documentation of this CM script.

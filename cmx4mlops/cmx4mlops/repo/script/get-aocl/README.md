@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/Compiler-automation/get-aocl](https://docs.mlcommons.org/cm4mlops/scripts/Compiler-automation/get-aocl) for the documentation of this CM script.

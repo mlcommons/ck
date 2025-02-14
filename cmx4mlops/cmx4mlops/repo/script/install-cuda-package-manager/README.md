@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/CUDA-automation/install-cuda-package-manager](https://docs.mlcommons.org/cm4mlops/scripts/CUDA-automation/install-cuda-package-manager) for the documentation of this CM script.

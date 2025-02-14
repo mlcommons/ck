@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-models/get-ml-model-neuralmagic-zoo](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-models/get-ml-model-neuralmagic-zoo) for the documentation of this CM script.

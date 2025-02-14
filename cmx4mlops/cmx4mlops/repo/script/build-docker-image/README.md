@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/Docker-automation/build-docker-image](https://docs.mlcommons.org/cm4mlops/scripts/Docker-automation/build-docker-image) for the documentation of this CM script.

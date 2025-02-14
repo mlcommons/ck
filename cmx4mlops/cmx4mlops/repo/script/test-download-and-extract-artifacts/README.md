@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/Tests/test-download-and-extract-artifacts](https://docs.mlcommons.org/cm4mlops/scripts/Tests/test-download-and-extract-artifacts) for the documentation of this CM script.

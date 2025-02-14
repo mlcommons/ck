@@ -1,1 +1,0 @@
-Please see [https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-preprocessed-dataset-imagenet](https://docs.mlcommons.org/cm4mlops/scripts/AI-ML-datasets/get-preprocessed-dataset-imagenet) for the documentation of this CM script.
