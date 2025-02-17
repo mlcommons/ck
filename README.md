@@ -11,7 +11,7 @@
 [![CMX MLPerf inference r-GAT test](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-rgat.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-rgat.yml)
 [![CMX MLPerf inference BERT deepsparse test](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-bert-deepsparse-tf-onnxruntime-pytorch.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-bert-deepsparse-tf-onnxruntime-pytorch.yml)
 
-## Collective Knowledge
+## Collective Knowledge project (CK)
 
 [Collective Knowledge (CK)](https://cKnowledge.org) 
 is a community-driven project dedicated to supporting open science, enhancing reproducible research, 
@@ -21,13 +21,9 @@ across diverse models, data sets, software and hardware:
 
 It includes the following sub-projects.
 
-### Common Metadata eXchange framework (CMX, 2024+)
+### Collective Mind project (MLCommons CM)
 
-*Starting in February 2025, CMX V4+ serves as drop-in, backward-compatible replacement 
- for the earlier Collective Mind framework (CM) and other MLCommons automation prototypes, 
- while providing a simpler and more robust interface.*
-
-The [Common Metadata eXchange framework (CMX)](https://github.com/mlcommons/ck/tree/master/cmx)
+The [Collective Mind automation framework (CM)](https://github.com/mlcommons/ck/tree/master/cmind)
 was developed to support open science and facilitate
 collaborative, reproducible, and reusable research, development, 
 and experimentation based on [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data).
@@ -42,14 +38,22 @@ and technology-agnostic automation workflows, enabling users to
 rerun, reproduce, and reuse complex experimental setups across diverse and rapidly evolving models, datasets,
 software, and hardware. 
 
-For example, CMX helps to modularize, automate and customize MLPerf benchmarks.
+For example, CM helps to modularize, automate and customize MLPerf benchmarks.
 
-See the [project page](https://github.com/mlcommons/ck/tree/master/cmx) for more details.
-
-
-### Collective Mind framework (CM, 2021-2024)
+#### Legacy CM API and CLI (2021-2024)
 
 See the [project page](https://github.com/mlcommons/ck/blob/master/cm/README.CM.md) for more details.
+
+#### New CM API and CLI (CMX, 2025+)
+
+[Collective Mind eXtension or Common Metadata eXchange (CMX)](https://github.com/mlcommons/ck/tree/master/cmx) 
+is the next evolution of the [Collective Mind automation framework (MLCommons CM)](https://github.com/mlcommons/ck/tree/master/cm) 
+designed to enhance simplicity, flexibility, and extensibility of automations 
+based on user feedback. It is backwards compatible with CM, released along with CM 
+in the [cmind package](https://pypi.org/project/cmind/) and can serve as drop-in replacement 
+for CM and legacy MLPerf automations while providing a simpler and more robust interface.
+
+See the [project page](https://github.com/mlcommons/ck/tree/master/cmx) for more details.
 
 ### MLOps and MLPerf automations
 
@@ -73,8 +77,8 @@ See the [online MLPerf documentation](https://docs.mlcommons.org/inference)
 at MLCommons to run MLPerf inference benchmarks across diverse systems using CMX.
 Just install `pip install cmind` and substitute the following commands and flags:
 * `cm` -> `cmx`
-* `mlc` -> `cmx run mlc`
-* `mlcr` -> `cmxr`
+* `mlc` -> `cmlc`
+* `mlcr` -> `cmlcr`
 * `-v` -> `--v`
 
 ### Collective Knowledge Playground
@@ -119,7 +123,7 @@ Copyright (c) 2014-2021 cTuning foundation
 
 ## Maintainers
 
-* CM, CM4MLOps and MLPerf automations: [MLCommons infra WG](https://mlcommons.org)
+* Legacy CM, CM4MLOps and MLPerf automations: [MLCommons infra WG](https://mlcommons.org)
 * CMX (the next generation of CM since 2025): [Grigori Fursin](https://cKnowledge.org/gfursin)
 
 ## Concepts
@@ -144,7 +148,7 @@ and [cTuning](https://cTuning.org) for supporting this project,
 as well as our dedicated [volunteers and collaborators](https://github.com/mlcommons/ck/blob/master/CONTRIBUTORS.md)
 for their feedback and contributions!
 
-If you found the CM automations helpful, kindly reference this article:
+If you found the CM, CMX and MLPerf automations helpful, kindly reference this article:
 [ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].
 
 You are welcome to contact the [author](https://cKnowledge.org/gfursin) to discuss long-term plans and potential collaboration.

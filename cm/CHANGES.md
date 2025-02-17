@@ -1,5 +1,7 @@
-## CMX V4.0.2.1
-   - dev version
+## mlc-scripts
+   - added -v flag to print version
+   - improve help
+   - added support for legacy CM front-end for MLPerf (mlc, mlcr, mlcflow)
 
 ## CMX V4.0.2
    - bug fixes

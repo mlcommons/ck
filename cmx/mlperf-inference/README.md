@@ -1,6 +1,6 @@
 # MLPerf automations
 
-[Common Metadata eXchange and Collective Mind frameworks](https://github.com/mlcommons/ck/tree/master/cm) 
+[Collective Mind automation framework (CM and CMX)](https://github.com/mlcommons/ck/tree/master/cm) 
 have helped [the community](https://github.com/mlcommons/ck/blob/master/CONTRIBUTORS.md) 
 learn how to modularize and automate MLPerf inference benchmarks
 through [unified MLOps and MLPerf automations with extensible metadata](https://access.cknowledge.org/playground/?action=scripts).

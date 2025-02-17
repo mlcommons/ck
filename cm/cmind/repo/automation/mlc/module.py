@@ -1,4 +1,13 @@
-# CMX interface for mlcflow
+# CMX interface for legacy CM front-ends (mlc, mlcr, mlcflow)
+
+# Authors: Grigori Fursin
+# Contributors:
+#
+# Copyright: https://github.com/mlcommons/ck/blob/master/COPYRIGHT.txt
+# License: https://github.com/mlcommons/ck/blob/master/LICENSE.md
+# History: https://github.com/mlcommons/ck/blob/master/HISTORY.CM.md
+# White paper: https://arxiv.org/abs/2406.16791
+# Project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 
 import os
 
@@ -8,7 +17,7 @@ from cmind import cli
 
 class CAutomation(Automation):
     """
-    CMX interface for mlcflow
+    CMX interface for legacy CM front-ends (mlc, mlcr, mlcflow)
     """
 
     ############################################################
@@ -18,7 +27,7 @@ class CAutomation(Automation):
     ############################################################
     def run(self, i):
         """
-        CMX interface for mlcflow
+        CMX interface for legacy CM front-ends (mlc, mlcr, mlcflow)
         
         """
 

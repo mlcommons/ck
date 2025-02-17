@@ -1,4 +1,4 @@
-# CMX automations for MLPerf
+# CMX front-end for the legacy MLPerf automations
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE.md)
 [![CMX repository](https://img.shields.io/badge/Common%20Metadata%20eXchange-compatible-blue)](https://github.com/mlcommons/ck/tree/master/cm)
@@ -28,5 +28,5 @@ Visit the [parent Collective Knowledge project](https://github.com/mlcommons/ck)
 
 ## Citing this project
 
-If you found the CM and CMX automations helpful, kindly reference this article:
+If you found the CM, CMX and MLPerf automations helpful, kindly reference this article:
 [ [ArXiv](https://arxiv.org/abs/2406.16791) ]

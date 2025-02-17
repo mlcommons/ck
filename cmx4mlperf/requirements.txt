@@ -1,1 +1,2 @@
-cmind>=4.0.2
+cmind>=4.1.0
+mlc-scripts

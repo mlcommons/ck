@@ -4,9 +4,11 @@
 [![Downloads](https://static.pepy.tech/badge/cmind)](https://pepy.tech/project/cmind)
 [![arXiv](https://img.shields.io/badge/arXiv-2406.16791-b31b1b.svg)](https://arxiv.org/abs/2406.16791)
 
-This Python package contains 2 projects:
-* [Common Metadata eXchange framework (CMX, 2024+)](https://github.com/mlcommons/ck/blob/master/cm/README.CMX.md)
-* [Collective Mind framework (CM, 2021-2024)](https://github.com/mlcommons/ck/blob/master/cm/README.CM.md)
+# Collective Mind workflow automation framework (MLCommons CM)
+
+This Python package contains 2 front-ends:
+* [Collective Mind eXtension or Common Metadata eXchange (CMX, 2024+)](https://github.com/mlcommons/ck/blob/master/cm/README.CMX.md)
+* [Legacy Collective Mind (CM, 2021-2024)](https://github.com/mlcommons/ck/blob/master/cm/README.CM.md)
 
 ## License
 
@@ -41,7 +43,7 @@ To learn more about the concepts and motivation behind this project, please expl
 
 ## Citation
 
-If you found the CM and CMX automations helpful, kindly reference this article:
+If you found the CM, CMX and MLPerf automations helpful, kindly reference this article:
 [ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].
 
 You are welcome to contact the [author](https://cKnowledge.org/gfursin) to discuss long-term plans and potential collaboration.

@@ -2,11 +2,13 @@
   "alias": "mlc",
   "automation_alias": "automation",
   "automation_uid": "bbeb15d8f0a944a4",
-  "desc": "CMX interface for mlcflow",
+  "desc": "CMX interface for legacy CM front-ends (mlc, mlcr, mlcflow)",
+  "authors": "[Grigori Fursin](https://cKnowledge.org/gfursin)",
   "sort": -1000,
   "tags": [
     "automation",
-    "mlc"
+    "mlc",
+    "mlcflow"
   ],
   "uid": "26193c384fae476c"
 }

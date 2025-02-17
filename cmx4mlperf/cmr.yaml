@@ -7,6 +7,6 @@ version: "1.0.0"
 
 author: "Grigori Fursin"
 
-min_cm_version: "4.0.2"
+min_cm_version: "4.1.0"
 
 prefix: repo

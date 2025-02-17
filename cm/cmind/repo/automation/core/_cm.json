@@ -2,8 +2,8 @@
   "alias": "core",
   "automation_alias": "automation",
   "automation_uid": "bbeb15d8f0a944a4",
-  "desc": "Accessing some core CM functions",
-  "developers": "[Grigori Fursin](https://cKnowledge.org/gfursin)",
+  "desc": "Core CM functions",
+  "authors": "[Grigori Fursin](https://cKnowledge.org/gfursin)",
   "sort": 500,
   "tags": [
     "automation",

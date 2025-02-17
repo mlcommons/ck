@@ -1,6 +1,8 @@
 [ [Back to index](README.md) ]
 
-# CMX installation (Common Metadata eXchange)
+# CMX installation 
+
+This guide will help you install CMX (Collective Mind eXtension aka Common Metadata eXchange).
 
 ***Check [online CMX installation GUI](https://access.cknowledge.org/playground/?action=install).***
 
