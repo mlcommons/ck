@@ -123,30 +123,49 @@ def run_script(argv = None):
     return run(['run', 'script'] + argv)
 
 ############################################################
-def runx_script(argv = None):
+def run_legacy_mlc(argv = None):
     """
-    Shortcut to "cmx run script ..." or "mlcr ..."
+    Shortcut to legacy CM front-end (mlc, mlcflow)
 
-    CMX command line format:
-
-    Args:
-        argv (list | string): command line arguments
-
-    Returns: 
-        (CM return dict):
-
-        * return (int): return code == 0 if no error and >0 if error
-        * (error) (str): error string if return>0
-
-        * Output from a CM automation action
+    TBD: unify output for CMX
 
     """
 
-    # Access CMX
+    return run_legacy_mlcflow('mlc', argv)
+
+############################################################
+def run_legacy_mlcr(argv = None):
+    """
+    Shortcut to legacy CM front-end (mlcr, mlcflow)
+
+    TBD: unify output for CMX
+
+    """
+
+    return run_legacy_mlcflow('mlcr', argv)
+
+############################################################
+def run_legacy_mlcflow(legacy_frontend, argv = None):
+    """
+    Shortcut to legacy CM front-end (mlcr, mlcflow)
+
+    TBD: unify output for CMX
+
+    """
+
     if argv is None:
         argv = sys.argv[1:]
 
-    return runx(['run', 'mlcr'] + argv)
+    import subprocess
+
+    rx = subprocess.run([legacy_frontend] + argv)
+
+    return_code = rx.returncode
+
+    r = {'return':0} if return_code == 0 else {'return':return_code, 'error':'legacy CM front-end failed (mlcflow)'}
+
+    return r
+
 
 ############################################################
 def docker_script(argv = None):

@@ -1079,7 +1079,7 @@ class CM(object):
         # Check if asked for "version" and no automation
         if action == 'version' and automation == '':
             automation = 'core'
-        elif action == '' and automation == '' and control.get('version', False):
+        elif action == '' and automation == '' and (control.get('version', False) or control.get('v', False)):
             action = 'version'
             automation = 'core'
         elif action == 'init' and automation == '':
@@ -1111,7 +1111,7 @@ class CM(object):
                    print ('Control flags:')
                    print ('')
                    print ('  -h | -help - print this help')
-                   print ('  -version - print version')
+                   print ('  -v | -version - print version')
                    print ('  -out (default) - output to console')
                    print ('  -out=con (default) - output to console')
                    print ('  -j | -json - print output of the automation action to console as JSON')
@@ -1455,23 +1455,33 @@ class CM(object):
         # Process artifacts for this automation action
         if len(artifacts)>0:
             parsed_artifacts = []
+            unparsed_artifacts = []
 
             for extra_artifact in artifacts:
                 # Parse artifact
                 r = parse_cm_object_and_check_current_dir(self, extra_artifact)
-                if r['return'] >0 : return r
-
-                parsed_artifacts.append(r['cm_object'])
-
+# Adding compatibility for the legacy cmlcr
+#                if r['return'] >0 : return r
+                if r['return'] == 0 : 
+                    parsed_artifacts.append(r['cm_object'])
+                else:
+                    unparsed_artifacts.append(extra_artifact)
+      
             control['_parsed_artifacts'] = parsed_artifacts
+
+            if len(unparsed_artifacts)>0:
+                control['_unparsed_artifacts'] = unparsed_artifacts
 
         # Check artifact and artifacts
         if artifact != '':
             # Parse artifact
             r = parse_cm_object_and_check_current_dir(self, artifact)
-            if r['return'] >0 : return r
-
-            control['_parsed_artifact'] = r['cm_object']
+# Adding compatibility for the legacy cmlcr
+#            if r['return'] >0 : return r
+            if r['return'] == 0 : 
+                control['_parsed_artifact'] = r['cm_object']
+            else:
+                control['_unparsed_artifact'] = artifact
 
         # Check min CM version requirement
         min_cm_version = automation_meta.get('min_cm_version','').strip()

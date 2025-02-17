@@ -1,9 +1,9 @@
-alias: cmx4mlops
+alias: mlcommons@cmx4mlops
 uid: 428611a6db02407f
 
 git: true
 
-version: "1.0.1"
+version: "1.0.2"
 
 author: "Grigori Fursin and contributors"
 

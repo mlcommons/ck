@@ -1,0 +1,13 @@
+alias: mlperf.model
+uid: 570de0bb76a14808
+
+automation_alias: automation
+automation_uid: bbeb15d8f0a944a4
+
+author: "Grigori Fursin"
+
+tags:
+- automation
+
+min_cm_version: 4.1.0
+

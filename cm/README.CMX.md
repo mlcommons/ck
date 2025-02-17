@@ -11,9 +11,9 @@
 [![CMX MLPerf inference r-GAT test](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-rgat.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-rgat.yml)
 [![CMX MLPerf inference BERT deepsparse test](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-bert-deepsparse-tf-onnxruntime-pytorch.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cmx-mlperf-inference-bert-deepsparse-tf-onnxruntime-pytorch.yml)
 
-# Common Metadata eXchange (CMX)
+# Collective Mind eXtension or Common Metadata eXchange (CMX)
 
-The [Common Metadata eXchange framework (CMX)](https://github.com/mlcommons/ck/tree/master/cmx)
+The [Collective Mind eXtension or Common Metadata eXchange framework (CMX)](https://github.com/mlcommons/ck/tree/master/cmx)
 was developed to support open science and facilitate
 collaborative, reproducible, and reusable research, development, 
 and experimentation based on [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data)
@@ -43,7 +43,7 @@ cmx run script "run-mlperf inference _performance-only _short" --model=resnet50 
 cmx show cache
 ```
 
-CMX extends the [Collective Mind (CM) framework](https://zenodo.org/records/8105339),
+CMX extends the [legacy Collective Mind framework (MLCommons CM)](https://zenodo.org/records/8105339),
 which have been successfully validated to 
 [modularize, automate, and modernize MLPerf benchmarks](https://arxiv.org/abs/2406.16791).
 

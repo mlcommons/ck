@@ -22,18 +22,6 @@ an educational community project to learn how to run AI, ML and other emerging w
 in the most efficient and cost-effective way across diverse 
 and ever-evolving systems using the MLPerf benchmarking methodology.
 
-#### CMX automation framework
-
-[CMX](https://github.com/mlcommons/ck/tree/master/cmx) - the next evolution 
-of the [Collective Mind framework](https://github.com/mlcommons/ck/tree/master/cm) 
-designed to enhance simplicity, flexibility, and extensibility of automations 
-based on user feedback. It is backwards compatible with CM, released along with CM 
-in the [cmind package](https://pypi.org/project/cmind/) and can serve as drop-in replacement for CM.
-
-The CM/CMX architecture diagram is available for viewing 
-[here](https://github.com/mlcommons/ck/tree/master/docs/specs/cm-diagram-v3.5.1.png).
-
-
 ## CM internal architecture
 
 The diagram below illustrates the primary classes, functions, and internal automations within the Collective Mind framework:

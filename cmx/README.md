@@ -1,6 +1,7 @@
-# Common Metadata eXchange (CMX)
+# Collective Mind eXtension aka Common Metadata eXchange (CMX)
 
-We are developing the [Common Metadata eXchange framework (CMX)](https://github.com/mlcommons/ck/tree/master/cmx)
+We are developing the extension to the MLCommons Collective Mind automation framework 
+called [Common Metadata eXchange (CMX)](https://github.com/mlcommons/ck/tree/master/cmx)
 to support open science and facilitate
 collaborative, reproducible, and reusable research, development, 
 and experimentation based on [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data)
