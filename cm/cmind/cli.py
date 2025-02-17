@@ -162,9 +162,7 @@ def run_legacy_mlcflow(legacy_frontend, argv = None):
 
     return_code = rx.returncode
 
-    r = {'return':0} if return_code == 0 else {'return':return_code, 'error':'legacy CM front-end failed (mlcflow)'}
-
-    return r
+    sys.exit(return_code)
 
 
 ############################################################

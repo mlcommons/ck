@@ -1,4 +1,7 @@
-## mlc-scripts
+## CMX V4.1.1
+   - fixed legacy interfaces
+
+## CMX V4.1.0
    - added -v flag to print version
    - improve help
    - added support for legacy CM front-end for MLPerf (mlc, mlcr, mlcflow)

@@ -72,7 +72,6 @@ cmind = ["repo/*",
          "repo/automation/ckx/*",
          "repo/automation/mlc/*",
          "repo/automation/mlcr/*",
-         "repo/automation/mlperf/*",
          "repo/automation/core/*",
          "repo/automation/core/cm_60cb625a46b38610/*",
          "repo/automation/repo/*"
