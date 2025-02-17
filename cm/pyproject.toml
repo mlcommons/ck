@@ -86,6 +86,7 @@ exclude = ["docs", "docs.*", "tests", "tests.*"]
 
 [project.urls]
 Homepage = "https://cKnowledge.org"
+Documentation = "https://docs.mlcommons.org/ck"
 Repository = "https://github.com/mlcommons/ck/tree/master/cm"
 Issues = "https://github.com/mlcommons/ck/issues"
 Changelog = "https://github.com/mlcommons/ck/blob/master/cm/CHANGES.md"
