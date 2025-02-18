@@ -1198,7 +1198,11 @@ class Automation:
 
         lst = r['list']
         if len(lst)==0:
-            return {'return':16, 'error':'artifact not found: {}'.format(i)}
+            import json
+            import copy
+            x = copy.deepcopy(i)
+            if 'control' in x: del x['control']
+            return {'return':16, 'error':'artifact not found for the CM/CMX input:\n{}'.format(json.dumps(x, indent=2))}
 
         cid1 = ''
         

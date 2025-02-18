@@ -22,7 +22,7 @@ and the [Collective Knowledge concept](https://learning.acm.org/techtalks/reprod
 It helps users non-intrusively convert their software projects,
 directories, and Git(Hub) repositories into file-based repositories
 of portable and reusable artifacts (code, data, models, scripts) 
-with extensible metadata, a unified command-line interface, 
+with extensible metadata, reusable automations, a unified command-line interface, 
 and a simple Python API.
 
 Such artifacts can be easily chained together into portable and technology-agnostic automation workflows,

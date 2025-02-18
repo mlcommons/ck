@@ -90,8 +90,6 @@ class CAutomation(Automation):
 
                 url += alias.replace('@', '/')
 
-                if pat != '' and url.startswith('https://'):
-                    url = url[:8]+pat+'@'+url[8:]
         else:
             if alias == '':
                 # Get alias from URL
@@ -116,6 +114,18 @@ class CAutomation(Automation):
                             j1 = alias.find('/', j+2)
                             if j1 >= 0:
                                 alias = alias[j1+1:].replace('/', '@')
+
+        if pat != '' and url != '' and url.startswith('https://'):
+            patx = pat
+            urlx = url[8:]
+
+            j = urlx.find('@')
+            if j > 0:
+                username = urlx[:j]
+                patx = username + ':' + pat
+                urlx = urlx[j+1:]
+
+            url = url[:8] + patx + '@' + urlx
 
         if url == '':
             pull_repos = []
@@ -1238,6 +1248,115 @@ class CAutomation(Automation):
 
         return {'return': 0, 'self_time': t2}
 
+    ############################################################
+
+    def get(self, i):
+        """
+        Get Git info with branch to help pull it on another machine
+
+        Args:
+            (CM input dict)
+
+            (verbose) (bool): If True, print index
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+        """
+
+        verbose = i.get('verbose', False)
+
+        console = i.get('out') == 'con'
+
+        artifact = i.get('artifact', '').strip()
+
+        if artifact == '' or artifact == '.':
+            r = self.cmind.access({'action': 'detect',
+                                   'automation': self.meta['alias']+','+self.meta['uid']})
+            if r['return'] > 0:
+                return r
+
+            repo_meta = r['meta']
+
+            path = r['path_to_repo']
+
+        else:
+            r = self.cmind.access({'action': 'load',
+                                   'automation': self.meta['alias']+','+self.meta['uid'],
+                                   'artifact':artifact})
+            if r['return'] > 0:
+                return r
+
+            repo_meta = r['meta']
+
+            path = r['path']
+ 
+        is_git = repo_meta.get('git', False)
+        repo_alias = repo_meta.get('alias', '')
+
+        # Go to this path
+        rr = {'return':0, 'path': path, 'meta': repo_meta, 'is_git': is_git}
+
+        if is_git:
+            # Go to repo directory
+            url = ''
+            branch = ''
+
+            import subprocess
+
+            cur_dir = os.getcwd()
+
+            os.chdir(path)
+
+            try:
+                url = subprocess.check_output(
+                    'git config --get remote.origin.url', shell=True).decode("utf-8").strip()
+            except subprocess.CalledProcessError as e:
+                url = ''
+
+            try:
+                branch = subprocess.check_output(
+                    'git rev-parse --abbrev-ref HEAD', shell=True).decode("utf-8").strip()
+            except subprocess.CalledProcessError as e:
+                branch = ''
+
+            if url != '':
+                rr['url'] = url
+                if branch != '':
+                    rr['branch'] = branch
+
+            url2 = ''
+            if url.startswith('https://'):
+                url2 = 'git@' + url[8:]
+
+                j = url2.find('/')
+                if j>0:
+                    url2 = url2[:j] + ':' + url2[j+1:]
+
+            cmd1 = f'cmx pull repo {url}'
+            cmd2 = f'cmx pull repo {url2}' if url2 != '' else cmd1
+
+            if branch != '':
+                cmd1 += f' --branch={branch}'
+                cmd2 += f' --branch={branch}'
+
+
+            rr['cmd'] = cmd1
+            rr['cmd2'] = cmd2
+
+            if console:
+                print ('You may retrieve this repository using the following CMX command:') 
+                print ('')
+ 
+                print (cmd1)
+                if cmd2 != cmd1:
+                    print (cmd2)
+
+        return rr
+
 
 ##############################################################################
 def convert_ck_dir_to_cm(rpath):
@@ -1325,7 +1444,7 @@ def convert_ck_dir_to_cm(rpath):
 
     return {'return': 0}
 
-
+#############################################################
 def print_warnings(warnings):
 
     if len(warnings) > 0:
