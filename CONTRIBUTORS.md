@@ -76,7 +76,7 @@ and contributors listed here in alphabetical order:
 * Bojian Zheng (University of Toronto)
 * Thomas Zhu (Oxford University)
 
-See more acknowledgments at the end of this [article](https://arxiv.org/abs/2406.16791),
+See additional acknowledgments at the end of this [article](https://arxiv.org/abs/2406.16791),
 which describes the Collective Mind workflow automation framework.
 
 # Legacy Collective Knowledge framework (CK)
@@ -138,5 +138,5 @@ which describes the Collective Mind workflow automation framework.
 * @filven
 * @ValouBambou
 
-See more acknowledgments at the end of this [article](https://doi.org/10.1098/rsta.2020.0211),
+See additional acknowledgments at the end of this [article](https://doi.org/10.1098/rsta.2020.0211),
 which describes the original Collective Knowledge workflow automation framework.

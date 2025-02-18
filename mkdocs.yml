@@ -38,7 +38,14 @@ nav:
     - MLPerf inference benchmark v5.0: 
       - cmx/mlperf-inference/v5.0/index.md
       - Language Processing:
+        - Bert-Large:
+          - Run Commands: cmx/mlperf-inference/v5.0/benchmarks/language/bert.md
+          - Reproducibility:
+            - IndySCC24: cmx/mlperf-inference/v5.0/benchmarks/language/reproducibility/indyscc24-bert.md
+        - GPT-J: cmx/mlperf-inference/v5.0/benchmarks/language/gpt-j.md
         - LLAMA2-70B: cmx/mlperf-inference/v5.0/benchmarks/language/llama2-70b.md
+        - LLAMA3-405B: cmx/mlperf-inference/v5.0/benchmarks/language/llama3_1-405b.md
+        - MIXTRAL-8x7B: cmx/mlperf-inference/v5.0/benchmarks/language/mixtral-8x7b.md
   - CK Playground: https://access.cKnowledge.org
   - Releases: https://github.com/mlcommons/ck/releases
 

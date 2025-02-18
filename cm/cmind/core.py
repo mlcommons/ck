@@ -862,7 +862,7 @@ class CM(object):
         # compatibility with older commands like cm/cmx rm cache -f
 
         unknown_control_flags = [flag for flag in control_flags if flag not in [
-          'h', 'help', 'version', 'out', 'j', 'json', 
+          'h', 'help', 'v', 'version', 'out', 'j', 'json', 
           'save_to_json_file', 'save_to_yaml_file', 'common', 
           'ignore_inheritance', 'log', 'logfile', 'raise', 'repro',
           'i', 'f', 'time', 'profile']]
