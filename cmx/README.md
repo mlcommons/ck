@@ -1,7 +1,7 @@
 # Collective Mind eXtension aka Common Metadata eXchange (CMX)
 
 We are developing the extension to the MLCommons Collective Mind automation framework 
-called [Common Metadata eXchange (CMX)](https://github.com/mlcommons/ck/tree/master/cmx)
+called [Collective Mind eXtension or Common Metadata eXchange (CMX)](https://github.com/mlcommons/ck/tree/master/cmx)
 to support open science and facilitate
 collaborative, reproducible, and reusable research, development, 
 and experimentation based on [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data)
@@ -10,7 +10,7 @@ and the [Collective Knowledge concept](https://learning.acm.org/techtalks/reprod
 It helps users non-intrusively convert their software projects 
 into file-based repositories of portable and reusable artifacts 
 (code, data, models, scripts) with extensible metadata, 
-a unified command-line interface, and a simple Python API.
+reusable automations, a unified command-line interface, and a simple Python API.
 
 Such artifacts can be easily chained together into portable and technology-agnostic automation workflows,
 enabling users to  rerun, reproduce, and reuse complex experimental setups across diverse and rapidly 

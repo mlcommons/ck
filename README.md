@@ -23,15 +23,16 @@ It includes the following sub-projects.
 
 ### Collective Mind project (MLCommons CM)
 
-The [Collective Mind automation framework (CM)](https://github.com/mlcommons/ck/tree/master/cmind)
+The [Collective Mind automation framework (CM)](https://github.com/mlcommons/ck/tree/master/cm)
 was developed to support open science and facilitate
 collaborative, reproducible, and reusable research, development, 
 and experimentation based on [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data).
 
 It helps users non-intrusively convert their software projects 
 into file-based repositories of portable and reusable artifacts 
-(code, data, models, scripts) with extensible metadata, 
-a unified command-line interface, and a simple Python API.
+(code, data, models, scripts) with extensible metadata
+and reusable automations, a unified command-line interface, 
+and a simple Python API.
 
 Such artifacts can be easily chained together into portable 
 and technology-agnostic automation workflows, enabling users to 

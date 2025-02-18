@@ -36,6 +36,9 @@ nav:
     - Summary: cmx/mlperf-inference/README.md
     - MLPerf inference benchmark v4.1: cmx/mlperf-inference/v4.1/README.md
     - MLPerf inference benchmark v5.0: cmx/mlperf-inference/v5.0/README.md
+      - cmx/mlperf-inference/v5.0/index.md
+      - Language Processing:
+        - LLAMA2-70B: cmx/mlperf-inference/v5.0/benchmarks/language/llama2-70b.md
   - CK Playground: https://access.cKnowledge.org
   - Releases: https://github.com/mlcommons/ck/releases
 
