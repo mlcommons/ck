@@ -46,7 +46,7 @@ class Config(object):
                      "error_prefix": "CM error:",
                      "error_prefix2": "CMX detected a problem",
                      "info_cli": "cm {action} {automation} {artifact(s)} {flags} @input.yaml @input.json",
-                     "info_clix": "cmx {action} {automation} {artifact(s)} {CMX control flags (-)} {CMX automation flags (--)}\ncmx -h",
+                     "info_clix": "cmx {action} {automation} {artifact(s)} {CMX control flags (-)} {CMX automation flags (--)}\nRun `cmx -h` to display help",
 
                      "default_home_dir": "CM",
 

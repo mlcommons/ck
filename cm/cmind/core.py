@@ -308,14 +308,14 @@ class CM(object):
 
         if logger != None:
             if t == 'debug':
-                self.logger.debug(s)
+                logger.debug(s)
             elif t == 'warning':
-                self.logger.warning(s)
+                logger.warning(s)
             elif t == 'error':
-                self.logger.error(s)
+                logger.error(s)
             # info
             else:
-                self.logger.info(s)
+                logger.info(s)
 
         return
 
@@ -908,7 +908,7 @@ class CM(object):
             ii['control'] = {}
             for k in control:
                 if not k.startswith('_') and k not in ['repro']:
-                    ii['control'][k] = i[k]
+                    ii['control'][k] = control[k]
 
             utils.save_json(os.path.join('cmx-repro', 'cmx-input.json'), 
                             meta = ii)

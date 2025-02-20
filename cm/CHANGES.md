@@ -1,3 +1,7 @@
+## CMX V4.1.3
+   - fixed a bug with "cmx -log" (#1410)
+   - fixed a bug with "cmx -repro" (#1409)
+
 ## CMX V4.1.2
    - fixed error reporting in cm/cmx info artifact if artifact not found
    - added "cmx get repo" or "cmx get repo {repo alias}" or "cm get repo" (#1405)

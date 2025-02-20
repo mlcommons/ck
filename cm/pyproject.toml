@@ -92,10 +92,11 @@ Changelog = "https://github.com/mlcommons/ck/blob/master/cm/CHANGES.md"
 
 [project.scripts]
 cmx = "cmind.cli:runx"
-cmind = "cmind.cli:run"
+cmind = "cmind.cli:runx"
 cm = "cmind.cli:run"
 cmxr = "cmind.cli:run_legacy_mlcr"
 cmlcr = "cmind.cli:run_legacy_mlcr"
+cr = "cmind.cli:run_legacy_mlcr"
 cmlc = "cmind.cli:run_legacy_mlc"
 cmr = "cmind.cli:run_script"
 cmrd = "cmind.cli:docker_script"
