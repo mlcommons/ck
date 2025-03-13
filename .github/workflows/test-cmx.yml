@@ -38,6 +38,8 @@ jobs:
         python3 -m pip install --ignore-installed --verbose pip setuptools
         python3 -m pip install cmind
         python3 -m cmind
+#        cmx pull repo mlcommons@ck --dir=cm4mlops/cm4mlops
+        cmx pull repo mlcommons@ck --dir2=cm4mlops
     - name: Test
       run: |
         python tests/test_cm.py
