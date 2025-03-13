@@ -43,6 +43,7 @@ class CAutomation(Automation):
           (checkout) (str): Git checkout
           (checkout_only) (bool): only checkout existing repo
           (dir) (str): use repository in this directory
+          (dir2) (str): use repository in this "directory/directory"
           (depth) (int): Git depth
           (desc) (str): brief repository description (1 line)
           (prefix) (str): extra directory to keep CM artifacts
@@ -74,6 +75,11 @@ class CAutomation(Automation):
 
         checkout_only = i.get('checkout_only', False)
         skip_zip_parent_dir = i.get('skip_zip_parent_dir', False)
+
+        dir2 = i.get('dir2', '')
+        if dir2 != '':
+            i['dir'] = dir2 + '/' + dir2
+            del (i['dir2'])
 
         # Check alias is URL
         if url == '' and (alias.startswith('https://') or alias.startswith('git@')):
