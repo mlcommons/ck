@@ -21,7 +21,7 @@ Install [MLCommons CM framework](https://github.com/mlcommons/ck/blob/master/doc
 
 Pull the MLCommons CK repository with automation recipes for interoperable MLOps:
 ```bash
-cm pull repo mlcommons@cm4mlops --checkout=dev
+cm pull repo mlcommons@ck --dir2=cm4mlops
 ```
 
 Pull already imported results (v2.0, v2.1, v3.0, v3.1) from this [mlcommons@cm4mlperf-results repo](https://github.com/mlcommons/cm4mlperf-results):
