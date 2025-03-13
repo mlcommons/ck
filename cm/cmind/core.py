@@ -1079,7 +1079,7 @@ class CM(object):
         # Check if asked for "version" and no automation
         if action == 'version' and automation == '':
             automation = 'core'
-        elif action == '' and automation == '' and (control.get('version', False) or control.get('v', False)):
+        elif action == '' and automation == '' and (control.get('version', False) or control.get('v', False) or control.get('_input',{}).get('version', False)):
             action = 'version'
             automation = 'core'
         elif action == 'init' and automation == '':

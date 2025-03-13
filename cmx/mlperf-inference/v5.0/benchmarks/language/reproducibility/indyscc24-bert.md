@@ -35,7 +35,8 @@ All the needed files are automatically pushed to the GitHub repository if you ma
 ### Generate actual submission tree
 
 ```bash
-mlcr generate,inference,submission \
+pip install cmx4mlperf
+cr generate,inference,submission \
    --clean \
    --run-checker \
    --tar=yes \
@@ -58,7 +59,8 @@ Fork the `mlperf-inference-results-scc24` branch of the repository URL at [https
 Run the following command after **replacing `--repo_url` with your GitHub fork URL**.
 
 ```bash
-mlcr push,github,mlperf,inference,submission \
+pip install cmx4mlperf
+cr push,github,mlperf,inference,submission \
    --repo_url=https://github.com/<myfork>/cm4mlperf-inference \
    --repo_branch=mlperf-inference-results-scc24 \
    --commit_message="Results on system <HW Name>" \

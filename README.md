@@ -45,6 +45,9 @@ For example, CM helps to modularize, automate and customize MLPerf benchmarks.
 
 See the [project page](https://github.com/mlcommons/ck/blob/master/cm/README.CM.md) for more details.
 
+Legacy and simplified CM and MLPerf automations were donated to MLCommons by Grigori Fursin, the cTuning foundation and OctoML.
+They are now supported by the MLCommons Infra WG (MLCFlow, MLC scripts, mlcr ...).
+
 #### New CM API and CLI (CMX, 2025+)
 
 [Collective Mind eXtension or Common Metadata eXchange (CMX)](https://github.com/mlcommons/ck/tree/master/cmx) 
@@ -76,7 +79,7 @@ while keeping backward compatibility.
 
 See the [online MLPerf documentation](https://docs.mlcommons.org/inference) 
 at MLCommons to run MLPerf inference benchmarks across diverse systems using CMX.
-Just install `pip install cmind` and substitute the following commands and flags:
+Just install `pip install cmx4mlperf` and substitute the following commands and flags:
 * `cm` -> `cmx`
 * `mlc` -> `cmlc`
 * `mlcr` -> `cmlcr`
@@ -132,6 +135,8 @@ Copyright (c) 2014-2021 cTuning foundation
 To learn more about the motivation behind this project, please explore the following articles and presentations:
 
 * HPCA'25 article "MLPerf Power: Benchmarking the Energy Efficiency of Machine Learning Systems from Microwatts to Megawatts for Sustainable AI": [ [Arxiv](https://arxiv.org/abs/2410.12032) ], [ [tutorial to reproduce results using CM/CMX](https://github.com/aryatschand/MLPerf-Power-HPCA-2025/blob/main/measurement_tutorial.md) ]
+* NeuralMagic's vLLM MLPerf inference 4.1 submission automated by CM: [ [README] ](https://github.com/mlcommons/inference_results_v4.1/blob/main/open/NeuralMagic/measurements/4xH100-SXM-80GB_vLLM_FP8-reference-cpu-pytorch-v2.3.1-default_config/llama2-70b-99/server/README.md)
+* SDXL MLPerf inference 4.1 submission automated by CM: [ [README] ](https://github.com/mlcommons/inference_results_v4.1/tree/main/open/CTuning/code/stable-diffusion-xl)
 * "Enabling more efficient and cost-effective AI/ML systems with Collective Mind, virtualized MLOps, MLPerf, Collective Knowledge Playground and reproducible optimization tournaments": [ [ArXiv](https://arxiv.org/abs/2406.16791) ]
 * ACM REP'23 keynote about the MLCommons CM automation framework: [ [slides](https://doi.org/10.5281/zenodo.8105339) ] 
 * ACM TechTalk'21 about Collective Knowledge project: [ [YouTube](https://www.youtube.com/watch?v=7zpeIVwICa4) ] [ [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2021/grigorifursin_techtalk_slides.pdf) ]
