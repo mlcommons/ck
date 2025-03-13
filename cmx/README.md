@@ -24,7 +24,7 @@ and Windows using a few CMX commands as follows:
 
 ```bash
 pip install cmind
-cmx pull repo mlcommons@ck --dir=cmx4mlops/cmx4mlops
+cmx pull repo mlcommons@ck --dir=cm4mlops/cm4mlops
 cmx run script "app image-classification python torch" --quiet
 cmx run script "run-mlperf inference _performance-only _short" --model=resnet50 --precision=float32 --backend=onnxruntime --scenario=Offline --device=cpu --env.CM_SUDO_USER=no --quiet
 cmx show cache

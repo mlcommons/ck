@@ -12,7 +12,8 @@ The benchmark implementation run command will automatically download the preproc
 
     ### Get Validation Dataset
     ```
-    mlcr get,dataset-mixtral,openorca-mbxp-gsm8k-combined -j
+    pip install cmx4mlperf
+    cr get,dataset-mixtral,openorca-mbxp-gsm8k-combined -j
     ```
 
 ## Model
@@ -24,5 +25,6 @@ Get the Official MLPerf MIXTRAL-8x7b Model
 
     ### Pytorch
     ```
-    mlcr get,ml-model,mixtral -j
+    pip install cmx4mlperf
+    cr get,ml-model,mixtral -j
     ```

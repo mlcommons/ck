@@ -17,7 +17,7 @@ based on their common metadata.
 
 ## Understanding CMX repositories
 
-A [typical CMX-based GitHub repository](https://github.com/mlcommons/ck/tree/master/cmx4mlops/cmx4mlops),
+A [typical CMX-based GitHub repository](https://github.com/mlcommons/ck/tree/master/cm4mlops/cm4mlops),
 which includes common metadata and automations in the CMX format, is structured as follows:
 
 ```bash
@@ -95,14 +95,14 @@ as follows:
 
 ```bash
 fursin@laptop:~$ pip install cmind
-fursin@laptop:~$ cmx pull repo mlcommons@ck --dir=cmx4mlops/cmx4mlops
+fursin@laptop:~$ cmx pull repo mlcommons@ck --dir=cm4mlops/cx4mlops
 fursin@laptop:~$ cmx show repo
 fursin@laptop:~$ cmx find script
 
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/script/app-image-classification-torch-py
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/script/app-mlperf-inference
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/script/compile-program
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/script/detect-os
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/script/app-image-classification-torch-py
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/script/app-mlperf-inference
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/script/compile-program
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/script/detect-os
 ...
 ```
 
@@ -114,15 +114,15 @@ fursin@laptop:~$ cmx find automation
 /home/fursin/cmx/lib/python3.12/site-packages/cmind/repo/automation/ckx
 /home/fursin/cmx/lib/python3.12/site-packages/cmind/repo/automation/core
 /home/fursin/cmx/lib/python3.12/site-packages/cmind/repo/automation/repo
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/automation/cache
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/automation/cfg
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/automation/challenge
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/automation/data
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/automation/docker
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/automation/experiment
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/automation/report
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/automation/script
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/automation/utils
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/automation/cache
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/automation/cfg
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/automation/challenge
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/automation/data
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/automation/docker
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/automation/experiment
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/automation/report
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/automation/script
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/automation/utils
 ...
 ```
 
@@ -138,7 +138,7 @@ allowing you to reuse artifacts and automations across different projects.
 
 All CMX artifacts contain a minimal set of keys in their metadata files.
 
-For example, the CMX script artifact [`app-image-classification-torch-py`](https://github.com/mlcommons/ck/tree/master/cmx4mlops/cmx4mlops/repo/script/app-image-classification-torch-py), 
+For example, the CMX script artifact [`app-image-classification-torch-py`](https://github.com/mlcommons/ck/tree/master/cm4mlops/cm4mlops/repo/script/app-image-classification-torch-py), 
 which includes PyTorch code for classifying images using the reference ResNet50 model, 
 has the following `_cm.yaml` format:
 
@@ -168,7 +168,7 @@ $ cmx find script *image-classification-torch*
 $ cmx find script --tags=app,image-classification,torch
 $ cmx find script "python app image-classification torch"
 
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/script/app-image-classification-torch-py
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/script/app-image-classification-torch-py
 ```
 
 You can also use a simple Python API to locate these artifacts as follows:
@@ -189,7 +189,7 @@ for artifact in artifacts:
 ```
 
 ```bash
-/home/fursin/CM/repos/mlcommons@ck/cmx4mlops/cmx4mlops/repo/script/app-image-classification-torch-py
+/home/fursin/CM/repos/mlcommons@ck/cm4mlops/cm4mlops/repo/script/app-image-classification-torch-py
 {'alias': 'app-image-classification-torch-py', 'automation_alias': 'script', 'automation_uid': '5b4e0237da074764', ...
 
 ```
@@ -203,7 +203,7 @@ When one creates a new type of artifact, CMX will automatically generate a relat
 that inherits [common actions](common-automation-actions.md) 
 to manage all types of artifacts, including  `find/search`, `add`, `delete/rm`, `move/mv`, `copy/cp`, `load`, and `update`.
 
-For example, the metadata of the CMX script artifact [`app-image-classification-torch-py`](https://github.com/mlcommons/ck/blob/master/cmx4mlops/cmx4mlops/repo/script/app-image-classification-torch-py/_cm.yaml#L4)
+For example, the metadata of the CMX script artifact [`app-image-classification-torch-py`](https://github.com/mlcommons/ck/blob/master/cm4mlops/cm4mlops/repo/script/app-image-classification-torch-py/_cm.yaml#L4)
 specifies its associated CMX automation:
 
 ```yaml
@@ -216,8 +216,8 @@ can be applied to this artifact based on its metadata.
 
 If we run the command `cmx load script app-image-classification-torch-py`, CMX will:
 * *search* for existing `script` automation in all `automation` directories across all CMX repositories.
-* *Locate* it in [`automation/script`](https://github.com/mlcommons/ck/tree/master/cmx4mlops/cmx4mlops/repo/automation/script).
-* *Load* `modulex.py` (for CMX) or [`module.py`](https://github.com/mlcommons/ck/blob/master/cmx4mlops/cmx4mlops/repo/automation/script/module.py) (for CM)
+* *Locate* it in [`automation/script`](https://github.com/mlcommons/ck/tree/master/cm4mlops/cm4mlops/repo/automation/script).
+* *Load* `modulex.py` (for CMX) or [`module.py`](https://github.com/mlcommons/ck/blob/master/cm4mlops/cm4mlops/repo/automation/script/module.py) (for CM)
 * *Invoke* the  `load` function in the CAutomation class (which inherits common actions 
   for all artifacts from the [CMX Automation class](https://github.com/mlcommons/ck/blob/master/cm/cmind/automation.py)).
 * *Pass* a unified CM/CMX input dictionary `{'artifact':'app-image-classification-torch-py' ...}`
@@ -249,8 +249,8 @@ of both native and Python scripts on any platform, regardless of the operating s
 in a unified, portable, and deterministic manner:
 
 If we now run the command `cmx run script app-image-classification-torch-py`, CMX will
-invoke the [`run`](https://github.com/mlcommons/ck/blob/master/cmx4mlops/cmx4mlops/repo/automation/script/module.py#L96) 
-function within the `script` automation and execute it based on the [metadata](https://github.com/mlcommons/ck/blob/master/cmx4mlops/cmx4mlops/repo/script/app-image-classification-torch-py/_cm.yaml)
+invoke the [`run`](https://github.com/mlcommons/ck/blob/master/cm4mlops/cm4mlops/repo/automation/script/module.py#L96) 
+function within the `script` automation and execute it based on the [metadata](https://github.com/mlcommons/ck/blob/master/cm4mlops/cm4mlops/repo/script/app-image-classification-torch-py/_cm.yaml)
 of the `app-image-classification-torch-py` artifact.
 
 This covers the core CM/CMX concepts, which facilitate collaborative and

@@ -499,7 +499,8 @@ def define_env(env):
             pre_space = " " * spaces
             return f"""\n
 {pre_space}```bash
-{pre_space}mlcr run,vllm-server \\
+{pre_space}pip install cmx4mlperf
+{pre_space}cr run,vllm-server \\
 {indent}--model=nm-testing/Llama-2-70b-chat-hf-FP8 \\
 {indent}--vllm_model_name=nm-testing/Llama-2-70b-chat-hf-FP8 \\
 {indent}--quiet
@@ -509,6 +510,7 @@ def define_env(env):
         pre_space = " " * spaces
         return f"""\n
 {pre_space}```bash
+{pre_space}pip install cmx4mlperf
 {pre_space}mlcr install,python-venv --name=mlperf
 {pre_space}export MLC_SCRIPT_EXTRA_CMD=\"--adr.python.name=mlperf\"
 {pre_space}```\n"""
@@ -734,7 +736,8 @@ def define_env(env):
 
             docker_setup_cmd = f"""\n
 {f_pre_space}```bash
-{f_pre_space}mlcr run-mlperf,inference,_find-performance,{full_ds_needed_tag}_{code_version}{scenario_variation_tag}{extra_variation_tags} \\
+{f_pre_space}pip install cmx4mlperf
+{f_pre_space}cr run-mlperf,inference,_find-performance,{full_ds_needed_tag}_{code_version}{scenario_variation_tag}{extra_variation_tags} \\
 {pre_space} --model={model} \\
 {pre_space} --implementation={implementation} \\
 {pre_space} --framework={framework} \\
@@ -780,7 +783,8 @@ def define_env(env):
 
             run_cmd = f"""\n
 {f_pre_space}```bash
-{f_pre_space}mlcr run-mlperf,inference,{full_ds_needed_tag}_{code_version}{scenario_variation_tag}{extra_variation_tags} \\
+{f_pre_space}pip install cmx4mlperf
+{f_pre_space}cr run-mlperf,inference,{full_ds_needed_tag}_{code_version}{scenario_variation_tag}{extra_variation_tags} \\
 {pre_space} --model={model} \\
 {pre_space} --implementation={implementation} \\
 {pre_space} --framework={framework} \\

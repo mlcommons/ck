@@ -14,7 +14,8 @@ The benchmark implementation run command will automatically download the validat
 
     ### Get Validation Dataset
     ```
-    mlcr get,dataset,cnndm,validation -j
+    pip install cmx4mlperf
+    cr get,dataset,cnndm,validation -j
     ```
 
 ## Model
@@ -26,5 +27,6 @@ Get the Official MLPerf GPT-J Model
 
     ### Pytorch
     ```
-    mlcr get,ml-model,gptj,_pytorch -j
+    pip install cmx4mlperf
+    cr get,ml-model,gptj,_pytorch -j
     ```

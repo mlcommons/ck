@@ -6,7 +6,7 @@ hide:
 # MLPerf Inference Benchmarks
 
 ## Overview
-The currently valid [MLPerf Inference Benchmarks](index_gh.md) as of MLPerf inference v5.0 round are listed below, categorized by tasks. Under each model you can find its details like the dataset used, reference accuracy, server latency constraints etc.
+The currently valid MLPerf Inference Benchmarks as of MLPerf inference v5.0 round are listed below, categorized by tasks. Under each model you can find its details like the dataset used, reference accuracy, server latency constraints etc.
 
 ---
 

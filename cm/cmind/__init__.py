@@ -9,7 +9,7 @@
 # White paper: https://arxiv.org/abs/2406.16791
 # Project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 
-__version__ = "4.1.3"
+__version__ = "4.1.3.1"
 
 from cmind.core import access
 from cmind.core import x

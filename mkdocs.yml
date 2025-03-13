@@ -1,4 +1,4 @@
-site_name: Collective Knowledge (CK), Collective Mind (CM) and Common Metadata eXchange (CMX) Documentation
+site_name: Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)
 
 repo_url: https://github.com/mlcommons/ck
 
@@ -28,7 +28,7 @@ nav:
     - Understanding CMX: cmx/understanding-cmx.md
     - CMX commands to share and reuse artifacts with common metadata: cmx/common-automation-actions.md
     - CMX automation actions for related artifacts: cmx/specific-automation-actions.md
-    - Reusing CMX automations and artifacts for MLOps, DevOps and MLPerf: cmx/cmx4mlops.md
+    - Reusing CMX automations and artifacts for MLOps, DevOps and MLPerf: cmx/cm4mlops.md
     - Creating new artifacts and automations: cmx/create.md
     - Improving CMX framework: cmx/improving-cmx.md
     - Motivation: cmx/motivation.md
@@ -37,6 +37,20 @@ nav:
     - MLPerf inference benchmark v4.1: cmx/mlperf-inference/v4.1/README.md
     - MLPerf inference benchmark v5.0: 
       - cmx/mlperf-inference/v5.0/index.md
+      - Image Classification:
+          - ResNet50: cmx/mlperf-inference/v5.0/benchmarks/image_classification/resnet50.md
+      - Text to Image:
+          - Stable Diffusion:
+              - Run Commands: cmx/mlperf-inference/v5.0/benchmarks/text_to_image/sdxl.md
+              - Reproducibility:
+                  - SCC24: cmx/mlperf-inference/v5.0/benchmarks/text_to_image/reproducibility/scc24.md
+      - 2D Object Detection:
+          - RetinaNet: cmx/mlperf-inference/v5.0/benchmarks/object_detection/retinanet.md
+      - Automotive:
+          - 3D Object Detection:
+              - PointPainting: cmx/mlperf-inference/v5.0/benchmarks/automotive/3d_object_detection/pointpainting.md
+      - Medical Imaging:
+          - 3d-unet: cmx/mlperf-inference/v5.0/benchmarks/medical_imaging/3d-unet.md
       - Language Processing:
         - Bert-Large:
           - Run Commands: cmx/mlperf-inference/v5.0/benchmarks/language/bert.md
@@ -46,6 +60,10 @@ nav:
         - LLAMA2-70B: cmx/mlperf-inference/v5.0/benchmarks/language/llama2-70b.md
         - LLAMA3-405B: cmx/mlperf-inference/v5.0/benchmarks/language/llama3_1-405b.md
         - MIXTRAL-8x7B: cmx/mlperf-inference/v5.0/benchmarks/language/mixtral-8x7b.md
+      - Recommendation:
+        - DLRM-v2: cmx/mlperf-inference/v5.0/benchmarks/recommendation/dlrm-v2.md
+      - Graph Neural Networks:
+        - R-GAT: cmx/mlperf-inference/v5.0/benchmarks/graph/rgat.md
   - CK Playground: https://access.cKnowledge.org
   - Releases: https://github.com/mlcommons/ck/releases
 

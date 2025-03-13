@@ -28,7 +28,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python3 -m pip install cmx4mlops
+        python3 -m pip install cmind
+        cmx pull repo mlcommons@ck --dir=cm4mlops/cm4mlops
         cmx test core
     - name: Test image classification with ONNX
       run: |
