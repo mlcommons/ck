@@ -1,5 +1,6 @@
-## CMX V4.1.3.1
+## CMX V4.1.4
    - fixed minor bug for "cmx --version"
+   - added "cmx pull repo --dir2" to support "dir/dir" directories
 
 ## CMX V4.1.3
    - fixed a bug with "cmx -log" (#1410)
