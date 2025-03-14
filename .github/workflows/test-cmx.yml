@@ -49,4 +49,3 @@ jobs:
         cd && cmx add repo my-test-repo
         cmx add script my-test-repo:my-test-script --tags=test,script
         cd $HOME/CM/repos/my-test-repo && cmx add script .:my-test-script2 --tags=test2,script
-
