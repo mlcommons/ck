@@ -35,6 +35,9 @@ model2task = {
     "gptj-99.9": "language-processing",
     "llama2-70b-99": "language-processing",
     "llama2-70b-99.9": "language-processing",
+    "llama2-70b-interactive-99": "language-processing",
+    "llama2-70b-interactive-99.9": "language-processing",
+    "llama3.1-405b": "languge-processing",
     "mixtral-8x7b": "languge-processing",
     "dlrm-99": "recommendation",
     "dlrm-v2-99": "recommendation",
@@ -42,7 +45,9 @@ model2task = {
     "dlrm-v2-99.9": "recommendation",
     "3d-unet-99": "image-segmentation",
     "3d-unet-99.9": "image-segmentation",
-    "stable-diffusion-xl": "text-to-image"
+    "stable-diffusion-xl": "text-to-image",
+    "pointpainting": "3d-object-detection",
+    "rgat": "graph"
 }
 
 
@@ -191,9 +196,12 @@ def convert_summary_csv_to_experiment(path, version, env):
                 accuracy = result.get('Accuracy', 0.0)
 #
 #                print (accuracy, type(accuracy))
-                if accuracy is not None and accuracy != 'None' and accuracy > 0:
-                    result['Accuracy_div_100'] = float(
-                        '{:.5f}'.format(result['Accuracy'] / 100))
+                try:
+                    if accuracy is not None and accuracy != 'None' and accuracy > 0:
+                        result['Accuracy_div_100'] = float(
+                            '{:.5f}'.format(result['Accuracy'] / 100))
+                except:
+                    pass
 
                 # Add ratios
 
