@@ -1,0 +1,26 @@
+alias: run-untar-unbzip2
+uid: c53bd176e0914f53
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+tags:
+- run
+- untar
+- unbzip2
+
+authors:
+- Grigori Fursin
+
+deps:
+  - tags: detect,host,info,min
+  - tags: use,sys,tool
+    name: tar
+  - tags: use,sys,tool
+    name: bzip2
+
+input_description:
+  file:
+    desc: "specify file to untar and unbzip2"
+  clean:
+    desc: "clean tar file after untaring"

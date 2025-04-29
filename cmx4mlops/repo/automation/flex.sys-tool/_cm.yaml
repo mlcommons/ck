@@ -1,0 +1,12 @@
+alias: flex.sys-tool
+uid: e0db585fbcf34f37
+
+automation_alias: automation
+automation_uid: bbeb15d8f0a944a4
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+- automation
+- flex
+- sys.tool

@@ -1,0 +1,18 @@
+alias: postprocess-mlperf-results
+uid: aa467391fd354155
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- postprocess
+- mlperf
+- results
+
+input_description:
+  benchmark:
+    desc: "MLPerf benchmark type (training|inference)"
+

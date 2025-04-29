@@ -1,0 +1,37 @@
+alias: detect-pycuda-info
+uid: 5ac9c17ce6d6491f
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- detect
+- pycuda
+- info
+
+deps:
+  - tags: use,compute
+    compute_tags: cuda
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: numpy
+    alias: pip_numpy
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: pycuda
+    install_postfix: "--no-cache-dir"
+    test_version: True
+    alias: pip_pycuda
+
+
+cmd_prefix_from_state: 
+  - cmx.cmd_compiler_prefix

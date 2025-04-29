@@ -1,0 +1,15 @@
+alias: uv
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 237e09ee4a2c4c81
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - uv
+
+desc:
+    tool: "uv"
+    tool_version: "{{tool}} --version"
+    match_version: 'uv\s*([\d.]+)'
+    match_group: 1

@@ -1,0 +1,16 @@
+alias: print-hello-world-script
+uid: 321bcf249b2e499a
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+tags:
+- print
+- hello-world
+- script
+
+authors:
+- Grigori Fursin
+
+default_env:
+  ENV_RETURN_CODE: 0

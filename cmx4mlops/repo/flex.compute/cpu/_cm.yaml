@@ -1,0 +1,21 @@
+alias: cpu
+automation_alias: flex.compute
+automation_uid: a346efb7d3314b33
+uid: affcfc58c402454c
+
+author_and_developer: "Grigori Fursin"
+
+device: cpu
+
+name: CPU
+
+tags:
+  - cpu
+  - generic
+  - min
+  - _sys_platform.win32
+  - _sys_platform.linux
+  - _sys_platform.darwin
+
+env:
+  CUDA_VISIBLE_DEVICES: ""

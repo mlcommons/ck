@@ -1,0 +1,45 @@
+alias: use-rclone-mlcommons
+uid: 8719cf96c4774891
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- use
+- rclone
+- mlcommons
+
+deps:
+  - tags: detect,host,info,min
+
+  - tags: use,sys,tool
+    name: rclone
+    alias: use-rclone
+    version_min: "1.60"
+
+  - automation: flex.cfg,a6533b79f7954a7a
+    alias: rclone_cfg
+    artifact: mlperf
+    action: check
+    key: rclone_root_folder_id
+    ask: "Please register at https://llama2.mlcommons.org and enter root_folder_id for rclone:"
+    fail_if_empty: True
+    return_dict: rclone_mlcommons_cfg
+
+use:
+  flex.cfg: "flex.cfg,a6533b79f7954a7a"
+
+input_description:
+  env:
+    desc: "specify env (dict)"
+  rclone_root_folder_id:
+    desc: "specify rclone root_folder_id"
+    add_to_state: flow.rclone_cfg.value
+  drive:
+    desc: "specify rclone drive"
+    default: "mlc-llama2"
+  skip_reconnect:
+    desc: "skip reconnect if already connected"

@@ -1,0 +1,27 @@
+alias: llama-2-70b-lora-fused-qkv-mlperf-rclone
+uid: bdb31693b1e0417d
+
+automation_alias: flex.model
+automation_uid: a8f882eae1924379
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+  - llama
+  - llama2
+  - 70b
+  - lora
+  - fused
+  - qkv
+  - mlperf
+  - training
+  - mlperf-training
+  - rclone
+
+rclone_drive: "mlc-llama2"
+rclone_filename: "Llama2-70b-fused-qkv-mlperf"
+
+dataset_meta:
+  dataset_tags: scrolls,gov-report,8k,mlperf-training
+
+mlperf_model_name: "llama2_70b_lora"

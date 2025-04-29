@@ -1,0 +1,26 @@
+alias: cpu_visual_cpp
+automation_alias: flex.compute
+automation_uid: a346efb7d3314b33
+uid: 9b087108d15a42ae
+
+author_and_developer: "Grigori Fursin"
+
+device: cpu
+
+name: CPU with Visual C++
+
+sort: -100
+
+tags:
+  - cpu
+  - visual_cpp
+  - cpp
+  - _sys_platform.win32
+
+deps:
+  - tags: use,sys,tool
+    name: visual_cpp
+    alias: visual_cpp
+
+env:
+  CUDA_VISIBLE_DEVICES: ""

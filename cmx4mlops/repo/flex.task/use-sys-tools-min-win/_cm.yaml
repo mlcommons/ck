@@ -1,0 +1,28 @@
+alias: use-sys-tools-min-win
+uid: c62611deae004e5f
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- use
+- sys
+- tools
+- min
+- win
+
+cache: True
+
+vars:
+  downloads:
+    urls:
+      - https://zenodo.org/records/13868077/files/cm-artifact-os-windows-32.zip?download=1
+      - https://cKnowledge.org/ai/data/zlib123dllx64-bin.zip
+      - https://cKnowledge.org/ai/data/xz-5.2.9-win64.zip
+    md5sums:
+      - "1590399cb7141ea342049b1205db3b32"
+      - "b261d1a3535d526148d2ceca02aa120c"
+      - "c4ddb935f98037891be941f6aa3308e7"

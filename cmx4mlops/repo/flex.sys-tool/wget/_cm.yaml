@@ -1,0 +1,16 @@
+alias: wget
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 9eb8f0e089584ca5
+
+authors_and_developers:
+- 'Grigori Fursin'
+
+tags:
+    - wget
+
+desc:
+    tool: wget
+    tool_version: "{{tool}} --version"
+    match_version: 'gnu wget ([\d.]+)'
+    match_group: 1

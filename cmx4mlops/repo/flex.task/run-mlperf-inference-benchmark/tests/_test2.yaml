@@ -1,0 +1,41 @@
+v: True
+#j: True
+
+#experiment:
+#  artifact: "mlperf-inference-5.0-flexai"
+#  rerun: True
+#  clean_summary: True
+
+path: mlperf-inference3
+
+submitter: FlexAI
+sut: test-cuda-1xH100-vllm-0.7.3-pytorch-2.5.1-76d94432c8704c14
+
+model: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+mlperf_model: llama2-70b-99
+#dataset: daltunay/MLPerf-OpenOrca
+
+scenario: Server
+#mode: accuracy
+mode: performance
+
+system_desc_file: _test2_system.json
+
+system_desc:
+  system_name: flexbench test node 0ef307db09d34a91 with 8xH100 
+  accelerators_per_node: 1
+  number_of_nodes: 1
+  framework: vLLM v0.7.3
+  system_type: datacenter
+  system_type_detail:
+  status: available
+#  sw_notes: Automated by MLCommons CMX v4.1.3
+
+bench:
+  compute_tags: cuda,nvcc
+  dataset_split: train
+#  total_sample_count: 24576
+  target_qps: 4.5
+  api_server: "http://localhost:8009"
+#  test: true
+  compliance: TEST06

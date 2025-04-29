@@ -1,0 +1,24 @@
+alias: gcc
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 61b616c22279460a
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - gcc
+    - c
+
+sort: -50
+
+skip_if_windows: True
+
+desc:
+    tool: gcc
+    tool_version: "{{tool}} --version"
+
+    match_version: ' \(.*\)\s*([\d.]+)'
+    match_group: 1
+
+    update_state:
+       cmx.c_compiler_with_path: "{{sys_tool_gcc_with_path2}}"

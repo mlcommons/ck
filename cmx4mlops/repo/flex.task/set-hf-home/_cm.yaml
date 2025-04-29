@@ -1,0 +1,16 @@
+alias: set-hf-home
+uid: 60c6877477294505
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+tags:
+- set
+- hf
+- home
+
+cache: True
+
+input_description:
+  path:
+    desc: "Select Hugging Face home"

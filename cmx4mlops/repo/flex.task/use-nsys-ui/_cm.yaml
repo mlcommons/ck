@@ -1,0 +1,23 @@
+alias: use-nsys-ui
+uid: b7b4fa73204f4c35
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- use
+- nsys
+- ui
+
+deps:
+  - tags: use,sys,tool
+    name: nsys_ui
+    alias: nsys_ui
+
+input_description:
+  input:
+    desc: "Input file"
+    default: tmp-nsys-trace.nsys-rep

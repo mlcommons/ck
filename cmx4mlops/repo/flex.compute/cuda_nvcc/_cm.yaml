@@ -1,0 +1,32 @@
+alias: cuda_nvcc
+automation_alias: flex.compute
+automation_uid: a346efb7d3314b33
+uid: d1cecec0eeef4752
+
+author_and_developer: "Grigori Fursin"
+
+device: cuda
+
+name: CUDA with NVCC and default compiler
+
+sort: -50
+
+tags:
+  - cuda
+  - nvcc
+  - _sys_platform.linux
+  - _sys_platform.win32
+
+deps:
+  - tags: use,sys,tool
+    name: nvidia_smi
+    alias: nvidia_smi
+
+  - tags: use,sys,tool
+    name: nvcc
+    alias: nvcc
+
+  - tags: detect,cuda,info
+    alias: cuda_info
+    min: True
+

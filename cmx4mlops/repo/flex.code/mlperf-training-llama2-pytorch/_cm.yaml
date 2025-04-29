@@ -1,0 +1,117 @@
+uid: 6264331900c64bf8
+alias: mlperf-training-llama2-pytorch
+
+automation_alias: flex.code
+automation_uid: ef97f06874474f39
+
+tags:
+  - mlperf
+  - mlperf-training
+  - training
+  - ref
+  - implementation-ref
+  - llama2
+  - pytorch
+
+developers:
+  - 'Grigori Fursin'
+  - 'Daniel Altunay'
+  - 'Agustin Mautone'
+
+deps:
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: wheel
+    alias: pip_wheel
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: numpy
+    alias: pip_numpy
+
+  - tags: use,sys,tool
+    name: pip_torch
+    alias: pip_torch
+    test_version: True
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: transformers
+    alias: pip_transformers
+
+  - tags: use,sys,tool
+    name: accelerate
+    alias: sys_tool_accelerate
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: accelerate
+    alias: pip_accelerate
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: peft
+    alias: pip_peft
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: datasets
+    alias: pip_datasets
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: deepspeed
+    alias: pip_deepspeed
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: tensorboard
+    alias: pip_tensorboard
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: einops
+    alias: pip_einops
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: xgboost
+    alias: pip_xgboost
+    install_postfix: "--force-reinstall --no-build-isolation --no-cache-dir -v --no-deps"
+
+#    FGG: we should control versions externally to learn good combinations
+#    version: 2.4.1
+  - tags: use,sys,tool
+    name: pip_flash_attn
+#    name: pip_generic
+#    package: flash_attn
+    alias: pip_flash_attn
+    install_postfix: "--force-reinstall --no-build-isolation --no-cache-dir -v --no-deps"
+
+choices:
+  code_version:
+  - "4.1-ref"
+  - "4.1-flex1"
+
+default_code_version: "4.1-ref"
+default_config_name: "default"
+
+model_meta:
+  model_tags: 'mlperf-training,llama'
+
+max_experiments: 10
+
+copy_code: True
+
+train_code: "scripts/train.py"
+
+cmd_run: >
+  accelerate launch --config_file {rt_config_file} {eol}
+    {train_code_path_with_version} {eol}
+    --dataset_path {path_to_dataset} {eol}
+    --model_path {path_to_model} {eol}
+    --output_dir {path_to_output}

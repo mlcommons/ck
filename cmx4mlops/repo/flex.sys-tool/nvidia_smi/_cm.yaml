@@ -1,0 +1,15 @@
+alias: nvidia_smi
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: c3fd29a0598d4d81
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - nvidia_smi
+
+desc:
+    tool: nvidia-smi
+    tool_version: "{{tool}} --version"
+    match_version: 'nvidia-smi version  : \s*([\d.]+)'
+    match_group: 1

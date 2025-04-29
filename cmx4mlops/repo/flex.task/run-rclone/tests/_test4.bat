@@ -1,0 +1,1 @@
+ft "run rclone" --cmd="copy mlc-llama2:inference/open_orca ./open_orca -P"

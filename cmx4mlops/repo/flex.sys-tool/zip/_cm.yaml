@@ -1,0 +1,16 @@
+alias: zip
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 7ec91688d7dc4954
+
+authors_and_developers:
+- 'Grigori Fursin'
+
+tags:
+    - zip
+
+desc:
+    tool: zip
+    tool_version: "{{tool}} -h"
+    match_version: 'zip\s*([\d.]+)'
+    match_group: 1

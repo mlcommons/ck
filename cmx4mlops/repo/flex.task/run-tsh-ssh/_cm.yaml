@@ -1,0 +1,33 @@
+alias: run-tsh-ssh
+uid: 0cbe63a92b3942aa
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+tags:
+- run
+- tsh
+- ssh
+
+authors:
+- Grigori Fursin
+
+deps:
+  - tags: detect,host,info,min
+  - tags: use,sys,tool
+    name: tsh
+
+use:
+  flex.common: "flex.common,21286240620d4ef6"
+  flex.cfg: "flex.cfg,a6533b79f7954a7a"
+  flex.system: "flex.system,b55396b7429045a2"
+
+input_description:
+  proxy: 
+    desc: "specify proxy"
+  host:
+    desc: "specify host to connect to"
+  user:
+    desc: "specify user (if not yet in host)"
+  env:
+    desc: "specify env (dict)"

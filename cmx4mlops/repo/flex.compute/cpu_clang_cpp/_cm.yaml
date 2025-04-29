@@ -1,0 +1,28 @@
+alias: cpu_clang_cpp
+automation_alias: flex.compute
+automation_uid: a346efb7d3314b33
+uid: df78b7935e7e49df
+
+author_and_developer: "Grigori Fursin"
+
+device: cpu
+
+name: CPU with Clang
+
+sort: -50
+
+tags:
+  - cpu
+  - clang_cpp
+  - cpp
+  - _sys_platform.linux
+  - _sys_platform.darwin
+  - _sys_platform.win32
+
+deps:
+  - tags: use,sys,tool
+    name: clang_cpp
+    alias: clang_cpp
+
+env:
+  CUDA_VISIBLE_DEVICES: ""

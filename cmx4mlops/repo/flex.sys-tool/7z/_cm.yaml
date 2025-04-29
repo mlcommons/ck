@@ -1,0 +1,17 @@
+alias: 7z
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 176dd50df72549bc
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - 7z
+
+desc:
+    tool: 7z
+    tool_version: "{{tool}}"
+    match_versions: 
+      - '7-zip ([\d.]+)'
+      - '7-zip \[32\] ([\d.]+)'
+    match_group: 1

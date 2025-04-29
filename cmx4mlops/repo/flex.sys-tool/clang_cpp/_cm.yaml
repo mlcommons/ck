@@ -1,0 +1,29 @@
+alias: clang_cpp
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: ba58bc1d2c1a47fe
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - clang_cpp
+    - cpp
+
+desc:
+    deps:
+      - tags: use,sys,tool
+        name: visual_cpp_build_tools
+        alias: visual_cpp_build_tools
+
+    # Needed to preload Visual C++ on Windows
+    cmd_prefix_from_state: 
+      - cmx.cmd_compiler_prefix
+
+    tool: clang++
+    tool_version: "{{tool}} --version"
+
+    match_version: 'clang version\s*([\d.]+)'
+    match_group: 1
+
+    update_state:
+       cmx.cpp_compiler_with_path: "{{sys_tool_clang_cpp_with_path2}}"

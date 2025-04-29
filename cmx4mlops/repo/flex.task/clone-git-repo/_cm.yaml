@@ -1,0 +1,49 @@
+alias: clone-git-repo
+uid: 22852439662449f2
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- clone
+- git
+- repo
+
+deps:
+  - tags: detect,host,info,min
+
+use:
+  flex.common: "flex.common,21286240620d4ef6"
+
+input_description:
+  url: 
+    desc: "specify URL to Git repo"
+    cache_tag: True
+  directory:
+    desc: "set target directory to clone this repo (can be relative or absolute)"
+    cache_tag: True
+  clean:
+    desc: "clean target directory if exists"
+  branch:
+    desc: "set Git branch"
+    cache_tag: True
+  new_branch:
+    desc: "create new branch"
+  fetch:
+    desc: "set Git fetch command"
+    cache_tag: True
+  checkout:
+    desc: "set Git checkout"
+    cache_tag: True
+  update_submodules:
+    desc: "sync and update all submodules recurisively"
+  timeout:
+    desc: "set Git timeout"
+  depth:
+    desc: "set Git depth"
+  env:
+    desc: "set ENV variables"
+

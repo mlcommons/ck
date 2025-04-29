@@ -1,0 +1,26 @@
+alias: _generic-hf
+uid: 9e714821f84c4be3
+
+automation_alias: flex.model
+automation_uid: a8f882eae1924379
+
+author_and_developer: "Grigori Fursin"
+
+deps:
+  - tags: detect,host,info,min
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: huggingface_hub
+    package_ext: "[cli]"
+    alias: pip_huggingface_hub
+
+
+tags:
+  - generic
+  - hf
+  - huggingface

@@ -1,0 +1,17 @@
+﻿uid: 12e86eb386314866
+
+author_and_developer: "Grigori Fursin"
+
+name: "Min OS: Ubuntu 24.04"
+
+desc:
+  docker_base_image: 'ubuntu:24.04'
+
+tags:
+- base
+- min
+- os
+- ubuntu
+
+sort: -10000
+  

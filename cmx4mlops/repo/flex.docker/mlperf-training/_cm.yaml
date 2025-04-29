@@ -1,0 +1,12 @@
+alias: mlperf-training
+uid: 6991f235db8e4527
+
+automation_alias: flex.docker
+automation_uid: 8355483187ab4049
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+- mlperf
+- training
+- mlperf-training

@@ -1,0 +1,24 @@
+uid: e12b067ecbc542b8
+alias: mlperf-training-bert-nvidia
+
+automation_alias: flex.code
+automation_uid: ef97f06874474f39
+
+tags:
+  - mlperf
+  - mlperf-training
+  - training
+  - implementation-nvidia
+  - nvidia
+  - llama2
+  - pytorch
+
+developers:
+  - 'Agustin Mautone'
+  - 'Daniel Altunay'
+  - 'Grigori Fursin'
+
+skip: True
+
+model_meta:
+  model_tags: 'mlperf-training,llama'

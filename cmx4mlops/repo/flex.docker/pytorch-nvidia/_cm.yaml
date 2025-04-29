@@ -1,0 +1,14 @@
+alias: pytorch-nvidia
+uid: e787202e33eb44f8
+
+automation_alias: flex.docker
+automation_uid: 8355483187ab4049
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+- pytorch
+- nvidia
+- cuda
+
+url: "https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html"

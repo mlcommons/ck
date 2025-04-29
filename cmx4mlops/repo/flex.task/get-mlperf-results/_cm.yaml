@@ -1,0 +1,51 @@
+alias: get-mlperf-results
+uid: 568477c8740e45d9
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- get
+- mlperf
+- results
+
+use:
+  flex.cfg: "flex.cfg,a6533b79f7954a7a"
+
+input_description:
+  benchmark:
+    desc: "specify benchmark (training | inference)"
+    default: training
+  storage:
+    desc: "specify where to store files (otherwise in flex.cache)"
+  path_to_results:
+    desc: "specify full path to results (otherwise in flex.cache or storage)"
+  import:
+    desc: "import results (must exist otherwise fail)"
+  url: 
+    desc: "specify URL"
+  branch:
+    desc: "specify branch if needed"
+  checkout:
+    desc: "specify checkout if needed"
+  version:
+    desc: "specify version"
+  submission:
+    desc: "specify that need submission repository"
+  git:
+    desc: "specify that need git protocol"
+  depth:
+    desc: "specify Git repo depth"
+  extra_cache_tags:
+    desc: "specify extra cache tags spearated by comma"
+  extra_cache_meta:
+    desc: "specify extra cache meta (dict)"
+  clean:
+    desc: "clean target directory with results"
+
+vars:
+  default_url: "mlcommons/{{benchmark}}_results_v"
+  default_submission_url: "mlcommons/submissions_{{benchmark}}_v"

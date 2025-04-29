@@ -1,0 +1,22 @@
+alias: nsys
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 2ae32ac4708349a7
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - nsys
+
+desc:
+    tool: nsys
+    tool_version: "{{tool}} --version"
+    match_version: 'version\s*([\d.]+)'
+    match_group: 1
+
+    suggested_paths:
+      - "/usr/**/cuda/bin/"
+
+    suggested_paths_windows:
+      - "C:\\Program Files\\NVIDIA Corporation\\Nsight Systems*\\**\\"
+      - "D:\\Program Files\\NVIDIA Corporation\\Nsight Systems*\\**\\"

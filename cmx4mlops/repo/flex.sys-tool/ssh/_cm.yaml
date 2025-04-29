@@ -1,0 +1,15 @@
+alias: ssh
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 06efcfd662014198
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - ssh
+
+desc:
+    tool: ssh
+    tool_version: "ssh -V"
+    match_version: '\s*([\d.]+)'
+    match_group: 1

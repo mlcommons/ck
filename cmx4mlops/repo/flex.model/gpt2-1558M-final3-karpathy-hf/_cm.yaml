@@ -1,0 +1,23 @@
+alias: gpt2-1558M-final3-karpathy-hf
+uid: fe0c2b5506474abe
+
+automation_alias: flex.model
+automation_uid: a8f882eae1924379
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+  - gpt2
+  - 1558M
+  - final3
+  - hf
+  - huggingface
+
+desc:
+  repo: "karpathy/gpt2_1558M_final3_hf"
+  directory: ""
+
+#dataset_meta:
+#  dataset_tags: scrolls,gov-report,8k,mlperf-training
+#
+#mlperf_model_name: "llama2_70b_lora"

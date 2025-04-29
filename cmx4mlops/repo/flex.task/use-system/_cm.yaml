@@ -1,0 +1,32 @@
+alias: use-system
+uid: d7bf9da39e184d6b
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- use
+- flex
+- system
+- base
+
+use:
+  flex.cfg: "flex.cfg,a6533b79f7954a7a"
+  flex.common: "flex.common,21286240620d4ef6"
+  flex.system: "flex.system,b55396b7429045a2"
+
+deps:
+  - tags: detect,host,info,min
+
+input_description:
+  name:
+    desc: "specify system name or UID"
+  system_tags:
+    desc: "specify system tags"
+  desc:
+    desc: "update system description dict"
+  target_system_name:
+    desc: "select target system name"

@@ -1,0 +1,1 @@
+ft "test image-classification pytorch" --v --compute_tags=cpu,min --s

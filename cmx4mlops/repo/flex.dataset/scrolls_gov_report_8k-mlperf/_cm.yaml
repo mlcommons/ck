@@ -1,0 +1,25 @@
+alias: scrolls_gov_report_8k-mlperf
+uid: db3cb4d32388481b
+
+automation_alias: flex.dataset
+automation_uid: 2775c0d6e91f4fae
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+  - scrolls
+  - gov-report
+  - 8k
+  - mlperf
+  - training
+  - mlperf-training
+  - rclone
+
+rclone_drive: "mlc-llama2"
+rclone_filename: "training/scrolls_gov_report_8k"
+
+files:
+  train-00000-of-00001.parquet:
+    md5sum: 95915d6ec74f30323a348cf1d7531800
+  validation-00000-of-00001.parquet:
+    md5sum: 9081197184107757d172c71032c11725

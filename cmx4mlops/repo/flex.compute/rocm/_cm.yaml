@@ -1,0 +1,26 @@
+alias: rocm
+automation_alias: flex.compute
+automation_uid: a346efb7d3314b33
+uid: ea78ac78e55a4572
+
+author_and_developer: "Grigori Fursin"
+
+device: rocm
+pytorch_device: cuda
+
+name: ROCm
+
+tags:
+  - rocm
+  - generic
+  - min
+  - _sys_platform.win32
+  - _sys_platform.linux
+
+deps:
+  - tags: use,sys,tool
+    name: rocm
+    alias: rocm
+
+  - tags: detect,rocm,info
+    alias: rocm_info

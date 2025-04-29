@@ -1,0 +1,15 @@
+﻿uid: 614aa48d90724835
+
+author_and_developer: "Grigori Fursin"
+
+name: "Min OS: Ubuntu 22.04"
+
+desc:
+  docker_base_image: 'ubuntu:22.04'
+
+tags:
+- base
+- min
+- os
+- ubuntu
+  

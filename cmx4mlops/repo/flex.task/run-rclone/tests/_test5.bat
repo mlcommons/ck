@@ -1,0 +1,1 @@
+ft "run rclone" --cmd="copy mlc-llama2:training/scrolls_gov_report_8k ./scrolls_gov_report_8k -P"

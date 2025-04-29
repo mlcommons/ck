@@ -1,0 +1,17 @@
+alias: flex.task
+uid: 3b7c4ac74c0647ee
+
+automation_alias: automation
+automation_uid: bbeb15d8f0a944a4
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+- automation
+- flex
+- task
+
+use:
+  flex.experiment: "flex.experiment,adb2bff868484dc6"
+  flex.common: "flex.common,21286240620d4ef6"
+  flex.cache: "flex.cache,b9d58d0cbecd442b"

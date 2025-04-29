@@ -1,0 +1,45 @@
+alias: run-docker-container
+uid: 2a7d179a6c5d44c6
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- run
+- docker
+- container
+- base
+
+use:
+  flex.common: "flex.common,21286240620d4ef6"
+  flex.docker: "flex.docker,8355483187ab4049"
+
+deps:
+  - tags: detect,host,info,min
+
+  - tags: use,sys,tool
+    name: docker
+    alias: use-docker
+
+input_description:
+  native:
+    desc: "use native docker build"
+  it:
+    desc: "interactive"
+  container_meta:
+    desc: "specify CMX container meta file"
+    default: "cmx-rt-container.yaml"
+  container_file:
+    desc: "specify container file"
+  target:
+    desc: "target image name"
+    default: "localhost/cmx"
+  clean:
+    desc: "clean container meta"
+  cmd:
+    desc: "specify docker run container CMD"
+  env:
+    desc: "specify env (dict)"

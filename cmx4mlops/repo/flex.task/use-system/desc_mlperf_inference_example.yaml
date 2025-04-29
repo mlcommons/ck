@@ -1,0 +1,38 @@
+accelerator_frequency: 1590.000000 MHz
+accelerator_host_interconnect: N/A
+accelerator_interconnect: N/A
+accelerator_interconnect_topology: ''
+accelerator_memory_capacity: 14.56805419921875 GB
+accelerator_memory_configuration: N/A
+accelerator_model_name: Tesla T4
+accelerator_on-chip_memories: ''
+accelerators_per_node: '1'
+cooling: air
+division: open
+framework: TensorRT
+host_memory_capacity: 63G
+host_memory_configuration: undefined
+host_network_card_count: '1'
+host_networking: Gig Ethernet
+host_networking_topology: N/A
+host_processor_caches: 'L1d cache: 256 KiB, L1i cache: 256 KiB, L2 cache: 8 MiB, L3
+  cache: 35.8 MiB'
+host_processor_core_count: '8'
+host_processor_frequency: undefined
+host_processor_interconnect: ''
+host_processor_model_name: Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz
+host_processors_per_node: '1'
+host_storage_capacity: 769G
+host_storage_type: SSD
+hw_notes: ''
+number_of_nodes: '1'
+operating_system: Ubuntu 20.04 (linux-6.5.0-1023-aws-glibc2.31)
+other_software_stack: 'Python: 3.8.10, GCC-9.4.0'
+status: available
+submitter: CTuning
+sw_notes: 'cTuning.org/ae: Collective Mind demo for our reproducibility initiatives
+  and artifact evaluation at ACM, IEEE and MLCommons ; automated by MLCommons CM v2.3.4
+  ; taken by Grigori Fursin'
+system_name: aws-g4dn-4xlarge
+system_type: datacenter
+system_type_detail: edge server

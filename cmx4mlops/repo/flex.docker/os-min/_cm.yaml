@@ -1,0 +1,12 @@
+alias: min-os
+uid: 9a544a34dcf64c66
+
+automation_alias: flex.docker
+automation_uid: 8355483187ab4049
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+- os
+- min
+- base

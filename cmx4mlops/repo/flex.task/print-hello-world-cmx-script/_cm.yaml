@@ -1,0 +1,14 @@
+alias: print-hello-world-cmx-script
+uid: 786c5b133da0447f
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- print
+- hello-world
+- cmx
+- script

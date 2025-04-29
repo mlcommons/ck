@@ -1,0 +1,53 @@
+alias: import-mlperf-results
+uid: bd363115d86a42ad
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- import
+- all
+- mlperf
+- results
+
+deps:
+  - tags: detect,host,info,min
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+use:
+  flex.common: "flex.common,21286240620d4ef6"
+  flex.cache: "flex.cache,b9d58d0cbecd442b"
+  flex.cfg: "flex.cfg,a6533b79f7954a7a"
+  flex.experiment: "flex.experiment,adb2bff868484dc6"
+
+input_description:
+  path:
+    desc: "specify path to results"
+  benchmark:
+    desc: "specify benchmark (training | inference)"
+  version:
+    desc: "specify version"
+  cache_tags:
+    desc: "specify cache tags"
+  skip_submission_checker:
+    desc: "skip submission checker"
+  skip_submission_checker_errors:
+    desc: "skip submission checker errors"
+  skip_submission_checker_if_summary_exists:
+    desc: "skip submission checker if summary exists"
+  skip_experiment:
+    desc: "skip updating flex.experiment"
+  experiment_repo:
+    desc: "specify experiment repo"
+  extra_flags:
+    desc: "extra flags"
+  extra_experiment_name:
+    desc: "extra name in flex.experiment"
+  overwrite:
+    desc: "overwrite summary json files"

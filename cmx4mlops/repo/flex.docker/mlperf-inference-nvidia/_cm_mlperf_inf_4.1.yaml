@@ -1,0 +1,18 @@
+﻿uid: d63addcd670f4230
+
+author_and_developer: "Grigori Fursin"
+
+name: "Nvidia MLPerf inference v4.1: Ubuntu 22.04 CUDA 12.4 PyTorch 24.04"
+
+ref_url: "https://catalog.ngc.nvidia.com/orgs/nvidia/teams/mlperf/containers/mlperf-inference/tags"
+
+desc:
+  docker_base_image: 'nvcr.io/nvidia/mlperf/mlperf-inference:mlpinf-v4.1-cuda12.4-pytorch24.04-ubuntu22.04-x86_64-release'
+
+tags:
+- mlperf
+- inference
+- mlperf-inference
+- nvidia
+- cuda
+- ubuntu

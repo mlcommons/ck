@@ -1,0 +1,86 @@
+alias: serve-vllm
+uid: 18d4041aa81b42ec
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+tags:
+- serve
+- vllm
+
+authors:
+- Grigori Fursin
+- Daniel Altunay
+
+use:
+  flex.cfg: "flex.cfg,a6533b79f7954a7a"
+
+deps:
+  - tags: fail-if-windows
+
+  - tags: use,compute
+    alias: compute
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: numpy
+    alias: pip_numpy
+
+  - tags: use,sys,tool
+    name: pip_torch
+    alias: pip_torch
+    test_version: True
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: vllm
+    alias: pip_vllm
+    test_version: True
+
+  - tags: use,nsys,profile
+    alias: use_nsys_profile
+    run_if_state_all:
+      cmx.profile.use: true
+      cmx.profile.use_nsys: true
+
+post_deps:
+  - tags: use,nsys,report
+    alias: use_nsys_report
+    run_if_state_all:
+      cmx.profile.use: 
+        - true
+      cmx.profile.use_nsys: true
+
+
+input_description:
+  profile:
+    add_to_state: cmx.profile.use
+    desc: "Turn on profiling"
+  profile_nsys:
+    desc: "Profile using Nsys"
+    add_to_state: cmx.profile.use_nsys
+    default: true
+  compute:
+    desc: "Select flex.compute tags"
+    add_to_state: flow.compute.compute_tags
+  compute_name:
+    desc: "Select flex.compute name"
+    add_to_state: flow.compute.name
+  device:
+    desc: "Force PyTorch device (otherwise taken from select-compute)"
+  port:
+    desc: "Use port"
+    default: 8000
+  model_path:
+    desc: "HuggingFace model path"
+    default: "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
+  use_gpus:
+    desc: "number of GPUs to be used (all if not set)"
+  tensor_parallel_size:
+    desc: "Tensor parallel size"
+  extra_cmd:
+    desc: "Extra CMD"

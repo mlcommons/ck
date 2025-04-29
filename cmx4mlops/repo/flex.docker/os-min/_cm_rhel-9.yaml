@@ -1,0 +1,15 @@
+﻿uid: 27b4afcdd8e042e8
+
+author_and_developer: "Grigori Fursin"
+
+name: "Min OS: RHEL 9"
+
+desc:
+  docker_base_image: 'registry.access.redhat.com/ubi9'
+
+tags:
+- base
+- min
+- os
+- rhel
+  

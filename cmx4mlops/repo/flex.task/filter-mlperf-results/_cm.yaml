@@ -1,0 +1,41 @@
+alias: filter-mlperf-results
+uid: 8ed63ccbef07419c
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- filter
+- all
+- mlperf
+- results
+
+deps:
+  - tags: detect,host,info,min
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+use:
+  flex.cache: "flex.cache,b9d58d0cbecd442b"
+  flex.cfg: "flex.cfg,a6533b79f7954a7a"
+  flex.experiment: "flex.experiment,adb2bff868484dc6"
+
+input_description:
+  path:
+    desc: "specify path to results"
+  benchmark:
+    desc: "specify benchmark (training | inference)"
+  version:
+    desc: "specify version"
+  tags:
+    desc: "specify tags"
+  skip_submission_checker:
+    desc: "skip submission checker"
+  experiment_repo:
+    desc: "specify experiment repo"
+

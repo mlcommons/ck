@@ -1,0 +1,57 @@
+alias: test-image-classification-torch-py
+uid: 181af361925e4feb
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- test
+- image-classification
+- pytorch
+
+deps:
+  - tags: use,compute
+    alias: compute
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: Pillow
+    alias: pip_pillow
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: numpy
+    alias: pip_numpy
+
+  - tags: use,sys,tool
+    name: pip_torch
+    alias: pip_torch
+    test_version: True
+
+  - tags: use,sys,tool
+    name: pip_torchvision
+    alias: pip_torchvision
+    test_version: True
+
+input_description:
+  compute_tags:
+    desc: "Select flex.compute tags"
+    add_to_state: flow.compute.compute_tags
+  compute_name:
+    desc: "Select flex.compute name"
+    add_to_state: flow.compute.name
+  device:
+    desc: "Force PyTorch device (otherwise taken from select-compute)"
+  image:
+    desc: "local JPEG image"
+  url:
+    desc: "URL with JPEG image"
+  url_md5sum:
+    desc: "MD5SUM for downloaded image"

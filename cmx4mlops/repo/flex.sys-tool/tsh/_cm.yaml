@@ -1,0 +1,15 @@
+alias: tsh
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: e9e2c73058a5417d
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - tsh
+
+desc:
+    tool: tsh
+    tool_version: "{{tool}} version"
+    match_version: 'teleport v([\d.]+)'
+    match_group: 1

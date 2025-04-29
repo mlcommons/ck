@@ -1,0 +1,25 @@
+alias: pip_flash_attn
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 2020b9008335489d
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - pip_flash_attn
+
+desc:
+    deps:
+      - tags: use,sys,tool
+        name: python
+        alias: python
+
+    skip_search: True
+    tool: pip_flash_attn
+    tool_version: "{{deps.sys_tool_python_with_path2}} -m pip show flash_attn"
+    match_version: 'version: (.+)'
+    match_group: 1
+
+#    # Needed to preload Visual C++ on Windows
+#    cmd_prefix_from_state: 
+#      - cmx.cmd_compiler_prefix
