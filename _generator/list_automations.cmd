@@ -1,0 +1,1 @@
+cm doc automation --output_dir=..
