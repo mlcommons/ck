@@ -1,0 +1,17 @@
+alias: mlperf-inference-nvidia
+uid: 9157aea441bb40ff
+
+automation_alias: flex.docker
+automation_uid: 8355483187ab4049
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+- mlperf
+- inference
+- mlperf-inference
+- nvidia
+- cuda
+- ubuntu
+
+url: "https://catalog.ngc.nvidia.com/orgs/nvidia/teams/mlperf/containers/mlperf-inference/tags"

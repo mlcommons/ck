@@ -1,0 +1,39 @@
+alias: use-model
+uid: 1010326301ec456d
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+prepare_cache_meta: True
+
+tags:
+- use
+- flex
+- model
+
+use:
+  flex.cfg: "flex.cfg,a6533b79f7954a7a"
+  flex.common: "flex.common,21286240620d4ef6"
+  flex.model: "flex.model,a8f882eae1924379"
+
+input_description:
+  name: 
+    desc: "specify model name or UID"
+  model_tags: 
+    desc: "specify model tags"
+  env:
+    desc: "specify env (dict)"
+  path:
+    desc: "specify path where to install model"
+  directory:
+    desc: "specify extra directory with a model"
+  repo:
+    desc: "external repository name (such as HF)"
+  connect:
+    desc: "connect to external repo (such as HF)"
+  skip_reconnect:
+    desc: "skip reconnecting to remote device"
+    add_to_state: flow.use_rclone_mlcommons.skip_reconnect

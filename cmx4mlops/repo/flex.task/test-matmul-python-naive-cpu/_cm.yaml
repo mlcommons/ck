@@ -1,0 +1,64 @@
+alias: test-matmul-python-naive-cpu
+uid: a82e03778be6458b
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- test
+- matmul
+- python
+- naive
+
+deps:
+  - tags: use,compute
+    alias: compute
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+  - tags: use,nsys,profile
+    alias: use_nsys_profile
+    run_if_state_all:
+      cmx.profile.use: true
+      cmx.profile.use_nsys: true
+
+post_deps:
+  - tags: use,nsys,report
+    alias: use_nsys_report
+    run_if_state_all:
+      cmx.profile.use: 
+        - true
+      cmx.profile.use_nsys: true
+
+
+input_description:
+  profile:
+    add_to_state: cmx.profile.use
+    desc: "Turn on profiling"
+  profile_nsys:
+    desc: "Profile using Nsys"
+    add_to_state: cmx.profile.use_nsys
+    default: true
+  repeat:
+    desc: "Number of repetition of a kernel"
+    add_to_env: CMX_KERNEL_REPEAT
+    default: 10
+  n:
+    desc: "Set the same matrix dimensions (N,M,K)"
+  dim_n:
+    desc: "Matrix dimension N"
+    add_to_env: CMX_MATMUL_DIM_N
+    default: 10
+  dim_m:
+    desc: "Matrix dimension M"
+    add_to_env: CMX_MATMUL_DIM_M
+    default: 10
+  dim_k:
+    desc: "Matrix dimension K"
+    add_to_env: CMX_MATMUL_DIM_K
+    default: 10

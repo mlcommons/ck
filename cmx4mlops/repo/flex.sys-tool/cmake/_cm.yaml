@@ -1,0 +1,20 @@
+alias: cmake
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: be1d05f13bd04c8b
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - cmake
+
+desc:
+    tool: cmake
+
+    tool_version: "{{tool}} --version"
+    match_version: 'cmake version\s*([\d.]+)'
+    match_group: 1
+
+    suggested_paths_windows:
+      - "C:\\Program Files\\Microsoft Visual Studio\\**\\CMake\\**\\"
+      - "D:\\Program Files\\Microsoft Visual Studio\\**\\CMake\\**\\"

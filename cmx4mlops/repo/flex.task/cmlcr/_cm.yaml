@@ -1,0 +1,17 @@
+alias: cmlcr
+uid: bfeea29d572b4127
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+notes: "Call legacy CM scripts (cm, mlc, mlcflow, mlperf automations)"
+
+tags:
+- run
+- cmlcr
+- cm-legacy
+- legacy-cm-mlperf-automations
+- legacy-mlperf-automations

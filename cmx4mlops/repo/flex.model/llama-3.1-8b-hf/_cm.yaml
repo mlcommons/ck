@@ -1,0 +1,29 @@
+alias: llama-3.1-8b-hf
+uid: 9ea59468a6b34db7
+
+automation_alias: flex.model
+automation_uid: a8f882eae1924379
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+  - llama
+  - llama3.1
+  - 8b
+  - mlperf
+  - training
+  - mlperf-training
+  - mlperf-training-short
+  - hf
+  - huggingface
+
+desc:
+  repo: "meta-llama/Llama-3.1-8B"
+  directory: "data"
+
+notes: "Agustin Mautone manually tested this model with MLPerf training on 20241111"
+
+dataset_meta:
+  dataset_tags: scrolls,gov-report,8k,mlperf-training
+
+mlperf_model_name: "llama2_70b_lora"

@@ -1,0 +1,15 @@
+alias: unzip
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: c63e5f2205de443d
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - unzip
+
+desc:
+    tool: unzip
+    tool_version: "{{tool}} -h"
+    match_version: 'unzip\s*([\d.]+)'
+    match_group: 1

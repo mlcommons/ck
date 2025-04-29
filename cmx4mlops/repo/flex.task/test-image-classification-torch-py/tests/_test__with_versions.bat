@@ -1,0 +1,1 @@
+ft "test image-classification pytorch" --v --compute_tags=cpu,min --s @cmx-rt-versions-torch-2.5.1.yaml

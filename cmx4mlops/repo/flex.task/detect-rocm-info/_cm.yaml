@@ -1,0 +1,33 @@
+alias: detect-rocm-info
+uid: b4359eb155784316
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+prepare_cache_meta: True
+
+tags:
+- detect
+- rocm
+- info
+
+deps:
+  - tags: use,compute
+    compute_tags: rocm
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+  - tags: use,sys,tool
+    name: rocm
+    alias: rocm
+
+input_description:
+  min:
+    desc: "detect min info"
+  env:
+    desc: "set ENV variables"

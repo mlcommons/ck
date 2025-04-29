@@ -1,0 +1,61 @@
+alias: use-sys-tool
+uid: 942ce5b2e9804ac4
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- use
+- sys
+- tool
+
+prepare_cache_meta: True
+
+use:
+  flex.common: "flex.common,21286240620d4ef6"
+  flex.cache: "flex.cache,b9d58d0cbecd442b"
+  flex.sys-tool: "flex.sys-tool,e0db585fbcf34f37"
+
+deps:
+  - tags: detect,host,info,min
+
+input_description:
+  name: 
+    desc: "specify system tool's name"
+  package: 
+    desc: "use package as tool"
+  package_ext: 
+    desc: "add package extension"
+  path:
+    desc: "specify path to the tool"
+  version:
+    desc: "force version"
+  version_min:
+    desc: "specify min version"
+  version_max:
+    desc: "specify max version"
+  skip_search:
+    desc: "skip searching for already installed tools in system paths"
+  install_prefix:
+    desc: "specify CMD install prefix"
+  install_postfix:
+    desc: "specify CMD install postfix"
+  install_flags:
+    desc: "specify CMD install flags"
+  install_url:
+    desc: "specify URL for some tools if needed (such as pip_generic)"
+  reinstall:
+    desc: "force reinstall"
+  clean:
+    desc: "clean broken download"
+  use_compute:
+    desc: "use compute (bool)"
+  compute_name:
+    desc: "specify compute name"
+  compute_tags:
+    desc: "specify compute tags"
+  test_version:
+    desc: "test current version of a tool"

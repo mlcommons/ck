@@ -1,0 +1,22 @@
+alias: pip_torchaudio
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 273e5ed38bc24e18
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - pip_torchaudio
+
+desc:
+    deps:
+      - tags: use,sys,tool
+        name: python
+        alias: python
+
+    skip_search: True
+    tool: pip_torchaudio
+    tool_version: "{{deps.sys_tool_python_with_path2}} -m pip show torchaudio"
+    match_version: 'version: ([\d.]+)'
+#    match_version: 'version: (.+)'
+    match_group: 1

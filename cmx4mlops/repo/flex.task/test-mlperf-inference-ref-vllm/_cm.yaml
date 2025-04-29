@@ -1,0 +1,55 @@
+alias: test-mlperf-inference-ref-vllm
+uid: 3430c1d195d5499f
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Daniel Altunay
+- Grigori Fursin
+
+tags:
+- test
+- mlperf
+- inference
+- mlperf-inference
+- vllm
+
+deps:
+  - tags: fail-if-windows
+
+  - tags: use,compute
+    alias: compute
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: numpy
+    alias: pip_numpy
+
+  - tags: use,sys,tool
+    name: pip_torch
+    alias: pip_torch
+    test_version: True
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: vllm
+    alias: pip_vllm
+
+
+input_description:
+  compute_tags:
+    desc: "Select flex.compute tags"
+    add_to_state: flow.compute.compute_tags
+  compute_name:
+    desc: "Select flex.compute name"
+    add_to_state: flow.compute.name
+  device:
+    desc: "Force PyTorch device (otherwise taken from select-compute)"
+  hf_model_path:
+    desc: "HuggingFace model path"
+    default: "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"

@@ -1,0 +1,33 @@
+alias: use-nsys-profile
+uid: f54b376c20e448af
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+- Daniel Altunay
+
+tags:
+- use
+- nsys
+- profile
+
+deps:
+  - tags: use,compute
+    alias: compute
+
+  - tags: use,sys,tool
+    name: nsys
+    alias: nsys
+
+input_description:
+  force_overwrite:
+    desc: "Force overwrite profiling info"
+    default: true
+  gpu_metrics_devices:
+    desc: "Which GPUs to monitor"
+    default: cuda-visible
+  output:
+    desc: "Where to store profiling traces"
+    default: "tmp-nsys-trace"

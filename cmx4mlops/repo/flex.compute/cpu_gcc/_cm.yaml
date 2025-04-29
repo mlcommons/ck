@@ -1,0 +1,27 @@
+alias: cpu_gcc
+automation_alias: flex.compute
+automation_uid: a346efb7d3314b33
+uid: 002e8c54aee942a2
+
+author_and_developer: "Grigori Fursin"
+
+device: cpu
+
+name: CPU with GCC
+
+sort: -70
+
+tags:
+  - cpu
+  - gcc
+  - c
+  - _sys_platform.linux
+  - _sys_platform.darwin
+
+deps:
+  - tags: use,sys,tool
+    name: gcc
+    alias: gcc
+
+env:
+  CUDA_VISIBLE_DEVICES: ""

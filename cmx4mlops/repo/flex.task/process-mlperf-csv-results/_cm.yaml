@@ -1,0 +1,32 @@
+alias: process-mlperf-csv-results
+uid: d6e36aec35974d15
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- process
+- mlperf
+- csv
+- results
+
+input_description:
+  csv_file:
+    desc: "Path to CSV file with MLPerf results"
+    required: True
+  benchmark:
+    desc: "MLPerf benchmark type (training|inference)"
+    required: True
+  version:
+    desc: "MLPerf benchmark version"
+  mlperf_url:
+    desc: "MLPerf URL"
+  system_desc:
+    desc: "System description (dict)"
+  system_json_file_path:
+    desc: "Path to JSON file with system description"
+  result_extra:
+    desc: "Append extra dict to results"

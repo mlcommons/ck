@@ -1,0 +1,28 @@
+alias: llama-2-70b-lora-fused-qkv-mlperf-hf
+uid: 20b68fe39cb146a5
+
+automation_alias: flex.model
+automation_uid: a8f882eae1924379
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+  - llama
+  - llama2
+  - 70b
+  - fused
+  - qkv
+  - mlperf
+  - training
+  - mlperf-training
+  - hf
+  - huggingface
+
+desc:
+  repo: "regisss/llama2-70b-fused-qkv-mlperf"
+  directory: "data"
+
+dataset_meta:
+  dataset_tags: scrolls,gov-report,8k,mlperf-training
+
+mlperf_model_name: "llama2_70b_lora"

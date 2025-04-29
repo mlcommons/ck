@@ -1,0 +1,6 @@
+﻿experiment:
+  explore:
+    state.env.CMX_VAR1: [1,2,3]
+    state.env.CMX_VAR2: ["a","b"]
+    state.cmx_var3: "[2**i for i in range(0,6)]"
+    state.x: ["y"]

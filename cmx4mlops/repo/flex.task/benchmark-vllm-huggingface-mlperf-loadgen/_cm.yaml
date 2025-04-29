@@ -1,0 +1,127 @@
+alias: benchmark-vllm-huggingface-mlperf-loadgen
+uid: 0ebb22734cc54027
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+tags:
+- benchmark
+- vllm
+- huggingface
+- mlperf
+- loadgen
+
+authors:
+- Daniel Altunay
+- Grigori Fursin
+
+use:
+  flex.cfg: "flex.cfg,a6533b79f7954a7a"
+
+deps:
+  - tags: fail-if-windows
+
+  - tags: use,compute
+    alias: compute
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: mlcommons-loadgen
+    alias: pip_mlcommons_loadgen
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: numpy
+    alias: pip_numpy
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: pandas
+    alias: pip_pandas
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: rouge-score
+    alias: pip_rouge_score
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: datasets
+    alias: pip_datasets
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: evaluate
+    alias: pip_evaluate
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: nltk
+    alias: pip_nltk
+
+  - tags: use,sys,tool
+    name: pip_torch
+    alias: pip_torch
+    test_version: True
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: transformers
+    alias: pip_transformers
+    test_version: True
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: vllm
+    alias: pip_vllm
+    test_version: True
+
+
+input_description:
+  dir:
+    desc: "Directory with source code"
+    default: "src"
+  compute_tags:
+    desc: "Select flex.compute tags"
+    add_to_state: flow.compute.compute_tags
+  compute_name:
+    desc: "Select flex.compute name"
+    add_to_state: flow.compute.name
+  model_path:
+    desc: "HuggingFace model path"
+    default: "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
+  dataset_path:
+    desc: "HuggingFace dataset path"
+    default: "Open-Orca/OpenOrca"
+  dataset_split:
+    desc: "Dataset split"
+    default: "train"
+  total_sample_count:
+    desc: "Total sample count"
+    default: 100
+  scenario:
+    desc: "Scenario"
+    default: "Server"
+  target_qps:
+    desc: "Target QPS"
+    default: 10
+  api_server:
+    desc: "API server URL"
+    default: "http://localhost:8000"
+  accuracy:
+    desc: "Measure accuracy"
+  clean:
+    desc: "Clean working directory"
+  output:
+    desc: "Output directory"
+  test:
+    desc: "Test run (no min time)"
+  compliance:
+    desc: "Compliance run"
+    choices: ["TEST04", "TEST06"]
+  extra_cmd:
+    desc: "Extra CMD"

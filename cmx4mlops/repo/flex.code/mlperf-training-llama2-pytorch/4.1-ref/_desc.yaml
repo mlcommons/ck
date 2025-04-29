@@ -1,0 +1,2 @@
+mlperf_version: "4.1"
+mlperf_implementation: "pytorch-ref"

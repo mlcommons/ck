@@ -1,0 +1,33 @@
+accelerator_frequency: ''
+accelerator_host_interconnect: ''
+accelerator_interconnect: NVLINK Gen4 900 GB/s + NVSWITCH Gen3
+accelerator_interconnect_topology: ''
+accelerator_memory_capacity: 81559 MiB
+accelerator_memory_configuration: HBM3
+accelerator_model_name: NVIDIA H100 80GB HBM3
+accelerator_on-chip_memories: ''
+accelerators_per_node: '8'
+cooling: ''
+division: closed
+framework: PyTorch 2.5.1
+host_memory_capacity: 1511.5 GB
+host_memory_configuration: ''
+host_networking: MT2910 Family [ConnectX-7]
+host_networking_topology: ''
+host_processor_caches: ''
+host_processor_core_count: '64'
+host_processor_frequency: ''
+host_processor_interconnect: ''
+host_processor_model_name: AMD EPYC 9534 64-Core Processor
+host_processor_vcpu_count: ''
+host_processors_per_node: '2'
+host_storage_capacity: 1.7 T
+host_storage_type: NVMe SSD
+hw_notes: ''
+number_of_nodes: '1'
+operating_system: Ubuntu 22.04.4 LTS
+other_software_stack: {}
+status: Preview
+submitter: FlexAI
+sw_notes: Prepared by the FCS Labs team
+system_name: TEST.H100.8

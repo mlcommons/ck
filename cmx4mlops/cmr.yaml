@@ -1,0 +1,14 @@
+alias: mlcommons@cmx4mlops
+uid: 84dac8a5f8314c02
+
+git: true
+
+install_python_requirements: false
+
+min_cm_version: 4.2.0
+
+author: "Grigori Fursin"
+
+version: 1.1.0
+
+prefix: repo

@@ -1,0 +1,29 @@
+alias: detect-cuda-info
+uid: 691cda37b9db4626
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+prepare_cache_meta: True
+
+tags:
+- detect
+- cuda
+- info
+
+deps:
+  - tags: use,compute
+    compute_tags: cuda,nvcc
+    alias: compute
+
+cmd_prefix_from_state_compile: 
+  - cmx.cmd_compiler_prefix
+
+input_description:
+  min:
+    desc: "detect min info"
+  env:
+    desc: "set ENV variables"

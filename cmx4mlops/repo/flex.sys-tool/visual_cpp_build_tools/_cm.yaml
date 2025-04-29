@@ -1,0 +1,30 @@
+alias: visual_cpp_build_tools
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 18630bd377e54e0b
+
+authors_and_developers:
+- 'Grigori Fursin'
+
+tags:
+    - visual_cpp_build_tools
+
+desc:
+    skip_if_not_windows: true
+
+    tool: vcvars{{system.os.bits}}.bat
+    call: true
+    skip_windows_exe_prefix: true
+
+    suggested_paths_windows:
+      - "C:\\Program Files\\Microsoft Visual Studio\\**\\"
+      - "D:\\Program Files\\Microsoft Visual Studio\\**\\"
+
+    tool_version: "cl.exe"
+    match_version: 'version\s*([\d.]+)'
+    match_group: 1
+
+    note_if_not_found: "Please install Visual C++ build tools: https://visualstudio.microsoft.com/visual-cpp-build-tools"
+
+    update_state:
+       cmx.cmd_compiler_prefix: "{{sys_tool_visual_cpp_build_tools_with_path_call}}"

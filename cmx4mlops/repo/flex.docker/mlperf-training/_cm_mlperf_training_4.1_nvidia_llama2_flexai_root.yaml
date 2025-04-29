@@ -1,0 +1,17 @@
+﻿uid: d63addcd670f4230
+
+author_and_developer: "Grigori Fursin"
+
+name: "MLPerf training v4.1 LLAMA2 Nvidia: FlexAI"
+
+desc:
+  docker_base_image: ''
+
+tags:
+- mlperf
+- training
+- mlperf-training
+- nvidia
+- cuda
+- ubuntu
+- llama2

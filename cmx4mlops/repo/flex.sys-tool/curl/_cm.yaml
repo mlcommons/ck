@@ -1,0 +1,15 @@
+alias: curl
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 6d313efa6a544b1f
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - curl
+
+desc:
+    tool: curl
+    tool_version: "{{tool}} --version"
+    match_version: 'curl \s*([\d.]+)'
+    match_group: 1

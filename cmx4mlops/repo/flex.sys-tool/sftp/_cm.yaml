@@ -1,0 +1,16 @@
+alias: sftp
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 6f8ebbee1dfb417f
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - sftp
+
+desc:
+    tool: sftp
+    # Part of ssh: https://unix.stackexchange.com/questions/704740/how-to-get-scp-version
+    tool_version: "ssh -V"
+    match_version: '\s*([\d.]+)'
+    match_group: 1

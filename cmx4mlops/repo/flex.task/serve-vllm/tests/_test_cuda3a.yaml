@@ -1,0 +1,22 @@
+compute: cuda,nvcc
+
+env:
+  CUDA_VISIBLE_DEVICES: 4
+
+state:
+  flow:
+    pip_vllm:
+      version: 0.7.3
+    pip_torch:
+      version: 2.5.1
+    pip_torch_vision:
+      version: 0.20.1
+
+model_path: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+
+#extra_cmd: --max-num-seqs=1024 --max-model-len=2048 --enable-chunked-prefill --max-num-batched-tokens=2048 --gpu-memory-utilization=0.95 
+extra_cmd: --disable-log-requests
+
+port: 8008
+
+v: true

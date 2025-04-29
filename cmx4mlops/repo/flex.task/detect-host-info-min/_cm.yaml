@@ -1,0 +1,16 @@
+alias: detect-host-info-min
+uid: 74817ba155cd4d2c
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+# Do not cache but detect at run-time that already ran
+
+tags:
+- detect
+- host
+- info
+- min

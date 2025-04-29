@@ -1,0 +1,132 @@
+alias: run-mlperf-training-benchmark
+uid: 20a71ba986b14c15
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- run
+- mlperf
+- training
+- mlperf-training
+- benchmark
+
+deps:
+  - tags: detect,host,info,min
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+  - tags: use,system
+    alias: system
+
+  - tags: use,compute
+    alias: compute
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: mlperf_logging
+    install_url: 'git+https://github.com/mlperf/logging.git'
+    alias: 'pip-mlperf-logger'
+
+
+code_tags: "mlperf-training"
+
+use:
+  flex.common: "flex.common,21286240620d4ef6"
+  flex.code: "flex.code,ef97f06874474f39"
+  flex.model: "flex.model,a8f882eae1924379"
+  flex.dataset: "flex.dataset,2775c0d6e91f4fae"
+
+input_description:
+  system_tags:
+    desc: "Select flex.system tags"
+    add_to_state: flow.system.system_tags
+  system_name:
+    desc: "Select flex.system name"
+    add_to_state: flow.system.name
+  system_desc:
+    desc: "update system description (dict)"
+  target_system_name:
+    desc: "Select MLPerf target system name"
+    add_to_state: flow.system.target_system_name
+  target_system_extra_name:
+    desc: "Add extra name to MLPerf target system name"
+  compute_tags:
+    desc: "Select flex.compute tags"
+    default: "-cpu"
+    add_to_state: flow.compute.compute_tags
+  compute_name:
+    desc: "Select flex.compute name"
+    add_to_state: flow.compute.name
+  device:
+    desc: "Force PyTorch device (otherwise taken from select-compute)"
+  code_tags:
+    desc: "Specify flex.code tags"
+  code_name:
+    desc: "Specify flex.code name"
+  code_version:
+    desc: "specify flex.code version"
+  mlperf_version:
+    desc: "specify MLPerf and MLLOG version"
+  model_tags:
+    desc: "Specify flex.model tags"
+    default: mlperf-training
+  model_name:
+    desc: "Specify flex.model name"
+  dataset_tags:
+    desc: "Specify flex.dataset tags"
+  dataset_name:
+    desc: "Specify flex.dataset name"
+  env:
+    desc: "Specify env"
+  params:
+    desc: "Specify/change CMD params (dict)"
+  config_name:
+    desc: "Specify config name"
+  config:
+    desc: "Specify/change training config (dict)"
+  output_dir:
+    desc: "output directory"
+    default: "output"
+  results_dir:
+    desc: "results directory"
+    default: "results"
+  code_dir:
+    desc: "code directory"
+    default: "benchmarks"
+  systems_dir:
+    desc: "systems directory"
+    default: "systems"
+  build:
+    desc: "Build a run script but don't run it"
+  clean:
+    desc: "Clean output directory"
+  clean_os_kernel_cache:
+    desc: "Clean OS Kernel Cache before running MLPerf"
+  max_experiments:
+    desc: "Specify max number of experiments"
+  seed:
+    desc: "Specify seed"
+  random_seed:
+    desc: "Turn on random seed"
+  package_checker_extra_flags:
+    desc: "Add extra flags to package checker such as --rcp-bypass"
+  mllog_stop_if_fail:
+    desc: "Stop benchmark if mllog checks fail"
+  system_division:
+    desc: "MLPerf system division (open or closed)"
+    default: "closed"
+  system_status:
+    desc: "MLPerf system status ('Available on-premise', 'Available cloud', 'Research, Development, or Internal (RDI)', 'Preview')"
+    default: "Preview"
+  submitter:
+    desc: "Submitter"
+    default: "internal"
+
+cmd_prefix_from_state_compile: 
+  - cmx.cmd_compiler_prefix

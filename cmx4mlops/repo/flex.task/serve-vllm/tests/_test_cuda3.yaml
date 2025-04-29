@@ -1,0 +1,32 @@
+compute: cuda,nvcc
+#compute: cpu,generic
+
+env:
+  CUDA_VISIBLE_DEVICES: 2,3,4,5
+
+tensor_parallel_size: 4
+
+state:
+  flow:
+    pip_vllm:
+      version: 0.7.3
+    pip_torch:
+      version: 2.5.1
+    pip_torch_vision:
+      version: 0.20.1
+
+#model_path: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+#model_path: meta-llama/Llama-2-70b-chat-hf
+model_path: nm-testing/Llama-2-70b-chat-hf-FP8
+#model_path: nm-testing/Llama-2-70b-chat-GPTQ
+
+extra_cmd: --download_dir /mnt/common/gfursin --max-num-seqs=1024 --max-model-len=2048 --enable-chunked-prefill --max-num-batched-tokens=2048 --gpu-memory-utilization=0.95 --disable-log-requests
+#extra_cmd: --download_dir /mnt/common/gfursin --disable-log-requests
+#extra_cmd: --max-num-seqs=1024 --max-model-len=2048 --enable-chunked-prefill --max-num-batched-tokens=2048 --gpu-memory-utilization=0.95 --disable-log-requests
+#extra_cmd: --max-model-len=2048 --disable-log-requests
+
+# --max-model-len=2048 - required for llama2
+
+port: 8008
+
+v: true

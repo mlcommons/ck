@@ -1,0 +1,1 @@
+ft "run mlperf training" --compute_tags=cuda,nvcc --v --j --config_name=default --params.max_steps=20 --build

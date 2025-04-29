@@ -12,7 +12,7 @@ and contributors listed here in alphabetical order:
 * @Leonard226
 * @Oseltamivir
 * @Submandarine
-* Daniel Altunay
+* Daniel Altunay (FlexAI)
 * Resmi Arjun
 * Omar Benjelloun (Google)
 * Alice Cheng (Nvidia)
@@ -42,6 +42,7 @@ and contributors listed here in alphabetical order:
 * Steve Leak(NERSC) 
 * Amija Maji (Purdue University)
 * Peter Mattson (Google, MLCommons)
+* Agustin Mautone (FlexAI)
 * Kasper Mecklenburg (Arm)
 * Pablo Gonzalez Mesa
 * Thierry Moreau (OctoML)
@@ -72,6 +73,7 @@ and contributors listed here in alphabetical order:
 * Zixian Wang
 * Nathan Wasson
 * Scott Wasson (MLCommons)
+* Aymen Zayet (FlexAI)
 * Haoyang Zhang  (UIUC)
 * Bojian Zheng (University of Toronto)
 * Thomas Zhu (Oxford University)

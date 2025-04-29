@@ -1,0 +1,24 @@
+alias: scrolls_gov_report_preprocessed_mlperf_2_hf
+uid: 54007efe053c4699
+
+automation_alias: flex.dataset
+automation_uid: 2775c0d6e91f4fae
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+  - scrolls
+  - gov-report
+  - 8k
+  - preprocessed
+  - mlperf
+  - mlperf_2
+  - training
+  - mlperf-training
+  - hf
+  - huggingface
+
+desc:
+  repo: "regisss/scrolls_gov_report_preprocessed_mlperf_2"
+  directory: ""
+  extra_directory: "data"

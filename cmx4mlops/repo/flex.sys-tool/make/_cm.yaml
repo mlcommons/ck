@@ -1,0 +1,20 @@
+alias: make
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 73a5a536457e4179
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - make
+
+desc:
+    tool: make
+
+    tool_version: "{{tool}} --version"
+    match_version: 'make\s*([\d.]+)'
+    match_group: 1
+
+    suggested_paths_windows:
+      - "C:\\Program Files\\Microsoft Visual Studio\\**\\CMake\\**\\"
+      - "D:\\Program Files\\Microsoft Visual Studio\\**\\CMake\\**\\"

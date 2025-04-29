@@ -1,0 +1,18 @@
+alias: openorca_hf
+uid: 2d85325ec95441f3
+
+automation_alias: flex.dataset
+automation_uid: 2775c0d6e91f4fae
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+  - openorca
+  - mlperf-inference
+  - hf
+  - huggingface
+
+desc:
+  repo: "Open-Orca/OpenOrca"
+  directory: ""
+  extra_directory: "data"

@@ -1,0 +1,18 @@
+alias: python
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 974ef48eb8494f9c
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - python
+
+desc:
+    tool: "python3, python"
+    tool_version: "{{tool}} --version"
+    match_version: 'python\s*([\d.]+)'
+    match_group: 1
+
+    update_state:
+      cmx.envs.CMX_PYTHON_WITH_PATH: "{{sys_tool_python_with_path2}}"

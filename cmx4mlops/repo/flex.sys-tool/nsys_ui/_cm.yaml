@@ -1,0 +1,19 @@
+alias: nsys_ui
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 800032dff12645af
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - nsys_ui
+
+desc:
+    tool: nsys-ui
+
+    suggested_paths:
+      - "/usr/**/cuda/bin/"
+
+    suggested_paths_windows:
+      - "C:\\Program Files\\NVIDIA Corporation\\**\\**\\**\\"
+      - "D:\\Program Files\\NVIDIA Corporation\\**\\**\\**\\"

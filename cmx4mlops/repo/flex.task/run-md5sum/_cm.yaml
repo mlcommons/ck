@@ -1,0 +1,26 @@
+alias: run-md5sum
+uid: 719418c413164cb9
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- run
+- tar
+- md5sum
+
+deps:
+  - tags: detect,host,info,min
+  - tags: use,sys,tool
+    name: md5sum
+
+input_description:
+  file: 
+    desc: "specify directory to tar and bzip2"
+  md5sum:
+    desc: "validate this MD5SUM"
+  files:
+    desc: "speciify dictionary of files with md5sum if needed"

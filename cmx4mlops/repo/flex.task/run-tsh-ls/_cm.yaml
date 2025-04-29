@@ -1,0 +1,29 @@
+alias: run-tsh-ls
+uid: 2235e612fe5b4499
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+tags:
+- run
+- tsh
+- ls
+
+authors:
+- Grigori Fursin
+
+deps:
+  - tags: detect,host,info,min
+  - tags: use,sys,tool
+    name: tsh
+
+use:
+  flex.common: "flex.common,21286240620d4ef6"
+  flex.cfg: "flex.cfg,a6533b79f7954a7a"
+  flex.system: "flex.system,b55396b7429045a2"
+
+input_description:
+  proxy: 
+    desc: "specify proxy"
+  env:
+    desc: "specify env (dict)"

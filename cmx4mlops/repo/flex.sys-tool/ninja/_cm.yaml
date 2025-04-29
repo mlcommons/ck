@@ -1,0 +1,15 @@
+alias: ninja
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 83ffab9d33194bdf
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - ninja
+
+desc:
+    tool: ninja
+    tool_version: "{{tool}} --version"
+    match_version: '([\d.]+)'
+    match_group: 1

@@ -1,0 +1,48 @@
+alias: download-file
+uid: 0a0b7c5ea5e049e8
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- download
+- file
+
+use:
+  flex.common: "flex.common,21286240620d4ef6"
+
+input_description:
+  url: 
+    desc: "specify URL(s) to download file"
+    cache_tag: True
+  filename:
+    desc: "set target filename(s) (can be relative or absolute)"
+    cache_tag: True
+  check_file:
+    desc: "check if file exists after download/unzip"
+  md5sum:
+    desc: "check MD5SUM for the downloaded file"
+  directory:
+    desc: "set target directory to clone this repo (can be relative or absolute)"
+    cache_tag: True
+  tool:
+    desc: "set tool to download (cmx, wget, curl)"
+    default: cmx
+  verify_ssl:
+    desc: "verify SSL"
+    default: True
+  unzip:
+    desc: "unzip file"
+  strip_folders:
+    desc: "strip folders"
+  clean_after_unzip:
+    desc: "clean after unzip"
+  clean:
+    desc: "clean target file if exists"
+  env:
+    desc: "set ENV variables"
+  state:
+    desc: "set global flow state"

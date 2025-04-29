@@ -1,0 +1,15 @@
+alias: tar
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 20dbb1f702ea483e
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - tar
+
+desc:
+    tool: tar
+    tool_version: "{{tool}} --help"
+    match_version: 'tar ([\d.]+)'
+    match_group: 1

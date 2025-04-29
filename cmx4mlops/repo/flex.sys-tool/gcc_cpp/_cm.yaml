@@ -1,0 +1,24 @@
+alias: gcc_cpp
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: a24f560296f0405c
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - gcc_cpp
+    - cpp
+
+sort: -50
+
+skip_if_windows: True
+
+desc:
+    tool: g++
+    tool_version: "{{tool}} --version"
+
+    match_version: ' \(.*\)\s*([\d.]+)'
+    match_group: 1
+
+    update_state:
+       cmx.cpp_compiler_with_path: "{{sys_tool_gcc_cpp_with_path2}}"

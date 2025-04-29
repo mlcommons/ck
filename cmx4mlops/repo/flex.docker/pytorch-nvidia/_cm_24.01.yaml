@@ -1,0 +1,17 @@
+﻿uid: 2f4e3c70eab840da
+
+author_and_developer: "Grigori Fursin"
+
+name: "PyTorch Nvidia 24.01: Ubuntu 22.04 CUDA 12.3.2 cuDNN 8.9.7.29 PyTorch 2.2.0a0+81ea7a4"
+
+ref_url: https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/rel-24-01.html
+
+desc:
+  docker_base_image: 'nvcr.io/nvidia/pytorch:24.01-py3'
+
+tags:
+- pytorch
+- nvidia
+- cuda
+- ubuntu
+  

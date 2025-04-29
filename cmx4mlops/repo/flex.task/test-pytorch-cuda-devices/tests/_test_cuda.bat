@@ -1,0 +1,1 @@
+ft "test pytorch cuda-devices" --compute_tags=cuda --v

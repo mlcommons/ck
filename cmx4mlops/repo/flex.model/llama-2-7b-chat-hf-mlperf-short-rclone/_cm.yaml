@@ -1,0 +1,25 @@
+alias: llama-2-7b-chat-hf-mlperf-short-rclone
+uid: 4c63d1cef0f142da
+
+automation_alias: flex.model
+automation_uid: a8f882eae1924379
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+  - llama
+  - llama2
+  - 7b
+  - chat
+  - mlperf
+  - training
+  - mlperf-training
+  - rclone
+
+rclone_drive: "mlc-llama2"
+rclone_filename: "Llama-2-7b-chat-hf"
+
+dataset_meta:
+  dataset_tags: scrolls,gov-report,8k,mlperf-training
+
+mlperf_model_name: "llama2_70b_lora"

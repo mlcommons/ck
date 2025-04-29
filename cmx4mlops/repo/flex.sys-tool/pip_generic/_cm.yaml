@@ -1,0 +1,26 @@
+alias: pip_generic
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 4d86fcb16a6c459a
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - pip_generic
+
+desc:
+    deps:
+      - tags: use,sys,tool
+        name: python
+        alias: python
+
+    skip_search: True
+    tool_version: "{{deps.sys_tool_python_with_path2}} -m pip show {{package}}"
+#    match_version: 'version: ([\d.]+)'
+    match_version: 'version: (.+)'
+    match_group: 1
+
+#    # This should not be here - for example, flash_attention is not compiling on Windows
+#    # Needed to preload Visual C++ on Windows
+#    cmd_prefix_from_state: 
+#      - cmx.cmd_compiler_prefix

@@ -1,0 +1,22 @@
+alias: chufansuki-lenet5-hf
+uid: 5fd0397d0d53480f
+
+automation_alias: flex.model
+automation_uid: a8f882eae1924379
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+  - chufansuki
+  - lenet5
+  - hf
+  - huggingface
+
+desc:
+  repo: "ChufanSuki/LeNet5"
+  directory: "data"
+
+dataset_meta:
+  dataset_tags: generic,hf
+  repo: "ylecun/mnist"
+  directory: mnist

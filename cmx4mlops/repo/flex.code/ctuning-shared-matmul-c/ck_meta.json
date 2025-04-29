@@ -1,0 +1,59 @@
+{
+  "backup_data_uid": "aeff074737844179",
+  "build_compiler_vars": {},
+  "compile_deps": {
+    "compiler": {
+      "local": "yes",
+      "name": "C compiler",
+      "tags": "compiler,lang-c"
+    }
+  },
+  "compiler_env": "CK_CC",
+  "data_name": "shared-matmul-c",
+  "extra_ld_vars": "$<<CK_EXTRA_LIB_M>>$",
+  "main_language": "c",
+  "process_in_tmp": "yes",
+  "program": "yes",
+  "run_cmds": {
+    "default": {
+      "hot_functions": [
+        {
+          "name": "matmul",
+          "percent": "90"
+        }
+      ],
+      "ignore_return_code": "no",
+      "run_time": {
+        "run_cmd_main": "$#BIN_FILE#$ \"$#src_path#$data\"",
+        "run_cmd_out1": "tmp-output1.tmp",
+        "run_cmd_out2": "tmp-output2.tmp",
+        "run_correctness_output_files": [
+          "tmp-output.tmp",
+          "tmp-output2.tmp"
+        ],
+        "run_input_files": [
+          "data"
+        ],
+        "run_output_files": [
+          "tmp-output.tmp"
+        ]
+      }
+    }
+  },
+  "run_vars": {
+    "CT_MATRIX_DIMENSION": "512",
+    "CT_REPEAT_MAIN": "1"
+  },
+  "source_files": [
+    "matmul.c"
+  ],
+  "source_files_templates": [
+    "matmul.c"
+  ],
+  "tags": [
+    "demo",
+    "program",
+    "lang-c"
+  ],
+  "target_file": "a"
+}

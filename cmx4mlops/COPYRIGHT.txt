@@ -1,0 +1,5 @@
+© 2024-2025 FlexAI. All Rights Reserved.
+
+License: Apache 2.0 (../LICENSE.md)
+
+Author: Grigori Fursin

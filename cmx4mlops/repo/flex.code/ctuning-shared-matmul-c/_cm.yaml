@@ -1,0 +1,13 @@
+uid: 7dc91f97891c47cc
+alias: ctuning-shared-matmul-c
+
+automation_alias: flex.code
+automation_uid: ef97f06874474f39
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+  - ctuning
+  - cbench
+  - matmul
+  - c

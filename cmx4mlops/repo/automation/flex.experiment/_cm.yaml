@@ -1,0 +1,15 @@
+alias: flex.experiment
+uid: adb2bff868484dc6
+
+automation_alias: automation
+automation_uid: bbeb15d8f0a944a4
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+- automation
+- flex
+- experiment
+
+use:
+  flex.common: "flex.common,21286240620d4ef6"

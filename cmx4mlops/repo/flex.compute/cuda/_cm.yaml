@@ -1,0 +1,22 @@
+alias: cuda
+automation_alias: flex.compute
+automation_uid: a346efb7d3314b33
+uid: ce9310f060af4b21
+
+author_and_developer: "Grigori Fursin"
+
+device: cuda
+
+name: CUDA
+
+tags:
+  - cuda
+  - generic
+  - min
+  - _sys_platform.win32
+  - _sys_platform.linux
+
+deps:
+  - tags: use,sys,tool
+    name: nvidia_smi
+    alias: nvidia_smi

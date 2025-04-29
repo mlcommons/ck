@@ -1,0 +1,70 @@
+alias: run-mlperf-inference-benchmark
+uid: 7fe8521fdf0e4171
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+- Daniel Altunay
+
+tags:
+- run
+- mlperf
+- inference
+- mlperf-inference
+- benchmark
+
+deps:
+  - tags: detect,host,info,min
+
+input_description:
+  clean:
+    desc: "Clean directories"
+  path:
+    desc: "Path where to create MLPerf inference directory structure"
+  division:
+    desc: "MLPerf division"
+    choices: 
+    - open
+    - closed
+    default: "open"
+  submitter:
+    desc: "Submitter"
+    default: "CTuning"
+  sut:
+    desc: "System Under Test name (Example: cmx-aws-g4dn.4xlarge-vllm-0.7.3)"
+    default: "localhost"
+  model:
+    desc: "Huggingface model"
+    default: "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
+  mlperf_model:
+    desc: "Official MLPerf Model (specify if model != mlperf_model)"
+    default: "llama2-70b-99"
+  dataset:
+    desc: "Huggingface dataset"
+    default: "Open-Orca/OpenOrca"
+
+  system_desc_file:
+    desc: "System description file"
+
+  system_desc:
+    desc: "Update system description (dict)"
+
+  scenario:
+    desc: "MLPerf scenario"
+    choices:
+    - Offline
+    - Server
+
+  mode:
+    desc: "MLPerf mode"
+    choices: 
+    - performance
+    - accuracy
+
+  bench:
+    desc: "Parameters passed to benchmark (dict)"
+
+  tmp_dir_postfix:
+    desc: "Postfix for tmp dir if needed"

@@ -1,0 +1,7 @@
+@echo off
+
+rem %CMX_PYTHON_WITH_PATH% -m pip install -r %CMX_PATH_TO_FLEX_TASK%\requirements.txt
+rem IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
+
+%CMX_PYTHON_WITH_PATH% %CMX_PATH_TO_FLEX_TASK%\src\classify.py
+IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%

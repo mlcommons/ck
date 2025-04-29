@@ -1,0 +1,22 @@
+v: True
+#j: True
+
+experiment:
+  artifact: "mlperf-inference-5.0-flexai"
+  rerun: True
+  clean_summary: True
+
+path: mlperf-inference1xxB
+
+submitter: FlexAI
+sut: 8xH100a
+
+model: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+mlperf_model: llama2-70b-99
+#dataset: daltunay/MLPerf-OpenOrca
+
+bench:
+  dataset_split: train
+  total_sample_count: 24576
+  target_qps: 3 
+  api_server: "http://localhost:8009"

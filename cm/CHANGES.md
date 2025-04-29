@@ -1,3 +1,6 @@
+## CMX V4.2.0
+   - added flextask wrapper for CMX4MLOps/FlexBench
+
 ## CMX V4.1.4
    - fixed minor bug for "cmx --version"
    - added "cmx pull repo --dir2" to support "dir/dir" directories

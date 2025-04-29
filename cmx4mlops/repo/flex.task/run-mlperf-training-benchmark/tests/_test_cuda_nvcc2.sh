@@ -1,0 +1,1 @@
+ft "run mlperf training" --compute_tags=cuda,nvcc --v --j --config_name=default --max_experiments=5

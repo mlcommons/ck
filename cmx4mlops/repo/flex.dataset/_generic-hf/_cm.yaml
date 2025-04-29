@@ -1,0 +1,24 @@
+alias: _generic-hf
+uid: c7d0e7c8d1834eab
+
+automation_alias: flex.dataset
+automation_uid: 2775c0d6e91f4fae
+
+author_and_developer: "Grigori Fursin"
+
+deps:
+  - tags: detect,host,info,min
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: huggingface_hub
+    alias: pip_huggingface_hub
+
+tags:
+  - generic
+  - hf
+  - huggingface

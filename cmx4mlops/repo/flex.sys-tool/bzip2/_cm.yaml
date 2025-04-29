@@ -1,0 +1,15 @@
+alias: bzip2
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: f216c6ccbc754db4
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - bzip2
+
+desc:
+    tool: bzip2
+    tool_version: "{{tool}} -h"
+    match_version: ' version ([\d.]+)'
+    match_group: 1

@@ -1,0 +1,15 @@
+alias: rocm
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: fee74b35919e4afa
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - rocm
+
+desc:
+    tool: rocminfo
+    tool_version: "cat /opt/rocm/.info/version"
+    match_version: '([\d.]+[-\d+]*)'
+    match_group: 1

@@ -1,0 +1,36 @@
+alias: use-nsys-report
+uid: 13ce0208766a42c4
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+- Daniel Altunay
+
+tags:
+- use
+- nsys
+- report
+
+deps:
+  - tags: use,sys,tool
+    name: nsys
+    alias: nsys
+
+input_description:
+  force_overwrite:
+    desc: "Force overwrite profiling info"
+    default: true
+  force_export:
+    desc: "Force overwrite MySQL export"
+    default: true
+  format:
+    desc: "Report format"
+    default: table
+  input:
+    desc: "Input file"
+    default: tmp-nsys-trace.nsys-rep
+  output:
+    desc: "Output report file"
+    default: "tmp-nsys-report"

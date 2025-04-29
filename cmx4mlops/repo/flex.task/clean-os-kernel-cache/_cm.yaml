@@ -1,0 +1,14 @@
+alias: clean-os-kernel-cache
+uid: e429cd755fe64b31
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- clean
+- os
+- kernel
+- cache

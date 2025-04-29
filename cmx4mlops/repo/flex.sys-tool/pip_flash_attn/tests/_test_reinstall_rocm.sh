@@ -1,0 +1,1 @@
+ft "use sys tool" --name=pip_flash_attn --use_compute --v --j --renew --state.cmx.pip_flash_attn_rocm_use_github --version="2.6.3" --install_postfix="--force-reinstall --no-build-isolation --no-cache-dir -v --no-deps"

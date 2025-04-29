@@ -55,7 +55,8 @@ based on user feedback. It is backwards compatible with CM, released along with 
 in the [cmind package](https://pypi.org/project/cmind/) and can serve as drop-in replacement 
 for CM and legacy MLPerf automations while providing a simpler and more robust interface.
 
-See the [project page](https://github.com/mlcommons/ck/tree/master/cmx) for more details.
+See the [project page](https://github.com/mlcommons/ck/tree/master/cmx) 
+and [CMX4MLOps automations](https://github.com/mlcommons/ck/tree/master/cmx4mlops) for more details.
 
 ### MLOps and MLPerf automations
 

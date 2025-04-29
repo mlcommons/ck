@@ -1,0 +1,30 @@
+alias: run-tsh-init
+uid: 1684456b19554d23
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- run
+- tsh
+- init
+
+deps:
+  - tags: detect,host,info,min
+  - tags: use,sys,tool
+    name: tsh
+
+use:
+  flex.cfg: "flex.cfg,a6533b79f7954a7a"
+
+input_description:
+  proxy: 
+    desc: "specify proxy"
+  env:
+    desc: "specify env (dict)"
+  ttl:
+    desc: "specify certificate lifetime in minutes"
+    default: 1440

@@ -1,0 +1,48 @@
+alias: run-mlperf-submission-checker
+uid: 1e304b73356f4c9d
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- run
+- mlperf
+- submission
+- checker
+
+deps:
+  - tags: detect,host,info,min
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+input_description:
+  path:
+    desc: "specify path to MLPerf results"
+  benchmark:
+    desc: "specify benchmark (inference | training)"
+  url:
+    desc: "specify inference repo URL"
+    default: "https://github.com/mlcommons/inference"
+  checkout:
+    desc: "specify checkout"
+  version:
+    desc: "specify version"
+  short_run:
+    desc: "turn on short run"
+  extra_flags:
+    desc: "specify extra flags"
+  target_json:
+    desc: "specify target json file"
+  skip_submission_checker_errors:
+    desc: "skip submission checker errors"
+  skip_if_summary_exists:
+    desc: "skip submission checker if summary.csv already exists"
+  truncate_accuracy_log:
+    desc: "truncate accuracy log (for inference)"
+  submitter:
+    desc: "submitter to truncate accuracy"

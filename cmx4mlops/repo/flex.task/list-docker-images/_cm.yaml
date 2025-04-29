@@ -1,0 +1,26 @@
+alias: list-docker-images
+uid: 82bbb5496002449e
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- list
+- docker
+- images
+
+deps:
+  - tags: detect,host,info,min
+
+  - tags: use,sys,tool
+    name: docker
+    alias: use-docker
+
+input_description:
+  cmd:
+    desc: "specify docker build image CMD"
+  env:
+    desc: "specify env (dict)"

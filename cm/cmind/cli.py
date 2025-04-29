@@ -526,6 +526,35 @@ def split_flag(flag, array, value=None):
 
     return key, value, array
 
+############################################################
+def run_flex_task(argv = None):
+    """
+    Run Flexible Task to automate FlexBench (MLPerf inference 5.0 submission)
+
+    Args:
+      (argv): system arguments
+
+    Returns:
+      return code from flexible task
+
+
+    """
+
+    # Access CM
+    from cmind.core import CM
+
+    cm = CM()
+
+    if argv is None:
+        argv = sys.argv[1:]
+
+    r = cm.x(['run', 'flex.task'] + argv, out='con')
+
+    if r['return']>0 and (cm.output is None or cm.output == 'con'):
+        cm.errorx(r)
+
+    sys.exit(r['return'])
+
 ###########################################################################
 if __name__ == "__main__":
     run()

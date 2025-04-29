@@ -1,0 +1,44 @@
+alias: test-matmul-python-numpy-cpu
+uid: 3a3def3c5e7d4067
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- test
+- matmul
+- python
+- numpy
+
+deps:
+  - tags: detect,host,info,min
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: numpy
+    alias: pip_numpy
+
+input_description:
+  repeat:
+    desc: "Number of repetition of a kernel"
+    add_to_env: CMX_KERNEL_REPEAT
+    default: 10
+  dim_n:
+    desc: "Matrix dimension N"
+    add_to_env: CMX_MATMUL_DIM_N
+    default: 10
+  dim_m:
+    desc: "Matrix dimension M"
+    add_to_env: CMX_MATMUL_DIM_M
+    default: 10
+  dim_k:
+    desc: "Matrix dimension K"
+    add_to_env: CMX_MATMUL_DIM_K
+    default: 10

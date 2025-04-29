@@ -1,0 +1,61 @@
+alias: test-pytorch-flash-attn
+uid: 6cdc9b78fb1a4d41
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- test
+- pytorch
+- flash-attn
+
+deps:
+  - tags: use,compute
+    alias: compute
+
+  - tags: use,sys,tool
+    name: python
+    alias: python
+
+  - tags: use,sys,tool
+    name: pip_torch
+    alias: pip_torch
+    test_version: True
+
+#  - tags: print-debug
+#    wait: true
+#    print_state: true
+
+  - tags: use,sys,tool
+    name: pip_generic
+    package: flash_attn
+    alias: pip_flash_attn
+    install_postfix: "--force-reinstall --no-build-isolation --no-cache-dir -v --no-deps"
+
+  - tags: use,nsys,profile
+    alias: use_nsys_profile
+    run_if_state_all:
+      cmx.profile.use: true
+      cmx.profile.use_nsys: true
+
+post_deps:
+  - tags: use,nsys,report
+    alias: use_nsys_report
+    run_if_state_all:
+      cmx.profile.use: 
+        - true
+      cmx.profile.use_nsys: true
+
+input_description:
+  device:
+    desc: "Force PyTorch device (otherwise taken from select-compute)"
+  profile:
+    add_to_state: cmx.profile.use
+    desc: "Turn on profiling"
+  profile_nsys:
+    desc: "Profile using Nsys"
+    add_to_state: cmx.profile.use_nsys
+    default: true

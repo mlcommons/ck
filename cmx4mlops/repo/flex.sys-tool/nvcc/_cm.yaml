@@ -1,0 +1,41 @@
+alias: nvcc
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: 5133991452ec47ec
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - nvcc
+
+desc:
+    deps:
+      # Windows
+      - tags: use,sys,tool
+        name: visual_cpp
+        alias: visual_cpp
+      # Linux
+      - tags: use,sys,tool
+        name: gcc
+        alias: gcc
+
+    # Needed to preload Visual C++ on Windows
+    cmd_prefix_from_state: 
+      - cmx.cmd_compiler_prefix
+
+    tool: nvcc
+    tool_version: "{{tool}} --version"
+    match_version: ', v\s*([\d.]+)'
+    match_group: 1
+
+    suggested_paths:
+      - "/usr/**/cuda/bin/"
+
+    suggested_paths_windows:
+      - "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\**\\bin\\"
+      - "D:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\**\\bin\\"
+
+    update_state:
+       cmx.envs.CUDA_HOME: "{{sys_tool_nvcc_dirname_x}}"
+       cmx.envs.CUDA_ROOT: "{{sys_tool_nvcc_dirname_x}}"
+       cmx.envs.CUDA_PATH: "{{sys_tool_nvcc_dirname_x}}"

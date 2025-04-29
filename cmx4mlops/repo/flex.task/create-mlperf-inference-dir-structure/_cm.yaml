@@ -1,0 +1,39 @@
+alias: create-mlperf-inference-dir-structure
+uid: cefd155abe2440ea
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+tags:
+- create
+- mlperf
+- inference
+- dir
+- structure
+
+authors:
+- Grigori Fursin
+
+input_description:
+  clean:
+    desc: "Clean directories"
+  path:
+    desc: "Path where to create MLPerf inference directory structure"
+  division:
+    desc: "MLPerf division"
+    choices: ["open", "closed"]
+    default: "open"
+  submitter:
+    desc: "Submitter"
+    default: "CTuning"
+  sut:
+    desc: "System Under Test name (Example: cmx-aws-g4dn.4xlarge-vllm-0.7.3)"
+    default: "localhost"
+  model:
+    desc: "Model (can be any, in such case specify mlperf_model as a base)"
+    default: "llama2-7b"
+  mlperf_model:
+    desc: "Official MLPerf Model (specify if model != mlperf_model)"
+    default: "llama2-70b-99"
+  system_desc_file:
+    desc: "System description file"

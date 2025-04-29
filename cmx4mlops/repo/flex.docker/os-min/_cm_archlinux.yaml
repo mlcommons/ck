@@ -1,0 +1,15 @@
+﻿uid: 9960e9fb3cb24cb3
+
+author_and_developer: "Grigori Fursin"
+
+name: "Min OS: Arch Linux Latest"
+
+desc:
+  docker_base_image: 'archlinux'
+
+tags:
+- base
+- min
+- os
+- archlinux
+  

@@ -1,0 +1,15 @@
+alias: docker
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: e8a5ddab2906442f
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - docker
+
+desc:
+    tool: docker
+    tool_version: "{{tool}} --version"
+    match_version: 'version ([\d.]+)'
+    match_group: 1

@@ -1,0 +1,15 @@
+alias: md5sum
+automation_alias: flex.sys-tool
+automation_uid: e0db585fbcf34f37
+uid: b3ebf40fed6446cf
+
+author_and_developer: "Grigori Fursin"
+
+tags:
+    - md5sum
+
+desc:
+    tool: md5sum
+    tool_version: "{{tool}} --version"
+    match_version: '\b(\d+(?:[^\w\d]+\d+)*)\b'
+    match_group: 1

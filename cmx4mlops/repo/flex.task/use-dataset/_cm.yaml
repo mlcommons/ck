@@ -1,0 +1,39 @@
+alias: use-dataset
+uid: 242cddeb1c704b03
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+prepare_cache_meta: True
+
+tags:
+- use
+- flex
+- dataset
+
+use:
+  flex.cfg: "flex.cfg,a6533b79f7954a7a"
+  flex.common: "flex.common,21286240620d4ef6"
+  flex.dataset: "flex.dataset,2775c0d6e91f4fae"
+
+input_description:
+  name: 
+    desc: "specify dataset name or UID"
+  dataset_tags: 
+    desc: "specify dataset tags"
+  env:
+    desc: "specify env (dict)"
+  path:
+    desc: "specify path where to install dataset"
+  directory:
+    desc: "specify extra directory with a dataset"
+  repo:
+    desc: "external repository name (such as HF)"
+  connect:
+    desc: "connect to external repo (such as HF)"
+  skip_reconnect:
+    desc: "skip reconnecting to remote device"
+    add_to_state: flow.use_rclone_mlcommons.skip_reconnect

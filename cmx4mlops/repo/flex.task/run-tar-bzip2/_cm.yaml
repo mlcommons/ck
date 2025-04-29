@@ -1,0 +1,31 @@
+alias: run-tar-bzip2
+uid: 85c6db79446d4f05
+
+automation_alias: flex.task
+automation_uid: 3b7c4ac74c0647ee
+
+authors:
+- Grigori Fursin
+
+tags:
+- run
+- tar
+- bzip2
+
+deps:
+  - tags: detect,host,info,min
+  - tags: use,sys,tool
+    name: tar
+  - tags: use,sys,tool
+    name: bzip2
+  - tags: use,sys,tool
+    name: md5sum
+    alias: md5sum
+    enable: False
+
+input_description:
+  input: 
+    desc: "specify directory to tar and bzip2"
+  md5sum:
+    desc: "calculate md5sum in the end"
+    add_to_state: flow.md5sum.enable

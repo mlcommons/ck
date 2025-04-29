@@ -1,0 +1,1 @@
+ft "run mlperf-training benchmark" --compute_tags=generic,cuda --code_version=4.1 --v
