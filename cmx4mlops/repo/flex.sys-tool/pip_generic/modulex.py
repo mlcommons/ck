@@ -8,6 +8,11 @@ import sys
 
 def install(i):
 
+    # We should be able to override installation of packages 
+    # TBD: do it cleaner via cfg ...
+    env = i['env']
+    if 'PIP_BREAK_SYSTEM_PACKAGES' not in env: env['PIP_BREAK_SYSTEM_PACKAGES'] = 1
+
     tmp = i['tmp']
     python_with_path2 = tmp['sys_tool_python_with_path2']
 
