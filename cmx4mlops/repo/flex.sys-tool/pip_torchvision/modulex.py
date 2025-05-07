@@ -8,6 +8,12 @@ import sys
 
 def install(i):
 
+    env = i['env']
+
+    # We should be able to override installation of packages 
+    # TBD: do it cleaner via cfg ...
+    if 'PIP_BREAK_SYSTEM_PACKAGES' not in env: env['PIP_BREAK_SYSTEM_PACKAGES'] = 1
+
     cmind = i['cmind']
     cmx = i['state']['cmx']
 
