@@ -1,0 +1,2361 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../img/logo_v2.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+    
+    
+      
+        <title>Sc22 scc mlperf part3 - Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tutorial-modularizing-and-automating-mlperf-part-3" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)" class="md-header__button md-logo" aria-label="Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)" data-md-component="logo">
+      
+  <img src="../../img/logo_v2.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Sc22 scc mlperf part3
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mlcommons/ck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  HOME
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cmx/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  CMX/CM
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cmx/mlperf-inference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  MLPerf automations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://access.cKnowledge.org" class="md-tabs__link">
+        
+  
+  
+    
+  
+  CK Playground
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://github.com/mlcommons/ck/releases" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Releases
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)" class="md-nav__button md-logo" aria-label="Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)" data-md-component="logo">
+      
+  <img src="../../img/logo_v2.svg" alt="logo">
+
+    </a>
+    Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mlcommons/ck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    HOME
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cmx/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    CMX/CM
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            CMX/CM
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/understanding-cmx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Understanding CMX
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/common-automation-actions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CMX commands to share and reuse artifacts with common metadata
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/specific-automation-actions.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CMX automation actions for related artifacts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/cm4mlops.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reusing CMX automations and artifacts for MLOps, DevOps and MLPerf
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/create.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creating new artifacts and automations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/improving-cmx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Improving CMX framework
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/motivation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Motivation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cmx/mlperf-inference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    MLPerf automations
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            MLPerf automations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v4.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MLPerf inference benchmark v4.1
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cmx/mlperf-inference/v5.0/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    MLPerf inference benchmark v5.0
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            MLPerf inference benchmark v5.0
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_2" id="__nav_3_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Image Classification
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Image Classification
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/image_classification/resnet50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ResNet50
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_3" id="__nav_3_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Text to Image
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Text to Image
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_3_1" id="__nav_3_3_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Stable Diffusion
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Stable Diffusion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/text_to_image/sdxl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Run Commands
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_3_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_3_1_2" id="__nav_3_3_3_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reproducibility
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_3_3_3_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_3_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Reproducibility
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/text_to_image/reproducibility/scc24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SCC24
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_4" id="__nav_3_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2D Object Detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            2D Object Detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/object_detection/retinanet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RetinaNet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_5" id="__nav_3_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Automotive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Automotive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_5_1" id="__nav_3_3_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3D Object Detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_3_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            3D Object Detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/automotive/3d_object_detection/pointpainting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PointPainting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_6" id="__nav_3_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Medical Imaging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Medical Imaging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/medical_imaging/3d-unet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3d-unet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_7" id="__nav_3_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Language Processing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Language Processing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_7_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_7_1" id="__nav_3_3_7_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bert-Large
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_3_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            Bert-Large
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/language/bert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Run Commands
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_7_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_7_1_2" id="__nav_3_3_7_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reproducibility
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_3_3_7_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_7_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Reproducibility
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/language/reproducibility/indyscc24-bert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IndySCC24
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/language/gpt-j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GPT-J
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/language/llama2-70b/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LLAMA2-70B
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/language/llama3_1-405b/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LLAMA3-405B
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/language/mixtral-8x7b/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MIXTRAL-8x7B
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_8" id="__nav_3_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Recommendation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            Recommendation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/recommendation/dlrm-v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DLRM-v2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_9" id="__nav_3_3_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Graph Neural Networks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            Graph Neural Networks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/graph/rgat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    R-GAT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://access.cKnowledge.org" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CK Playground
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/mlcommons/ck/releases" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Releases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p>[ <a href="../README.md">Back to index</a> ]</p>
+<h1 id="tutorial-modularizing-and-automating-mlperf-part-3">Tutorial: modularizing and automating MLPerf (part 3)</h1>
+<details>
+<summary>Click here to see the table of contents.</summary>
+
+* [Introduction](#introduction)
+* [System preparation](#system-preparation)
+  * [Update CM framework and automation repository](#update-cm-framework-and-automation-repository)
+  * [Install virtual environment](#install-virtual-environment)
+* [CM automation for the MLPerf benchmark](#cm-automation-for-the-mlperf-benchmark)
+  * [MLPerf inference - Python - ResNet50 FP32 - ImageNet - ONNX - CPU - Offline](#mlperf-inference---python---resnet50-fp32---imagenet---onnx---cpu---offline)
+    * [Accuracy mode](#accuracy-mode)
+    * [Performance mode](#performance-mode)
+    * [Submission mode](#submission-mode)
+    * [Summary](#summary)
+  * [MLPerf inference - Python - ResNet50 FP32 - ImageNet - TVM - CPU - Offline](#mlperf-inference---python---resnet50-fp32---imagenet---tvm---cpu---offline)
+    * [Accuracy](#accuracy)
+    * [Submission mode](#submission-mode)
+    * [Summary](#summary)
+* [The next steps](#the-next-steps)
+* [Authors](#authors)
+* [Acknowledgments](#acknowledgments)
+
+</details>
+
+<h1 id="introduction">Introduction</h1>
+<p>We expect that you have completed the <a href="../sc22-scc-mlperf/">1st part</a> of this tutorial 
+and managed to run the MLPerf inference benchmark for object detection
+with RetinaNet FP32, Open Images and ONNX runtime on a CPU target.</p>
+<p>This tutorial shows you how to customize the MLPerf inference benchmark
+and run it with the reference Python implementation of image classification, 
+ImageNet, ONNX runtime and TVM on CPU.</p>
+<p><em>Note that this tutorial is under preparation and is gradually extended
+ by the <a href="../taksforce.md">MLCommons taskforce on automation and reproducibility</a>.</em></p>
+<h1 id="system-preparation">System preparation</h1>
+<h2 id="update-cm-framework-and-automation-repository">Update CM framework and automation repository</h2>
+<p>Note that the <a href="https://github.com/mlcommons/ck">CM automation meta-framework</a> 
+and the <a href="https://github.com/mlcommons/ck/tree/master/cm-mlops">repository with automation scripts </a>
+are being continuously updated by the community to improve the portability and interoperability of 
+all reusable components for MLOps and DevOps.</p>
+<p>You can get the latest version of the CM framework and automation repository as follows
+(though be careful since CM CLI and APIs may change):</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>cmind<span class="w"> </span>-U
+cm<span class="w"> </span>pull<span class="w"> </span>repo<span class="w"> </span>mlcommons@ck<span class="w"> </span>--checkout<span class="o">=</span>master
+
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;get sys-utils-cm&quot;</span><span class="w"> </span>--quiet
+</code></pre></div>
+<h2 id="install-virtual-environment">Install virtual environment</h2>
+<p>We suggest you to use Python virtual environment to avoid mixing up your native installation with MLPerf dependencies.
+You can use your own one or install Python virtual environment using CM automation as follows:`</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;install python-venv&quot;</span><span class="w"> </span>--version<span class="o">=</span><span class="m">3</span>.10.8<span class="w"> </span>--name<span class="o">=</span>mlperf
+</code></pre></div>
+<h1 id="cm-automation-for-the-mlperf-benchmark">CM automation for the MLPerf benchmark</h1>
+<h2 id="mlperf-inference-python-resnet50-fp32-imagenet-onnx-cpu-offline">MLPerf inference - Python - ResNet50 FP32 - ImageNet - ONNX - CPU - Offline</h2>
+<h3 id="accuracy-mode">Accuracy mode</h3>
+<p>You can run MLPerf image classification by customizing the CLI 
+of our <a href="../../list_of_scripts/##run-mlperf-inference-app">universal CM wrapper</a> 
+for MLPerf inference.</p>
+<p>You just need to update flag <code>--model=resnet50</code>:</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span>--tags<span class="o">=</span>run,mlperf,inference,generate-run-cmds<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.name<span class="o">=</span>mlperf<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.version_min<span class="o">=</span><span class="m">3</span>.8<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--submitter<span class="o">=</span><span class="s2">&quot;Community&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--implementation<span class="o">=</span>python<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--hw_name<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--model<span class="o">=</span>resnet50<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--backend<span class="o">=</span>onnxruntime<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--device<span class="o">=</span>cpu<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--scenario<span class="o">=</span>Offline<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--mode<span class="o">=</span>accuracy<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--test_query_count<span class="o">=</span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--quiet<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--clean
+</code></pre></div>
+<p>In case of a successful run, you should see the following output:
+<div class="highlight"><pre><span></span><code>...
+
+accuracy=80.000%, good=4, total=5
+
+...
+</code></pre></div></p>
+<p>This CM script will install a small version of the ImageNet dataset (500 images) for testing
+and will automatically preprocess it with NCHW shape:</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>show<span class="w"> </span>cache<span class="w"> </span>--tags<span class="o">=</span>get,dataset,imagenet
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>* cache::242d289d79f54978
+    Tags: [&#39;ILSVRC&#39;, &#39;dataset&#39;, &#39;get&#39;, &#39;image-classification&#39;, &#39;imagenet&#39;, &#39;original&#39;, &#39;script-artifact-7afd58d287fe4f11&#39;, &#39;_2012-500&#39;]
+    Path: /home/fursin/CM/repos/local/cache/242d289d79f54978
+
+* cache::9e1013fd58724e2f
+    Tags: [&#39;ILSVRC&#39;, &#39;dataset&#39;, &#39;get&#39;, &#39;image-classification&#39;, &#39;imagenet&#39;, &#39;preprocessed&#39;, &#39;script-artifact-f259d490bbaf45f5&#39;, &#39;_NCHW&#39;]
+    Path: /home/fursin/CM/repos/local/cache/9e1013fd58724e2f
+</code></pre></div>
+<p>Check this <a href="../../list_of_scripts/#get-dataset-imagenet-val">CM script</a> if you want to detect a full ImageNet validation dataset for submission.</p>
+<p>CM will also install a ResNet-50 model (FP32, ONNX) using this <a href="../../list_of_scripts/#get-ml-model-resnet50">CM script</a>:</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>show<span class="w"> </span>cache<span class="w"> </span>--tags<span class="o">=</span>get,ml-model,resnet50
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>* cache::eccee9fed2194558
+    Tags: [&#39;get&#39;, &#39;image-classification&#39;, &#39;ml-model&#39;, &#39;ml-model-resnet50&#39;, &#39;resnet50&#39;, &#39;script-artifact-56203e4e998b4bc0&#39;, &#39;_fp32&#39;, &#39;_onnx&#39;, &#39;_onnx-1.5-opset-11&#39;, &#39;_onnx_&#39;]
+    Path: /home/fursin/CM/repos/local/cache/eccee9fed2194558
+</code></pre></div>
+<h3 id="performance-mode">Performance mode</h3>
+<p>You can run MLPerf with ResNet50 in performance mode as follows:</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span>--tags<span class="o">=</span>run,mlperf,inference,generate-run-cmds<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.name<span class="o">=</span>mlperf<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.version_min<span class="o">=</span><span class="m">3</span>.8<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--submitter<span class="o">=</span><span class="s2">&quot;Community&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--implementation<span class="o">=</span>python<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--hw_name<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--model<span class="o">=</span>resnet50<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--backend<span class="o">=</span>onnxruntime<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--device<span class="o">=</span>cpu<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--scenario<span class="o">=</span>Offline<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--mode<span class="o">=</span>performance<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--test_query_count<span class="o">=</span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--quiet<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--clean
+</code></pre></div>
+<p>In case of a successful run, you should see the following output:
+<div class="highlight"><pre><span></span><code>...
+
+INFO:main:starting TestScenario.Offline
+TestScenario.Offline qps=4.98, mean=0.1756, time=0.201, queries=1, tiles=50.0:0.1756,80.0:0.1756,90.0:0.1756,95.0:0.1756,99.0:0.1756,99.9:0.1756
+
+
+================================================
+MLPerf Results Summary
+================================================
+SUT name : PySUT
+Scenario : Offline
+Mode     : PerformanceOnly
+Samples per second: 28.3498
+Result is : VALID
+  Min duration satisfied : Yes
+  Min queries satisfied : Yes
+  Early stopping satisfied: Yes
+
+================================================
+Additional Stats
+================================================
+Min latency (ns)                : 176368211
+Max latency (ns)                : 176368211
+Mean latency (ns)               : 176368211
+50.00 percentile latency (ns)   : 176368211
+90.00 percentile latency (ns)   : 176368211
+95.00 percentile latency (ns)   : 176368211
+97.00 percentile latency (ns)   : 176368211
+99.00 percentile latency (ns)   : 176368211
+99.90 percentile latency (ns)   : 176368211
+
+================================================
+Test Parameters Used
+================================================
+samples_per_query : 5
+target_qps : 1
+target_latency (ns): 0
+max_async_queries : 1
+min_duration (ms): 0
+max_duration (ms): 0
+min_query_count : 1
+max_query_count : 5
+qsl_rng_seed : 14284205019438841327
+sample_index_rng_seed : 4163916728725999944
+schedule_rng_seed : 299063814864929621
+accuracy_log_rng_seed : 0
+accuracy_log_probability : 0
+accuracy_log_sampling_target : 0
+print_timestamps : 0
+performance_issue_unique : 0
+performance_issue_same : 0
+performance_issue_same_index : 0
+performance_sample_count : 1024
+
+No warnings encountered during test.
+
+No errors encountered during test.
+
+...
+</code></pre></div></p>
+<h3 id="submission-mode">Submission mode</h3>
+<p>You can now run MLPerf with ResNet50 in a submission mode:</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span>--tags<span class="o">=</span>run,mlperf,inference,generate-run-cmds,_submission,_dashboard<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.name<span class="o">=</span>mlperf<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.version_min<span class="o">=</span><span class="m">3</span>.8<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--submitter<span class="o">=</span><span class="s2">&quot;Community&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--implementation<span class="o">=</span>python<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--hw_name<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--model<span class="o">=</span>resnet50<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--backend<span class="o">=</span>onnxruntime<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--device<span class="o">=</span>cpu<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--scenario<span class="o">=</span>Offline<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--test_query_count<span class="o">=</span><span class="m">500</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--quiet<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--clean
+</code></pre></div>
+<p>In case of a successfull run, you should see your crowd-testing results at this 
+<a href="https://wandb.ai/cmind/cm-mlperf-dse-testing/table?workspace=user-gfursin">live W&amp;B dashboard</a>.</p>
+<h3 id="summary">Summary</h3>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>cmind<span class="w"> </span>-U
+cm<span class="w"> </span>pull<span class="w"> </span>repo<span class="w"> </span>mlcommons@ck<span class="w"> </span>--checkout<span class="o">=</span>master
+
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;get sys-utils-cm&quot;</span><span class="w"> </span>--quiet
+
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;install python-venv&quot;</span><span class="w"> </span>--version<span class="o">=</span><span class="m">3</span>.10.8<span class="w"> </span>--name<span class="o">=</span>mlperf
+
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span>--tags<span class="o">=</span>run,mlperf,inference,generate-run-cmds,_submission,_dashboard<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.name<span class="o">=</span>mlperf<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.version_min<span class="o">=</span><span class="m">3</span>.8<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--submitter<span class="o">=</span><span class="s2">&quot;Community&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--implementation<span class="o">=</span>python<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--hw_name<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--model<span class="o">=</span>resnet50<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--backend<span class="o">=</span>onnxruntime<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--device<span class="o">=</span>cpu<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--scenario<span class="o">=</span>Offline<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--test_query_count<span class="o">=</span><span class="m">500</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--quiet<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--clean
+</code></pre></div>
+<h2 id="mlperf-inference-python-resnet50-fp32-imagenet-tvm-cpu-offline">MLPerf inference - Python - ResNet50 FP32 - ImageNet - TVM - CPU - Offline</h2>
+<h3 id="accuracy">Accuracy</h3>
+<p>You can now run MLPerf inference with the <a href="https://tvm.apache.org/">Apache TVM</a> backend
+that <a href="https://octoml.ai">OctoML</a> has recently added to the 
+<a href="https://github.com/mlcommons/inference/blob/master/vision/classification_and_detection/python/backend_tvm.py">MLPerf inference vision benchmark</a>:</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span>--tags<span class="o">=</span>run,mlperf,inference,generate-run-cmds<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.name<span class="o">=</span>mlperf<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.version_min<span class="o">=</span><span class="m">3</span>.8<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--submitter<span class="o">=</span><span class="s2">&quot;Community&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--implementation<span class="o">=</span>python<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--hw_name<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--model<span class="o">=</span>resnet50<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--backend<span class="o">=</span>tvm-onnx<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--device<span class="o">=</span>cpu<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--scenario<span class="o">=</span>Offline<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--mode<span class="o">=</span>accuracy<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--test_query_count<span class="o">=</span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--quiet<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--clean
+</code></pre></div>
+<p>This workflow will use other CM scripts to install <a href="../../list_of_scripts/#get-cmake">CMake</a>,
+<a href="../../list_of_scripts/#get-llvm">LLVM 14+</a>, 
+<a href="../../list_of_scripts/#get-generic-python-lib">ONNX</a> to load ONNX models to TVM 
+and will build <a href="../../list_of_scripts/#get-tvm">Apache TVM</a>.</p>
+<p>In case of a successful run, you should see the following output:
+<div class="highlight"><pre><span></span><code>...
+
+accuracy=80.000%, good=4, total=5
+
+...
+</code></pre></div></p>
+<p>If you want to use TVM via PIP install, you can use <code>--adr.tvm.tags=_pip-install</code>:</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span>--tags<span class="o">=</span>run,mlperf,inference,generate-run-cmds<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.name<span class="o">=</span>mlperf<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.version_min<span class="o">=</span><span class="m">3</span>.8<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.tvm.tags<span class="o">=</span>_pip-install<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--submitter<span class="o">=</span><span class="s2">&quot;Community&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--implementation<span class="o">=</span>python<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--hw_name<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--model<span class="o">=</span>resnet50<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--backend<span class="o">=</span>tvm-onnx<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--device<span class="o">=</span>cpu<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--scenario<span class="o">=</span>Offline<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--mode<span class="o">=</span>accuracy<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--test_query_count<span class="o">=</span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--quiet<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--clean
+</code></pre></div>
+<p>Note that sometimes this benchmark may hang with TVM. You need to stop it and restart it and then it should work fine.
+We expect the TVM community to fix this problem at some point.</p>
+<p>In case of a successful run, you should see the following output:
+<div class="highlight"><pre><span></span><code>...
+
+accuracy=80.000%, good=4, total=5
+
+...
+</code></pre></div></p>
+<h3 id="submission-mode_1">Submission mode</h3>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span>--tags<span class="o">=</span>run,mlperf,inference,generate-run-cmds,_submission,_dashboard<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.name<span class="o">=</span>mlperf<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.version_min<span class="o">=</span><span class="m">3</span>.8<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--submitter<span class="o">=</span><span class="s2">&quot;Community&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--implementation<span class="o">=</span>python<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--hw_name<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--model<span class="o">=</span>resnet50<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--backend<span class="o">=</span>tvm-onnx<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--device<span class="o">=</span>cpu<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--scenario<span class="o">=</span>Offline<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--test_query_count<span class="o">=</span><span class="m">500</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--quiet<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--clean
+</code></pre></div>
+<p>In case of a successfull run, you should see your crowd-testing results at this 
+<a href="https://wandb.ai/cmind/cm-mlperf-dse-testing/table?workspace=user-gfursin">live W&amp;B dashboard</a>.</p>
+<h3 id="summary_1">Summary</h3>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>cmind<span class="w"> </span>-U
+cm<span class="w"> </span>pull<span class="w"> </span>repo<span class="w"> </span>mlcommons@ck<span class="w"> </span>--checkout<span class="o">=</span>master
+
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;get sys-utils-cm&quot;</span><span class="w"> </span>--quiet
+
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;install python-venv&quot;</span><span class="w"> </span>--version<span class="o">=</span><span class="m">3</span>.10.8<span class="w"> </span>--name<span class="o">=</span>mlperf
+
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span>--tags<span class="o">=</span>run,mlperf,inference,generate-run-cmds,_submission,_dashboard<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.name<span class="o">=</span>mlperf<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--adr.python.version_min<span class="o">=</span><span class="m">3</span>.8<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--submitter<span class="o">=</span><span class="s2">&quot;Community&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--implementation<span class="o">=</span>python<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--hw_name<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--model<span class="o">=</span>resnet50<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--backend<span class="o">=</span>tvm-onnx<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--device<span class="o">=</span>cpu<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--scenario<span class="o">=</span>Offline<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--test_query_count<span class="o">=</span><span class="m">500</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--quiet<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--clean
+</code></pre></div>
+<h1 id="the-next-steps">The next steps</h1>
+<p>Please check other parts of this tutorial to learn how to 
+customize and optimize MLPerf inference benchmark using MLCommons CM
+(under preparation):</p>
+<ul>
+<li><a href="../sc22-scc-mlperf/">1st part</a>: customize MLPerf inference (Python ref implementation, Open images, ONNX, CPU)</li>
+<li><a href="../sc22-scc-mlperf-part2/">2nd part</a>: customize MLPerf inference (C++ implementation, CUDA, PyTorch)</li>
+<li><em>To be continued</em></li>
+</ul>
+<p>You are welcome to join the <a href="../taksforce.md">open MLCommons taskforce on automation and reproducibility</a>
+to contribute to this project and continue optimizing this benchmark and prepare an official submission 
+for MLPerf inference v3.0 (March 2023) with the help of the community.</p>
+<p>See the development roadmap <a href="https://github.com/mlcommons/ck/issues/536">here</a>.</p>
+<h1 id="authors">Authors</h1>
+<ul>
+<li><a href="https://cKnowledge.org/gfursin">Grigori Fursin</a> (cTuning foundation and cKnowledge.org)</li>
+<li><a href="https://www.linkedin.com/in/arjunsuresh">Arjun Suresh</a> (cTuning foundation and cKnowledge.org)</li>
+</ul>
+<h1 id="acknowledgments">Acknowledgments</h1>
+<p>We thank 
+<a href="https://www.nersc.gov/about/nersc-staff/advanced-technologies-group/hai-ah-nam">Hai Ah Nam</a>,
+<a href="https://www.linkedin.com/in/steve-leak">Steve Leak</a>,
+<a href="https://scholar.harvard.edu/vijay-janapa-reddi/home">Vijay Janappa Reddi</a>,
+<a href="https://scholar.google.com/citations?user=L_1FmIMAAAAJ&amp;hl=en">Tom Jablin</a>,
+<a href="https://www.linkedin.com/in/ramesh-chukka-74b5b21">Ramesh N Chukka</a>,
+<a href="https://www.linkedin.com/in/peter-mattson-33b8863/">Peter Mattson</a>,
+<a href="https://www.linkedin.com/in/kanterd">David Kanter</a>,
+<a href="https://www.linkedin.com/in/pablo-gonzalez-mesa-952ab2207">Pablo Gonzalez Mesa</a>,
+<a href="https://www.linkedin.com/in/hanwen-zhu-483614189">Thomas Zhu</a>,
+<a href="https://www.linkedin.com/in/tschmid">Thomas Schmid</a>
+and <a href="https://www.linkedin.com/in/grverma">Gaurav Verma</a>
+for their suggestions and contributions.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.tabs.link", "content.code.copy", "navigation.expand", "navigation.sections", "navigation.indexes", "navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

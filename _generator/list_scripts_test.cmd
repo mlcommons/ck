@@ -1,0 +1,1 @@
+cm doc script app-loadgen-generic-python --output_dir=..

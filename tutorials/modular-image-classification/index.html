@@ -1,0 +1,2153 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../img/logo_v2.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+    
+    
+      
+        <title>Modular image classification - Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#trying-cm-modular-image-classification" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)" class="md-header__button md-logo" aria-label="Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)" data-md-component="logo">
+      
+  <img src="../../img/logo_v2.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Modular image classification
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mlcommons/ck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  HOME
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cmx/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  CMX/CM
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cmx/mlperf-inference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  MLPerf automations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://access.cKnowledge.org" class="md-tabs__link">
+        
+  
+  
+    
+  
+  CK Playground
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://github.com/mlcommons/ck/releases" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Releases
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)" class="md-nav__button md-logo" aria-label="Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)" data-md-component="logo">
+      
+  <img src="../../img/logo_v2.svg" alt="logo">
+
+    </a>
+    Collective Knowledge (CK) and Collective Mind (CM/MLCFlow/CMX automations)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mlcommons/ck" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    HOME
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cmx/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    CMX/CM
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            CMX/CM
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/understanding-cmx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Understanding CMX
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/common-automation-actions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CMX commands to share and reuse artifacts with common metadata
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/specific-automation-actions.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CMX automation actions for related artifacts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/cm4mlops.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reusing CMX automations and artifacts for MLOps, DevOps and MLPerf
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/create.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creating new artifacts and automations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/improving-cmx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Improving CMX framework
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/motivation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Motivation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cmx/mlperf-inference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    MLPerf automations
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            MLPerf automations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v4.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MLPerf inference benchmark v4.1
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cmx/mlperf-inference/v5.0/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    MLPerf inference benchmark v5.0
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            MLPerf inference benchmark v5.0
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_2" id="__nav_3_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Image Classification
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Image Classification
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/image_classification/resnet50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ResNet50
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_3" id="__nav_3_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Text to Image
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Text to Image
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_3_1" id="__nav_3_3_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Stable Diffusion
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Stable Diffusion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/text_to_image/sdxl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Run Commands
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_3_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_3_1_2" id="__nav_3_3_3_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reproducibility
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_3_3_3_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_3_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Reproducibility
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/text_to_image/reproducibility/scc24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SCC24
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_4" id="__nav_3_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2D Object Detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            2D Object Detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/object_detection/retinanet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RetinaNet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_5" id="__nav_3_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Automotive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Automotive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_5_1" id="__nav_3_3_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3D Object Detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_3_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            3D Object Detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/automotive/3d_object_detection/pointpainting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PointPainting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_6" id="__nav_3_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Medical Imaging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Medical Imaging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/medical_imaging/3d-unet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3d-unet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_7" id="__nav_3_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Language Processing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Language Processing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_7_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_7_1" id="__nav_3_3_7_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bert-Large
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_3_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            Bert-Large
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/language/bert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Run Commands
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_7_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_7_1_2" id="__nav_3_3_7_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reproducibility
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_3_3_7_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_7_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Reproducibility
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/language/reproducibility/indyscc24-bert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IndySCC24
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/language/gpt-j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GPT-J
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/language/llama2-70b/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LLAMA2-70B
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/language/llama3_1-405b/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LLAMA3-405B
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/language/mixtral-8x7b/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MIXTRAL-8x7B
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_8" id="__nav_3_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Recommendation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            Recommendation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/recommendation/dlrm-v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DLRM-v2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_9" id="__nav_3_3_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Graph Neural Networks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            Graph Neural Networks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmx/mlperf-inference/v5.0/benchmarks/graph/rgat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    R-GAT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://access.cKnowledge.org" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CK Playground
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/mlcommons/ck/releases" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Releases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install-cm-automation-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install CM automation language
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prepare-and-run-modular-image-classification-via-cm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prepare and run modular image classification via CM
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detect-or-install-individual-tools-and-artifacts-via-cm-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detect or install individual tools and artifacts via CM interface
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-this-script-with-cuda" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run this script with CUDA
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p>[ <a href="../README.md">Back to index</a> ]</p>
+<p><em>An interactive version of this tutorial is also available 
+ at this <a href="https://colab.research.google.com/drive/1fPFw86BKOQ79U1-lksTkAtJHn3_jhP9o?usp=sharing">Google Colab page</a>.</em></p>
+<h1 id="trying-cm-modular-image-classification">Trying CM: modular image classification</h1>
+<p>This example demonstrates our unified, technology-agnostic and human-readable CM automation language 
+to prepare and run image classification on any platform while automatically detecting or installing 
+all related artifacts and adapting them to your system and environment.</p>
+<p>This language is being developed by the <a href="../taksforce.md">open taskforce</a> 
+to solve the dependency hell and make it easier for the community to run, customize and reuse 
+research (software) projects in a unified way.</p>
+<h2 id="install-cm-automation-language">Install CM automation language</h2>
+<p>Please follow this <a href="https://github.com/mlcommons/ck/blob/master/docs/installation.md">guide</a>
+to install the MLCommons CM language on your platform.</p>
+<h2 id="prepare-and-run-modular-image-classification-via-cm">Prepare and run modular image classification via CM</h2>
+<p>Here is an example of a modular image classification assembled from 
+(<a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script">portable and reusable CM scripts</a>)
+using a <a href="https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L19">human-readable YAML file</a>.
+CM scripts simply wrap native scripts, tools, and artifacts while making them findable, accessible, portabl, interoperable, and reusable
+based on <a href="https://www.go-fair.org/fair-principles">FAIR principles</a>.</p>
+<p>CM will read this YAML (or JSON) description, go through all dependencies to run other CM scripts, 
+and attempt to automatically detect, download, install and build all related artifacts 
+and tools to adapt this example to any software and hardware.</p>
+<p>We have tested this tutorial on various Linux distributions, MacOS and Windows.</p>
+<p>Let's go through these steps manually to better understand how CM scripts work.</p>
+<p>First you need to install an <a href="https://github.com/mlcommons/ck/tree/master/cm-mlops">MLCommons CM-MLOps repository</a> 
+with portable and reusable scripts developed by the <a href="../../taskforce/">MLCommons taskforce on automation and reproducibility</a>
+to unify benchmarking and optimization of ML/AI systems:</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>pull<span class="w"> </span>repo<span class="w"> </span>mlcommons@ck
+</code></pre></div>
+<p>You can then run a CM script implementing modular image classification example as follows:</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span>--tags<span class="o">=</span>app,image-classification,onnx,python<span class="w"> </span>--quiet
+</code></pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span><span class="w"> </span>--quiet
+</code></pre></div>
+<p>or for CM v1.4.1+</p>
+<div class="highlight"><pre><span></span><code>cmr<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span><span class="w"> </span>--quiet
+</code></pre></div>
+<p>Note that you can also access this CM script using just one unified function <code>cmind.access</code> from CM Python API similar to micro services:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cmind</span>
+<span class="n">r</span><span class="o">=</span><span class="n">cmind</span><span class="o">.</span><span class="n">access</span><span class="p">({</span><span class="s1">&#39;action&#39;</span><span class="p">:</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;automation&#39;</span><span class="p">:</span><span class="s1">&#39;script&#39;</span>
+                <span class="s1">&#39;tags&#39;</span><span class="p">:</span><span class="s1">&#39;app,image-classification,onnx,python&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;out&#39;</span><span class="p">:</span><span class="s1">&#39;con&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;quiet&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">})</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</code></pre></div>
+<p>It may take a few minutes to run this CM script for the first time and adapt it to your platform depending on your hardware and the Internet speed.</p>
+<p>Note that all the subsequent runs will be much faster because CM automatically caches the output of all portable CM scripts 
+to be quickly reused in this and other CM scripts.</p>
+<h2 id="detect-or-install-individual-tools-and-artifacts-via-cm-interface">Detect or install individual tools and artifacts via CM interface</h2>
+<p>You can also force to install specific versions of ML artifacts and tools
+(models, data sets, engines, libraries, run-times, etc) 
+using individual CM scripts to automatically plug them into the above ML application:</p>
+<div class="highlight"><pre><span></span><code>cmr<span class="w"> </span><span class="s2">&quot;detect os&quot;</span><span class="w"> </span>--out<span class="o">=</span>json
+cmr<span class="w"> </span><span class="s2">&quot;get sys-utils-cm&quot;</span><span class="w"> </span>--quiet
+cmr<span class="w"> </span><span class="s2">&quot;get python&quot;</span><span class="w"> </span>--version_min<span class="o">=</span><span class="m">3</span>.9.1
+cmr<span class="w"> </span><span class="s2">&quot;install python-venv&quot;</span><span class="w"> </span>--name<span class="o">=</span>my-virtual-env
+cmr<span class="w"> </span><span class="s2">&quot;get ml-model resnet50 image-classification _onnx _fp32&quot;</span><span class="w"> </span>--const.CM_PACKAGE_URL<span class="o">=</span>https://huggingface.co/ctuning/mlperf-inference-resnet50-onnx-fp32-imagenet2012-v1.0/resolve/main/resnet50_v1.onnx
+cmr<span class="w"> </span><span class="s2">&quot;get original imagenet dataset _2012-500&quot;</span>
+cmr<span class="w"> </span><span class="s2">&quot;get generic-python-lib _onnxruntime&quot;</span><span class="w"> </span>--version<span class="o">=</span><span class="m">1</span>.12.0
+
+cm<span class="w"> </span>show<span class="w"> </span>cache
+cm<span class="w"> </span>show<span class="w"> </span>cache<span class="w"> </span>--tags<span class="o">=</span>python
+cm<span class="w"> </span>show<span class="w"> </span>cache<span class="w"> </span>--tags<span class="o">=</span>ml-model
+
+cmr<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span>
+cmr<span class="w"> </span><span class="s2">&quot;python app image-classification onnx&quot;</span><span class="w"> </span>--quiet<span class="w"> </span>--input<span class="o">=</span><span class="sb">`</span>cm<span class="w"> </span>find<span class="w"> </span>script<span class="w"> </span>app-image-classification-onnx-py,3d5e908e472b417e<span class="sb">`</span>/img/computer_mouse.jpg
+</code></pre></div>
+<p>CM scripts converts CLI flags into environment variables and generates some input files 
+in the <code>preprocess function</code> of <code>customize.py</code> module.
+They then run a Python function or some native script with these environment variables and input files, 
+and outputs new environment variables and files to the unified CM output dictionary.
+The output and files can be cached and reused by other CM scripts. </p>
+<p>Feel free to explore this <a href="https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py">CM script</a> 
+with <code>_cm.yaml</code>, <code>run.sh</code>, <code>run.bat</code>, <code>src/onnx_classify.py</code> and other files required to run modular inference.</p>
+<h2 id="run-this-script-with-cuda">Run this script with CUDA</h2>
+<p>Here is another example to run the above image classification application with CUDA using the same CM interface:</p>
+<p>First detect or install CUDA:</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;get cuda&quot;</span>
+cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;get cuda-devices&quot;</span>
+</code></pre></div>
+<p>Then run the same CM script with so-called variation <code>_cuda</code>:
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;python app image-classification onnx _cuda&quot;</span>
+</code></pre></div></p>
+<p>Note that variations are different from script tags because they simply update environment variables and dependencies 
+in a given CM script found using tags.</p>
+<p>If you have some image, you can classify it using this CM script as follows:</p>
+<div class="highlight"><pre><span></span><code>cm<span class="w"> </span>run<span class="w"> </span>script<span class="w"> </span><span class="s2">&quot;python app image-classification onnx _cuda&quot;</span><span class="w"> </span>--input<span class="o">=</span>my-image.jpg
+</code></pre></div>
+<p>The variation <a href="https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L45"><em>_cuda</em></a> 
+will set a specific environment variables such as <code>USE_CUDA="yes"</code>, 
+that will simply <a href="https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L36">turn on and off</a> 
+some dependencies on other CM scripts. </p>
+<p>For example, this environment variable will be used to automatically detect or install ONNX run-time with CUDA support instead of the CPU version.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.tabs.link", "content.code.copy", "navigation.expand", "navigation.sections", "navigation.indexes", "navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
