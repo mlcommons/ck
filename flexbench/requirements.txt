@@ -17,7 +17,7 @@ frozenlist==1.7.0
     # via
     #   aiohttp
     #   aiosignal
-idna==3.10
+idna==3.11
     # via yarl
 markdown-it-py==3.0.0
     # via rich
