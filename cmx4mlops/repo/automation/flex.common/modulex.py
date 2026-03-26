@@ -636,7 +636,6 @@ class CAutomation(Automation):
         """
 
         import requests
-        import time
         import sys
         from urllib import parse
 
@@ -1362,7 +1361,6 @@ class CAutomation(Automation):
 
         """
 
-        import sys
         import hashlib
 
         filename = i['filename']

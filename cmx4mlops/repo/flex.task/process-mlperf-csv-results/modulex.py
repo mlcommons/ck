@@ -4,7 +4,6 @@ from cmind import utils
 
 import os
 import copy
-import shutil
 
 training_models = [
   'bert',

@@ -1,7 +1,5 @@
 # Author and developer: Grigori Fursin
 
-from cmind import utils
-import os
 
 def run(i):
 

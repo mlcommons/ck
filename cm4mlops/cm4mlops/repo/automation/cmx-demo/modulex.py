@@ -7,10 +7,8 @@
 # License: https://github.com/mlcommons/ck/blob/master/LICENSE.md
 # Project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 
-import os
 
 from cmind.automation import Automation
-from cmind import utils
 
 class CAutomation(Automation):
     """

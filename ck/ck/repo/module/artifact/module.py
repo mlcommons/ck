@@ -99,7 +99,6 @@ def snapshot(i):
     """
 
     import os
-    import platform
     import zipfile
     import shutil
 

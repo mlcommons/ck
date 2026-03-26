@@ -2,8 +2,6 @@
 
 import cmind
 import os
-import datetime
-import misc
 
 def page(st, params):
 

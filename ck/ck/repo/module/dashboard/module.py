@@ -13,7 +13,6 @@ ck=None # Will be updated by CK (initialized CK kernel)
 
 # Local settings
 
-import os
 
 fdata_name='ck_top_data'
 fmodule_name='ck_top_module'

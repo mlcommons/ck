@@ -1,8 +1,4 @@
 import requests
-from cmind import utils
-import cmind as cm
-import os
-import json
 
 
 def preprocess(i):

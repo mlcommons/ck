@@ -1,10 +1,7 @@
 ﻿# Developer(s): Grigori Fursin
 
-import cmind
-import os
 import misc
 
-import streamlit.components.v1 as components
 
 import streamlit as st
 

@@ -14,7 +14,6 @@
 # limitations under the License.
 
 import argparse
-import math
 import os
 from PIL import Image
 import shutil
@@ -26,7 +25,7 @@ with ScopedRestrictedImport():
     from torchvision.transforms import functional as F
 
 from code.common import logging
-from code.common.image_preprocessor import ImagePreprocessor, center_crop, resize_with_aspectratio
+from code.common.image_preprocessor import ImagePreprocessor
 
 
 def preprocess_openimage_for_retinanet(

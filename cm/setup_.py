@@ -1,8 +1,7 @@
 import os
-import sys
 import re
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
 try:
     from setuptools.command.install import install

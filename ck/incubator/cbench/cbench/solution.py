@@ -6,14 +6,12 @@
 #
 
 from . import config
-from . import comm
 from . import obj
 from . import graph
 
 import ck.kernel as ck
 
 import json
-import zipfile
 import os
 import locale
 

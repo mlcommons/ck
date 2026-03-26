@@ -5,7 +5,6 @@ python_path = os.path.join(mlperf_dlrm_path, "pytorch", "python")
 sys.path.insert(0, python_path)
 
 import criteo
-import dataset
 
 dataset_name = os.environ['CM_DATASET']
 dataset_path = os.environ['CM_DATASET_PATH']

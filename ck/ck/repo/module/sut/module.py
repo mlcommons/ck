@@ -35,7 +35,6 @@ def list(i):
             ck list sut --out=json
     """
 
-    from pprint import pprint
 
     interactive     = i.get('out')=='con'
     repo_uoa        = i.get('repo_uoa', '*')

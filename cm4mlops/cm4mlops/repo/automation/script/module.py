@@ -2945,7 +2945,6 @@ class CAutomation(Automation):
 
         """
 
-        import json
 
         # Check parsed automation
         if 'parsed_automation' not in i:
@@ -4001,7 +4000,6 @@ with more details about installing CM and dependencies across different platform
            (found_files) (list): paths to files when found
 
         """
-        import copy
 
         paths = i['paths']
         select = i.get('select', False)
@@ -4235,7 +4233,6 @@ with more details about installing CM and dependencies across different platform
         """
         recursion_spaces = i.get('recursion_spaces', '')
 
-        import copy
 
         detected = False
 

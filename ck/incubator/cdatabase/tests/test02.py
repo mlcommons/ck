@@ -1,5 +1,4 @@
 import os
-import json
 
 # Get path to some CK entry
 import ck.kernel as ck

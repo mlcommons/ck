@@ -9,10 +9,7 @@
 # CK and CM project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 #
 
-from cmind import utils
-import cmind as cm
 import os
-from os.path import exists
 import shutil
 
 

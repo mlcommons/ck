@@ -3,12 +3,9 @@ Developers:
  - grigori@octoml.ai
 """
 
-import time
 import os
 import argparse
-import json
 
-from PIL import Image
 import cv2
 
 import numpy as np
@@ -61,7 +58,6 @@ def run_case(dtype, image, target):
     # Check image
     import os
     import json
-    import sys
 
     STAT_REPEAT = os.environ.get('STAT_REPEAT', '')
     if STAT_REPEAT == '' or STAT_REPEAT is None:
@@ -76,7 +72,6 @@ def run_case(dtype, image, target):
     val = {}
 
     # FGG: set timers
-    import time
     timers = {}
 
     img_orig = cv2.imread(image)

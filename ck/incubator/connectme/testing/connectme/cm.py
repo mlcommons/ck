@@ -1,6 +1,6 @@
 ﻿import os
 
-from connectme import config, io, misc, repo
+from connectme import config, io, repo
 
 ###########################################################################
 class CM:

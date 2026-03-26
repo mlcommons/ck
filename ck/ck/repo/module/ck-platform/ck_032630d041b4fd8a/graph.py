@@ -10,7 +10,6 @@ from . import obj
 
 import ck.kernel as ck
 
-import json
 import os
 import copy
 

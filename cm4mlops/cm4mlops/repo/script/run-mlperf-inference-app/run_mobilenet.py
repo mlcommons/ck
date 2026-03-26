@@ -1,5 +1,4 @@
 import cmind
-import os
 import sys
 
 models = {

@@ -1,6 +1,4 @@
-from cmind import utils
 import os
-import shutil
 import glob
 
 def preprocess(i):

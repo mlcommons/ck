@@ -221,7 +221,6 @@ def validate(i):
     import tempfile
     import os
     import csv
-    import sys
 
     mn=i['model_name']
     mf=i['model_file']

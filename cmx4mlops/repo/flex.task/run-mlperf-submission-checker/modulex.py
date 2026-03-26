@@ -3,7 +3,6 @@
 from cmind import utils
 
 import os
-import copy
 
 def run(i):
 
@@ -274,7 +273,6 @@ def run(i):
 
     # Process CSV
     summary = []
-    import csv
 
     if len(csvs) == 0: csvs = [target]
 

@@ -7,15 +7,12 @@
 # Developer: Grigori Fursin
 #
 
-import urllib
 import json
 import sys
 
 try:
-    from urllib.parse import urlencode
     from urllib.parse import quote_plus
 except:
-    from urllib import urlencode
     from urllib import quote_plus
 
 try:
@@ -124,7 +121,6 @@ def access_ck_api(i):
     d = i.get('dict', {})
 
     # Import modules compatible with Python 2.x and 3.x
-    import urllib
 
     try:
         import urllib.request as urllib2
@@ -132,9 +128,9 @@ def access_ck_api(i):
         import urllib2
 
     try:
-        from urllib.parse import urlencode
+        pass
     except:
-        from urllib import urlencode
+        pass
 
     # Prepare post variables
     r = ck.strings.dump_json({'dict': d, 'skip_indent': 'yes'})

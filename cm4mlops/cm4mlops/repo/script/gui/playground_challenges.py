@@ -279,7 +279,6 @@ def page(st, params):
                     ind += 1
 
                 import pandas as pd
-                import numpy as np
 
                 df = pd.DataFrame(data,
                                   columns=['Challenge', 'Closing&nbsp;date', 'Extension'])

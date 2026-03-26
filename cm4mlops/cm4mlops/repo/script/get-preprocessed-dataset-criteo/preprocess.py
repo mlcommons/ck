@@ -1,4 +1,3 @@
-import dataset
 import criteo
 import os
 import sys

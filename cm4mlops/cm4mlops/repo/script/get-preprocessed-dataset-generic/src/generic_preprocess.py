@@ -143,7 +143,6 @@ def int8_to_uint8(image):
 
 
 def preprocess():
-    import sys
 
     source_dir = os.environ['CM_DATASET_PATH']
     destination_dir = os.environ['CM_DATASET_PREPROCESSED_PATH']

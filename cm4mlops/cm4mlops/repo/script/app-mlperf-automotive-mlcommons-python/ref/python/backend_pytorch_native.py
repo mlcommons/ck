@@ -4,7 +4,6 @@ Extended by Grigori Fursin for the ABTF demo
 """
 # pylint: disable=unused-argument,missing-docstring
 import torch  # currently supports pytorch1.0
-import torchvision
 import backend
 
 import os
@@ -38,8 +37,6 @@ class BackendPytorchNative(backend.Backend):
         # From ABTF code
         sys.path.insert(0, os.environ['CM_ML_MODEL_CODE_WITH_PATH'])
 
-        from src.transform import SSDTransformer
-        from src.utils import generate_dboxes, Encoder, colors, coco_classes
         from src.model import SSD, ResNet
 
         abtf_model_config = os.environ.get('CM_ABTF_ML_MODEL_CONFIG', '')

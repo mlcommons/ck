@@ -39,9 +39,8 @@ except ImportError:
 try:
     from setuptools.command.install_lib import install_lib
 except ImportError:
-    from distutils.command.install_lib import install_lib
+    pass
 
-from distutils.sysconfig import get_python_lib
 
 ############################################################
 # Global variables

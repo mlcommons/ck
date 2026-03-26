@@ -8,7 +8,6 @@ from __future__ import unicode_literals
 
 import argparse
 import array
-import collections
 import json
 import logging
 import os
@@ -21,7 +20,6 @@ import mlperf_loadgen as lg
 import numpy as np
 import cv2
 import glob
-import dataset
 import cognata
 import cognata_labels
 

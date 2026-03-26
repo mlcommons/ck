@@ -8,8 +8,6 @@
 #
 
 import tempfile
-import base64
-import urllib
 import cgi
 import sys
 import os
@@ -39,9 +37,9 @@ except:
     from urllib.parse import parse_qs
 
 try:
-    from urllib.parse import quote as urlquote
+    pass
 except:
-    from urllib import quote as urlquote
+    pass
 
 try:
     from urllib.parse import unquote as urlunquote

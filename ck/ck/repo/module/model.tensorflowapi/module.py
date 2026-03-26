@@ -67,7 +67,6 @@ def train(i):
             }
 
     """
-    import json
 
     muid=i.get('model_uid','')
     if muid == '':
@@ -135,7 +134,6 @@ def eval(i):
 
     """
 
-    import json
    
     muid=i.get('model_uid','')
     if muid == '':

@@ -1,5 +1,4 @@
 import pycuda.driver as cuda
-import pycuda.autoinit
 
 
 def get_gpu_info():

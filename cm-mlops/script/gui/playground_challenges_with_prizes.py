@@ -224,7 +224,6 @@ def page(st, params):
 
 
                 import pandas as pd
-                import numpy as np
                 
                 df = pd.DataFrame(data,
                                   columns=['Challenge', 'Closing&nbsp;date', 'Extension', 'Contributor&nbsp;award and prizes from <a href="https://mlcommons.org">MLCommons&nbsp;organizations</a>, <a href="https://cTuning.org">cTuning foundation</a> and <a href="https://cKnowledge.org">cKnowledge.org</a>'])

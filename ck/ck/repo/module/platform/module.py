@@ -696,7 +696,6 @@ def exchange(i):
 
     """
 
-    import os
 
     ruoa=i.get('repo_uoa','')
     smuoa=i['sub_module_uoa']

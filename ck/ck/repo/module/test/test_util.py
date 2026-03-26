@@ -11,7 +11,6 @@
 # For examples of the usage of this functions, please looks at the kernel tests
 # (ck/repo/kernel/test/test_*.py files).
 
-import unittest
 import sys
 import os
 from contextlib import contextmanager

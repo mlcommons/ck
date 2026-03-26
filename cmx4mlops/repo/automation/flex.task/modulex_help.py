@@ -1,7 +1,5 @@
 # Author and developer: Grigori Fursin
 
-import os
-from cmind import utils
 
 def print_help(i):
 

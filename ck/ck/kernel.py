@@ -33,7 +33,6 @@ __version__ = "2.6.4"
 
 # Import packages that are global for the whole kernel
 import sys
-import json
 import os
 import imp   # Needed to load CK Python modules from CK repositories
 
@@ -442,7 +441,6 @@ def restore_state(r):
 
     global initialized, cfg, paths_repos, cache_repo_init, paths_repos_all, cache_repo_uoa, cache_repo_info
 
-    import copy
     import os
 
     cfg = r['cfg']
@@ -553,7 +551,6 @@ def debug_out(i):
 
     """
 
-    import copy
     import json
 
     ii = {}
@@ -1151,7 +1148,6 @@ def convert_iso_time(i):
     t = i['iso_datetime']
 
     import datetime
-    import time
 
     dto = None
 
@@ -3166,7 +3162,6 @@ def download(i):
 
         # Download file
         # Import modules compatible with Python 2.x and 3.x
-        import urllib
 
         try:
             from urllib.request import urlretrieve
@@ -4177,7 +4172,6 @@ def perform_remote_action(i):
     """
 
     # Import modules compatible with Python 2.x and 3.x
-    import urllib
 
     try:
         import urllib.request as urllib2
@@ -6058,9 +6052,9 @@ def status(i):
         import urllib2
 
     try:
-        from urllib.parse import urlencode
+        pass
     except:
-        from urllib import urlencode
+        pass
 
     page = ''
     try:
@@ -9416,7 +9410,6 @@ def list_data(i):
 
     if aidb != '' or aida != '' or aid != '':
 
-        import datetime
         if aidb != '':
             rx = convert_iso_time({'iso_datetime': aidb})
             if rx['return'] > 0:
@@ -9858,7 +9851,6 @@ def list_data2(i):
     lst = rr['lst']
     if len(lst) == 0 and cfg.get('download_missing_components', '') == 'yes':
         # Search on cKnowledge.org
-        import copy
 
         oo = ''
         if o == 'con':
@@ -10035,7 +10027,6 @@ def search(i):
     lst = rr['lst']
     if len(lst) == 0 and cfg.get('download_missing_components', '') == 'yes':
         # Search on cKnowledge.org
-        import copy
 
         oo = ''
         if o == 'con':
@@ -10890,9 +10881,9 @@ def access_index_server(i):
             import urllib2
 
         try:
-            from urllib.parse import urlencode
+            pass
         except:
-            from urllib import urlencode
+            pass
 
         # Prepare post variables
         r = dumps_json({'dict': dd, 'skip_indent': 'yes'})
@@ -12251,7 +12242,6 @@ def filter_delete_index(i):
 def rm_read_only(f, p, e):
     import os
     import stat
-    import errno
 
     ex = e[1]
 

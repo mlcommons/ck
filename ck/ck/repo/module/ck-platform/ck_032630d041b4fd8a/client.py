@@ -7,7 +7,6 @@
 #
 
 from . import config
-from . import comm
 
 import ck.kernel as ck
 
@@ -32,9 +31,9 @@ except:
   import urlparse
 
 try:
-  from urllib.parse import quote as urlquote
+  pass
 except:
-  from urllib import quote as urlquote
+  pass
 
 try:
   from urllib.parse import unquote as urlunquote
@@ -49,7 +48,7 @@ except:
 try:
   from socketserver import ThreadingMixIn
 except:
-  from SocketServer import ThreadingMixInqZBMfAaH
+  pass
   
 
 

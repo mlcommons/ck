@@ -1981,7 +1981,6 @@ def get_and_unzip_archive(i):
         os.remove(fn)
 
         # Import modules compatible with Python 2.x and 3.x
-        import urllib
 
         try:
             import urllib.request as urllib2

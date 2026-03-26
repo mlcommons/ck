@@ -4,7 +4,6 @@ import cmind
 import os
 import misc
 
-import streamlit.components.v1 as components
 
 import streamlit as st
 
@@ -240,7 +239,6 @@ def page(st, params, action = ''):
                   'script_tags':script_tags,
                   'script_url':script_url}
 
-            import sys
             import importlib
 
             full_module_path = os.path.join(script_obj.path, 'customize.py')

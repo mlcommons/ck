@@ -2,16 +2,12 @@
 Original code was extended by Grigori Fursin to support cognata data set
 """
 
-import json
 import logging
 import os
 import time
 
-import cv2
 from PIL import Image
 
-import numpy as np
-from pycocotools.cocoeval import COCOeval
 # import pycoco
 import dataset
 

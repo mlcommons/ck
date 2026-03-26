@@ -12,8 +12,6 @@
 import os
 
 from cmind.automation import Automation
-from cmind import utils
-from cmind import cli
 
 class CAutomation(Automation):
     """

@@ -4,7 +4,6 @@ import cmind
 import os
 import misc
 
-import streamlit.components.v1 as components
 
 import streamlit as st
 
@@ -292,7 +291,6 @@ def page(st, params, action=''):
                 ###############################################################
                 # Show tables
                 import pandas as pd
-                import numpy as np
 
                 html = ''
 

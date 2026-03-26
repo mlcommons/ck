@@ -314,7 +314,6 @@ def validate(i):
 
     #############################################################
     if mn=='dtc' or mn=='dtr':
-       from sklearn import tree
        pr=clf.predict(ftable1)
 
        # Check if CK decision tree file exists

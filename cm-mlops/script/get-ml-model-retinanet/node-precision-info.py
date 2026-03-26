@@ -1,5 +1,4 @@
 import onnx
-import os
 import sys
 import argparse
 import yaml

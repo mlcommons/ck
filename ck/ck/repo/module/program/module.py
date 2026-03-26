@@ -383,7 +383,6 @@ def process_in_dir(i):
     import sys
     import shutil
     import time
-    import copy
 
     start_time=time.time()
 

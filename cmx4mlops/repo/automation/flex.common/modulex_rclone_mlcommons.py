@@ -3,7 +3,6 @@
 from cmind import utils
 
 import os
-import sys
 
 def process(inp):
 

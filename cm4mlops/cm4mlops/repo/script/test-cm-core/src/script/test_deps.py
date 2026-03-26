@@ -1,8 +1,6 @@
 # This test covers version, variation, compilation from src, add_deps,
 # add_deps_recursive, deps, post_deps
 
-import cmind as cm
-import check as checks
 
 # MLPerf v3.0 inference is now very outdated and we are testing inference
 # in separate tests

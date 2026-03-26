@@ -522,7 +522,6 @@ def list_all_files(i):
 
     """
 
-    import sys
 
     number = 0
     if i.get('number', '') != '':
@@ -1778,7 +1777,6 @@ def rm_read_only(f, p, e):
 
     import os
     import stat
-    import errno
 
     ex = e[1]
 

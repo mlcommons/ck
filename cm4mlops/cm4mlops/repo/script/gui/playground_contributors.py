@@ -125,7 +125,6 @@ def page(st, params):
 
 def page_list(st, params):
     import pandas as pd
-    import numpy as np
 
     # Read all contributors
     r = cmind.access({'action': 'find',

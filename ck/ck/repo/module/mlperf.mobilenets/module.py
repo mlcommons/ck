@@ -19,7 +19,6 @@ work={} # Will be updated by CK (temporal data)
 ck=None # Will be updated by CK (initialized CK kernel)
 
 import os
-import sys
 import json
 import re
 import traceback

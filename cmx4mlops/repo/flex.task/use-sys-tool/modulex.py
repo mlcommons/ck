@@ -3,7 +3,6 @@
 from cmind import utils
 
 import os
-import copy
 import sys
 
 def run(i):

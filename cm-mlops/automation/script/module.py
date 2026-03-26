@@ -2253,7 +2253,6 @@ class CAutomation(Automation):
 
         """
 
-        import json
 
         # Check parsed automation
         if 'parsed_automation' not in i:
@@ -3069,7 +3068,6 @@ class CAutomation(Automation):
            (found_files) (list): paths to files when found
 
         """
-        import copy
 
         paths = i['paths']
         select = i.get('select',False)
@@ -3282,7 +3280,6 @@ class CAutomation(Automation):
         """
         recursion_spaces = i.get('recursion_spaces','')
 
-        import copy
 
         detected = False
 

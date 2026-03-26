@@ -1,5 +1,3 @@
-import os
-from cmind import utils
     
 # Pring help about script
 def print_help(i):

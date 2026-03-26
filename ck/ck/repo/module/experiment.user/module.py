@@ -48,7 +48,6 @@ def show(i):
 
     """
 
-    import os
 
     h='<center>'
     h+='<h2>Collective Knowledge Timeline<BR>(non-anonymous participation in collaborative experiments)</h2>\n'

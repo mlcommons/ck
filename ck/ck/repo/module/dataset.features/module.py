@@ -57,7 +57,6 @@ def extract(i):
     """
 
     import os
-    import json
 
     o=i.get('out','')
 

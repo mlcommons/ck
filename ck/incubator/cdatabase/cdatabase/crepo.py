@@ -3,10 +3,7 @@
 #
 
 import os
-import json
-import yaml
 
-from cdatabase.config import cfg
 from cdatabase.cobject import cObject
 
 import cdatabase.utils as utils

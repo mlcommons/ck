@@ -1688,7 +1688,6 @@ def refresh(i):
     name=i.get('name','')
     wname=False
     if name.find('*')>=0 or name.find('?')>=0:
-       import fnmatch
        wname=True
        name=name.lower()
 

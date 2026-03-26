@@ -4,7 +4,6 @@ import cmind
 import os
 import misc
 
-import streamlit.components.v1 as components
 
 import streamlit as st
 
@@ -278,7 +277,6 @@ cm run script {}
                 ###################################################################
                 # Show tables
                 import pandas as pd
-                import numpy as np
 
                 html = ''
 

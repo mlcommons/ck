@@ -1,7 +1,6 @@
 import typing
 
 import numpy as np
-import onnx
 import onnxruntime as ort
 
 from loadgen.model import Model, ModelFactory, ModelInput, ModelInputSampler

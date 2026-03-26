@@ -1,9 +1,7 @@
 # Author and developer: Grigori Fursin
 
-from cmind import utils
 
 import os
-import sys
 
 
 def detect_version(i):

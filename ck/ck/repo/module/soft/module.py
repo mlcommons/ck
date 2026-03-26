@@ -77,7 +77,6 @@ def internal_detect(i):
 
     """
 
-    import os
 
     o=i.get('out','')
 
@@ -1246,7 +1245,6 @@ def search_tool(i):
     o=i.get('out','')
 
     import time
-    import os
     start_time = time.time()
 
     pl=i['path_list']
@@ -1475,7 +1473,6 @@ def check(i):
     """
 
     import os
-    import json
     import copy
 
     o=i.get('out','')

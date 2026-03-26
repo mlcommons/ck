@@ -251,8 +251,6 @@ def validate(i):
 
     import tempfile
     import os
-    import csv
-    import sys
 
     o=i.get('out','')
     oo=''

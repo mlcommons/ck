@@ -12,11 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import torch
 import onnx
-import argparse
-import json
-import re
 
 import onnx_graphsurgeon as gs
 import numpy as np

@@ -13,7 +13,6 @@ import os
 
 from cmind.automation import Automation
 from cmind import utils
-from cmind import net
 
 
 class CAutomation(Automation):
@@ -963,8 +962,6 @@ class CAutomation(Automation):
 
         """
 
-        import ck.kernel as ck
-        import cmind
         import os
 
         console = i.get('out') == 'con'

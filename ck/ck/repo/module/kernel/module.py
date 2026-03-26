@@ -9,7 +9,6 @@
 
 import copy
 import os
-import sys
 cfg = {}  # Will be updated by CK (meta description of this module)
 work = {}  # Will be updated by CK (temporal data)
 ck = None  # Will be updated by CK (initialized CK kernel)

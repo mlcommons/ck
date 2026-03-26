@@ -1,4 +1,3 @@
-import os
 import json
 
 # Get path to some CK entry

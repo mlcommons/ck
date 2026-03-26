@@ -8,16 +8,13 @@ import streamlit.components.v1 as components
 
 import streamlit as st
 
-import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
-import numpy as np
 import pandas as pd
 
 import mpld3
 from mpld3 import plugins
-from mpld3 import utils
 
 security = ['os.', 'streamlit.', 'matplotlib.', 'numpy.', 'pandas.', 'mpld3.']
 

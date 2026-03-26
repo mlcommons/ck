@@ -4028,7 +4028,6 @@ def get_unique_keys_from_list(i):
 
     """
 
-    import time
 
     choices={}  # just choices
     wchoices={} # selector for HTML (name and value)

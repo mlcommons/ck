@@ -78,7 +78,6 @@ def replace_string_in_file(i):
 
     """
 
-    import copy
 
     o=i.get('out','')
 
@@ -1737,7 +1736,6 @@ def replace_strings_in_file(i):
 
     """
 
-    import copy
 
     o=i.get('out','')
 
@@ -2056,7 +2054,6 @@ def list_kernel_functions_md(i):
     """
 
     import os
-    import copy
 
     o=i.get('out','')
 

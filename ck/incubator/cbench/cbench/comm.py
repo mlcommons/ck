@@ -10,7 +10,6 @@ from . import config
 
 import ck.kernel as ck
 
-import json
 import sys
 import os
 
@@ -33,13 +32,12 @@ def send(i):
     """
 
     # Import modules compatible with Python 2.x and 3.x
-    import urllib
 
     try:    import urllib.request as urllib2
     except: import urllib2
 
-    try:    from urllib.parse import urlencode
-    except: from urllib import urlencode
+    try:    pass
+    except: pass
 
     # Get server and user config
     config=i.get('config',{})
@@ -239,7 +237,6 @@ def download_file(i):
     fn=i['file']
 
     # Import modules compatible with Python 2.x and 3.x
-    import urllib
 
     try:    from urllib.request import urlretrieve
     except: from urllib import urlretrieve

@@ -49,7 +49,6 @@ def pipeline(i):
 
     """
 
-    import json
     import os
     import time
     import sys

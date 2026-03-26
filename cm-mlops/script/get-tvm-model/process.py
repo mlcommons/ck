@@ -7,7 +7,7 @@ if os.environ.get("CM_TVM_FRONTEND_FRAMEWORK", None) == "pytorch":
     import torchvision
     
 import tvm
-from tvm import relay, meta_schedule
+from tvm import meta_schedule
 from tvm.driver.tvmc.frontends import load_model
 
 def get_shape_dict_from_onnx(

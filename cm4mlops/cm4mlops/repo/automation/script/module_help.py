@@ -11,8 +11,6 @@
 # CK and CM project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 #
 
-import os
-from cmind import utils
 
 # Pring help about script
 

@@ -71,7 +71,6 @@ def detect(i):
 
     """
 
-    import os
 
     o=i.get('out','')
 
@@ -159,7 +158,6 @@ def set_freq(i):
 
     """
 
-    import os
 
     o=i.get('out','')
     oo=''

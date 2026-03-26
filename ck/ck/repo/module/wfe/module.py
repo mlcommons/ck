@@ -567,7 +567,6 @@ def index(i):
 
        elif len(lst)==1:
           ########################################### Entry viewer #############
-          import json
 
           q=lst[0]
 

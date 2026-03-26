@@ -9,10 +9,7 @@
 # CK and CM project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 #
 
-from cmind import utils
-import cmind as cm
 import os
-import subprocess
 
 
 def preprocess(i):
@@ -43,7 +40,6 @@ def preprocess(i):
                                            "submission_checker.py")
 
     if env['CM_MLPERF_SHORT_RUN'] == "yes":
-        import shutil
         new_submission_checker_file = os.path.join(
             os.path.dirname(submission_checker_file),
             "submission_checker1.py")

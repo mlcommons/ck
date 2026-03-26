@@ -12,7 +12,6 @@ work={} # Will be updated by CK (temporal data)
 ck=None # Will be updated by CK (initialized CK kernel) 
 
 # Local settings
-import os
 
 ##############################################################################
 # Initialize module

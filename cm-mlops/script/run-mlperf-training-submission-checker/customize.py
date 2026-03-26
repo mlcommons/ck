@@ -1,7 +1,4 @@
-from cmind import utils
-import cmind as cm
 import os
-import subprocess
 
 def preprocess(i):
 

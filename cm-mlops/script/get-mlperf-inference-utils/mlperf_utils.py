@@ -1,4 +1,3 @@
-import sys
 import os
 import submission_checker as checker
 from log_parser import MLPerfLog

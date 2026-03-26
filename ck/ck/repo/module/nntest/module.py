@@ -12,10 +12,8 @@
 #   - Grigori Fursin, cTuning foundation, 2017
 #
 
-import json
 import copy
 import os
-from time import strftime, gmtime
 
 cfg={}  # Will be updated by CK (meta description of this module)
 work={} # Will be updated by CK (temporal data)
@@ -157,8 +155,6 @@ def show(i):
 
     """
 
-    import os
-    import copy
     import time
 
     # Preparing various parameters to render HTML dashboard
@@ -1799,8 +1795,6 @@ def get_raw_data(i):
 
     """
 
-    import os
-    import copy
     import time
 
     # Preparing various parameters to render HTML dashboard

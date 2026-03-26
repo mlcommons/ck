@@ -1,7 +1,5 @@
 from cmind import utils
-import os
 import cmind
-import sys
 
 
 def preprocess(i):

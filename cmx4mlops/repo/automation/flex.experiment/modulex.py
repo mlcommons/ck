@@ -419,7 +419,6 @@ class CAutomation(Automation):
 
         import copy
         import itertools
-        import math
         import time
         import json
 
@@ -1155,7 +1154,6 @@ def prepare_experiment_step(cm,
                             skip_dummy_input = False,
                             rerun = False):
 
-    import math
 
     # Generate UID and prepare extra directory:
     r = utils.gen_uid()

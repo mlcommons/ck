@@ -87,7 +87,6 @@ def test(i):
 
     """
 
-    import os
 
     o=i.get('out','')
 
@@ -1328,8 +1327,6 @@ def initialize(i):
 
     """
 
-    import copy
-    import os
 
     # Setting output
     o=i.get('out','')
@@ -3904,7 +3901,6 @@ def problem(i):
 
     """
 
-    import os
 
     o=i.get('out','')
 

@@ -1,7 +1,6 @@
 # Developer: Grigori Fursin
 
 import os
-import pandas
 
 def main():
     print ('=========================================================')

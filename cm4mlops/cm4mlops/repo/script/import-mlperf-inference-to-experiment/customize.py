@@ -15,8 +15,6 @@ from cmind import utils
 import os
 import subprocess
 import csv
-import json
-import copy
 
 
 file_summary = 'summary.csv'

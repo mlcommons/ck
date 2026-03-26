@@ -1,7 +1,4 @@
-from cmind import utils
-import cmind as cm
 import os
-from os.path import exists
 import shutil
 
 def preprocess(i):

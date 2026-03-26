@@ -9,9 +9,7 @@
 # CK and CM project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 #
 
-from cmind import utils
 import os
-import shutil
 # used to measure the system infos(have not tested for obtaining gpu info)
 import psutil
 import csv         # used to write the measurements to csv format as txt file

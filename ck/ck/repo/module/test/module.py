@@ -8,7 +8,6 @@
 #
 
 import unittest
-import os
 
 cfg = {}  # Will be updated by CK (meta description of this module)
 work = {}  # Will be updated by CK (temporal data)

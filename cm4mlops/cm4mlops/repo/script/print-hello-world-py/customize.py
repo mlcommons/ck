@@ -11,7 +11,6 @@
 
 # Developer(s): Grigori Fursin
 
-import os
 
 
 def preprocess(i):

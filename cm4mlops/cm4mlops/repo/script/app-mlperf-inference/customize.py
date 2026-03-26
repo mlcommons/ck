@@ -9,18 +9,15 @@
 # CK and CM project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 #
 
-from cmind import utils
 
 import os
 import json
 import shutil
-import subprocess
 import copy
 import cmind as cm
 import platform
 import sys
 import mlperf_utils
-import re
 from datetime import datetime, timezone
 
 

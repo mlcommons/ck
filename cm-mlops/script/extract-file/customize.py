@@ -1,6 +1,4 @@
-from cmind import utils
 import os
-import hashlib
 
 def preprocess(i):
 

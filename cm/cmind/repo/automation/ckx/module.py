@@ -9,10 +9,8 @@
 # White paper: https://arxiv.org/abs/2406.16791
 # Project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 
-import os
 
 from cmind.automation import Automation
-from cmind import utils
 
 
 class CAutomation(Automation):

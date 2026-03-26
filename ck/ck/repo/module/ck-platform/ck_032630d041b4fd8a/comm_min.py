@@ -6,7 +6,6 @@
 
 import json
 import sys
-import os
 
 ##############################################################################
 # Send JSON request to the cK portal (without CK)
@@ -26,13 +25,12 @@ def send(i):
     """
 
     # Import modules compatible with Python 2.x and 3.x
-    import urllib
 
     try:    import urllib.request as urllib2
     except: import urllib2
 
-    try:    from urllib.parse import urlencode
-    except: from urllib import urlencode
+    try:    pass
+    except: pass
 
     url=i.get('url')
     if url=='' or url==None:

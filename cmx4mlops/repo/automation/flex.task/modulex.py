@@ -323,7 +323,6 @@ class CAutomation(Automation):
 
         """
 
-        import importlib
         import copy
         import time
         import json

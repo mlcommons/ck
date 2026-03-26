@@ -1,9 +1,6 @@
 # Author and developer: Grigori Fursin
 
-from cmind import utils
 
-import os
-import copy
 
 file_summary = 'summary.csv'
 file_summary_json = 'mlperf-inference-summary-{}.json'

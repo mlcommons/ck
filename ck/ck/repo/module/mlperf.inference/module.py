@@ -19,12 +19,6 @@ work={} # Will be updated by CK (temporal data)
 ck=None # Will be updated by CK (initialized CK kernel)
 
 import os
-import sys
-import json
-import re
-import traceback
-from collections import defaultdict
-from pprint import pprint
 
 import pandas as pd
 import numpy as np

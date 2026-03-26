@@ -85,7 +85,6 @@ def show(i):
 
     """
 
-    import os
     import copy
     import time
 
@@ -1442,7 +1441,6 @@ def generate(i):
     """
 
     import os
-    import copy
     import shutil
     import itertools
 

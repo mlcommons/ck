@@ -1527,8 +1527,6 @@ def replay(i):
 
     """
 
-    import copy
-    import os
 
     # Setting output
     o=i.get('out','')

@@ -21,13 +21,9 @@ import argparse
 import json
 import os
 import sys
-import glob
-import random
 import time
-import pycuda
 from PIL import Image
 from importlib import import_module
-from typing import Dict, Tuple, List, Optional
 
 from code.common.fix_sys_path import ScopedRestrictedImport
 # with ScopedRestrictedImport():
@@ -40,9 +36,8 @@ from pycocotools.coco import COCO
 from pycocotools.cocoeval import COCOeval
 
 from code.common import logging
-from code.common.constants import TRT_LOGGER, Scenario
-from code.common.systems.system_list import DETECTED_SYSTEM
-from code.common.runner import EngineRunner, get_input_format
+from code.common.constants import TRT_LOGGER
+from code.common.runner import EngineRunner
 from code.common.systems.system_list import SystemClassifications
 from code.plugin import load_trt_plugin
 RetinanetEntropyCalibrator = import_module(

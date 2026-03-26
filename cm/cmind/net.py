@@ -9,15 +9,11 @@
 # White paper: https://arxiv.org/abs/2406.16791
 # Project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 
-import urllib
 import json
-import sys
 
 try:
-    from urllib.parse import urlencode
     from urllib.parse import quote_plus
 except:
-    from urllib import urlencode
     from urllib import quote_plus
 
 try:

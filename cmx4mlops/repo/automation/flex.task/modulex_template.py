@@ -1,7 +1,6 @@
 # Flex Task template
 # Developer(s): 
 
-from cmind import utils
 
 def run(i):
     ###################################################################

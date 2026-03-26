@@ -9,9 +9,7 @@
 # CK and CM project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 #
 
-from cmind import utils
 import os
-import shutil
 import stat
 
 

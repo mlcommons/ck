@@ -1,5 +1,3 @@
-from cmind import utils
-import os
 
 def preprocess(i):
     os_info = i['os_info']

@@ -13,9 +13,6 @@ cfg={}  # Will be updated by CK (meta description of this module)
 work={} # Will be updated by CK (temporal data)
 ck=None # Will be updated by CK (initialized CK kernel)
 
-import getpass
-import os
-import sys
 from pprint import pprint
 
 

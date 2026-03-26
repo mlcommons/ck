@@ -21,7 +21,6 @@ import os
 #    Outdated in Python 3.12+
 #import imp
 import importlib
-import pkgutil
 import inspect
 import logging
 
@@ -138,7 +137,6 @@ class CM(object):
 
         """
 
-        import os
 
         if r['return']>0:
             if self.debug:
@@ -163,7 +161,6 @@ class CM(object):
 
         """
 
-        import os
 
         if r['return']>0:
             if self.debug:

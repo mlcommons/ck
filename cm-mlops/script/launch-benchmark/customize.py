@@ -255,7 +255,6 @@ def get_with_complex_key_safe(meta, key):
 def prepare_table(i):
 
     import pandas as pd
-    import numpy as np
 
     selection = i['selection']
     misc = i['misc_module']

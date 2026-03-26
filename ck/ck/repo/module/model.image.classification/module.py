@@ -60,8 +60,6 @@ def show(i):
 
     import os
     import shutil
-    import time
-    import copy
 
     form_name='milepost_web_form'
 
@@ -515,7 +513,6 @@ def html_viewer(i):
                       pxx=os.path.join(p,ff)
                       if not os.path.isfile(pxx):
                          try:
-                            import PIL
                             from PIL import Image
 
                             img=Image.open(px)

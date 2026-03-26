@@ -9,7 +9,6 @@ from . import comm
 
 import ck.kernel as ck
 
-import json
 import zipfile
 import os
 import time

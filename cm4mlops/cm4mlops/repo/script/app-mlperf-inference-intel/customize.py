@@ -9,7 +9,6 @@
 # CK and CM project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 #
 
-from cmind import utils
 import os
 import shutil
 
@@ -25,7 +24,6 @@ def preprocess(i):
     if env.get('CM_MLPERF_SKIP_RUN', '') == "yes":
         return {'return': 0}
 
-    import json
     if 'CM_MODEL' not in env:
         return {
             'return': 1, 'error': 'Please select a variation specifying the model to run'}

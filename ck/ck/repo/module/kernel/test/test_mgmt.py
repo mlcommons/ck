@@ -10,7 +10,6 @@ import os
 import shutil
 import tempfile
 import sys
-from contextlib import contextmanager
 
 ck = None           # Will be updated by CK (initialized CK kernel)
 test_util = None    # Will be updated by CK (initialized CK test utils)

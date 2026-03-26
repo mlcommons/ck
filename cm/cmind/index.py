@@ -10,7 +10,6 @@
 # Project contributors: https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md
 
 import os
-import json
 
 from cmind import utils
 

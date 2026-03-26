@@ -475,7 +475,6 @@ def plot(i):
        bl=i.get('bound_lines','')
 
        if pt=='mpl_3d_scatter' or pt=='mpl_3d_trisurf':
-          from mpl_toolkits.mplot3d import Axes3D
           sp=fig.add_subplot(111, projection='3d')
        else:
           sp=fig.add_subplot(111)
@@ -521,7 +520,6 @@ def plot(i):
 
        # If heatmap, prepare colorbar
        if pt=='mpl_2d_heatmap' or pt=='mpl_3d_trisurf':
-          from matplotlib import cm
 
           if len(i.get('color_dict',{}))>0:
              xcmap = mpl.colors.LinearSegmentedColormap('my_colormap', i['color_dict'], 1024)

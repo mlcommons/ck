@@ -116,7 +116,6 @@ def validate(i):
 # generate XML element
 def generate_element(root, d):
 
-    import os
     from lxml import etree
 
     if type(d)!=list:
@@ -192,7 +191,6 @@ def generate(i):
 
     """
 
-    import os
     from lxml import etree
 
     ocon=i.get('out','')=='con'

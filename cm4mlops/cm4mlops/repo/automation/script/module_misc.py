@@ -1435,7 +1435,6 @@ def dockerfile(i):
 
     """
 
-    import copy
 
     # Check simplified CMD: cm docker script "python app image-classification onnx"
     # If artifact has spaces, treat them as tags!

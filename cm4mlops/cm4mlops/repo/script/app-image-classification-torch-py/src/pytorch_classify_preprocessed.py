@@ -10,11 +10,9 @@ import numpy as np
 import torch
 import torchvision.models as models
 
-import imagenet_helper
 from imagenet_helper import (
     load_preprocessed_batch,
     image_list,
-    class_labels,
     BATCH_SIZE)
 
 # Writing the results out:
