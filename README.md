@@ -4,6 +4,10 @@
 [![Downloads](https://static.pepy.tech/badge/cmind)](https://pepy.tech/project/cmind)
 [![arXiv](https://img.shields.io/badge/arXiv-2406.16791-b31b1b.svg)](https://arxiv.org/abs/2406.16791)
 
+*This legacy project is maintained by MLCommons. The next generation of this technology,
+ designed to support collaborative and reproducible AI systems R&D,
+ is being developed by the [original author](https://cTuning.ai/@gfursin) at [cTuning.ai](https://cTuning.ai).*
+
 ## Collective Knowledge project (CK)
 
 [Collective Knowledge (CK)](https://cKnowledge.org) 
