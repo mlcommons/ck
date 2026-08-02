@@ -1,3 +1,5 @@
+> **The next generation of this technology: [cMeta](https://github.com/cTuningLabs/cmeta)**
+
 # CMX documentation
 
 * [Installation (Linux, Windows, MacOS)](install.md)

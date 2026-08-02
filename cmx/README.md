@@ -1,3 +1,5 @@
+> **The next generation of this technology: [cMeta](https://github.com/cTuningLabs/cmeta)**
+
 # Collective Mind eXtension aka Common Metadata eXchange (CMX)
 
 We are developing the extension to the MLCommons Collective Mind automation framework 

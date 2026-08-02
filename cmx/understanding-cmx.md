@@ -1,5 +1,7 @@
 ﻿[ [Back to documentation](README.md) ]
 
+> **The next generation of this technology: [cMeta](https://github.com/cTuningLabs/cmeta)**
+
 # Getting Started with CMX
 
 ## Understanding Common Metadata eXchange (CMX)

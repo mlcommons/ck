@@ -1,5 +1,7 @@
 ﻿[ [Back to documentation](README.md) ]
 
+> **The next generation of this technology: [cMeta](https://github.com/cTuningLabs/cmeta)**
+
 # Improving CMX
 
 * [CMX GitHub repository (Python cmind package)](https://github.com/mlcommons/ck/tree/master/cm)

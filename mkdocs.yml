@@ -4,6 +4,7 @@ repo_url: https://github.com/mlcommons/ck
 
 theme:
   name: material
+  custom_dir: overrides
   logo: img/logo_v2.svg
   favicon: img/logo_v2.svg
   palette:
@@ -22,6 +23,7 @@ theme:
     - toc.follow
 nav:
   - HOME: index.md
+  - cMeta: https://github.com/cTuningLabs/cmeta
   - CMX/CM:
     - Summary: cmx/README.md
     - Installation: cmx/install.md

@@ -32,3 +32,10 @@ and this [white paper](https://arxiv.org/abs/2406.16791).
 Grigori started prototyping CMX during summer 2024 to simplify CM interfaces based on user feedback. 
 It is available as a part of the standard [CM package at PYPI](https://pypi.org/project/cmind). 
 Please reach out to learn more about our plans.
+
+# cMeta (the next generation of this technology, 2025-cur)
+
+**https://github.com/cTuningLabs/cmeta**
+
+Grigori started developing [cMeta](https://github.com/cTuningLabs/cmeta) in 2025 
+as the next generation of this technology.
