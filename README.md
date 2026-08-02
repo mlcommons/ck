@@ -1,3 +1,8 @@
+> ### The next generation of this technology: [cMeta](https://github.com/cTuningLabs/cmeta)
+>
+> CK / CM / CMX are **legacy** and maintained by MLCommons. Their successor,
+> **cMeta**, is being developed by the [original author](https://cTuning.ai/@gfursin) [here](https://github.com/cTuningLabs/cmeta).**
+
 [![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
 [![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE.md)
@@ -5,8 +10,8 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2406.16791-b31b1b.svg)](https://arxiv.org/abs/2406.16791)
 
 *This legacy project is maintained by MLCommons. The next generation of this technology,
- designed to support collaborative and reproducible AI systems R&D,
- is being developed by the [original author](https://cTuning.ai/@gfursin) at [cTuning.ai](https://cTuning.ai).*
+ [cMeta](https://github.com/cTuningLabs/cmeta), designed to support collaborative and reproducible AI systems R&D,
+ is being developed by the [original author](https://cTuning.ai/@gfursin).*
 
 ## Collective Knowledge project (CK)
 
@@ -45,7 +50,7 @@ See the [project page](https://github.com/mlcommons/ck/blob/master/cm/README.CM.
 Legacy and simplified CM and MLPerf automations were donated to MLCommons by Grigori Fursin, the cTuning foundation and OctoML.
 They are now supported by the MLCommons Infra WG (MLCFlow, MLC scripts, mlcr ...).
 
-#### New CM API and CLI (CMX, 2025+)
+#### Legacy CMX API and CLI (2025)
 
 [Collective Mind eXtension or Common Metadata eXchange (CMX)](https://github.com/mlcommons/ck/tree/master/cmx) 
 is the next evolution of the [Collective Mind automation framework (MLCommons CM)](https://github.com/mlcommons/ck/tree/master/cm) 
@@ -100,6 +105,12 @@ leveraging CK, CM and CMX to automate artifact evaluation
 and support reproducibility efforts at ML and systems conferences.
 
 
+## Next generation
+
+* **[cMeta](https://github.com/cTuningLabs/cmeta) (2025-cur)** - the next generation of this technology,
+  developed by the [original author](https://cTuning.ai/@gfursin).
+  Reusable artifacts and automations: [cmeta-aops](https://github.com/cTuningLabs/cmeta-aops).
+
 ## Legacy projects 
 
 * [CM-MLOps](https://github.com/mlcommons/ck/tree/master/cm-mlops) (2021)
@@ -121,12 +132,11 @@ Copyright (c) 2014-2021 cTuning foundation
 
 ## Author
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin)
+* [Grigori Fursin](https://cTuning.ai/@gfursin)
 
 ## Maintainers
 
-* Legacy CM, CM4MLOps, MLC and MLPerf automations: [MLCommons infra WG](https://mlcommons.org)
-* CMX (the next generation of CM since 2025): [Grigori Fursin](https://cKnowledge.org/gfursin)
+* Legacy CMX, CM, CM4MLOps, MLC and MLPerf automations: [MLCommons infra WG](https://mlcommons.org)
 
 ## Concepts
 
@@ -147,12 +157,11 @@ and sponsored by cTuning.org, OctoAI and HiPEAC.
 Grigori donated this project to MLCommons to modularize and automate MLPerf benchmarks,
 benefit the community, and foster its development as a collaborative, community-driven effort.
 
-We thank [MLCommons](https://mlcommons.org), [FlexAI](https://flex.ai) 
-and [cTuning](https://cTuning.org) for supporting this project,
+We thank [MLCommons](https://mlcommons.org) and [cTuning](https://cTuning.org) for supporting this project,
 as well as our dedicated [volunteers and collaborators](https://github.com/mlcommons/ck/blob/master/CONTRIBUTORS.md)
 for their feedback and contributions!
 
 If you found the CM, CMX and MLPerf automations helpful, kindly reference this article:
 [ [ArXiv](https://arxiv.org/abs/2406.16791) ], [ [BibTex](https://github.com/mlcommons/ck/blob/master/citation.bib) ].
 
-You are welcome to contact the [author](https://cKnowledge.org/gfursin) to discuss long-term plans and potential collaboration.
+You are welcome to contact the [author](https://cTuning.ai/@gfursin) to discuss long-term plans and potential collaboration.

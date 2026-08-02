@@ -1,5 +1,7 @@
 ﻿[ [Back to documentation](README.md) ]
 
+> **The next generation of this technology: [cMeta](https://github.com/cTuningLabs/cmeta)**
+
 # CK/CM/CMX motivation
 
 To learn more about the concepts and motivation behind this project, please explore the following articles and presentations:

@@ -1,5 +1,7 @@
 [ [Back to index](README.md) ]
 
+> **The next generation of this technology: [cMeta](https://github.com/cTuningLabs/cmeta)**
+
 # CMX installation 
 
 This guide will help you install CMX (Collective Mind eXtension aka Common Metadata eXchange).
