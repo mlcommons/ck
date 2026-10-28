@@ -3,7 +3,7 @@
 -e .
 aiohappyeyeballs==2.6.1
     # via aiohttp
-aiohttp==3.12.14
+aiohttp==3.14.4
     # via flexbench-cli
 aiosignal==1.4.0
     # via aiohttp
@@ -17,7 +17,7 @@ frozenlist==1.7.0
     # via
     #   aiohttp
     #   aiosignal
-idna==3.10
+idna==3.20
     # via yarl
 markdown-it-py==3.0.0
     # via rich

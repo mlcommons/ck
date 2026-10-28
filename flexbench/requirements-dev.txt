@@ -79,7 +79,7 @@ pygments==2.19.2
     #   ipython
     #   ipython-pygments-lexers
     #   pytest
-pytest==8.4.1
+pytest==9.2.0
 python-dateutil==2.9.0.post0
     # via jupyter-client
 pywin32==311 ; platform_python_implementation != 'PyPy' and sys_platform == 'win32'
@@ -94,7 +94,7 @@ six==1.17.0
     # via python-dateutil
 stack-data==0.6.3
     # via ipython
-tornado==6.5.1
+tornado==6.5.9
     # via
     #   ipykernel
     #   jupyter-client
@@ -106,7 +106,7 @@ traitlets==5.14.3
     #   jupyter-client
     #   jupyter-core
     #   matplotlib-inline
-virtualenv==20.31.2
+virtualenv==21.14.13
     # via pre-commit
 wcwidth==0.2.13
     # via prompt-toolkit
