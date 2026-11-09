@@ -1,5 +1,10 @@
 **Note that this script is archived and moved [here](https://github.com/mlcommons/cm4mlops/tree/main/script/get-rclone).**
 
+GDrive credentials must be configured outside this repository. Use your own
+`rclone config` or set `RCLONE_DRIVE_SERVICE_ACCOUNT_FILE` to an externally
+managed service-account JSON file. Do not commit credential files.
+
+
 
 
 Automatically generated README for this automation recipe: **get-rclone**

@@ -88,7 +88,6 @@ def postprocess(i):
         config_file_path = os.path.join(env['CM_TMP_CURRENT_SCRIPT_PATH'], "configs", "rclone.conf")
 
         config.read(config_file_path)
-        config['cm-team']['service_account_file'] = os.path.join(env['CM_TMP_CURRENT_SCRIPT_PATH'], "accessfiles", "rclone-gdrive.json")
 
         default_config_path = os.path.join(os.path.expanduser( '~' ), ".config", "rclone", "rclone.conf")
 
