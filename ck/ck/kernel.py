@@ -281,7 +281,7 @@ cfg = {
 
         "search": {"desc": "<CID> search entries", "for_web": "yes"},
 
-        "pull": {"desc": "<CID> (filename) or (empty to get the whole entry as archive) pull file from entry"},
+        "pull": {"desc": "<CID> (filename) or (empty to get the whole entry as archive) pull file from entry", "for_web": "yes"},
         "push": {"desc": "<CID> (filename) push file to entry"},
 
         "add_action": {"desc": "add action (function) to existing module"},
@@ -4639,7 +4639,11 @@ def perform_action(i):
             if i.get('help', '') == 'yes' or i.get('api', '') == 'yes':
                 return get_api({'path': p, 'func': action1, 'out': xout})
 
-            if wb == 'yes' and (xout == 'con' or xout == 'web') and u.get('actions', {}).get(action, {}).get('for_web', '') != 'yes':
+            # Security fix: the web/remote allow-list must apply for EVERY output mode. The web bridge forces
+            # out='json_file', so gating on (con/web) let any action through unauthenticated (incl. env 'envsecute'
+            # -> shell). Gate on wb alone. Write actions (add/rm/cp/mv/update...) stay 'for_web: yes' by design -
+            # set them 'for_web: no' too if the web must be read-only.
+            if wb == 'yes' and u.get('actions', {}).get(action, {}).get('for_web', '') != 'yes':
                 return {'return': 1, 'error': 'this action is not supported in remote/web mode'}
 
             if declared_action:
@@ -4662,7 +4666,8 @@ def perform_action(i):
         if i.get('help', '') == 'yes' or i.get('api', '') == 'yes':
             return get_api({'path': '', 'func': action1, 'out': xout})
 
-        if wb == 'yes' and (xout == 'con' or xout == 'web') and cfg.get('actions', {}).get(action, {}).get('for_web', '') != 'yes':
+        # Security fix: same as above - gate kernel-level actions on wb regardless of output mode.
+        if wb == 'yes' and cfg.get('actions', {}).get(action, {}).get('for_web', '') != 'yes':
             return {'return': 1, 'error': 'this action is not supported in remote/web mode '}
 
         a = getattr(sys.modules[__name__], action1)

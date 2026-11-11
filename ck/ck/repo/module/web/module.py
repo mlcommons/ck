@@ -286,7 +286,8 @@ def web_out(i):
             v = v.replace('$#filename#$', fn)
         http.send_header(k, v)
 
-    http.send_header('Access-Control-Allow-Origin', '*')
+    # Security: do NOT advertise wildcard CORS on an unauthenticated endpoint (drive-by enabler).
+    # If a specific origin must read responses, set it explicitly here.
     http.send_header('Content-Length', str(len(bin)))
     http.end_headers()
 
@@ -690,11 +691,31 @@ def start(i):
 
     """
 
+    import os as _os
+
+    # Security opt-in (added 2026): the legacy CK web dashboard exposes the CK action engine over an
+    # unauthenticated HTTP endpoint and is kept only for archival/compatibility. Refuse to start it unless the
+    # caller explicitly accepts the risk (and see the loopback check below). See CK security notes.
+    _sure = (i.get('i_am_sure', '') == 'yes') or (_os.environ.get('CK_WEB_I_AM_SURE', '') == 'yes')
+    if not _sure:
+        ck.out('')
+        ck.out('WARNING: "ck web" is a legacy, UNAUTHENTICATED dashboard that exposes the CK action engine over HTTP.')
+        ck.out('         It is kept for archival/compatibility only and is not recommended.')
+        ck.out('         If you understand the risk and run it on a trusted, loopback-only machine, start it with:')
+        ck.out('             ck start web --i_am_sure=yes')
+        ck.out('')
+        return {'return': 1, 'error': 'ck web not started: explicit opt-in required (--i_am_sure=yes)'}
+
     # Define internal server host.
     host = ck.cfg.get('default_host', '')
     host = i.get('host', host)
     if host == '':
         host = 'localhost'  # 'localhost' if ''
+
+    # Security: refuse to bind to a non-loopback address unless that is also explicitly allowed, so the dashboard
+    # is not exposed to a network by accident (e.g. a --host override or a published container port).
+    if host not in ('localhost', '127.0.0.1', '::1', '') and        i.get('allow_remote', '') != 'yes' and _os.environ.get('CK_WEB_ALLOW_REMOTE', '') != 'yes':
+        return {'return': 1, 'error': 'ck web refuses to bind to non-loopback host "'+host+'" without --allow_remote=yes'}
 
     # Define external server host.
     global wfe_host
