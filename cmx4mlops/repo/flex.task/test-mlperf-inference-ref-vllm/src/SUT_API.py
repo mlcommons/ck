@@ -148,7 +148,6 @@ class SUT:
                     url=f"{self.api_servers[idx]}/v1/completions",
                     headers=headers,
                     json=json_data,
-                    verify=False,
                 )
                 response_code = response.status_code
             except Exception as e:
@@ -304,7 +303,6 @@ class SUTServer(SUT):
                     f"{self.api_servers[idx]}/v1/completions",
                     headers=headers,
                     json=json_data,
-                    verify=False,
                     stream=True,
                 ) as resp:
                     for line in resp.iter_lines():

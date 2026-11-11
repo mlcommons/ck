@@ -100,7 +100,6 @@ class BaseBackend(ABC):
                     "stream": stream,
                     "min_tokens": 1,
                 },
-                verify=False,
                 stream=stream,
             )
             resp.raise_for_status()
