@@ -1121,8 +1121,8 @@ def process_web_request_post_via_tunnel(i):
       for h in http.headers:
         parsed_headers[h]=http.headers[h]
 
-      if post: receive = requests.post(target_url, headers=parsed_headers, verify=False, data=post_body, )
-      else:    receive = requests.get (target_url, headers=parsed_headers, verify=False)
+      if post: receive = requests.post(target_url, headers=parsed_headers, data=post_body)
+      else:    receive = requests.get (target_url, headers=parsed_headers)
 
       http.send_response(receive.status_code)
 
