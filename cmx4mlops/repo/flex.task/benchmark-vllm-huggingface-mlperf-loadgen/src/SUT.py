@@ -202,7 +202,6 @@ class SUTOffline(SUT):
                 f"{self.api_server}/v1/completions",
                 headers=headers,
                 json=json_data,
-                verify=False,
             ) as resp:
                 return [choice["text"] for choice in resp.json()["choices"]]
 
@@ -278,7 +277,6 @@ class SUTServer(SUT):
                 f"{self.api_server}/v1/completions",
                 headers=headers,
                 json=json_data,
-                verify=False,
                 stream=True,
             ) as resp:
                 for line in resp.iter_lines():
