@@ -12,8 +12,8 @@
 
 */
 
- # Allow local widget to fetch data from website
- header("Access-Control-Allow-Origin: *");
+ # Security: do NOT advertise wildcard CORS on an unauthenticated endpoint (drive-by enabler).
+ # If a specific origin must read responses, send an explicit Access-Control-Allow-Origin for it only.
 
  # initalize path to CK
  $ckr=getenv("CK_ROOT"); 
